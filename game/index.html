@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#070a12">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Physics RPG: QM Interference Labs</title>
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three/three.module.js" } }</script>
+</head>
+<body>
+<canvas id="view"></canvas>
+<div id="hud">
+  <div class="tl"><b id="region"></b> <span id="room-title"></span> <span id="room-progress" class="chip"></span><div id="objective"></div></div>
+  <div class="tr"><button id="btn-menu" class="chip btn menu-only">Menu</button> <button id="btn-fs" class="chip btn touch-only" title="Full screen">&#9974;</button> <button id="btn-profile" class="chip btn" title="Profile, settings, achievements (P)">profile</button> <button id="btn-help" class="chip btn" title="Controls and help (F1)">?</button> <button id="btn-conn" class="chip btn" title="Connections of this room (K)">Connections (K)</button> <button id="btn-pile" class="chip btn" title="Study hub: pile, session planner, mistakes, weak spots, Feynman (V)">Study (V)</button> <button id="btn-exam" class="chip btn" title="Exam hall: mock exams with grades (X)">Exam hall (X)</button> <button id="btn-missions" class="chip btn" title="Daily missions (T)">Missions</button> <button id="btn-guide" class="chip btn" title="Guided route on/off">Guide: on</button> <button id="btn-nexus" class="chip btn" title="Nexus (N)">Nexus (N)</button> <button id="btn-map" class="chip btn" title="Map (M)">Map (M)</button> <button id="btn-codex" class="chip btn" title="Formulas (B)">Formulas (B)</button> <button id="help" class="chip btn" title="Replay the tutorial">? Tutorial</button> <span id="xp">XP 0</span> <span id="reviews" class="chip">Respawns due: 0</span></div>
+  <div id="crosshair"></div>
+  <div id="prompt" style="display:none"></div>
+  <div id="nx-card" style="display:none"></div>
+  <div id="pbar" style="display:none">
+    <button id="pb-play">Pause (Space)</button><button id="pb-replay">Replay (R)</button><button id="pb-loop">Loop: off</button>
+    <span class="sep">Speed</span><button data-sp="0.25">¼×</button><button data-sp="0.5">½×</button><button data-sp="1" class="on">1×</button><button data-sp="2">2×</button>
+    <button id="pb-panel" style="display:none">Show question panel</button><span id="pb-time"></span>
+  </div>
+  <div id="hint">WASD move · E interact · M map · B formulas · Esc frees mouse / closes · QM: Space pause, R replay, O loop, [ ] speed, L labels</div>
+  <div id="tut" style="display:none"><div class="tut-head"><b id="tut-title"></b><span id="tut-count"></span></div><div id="tut-body"></div>
+    <div class="tut-nav"><button id="tut-back">Back</button><button id="tut-next" class="go">Next</button><button id="tut-skip" class="link">skip tutorial</button></div></div>
+</div>
+<aside id="cx" class="hidden"><div class="cx-head"><b id="cx-title">Formulas</b><button id="cx-max" class="chip btn touch-only" title="Fill the screen">&#10530;</button><button id="cx-close" title="Close (B or Esc)">×</button></div><div id="cx-body"></div></aside>
+<aside id="side" class="hidden">
+  <button id="side-cx" class="chip btn" title="Formula drawer (B)">Formulas (B)</button><button id="side-max" class="chip btn touch-only" title="Fill the screen">&#10530;</button><button id="close" title="Close (Esc)">×</button>
+  <div id="panel"></div>
+</aside>
+<div id="overlay" style="display:none"><div class="ov-card"><div class="ov-head"><b id="ov-title"></b><button id="ov-close">×</button></div><div id="ov-body"></div></div></div>
+<div id="warp"></div>
+<div id="toast"></div>
+<div id="start"><div><h1>QM Interference Labs</h1><p>The Tunneling Bridge</p><p class="dim">Click anywhere to enter the Nexus.</p><p><button id="resume" class="go" style="display:none"></button></p><p class="dim"><span id="start-profile"></span> · press P in the game to change profile or settings, F1 for help</p></div></div>
+<footer><span id="sources"></span> <button id="debug-due" class="link">debug: make respawns due</button> <button id="debug-reset" class="link">reset progress</button></footer>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

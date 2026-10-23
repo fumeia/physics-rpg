@@ -1,0 +1,325 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                     Solution to exercise sheet VIII
+
+Question 1 [Angular momentum ]:
+The angular momentum operator is defined by
+                                                ⃗ = ⃗r ∧ p⃗ ,
+                                                L                                                           (1)
+
+thus being a vector operator with components
+
+                                               Li = εijk rj pk                                              (2)
+
+(repeated indices are summed over).
+ (i) Using [ri , pj ] = iℏδij , derive the commutation relations
+
+                                              [Li , Lj ] = iℏεijk Lk .                                      (3)
+
+     In addition, show that
+                                                         ⃗ 2] = 0 .
+                                                   [L3 , L                                                  (4)
+                                                                                     ⃗ 2 and
+ (ii) Evaluate [L3 , L1 L2 + L2 L1 ] and deduce that in an eigenstate |l, m⟩ of both L
+      L3 , with eigenvalues ℏ2 l(l + 1) and ℏm, respectively, the expectation values of L21
+      and L22 are given by
+                                                             1
+                        ⟨l, m|L21 |l, m⟩ = ⟨l, m|L22 |l, m⟩ = ℏ2 [l(l + 1) − m2 ] .                         (5)
+                                                             2
+     Hint: If |ψ⟩ is an eigenstate of the self-adjoint operator A, show that, for any
+     operator B,
+                                     ⟨ψ|[A, B]ψ⟩ = 0 .                             (6)
+
+Solution:
+  (i) Using [A, BC] = [A, B]C + B[A, C] and [AB, C] = A[B, C] + [A, C]B, we have
+
+         [Li , Lj ] = εikl εjmn [rk pl , rm pn ]                                                           (S.1)
+                    = εikl εjmn ([rk pl , rm ]pn + rm [rk pl , pn ])                                       (S.2)
+                    = εikl εjmn ((rk [pl , rm ] + [rk , rm ]pl )pn + rm (rk [pl , pn ] + [rk , pn ]pl ))   (S.3)
+                    = εikl εjmn (−iℏδlm rk pn + 0 + 0 + iℏδkn rm pl )                                      (S.4)
+                    = iℏ(−εikl εjln rk pn + εikl εjmk rm pl )                                              (S.5)
+                    = iℏ(−(δin δkj − δij δkn )rk pn + (δlj δim − δlm δij )rm pl )                          (S.6)
+                    = iℏ(−rj pi + δij rk pk + ri pj − δij rl pl )                                          (S.7)
+                    = iℏ(ri pj − rj pi ),                                                                  (S.8)
+
+     and since
+
+                    εijk Lk = εijk εklm rl pm = (δil δjm − δim δjl )rl pm = ri pj − rj pi ,                (S.9)
+     this is the desired result.
+                                 ⃗ 2 ] = [L3 , L2 + L2 + L2 ]:
+     With this, we compute [L3 , L              1    2    3
+
+          [L3 , L21 + L22 + L23 ] = ([L3 , L1 ]L1 + L1 [L3 , L1 ]) + ([L3 , L2 ]L2 + L2 [L3 , L2 ]) + 0
+                                                                                                     (S.10)
+                                = iℏ(L2 L1 + L1 L2 − L1 L2 − L2 L1 )                               (S.11)
+                                = 0.                                                               (S.12)
+
+ (ii) We first prove the hint. Since A is self-adjoint, the eigenvalue a associated with the
+      eigenstate |ψ⟩ is real. Then
+
+                     ⟨ψ| [A, B] |ψ⟩ = ⟨ψ| AB − BA |ψ⟩ = ⟨ψ| āB − Ba |ψ⟩ = 0.                      (S.13)
+
+     Now we compute
+
+         [L3 , L1 L2 + L2 L1 ] = ([L3 , L1 ]L2 + L1 [L3 , L2 ]) + ([L3 , L2 ]L1 + L2 [L3 , L1 ])   (S.14)
+                               = iL2 L2 + L1 (−iL1 ) + (−iL1 )L1 + L2 iL2                          (S.15)
+                               = 2i(L22 − L21 ).                                                   (S.16)
+
+     Since |l, m⟩ is an eigenstate of L3 , the hint tells us that ⟨l, m| [L3 , L1 L2 +L2 L1 ] |l, m⟩ =
+     0, and so Eqn. (S.16) implies ⟨l, m| L21 |l, m⟩ = ⟨l, m| L22 |l, m⟩. In addition, we note
+     that L21 + L22 = L2 − L23 , which implies
+
+                      ⟨l, m| L21 |l, m⟩ + ⟨l, m| L22 |l, m⟩ = ⟨l, m| (L2 − L23 ) |l, m⟩            (S.17)
+                                                            = ℏ2 l(l + 1) − ℏ2 m2 .                (S.18)
+
+     Combined with ⟨l, m| L21 |l, m⟩ = ⟨l, m| L22 |l, m⟩, we conclude
+
+                      2 ⟨l, m| L21 |l, m⟩ = 2 ⟨l, m| L22 |l, m⟩ = ℏ2 l(l + 1) − ℏ2 m2 ,            (S.19)
+
+     which is the desired result.
+
+
+Question 2 [SO(4) ]:
+Consider the Lie algebra of SO(4),
+
+            so(4) = {γ̇(t)|t=0 : γ(t) differentiable path in SO(4), γ(0) = id} .                       (7)
+
+ (i) Describe so(4) as a space of matrices.
+
+ (ii) Find a basis {A1 , A2 , A3 , B1 , B2 , B3 } of so(4) such that
+
+                     [Ai , Aj ] = εijk Ak ,   [Bi , Bj ] = εijk Ak ,   [Ai , Bj ] = εijk Bk .          (8)
+
+(iii) Show that so(4) is isomorphic, as a Lie algebra, to su(2) ⊕ su(2). ( Hint: Find
+      generators of so(4) such that they split into two commuting sets of su(2) generators.)
+
+Solution:
+(i) For a differentiable path γ(t) in SO(4), we have γ(t)T γ(t) = id for all t, and therefore
+
+                                     γ̇(t)T γ(t) + γ(t)T γ̇(t) = 0.                                (S.20)
+
+   For a path with γ(0) = id, this reduces to
+
+                                          γ̇(0)T + γ̇(0) = 0,                                      (S.21)
+
+   implying that γ̇(0) is antisymmetric. Conversely, every antisymmetric matrix M
+   defines a differentiable path in SO(4) with γ̇(0) = M and γ(0) = id, via the expo-
+   nential map. Therefore, so(4) is the set of all antisymmetric matrices in R4×4 ,
+                                                                      
+                            
+                                 0   a    b    c                        
+                                                                         
+                                −a    0    d    e
+                                                                      
+                   so(4) =                        a, b, c, d, e, f ∈ R  .    (S.22)
+                            
+                                −b −d 0 f                              
+                                                                         
+                                 −c −e −f 0
+                                                                        
+
+   This is a 6-dimensional subspace of R4×4 .
+
+(ii) Consider the matrices
+                                                                                                 
+               0 0 0 0                       0 0 1 0                          0      −1       0     0
+            0 0 −1 0                     0 0 0 0                         1      0        0     0 
+      A1 = 
+            0 1 0 0 ,
+                                    A2 = 
+                                           −1 0 0 0  ,
+                                                                      A3 = 
+                                                                             0
+                                                                                                      ,
+                                                                                     0        0     0 
+               0 0 0 0                       0 0 0 0                          0      0        0     0
+                                                                                                 
+              0 0 0 −1                      0 0 0 0                           0      0    0        0
+            0 0 0 0                      0 0 0 −1                        0      0    0        0 
+      B1 = 
+            0 0 0 0 ,
+                                    B2 = 
+                                           0 0 0 0 ,
+                                                                      B3 =                          .
+                                                                             0      0    0       −1 
+              1 0 0 0                       0 1 0 0                           0      0    1        0
+
+   These form a basis of so(4). With 6 generators, there are 62 = 15 nontrivial commu-
+                                                               
+
+   tators to compute (all other commutators must either be zero or the negative of one
+   of these commutators). To prove (8) one can simply compute all 15 commutators,
+   but here is a cleverer trick. First compute the five brackets
+
+                                   [A1 , A2 ] = A3 , [B1 , B2 ] = A3 ,
+                                                                                                   (S.23)
+                        [A1 , B1 ] = 0, [A1 , B2 ] = B3 , [A1 , B3 ] = −B2 .
+
+   Then let Pij be the permutation matrix that swaps the ith and j th rows when it
+   multiplies a column vector from the left. Inspecting the generators reveals that
+   P12 P23 Aj P23 P12 = Aj+1(mod 3) and P12 P23 Bj P23 P12 = Bj+1(mod 3) . Therefore, the
+   remaining commutators follow from (S.23) by cyclic permutation. For instance,
+
+   [A2 , A3 ] = (P12 P23 A1 P23 P12 )(P12 P23 A2 P23 P12 ) − (P12 P23 A2 P23 P12 )(P12 P23 A1 P23 P12 )
+              = P12 P23 [A1 , A2 ]P23 P12 since Pij2 = I
+            = A1 ,                                                                                 (S.24)
+
+   and similarly for all other commutators. Eq. (8) follows.
+(iii) We define a new basis
+                                  1                      1
+                              Xi = (Ai + Bi ),       Yi = (Ai − Bi ).                     (S.25)
+                                  2                      2
+     The commutators are
+                       1                       1
+         [Xi , Xj ] = [Ai + Bi , Aj + Bj ] = (εijk Ak + εijk Bk − εjik Bk + εijk Ak )     (S.26)
+                       4                       4
+                                               1
+                                             = εijk (Ak + Bk ),                           (S.27)
+                                               2
+                       1                       1
+           [Yi , Yj ] = [Ai − Bi , Aj − Bj ] = (εijk Ak − εijk Bk + εjik Bk + εijk Ak )   (S.28)
+                       4                       4
+                                               1
+                                             = εijk (Ak − Bk ),                           (S.29)
+                                               2
+                       1                       1
+          [Xi , Yj ] = [Ai + Bi , Aj − Bj ] = (εijk Ak − εijk Bk − εjik Bk − εijk Ak )    (S.30)
+                       4                       4
+                                             = 0.                                         (S.31)
+
+     Therefore, we have [Xi , Xj ] = εijk Xk and [Yi , Yj ] = εijk Yk . These are the commuta-
+     tion relations for su(2), and all the X operators commute with all the Y operators,
+     so we conclude that Xi and Yi generate two commuting copies of su(2).
+
+
+Question 3 [Representations of su(2) and 2D oscillator ]:
+Let {a† , a} and {b† , b} be two commuting pairs of creation and annihilation operators.
+Define
+                             1
+                        J3 = (a† a − b† b)  J+ = a† b     J − = b† a .               (9)
+                             2
+ (i) Show that these operators satisfy the commutation relations of su(2) ,
+
+                              [J3 , J± ] = ±J± ,      [J+ , J− ] = 2J3 .                   (10)
+
+ (ii) Let J⃗2 := J32 + 12 (J+ J− + J− J+ ). Show that J⃗2 = N2 ( N2 + 1), where N = Na + Nb .
+
+(iii) On the number-state basis |na , nb ⟩, show that
+                                          p
+                          J+ |na , nb ⟩ = nb (na + 1)|na + 1, nb − 1⟩
+                                          p
+                          J− |na , nb ⟩ = na (nb + 1)|na − 1, nb + 1⟩                      (11)
+                                           1
+                          J3 |na , nb ⟩ = (na − nb )|na , nb ⟩.
+                                           2
+
+(iv) Show that if we instead label the basis states as |j, m⟩J by defining j = (na + nb )/2
+     and m = (na − nb )/2, the relations in Eq. (11) take the standard form of su(2)
+     representations. Also show that
+
+                                          (a† )j+m (b† )j−m
+                               |j, m⟩J = p                  |0, 0⟩.
+                                          (j + m)!(j − m)!
+ (v) Show that the three operators (9) commute with a† a + b† b. Conclusion: the isotropic
+     2D harmonic oscillator has a hidden su(2) symmetry (that lifts energy degeneracies).
+
+Solution:
+
+ (i) We use the fact that all the a operators commute with all the b operators:
+
+         2[J3 , J+ ] = [a† a, a† b] − [b† b, a† b] = (a† aa† b − a† ba† a) − (b† ba† b − a† bb† b)      (S.32)
+                                                        †       †       †           †   †           †
+                                                = a (aa − a a)b − a (b b − bb )b                        (S.33)
+                                                        †               †
+                                                = a (1)b − a (−1)b                                      (S.34)
+                                                = 2a† b = 2J+                                           (S.35)
+
+
+         2[J3 , J− ] = [a† a, b† a] − [b† b, b† a] = (a† ab† a − b† aa† a) − (b† bb† a − b† ab† b)      (S.36)
+                                                        †   †               †       †       †   †
+                                                = b (a a − aa )a − b (bb − b b)a                        (S.37)
+                                                        †                   †
+                                                = b (−1)a − b (1)a                                      (S.38)
+                                                = −2b† a = −2J−                                         (S.39)
+
+
+                                     [J+ , J− ] = a† bb† a − b† aa† b                                   (S.40)
+                                                    †               †           †   †
+                                               = a (1 + b b)a − b aa b                                  (S.41)
+                                                    †           † †             †   †
+                                               = a a + b a ab − b aa b                                  (S.42)
+                                               = a† a + b† (a† a − aa† )b                               (S.43)
+                                                    †           †
+                                               = a a − b b = 2J3                                        (S.44)
+
+ (ii) First observe that J3 = 21 (Na − Nb ). Then since Na and Nb commute,
+
+                     1                      1
+               J⃗2 = (Na2 + Nb2 − 2Na Nb ) + (a† bb† a + b† aa† b)                                      (S.45)
+                     4                      2
+                     1 2                    1
+                   = (Na + Nb − 2Na Nb ) + (a† (1 + Nb )a + b† (1 + Na )b)
+                              2
+                                                                                                        (S.46)
+                     4                      2
+                     1 2      2             1
+                   = (Na + Nb − 2Na Nb ) + (Na (1 + Nb ) + Nb (1 + Na ))                                (S.47)
+                     4                      2
+                     1 2      2             1
+                   = (Na + Nb + 2Na Nb ) + (Na + Nb )                                                   (S.48)
+                     4                      2
+                     1          2  1
+                   = (Na + Nb ) + (Na + Nb )                                                            (S.49)
+                     4         2
+                     N N
+                   =       +1 .                                                                         (S.50)
+                     2   2
+
+(iii) We compute
+                                            √                  p
+        J+ |na , nb ⟩ = a† b |na , nb ⟩ = a† nb |na , nb − 1⟩ = nb (na + 1) |na + 1, nb − 1⟩ ,
+                                            √                  p
+        J− |na , nb ⟩ = b† a |na , nb ⟩ = b† na |na − 1, nb ⟩ = na (nb + 1) |na − 1, nb + 1⟩ .
+
+     Lastly, since J3 = 12 (Na − Nb ), we have J3 |na , nb ⟩ = 21 (na − bb ) |na , nb ⟩.
+(iv) Given (j, m), we can find the corresponding (na , nb ) via na = j + m, nb = j − m.
+     Therefore, the relations in Eq. (11) become
+                                          p
+       J+ |j, m⟩J = J+ |j + m, j − m⟩ = (j − m)(j + m + 1) |j + m + 1, j − m − 1⟩
+                                          p
+                                       = (j − m)(j + m + 1) |j, m + 1⟩J
+                                          p
+                                       = j(j + 1) − m(m + 1) |j, m + 1⟩J ,        (S.51)
+
+                                            p
+       J− |j, m⟩J = J− |j + m, j − m⟩ =       (j + m)(j − m + 1) |j + m − 1, j − m + 1⟩
+                                            p
+                                           = (j + m)(j − m + 1) |j, m − 1⟩J
+                                            p
+                                           = j(j + 1) − m(m − 1) |j, m − 1⟩J ,      (S.52)
+
+
+                                              1
+             J3 |j, m⟩J = J3 |j + m, j − m⟩ = (j + m − (j − m)) |j + m, j − m⟩
+                                              2
+                                            = m |j, m⟩J .                      (S.53)
+
+    These are indeed the standard relations for su(2) representations. We also have
+
+                                                 (a† )j+m (b† )j−m
+                     |j, m⟩J = |j + m, j − m⟩ = p                  |0, 0⟩ ,                     (S.54)
+                                                 (j + m)!(j − m)!
+
+    which is the desired result.
+
+(v) Using a† a + b† b = Na + Nb , we see indeed that the operators (9) commute with the
+    harmonic oscillator Hamiltonian:
+
+                [2J3 , Na + Nb ] = [Na , Na ] + [Na , Nb ] − [Nb , Na ] − [Nb , Nb ] = 0,
+       [J+ , Na + Nb ] = [a† b, Na ] + [a† b, Nb ] = [a† , Na ]b + a† [b, Nb ] = (−a† )b + a† b = 0,
+       [J− , Na + Nb ] = [b† a, Na ] + [b† a, Nb ] = b† [a, Na ] + [b† , Nb ]a = b† a + (−b† )a = 0.
+
+    This is an su(2) symmetry in the 2D isotropic harmonic oscillator. As shown in quiz
+    VIII, it lifts the corresponding energy degeneracies: the space of state vectors having
+    definite eigenvalues under both a† a + b† b and J3 ∝ a† a − b† b is one-dimensional.
+

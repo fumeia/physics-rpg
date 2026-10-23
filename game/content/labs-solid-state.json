@@ -1,0 +1,116 @@
+{
+ "labs": [
+  {
+   "room": "solid-state/bonding-grotto",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-bonddw",
+    "title": "Covalent bond: what if the atoms move apart, or differ?",
+    "widget": "bonddw",
+    "intro": "Two atoms, one orbital each, at the same level $\\epsilon$. An electron can hop between them with amplitude $t$, which falls off exponentially with distance because it comes from the overlap of the two orbitals. The $2\\times2$ problem has eigenvalues $E_\\mp=\\epsilon\\mp t$: a bonding level (density piled up between the atoms) and an antibonding one (node in the middle). The slider $d$ is the atom separation; the toggle makes the atoms different, with level mismatch $\\Delta$, which turns a covalent bond into an ionic one.",
+    "tasks": [
+     "Predict first: halve the overlap (move the atoms apart). Does the splitting $2t$ grow or shrink, and what happens to it as $d\\to\\infty$? Then check on the plot.",
+     "Two electrons fill the bonding level. Read off the energy gain at $d_0$. Why does the total energy have a minimum at all (what does the core repulsion do)?",
+     "Switch on 'unequal atoms' with $\\Delta\\gg t$: what happens to the weights of the bonding orbital on the two atoms, and to the splitting $\\sqrt{t^2+\\Delta^2/4}$? Which bond type is this?",
+     "Remove the 'tight-binding' bonding by setting $d$ large: why does each atom end up neutral with one electron (and not with two in the lower level)?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 1.6 (pp. 24-37), bonding, eqs. 1.37-1.47"
+     },
+     {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "MC (j) bonding types"
+     }
+    ],
+    "xp": 12
+   }
+  },
+  {
+   "room": "solid-state/degenerate-core",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-fermitrio",
+    "title": "One Fermi gas, three systems: copper, white dwarf, neutron star",
+    "widget": "fermitrio",
+    "intro": "A gas of spin-1/2 fermions at density $n$ fills momentum states up to $k_F=(3\\pi^2n)^{1/3}$. The density slider $n$ moves along the horizontal axis of a log-log chart of $E_F$; the temperature slider sets the green line $k_BT$. If $k_BT\\ll E_F$ the gas is degenerate: the Pauli principle, not heat, gives the pressure $P\\approx\\frac25nE_F$. At $p_F=mc$ (yellow line) the electrons turn relativistic and $E_F\\propto n^{1/3}$ instead of $n^{2/3}$, which is what produces the Chandrasekhar limit.",
+    "tasks": [
+     "Set $n=8.47\\times10^{28}$ m$^{-3}$ (copper) and predict $E_F$ and $T_F$ before reading them (about 7.0 eV and $8\\times10^4$ K). Is copper degenerate at 300 K? By how many orders of magnitude?",
+     "Predict first: by what factor does $E_F$ change if $n$ grows by $10^3$ (non-relativistic)? Check against the chart, then find the density where the curves bend (yellow line).",
+     "White dwarf core: is $T=10^7$ K above or below $T_F$? Estimate $T/T_F$ and say why the star does not shrink when it cools.",
+     "Neutron star: the same formulas with $m\\to m_n$. Compare $E_F$ of the neutrons with the rest energy $m_nc^2=940$ MeV and decide whether they are relativistic."
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 3.1 (pp. 66-76), eqs. 3.1-3.33 free electron gas, Fermi energy"
+     },
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Ch. 5.2-5.3 (pp. 129-137) degeneracy pressure, Chandrasekhar"
+     },
+     {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "MC (m) Fermi energy for given density"
+     }
+    ],
+    "xp": 12
+   }
+  },
+  {
+   "room": "solid-state/fermi-sea",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-nfe",
+    "title": "Nearly free electrons: switch the lattice potential on",
+    "widget": "nfe",
+    "intro": "Free electrons have $E=\\hbar^2k^2/2m$. A crystal only knows $k$ modulo $G=2\\pi/a$, so the parabola is folded into the first Brillouin zone $[-\\pi/a,\\pi/a]$ and the folded branches cross at the zone edge and centre. A weak periodic potential with Fourier component $U_G$ mixes the two degenerate waves $k$ and $k-G$; the exact $2\\times2$ solution splits them by $2|U_G|$: a band gap. The slider $|U_G|$ is the strength of the lattice potential, $a$ is the lattice constant (a larger $a$ lowers the zone-edge energy $E_0$), and the electron count decides which bands are full.",
+    "tasks": [
+     "Predict first: with $U_G=0$ what do the folded bands look like and is there a gap? Then switch $U_G$ on and read the gap at $k=\\pi/a$ (expect $2|U_G|$).",
+     "Which of the two electron counts per cell (1, 2) gives an insulator in 1D, and what is the reason (two electrons per band, one band fills the zone)?",
+     "Look at the curvature at the band edge: why is the effective mass of the upper band light and that of the lower band negative? Reduce $U_G$ and see how $m^*$ scales.",
+     "Increase $a$ at fixed $U_G$: how do $E_0$ and the ratio $E_0/|U_G|$ change, and why do the free-electron results become better?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 3.2 (pp. 77-87), Bloch theorem, nearly free electrons"
+     },
+     {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "Task 5 (13 pt, gap at the M point) and MC (n),(p)"
+     }
+    ],
+    "xp": 12
+   }
+  },
+  {
+   "room": "solid-state/lattice-gate",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-ewald",
+    "title": "Ewald construction: which reciprocal points light up?",
+    "widget": "ewald",
+    "intro": "Elastic scattering conserves $|\\mathbf k|$: $\\mathbf k'=\\mathbf k+\\mathbf G$ with $|\\mathbf k'|=|\\mathbf k|$ (Laue condition). In the picture, the reciprocal lattice (grey dots, spacing $2\\pi/a$ and $2\\pi/b$) is fixed; the blue circle of radius $|k|=2\\pi/\\lambda$ is centred at $-\\mathbf k$ and passes through the origin. Every reciprocal point on the circle is a diffraction peak, with the scattering angle $2\\theta$ printed. Slider $\\lambda$ is the circle radius, the angle slider is the orientation of the crystal relative to the beam.",
+    "tasks": [
+     "Predict first: for $\\lambda>2a$ (the circle is smaller than half the lattice spacing in reciprocal space), are there any peaks other than the direct beam? Explain with $2d\\sin\\theta=n\\lambda$.",
+     "Choose $\\lambda=0.8a$ and rotate the angle until the $(1,0)$ point lights up: check $\\sin\\theta=\\lambda/2d$ with $2\\theta$ as printed.",
+     "Switch to a rectangular lattice $b=1.5a$: which points move closer to the origin, and why do reflections along $y$ appear at longer $\\lambda$?",
+     "Link to the HS23 neutron problem: for fixed $\\lambda$, what is the largest $|\\mathbf G|$ that can ever contribute (circle diameter $2|k|$)?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 1.5 (pp. 15-23), Bragg and Laue, Ewald sphere"
+     },
+     {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 1 (neutron diffraction peaks)"
+     }
+    ],
+    "xp": 12
+   }
+  }
+ ]
+}

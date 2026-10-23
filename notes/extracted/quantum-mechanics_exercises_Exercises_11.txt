@@ -1,0 +1,89 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                               Exercise sheet XI
+                                   Return:      03.12.2025
+
+
+Question 1 [More on the dynamical symmetry ]:
+In this exercise, we will study the so(4) symmetry of the Coulomb potential in more detail.
+                                                                p2
+The additional conserved charge for the hydrogen atom H = 2m       − κr is the Pauli–Lenz
+vector
+                                     1                    x
+                               J=       p∧L−L∧p −κ ,                                   (1)
+                                    2m                     r
+where p is the momentum operator, and L is the angular momentum operator. On a
+subspace of fixed negative energy, one can form a su(2) ⊕ su(2) algebra by combining
+                               1                         1       
+                         S=      L + aJ ,            D=     L − aJ ,                      (2)
+                               2                          2
+with a some energy dependent factor. We want to describe the representations of this
+algebra which appear for the hydrogen atom more concretely.
+
+  (i) We know that the eigenspace of energy En is spanned by |n, l, m⟩, l = 0, . . . , n − 1,
+      m = −l, . . . , l. In this space, there must exist a highest weight vector |ψ⟩ which is
+      annihilated by S+ and D+ . Show that this vector must satisfy
+
+                                       J+ |ψ⟩ = L+ |ψ⟩ = 0 ,                              (3)
+
+     and that therefore |ψ⟩ must be a superposition of |n, l, l⟩, l = 0, . . . , n − 1.
+
+ (ii) Calculate the commutators
+
+                                      [L± , J+ ] ,    [L3 , J+ ] ,                        (4)
+
+     and use the result to show that J+ |n, l, l⟩ ∝ |n, l + 1, l + 1⟩. Conclude that that the
+     highest weight vector is given by |ψ⟩ = |n, n − 1, n − 1⟩.
+     Hint: Use the commutation relations [Lj , Jk ] = iℏ εjkl Jl and the definition V± =
+     V1 ± iV2 .
+
+(iii) For the argument in the previous section, we needed to know the bound l ≤ n − 1.
+      We now want to show these properties by explicit calculation.
+
+      (a) First, use the method from Section 8.2.2 in the lecture notes show that the
+          wavefunction of |n, n − 1, n − 1⟩ is given by the simple expression
+                                                                 mκ 
+                         ψ(r, θ, φ) ∝ rn−1 sinn−1 θ ei(n−1)φ exp − 2 r .          (5)
+                                                                  ℏ n
+
+      (b) Show that J+ can be expressed as
+                                   i
+                                     p3 L+ − ℏ p+ − p+ L3 − κ sin θ eiφ .
+                                                         
+                            J+ =                                                          (6)
+                                   m
+      (c) Show that
+                                          J+ ψ(r, θ, φ) = 0 .                             (7)
+           Hint: The differential operator p+ is given by
+                                                                     
+                                    iφ         ∂    cos θ ∂   i     ∂
+                        p+ = −iℏ e       sin θ    +         +           ,                 (8)
+                                               ∂r     r ∂θ r sin θ ∂φ
+
+           which can be found by expressing the gradient in spherical coordinates.
+
+(iv) (optional) Similarly, show that
+
+                                        J3 ψ(r, θ, φ) = 0 .                               (9)
+
+ (v) Use the results from the previous exercises to give a description of the energy
+     eigenspace in terms of ladder operators acting on |n, n − 1, n − 1⟩. Once more count
+     the degeneracy of this eigenspace.
+
+
+Question 2 [Spinors ]:
+
+  (i) Let ⃗e be a given unit vector in R3 . A spin 1/2 particle is in a state |χ⟩ for which
+
+                                            ⟨⃗σ ⟩ = ⃗e ,                                (10)
+
+     where ⃗σ are the Pauli matrices. Find the state |χ⟩.
+
+ (ii) What is the probability that the measurement of the observable Sz (z-component
+      of spin) in the above state yields the value ℏ/2?
+
+
+Question 3 [Addition of spins ]:
+Consider two irreducible representations Dj of su(2) with spins j = 1/2 and j = 1. Write
+their tensor product D1/2 ⊗ D1 as a sum of irreducible representations.
+

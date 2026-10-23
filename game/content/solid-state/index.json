@@ -1,0 +1,13 @@
+{
+  "region": "Solid State Crystal Caverns",
+  "rooms": [
+    "lattice-gate",
+    "bonding-grotto",
+    "phonon-halls",
+    "fermi-sea",
+    "drift-corridor",
+    "semiconductor-forge",
+    "magnet-vault",
+    "degenerate-core"
+  ]
+}

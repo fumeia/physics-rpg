@@ -1,0 +1,1479 @@
+{
+ "region": "QM Interference Labs",
+ "course": "quantum-mechanics",
+ "exhibit": "set",
+ "id": "qm-spin-addition-stern-gerlach",
+ "title": "Spin Addition and the Stern-Gerlach Chain",
+ "topics": [
+  "tensor product of representations",
+  "Clebsch-Gordan series D_j1 x D_j2",
+  "two spin-1/2: triplet and singlet",
+  "spin-1 addition and H = (omega/hbar) S1.S2",
+  "Clebsch-Gordan coefficients from the ladder operators",
+  "Stern-Gerlach beams for composite particles",
+  "time evolution and measurement probabilities"
+ ],
+ "sources": [
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 9.1-9.5 (pp. 93-101): tensor products, addition of angular momenta, Clebsch-Gordan coefficients"
+  },
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 9.6-9.7 (pp. 102-107): magnetic moment, spin-orbit"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+   "where": "Q2 spinors, Q3 addition D_{1/2} x D_1"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+   "where": "Q1 Stern-Gerlach with molecules, Q3 Clebsch-Gordan coefficients for l x 1/2"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+   "where": "Question 4 [Spin-1 addition, 21 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+   "where": "Aufgabe 3 [Spin-Systeme, 25 Punkte]"
+  },
+  {
+   "file": "notes/quantum-mechanics/ch09-spin-addition.md",
+   "where": "transcription and worked solutions"
+  }
+ ],
+ "intro": "Combine two spins and the Stern-Gerlach magnet shows the result: a molecule of two spin-$\\frac12$ atoms splits into three beams, three atoms into four. The mathematics is the Clebsch-Gordan series $D_{j_1}\\otimes D_{j_2}=\\bigoplus_{j=|j_1-j_2|}^{j_1+j_2}D_j$, found by the highest-weight method: start with $|j_1,j_1\\rangle|j_2,j_2\\rangle$, apply $S_-$, and take the orthogonal combination for the next $j$. Exam standard: HS25 Q4 (spin 1) and FS24 Q3.",
+ "tutorial": [
+  {
+   "title": "The magnet",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>Molecules fly from the left through the inhomogeneous field. The deflection is proportional to the total $S_z=\\hbar m$, so a molecule of three spin-$\\frac12$ atoms ($D_{3/2}\\oplus2D_{1/2}$) lands in four spots, with intensities $1:3:3:1$ (counting the $2^3=8$ product states by their $m$).</p>"
+  },
+  {
+   "title": "The energy ladder",
+   "look": {
+    "x": -5,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>On the left: the three levels of $H=\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$ for two spin-1 particles: $\\sigma=2$ (5 states, $+\\hbar\\omega$), $\\sigma=1$ (3 states, $-\\hbar\\omega$), $\\sigma=0$ (1 state, $-2\\hbar\\omega$). The bar shows $P(S_{1z}=S_{2z}=0)(t)=\\frac{5+4\\cos3\\omega t}9$ (HS25 Q4).</p>"
+  },
+  {
+   "title": "Consoles",
+   "look": {
+    "x": 0,
+    "z": 0
+   },
+   "focus": null,
+   "html": "<p>Library: tensor products, Clebsch-Gordan, time evolution, Stern-Gerlach. Quiz, derivation desk and fights follow the sheets. The boss gate has HS25 Q4, FS24 Q3 and the sheet 12 Clebsch-Gordan problem.</p>"
+  }
+ ],
+ "encounters": [
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-sa-L1",
+   "title": "Tensor products and two spin-1/2: triplet, singlet, Stern-Gerlach beams",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 9.1-9.3, pp. 93-98"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+     "where": "Q1 Stern-Gerlach with molecules"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+     "where": "Q3"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch09-spin-addition.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Two systems with Hilbert spaces $V_1,V_2$ live in $V_1\\otimes V_2$ (dimension $d_1d_2$). Operators act factor-wise, $\\vec S=\\vec S_1\\otimes1+1\\otimes\\vec S_2$, and $\\vec S$ satisfies the same su(2) algebra. For spin-$\\frac12\\otimes\\frac12$ the four states $|\\!\\uparrow\\uparrow\\rangle,\\dots$ regroup:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\begin{aligned}|1,1\\rangle&=|\\!\\uparrow\\uparrow\\rangle,\\quad|1,0\\rangle=\\tfrac1{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle+|\\!\\downarrow\\uparrow\\rangle),\\quad|1,-1\\rangle=|\\!\\downarrow\\downarrow\\rangle\\\\ |0,0\\rangle&=\\tfrac1{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle-|\\!\\downarrow\\uparrow\\rangle)\\end{aligned}\\qquad D_{1/2}\\otimes D_{1/2}=D_1\\oplus D_0",
+     "label": "script 9.3; triplet symmetric, singlet antisymmetric under exchange"
+    },
+    {
+     "kind": "text",
+     "html": "<b>How to find them.</b> The state with maximal $m$ is unique, $|\\!\\uparrow\\uparrow\\rangle$ with $S_z=\\hbar$: it is the top of a $j=1$ multiplet. Apply $S_-=S_{1-}+S_{2-}$ to get $|1,0\\rangle$ and $|1,-1\\rangle$. The remaining state with $m=0$ orthogonal to $|1,0\\rangle$ is annihilated by $S_\\pm$: it is the singlet $j=0$."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\vec S_1\\cdot\\vec S_2=\\tfrac12\\big(\\vec S^2-\\vec S_1^2-\\vec S_2^2\\big)\\ \\Rightarrow\\ \\hbar^2\\Big[\\tfrac12\\big(j(j+1)-\\tfrac32\\big)\\Big]=\\begin{cases}+\\hbar^2/4&j=1\\\\-3\\hbar^2/4&j=0\\end{cases}",
+     "label": "the coupling H = A S1.S2 splits triplet and singlet by A hbar^2"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Stern-Gerlach with composite objects (sheet 12 Q1).</b> The deflection measures $S_z=\\hbar m$. Two spin-$\\frac12$ atoms: $m=+1,0,-1$, three beams with relative intensities $1:2:1$ (the triplet's $m=0$ plus the singlet both go to $m=0$). Three spin-$\\frac12$ atoms: $D_{1/2}^{\\otimes3}=D_{3/2}\\oplus2D_{1/2}$, four beams $m=\\pm\\frac32,\\pm\\frac12$ with intensities $1:3:3:1$. In general $N$ atoms give $N+1$ beams with binomial weights."
+    },
+    {
+     "kind": "intuition",
+     "html": "The beam count $N+1$ is the spin $N/2$ multiplet: the highest spin dominates the number of beams, the lower spins only add intensity at inner positions. A single beam position cannot tell triplet from singlet; a chain of magnets (rotated axes) is needed to test coherence."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Product states are not just a list of $(m_1,m_2)$: only $m=m_1+m_2$ is conserved. $|\\!\\uparrow\\downarrow\\rangle$ is a superposition of the triplet $m=0$ and the singlet. And $\\vec S_1\\cdot\\vec S_2$ is <b>not</b> $\\hbar^2m_1m_2$ alone (the $S_{1+}S_{2-}$ terms)."
+    }
+   ],
+   "check": [
+    {
+     "q": "$D_{1/2}\\otimes D_{1/2}$ decomposes into",
+     "options": [
+      "$D_1\\oplus D_1$",
+      "$D_1\\oplus D_0$",
+      "$D_{1/2}\\oplus D_{1/2}$",
+      "$D_1$ only"
+     ],
+     "correct": 1,
+     "explain": "$2\\times2=3+1$."
+    },
+    {
+     "q": "A Stern-Gerlach apparatus deflects a beam of molecules made of three spin-$\\frac12$ atoms (neglect all other angular momenta) into",
+     "options": [
+      "3 beams with $1:2:1$",
+      "4 beams of equal intensity",
+      "4 beams with relative intensities $1:3:3:1$",
+      "2 beams"
+     ],
+     "correct": 2,
+     "explain": "$D_{3/2}\\oplus2D_{1/2}$: $m=\\frac32$ once, $m=\\frac12$ three times.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+      "where": "Q1 (ii)"
+     }
+    },
+    {
+     "q": "$\\vec S_1\\cdot\\vec S_2$ in the singlet has the value",
+     "options": [
+      "$+\\tfrac14\\hbar^2$",
+      "$0$",
+      "$-\\tfrac14\\hbar^2$",
+      "$-\\tfrac34\\hbar^2$"
+     ],
+     "correct": 3,
+     "explain": "$\\frac12(0-\\frac34-\\frac34)\\hbar^2$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-sa-L2",
+   "title": "The Clebsch-Gordan series and the highest-weight method (spin 1 x spin 1)",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 9.4-9.5, pp. 98-101"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 4 (i)-(iii)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+     "where": "Aufgabe 3 (e)-(g)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch09-spin-addition.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "For two spins $j_1,j_2$ the total $\\vec S=\\vec S_1+\\vec S_2$ has $m=m_1+m_2$, so $m_{max}=j_1+j_2$ and the allowed total spins are $\\sigma=|j_1-j_2|,\\dots,j_1+j_2$, each once; the dimensions add up, $(2j_1+1)(2j_2+1)=\\sum_\\sigma(2\\sigma+1)$ (HS25 Q4(i)). For $s_1=s_2=1$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "D_1\\otimes D_1=D_2\\oplus D_1\\oplus D_0,\\qquad 9=5+3+1,\\qquad \\vec S_1\\cdot\\vec S_2=\\tfrac{\\hbar^2}2\\big[\\sigma(\\sigma+1)-4\\big]\\in\\{+\\hbar^2,\\,-\\hbar^2,\\,-2\\hbar^2\\}",
+     "label": "HS25 Q4(ii): H = (omega/hbar) S1.S2 has energies hbar omega, -hbar omega, -2 hbar omega"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Highest weights (HS25 Q4(iii), 5 pt).</b> With $|m_1;m_2\\rangle$ and $S_\\pm|\\sigma,m\\rangle=\\hbar\\sqrt{\\sigma(\\sigma+1)-m(m\\pm1)}\\,|\\sigma,m\\pm1\\rangle$: $\\sigma=2$: $|1;1\\rangle$ (unique $m=2$). $\\sigma=1$: the $m=1$ states are $|1;0\\rangle,|0;1\\rangle$ and $|2,1\\rangle\\propto S_-|1;1\\rangle$; the orthogonal combination is annihilated by $S_+$. $\\sigma=0$: in $m=0$ (three states) require $S_+\\psi=0$."
+    },
+    {
+     "kind": "eq",
+     "tex": "|2,2\\rangle=|1;1\\rangle,\\quad |1,1\\rangle=\\tfrac1{\\sqrt2}\\big(|1;0\\rangle-|0;1\\rangle\\big),\\quad |0,0\\rangle=\\tfrac1{\\sqrt3}\\big(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle\\big)",
+     "label": "check S_+ |sigma,sigma> = 0; phase convention: coefficient of |sigma, m1=sigma> positive"
+    },
+    {
+     "kind": "eq",
+     "tex": "|2,1\\rangle=\\tfrac1{\\sqrt2}(|1;0\\rangle+|0;1\\rangle),\\quad |2,0\\rangle=\\tfrac1{\\sqrt6}\\big(|1;-1\\rangle+2|0;0\\rangle+|-1;1\\rangle\\big),\\quad |1,0\\rangle=\\tfrac1{\\sqrt2}\\big(|1;-1\\rangle-|-1;1\\rangle\\big)",
+     "label": "S_-|1;1> = sqrt2 (|0;1> + |1;0>), S_- again for |2,0>"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Pattern.</b> Spin-$j$ multiplets alternate in exchange symmetry: $\\sigma=2,0$ symmetric under $1\\leftrightarrow2$, $\\sigma=1$ antisymmetric (for two equal spins $\\sigma=2s$ is symmetric, then alternating). FS24 Q3(f): the state $|1,1\\rangle_A|1,1\\rangle_B$ has $\\vec S^2=\\vec S_A^2+\\vec S_B^2+2S_{Az}S_{Bz}+S_{A+}S_{B-}+S_{A-}S_{B+}$, and only the diagonal terms survive: $(2+2+2)\\hbar^2=6\\hbar^2=2(2+1)\\hbar^2$, hence $\\sigma=2$. (g): total spin zero is the single state $|0,0\\rangle$ above, the only state with $\\sigma=0$."
+    },
+    {
+     "kind": "pitfall",
+     "html": "The sign convention matters: the singlet sign pattern $(+,-,+)$ for $(|1;-1\\rangle,|0;0\\rangle,|-1;1\\rangle)$ follows from the Condon-Shortley convention. Other books may differ in overall phase, never in the coefficient magnitudes $\\frac1{\\sqrt3}$. And do not forget the factor $\\sqrt2$ in $S_-|1,1\\rangle=\\hbar\\sqrt2\\,|1,0\\rangle$ for a single spin 1."
+    }
+   ],
+   "check": [
+    {
+     "q": "Total spins in $D_1\\otimes D_1$ and degeneracies of $\\vec S_1\\cdot\\vec S_2=\\{+\\hbar^2,-\\hbar^2,-2\\hbar^2\\}$",
+     "options": [
+      "$\\sigma=2,1,0$ with $3,3,3$ states",
+      "$\\sigma=2,0$ only",
+      "$\\sigma=1$ only with 9 states",
+      "$\\sigma=2,1,0$ with $5,3,1$ states"
+     ],
+     "correct": 3,
+     "explain": "$\\frac{\\hbar^2}2[\\sigma(\\sigma+1)-4]$ gives $1,-1,-2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 4 (ii)"
+     }
+    },
+    {
+     "q": "The highest-weight state of the $\\sigma=1$ multiplet in $D_1\\otimes D_1$ is",
+     "options": [
+      "$\\frac1{\\sqrt2}(|1;0\\rangle+|0;1\\rangle)$",
+      "$|1;1\\rangle$",
+      "$\\frac1{\\sqrt2}(|1;0\\rangle-|0;1\\rangle)$",
+      "$\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$"
+     ],
+     "correct": 2,
+     "explain": "$S_+$ annihilates it; it is orthogonal to $|2,1\\rangle$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 4 (iii)"
+     }
+    },
+    {
+     "q": "FS24 Q3(f): $|1,1\\rangle_A\\otimes|1,1\\rangle_B$ has total $\\vec S^2=$",
+     "options": [
+      "$4\\hbar^2$",
+      "$2\\hbar^2$",
+      "$0$",
+      "$6\\hbar^2$ ($\\sigma=2$)"
+     ],
+     "correct": 3,
+     "explain": "$m=2$ implies $\\sigma\\ge2$ and $\\sigma\\le2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+      "where": "Aufgabe 3 (f)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-sa-L3",
+   "title": "Time evolution under $H=\\frac{\\omega}{\\hbar}\\vec S_1\\cdot\\vec S_2$ and measurement probabilities (HS25 Q4 (iv)-(v))",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 4 (iv)-(v), 10 pt"
+    },
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 9.5.1: a simple example"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch09-spin-addition.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Start in $|0;0\\rangle=|1,0\\rangle\\otimes|1,0\\rangle$. Expand in the eigenstates of $H$, the $|\\sigma,m\\rangle$, because only they evolve with a pure phase. Use the table of the previous lesson:"
+    },
+    {
+     "kind": "eq",
+     "tex": "|0;0\\rangle=\\sqrt{\\tfrac23}\\,|2,0\\rangle-\\tfrac1{\\sqrt3}\\,|0,0\\rangle\\quad(\\text{since }|1,0\\rangle\\text{ is odd under exchange and }\\langle1,0|0;0\\rangle=0)",
+     "label": "from |2,0> = (|1;-1> + 2|0;0> + |-1;1>)/sqrt6 and |0,0>"
+    },
+    {
+     "kind": "text",
+     "html": "Energies: $E_2=+\\hbar\\omega$, $E_0=-2\\hbar\\omega$, so $|\\psi(t)\\rangle=\\sqrt{\\tfrac23}e^{-i\\omega t}|2,0\\rangle-\\tfrac1{\\sqrt3}e^{2i\\omega t}|0,0\\rangle$. Convert back to the product basis:"
+    },
+    {
+     "kind": "eq",
+     "tex": "|\\psi(t)\\rangle=\\frac{e^{-i\\omega t}}3\\Big[(1-e^{3i\\omega t})|1;-1\\rangle+(1-e^{3i\\omega t})|-1;1\\rangle+(2+e^{3i\\omega t})|0;0\\rangle\\Big]",
+     "label": "HS25 eq. (28)"
+    },
+    {
+     "kind": "eq",
+     "tex": "P(S_{1z}=0,S_{2z}=0)=\\Big|\\frac{2+e^{3i\\omega t}}{3}\\Big|^2=\\frac{5+4\\cos3\\omega t}{9},\\qquad P(1;-1)+P(-1;1)=\\frac{4-4\\cos3\\omega t}{9}",
+     "label": "HS25 Q4(v); the two probabilities add to 1"
+    },
+    {
+     "kind": "intuition",
+     "html": "Beat of two frequencies: $E_2-E_0=3\\hbar\\omega$ is the only frequency, so the whole motion has period $2\\pi/3\\omega$. At $t=0$ the probability to be in $|0;0\\rangle$ is 1, at $3\\omega t=\\pi$ it drops to $\\frac19$: the system oscillates between \"both spins have $m=0$\" and \"$m_1=-m_2=\\pm1$\". Total $S_z=0$ is conserved throughout (the sector $m=0$ has dimension 3)."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Mixed signs: the relative phase is $e^{-i(E_2-E_0)t/\\hbar}=e^{-3i\\omega t}$, not $e^{-i\\omega t}$ alone. The normalisation check at the end: $|1-e^{3i\\omega t}|^2\\cdot2+|2+e^{3i\\omega t}|^2=2(2-2\\cos\\phi)+5+4\\cos\\phi=9$ with $\\phi=3\\omega t$."
+    }
+   ],
+   "check": [
+    {
+     "q": "Which $\\sigma$ appear in $|1,0\\rangle\\otimes|1,0\\rangle$?",
+     "options": [
+      "only $\\sigma=2$",
+      "$\\sigma=2,1,0$ all",
+      "$\\sigma=2$ and $\\sigma=0$ (not $\\sigma=1$)",
+      "only $\\sigma=0$"
+     ],
+     "correct": 2,
+     "explain": "$|1,0\\rangle=(|1;-1\\rangle-|-1;1\\rangle)/\\sqrt2$ has zero overlap with $|0;0\\rangle$."
+    },
+    {
+     "q": "$P(S_{1z}=0=S_{2z})$ at $3\\omega t=\\pi$",
+     "options": [
+      "$0$",
+      "$\\frac13$",
+      "$1$",
+      "$\\frac19$"
+     ],
+     "correct": 3,
+     "explain": "$(5+4\\cos\\pi)/9$."
+    },
+    {
+     "q": "The oscillation frequency of the probabilities in HS25 Q4 is",
+     "options": [
+      "$\\omega$",
+      "$3\\omega$ (from $E_2-E_0=3\\hbar\\omega$)",
+      "$2\\omega$",
+      "$6\\omega$"
+     ],
+     "correct": 1,
+     "explain": "$|a e^{-iE_2t}+be^{-iE_0t}|^2$ depends on $E_2-E_0$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-sa-L4",
+   "title": "Clebsch-Gordan coefficients for $l\\otimes\\frac12$ and spin-1/2 measurements",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+     "where": "Q3 (i)-(ii)"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+     "where": "Q2-Q3"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+     "where": "Aufgabe 3 (a)-(d)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch09-spin-addition.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "The case of orbital angular momentum $l$ and spin $\\frac12$ gives $D_l\\otimes D_{1/2}=D_{l+1/2}\\oplus D_{l-1/2}$ (dimension $(2l+1)\\cdot2=(2l+2)+2l$). The Clebsch-Gordan coefficients of the upper multiplet (sheet 12 Q3(i)):"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\Big|l+\\tfrac12,m\\Big\\rangle=\\sqrt{\\frac{l+m+\\frac12}{2l+1}}\\,\\Big|m-\\tfrac12\\Big\\rangle\\Big|\\!\\uparrow\\Big\\rangle+\\sqrt{\\frac{l-m+\\frac12}{2l+1}}\\,\\Big|m+\\tfrac12\\Big\\rangle\\Big|\\!\\downarrow\\Big\\rangle",
+     "label": "sheet 12 Q3 eq. (7); the lower multiplet has the same moduli with the roles exchanged and a relative minus sign"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Derivation sketch.</b> Highest weight: $|l+\\frac12,l+\\frac12\\rangle=|l\\rangle|\\!\\uparrow\\rangle$. Apply $J_-=L_-+S_-$ repeatedly, with $L_-|l,m\\rangle=\\hbar\\sqrt{(l+m)(l-m+1)}\\,|l,m-1\\rangle$ and $S_-|\\!\\uparrow\\rangle=\\hbar|\\!\\downarrow\\rangle$, and compare with $J_-|j,m\\rangle=\\hbar\\sqrt{(j+m)(j-m+1)}\\,|j,m-1\\rangle$. The recursion relates the coefficients at $m$ and $m-1$. Normalisation then gives the square roots above."
+    },
+    {
+     "kind": "eq",
+     "tex": "l=1:\\ \\Big|\\tfrac32,\\tfrac32\\Big\\rangle=|1\\rangle|\\!\\uparrow\\rangle,\\ \\ \\Big|\\tfrac32,\\tfrac12\\Big\\rangle=\\sqrt{\\tfrac23}|0\\rangle|\\!\\uparrow\\rangle+\\sqrt{\\tfrac13}|1\\rangle|\\!\\downarrow\\rangle,\\ \\ \\Big|\\tfrac32,-\\tfrac12\\Big\\rangle=\\sqrt{\\tfrac13}|-1\\rangle|\\!\\uparrow\\rangle+\\sqrt{\\tfrac23}|0\\rangle|\\!\\downarrow\\rangle",
+     "label": "sheet 12 Q3(ii); so a spin-orbit state j=3/2, m_j=1/2 has spin up with probability 2/3"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Spin-$\\frac12$ rotations and measurements (FS24 Q3 (a)-(d)).</b> For $|\\psi\\rangle=\\frac1{\\sqrt2}(|\\!\\uparrow\\rangle+|\\!\\downarrow\\rangle)$ a measurement of $S_z$ gives $\\pm\\frac\\hbar2$ with probability $\\frac12$ each, mean $0$. A rotation $O(\\vec n,\\theta)$ is implemented by $U=e^{-i\\theta\\vec n\\cdot\\vec\\sigma/2}=\\cos\\frac\\theta2-i\\sin\\frac\\theta2\\,\\vec n\\cdot\\vec\\sigma$. Alice rotates the particle and measures along $\\vec e_z$; Bob measures the unrotated particle along $O(\\vec n,-\\theta)\\vec e_z$. Because $U$ is unitary, $|\\langle\\!\\uparrow|U\\psi\\rangle|^2=|\\langle U^\\dagger\\!\\uparrow|\\psi\\rangle|^2$ and $U^\\dagger$ is the rotation by $-\\theta$ of the measurement axis: identical probabilities (active = passive rotation). For $|\\psi\\rangle=|+x\\rangle$ the mean value is $\\frac\\hbar2$ if the axis is $\\vec e_x$."
+    },
+    {
+     "kind": "intuition",
+     "html": "The general rule: the probability to find spin up along $\\vec e$ in a state with Bloch vector $\\vec b=\\langle\\vec\\sigma\\rangle$ is $\\frac12(1+\\vec e\\cdot\\vec b)$ (sheet 11 Q2: the spinor $(\\cos\\frac\\theta2,e^{i\\phi}\\sin\\frac\\theta2)$ has $\\langle\\vec\\sigma\\rangle=\\vec e$ and $P(\\uparrow_z)=\\frac12(1+\\cos\\theta)$)."
+    },
+    {
+     "kind": "pitfall",
+     "html": "The CG recursion has a sign: the lower multiplet $|l-\\frac12,m\\rangle$ carries a relative minus sign. And do not swap the roles: the amplitude of spin up in $|l+\\frac12,m\\rangle$ has $m-\\frac12$ for the orbital quantum number and the factor $(l+m+\\frac12)$."
+    }
+   ],
+   "check": [
+    {
+     "q": "Probability of spin up in $|j=\\frac32,m_j=\\frac12\\rangle$ for $l=1$",
+     "options": [
+      "$\\frac13$",
+      "$\\frac23$",
+      "$\\frac12$",
+      "$\\frac34$"
+     ],
+     "correct": 1,
+     "explain": "$(1+\\frac12+\\frac12)/3$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+      "where": "Q3 (ii)"
+     }
+    },
+    {
+     "q": "$D_l\\otimes D_{1/2}$ contains",
+     "options": [
+      "$D_{l+1}\\oplus D_{l-1}$",
+      "$D_{l+1/2}$ only",
+      "$D_{l+1/2}\\oplus D_{l-1/2}$",
+      "$D_l\\oplus D_l$"
+     ],
+     "correct": 2,
+     "explain": "Dimension: $(2l+2)+2l=2(2l+1)$."
+    },
+    {
+     "q": "FS24 Q3(b): Alice's and Bob's probabilities are equal because",
+     "options": [
+      "the state is an eigenstate of $S_z$",
+      "$|\\langle e_z|U\\psi\\rangle|^2=|\\langle U^\\dagger e_z|\\psi\\rangle|^2$, and $U^\\dagger$ is the inverse rotation of the measurement axis",
+      "$U$ commutes with $S_z$",
+      "the measurement is not affected by rotations"
+     ],
+     "correct": 1,
+     "explain": "unitarity.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+      "where": "Aufgabe 3 (b)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "quiz",
+   "xp": 30,
+   "passMark": 0.75,
+   "id": "qm-sa-Q1",
+   "title": "Spin addition: exam-style multiple choice",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 9"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 4"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+     "where": "Aufgabe 3"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+     "where": "Q3"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+     "where": "Q1, Q3"
+    }
+   ],
+   "questions": [
+    {
+     "q": "$D_{1/2}\\otimes D_1$ decomposes into",
+     "options": [
+      "$D_{3/2}$ only",
+      "$D_{3/2}\\oplus D_{1/2}$",
+      "$D_{3/2}\\oplus D_{1/2}\\oplus D_{-1/2}$",
+      "$D_{2}\\oplus D_{1}$"
+     ],
+     "correct": 1,
+     "explain": "$4+2=6$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+      "where": "Q3"
+     }
+    },
+    {
+     "q": "For two spin-1, $H=\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$ has the energies",
+     "options": [
+      "$2\\hbar\\omega,\\hbar\\omega,0$",
+      "$\\hbar\\omega,0,-\\hbar\\omega$",
+      "$\\hbar\\omega,-\\hbar\\omega,-2\\hbar\\omega$ with degeneracies $5,3,1$",
+      "$\\hbar\\omega\\,m_1m_2$"
+     ],
+     "correct": 2,
+     "explain": "Trace of $\\vec S_1\\cdot\\vec S_2$ is zero: $5-3-2=0$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 4 (ii)"
+     }
+    },
+    {
+     "q": "Total-$S_z=0$ states of two spin-1",
+     "options": [
+      "1 state",
+      "3 states; the singlet is $\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$",
+      "5 states",
+      "singlet $\\frac1{\\sqrt3}(|1;-1\\rangle+|0;0\\rangle+|-1;1\\rangle)$"
+     ],
+     "correct": 1,
+     "explain": "Condition $S_+\\psi=0$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+      "where": "Aufgabe 3 (g)"
+     }
+    },
+    {
+     "q": "The molecule made of two spin-$\\frac12$ atoms in a Stern-Gerlach magnet gives",
+     "options": [
+      "2 beams",
+      "3 beams, $1:2:1$",
+      "4 beams",
+      "3 beams, $1:1:1$"
+     ],
+     "correct": 1,
+     "explain": "$2^2=4$ states with $m=1,0,0,-1$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+      "where": "Q1 (i)"
+     }
+    },
+    {
+     "q": "$|0;0\\rangle=|1,0\\rangle|1,0\\rangle$ has overlap with the singlet $|0,0\\rangle$ equal to",
+     "options": [
+      "$0$",
+      "$-\\frac1{\\sqrt3}$",
+      "$\\frac1{\\sqrt3}$",
+      "$1$"
+     ],
+     "correct": 1,
+     "explain": "$P=\\frac13$ for $\\sigma=0$ and $\\frac23$ for $\\sigma=2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 4 (iv)"
+     }
+    },
+    {
+     "q": "In HS25 Q4, $P(S_{1z}=S_{2z}=0)$ is",
+     "options": [
+      "$\\cos^2\\omega t$",
+      "$\\frac{5+4\\cos3\\omega t}{9}$",
+      "$\\frac{5+4\\cos\\omega t}{9}$",
+      "$\\frac{1+\\cos3\\omega t}{2}$"
+     ],
+     "correct": 1,
+     "explain": "$|(2+e^{3i\\omega t})/3|^2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 4 (v)"
+     }
+    },
+    {
+     "q": "Clebsch-Gordan: coefficient of $|0\\rangle|\\!\\uparrow\\rangle$ in $|\\frac32,\\frac12\\rangle$ ($l=1$)",
+     "options": [
+      "$\\sqrt{1/3}$",
+      "$\\sqrt{1/2}$",
+      "$\\sqrt{2/3}$",
+      "$\\frac23$"
+     ],
+     "correct": 2,
+     "explain": "Sheet 12 Q3 eq. (7): the weight of the spin-up component with $m_l=m-\\frac12$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+      "where": "Q3"
+     }
+    },
+    {
+     "q": "$\\vec S^2$ for $|1,1\\rangle_A|1,1\\rangle_B$ is",
+     "options": [
+      "$6\\hbar^2$",
+      "$4\\hbar^2$",
+      "$2\\hbar^2$",
+      "$8\\hbar^2$"
+     ],
+     "correct": 0,
+     "explain": "Top of the $\\sigma=2$ multiplet.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+      "where": "Aufgabe 3 (f)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-sa-D1",
+   "title": "Two spin-$\\frac12$: triplet and singlet from the ladder operator (script 9.3)",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "Ch. 9.3, pp. 95-98; sheet 11 Q3"
+   },
+   "goal": "Construct $|1,m\\rangle$ and $|0,0\\rangle$ in $D_{1/2}\\otimes D_{1/2}$ and show $\\vec S_1\\cdot\\vec S_2=\\frac{\\hbar^2}4,-\\frac{3\\hbar^2}4$.",
+   "given": [
+    "$S_-|\\!\\uparrow\\rangle=\\hbar|\\!\\downarrow\\rangle$, $S_-|\\!\\downarrow\\rangle=0$, $\\vec S=\\vec S_1+\\vec S_2$",
+    "$J_\\pm|j,m\\rangle=\\hbar\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Find the state with $m=1$.",
+     "reveal": "Only $|\\!\\uparrow\\uparrow\\rangle$ has $m=1$; $S_+|\\!\\uparrow\\uparrow\\rangle=0$ so it is a highest-weight state, $j=1$: $|1,1\\rangle=|\\!\\uparrow\\uparrow\\rangle$."
+    },
+    {
+     "prompt": "(b) Apply $S_-=S_{1-}+S_{2-}$.",
+     "reveal": "$S_-|\\!\\uparrow\\uparrow\\rangle=\\hbar(|\\!\\downarrow\\uparrow\\rangle+|\\!\\uparrow\\downarrow\\rangle)=\\hbar\\sqrt2\\,|1,0\\rangle$, so $|1,0\\rangle=\\frac1{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle+|\\!\\downarrow\\uparrow\\rangle)$; once more: $|1,-1\\rangle=|\\!\\downarrow\\downarrow\\rangle$."
+    },
+    {
+     "prompt": "(c) The singlet.",
+     "reveal": "The $m=0$ sector is 2-dimensional; the vector orthogonal to $|1,0\\rangle$ is $\\frac1{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle-|\\!\\downarrow\\uparrow\\rangle)$. $S_\\pm$ annihilates it, so $j=0$: $S_+(\\dots)=\\hbar(|\\!\\uparrow\\uparrow\\rangle-|\\!\\uparrow\\uparrow\\rangle)/\\sqrt2=0$."
+    },
+    {
+     "prompt": "(d) Evaluate $\\vec S_1\\cdot\\vec S_2$.",
+     "reveal": "$\\vec S_1\\cdot\\vec S_2=\\frac12(\\vec S^2-\\vec S_1^2-\\vec S_2^2)$ with $\\vec S_i^2=\\frac34\\hbar^2$: triplet $\\frac12(2-\\frac32)\\hbar^2=\\frac{\\hbar^2}4$, singlet $\\frac12(0-\\frac32)\\hbar^2=-\\frac{3\\hbar^2}4$."
+    }
+   ],
+   "keyPoints": [
+    "maximal $m$ is unique: highest weight",
+    "$S_-$ builds the multiplet with factor $\\hbar\\sqrt2$",
+    "orthogonal $m=0$ state is the singlet",
+    "$\\vec S_1\\cdot\\vec S_2=\\frac12(\\vec S^2-\\vec S_1^2-\\vec S_2^2)$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-sa-D2",
+   "title": "Spin-1 addition: highest weights and the multiplet states (HS25 Q4 (i)-(iii))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+    "where": "Question 4 (i)-(iii), 11 pt"
+   },
+   "goal": "For $s=1$: list allowed $S^2,S_z$, the spectrum of $\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$, and the highest-weight states of $D_2,D_1,D_0$.",
+   "given": [
+    "$S_\\pm|\\sigma,m\\rangle=\\hbar\\sqrt{\\sigma(\\sigma+1)-m(m\\pm1)}\\,|\\sigma,m\\pm1\\rangle$",
+    "$\\vec S_1\\cdot\\vec S_2=\\frac12(\\vec S^2-\\vec S_1^2-\\vec S_2^2)$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Allowed $\\sigma$ and $m$ for general $s$.",
+     "reveal": "$S_z=\\hbar m$, $m=m_1+m_2\\in\\{-2s,\\dots,2s\\}$; $\\vec S^2=\\hbar^2\\sigma(\\sigma+1)$ with $\\sigma=0,1,\\dots,2s$ (each once). Check dimension: $\\sum_{\\sigma=0}^{2s}(2\\sigma+1)=(2s+1)^2$."
+    },
+    {
+     "prompt": "(b) Eigenvalues of $H$ and degeneracies for $s=1$.",
+     "reveal": "$H=\\frac{\\omega}{2\\hbar}[\\vec S^2-2\\cdot2\\hbar^2]$, i.e. $E_\\sigma=\\frac{\\hbar\\omega}2[\\sigma(\\sigma+1)-4]$: $E_2=\\hbar\\omega$ (5), $E_1=-\\hbar\\omega$ (3), $E_0=-2\\hbar\\omega$ (1)."
+    },
+    {
+     "prompt": "(c) Highest weight of $D_2$ and $D_1$.",
+     "reveal": "$|2,2\\rangle=|1;1\\rangle$. For $m=1$: $S_-|1;1\\rangle=\\hbar\\sqrt2(|0;1\\rangle+|1;0\\rangle)$, so $|2,1\\rangle=(|1;0\\rangle+|0;1\\rangle)/\\sqrt2$; the orthogonal combination $|1,1\\rangle=(|1;0\\rangle-|0;1\\rangle)/\\sqrt2$ is annihilated by $S_+$ ($\\sqrt2-\\sqrt2=0$)."
+    },
+    {
+     "prompt": "(d) Highest weight of $D_0$.",
+     "reveal": "Take $\\psi=a|1;-1\\rangle+b|0;0\\rangle+c|-1;1\\rangle$: $S_+\\psi=\\hbar\\sqrt2[(a+b)|1;0\\rangle+(b+c)|0;1\\rangle]=0$, so $a=c=-b$ and $|0,0\\rangle=\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$."
+    }
+   ],
+   "keyPoints": [
+    "$\\sigma=0,\\dots,2s$ with dimension check",
+    "$E_\\sigma=\\frac{\\hbar\\omega}2[\\sigma(\\sigma+1)-4]$",
+    "highest weights from $S_+\\psi=0$ and orthogonality",
+    "$|0,0\\rangle=\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-sa-D3",
+   "title": "Time evolution of $|0;0\\rangle$ (HS25 Q4 (iv))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+    "where": "Question 4 (iv), 7 pt"
+   },
+   "goal": "Show $|\\psi(t)\\rangle=\\frac{e^{-i\\omega t}}3\\big[(1-e^{3i\\omega t})(|1;-1\\rangle+|-1;1\\rangle)+(2+e^{3i\\omega t})|0;0\\rangle\\big]$.",
+   "given": [
+    "$H=\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$, $E_2=\\hbar\\omega$, $E_0=-2\\hbar\\omega$",
+    "$|2,0\\rangle=\\frac1{\\sqrt6}(|1;-1\\rangle+2|0;0\\rangle+|-1;1\\rangle)$, $|0,0\\rangle=\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$, $|1,0\\rangle=\\frac1{\\sqrt2}(|1;-1\\rangle-|-1;1\\rangle)$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Expand $|0;0\\rangle$ in the $|\\sigma,0\\rangle$.",
+     "reveal": "$\\langle2,0|0;0\\rangle=\\frac2{\\sqrt6}$, $\\langle0,0|0;0\\rangle=-\\frac1{\\sqrt3}$, $\\langle1,0|0;0\\rangle=0$: $|0;0\\rangle=\\frac2{\\sqrt6}|2,0\\rangle-\\frac1{\\sqrt3}|0,0\\rangle$. Check: $\\frac46+\\frac13=1$."
+    },
+    {
+     "prompt": "(b) Apply the phases.",
+     "reveal": "$|\\psi(t)\\rangle=\\frac2{\\sqrt6}e^{-i\\omega t}|2,0\\rangle-\\frac1{\\sqrt3}e^{2i\\omega t}|0,0\\rangle$."
+    },
+    {
+     "prompt": "(c) Project back on $|1;-1\\rangle$ and $|0;0\\rangle$.",
+     "reveal": "$\\langle1;-1|\\psi\\rangle=\\frac2{\\sqrt6}\\frac1{\\sqrt6}e^{-i\\omega t}-\\frac1{\\sqrt3}\\frac1{\\sqrt3}e^{2i\\omega t}=\\frac{e^{-i\\omega t}}3(1-e^{3i\\omega t})$ (same for $|-1;1\\rangle$); $\\langle0;0|\\psi\\rangle=\\frac46e^{-i\\omega t}+\\frac13e^{2i\\omega t}=\\frac{e^{-i\\omega t}}3(2+e^{3i\\omega t})$."
+    },
+    {
+     "prompt": "(d) Probability for $S_{1z}=S_{2z}=0$.",
+     "reveal": "$|\\frac{2+e^{3i\\omega t}}3|^2=\\frac{4+4\\cos3\\omega t+1}9=\\frac{5+4\\cos3\\omega t}9$."
+    }
+   ],
+   "keyPoints": [
+    "expand in energy eigenstates, only $\\sigma=2,0$",
+    "phases $e^{-iE_\\sigma t/\\hbar}$",
+    "project back on product states",
+    "$P=(5+4\\cos3\\omega t)/9$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-sa-D4",
+   "title": "Clebsch-Gordan coefficients $l\\otimes\\frac12$ (sheet 12 Q3 (i))",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+    "where": "Question 3 (i)"
+   },
+   "goal": "Derive $\\langle l,\\frac12,m\\mp\\frac12,\\pm\\frac12|l+\\frac12,m\\rangle=\\sqrt{\\frac{l\\pm m+\\frac12}{2l+1}}$.",
+   "given": [
+    "$J_-|j,m\\rangle=\\hbar\\sqrt{(j+m)(j-m+1)}\\,|j,m-1\\rangle$, $L_-|l,m\\rangle=\\hbar\\sqrt{(l+m)(l-m+1)}\\,|l,m-1\\rangle$",
+    "$S_-|\\!\\uparrow\\rangle=\\hbar|\\!\\downarrow\\rangle$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Write the ansatz.",
+     "reveal": "$|l+\\frac12,m\\rangle=\\alpha_m|m-\\frac12\\rangle|\\!\\uparrow\\rangle+\\beta_m|m+\\frac12\\rangle|\\!\\downarrow\\rangle$ (only $m_l+m_s=m$ allowed)."
+    },
+    {
+     "prompt": "(b) Top state and lowering.",
+     "reveal": "$|l+\\frac12,l+\\frac12\\rangle=|l\\rangle|\\!\\uparrow\\rangle$: $\\alpha=1,\\beta=0$. Apply $J_-=L_-+S_-$: $J_-(\\alpha_m|m-\\frac12\\rangle\\uparrow+\\beta_m|m+\\frac12\\rangle\\downarrow)=\\hbar[\\alpha_m\\sqrt{(l+m-\\frac12)(l-m+\\frac32)}|m-\\frac32\\rangle\\uparrow+(\\alpha_m+\\beta_m\\sqrt{(l+m+\\frac12)(l-m+\\frac12)})|m-\\frac12\\rangle\\downarrow]$."
+    },
+    {
+     "prompt": "(c) Compare with $\\hbar\\sqrt{(l+m+\\frac12)(l-m+\\frac32)}\\,|l+\\frac12,m-1\\rangle$.",
+     "reveal": "Coefficient of $|m-\\frac32\\rangle\\uparrow$: $\\alpha_{m-1}=\\alpha_m\\sqrt{\\frac{l+m-\\frac12}{l+m+\\frac12}}$ (eq. (8) of the sheet). Iterating from $\\alpha_{l+1/2}=1$ gives $\\alpha_m=\\sqrt{\\frac{l+m+\\frac12}{2l+1}}$."
+    },
+    {
+     "prompt": "(d) Fix $\\beta$ by normalisation.",
+     "reveal": "$\\beta_m^2=1-\\alpha_m^2=\\frac{l-m+\\frac12}{2l+1}$, with positive sign by the Condon-Shortley phase convention."
+    }
+   ],
+   "keyPoints": [
+    "$m_l+m_s=m$ restricts the ansatz to two terms",
+    "start from the highest weight",
+    "lowering gives a recursion for $\\alpha_m$",
+    "normalisation fixes $\\beta_m$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-sa-D5",
+   "title": "Alice and Bob: rotating the state or the apparatus (FS24 Q3 (b)-(d))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+    "where": "Aufgabe 3 (b)-(d), 11 pt"
+   },
+   "goal": "Show that the outcome probabilities of Alice (rotated particle, fixed $z$ analyser) and Bob (unrotated particle, analyser along $O(\\vec n,-\\theta)\\vec e_z$) coincide, and evaluate them for $|\\psi\\rangle=\\frac1{\\sqrt2}(|\\!\\uparrow\\rangle+|\\!\\downarrow\\rangle)$.",
+   "given": [
+    "$U(\\vec n,\\theta)=\\cos\\frac\\theta2-i\\sin\\frac\\theta2\\,\\vec n\\cdot\\vec\\sigma$",
+    "spin-$\\frac12$ projectors $P_\\pm(\\vec e)=\\frac12(1\\pm\\vec e\\cdot\\vec\\sigma)$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Alice's probability.",
+     "reveal": "$P_A(\\pm)=\\langle\\psi|U^\\dagger P_\\pm(\\vec e_z)U|\\psi\\rangle$."
+    },
+    {
+     "prompt": "(b) Show $U^\\dagger\\vec e_z\\!\\cdot\\!\\vec\\sigma\\,U=(R(\\vec n,-\\theta)\\vec e_z)\\cdot\\vec\\sigma$ (rotation property of the Pauli matrices).",
+     "reveal": "$U^\\dagger\\sigma_jU=R_{jk}(\\vec n,\\theta)^{-1}\\sigma_k$-type relation: conjugating $\\vec\\sigma$ with $U$ rotates the vector $\\vec e$ by $\\mp\\theta$. So $U^\\dagger P_\\pm(\\vec e_z)U=P_\\pm(R(\\vec n,-\\theta)\\vec e_z)$, which is Bob's projector. Hence $P_A=P_B$ for every $\\psi$."
+    },
+    {
+     "prompt": "(c) Probabilities for $|\\psi\\rangle=|+x\\rangle$.",
+     "reveal": "The Bloch vector is $\\hat x$. $P(\\pm)=\\frac12(1\\pm\\vec e'\\cdot\\hat x)$ with $\\vec e'=R(\\vec n,-\\theta)\\vec e_z$."
+    },
+    {
+     "prompt": "(d) Choose the axis such that $\\langle S\\rangle=+\\hbar/2$.",
+     "reveal": "$\\langle S_{e'}\\rangle=\\frac\\hbar2\\vec e'\\cdot\\hat x=\\frac\\hbar2$ requires $\\vec e'=\\hat x$: the measurement axis along $x$ (e.g. $\\vec n=\\hat y$, rotating $z$ into $x$ by $\\theta=\\pm\\frac\\pi2$)."
+    }
+   ],
+   "keyPoints": [
+    "unitary rotation moves from state to apparatus",
+    "$P_\\pm(\\vec e)=\\frac12(1\\pm\\vec e\\cdot\\vec\\sigma)$",
+    "$P(\\pm)=\\frac12(1\\pm\\vec e\\cdot\\vec b)$",
+    "expectation $\\hbar/2$ only along the state's own axis"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-sa-D6",
+   "title": "Two spin-1 particles: total spin and the singlet (FS24 Q3 (e)-(g))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+    "where": "Aufgabe 3 (e)-(g), 12 pt"
+   },
+   "goal": "Find the possible $(\\vec S_A+\\vec S_B)^2$, show $|1,1\\rangle_A|1,1\\rangle_B$ has $2(2+1)\\hbar^2$, and find all total-spin-zero states.",
+   "given": [
+    "$\\vec S^2=\\vec S_A^2+\\vec S_B^2+2S_{Az}S_{Bz}+S_{A+}S_{B-}+S_{A-}S_{B+}$",
+    "$D_1\\otimes D_1=D_2\\oplus D_1\\oplus D_0$"
+   ],
+   "steps": [
+    {
+     "prompt": "(e) Possible values of $\\vec S^2$.",
+     "reveal": "$\\hbar^2\\sigma(\\sigma+1)$ with $\\sigma=0,1,2$: $0,2\\hbar^2,6\\hbar^2$."
+    },
+    {
+     "prompt": "(f) Apply $\\vec S^2$ to $|1,1\\rangle_A|1,1\\rangle_B$.",
+     "reveal": "$S_{A+}$ annihilates $|1,1\\rangle_A$ and $S_{B+}$ too; $S_{A+}S_{B-}$ gives zero (A is raised beyond the top); $S_{A-}S_{B+}$ gives zero. Remaining: $(2+2+2\\cdot1\\cdot1)\\hbar^2=6\\hbar^2=2(2+1)\\hbar^2$."
+    },
+    {
+     "prompt": "(g) Find all states with $\\vec S^2=0$ in the $S_{Az},S_{Bz}$ basis.",
+     "reveal": "$S_z=0$ so $m_A=-m_B$: $\\psi=a|1;-1\\rangle+b|0;0\\rangle+c|-1;1\\rangle$. Require $S_+\\psi=0$: $a=c=-b$. Unique solution $\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$ (up to a phase)."
+    },
+    {
+     "prompt": "(h) Cross-check the count.",
+     "reveal": "Only one $\\sigma=0$ multiplet of dimension 1 appears in $9=5+3+1$: the answer must be a single state."
+    }
+   ],
+   "keyPoints": [
+    "$\\sigma(\\sigma+1)\\hbar^2$ with $\\sigma=0,1,2$",
+    "the top state is annihilated by the raising terms",
+    "$\\sigma=0$ needs $S_+\\psi=0$ and $S_z\\psi=0$",
+    "one singlet in $1\\otimes1$"
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 60,
+   "id": "qm-sa-c1",
+   "title": "Spectrum of $\\vec S_1\\cdot\\vec S_2$ for two spin-$s$ (HS25 Q4 (i)-(ii))",
+   "problem": "Two spin-$s$ particles with $H=\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$. Find the eigenvalues and degeneracies. Source: HS25 Q4 (i)-(ii).",
+   "symbols": [
+    [
+     "$\\sigma$",
+     "total spin quantum number"
+    ],
+    [
+     "$s$",
+     "spin of each particle"
+    ],
+    [
+     "$\\omega$",
+     "coupling frequency"
+    ],
+    [
+     "$\\vec S=\\vec S_1+\\vec S_2$",
+     "total spin operator"
+    ]
+   ],
+   "vars": {
+    "s": 1,
+    "omega": 1,
+    "hbar": 1
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$\\vec S^2=\\vec S_1^2+\\vec S_2^2+2\\vec S_1\\cdot\\vec S_2$, so $H$ is a function of $\\vec S^2$, diagonal in $|\\sigma,m\\rangle$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which values of $\\sigma$ occur in $D_s\\otimes D_s$ and how often?",
+     "options": [
+      "$\\sigma=s$ only",
+      "$\\sigma=0,\\frac12,1,\\dots,2s$",
+      "$\\sigma=2s$ only, since the state is symmetric",
+      "$\\sigma=0,1,\\dots,2s$, each exactly once"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "That ignores the possibility of other total spins.",
+      "1": "$\\sigma$ is an integer for two equal spins ($m=m_1+m_2$, steps of 1).",
+      "2": "All $\\sigma$ occur, alternating symmetric/antisymmetric under exchange."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type the eigenvalue of $\\vec S_1\\cdot\\vec S_2/\\hbar^2$ (symbols <code>sigma</code>, <code>s</code>).",
+     "answer": "(sigma*(sigma+1)-2*s*(s+1))/2",
+     "symbols": {
+      "sigma": [
+       0,
+       4
+      ],
+      "s": [
+       0.5,
+       3
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "\\frac{\\vec S_1\\cdot\\vec S_2}{\\hbar^2}=\\frac12\\big[\\sigma(\\sigma+1)-2s(s+1)\\big]",
+     "hint": "$\\vec S_1\\cdot\\vec S_2=\\frac12(\\vec S^2-\\vec S_1^2-\\vec S_2^2)$ with $\\vec S_i^2=s(s+1)\\hbar^2$.",
+     "wrong": [
+      "(sigma*(sigma+1)-s*(s+1))/2",
+      "sigma*(sigma+1)-2*s*(s+1)",
+      "(sigma*(sigma+1)+2*s*(s+1))/2"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type the degeneracy of level $\\sigma$ (symbol <code>sigma</code>).",
+     "answer": "2*sigma+1",
+     "symbols": {
+      "sigma": [
+       0,
+       4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy"
+     ],
+     "unit": "dimensionless",
+     "latex": "g_\\sigma=2\\sigma+1",
+     "hint": "Each multiplet $D_\\sigma$ has $m=-\\sigma,\\dots,\\sigma$.",
+     "wrong": [
+      "2*sigma",
+      "sigma+1",
+      "(2*sigma+1)**2"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "Check: the trace of $\\vec S_1\\cdot\\vec S_2$ over the whole space for $s=1$",
+     "options": [
+      "$5\\cdot2+3\\cdot1+0$",
+      "$9$",
+      "$5\\cdot1+3\\cdot(-1)+1\\cdot(-2)=0$ in units $\\hbar^2$, as it must be since $\\mathrm{tr}\\,S_{1i}=0$",
+      "$-9$"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "That uses $\\sigma(\\sigma+1)/2$ without the offset.",
+      "1": "That is the dimension of the space.",
+      "3": "The trace of a product of traceless operators on different factors vanishes."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: for $s=1$ the gap $E_{\\sigma=2}-E_{\\sigma=0}$ in units of $\\hbar\\omega$.",
+     "answer": "omega*hbar*((6-4)/2-(0-4)/2)",
+     "unit": "ħω",
+     "units": [
+      "ħω",
+      "eV",
+      "J"
+     ],
+     "tol": 0.01,
+     "hint": "$1-(-2)=3$ in units of $\\hbar\\omega$: the beat frequency of the HS25 evolution.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 70,
+   "id": "qm-sa-c2",
+   "title": "Time evolution and measurement probability (HS25 Q4 (iv)-(v))",
+   "problem": "Two spin-1 particles with $H=\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$ start in $|0;0\\rangle$. Find $P(S_{1z}=S_{2z}=0)$ at time $t$. Source: HS25 Q4 (iv)-(v).",
+   "symbols": [
+    [
+     "$|\\sigma,m\\rangle$",
+     "eigenstates of $H$"
+    ],
+    [
+     "$E_\\sigma$",
+     "eigenvalue $\\frac{\\hbar\\omega}{2}[\\sigma(\\sigma+1)-4]$"
+    ],
+    [
+     "$P$",
+     "probability of $|0;0\\rangle$"
+    ],
+    [
+     "$\\omega t$",
+     "dimensionless time"
+    ]
+   ],
+   "vars": {
+    "omega": 1,
+    "t": 1.0471975512
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Expand in $|\\sigma,0\\rangle$ with $\\sigma=2,0$, attach phases, project on $|0;0\\rangle$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which energy eigenstates does $|0;0\\rangle$ contain?",
+     "options": [
+      "$|2,0\\rangle$ only",
+      "$|2,0\\rangle$ and $|0,0\\rangle$ (symmetric states), with weights $\\frac23$ and $\\frac13$",
+      "all three $|\\sigma,0\\rangle$",
+      "$|2,0\\rangle$ and $|1,0\\rangle$"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "$|0;0\\rangle$ has overlap $\\langle0,0|0;0\\rangle=-1/\\sqrt3$.",
+      "2": "$|1,0\\rangle$ is antisymmetric: $\\langle1,0|0;0\\rangle=0$.",
+      "3": "The singlet contributes, the triplet is orthogonal."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type the amplitude of $|0;0\\rangle$ up to the overall phase $e^{-i\\omega t}$: $|\\langle0;0|\\psi\\rangle|^2$ (symbols <code>omega</code>, <code>t</code>).",
+     "answer": "(5+4*cos(3*omega*t))/9",
+     "symbols": {
+      "omega": [
+       0.5,
+       2
+      ],
+      "t": [
+       0.2,
+       3
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "time"
+     ],
+     "unit": "dimensionless",
+     "latex": "P=\\frac{5+4\\cos3\\omega t}{9}",
+     "hint": "$|\\frac{2+e^{3i\\omega t}}3|^2$ with $\\frac23e^{-i\\omega t}+\\frac13e^{2i\\omega t}$ as amplitude.",
+     "wrong": [
+      "(5+4*cos(omega*t))/9",
+      "(1+cos(3*omega*t))/2",
+      "(4+cos(3*omega*t))/5"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $P(1;-1)+P(-1;1)$ (symbols <code>omega</code>, <code>t</code>).",
+     "answer": "(4-4*cos(3*omega*t))/9",
+     "symbols": {
+      "omega": [
+       0.5,
+       2
+      ],
+      "t": [
+       0.2,
+       3
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "time"
+     ],
+     "unit": "dimensionless",
+     "latex": "P_\\pm=\\frac{4-4\\cos3\\omega t}{9}",
+     "hint": "Each amplitude has $|1-e^{3i\\omega t}|^2/9=(2-2\\cos3\\omega t)/9$. The sum with $P(0;0)$ is 1.",
+     "wrong": [
+      "(5-4*cos(3*omega*t))/9",
+      "(2-2*cos(3*omega*t))/9",
+      "1-(5-4*cos(3*omega*t))/9"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "What is conserved during the motion?",
+     "options": [
+      "total $S_z=0$ (the dynamics stays in the 3-dimensional $m=0$ sector) and total probability",
+      "$S_{1z}$ and $S_{2z}$ separately",
+      "nothing: the state is not stationary",
+      "only $\\vec S_1^2$"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "$S_{1+}S_{2-}+S_{1-}S_{2+}$ in $H$ exchanges $m_1$ and $m_2$.",
+      "2": "$S_z$, $\\vec S^2$ and the energy are conserved.",
+      "3": "That is conserved, but it is trivial (equals $2\\hbar^2$ always); $S_z$ is the useful one."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $P$ at $\\omega t=\\pi/3$.",
+     "answer": "(5+4*cos(3*omega*t))/9",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "ħω",
+      "eV"
+     ],
+     "tol": 0.01,
+     "hint": "$3\\omega t=\\pi$: $(5-4)/9=0.111$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 60,
+   "id": "qm-sa-c3",
+   "title": "Clebsch-Gordan coefficients for $l\\otimes\\frac12$ (sheet 12 Q3)",
+   "problem": "An electron has orbital angular momentum $l$ and spin $\\frac12$. Find the probability to find spin up in $|l+\\frac12,m\\rangle$. Source: sheet 12 Q3.",
+   "symbols": [
+    [
+     "$l$",
+     "orbital angular momentum"
+    ],
+    [
+     "$m$",
+     "eigenvalue of $J_z/\\hbar$"
+    ],
+    [
+     "$|l+\\frac12,m\\rangle$",
+     "state of the upper multiplet"
+    ],
+    [
+     "$P_\\uparrow$",
+     "probability for spin up"
+    ]
+   ],
+   "vars": {
+    "l": 2,
+    "m": 1.5
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Coefficients from the lowering operator recursion; the weights are $\\frac{l\\pm m+1/2}{2l+1}$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "How is the recursion for $\\alpha_m$ obtained?",
+     "options": [
+      "apply $J_+$ to the lowest state only",
+      "diagonalise $\\vec L\\cdot\\vec S$ in the product basis",
+      "use the orthogonality with $|l-\\frac12,m\\rangle$ only",
+      "apply $J_-=L_-+S_-$ to $|l+\\frac12,m\\rangle$ and compare the coefficient of $|m-\\frac32\\rangle|\\!\\uparrow\\rangle$ with $J_-|j,m\\rangle=\\hbar\\sqrt{(j+m)(j-m+1)}|j,m-1\\rangle$"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "Either direction works, but you must start from a state you know: the top state is $|l\\rangle|\\!\\uparrow\\rangle$, so lowering.",
+      "1": "This also works but is slower and gives the eigenvalue, not the recursion.",
+      "2": "Orthogonality gives the lower multiplet once the upper one is known."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type $P_\\uparrow=|\\langle m-\\frac12,\\uparrow|l+\\frac12,m\\rangle|^2$ (symbols <code>l</code>, <code>m</code>).",
+     "answer": "(l+m+0.5)/(2*l+1)",
+     "symbols": {
+      "l": [
+       1,
+       4
+      ],
+      "m": [
+       -1,
+       1
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "P_\\uparrow=\\frac{l+m+\\frac12}{2l+1}",
+     "hint": "Sheet 12 Q3 eq. (7): the weight of the spin-up component with $m_l=m-\\frac12$.",
+     "wrong": [
+      "(l-m+0.5)/(2*l+1)",
+      "(l+m)/(2*l+1)",
+      "(l+m+0.5)/(2*l)"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $P_\\downarrow$.",
+     "answer": "(l-m+0.5)/(2*l+1)",
+     "symbols": {
+      "l": [
+       1,
+       4
+      ],
+      "m": [
+       -1,
+       1
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy"
+     ],
+     "unit": "dimensionless",
+     "latex": "P_\\downarrow=\\frac{l-m+\\frac12}{2l+1}",
+     "hint": "The two weights add to one: $P_\\uparrow+P_\\downarrow=\\frac{2l+1}{2l+1}=1$.",
+     "wrong": [
+      "(l+m+0.5)/(2*l+1)",
+      "(l-m)/(2*l+1)",
+      "(l-m+0.5)/(2*l)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "Check the top state $m=l+\\frac12$.",
+     "options": [
+      "$P_\\uparrow=\\frac12$",
+      "$P_\\uparrow=0$",
+      "$P_\\uparrow=1$: the state is $|l\\rangle|\\!\\uparrow\\rangle$ since $m_l=l$ and no spin-down component can have $m_l=l+1$",
+      "$P_\\uparrow=\\frac{2l}{2l+1}$"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "$m_l=l+1$ does not exist, so no spin-down component.",
+      "1": "The unique state with $m=l+\\frac12$ is $|l\\rangle|\\!\\uparrow\\rangle$.",
+      "3": "$\\frac{l+l+\\frac12+\\frac12}{2l+1}=1$."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $l=2$, $m=\\frac32$: $P_\\uparrow$.",
+     "answer": "(l+m+0.5)/(2*l+1)",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "ħ"
+     ],
+     "tol": 0.01,
+     "hint": "Insert $l=2$, $m=\\frac32$: $(2+1.5+0.5)/5=4/5=0.8$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-sa-b1",
+   "title": "Spin-1 addition (HS25 Q4)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+    "where": "Question 4 [Spin-1 addition, 21 points]"
+   },
+   "minutes": 42,
+   "instructions": "Solve on paper under the timer (2 min per point). Then enter the numbers.",
+   "statement": [
+    "We consider two spin-$s$ particles with spin operators $\\vec S_1,\\vec S_2$. The state space of each individual particle is described by a $D_s$ representation of su(2), $D_s=\\mathrm{span}\\{|s,m\\rangle\\,|\\,m=-s,\\dots,s\\}$, with $\\hbar m$ being the eigenvalue of the $z$-component of $\\vec S_i$ on the state $|s,m\\rangle$. The particles are coupled by the Hamiltonian $H=\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$.",
+    "(i) Let $\\vec S=\\vec S_1+\\vec S_2$ be the total spin. What are the allowed eigenvalues of $\\vec S^2$ and $S_z$? [3 points]",
+    "(ii) Find the eigenvalues of the Hamiltonian and their degeneracy. [3 points] Hint: Write $\\vec S_1\\cdot\\vec S_2$ in terms of $\\vec S^2,\\vec S_1^2,\\vec S_2^2$.",
+    "From now on we fix the spin of the individual particle to be $s=1$. The tensor product of two spin-1 representations decomposes into $D_1\\otimes D_1\\cong D_0\\oplus D_1\\oplus D_2$. We denote the tensor product basis of $D_1\\otimes D_1$ by $|m_1;m_2\\rangle:=|1,m_1\\rangle\\otimes|1,m_2\\rangle$, and the states in $D_\\sigma$, $\\sigma=0,1,2$, on the right-hand side by $|\\sigma,m\\rangle$.",
+    "(iii) Find the highest-weight states of the $D_\\sigma$ representations on the right-hand side of eq. (25) in the tensor product basis $|m_1;m_2\\rangle$. [5 points] Hint: On a state $|\\sigma,m\\rangle$ in a spin-$\\sigma$ representation $D_\\sigma$, the raising and lowering operators act as $S_\\pm|\\sigma,m\\rangle=\\hbar\\sqrt{\\sigma(\\sigma+1)-m(m\\pm1)}\\,|\\sigma,m\\pm1\\rangle$.",
+    "(iv) At time $t=0$, the system is in the state $|\\psi(t=0)\\rangle=|0;0\\rangle=|1,0\\rangle\\otimes|1,0\\rangle$. Show that the state $|\\psi(t)\\rangle$ at time $t$ is given by $|\\psi(t)\\rangle=\\frac{e^{-i\\omega t}}3\\Big[(1-e^{3i\\omega t})|1;-1\\rangle+(1-e^{3i\\omega t})|-1;1\\rangle+(2+e^{3i\\omega t})|0;0\\rangle\\Big]$. [7 points]",
+    "(v) At time $t$, what is the probability to measure $\\langle S_{1,z}\\rangle=0$ and $\\langle S_{2,z}\\rangle=0$? [3 points]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "Emax",
+     "prompt": "(ii) Highest energy for $s=1$ in units of $\\hbar\\omega$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "Emin",
+     "prompt": "(ii) Lowest energy for $s=1$ in units of $\\hbar\\omega$ (signed).",
+     "answer": "-2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "deg2",
+     "prompt": "(ii) Degeneracy of the highest level ($\\sigma=2$).",
+     "answer": "5",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "P1",
+     "prompt": "(v) $P$ at $\\omega t=\\pi/3$.",
+     "answer": "1/9",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "P2",
+     "prompt": "(v) $P$ at $\\omega t=2\\pi/9$ ($3\\omega t=2\\pi/3$).",
+     "answer": "(5+4*cos(2*pi/3))/9",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $\\vec S^2=\\hbar^2\\sigma(\\sigma+1)$, $\\sigma=0,\\dots,2s$; $S_z=\\hbar m$, $|m|\\le\\sigma$; dimension check $(2s+1)^2=\\sum(2\\sigma+1)$",
+    "(ii) $E_\\sigma=\\frac{\\hbar\\omega}2[\\sigma(\\sigma+1)-2s(s+1)]$ with degeneracy $2\\sigma+1$; $s=1$: $\\hbar\\omega(5),-\\hbar\\omega(3),-2\\hbar\\omega(1)$",
+    "(iii) $|2,2\\rangle=|1;1\\rangle$, $|1,1\\rangle=\\frac1{\\sqrt2}(|1;0\\rangle-|0;1\\rangle)$, $|0,0\\rangle=\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$ from $S_+\\psi=0$",
+    "(iv) $|0;0\\rangle=\\frac2{\\sqrt6}|2,0\\rangle-\\frac1{\\sqrt3}|0,0\\rangle$ with phases $e^{-i\\omega t}$ and $e^{2i\\omega t}$; project back on product states",
+    "(v) $P=\\frac{5+4\\cos3\\omega t}9$"
+   ],
+   "requires": "qm-sa-c2"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-sa-b2",
+   "title": "Spin systems (FS24 Q3, translated)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+    "where": "Aufgabe 3 [Spin-Systeme, 25 Punkte] (German original; statement translated)"
+   },
+   "minutes": 50,
+   "instructions": "Solve on paper under the timer (2 min per point). The statement below is a translation of the German exam text.",
+   "statement": [
+    "First consider a spin-$\\frac12$ particle whose spin degree of freedom is described by the state $|\\psi\\rangle=\\frac1{\\sqrt2}(|\\!\\uparrow\\rangle+|\\!\\downarrow\\rangle)$, where $|\\!\\uparrow\\rangle$ is the eigenstate of $\\hat S_z$ with eigenvalue $\\frac\\hbar2$ and $|\\!\\downarrow\\rangle$ the eigenstate with eigenvalue $-\\frac\\hbar2$.",
+    "(a) What are the possible outcomes if the angular momentum of this particle is measured along the $z$-direction $\\vec e_z$? With what probability do they occur and what is the expectation value? [2]",
+    "In the following $O(\\vec n,\\theta)\\in SO(3)$ denotes a rotation by the angle $\\theta$ about an axis in direction $\\vec n$ ($|\\vec n|^2=1$). You may use $e^{-i\\frac\\theta2\\vec n\\cdot\\vec\\sigma}=\\cos\\frac\\theta2\\,\\mathrm{id}-i\\sin\\frac\\theta2\\,\\vec n\\cdot\\vec\\sigma$, where $\\vec n\\cdot\\vec\\sigma=n_x\\sigma_x+n_y\\sigma_y+n_z\\sigma_z$ and $\\sigma_{x,y,z}$ are the Pauli matrices. An experimenter Alice first applies the rotation $O(\\vec n,\\theta)$ to the particle and then measures the spin with a device along $\\vec e_z$. Another experimenter Bob measures the spin of the unrotated particle directly with the device rotated in the opposite direction, i.e. along $O(\\vec n,-\\theta)\\vec e_z$.",
+    "(b) Show that, independent of the initial state of the spin particle, the probabilities of the possible measurement results of Alice and Bob are equal. [6]",
+    "Now only consider Bob's experiment, in which he measures the spin of the particle described by $|\\psi\\rangle$ above along the axis $O(\\vec n,-\\theta)\\vec e_z$. (c) With what probability do the possible results occur? [4] (d) How must the measurement axis be chosen so that the expectation value is $\\frac\\hbar2$? [1]",
+    "Now consider two spin-1 particles $A$ and $B$ instead of a single spin-$\\frac12$ particle. (e) Which values can the total angular momentum $(\\vec S_A+\\vec S_B)^2$ take? [2] (f) Let the state of the total system be $|j=1,m=1\\rangle_A\\otimes|j=1,m=1\\rangle_B$. Show that the total angular momentum $(\\vec S_A+\\vec S_B)^2$ has the value $2(2+1)\\hbar^2$. [4] (g) Find all states for which the total angular momentum is zero. Give these states in a basis in which $\\hat S_{A,z}$ and $\\hat S_{B,z}$ are diagonal. [6]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "pa",
+     "prompt": "(a) Probability of $+\\frac\\hbar2$.",
+     "answer": "1/2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "S2max",
+     "prompt": "(e) Largest value of $(\\vec S_A+\\vec S_B)^2$ in units of $\\hbar^2$.",
+     "answer": "6",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "S2f",
+     "prompt": "(f) $(\\vec S_A+\\vec S_B)^2$ in units of $\\hbar^2$.",
+     "answer": "2*(2+1)",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "nzero",
+     "prompt": "(g) Number of states with total angular momentum zero.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "coef",
+     "prompt": "(g) Absolute value of the coefficient of $|0;0\\rangle$ in the singlet.",
+     "answer": "1/sqrt(3)",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(a) $P(\\pm)=\\frac12$, $\\langle S_z\\rangle=0$",
+    "(b) Alice: $\\langle\\psi|U^\\dagger P_\\pm(\\vec e_z)U|\\psi\\rangle$; $U^\\dagger(\\vec e_z\\cdot\\vec\\sigma)U=(R(\\vec n,-\\theta)\\vec e_z)\\cdot\\vec\\sigma$: this is Bob's projector",
+    "(c) $P(\\pm)=\\frac12(1\\pm\\vec e'\\cdot\\hat x)$ with $\\vec e'=O(\\vec n,-\\theta)\\vec e_z$ because $|\\psi\\rangle=|+x\\rangle$; (d) $\\vec e'=\\hat x$",
+    "(e) $0,2\\hbar^2,6\\hbar^2$; (f) $\\vec S^2=\\vec S_A^2+\\vec S_B^2+2S_{Az}S_{Bz}+S_{A+}S_{B-}+S_{A-}S_{B+}$, the last two terms annihilate the top state, $(2+2+2)\\hbar^2=6\\hbar^2$",
+    "(g) $\\sigma=0$: $S_+\\psi=0$ in the $m=0$ sector: $\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$, unique"
+   ],
+   "requires": "qm-sa-c1"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-sa-b3",
+   "title": "Clebsch-Gordan coefficients and Stern-Gerlach (sheet 12 Q1 and Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+    "where": "Questions 1 and 3 [Stern-Gerlach experiment, Clebsch-Gordan coefficients]"
+   },
+   "minutes": 40,
+   "instructions": "Sheet problems used as a boss (exam style). Solve on paper under the timer, then enter the numbers.",
+   "statement": [
+    "Question 1 [Stern-Gerlach experiment]: In the Stern-Gerlach experiment, (electrically neutral) particles are shot through an inhomogeneous magnetic field. A particle is deflected up- or downwards depending on its intrinsic angular momentum, its spin. Finally, the path the particle has taken is measured by recording its incidence on a screen. Sketch the expected measurement results of Stern-Gerlach experiments carried out with molecules composed of (i) two spin-$\\frac12$ atoms, (ii) three spin-$\\frac12$ atoms.",
+    "Question 3 [Clebsch-Gordan coefficients] (i) Prove that the Clebsch-Gordan coefficients for the decomposition of the tensor product of spin $l$ and spin $\\frac12$ to spin $l+\\frac12$ are $\\langle l,\\tfrac12,m\\mp\\tfrac12,\\pm\\tfrac12|l,\\tfrac12,l+\\tfrac12,m\\rangle=\\sqrt{\\frac{l\\pm m+\\frac12}{2l+1}}$. Hint: First focus on the $m_2=\\frac12$ coefficients. Using one of the recursion relations from the lecture show that $\\langle l,\\tfrac12,m-\\tfrac32,\\tfrac12|l,\\tfrac12,l+\\tfrac12,m-1\\rangle=\\sqrt{\\frac{l+m-\\frac12}{l+m+\\frac12}}\\langle l,\\tfrac12,m-\\tfrac12,\\tfrac12|l,\\tfrac12,l+\\tfrac12,m\\rangle$. Identify the state of highest spin, then use this relation to find all the $m_2=\\frac12$ coefficients. To find the $m_2=-\\frac12$ coefficients, consider the other recursion relation from the lecture.",
+    "(ii) An electron in the hydrogen atom is in an orbital angular momentum state with $l=1$. Find the eigenstates of the total (orbital and spin) angular momentum $|j,j_z\\rangle$ in $D_{3/2}$ in terms of those labelled by $|m,s\\rangle$, where $m$ and $s$ are the $z$-components of the orbital and spin angular momentum operators, respectively.",
+    "Question 3 of sheet 11: Consider two irreducible representations $D_j$ of su(2) with spins $j=\\frac12$ and $j=1$. Write their tensor product $D_{1/2}\\otimes D_1$ as a sum of irreducible representations."
+   ],
+   "finalAnswers": [
+    {
+     "id": "beams2",
+     "prompt": "(Q1 i) Number of beams for a molecule of 2 spin-$\\frac12$ atoms.",
+     "answer": "3",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "beams3",
+     "prompt": "(Q1 ii) Number of beams for 3 atoms.",
+     "answer": "4",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "pup",
+     "prompt": "(Q3 ii) $P(\\text{spin up})$ in $|\\frac32,\\frac12\\rangle$, $l=1$.",
+     "answer": "2/3",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "pdn",
+     "prompt": "(Q3 ii) $P(\\text{spin down})$ in $|\\frac32,\\frac12\\rangle$.",
+     "answer": "1/3",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "dim",
+     "prompt": "Dimension check $D_{1/2}\\otimes D_1$: dimension of the $D_{1/2}$ summand plus the $D_{3/2}$ summand.",
+     "answer": "2+4",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "Q1: two atoms: $D_1\\oplus D_0$, beams $m=1,0,-1$ with $1:2:1$; three atoms: $D_{3/2}\\oplus2D_{1/2}$, four beams $1:3:3:1$",
+    "Q3 (i): $|l+\\frac12,l+\\frac12\\rangle=|l\\rangle|\\!\\uparrow\\rangle$; lower with $J_-=L_-+S_-$; recursion $\\alpha_{m-1}=\\alpha_m\\sqrt{\\frac{l+m-1/2}{l+m+1/2}}$; normalisation gives $\\sqrt{(l\\pm m+\\frac12)/(2l+1)}$",
+    "Q3 (ii): $|\\frac32,\\frac32\\rangle=|1,\\uparrow\\rangle$, $|\\frac32,\\frac12\\rangle=\\sqrt{\\frac23}|0,\\uparrow\\rangle+\\sqrt{\\frac13}|1,\\downarrow\\rangle$, $|\\frac32,-\\frac12\\rangle=\\sqrt{\\frac13}|-1,\\uparrow\\rangle+\\sqrt{\\frac23}|0,\\downarrow\\rangle$, $|\\frac32,-\\frac32\\rangle=|-1,\\downarrow\\rangle$",
+    "Sheet 11 Q3: $D_{1/2}\\otimes D_1=D_{3/2}\\oplus D_{1/2}$, $6=4+2$"
+   ],
+   "requires": "qm-sa-c3"
+  }
+ ]
+}

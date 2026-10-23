@@ -1,0 +1,397 @@
+{
+ "ss-bon-b1": {
+  "start": [
+   "Which interaction acts between neutral, spherically symmetric atoms, and which two competing terms fix an equilibrium distance? What does the crystal energy then become as a sum over neighbours?",
+   "Write down $U(R)$ for one pair, find its minimum from $dU/dR=0$, then sum over neighbours (fcc: 12 nearest neighbours; NaCl: Madelung sum) to get energy per atom or per ion pair."
+  ],
+  "parts": {
+   "Rmin": [
+    "At the equilibrium distance, what must the force between the two atoms be, and what does that say about the derivative of $U(R)$?",
+    "Use $dU/dR=0$ for $U=4U_0[(\\sigma/R)^{12}-(\\sigma/R)^6]$. Both terms are powers of $\\sigma/R$, so you can solve for $(R/\\sigma)^6$.",
+    "Differentiating gives $12\\,\\sigma^{12}/R^{13}=6\\,\\sigma^6/R^7$ up to the common prefactor. Solve for $R^6$ in terms of $\\sigma^6$, take the sixth root, then insert $\\sigma$ for krypton."
+   ],
+   "Ecoh": [
+    "Each atom in fcc has how many nearest neighbours, and how many atoms share each bond when you count energy per atom?",
+    "Cohesive energy per atom is $\\frac{z}{2}\\,U(R_{\\min})$ with $z$ the coordination number. What is $U(R_{\\min})$ in terms of $U_0$?",
+    "Use $z=12$, so $E_{coh}=6\\,|U(R_{\\min})|$ with $|U(R_{\\min})|=U_0$. Convert $U_0/k_B$ in K to meV with $k_B$ before inserting."
+   ],
+   "B": [
+    "How is the bulk modulus defined through the total energy and the volume, and what volume does one fcc atom occupy in terms of the nearest-neighbour distance $R$?",
+    "Use $B=V\\,\\partial^2E/\\partial V^2$ at equilibrium. Write the energy per atom as $E(R)=6\\,U(R)$ and the atomic volume as $v=R^3/\\sqrt2$, then convert $\\partial^2/\\partial v^2$ to a derivative in $R$.",
+    "At the minimum, $B=v\\,\\frac{d^2E}{dv^2}$ and $dE/dR=0$ so only the second derivative of $U$ survives. Evaluate $U''(R_{\\min})$ from the 12-6 form (it is proportional to $U_0/\\sigma^2$), use $v=R_{\\min}^3/\\sqrt2$, and divide by the volume of one atom."
+   ],
+   "UM": [
+    "Which two ingredients give the Coulomb energy of an ion pair in a crystal: the nearest-neighbour term and a geometric sum over all other ions?",
+    "The Madelung energy per ion pair is $-\\alpha\\,e^2/(4\\pi\\varepsilon_0R_0)$ with the Madelung constant $\\alpha$ of the structure.",
+    "Insert $\\alpha$ and $R_0$ in SI units: compute $e^2/(4\\pi\\varepsilon_0R_0)$ in joules, then divide by $e$ to get eV, and finally multiply by $\\alpha$. Mind the sign: the energy is negative."
+   ]
+  }
+ },
+ "ss-deg-b1": {
+  "start": [
+   "What do all three parts have in common: which quantity of the electron gas (density $n$) sets its energy scale, and what role does the Pauli principle play?",
+   "Start from counting states in $k$-space: $N=2\\cdot\\frac{4\\pi k_F^3/3}{(\\pi/L)^3/8}\\cdot\\frac{1}{8}$-type counting gives $k_F(n)$, then $\\epsilon_F=\\hbar^2k_F^2/2m$ and $E_{\\rm tot}$. Everything else follows by choosing $n$."
+  ],
+  "parts": {
+   "EFCu": [
+    "Which single parameter of the free electron gas determines $k_F$, and how is it related to the electron density?",
+    "Use $\\epsilon_F=\\frac{\\hbar^2}{2m}(3\\pi^2n)^{2/3}$ from part (a), with $m=m_e$.",
+    "Compute $3\\pi^2n$ for the given $n$, raise to the power $2/3$ to get $k_F^2$ in m$^{-2}$, multiply by $\\hbar^2/2m_e$ in SI units and convert joules to eV."
+   ],
+   "TF": [
+    "How is the Fermi temperature defined from the Fermi energy, and which constant connects an energy to a temperature?",
+    "Use $T_F=\\epsilon_F/k_B$ with the $\\epsilon_F$ you just computed.",
+    "Divide $\\epsilon_F$ in joules (not eV) by $k_B$. Is the result of order $10^4$ K or $10^2$ K? Compare with room temperature to see why the gas is degenerate."
+   ],
+   "PCu": [
+    "What does the formula $P=\\frac25 n\\epsilon_F$ say physically, and why is there a pressure at $T=0$?",
+    "Use $P=\\frac25n\\epsilon_F$ with $\\epsilon_F$ in joules and $n$ in m$^{-3}$; the result comes out in Pa.",
+    "Multiply $0.4\\cdot n\\cdot\\epsilon_F[\\mathrm J]$, then convert Pa to GPa by dividing by $10^9$. Check the order of magnitude against the bulk modulus of typical metals."
+   ],
+   "EFWD": [
+    "How do you get the electron number density from the mass density when $\\mu_e$ is the mean mass per electron in units of $m_H$?",
+    "Use $n_e=\\rho/(\\mu_e m_H)$ and then the same formula $\\epsilon_F=\\frac{\\hbar^2}{2m_e}(3\\pi^2n_e)^{2/3}$ as for copper.",
+    "Compute $n_e$ from $\\rho=10^9$ kg/m$^3$ and $\\mu_e=2$, insert in $\\epsilon_F$, convert to keV. Compare with $m_ec^2$: is the non-relativistic formula still justified?"
+   ],
+   "R": [
+    "What two energies compete in the energy balance $E=A/R^2-B/R$, and where does each come from?",
+    "Kinetic term: $A/R^2$ from $E_{kin}=\\frac35N\\epsilon_F$ with $n=3N/(4\\pi R^3)$. Gravity: $-B/R$ with $B=\\frac35GM^2$ for a uniform sphere. Minimise with $dE/dR=0$, so $R_0=2A/B$.",
+    "Write $N=M/(\\mu_em_H)$ and $E_{kin}=\\frac35N\\frac{\\hbar^2}{2m_e}\\big(\\frac{9\\pi N}{4}\\big)^{2/3}/R^2$ (since $3\\pi^2n=9\\pi N/4R^3$). Then $R_0=2A/B$ with $B=\\frac35GM^2$; convert to km. Note $R\\propto M^{-1/3}$."
+   ],
+   "MCh": [
+    "For ultra-relativistic electrons, how does $\\epsilon_F$ scale with $n$ and hence with $R$, and why does a stable radius then exist only at one special mass?",
+    "Use $\\epsilon_F=\\hbar ck_F$ so $E_{kin}=\\frac34N\\hbar c(9\\pi N/4)^{1/3}/R$, again $\\propto 1/R$. Set the coefficient of $1/R$ equal to zero: kinetic coefficient equals gravitational one $\\frac35GM^2$.",
+    "Solve $\\frac34N\\hbar c\\big(\\frac{9\\pi N}{4}\\big)^{1/3}=\\frac35GM^2$ with $N=M/(\\mu_em_H)$ for $M$: it gives $M^{2/3}\\propto(\\hbar c/G)/(\\mu_em_H)^{4/3}$. Hence $M\\propto\\mu_e^{-2}$; express in solar masses."
+   ]
+  }
+ },
+ "ss-dri-b1": {
+  "start": [
+   "Under isotropic compression of a simple cubic lattice, which quantity of the free-electron gas changes first and fixes all the others: the electron density, the lattice constant or the Debye temperature?",
+   "Write the quantities as functions of $n\\propto a^{-3}$ for free electrons: $k_F\\propto n^{1/3}$, $E_F\\propto k_F^2$, $\\nu(\\epsilon_F)\\propto k_F$, and treat each ratio as a power of $a_B/a_A=0.9$."
+  ],
+  "parts": {
+   "EF": [
+    "How does the electron density depend on the cell edge, and how does $E_F$ depend on the density for $E=\\hbar^2k^2/2m$?",
+    "Use $E_F=\\frac{\\hbar^2k_F^2}{2m}$ with $k_F=(3\\pi^2n)^{1/3}$ and $n=1/a^3$ (one atom, hence one valence electron per cell, assuming it contributes one).",
+    "So $E_F\\propto n^{2/3}\\propto a^{-2}$. Form $E_{FB}/E_{FA}=(a_A/a_B)^2$ with $a_B=0.9a_A$."
+   ],
+   "nu": [
+    "Is the density of states at $\\epsilon_F$ proportional to $k_F$, $k_F^2$ or $k_F^3$ for a 3D free electron gas, per unit volume?",
+    "Use $\\nu(\\epsilon)=\\frac{1}{2\\pi^2}\\big(\\frac{2m}{\\hbar^2}\\big)^{3/2}\\sqrt{\\epsilon}$ per volume, evaluated at $\\epsilon_F$. Then $\\nu(\\epsilon_F)\\propto\\sqrt{E_F}$.",
+    "Since $E_F\\propto a^{-2}$ from (a), $\\nu(\\epsilon_F)\\propto a^{-1}$. Form the ratio B over A with $a_B=0.9a_A$. (Equivalently $\\nu=3n/2E_F$.)"
+   ],
+   "cv": [
+    "Which proportionality does the electronic specific heat obey: how does $c_V$ depend on temperature and on the density of states at $\\epsilon_F$?",
+    "Use $c_V=\\frac{\\pi^2}{3}k_B^2T\\,\\nu(\\epsilon_F)$ with $\\nu$ per volume. The temperature is the same in A and B.",
+    "So the ratio $c_{V,B}/c_{V,A}$ equals the ratio of the densities of states per volume, which you found in (c)."
+   ],
+   "nuph": [
+    "For a Debye model with the same $\\Theta_D$ in both materials, how does the phonon density of states per volume depend on the sound velocity or on the density of modes?",
+    "Per unit volume, the number of modes is $3n_{\\rm atoms}$ and the cut-off frequency is fixed by $\\Theta_D$, so $\\int\\nu(\\omega)d\\omega=3/a^3$. In the Debye model $\\nu(\\omega)\\propto\\omega^2$ with a fixed cutoff.",
+    "With the same $\\omega_D$, $\\nu(\\omega)\\propto 1/a^3$ at every $\\omega$. Form the ratio B over A with $a_B=0.9a_A$."
+   ],
+   "rho": [
+    "The resistivity depends on the scattering rate $1/\\tau$ and on the carrier density. What happens to each when the atoms are pushed closer? Which scale with $a^{-3}$?",
+    "Use $\\rho=m/(ne^2\\tau)$ with $1/\\tau\\propto$ the phonon density (given). Express the phonon density and the electron density through $a$.",
+    "Both $n$ and $1/\\tau$ are proportional to $a^{-3}$ under the stated assumption. What does their ratio do to $\\rho_B/\\rho_A$?"
+   ],
+   "v": [
+    "How are sound velocity, $\\Delta\\omega/\\omega$ and the wavevector scale related: $v=\\omega/q$? How does $q$ at the zone boundary change with $a$?",
+    "Use $\\omega\\to\\omega(1-\\gamma\\Delta V/V)$ and $v=\\omega/q$ at a fixed fraction of the zone boundary, $q\\propto 1/a$, so $v_B/v_A=(\\omega_B/\\omega_A)(a_B/a_A)$.",
+    "Compute $\\Delta V/V=0.9^3-1$ (negative), then $\\omega_B/\\omega_A=1-\\gamma\\,\\Delta V/V$ and multiply by $a_B/a_A=0.9$."
+   ],
+   "Th": [
+    "What is the relation between the Debye temperature and the phonon frequencies (the Debye frequency)?",
+    "Use $k_B\\Theta_D=\\hbar\\omega_D$, so $\\Theta_D$ scales like the frequencies: $\\Theta_B/\\Theta_A=\\omega_B/\\omega_A=1-\\gamma\\Delta V/V$.",
+    "Evaluate $1-\\gamma\\Delta V/V$ with $\\gamma=2$ and $\\Delta V/V=0.9^3-1$ and multiply by $\\Theta_A=100$ K."
+   ],
+   "rhoi": [
+    "At $T\\gg\\Theta_D$ the phonon number is proportional to what, and does it depend on $\\Theta_D$ explicitly? How does $\\rho$ depend on $\\Theta_D^2$ then?",
+    "At $T\\gg\\Theta_D$ the phonon occupation per mode is $k_BT/\\hbar\\omega$, so with unchanged geometry factors $1/\\tau$ scales inversely with $\\Theta_D$. How does that change $\\rho$ in B relative to A?",
+    "The geometric factors cancel as in (f), leaving only the change of $\\Theta_D$. Use $\\Theta_B/\\Theta_A$ from (h) to form $\\rho_A/\\rho_B$, remembering that a higher $\\Theta_D$ means fewer thermal phonons."
+   ]
+  }
+ },
+ "ss-fer-b1": {
+  "start": [
+   "Near the zone boundary, which two plane-wave states are degenerate, and which Fourier component of the potential mixes them?",
+   "Use the central equation from (a): write it for $\\vec k_M$ and $\\vec k_M-\\vec G_2$ with $U_{\\vec G_2}$, and solve the resulting $2\\times2$ secular determinant."
+  ],
+  "parts": {
+   "E0": [
+    "What is the free-electron energy at the M point, given $|\\vec k_M|$ for $\\vec k_M=\\frac{\\pi}{a}(1,1)$?",
+    "Use $E^0=\\hbar^2k_M^2/2m$ with $k_M^2=2\\pi^2/a^2$.",
+    "Insert $\\hbar^2\\pi^2/(ma^2)$ with $a$ in metres and convert from joules to eV."
+   ],
+   "Ep": [
+    "Which matrix do you diagonalise for the two coupled states at $\\vec k_M$ and $\\vec k_M-\\vec G_2$, and what are its diagonal entries?",
+    "Determinant: $\\begin{vmatrix}E^0-E&U_{G_2}\\\\U_{G_2}&E^0-E\\end{vmatrix}=0$ with the same $E^0$ on both diagonals (why?) and $U_{G_2}$ from (b).",
+    "Solve for the two roots $E=E^0\\pm|U_{\\vec G_2}|$ where $U_{\\vec G_2}$ is the Fourier component from (b). The upper sign gives $E_+$; insert your value of $U_{\\vec G_2}$ in eV."
+   ],
+   "Em": [
+    "Same determinant as for $E_+$: which sign of the off-diagonal term gives the lower state?",
+    "$E=E^0\\pm U_{G_2}$ with $U_{G_2}$ the Fourier component of the potential at $\\vec G_2=\\frac{2\\pi}{a}(1,1)$.",
+    "Take the lower sign: $E_-=E^0-U_{G_2}$, with $E^0$ from the first part and $U_{G_2}$ in eV."
+   ],
+   "Eg": [
+    "How is the gap at the M point defined from the two energies you found?",
+    "$E_g=E_+-E_-$; what is it in terms of the Fourier component $U_{G_2}$?",
+    "The $E^0$ cancels in the difference, leaving a multiple of $U_{\\vec G_2}$ with factor 2 from the two signs."
+   ],
+   "kM": [
+    "What is the length of the vector $\\frac{\\pi}{a}(\\hat e_x+\\hat e_y)$?",
+    "Use the Pythagorean theorem for the two orthogonal components $\\pi/a$.",
+    "$|\\vec k_M|=\\frac{\\pi}{a}\\sqrt{1^2+1^2}$; insert $a$ in Å to get the result in Å$^{-1}$."
+   ]
+  }
+ },
+ "ss-lat-b1": {
+  "start": [
+   "Which object carries the information on both the lattice periodicity and the atom positions in a diffraction experiment, and which part of it depends only on the basis?",
+   "Identify the Bravais lattice first (what repeats?), then write the structure factor $S(\\vec G)=\\sum_j f_je^{i\\vec G\\cdot\\vec r_j}$ over the basis atoms in the cell."
+  ],
+  "parts": {
+   "nat": [
+    "Count how much of each atom sits inside one cube and ask whether the cube is primitive.",
+    "Corner atoms are shared by 8 cubes, face atoms by 2, the body-centre atom by 1. Sum per species.",
+    "Ba: $8\\cdot\\frac18$, Ti: one, O: $6\\cdot\\frac12$. Add all species together for the answer."
+   ],
+   "S110": [
+    "Which positions $\\vec r_j$ (in units of $a$) do the five atoms have, and what is $\\vec G\\cdot\\vec r_j$ for a (hkl) reflection?",
+    "Use $S(hkl)=f_{Ba}+f_{Ti}e^{i\\pi(h+k+l)}+f_O\\big[e^{i\\pi(h+k)}+e^{i\\pi(h+l)}+e^{i\\pi(k+l)}\\big]$ with $\\vec G\\cdot\\vec r=2\\pi(hx+ky+lz)$ and positions in units of $a$.",
+    "Insert $(h,k,l)=(1,1,0)$ and the given form factors; each exponential is $\\pm1$. Sum the three groups of terms."
+   ],
+   "S200": [
+    "Use the same general structure factor; what do the phase factors become when all indices are even?",
+    "$S=f_{Ba}+f_{Ti}(-1)^{h+k+l}+f_O\\big[(-1)^{h+k}+(-1)^{h+l}+(-1)^{k+l}\\big]$.",
+    "Insert $(2,0,0)$: each phase is $+1$, then add the form factors with $f_{Ba}=5f_O$ and $f_{Ti}=4f_O$."
+   ],
+   "Iratio": [
+    "How does the Bragg intensity depend on the structure factor, and do other factors (multiplicity, Lorentz) matter if the question says to ignore them?",
+    "Use $I\\propto|S(\\vec G)|^2$ and form the ratio of the two structure factors you found.",
+    "$I_{(200)}/I_{(110)}=\\big(S_{200}/S_{110}\\big)^2$, with both in units of $f_O$."
+   ],
+   "VBZ": [
+    "How is the volume of a Brillouin zone related to the volume of the reciprocal unit cell, and what is the reciprocal lattice here?",
+    "The lattice is simple cubic with constant $a$ so the reciprocal lattice is simple cubic with constant $2\\pi/a$; every BZ has the volume of a reciprocal primitive cell.",
+    "Cube the reciprocal constant $2\\pi/a$ with $a$ in Å to get the result in Å$^{-3}$."
+   ],
+   "th110": [
+    "Which condition relates wavelength, lattice plane spacing and angle for constructive reflection?",
+    "Use Bragg's law $2d\\sin\\theta=n\\lambda$ with $d_{110}=a/\\sqrt2$ and $n=1$.",
+    "Solve $\\theta=\\arcsin\\big(\\lambda/2d_{110}\\big)$ with $\\lambda=1.5406$ Å and convert to degrees."
+   ]
+  }
+ },
+ "ss-lat-b2": {
+  "start": [
+   "What do you have to ask first about a lattice picture: which translations map the crystal onto itself, and is the cell you are given the smallest one?",
+   "Find the lattice (all translation vectors), then the cell area $A$, then the reciprocal vectors $\\vec a^*,\\vec b^*$ from the formula given, and finally the structure factor of the basis for the neutron peaks."
+  ],
+  "parts": {
+   "A": [
+    "How many lattice points does the $a\\times b$ rectangle contain, counting the corner atoms and the centre atom as different species?",
+    "The two species differ, so the centre translation is not a symmetry. Compute the area of the cell spanned by $\\vec a,\\vec b$ as $|\\vec a\\times\\vec b|$.",
+    "Multiply the two edge lengths since they are perpendicular; insert $a$ and $b$ in Å."
+   ],
+   "AWS": [
+    "How does the area of the Wigner-Seitz cell relate to that of any primitive cell?",
+    "All primitive cells, including the WS cell, have the same area; use your result for $A$.",
+    "State it as equal to the primitive area from (b)."
+   ],
+   "ABZ": [
+    "How is the area of the first Brillouin zone related to the primitive cell in reciprocal space?",
+    "The BZ is the Wigner-Seitz cell of the reciprocal lattice, with area equal to $|\\vec a^*\\times\\vec b^*|$.",
+    "$A_{BZ}=(2\\pi)^2/A$ with $A$ the real-space area; insert it with $A$ in Å$^2$."
+   ],
+   "k": [
+    "For elastic scattering, how do $|\\vec k_i|$ and $|\\vec k_f|$ compare, and how is $k$ connected to the wavelength?",
+    "Use the relation $k=2\\pi/\\lambda$.",
+    "Insert $\\lambda=2.36$ Å to get $k$ in Å$^{-1}$."
+   ],
+   "th21": [
+    "Which momentum transfer $\\vec q$ corresponds to the $(h,k)$ peak, and what is its magnitude from $\\vec G=h\\vec a^*+k\\vec b^*$?",
+    "Bragg: $|\\vec G|=2k\\sin\\theta=4\\pi\\sin\\theta/\\lambda$ with $|\\vec G|^2=(2\\pi)^2\\big[(h/a)^2+(k/b)^2\\big]$ for the rectangular lattice.",
+    "Solve $\\sin\\theta=\\frac{\\lambda}{2}\\sqrt{(h/a)^2+(k/b)^2}$ for $(h,k)=(2,1)$ and take $\\arcsin$ (in degrees)."
+   ],
+   "th11": [
+    "Same as for $(2,1)$: which formula links $|\\vec G_{hk}|$ and $\\theta$?",
+    "$\\sin\\theta=\\frac{\\lambda}{2}\\sqrt{(h/a)^2+(k/b)^2}$, using the orthogonal reciprocal axes.",
+    "Insert $(h,k)=(1,1)$, $a=6$ Å, $b=4$ Å, $\\lambda=2.36$ Å and take $\\arcsin$."
+   ],
+   "tt21": [
+    "How does the angle between $\\vec k_i$ and $\\vec k_f$ relate to the Bragg angle $\\theta$?",
+    "The scattering angle is twice the Bragg angle: the angle between $\\vec k_i$ and $\\vec k_f$ is $2\\theta$.",
+    "Double the result of the $(2,1)$ Bragg angle."
+   ],
+   "Ij": [
+    "What are the coordinates of the two atoms in the basis, and what does the structure factor look like for a peak $(h,k)$?",
+    "$S(h,k)=f_2+f_1e^{i\\pi(h+k)}$ if the filled atom sits at the origin and the empty one at $(\\frac12,\\frac12)$; $I\\propto|S|^2$.",
+    "Evaluate $S$ for $(2,1)$ and $(1,1)$ with $f_1=2f_2$, giving phases $\\mp1$; then form $I_{(2,1)}/I_{(1,1)}$."
+   ],
+   "Ik": [
+    "With identical atoms, what happens to the structure factor when $h+k$ is odd or even?",
+    "$S=f(1+e^{i\\pi(h+k)})$, so $|S|^2$ is $4f^2$ for even $h+k$ and $0$ for odd.",
+    "Evaluate $S(1,1)$ with $f_1=f_2=f$ and take $|S|^2$ in units of $f_1^2$."
+   ],
+   "A1": [
+    "For identical atoms, is the centred rectangle still a primitive cell, i.e. how many lattice points does it contain?",
+    "The half-way translation to the centre atom is now a lattice vector, so the primitive cell holds one atom and has half the area of the $a\\times b$ rectangle.",
+    "Compute $A_1=ab/2$ with the given edge lengths."
+   ],
+   "ABZ1": [
+    "How does halving the real-space cell area change the area of the reciprocal cell?",
+    "Use $A_{BZ}=(2\\pi)^2/A_1$ with $A_1$ from (m).",
+    "Insert $A_1$ in Å$^2$ and compute $(2\\pi)^2/A_1$."
+   ]
+  }
+ },
+ "ss-lat-b3": {
+  "start": [
+   "Is the extra atom at the rectangle centre related to the corners by a translation of the crystal (same species at the same environment), and what does that say about the primitive cell?",
+   "Choose primitive vectors, compute the real-space area $A$, then $A_{BZ}=(2\\pi)^2/A$; for the second configuration, find the structure factor of the two-atom basis."
+  ],
+  "parts": {
+   "A1": [
+    "The centre atom is identical to the corner atoms. Which vector connects equivalent atoms, and how many atoms does the smallest cell contain?",
+    "Choose, e.g., $\\vec a$ and $\\vec d=\\frac12(\\vec a+\\vec b)$ as primitive vectors, and use $A=|\\vec a\\times\\vec d|$.",
+    "Because the primitive cell contains one atom, its area is half of the $a\\times b$ rectangle."
+   ],
+   "ABZ1": [
+    "How is the first Brillouin zone's area related to the real-space primitive cell area?",
+    "Use $A_{BZ}=(2\\pi)^2/A$ where $A$ is the primitive cell area from the first part.",
+    "Insert $A=ab/2$ in Å$^2$ and compute $(2\\pi)^2/A$."
+   ],
+   "A2": [
+    "After shifting the centre atom to $\\frac13(\\vec a+\\vec b)$, is $\\frac12(\\vec a+\\vec b)$ still a lattice translation?",
+    "The shifted atoms are no longer related to the corner atoms by the centring vector, so the lattice is primitive rectangular with a two-atom basis.",
+    "The primitive cell is spanned by $\\vec a$ and $\\vec b$; compute its area as the product of the edge lengths."
+   ],
+   "ABZ2": [
+    "Which formula links the area of the BZ to the primitive cell area, and which area applies now?",
+    "$A_{BZ}=(2\\pi)^2/A$ with $A$ from the second configuration.",
+    "Insert $A=ab$ in Å$^2$."
+   ],
+   "k": [
+    "How are the wave number and the wavelength related for the elastic neutrons?",
+    "$k=2\\pi/\\lambda$ and $|\\vec k_i|=|\\vec k_f|$ for elastic scattering.",
+    "Insert $\\lambda=2.36$ Å to get Å$^{-1}$."
+   ],
+   "th21": [
+    "How does the momentum transfer of the $(h,k)$ peak relate to the reciprocal lattice, and what does Bragg's law say about its length?",
+    "For orthogonal axes $|\\vec G|^2=(2\\pi)^2[(h/a)^2+(k/b)^2]$ and $|\\vec G|=4\\pi\\sin\\theta/\\lambda$ (rectangular lattice with edges $a$ and $b$).",
+    "Compute $\\sin\\theta=\\frac{\\lambda}{2}\\sqrt{(2/a)^2+(1/b)^2}$ and take $\\arcsin$ in degrees."
+   ],
+   "th11": [
+    "Which formula links the length of $\\vec G_{11}$ and the Bragg angle?",
+    "$\\sin\\theta=\\frac{\\lambda}{2}\\sqrt{(h/a)^2+(k/b)^2}$ for the rectangular lattice.",
+    "Insert $(1,1)$, the edges and $\\lambda$, then take $\\arcsin$."
+   ],
+   "tt21": [
+    "How are the scattering angle between $\\vec k_i$ and $\\vec k_f$ and the Bragg angle related?",
+    "The scattering angle is $2\\theta$.",
+    "Double the Bragg angle of the $(2,1)$ peak found previously."
+   ],
+   "Io": [
+    "For the second configuration, where are the two atoms of the basis, and what phase does the second one pick up for a peak $(h,k)$?",
+    "$S(h,k)=f_1\\big[1+e^{-2\\pi i(h+k)/3}\\big]$ since the second atom is at $\\frac13(\\vec a+\\vec b)$, and $I\\propto|S|^2=f_1^2\\big[2+2\\cos(2\\pi(h+k)/3)\\big]$.",
+    "Evaluate for $(2,1)$, where $h+k=3$, and for $(1,1)$, where $h+k=2$, and take the ratio of the two intensities."
+   ]
+  }
+ },
+ "ss-mag-b1": {
+  "start": [
+   "Which spin configuration minimises the Heisenberg energy for these signs of $J_1$ and $J_2$, and how does the Weiss temperature follow from the sum over neighbours?",
+   "Write the energy of one spin with its neighbours as $\\sum_\\delta J_\\delta\\,\\vec S\\cdot\\vec S_\\delta$ with $H=+\\sum JS_iS_j$ (note the sign convention), and use the mean-field result for $T_W$ in terms of $\\sum_\\delta J_\\delta$."
+  ],
+  "parts": {
+   "TWc": [
+    "In mean-field theory, how does $T_W$ depend on the sum of the couplings to all neighbours?",
+    "Use $T_W=-\\frac{S(S+1)}{3k_B}\\sum_\\delta J_\\delta=-(2J_1+4J_2)\\frac{S(S+1)}{3k_B}$ with 2 neighbours at $J_1$ and 4 at $J_2$.",
+    "Insert $J_1,J_2$ in meV, $S=3/2$; convert the energy from meV to joules before dividing by $k_B$. Is the sign positive for ferromagnetic couplings?"
+   ],
+   "TWe": [
+    "Which formula did you use for the ferromagnetic case, and what changes when $J_2$ has the opposite sign?",
+    "The same formula $T_W=-(2J_1+4J_2)S(S+1)/3k_B$, with the new sign of $J_2$ and the relative size of $2J_1$ and $4J_2$.",
+    "Evaluate $2J_1+4J_2$ first. Does the sign of the result indicate net ferromagnetic or antiferromagnetic coupling? Then multiply and convert to K."
+   ],
+   "E0": [
+    "In the configuration with ferromagnetic rows and antiparallel neighbouring rows, how many neighbours of each kind are parallel or antiparallel?",
+    "Per spin: the 2 row neighbours at $J_1$ are parallel ($+S^2$ each), the 4 diagonal neighbours at $J_2$ are antiparallel ($-S^2$ each). Each bond is shared by two spins.",
+    "Energy per spin $=\\frac12\\big[2J_1S^2-4J_2S^2\\big]$, which simplifies to the expression with $J_1S^2$ and $2J_2S^2$. Insert numbers in meV."
+   ],
+   "Hsat": [
+    "Which energy competes with the Zeeman energy when you tilt the spins toward the field, and what saturates the moment?",
+    "At saturation the Zeeman energy per spin must balance the exchange energy of the antiparallel bonds: $g\\mu_B\\mu_0H_{sat}S$-type term versus the $J_2$ coupling to 4 neighbours, with a factor 2 from the two-sublattice canting.",
+    "Compute $\\mu_0H_{sat}=2\\cdot4J_2S/(g\\mu_B)$ with $J_2$ converted from meV to joules; the result is in tesla. Compare with the printed key."
+   ]
+  }
+ },
+ "ss-pho-b1": {
+  "start": [
+   "How many degrees of freedom per cell exist and therefore how many branches, and which two combinations of the two displacement amplitudes do they correspond to?",
+   "Write Newton's equations for $M_1\\ddot\\rho_{i,1}$ and $M_2\\ddot\\rho_{i,2}$ with nearest-neighbour springs $k$, insert plane waves, and find the $2\\times2$ determinant in $\\omega^2$."
+  ],
+  "parts": {
+   "wac": [
+    "At the zone boundary, which sublattice moves in the acoustic mode, and what does that imply about the frequency?",
+    "From $\\omega^2=k\\big(\\frac1{M_1}+\\frac1{M_2}\\big)\\mp k\\sqrt{\\big(\\frac1{M_1}+\\frac1{M_2}\\big)^2-\\frac{4\\sin^2(qa/2)}{M_1M_2}}$ the lower root at $qa=\\pi$ is $2k/M_{\\rm heavy}$.",
+    "Insert $M_2=3M$ for the heavy atom: $\\omega^2=2k/M_2$ is fixed; express it in units of $k/M$ and take the square root."
+   ],
+   "wop": [
+    "At $q=\\pi/a$ the discriminant of the dispersion becomes a perfect square. Which mass appears in the upper root?",
+    "The upper root at $qa=\\pi$ is $\\omega^2=2k/M_{\\rm light}$.",
+    "Insert $M_1=M$ in units of $k/M$ and take the square root."
+   ],
+   "wop0": [
+    "At $q=0$, what combination of the two masses enters the optical branch (the centre-of-mass stays at rest)?",
+    "$\\omega_{opt}^2(0)=2k\\big(\\frac1{M_1}+\\frac1{M_2}\\big)=2k/\\mu$ with the reduced mass $\\mu$.",
+    "Insert $M_1=M$, $M_2=3M$ and write $\\omega^2$ in units of $k/M$, then take the square root."
+   ],
+   "ratio": [
+    "Which two frequencies do you divide, and what units cancel?",
+    "Use the results $\\omega_{opt}(0)^2=2k(1/M_1+1/M_2)$ and $\\omega_{ac}(\\pi/a)^2=2k/M_2$.",
+    "Form $\\omega^2_{opt}/\\omega^2_{ac}=(1/M_1+1/M_2)M_2$ with $M_2/M_1=3$ and take the square root."
+   ],
+   "vs": [
+    "The sound velocity is the slope of the acoustic branch at small $q$. How do you expand $\\sin^2(qa/2)$ in the dispersion for small $q$?",
+    "For small $q$: $\\omega^2\\approx\\frac{k\\,a^2q^2}{2(M_1+M_2)}$ (from expanding the lower root).",
+    "So $v=a\\sqrt{k/(2(M_1+M_2))}$; insert $M_1+M_2=4M$ and give it in units of $a\\sqrt{k/M}$."
+   ]
+  }
+ },
+ "ss-sem-b1": {
+  "start": [
+   "Which two features of the bands govern the carrier statistics at $k_BT\\ll E_G$: the band extrema and their curvature?",
+   "Expand $\\cos(ka)$ around each extremum to get the effective masses, then use the non-degenerate (Boltzmann) 1D density of states to compute $n_e$ and $n_h$ at the given $\\mu$."
+  ],
+  "parts": {
+   "mcb": [
+    "Where is the minimum of the conduction band, and how do you read the mass from the curvature of $E(k)$?",
+    "Expand $E_{cb}$ about its minimum and compare with $\\hbar^2k^2/2m^*$, i.e. $m^*=\\hbar^2/(d^2E/dk^2)$.",
+    "$d^2E_{cb}/dk^2$ at the minimum is $2t_{cb}a^2$ in magnitude, so $m^*=\\hbar^2/(2t\\,a^2)$; insert $t$ in joules and divide by $m_e$."
+   ],
+   "mvb": [
+    "Same method for the valence band; where is its maximum, and is its curvature larger or smaller?",
+    "Expand $E_{vb}$ at its maximum: $|d^2E_{vb}/dk^2|=2t_{vb}a^2$, then $m_h^*=\\hbar^2/(2t_{vb}a^2)$ with $t_{vb}=2t$.",
+    "Insert $t_{vb}=0.80$ eV in joules and $a=5$ Å and divide by $m_e$. Which mass is heavier?"
+   ],
+   "ne": [
+    "In the Boltzmann regime, how does the electron density per length follow from the 1D density of states and the Boltzmann factor?",
+    "Use $n_e=\\int\\nu(E)e^{-(E-\\mu)/k_BT}dE$ with $\\nu(E)=\\frac{1}{\\pi\\hbar}\\sqrt{\\frac{m^*}{2(E-E_c)}}$ per length (including spin) which gives $n_e=\\sqrt{\\frac{k_BT}{\\pi t_{cb}}}\\frac{1}{a}e^{-(E_c-\\mu)/k_BT}$.",
+    "Where is the conduction-band minimum (at which $k$) and what is its energy relative to $\\mu=E_G/2$? Evaluate the prefactor $\\sqrt{k_BT/(\\pi t)}/a$ and the Boltzmann factor in SI units."
+   ],
+   "nh": [
+    "Which parameters of the valence band replace those of the conduction band in the formula for the density?",
+    "Same structure with $t_{vb}$ instead of $t_{cb}$, and an exponent $e^{-(\\mu-E_v)/k_BT}$ where $E_v$ is the valence band top.",
+    "Where is the top of the valence band? Compute the distance $\\mu-E_v$, evaluate $\\sqrt{k_BT/(\\pi t_{vb})}/a$ and multiply by the Boltzmann factor."
+   ],
+   "tau": [
+    "How is the conductivity related to density, effective mass and relaxation time, and what must be equal for $\\sigma_e=\\sigma_h$?",
+    "Use $\\sigma=ne^2\\tau/m^*$ for each carrier type so $n_e\\tau_e/m_e^*=n_h\\tau_h/m_h^*$, i.e. $\\tau_e/\\tau_h=\\frac{m_e^*}{m_h^*}\\frac{n_h}{n_e}$.",
+    "Use the ratios from the earlier parts: $m^*\\propto1/t$ and $n\\propto\\sqrt{1/t}$ with the Boltzmann factors cancelling at $\\mu=E_G/2$. Combine the powers of $t_{vb}/t_{cb}$."
+   ]
+  }
+ }
+}

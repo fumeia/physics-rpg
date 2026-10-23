@@ -1,0 +1,382 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                     Solution to exercise sheet XI
+
+Question 1 [More on the dynamical symmetry ]:
+In this exercise, we will study the so(4) symmetry of the Coulomb potential in more detail.
+                                                                p2
+The additional conserved charge for the hydrogen atom H = 2m       − κr is the Pauli–Lenz
+vector
+                                     1                    x
+                              J=        p∧L−L∧p −κ ,                                   (1)
+                                   2m                      r
+where p is the momentum operator, and L is the angular momentum operator. On a
+subspace of fixed negative energy, one can form a su(2) ⊕ su(2) algebra by combining
+                               1                         1       
+                         S=      L + aJ ,            D=     L − aJ ,                      (2)
+                               2                          2
+with a some energy dependent factor. We want to describe the representations of this
+algebra which appear for the hydrogen atom more concretely.
+
+  (i) We know that the eigenspace of energy En is spanned by |n, l, m⟩, l = 0, . . . , n − 1,
+      m = −l, . . . , l. In this space, there must exist a highest weight vector |ψ⟩ which is
+      annihilated by S+ and D+ . Show that this vector must satisfy
+
+                                       J+ |ψ⟩ = L+ |ψ⟩ = 0 ,                              (3)
+
+     and that therefore |ψ⟩ must be a superposition of |n, l, l⟩, l = 0, . . . , n − 1.
+
+ (ii) Calculate the commutators
+
+                                      [L± , J+ ] ,    [L3 , J+ ] ,                        (4)
+
+     and use the result to show that J+ |n, l, l⟩ ∝ |n, l + 1, l + 1⟩. Conclude that that the
+     highest weight vector is given by |ψ⟩ = |n, n − 1, n − 1⟩.
+     Hint: Use the commutation relations [Lj , Jk ] = iℏ εjkl Jl and the definition V± =
+     V1 ± iV2 .
+
+(iii) For the argument in the previous section, we needed to know the bound l ≤ n − 1.
+      We now want to show these properties by explicit calculation.
+
+      (a) First, use the method from Section 8.2.2 in the lecture notes show that the
+          wavefunction of |n, n − 1, n − 1⟩ is given by the simple expression
+                                                                mκ 
+                        ψ(r, θ, φ) ∝ rn−1 sinn−1 θ ei(n−1)φ exp − 2 r .           (5)
+                                                                   ℏ n
+
+      (b) Show that J+ can be expressed as
+                                   i
+                                     p3 L+ − ℏ p+ − p+ L3 − κ sin θ eiφ .
+                                                         
+                            J+ =                                                          (6)
+                                   m
+      (c) Show that
+                                                J+ ψ(r, θ, φ) = 0 .                          (7)
+            Hint: The differential operator p+ is given by
+                                                                      
+                                     iφ         ∂    cos θ ∂   i     ∂
+                         p+ = −iℏ e       sin θ    +         +           ,                   (8)
+                                                ∂r     r ∂θ r sin θ ∂φ
+
+            which can be found by expressing the gradient in spherical coordinates.
+
+(iv) (optional) Similarly, show that
+
+                                             J3 ψ(r, θ, φ) = 0 .                             (9)
+
+ (v) Use the results from the previous exercises to give a description of the energy
+     eigenspace in terms of ladder operators acting on |n, n − 1, n − 1⟩. Once more count
+     the degeneracy of this eigenspace.
+
+Solution:
+
+ (i) We can add and subtract D+ |ψ⟩ = S+ |ψ⟩ = 0 to find that
+
+                                            J+ |ψ⟩ = L+ |ψ⟩ = 0                             (S.1)
+
+     holds. Because the spherical harmonics have the property that
+
+                                      L+ |l, m⟩ = 0       ⇔      m=l,                       (S.2)
+
+     the second equation implies that
+                                                   X
+                                           |ψ⟩ =        al |n, l, l⟩ .                      (S.3)
+                                                    l
+
+
+ (ii) Using the commutation relations, one finds
+
+                       [L+ , J+ ] = 0 ,    [L3 , J+ ] = ℏ J+ ,    [L− , J+ ] = −2ℏ J3 .     (S.4)
+
+     The first equation implies that J+ |n, l, l⟩ is again a highest weight state
+
+                          L+ J+ |n, l, l⟩ = 0      =⇒      J+ |n, l, l⟩ ∝ |n, l′ , l′ ⟩ ,   (S.5)
+
+     of the su(2) formed by the Li . To find l′ , we can evaluate L3 ,
+                                                    
+                L3 J+ |n, l, l⟩ = J+ L3 + [L3 , J+ ] |n, l, l⟩ = ℏ(l + 1) J+ |n, l, l⟩ ,    (S.6)
+
+     telling us that
+                                      J+ |n, l, l⟩ ∝ |n, l + 1, l + 1⟩ .                    (S.7)
+     In particular, since we know that l ≤ n − 1, this implies that
+                                                                  !
+                                          J+ |n, n − 1, n − 1⟩ = 0 .                        (S.8)
+(iii) (a) From the lecture, we know that ψ is of the form
+                                             un,n−1 (r)
+                               ψ(r, θ, φ) =             Yn−1,n−1 (θ, φ) ,           (S.9)
+                                                 r
+         where un,l can be determined by the recursion relations in eq. (8.51) in the
+         lecture notes. In particular, for l = n−1, the recursion immediately terminates,
+         and one finds                                   mκ 
+                                                 n
+                                  un,n−1 (r) ∝ r exp − 2 r .                       (S.10)
+                                                           ℏ n
+         Putting this together with
+                                       Yl,l (θ, φ) ∝ sinl θ eilφ ,                   (S.11)
+         see eq. (7.58) in the notes, one arrives at the desired expression
+                                                                   mκ 
+                                        n−1    n−1    i(n−1)φ
+                         ψ(r, θ, φ) ∝ r     sin    θe          exp − 2 r .           (S.12)
+                                                                      ℏ n
+         This expression is very simple for all n, while the general wavefunctions |n, l, m⟩
+         are more complicated, involving Laguerre polynomials.
+     (b) The expression for Jj is
+                                        1                         xj
+                                 Jj =      εjkl pk Ll + Ll pk − κ      .             (S.13)
+                                      2m                           r
+         Writing this out and collecting terms in J+ = J1 + iJ2 , one finds
+                          i                                        x1 + ix2
+                  J+ =        p3 L+ + L+ p3 − L3 p+ − p+ L3 − κ              .       (S.14)
+                         2m                                              r
+         In order to make the calculation easier, we move all the Li to the right. To do
+         this, we need the commutators [Lj , pk ] = iℏ εjkl pl (p transforms as a vector).
+         One finds
+                                   i
+                                      p3 L+ − p+ L3 − ℏ p+ − κ sin θ eiφ ,
+                                                             
+                            J+ =                                                     (S.15)
+                                  m
+         where we also wrote x1 + ix2 in spherical coordinates.
+     (c) From the explicit form of ψ, one sees that
+                                L+ ψ = 0 ,        L3 ψ = ℏ(n − 1) ψ ,                (S.16)
+         which is the property of Yn−1,n−1 (θ, φ). We thus only need to evaluate p+ on
+         ψ. We calculate
+                                                        
+                                   ∂         n − 1 mκ
+                                     ψ=            − 2     ψ,
+                                  ∂r           r     ℏ n
+                                   ∂
+                                     ψ = (n − 1) cot θ ψ ,                       (S.17)
+                                  ∂θ
+                                   ∂
+                                     ψ = i(n − 1) ψ .
+                                  ∂φ
+         Putting these together in the expression for p+ given in the hint, one finds
+                                             mκ
+                                    p+ ψ = i      sin θ eiφ ψ .                    (S.18)
+                                             ℏn
+         Therefore,
+                             i        imκ
+                                            sin θ eiφ ψ − κ sin θ eiφ ψ = 0 .
+                                                       
+                     J+ ψ =     −ℏ n                                               (S.19)
+                            m          ℏn
+(iv) Using the same manipulations as in (iii.b) above, one finds
+                                      i              
+                              J3 =      L− p+ − p− L+ − κ cos θ .                     (S.20)
+                                     2m
+     Applying this to ψ, only the first term contributes and we need to evaluate
+                                    mκ                       mκ 
+                    L− p+ ψ ∝ L− i         sinn θ einφ rn exp − 2 r    .         (S.21)
+                                       ℏn                      ℏ n
+     In polar coordinates, L− is given by
+                                                              
+                                         −iφ     ∂           ∂
+                              L− = ℏ e          − + i cot θ      ,                    (S.22)
+                                                 ∂θ         ∂φ
+
+     and evaluating explicitly, one finds
+
+                                  L− p+ ψ = −i 2m κ cos θ ψ .                         (S.23)
+
+     In total, one thus has
+                                               J3 ψ = 0 .                             (S.24)
+
+ (v) The previous steps tell us that
+
+                                                              1        ℏ (n − 1)
+              S+ ψ = D+ ψ = 0 ,        S3 ψ = D3 ψ =            L3 ψ =           ψ.   (S.25)
+                                                              2            2
+     The second identity follows from J3 ψ = 0. Since the Sj and Dj form two commuting
+     su(2) algebras, the (irreducible) representation is spanned by the states obtained by
+     applying the lowering operators
+
+                              S−s D−
+                                   d
+                                     ψ,         s, d = 0, 1, . . . , n − 1 .          (S.26)
+
+     There are thus n2 states in this representation, as expected.
+     This is a neat way to organise the eigenfunctions of the hydrogen atom, determined
+     by the simple eigenfunction ψ. Note however, that this basis of the eigenstates
+     looks different to the one in the lecture; J− changes the angular momentum l (to
+     l − 1), and thus the basis states are superpositions of states with different angular
+     momenta.
+
+
+Question 2 [Spinors ]:
+
+ (i) Let ⃗e be a given unit vector in R3 . A spin 1/2 particle is in a state |χ⟩ for which
+
+                                               ⟨⃗σ ⟩ = ⃗e ,                            (10)
+
+     where ⃗σ are the Pauli matrices. Find the state |χ⟩.
+
+ (ii) What is the probability that the measurement of the observable Sz (z-component of
+      spin) in the above state yields the value ℏ/2?
+
+Solution:
+  (i) Denote |χ⟩ = (a, b)T in the basis with σz (1, 0)T = (1, 0)T , σz (0, 1)T = −(0, 1)T . For
+      the state vector to be normalised, we require
+
+                                           |a|2 + |b|2 = 1.                              (S.27)
+
+      The condition ⟨⃗σ ⟩ = ⃗e can be written as three equations:
+
+                                            a∗ b + ab∗ = e1 ,                            (S.28)
+                                         i(ab∗ − a∗ b) = e2 ,                            (S.29)
+                                           |a|2 − |b|2 = e3 .                            (S.30)
+
+      Since states are only determined up to a global phase, we can choose a to be real
+      and positive without loss of generality. From Eq. (S.27) and (S.30), we then get
+                                                  r                    r
+               1 +  e3            1 − e3            1 + e3               1 − e3
+        |a|2 =         and |b|2 =        =⇒ a =            and b = eiφ          , (S.31)
+                  2                 2                 2                     2
+      so we are almost done except for finding the relative phase φ. Substituting this into
+      Eq. (S.28) and (S.29) gives
+                                    1
+                                      q
+                                       1 − e23 (2 cos φ) = e1 ,                     (S.32)
+                                    2q
+                                  i
+                                      1 − e23 (−2i sin φ) = e2 ,                    (S.33)
+                                  2
+      which implies φ = tan−1 (e2 /e1 ). Alternatively, we can use the last two equations to
+      express b as                             r
+                                                 1 − e3      e1 + ie2
+                         b = (cos φ + i sin φ)           =p              .            (S.34)
+                                                    2         2(1 + e3 )
+
+      Remark: If we express ⃗e in spherical coordinates as e1 = sin θ cos φ, e2 = sin θ sin φ, e3 =
+      cos θ, then we have
+                                            r
+                                                1 + cos θ         θ
+                                       a=                   = cos ,                       (S.35)
+                                                    r 2           2
+                                   iarctan(e2 /e1 )   1 − cos θ          θ
+                           b=e                                  = eiφ sin .               (S.36)
+                                                         2               2
+
+ (ii) In the basis we chose, the eigenstate of Sz = (ℏ/2)σz with eigenvalue ℏ/2 is (1, 0)T =
+      |↑⟩. Hence the probability of getting the value ℏ/2 when measuring this observable
+      on the state |χ⟩ is |⟨↑ |χ⟩|2 = |a|2 = (1 + e3 )/2.
+
+
+Question 3 [Addition of spins ]:
+Consider two irreducible representations Dj of su(2) with spins j = 1/2 and j = 1. Write
+their tensor product D1/2 ⊗ D1 as a sum of irreducible representations.
+Solution: We use |j1 , m1 ⟩ |j2 , m2 ⟩ to denote the (implied) tensor product of the basis
+states for the individual particles, and |j = ..., m = ...⟩ to denote the eigenstates of total
+spin (M 2 ) and z-component of spin (M3 ). First consider the state |1/2, 1/2⟩ |1, 1⟩. It is
+an eigenstate of M3 with eigenvalue 3/2:
+                                          
+                      1 1             1      1 1          3 1 1
+                  M3 | , ⟩ |1, 1⟩ =     + 1 | , ⟩ |1, 1⟩ = | , ⟩ |1, 1⟩              (S.37)
+                      2 2             2      2 2          2 2 2
+The raising operator M+ annihilates this state:
+                                         
+                  1 1                1 1          1 1
+             M+ | , ⟩ |1, 1⟩ = M+ | , ⟩ |1, 1⟩ + | , ⟩ (M+ |1, 1⟩) = 0 .                (S.38)
+                  2 2                2 2          2 2
+Therefore, it is the highest-weight vector |j = 3/2, m = 3/2⟩ in a D3/2 representation. We
+obtain the other basis vectors for this representation
+                                              p        using the lowering operator. We first
+pre-compute some terms using M− |j, m⟩ = j(j + 1) − m(m − 1) |j, m − 1⟩:
+                                       1 1      1 1
+                                  M− | , ⟩ = | , − ⟩ ,
+                                √      2 2      2 2         √
+                   M− |1, 1⟩ = 2 |1, 0⟩ , M− |1, 0⟩ = 2 |1, −1⟩ ,
+        3 3     √ 3 1               3 1        3 1               3 1         √ 3 3
+   M− | , ⟩ = 3 | , ⟩ , M− | , ⟩ = 2 | , − ⟩ , M− | , − ⟩ = 3 | , − ⟩ .
+        2 2          2 2            2 2        2 2               2 2           2 2
+                                                                                   (S.39)
+Hence the other basis vectors of the representation are
+                                   r
+                     3       1       1       1 1
+               |j = , m = ⟩ =          M− | , ⟩ |1, 1⟩                             (S.40)
+                     2       2       3       2 2
+                                                            1 1 √
+                                   r                                      
+                                     1 1 1
+                                =         | , − ⟩ |1, 1⟩ + | , ⟩ 2 |1, 0⟩          (S.41)
+                                     3 2 2                  2 2
+                                   r                     r
+                                     1 1 1                  2 1 1
+                                =       | , − ⟩ |1, 1⟩ +      | , ⟩ |1, 0⟩ ,       (S.42)
+                                     3 2 2                  3 2 2
+                                 r                    r                !
+            3       1    1         1 1 1                2 1 1
+        |j = , m = − ⟩ = M−          | , − ⟩ |1, 1⟩ +      | , ⟩ |1, 0⟩                 (S.43)
+            2       2    2         3 2 2                3 2 2
+                                        1 1 √
+                            r                          
+                         1     1
+                       =           0 + | , − ⟩ 2 |1, 0⟩                                 (S.44)
+                         2     3        2 2
+                                                                      !
+                                                           √
+                            r 
+                               2 1 1                 1 1
+                           +       | , − ⟩ |1, 0⟩ + | , ⟩ 2 |1, −1⟩                     (S.45)
+                               3 2 2                 2 2
+                         r                    r
+                           2 1 1                 1 1 1
+                       =     | , − ⟩ |1, 0⟩ +      | , ⟩ |1, −1⟩ ,                      (S.46)
+                           3 2 2                 3 2 2
+                            r          r                       r                    !
+           3       3            1          2 1 1                   1 1 1
+       |j = , m = − ⟩ =           M−        | , − ⟩ |1, 0⟩ +        | , ⟩ |1, −1⟩       (S.47)
+           2       2            3          3 2 2                   3 2 2
+                            1 1
+                         = | , − ⟩ |1, −1⟩ .                                            (S.48)
+                            2 2
+(For the last vector, we used the trick of observing that all the nonzero terms after
+applying M− in Eq. (S.47) must be proportional to | 21 , − 12 ⟩ |1, −1⟩; in addition, all the
+coefficients created by the lowering operator are positive and preserve normalisation, hence
+the proportionality constant must simply be 1.)
+   Both |1/2, −1/2⟩ |1, 1⟩ and |1/2, 1/2⟩ |1, 0⟩ have eigenvalue 1/2 with respect to M3 .
+The state |j = 3/2, m = 1/2⟩ constructed above lies in the eigenspace spanned by these
+two states, and we can construct another state in this eigenspace that is orthogonal to it:
+                            r                     r
+                               2 1 1                1 1 1
+                                 | , − ⟩ |1, 1⟩ −    | , ⟩ |1, 0⟩ .                   (S.49)
+                               3 2 2                3 2 2
+                    p
+With M+ |j, m⟩ = j(j + 1) − m(m + 1) |j, m + 1⟩, this state is annihilated by M+ :
+               r                    r               !
+                 2 1 1                1 1 1
+        M+         | , − ⟩ |1, 1⟩ −     | , ⟩ |1, 0⟩                                  (S.50)
+                 3 2 2                3 2 2
+        r                      r                                            
+           2 1 1                      1         1 1 p
+      =        | , ⟩ |1, 1⟩ + 0 −         0 + | , ⟩ 1(1 + 1) − 0(0 + 1) |1, 1⟩        (S.51)
+           3 2 2                      3         2 2
+      =0 .                                                                            (S.52)
+
+Since it has eigenvalue 1/2 with respect to M3 , we deduce it is the highest-weight vector
+|j = 1/2, m = 1/2⟩ in a D1/2 representation. Again, we obtain the other basis vectors for
+this representation using the lowering operator:
+                                       r                     r               !
+                  1        1             2 1 1                 1 1 1
+             |j = , m = − ⟩ = M−           | , − ⟩ |1, 1⟩ −      | , ⟩ |1, 0⟩       (S.53)
+                  2        2             3 2 2                 3 2 2
+                                             1 1 √
+                                 r                          
+                                   2
+                               =       0 + | , − ⟩ 2 |1, 0⟩                         (S.54)
+                                   3         2 2
+                                                              1 1 √
+                                     r                                       
+                                        1 1 1
+                                   −        | , − ⟩ |1, 0⟩ + | , ⟩ 2 |1, −1⟩        (S.55)
+                                        3 2 2                 2 2
+                                 r                    r
+                                   1 1 1                 2 1 1
+                               =     | , − ⟩ |1, 0⟩ −      | , ⟩ |1, −1⟩ ,          (S.56)
+                                   3 2 2                 3 2 2
+We have now found 4 basis vectors for the D3/2 representation and 2 basis vectors for
+the D1/2 representation (and all of them are orthogonal). Since D1/2 ⊗ D1 has dimension
+2 × 3 = 6, these vectors form a complete basis, and we conclude
+
+                                D1/2 ⊗ D1 = D3/2 ⊕ D1/2 .                            (S.57)
+

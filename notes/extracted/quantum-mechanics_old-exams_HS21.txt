@@ -1,0 +1,236 @@
+              Exam, 31. January 2022
+
+                   14:00 – 17:00
+
+
+
+
+Name:
+
+
+Matrikel-Nummer:
+
+
+
+
+For correction — please leave empty
+
+
+Question 1:
+
+
+Question 2:
+
+
+Question 3:
+
+
+Question 4:
+Question 1 [Ehrenfest’s Theorem — 10 pt ]:
+  The time-dependent Schrödinger equation takes the form
+
+                                 i~∂t |ψ(t)i = H|ψ(t)i ,                              (1)
+
+where H is the Hamilton operator.
+
+  (i) State Ehrenfest’s Theorem for the case of a one-dimensional system. [1 pt]
+
+ (ii) Using eq. (1) and working in Dirac notation, show that dtd hxi can be expressed in
+      terms of the expectation value of the commutator [H, x]. [2 pt]
+
+(iii) Consider a particle of mass m moving in one dimension subject to a potential V (x).
+      Write down the Hamilton operator and calculate [H, x]. [2 pt]
+
+(iv) Using (ii) and (iii) deduce Ehrenfest’s Theorem as stated in (i). [1 pt]
+
+ (v) The Hamiltonian of the harmonic oscillator can be written as
+
+                                  H = ~ω a† a + 21 ,
+                                                    
+                                                                                      (2)
+
+     where a and a† are the annihilation and creation operators defined in terms of x
+     and p as           r                           r
+                            ~         †               ~mω
+                    x=         (a + a ) ,    p=−           i (a − a† ) .          (3)
+                          2mω                          2
+     Calculate [H, x] using the commutation relations for a and a† . Show that this
+     reproduces what you calculated in (iii). Compute the expectation value of [H, x] in
+     the eigenstate |ni for which H |ni = ~ω (n + 21 ) |ni. [4 pt]
+Question 2 [3d wave mechanics — 15 pt ]:
+   We consider a particle of mass m moving in three dimensions subject to a rotationally
+symmetric potential V (r).
+
+  (i) Write down the time-independent Schrödinger equation for an energy eigenfunction
+      ψ(~x ). [1 pt]
+
+ (ii) The Laplace operator in three dimensions can be written as
+
+                                          1 ∂2       1 ~2
+                                    ∆=         2
+                                                 r − 2M   ,                              (4)
+                                          r ∂r      r
+           ~ are the infinitesimal rotation generators
+     where M
+                                        ~ = −i~x ∧ ∇
+                                        M          ~ .                                   (5)
+
+     Using this form of the Laplace operator, make an ansatz for the wave function as
+     ψ(~x) = R(r) Yl,m (θ, φ), where Yl,m (θ, φ) is a spherical harmonic, and show that the
+     differential equation for the radial part R(r) takes the form
+                    h ~2 ∂ 2    ~2             V (r) i
+                     −        +     l(l + 1) +        rR(r) = ER(r) .                    (6)
+                       2mr ∂r2 2mr3              r
+                                            ~ 2 Yl,m (θ, φ) = l(l + 1) Yl,m (θ, φ). [2 pt]
+     Hint: you may use (without proof) that M
+
+(iii) For the case of a three-dimensional version of the infinite square well, i.e. the po-
+      tential                            
+                                            0        r<a
+                                 V (r) =                                                (7)
+                                            ∞        r>a,
+                                                  √
+     introduce the variables ρ = αr with α = 2mE   ~
+                                                      , and show that the function χ(ρ)
+     defined by R(r) = χ(ρ)/ρ satisfies the following differential equation for r < a:
+
+                                d2 χ h     l(l + 1) i
+                                    +  1 −           χ(ρ) = 0 .                          (8)
+                                dρ2           ρ2
+
+     State the boundary conditions that χ(ρ) has to satisfy. [4 pt]
+
+(iv) Find the solution with l = 0 explicitly, and determine the possible energy eigen-
+     values. [3 pt]
+
+ (v) One can show (you do not need to prove this) that if χk (ρ) solves eq. (8) with l = k,
+     then
+                                                          χk (ρ)
+                            χk+1 (ρ) ≡ −χ0k (ρ) + (k + 1)                               (9)
+                                                            ρ
+     solves the equation for l = k + 1. Use this and your result from (iv) to find the solu-
+     tion for l = 1. Derive an equation that determines the possible energy eigenvalues
+     for l = 1, and briefly comment on the structure of the solutions. (You do not need
+     to solve the equation explicitly though.) [5 pt]
+Question 3 [EPR pair — 12 pt ]: Consider a single particle transforming in the
+representation Dj of su(2). We choose an orthonormal basis of Dj to consist of the
+vectors |j, mi that are eigenvectors of Sz with eigenvalue m:
+
+                                        Sz |j, mi = m|j, mi .                                   (10)
+
+Furthermore, S± = Sx ± iSy acts on these states as
+                              p
+                   S± |j, mi = j(j + 1) − m(m ± 1) |j, m ± 1i .                                 (11)
+
+  (i) Using that
+
+                      [Sx , Sy ] = i Sz ,     [Sy , Sz ] = i Sx ,   [Sz , Sx ] = i Sy ,         (12)
+
+      deduce the commutation relations [Sz , S± ] and [S+ , S− ]. [2 pt]
+
+ (ii) Using eqs. (10) and (11), but not your result from part (i), compute
+
+                                 [S± , Sz ] |j, mi and [S+ , S− ] |j, mi .                      (13)
+
+      Show that this agrees your result from (i), i.e. show that if you insert the commu-
+      tators you derived in (i) into eq. (13), you obtain the same result. [3 pt]
+
+Consider now a pair of particles, each transforming in the j = 12 representation, and denote
+the corresponding generators by S         ~ (1) and S
+                                                    ~ (2) , where the components of S   ~ (1) commute
+with those of S     ~ (2) . The total spin of the system is given by S ~=S~ (1) + S
+                                                                                  ~ (2) .
+    For each of the two j = 2 representations, we introduce the notation |↑i ≡ | 21 , + 21 i and
+                                   1
+
+|↓i ≡ | 21 , − 12 i. The combined system can then be described in terms of the states |↑↑i,
+|↑↓i, |↓↑i, and |↓↓i. The system is initially in the singlet state |ψs i with respect to the
+total spin, i.e. the state that is annihilated by Sa for a ∈ {x, y, z},
+
+                                 Sa |ψs i = 0 ,       a ∈ {x, y, z} .                           (14)
+
+ (iii) Starting from the defining property of the singlet state, eq. (14), derive the explicit
+       state vector of |ψs i in the basis {|↑↑i, |↑↓i, |↓↑i, |↓↓i}. [4 pt]
+                                (1)
+ (iv) When measuring the Sz spin component on the singlet state, what is the probability
+                  (1)
+      of finding Sz = 21 ? [1 pt]
+                                            (1)
+ (v) Suppose that we measured the Sz spin component on the singlet state and obtained
+                    (1)                                 (2)
+     the outcome Sz = 12 . Subsequently we measure the Sz spin component. What is
+                                 (2)
+     the probability of finding Sz = 12 ? [2 pt]
+Question 4 [Time-dependent perturbation theory — 18 pt ]:                           The Hamiltonian of our
+system is of the form
+                               H = H0 + λH 0 (t) ,                                                    (15)
+where H0 is a time-independent Hamiltonian whose complete set of eigenfunctions is
+known,
+                         H0 ψn = En ψn , n = 0, 1, 2, . . . ,                 (16)
+while H 0 (t) describes a (small) perturbation.
+
+  (i) The solution of the time-dependent Schrödinger equation of the unperturbed prob-
+      lem (i.e. with Hamiltonian equal to H0 ) can be expressed in terms of the propagator
+      U0 (t, t0 ), with
+                                    Ψ(t) = U0 (t, t0 ) Ψ(t0 ) .                       (17)
+      Starting from the Schrödinger equation for ψ(t), derive a differential equation (in
+      t) for U0 (t, t0 ). State the solution of this differential equation in terms of a suitable
+      exponential. [2 pt]
+
+ (ii) We denote the states in the Dirac (or interaction) picture by ΨD (t), and express
+      their time-dependence via
+
+                                     ΨD (t) = UD (t, t0 ) ΨD (t0 ) .                                  (18)
+
+      Give an explicit expression for UD (t, t0 ) in terms of U0 (the propagator for H0 ) and
+      U (the propagator for the full Hamiltonian H). From this, derive the differential
+      equation (in t) that UD (t, t0 ) satisfies. Write down the general solution for UD (t, t0 )
+      in terms of a time-ordered exponential. [6 pt]
+
+(iii) Consider two eigenstates |ii and |f i of H0 with eigenvalues
+
+                               H0 |ii = Ei |ii ,              H0 |f i = Ef |f i ,                     (19)
+
+      and hf |ii = 0. Suppose that the system is in state |ii at time t0 . To first order in
+      perturbation theory, show that the probability of finding the system in state |f i at
+      time t > t0 is
+                                Z t
+                             1                      0                   2
+                     Pi→f = 2       dt0 ei(Ef −Ei )t /~ hf |H 0 (t0 )|ii . [2 pt]       (20)
+                             ~   t0
+
+
+ (iv) A charged particle of mass m is confined to the rectangular box 0 ≤ x ≤ a, 0 ≤ y ≤ b,
+      0 ≤ z ≤ c. Show that the functions
+                                                    12
+                                               8
+                                                           sin qπx       sin rπy       sπz
+                                                                                         
+                       φqrs (x, y, z) =                         a             b
+                                                                                   sin  c
+                                                                                             ,        (21)
+                                              abc
+
+      where (q, r, s) are positive integers, define normalised energy eigenstates, and deter-
+      mine the corresponding energy eigenvalues. [3 pt]
+(v) At time t = 0 an electric field along the x-axis is switched on, leading to the
+    perturbation
+                                      V = −eE x .                              (22)
+   The electric field remains constant in time, until it is switched off at time t = T .
+   For t < 0, the system is in the eigenstate φqrs .
+   Show that the probability the system is in the state φQRS for time t > T (where
+   (Q, R, S) 6= (q, r, s) is another set of positive integers) vanishes unless R = r, S = s,
+   and Q − q is odd. [5 pt]
+   Hint: You should work to first order in perturbation theory. You may want to use
+   the trigonomtric identity
+                                         1     (Q−q)π        (Q+q)π 
+                                                                        
+                 sin( qπ
+                       a
+                         x) sin( Qπ
+                                  a
+                                    x) =    cos   a
+                                                      x  − cos   a
+                                                                     x    .    (23)
+                                         2
+

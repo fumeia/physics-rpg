@@ -1,0 +1,1870 @@
+{
+ "region": "QM Interference Labs",
+ "course": "quantum-mechanics",
+ "exhibit": "set",
+ "id": "qm-harmonic-oscillator-elevator",
+ "title": "The Harmonic Oscillator Elevator",
+ "topics": [
+  "ladder operators a, a†",
+  "spectrum and wave functions",
+  "Heisenberg picture of the oscillator",
+  "coherent states",
+  "2D/3D oscillator, degeneracy, hidden symmetry",
+  "anharmonic and quadratic perturbation"
+ ],
+ "sources": [
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 6 (pp. 59-66): Der harmonische Oszillator"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
+   "where": "Q1 2D oscillator, Q2 coherent states, Q3 degeneracies"
+  },
+  {
+   "file": "materials/quantum-mechanics/solutions/Solutions 7.pdf",
+   "where": "S.1-S.61"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 9.pdf",
+   "where": "Q1 sech^2 potential (A†A), Q4 3D oscillator and su(3)"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 10.pdf",
+   "where": "Q1 3D oscillator in spherical coordinates"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+   "where": "Q1 anharmonic oscillator"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 6.pdf",
+   "where": "Q3 uncertainty and energy bound"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+   "where": "Question 3 (19 pt)"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS23.pdf",
+   "where": "Aufgabe 4 (34 pt)"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+   "where": "Question 2 (24 pt)"
+  },
+  {
+   "file": "notes/quantum-mechanics/ch06-harmonic-oscillator.md",
+   "where": "transcription and worked solutions"
+  }
+ ],
+ "intro": "The elevator runs on a spring. Its floors are the levels $E_n=\\hbar\\omega(n+\\tfrac12)$ and the only buttons are $a$ and $a^\\dagger$: one press up, one press down. Almost every QM exam has an oscillator problem (12 of 16 exams), and the same few moves solve all of them: write $x,p$ with ladder operators, act on $|n\\rangle$, use selection rules.",
+ "tutorial": [
+  {
+   "title": "The elevator shaft",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The floating parabola is the potential $V(q)=\\tfrac12m\\omega^2q^2$. The horizontal lines are the energy levels $E_n=\\hbar\\omega(n+\\tfrac12)$: equally spaced, with a zero-point floor at $\\tfrac12\\hbar\\omega$.</p>"
+  },
+  {
+   "title": "The glowing packet",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>A coherent state swings in the parabola exactly like the classical particle but never spreads. Its shape is the ground-state Gaussian and $\\Delta x\\,\\Delta p=\\hbar/2$ at all times.</p>"
+  },
+  {
+   "title": "Consoles",
+   "look": {
+    "x": 0,
+    "z": 0
+   },
+   "focus": null,
+   "html": "<p>Library: ladder-operator algebra, matrix elements, coherent states, degeneracy. Quiz: exam-style questions. Derivation desk: proofs from the sheets. Fights: step-by-step calculations. Boss gate: full exam problems with a timer.</p>"
+  }
+ ],
+ "encounters": [
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ho-L1",
+   "title": "Ladder operators: the spectrum without solving a differential equation",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 6.1.2, eqs. (6.14)-(6.34), pp. 61-64"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 3 (i)-(iii)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch06-harmonic-oscillator.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Start from $H=\\frac{p^2}{2m}+\\frac12m\\omega^2q^2$ with $[q,p]=i\\hbar$. The script switches to the dimensionless variable $x=\\sqrt{m\\omega/\\hbar}\\,q$ and $p=-i\\sqrt{m\\hbar\\omega}\\,\\partial_x$, so that $H=\\frac{\\hbar\\omega}2(-\\partial_x^2+x^2)$. The trick is to <b>factorise</b> $-\\partial_x^2+x^2$ like $u^2+v^2=(u+iv)(u-iv)$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "a=\\tfrac1{\\sqrt2}(x+\\partial_x)=\\sqrt{\\tfrac{m\\omega}{2\\hbar}}\\,q+\\tfrac{i}{\\sqrt{2m\\hbar\\omega}}\\,p,\\qquad a^\\dagger=\\tfrac1{\\sqrt2}(x-\\partial_x)",
+     "label": "script (6.14); HS25 Q3 eq. (16)"
+    },
+    {
+     "kind": "eq",
+     "tex": "[a,a^\\dagger]=1,\\qquad H=\\hbar\\omega\\big(a^\\dagger a+\\tfrac12\\big)=\\tfrac{\\hbar\\omega}2\\big(aa^\\dagger+a^\\dagger a\\big)",
+     "label": "the commutator comes from [x,p]=i hbar; the two forms of H differ by the commutator"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Why the levels are integers.</b> Let $N=a^\\dagger a$. From $[N,a^\\dagger]=a^\\dagger$ and $[N,a]=-a$ we get $N(a^\\dagger|n\\rangle)=(n+1)a^\\dagger|n\\rangle$ and $N(a|n\\rangle)=(n-1)a|n\\rangle$: the operators move one step on the ladder. The norms are $\\langle n|a^\\dagger a|n\\rangle=n$ and $\\langle n|aa^\\dagger|n\\rangle=n+1$, hence"
+    },
+    {
+     "kind": "eq",
+     "tex": "a|n\\rangle=\\sqrt n\\,|n-1\\rangle,\\qquad a^\\dagger|n\\rangle=\\sqrt{n+1}\\,|n+1\\rangle,\\qquad |n\\rangle=\\frac{(a^\\dagger)^n}{\\sqrt{n!}}|0\\rangle",
+     "label": "script (6.26), (6.29)"
+    },
+    {
+     "kind": "text",
+     "html": "Going down repeatedly would give eigenvalues $n-k<0$ eventually, but $n=\\|a|n\\rangle\\|^2\\ge0$. The only way out is that the chain ends at a state with $a|0\\rangle=0$. Therefore $n\\in\\{0,1,2,\\dots\\}$ and $E_n=\\hbar\\omega(n+\\tfrac12)$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Wave functions.</b> $a|0\\rangle=0$ is the first-order equation $(x+\\partial_x)\\psi_0=0$, with solution $\\psi_0=\\pi^{-1/4}e^{-x^2/2}$. Everything else follows from $a^\\dagger=(x-\\partial_x)/\\sqrt2$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\psi_n(x)=\\frac{1}{\\sqrt{2^nn!\\sqrt\\pi}}\\,H_n(x)\\,e^{-x^2/2},\\quad H_0=1,\\ H_1=2x,\\ H_2=4x^2-2,\\ H_3=8x^3-12x",
+     "label": "script (6.32), (6.33) (the script prints H_3 = (2x)^3 - 6(2x))"
+    },
+    {
+     "kind": "eq",
+     "tex": "q=\\sqrt{\\tfrac{\\hbar}{2m\\omega}}\\,(a+a^\\dagger),\\qquad p=i\\sqrt{\\tfrac{m\\hbar\\omega}{2}}\\,(a^\\dagger-a)",
+     "label": "invert (6.14); needed in every perturbation problem"
+    },
+    {
+     "kind": "intuition",
+     "html": "$E_0=\\frac12\\hbar\\omega\\neq0$ is the uncertainty principle: confining the particle near $q=0$ costs kinetic energy. Each press of $a^\\dagger$ adds one quantum $\\hbar\\omega$ and one node to the wave function."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Sign and factor conventions differ between sources: the script's $x$ is dimensionless, the exams use $q$ or $X$ with $\\sqrt{\\hbar/2m\\omega}$. Always say which. Also $H=\\hbar\\omega(aa^\\dagger-\\frac12)$, not $\\hbar\\omega(aa^\\dagger+\\frac12)$."
+    },
+    {
+     "kind": "exam",
+     "html": "HS25 Q3 (13 points for (i)-(iii)): define $a$, show $H=\\hbar\\omega(a^\\dagger a+\\frac12)$, compute $[a,a^\\dagger]$, derive $E_n$ and $|n\\rangle$ with the ladder operators, find $\\psi_0$ from $a|0\\rangle=0$. FS19 Q2 additionally asks for $\\psi_1,\\psi_2$ explicitly."
+    }
+   ],
+   "check": [
+    {
+     "q": "$a|3\\rangle=$",
+     "options": [
+      "$3|2\\rangle$",
+      "$\\sqrt4\\,|4\\rangle$",
+      "$\\sqrt2\\,|2\\rangle$",
+      "$\\sqrt3\\,|2\\rangle$"
+     ],
+     "correct": 3,
+     "explain": "$\\langle3|a^\\dagger a|3\\rangle=3$ so the norm of $a|3\\rangle$ is $\\sqrt3$ and the new state is $|2\\rangle$."
+    },
+    {
+     "q": "Why does the spectrum of $N=a^\\dagger a$ stop at $n=0$ and contain only integers?",
+     "options": [
+      "Because the potential $\\tfrac12m\\omega^2q^2$ is positive",
+      "Because $[a,a^\\dagger]=1$ forces $n$ to be an integer by itself",
+      "$a^k|n\\rangle$ has eigenvalue $n-k$ but $N\\ge0$, so the chain must hit $a|0\\rangle=0$, which is only possible if $n$ is a non-negative integer",
+      "Because $\\psi\\to0$ at infinity requires the Hermite series to terminate, and this is a different argument that gives non-integers"
+     ],
+     "correct": 2,
+     "explain": "Script (6.27)-(6.28): positivity of the norm $\\|a|n\\rangle\\|^2=n\\ge0$ ends the ladder."
+    },
+    {
+     "q": "The ground state obeys $a|0\\rangle=0$. In the position representation this is the equation",
+     "options": [
+      "$(x+\\partial_x)\\psi_0=0$, solved by $e^{-x^2/2}$",
+      "$(x-\\partial_x)\\psi_0=0$, solved by $e^{+x^2/2}$",
+      "$(x+\\partial_x)^2\\psi_0=0$",
+      "$(x^2+\\partial_x^2)\\psi_0=0$"
+     ],
+     "correct": 0,
+     "explain": "$a=(x+\\partial_x)/\\sqrt2$ and $\\partial_x\\psi=-x\\psi$ is solved by the Gaussian."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ho-L2",
+   "title": "Matrix elements, selection rules and the Heisenberg picture",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS23.pdf",
+     "where": "Aufgabe 4 (b)-(d)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+     "where": "Question 2 (iv)-(v)"
+    },
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 6.1.2 and Ch. 2.3 (Ehrenfest)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch06-harmonic-oscillator.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "With $q=\\sqrt{\\hbar/2m\\omega}\\,(a+a^\\dagger)$ and $p=i\\sqrt{m\\hbar\\omega/2}\\,(a^\\dagger-a)$ every expectation value reduces to counting. The matrix elements between number states (HS23 Q4(b), 3 points) are"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle n|q|m\\rangle=\\sqrt{\\tfrac\\hbar{2m\\omega}}\\big(\\sqrt{m+1}\\,\\delta_{n,m+1}+\\sqrt m\\,\\delta_{n,m-1}\\big),\\quad \\langle n|p|m\\rangle=i\\sqrt{\\tfrac{m\\hbar\\omega}2}\\big(\\sqrt{m+1}\\,\\delta_{n,m+1}-\\sqrt m\\,\\delta_{n,m-1}\\big)",
+     "label": "selection rule: Delta n = +-1"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle q^2\\rangle_n=\\frac{\\hbar}{2m\\omega}(2n+1),\\quad\\langle p^2\\rangle_n=\\frac{m\\hbar\\omega}2(2n+1),\\quad\\Delta q\\,\\Delta p=\\hbar\\big(n+\\tfrac12\\big),\\quad\\langle T\\rangle=\\langle V\\rangle=\\tfrac12E_n",
+     "label": "virial theorem for the oscillator"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Heisenberg picture.</b> Operators evolve, states do not: $A_H(t)=U^\\dagger AU$ with $U=e^{-iHt/\\hbar}$, so $\\frac{d}{dt}A_H=\\frac1{i\\hbar}[A_H,H]+(\\partial_tA)_H$. For the oscillator the equations are linear:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\dot q_H=\\frac{p_H}m,\\quad \\dot p_H=-m\\omega^2q_H\\ \\Rightarrow\\ q_H(t)=q\\cos\\omega t+\\frac{p}{m\\omega}\\sin\\omega t,\\quad a_H(t)=a\\,e^{-i\\omega t}",
+     "label": "HS23 Q4(c), 8 points"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Ehrenfest.</b> $\\frac{d}{dt}\\langle q\\rangle=\\langle p\\rangle/m$ and $\\frac{d}{dt}\\langle p\\rangle=-\\langle V'(q)\\rangle$. For $V'$ linear, $\\langle V'(q)\\rangle=V'(\\langle q\\rangle)$: the <i>expectation values</i> of the quantum oscillator follow the classical orbit exactly, for every state."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Which states move?</b> In an energy eigenstate $\\langle q\\rangle$ is constant (time dependence $e^{-iE_nt/\\hbar}$ cancels), hence $\\langle p\\rangle=m\\,d\\langle q\\rangle/dt=0$. In $\\Psi=A\\Psi_0+B\\Psi_1$ (real $A,B$) the cross term survives: $\\langle q\\rangle=2AB\\sqrt{\\hbar/2m\\omega}\\cos\\omega t$. With $\\Psi_2$ instead of $\\Psi_1$ the cross term $\\langle0|q|2\\rangle$ vanishes by the selection rule and nothing moves (FS19 Q2(v))."
+    },
+    {
+     "kind": "intuition",
+     "html": "A superposition of neighbouring levels beats at the frequency $(E_1-E_0)/\\hbar=\\omega$, the classical oscillation frequency. Levels two apart beat at $2\\omega$, which only shows up in $\\langle q^2\\rangle$ (breathing), not in $\\langle q\\rangle$."
+    },
+    {
+     "kind": "pitfall",
+     "html": "$e^{rP/i\\hbar}$ is a translation: $e^{-irP/\\hbar}\\psi(q)=\\psi(q-r)$. HS23 Q4(d) uses $|\\psi\\rangle=e^{rP/i\\hbar}|0\\rangle$ (the ground state displaced by $+r$) and gets $\\langle q_H(t)\\rangle=r\\cos\\omega t$, an oscillator released from rest at amplitude $r$."
+    }
+   ],
+   "check": [
+    {
+     "q": "In the number basis, $\\langle 2|q|0\\rangle$ equals",
+     "options": [
+      "$\\sqrt{\\hbar/m\\omega}$",
+      "$\\sqrt{\\hbar/2m\\omega}\\,\\sqrt2$",
+      "$\\sqrt{\\hbar/2m\\omega}$",
+      "$0$"
+     ],
+     "correct": 3,
+     "explain": "Selection rule $\\Delta n=\\pm1$ (also parity: $\\psi_0,\\psi_2$ are both even, $q$ is odd)."
+    },
+    {
+     "q": "State $\\Psi=\\frac1{\\sqrt2}(\\Psi_0+\\Psi_2)$. The expectation value $\\langle q\\rangle(t)$ is",
+     "options": [
+      "$\\sqrt{\\hbar/2m\\omega}\\cos2\\omega t$",
+      "$\\sqrt{\\hbar/2m\\omega}\\cos\\omega t$",
+      "$0$ for all $t$",
+      "constant but non-zero"
+     ],
+     "correct": 2,
+     "explain": "All matrix elements $\\langle m|q|n\\rangle$ with $m,n\\in\\{0,2\\}$ vanish."
+    },
+    {
+     "q": "The Heisenberg-picture solution is $q_H(t)=q\\cos\\omega t+\\frac{p}{m\\omega}\\sin\\omega t$. What happens at $\\omega t=\\pi/2$?",
+     "options": [
+      "$q_H=0$ as an operator",
+      "$q_H=p/m\\omega$: position and momentum have swapped roles (rotation in phase space)",
+      "$q_H=-q$",
+      "$q_H=q$, because the Heisenberg operator is time independent"
+     ],
+     "correct": 1,
+     "explain": "The phase-space point $(q,p/m\\omega)$ rotates by angle $\\omega t$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ho-L3",
+   "title": "Coherent states: the closest thing to a classical particle",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
+     "where": "Q2 (i)-(vi)"
+    },
+    {
+     "file": "materials/quantum-mechanics/solutions/Solutions 7.pdf",
+     "where": "S.21-S.53"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS23.pdf",
+     "where": "Aufgabe 4(d)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch06-harmonic-oscillator.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "A <b>coherent state</b> is a normalised eigenvector of the annihilation operator, $a|\\alpha\\rangle=\\alpha|\\alpha\\rangle$, $\\alpha\\in\\mathbb C$ (not Hermitian, so $\\alpha$ is complex and the $|\\alpha\\rangle$ are not orthogonal). Expand $|\\alpha\\rangle=\\sum c_n|n\\rangle$: $a|\\alpha\\rangle=\\sum c_n\\sqrt n|n-1\\rangle$, so $\\alpha c_n=\\sqrt{n+1}\\,c_{n+1}$, i.e. $c_n=\\frac{\\alpha^n}{\\sqrt{n!}}c_0$."
+    },
+    {
+     "kind": "eq",
+     "tex": "|\\alpha\\rangle=e^{-|\\alpha|^2/2}\\sum_n\\frac{\\alpha^n}{\\sqrt{n!}}|n\\rangle=e^{-|\\alpha|^2/2}e^{\\alpha a^\\dagger}|0\\rangle,\\qquad P_n=e^{-|\\alpha|^2}\\frac{|\\alpha|^{2n}}{n!}",
+     "label": "sheet 7 Q2(i): normalisation fixes |c_0|; the number distribution is Poisson with mean |alpha|^2"
+    },
+    {
+     "kind": "eq",
+     "tex": "|\\alpha\\rangle(t)=e^{-i\\omega t/2}\\,|\\alpha(t)\\rangle,\\qquad\\alpha(t)=\\alpha\\,e^{-i\\omega t}",
+     "label": "sheet 7 Q2(ii): every |n> gets e^{-i omega (n+1/2) t}"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle q\\rangle(t)=\\sqrt{\\tfrac{2\\hbar}{m\\omega}}\\,\\mathrm{Re}\\,\\alpha(t),\\qquad\\langle p\\rangle(t)=\\sqrt{2m\\hbar\\omega}\\,\\mathrm{Im}\\,\\alpha(t),\\qquad\\Delta q\\,\\Delta p=\\tfrac\\hbar2",
+     "label": "the classical orbit; widths stay at the ground-state value"
+    },
+    {
+     "kind": "text",
+     "html": "Derivation of the last two: with $a|\\alpha\\rangle=\\alpha|\\alpha\\rangle$ and $\\langle\\alpha|a^\\dagger=\\bar\\alpha\\langle\\alpha|$, $\\langle q\\rangle=\\sqrt{\\hbar/2m\\omega}\\,(\\alpha+\\bar\\alpha)$. For $\\langle q^2\\rangle$ use $aa^\\dagger=a^\\dagger a+1$: $\\langle q^2\\rangle=\\frac\\hbar{2m\\omega}(1+2|\\alpha|^2+\\alpha^2+\\bar\\alpha^2)$, so $(\\Delta q)^2=\\frac\\hbar{2m\\omega}$ independent of $\\alpha$."
+    },
+    {
+     "kind": "text",
+     "html": "The position wave function is a Gaussian, $\\langle q|\\alpha\\rangle\\propto\\exp\\!\\big[-\\frac{m\\omega}{2\\hbar}(q-\\sqrt{2\\hbar/m\\omega}\\,\\alpha)^2\\big]$ (for real $\\alpha$ it is the ground state displaced; $\\alpha=0$ is the ground state, which sheet 3 showed to be a Gaussian). Completeness: $\\int\\frac{d\\alpha^*d\\alpha}{2\\pi i}|\\alpha\\rangle\\langle\\alpha|=\\mathbb 1$ with $d\\alpha^*d\\alpha=2i\\,d\\mathrm{Re}\\alpha\\,d\\mathrm{Im}\\alpha$."
+    },
+    {
+     "kind": "intuition",
+     "html": "In phase space (axes $q$ and $p/m\\omega$) a coherent state is a small round blob of fixed size that rotates around the origin with angular velocity $\\omega$. The distance of its centre from the origin is $\\sqrt{2\\hbar/m\\omega}\\,|\\alpha|$, the mean energy $\\hbar\\omega(|\\alpha|^2+\\frac12)$."
+    },
+    {
+     "kind": "pitfall",
+     "html": "The phase of $\\alpha(t)=\\alpha e^{-i\\omega t}$ is physical (it is the classical oscillation phase), the overall factor $e^{-i\\omega t/2}$ is not."
+    }
+   ],
+   "check": [
+    {
+     "q": "A coherent state has $\\alpha=2$. The mean quantum number $\\langle N\\rangle$ is",
+     "options": [
+      "$4$",
+      "$2$",
+      "$\\sqrt2$",
+      "$8$"
+     ],
+     "correct": 0,
+     "explain": "$\\langle\\alpha|a^\\dagger a|\\alpha\\rangle=\\bar\\alpha\\alpha$."
+    },
+    {
+     "q": "$\\Delta q\\,\\Delta p$ in a coherent state is",
+     "options": [
+      "$\\hbar(|\\alpha|^2+\\frac12)$",
+      "$\\hbar/2$ only at $t=0$; it grows afterwards like a free packet",
+      "$\\hbar/2$ for every $\\alpha$ and every time",
+      "$0$ because the state is an eigenstate of $a$"
+     ],
+     "correct": 2,
+     "explain": "Sheet 7 Q2(iv)."
+    },
+    {
+     "q": "Time evolution of $|\\alpha\\rangle$ under $H=\\hbar\\omega(a^\\dagger a+\\frac12)$ gives",
+     "options": [
+      "$e^{-i\\omega t}\\,|\\alpha\\rangle$, a global phase only",
+      "$e^{-i\\omega t/2}\\,|\\alpha e^{-i\\omega t}\\rangle$",
+      "$|\\alpha e^{+i\\omega t}\\rangle$",
+      "a squeezed state with width oscillating at $2\\omega$"
+     ],
+     "correct": 1,
+     "explain": "Sheet 7 Q2(ii)."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ho-L4",
+   "title": "Two and three dimensions: counting states and hidden symmetry",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
+     "where": "Q1, Q3"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 8.pdf",
+     "where": "Q3 (Schwinger)"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 9.pdf",
+     "where": "Q4 (su(3))"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 10.pdf",
+     "where": "Q1 (spherical)"
+    },
+    {
+     "file": "materials/quantum-mechanics/solutions/Solutions 10.pdf",
+     "where": "S.1-S.40"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch06-harmonic-oscillator.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "The isotropic oscillator is a sum of independent 1D oscillators, so $E=\\hbar\\omega(n_1+\\dots+n_d+\\frac d2)$. The degeneracy is the number $D^d_n$ of ways to write $n$ as a sum of $d$ non-negative integers. Generating function (sheet 7 Q3):"
+    },
+    {
+     "kind": "eq",
+     "tex": "F^k(s)=\\sum_{n}D^k_ns^n=\\Big(\\sum_{n_1}s^{n_1}\\Big)^k=(1-s)^{-k}\\ \\Rightarrow\\ D^k_n=\\binom{n+k-1}{n},\\quad D^2_n=n+1,\\ D^3_n=\\tfrac{(n+1)(n+2)}2",
+     "label": "the n-th derivative of (1-s)^{-k} at s=0 gives n! D_n"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Hidden symmetry.</b> In 2D, $H=\\hbar\\omega(a^\\dagger a+b^\\dagger b+1)$ is invariant under rotating the pair $(a,b)$ by $R(\\varphi)$, which rotates $(x,y)$ as well. The generator is $J=a^\\dagger b-b^\\dagger a$ ($J=iL_z/\\hbar$), $[H,J]=0$. On the $E=2\\hbar\\omega$ level $J$ acts as $\\left(\\begin{smallmatrix}0&1\\\\-1&0\\end{smallmatrix}\\right)$ with eigenvalues $\\pm i$ and eigenvectors $\\frac1{\\sqrt2}(|1,0\\rangle\\pm i|0,1\\rangle)$, i.e. $L_z=\\pm\\hbar$ (angular momentum states $x\\pm iy$)."
+    },
+    {
+     "kind": "text",
+     "html": "Even more is conserved: $J_3=\\tfrac12(a^\\dagger a-b^\\dagger b)$, $J_+=a^\\dagger b$, $J_-=b^\\dagger a$ close into $su(2)$ with $[J_3,J_\\pm]=\\pm J_\\pm$, $[J_+,J_-]=2J_3$ and $\\vec J^{\\,2}=\\frac N2(\\frac N2+1)$, $N=N_a+N_b$. The energy level $N$ is the spin-$j=N/2$ representation, of dimension $2j+1=N+1$: <b>the degeneracy is the dimension of an irrep</b>."
+    },
+    {
+     "kind": "text",
+     "html": "In 3D the conserved operators $J_{ij}=a_i^\\dagger a_j$ generate $u(3)=u(1)\\oplus su(3)$; the level $E=\\hbar\\omega(N+\\frac32)$ is the irrep with highest weight $|N,0,0\\rangle$, $\\lambda(h_1)=N$, $\\lambda(h_2)=0$ ($h_1=E_{11}-E_{22}$, $h_2=E_{22}-E_{33}$), of dimension $\\frac{(N+1)(N+2)}2$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Spherical coordinates</b> (sheet 10 Q1): with $\\Psi=\\frac{u(r)}rY_{\\ell m}$, $u\\sim r^{\\ell+1}$ at the origin and $u\\sim e^{-m\\omega r^2/2\\hbar}$ at infinity; the series $\\sum c_kr^k$ ($k=\\ell+1,\\ell+3,\\dots$) must terminate, which gives"
+    },
+    {
+     "kind": "eq",
+     "tex": "E=\\hbar\\omega\\big(2n_r+\\ell+\\tfrac32\\big),\\qquad\\deg(N)=\\sum_{\\ell=N,N-2,\\dots}(2\\ell+1)=\\tfrac{(N+1)(N+2)}2",
+     "label": "sheet 10 Q1(iv)-(v); N = 2 n_r + l"
+    },
+    {
+     "kind": "intuition",
+     "html": "The accidental degeneracy between different $\\ell$ (e.g. $2s$ with $1d$ at $N=2$: $1+5=6$) is exactly the sign of the larger symmetry $su(3)\\supset so(3)$. Hydrogen has the same pattern with $so(4)$ (see the Hydrogen Lamp)."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Do not forget the spin factor 2 if the particle has spin, and do not confuse the 2D level $E=(n+1)\\hbar\\omega$ (zero-point energy $\\hbar\\omega$) with the 3D one ($n+\\frac32$)."
+    }
+   ],
+   "check": [
+    {
+     "q": "Degeneracy of the level $E=\\frac92\\hbar\\omega$ of the 3D isotropic oscillator (spinless)",
+     "options": [
+      "$6$",
+      "$4$",
+      "$15$",
+      "$10$"
+     ],
+     "correct": 3,
+     "explain": "$N=3$: $\\binom{5}{3}=10$ triples $(n_x,n_y,n_z)$; equivalently $\\ell=3,1$: $7+3=10$."
+    },
+    {
+     "q": "In the 2D oscillator, $J=a^\\dagger b-b^\\dagger a$ on the $E=2\\hbar\\omega$ level has eigenvalues",
+     "options": [
+      "$\\pm1$ on $|1,0\\rangle\\pm|0,1\\rangle$",
+      "$0$ on both states, since $[H,J]=0$",
+      "$\\pm\\frac12$",
+      "$\\pm i$ on $\\frac1{\\sqrt2}(|1,0\\rangle\\pm i|0,1\\rangle)$ and $0$ on $|0,0\\rangle$ (so $L_z=-i\\hbar J=\\pm\\hbar$)"
+     ],
+     "correct": 3,
+     "explain": "$J|1,0\\rangle=-|0,1\\rangle$, $J|0,1\\rangle=|1,0\\rangle$: the matrix $\\left(\\begin{smallmatrix}0&1\\\\-1&0\\end{smallmatrix}\\right)$ has eigenvalues $\\pm i$."
+    },
+    {
+     "q": "Why is the degeneracy of the 3D oscillator larger than $2\\ell+1$?",
+     "options": [
+      "There is an additional conserved $su(3)$ symmetry beyond rotations; levels with $\\ell=N,N-2,\\dots$ are degenerate",
+      "Rotational symmetry alone gives $2\\ell+1$ and nothing else is conserved",
+      "The potential is spherically symmetric, which always gives $(2\\ell+1)$ times the number of $\\ell$ values",
+      "Because the energy depends only on $N$ and has no quantum numbers"
+     ],
+     "correct": 0,
+     "explain": "Sheet 9 Q4 and sheet 10 Q1."
+    }
+   ]
+  },
+  {
+   "type": "quiz",
+   "xp": 30,
+   "passMark": 0.75,
+   "id": "qm-ho-Q1",
+   "title": "Oscillator ladder: exam-style multiple choice",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 6"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS23.pdf",
+     "where": "Aufgabe 4"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 3"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
+     "where": "Q1-Q3"
+    }
+   ],
+   "questions": [
+    {
+     "q": "$[a,a^\\dagger]=1$. Then $[a^\\dagger a,a]=$",
+     "options": [
+      "$+a$",
+      "$a^\\dagger$",
+      "$-a$",
+      "$0$"
+     ],
+     "correct": 2,
+     "explain": "$[a^\\dagger a,a]=a^\\dagger[a,a]+[a^\\dagger,a]a=-a$.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "(6.20)-(6.21)"
+     }
+    },
+    {
+     "q": "$\\langle n|q^2|n\\rangle$ for $q=\\sqrt{\\hbar/2m\\omega}(a+a^\\dagger)$ is",
+     "options": [
+      "$\\frac\\hbar{2m\\omega}(n+1)$",
+      "$\\frac{\\hbar}{2m\\omega}(2n+1)$",
+      "$\\frac\\hbar{2m\\omega}\\,n$",
+      "$\\frac{\\hbar}{m\\omega}(n+\\frac12)^2$"
+     ],
+     "correct": 1,
+     "explain": "Cross terms $a^2,a^{\\dagger2}$ have zero diagonal element; $aa^\\dagger+a^\\dagger a=2N+1$."
+    },
+    {
+     "q": "In the state $|n\\rangle$ the ratio $\\langle T\\rangle/\\langle V\\rangle$ is",
+     "options": [
+      "$n$",
+      "$1$",
+      "$\\frac{n}{n+1}$",
+      "$\\frac12$"
+     ],
+     "correct": 1,
+     "explain": "$\\langle p^2\\rangle/2m=\\frac{\\hbar\\omega}4(2n+1)=\\frac12m\\omega^2\\langle q^2\\rangle$."
+    },
+    {
+     "q": "$H=\\hbar\\omega(a^\\dagger a+\\frac12)+\\lambda\\hbar\\omega(a^2+a^{\\dagger2})$. First-order shift of $E_n$",
+     "options": [
+      "$0$",
+      "$\\lambda\\hbar\\omega(2n+1)$",
+      "$\\lambda\\hbar\\omega\\sqrt{n(n-1)}$",
+      "$-2\\lambda^2\\hbar\\omega(n+\\frac12)$"
+     ],
+     "correct": 0,
+     "explain": "$\\langle n|a^2|n\\rangle=\\langle n|a^{\\dagger2}|n\\rangle=0$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 3(iv)"
+     }
+    },
+    {
+     "q": "2D isotropic oscillator: degeneracy of $E=4\\hbar\\omega$",
+     "options": [
+      "$3$",
+      "$4$",
+      "$5$",
+      "$10$"
+     ],
+     "correct": 1,
+     "explain": "$(n_x,n_y)\\in\\{(0,3),(1,2),(2,1),(3,0)\\}$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
+      "where": "Q3"
+     }
+    },
+    {
+     "q": "Coherent state $|\\alpha\\rangle$ with $|\\alpha|^2=9$. The probability of finding $n=0$ is",
+     "options": [
+      "$e^{-3}$",
+      "$0$",
+      "$\\frac1{10}$",
+      "$e^{-9}$"
+     ],
+     "correct": 3,
+     "explain": "Poisson distribution with mean $9$."
+    },
+    {
+     "q": "$\\psi=\\exp(rP/i\\hbar)\\psi_0$ is ",
+     "options": [
+      "the first excited state; $\\langle q_H(t)\\rangle=0$",
+      "the ground state with momentum $r$",
+      "the ground state shifted by $+r$; $\\langle q_H(t)\\rangle=r\\cos\\omega t$",
+      "the ground state shifted, but $\\langle q_H(t)\\rangle=r\\cos(2\\omega t)$"
+     ],
+     "correct": 2,
+     "explain": "HS23 Q4(d).",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS23.pdf",
+      "where": "Aufgabe 4(d)"
+     }
+    },
+    {
+     "q": "For $H=p^2/2m+\\frac12kq^2$, $\\Delta q\\,\\Delta p\\ge\\hbar/2$ implies $\\langle E\\rangle\\ge$",
+     "options": [
+      "$\\hbar\\sqrt{k/m}$",
+      "$\\frac\\hbar2\\sqrt{k/m}$",
+      "$\\frac\\hbar2\\sqrt{m/k}$",
+      "$0$"
+     ],
+     "correct": 1,
+     "explain": "AM-GM: $\\frac{(\\Delta p)^2}{2m}+\\frac k2(\\Delta q)^2\\ge\\sqrt{\\frac km}\\Delta q\\Delta p$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 6.pdf",
+      "where": "Q3"
+     }
+    }
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ho-D1",
+   "title": "Coherent states: $|\\alpha\\rangle$, time evolution, $\\Delta x\\Delta p=\\hbar/2$",
+   "source": {
+    "file": "materials/quantum-mechanics/solutions/Solutions 7.pdf",
+    "where": "Question 2 (i)-(iv), S.21-S.41"
+   },
+   "goal": "Let $a|\\alpha\\rangle=\\alpha|\\alpha\\rangle$, $\\langle\\alpha|\\alpha\\rangle=1$. Show $|\\alpha\\rangle=e^{-|\\alpha|^2/2}e^{\\alpha a^\\dagger}|0\\rangle$, that $|\\alpha\\rangle(t)=e^{-i\\omega t/2}|\\alpha e^{-i\\omega t}\\rangle$, and that $\\Delta x\\,\\Delta p=\\hbar/2$ at all times.",
+   "given": [
+    "$[a,a^\\dagger]=1$, $a|n\\rangle=\\sqrt n|n-1\\rangle$, $a^\\dagger|n\\rangle=\\sqrt{n+1}|n+1\\rangle$",
+    "$H=\\hbar\\omega(a^\\dagger a+\\frac12)$, $x=\\sqrt{\\hbar/2m\\omega}\\,(a+a^\\dagger)$, $p=i\\sqrt{m\\hbar\\omega/2}\\,(a^\\dagger-a)$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Expand $|\\alpha\\rangle=\\sum_nc_n|n\\rangle$ and turn $a|\\alpha\\rangle=\\alpha|\\alpha\\rangle$ into a relation between $c_n$ and $c_{n+1}$.",
+     "reveal": "$a|\\alpha\\rangle=\\sum_nc_n\\sqrt n|n-1\\rangle=\\sum_nc_{n+1}\\sqrt{n+1}|n\\rangle$. Compare with $\\alpha\\sum c_n|n\\rangle$: $\\alpha c_n=\\sqrt{n+1}\\,c_{n+1}$, so $c_n=\\frac{\\alpha^n}{\\sqrt{n!}}c_0$."
+    },
+    {
+     "prompt": "(b) Sum the series with $|n\\rangle=(a^\\dagger)^n|0\\rangle/\\sqrt{n!}$ and fix $c_0$ by normalisation.",
+     "reveal": "$|\\alpha\\rangle=c_0\\sum_n\\frac{\\alpha^n}{n!}(a^\\dagger)^n|0\\rangle=c_0e^{\\alpha a^\\dagger}|0\\rangle$. $1=\\sum|c_n|^2=|c_0|^2\\sum\\frac{|\\alpha|^{2n}}{n!}=|c_0|^2e^{|\\alpha|^2}$, so $c_0=e^{-|\\alpha|^2/2}$ up to a phase."
+    },
+    {
+     "prompt": "(c) Apply $e^{-iHt/\\hbar}$ term by term.",
+     "reveal": "$e^{-iE_nt/\\hbar}=e^{-i\\omega t/2}e^{-in\\omega t}$, so $|\\alpha\\rangle(t)=e^{-i\\omega t/2}e^{-|\\alpha|^2/2}\\sum\\frac{(\\alpha e^{-i\\omega t})^n}{\\sqrt{n!}}|n\\rangle=e^{-i\\omega t/2}|\\alpha e^{-i\\omega t}\\rangle$, and $|\\alpha e^{-i\\omega t}|=|\\alpha|$ keeps the normalisation."
+    },
+    {
+     "prompt": "(d) Compute $\\langle x\\rangle$ and $\\langle p\\rangle$ with $\\alpha(t)=\\alpha e^{-i\\omega t}=|\\alpha|e^{-i(\\omega t-\\varphi_0)}$.",
+     "reveal": "Use $\\langle\\alpha|a|\\alpha\\rangle=\\alpha$, $\\langle\\alpha|a^\\dagger|\\alpha\\rangle=\\bar\\alpha$: $\\langle x\\rangle=\\sqrt{\\frac{2\\hbar}{m\\omega}}\\mathrm{Re}\\,\\alpha(t)=\\sqrt{\\frac{2\\hbar}{m\\omega}}|\\alpha|\\cos(\\omega t-\\varphi_0)$, $\\langle p\\rangle=\\sqrt{2m\\hbar\\omega}\\,\\mathrm{Im}\\,\\alpha(t)=-\\sqrt{2m\\hbar\\omega}|\\alpha|\\sin(\\omega t-\\varphi_0)$: the classical orbit."
+    },
+    {
+     "prompt": "(e) Compute $\\langle x^2\\rangle$, $\\langle p^2\\rangle$ (use $aa^\\dagger=a^\\dagger a+1$) and the product of uncertainties.",
+     "reveal": "$\\langle x^2\\rangle=\\frac\\hbar{2m\\omega}\\langle a^2+a^{\\dagger2}+aa^\\dagger+a^\\dagger a\\rangle=\\frac\\hbar{2m\\omega}(\\alpha^2+\\bar\\alpha^2+1+2|\\alpha|^2)$; $\\langle x\\rangle^2=\\frac\\hbar{2m\\omega}(\\alpha+\\bar\\alpha)^2$. The $\\alpha$-dependence cancels: $(\\Delta x)^2=\\frac\\hbar{2m\\omega}$. Likewise $(\\Delta p)^2=\\frac{m\\hbar\\omega}2$, so $\\Delta x\\Delta p=\\frac\\hbar2$."
+    }
+   ],
+   "keyPoints": [
+    "recurrence $\\alpha c_n=\\sqrt{n+1}c_{n+1}\\Rightarrow c_n=\\alpha^nc_0/\\sqrt{n!}$",
+    "$|\\alpha\\rangle=e^{-|\\alpha|^2/2}e^{\\alpha a^\\dagger}|0\\rangle$ with normalisation $|c_0|^2e^{|\\alpha|^2}=1$",
+    "phase $e^{-in\\omega t}$ per level rotates $\\alpha\\to\\alpha e^{-i\\omega t}$ (still an eigenstate of $a$)",
+    "$\\langle x\\rangle,\\langle p\\rangle$ equal the classical solution (Ehrenfest and $\\langle V'\\rangle=V'(\\langle x\\rangle)$)",
+    "variances independent of $\\alpha$ and $t$: minimum uncertainty $\\hbar/2$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ho-D2",
+   "title": "Heisenberg picture of the oscillator (HS23 Q4c)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS23.pdf",
+    "where": "Aufgabe 4(c), 8 pt; solution in solutions/Quantenmechanik I HS23 (Solution).pdf, L.77-L.89"
+   },
+   "goal": "For $H=\\frac{P^2}{2m}+\\frac12m\\omega^2X^2$ show $X_H(t)=X\\cos\\omega t+\\frac P{m\\omega}\\sin\\omega t$ and $P_H(t)=-m\\omega X\\sin\\omega t+P\\cos\\omega t$.",
+   "given": [
+    "$A_H(t)=U^\\dagger AU$, $U=e^{-iHt/\\hbar}$, $\\frac d{dt}A_H=\\frac1{i\\hbar}[A_H,H]$ for time-independent $A$",
+    "$[X,P]=i\\hbar$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Why can the Heisenberg equation be written with $[A_H,H]$ and not $[A_H,H_H]$?",
+     "reveal": "$H_H=U^\\dagger HU=H$ because $U$ is a function of $H$ and commutes with it (HS23 Q1(c)(i)). Hence $[A_H,H]=[A_H,H_H]=U^\\dagger[A,H]U$."
+    },
+    {
+     "prompt": "(b) Compute $\\dot X_H$.",
+     "reveal": "$[X,H]=\\frac1{2m}[X,P^2]=\\frac{i\\hbar P}m$. So $\\dot X_H=\\frac1{i\\hbar}U^\\dagger\\frac{i\\hbar P}mU=\\frac{P_H}m$."
+    },
+    {
+     "prompt": "(c) Compute $\\dot P_H$.",
+     "reveal": "$[P,H]=\\frac12m\\omega^2[P,X^2]=-i\\hbar m\\omega^2X$, so $\\dot P_H=-m\\omega^2X_H$."
+    },
+    {
+     "prompt": "(d) Decouple, solve, and fix the constants with the initial conditions.",
+     "reveal": "$\\ddot X_H=\\dot P_H/m=-\\omega^2X_H$. Initial data: $X_H(0)=X$, $\\dot X_H(0)=P/m$. Hence $X_H=X\\cos\\omega t+\\frac P{m\\omega}\\sin\\omega t$ and $P_H=m\\dot X_H=P\\cos\\omega t-m\\omega X\\sin\\omega t$."
+    },
+    {
+     "prompt": "(e) Application (HS23 Q4d): $|\\psi\\rangle=e^{rP/i\\hbar}|0\\rangle$. Find $\\langle\\psi|X_H(t)|\\psi\\rangle$.",
+     "reveal": "Use $e^{irP/\\hbar}Xe^{-irP/\\hbar}=X+r$ (translation; sheet 5 Q3). With $\\langle0|X|0\\rangle=\\langle0|P|0\\rangle=0$: $\\langle X_H(t)\\rangle=\\cos\\omega t\\,\\langle\\psi|X|\\psi\\rangle+\\frac{\\sin\\omega t}{m\\omega}\\langle\\psi|P|\\psi\\rangle=r\\cos\\omega t$. $r$ is the classical amplitude."
+    }
+   ],
+   "keyPoints": [
+    "$H_H=H$ since $[U,H]=0$",
+    "$[X,P^2]=2i\\hbar P$ and $[P,X^2]=-2i\\hbar X$ give $\\dot X_H=P_H/m$, $\\dot P_H=-m\\omega^2X_H$",
+    "second-order ODE with initial conditions $X,P/m$",
+    "$\\langle X_H(t)\\rangle=r\\cos\\omega t$ via the translation property and $\\langle0|X|0\\rangle=\\langle0|P|0\\rangle=0$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ho-D3",
+   "title": "Factorisation trick: the $\\mathrm{sech}^2$ potential (sheet 9 Q1)",
+   "source": {
+    "file": "materials/quantum-mechanics/solutions/Solutions 9.pdf",
+    "where": "Question 1, S.1-S.6"
+   },
+   "goal": "For $V=-\\frac{\\hbar^2}m\\mathrm{sech}^2x$ show $H\\psi=E\\psi\\Leftrightarrow A^\\dagger A\\psi=(\\epsilon+1)\\psi$ with $A=\\partial_x+\\tanh x$, $\\epsilon=2mE/\\hbar^2$, deduce $\\epsilon\\ge-1$ and find the ground state.",
+   "given": [
+    "$H=-\\frac{\\hbar^2}{2m}\\partial_x^2+V(x)$",
+    "$\\frac{d}{dx}\\tanh x=\\mathrm{sech}^2x$, $\\tanh^2x=1-\\mathrm{sech}^2x$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Find $A^\\dagger$ and compute $A^\\dagger A\\psi$.",
+     "reveal": "$\\partial_x^\\dagger=-\\partial_x$ and $\\tanh$ is real: $A^\\dagger=-\\partial_x+\\tanh x$. $A^\\dagger A\\psi=(-\\partial_x+\\tanh)(\\psi'+\\tanh\\psi)=-\\psi''-\\mathrm{sech}^2\\psi-\\tanh\\psi'+\\tanh\\psi'+\\tanh^2\\psi=-\\psi''+(\\tanh^2-\\mathrm{sech}^2)\\psi=-\\psi''+(1-2\\,\\mathrm{sech}^2)\\psi$."
+    },
+    {
+     "prompt": "(b) Compare with $H\\psi=E\\psi$ rewritten as $-\\psi''-2\\,\\mathrm{sech}^2\\psi=\\epsilon\\psi$.",
+     "reveal": "Both left sides agree up to the constant $1$: $A^\\dagger A\\psi=-\\psi''-2\\,\\mathrm{sech}^2\\psi+\\psi=(\\epsilon+1)\\psi$."
+    },
+    {
+     "prompt": "(c) Show $\\epsilon\\ge-1$.",
+     "reveal": "$\\langle\\chi|A^\\dagger A\\chi\\rangle=\\|A\\chi\\|^2\\ge0$, so every eigenvalue of $A^\\dagger A$ is $\\ge0$, i.e. $\\epsilon+1\\ge0$ and $E\\ge-\\frac{\\hbar^2}{2m}$."
+    },
+    {
+     "prompt": "(d) When is the bound saturated? Solve for $\\psi_0$.",
+     "reveal": "Iff $A\\psi_0=0$: $\\psi_0'=-\\tanh x\\,\\psi_0\\Rightarrow\\ln\\psi_0=-\\ln\\cosh x+c$, $\\psi_0=\\frac N{\\cosh x}$, normalisable; $\\int\\mathrm{sech}^2=2$ gives $N=1/\\sqrt2$. $E_0=-\\frac{\\hbar^2}{2m}$."
+    }
+   ],
+   "keyPoints": [
+    "$A^\\dagger=-\\partial_x+\\tanh x$, $A^\\dagger A=-\\partial_x^2+\\tanh^2-\\mathrm{sech}^2$",
+    "$\\tanh^2=1-\\mathrm{sech}^2\\Rightarrow A^\\dagger A=-\\partial_x^2+1-2\\mathrm{sech}^2$",
+    "positivity $\\langle A\\chi|A\\chi\\rangle\\ge0\\Rightarrow\\epsilon\\ge-1$",
+    "saturation $A\\psi_0=0\\Rightarrow\\psi_0=1/(\\sqrt2\\cosh x)$, same idea as $a|0\\rangle=0$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ho-D4",
+   "title": "Zero-point energy from the uncertainty relation (sheet 6 Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/solutions/Solutions 6.pdf",
+    "where": "Question 3"
+   },
+   "goal": "For $V=\\frac12kx^2$ show $\\langle E\\rangle\\ge\\frac\\hbar2\\sqrt{k/m}$.",
+   "given": [
+    "$\\Delta x\\,\\Delta p\\ge\\hbar/2$",
+    "$(\\Delta A)^2=\\langle A^2\\rangle-\\langle A\\rangle^2$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Write $\\langle E\\rangle$ in terms of $\\langle x\\rangle,\\langle p\\rangle,\\Delta x,\\Delta p$.",
+     "reveal": "$\\langle p^2\\rangle=\\langle p\\rangle^2+(\\Delta p)^2$, $\\langle x^2\\rangle=\\langle x\\rangle^2+(\\Delta x)^2$, so $\\langle E\\rangle=\\frac{\\langle p\\rangle^2+(\\Delta p)^2}{2m}+\\frac k2\\big(\\langle x\\rangle^2+(\\Delta x)^2\\big)$."
+    },
+    {
+     "prompt": "(b) Drop the non-negative terms $\\langle p\\rangle^2,\\langle x\\rangle^2$ and use $A+B\\ge2\\sqrt{AB}$.",
+     "reveal": "$\\langle E\\rangle\\ge\\frac{(\\Delta p)^2}{2m}+\\frac k2(\\Delta x)^2\\ge2\\sqrt{\\frac{(\\Delta p)^2}{2m}\\frac k2(\\Delta x)^2}=\\sqrt{\\frac km}\\,\\Delta x\\,\\Delta p$."
+    },
+    {
+     "prompt": "(c) Insert the uncertainty relation.",
+     "reveal": "$\\langle E\\rangle\\ge\\sqrt{k/m}\\cdot\\frac\\hbar2=\\frac12\\hbar\\omega$. Equality needs $\\langle x\\rangle=\\langle p\\rangle=0$, $A=B$ (i.e. $\\frac{(\\Delta p)^2}{2m}=\\frac k2(\\Delta x)^2$) and minimal uncertainty: the Gaussian ground state."
+    }
+   ],
+   "keyPoints": [
+    "variance decomposition of $\\langle p^2\\rangle,\\langle x^2\\rangle$",
+    "AM-GM $A+B\\ge2\\sqrt{AB}$",
+    "$\\hbar\\omega/2$ is the exact ground energy: the bound is saturated"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ho-D5",
+   "title": "2D oscillator: rotation generator $J=a^\\dagger b-b^\\dagger a$ (sheet 7 Q1)",
+   "source": {
+    "file": "materials/quantum-mechanics/solutions/Solutions 7.pdf",
+    "where": "Question 1 (iii)-(v), S.11-S.20"
+   },
+   "goal": "Show that $J$ generates the rotation $(a,b)\\to R(\\varphi)(a,b)$, that $[H,J]=0$, and diagonalise $J$ on the levels $E\\le2\\hbar\\omega$.",
+   "given": [
+    "$H=\\hbar\\omega(a^\\dagger a+b^\\dagger b+1)$, $[a,a^\\dagger]=[b,b^\\dagger]=1$, all other commutators $0$",
+    "$\\frac d{d\\varphi}\\big(a(\\varphi),b(\\varphi)\\big)|_0=(-b,a)$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Why is $H$ invariant under $a\\to\\cos\\varphi\\,a-\\sin\\varphi\\,b$, $b\\to\\sin\\varphi\\,a+\\cos\\varphi\\,b$?",
+     "reveal": "$H=\\hbar\\omega\\,(a^\\dagger,b^\\dagger)\\binom ab+\\hbar\\omega$; the transformation is $\\binom ab\\to R\\binom ab$, $(a^\\dagger,b^\\dagger)\\to(a^\\dagger,b^\\dagger)R^T$, and $R^TR=1$. Since $x=(a+a^\\dagger)/\\sqrt2$, $y=(b+b^\\dagger)/\\sqrt2$ rotate with the same $R$: rotational symmetry of the isotropic oscillator."
+    },
+    {
+     "prompt": "(b) Verify that $J=a^\\dagger b-b^\\dagger a$ gives $[J,a]=-b$, $[J,b]=a$.",
+     "reveal": "$[a^\\dagger b,a]=[a^\\dagger,a]b=-b$, $[b^\\dagger a,a]=0$ so $[J,a]=-b$. $[a^\\dagger b,b]=0$, $[b^\\dagger a,b]=[b^\\dagger,b]a=-a$ so $[J,b]=+a$."
+    },
+    {
+     "prompt": "(c) Show $[H,J]=0$.",
+     "reveal": "With $[A,BC]=B[A,C]+[A,B]C$: $[a^\\dagger a,a^\\dagger b]=a^\\dagger b$ and $[b^\\dagger b,a^\\dagger b]=-a^\\dagger b$, so $[H,a^\\dagger b]=\\hbar\\omega(a^\\dagger b-a^\\dagger b)=0$ (creating an $a$-quantum is compensated by annihilating a $b$-quantum). Similarly for $b^\\dagger a$."
+    },
+    {
+     "prompt": "(d) Matrix of $J$ on $\\{|0,0\\rangle,|1,0\\rangle,|0,1\\rangle\\}$ and its eigenvectors.",
+     "reveal": "$J|m,n\\rangle=\\sqrt{(m+1)n}|m+1,n-1\\rangle-\\sqrt{m(n+1)}|m-1,n+1\\rangle$: $J|0,0\\rangle=0$, $J|1,0\\rangle=-|0,1\\rangle$, $J|0,1\\rangle=|1,0\\rangle$. Eigenvalues $0,\\ i,\\ -i$ with $|0,0\\rangle$, $\\frac1{\\sqrt2}(|1,0\\rangle+i|0,1\\rangle)$, $\\frac1{\\sqrt2}(|1,0\\rangle-i|0,1\\rangle)$. Since $J=iL_z/\\hbar$: $L_z=0,\\pm\\hbar$."
+    }
+   ],
+   "keyPoints": [
+    "$R^TR=1$ makes the bilinear form $a^\\dagger a+b^\\dagger b$ invariant",
+    "$[J,a]=-b$, $[J,b]=a$ from $[a^\\dagger b,a]=-b$ etc.",
+    "$[H,J]=0$: $J$ conserves the total number $N_a+N_b$",
+    "$J$ is anti-Hermitian, eigenvalues $0,\\pm i$ and $L_z=-i\\hbar J=0,\\pm\\hbar$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ho-D6",
+   "title": "3D oscillator in spherical coordinates: recursion and spectrum (sheet 10 Q1)",
+   "source": {
+    "file": "materials/quantum-mechanics/solutions/Solutions 10.pdf",
+    "where": "Question 1 (ii)-(v), S.1-S.40"
+   },
+   "goal": "From $-u''+\\big[\\frac{\\ell(\\ell+1)}{r^2}+\\alpha^2r^2\\big]u=\\epsilon u$ ($\\alpha=m\\omega/\\hbar$, $\\epsilon=2mE/\\hbar^2$) derive $E=\\hbar\\omega(2n_r+\\ell+\\frac32)$ and its degeneracy.",
+   "given": [
+    "$\\Psi=\\frac{u(r)}rY_{\\ell m}$, $\\Psi$ square integrable $\\Leftrightarrow\\int|u|^2dr<\\infty$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Behaviour at $r\\to0$.",
+     "reveal": "Keep $-u''+\\ell(\\ell+1)u/r^2\\approx0$. $u=r^\\lambda$: $\\lambda(\\lambda-1)=\\ell(\\ell+1)$, $\\lambda=\\ell+1$ or $-\\ell$. For $\\ell>0$, $\\Psi\\sim r^{-\\ell-1}$ is not square integrable; for $\\ell=0$, $\\Psi\\sim1/r$ would need $\\nabla^2(1/r)=-4\\pi\\delta$, i.e. a $\\delta$-potential, absent here. So $u\\sim r^{\\ell+1}$."
+    },
+    {
+     "prompt": "(b) Behaviour at $r\\to\\infty$ and the difference from hydrogen.",
+     "reveal": "Dominant terms: $u''\\approx\\alpha^2r^2u$, $u=e^S$, $S'^2\\approx\\alpha^2r^2$, $S=\\pm\\alpha r^2/2$; square-integrability keeps the minus sign: $u\\sim e^{-\\alpha r^2/2}$. Hydrogen decays like $e^{-\\kappa r}$; here the confining potential grows, so the wave function falls off faster, and there are no scattering states (discrete spectrum)."
+    },
+    {
+     "prompt": "(c) Ansatz $u=e^{-\\alpha r^2/2}\\sum_{k\\ge\\ell+1}c_kr^k$: derive the recursion.",
+     "reveal": "$f=\\sum c_kr^k$ satisfies $-f''+\\frac{\\ell(\\ell+1)}{r^2}f+2\\alpha rf'+(\\alpha-\\epsilon)f=0$. Coefficient of $r^k$: $[-(k+2)(k+1)+\\ell(\\ell+1)]c_{k+2}+[2\\alpha k+\\alpha-\\epsilon]c_k=0$, i.e. $c_{k+2}=\\frac{\\alpha(2k+1)-\\epsilon}{(k+2)(k+1)-\\ell(\\ell+1)}c_k$. At $k=\\ell$: $c_{\\ell+2}=0$, so only $k-\\ell$ odd survive; $c_{\\ell+1}$ is the one free constant."
+    },
+    {
+     "prompt": "(d) Termination condition and spectrum.",
+     "reveal": "For large $k$, $c_{k+2}/c_k\\approx2\\alpha/k$, which resums to $e^{+\\alpha r^2}$ and spoils normalisability, so the series must stop: $\\alpha(2k+1)=\\epsilon$ for some $k=\\ell+1+2n_r$. Then $E=\\frac{\\hbar^2\\epsilon}{2m}=\\hbar\\omega(k+\\frac12)=\\hbar\\omega\\big(2n_r+\\ell+\\frac32\\big)$."
+    },
+    {
+     "prompt": "(e) Degeneracy, compared with three Cartesian oscillators.",
+     "reveal": "With $N=2n_r+\\ell$: $\\ell=N,N-2,\\dots,1$ or $0$. $\\sum(2\\ell+1)=\\frac{(N+1)(N+2)}2$, exactly $D^3_N$ of sheet 7 Q3."
+    }
+   ],
+   "keyPoints": [
+    "$u\\sim r^{\\ell+1}$ at the origin (and why $r^{-\\ell}$ is excluded, incl. $\\ell=0$)",
+    "Gaussian decay $e^{-\\alpha r^2/2}$ vs. hydrogen's $e^{-\\kappa r}$; no continuum",
+    "recursion $c_{k+2}=\\frac{\\alpha(2k+1)-\\epsilon}{(k+2)(k+1)-\\ell(\\ell+1)}c_k$ with $c_{\\ell+2}=0$",
+    "termination gives $E=\\hbar\\omega(2n_r+\\ell+3/2)$",
+    "degeneracy $\\frac{(N+1)(N+2)}2$ agrees with the Cartesian count"
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 70,
+   "id": "qm-ho-c1",
+   "title": "Anharmonic oscillator to second order (sheet 14 Q1)",
+   "problem": "An oscillator $H=H_0+H_a$, $H_0=\\frac{p^2}{2m}+\\frac12m\\omega^2x^2$, $H_a=\\lambda\\,(x/x_0)^4$ with $x_0=\\sqrt{\\hbar/m\\omega}$ and $\\lambda$ an energy. Find the energy levels to second order in $\\lambda$. Source: sheet 14, Q1.",
+   "symbols": [
+    [
+     "$a,a^\\dagger$",
+     "ladder operators of $H_0$, $[a,a^\\dagger]=1$"
+    ],
+    [
+     "$x_0$",
+     "oscillator length $\\sqrt{\\hbar/m\\omega}$"
+    ],
+    [
+     "$\\lambda$",
+     "strength of the quartic term (an energy)"
+    ],
+    [
+     "$|n\\rangle$",
+     "eigenstates of $H_0$, $E_n^{(0)}=\\hbar\\omega(n+\\frac12)$"
+    ],
+    [
+     "$E_n^{(1)},E_n^{(2)}$",
+     "first and second-order energy shifts"
+    ]
+   ],
+   "vars": {
+    "lam": 0.2,
+    "hbar": 1,
+    "omega": 1
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Non-degenerate perturbation theory: $E_n^{(1)}=\\langle n|H_a|n\\rangle$ and $E_n^{(2)}=\\sum_{m\\neq n}\\frac{|\\langle m|H_a|n\\rangle|^2}{E_n-E_m}$. The only work is the matrix elements of $(a+a^\\dagger)^4$, which changes $n$ by $0,\\pm2,\\pm4$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Express $H_a$ with ladder operators.",
+     "options": [
+      "$H_a=\\lambda(a+a^\\dagger)^4$",
+      "$H_a=\\frac\\lambda4(a-a^\\dagger)^4$",
+      "$x=x_0\\frac{a+a^\\dagger}{\\sqrt2}$, so $H_a=\\frac\\lambda4(a+a^\\dagger)^4$",
+      "$H_a=\\lambda(a^\\dagger a)^2$"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "You dropped the $1/\\sqrt2$ in $x=x_0(a+a^\\dagger)/\\sqrt2$; this makes $H_a$ four times too large.",
+      "1": "That is $p^4$ (up to constants), not $x^4$; $x\\propto a+a^\\dagger$, $p\\propto i(a^\\dagger-a)$.",
+      "3": "$x^4$ is not a function of $N=a^\\dagger a$ alone: $x$ changes $n$."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "choice",
+     "prompt": "Which matrix elements $\\langle m|H_a|n\\rangle$ are non-zero?",
+     "options": [
+      "only $m=n$",
+      "$m-n\\in\\{0,\\pm2,\\pm4\\}$: four factors of $a$ or $a^\\dagger$ change $n$ by an even number $\\le4$",
+      "$m-n\\in\\{\\pm1,\\pm3\\}$",
+      "all $m$, because $x^4$ is not a polynomial of low degree in $a$"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "The off-diagonal elements are exactly what produces the second-order shift.",
+      "2": "Parity: $x^4$ is even, so it only connects states of equal parity ($n$ and $m$ differ by an even number).",
+      "3": "It is a polynomial of degree 4 in $a,a^\\dagger$; no term shifts $n$ by more than 4."
+     }
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $E_n^{(1)}=\\langle n|H_a|n\\rangle$ (symbols <code>n</code>, <code>lam</code>).",
+     "answer": "(lam/4)*(6*n**2+6*n+3)",
+     "symbols": {
+      "n": [
+       0,
+       10
+      ],
+      "lam": [
+       0.1,
+       2
+      ]
+     },
+     "units": [
+      "energy",
+      "dimensionless",
+      "length",
+      "momentum"
+     ],
+     "unit": "energy",
+     "latex": "E_n^{(1)}=\\frac{\\lambda}{4}\\left(6n^2+6n+3\\right)=\\frac{3\\lambda}{4}(2n^2+2n+1)",
+     "hint": "Normal-order with $aa^\\dagger=a^\\dagger a+1$: $(a+a^\\dagger)^4=a^{\\dagger4}+4a^{\\dagger3}a+6a^{\\dagger2}a^2+4a^\\dagger a^3+a^4+6(a^2+2a^\\dagger a+a^{\\dagger2})+3$. The diagonal part is $6a^{\\dagger2}a^2+12a^\\dagger a+3\\to6n(n-1)+12n+3=6n^2+6n+3$.",
+     "wrong": [
+      "(lam/4)*(6*n**2+6*n+1)",
+      "lam*(6*n**2+6*n+3)",
+      "(lam/4)*(n**2+n+3)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type the largest off-diagonal element $\\langle n+4|H_a|n\\rangle$.",
+     "answer": "(lam/4)*sqrt((n+1)*(n+2)*(n+3)*(n+4))",
+     "symbols": {
+      "n": [
+       0,
+       10
+      ],
+      "lam": [
+       0.1,
+       2
+      ]
+     },
+     "units": [
+      "energy",
+      "dimensionless",
+      "length"
+     ],
+     "unit": "energy",
+     "latex": "\\langle n+4|H_a|n\\rangle=\\frac\\lambda4\\sqrt{(n+1)(n+2)(n+3)(n+4)}",
+     "hint": "Only $(a^\\dagger)^4$ raises by four: $(a^\\dagger)^4|n\\rangle=\\sqrt{(n+1)(n+2)(n+3)(n+4)}|n+4\\rangle$.",
+     "wrong": [
+      "(lam/4)*sqrt((n+1)*(n+2)*(n+3))",
+      "(lam/4)*(n+1)*(n+2)*(n+3)*(n+4)"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle n+2|H_a|n\\rangle$ (hint: collect the 4 terms with three $a^\\dagger$ and one $a$, plus the $a^\\dagger a^\\dagger$-terms from reordering).",
+     "answer": "(lam/4)*sqrt((n+1)*(n+2))*(4*n+6)",
+     "symbols": {
+      "n": [
+       0,
+       10
+      ],
+      "lam": [
+       0.1,
+       2
+      ]
+     },
+     "units": [
+      "energy",
+      "dimensionless",
+      "length"
+     ],
+     "unit": "energy",
+     "latex": "\\langle n+2|H_a|n\\rangle=\\frac\\lambda4\\sqrt{(n+1)(n+2)}\\,(4n+6)",
+     "hint": "Use the normal-ordered form $(a+a^\\dagger)^4=a^{\\dagger4}+4a^{\\dagger3}a+6a^{\\dagger2}a^2+4a^\\dagger a^3+a^4+6(a^2+2a^\\dagger a+a^{\\dagger2})+3$. Only $4a^{\\dagger3}a$ and $6a^{\\dagger2}$ raise $n$ by two: $4n\\sqrt{(n+1)(n+2)}+6\\sqrt{(n+1)(n+2)}$. Check $n=0$: $6\\sqrt2$.",
+     "wrong": [
+      "(lam/4)*sqrt((n+1)*(n+2))*(4*n+4)",
+      "(lam/4)*sqrt((n+1)*(n+2))"
+     ]
+    },
+    {
+     "id": "s6",
+     "kind": "order",
+     "prompt": "Order the steps of the second-order calculation.",
+     "items": [
+      {
+       "text": "List the non-zero couplings $m=n\\pm2,\\ n\\pm4$ (with the conditions $m\\ge0$)",
+       "note": "from s2",
+       "why": "You cannot sum over couplings you have not identified."
+      },
+      {
+       "text": "Compute $|\\langle m|H_a|n\\rangle|^2$ for each coupling (s4, s5 and their transposes)",
+       "note": "$\\langle n-2|H_a|n\\rangle=\\langle n|H_a|n-2\\rangle^*$ by hermiticity",
+       "why": "The squares are the numerators of the PT formula."
+      },
+      {
+       "text": "Insert the denominators $E_n-E_m=\\hbar\\omega(n-m)$",
+       "note": "equally spaced levels: $-2\\hbar\\omega,-4\\hbar\\omega,+2\\hbar\\omega,+4\\hbar\\omega$",
+       "why": "Needs the numerators and the choice of $m$ first."
+      },
+      {
+       "text": "Sum the four contributions and simplify the polynomial in $n$",
+       "note": "$E^{(2)}_n=-\\frac{\\lambda^2}{8\\hbar\\omega}(34n^3+51n^2+59n+21)$",
+       "why": "Last step: it combines everything above."
+      }
+     ],
+     "hint": "Logical order: couplings, numerators, denominators, sum."
+    },
+    {
+     "id": "s7",
+     "kind": "symbolic",
+     "prompt": "Type the second-order shift $E_n^{(2)}$ (symbols <code>n</code>, <code>lam</code>, <code>hbar</code>, <code>omega</code>).",
+     "answer": "-(lam**2)*(34*n**3+51*n**2+59*n+21)/(8*hbar*omega)",
+     "symbols": {
+      "n": [
+       0,
+       8
+      ],
+      "lam": [
+       0.1,
+       1
+      ],
+      "hbar": [
+       0.5,
+       2
+      ],
+      "omega": [
+       0.5,
+       2
+      ]
+     },
+     "units": [
+      "energy",
+      "energy^2",
+      "dimensionless",
+      "energy*time"
+     ],
+     "unit": "energy",
+     "latex": "E^{(2)}_n=-\\frac{\\lambda^2}{8\\hbar\\omega}\\big(34n^3+51n^2+59n+21\\big)",
+     "hint": "Contributions (with $\\frac{\\lambda^2}{16}$ out front): $m=n+4$: $\\frac{(n+1)(n+2)(n+3)(n+4)}{-4\\hbar\\omega}$; $m=n+2$: $\\frac{(4n+6)^2(n+1)(n+2)}{-2\\hbar\\omega}$; $m=n-2$: $\\frac{(4n-2)^2n(n-1)}{2\\hbar\\omega}$; $m=n-4$: $\\frac{n(n-1)(n-2)(n-3)}{4\\hbar\\omega}$. Test with $n=0$: $-\\frac{\\lambda^2}{16}(\\frac{24}4+\\frac{36\\cdot2}2)/\\hbar\\omega=-\\frac{42\\lambda^2}{16\\hbar\\omega}=-\\frac{21\\lambda^2}{8\\hbar\\omega}$.",
+     "wrong": [
+      "-(lam**2)*(34*n**3+51*n**2+59*n+21)/(8*hbar**2*omega)",
+      "lam**2*(34*n**3+51*n**2+59*n+21)/(8*hbar*omega)"
+     ]
+    },
+    {
+     "id": "s8",
+     "kind": "choice",
+     "prompt": "The relative correction $E_n^{(1)}/E_n^{(0)}$ grows like $n$. Why was this to be expected?",
+     "options": [
+      "High $n$ spreads the wave function to large $|x|$ where $x^4\\gg x^2$: the \"perturbation\" overwhelms $H_0$ and perturbation theory (small $\\lambda$ at fixed $n$) breaks down",
+      "Because the unperturbed levels are degenerate for large $n$",
+      "Because $\\lambda$ must be dimensionless to be a small parameter",
+      "Because $H_a$ is not Hermitian"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "The 1D levels are equally spaced but non-degenerate.",
+      "2": "$\\lambda$ here is an energy; what must be small is $\\lambda/(\\hbar\\omega)$ times a growing function of $n$.",
+      "3": "$x^4$ is Hermitian; the problem is its size relative to $H_0$ at large $x$."
+     }
+    },
+    {
+     "id": "s9",
+     "kind": "numeric",
+     "prompt": "Bonus: with $\\lambda=0.2\\,\\hbar\\omega$, the ground-state energy through second order in units of $\\hbar\\omega$.",
+     "answer": "0.5+3*lam/4-21*lam**2/8",
+     "unit": "ħω",
+     "units": [
+      "ħω",
+      "eV",
+      "J"
+     ],
+     "tol": 0.01,
+     "hint": "Insert $n=0$: $E_0=\\frac12+\\frac34\\lambda-\\frac{21}8\\lambda^2$ with $\\lambda$ in units of $\\hbar\\omega$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 60,
+   "id": "qm-ho-c2",
+   "title": "Squeezing perturbation $\\lambda\\hbar\\omega(a^2+a^{\\dagger2})$ (HS25 Q3 iv-v)",
+   "problem": "$H=\\hbar\\omega(a^\\dagger a+\\frac12)+\\lambda\\hbar\\omega(a^2+a^{\\dagger2})$, $|\\lambda|\\ll1$. Find the first-order energy, the first-order state, the second-order energy, and check against the exact solution. Source: HS25 Q3 (iv),(v).",
+   "symbols": [
+    [
+     "$\\lambda$",
+     "dimensionless strength"
+    ],
+    [
+     "$|n\\rangle$",
+     "oscillator eigenstates"
+    ],
+    [
+     "$H'$",
+     "$\\hbar\\omega(a^2+a^{\\dagger2})$ (the perturbation, with $\\lambda$ factored out)"
+    ],
+    [
+     "$|\\Psi_n^{(1)}\\rangle$",
+     "first-order correction to the state"
+    ]
+   ],
+   "vars": {
+    "lam": 0.05,
+    "n": 2
+   },
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "First-order energy $E_n^{(1)}=\\langle n|H'|n\\rangle$ is",
+     "options": [
+      "$\\hbar\\omega(2n+1)$",
+      "$\\hbar\\omega\\sqrt{n(n+1)}$",
+      "$\\lambda\\hbar\\omega$",
+      "$0$, since $a^2$ and $a^{\\dagger2}$ change $n$ by $\\mp2$ and have no diagonal elements"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "That would be $\\hbar\\omega\\langle aa^\\dagger+a^\\dagger a\\rangle$; the operator here is $a^2+a^{\\dagger2}$.",
+      "1": "This looks like an off-diagonal element, not a diagonal one.",
+      "2": "$\\lambda$ multiplies the perturbation, but the matrix element itself is zero."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type the coefficient $\\langle n+2|H'|n\\rangle/(\\hbar\\omega)$.",
+     "answer": "sqrt((n+1)*(n+2))",
+     "symbols": {
+      "n": [
+       0,
+       10
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy"
+     ],
+     "unit": "dimensionless",
+     "latex": "\\langle n+2|(a^{\\dagger})^2|n\\rangle=\\sqrt{(n+1)(n+2)}",
+     "hint": "$a^{\\dagger2}|n\\rangle=\\sqrt{n+1}\\sqrt{n+2}|n+2\\rangle$.",
+     "wrong": [
+      "sqrt(n+1)",
+      "(n+1)*(n+2)"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type the coefficient of $|n+2\\rangle$ in $|\\Psi_n^{(1)}\\rangle$ (symbols <code>lam</code>, <code>n</code>; the state is $|\\phi_n\\rangle+\\sum_l\\frac{\\langle\\phi_l|H'|\\phi_n\\rangle}{E_n-E_l}|\\phi_l\\rangle$ with $H'$ including $\\lambda$).",
+     "answer": "-lam*sqrt((n+1)*(n+2))/2",
+     "symbols": {
+      "lam": [
+       0.01,
+       0.4
+      ],
+      "n": [
+       0,
+       10
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy"
+     ],
+     "unit": "dimensionless",
+     "latex": "c_{n+2}=\\frac{\\lambda\\hbar\\omega\\sqrt{(n+1)(n+2)}}{E_n-E_{n+2}}=-\\frac\\lambda2\\sqrt{(n+1)(n+2)}",
+     "hint": "$E_n-E_{n+2}=-2\\hbar\\omega$. The $|n-2\\rangle$ coefficient is $+\\frac\\lambda2\\sqrt{n(n-1)}$ (denominator $+2\\hbar\\omega$).",
+     "wrong": [
+      "lam*sqrt((n+1)*(n+2))/2",
+      "-lam*sqrt((n+1)*(n+2))"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type $E_n^{(2)}=\\sum_{l\\ne n}\\frac{|\\langle l|\\lambda H'|n\\rangle|^2}{E_n-E_l}$ (symbols <code>lam</code>, <code>n</code>, <code>hbar</code>, <code>omega</code>).",
+     "answer": "-(lam**2)*hbar*omega*(2*n+1)",
+     "symbols": {
+      "lam": [
+       0.01,
+       0.4
+      ],
+      "n": [
+       0,
+       10
+      ],
+      "hbar": [
+       0.5,
+       2
+      ],
+      "omega": [
+       0.5,
+       2
+      ]
+     },
+     "units": [
+      "energy",
+      "dimensionless",
+      "energy^2"
+     ],
+     "unit": "energy",
+     "latex": "E^{(2)}_n=\\lambda^2\\hbar\\omega\\Big[\\frac{n(n-1)}{2}-\\frac{(n+1)(n+2)}2\\Big]=-\\lambda^2\\hbar\\omega(2n+1)",
+     "hint": "Two intermediate states: $n+2$ (denominator $-2\\hbar\\omega$) and $n-2$ (denominator $+2\\hbar\\omega$). Subtract: $\\frac12[n(n-1)-(n+1)(n+2)]=\\frac12(-4n-2)=-(2n+1)$.",
+     "wrong": [
+      "lam**2*hbar*omega*(2*n+1)",
+      "-(lam**2)*hbar*omega*(n+1)"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "choice",
+     "prompt": "Rewrite $H$ in terms of $q,p$ to solve it exactly. The result is an oscillator with frequency",
+     "options": [
+      "$\\omega'=\\omega(1+2\\lambda)$",
+      "$\\omega'=\\omega$, because $a^2+a^{\\dagger2}$ is traceless",
+      "$\\omega'=\\omega\\sqrt{1-4\\lambda^2}$, because $a^2+a^{\\dagger2}=\\frac{m\\omega}\\hbar q^2-\\frac{p^2}{m\\hbar\\omega}$ gives $H=(1-2\\lambda)\\frac{p^2}{2m}+(1+2\\lambda)\\frac12m\\omega^2q^2$",
+      "$\\omega'=\\omega\\sqrt{1+4\\lambda^2}$"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "The mass term changes too: kinetic coefficient $(1-2\\lambda)$, potential coefficient $(1+2\\lambda)$; $\\omega'^2=\\omega^2(1-2\\lambda)(1+2\\lambda)$.",
+      "1": "Not traceless in the relevant sense: it squeezes, changing the frequency at order $\\lambda^2$.",
+      "3": "Sign: the $p^2$ coefficient decreases while the $q^2$ coefficient increases, product $1-4\\lambda^2$."
+     },
+     "after": "$a^2+a^{\\dagger2}=\\frac12[(a+a^\\dagger)^2+(a-a^\\dagger)^2]$."
+    },
+    {
+     "id": "s6",
+     "kind": "symbolic",
+     "prompt": "Type the exact energy $E_n(\\lambda)$.",
+     "answer": "hbar*omega*sqrt(1-4*lam**2)*(n+1/2)",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "omega": [
+       0.5,
+       2
+      ],
+      "lam": [
+       0.01,
+       0.4
+      ],
+      "n": [
+       0,
+       10
+      ]
+     },
+     "units": [
+      "energy",
+      "dimensionless",
+      "energy^2"
+     ],
+     "unit": "energy",
+     "latex": "E_n=\\hbar\\omega\\sqrt{1-4\\lambda^2}\\,\\big(n+\\tfrac12\\big)\\approx\\hbar\\omega\\big(n+\\tfrac12\\big)(1-2\\lambda^2)",
+     "hint": "Expanding $\\sqrt{1-4\\lambda^2}\\approx1-2\\lambda^2$ reproduces $E^{(2)}_n=-2\\lambda^2\\hbar\\omega(n+\\frac12)=-\\lambda^2\\hbar\\omega(2n+1)$: a check of s4.",
+     "wrong": [
+      "hbar*omega*sqrt(1+4*lam**2)*(n+1/2)",
+      "hbar*omega*(1-2*lam)*(n+1/2)"
+     ]
+    },
+    {
+     "id": "s7",
+     "kind": "numeric",
+     "prompt": "Bonus: $n=2$, $\\lambda=0.05$. Second-order energy $E_2$ in units of $\\hbar\\omega$.",
+     "answer": "(n+0.5)-lam**2*(2*n+1)",
+     "unit": "ħω",
+     "units": [
+      "ħω",
+      "eV",
+      "J"
+     ],
+     "tol": 0.001,
+     "hint": "$E_2^{(0)}=2.5$, $E_2^{(2)}=-\\lambda^2(2n+1)=-0.0125$ in units of $\\hbar\\omega$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 50,
+   "id": "qm-ho-c3",
+   "title": "A coherent state on the elevator",
+   "problem": "An oscillator is prepared in a coherent state $|\\alpha\\rangle$ with $\\alpha=|\\alpha|e^{i\\varphi_0}$. Find the motion of $\\langle x\\rangle$, the mean energy, and the distribution of $n$. Source: sheet 7 Q2.",
+   "symbols": [
+    [
+     "$\\alpha$",
+     "eigenvalue of $a$ (complex)"
+    ],
+    [
+     "$A=|\\alpha|$",
+     "modulus of $\\alpha$"
+    ],
+    [
+     "$\\varphi_0$",
+     "phase of $\\alpha$"
+    ],
+    [
+     "$x_0=\\sqrt{\\hbar/m\\omega}$",
+     "oscillator length"
+    ],
+    [
+     "$P_n$",
+     "probability to find $n$ quanta"
+    ]
+   ],
+   "vars": {
+    "A2": 4
+   },
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which statement defines a coherent state?",
+     "options": [
+      "$a^\\dagger|\\alpha\\rangle=\\alpha|\\alpha\\rangle$",
+      "$a|\\alpha\\rangle=\\alpha|\\alpha\\rangle$; it is a superposition of all $|n\\rangle$ and stays coherent under time evolution",
+      "$N|\\alpha\\rangle=|\\alpha|^2|\\alpha\\rangle$",
+      "$H|\\alpha\\rangle=\\hbar\\omega|\\alpha|^2|\\alpha\\rangle$"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "$a^\\dagger$ has no eigenvectors: applying it raises the lowest $n$ of the expansion, so no normalisable solution exists.",
+      "2": "That would make $|\\alpha\\rangle$ a number state; the actual state has Poisson-distributed $n$.",
+      "3": "$|\\alpha\\rangle$ is not an energy eigenstate; it moves."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "order",
+     "prompt": "Order the derivation of $c_n$ and $P_n$.",
+     "items": [
+      {
+       "text": "Expand $|\\alpha\\rangle=\\sum_nc_n|n\\rangle$ and apply $a$",
+       "note": "$a|n\\rangle=\\sqrt n|n-1\\rangle$",
+       "why": "The expansion is the starting point."
+      },
+      {
+       "text": "Compare coefficients of $|n\\rangle$: $\\alpha c_n=\\sqrt{n+1}\\,c_{n+1}$",
+       "note": "eigenvalue equation in components",
+       "why": "Needs the shifted sum from the previous step."
+      },
+      {
+       "text": "Solve the recursion: $c_n=\\alpha^nc_0/\\sqrt{n!}$",
+       "note": "iterate from $c_0$",
+       "why": "Needs the relation between neighbours."
+      },
+      {
+       "text": "Normalise: $\\sum|c_n|^2=|c_0|^2e^{|\\alpha|^2}=1\\Rightarrow|c_0|=e^{-|\\alpha|^2/2}$",
+       "note": "exponential series",
+       "why": "Needs all $c_n$ in terms of $c_0$."
+      },
+      {
+       "text": "Read off $P_n=|c_n|^2=e^{-|\\alpha|^2}|\\alpha|^{2n}/n!$ (Poisson, mean $|\\alpha|^2$)",
+       "note": "last step",
+       "why": "Uses the normalised coefficients."
+      }
+     ],
+     "hint": "Expand, compare, solve, normalise, interpret."
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle x\\rangle(t)$ in terms of <code>hbar</code>, <code>m</code>, <code>omega</code>, <code>A</code>$=|\\alpha|$, <code>phi0</code>, <code>t</code>.",
+     "answer": "sqrt(2*hbar/(m*omega))*A*cos(omega*t-phi0)",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "m": [
+       0.5,
+       2
+      ],
+      "omega": [
+       0.5,
+       3
+      ],
+      "A": [
+       0.2,
+       3
+      ],
+      "phi0": [
+       0,
+       6
+      ],
+      "t": [
+       0,
+       5
+      ]
+     },
+     "units": [
+      "length",
+      "momentum",
+      "energy",
+      "dimensionless"
+     ],
+     "unit": "length",
+     "latex": "\\langle x\\rangle(t)=\\sqrt{\\tfrac{2\\hbar}{m\\omega}}\\,|\\alpha|\\cos(\\omega t-\\varphi_0)",
+     "hint": "$\\langle x\\rangle=\\sqrt{\\hbar/2m\\omega}\\,\\langle a+a^\\dagger\\rangle=\\sqrt{2\\hbar/m\\omega}\\,\\mathrm{Re}\\,\\alpha(t)$ with $\\alpha(t)=\\alpha e^{-i\\omega t}$.",
+     "wrong": [
+      "sqrt(2*hbar/(m*omega))*A*cos(omega*t+phi0)",
+      "sqrt(hbar/(2*m*omega))*A*cos(omega*t-phi0)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type the mean energy $\\langle H\\rangle$ (symbols <code>hbar</code>, <code>omega</code>, <code>A</code>).",
+     "answer": "hbar*omega*(A**2+1/2)",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "omega": [
+       0.5,
+       3
+      ],
+      "A": [
+       0.2,
+       3
+      ]
+     },
+     "units": [
+      "energy",
+      "dimensionless",
+      "momentum"
+     ],
+     "unit": "energy",
+     "latex": "\\langle H\\rangle=\\hbar\\omega\\big(|\\alpha|^2+\\tfrac12\\big)",
+     "hint": "$\\langle H\\rangle=\\hbar\\omega(\\langle a^\\dagger a\\rangle+\\frac12)$ and $\\langle a^\\dagger a\\rangle=\\bar\\alpha\\alpha$. It is the classical energy $\\frac12m\\omega^2x_{\\max}^2$ plus the zero-point $\\frac12\\hbar\\omega$.",
+     "wrong": [
+      "hbar*omega*A**2",
+      "hbar*omega*(A+1/2)"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "choice",
+     "prompt": "How does $\\Delta x$ evolve in time?",
+     "options": [
+      "It is constant, $\\sqrt{\\hbar/2m\\omega}$: the packet keeps the shape of the ground state while its centre oscillates",
+      "It oscillates with $\\cos\\omega t$ like $\\langle x\\rangle$",
+      "It grows (the packet spreads) as for a free particle",
+      "It vanishes at $t=0$ because $|\\alpha\\rangle$ is an eigenstate"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "$\\langle x^2\\rangle$ and $\\langle x\\rangle^2$ have the same time-dependent part, which cancels in the variance.",
+      "2": "The restoring force of the harmonic potential exactly balances the spreading for the Gaussian ground-state width.",
+      "3": "$|\\alpha\\rangle$ is an eigenstate of $a$, not of $x$."
+     }
+    },
+    {
+     "id": "s6",
+     "kind": "numeric",
+     "prompt": "Bonus: $|\\alpha|^2=4$. Probability $P_4$ to find $n=4$.",
+     "answer": "exp(-A2)*A2**4/24",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "%"
+     ],
+     "tol": 0.01,
+     "hint": "Poisson: $e^{-4}4^4/4!=e^{-4}\\cdot256/24$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 50,
+   "id": "qm-ho-c4",
+   "title": "Counting states: generating function and hidden symmetry",
+   "problem": "How many states share the energy of a $d$-dimensional isotropic oscillator, and which symmetry is responsible? Source: sheet 7 Q3, sheet 8 Q3, sheet 9 Q4, sheet 10 Q1.",
+   "symbols": [
+    [
+     "$D^k_n$",
+     "number of ways to write $n=n_1+\\dots+n_k$, $n_i\\ge0$"
+    ],
+    [
+     "$F^k(s)$",
+     "generating function $\\sum_nD^k_ns^n$"
+    ],
+    [
+     "$N$",
+     "total number of quanta"
+    ],
+    [
+     "$j$",
+     "spin of the $su(2)$ representation, $j=N/2$"
+    ]
+   ],
+   "vars": {
+    "N": 6
+   },
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "order",
+     "prompt": "Order the derivation of $D^k_n$.",
+     "items": [
+      {
+       "text": "Write $F^k(s)=\\sum_{n_1,\\dots,n_k\\ge0}s^{n_1+\\dots+n_k}$: every decomposition of $n$ contributes one term $s^n$",
+       "note": "this is the definition rewritten",
+       "why": "Starting point: shows the coefficient of $s^n$ counts decompositions."
+      },
+      {
+       "text": "Factorise into $k$ geometric series: $F^k=\\big(\\sum_{m\\ge0}s^m\\big)^k$",
+       "note": "the sum over each $n_i$ is independent",
+       "why": "Needs the multiple sum."
+      },
+      {
+       "text": "Sum the geometric series: $F^k(s)=(1-s)^{-k}$ for $|s|<1$",
+       "note": "$\\sum s^m=1/(1-s)$",
+       "why": "Uses the factorised form."
+      },
+      {
+       "text": "Differentiate $n$ times at $s=0$: $n!\\,D^k_n=k(k+1)\\cdots(k+n-1)$",
+       "note": "Taylor coefficient",
+       "why": "Needs the closed form of $F^k$."
+      },
+      {
+       "text": "Conclude $D^k_n=\\frac{(n+k-1)!}{n!(k-1)!}=\\binom{n+k-1}{n}$",
+       "note": "2D: $n+1$; 3D: $\\frac{(n+1)(n+2)}2$",
+       "why": "Last step."
+      }
+     ],
+     "hint": "Definition, factorise, sum, differentiate, simplify."
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type the degeneracy of the level $E=\\hbar\\omega(N+\\frac32)$ of the 3D oscillator.",
+     "answer": "(N+1)*(N+2)/2",
+     "symbols": {
+      "N": [
+       0,
+       12
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy"
+     ],
+     "unit": "dimensionless",
+     "latex": "D^3_N=\\frac{(N+1)(N+2)}{2}",
+     "hint": "$\\binom{N+2}{N}=\\binom{N+2}{2}$.",
+     "wrong": [
+      "(N+1)",
+      "N*(N+1)/2",
+      "(N+1)*(N+2)"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "choice",
+     "prompt": "Which statement explains why the 3D levels are $\\frac{(N+1)(N+2)}2$-fold degenerate although the symmetry group of the potential is only $SO(3)$?",
+     "options": [
+      "Time-reversal symmetry doubles every level",
+      "Parity relates states with $\\ell$ and $-\\ell$",
+      "It is an accident without a symmetry explanation",
+      "The $J_{ij}=a_i^\\dagger a_j$ commute with $H$ and generate $u(3)$; level $N$ is the symmetric irrep with highest weight $|N,0,0\\rangle$ ($\\lambda(h_1)=N,\\lambda(h_2)=0$)"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "Time reversal gives Kramers degeneracy for half-integer spin only; it cannot give $\\frac{(N+1)(N+2)}2$.",
+      "1": "Parity acts within a given $\\ell$; the degeneracy between different $\\ell$ needs more.",
+      "2": "Accidental degeneracies usually signal a hidden symmetry; here it is $su(3)$."
+     }
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "In the Schwinger construction the 2D level with $N=n_a+n_b$ quanta is the $su(2)$ irrep with $j=N/2$. Type its dimension.",
+     "answer": "N+1",
+     "symbols": {
+      "N": [
+       0,
+       12
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy"
+     ],
+     "unit": "dimensionless",
+     "latex": "2j+1=N+1",
+     "hint": "$m=(n_a-n_b)/2\\in\\{-j,\\dots,j\\}$ takes $2j+1$ values.",
+     "wrong": [
+      "N",
+      "2*N+1"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: degeneracy of $E=\\frac{15}2\\hbar\\omega$ in 3D, counting spin $\\tfrac12$ ($\\times2$).",
+     "answer": "2*(N+1)*(N+2)/2",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless"
+     ],
+     "tol": 0.001,
+     "hint": "$E=\\hbar\\omega(N+\\frac32)=\\frac{15}2\\hbar\\omega\\Rightarrow N=6$; $\\frac{7\\cdot8}2=28$ spatial states, times two spin states.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-ho-b1",
+   "title": "Perturbation of the harmonic oscillator (HS25 Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+    "where": "Question 3 [Perturbation of the harmonic oscillator, 19 points]"
+   },
+   "minutes": 38,
+   "instructions": "Solve all parts on paper under the timer (2 min per point). Then enter the final numbers; the derivations are graded by you against the key points.",
+   "statement": [
+    "The Hamiltonian of a particle in a one-dimensional harmonic potential is $H_0=\\frac{p^2}{2m}+\\frac12m\\omega^2q^2$, $[q,p]=i\\hbar$.",
+    "(i) Define $a=\\sqrt{\\frac{m\\omega}{2\\hbar}}\\,q+\\frac{i}{\\sqrt{2m\\hbar\\omega}}\\,p$. Show that $H_0=\\hbar\\omega(a^\\dagger a+\\frac12)$ and calculate $[a,a^\\dagger]$. [3 pt]",
+    "(ii) Derive the energies $E_n$ and eigenstates $|n\\rangle$ of this Hamiltonian using the ladder operators $a,a^\\dagger$. [6 pt]",
+    "(iii) What property does the vacuum $|0\\rangle$ satisfy? Use it to find the (normalised) wave function in position space. [4 pt]",
+    "Perturbation theory (given): $E=E_n+\\lambda E_n^{(1)}+\\lambda^2E_n^{(2)}+\\dots$ with $E_n^{(1)}=\\langle\\phi_n|H'|\\phi_n\\rangle$, $E_n^{(2)}=\\sum_{l\\ne n}\\frac{|\\langle\\phi_l|H'|\\phi_n\\rangle|^2}{E_n-E_l}$, $|\\Psi_n^{(1)}\\rangle=\\sum_{l\\ne n}\\frac{\\langle\\phi_l|H'|\\phi_n\\rangle}{E_n-E_l}|\\phi_l\\rangle$.",
+    "(iv) $H=\\hbar\\omega(a^\\dagger a+\\frac12)+\\lambda\\hbar\\omega\\,(a^2+(a^\\dagger)^2)$. Find the first-order correction to the $n$-th energy level. [2 pt]",
+    "(v) Evaluate the action of $H'$ on $|n\\rangle$. Find the first-order correction to the $n$-th state and the second-order correction to the $n$-th energy level. [4 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "cup",
+     "prompt": "Coefficient of $|n+2\\rangle$ in $|\\Psi_n^{(1)}\\rangle$ per unit $\\lambda$ (i.e. divided by $\\lambda$), for $n=2$.",
+     "answer": "-sqrt((n+1)*(n+2))/2",
+     "vars": {
+      "n": 2
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "cdown",
+     "prompt": "Coefficient of $|n-2\\rangle$ in $|\\Psi_n^{(1)}\\rangle$ per unit $\\lambda$, for $n=2$.",
+     "answer": "sqrt(n*(n-1))/2",
+     "vars": {
+      "n": 2
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "E2",
+     "prompt": "$E_n^{(2)}$ in units of $\\hbar\\omega$ (the coefficient of $\\lambda^2$), for $n=2$.",
+     "answer": "-(2*n+1)",
+     "vars": {
+      "n": 2
+     },
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $a^\\dagger a=\\frac{m\\omega}{2\\hbar}q^2+\\frac{p^2}{2m\\hbar\\omega}+\\frac{i}{2\\hbar}[q,p]=\\frac{H_0}{\\hbar\\omega}-\\frac12$ and $[a,a^\\dagger]=-\\frac i\\hbar[q,p]=1$",
+    "(ii) $[N,a^\\dagger]=a^\\dagger$, $[N,a]=-a$; norms $\\langle n|a^\\dagger a|n\\rangle=n\\ge0$; the lowering chain must stop at $a|0\\rangle=0$, so $n\\in\\mathbb N_0$; $E_n=\\hbar\\omega(n+\\frac12)$, $|n\\rangle=(a^\\dagger)^n|0\\rangle/\\sqrt{n!}$",
+    "(iii) $a|0\\rangle=0\\Rightarrow(\\frac{m\\omega}\\hbar q+\\partial_q)\\psi_0=0\\Rightarrow\\psi_0=(\\frac{m\\omega}{\\pi\\hbar})^{1/4}e^{-m\\omega q^2/2\\hbar}$ (normalise with the Gaussian integral)",
+    "(iv) $E_n^{(1)}=0$: $a^2,a^{\\dagger2}$ have no diagonal matrix elements",
+    "(v) $H'|n\\rangle=\\hbar\\omega(\\sqrt{n(n-1)}|n-2\\rangle+\\sqrt{(n+1)(n+2)}|n+2\\rangle)$; $|\\Psi_n^{(1)}\\rangle=\\frac12(\\sqrt{n(n-1)}|n-2\\rangle-\\sqrt{(n+1)(n+2)}|n+2\\rangle)$; $E_n^{(2)}=\\hbar\\omega[\\frac{n(n-1)}2-\\frac{(n+1)(n+2)}2]=-\\hbar\\omega(2n+1)$",
+    "Check (not asked): exact solution is an oscillator with $\\omega'=\\omega\\sqrt{1-4\\lambda^2}$, expansion gives the same $E^{(2)}_n$"
+   ],
+   "requires": "qm-ho-c2"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-ho-b2",
+   "title": "Harmonic oscillator, Heisenberg picture and a 2D perturbation (HS23 Q4)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS23.pdf",
+    "where": "Aufgabe 4 [Harmonischer Oszillator, 34 Punkte]; solution: solutions/Quantenmechanik I HS23 (Solution).pdf, L.66-L.115"
+   },
+   "minutes": 68,
+   "instructions": "Long problem (34 points, about 68 minutes). The exam statement is German/English at the student's choice; it is translated here. Notation: $\\hat X,\\hat P$ position and momentum operators, $\\hat a^*=a^\\dagger$.",
+   "statement": [
+    "Let $\\hat H=\\frac{\\hat P^2}{2m}+\\frac12m\\omega^2\\hat X^2$ be the Hamiltonian of the 1D harmonic oscillator and $|n\\rangle$ the Fock states.",
+    "(a) Express $\\hat H$ through creation and annihilation operators. How do they act on a Fock state? (No calculation.) [2 pt]",
+    "(b) Compute the matrix elements $\\langle n|\\hat X|m\\rangle$ and $\\langle n|\\hat P|m\\rangle$. [3 pt]",
+    "(c) Show that in the Heisenberg picture $\\hat X_H(t)=\\hat X\\cos\\omega t+\\frac{\\hat P}{m\\omega}\\sin\\omega t$ and $\\hat P_H(t)=-m\\omega\\hat X\\sin\\omega t+\\hat P\\cos\\omega t$. Hint: find expressions for $d\\hat X_H/dt$, $d\\hat P_H/dt$ and solve the coupled differential equations. [8 pt]",
+    "(d) Consider the state $|\\psi\\rangle=\\exp\\!\\big(\\frac{r\\hat P}{i\\hbar}\\big)|0\\rangle$ with $r\\in\\mathbb R$. Determine $\\langle\\hat X_H(t)\\rangle$ for $t\\ge0$. What would the constant $r$ mean for a classical oscillator? [6 pt]",
+    "We now add a second spatial dimension: $\\hat H=\\frac{\\hat P_x^2}{2m}+\\frac{\\hat P_y^2}{2m}+\\frac12m\\omega^2(\\hat X^2+\\hat Y^2)$.",
+    "(e) What are the energies of the three lowest eigenstates? Is any energy degenerate? [3 pt]",
+    "(f) Consider the perturbation $\\hat H'=\\lambda m\\omega^2\\hat X\\hat Y$ ($\\lambda\\ll1$ dimensionless). Find the first-order energy correction of the three lowest unperturbed eigenstates. [12 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "M",
+     "prompt": "(b) $\\langle n|\\hat X|m\\rangle$ for $n=3$, $m=2$ in units of $\\sqrt{\\hbar/2m\\omega}$.",
+     "answer": "sqrt(m+1)",
+     "vars": {
+      "m": 2
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "xh",
+     "prompt": "(d) $\\langle\\hat X_H(t)\\rangle$ for $r=2$ (in length units) at $\\omega t=\\pi/3$.",
+     "answer": "r*cos(wt)",
+     "vars": {
+      "r": 2,
+      "wt": 1.0471975511965976
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "E0",
+     "prompt": "(e) The lowest energy in units of $\\hbar\\omega$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.001
+    },
+    {
+     "id": "shift",
+     "prompt": "(f) First-order shift of the two states with $E^{(0)}=2\\hbar\\omega$ is $\\pm\\delta$. Give $\\delta/(\\hbar\\omega)$ for $\\lambda=0.1$.",
+     "answer": "lam/2",
+     "vars": {
+      "lam": 0.1
+     },
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(a) $\\hat H=\\hbar\\omega(\\hat a^*\\hat a+\\frac12)$, $\\hat a|n\\rangle=\\sqrt n|n-1\\rangle$, $\\hat a^*|n\\rangle=\\sqrt{n+1}|n+1\\rangle$",
+    "(b) $\\hat X=\\sqrt{\\hbar/2m\\omega}(\\hat a+\\hat a^*)$, $\\hat P=i\\sqrt{m\\hbar\\omega/2}(\\hat a^*-\\hat a)$: $\\langle n|\\hat X|m\\rangle=\\sqrt{\\frac\\hbar{2m\\omega}}(\\sqrt{m+1}\\delta_{n,m+1}+\\sqrt m\\delta_{n,m-1})$ and similar for $\\hat P$ with a relative minus sign and a factor $i$",
+    "(c) $\\hat H_H=\\hat H$ since $U$ commutes with $\\hat H$; $\\dot X_H=P_H/m$, $\\dot P_H=-m\\omega^2X_H$; $\\ddot X_H=-\\omega^2X_H$ with initial values $\\hat X,\\hat P/m$",
+    "(d) Use $[X_H(t),e^{rP/i\\hbar}]=\\cos\\omega t\\,[X,e^{rP/i\\hbar}]=r\\cos\\omega t\\,e^{rP/i\\hbar}$ (since $[X,f(P)]=i\\hbar f'(P)$) and $\\langle0|X_H(t)|0\\rangle=0$: $\\langle X_H(t)\\rangle=r\\cos\\omega t$. $r$ = amplitude (displacement at $t=0$, released from rest)",
+    "(e) $E=\\hbar\\omega(n+m+1)$: $\\hbar\\omega$ (non-degenerate), $2\\hbar\\omega$ (two-fold: $|1,0\\rangle,|0,1\\rangle$)",
+    "(f) Ground state: $\\langle0,0|XY|0,0\\rangle=0$. Degenerate level: diagonal elements vanish, off-diagonal $\\langle1,0|\\lambda m\\omega^2XY|0,1\\rangle=\\lambda m\\omega^2\\frac\\hbar{2m\\omega}=\\frac{\\lambda\\hbar\\omega}2$; diagonalise $\\begin{pmatrix}0&\\lambda\\hbar\\omega/2\\\\\\lambda\\hbar\\omega/2&0\\end{pmatrix}$: shifts $\\pm\\frac{\\lambda\\hbar\\omega}2$ with states $(|1,0\\rangle\\pm|0,1\\rangle)/\\sqrt2$ (degenerate PT needed!)"
+   ],
+   "requires": "qm-ho-c1"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-ho-b3",
+   "title": "Ehrenfest theorem and the harmonic oscillator (FS19 Q2)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+    "where": "Aufgabe 2 / Question 2 [Ehrenfest and harmonic oscillator, 24 points]"
+   },
+   "minutes": 48,
+   "instructions": "24 points, 48 minutes. The paper is bilingual (DE/EN); the English version is reproduced.",
+   "statement": [
+    "Consider a particle of mass $m$ moving in one dimension subject to a potential $V(x)$.",
+    "(i) State the time-dependent Schrödinger equation, and deduce Ehrenfest's theorem $\\frac d{dt}\\langle x\\rangle=\\frac1m\\langle p\\rangle$. [5 pt]",
+    "(ii) Consider $V=\\frac12m\\omega^2x^2$ and introduce $x=\\sqrt{\\frac\\hbar{2m\\omega}}(a+a^\\dagger)$, $p=-\\sqrt{\\frac{\\hbar m\\omega}2}\\,i(a-a^\\dagger)$. Using $[x,p]=i\\hbar$, deduce $[a,a^\\dagger]$. [2 pt]",
+    "(iii) Using $H=\\frac{\\hbar\\omega}2(aa^\\dagger+a^\\dagger a)$, find the normalised ground state $\\psi_0(x)$ and its energy. Calculate also explicitly the first two excited normalised eigenfunctions $\\psi_1,\\psi_2$ and their eigenvalues. [9 pt]",
+    "(iv) Let $\\Psi_n(x,t)$ be the solution with $\\Psi_n(x,0)=\\psi_n(x)$. Determine the time-dependence of $\\langle x\\rangle$. What can you deduce about $\\langle p\\rangle$? Confirm explicitly for $n=0$ and $n=1$. [3 pt]",
+    "(v) Now consider $\\Psi=A\\Psi_0+B\\Psi_1$ with real $A,B$. Calculate $\\frac d{dt}\\langle x\\rangle$ and $\\langle p\\rangle$. Comment. How would the analysis change if you used $\\Psi_2$ instead of $\\Psi_1$? [5 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "psi2",
+     "prompt": "(iii) $\\psi_2(\\xi=0)$ with $\\xi=\\sqrt{m\\omega/\\hbar}\\,x$, in units of $(m\\omega/\\hbar)^{1/4}$.",
+     "answer": "-2/sqrt(8*sqrt(pi))",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "amp",
+     "prompt": "(v) Amplitude of $\\langle x\\rangle(t)$ for $A=B=1/\\sqrt2$, in units of $x_0=\\sqrt{\\hbar/m\\omega}$ (i.e. $\\langle x\\rangle=\\text{amp}\\cdot x_0\\cos\\omega t$).",
+     "answer": "2*A*B/sqrt(2)",
+     "vars": {
+      "A": 0.7071067811865476,
+      "B": 0.7071067811865476
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "E2",
+     "prompt": "(iii) Energy of $\\psi_2$ in units of $\\hbar\\omega$.",
+     "answer": "2.5",
+     "vars": {},
+     "tol": 0.001
+    }
+   ],
+   "keyPoints": [
+    "(i) $i\\hbar\\partial_t\\Psi=-\\frac{\\hbar^2}{2m}\\Psi''+V\\Psi$; $\\frac d{dt}\\langle x\\rangle=\\int(\\dot\\Psi^*x\\Psi+\\Psi^*x\\dot\\Psi)$; the potential terms cancel (V real); integrate by parts twice: $\\frac1m\\langle p\\rangle$",
+    "(ii) $[a,a^\\dagger]=-\\frac i\\hbar[x,p]=1$ (with $a=\\sqrt{\\frac{m\\omega}{2\\hbar}}x+\\frac{ip}{\\sqrt{2m\\hbar\\omega}}$)",
+    "(iii) $a\\psi_0=0\\Rightarrow\\psi_0=(\\frac{m\\omega}{\\pi\\hbar})^{1/4}e^{-m\\omega x^2/2\\hbar}$, $E_0=\\frac12\\hbar\\omega$; $\\psi_1=\\sqrt2\\xi\\psi_0$ ($E_1=\\frac32\\hbar\\omega$); $\\psi_2=\\frac1{\\sqrt2}(2\\xi^2-1)\\psi_0$ ($E_2=\\frac52\\hbar\\omega$)",
+    "(iv) stationary state: $\\langle x\\rangle$ is time independent, equal to $0$ by parity; so $\\langle p\\rangle=m\\,d\\langle x\\rangle/dt=0$ (check: $\\langle0|p|0\\rangle=\\langle1|p|1\\rangle=0$)",
+    "(v) $\\langle x\\rangle=2AB\\sqrt{\\hbar/2m\\omega}\\cos\\omega t$, $\\langle p\\rangle=-2AB\\sqrt{m\\hbar\\omega/2}\\sin\\omega t=m\\,d\\langle x\\rangle/dt$: a classical oscillation at $\\omega=(E_1-E_0)/\\hbar$. With $\\Psi_2$: $\\langle0|x|2\\rangle=0$, $\\langle x\\rangle=\\langle p\\rangle=0$ (cross terms vanish); beat frequency $2\\omega$ would appear only in $\\langle x^2\\rangle$"
+   ],
+   "requires": "qm-ho-c3"
+  }
+ ]
+}

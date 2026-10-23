@@ -1,0 +1,142 @@
+                Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                                    Exercise sheet V
+                                      Return:        22.10.2025
+
+
+Question 1 [Transfer matrix method ]:
+   In this exercise, we will study a method to solve systems with piece-wise constant
+potential.
+
+  (i) We first consider a step                     (
+                                                    VL        if x < 0 ,
+                                           V (x) =                                         (1)
+                                                    VR        else .
+        Solving the Schrödinger equation on both sides of x = 0 separately, we get:
+                                                               p
+                                 ikx      −ikx                    2m (E − VL )
+                   ψL (x) = AL e + BL e        ,           k=                  ,           (2)
+                                                               p      ℏ
+                                 iqx      −iqx                    2m (E − VR )
+                   ψR (x) = AR e + BR e        ,           q=                  ,           (3)
+                                                                      ℏ
+        where k and q can be either real or imaginary, depending on the sign of E − VL/R .1
+        Assume the coefficients AR and BR to the right of the step are known. As ψ and ψ ′
+        have to be continuous at x = 0, the coefficients to the left of the step are related by
+                                                     
+                                          AL           AR
+                                               =M                                           (4)
+                                          BL           BR
+
+        where M is called the transfer matrix. Determine M in terms of k, q.
+
+                                       V
+                                                     !                 !
+                                               AL        M        AR
+                                               BL                 BR
+                                     VR
+
+
+                                     VL
+
+                                                          0                x
+
+
+
+ (ii) To describe multiple potential steps, we also need a “propagation” matrix, describing
+      how the wavefunction changes over a region of constant potential. We want to write
+      the wavefunction with coordinates relative to the left (x = x1 ) and right (x = x2 )
+      edges of this constant potential region:
+
+                                   ψ (x) = A1 eik(x−x1 ) + B1 e−ik(x−x1 )                  (5)
+                                                  ik(x−x2 )        −ik(x−x2 )
+                                   ψ (x) = A2 e               + B2 e            .          (6)
+  1
+      We will however assume E ̸= VL and E ̸= VR .
+                             V
+                                              !               !
+                                         A1       N      A2
+                                         B1              B2
+
+
+
+
+                                         x1              x2         x
+
+
+    Find the propagation matrix N , defined by
+                                              
+                                    A1          A2
+                                          =N       .                                    (7)
+                                    B1          B2
+
+(iii) Now we consider a general piece-wise constant potential, shown below.
+
+
+
+
+    Suppose that you are given (AR , BR ), describing the wavefunction on the right. Find
+    an expression for (AL , BL ), describing the wavefunction on the left side, in terms of
+    transfer- and propagation matrices.
+(iv) We now consider the square well familiar from the lecture.
+          V
+          0
+                                                              (
+                                                               −V       if |x| < ℓ/2
+                                                      V (x) =
+                                                               0        else
+        −V
+                                                  x
+                   − 2l              l
+                                     2
+
+    Using the result from the previous exercise, find Mfull relating the coefficients on the
+    left and right of the potential,
+                                                  
+                                     AL             AR
+                                         = Mfull           .                             (8)
+                                     BL             BR
+    Under which conditions is the propagation matrix N for this potential the identity?
+    What situation does this correspond to physically?
+ (v) As a further application we consider the square potential barrier
+                                         (
+                                           V if |x| < ℓ/2 ,
+                                 V (x) =                                                    (9)
+                                           0 else ,
+     and a particle with energy 0 < E < V . We are interested in the scattering situation
+     where BR = 0 and AL = 1. Show that |BL |2 + |AR |2 = 1 and calculate |AR |2 . How
+     do you interpret these coefficients? What do you expect them to be in the classical
+     case?
+
+
+Question 2 [Rays in C2 ]:                                     
+   Consider a quantum system with Hilbert space H = C2 and let |1⟩ , |2⟩                  be an
+orthonormal basis of H.
+ (i) Suppose we are given two non-zero state vectors |Ψ⟩ , |Ψ′ ⟩ ∈ H such that |Ψ′ ⟩ = µ |Ψ⟩
+     for some non-zero µ ∈ C. Is there any observable difference between these two state
+     vectors? For instance, what is the probability of observing a certain eigenvalue of
+     some observable without assuming that state vectors have unit norm?
+ (ii) Show that almost any state of the system can be represented by a vector of the
+      form |1⟩ + z |2⟩ for some number z ∈ C. Which states cannot be represented in that
+      form? How many of them are there? Do different values of z correspond to different
+      states?
+(iii) Think of the number z ∈ C as a complex coordinate. What state do you think we
+      should assign to the limit |z| → +∞ of |1⟩ + z |2⟩?
+(iv) Using the previous step, can you recognize the space of distinct states of this system
+     as being (topologically) equivalent to some simple geometric object?
+     Hint: Think of the space of physically inequivalent states as an extended complex
+     plane C ∪ {point at infinity}, and imagine being able to stretch and deform the
+     extended complex plane at will.
+
+
+Question 3 [Commutators ]:
+ (i) Using the definition of the adjoint, show that (iAB)† = −iB† A† . Hence or other-
+     wise, show that i[A, B] is self-adjoint if A and B are self-adjoint operators.
+ (ii) Using the commutation relation [x, p] = iℏ, show that
+                                      eiap/ℏ x e−iap/ℏ = x + a.                            (10)
+     Hint: Since eiap/ℏ e−iap/ℏ = I (why?), first show that eiap/ℏ x = (x + a) eiap/ℏ .
+(iii) If f (x) is any function that can be expanded in a power series, deduce that
+                                  eiap/ℏ f (x) e−iap/ℏ = f (x + a).                        (11)
+     With this, obtain Weyl’s form of the commutation relations,
+                                  eiap/ℏ eibx/ℏ = eiba/ℏ eibx/ℏ eiap/ℏ .                   (12)
+

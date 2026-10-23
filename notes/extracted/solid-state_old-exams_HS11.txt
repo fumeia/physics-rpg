@@ -1,0 +1,404 @@
+              Exam protocol: Solid state physics
+
+
+                                 6 February 2012
+
+      I took the exam in solid state physics in february 2012. My examiner was
+  Prof. Pescia. The exam was at Prof. Pescias office. Mine started 15 minutes
+  early. Pescia runs a countdown on his computer, counting down from 30 min-
+  utes. He then asks you to talk about the chapter you have prepared. The idea is
+  that you talk 15 minutes about a chapter of your choice and 15 minutes about
+  a chapter of his choice, but I didn’t notice the transition. I think there was
+  an alarm at 15 minutes, but I was focused on my topic, so I did only notice it
+  superficially and didn’t care too much about it. You may chose whether you
+  want to talk in english or german. I messed up the exam quite a lot, but still
+  passed it with 4.25 as my grade.
+
+Pescia: So what have you prepared?
+   Me: I prepared chapter one. So in your first lecture you told us that 95 percent
+       of matter doesn’t condense randomly from liquid to solid, but it condenses
+       into an ordered structure. This would be a first definition of a crystal: An
+       object that has long range order. To be more precise, it is a primitive
+       basis
+                                       ~a1 , ~a2 , ~a3
+        plus some additional atoms at
+                                        ~δ1 , ~δ2 , ..., ~δj .
+
+        I already mentioned the long range order: the translation symmetry. We
+        want to describe nature with mathematics. If something has a symmetry
+        we can always use group theory, because there are always a neutral ele-
+        ment, inverse elements and its associative too. What else can we have than
+        translational symmetry? We can have rotational symmetry or reflection
+        and compound symmetry operations. However, there is a restriction to
+        the rotations when we want them to be compatible with long range order.
+        There may only be 1,2,3,4 or 6 fold rotations. The proof is...
+Pescia: ... its okay, leave the proof away
+   Me: So then this restricts all nonequivalent symmetry groups to 230 space
+       groups. We further classify this into 32 point groups, 14 Bravais lattices
+       and 7 crystal systems.
+
+
+                                             1
+Pescia: Lets go back to your additional basis vectors ~δj . If you draw a square
+        lattice. And I draw you one additional atom. Can you put in all the other
+        atoms?
+   Me: yes, you just add this vector to all the other lattice points too.
+
+Pescia: Okay. And how could you determine the crystal structure?
+   Me: When doing the Kirchhoff solution for scattering I receive
+                                      dσ        2
+                                         ∝ S(~h) ,
+                                      dΩ
+        where                                  Z
+                                                                 ~
+                                 S(~h) =           dr3 ρ(~r)eih~r~n .
+
+        I defined ~h := ~k − ~k0 , ~k the outgoing and ~k0 the incoming ray. Their
+        length is the same, this is energy conservation. Now our physical model
+        of the crystal is
+                                        ρ(~r) = δ(~r − ~r~n ).
+
+Pescia: Hm?
+   Me: I mean                                  X
+                                   ρ(~r) =             δ(~r − ~r~n ).
+                                                   ~
+                                                   n
+
+Pescia: Ah, much better!
+
+   Me: We plug this into the structure function and the deltas are integrated
+       away. This leads to                X ~
+                                  S(~h) =    eih~r~n .
+                                                       ~
+                                                       n
+
+        and thus
+                                                                     2
+                                           2                 ~
+                                   S(~h)
+                                                       X
+                                               =           eih~r~n       .
+                                                       ~
+                                                       n
+
+        The only way for the structure factor to be non vanishing is when
+
+                                  hai = 2πpi ,              pi ∈ Z
+
+        holds. This is because if you have any other phase, because of translational
+        symmetry all the phases will cancel out. (I drew a little picture of an
+        imaginary unit circle with some arrows that cancelled each other.) The
+        only way for these vectors not to cancel is to be multiples of 2πpi .
+Pescia: Can you draw the reciprocal lattice of a 2D square lattice?
+
+
+
+
+                                               2
+         Figure 1: Empty lattice model. Blue: Reciprocal lattice vectors.
+
+
+   Me: (I drew the direct lattice, and then I got into biiiig trouble, because I drew
+       the brioullin zone in the direct lattice instead of the reciprocal lattice...
+       Basically the rest of the exam was a big mess revolving around this. Here
+       is my most important tip for you for this exam: Be precise in what you
+       do and think carefully! Take your time!)
+Pescia: Okay lets go to 1D. Can you draw a 1D empty lattice model?
+   Me: Yes. (see figure)
+Pescia: Okay. Now draw in the first brioullin zone.
+   Me: (Orange in figure)
+Pescia: Now draw in the reciprocal lattice vectors.
+   Me: (I did this, one at zero, one at ±2π/a each and so on.)
+
+Pescia: Aha. How is the k vector ~k defined?
+   Me:
+                               ~k = p1 b1 + p2 b2 + p3 b3
+                                     N       N      N
+
+Pescia: And what is b?
+
+
+                                          3
+   Me:
+
+                                           ab = 2πpi
+
+         (this was such a stupid mistake of me, actually it is ab = 2π. This made
+         every thing so messy... b is a reciprocal basis vector, while h or sometimes
+         called G is any reciprocal lattice vector. So the blue lines are G’s, not b’s.
+         I think...)
+Pescia: Mhh... Then what is k?
+   Me:
+                                           p1      2πp21
+                                      k=      b1 =
+                                           N        aN
+         but this looks very strange... (I didn’t find my mistake)
+Pescia: Can you draw in the fermi energy for a one electron atom?
+   Me: Yes, its at here (red)
+Pescia: Is this a metal or an insulator?
+   Me: A metal, there are still enough k vectors.
+Pescia: And where is the fermi surface?
+   Me: Here (green in the figure)
+Pescia: And if you have two electron per atom?
+   Me: Its an insulator. (Not indicated in the figure)
+Pescia: Why?
+   Me: Because the k vectors can not move, there is no space for them, since these
+       accidental degeneracies are lifted as soon as a potential is switched on.
+Pescia: Can you give me an exact mathematical definition kF (EF )?
+   Me:
+                                              p
+                                       kF =    2mEF /~
+
+      He also wanted to clean up the mess I’ve created with reciprocal lattice
+  vector, but I didn’t didn’t get it right. I tried to do it quickly and then to move
+  on, but exams with Pescia don’t work that way. If you don’t get something right
+  he will pick on this until you do. So better take your time and think about the
+  things he asks you. He doesn’t want you to hurry and say as much as you can.
+  Less is more, as long as it is correct! His final comments were: ”You started
+  good, but then you drifted away. You have potential, but you are too sloppy!”.
+  He hates sloppy... :-)
+
+
+                                            4
+                 Prüfungsprotokoll
+         Einführung in die Festkörperphysik
+                Prof. Danilo Pescia
+                    ETH Zürich
+             Herbstsemester 2011/2012
+                                         M. F.
+
+                                 20. Februar 2012
+
+Die Prüfung ﬁndet in Prof. Pescias Büro statt. Obwohl ich 10 Minuten vor oﬃziellem
+Prüfungsbeginn vor Ort bin, wartet Prof. Pescia bereits auf dem Gang und bittet mich
+direkt herein. Ich lege die Jacke ab, begrüße noch den Beisitzer Dr. Vindigni und nehme
+Platz. Entgegen Berichten von Studenten aus höheren Semestern soll ich in eine Kladde
+und nicht an eine Tafel schreiben. Prof. Pescia startet eine gut sichtbare Stoppuhr auf
+seinem PC, die auf 25 Minuten eingestellt ist. Der Beisitzer Dr. Vindigni hat kein Papier
+vor sich. Die eigenen Aufzeichnungen in die Kladde sind im Endeﬀekt also die einzigen
+Mitschriften der Prüfung.
+Zur Information vorweg: Mir kam an manchen Stellen sehr zugute, dass ich bereits meine
+Prüfung in Statistischer Physik abgelegt hatte. Vieles von dem Inhalt dieser Vorlesung
+konnte ich als „fortgeschrittenes“ Wissen einﬂießen lassen.
+P: Worüber möchten Sie sprechen?
+I: Ich würde gerne die Befüllung der Energiebänder und die daraus resultierende Klassi-
+ﬁzierung des Festkörpers als Metall, Isolator oder Halbleiter besprechen, um schlussend-
+lich detailliert zu Halbleitern zu kommen. Dabei möchte ich besonders auf die Analogie
+zum Atommodell eingehen. Dementsprechend möchte ich ganz kurz zwei Modelle zur
+Berechnung der Bandstruktur vorstellen.
+Unsere grundsätzliche Idee ist, wie grade schon angedeutet, dass wir analog zum Atom-
+modell zunächst Ein-Elektron Energieniveaus berechnen und diese Energieniveaus dann
+sukzessive mit Elektronen füllen. Die Idee beim sogenannten tight-binding Modell ist,
+dass wir - wie im LCAO-Verfahren für Moleküle - unsere Lösung für das periodische
+Kristallpotential in Form einer Superposition von atomaren Wellenfunktionen suchen:
+                                     X
+                                ψ=       ψb (x − na)                                 (1)
+
+
+
+                                           1
+,wobei der Index b darauf hinweist, dass es sich um eine atomare Wellenfunktion handelt.
+P: So macht das nicht so viel Sinn. Schreiben Sie es als Blochfunktion.
+I: Okay.
+
+                                         eika u(x − na)
+                                     X
+                                ψ=                                                    (2)
+
+P: Nein.
+I: Ich glaube ich verstehe nicht ganz. Sie wollen doch, dass ich die atomare Wellenfunkti-
+on als Blochfunktion schreibe, oder nicht? Das habe ich doch getan. (Ich schreibe erneut,
+diesmal jedoch nicht innerhalb einer Summe und ohne Index b:)
+
+                                  ψ = eika u(x − na)                                  (3)
+
+, wobei u(x) die Periodizität des Gitters hat.
+P: Ja, okay. (Ich weiß nicht, was ihn an meiner vorigen Formulierung gestört hat, aber
+nach dieser Zeile ist er zufrieden.)
+I: Wenn wir nun unsere Wellenfunktion so ansetzen, dann berechnen wir die Energie
+mittels der Schrödingergleichung zu
+                                                        ~
+                              E(~k) = Eb − A ·       e−ik·a~j
+                                                 X
+                                                                                      (4)
+                                                 j
+
+Hier ist Eb die atomare Bindungsenergie und die Summe geht über die nächsten Nach-
+barn. A ist das Austauschintegral und beschreibt die Wahrscheinlichkeit, dass ein Elek-
+tron zu einem Nachbarn tunnelt.
+P: Wie sieht nun die Bandstruktur aus?
+I: Ich nehme jetzt mal ein simples Gitter an. Dann bekommen wir
+
+                               E(k) = Eb − 2Acos(ka)                                  (5)
+
+(Ich zeichne einen Cosinus in ein Koordinatensystem ohne Achsenbeschriftung.)
+P: Was ist auf der x-Achse?
+I: Auf der x-Achse ist k.
+P: Welche Werte kann k annehmen?
+                        π
+                  a und a , also alle innerhalb der ersten Brillouinzone.
+I: Alle zwischen −π
+P: Was ist mit anderen atomaren Energien?
+I: Die erzeugen parallele Bänder. (Ich zeichne kurz zwei parallele Bänder.)
+P: Ja, aber nicht nur parallel, sondern auch antiparallel.
+
+
+
+                                             2
+I: Ja, klar.
+P: Jetzt befüllen Sie die Bänder.
+I: Genau. Je nachdem wieviele Elektronen wir zu verteilen haben, wird das letzte in
+einem halb gefüllten Band oder einem dann abgeschlossenen Band Platz ﬁnden. Ist
+ersteres der Fall haben wir ein Metall, ist zweiteres der Fall haben wir abhängig von der
+Größe der Lücke einen Isolator oder einen Halbleiter.
+P: Wie erkenne ich ein Metall?
+I: Dazu müssen wir ein elektrisches Feld anlegen. Leitung besteht in unserem Bild in
+einem Ungleichgewicht von Elektronen mit negativ und positiv orientiertem k. Ist das
+Band halb voll, dann ist es möglich so ein Ungleichgewicht herzustellen, da es freie
+Zustände gibt, in die wir die Elektronen anregen können. In einem Isolator ist der nächste
+freie Zustand erst im nächsten Band. Ist das Feld nicht zu groß, reicht die Energie nicht
+um die Lücke zu überwinden.
+P: Wie sieht die Stromdichte aus?
+I: (Ich schreibe zunächst fälschlicherweise:)
+
+                                                 ne2
+                                        σ=           ·τ                               (6)
+                                                  m
+
+P: Das ist die Leitfähigkeit.
+I: Oh, natürlich.
+
+                                             ne2
+                                    j=           ·τ ·E                                (7)
+                                              m
+für den Fall eines homogenen und isotropen Mediums.
+P: Ist der Strom temperaturabhängig?
+I: Ja, zum einen ist die Ladungsträgerdichte n stark temperaturabhängig, aber auch τ
+ist temperaturabhängig.
+P: Was ist τ ?
+I: Das ist die relaxation time, also die mittlere Zeit zwischen zwei Stößen. Um genau zu
+sein bekommen wir diese relaxation time aus der Boltzmann Transportgleichung. Man
+nimmt an, dass die Gleichgewichtsverteilung f0 gestört ist durch einen Term g. Dann
+gilt
+                                        ∂f                   g
+                                            
+                                                        =−                            (8)
+                                        ∂t       coll        τ
+
+(Ich setze an das Integral zur Bestimmung von τ hinzuschreiben, aber Prof. Pescia sagt:)
+
+
+
+
+                                                        3
+P: Nein, schon gut. Das brauchen wir nicht. Was ist denn nun der Einﬂuss der Tempe-
+ratur auf n?
+I: In einem Metall gibt es keinen nennenswerten. Bei einem Halbleiter werden aber
+durch ﬁnite Temperaturen Ladungsträger freigemacht. Am besten starten wir kurz ohne
+Herleitung bei der Fermi-Dirac-Verteilung:
+                                                  1
+                                   n=                                                   (9)
+                                           eβ(E−µ) + 1
+Für Temperatur T = 0 entspricht das einer Heaviside-Funktion. Dadurch können wir
+das chemische Potential µ mit der Fermienergie identiﬁzieren, die ja gerade dadurch de-
+ﬁniert ist, dass sie bei T = 0 die höchste besetzte Energie ist. Bei ﬁniter Temperatur
+bekommen wir jedoch keine Heaviside-Funktion, sondern etwas in der folgenden Form.
+(Ich zeichne den Verlauf der Fermi-Dirac Verteilung bei ﬁniter Temperatur.) Wir sehen
+also, dass Elektronen, die knapp unterhalb der Fermienergie liegen, umverteilt werden in
+Zustände knapp über der Fermienergie. (Nun zeichne ich erneut eine Bandstruktur und
+vertikal daneben die Fermi-Dirac Verteilung.) Bei genügend hoher Temperatur springen
+also Elektronen vom Valenzband in das Leitungsband. Somit bekommen wir zum einen
+Elektronen als Ladunsgträger, aber auch Löcher im Valenzband. Die Leitfähigkeit der
+Löcher kann man sich entweder durch bewegliche „Antiteilchen “ zum Elektron vorstel-
+len oder so, dass sich die Elektronen im Valenzband in benachbarte Zustände bewegen
+können, die nun frei sind. Das ganze klappt aber natürlich nur dann, wenn die Bandlücke
+nicht zu groß ist, weil sonst der Kristall zerstört wird bevor die thermische Energie reicht
+die Lücke zu überwinden.
+P: Wie kann der Kristall denn kaputt gehen durch eine Temperaturerhöhung?
+I: Durch Gitterschwingungen.
+P: Ja, bitte.
+I: (Ich bin an dieser Stelle nicht ganz sicher, ob er möchte, dass ich eine Art Stabilitäts-
+bedingung ﬁnde.) Worüber genau wollen Sie jetzt bei Gitterschwingungen sprechen?
+P: Was das ist und wie sich die speziﬁsche Wärme verhält.
+I: Okay. Nehmen wir an wir haben N Atome. Dann können diese N Atome gegeneinander
+schwingen. Soll ich die Bewegungsleichung aufstellen?
+P: Nein. Was ist denn mit den Frequenzen?
+I: Wir haben eine Dispersionsrelation, also einen Zusammenhang zwischen der Frequenz
+und der Eigenmode, daher gilt ω = ω(q), wobei q die Eigenmoden indiziert. Die innere
+Energie bekommen wir, indem wir über alle Moden und Polarisationen summieren.
+                                  X
+                                          h̄ω(~q) · nbosons                            (10)
+                                   q~,λ
+
+
+
+
+                                                  4
+, wobei λ hier die Polarisationen bezeichnet. Der Ansatz ist so gewählt, weil wir durch
+Quantisierung des klassischen Hamiltonians ﬁnden, dass wir eine Schar an ungekoppel-
+ten harmonischen Oszillatoren haben. Daher ist die Energie einer Schwingung durch
+h̄ω(~q) gegeben und die Verteilung der Besetzungszahlen ist die von Bosonen. Wichtig zu
+bemerken ist auch, dass man nur eine ﬁnite Anzahl an Eigenmoden und somit Frequen-
+zen hat. Das rührt einfach daher, dass man eine ﬁnite Anzahl an Atomen und somit an
+Freiheitsgraden hat. Daher bekommt man auch eine maximale Frequenz, die wir Debye-
+Frequenz ωD nennen. Um die Summe zu berechnen transformiert man auf ein Integral.
+Dabei besteht Debyes Modell insbesondere in einer Zustandsdichte, die quadratisch in
+ω ist. Das erhaltene Integral ist jedoch nicht geschlossen lösbar. Man kann es aber für
+die Fälle hoher und niedriger Temperatur lösen. Als charakteristische Temperaturskala
+wählt man die Debye-Temperatur ΘD = h̄ωkmax   B
+                                                 . Für kleine Temperaturen ﬁndet man
+dann die berühmte T d+1 -Abhängigkeit und für die speziﬁsche Wärme dementsprechend
+C ∝ T d , wobei d die Dimensionalität des Systems bezeichnet.
+P: Zeichnen sie mal die speziﬁsche Wärme.
+I: (Ich zeichne den Verlauf der speziﬁschen Wärme und erkläre:) Für niedrige Tempera-
+turen ﬁnden wir wie grade angesprochen ein Verhalten von T d und für hohe Temperatu-
+ren nähern wir uns Dulong-Petit, also d · N kB T . Gerade das Niedrigtemperaturverhalten
+ist sehr interessant, da wir also in der quantenmechanischen Betrachtung den dritten
+Hauptsatz der Thermodynamik retten können.
+P: Was ist mit dem Elektronenbeitrag zur speziﬁschen Wärme?
+I: Das macht man am einfachsten über das Äquipartitionstheorem. Unser Impuls ist eine
+homogene Funktion zweiten Grades, dementsprechend erhalten wir für N Elektronen in
+d Dimensionen einfach d2 N kB . Hier muss man aufpassen, dass die Anzahl an Elektronen
+nicht der Anzahl an Atomen entsprechen muss. Genau genommen muss man N → N z
+ersetzen, wobei z die Anzahl an Valenzelektronen pro Atom bezeichnet.
+P: Das ist für hohe Temperaturen. Was ist bei kleinen Temperaturen?
+I: Da ist C ∝ T .
+P: Wieso?
+I: (Ich weiß nicht, wie ich ihm eine anschauliche Erklärung geben soll.) Naja, oﬀenbar
+zunächst einmal, weil die innere Energie proportional zu T 2 ist. Um das zu sehen müssten
+wir uns die Zustandsgleichungen des Fermigas anschauen.
+                                  pV    1
+                                      = 3 · f5/2 (z)                                (11)
+                                 kB T  λ
+
+P: Soweit wollen wir garnicht.
+I: (Ich überlege noch einen Moment und sage dann:) Tut mir Leid, ich weiß es nicht.
+
+
+
+
+                                           5
+P: In Ordnung, das ist nicht schlimm. Das war’s. (Der Timer zeigt zu diesem Zeitpunkt
+immer noch knappe fünf Minuten verbleibend an.)
+(Die richtige Antwort auf diese Frage ist mir hinterher eingefallen: Zur speziﬁschen
+Wärme tragen hauptsächlich die Elektronen nahe der Fermi-Energie bei. Die „Verschmie-
+rung“ durch die Fermi-Verteilung ist proportional zu kB T ; genau wie die Energie, die
+jedes Elektron beiträgt. Also ergibt sich: U ∝ ρ(EF ) · (kB T )2 ∝ T 2 .)
+Fazit: An erster Stelle sei darauf hingewiesen, dass die Prüfung für mein Empﬁnden
+sehr hektisch war. Prof. Pescia drängt einen zu kurzen Aussagen und hat kein Interesse
+an Rechnungen. Dementsprechend bleibt einem wenig Zeit zu überlegen, was bei mir
+dazu führte, dass ich sehr oft halbfertige Zeichnungen in seiner Kladde hinterließ und
+auch sehr oft inkonsistent mit der Dimensionalität des jeweils besprochenen Systems
+war. Dies schien Prof. Pescia aber nicht weiter zu stören.
+Prof. Pescia nickt relativ häuﬁg, aber verhalten. Dr. Vindigni ist da ein bisschen oﬀener
+und somit der bessere Anker.
+Das Auswendiglernen von Rechnungen und Herleitungen kann man sich komplett sparen.
+Im schlimmsten Falle muss man Prof. Pescia die wichtigsten Rechenschritte beschreiben,
+sie aber nicht ausführen können.
+Note: 5.75
+
+
+
+
+                                           6
+

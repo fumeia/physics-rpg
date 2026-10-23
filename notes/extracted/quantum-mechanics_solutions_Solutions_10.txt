@@ -1,0 +1,437 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                       Solution to exercise sheet X
+
+Question 1 [Harmonic oscillator in spherical coordinates ]:
+Consider an isotropic harmonic oscillator in three dimensions with Hamiltonian
+
+                              1 2                   mω 2 2
+                        H=      (px + p2y + p2z ) +     (x + y 2 + z 2 ).                     (1)
+                             2m                      2
+The goal of this exercise is to derive the spectrum of this system using the same approach
+as for the hydrogen atom.
+
+  (i) Using what you know about the harmonic oscillator, what is the energy spectrum
+      and what are the degeneracies? (The purpose of the rest of the exercise will be to
+      recover this result... the hard way.)
+
+ (ii) In polar coordinates, let the function Ψ(r, θ, ϕ) = u(r)
+                                                           r
+                                                               Yℓm (θ, ϕ) (ℓ ∈ {0, 1, 2, ...} and
+      m ∈ {−ℓ, ..., ℓ}) be an eigenfunction of the Hamiltonian (1) with energy E, so that
+      (as shown in class) the corresponding time-independent Schrödinger equation reads
+
+                                 d2
+                                                       
+                                       ℓ(ℓ + 1)
+                              − 2+              + V(r) u(r) = ε u(r)                           (2)
+                                 dr       r2
+
+     where V(r) = (m2 ω 2 /ℏ2 ) r2 and ε = 2mE/ℏ2 . Show that, for Ψ(r, θ, ϕ) to be square-
+     integrable, one must have (up to normalization)
+                                                         h         i
+                     ℓ+1                                      mω 2
+            u(r) ∼ r     as r → 0       and   u(r) ∼ exp − 2ℏ r as r → +∞.              (3)
+
+     In what way is this radically different from the hydrogen atom, and why?
+
+(iii) Write an ansatz
+                                             h             i       +∞
+                                                                   X
+                                u(r) = exp       − mω
+                                                   2ℏ
+                                                      r2       ×           ck r k             (4)
+                                                                   k=ℓ+1
+
+     and use the Schrödinger equation to obtain the recursion relation
+                                              mω
+                                               ℏ
+                                                 (2k + 1) − ε
+                                ck+2 =                                       ck .             (5)
+                                         (k + 2)(k + 1) − ℓ(ℓ + 1)
+
+     What is the value of ck ’s when k − ℓ is even? How many of the ck ’s are free?
+
+(iv) Require that the wave-function be square-integrable and find the corresponding al-
+     lowed energies at fixed ℓ. Draw the resulting spectrum in the (ℓ, E) plane.
+
+ (v) Show that the energy spectrum, including degeneracies, reproduces the result antici-
+     pated in point (i).
+
+Solution:
+(i) An isotropic 3D harmonic oscillator is equivalent to three decoupled, identical one-
+    dimensional harmonic oscillators, so the eigenvalues of the Hamiltonian (1) are
+    ℏω(N + 3/2), where N = 0, 1, 2, .... The degeneracy of a level N equals the number
+    of ways to write N as the sum of three non-negative integers; as shown in question
+    1 of exercise sheet VII, this number is (N + 2)(N + 1)/2.
+(ii) Let α ≡ mω/ℏ and write u′ for du/dr. We study separately the regions of very
+     small and very large r.
+    (a) In the region r → 0, the argument is exactly the same as in class. When r → 0,
+        all non-negative powers of r in eq. (2) are negligible, so only the derivative
+        term and the term proportional to angular momentum survive:
+                                          ℓ(ℓ + 1)
+                                  u′′ ∼            u        as r → 0.                 (S.1)
+                                             r2
+        Plugging the ansatz u = rλ then yields the quadratic equation λ2 −λ = ℓ(ℓ+1),
+        whose solutions are λ = ℓ + 1 and λ = −ℓ. Thus in general one expects
+                              u(r) ∼ A r−ℓ + B rℓ+1              as r → 0.            (S.2)
+        If ℓ > 0 the Rwave-function Ψ ∼ r−ℓ−1 diverges so fast that it cannot be square-
+                       ...
+        integrable: 0 r2 dr/r2ℓ+2 = ∞; hence A in (S.2) must be set to zero if ℓ > 0. If
+        ℓ = 0, eq. (S.2) yields u(r) ∼ const., implying Ψ ∼ const./r as r → 0; but the
+        Laplacian of 1/r is a delta function, so a wave-function that diverges like 1/r
+        at small r only solves the Schrödinger equation if its potential contains a delta
+        function. In the present case the potential ∝ r2 contains no delta function, so
+        A must also be set to zero if ℓ = 0. (Note: this means that at this stage the
+        requirement of square-integrability has already set one constant of integration
+        to zero; only one free constant remains, since eq. (2) is of order 2.)
+    (b) In the region r → +∞, the dominant contribution to the Schrödinger equation
+        (2) is given by the quadratic potential, so
+                                  u′′ ∼ α2 r2 u         as r → +∞.                    (S.3)
+        To solve this asymptotic relation we write u(r) = eS(r) so that
+                                          u′′ = (S ′2 + S ′′ )eS .                    (S.4)
+        Now we make the ansatz that S(r) ∼ rp for some positive power p as r → +∞.
+        (If this ansatz were wrong, we would run into a contradiction; as we shall see
+        there is no contradiction, so the ansatz is correct.) Then S ′′ ∼ rp−2 is negligible
+        with respect to S ′2 ∼ r2p−2 , so u′′ ∼ S ′2 eS and eq. (S.3) can be simplified into
+                                                     αr2
+                       S ′2 ∼ α2 r2   ⇒       S(r) ∼ ±      as r → +∞.             (S.5)
+                                                      2
+        Here the plus sign leads to u increasing exponentially at infinity, which there-
+        fore doesn’t give a square-integrable wave-function. Thus, imposing square-
+        integrability, only the minus sign is allowed and we conclude that
+                                             2
+                              u(r) ∼ e−αr /2 f (r)           as r → +∞,               (S.6)
+                                                                             2
+        where f (r) is a function that grows with r slower than e+αr /2 .
+    The asymptotic behaviour found here as r → 0 is the same as for the hydrogen
+    atom, since in that regime the leading contribution to the effective potential is the
+    term ℓ(ℓ + 1)/r2 , which diverges faster than both r2 and 1/r as r goes to zero. By
+    contrast, the behaviour as r → +∞ is radically different: in the hydrogen atom one
+                                            2
+    has u(r) ∼ e−κr , while here u(r) ∼ e−αr /2 . This difference is due to the fact that the
+    harmonic potential ∝ r2 does not die off at infinity; instead, it grows indefinitely and
+    tends to make the wave-function more ‘localised’, i.e. to make it fall off faster with
+    r. In particular, there are therefore no scattering solutions (with positive energy),
+    and the whole spectrum is discrete.
+                                                                                             2
+(iii) Owing to the asymptotic behaviour of u(r) at large r, we write u(r) = e−αr /2 f (r).
+      Then eq. (2) yields
+                                     ℓ(ℓ + 1)
+                           −f ′′ +            f + 2αrf ′ + (α − ε)f = 0.                          (S.7)
+                                        r2
+    Now we plug the series
+                                                       +∞
+                                                       X
+                                             f (r) =           ck r k                             (S.8)
+                                                       k=ℓ+1
+
+    into this equation; the non-trivial individual terms are
+                           ∞
+                           X                               ∞
+                                                           X
+                     ′′                          k−2
+                    f =           ck k(k − 1)r         =           ck+2 (k + 2)(k + 1)rk ,        (S.9)
+                          k=ℓ+1                            k=ℓ−1
+                            ∞                ∞
+                    f      X
+                                     k−2
+                                            X
+                      2
+                        =       ck r     =       ck+2 rk ,                                       (S.10)
+                    r     k=ℓ+1            k=ℓ−1
+                           ∞
+                           X
+                      ′
+                   rf =           ck krk ,                                                       (S.11)
+                          k=ℓ+1
+
+    so eq. (S.7) boils down to
+      ∞
+      X                                         ∞
+                                            k X
+                                                    2αck k +(α−ε)ck rk = 0. (S.12)
+                                                                 
+              −ck+2 (k +2)(k +1)+ℓ(ℓ+1)ck+2 r +
+      k=ℓ−1                                                  k=ℓ+1
+
+    Since this equation sets a function of r to zero for every value of r, every individual
+    coefficient of rk must vanish. For k = ℓ − 1, only the first term contributes and
+    yields 0 = 0, so it sets no constraint on the coefficient cℓ+1 . For k = ℓ, only the first
+    term contributes once more, but it gives −cℓ+2 (ℓ + 2)(ℓ + 1) + ℓ(ℓ + 1)cℓ+2 = 0, so
+                                                 cℓ+2 = 0.                                       (S.13)
+    Higher values of k involve both terms of the equation and yield
+                                                 
+                ck+2 − (k + 2)(k + 1) + ℓ(ℓ + 1) + (2αk + α − ε)ck = 0,                          (S.14)
+    which implies the recursion relation (5). In particular, owing to (S.13), all ck ’s for
+    which k − ℓ is even must vanish. On the other hand all ck ’s for which k − ℓ is odd
+    are uniquely determined by cℓ+1 through the recursion relation (5); thus cℓ+1 is the
+    only remaining free integration constant. There is no second constant of integration
+    because we have built in, in the expansion (4), the fact that u(r) ∼ rℓ+1 at small r; as
+    shown in point (iia), this fact sets one constant of integration to zero automatically.
+(iv) Let us look at the recursion relation (5) at large k, where we may keep only the
+     highest powers of k in the numerator and the denominator:
+                        2αk                     (ℓ − 1)!!
+                ck+2 ∼     2
+                             ck ∼ (2α)(k−ℓ−1)/2           cℓ+1   as k → +∞.         (S.15)
+                         k                         k!!
+    Here we write n!! = n×(n−2)×(n−4)×...×(1 or 2) for n odd or even, respectively.
+    (Also, we let k − ℓ be odd, since ck ’s for which k − ℓ is even vanish anyway.) We
+    are going to use this to deduce the large r behaviour of the function f (r) defined
+    in (S.8). In doing so we are only interested in the leading exponential piece of the
+    function; thus, in writing the symbol “∼”, we neglect all normalization factors, as
+    well as any finite power of r that multiplies a series in r. Also, for large k one has
+    k ∼ k + 1. Thus the series f (r) defined in (S.8) behaves at large r as follows:
+                        +∞
+          f (r)     1 X
+                =            ck r k
+          cℓ+1    cℓ+1 k=ℓ+1
+                            k−ℓ odd
+                    +∞
+                    X                        (ℓ − 1)!! k
+               ∼             (2α)(k−ℓ−1)/2            r
+                    k=ℓ+1
+                                                k!!
+                   k−ℓ odd
+                  +∞
+                  X    (2αr2 )k/2
+               ∼                              (neglect constants)
+                 k=ℓ+1
+                          k!!
+                   k−ℓ odd
+                   +∞
+                   X  (2αr2 )k/2              (small powers of r don’t matter at large r
+               ∼
+                                k!!           and k even or odd doesn’t matter either)
+                    k=0
+                   k even
+                   +∞          +∞
+                   X (2αr2 )n X (αr2 )n      2
+               =        n
+                             =          = eαr .                                              (S.16)
+                 n=0
+                       2 n!    n=0
+                                   n!
+                                                                  2
+    This grows faster than the decaying exponential e−αr /2 in eq. (3), so it implies that
+                                                     2
+    the wave-function behaves at large r as Ψ ∼ e+αr /2 . This is not square-integrable,
+    so the only way to ensure normalizability is to force one of the coefficients ck to
+    vanish: if cn = 0 for some n ≥ ℓ + 1, then all ck ’s with k ≥ n vanish and the
+    series (S.8) becomes a polynomial, so the wave-function is normalizable thanks to
+                                         2
+    the dominant exponential decay e−αr /2 at large r.
+    So let ℓ be fixed and let n be such that cn = 0 with cn−2 ̸= 0; in order for the wave-
+    function to not vanish identically, this integer n must be such that n − 2 ≥ ℓ + 1,
+    since cℓ+1 is the first non-zero coefficient of the series (S.8). In addition we must
+    have n − ℓ odd, since only then will cn−2 have a chance of being non-zero, so in fact
+                                      n ∈ {ℓ + 3, ℓ + 5, ℓ + 7, ...}.                        (S.17)
+    Then, since cn−2 ̸= 0 but cn = 0, the recursion relation (5) yields
+                                       [2α(n − 2) + α − ε] = 0.                              (S.18)
+    This specifies the value of energy as a function of n (and implicitly of ℓ):
+     ε = 2mE/ℏ2 = 2αn − 3α             ⇒       E = ℏω(n − 3/2),         n = ℓ + 3, ℓ + 5, ℓ + 7, ...
+                                                                                             (S.19)
+    These are the allowed values of energy at fixed angular momentum ℓ. Note in
+    particular that the lowest value with such an angular momentum is ℏω(ℓ + 3/2).
+    The corresponding spectrum forms part of a lattice in the (ℓ, E) plane:
+
+                      E/(ℏω)
+                                      •       •       •        •       •
+                                  •       •       •       •        •       •
+                                      •       •       •        •       •
+                            10 • •   •   •   •
+                             9 •   •   •   •
+                             8•  •   •   •
+                             7 •   •   •
+                             6•  •   •
+                             5 •   •
+                             4•  •
+                             3 •
+                             2•
+                             1
+                                      1 2 3 4 5 6 7 8 9 10                      ℓ
+
+
+  Figure 1: The spectrum of a 3D isotropic harmonic oscillator in the (ℓ, E) plane.
+
+(v) As is manifest in fig. 1, the allowed values of energy take the expected form ℏω(N +
+    3/2), where N = 0, 1, 2, ... is related to n of eq. (S.19) by N = n − 3. For any fixed
+    value of energy, only finitely many values of ℓ are allowed, namely
+                                       
+                                   ℓ ∈ 0, ..., N N − ℓ even .                       (S.20)
+    For any fixed pair (N, ℓ), there are 2ℓ + 1 linearly independent states that have the
+    eigenvalues ℏω(N + 3/2) and ℏ2 ℓ(ℓ + 1) under the operators H and L  ⃗ 2 , respectively.
+    Accordingly, the degeneracy of an energy level N is
+                                N
+                                X                              N
+                                                                X          
+                     DN =                 (2ℓ + 1) = 2                    ℓ + 1 + ⌊N/2⌋   (S.21)
+                               ℓ=0                               ℓ=0
+                            N −ℓ even                         N −ℓ even
+
+    where ⌊N/2⌋ is the integer part of N/2. Now we introduce j ∈ {0, 1, 2, ..., ⌊N/2⌋}
+    given by N − ℓ = 2j, and we find
+                          ⌊N/2⌋
+                          X
+                 DN = 2           (N − 2j) + 1 + ⌊N/2⌋
+                          j=0
+                                        ⌊N/2⌋(⌊N/2⌋ + 1)
+                     = 2N (⌊N/2⌋ + 1) − 4                + 1 + ⌊N/2⌋
+                                                2
+                     = 2N ⌊N/2⌋ + 2N − 2(⌊N/2⌋)2 − ⌊N/2⌋ + 1.                             (S.22)
+    For even N one has ⌊N/2⌋ = N/2, and this expression simplifies into DN = (N +
+    2)(N + 1)/2, which was the expected result. For odd N one has instead ⌊N/2⌋ =
+    (N − 1)/2, but the simplification to DN = (N + 2)(N + 1)/2 still holds.
+Question 2 [Projective representations ]:
+As seen in class, the group SO(3) has projective representations (with half-integer spin).
+Here we study a simple analogue of that effect. Consider the finite group G = Z2 × Z2
+and denote its two generators by g and h, respectively, so that the group relations are
+
+                               g 2 = id = h2 ,           gh = hg .                      (6)
+
+  (i) Consider the map γ from Z2 × Z2 to the space of 2 × 2 matrices given by
+                                                                               
+                1 0                  1 0                   0 1                  0 −1
+       γ(id) =           , γ(g) =             , γ(h) =            , γ(gh) =              .
+                0 1                  0 −1                  1 0                  1 0
+                                                                                       (7)
+      Show that this map is a projective representation of G = Z2 × Z2 with cocycle phases
+                                
+                                  +1 if a = id or b = id or a = h or b = g,
+                    c2 (a, b) =                                                        (8)
+                                  −1 otherwise.
+
+ (ii) Show that there exist no 1-cycle phases c1 (a) that remove the 2-cycle phase; that is,
+      show that for any 1-cycle c1 (a) there is always at least one pair (a, b) such that
+
+                                                       c1 (a)c1 (b)
+                              ĉ2 (a, b) ≡ c2 (a, b)                ̸= +1 .             (9)
+                                                         c1 (ab)
+
+(iii) Define the covering group E = Z2 × G, whose group multiplication is
+
+                                (x, a) · (y, b) = (xyc2 (a, b), ab) ,                  (10)
+
+     where x, y ∈ {±1} = Z2 and a, b ∈ G. Show that E is really a group (in fact it is
+     isomorphic to the dihedral group D4 ) and that γ lifts to an honest, non-projective
+     representation of E defined for any a ∈ G by
+
+                            γ̂(1, a) = γ(a) ,          γ̂(−1, a) = −γ(a) .             (11)
+
+(iv) The construction of the covering group actually generalises to arbitrary projective
+     representations. Let G be any group and ρ any projective representation of G with
+     cocycle phases c2 (g, h). We define U to be the subgroup of U (1) generated by all
+     cocycle phases c2 (g, h), for g, h ∈ G. Then the covering group is the set E = U × G,
+     with group multiplication
+
+                               (u1 , g)(u2 , h) = (u1 u2 c2 (g, h), gh) .              (12)
+
+     Show that this defines a group, and that the projective representation ρ can be lifted
+     to an honest, non-projective representation ρ̂ of E by defining
+
+                                         ρ̂(u, g) = uρ(g) .                            (13)
+
+     Note that this readily applies to SO(3), whose cocycle phases are indeed only ±1.
+     Its covering group is thus a two-fold (Z2 ) cover, as is indeed the case for SU(2).
+
+Solution:
+(i) Since γ(id) = I2 , one has γ(id) · γ(a) = γ(a) = γ(id · a) for any a ∈ G, so the group
+    relations are satisfied with cocycle phase +1 when a = id or b = id. That leaves 9
+    products to compute:
+                                              
+                2      1 0       1 0          1 0
+            γ(g) =                         =         = γ(g 2 ),
+                       0 −1      0 −1         0 1
+                                                
+                       1 0       0 1           0 −1
+        γ(g)γ(h) =                       =−            = −γ(gh),
+                       0 −1      1 0           1 0
+                                                
+                       1 0       0 −1           0 1
+       γ(g)γ(gh) =                         =−          = −γ(h) = −γ(ggh),
+                       0 −1      1 0            1 0
+                                              
+                       0 1     1 0           0 −1
+        γ(h)γ(g) =                       =           = γ(gh),
+                       1 0     0 −1          1 0
+                                          
+                2      0 1     0 1         1 0
+            γ(h) =                     =         = γ(h2 ),
+                       1 0     1 0         0 1
+                                              
+                       0 1     0 −1          1 0
+       γ(h)γ(gh) =                       =           = γ(gh2 ) = γ(hgh),
+                       1 0     1 0           0 −1
+                                              
+                       0 −1      1 0          0 1
+       γ(gh)γ(g) =                         =         = γ(g 2 h) = γ(ghg),
+                       1 0       0 −1         1 0
+                                                
+                       0 −1      0 1           1 0
+       γ(gh)γ(h) =                       =−            = −γ(g) = −γ(ghh),
+                       1 0       1 0           0 −1
+                                                
+                2      0 −1      0 −1           1 0
+           γ(gh) =                         =−          = −γ(g 2 h2 ) = −γ(ghgh). (S.23)
+                       1 0       1 0            0 1
+    We see that the matrices indeed form a projective representation, with cocycle phase
+    c(a, b) = +1 when a = h or b = g, and −1 otherwise, as desired.
+(ii) Suppose it were possible to choose 1-cycle phases that remove the 2-cycle phases.
+     By Eq. (9), this would mean
+                             c2 (a, b)c1 (a)c1 (b) = c1 (ab) ∀ (a, b).                (S.24)
+    We now show ad absurdum that there exists no such function c1 . Taking a = g
+    and b = h and using c2 (g, h) = −1, (S.24) gives c1 (gh) = −c1 (g)c1 (h). On
+    the other hand, taking a = h and b = g and using c2 (h, g) = +1, (S.24) gives
+    c1 (gh) = +c1 (g)c1 (h); together with the previous relation this implies c1 (gh) = 0.
+    Since c1 takes values in U(1), this is a contradiction.
+    Here is an alternative (longer) way. By choosing b = id in (S.24), we get c1 (a)c1 (id) =
+    c1 (a), so we must have c1 (id) = 1. Choosing a = b = g and a = b = h gives c1 (g)2 =
+    1 and c1 (h)2 = 1 respectively. Choosing a = g, b = h gives (−1)c1 (g)c1 (h) = c1 (gh),
+    and squaring both sides gives
+                                  c1 (gh)2 = c1 (g)2 c1 (h)2 = 1.                     (S.25)
+    There are four (a, b) pairs with c2 (a, b) = −1, so we look there for a contradiction.
+    For a = b = gh, we get
+                                (−1)c1 (gh)c1 (gh) = c1 (id) = 1,                     (S.26)
+    i.e. c1 (gh)2 = −1, which contradicts Eq. (S.25).
+(iii) Since c2 (a, b) ∈ {±1}, we always have xyc2 (a, b) ∈ {±1} and so (xyc2 (a, b), ab)
+      indeed remains in E = Z2 × G. Associativity follows from the 2-cocycle condition
+      c2 (a, bc)c2 (b, c) = c2 (ab, c)c2 (a, b) together with associativity of G, since this gives
+
+                         ((x, a) · (y, b)) · (z, c) = (xyc2 (a, b)zc2 (ab, c), abc)
+                         (x, a) · ((y, b) · (z, c)) = (xc2 (a, bc)yzc2 (b, c), abc)          (S.27)
+                        =⇒ ((x, a) · (y, b)) · (z, c) = (x, a) · ((y, b) · (z, c)).
+
+     Let e = (1, id); owing to c2 (a, id) = c2 (id, a) = 1, e is the identity in E:
+
+         (1, id) · (x, a) = (xc2 (id, a), a) = (x, a) = (x, a) · (1, id) ∀ (x, a) ∈ E.        (S.28)
+
+     Consider any (x, a) ∈ E. It has a left inverse x−1 c2 (a−1 , a)−1 , a−1 :
+                                                                                   
+
+
+       x−1 c2 (a−1 , a)−1 , a−1 · (x, a) = x−1 c2 (a−1 , a)−1 x c2 (a−1 , a), a−1 a = (x2 , id) = e.
+                                                                                  
+
+                                                                                              (S.29)
+                                                                −1                 −1
+     Using the cocycle condition on c2 , one finds c2 (a , a) = c2 (a, a ), which then
+     implies that x−1 c2 (a−1 , a)−1 , a−1 is also right inverse. Hence E is indeed a group.
+     We now show that γ̂ is a (non-projective) representation of E. Observe that we can
+     rewrite the definition of γ̂ as
+                                            γ̂(x, a) = xγ(a).                                 (S.30)
+     Hence for any (x, a), (y, b) ∈ E, we have
+
+            γ̂(x, a)γ̂(y, b) = xγ(a)yγ(b) = xyc2 (a, b)γ(ab) = γ̂(xyc2 (a, b), ab),          (S.31)
+
+     as required for a non-projective representation.
+
+(iv) We use the exact same argument as in point (iii): since u1 , u2 , c2 (a, b) ∈ U and U
+     is a group, we always have u1 u2 c2 (a, b) ∈ U and so (u1 u2 c2 (a, b), ab) indeed remains
+     in E = U × G. Associativity follows from the 2-cocycle condition c2 (a, bc)c2 (b, c) =
+     c2 (ab, c)c2 (a, b) together with associativity of G, as in (S.27).
+                                                                       The identity is e =
+                                                  −1     −1     −1 −1
+     (1, id) and the inverse of (u, a) ∈ E is u c2 (a , a) , a ; the cocycle condition
+     on c2 still implies the property c2 (a, a−1 ) = c2 (a−1 , a). The proof that γ̂ is a non-
+     projective representation of E is the same as in (S.31).
+

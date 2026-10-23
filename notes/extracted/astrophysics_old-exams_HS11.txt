@@ -1,0 +1,205 @@
+                           Astrophysics Exam
+
+
+                                 31 January 2012
+
+
+      I took my astrophysics exam in january 2012. My examiner was Prof. Meyer.
+  He structures the exam into four short format (max. 2 points each) and two long
+  format (max. 6 points each) questions. The questions are drawn from a list of
+  key concepts which can be found at http://www.astro.ethz.ch/education/
+  courses/Astrophysics_1. At this homepage you will also find an exact de-
+  scription of the course of the exam.
+      At first Prof. Meyer will describe the course of the exam, even though you
+  will be probably aware of that by then. Then he will ask you what you found
+  particularly surprising when you learned about astrophysics, but your answer
+  does not affect your grade. He just wants to know what the students find
+  interesting. Then he proceeds asking two long format and four short format
+  questions. The exam takes place in his office and the atmosphere is good. If I
+  would do the exam again I would not learn any derivations. I would concentrate
+  on his slides plus the in-class activities, because they contain all the information
+  he wants to hear in the exam! My grade was a 5.5.
+
+Meyer: What did you find particularly surprising when studying astrophysics?
+   Me: That neutron stars are so dense. I calculated that a rubber sized piece of
+       a neutron star weighs as much as all humans together. Or a piece sized
+       the Cheops-Pyramid weighs as much as earth.
+Meyer: That is indeed very interesting! These unimaginable scales appear all the
+       time in astrophysics. I will ask you now about stellar evolution. Can you
+       draw a color magnitude diagram and draw two different clusters?
+
+   Me: (I draw something like in the figure, except a little smoother, I’m not that
+       good at drawing with a trackpad...)
+Meyer: Which of the clusters is older?
+   Me: The lower one.
+
+Meyer: And which has stars with higher luminosity?
+   Me: The upper one.
+
+
+
+                                           1
+Meyer: Now I will ask you a longer question about the virial theorem. Can you
+       write down the virial theorem?
+  Me:
+
+                                      2hT i = −hU i,
+
+       where hT i is the average kinetic energy and hU i the average potential
+       energy.
+Meyer: And what conditions are necessary for that to hold?
+  Me: It must be a gravitationally bound stable system.
+Meyer: I’m not that sure whether I agree with you that it must be stable. When
+       we derived the virial theorem, what was one of the assumptions that we
+       made?
+  Me: (I don’t get it then, but at an other point of the exam, kind of: He wants
+      to hear that
+                                        dS
+                                       h i = 0,
+                                         dt
+                  P
+      where S = k (pk rk )).
+Meyer: So when a cloud contracts, and lets say it has only half the potential
+       energy afterwards, what happens to the kinetic energy?
+  Me: (I didn’t get that right either, the solution was that only half of the energy
+      goes into kinetic energy, the other half is ’lost’, i.e. radiated away or
+      something like that. There must have been three other questions on the
+      virial, but I don’t remember exactly what they were.)
+Meyer: About the cosmic microwave background radiation: Can you tell me two
+       important properties?
+  Me: First of all, its very smooth, at 2.725 K with deviations of only 0.0002 K.
+      And second its isotropic, reaching us from all directions of space.
+Meyer: Whats the importance of the small deviations?
+  Me: I’m more aware of the importance of the smoothness. This tells us that
+      those regions must have been in causal contact. I don’t know the impor-
+      tance of the deviations though. (answer would have been quite easy: they
+      are the seeds of structure formation. This is a good example, that what
+      he wants to hear is found on his slides!)
+Meyer: Okay. The next question is a longer one again: Towards what does the
+       chemical composition shift in a main sequence star.
+  Me: From hydrogen towards helium.
+Meyer: And so the molecular weight goes up or down?
+
+
+                                         2
+   Me: It goes up
+Meyer: And so the pressure...
+   Me: ...goes down.
+Meyer: And thus the kinetic energy of the particles goes up or goes down?
+   Me: Because of the virial theorem, the star heats up, and thus the kinetic
+       energy goes up.
+Meyer: And so finally...
+   Me: ... the nuclear reaction rate increases.
+Meyer: And what happens to the star?
+   Me: It brightens. (I’ve taken this whole chain of reasoning from the in-class
+       activities, so they are important too.)
+Meyer: Okay, now a physics IV question: What are the energy levels of the hy-
+       drogen atom?
+   Me:
+                                              −13.6 eV
+                                     En =
+                                                n2
+Meyer: And what kind of degeneracies do you know?
+   Me: Well, the degeneracies are imposed by symmetry of the Hamiltonian.
+Meyer: Okay, thats rather general, but how can you for instance lift those degen-
+       eracies?
+   Me: For instance by applying a magnetic field, the Zeeman effect will lift some
+       of them. Also by including fine structure terms like HSO or HKE , where
+       these are the terms for spin-orbit coupling and kinetic energy respectively.
+Meyer: Okay, thats enough. Now I’d like to ask you about shocks. Can you tell
+       me the first jump condition?
+   Me:
+                                       ρ i vi = ρ o vo ,
+         where ρ is the density of the incoming respectively outgoing wave and v
+         its velocity.
+Meyer: And which conservation law is this?
+   Me: This is mass conservation.
+Meyer: Okay, this was everything, thank you.
+   Me: Thank you.
+
+
+                                          3
+4
+                         Exam Protocol Astrophysics I
+                 Physics Bachelor, Fall Term 2011, Prof. Michael Meyer
+                       Oral Exam, Duration: 30 min, Grade: 4,75
+
+                                      February 23, 2012
+
+
+Professor Meyer is accompanied by one of the PhD student who has conducted an exercise
+session during semester. After shaking hands Prof. Meyer explains the exam procedure, the
+structure of 4 short questions (two minutes) and 2 long questions (six minutes), overall giving
+a total of 20 points. He will start with two short questions, followed by one long and another
+short question, finally ending with one long and another short question again.
+
+
+Before starting, Prof. Meyer asks about what surprised me in this course and what I was
+especially happy or sad about. It is a question to ease into the exam, to calm the student
+down, he says. There is no wrong answer.
+
+First Question: How can we find out about the effective temperature of a star? As I do
+not understand the question correctly, Prof. Meyer tries to give me some hints and tries to
+guide me in the right direction. Basically, he wants to hear Stefan-Boltzmann law, which, if we
+know the radius of a star (eclipsing binary!), gives the emitted energy vs. effective temperature.
+
+Second Question: There are two reasons for the Coulomb barrier to be penetrated although
+the core temperature of a star is lower than the predicted one. I start to talk about the tunnel
+effect, and that the core temperature is about 107 K but should be 1010 K. Tunneling is the
+reason why this potential barrier can be overcome since the quantum mechanical probability
+declines exponentially within the barrier but is not zero at the end. Prof. Meyer gives me a
+hint for the second reason - Gamow peak. I write the integral formula for the nuclear reaction
+rate and explain, that the product of the probability of penetrating the Coulomb barrier and
+the Maxwell-Boltzmann distribution is very narrow having a maximum which is called the
+Gamow peak.
+
+Third Question: Give the structure of a multiphase interstellar medium. I draw the onion-
+shaped model of such a cloud with the cold neutral medium, CNM, at the core surrounded
+by the warm neutral medium, WNM, and so forth. Prof. Meyer interrupts and wants to
+know about the interaction between these phases. They are in pressure equilibrium given by
+ideal gas law, P = nkB T . Hence, the dense core is cold and the hot outer layers have less
+density. Is the cloud in pressure equilibrium with the environment? I wince, do not know the
+answer. What about bulk motions with respect to Maxwell-Boltzmann distribution? I say,
+they are of same order since I only can remember Doppler broadening (which has absolutely
+nothing to do with this!). Prof. Meyer tries to help, we once had an in-class activity about
+this! Still, memory does not come back. However, they are in overpressure, and bulk motions
+
+                                                1
+are larger than the Maxwell-Boltzmann velocities. Why does the cloud not expand although
+having overpressure? Gravity holds it together.
+
+Fourth Question: How is the pulsation frequency of a star related to the density? I explain,
+that we derived two frequencies, the vibrational and rotational frequency, and both are pro-
+            √
+portional to ρ. Prof. Meyer then asks how they come about. I’m not really sure, mumbling
+something, but Prof. Meyer already asks for the period. It is inversely proportional to the
+                        √
+frequency, hence P ∼ 1/ ρ.
+
+Fifth Question: Write down the equation of hydrostatic equilibrium. I write it down as we
+discussed it considering stellar structure. Derive the formula for the exponential atmosphere
+using the ideal gas law! This I do using the ideal gas law to express density in terms of pressure
+since I have the exponential pressure profile in mind. But Prof. Meyer wants to know about
+the density profile. Anyway, this does not change much since the exponent will be the same
+anyway. Finally, introducing the surface gravity, and using the fact that R  x given by Prof.
+Meyer, I get the density profile as expected. What is the scale height? It is the height where
+the density has declined by a factor 1/e. Hence, I set the exponent equal to −1 and get the
+answer, H = kB T /mg. Take a larger planetary mass, what happens to the scale height? It
+gets smaller since g ∼ M .
+
+Sixth Question: There are two major properties of the cosmic microwave background, CMB. On
+large scale it is homogeneous, indicating that at an early epoch the Universe must have been
+in causal contact and equilibrium. Only at about one part in 105 there are inhomogeneities
+- so-called anisotropies - that are the seeds for structure formation. What else do we know
+about the CMB? It obeys Planck’s law - blackbody radiation at temperature T = 2.725 K.
+
+
+In conclusion, Prof. Meyer is friendly and tries to calm the student. He tries to wait as long
+as possible to give the student enough time to think it through again. However, there is also a
+strict time pattern needed to be obeyed and Prof. Meyer pushes the student through the exam.
+
+
+
+
+                                                2
+

@@ -1,0 +1,530 @@
+                                           Astrophysics 11
+                                          Prof. Refregier, HS 2016
+                                  30.01.2017, 11:00-11:30, Florian Amstutz
+
+
+Summary In Prof. Refregier office (HIT J 23.1), sitting on a small table with the assistant (Dr.
+Padmanabhan) on one side and Prof. Refregier on the other side. Both asked questions and Prof.
+Refregier took notes. There is a paper and a pen for formulas and sketches. The atmosphere is nice
+and they helped at the point where I was stucked. Especially the assistant noded and smiled when I
+started to give the right answer.
+Description of the content: Magnitudes, Distances (2. Basic Conepts); Solar Structure, HR diagram (4.
+Stars), Jeans Theorem, Collisonless Boltzmann Equation, Singular Isothermal Sphere, Specific Heat
+(6. Stellar Dynamics). The lecture was near to the book: Astrophysics for Physicists from Arnab Rai
+Choudhuri2
+
+
+Ablauf Both welcomed me and then the assistant asked how i feel and explained again that three
+topics from the lecture will be captured. I said everything is clear.
+Assistant: Ok first topic what can you tell me about magnitudes in astronomy?
+Me: We looked at two types of magnitudes. The first is the absolute magnitude which is intrinsic
+to the star. The second one is the apparent magnitude which is dependent on the observer. So it’s
+changing if the observer is far away. At 10pc the apparent magnitude is the same as the absolute
+magnitude. So the absolute magnitude is the magnitude at 10pc distance from the star. The formulas
+for the magnitudes are:
+                                                          F2
+                                      m1 − m2 = 2.5 · log( )
+                                                          F1
+                                      L
+where F is the flux defined as: F = 4πr 2 , to get the absolute magnitude for one flux I need the 10pc
+                                             d 2
+distance which gives then in the bracket ( 10pc ) , and we get:
+
+                                                                   d
+                                              m − M = 5 · log(         )
+                                                                  10pc
+And this value on the left side is also called distance modulus, as if we know the apparent and the
+absolute magnitude we can find the distance.
+Prof: Can you derive how we come from the first equation to the second?
+Me: (I think, I already mentioned this, but just repeated it) I put in 10pc for the F2 and then
+calculating FF21 L, 4π cancel away and we are left with ( 10pc
+                                                           d 2
+                                                               ) together with the logarithm law we get
+the second formula.
+ 1
+     BSc Physics, Core Subject
+ 2
+     http://www.astro.ethz.ch/education/courses/astrophysics-111.html
+
+
+
+
+                                                           1
+                                           Figure 1: Parallax
+
+
+Prof: What can you say about colors and magnitudes?
+Me: The magnitudes can be measured over various light bands but the usually used system is the
+UBV (ultraviolet, blue, visible). For example for the visual magnitude we have values like V=-27 for
+the sun, V=-1.4 for Sirius the brightes star, V=11 for Proxima Centauri the nearest star and V=27 for
+faint stars.
+Assistant: Can you say why the magnitude has this special form?
+Me: You mean the logarithm?
+Assistant: Yes
+Me: That’s because our eye is “measuring” brightness in a logarithmic scale.
+Prof: You wrote before the unit pc, how is it defined?
+Me: I sketched Figure 1 and explained that 1 AU is the Astronomical Unit which is the average
+distance between the sun and the earth, and if the earth turns halfway round half the angle (so θ) is
+called parallax and the parsec is defined such that the parallax is 1 arcsec. 1 parsec is about 3.1 · 101 6
+m.
+Assistant: Right, can you give some examples of distances in the universe?
+Me: The nearest star Proxima Centauri is about 1.31 pc away. The sun as part of the Milky Way
+is about 8 kpc away from the galactic center, the radius of the Milky Way is about 15-25 kpc. The
+thickness of the disk depends on which stars are taken to account for OB stars it’s about 50 pc and
+for older stars 200-300 pc. The next galaxy the Andromeda galaxy is about 0.74 Mpc away. The
+Andromeda Galaxy and the Milky Way are part of the galaxy cluster called Local Group, the next
+rich galaxy cluster is the Virgo Cluster and it’s about 20 Mpc away the nearest regular rich galaxy
+cluster is the Coma Cluster about 100 Mpc away. Faint distant galaxies are about 1 Gpc away and the
+observable universe is about 3 Gpc.
+
+
+
+                                                    2
+Prof: Do you know from which scale the universe looks homogeneous?
+Me: Well I only know the formula with the dimensionless h parameter
+Prof: That’s good
+Me: So the universe is homogeneous from about 100h−1 Mpc
+Prof: Good next topic. What can you say about the structure in our sun?
+Me: The sun has a radiative core and a convective envelope. This radiative and convection are
+related to energy transport processes, radiative means that the energy is transported by radiation
+and convection means that material is moving like hot blobs of matter moving up or down. The
+reason because the sun has a radiative core is that the main energy production process in our sun is
+the proton-proton (pp) chain. This process does not produce a very steep temperature gradient and
+therefore the Schwartzschild stability criterion is not violated which gives no raise to convection. On the
+outer side the sun is more opaque which produces a steep enough temperature gradient that convection
+happens. For mor massive stars than the sun it’s exactly the other way round because there the main
+process is the CNO-cycle which produces already in the center a steep enough temperature gradient
+and therefore has a convective core and a radiative envelope.
+Prof: Ok good. What kind of star is our sun?
+Me: (Didn’t know what he wants to hear) I would say it’s a quite normal star. Do you mean in case of
+the HR-diagram or in respect to masses?
+Prof: Well is it a special kind of star?
+Me: No it’s not a red giant or a white dwarf it’s a star on the main sequence. Can I draw the
+HR-diagram to explain?
+Prof: Yes please.
+Me: (I sketched the HR-diagram more or less like in Figure 2 but not with the masses and not with all
+the labelings and explained...) There are some different ways to label the axes on the y-axis it’s often
+          L
+the log( Lsun ) and now for the x-axis it would be possible to use the temperature but then it would
+increase to the left. But historically the spectral classes were used (wrote OBAFGKM below the x-axis).
+So now we have the main sequence the red giants and the white dwarfs. (And pointed out especially
+the position of the sun.)
+Prof: But how could you also label the x-axis?
+Me: I could use the temperature (wrote some example temperatures below the x-axis)
+Prof: And for the spectral classes which unit is used more often?
+Me: The directly measureable B-V in magnitudes.
+Prof: Good, looking at spectral classes in which spectral class is our sun?
+
+
+
+
+                                                    3
+                                        Figure 2: HR-diagram
+
+
+Me: It’s a G star. Also pointing on the HR-diagram.
+Prof: Where is the energy produced in our sun, I mean in which regions or everywhere?
+Me: (I was not really sure here) The energy in the sun is produced in the center.
+Prof: Ok next topic, what is Jeans theorem?
+Me: Jeans theorem says that constants of motion are solution of the collisonless Boltzmann equation.
+Well I maybe start some steps before. We consider the collisionless Boltzmann equation for self-
+gravitating particles:
+                            df    ∂f X ∂f dxi X ∂f dvi
+                               =     +             +              =0
+                            dt    ∂t       ∂xi dt         ∂vi dt
+                                           i                    i
+If collisions would be important the right side would not be zero, but as the relaxation times are very
+big, some even older as the age of the universe, it’s a good approximation. So now back to Jeans
+theorem if we assume constants of motions dC  dt = 0, Jeans theorem says that this:
+                                                k
+
+
+                                                  X
+                                         f = f(           Ck (x, v))
+                                                  k
+
+is a solution of the Boltzmann equation. We can show this directly by the chain rule.
+Prof: Can you explicitly show it?
+Me: (Started to write and noticed that I forgot to mentioned steady state so I also said this)
+
+                                    df (Ck )   ∂f X ∂Ck ∂f
+                                             =    +         =0
+                                       dt      ∂t    ∂t ∂Ck
+                                                          k
+
+
+
+
+                                                      4
+first term is zero because of the steady state assumption and the second because Ck is a constant of
+motion.
+Prof: Ok, now from this point what we used this for?
+Me: Hmm.. ok that I don’t know very exactly every term, but it was the concept of the singular
+isothermal sphere.
+Prof: Yes just tell the idea.
+Me: Well we saw that ρ ∝ r12 and the mass therefore ∝ r and this leads to a constant velocity which is
+exactly what is observed at rotational curves.
+Prof: That’s correct and how did we get from the Jeans theorem to this?
+Me: I mentioned that we start as constant of motion with E = 1/2mv 2 + mφ(Then I needed a lot of
+                                                                                           −∂φ
+help in the end they wanted me to change in the Boltzmannequation dx                 dvi
+                                                                       dt to vi and dt to dxi and they
+                                                                         i
+
+wanted to see the Poisson equation ∆φ = 4πGρ this two I had quite fast but then the third    I needed a
+lot of help over the tip what f means (particle density function) I finally wrote ρ = m f (x, v, t)d3 v)
+                                                                                         R
+
+Assistant: Why do we use the Boltzmann equation
+Me: Because we saw that for self-gravitating systems the specific heat is negative but for thermal
+equilibrium it should be positive, therefore as we are looking at a self-gravitating system the collisonless
+Boltzmann equation has to be used.
+Prof: You mentioned relaxation times are they long?
+Me: Yes I would say because some are even older as the age of the universe.
+Prof: Do you know examples of relaxation times for some systems?
+Me: For galaxies it’s about 1017 yrs for globular clusters 1010 yrs and for open clusters 109 yrs.
+Prof: Is this long?
+Me: As we said in the lecture the age of the universe is about 1.5 · 1010 yrs one is older than the
+universe and the other still very long. So I would say it’s long.
+Prof: You mentioned the that the specific heat for self-gravitating systems is negative can you show
+this?
+Me: The specific heat is defined as Cv = dE                                             1
+                                          dT . We assume every degree of freedom has 2 kB T kinetic
+energy. With 3N degrees of freedom we get K = 32 N kB T and from the virial theorem we know Ē = −K̄
+and therefore Cv = − 32 N kB
+Prof: Back at the singular isothermal sphere you mentioned the rotation curve, what is it?
+Me: (Made a sketch of Figure 3 but just of one curve) I explained the concept of the rotational curve
+and that they are a prove of the Dark Matter which is distributed in a spherical halo around the disk.
+
+
+
+
+                                                     5
+                                      Figure 3: Rotation curves
+
+
+And explained with the formula                   r
+                                                     GM (r)
+                                            v=
+                                                       r
+what is observed and what expected.
+Prof: And for the singular isothermal sphere?
+Me: M(r) is proportional to r and so we get the constant velocity.
+Prof: Ok that’s all, thank you and goodbye
+
+
+Final Remarks Sometimes Prof. Refregier asks things that you have already mentioned before again.
+I was sometimes not sure if he want to hear more, but actually I just mentioned slowly again the points
+which I already said and it seemed to be enough. Maybe he didn’t get everything because he was also
+taking notes or just wanted to be sure that it was really clear.
+
+Expected mark: 5.25
+Received mark: 5.75
+
+
+
+
+                                                  6
+                                            Astrophyiscs I1
+                                      Prof. Alexandre Refregier, HS 2016
+                                                  30.01.2017
+
+
+Summary The exam took place in Prof. Refregier’s office in HIT J23.1. I was sitting in a comfortable
+chair next to him and his (incredibly kind) assistant. Infront of me I had a small coffee table with a
+piece of paper on it to take notes.
+Description of the content: Scales in Astrophysics, Star lifecycle + HR-Diagram, Hubble’s law.
+
+
+Ablauf After shaking their hands and the usual "How are you?" we begin.
+Ast: What can you tell me about scales, like length scales, used in astrophysics?
+Me: We measure masses in solar masses: M = 2 · 1030 kg. For times we measure in years, the age of
+our universe is of order of Gyr, our sun is about 4.5 Gyr old. Luminosity is also measured relative to
+our sun: L = 1026 W . Distances are measured in pc and AU. 1 pc = 3 · 1016 m, 1 AU = 1.5 · 1011 m.
+They are connected in following way: If an object has distance of 1 pc to us it has an parallax of one
+arcsecond as seen from earth. (I’m drawing the picture to support my explanations.)
+Prof: What’s the mass of a galaxy?
+Me: Erm.. At this point I want to say that I didn’t really know the scales by heart. I derived as much
+as I could from things I knew. I know that a galaxy cluster has an average mass of order 1014 kg and
+contains roughly 1000 galaxies. Therefore a typical galaxy has a mass of 1011 kg.
+Prof: Mass of a globular cluster?
+Me: They contain roughly 105 stars, hence the mass is around 105 M .
+Prof: Distance to the next star?
+Me: That would be Proxima Centauri with 1.3 pc.
+Prof: Distance to the closest galaxy?
+Me: Andromeda Galaxy with about 1 Mpc.
+Prof: Distance to faraway galaxies?
+Me: Like quasars? They have a redshift of z = 2-3.
+Prof: Yeah but in pc?
+Me: I could derive it from the redshift but don’t know it by heart. Probably of order Mpc.
+
+ 1
+     BSc Physics, Introduction to Astrophysics
+
+
+
+
+                                                      1
+Prof: A bit more, but okay. Size of the observable universe?
+Me: Urgh. Don’t know. Let’s think. The age of the universe is 13 Gyr, I’ll take that in two directions
+and divide it by the speed of light to get the size of the observable universe. About 26 Gyr / c.
+Ast: Well... thats not too bad.
+Prof: Meh. The idea is not bad, but it doesnt work here because of ... reasons ... . The size is 3 Gpc.
+What are planetary nebulae?
+Me: If a star has burnt up all its hydrogen the core contracts, heats up and starts to burn heavier
+elements. The outer shells expand and material gets blown off the star. That’s a planetary nebula.
+Prof: Can you explain the life cycle of a star more precisely? Maybe draw it in some sort of diagram,
+there is this HR thing..
+Me: The Hertzsprung-Russel diagram. Yes of course. (Drawing an empty HR diagram, labelling the
+x-axis B − V , colour index, and the y-axis V , absolute magnitude.) So we start off in the main sequence.
+Once a star has burnt up it’s hydrogen it turns to a red giant (drawing the typical knee known from
+HR diagrams). Up there oscillations are possible and the colour may change with constant magnitude.
+After the star has used all its fuel it either turns into a white dwarf, a neutron star or a black hole -
+depending on its mass. If M > MCh = 1.46M we get a black hole, otherwise a white dwarf or neutron
+star.
+Ast: Could you indicate that development in your sketch?
+Me: Sure. (Drawing a demi-circle to the bottom left corner.)
+Prof: Can you label the diagram in another way?
+Me: I could put pretty much anything there, the mass, luminosity, temperature,.. I didn’t get what
+they want from me. He ended up explaining that I used properties we measure (magnitudes) but we
+could also use theoretical values like mass, luminosity, etc. He wants me to replace the V and B-V in
+such a way, that the diagram still looked the same.
+Me: (Putting L on the x-axis and T on the y-axis.)
+Ast: Well, you see that B-V indicates the colour...
+Me: Argh, yeah - sure. The temperature is a measure for the colour and the luminosity for the
+magnitude. (Putting T on the x-axis and L on the y-axis.)
+Prof: Next question. What interesting thing can we observe for the speeds of galaxies around us.
+Me: On average, they all move away from us.
+Prof: Can we infer that we are in the center of the universe?
+Me: No. May I draw a sketch to explain?
+Prof: Go on.
+
+
+
+                                                    2
+Me: (Drawing the picture from Choudhuri which explains exactly this.) You’ll find the answer to this
+question in the book. Main steps:
+
+                                             ∃α : lB = αlA
+
+After time dt
+
+                                         lB + dlB = α(lA + dlA )
+
+Dividing by dt and rearranging
+                                                vA   lA
+                                                   =
+                                                vB   lB
+We see that the velocity of the galaxy has a linear relationship to the distance. As we chose our origin
+O at random we cannot infer that we are in the center of the universe.
+Prof: This last equations has a name..
+Me: Is is Hubble’s law?
+Prof: Yes.
+Me: (Writing down H = v/l.) H is the hubble constant. However it’s not really a constant as it
+                                                     km
+changes over time. The current value is H0 = 72 ± 8 sM pc .
+
+Prof: Does it really hold in that form?
+Me: No. We need to include the intrinsic speed of galaxies. H = v/l + δv Later he will realise
+somethings wrong with the units.
+Prof: Does δv have a name?
+Me: Peculiar velocity.
+Prof: Wait. Somethings wrong with the units.
+Me: Oh. Yes. Can’t I just divide by Mpc? (With irony in my voice.)
+Prof: (Laughs a little bit.) Nah.
+Me: Erm, okay.. let’s try it that way:
+                                                   v + δv
+                                              H=
+                                                      l
+
+Prof: No, still not correct.
+Ast: (Clearly wants to say something but stays quiet.)
+Me: (Not knowing why it’s wrong.)
+
+
+
+                                                   3
+Prof: Try to write it as v = ..
+Me: v = Hl + δv.
+Prof: That’s correct.
+Me: But my earlier attempt was the same.. oh wait - now it is: (putting a minus)
+
+                                                  v − δv
+                                            H=
+                                                     l
+
+Prof: (Laughs a litte bit again. Damn I must’ve been funny that day.) Now is it hard to measure the
+constant?
+Me: It should be doable if we take faraway stars (so the peculiar velocity is neglegible) and take the
+statistical average.
+Prof: Why is it neglegible?
+Me: It should be random and of constant size, so when the distance l increases sufficiently the δv
+becomes neglegible.
+Prof: But there also is a problem to measure it for faraway stars.
+Me: Maybe it’s hard to measure the redshift. Maybe we have to put our telescopes in space to measure
+a strong shift.
+Prof: Yees - no. Also. But I don’t mean that. How do we measure the distance?
+Me: Using the redshift.
+Prof: (Starts to talk)
+Me: Oh no. Doens’t work. To infer the distance we would need Hubble’s constant.
+Prof: Yes. How else could we measure the distance?
+Me: Using the luminosity. Then we can compare to standard candles like Cepheids or Supernovae Ia.
+Prof: Is that there a potential problem?
+Me: Faraway objects are very faint. But we could use microlensing to get better measurements.
+Prof: We could. Bye.
+
+
+Final Remarks They really push you towards what they want to hear. Both are really nice and it’s a
+rather relaxed atmosphere. I had the feeling he wanted me to know stuff by heart without having to
+derive it. Especially for the scales.
+Expected mark: 5
+Received mark: 5.5
+
+
+
+                                                  4
+                                             Astrophysics I1
+                                       Prof. Alexandre Refregier, HS 2017
+
+
+Summary In Prof. office HIT J 23.1, exam on paper, the assistant and Prof. sit at the table and the
+assistent takes notes for the protocol and asked me only one question at the end of the exam. I have a
+block to write down formulas and explain the concepts.
+
+
+Description of the content: First question: Magnitude scale, Chapter 1.4. Second question Active
+galaxies, Chapter 9.4. Third question: Friedmann equation, Chapter 102
+
+
+Ablauf (Prof. asks me how I am, I answer that maybe I am too nervous and he says don’t worry, it
+will be better. Then as explained in the lecture he tells me that the exam is subdivided in three parts
+covering three different topics.)
+Prof: Let’s star with the first question. Tell me something about magnitudes, what do you know about
+them?
+Me: We have seen the apparent magnitude and the absolute magnitude. The first gives us a measure
+of the brightness of a source as it appears from Earth, so it is observer dependent. On the other side
+the absolute magnitude gives us an intrinsic measure of the luminosity of a source, as if it is placed at a
+distance of 10 pc from Earth. Write down the formula: m1 − m2 = 2.5log10 ( FF21 ) and explain that F1 ,
+                                                                                              Li
+F2 are the fluxes from the two different sources that we are observing, defined as Fi = 4πd      2 . We can
+define the distance modules, it means the difference between apparent and absolute magnitude of a
+                               d
+source, as: m − M = 5log10 ( 10pc ).
+Prof: Can you derive this last formula from the first that you’ve written?
+Me: I write the first formula by using m1 = m and m2 = M : m − M = 2.5log10 ( FF0 ). By inserting
+         L           0    L                           d2
+F = 4π(10pc)2 and F = 4πd2 I get m − M = 2.5log10 ( (10pc)2 ), extracting the exponent we get the
+
+distance modulus.
+Prof: Okay good. What about the color?
+Me: in the lecture we have seen the U BV -System. Simply we let the light pass through different filters
+in order to get e measure of the brightness in the Blue, in the U ltraviolet and in the V isual Band.
+The value (B − V ) gives us a measure of the color of the star. If (B − V ) is larger then the star is
+redder, it gives us a measure of the temperature of the source.
+Prof: We have seen a diagram which relates this (B − V )-Index to something. Did you remember it?
+
+
+ 1
+     BSc Physics, Kernfach
+ 2
+     Astrophysics for Physicists, A. R. Choudhuri.
+
+
+
+
+                                                       1
+Me: This is the HR-Diagram (Hertzsprung-Russell ):
+
+
+
+
+ Figure 1: HR-Diagram for nearby stars (Fig. 3.5 in Astrophysics for Physicists, A. R. Choudhuri).
+
+
+Me: On the x-axis we find the (B − V )-Index and on the y-axis we find the absolute magnitude. We
+see the Main Sequence, the Red Giant branch and the White Dwarfs. The Main Sequence is well fit by
+the scaling relations derived in class.
+Prof: Okay, lets move to the next question. What can you tell us about Active Galactic Nuclei (AGN )?
+Me: There are different kind of AGN : Seyfert I, Seyfert II, Quasars (radio loud and radio quiet), Radio
+galaxies with jets and lobes that emit in the radio band. I explain a little the different characteristic in
+the emission lines. Say that it is thought that the AGN are powered by the accretion of matter onto a
+supermassive Black Hole.
+Assistant: Can you draw the emission lines of Seyfert I/II?
+Me: Draw broad emission lines for Seyfert I galaxies and narrow emission lines for Seyfert II galaxies as
+seen in the lecture. I tell them that the emission spectrum of a Seyfert galaxy is stronger and different
+from one of normal stars. I say that in the lecture we have seen the so called U nif ication Scheme, it
+explain a theory that says that all these object are in principle the same object but senn from different
+angles.
+Prof: Can you show it to us?
+Me: I draw and explain the U nif ication Scheme seen in the lecture.
+Prof: Third question. What is the Friedmann equation?
+Me: So the Friedmann equation is an equation that if solved tell us something about the time
+
+
+
+                                                     2
+                                                                 2
+dependence of the scale factor. Write down: ( aȧ )2 = 8πGρ  kc
+                                                         3 − a2 .
+
+Prof: What represent the different symbols in the equation?
+Me: ρ is the density of the Universe, G is the gravitational constant, a is the scale factor, c is the
+speed of light and k gives us the curvature of the Universe.
+Prof: What are the different values for k and what do they mean?
+Me: k = 0 represents a flat Universe that will expand and stop at t → ∞. k = 1 represents a closed
+geometry and a Universe that will expand and collapse in the so called Big Crunch, and at least k = 1
+represents a open geometry so a Universe that will expand forever. To explain the three different cases
+                                     2
+I relate k with the energy E = − kc2 (from General Relativity) by comparing it with the analogy of a
+projectile escaping a gravitational field.
+Prof: Can you solve the Friedmann equation for k = 0?
+Me: I ask if I should take the case for matter dominated or radiation dominated epoch.
+Prof: Take one of the two.
+Me: I choose the matter dominated case and I say that the density is ρ ∝ a−3(1+ω) , so for the matter
+dominated case it holds ρM = ρM,0 ( aa0 )3 . By inserting it and solving I get aa0 = ( 32 H0 t)2/3 it means
+a ∝ t2/3 .
+Prof: Can you explain the two cases that we’ve seen in the lecture for ρ ∝ a−3(1+ω) ?
+                                                                         energy     mass
+Me: For the non relativistic particles write the energy density as ρc2 ∝ volume ∝ volume ∝ a13 it means
+ρ ∝ a−3 . For the relativistic particles the energy is given by E = hν = hc      1
+                                                                            λ ∝ a . So follows that the
+                         energy
+energy density is ρc2 ∝ volume ∝ λ1 volume
+                                       1
+                                           ∝ a14 it means ρ ∝ a−4 .
+Prof: Right. And what can you tell us about the temperature of the Universe?
+Me: For the CMB we know T ∝ a1 . I say that at the time of decoupling of radiation from matter we
+can write TT0 = aa0 = 1 + z. Then by using zdec = 1100 we can get that at the time of decoupling the
+temperature was T ≈ 3000 K.
+Prof: What happen in this period?
+Me: It happen the decoupling of radiation from matter due to the formation of atoms.
+Prof: What is the energy scale in this period?
+Me: E ≈ 1 eV.
+Prof: Because it is important?
+Me: I don’t know what he wants so I say that it is important for the thermal history of the Universe.
+Prof: Yes, but why at this energy? What is the energy needed to form atoms?
+
+
+
+
+                                                    3
+Me: The energy should be 13.6 eV, but due to the large amount of photons present it happened only
+later at E ≈ 1 eV.
+Prof: Okay good, the exam is over. Do you have other exams or are you in holidays?
+Me: I have one on Tuesday.
+Prof: So good luck! Bye!
+
+
+Final Remarks As expected the Prof. asks me three questions on three different topics of the lecture.
+The exam started 10 minutes later and ended as scheduled, so it it lasted only about 20 minutes. The
+Prof. give you the time to think about the answer and helps you if you’re in trouble by remembering
+things.
+
+Expected mark: 6
+Received mark: 6
+
+
+
+
+                                                 4
+

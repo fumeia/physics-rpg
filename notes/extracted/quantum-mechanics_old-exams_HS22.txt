@@ -1,0 +1,189 @@
+                               Quantum Mechanics 1 HS22
+
+
+
+A - Questions [30p]
+                                                                       2
+                                                      p
+1. [3p] In a one-dimensional quantum system with Ĥ = 2m +V (x) the wave function for an energy
+eigenstate is shown in the plot below.
+
+
+
+
+Identify which of the points x1 , ..., x6 satisfy that V (x) = E where E is the energy eigenvalue
+corresponding to ψE (x)
+2. [6p] Consider quantum mechanics in one space and one time dimension. The commutator of
+either position x̂ and momentum p̂ and a certain operator f(x̂, p̂) are given by
+
+
+                                             [x̂, f (x̂, p̂)] = iℏf (x̂, p̂)                    (1)
+                                           [p̂, f (x̂, p̂)] = −iℏf (x̂, p̂)                     (2)
+
+Find the operator f (x̂, p̂)
+                                                 2
+3. [3p] The wave function ψ(x) = Axe−αx describes an energy eigenstate of the harmonic oscilla-
+tor with a potential V (x) = 12 mω 2 x2 , provided the constant α is chosen appropriately. Determine
+α and the energy of this state.
+4. [4p] Let Â, B̂ be two hermitian operators in the Heisenberg picture. Show that [Â(0), B̂(0)] =
+c ∈ C implies [Â(t), B̂(t)] = c for any positive time t.
+5. [3p] Consider a spin-(3/2) and a spin-(1/2) particle and let Jˆ = Ŝ1 + Ŝ2 be the total angular
+momentum operator. What are the simultaneous eigenstates of the operators Jˆ2 , Jˆz , Ŝ12 , Ŝ22 ?
+6. [6p] The uncertainty in the position of a particle at t0 = 0 is
+
+                                (∆x)2t0 = ⟨ψ, t0 |x̂2 |ψ, t0 ⟩ − ⟨ψ, t0 |x̂|ψ, t0 ⟩2            (3)
+
+The momentum uncertainty at a later time t > t0 is:
+
+                                   (∆x)2t = ⟨ψ, t|p̂2 |ψ, t⟩ − ⟨ψ, t|p̂|ψ, t⟩2                  (4)
+
+
+                                                          2
+a) Is it possible to have a state |ψ, t0 ⟩ with (∆x)t0 (∆x)t = 0?
+b) For an eigenstate of the Hamiltonian Ĥ|ψ, t0 ⟩ = E|ψ, t0 ⟩, is it possible to have (∆x)t0 (∆x)t = 0?
+7. [5p] Consider N vector operators
+
+                             ⃗        ⃗ (m) ⃗ (m) ⃗ (m)
+                             Â(m) = (Â1 , Â2 , Â3 ),            m ∈ 1, . . . , N
+
+which satisfy the Lie algebra
+
+                             ⃗       ⃗                ⃗
+                            [Â(m) , Â(n) ] = iℏϵijk Â(m) δmn ,    i, j ∈ 1, . . . , 3
+
+In addition, we have that
+                                               3
+                                  ⃗ 2 X ⃗ (m) ⃗ (m) ⃗
+                                  Â(m) = Âi Âi ≡ Â2 ,                  ∀m
+                                             i=1
+
+
+                                                           ⃗                              ⃗ (m)
+How many degenerate states are simultaneous eigenstates of Â(m)2 with eigenvalue 15 2
+                                                                                  4 ℏ and Â3 ,
+m = 1, . . . , N ?
+Hint. The N=2 case corresponds to the hydrogen atom (algebraic solution)
+
+
+
+
+                                                       3
+B - Problems [38 points]
+B.1 - QM in finite dimensions [20 points]
+a) [1p] imagine that the space of positions is discrete, consisting of only three points. The corre-
+sponding position eigenstates, |x⟩ ∈ |0⟩, |1⟩, |2⟩, satisfy
+
+                                            x̂|x⟩ = x|x⟩.
+
+Construct a matrix representation of the position operator x̂ in the |x⟩-basis and show that it is
+hermitian.
+b) [3p] Show that for an invertible matrix S, one has
+                                                −1
+                                         eSAS        = SeA S −1
+
+for any matrix A.
+c) [7p] Consider the operator
+
+                                             p̂ = S x̂S −1
+
+obtained by applying the discrete fourier transform
+                                                   
+                                         1 1      1
+                                    1 
+                             S=√         1 ω ω∗  ,             ω = e2πi/3
+                                     3 1 ω∗ ω
+
+
+to the position operator. Show that S is unitary and determine the matrix representation of
+
+
+
+                                          T = ω p̂ = e2πip̂/3
+
+in the basis |x⟩ ∈ |0⟩, |1⟩, |2⟩. What is the action of T on a position eigenstate? Use this to deduce
+the physical meaning of p̂
+Hint. It might be useful to express everything in terms of ω
+d) [6p] Calculate the uncertainty of the momentum and position of a particle that is in the state
+|0⟩. Is the relation of the ”uncertainty principle” for positions and momenta satisfied?
+e) [3p] Prove that [x̂, p̂] = iℏ cannot hold when x̂ and p̂ are operators on a hilbert space in finite
+dimensions.
+Hint. Recall that for a finite-dimensional Hilbert space the trace is finite.
+
+
+
+
+                                                     4
+B.2 - Semi-classical WKB approximation with infinite potential walls [18
+points]
+In this problem we set ℏ = 1 for simplicity.
+a) [6p] Applying the semi-classical WKB approximation for a slowly varying bounded potential
+V(x), we can approximate the energy eigenfunctions by
+
+                         C1 i Rxx p(x′ )dx′   C2 −i Rxx p(x′ )dx′
+               ψE (x) = p      e 0          +p     e   0          ,      (E ≫ V (x))
+                          p(x)                p(x)
+
+where E is the energy and
+                                                p
+                                      p(x) :=       2m(E − V (x))
+
+The constants C1 , C2 and x0 can be determined from boundary conditions.
+Using the WKB approximation, show that for a general potential well
+                                         (
+                                          Ṽ (x) if x ∈ [0, a]
+                                 V (x) =
+                                          ∞       else
+
+                                                                               2
+                                                                       p̂
+and energies E ≫ Ṽ (x), the energy eigenvalues of the Hamiltonian H = 2m + V must obey the
+quantisation condition
+                                        Z a
+                                            p(x)dx = nπ
+                                           0
+
+for n ∈ Z
+b) [3p] Use your result from a) to deduce quantization of energy levels in the infinite potential-well
+case, namely when
+                                             (
+                                              0 if x ∈ [0, a]
+                                     V (x) =
+                                              ∞ else
+
+c) [9p] The WKB approximation can also be carried out around a point x1 where V (x1 ) = E ≥ 0.
+Considering the three regions as in the figure below, one can show that the wave functions in these
+regions must have the following form:
+
+
+
+
+                                                     5
+                                                 Z x1              
+                                       2D
+                             ψI (x) = p      sin       p(y)dy + π/4
+                                        p(x)       x
+                                      r
+                                        4π
+                            ψI I(x) =      DAi(αx)
+                                         α
+                                                   Z x         
+                                         D
+                           ψI II(x) = p        exp i      dyp(y)
+                                        |p(x)|         x1
+                                                                              p
+where D is a normalisation constant, Ai(x) is the Airy function and p(x) := 2m(E − V (x)) as
+before. Use this (and the same idea you used in a)) to show that the halt-harmonic oscillator with
+potential
+
+                                             (
+                                                 ∞         x<0
+                                   V (x) =       1   2 2
+                                                 2 mω x    x≥0
+
+has energy eigenvalues En = (2n − 21 )ω for n ∈ N0
+
+
+
+
+                                                   6
+

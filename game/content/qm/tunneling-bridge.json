@@ -1,0 +1,1507 @@
+{
+  "id": "qm-tunneling-bridge",
+  "region": "QM Interference Labs",
+  "title": "The Tunneling Bridge",
+  "course": "quantum-mechanics",
+  "topics": [
+    "1D scattering",
+    "barrier tunneling",
+    "transfer matrix",
+    "STM"
+  ],
+  "sources": [
+    {
+      "file": "materials/quantum-mechanics/exercises/Exercises 5.pdf",
+      "where": "Question 1(v), square barrier 0<E<V"
+    },
+    {
+      "file": "materials/quantum-mechanics/solutions/Solutions 5.pdf",
+      "where": "S.20, T = 1/(1 + V^2 sinh^2(kappa l) / (4E(V-E)))"
+    },
+    {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "Ch. 3.3 (Fig. 7, STM), Ch. 3.5.1 eq. (3.63), p. 34 and p. 38"
+    },
+    {
+      "file": "materials/quantum-mechanics/exercises/Exercises 4.pdf",
+      "where": "Question 1, delta potential R, T (background)"
+    },
+    {
+      "file": "notes/quantum-mechanics/sheets-04-05-scattering-tunneling.md",
+      "where": "transcription and checks"
+    }
+  ],
+  "intro": "A wave packet, an electron of energy $E$, walks towards a barrier of height $V_0$ on the bridge. Predict what the simulation will show before you run it. The door only opens once you have calculated the transmission.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "qm-tunnel-L1",
+      "title": "Stationary states, probability current and matching conditions",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+          "where": "Ch. 2.1-2.2, 2.5 and 3.2 (matching), pp. 14-16, 19-21, 28-29"
+        },
+        {
+          "file": "materials/quantum-mechanics/exercises/Exercises 2.pdf",
+          "where": "Question 3 [Probability current]"
+        },
+        {
+          "file": "materials/quantum-mechanics/exercises/Exercises 4.pdf",
+          "where": "Question 3(i) [General potentials]"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "For a time-independent Hamiltonian, the solutions $\\Psi(x,t)=\\psi(x)\\,e^{-iEt/\\hbar}$ are <b>stationary states</b>: $|\\Psi|^2=|\\psi|^2$ does not depend on time. The spatial part solves the stationary Schrödinger equation:"
+        },
+        {
+          "kind": "eq",
+          "tex": "-\\frac{\\hbar^2}{2m}\\psi''(x)+V(x)\\,\\psi(x)=E\\,\\psi(x)",
+          "label": "script (2.5); one ordinary differential equation per region"
+        },
+        {
+          "kind": "text",
+          "html": "Where $V$ is constant, this is easy. Write it as $\\psi''=-\\dfrac{2m(E-V)}{\\hbar^2}\\,\\psi$. The sign of $E-V$ decides everything:"
+        },
+        {
+          "kind": "eq",
+          "tex": "E>V:\\ \\ \\psi=Ae^{ikx}+Be^{-ikx},\\ k=\\tfrac{\\sqrt{2m(E-V)}}{\\hbar}\\qquad E<V:\\ \\ \\psi=Ae^{\\kappa x}+Be^{-\\kappa x},\\ \\kappa=\\tfrac{\\sqrt{2m(V-E)}}{\\hbar}",
+          "label": "oscillating where the kinetic energy is positive, exponential where it is negative"
+        },
+        {
+          "kind": "text",
+          "html": "<b>Probability current.</b> Probability density $\\rho=|\\Psi|^2$ obeys a continuity equation with the current $j$:"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\partial_t\\rho+\\partial_xj=0,\\qquad j=\\frac{\\hbar}{m}\\,\\mathrm{Im}\\big(\\Psi^*\\partial_x\\Psi\\big)=\\frac{i\\hbar}{2m}\\big(\\Psi\\,\\partial_x\\Psi^*-\\Psi^*\\partial_x\\Psi\\big)",
+          "label": "sheet II, Q3; FS22 Q1(i)"
+        },
+        {
+          "kind": "text",
+          "html": "A right-moving wave $c\\,e^{ikx}$ carries $j=\\dfrac{\\hbar k}{m}|c|^2$, a left-moving one the opposite sign. For a <i>stationary</i> state $\\partial_t\\rho=0$, hence $\\partial_xj=0$: <b>the current is the same at every $x$</b>. That is the origin of $|r|^2+|t|^2=1$ in every scattering problem (sheet IV, Q3)."
+        },
+        {
+          "kind": "text",
+          "html": "<b>Matching conditions.</b> Integrate the Schrödinger equation across an edge $x=a$ where $V$ jumps but stays finite: $\\psi'(a^+)-\\psi'(a^-)=\\frac{2m}{\\hbar^2}\\int(V-E)\\psi\\,dx\\to0$. So at a finite step both $\\psi$ and $\\psi'$ are continuous. For an infinite wall (the box), only $\\psi$ is continuous. For a $\\delta$-potential $V\\delta(x)$, $\\psi'$ jumps by $\\frac{2mV}{\\hbar^2}\\psi(0)$ (sheet IV, Q1)."
+        },
+        {
+          "kind": "intuition",
+          "html": "Think of $\\psi$ as the shape of a rope: the rope must be unbroken ($\\psi$ continuous) and have no kink unless an infinitely strong force acts there ($\\psi'$ continuous unless $V=\\infty$ or $V\\propto\\delta$)."
+        },
+        {
+          "kind": "pitfall",
+          "html": "The script labels the momentum $k=\\sqrt{2mE}$ and writes $e^{ikx/\\hbar}$ in the step section (3.3) but uses wavenumbers $e^{ikx}$ in the well sections (3.2, 3.5). Sheet IV is in the first convention, sheet V in the second. Always check whether $k$ includes the $\\hbar$ before comparing formulas; with $j=\\frac{k}{m}|c|^2$ versus $\\frac{\\hbar k}{m}|c|^2$ this changes factors."
+        },
+        {
+          "kind": "exam",
+          "html": "FS22 Q1 (17 pt): define $j$ and show the continuity equation (4 pt), current of $Ae^{ikx}+Be^{-ikx}$ (4 pt), the step with $E>V_0$ including a check of $\\partial_xj=0$ (7 pt), and why $j=0$ for $E<V_0$ (2 pt)."
+        }
+      ],
+      "check": [
+        {
+          "q": "In a region where $V>E$ (constant), the stationary solutions are...",
+          "options": [
+            "$e^{\\pm ikx}$, oscillating",
+            "$e^{\\pm\\kappa x}$ with real $\\kappa$, exponential",
+            "always zero, since the region is forbidden",
+            "linear functions $a+bx$"
+          ],
+          "correct": 1,
+          "explain": "$\\psi''=+\\kappa^2\\psi$ with $\\kappa^2=2m(V-E)/\\hbar^2>0$ has real exponentials. $\\psi$ is not zero there, it is suppressed."
+        },
+        {
+          "q": "Which statement about a finite potential step is correct?",
+          "options": [
+            "only $\\psi$ must be continuous",
+            "$\\psi$ and $\\psi'$ must be continuous",
+            "only $\\psi'$ must be continuous",
+            "$\\psi$ and $\\psi'$ both jump by the step height"
+          ],
+          "correct": 1,
+          "explain": "Integrating the Schrödinger equation over the edge shows $\\psi'$ cannot jump when $V$ is finite; $\\psi'$ continuous then forces $\\psi$ continuous."
+        },
+        {
+          "q": "For a stationary scattering state, which statement is true?",
+          "options": [
+            "$j(x)$ is independent of $x$",
+            "$j(x)=0$ everywhere",
+            "$j$ is larger on the transmitted side",
+            "$j$ is proportional to $V(x)$"
+          ],
+          "correct": 0,
+          "explain": "$\\partial_t\\rho=0$, so the continuity equation gives $\\partial_xj=0$."
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "qm-tunnel-L2",
+      "title": "Step, well and barrier: the results you need",
+      "tier": "theory",
+      "minutes": 20,
+      "xp": 25,
+      "source": [
+        {
+          "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+          "where": "Ch. 3.2 (well) pp. 28-30, 3.3 (step) pp. 31-33, 3.5 (positive-energy well, tunnelling, resonances) pp. 36-40"
+        },
+        {
+          "file": "materials/quantum-mechanics/solutions/Solutions 4.pdf",
+          "where": "Question 1 and 4, solutions S.1-S.30"
+        },
+        {
+          "file": "materials/quantum-mechanics/solutions/Solutions 5.pdf",
+          "where": "Question 1(iv)-(v), transfer matrices, S.10-S.20"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "<b>1. The step</b> ($V=0$ for $x<0$, $V_0$ for $x>0$, particle from the left, momentum convention $k=\\sqrt{2mE}$, $l=\\sqrt{2m(E-V_0)}$ for $E>V_0$). Matching $A+B=C$ and $(A-B)k=Cl$ gives"
+        },
+        {
+          "kind": "eq",
+          "tex": "R=\\Big(\\frac{1-l/k}{1+l/k}\\Big)^2,\\qquad T=\\frac{4\\,l/k}{(1+l/k)^2},\\qquad R+T=1",
+          "label": "script (3.42); the factor l/k in T comes from the current"
+        },
+        {
+          "kind": "text",
+          "html": "For $E<V_0$ the wave on the right is $e^{-\\kappa x}$, $R=1$ but $\\psi\\neq0$ on the right: the wave penetrates but carries no current."
+        },
+        {
+          "kind": "text",
+          "html": "<b>2. The well</b> ($V(x)=-V$ for $|x|\\le a$). Bound states have $-V<E<0$. By parity the solutions are even or odd. With $\\xi=ka$, $\\eta=\\kappa a$ ($k=\\sqrt{2m(E+V)}/\\hbar$, $\\kappa=\\sqrt{-2mE}/\\hbar$):"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\text{even: }\\eta=\\xi\\tan\\xi,\\qquad \\text{odd: }\\eta=-\\xi\\cot\\xi,\\qquad \\xi^2+\\eta^2=\\frac{2ma^2V}{\\hbar^2}",
+          "label": "script (3.22)-(3.24), (3.29)-(3.30)"
+        },
+        {
+          "kind": "figure",
+          "html": "Script Fig. 6: the $(\\xi,\\eta)$ quarter plane. A quarter circle of radius $\\sqrt{2ma^2V}/\\hbar$; the curves $\\eta=\\xi\\tan\\xi$ (solid branches, the first starts at the origin) and $\\eta=-\\xi\\cot\\xi$ (dashed, first branch starts at $\\xi=\\pi/2$). Every intersection is a bound state. For $V=4E_0$ (radius 1) one intersection; for $V=64E_0$ (radius 4) three, with 0, 1 and 2 nodes."
+        },
+        {
+          "kind": "eq",
+          "tex": "N\\ \\text{bound states}\\iff (N-1)\\frac{\\pi}{2}<\\frac{\\sqrt{2ma^2V}}{\\hbar}\\le N\\frac{\\pi}{2}",
+          "label": "script (3.65); the even states alone: (N-1)^2 pi^2 < 2ma^2V/hbar^2 <= N^2 pi^2"
+        },
+        {
+          "kind": "text",
+          "html": "<b>3. The barrier</b> ($0<E<V_0$, width $L$, $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$) and above the barrier ($E>V_0$, $l=\\sqrt{2m(E-V_0)}/\\hbar$):"
+        },
+        {
+          "kind": "eq",
+          "tex": "T=\\Big[1+\\frac{V_0^2\\sinh^2(\\kappa L)}{4E(V_0-E)}\\Big]^{-1}\\ (E<V_0),\\qquad T=\\Big[1+\\frac{V_0^2\\sin^2(lL)}{4E(E-V_0)}\\Big]^{-1}\\ (E>V_0)",
+          "label": "script (3.62)-(3.63); sheet V, S.20"
+        },
+        {
+          "kind": "text",
+          "html": "For $\\kappa L\\gg1$: $T\\approx\\frac{16E(V_0-E)}{V_0^2}e^{-2\\kappa L}$. For $E>V_0$, $T=1$ exactly when $lL=n\\pi$ (resonances, script 3.5.2). Near a resonance $E_n$ (script 3.5.2), $T\\simeq\\frac{\\Gamma^2/4}{(E-E_n)^2+\\Gamma^2/4}$ (Lorentzian), with a phase jump of $\\pi$ in $t$."
+        },
+        {
+          "kind": "exam",
+          "html": "HS18 Q1 (half box, finite $V_0$): graphical solution and critical depth. FS24 Q2: symmetric well, at least one bound state (graphical, 8 pt). FS22 Q1(iii): the step with $E>V_0$. HS16: tunnelling short question; well with a step."
+        }
+      ],
+      "check": [
+        {
+          "q": "A step with $E>V_0$, wavenumbers $k$ (left) and $l$ (right) with $k=3l$. What is the reflection probability?",
+          "options": [
+            "$R=0$ (the particle is above the step)",
+            "$R=1/4$",
+            "$R=1/2$",
+            "$R=3/4$"
+          ],
+          "correct": 1,
+          "explain": "$R=\\big(\\frac{k-l}{k+l}\\big)^2=\\big(\\frac{2l}{4l}\\big)^2=\\frac14$ and $T=\\frac{4kl}{(k+l)^2}=\\frac{12}{16}=\\frac34$. Reflection happens at any energy because $k\\neq l$."
+        },
+        {
+          "q": "For a finite square well in 1D, how many even bound states exist if $2ma^2V/\\hbar^2\\le\\pi^2$?",
+          "options": [
+            "none",
+            "exactly one",
+            "exactly two",
+            "it depends on $E$ only"
+          ],
+          "correct": 1,
+          "explain": "The curve $\\eta=\\xi\\tan\\xi$ starts at the origin so it always meets the circle once; a second even state appears only when the radius exceeds $\\pi$."
+        },
+        {
+          "q": "For $E>V_0$ the transmission through a barrier of width $L$ equals 1 when...",
+          "options": [
+            "$lL=n\\pi$",
+            "$\\kappa L=n\\pi$",
+            "$E=2V_0$ only",
+            "$L\\to\\infty$"
+          ],
+          "correct": 0,
+          "explain": "$T=\\big[1+\\frac{V_0^2\\sin^2 lL}{4E(E-V_0)}\\big]^{-1}=1$ iff $\\sin lL=0$: an integer number of half-wavelengths fits in the barrier."
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "qm-tunnel-L3",
+      "title": "Why tunnelling happens: three pictures and the traps",
+      "tier": "intuition",
+      "minutes": 10,
+      "xp": 15,
+      "source": [
+        {
+          "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+          "where": "Ch. 3.3 (end), Fig. 7 (STM); Ch. 3.5.1, pp. 33-34, 38"
+        },
+        {
+          "file": "materials/quantum-mechanics/exercises/Exercises 5.pdf",
+          "where": "Question 1(v) [square barrier]"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "intuition",
+          "html": "<b>Wave picture.</b> A wave does not stop abruptly at a wall: inside a region where $E<V$ its equation has a decaying solution $e^{-\\kappa x}$ ($\\kappa=\\sqrt{2m(V-E)}/\\hbar$). If the region is thin enough, the decay is not complete when the far edge is reached, and a transmitted wave $te^{ikx}$ continues. That is all tunnelling is: a property of the wave equation, not a particle trick."
+        },
+        {
+          "kind": "intuition",
+          "html": "<b>Exponential sensitivity.</b> $T\\sim e^{-2\\kappa L}$: widening the barrier by $1/(2\\kappa)$ costs a factor $e\\approx2.7$. That is why the tunnel current of a scanning tunnelling microscope changes by about an order of magnitude when the tip moves by 1 Å, so the microscope resolves atomic heights."
+        },
+        {
+          "kind": "intuition",
+          "html": "<b>Wave packet picture.</b> The packet you watch on the bridge is a superposition of energies. Higher-energy components have smaller $\\kappa$ and tunnel exponentially better, so the packet's transmitted fraction is larger than $T$ at the central energy."
+        },
+        {
+          "kind": "pitfall",
+          "html": "<b>'The particle borrows energy.'</b> Wrong picture. Inside the barrier the particle has no definite classical kinetic energy; $E$ is exactly the same before, in, and after. Its wave function simply has a decaying form. Do not argue with energy-time uncertainty in an exam answer: use $\\psi''=\\kappa^2\\psi$."
+        },
+        {
+          "kind": "pitfall",
+          "html": "<b>Classically forbidden is not zero.</b> $\\psi\\neq0$ inside the barrier ($C'\\ne0$ in the step with $E<V_0$, script 3.3), but the current there is zero for a single step: the wave only leaks through if there is a second edge."
+        },
+        {
+          "kind": "pitfall",
+          "html": "$T=|t|^2$ only when the wavenumbers on both sides are equal. For a step between different potentials $T=\\frac{l}{k}|t|^2$; the factor $l/k$ comes from the current."
+        },
+        {
+          "kind": "exam",
+          "html": "Usual exam forms: (a) 'Compute $T$ for a rectangular barrier' (transfer matrix, sheet V); (b) 'Explain why $R=1$ but $\\psi\\ne0$' (step, $E<V_0$); (c) 'How does the STM current depend on distance?' ($e^{-2\\kappa d}$); (d) conditions for resonances ($lL=n\\pi$)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Which explanation of tunnelling is correct?",
+          "options": [
+            "The particle borrows energy $\\Delta E$ for a time $\\hbar/\\Delta E$ to climb the barrier.",
+            "The wave function decays like $e^{-\\kappa x}$ inside the barrier and, if the barrier is thin, has a non-zero amplitude at the far edge.",
+            "Quantum particles are slightly faster than classical ones.",
+            "The barrier is not really there for waves."
+          ],
+          "correct": 1,
+          "explain": "Tunnelling is a property of the wave equation: $\\psi''=\\kappa^2\\psi$ has decaying solutions in the forbidden region, and matching at the far edge gives a transmitted wave."
+        },
+        {
+          "q": "The tip of an STM is moved 1 Å further from the surface (work function about 4 eV, $\\kappa\\approx1\\,\\text{\\AA}^{-1}$). The tunnel current...",
+          "options": [
+            "changes by a few percent",
+            "halves",
+            "drops by roughly an order of magnitude",
+            "vanishes"
+          ],
+          "correct": 2,
+          "explain": "$I\\propto e^{-2\\kappa d}$, so the factor is $e^{2\\kappa\\Delta d}\\approx e^{2}\\approx7.8$."
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "qm-tunnel-L4",
+      "title": "Bound states in a well: parity, counting and the deuteron",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+          "where": "Ch. 3.2, pp. 28-30"
+        },
+        {
+          "file": "materials/quantum-mechanics/solutions/Solutions 4.pdf",
+          "where": "Question 2 [Square well, delta limit] and Question 4 [Deuteron]"
+        },
+        {
+          "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+          "where": "Question 1 [half box], HS18"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "A bound state is normalisable: $\\psi\\to0$ for $|x|\\to\\infty$. Outside the well $\\psi\\propto e^{-\\kappa|x|}$ with $\\kappa=\\sqrt{-2mE}/\\hbar>0$, which needs $E<0$. Inside, $\\psi\\propto\\cos kx$ (even) or $\\sin kx$ (odd) with $k=\\sqrt{2m(E+V)}/\\hbar$. Matching $\\psi$ and $\\psi'$ at $x=a$ and dividing the two equations gives (script 3.22, 3.29)"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\kappa=k\\tan ka\\ \\ (\\text{even}),\\qquad \\kappa=-k\\cot ka\\ \\ (\\text{odd})"
+        },
+        {
+          "kind": "text",
+          "html": "<b>Why division?</b> The two matching equations involve the unknown ratio $A/B$ twice; dividing eliminates it and leaves a condition on $E$ alone, which is the quantisation."
+        },
+        {
+          "kind": "text",
+          "html": "<b>Counting.</b> With $\\xi=ka$, $\\eta=\\kappa a$ and $\\xi^2+\\eta^2=2ma^2V/\\hbar^2$: the even branch always has an intersection (one bound state always exists in 1D). The odd branch needs the circle radius to exceed $\\pi/2$: no odd state if $\\frac{2ma^2V}{\\hbar^2}\\le\\frac{\\pi^2}{4}$."
+        },
+        {
+          "kind": "text",
+          "html": "<b>The deuteron (3D, $s$-wave).</b> With $\\chi=r\\psi$ the radial equation for $\\ell=0$ is the 1D well equation on the half line $r>0$ with the extra condition $\\chi(0)=0$ (regularity). Only the <i>odd</i> solutions survive. So a spherical well binds only if"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\frac{2ma^2V}{\\hbar^2}>\\frac{\\pi^2}{4}",
+          "label": "sheet IV Q4; the same condition as the half box of HS18 (infinite wall at 0, finite V_0 beyond a)"
+        },
+        {
+          "kind": "text",
+          "html": "<b>The delta limit.</b> A deep narrow well with $V_0\\to\\infty$, $a\\to0$, $V_0a$ fixed becomes $-2V_0a\\,\\delta(x)$ with a single bound state, $\\kappa=\\frac{2mV_0a}{\\hbar^2}$, $E_0=-\\frac{2m}{\\hbar^2}(V_0a)^2$ (sheet IV Q2): finite and negative."
+        },
+        {
+          "kind": "intuition",
+          "html": "Deeper or wider wells (larger $2ma^2V/\\hbar^2$) fit more half-wavelengths inside, so more nodes and more bound states. Shallow wells in 1D still bind one state (the wave tail can always be matched); in 3D a threshold depth exists."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Do not forget the extra boundary condition $\\chi(0)=0$ for $\\chi=r\\psi$: it kills the even solutions. Also $\\psi=\\chi/r$ must stay finite at $r=0$."
+        }
+      ],
+      "check": [
+        {
+          "q": "A spherical well ($\\ell=0$) has $2ma^2V/\\hbar^2=2$. Is there a bound state?",
+          "options": [
+            "yes, always one in any dimension",
+            "no, since $2<\\pi^2/4\\approx2.47$",
+            "yes, since $2>\\pi/2$",
+            "only for $\\ell=1$"
+          ],
+          "correct": 1,
+          "explain": "The $s$-wave problem is the odd sector of the 1D well: it needs $2ma^2V/\\hbar^2>\\pi^2/4=2.467$."
+        },
+        {
+          "q": "A 1D well has $\\sqrt{2ma^2V}/\\hbar=4$ (radius 4 in the $(\\xi,\\eta)$ plane). How many bound states?",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "correct": 2,
+          "explain": "$N=3$ because $2\\cdot\\frac\\pi2=3.14<4\\le3\\cdot\\frac\\pi2=4.71$: states with 0, 1 and 2 nodes (script Fig. 6 for $V=64E_0$)."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "qm-tunnel-Q1",
+      "title": "1D scattering and bound states (exam style)",
+      "xp": 30,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+          "where": "Ch. 3.2-3.5"
+        },
+        {
+          "file": "materials/quantum-mechanics/exercises/Exercises 5.pdf",
+          "where": "sheets IV and V"
+        }
+      ],
+      "questions": [
+        {
+          "q": "A particle with energy $E<V_0$ hits a step. In the region $x>0$ the solution is...",
+          "options": [
+            "$Ce^{ilx}$ with real $l$",
+            "$C'e^{-\\kappa x}$, and $R=1$",
+            "zero, and $T=0$ because $\\psi$ vanishes",
+            "$C'e^{+\\kappa x}$"
+          ],
+          "correct": 1,
+          "explain": "Normalisability excludes $e^{+\\kappa x}$. $C'\\neq0$ because $\\psi$ is continuous, but the current is zero, so $R=1$."
+        },
+        {
+          "q": "The Schrödinger equation is integrated over $[a-\\epsilon,a+\\epsilon]$ at a finite step. The result shows that...",
+          "options": [
+            "$\\psi'$ is continuous",
+            "$\\psi$ is discontinuous",
+            "$\\psi'$ jumps by $V$",
+            "the energy $E$ is quantised"
+          ],
+          "correct": 0,
+          "explain": "The right-hand side $\\int(V-E)\\psi\\,dx\\to0$ as $\\epsilon\\to0$ for finite $V$."
+        },
+        {
+          "q": "A $\\delta$-potential $V\\delta(x)$ with $V>0$ has transmission amplitude $T=\\dfrac{\\hbar k}{\\hbar k+imV}$ (momentum convention). Which limit is correct?",
+          "options": [
+            "$V\\to0$: $|T|\\to1$; $V\\to\\infty$: $|T|\\to0$",
+            "$V\\to0$: $|T|\\to0$",
+            "$|T|=1$ for every $V$",
+            "$|T|$ grows with $V$"
+          ],
+          "correct": 0,
+          "explain": "No potential means full transmission; an infinitely strong $\\delta$ is a hard wall. Also $|R|^2+|T|^2=1$ holds for every $V$."
+        },
+        {
+          "q": "Thick barrier, $\\kappa L\\gg1$. The width is doubled, $L\\to2L$. $T$ changes by a factor of about...",
+          "options": [
+            "$1/2$",
+            "$1/4$",
+            "$e^{-2\\kappa L}$",
+            "it is unchanged"
+          ],
+          "correct": 2,
+          "explain": "$T\\propto e^{-2\\kappa L}$, so $T(2L)/T(L)\\approx e^{-2\\kappa L}$."
+        },
+        {
+          "q": "For which energy range can the transmission through a rectangular barrier equal exactly 1 at special widths?",
+          "options": [
+            "$E>V_0$, at $lL=n\\pi$",
+            "$E<V_0$, at $\\kappa L=n\\pi$",
+            "never",
+            "only $E=V_0$"
+          ],
+          "correct": 0,
+          "explain": "For $E<V_0$, $\\sinh^2\\kappa L>0$ so $T<1$. For $E>V_0$ the $\\sin^2 lL$ can vanish."
+        },
+        {
+          "q": "A 1D finite square well. Which statement is true?",
+          "options": [
+            "Every well has at least one bound state; the number grows with $2ma^2V/\\hbar^2$",
+            "A shallow well has no bound state",
+            "All bound states are even",
+            "The ground state has one node"
+          ],
+          "correct": 0,
+          "explain": "The even branch $\\eta=\\xi\\tan\\xi$ always intersects the circle. The ground state has no node."
+        },
+        {
+          "q": "Which condition do the odd solutions of the finite well satisfy (with $\\xi=ka$, $\\eta=\\kappa a$)?",
+          "options": [
+            "$\\eta=-\\xi\\cot\\xi$",
+            "$\\eta=\\xi\\tan\\xi$",
+            "$\\eta=\\xi\\cot\\xi$",
+            "$\\eta=-\\xi\\tan\\xi$"
+          ],
+          "correct": 0,
+          "explain": "Odd: $\\psi=\\sin kx$ inside, matching $\\psi'/\\psi$ at $x=a$ gives $k\\cot ka=-\\kappa$."
+        },
+        {
+          "q": "A particle in the ground state of a harmonic potential has the Gaussian $\\psi\\propto e^{-\\lambda x^2/2}$. Its uncertainty product $\\Delta x\\,\\Delta p$ is...",
+          "options": [
+            "$\\hbar/2$",
+            "$\\hbar$",
+            "$\\hbar\\sqrt{\\lambda}$",
+            "$0$"
+          ],
+          "correct": 0,
+          "explain": "$\\Delta x=1/\\sqrt{2\\lambda}$, $\\Delta p=\\hbar\\sqrt{\\lambda/2}$: the product is $\\hbar/2$, the minimum (sheet III, Q1)."
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "qm-tunnel-D1",
+      "title": "Probability current: $\\partial_xj=0$ and $|r|^2+|t|^2=1$",
+      "xp": 30,
+      "source": {
+        "file": "materials/quantum-mechanics/solutions/Solutions 4.pdf",
+        "where": "Question 3(i) [General Potentials], solution S.15-S.19"
+      },
+      "goal": "For a stationary scattering state $\\chi(x)=e^{ikx}+Ae^{-ikx}$ ($x\\ll0$), $Be^{ikx}$ ($x\\gg0$), show that the current is independent of $x$ and deduce $|A|^2+|B|^2=1$, and interpret.",
+      "given": [
+        "$\\Psi(x,t)=\\chi(x)e^{-iEt/\\hbar}$",
+        "$\\partial_t\\rho+\\partial_xj=0$, $\\ j=\\frac{i\\hbar}{2m}(\\Psi\\partial_x\\Psi^*-\\Psi^*\\partial_x\\Psi)$"
+      ],
+      "steps": [
+        {
+          "prompt": "(a) Show that $\\rho=|\\Psi|^2$ does not depend on time.",
+          "reveal": "$|\\Psi|^2=|\\chi|^2|e^{-iEt/\\hbar}|^2=|\\chi(x)|^2$ since $E$ is real."
+        },
+        {
+          "prompt": "(b) Use the continuity equation to conclude something about $j$.",
+          "reveal": "$\\partial_t\\rho=0\\Rightarrow\\partial_xj=0$: $j$ is the same for every $x$."
+        },
+        {
+          "prompt": "(c) Evaluate $j$ for $x\\ll0$ and for $x\\gg0$.",
+          "reveal": "$x\\ll0$: $j=\\frac{\\hbar k}{m}(1-|A|^2)$ (incident minus reflected). $x\\gg0$: $j=\\frac{\\hbar k}{m}|B|^2$."
+        },
+        {
+          "prompt": "(d) Equate and interpret.",
+          "reveal": "$1-|A|^2=|B|^2\\Rightarrow|A|^2+|B|^2=1$. $R=|A|^2$ and $T=|B|^2$: every particle is reflected or transmitted, probability is conserved."
+        }
+      ],
+      "keyPoints": [
+        "$\\partial_t|\\chi e^{-iEt/\\hbar}|^2=0$ because $E$ is real",
+        "continuity equation $\\Rightarrow\\partial_xj=0$",
+        "$j=\\frac{\\hbar k}{m}(1-|A|^2)$ left and $\\frac{\\hbar k}{m}|B|^2$ right (cross terms between $e^{ikx}$ and $e^{-ikx}$ cancel)",
+        "$|A|^2+|B|^2=1$ interpreted as $R+T=1$"
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "qm-tunnel-D2",
+      "title": "Quantisation condition of the even bound states of the finite well",
+      "xp": 30,
+      "source": {
+        "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+        "where": "Ch. 3.2, pp. 28-30; also FS24 Aufgabe 2 (graphical argument, 8 pt)"
+      },
+      "goal": "For $V(x)=-V$ ($|x|\\le a$), $0$ otherwise, derive $\\eta=\\xi\\tan\\xi$ together with $\\xi^2+\\eta^2=2ma^2V/\\hbar^2$ and show that at least one even bound state always exists.",
+      "given": [
+        "$-\\frac{\\hbar^2}{2m}\\psi''+V(x)\\psi=E\\psi$, $\\ -V<E<0$",
+        "$k=\\sqrt{2m(E+V)}/\\hbar$, $\\ \\kappa=\\sqrt{-2mE}/\\hbar$, $\\xi=ka$, $\\eta=\\kappa a$"
+      ],
+      "steps": [
+        {
+          "prompt": "(a) Write the even ansatz in the three regions.",
+          "reveal": "$\\psi=Ae^{\\kappa x}$ ($x<-a$), $2B\\cos kx$ ($|x|<a$), $Ae^{-\\kappa x}$ ($x>a$)."
+        },
+        {
+          "prompt": "(b) Impose continuity of $\\psi$ and $\\psi'$ at $x=-a$ (parity makes $x=+a$ equivalent).",
+          "reveal": "$Ae^{-\\kappa a}=2B\\cos ka$ and $\\kappa Ae^{-\\kappa a}=2Bk\\sin ka$."
+        },
+        {
+          "prompt": "(c) Divide the equations and write the condition.",
+          "reveal": "$\\kappa=k\\tan ka$, i.e. $\\eta=\\xi\\tan\\xi$."
+        },
+        {
+          "prompt": "(d) Relate $\\xi$ and $\\eta$ through the potential.",
+          "reveal": "$k^2+\\kappa^2=2mV/\\hbar^2$, so $\\xi^2+\\eta^2=2ma^2V/\\hbar^2$ (a circle in the $(\\xi,\\eta)$ plane)."
+        },
+        {
+          "prompt": "(e) Argue graphically that a solution always exists.",
+          "reveal": "$\\eta=\\xi\\tan\\xi$ starts at the origin and rises to $+\\infty$ at $\\xi=\\pi/2$ in the first quadrant; any circle centred at the origin, however small, crosses it once."
+        }
+      ],
+      "keyPoints": [
+        "even ansatz with the correct decaying exponentials",
+        "two matching equations at one edge, parity for the other",
+        "division eliminating $A/B$ gives $\\kappa=k\\tan ka$",
+        "circle $\\xi^2+\\eta^2=2ma^2V/\\hbar^2$ and the graphical argument (first branch starts at the origin)"
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "qm-tunnel-D3",
+      "title": "The narrow deep well becomes a $\\delta$-potential: finite ground-state energy",
+      "xp": 30,
+      "source": {
+        "file": "materials/quantum-mechanics/solutions/Solutions 4.pdf",
+        "where": "Question 2 [Infinite Square Well], solution S.5-S.14"
+      },
+      "goal": "Show that for $V_0\\to\\infty$, $a\\to0$ with $V_0a$ fixed, the even ground state energy of the well $V=-V_0$ ($|x|<a$) stays finite and equals $-\\frac{2m}{\\hbar^2}(V_0a)^2$.",
+      "given": [
+        "$k^2=2m(E+V_0)/\\hbar^2$, $\\kappa^2=-2mE/\\hbar^2$",
+        "matching: $e^{-\\kappa a}=b\\cos ka$, $\\kappa e^{-\\kappa a}=bk\\sin ka$ ($b$ a constant)"
+      ],
+      "steps": [
+        {
+          "prompt": "(a) What happens to $ka$ and $\\kappa a$ in the limit?",
+          "reveal": "$k\\sim\\sqrt{V_0}$ so $ka\\sim\\sqrt{V_0a^2}\\to0$ (since $V_0a$ is fixed, $V_0a^2\\to0$); also $\\kappa a\\to0$ assuming $E$ stays finite."
+        },
+        {
+          "prompt": "(b) Expand the matching equations to leading order.",
+          "reveal": "$\\cos ka\\to1$, $\\sin ka\\to ka$, $e^{-\\kappa a}\\to1$: $1=b$ and $\\kappa=bk^2a$."
+        },
+        {
+          "prompt": "(c) Use $k^2a\\to\\frac{2m}{\\hbar^2}V_0a$.",
+          "reveal": "$\\kappa=\\frac{2mV_0a}{\\hbar^2}$."
+        },
+        {
+          "prompt": "(d) Compute $E_0$ and compare with the delta picture.",
+          "reveal": "$E_0=-\\frac{\\hbar^2\\kappa^2}{2m}=-\\frac{2m}{\\hbar^2}(V_0a)^2$. Alternatively $V\\to-2V_0a\\,\\delta(x)$ and the jump $\\psi'(0^+)-\\psi'(0^-)=-2\\kappa\\psi(0)=\\frac{2m}{\\hbar^2}(-2V_0a)\\psi(0)$ gives the same $\\kappa$."
+        }
+      ],
+      "keyPoints": [
+        "identification that $ka\\to0$, $\\kappa a\\to0$ and small-argument expansions",
+        "$\\kappa=\\frac{2mV_0a}{\\hbar^2}$",
+        "$E_0=-\\frac{2m}{\\hbar^2}(V_0a)^2$ finite and negative",
+        "delta-function area argument as a cross-check"
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "qm-tunnel-D4",
+      "title": "Reflection and transmission at a potential step ($E>V_0$)",
+      "xp": 30,
+      "source": {
+        "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+        "where": "Ch. 3.3, pp. 31-32, eq. (3.42)"
+      },
+      "goal": "For $V=0$ ($x<0$), $V=V_0$ ($x>0$), $E>V_0$, derive $R$ and $T$ and verify $R+T=1$.",
+      "given": [
+        "momentum convention: $k=\\sqrt{2mE}$, $l=\\sqrt{2m(E-V_0)}$",
+        "$\\psi=Ae^{ikx/\\hbar}+Be^{-ikx/\\hbar}$ ($x<0$), $Ce^{ilx/\\hbar}$ ($x>0$)"
+      ],
+      "steps": [
+        {
+          "prompt": "(a) Why no $e^{-ilx/\\hbar}$ term for $x>0$?",
+          "reveal": "Nothing comes in from the right, so there is no left-moving wave there."
+        },
+        {
+          "prompt": "(b) Write the two continuity conditions at $x=0$.",
+          "reveal": "$A+B=C$ and $(A-B)k=Cl$."
+        },
+        {
+          "prompt": "(c) Solve for $C/A$ and $B/A$.",
+          "reveal": "$\\frac CA=\\frac{2}{1+l/k}$, $\\frac BA=\\frac{1-l/k}{1+l/k}$."
+        },
+        {
+          "prompt": "(d) Define $R$ and $T$ via currents and simplify.",
+          "reveal": "$R=|B/A|^2=\\big(\\frac{1-l/k}{1+l/k}\\big)^2$; $T=\\frac lk|C/A|^2=\\frac{4l/k}{(1+l/k)^2}$ (the factor $l/k$ from $j\\propto$ momentum$\\times|\\text{amp}|^2$)."
+        },
+        {
+          "prompt": "(e) Check $R+T=1$.",
+          "reveal": "$\\frac{(1-x)^2+4x}{(1+x)^2}=1$ with $x=l/k$."
+        }
+      ],
+      "keyPoints": [
+        "correct ansatz without incoming wave from the right",
+        "the two matching equations",
+        "$R$ from the amplitude ratio, $T$ with the factor $l/k$ from the current",
+        "$R+T=1$ checked algebraically"
+      ]
+    },
+    {
+      "type": "predict-observe",
+      "id": "qm-tunnel-e1",
+      "title": "Below the barrier",
+      "variant": {
+        "EoverV0": 0.5,
+        "L": 2
+      },
+      "setup": "Gaussian packet, energy $E=0.5\\,V_0$, barrier width $L=2$ (units $\\hbar=m=1$, $V_0=1$). Classically the particle cannot pass: its kinetic energy would be negative inside the barrier.",
+      "question": "What will the simulation show for the fraction of probability found right of the barrier at the end?",
+      "options": [
+        "None at all: the packet is fully reflected.",
+        "A small but non-zero fraction (a few percent up to ~10 %) is transmitted.",
+        "About half is transmitted.",
+        "It is fully transmitted."
+      ],
+      "correct": 1,
+      "explain": "Inside the barrier the wave is $e^{\\pm\\kappa x}$, not zero. At the far edge it matches onto an outgoing plane wave, so $T$ is small but non-zero. In the simulation $T\\approx7\\,\\%$.",
+      "symbols": [
+        [
+          "$E$",
+          "energy of the particle (blue line on the bridge)"
+        ],
+        [
+          "$V_0$",
+          "height of the potential barrier (gold slab)"
+        ],
+        [
+          "$L$",
+          "width of the barrier"
+        ],
+        [
+          "$m,\\ \\hbar$",
+          "particle mass, reduced Planck constant (in the simulation $m=\\hbar=1$)"
+        ],
+        [
+          "$k$",
+          "$\\sqrt{2mE}/\\hbar$: wavenumber outside the barrier (wavelength $2\\pi/k$)"
+        ],
+        [
+          "$\\kappa$",
+          "$\\sqrt{2m(V_0-E)}/\\hbar$: decay constant inside the barrier when $E<V_0$"
+        ],
+        [
+          "$l$",
+          "$\\sqrt{2m(E-V_0)}/\\hbar$: wavenumber inside the barrier when $E>V_0$"
+        ],
+        [
+          "$\\psi(x),\\ \\Psi(x,t)$",
+          "stationary solution (energy eigenstate) and time-dependent wave function"
+        ],
+        [
+          "$|\\Psi|^2$",
+          "probability density (the glowing curtain)"
+        ],
+        [
+          "$T,\\ R$",
+          "probability to be transmitted / reflected, $T+R=1$"
+        ]
+      ],
+      "whyWrong": {
+        "0": "That is the classical answer. It assumes $\\psi=0$ wherever $E<V$. But $\\psi$ and $\\psi'$ must be continuous at the barrier edge, and inside the solution is $Ae^{\\kappa x}+Be^{-\\kappa x}$, which is never identically zero. The leak through the far edge is the transmitted wave.",
+        "2": "$T\\approx50\\,\\%$ needs $\\kappa L\\lesssim1$ (a very thin or low barrier). Here $\\kappa L=2$, and $T\\sim e^{-2\\kappa L}$-ish is small.",
+        "3": "Full transmission is only possible at special resonances for $E>V_0$ ($lL=n\\pi$) or when $L\\to0$. For $E<V_0$ and $L>0$, $T<1$ always, because $\\sinh^2(\\kappa L)>0$ in the formula for $T$."
+      },
+      "derivation": [
+        {
+          "title": "1. The model and why a stationary problem is enough",
+          "html": "<p>We look at one dimension with the potential $V(x)=V_0$ for $0<x<L$ and $V=0$ elsewhere (the script and sheet V centre the barrier at $|x|<\\ell/2$; the physics is identical). The stationary Schrödinger equation is\n$$-\\frac{\\hbar^2}{2m}\\psi''(x)+V(x)\\psi(x)=E\\psi(x).$$\nThe packet you watch is a superposition $\\Psi(x,t)=\\int dk\\,f(k)\\,\\psi_k(x)\\,e^{-iE_kt/\\hbar}$ of such solutions with energies close to $E$ (script 3.4). So its transmitted fraction is the transmission $T$ of one stationary solution, averaged over the packet's narrow energy distribution.</p>"
+        },
+        {
+          "title": "2. Solve in each region, say what each term means",
+          "html": "<p><b>Region I</b> ($x<0$, $V=0$): $\\psi''=-k^2\\psi$ with $k=\\sqrt{2mE}/\\hbar$, so $\\psi_I=e^{ikx}+r\\,e^{-ikx}$. The first term is the incoming wave (amplitude 1), the second the reflected wave.</p>\n<p><b>Region II</b> ($0<x<L$, $V=V_0>E$): the equation reads $-\\frac{\\hbar^2}{2m}\\psi''=(E-V_0)\\psi$, i.e. $\\psi''=+\\kappa^2\\psi$ with $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$ real. The solutions are real exponentials, $\\psi_{II}=A\\,e^{\\kappa x}+B\\,e^{-\\kappa x}$: no oscillation, because the classical kinetic energy would be negative.</p>\n<p><b>Region III</b> ($x>L$): $\\psi_{III}=t\\,e^{ikx}$. There is <i>no</i> $e^{-ikx}$ term because nothing comes in from the right.</p>\n<p><b>Probabilities</b>: the current is $j=\\frac\\hbar m\\,\\mathrm{Im}(\\psi^*\\psi')$, so a wave $c\\,e^{ikx}$ carries $\\frac{\\hbar k}{m}|c|^2$. Since $k$ is the same in I and III: $R=|r|^2$, $T=|t|^2$, and conservation gives $R+T=1$ (sheet IV, Q3).</p>"
+        },
+        {
+          "title": "3. Matching conditions: why $\\psi$ and $\\psi'$ are continuous",
+          "html": "<p>Integrate the Schrödinger equation over $[a-\\epsilon,a+\\epsilon]$ around an edge $a$: $\\psi'(a+\\epsilon)-\\psi'(a-\\epsilon)=\\frac{2m}{\\hbar^2}\\int(V-E)\\psi\\,dx\\to0$ because $V$ and $\\psi$ are finite. So $\\psi'$ is continuous, hence $\\psi$ too (script 3.2). (Only for an infinite wall, like the box, $\\psi'$ may jump.)</p>\n<p>At $x=0$: $1+r=A+B$ and $ik(1-r)=\\kappa(A-B)$. At $x=L$: $Ae^{\\kappa L}+Be^{-\\kappa L}=t\\,e^{ikL}$ and $\\kappa(Ae^{\\kappa L}-Be^{-\\kappa L})=ik\\,t\\,e^{ikL}$. That is 4 equations for the 4 unknowns $r,A,B,t$.</p>"
+        },
+        {
+          "title": "4. Solving: the result for $T$",
+          "html": "<p>Eliminating $r,A,B$ (or multiplying the transfer matrices of sheet V) gives\n$$t\\,e^{ikL}=\\frac{1}{\\cosh\\kappa L+i\\,\\dfrac{\\kappa^2-k^2}{2k\\kappa}\\sinh\\kappa L}.$$\nThen $T=|t|^2=\\Big[\\cosh^2\\kappa L+\\big(\\tfrac{\\kappa^2-k^2}{2k\\kappa}\\big)^2\\sinh^2\\kappa L\\Big]^{-1}$. Use $\\cosh^2=1+\\sinh^2$ and $1+\\big(\\tfrac{\\kappa^2-k^2}{2k\\kappa}\\big)^2=\\tfrac{(\\kappa^2+k^2)^2}{4k^2\\kappa^2}$, with $k^2+\\kappa^2=2mV_0/\\hbar^2$ and $k^2\\kappa^2=(2m)^2E(V_0-E)/\\hbar^4$:\n$$\\boxed{T=\\frac{1}{1+\\dfrac{V_0^2\\,\\sinh^2(\\kappa L)}{4E(V_0-E)}}}$$\nThis is script eq. (3.63) and sheet V, solution S.20.</p>"
+        },
+        {
+          "title": "5. Sanity checks",
+          "html": "<p>$L\\to0$: $\\sinh\\to0$, so $T\\to1$ (no barrier). $E\\to0$: $T\\to0$. $R=1-T$ by construction. And $E\\to V_0$: $\\kappa\\to0$, $\\sinh^2\\kappa L\\approx\\kappa^2L^2\\propto(V_0-E)$ cancels the denominator, giving a finite $T<1$.</p>"
+        },
+        {
+          "title": "6. The numbers in this experiment",
+          "html": "<p>$V_0=1$, $E=0.5$, $m=\\hbar=1$: $\\kappa=\\sqrt{2\\cdot0.5}=1$, $L=2$ so $\\kappa L=2$ and $\\sinh^2(2)=13.15$. The prefactor is $\\frac{V_0^2}{4E(V_0-E)}=1$. Hence $T=1/(1+13.15)=7.1\\,\\%$ for a plane wave at the central energy; the packet gives $\\approx7.4\\,\\%$ since its higher-energy components tunnel more easily.</p>"
+        }
+      ]
+    },
+    {
+      "type": "predict-observe",
+      "id": "qm-tunnel-e2",
+      "title": "Twice as wide",
+      "variant": {
+        "EoverV0": 0.5,
+        "L": 4
+      },
+      "setup": "Same packet and energy, but the barrier is now twice as wide: $L=4$.",
+      "question": "Compared with the first run, the transmitted fraction will be...",
+      "options": [
+        "half as large.",
+        "the same.",
+        "smaller by more than an order of magnitude.",
+        "exactly zero."
+      ],
+      "correct": 2,
+      "explain": "For a thick barrier ($\\kappa L\\gg1$) $T\\approx\\frac{16E(V_0-E)}{V_0^2}e^{-2\\kappa L}$. Doubling $L$ at fixed $\\kappa$ multiplies $T$ by about $e^{-2\\kappa L}$. Here $T$ falls from about $7\\,\\%$ to about $0.2\\,\\%$, a factor of roughly 40.",
+      "symbols": [
+        [
+          "$E$",
+          "energy of the particle (blue line on the bridge)"
+        ],
+        [
+          "$V_0$",
+          "height of the potential barrier (gold slab)"
+        ],
+        [
+          "$L$",
+          "width of the barrier"
+        ],
+        [
+          "$m,\\ \\hbar$",
+          "particle mass, reduced Planck constant (in the simulation $m=\\hbar=1$)"
+        ],
+        [
+          "$k$",
+          "$\\sqrt{2mE}/\\hbar$: wavenumber outside the barrier (wavelength $2\\pi/k$)"
+        ],
+        [
+          "$\\kappa$",
+          "$\\sqrt{2m(V_0-E)}/\\hbar$: decay constant inside the barrier when $E<V_0$"
+        ],
+        [
+          "$l$",
+          "$\\sqrt{2m(E-V_0)}/\\hbar$: wavenumber inside the barrier when $E>V_0$"
+        ],
+        [
+          "$\\psi(x),\\ \\Psi(x,t)$",
+          "stationary solution (energy eigenstate) and time-dependent wave function"
+        ],
+        [
+          "$|\\Psi|^2$",
+          "probability density (the glowing curtain)"
+        ],
+        [
+          "$T,\\ R$",
+          "probability to be transmitted / reflected, $T+R=1$"
+        ]
+      ],
+      "whyWrong": {
+        "0": "A halving would be linear in $L$. Inside the barrier $|\\psi|^2\\propto e^{-2\\kappa x}$ falls <i>exponentially</i>, so doubling $L$ multiplies $T$ by about $e^{-2\\kappa L}$, not by $1/2$.",
+        "1": "$T$ depends on $L$ through $\\sinh^2(\\kappa L)$, which grows rapidly. A wider barrier lets less through.",
+        "3": "The wave decays but never reaches zero: $e^{-\\kappa L}\\neq0$ for any finite $L$. It is tiny, not zero."
+      },
+      "derivation": [
+        {
+          "title": "1. Start from the exact result",
+          "html": "<p>From the previous station, $T=\\Big[1+\\frac{V_0^2\\sinh^2(\\kappa L)}{4E(V_0-E)}\\Big]^{-1}$ with $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$.</p>"
+        },
+        {
+          "title": "2. The thick-barrier limit $\\kappa L\\gg1$",
+          "html": "<p>For large argument $\\sinh x=\\frac{e^x-e^{-x}}2\\approx\\frac{e^x}{2}$, so $\\sinh^2\\kappa L\\approx\\frac{e^{2\\kappa L}}4$. The second term in the denominator then dominates and\n$$T\\approx\\frac{4E(V_0-E)}{V_0^2}\\cdot4\\,e^{-2\\kappa L}=\\frac{16E(V_0-E)}{V_0^2}\\,e^{-2\\kappa L}.$$\nThe prefactor is at most $4$ (at $E=V_0/2$) and comes from the matching at the two edges. The exponent comes from the decay of the wave inside.</p>"
+        },
+        {
+          "title": "3. The physical picture",
+          "html": "<p>Inside the barrier $\\psi\\propto e^{-\\kappa x}$, so the probability density falls like $e^{-2\\kappa x}$. After the width $L$ the wave has been suppressed in amplitude by $e^{-\\kappa L}$ and in probability by $e^{-2\\kappa L}$. This is the same law as the scanning tunnelling microscope: the current falls exponentially with the tip distance.</p>"
+        },
+        {
+          "title": "4. Doubling $L$ in this experiment",
+          "html": "<p>Here $\\kappa=1$ and $E=V_0/2$, so the prefactor is 4: $L=2$: $T\\approx4e^{-4}=7.3\\,\\%$ (exact plane wave 7.1 %). $L=4$: $T\\approx4e^{-8}=0.13\\,\\%$ (exact 0.13 %). The ratio is $e^{-2\\kappa\\cdot2}=e^{-4}\\approx1/55$. The simulation shows about $0.18\\,\\%$ rather than $0.13\\,\\%$ because the packet has a spread of energies and higher-energy components (larger $E$, smaller $\\kappa$) tunnel disproportionately well: $T$ is exponentially sensitive to $\\kappa$.</p>"
+        }
+      ]
+    },
+    {
+      "type": "predict-observe",
+      "id": "qm-tunnel-e3",
+      "title": "Above the barrier",
+      "variant": {
+        "EoverV0": 1.5,
+        "L": 2
+      },
+      "setup": "Now the packet has energy $E=1.5\\,V_0$, higher than the barrier. Width $L=2$.",
+      "question": "Classically the particle always passes. What does the quantum packet do?",
+      "options": [
+        "All of it passes, as classically.",
+        "Part of it is still reflected.",
+        "It is fully reflected.",
+        "It is absorbed inside the barrier."
+      ],
+      "correct": 1,
+      "explain": "A potential discontinuity reflects waves at any energy (single step: $R=\\big(\\frac{k-l}{k+l}\\big)^2$, script 3.3). The two edges interfere, so $T$ oscillates with the width and reaches 1 only at the resonances $lL=n\\pi$ (script 3.5.2). Here $T\\approx77\\,\\%$.",
+      "symbols": [
+        [
+          "$E$",
+          "energy of the particle (blue line on the bridge)"
+        ],
+        [
+          "$V_0$",
+          "height of the potential barrier (gold slab)"
+        ],
+        [
+          "$L$",
+          "width of the barrier"
+        ],
+        [
+          "$m,\\ \\hbar$",
+          "particle mass, reduced Planck constant (in the simulation $m=\\hbar=1$)"
+        ],
+        [
+          "$k$",
+          "$\\sqrt{2mE}/\\hbar$: wavenumber outside the barrier (wavelength $2\\pi/k$)"
+        ],
+        [
+          "$\\kappa$",
+          "$\\sqrt{2m(V_0-E)}/\\hbar$: decay constant inside the barrier when $E<V_0$"
+        ],
+        [
+          "$l$",
+          "$\\sqrt{2m(E-V_0)}/\\hbar$: wavenumber inside the barrier when $E>V_0$"
+        ],
+        [
+          "$\\psi(x),\\ \\Psi(x,t)$",
+          "stationary solution (energy eigenstate) and time-dependent wave function"
+        ],
+        [
+          "$|\\Psi|^2$",
+          "probability density (the glowing curtain)"
+        ],
+        [
+          "$T,\\ R$",
+          "probability to be transmitted / reflected, $T+R=1$"
+        ]
+      ],
+      "whyWrong": {
+        "0": "The step at the barrier edge reflects waves even when $E>V_0$: the wavenumber jumps from $k$ to $l$ (like light entering glass). $R=\\big(\\frac{k-l}{k+l}\\big)^2>0$ for each edge.",
+        "2": "Full reflection happens for $E<V_0$ with a thick barrier. Here $E=1.5V_0$, so the particle can propagate inside the barrier (the wave is oscillating, $l$ real).",
+        "3": "A real potential does not absorb: probability is conserved, $R+T=1$. Nothing can stay inside forever."
+      },
+      "derivation": [
+        {
+          "title": "1. What changes for $E>V_0$",
+          "html": "<p>Inside the barrier the equation is $\\psi''=-l^2\\psi$ with $l=\\sqrt{2m(E-V_0)}/\\hbar$ <b>real</b>, so the wave oscillates, $\\psi_{II}=Ae^{ilx}+Be^{-ilx}$, instead of decaying. Regions I and III are unchanged.</p>"
+        },
+        {
+          "title": "2. One step alone already reflects",
+          "html": "<p>For a single step from $V=0$ to $V_0$ (script 3.3): matching $\\psi,\\psi'$ at $x=0$ gives $\\frac CA=\\frac2{1+l/k}$, $\\frac BA=\\frac{1-l/k}{1+l/k}$, so\n$$R=\\Big(\\frac{k-l}{k+l}\\Big)^2,\\qquad T=\\frac{4kl}{(k+l)^2}.$$\nThe transmission has the factor $l/k$ because the current is proportional to the wavenumber times $|{\\rm amplitude}|^2$.</p>"
+        },
+        {
+          "title": "3. Two edges: interference",
+          "html": "<p>The barrier has two edges. The waves reflected at the two edges interfere. Redo the $\\kappa$-derivation with $\\kappa\\to il$: $\\sinh^2(\\kappa L)\\to-\\sin^2(lL)$ and $V_0-E\\to-(E-V_0)$, so\n$$T=\\frac{1}{1+\\dfrac{V_0^2\\sin^2(lL)}{4E(E-V_0)}}.$$\n$T=1$ exactly when $\\sin lL=0$, i.e. $lL=n\\pi$: the wavelength inside, $2\\pi/l$, fits an integer number of half-wavelengths into $L$ and the two reflections cancel (script 3.5.2, resonances).</p>"
+        },
+        {
+          "title": "4. The numbers in this experiment",
+          "html": "<p>$E=1.5$, $V_0=1$, $L=2$ ($m=\\hbar=1$): $l=\\sqrt{2\\cdot0.5}=1$, so $lL=2$ rad, not a resonance ($n\\pi=3.14$). $\\sin^2 2=0.827$ and $4E(E-V_0)=3$, so $T=1/(1+0.827/3)=78.4\\,\\%$ for a plane wave (simulation: about 77 %). Try changing $L$ on the lab bench and find the width where $T=1$: $L=\\pi/l\\approx3.14$.</p>"
+        }
+      ]
+    },
+    {
+      "type": "sandbox",
+      "id": "qm-tunnel-s1",
+      "title": "Explore the barrier freely",
+      "symbols": [
+        [
+          "$E$",
+          "energy of the particle (blue line on the bridge)"
+        ],
+        [
+          "$V_0$",
+          "height of the potential barrier (gold slab)"
+        ],
+        [
+          "$L$",
+          "width of the barrier"
+        ],
+        [
+          "$m,\\ \\hbar$",
+          "particle mass, reduced Planck constant (in the simulation $m=\\hbar=1$)"
+        ],
+        [
+          "$k$",
+          "$\\sqrt{2mE}/\\hbar$: wavenumber outside the barrier (wavelength $2\\pi/k$)"
+        ],
+        [
+          "$\\kappa$",
+          "$\\sqrt{2m(V_0-E)}/\\hbar$: decay constant inside the barrier when $E<V_0$"
+        ],
+        [
+          "$l$",
+          "$\\sqrt{2m(E-V_0)}/\\hbar$: wavenumber inside the barrier when $E>V_0$"
+        ],
+        [
+          "$\\psi(x),\\ \\Psi(x,t)$",
+          "stationary solution (energy eigenstate) and time-dependent wave function"
+        ],
+        [
+          "$|\\Psi|^2$",
+          "probability density (the glowing curtain)"
+        ],
+        [
+          "$T,\\ R$",
+          "probability to be transmitted / reflected, $T+R=1$"
+        ]
+      ],
+      "defaults": {
+        "EoverV0": 0.5,
+        "L": 2
+      },
+      "intro": "Set the energy $E/V_0$ and the barrier width $L$, run, and compare with the formula. The panel tells you the regime ($\\kappa L$ or $lL$) for your settings. From the second run on, <b>guess first</b> whether the transmitted fraction goes up or down: that trains the intuition, not a number."
+    },
+    {
+      "type": "calc",
+      "id": "qm-tunnel-c1",
+      "title": "Derive the transmission",
+      "fight": "normal",
+      "problem": "A particle of mass $m$ and energy $E$ hits a rectangular barrier of height $V_0>E$ and width $L$. Derive the transmission probability the way the exercise sheet does, then use it. Source: sheet V, Q1(v).",
+      "symbols": [
+        [
+          "$E$",
+          "energy of the particle (blue line on the bridge)"
+        ],
+        [
+          "$V_0$",
+          "height of the potential barrier (gold slab)"
+        ],
+        [
+          "$L$",
+          "width of the barrier"
+        ],
+        [
+          "$m,\\ \\hbar$",
+          "particle mass, reduced Planck constant (in the simulation $m=\\hbar=1$)"
+        ],
+        [
+          "$k$",
+          "$\\sqrt{2mE}/\\hbar$: wavenumber outside the barrier (wavelength $2\\pi/k$)"
+        ],
+        [
+          "$\\kappa$",
+          "$\\sqrt{2m(V_0-E)}/\\hbar$: decay constant inside the barrier when $E<V_0$"
+        ],
+        [
+          "$l$",
+          "$\\sqrt{2m(E-V_0)}/\\hbar$: wavenumber inside the barrier when $E>V_0$"
+        ],
+        [
+          "$\\psi(x),\\ \\Psi(x,t)$",
+          "stationary solution (energy eigenstate) and time-dependent wave function"
+        ],
+        [
+          "$|\\Psi|^2$",
+          "probability density (the glowing curtain)"
+        ],
+        [
+          "$T,\\ R$",
+          "probability to be transmitted / reflected, $T+R=1$"
+        ]
+      ],
+      "vars": {
+        "E": 2.0,
+        "V": 5.0,
+        "L": 0.5
+      },
+      "unlocks": [
+        "kappa"
+      ],
+      "xp": 50,
+      "derivation": [
+        {
+          "title": "The method in one picture (sheet V, transfer matrices)",
+          "html": "<p>At each potential step with $\\eta=q/k$ (ratio of wavenumbers right/left) the coefficients transform with $M=\\frac12\\begin{pmatrix}1+\\eta&1-\\eta\\\\1-\\eta&1+\\eta\\end{pmatrix}$; across a region of constant potential and length $\\ell$ with wavenumber $q$: $N=\\begin{pmatrix}e^{-iq\\ell}&0\\\\0&e^{iq\\ell}\\end{pmatrix}$. For the barrier: $M_\\mathrm{full}=M^{-1}NM$ with $q=i\\kappa$, and with no wave from the right $T=|A_R|^2$ where $(1,B_L)^T=M_\\mathrm{full}(A_R,0)^T$, giving $T=\\big[1+\\frac{V_0^2\\sinh^2\\kappa\\ell}{4E(V_0-E)}\\big]^{-1}$ (S.20).</p>"
+        }
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "kind": "choice",
+          "prompt": "Inside the barrier ($0<x<L$, $E<V_0$): which equation and solution is correct?",
+          "options": [
+            "$\\psi''=-k^2\\psi$ with $k^2=2mE/\\hbar^2$, so $\\psi=Ce^{ikx}+De^{-ikx}$",
+            "$\\psi''=+\\kappa^2\\psi$ with $\\kappa^2=2m(V_0-E)/\\hbar^2$, so $\\psi=Ae^{\\kappa x}+Be^{-\\kappa x}$",
+            "$\\psi=0$, because the region is classically forbidden",
+            "$\\psi''=-\\kappa^2\\psi$ with $\\kappa^2=2m(V_0-E)/\\hbar^2$"
+          ],
+          "correct": 1,
+          "why": {
+            "0": "That is the equation outside the barrier, where $V=0$. Inside, the potential term is not zero.",
+            "2": "$\\psi$ and $\\psi'$ must be continuous at the edges; $\\psi=0$ inside would force $\\psi=0$ at the edge and hence no incoming wave either.",
+            "3": "Sign error: $-\\frac{\\hbar^2}{2m}\\psi''=(E-V_0)\\psi$ gives $\\psi''=+\\frac{2m(V_0-E)}{\\hbar^2}\\psi$ when $E<V_0$."
+          },
+          "after": "Real exponentials: the wave decays instead of oscillating. Compare the white line in the barrier on the bridge."
+        },
+        {
+          "id": "s2",
+          "kind": "symbolic",
+          "prompt": "Write $\\kappa$ in terms of $m$, $V_0$, $E$ and $\\hbar$ (type the symbol names: <code>m</code>, <code>V0</code>, <code>E</code>, <code>hbar</code>), then pick its dimension.",
+          "answer": "sqrt(2*m*(V0-E))/hbar",
+          "symbols": {
+            "m": [
+              1,
+              5
+            ],
+            "V0": [
+              2,
+              6
+            ],
+            "E": [
+              0.5,
+              1.9
+            ],
+            "hbar": [
+              0.5,
+              2
+            ]
+          },
+          "constraint": "v.V0>v.E",
+          "units": [
+            "1/length",
+            "length",
+            "energy",
+            "momentum",
+            "dimensionless"
+          ],
+          "unit": "1/length",
+          "latex": "\\kappa=\\frac{\\sqrt{2m(V_0-E)}}{\\hbar}",
+          "hint": "Rearrange $\\psi''=\\kappa^2\\psi$ against $-\\frac{\\hbar^2}{2m}\\psi''+V_0\\psi=E\\psi$. Dimension: $\\sqrt{2mE}$ is a momentum, $\\hbar$ is momentum times length.",
+          "after": "$\\kappa$ sets the decay length $1/\\kappa$ of the wave inside the barrier."
+        },
+        {
+          "id": "s3",
+          "kind": "order",
+          "prompt": "Put the derivation of $T$ in the right order.",
+          "items": [
+            {
+              "text": "Write $\\psi$ in the three regions: $\\psi_I=e^{ikx}+re^{-ikx}$, $\\psi_{II}=Ae^{\\kappa x}+Be^{-\\kappa x}$, $\\psi_{III}=te^{ikx}$ (nothing comes in from the right)",
+              "note": "This is the ansatz; everything after refers to these coefficients.",
+              "why": "You need the form of the solution before you can impose conditions on it."
+            },
+            {
+              "text": "Require $\\psi$ and $\\psi'$ continuous at $x=0$ and $x=L$: four equations for $r,A,B,t$",
+              "note": "From integrating the Schrödinger equation across the edge; the potential is finite.",
+              "why": "The conditions act on the ansatz, so the ansatz comes first."
+            },
+            {
+              "text": "Eliminate $r,A,B$ and solve for $t$ (equivalently multiply the transfer matrices)",
+              "note": "$te^{ikL}=1/(\\cosh\\kappa L+i\\frac{\\kappa^2-k^2}{2k\\kappa}\\sinh\\kappa L)$",
+              "why": "There must be equations to solve before you can eliminate anything."
+            },
+            {
+              "text": "Identify $T=|t|^2$ (same $k$ on both sides, so the current ratio equals the amplitude ratio)",
+              "note": "Current $\\propto k|{\\rm amplitude}|^2$ and $k$ is the same in I and III.",
+              "why": "You need $t$ first."
+            },
+            {
+              "text": "Simplify $|t|^2$ with $\\cosh^2=1+\\sinh^2$, $k^2+\\kappa^2=2mV_0/\\hbar^2$, $k^2\\kappa^2=(2m)^2E(V_0-E)/\\hbar^4$",
+              "note": "Result: $T=[1+V_0^2\\sinh^2(\\kappa L)/(4E(V_0-E))]^{-1}$",
+              "why": "This is the last algebra step, after $T$ is expressed through $t$."
+            }
+          ],
+          "hint": "Think of the logical dependencies: ansatz → conditions → solve → interpret → simplify."
+        },
+        {
+          "id": "s4",
+          "kind": "choice",
+          "prompt": "Which is the correct transmission probability?",
+          "options": [
+            "$T=\\Big[1+\\dfrac{V_0^2\\sinh^2(\\kappa L)}{4E(V_0-E)}\\Big]^{-1}$",
+            "$T=\\Big[1+\\dfrac{V_0^2\\sin^2(\\kappa L)}{4E(V_0-E)}\\Big]^{-1}$",
+            "$T=\\Big[1+\\dfrac{V_0^2\\sinh^2(\\kappa L)}{4EV_0}\\Big]^{-1}$",
+            "$T=e^{-\\kappa L}$"
+          ],
+          "correct": 0,
+          "why": {
+            "1": "$\\sin$ appears for $E>V_0$, where the wave inside oscillates ($\\kappa\\to il$). For $E<V_0$, $\\kappa$ is real and the function is $\\sinh$, which grows.",
+            "2": "Check the limit $E\\to V_0$: then $\\kappa\\to0$ and $\\sinh^2\\kappa L\\approx\\kappa^2L^2\\propto(V_0-E)$. That factor must cancel against $(V_0-E)$ in the denominator to keep $T$ finite and below 1; here it would give $T\\to1$ for a barrier that still reflects.",
+            "3": "The <i>amplitude</i> decays like $e^{-\\kappa L}$, so the probability goes like $e^{-2\\kappa L}$; and the exact formula has a prefactor and the correct $L\\to0$ limit $T=1$."
+          },
+          "after": "This is eq. (3.63) of the script and S.20 of sheet V."
+        },
+        {
+          "id": "s5",
+          "kind": "symbolic",
+          "prompt": "For a thick barrier ($\\kappa L\\gg1$) write the approximation of $T$ (symbols <code>E</code>, <code>V0</code>, <code>kappa</code>, <code>L</code>). Use $\\sinh x\\approx e^x/2$.",
+          "answer": "16*E*(V0-E)/V0**2*exp(-2*kappa*L)",
+          "symbols": {
+            "E": [
+              0.5,
+              1.9
+            ],
+            "V0": [
+              2,
+              6
+            ],
+            "kappa": [
+              0.5,
+              3
+            ],
+            "L": [
+              0.5,
+              3
+            ]
+          },
+          "constraint": "v.V0>v.E",
+          "units": [
+            "dimensionless",
+            "1/length",
+            "energy",
+            "length"
+          ],
+          "unit": "dimensionless",
+          "latex": "T\\approx\\frac{16E(V_0-E)}{V_0^2}\\,e^{-2\\kappa L}",
+          "hint": "$\\sinh^2\\kappa L\\approx e^{2\\kappa L}/4$; the 1 in the denominator is then negligible.",
+          "after": "The prefactor is at most 4. The exponent is what makes tunnelling so sensitive to $L$ and $\\kappa$."
+        },
+        {
+          "id": "s6",
+          "kind": "choice",
+          "prompt": "The barrier width is doubled, $L\\to2L$, with $E$, $V_0$ fixed and $\\kappa L\\gg1$. How does $T$ change?",
+          "options": [
+            "$T\\to T/2$",
+            "$T\\to T/4$",
+            "$T\\to T\\,e^{-2\\kappa L}$ (the exponential factor is squared)",
+            "$T$ is unchanged"
+          ],
+          "correct": 2,
+          "why": {
+            "0": "Linear dependence on $L$ is not what an exponential decay gives.",
+            "1": "A power law in $L$ is not what an exponential decay gives.",
+            "3": "$T$ depends on $L$ through $e^{-2\\kappa L}$."
+          },
+          "after": "Concretely: for $\\kappa L=2$ doubling $L$ multiplies $T$ by $e^{-4}\\approx1/55$."
+        },
+        {
+          "id": "s7",
+          "kind": "numeric",
+          "bonus": true,
+          "prompt": "Bonus, plug in numbers: an electron with $E=2.0$ eV, a barrier $V_0=5.0$ eV, $L=0.50$ nm. Compute $T$.",
+          "answer": "1/(1+V*V*sinh(sqrt(2*me*(V-E)*eV)/hbar*1e-9*L)**2/(4*E*(V-E)))",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "nm⁻¹",
+            "eV",
+            "nm"
+          ],
+          "tol": 0.05,
+          "hint": "First $\\kappa=\\sqrt{2m_e(V_0-E)}/\\hbar=8.87\\ \\mathrm{nm^{-1}}$ (convert eV to J), then $\\kappa L=4.44$, then the formula."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "qm-tunnel-c2",
+      "title": "The STM and its exponential",
+      "fight": "fermi",
+      "problem": "A scanning tunnelling microscope (script Ch. 3.3, Fig. 7): a metal tip hovers a distance $d$ over a surface; electrons tunnel through the vacuum gap, which acts as a barrier of height $\\varphi$ (the work function, $\\approx4$ eV).",
+      "symbols": [
+        [
+          "$d$",
+          "tip–surface distance (barrier width)"
+        ],
+        [
+          "$\\varphi$",
+          "work function: energy needed to remove an electron, here the barrier height above $E$"
+        ],
+        [
+          "$\\kappa$",
+          "$\\sqrt{2m\\varphi}/\\hbar$"
+        ],
+        [
+          "$I$",
+          "tunnel current, proportional to the transmission $T$"
+        ]
+      ],
+      "vars": {
+        "phi": 4.0,
+        "dd": 0.1
+      },
+      "xp": 20,
+      "steps": [
+        {
+          "id": "q1",
+          "kind": "choice",
+          "prompt": "How does the tunnel current depend on the distance $d$?",
+          "options": [
+            "$I\\propto1/d^2$ (like a light source)",
+            "$I\\propto e^{-2\\kappa d}$",
+            "$I\\propto e^{-\\kappa d^2}$",
+            "$I\\propto d$"
+          ],
+          "correct": 1,
+          "why": {
+            "0": "That is geometric spreading; tunnelling has no spreading, it is the decay of the wave function inside the barrier.",
+            "2": "The decay is $e^{-\\kappa x}$ in the distance, not in its square.",
+            "3": "More distance means less current, not more."
+          },
+          "after": "From the thick-barrier formula $T\\propto e^{-2\\kappa L}$ with $L=d$."
+        },
+        {
+          "id": "q2",
+          "kind": "symbolic",
+          "prompt": "Write $\\kappa$ for a barrier of height $\\varphi$ (symbols <code>m</code>, <code>phi</code>, <code>hbar</code>) and its dimension.",
+          "answer": "sqrt(2*m*phi)/hbar",
+          "symbols": {
+            "m": [
+              1,
+              5
+            ],
+            "phi": [
+              1,
+              6
+            ],
+            "hbar": [
+              0.5,
+              2
+            ]
+          },
+          "units": [
+            "1/length",
+            "length",
+            "energy",
+            "momentum",
+            "dimensionless"
+          ],
+          "unit": "1/length",
+          "latex": "\\kappa=\\frac{\\sqrt{2m\\varphi}}{\\hbar}",
+          "hint": "Same as $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$ with $V_0-E\\to\\varphi$."
+        },
+        {
+          "id": "q3",
+          "kind": "symbolic",
+          "prompt": "The tip is retracted by $\\Delta d$. Write the factor $I(d)/I(d+\\Delta d)$ (symbols <code>kappa</code>, <code>dd</code>).",
+          "answer": "exp(2*kappa*dd)",
+          "symbols": {
+            "kappa": [
+              0.5,
+              3
+            ],
+            "dd": [
+              0.05,
+              1
+            ]
+          },
+          "units": [
+            "dimensionless",
+            "1/length",
+            "length"
+          ],
+          "unit": "dimensionless",
+          "latex": "\\frac{I(d)}{I(d+\\Delta d)}=e^{2\\kappa\\Delta d}",
+          "hint": "Divide $e^{-2\\kappa d}$ by $e^{-2\\kappa(d+\\Delta d)}$."
+        },
+        {
+          "id": "q4",
+          "kind": "choice",
+          "prompt": "For $\\varphi\\approx4$ eV one finds $\\kappa\\approx1\\ \\text{\\AA}^{-1}$ (rule of thumb: $\\kappa[\\text{\\AA}^{-1}]\\approx0.51\\sqrt{\\varphi[\\text{eV}]}$). Retract the tip by 1 Å: the current changes by roughly...",
+          "options": [
+            "a few percent",
+            "a factor 2",
+            "about an order of magnitude (factor $\\sim8$)",
+            "a factor $10^6$"
+          ],
+          "correct": 2,
+          "why": {
+            "0": "$2\\kappa\\Delta d\\approx2$ is not small, so $e^{2}$ is not close to 1.",
+            "1": "$e^{2\\kappa\\Delta d}=e^{2}\\approx7.4$, not 2.",
+            "3": "That would need $2\\kappa\\Delta d\\approx14$, i.e. a 7 Å change."
+          },
+          "after": "$2\\kappa\\Delta d\\approx2.05$, so the factor is $e^{2.05}\\approx7.8$. This is why an STM resolves atomic height differences of a fraction of an Å: the current is extremely sensitive to $d$."
+        },
+        {
+          "id": "q5",
+          "kind": "numeric",
+          "bonus": true,
+          "prompt": "Bonus: the exact factor for $\\varphi=4.0$ eV and $\\Delta d=0.1$ nm.",
+          "answer": "exp(2*sqrt(2*me*phi*eV)/hbar*1e-9*dd)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "nm⁻¹",
+            "eV",
+            "nm"
+          ],
+          "tolType": "log",
+          "tol": 0.1,
+          "hint": "$\\kappa=10.25\\ \\mathrm{nm^{-1}}$, so $2\\kappa\\Delta d=2.05$."
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "qm-tunnel-b1",
+      "title": "Wave mechanics at a step (old exam)",
+      "source": {
+        "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+        "where": "Question 1 [Wave mechanics, 17 pt], FS22"
+      },
+      "minutes": 35,
+      "instructions": "Solve the full exam problem on paper under the timer. Only then enter the final answers. Questions (i), (iii) and (iv) are graded by you against the key points shown after you submit.",
+      "statement": [
+        "Let $\\Psi(x,t)$ be a solution of the time-dependent Schrödinger equation in one spatial dimension. The probability density is $\\rho(x,t)=|\\Psi(x,t)|^2$.",
+        "(i) Show the continuity equation $\\partial_t\\rho+\\partial_xj=0$, where $j(x,t)$ is the probability current that you should define. [4 pt]",
+        "(ii) For a free particle of mass $m$ in one dimension ($V=0$), state the most general (non-normalised) solution of the time-dependent Schrödinger equation with energy $E=k^2/2m$. Determine the probability current of this solution. [4 pt]",
+        "(iii) Now let $V(x)=0$ for $x<0$ and $V(x)=V_0>0$ for $x>0$. Derive the most general (non-normalised) solution of the time-independent Schrödinger equation with energy $E>V_0$, describing an incoming particle from the left. Determine the probability current of this solution and confirm that the continuity equation holds. [7 pt]",
+        "(iv) For $E<V_0$, briefly argue that the probability current vanishes, $j(x,t)=0$. [2 pt]"
+      ],
+      "finalAnswers": [
+        {
+          "id": "j2",
+          "prompt": "Part (ii) with numbers: take $\\Psi=Ae^{i(kx-\\omega t)}+Be^{-i(kx+\\omega t)}$ with $\\hbar=1$ (so $k$ is both momentum and wavenumber), $A=1$, $B=0.5$, $m=1$, $k=2$. Value of $j$?",
+          "answer": "(k/m)*(A*A-B*B)",
+          "vars": {
+            "A": 1,
+            "B": 0.5,
+            "m": 1,
+            "k": 2
+          },
+          "tol": 0.01
+        },
+        {
+          "id": "R",
+          "prompt": "Part (iii) with $E=2V_0$: reflection probability $R=|B/A|^2$.",
+          "answer": "((1-sqrt(1-V0/E))/(1+sqrt(1-V0/E)))**2",
+          "vars": {
+            "V0": 1,
+            "E": 2
+          },
+          "tol": 0.03
+        },
+        {
+          "id": "Tt",
+          "prompt": "Same case $E=2V_0$: transmission probability $T$ (transmitted current over incident current).",
+          "answer": "4*sqrt(1-V0/E)/(1+sqrt(1-V0/E))**2",
+          "vars": {
+            "V0": 1,
+            "E": 2
+          },
+          "tol": 0.02
+        }
+      ],
+      "keyPoints": [
+        "(i) $i\\hbar\\partial_t\\Psi=H\\Psi$ and its complex conjugate ⇒ $\\partial_t|\\Psi|^2=-\\partial_x\\big[\\frac{\\hbar}{2mi}(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)\\big]$, so $j=\\frac{\\hbar}{2mi}(\\Psi^*\\Psi'-\\Psi\\Psi^{*\\prime})=\\frac\\hbar m\\,\\mathrm{Im}(\\Psi^*\\Psi')$. The potential term cancels because $V$ is real.",
+        "(ii) $\\Psi=(Ae^{ikx/\\hbar}+Be^{-ikx/\\hbar})e^{-iEt/\\hbar}$, $j=\\frac km(|A|^2-|B|^2)$ in the momentum convention (or $\\frac{\\hbar k}m(\\dots)$ with wavenumber $k$).",
+        "(iii) $x<0$: $e^{ikx/\\hbar}+re^{-ikx/\\hbar}$; $x>0$: $te^{ilx/\\hbar}$, $l=\\sqrt{2m(E-V_0)}$. Continuity of $\\psi,\\psi'$ at 0 ⇒ $r=\\frac{k-l}{k+l}$, $t=\\frac{2k}{k+l}$. $j$ is constant in $x$ on each side: $j_\\text{left}=\\frac km(1-|r|^2)$, $j_\\text{right}=\\frac lm|t|^2$, equal ⇒ $\\partial_xj=0$ and $\\rho$ is time independent, so the continuity equation holds.",
+        "(iv) For $E<V_0$ the solution on the right is real up to a constant phase, $\\psi\\propto e^{-\\kappa x/\\hbar}$, so $\\Psi^*\\Psi'$ is real and $j=\\frac\\hbar m\\mathrm{Im}(\\Psi^*\\Psi')=0$ (stationary state, nothing flows)."
+      ],
+      "xp": 120,
+      "requires": "qm-tunnel-c1"
+    }
+  ],
+  "tutorial": [
+    {
+      "title": "Welcome to the Interference Lab",
+      "look": {
+        "x": 0,
+        "z": 0
+      },
+      "focus": null,
+      "html": "<p>This room trains one skill: <b>predict</b> what a quantum system does, <b>observe</b> it, then <b>explain</b> it with the equations. That is what the exam asks.</p><p>Walk with WASD, look with the mouse. What you see on the bridge is a real numerical solution of the Schrödinger equation, not an animation I drew.</p>"
+    },
+    {
+      "title": "The bridge is a line",
+      "look": {
+        "x": -8,
+        "z": 0
+      },
+      "focus": "emitter",
+      "html": "<p>The experiment is one-dimensional: a particle moves along the coordinate $x$ (left to right). The <b>emitter</b> launches an electron as a <b>wave packet</b>, a localised superposition of plane waves; the <b>detector</b> on the right collects what gets through.</p>"
+    },
+    {
+      "title": "The glowing curtain is $|\\Psi|^2$",
+      "look": {
+        "x": -4,
+        "z": 0
+      },
+      "focus": "density",
+      "html": "<p>The height of the curtain at position $x$ is the probability density $|\\Psi(x,t)|^2$ of finding the particle there. The <b>area</b> under it is a probability; the total area is 1.</p><p>The packet moves right with the classical speed $v=p/m$, but it is spread out, and it slowly spreads further (script 3.4).</p>"
+    },
+    {
+      "title": "The white line is $\\mathrm{Re}\\,\\Psi$",
+      "look": {
+        "x": 4,
+        "z": 0
+      },
+      "focus": "wave",
+      "html": "<p>The wave itself oscillates, $\\Psi\\sim e^{i(kx-\\omega t)}$, with wavelength $\\lambda=2\\pi/k=h/p$ (de Broglie). The white line shows its real part. Watch it when the packet reaches the barrier: <b>inside the barrier it does not oscillate</b>, it decays smoothly.</p>"
+    },
+    {
+      "title": "The golden slab: a potential barrier",
+      "look": {
+        "x": 0,
+        "z": 0,
+        "pitch": 0.05
+      },
+      "focus": "barrier",
+      "html": "<p>Height $V_0$, width $L$. The <b>blue line</b> is the particle's energy $E$. If $E<V_0$ the particle would need negative kinetic energy inside, which is impossible classically. The wave function still enters the barrier as $e^{-\\kappa x}$ with $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$, and a fraction $T$ gets through: <b>tunnelling</b>.</p>"
+    },
+    {
+      "title": "Your loop: predict, observe, explain",
+      "look": {
+        "x": 0,
+        "z": 6.3,
+        "pitch": -0.35
+      },
+      "focus": null,
+      "html": "<p>Stand in front of a console and press <b>E</b>; each console is a list.</p><ul><li><b>Library</b>: theory and intuition cards with check questions. Start here.</li><li><b>Quiz hall</b>: exam-style multiple choice.</li><li><b>Derivation desk</b>: 'show that' problems on paper with a step-by-step reference.</li><li><b>Stations</b>: predict, watch the simulation, then the full derivation. The lab bench lets you explore freely.</li><li><b>Fights</b>: calculation fights on the equations (choose, write, order). <b>Boss gate</b>: an old exam problem.</li></ul>"
+    },
+    {
+      "title": "Watching and replaying",
+      "look": {
+        "x": 0,
+        "z": 0
+      },
+      "focus": null,
+      "html": "<p>The bar at the bottom controls the experiment: <b>Space</b> pause, <b>R</b> replay, <b>O</b> loop, <b>[ ]</b> speed (or click after pressing Esc to free the mouse). <b>L</b> toggles these floating labels. A run takes about 10 s at 1×.</p>"
+    },
+    {
+      "title": "XP, hints, respawns",
+      "look": {
+        "x": 14,
+        "z": 8,
+        "pitch": 0.0
+      },
+      "focus": null,
+      "html": "<p>Hints cost XP, clean answers earn a bonus. Problems you get wrong or give up on <b>respawn</b> through the portal at the west end after 1, 3, 7 and 16 days (spaced repetition). The door at the east end opens when you pass the door lock; the boss console beyond it is an old exam problem on paper.</p>"
+    }
+  ],
+  "exhibit": "bridge"
+}

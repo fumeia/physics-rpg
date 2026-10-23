@@ -1,0 +1,280 @@
+{
+ "astro-agn-b1": {
+  "start": [
+   "Variability tells you something about how far apart parts of the source can be if they must act in concert. What physical principle limits this?",
+   "Write down the light-crossing distance for the observed timescale $\\Delta t$, then compare it to the Schwarzschild radius $r_s$ of a black hole of mass $M$."
+  ],
+  "parts": {
+   "D": [
+    "Can a region of size $D$ change its brightness coherently faster than a signal can cross it? What does that imply for $D$ versus $\\Delta t$?",
+    "Use causality: $D\\lesssim c\\,\\Delta t$. Convert the timescale to seconds and the length to parsecs.",
+    "Convert $\\Delta t$ from days to seconds, multiply by $c$ to get $D$ in metres, then divide by the number of metres per parsec and express in units of $10^{-3}$ pc."
+   ],
+   "M": [
+    "The hint says to relate $D$ to the Schwarzschild radius. Which has to be larger, the emitting region or the horizon of the black hole?",
+    "Use $r_s=2GM/c^2$ and require $r_s\\lesssim D$, then solve for $M$ with $D$ from part (a).",
+    "Insert $D=c\\,\\Delta t$ so that $M\\lesssim c^3\\Delta t/(2G)$; compute in kg, then divide by the solar mass and by $10^{10}$."
+   ]
+  }
+ },
+ "astro-exam-b1": {
+  "start": [
+   "Which physical quantities determine $L_X$, and how are the temperature and density of the gas tied to the cluster mass in equilibrium?",
+   "Start with the frequency integral of $\\epsilon_\\nu$, then use the virial relation between kinetic and potential energy to express $T$ via $M$ and $\\langle R\\rangle$."
+  ],
+  "parts": {
+   "aT": [
+    "If the gas is in virial equilibrium, how does the thermal kinetic energy of all particles compare with the gravitational potential energy, and how does each scale with $M$ and $R$?",
+    "Use $\\bar K\\propto -\\bar V$ with $\\bar K\\propto N k_B T$ and $N=f_gM/(\\mu_e m_p)$, giving $T\\propto M/\\langle R\\rangle$ first. Then use $M\\propto\\langle R\\rangle^3$.",
+    "Eliminate $\\langle R\\rangle$ using $\\langle R\\rangle\\propto M^{1/3}$ in $T\\propto M/\\langle R\\rangle$ and read off the exponent of $M$."
+   ],
+   "aL": [
+    "With $M\\propto\\langle R\\rangle^3$, how does the gas density $\\rho_g\\propto M/\\langle R\\rangle^3$ scale with $M$? What does that leave in $L_X\\propto\\rho_g^2T^{1/2}\\langle R\\rangle^3$?",
+    "Insert $T\\propto M^{a}$ from the previous part and $\\langle R\\rangle^3\\propto M$ into $L_X\\propto\\rho_g^2T^{1/2}\\langle R\\rangle^3$.",
+    "Count the powers of $M$: $\\rho_g^2$ contributes none, $T^{1/2}$ contributes half of the exponent found for $T$, and $\\langle R\\rangle^3$ contributes one power. Add them."
+   ]
+  }
+ },
+ "astro-exam-b2": {
+  "start": [
+   "How does the black hole's mass grow if only a fraction of the accreted rest mass is radiated, and what fixes the accretion rate?",
+   "Write $\\dot M_{BH}=(1-\\eta)\\dot M_{\\rm acc}$ and eliminate $\\dot M_{\\rm acc}$ via $L=\\eta\\dot M_{\\rm acc}c^2$ with $L=L_{Edd}\\propto M_{BH}$."
+  ],
+  "parts": {
+   "tS": [
+    "The Eddington luminosity is proportional to $M_{BH}$. What kind of differential equation do you get when $\\dot M_{BH}$ is proportional to $M_{BH}$?",
+    "Combine $\\dot M_{\\rm acc}=L_{Edd}/(\\eta c^2)$ and $\\dot M_{BH}=(1-\\eta)\\dot M_{\\rm acc}$ to get $\\dot M_{BH}=M_{BH}/t_S$, then identify $t_S$.",
+    "Your $t_S$ should be a ratio of $\\eta/(1-\\eta)$ to a combination of $4\\pi G m_p/(c\\,\\sigma_T)$. Evaluate it in SI units, convert seconds to years, and quote it in units of $10^7$ yr."
+   ],
+   "td": [
+    "What condition defines doubling, in terms of $M_{BH}(t)/M_{BH}(0)$ for an exponential solution?",
+    "Set $M_{BH}(t)=2M_{BH}(0)$ in $M_{BH}(0)e^{t/t_S}$ and solve for $t$.",
+    "Take the logarithm of both sides so the doubling time is $t_S$ times a pure number. Multiply your $t_S$ from part (a) by that number and express in $10^7$ yr."
+   ]
+  }
+ },
+ "astro-exam-b3": {
+  "start": [
+   "What causes the tidal acceleration, and what does the disruption criterion compare it with?",
+   "Expand $a_{\\rm grav}(d)-a_{\\rm grav}(d+r)$ for $r\\ll d$, then set it equal to $Gm/r^2$ and solve for $d$."
+  ],
+  "parts": {
+   "d": [
+    "Which two accelerations must be equal at the limiting distance, and which one depends on $M$?",
+    "Set $2GMr/d^3=Gm/r^2$ and solve for $d$, which gives $d_{\\rm limit}$ in terms of $M/m$ and $r$.",
+    "Isolate $d^3$ to find that it is $r^3$ times a mass ratio with a factor of two. Take the cube root, then insert the mass ratio of the two galaxies and the given $r$ in kpc."
+   ]
+  }
+ },
+ "astro-exam-b4": {
+  "start": [
+   "How does the column density $N_H$ along the line of sight depend on the geometry of the Galaxy, and what shape does the integrand have?",
+   "Write $r^2(s)$ with the cosine rule from the Sun at distance $d$ from the centre, complete the square in $s$ and use the given Gaussian integral."
+  ],
+  "parts": {
+   "AV": [
+    "After the cosine rule, which terms in the exponent depend on $s$ and which do not? How do these produce an exponential factor in $b$?",
+    "Use $r^2=d^2+s^2-2ds\\cos b$ in $\\exp(-r^2/r_0^2)$, apply $\\int e^{-(ax^2+bx+c)}dx\\approx\\sqrt{\\pi/a}\\,e^{b^2/4a-c}$, then divide by the $b=0$ case.",
+    "You should arrive at $A_V(b)=30\\exp[(d^2/r_0^2)(\\cos^2 b-1)]$. Insert $d$, $r_0$ in kpc and $b$ in radians, and evaluate the exponent first."
+   ],
+   "F": [
+    "How is a magnitude of extinction $A_V$ related to the flux ratio of an object with and without dust?",
+    "Use the magnitude definition $m-m_0=-2.5\\log_{10}(F/F_0)$ with $m-m_0=A_V$.",
+    "Solve for $F_{\\rm ext}/F_0=10^{-A_V/2.5}$ and insert the $A_V$ you found at $b=15^\\circ$."
+   ]
+  }
+ },
+ "astro-exam-b5": {
+  "start": [
+   "Which theorem links total kinetic and potential energy of a system in equilibrium, and what does it give for $\\sigma_v$?",
+   "Write $K=\\sum\\frac12 mv_i^2$ and $V=-\\sum_{i>j}Gm^2/r_{ij}$, then apply $2K+V=0$."
+  ],
+  "parts": {
+   "sig": [
+    "Which relation links $\\sigma_v^2$ to $M$ and a characteristic radius once $2K+V=0$ is used?",
+    "Use $\\sigma_v^2=GM/(2r_H)$ from part (c) and take the square root.",
+    "Convert $M$ to kg and $r_H$ to metres, form $GM/(2r_H)$ in SI units, take the square root and convert from m/s to km/s."
+   ]
+  }
+ },
+ "astro-exam-b6": {
+  "start": [
+   "What does $\\rho\\propto r^{-2}$ imply for the enclosed mass $M_r$, and how do you obtain the escape speed from a potential that goes beyond a finite radius?",
+   "Integrate $M_r$ for $r<R$ and $r>R$ separately, then evaluate $\\int_\\infty^r GM_{r'}/r'^2\\,dr'$ in two pieces."
+  ],
+  "parts": {
+   "R": [
+    "If the fastest star is just bound, what relation holds between its speed and the local escape speed? Which inequality for $R$ follows?",
+    "Set $v_{esc}^2=2v_c^2(1+\\ln(R/r))\\ge v^2$ and solve for $R$.",
+    "Rearrange to $\\ln(R/r)\\ge v^2/(2v_c^2)-1$ and exponentiate; then insert $r$ in kpc and the two speeds in the same units."
+   ],
+   "M": [
+    "What relation connects $v_c$, the total mass and the cut-off radius for $\\rho\\propto r^{-2}$?",
+    "Use $v_c^2=GM/R$ (from $M_r=Mr/R$) and insert the lower limit on $R$ from the previous part.",
+    "Solve $M=v_c^2R/G$, converting $v_c$ to m/s and $R$ to metres, then divide by $M_\\odot$ and by $10^{11}$."
+   ]
+  }
+ },
+ "astro-cosmo-b1": {
+  "start": [
+   "What does a flat, radiation-only Friedmann equation say about $\\dot a$ as a function of $a$, and how are $T$ and $a$ related?",
+   "Insert $\\rho\\propto a^{-4}$ into $(\\dot a/a)^2=\\frac{8\\pi G}{3}\\rho$ and integrate, then use $T\\propto a^{-1}$."
+  ],
+  "parts": {
+   "tbbn": [
+    "If $T\\propto t^{-1/2}$, how do two temperature values and the two times at which they occur relate?",
+    "Write $T_{BBN}/T_{1\\,\\rm s}=(t_{BBN}/1\\,{\\rm s})^{-1/2}$ and solve for $t_{BBN}$.",
+    "Invert and square: $t_{BBN}=(T_{1\\,\\rm s}/T_{BBN})^2$ in seconds. Evaluate the temperature ratio first."
+   ],
+   "tmin": [
+    "The same scaling $T\\propto t^{-1/2}$ holds. What is the new temperature compared with $T_{1\\,\\rm s}$?",
+    "Use $t=(T_{1\\,\\rm s}/T)^2\\cdot 1\\,{\\rm s}$ with the new temperature.",
+    "Compute the ratio of temperatures, square it to get seconds, then divide by 60 to obtain minutes."
+   ]
+  }
+ },
+ "astro-cosmo-b2": {
+  "start": [
+   "What do the parametric equations for $a(\\eta)$ and $t(\\eta)$ tell you about the extremes of the evolution (where is $a=0$, where is $a$ maximal)?",
+   "Find the values of $\\eta$ at which $a=0$ and $a$ is maximal, then insert these values into $H_0t(\\eta)$."
+  ],
+  "parts": {
+   "tu": [
+    "At which value of $\\eta$ does the Big Crunch occur, and what does the second equation give for $H_0 t$ there?",
+    "Insert $\\eta=2\\pi$ into $H_0t=\\frac{\\Omega_{M,0}}{2(\\Omega_{M,0}-1)^{3/2}}(\\eta-\\sin\\eta)$ and solve for $t_{\\rm univ}$.",
+    "Note that $\\sin 2\\pi=0$, so only $2\\pi$ remains. Insert $\\Omega_{M,0}$ and the given Hubble time $1/H_0$ in Gyr, using $(\\Omega_{M,0}-1)^{3/2}$."
+   ],
+   "Hmax": [
+    "If the universe is expanding today, it must be before turnaround, and it must be older than the Sun. What inequality does this give for $t_0$?",
+    "The turnaround is at $\\eta=\\pi$; require $t_\\odot<t_0<t_{ta}$, where $t_{ta}$ follows from $H_0t$, and solve for $H_0$.",
+    "Write $t_\\odot<t_{ta}=\\frac{\\pi}{H_0}\\frac{\\Omega_{M,0}}{2(\\Omega_{M,0}-1)^{3/2}}$ and isolate $H_0$. Then convert $1/{\\rm Gyr}$ into km/s/Mpc."
+   ]
+  }
+ },
+ "astro-dyn-b1": {
+  "start": [
+   "How are density and distribution function connected for a collisionless system, and what do the Poisson equation and circular motion tell you about $\\Phi$?",
+   "Integrate $f$ over velocities up to $v_{\\max}=\\sqrt{-2\\Phi}$ for $\\rho(\\Phi)$; use $v_c^2=r\\,d\\Phi/dr$ for (b) and the Poisson equation for (c)."
+  ],
+  "parts": {
+   "vc": [
+    "What is the condition for circular motion in terms of the gravitational potential gradient?",
+    "Use $v_c^2/r=d\\Phi/dr$ with $\\Phi=-GM/\\sqrt{r^2+a^2}$ and differentiate.",
+    "You should get $v_c^2\\propto GMr^2/(r^2+a^2)^{3/2}$. Evaluate at $r=a$ with $G$, $M$ in kg and $a$ in metres, then convert to km/s."
+   ],
+   "rho0": [
+    "Which relation connects the density to the potential via the Poisson equation, and which terms survive at $r=0$?",
+    "Compute $\\frac{1}{r^2}\\frac{d}{dr}(r^2 d\\Phi/dr)$ for the Plummer potential, divide by $4\\pi G$, and set $r=0$.",
+    "You need $\\rho(r)=\\frac{3M a^2}{4\\pi}(r^2+a^2)^{-5/2}$ at $r=0$. Insert $M$ in solar masses and $a$ in pc."
+   ],
+   "rhoa": [
+    "How does $\\rho(r)\\propto(r^2+a^2)^{-5/2}$ at $r=a$ compare with $\\rho(0)$?",
+    "Form the ratio $\\rho(a)/\\rho(0)=[(a^2)/(r^2+a^2)]^{5/2}$ evaluated at $r=a$.",
+    "At $r=a$ the bracket becomes a simple fraction. Raise it to the power $5/2$ and write the decimal."
+   ]
+  }
+ },
+ "astro-dyn-b2": {
+  "start": [
+   "How does the enclosed mass of an $r^{-2}$ profile grow with radius, and what gives the circular speed?",
+   "Integrate $4\\pi\\rho r'^2dr'$ for $\\rho\\propto r^{-2}$, add $M_0$, then use $v^2/r=GM_r/r^2$."
+  ],
+  "parts": {
+   "k": [
+    "From part (b), how are $v$, $G$, $k$, $M_0$ and $r$ related? Which one do you need to isolate?",
+    "Solve $v^2=G(k+M_0/r)$ for $k$.",
+    "Write $k=v^2/G-M_0/r$. Compute $v^2/G$ in $M_\\odot$/pc (convert $v$ to m/s, then kg/m to $M_\\odot$/pc), subtract $M_0/r$ and express in $10^5M_\\odot$/pc."
+   ]
+  }
+ },
+ "astro-ism-b1": {
+  "start": [
+   "How does flux fall with distance, and how does the number of stars reachable above a flux limit grow with volume?",
+   "Find the radius $r_0$ at which a star of luminosity $L$ has flux $F_0$, then write $N\\propto r_0^3$."
+  ],
+  "parts": {
+   "x10": [
+    "From $N\\propto F_0^{-3/2}$, what happens to $N$ if $F_0$ is divided by a given factor?",
+    "Compute the ratio $N(F_0/10)/N(F_0)$ using the power law.",
+    "The ratio is $10$ raised to the exponent $3/2$. Evaluate this power."
+   ],
+   "r0": [
+    "Which inverse square law links flux, luminosity and distance?",
+    "Use $F=L/(4\\pi r^2)$ and solve for $r_0$.",
+    "Compute $r_0=\\sqrt{L/(4\\pi F_0)}$ in metres with $L$ in W and $F_0$ in W m$^{-2}$, then divide by the number of metres per parsec."
+   ]
+  }
+ },
+ "astro-nuc-b1": {
+  "start": [
+   "What does the binding energy per nucleon curve look like, where is its maximum, and what does that mean for fusion and fission?",
+   "Plot $E_B/A$ against mass number: a steep rise from H, a spike at $^4$He, a broad maximum around $^{56}$Fe and a slow decline."
+  ],
+  "parts": {
+   "fFe": [
+    "Which nucleus sits at the top of the curve, and roughly what is its binding energy per nucleon?",
+    "Recall the peak value of $E_B/A$ at the iron group, in MeV per nucleon.",
+    "The peak lies a bit below 9 MeV per nucleon; compare it with $E_B/A$ of $^4$He, which is lower by roughly one to two MeV."
+   ],
+   "fHe": [
+    "How does $^4$He compare with its neighbours on the curve, and why is it a local spike?",
+    "Compute $E_B/A$ from the binding energy of $^4$He (about the total energy released by assembling two protons and two neutrons) divided by $A=4$.",
+    "The total binding energy of $^4$He is a few tens of MeV; divide that by four nucleons to obtain a number close to 7 MeV."
+   ]
+  }
+ },
+ "astro-light-b1": {
+  "start": [
+   "How does the Planck function depend on temperature through the exponential, and how large is the ratio of two Planck functions when $h\\nu\\ll k_BT$ or $h\\nu\\gtrsim k_BT$?",
+   "Differentiate $B_\\nu(T)$ with respect to $T$ for (a), then evaluate $B_\\nu(T_d)/[10^{-5}B_\\nu(T_{CMB})]$ at $100$ GHz for (b)."
+  ],
+  "parts": {
+   "ratio": [
+    "Which factors of $B_\\nu$ cancel in the ratio between dust and CMB, and what survives?",
+    "The prefactor $2h\\nu^3/c^2$ cancels, leaving a ratio of $(e^{h\\nu/k_BT}-1)^{-1}$ terms divided by $10^{-5}$.",
+    "Compute $x_d=h\\nu/(k_BT_d)$ and $x_c=h\\nu/(k_BT_{CMB})$ separately, then form $(e^{x_c}-1)/(e^{x_d}-1)$ and divide by $10^{-5}$."
+   ],
+   "tau": [
+    "The CMB fluctuation is brighter than the dust if $\\tau_{100}B_\\nu(T_d)$ is smaller than the fluctuation. What does this imply for $\\tau_{100}$?",
+    "Require $\\tau_{353}(\\nu/353\\,{\\rm GHz})^\\beta\\,B_\\nu(T_d)<10^{-5}B_\\nu(T_{CMB})$, hence $\\tau_{353}<1/(\\text{ratio from (b)})\\times(\\nu/353\\,{\\rm GHz})^{-\\beta}$.",
+    "Take the reciprocal of your ratio from (b) and multiply by $(100/353)^{-1.6}$. Evaluate the power separately."
+   ]
+  }
+ },
+ "astro-forge-b1": {
+  "start": [
+   "What balance sets the maximum luminosity of a star, and which force acts on the gas through radiation?",
+   "Write down the hydrostatic equilibrium equation at $r=R$, use $F=L/4\\pi R^2=-\\frac{c}{\\chi\\rho}\\frac{dP}{dr}$ and equate."
+  ],
+  "parts": {
+   "LEdd": [
+    "If radiation pressure alone balances gravity at the surface, which quantities remain after $\\rho$ and $R$ cancel?",
+    "Combine $dP/dr=-GM\\rho/R^2$ with $F=-\\frac{c}{\\chi\\rho}dP/dr$ and $F=L/(4\\pi R^2)$ to solve for $L$.",
+    "The result is proportional to $cGM/\\chi$ with a factor of $4\\pi$. Insert $M$ in kg, $\\chi$ in m$^2$/kg and evaluate in SI units."
+   ],
+   "Lsol": [
+    "How do you convert a luminosity in watts into solar units?",
+    "Divide your result $L_{Edd}$ in watts by $L_\\odot$.",
+    "Use the watt value you computed in the previous part and divide by the given $L_\\odot$; quote it as a number of solar luminosities."
+   ]
+  }
+ },
+ "astro-forge-b2": {
+  "start": [
+   "What equation relates the pressure gradient to the mass enclosed in a star of constant density, and what boundary condition is at the surface?",
+   "Write $M_r=\\frac43\\pi r^3\\rho$, insert into $dP/dr=-GM_r\\rho/r^2$ and integrate from $r$ to $R$ with $P(R)=0$."
+  ],
+  "parts": {
+   "r": [
+    "Since $\\epsilon\\propto T^4$ and $T\\propto(R^2-r^2)$, how does $\\epsilon/\\epsilon_c$ depend on $r/R$?",
+    "Write $\\epsilon/\\epsilon_c=(1-r^2/R^2)^4$ and set it equal to the given fraction.",
+    "Take the fourth root of the fraction, solve for $r^2/R^2$ and then take the square root."
+   ],
+   "Pc": [
+    "Where is the pressure maximal, and what does the formula from (a) give there?",
+    "Set $r=0$ in $P(r)=\\frac{2\\pi}{3}G\\rho^2(R^2-r^2)$, giving $P_c=\\frac{2\\pi}{3}G\\rho^2R^2$.",
+    "Evaluate $\\frac{2\\pi}{3}G\\rho^2R^2$ in SI units with $R$ in metres and $\\rho$ in kg m$^{-3}$, then divide by $10^{14}$ Pa."
+   ]
+  }
+ }
+}

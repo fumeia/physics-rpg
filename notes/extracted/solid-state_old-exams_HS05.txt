@@ -1,0 +1,560 @@
+Prüfungsart: Physik, Teil A
+Prüfungssession: Herbst 2005
+Fach: Festkörperphysik I
+DozentIn: Prof. Dr. K. Ensslin
+
+Beginne mit Vortrag über Dispersionsfunktion; 1-atomige Kette; Ansatz ebener
+Wellen...
+I: ...Näherung harmonisches Potential
+E: Was für ein Pot. ist das?
+I: Kraft auf ein Atom wenn anderes bewegt wird. (Dann weiter mit Graph ω(q);
+2-atomiger Kette; zurückfalten; opt. und akust. Ast.)
+E: Wieso diese Bezeichnungen? Welche Art von Wellen an den Zonenrändern?
+Welches Experiment um Dispersionsrelation zu messen?
+I: Am besten Neutronenstreuung, weil passende Energien.
+E: Welche?
+I: En ≈ 25meV ; Ephononen = 0 − 100meV .
+E: Woher kriegt man solche Energien bei Neutronen?
+I: Reaktor
+E: Das sind aber andere Energien; was macht man um ≈ 25meV zu kriegen?
+I: ? Abbremsen in Material.
+E: Durch Bragg-refl. an bekanntem Gitter kann man gewisse Energien heraus-
+filtern. Zeichen Sie Streuexperiment auf. Was sieht man auf dem Schirm?
+I: Verschiedene Punkte und wenn man die entlang einer Richtung hoher Sym-
+metrie aufzeichnet erhält man Graph I(θ).
+E: Gilt das für elastische oder inelastische Streuung? Was kennzeichnet inelas-
+tische Streuung?
+I: Bei inelast. Str. ist Energie des einfallenden Strahls 6= Energie des ausfallen-
+den.
+E: Wie sieht man denn diese Energie in I(θ)?
+I: Die Amplitude verändert sich im vgl. zu elast. Str.
+E: (Schlussendlich kam raus, dass man Versuch so aufbaut, dass man an den
+jeweiligen Pkt auf dem Schirm die Energien misst, indem man den ausfallenden
+Strahl an einem weiteren Kristall mit bekannter Struktur elastisch streut und
+so die Energie berechnet.) Wie siehts aus mit Wärmekapazität der Phononen?
+I: cV (T ) → T 3 für kl. Temp.; cV (T ) → const. für grosse Temp. (zeichne Graph
+auf)
+E: Welchen Wert der Konstante, warum?
+I: 3rN kB , da alle Phononen aus Grundzust. angeregt.
+E: Aber dann würde es ja immer weiter steigen.
+I: Nur bis Debye Frequ.; definiert als Frequ. bei der alle möglichen Phononen
+angeregt sind.
+E: Welche anderen Modelle?
+I: Einstein; ωE ; Phononen schon angeregt → cV ≈ exp bei T klein.
+E: Welches Modell stimmt besser mit Experimenten?
+I: Debye besser, besonders bei kl. Temp.
+E: cV für e− ?
+I: ≈ T . Da nur Bruchteil ≈ 4kEBFT beiträgt und diese e− ≈ kB T Energie tragen
+→ U = ...
+
+
+                                        1
+E: Ok, ich glaubs ihnen. Nächstes Thema: HL; zeichnen sie n-dot. HL auf.
+I: Zeichne mit EF zwischen EL , ED .
+E: Kann EF auch in EL liegen?
+I: Ja wenn sehr stark dotiert; entartung (wie metall).
+E: Auch bei T = 0?
+I: (Ich glaube die Antwort war ja, weil Orbitale der Störstellen überlappen)
+E: Zeichnen sie p-n Uebergang bei T = 0.
+I: Zeichne wieder mit EF zwischen EL , ED . Und erkläre chem. Potential, Raum-
+ladungszone etc.
+E: EF abhängig von was?
+I: Von Temp. und Dotierung.
+E: Auch bei T = 0 im nichtentarteten Fall?
+I: ? (Schlussendlich: Bei Nichtentartung nur abh. von T.?)
+E: Was ist Breite von Raumladungszone?
+I: ≈ 30Aengström.
+E: Bei jedem HL-Material?
+I: Nein (schlussendlich: über poisson gl. abh. von Makropot. dieses ist abh. von
+Ort der EF . Wenn EF zwischen EL , ED und Eg ≈ 1eV dann ist VD ≈ 1eV →
+Breite ρ(x))
+E: Gleichrichtung; Zeichnen sie I-U Kennlinie.
+I: Zeichne und erkläre Durchlassricht., Sperricht., schreibe Formel auf.
+E: Wie kann man I(U ) in Gebiet der Sperricht. kleiner machen?
+I: Erzeugungsstrom: thermisch über Eg angeregt → T ց oder Eg ր.
+E: Würden sie Si oder Ge nehmen?
+I: Si da Eg ≈ 1eV .
+E: letztes Thema: Pauli Paramagnetismus.
+I: zeichne Zeemann-Aufspaltung → Energie (D(E)) für parallel und antiparallel;
+Erklärung Energieabs./-erhöhung.
+E: Quantitative Formel für Energie eines Spins?
+I: ? Sagte irgendwas mit parallel zu B-Feld oder nicht. Dann ist die Zeit um,
+und wir hören ohne Antwort auf.
+    Note: 5 21
+
+
+
+
+                                       2
+Prü❢✉♥❣s❛rt P❤②s✐❦✱ ❚❡✐❧ ❆
+Prü❢✉♥❣ss❡ss✐♦♥ ❍❡r❜st ✷✵✵✺
+❋❛❝❤ ❋❡st❦ör♣❡r♣❤②s✐❦ ■
+❉♦③❡♥t■♥ Pr♦❢✳ ❑✳ ❊♥ss❧✐♥
+   ▼❛♥ s✐t③t ♠✐t ❊♥ss❧✐♥ ✉♥❞ ❞❡♠ ❇❡✐s✐t③❡r ❛♥ ❡✐♥❡♠ ❚✐s❝❤ ✉♥❞ s❝❤r❡✐❜t ❛✉❢
+P❛♣✐❡r✳
+
+    ❊✿ ❲❛s ❤❛❜❡♥ ❙✐❡ ✈♦r❜❡r❡✐t❡t❄
+    ■✿ ❙♣❡③✐✜s❝❤❡ ❲är♠❡✱ ❢ür t✐❡❢❡ ❚❡♠♣❡r❛t✉r❡♥ ∝ T ❢ür ❊❧❡❦tr♦♥❡♥✱ ∝
+T 3 ❢ür P❤♦♥♦♥❡♥✳ ❊r❦❧är❡ ③✉❡rst ❞❛s ❉❡❜②❡✲▼♦❞❡❧❧ ❢ür P❤♦♥♦♥❡♥✱ ✇♦❜❡✐
+❊♥ss❧✐♥ ❦❛✉♠ ▼❛t❤❡♠❛t✐❦ s❡❤❡♥ ✇✐❧❧✳ ❊s ❦♦♠♠t ❤❡r❛✉s ❉✉❧♦♥❣✲P❡t✐t ❢ür
+❣r♦ss❡ ❚❡♠♣✳ ✉♥❞ ❡❜❡♥ T 3 ❢ür t✐❡❢❡✳
+    ❊✿ ❲♦ st✐♠♠t ❞❛s ❉❡❜②❡✲▼♦❞❡❧❧ ❣✉t✱ ✉♥❞ ✇♦ ♥✐❝❤t❄
+    ■✿ ❊r❦❧är❡✱ ❞❛ss ❡s ❣✉t st✐♠♠t ❢ür T 3 ✱ ✇❡✐❧ ❞❛♥♥ ♥✉r ❙❝❤✇✐♥❣✉♥❣❡♥ ❛♥✲
+❣❡r❡❣t s✐♥❞✱ ❢ür ❞✐❡ ❞✐❡ ❛♥❣❡♥♦♠♠❡♥❡ ❩✉st❛♥❞s❞✐❝❤t❡ ❣✉t st✐♠♠t✳ ❋ür ❤♦❤❡
+❚❡♠♣✳ st✐♠♠t ❡s ♥✐❝❤t ❣❛♥③✱ ❞❛ ♠❛♥ ❛♥❤❛r♠♦♥✐s❝❤❡ ❊✛❡❦t❡ ❤❛t✱ ✉♥❞ s♦
+❡✐♥❡♥ ❧❡✐❝❤t❡♥ ❆♥st✐❡❣ ♠✐t ❚✳
+    ❊✿ ❲❡❧❝❤❡ ❆♥♥❛❤♠❡ ✇❛r ❞❡♥♥ ❣❡♥❛✉ ❤❛r♠♦♥✐s❝❤❄
+    ■✿ ◆❛❥❛✱ ♠❛♥ ❤❛tt❡ ❞♦❝❤ ❤❛r♠♦♥✐s❝❤❡♥ ❖s③✐❧❧❛t♦r ❛♥❣❡♥♦♠♠❡♥✳ ❉✳❤✳ ❞✐❡
+❆✉s❧❡♥❦✉♥❣ ❞❡s ●✐tt❡rs ✇✉r❞❡ ✐♥ ❤❛r♠♦♥✐s❝❤❡r ◆ä❤❡r✉♥❣ ❜❡tr❛❝❤t❡t✳
+    ❊✿ ❖❦✳ ❯♥❞ ✇✐❡ ❣✉t st✐♠♠t ❉❡❜②❡ ③✇✐s❝❤❡♥ ❞❡♥ ③✇❡✐ ❚❡♠♣❡r❛t✉r❜❡r❡✐✲
+❝❤❡♥❄
+    ■✿ ❩✐❡♠❧✐❝❤ ❣✉t ❣❧❛✉❜❡ ✐❝❤✱ ❛❜❡r ✇❛r✉♠❄ ❉❛♥♥ ✇✐r❞ ♠✐r ❦❧❛r✱ ❞❛ss ❡r ❤ör❡♥
+✇✐❧❧✱ ✇❡❣❡♥ ❉❡❜②❡✲❆❜s❝❤♥❡✐❞❡❢r❡q✉❡♥③✳ ▼❛♥ ❤ört ❞♦rt ❛✉❢ ③✉ ✐♥t❡❣r✐❡r❡♥✱ ✇♦
+❜❡r❡✐ts ❛❧❧❡ P❤♦♥♦♥❡♥ ✐♠ ❛♥❣❡r❡❣t❡♥ ❩✉st❛♥❞ s✐♥❞✳
+    ❊✿ ❲✐❡ sä❤❡ ❡s ✐♠ ❊✐♥st❡✐♥✲▼♦❞❡❧❧ ❛✉s❄
+    ■✿ ▼❛♥ ❜❡tr❛❝❤t❡t ♥✉r ❡✐♥❡ ❋r❡q✉❡♥③✱ ❞❛❤❡r ❩✉st❛♥❞s❞✐❝❤t❡ ♣r♦♣✳ ❉❡❧t❛✲
+❢✉♥❦t✐♦♥✳
+    ❊✿ ❯♥❞ st✐♠♠t ❞❛s ❜❡ss❡r ♦❞❡r ✇❡♥✐❣❡r ❣✉t ❛❧s ❉❡❜②❡❄
+    ■✿ ❲❡♥✐❣❡r✳ ●✐❧t ♥✉r ❢ür ♦♣t✐s❝❤❡ P❤♦♥♦♥❡♥✳
+    ❊✿ ❩❡✐❝❤♥❡♥ ❙✐❡ ♠❛❧ s♦ ❡✐♥❡ ❉✐s♣❡rs✐♦♥s❦✉r✈❡✳
+    ■✿ ■❝❤ ③❡✐❝❤♥❡ ✷✲❞✐♠ ❧✐♥❡❛r❡ ❑❡tt❡ ✉♥❞ ❡r❦❧är❡ ❦✉r③✳
+    ❊✿ ❲✐❡ ♠❡ss❡♥ ❙✐❡ ❞❛s❄
+    ■✿ P❤♦♥♦♥❡♥s♣❡❦tr♦s❦♦♣✐❡✳ ❆♠ ❜❡st❡♥ ♠✐t ◆❡✉tr♦♥❡♥✱ ✇❡✐❧ ❊♥❡r❣✐❡❜❡✲
+r❡✐❝❤ ❣✉t ü❜❡r❡✐♥st✐♠♠t st✐♠♠t ✭♠❡❱✮✳
+    ❊✿ ❯♥❞ ✇❛s ✇är❡✱ ✇❡♥♥ ♠❛♥ ❡s ♠✐t P❤♦t♦♥❡♥ ♠❛❝❤t❄
+    ■✿ ❘❛♠❛♥str❡✉✉♥❣ s✐❡❤t ♥✉r ✐♥♥❡rst❡s ❞❡r ❇r✐❧❧♦✉✐♥③♦♥❡✱ ✇❡✐❧ ♠❛①✳ ■♠♣✉❧s✲
+ü❜❡rtr❛❣ ③✉ ❦❧❡✐♥✳ ❋ür ❘ö♥t❣❡♥ ✐st ❞✐❡ ❆✉✢ös✉♥❣ ③✉ s❝❤❧❡❝❤t✱ ♠❛♥ ❜r❛✉❝❤t
+❊♥❡r❣✐❡♥ ✐♠ ❦❡❱✲❇❡r❡✐❝❤ ✉♠ ❡✐♥❡♥ ●✐tt❡r✈❡❦t♦r ❛✉❢③✉❧ös❡♥✱ ❛❜❡r ❞✐❡ ❆✉✢ö✲
+s✉♥❣ ❧✐❡❣t ❞❛♥♥ ✐♠ ❡❱✲❇❡r❡✐❝❤✱ ❛❧s♦ ❤ö❤❡r ❛❧s P❤♦♥♦♥❡♥❡♥❡r❣✐❡✳ ▼❛♥ ♠✉ss
+❞✐❡ ❙tr❛❤❧❡♥ ❛❧s♦ ♠♦♥♦❝❤r♦♠❛t✐s✐❡r❡♥✱ ❞❛♥♥ ❜❧❡✐❜t ❛❜❡r ♥✐❝❤t ♠❡❤r ❣❡♥✉❣
+
+                                     ✶
+❊♥❡r❣✐❡ ü❜r✐❣✱ ❛✉ss❡r ♠❛♥ ♥✐♠♠t ❙②♥❝❤r♦tr♦♥str❛❤❧✉♥❣✳ ❉♦rt ❦❛♥♥ ♠❛♥ ❆✉❢✲
+❧ös✉♥❣ ❜✐s 10−7 ❤❛❜❡♥✳
+    ❊✿ ❲✐❡ ✐st ❞❛s ❣❡♥❛✉ ♠✐t ❞❡♠ 10−7 ❄
+    ■✿ ❉❛s ✐st ∆λ
+                λ ✱ ✇♦❜❡✐ λ ❡✐♥ ●✐tt❡r✈❡❦t♦r✱ ✉♥❞ ∆λ ❞✐❡ ❇r❡✐t❡ ❞❡s ❙tr❛❤❧s
+✐♠ ❙♣❡❦tr✉♠✳
+    ❊✿ ❖❦✳ ❩✉rü❝❦ ③✉r s♣❡③✐✜s❝❤❡♥ ❲är♠❡✳ ❙✐❡ ✇♦❧❧t❡♥ ❞❛s ♥♦❝❤ ❢ür ❞✐❡ ❊❧❡❦✲
+tr♦♥❡♥ ❡r❦❧är❡♥✳
+    ■✿ ❊r❦❧är❡✱ ❞❛ss ♠❛♥ ✇❡♥✐❣❡r ❊✐♥✢✉ss ❤❛t ❛❧s ❦❧❛ss✐s❝❤ ❡r✇❛rt❡t✱ ✇❡✐❧ ♥✉r
+❊❧❡❦tr♦♥❡♥ ❛♥ ❇❛♥❞❦❛♥t❡ ❊♥❡r❣✐❡ ❛✉❢♥❡❤♠❡♥ ❦ö♥♥❡♥✳ ❑✉r③❡ ❆❜s❝❤ät③✉♥❣
+ü❜❡r ❆✉❢✇❡✐❝❤③♦♥❡ ❞❡r ❋❡r♠✐❢✉♥❦t✐♦♥✳
+    ❊✿ ❲❛s ✇är❡ ❥❡t③t✱ ✇❡♥♥ ♠❛♥ ❡✐♥❡♥ ❞♦t✐❡rt❡♥ ❍❛❧❜❧❡✐t❡r ❤❛t❄ ❲✐❡ s✐❡❤t
+❞♦rt ❞✐❡ s♣❡③✳ ❲är♠❡ ❛✉s❄
+    ■✿ ❇✐♥ ❡rst ♠❛❧ ❡t✇❛s ü❜❡rr✉♠♣❡❧t ✈♦♥ ❞❡r ❋r❛❣❡✳ ❆❧s♦ ❞❡r ♣❤♦♥♦♥✐s❝❤❡
+❆♥t❡✐❧ ✇är❡ ♦✛❡♥s✐❝❤t❧✐❝❤ ❣❧❡✐❝❤✳ ❋ür ❡❧❡❦tr♦♥✐s❝❤❡♥ ❆♥t❡✐❧ ♠✉ss ❡s ✇♦❤❧ t✐❡❢❡r
+s❡✐♥ ❛❧s ▼❡t❛❧❧✳ ▼❛♥ ❤❛t ❞✐❡ ▲ü❝❦❡ ✈♦♠ ❉♦♥❛t♦r♥✐✈❡❛✉ ③✉♠ ▲❡✐t✉♥❣s❜❛♥❞✱
+❞✐❡ ü❜❡rs♣r✐♥❣❡♥ ✇❡r❞❡♥ ♠✉ss✳ ❆❧s♦ ❣✐❜t ❡s ✐r❣❡♥❞✇♦ ❡✐♥❡♥ ❡①♣✲❋❛❦t♦r ✇❡❣❡♥
+❇♦❧t③♠❛♥♥✳
+    ❊✿ ❯♥❞ ✇♦❄
+    ■✿ ❄❄ ■❝❤ r❛t❡ ❡✐♥ ✇❡♥✐❣ ❤❡r✉♠✱ ♦❤♥❡ ❊r❢♦❧❣✳✳✳
+    ❊✿ ❲❛s ✐st ❞❛s ♥✱ ❞❛s ❙✐❡ ❤✐❡r ❤❛❜❡♥❄
+    ■✿ ❉❡r ●r♦s❝❤❡♥ ❢ä❧❧t✱ ✇❡♥♥ ❛✉❝❤ ③✉ s♣ät✳✳✳ ❉✐❡ ❊❧❡❦tr♦♥❡♥❞✐❝❤t❡✳ ❉♦rt
+✐st ♥❛tür❧✐❝❤ ❞❡r ❡①♣✲❋❛❦t♦r ❞r✐♥✳
+    ❊✿ ●❡♥❛✉✳ ❚❤❡♠❛✇❡❝❤s❡❧✱ ❋❡rr♦♠❛❣♥❡t✐s♠✉s✳
+    ■✿ ▼✐❦r♦s❦♦♣✐s❝❤✿ ❆✉st❛✉s❝❤✇❡❝❤❡❧✇✐r❦✉♥❣✳ ❊❧❡❦tr♦♥❡♥ ♠✐t ❣❧❡✐❝❤❡♠ ❙♣✐♥
+❦ö♥♥❡♥ ♥✐❝❤t ❛♠ ❣❧❡✐❝❤❡♥ ❖rt s❡✐♥✱ ❞❛❤❡r ✐st ▲❛❞✉♥❣ ❞❡s ❑❡r♥s ✇❡♥✐❣❡r ❛❜✲
+❣❡s❝❤✐r♠t✱ ❊❧❡❦tr♦♥ ✇✐r❞ stär❦❡r ❣❡❜✉♥❞❡♥✱ ❊♥❡r❣✐❡❣❡✇✐♥♥✳
+    ❊✿ ❊♥❡r❣✐❡❣❡✇✐♥♥ ❢ür ✇❛s❄
+    ■✿ ❲❡✐ss ♥✐❝❤t ❣❡♥❛✉✱ ✇❛s ❡r ❤ör❡♥ ✇✐❧❧✳ ❋ür ❞✐❡ ❇✐♥❞✉♥❣✳ ❞✳❤✳ ❞❛s ❡✐♥❡
+❊❧❡❦tr♦♥✳ ❇③✇✳ ❛❧❧❡ ♠✐t ❣❧❡✐❝❤❡♠ ❙♣✐♥✳
+    ❊✿ ❲❛r✉♠ ✐st ❞❡♥♥ ③✳❇✳ ❲❛ss❡rst♦✛ ♥✐❝❤t ❋❡rr♦♠❛❣♥❡t✐s❝❤❄
+    ■✿ ❆✉s ❞❡r ❆❜st♦ss✉♥❣ ❡r❤❛❧t❡♥ ❞✐❡ ❊❧❡❦tr♦♥❡♥ ❦✐♥❡t✐s❝❤❡ ❊♥❡r❣✐❡✳ ❋❡r✲
+r♦♠❛❣♥❡t✐s♠✉s tr✐tt ♥✉r ❛✉❢✱ ✇❡♥♥ ❞✐❡s❡ ❦❧❡✐♥❡r ✐st ❛❧s ❞❡r ●❡✇✐♥♥ ❞✉r❝❤
+❣❧❡✐❝❤❡♥ ❙♣✐♥✳
+    ❊✿ ❯♥❞ ✇✐❡ s✐❡❤ts ♠❛❦r♦s❦♦♣✐s❝❤ ❛✉s❄
+    ■✿ ❲❡✐ss✬s❝❤❡ ❇❡③✐r❦❡✱ r✐❝❤t❡♥ s✐❝❤ ❛✉s ✐♠ ▼❛❣♥❡t❢❡❧❞✳ ●r♦ss❡ ❱❡rstär❦✉♥❣
+❞❡s ❡①t❡r♥❡♥ ❋❡❧❞❡s✳ ❩❡✐❝❤♥❡ ❍②st❡r❡s❡❦✉r✈❡ ✉♥❞ ❡r❦❧är❡✳
+    ❊✿ ❲♦ ❧✐❡❣t ❞❛s ▼✐♥✐♠✉♠❄
+    ■✿ ■♥ ❞❡r ▼✐tt❡✳
+    ❊✿ ❲❛r✉♠ r❡❧❛①✐❡rt ❞❛s ❙②st❡♠ ♥✐❝❤t ✐♥ ❞❡♥ ●r✉♥❞③✉st❛♥❞❄
+    ■✿ ❊s ❜r❛✉❝❤t ❊♥❡r❣✐❡✱ ✉♠ ❙♣✐♥s ✉♠③✉❦❧❛♣♣❡♥❄ ❊rst ♦❜❡r❤❛❧❜ ✈♦♥ ❈✉r✐❡✲
+❚❡♠♣✳ ❣❡❣❡❜❡♥✳
+    ❊✿ ❲✐❡ ❣r♦ss ✐st ❞✐❡s❡ ❊♥❡r❣✐❡❄
+    ■✿ ❍♠ ❞❡r ❊♥❡r❣✐❡✈❡r❧✉st ✐st ♣r♦♣✳ ③✉r ❋❧ä❝❤❡✳✳✳
+
+
+                                      ✷
+    ❊✿ ▼✐❝❤ ✐♥t❡r❡ss✐❡rt ❛❜❡r ❞✐❡ ❊♥❡r❣✐❡ ③✇✐s❝❤❡♥ ❞❡♠ ❯rs♣r✉♥❣ ✉♥❞ ❞❡♠
+❙❝❤♥✐tt♣✉♥❦t ❞❡r ❑✉r✈❡ ♠✐t ❨✲❆❝❤s❡✳
+    ■✿ ❄❄ ◆❛❝❤ ❧ä♥❣❡r❡♠ Ü❜❡r❧❡❣❡♥ s❝❤❧✐❡ss❧✐❝❤✱ ❡s ✐st ❞✐❡ ♠❛❣♥✳ ❋❡❧❞❡♥❡r❣✐❡✱
+∝ B2✳
+    ❊✿ ❉✐❛♠❛❣♥❡t✐s♠✉s❄
+    ■✿ ▲❛r♠♦r ❢ür ❣❡❜✉♥❞❡♥❡ ❊❧❡❦tr♦♥❡♥✱ ▲❛♥❞❛✉ ❢ür ❢r❡✐❡✳ ●❡❜✉♥❞❡♥✿ ❑r❡✐s✲
+strö♠❡✱ ▲❡♥③s❝❤❡ ❘❡❣❡❧ ✉s✇✳ ◆✉r ❜❡✐ ✈♦❧❧❡♥ ❙❝❤❛❧❡♥ ❜❡♦❜❛❝❤t❜❛r✱ s♦♥st ü❜❡r✲
+✇✐❡❣t P❛r❛♠❛❣♥❡t✐s♠✉s✳ ❋r❡✐✿ ◗✉❛♥t❡♥❡✛❡❦t✳ ❑❧❛ss✐s❝❤✿ ❊♥❡r❣✐❡ ❤ä♥❣t ♥✐❝❤t
+✈♦♥ ▼❛❣♥❡t❢❡❧❞ ❛❜✳ ❙trö♠❡ ✐♠ ✐♥♥❡r♥ ❞❡s ❋❡st❦ör♣❡rs ✐♥ ❛♥❞❡r❡ ❘✐❝❤t✉♥❣ ❛❧s
+❛✉ss❡♥✱ ❤❡❜t s✐❝❤ ❛✉❢✳
+    ❊✿ ❚❤❡♠❛✇❡❝❤s❡❧✿ ❇ä♥❞❡r✳ ❊r❦❧är❡♥ ❙✐❡ ❞❛s ❚✐❣❤t✲❇✐♥❞✐♥❣✲▼♦❞❡❧❧ ✭♦❤♥❡
+▼❛t❤❡♠❛t✐❦✮✳
+    ■✿ ▼❛♥ ❜r✐♥❣t ❢r❡✐❡ ❆t♦♠❡ ③✉s❛♠♠❡♥✱ P♦t❡♥t✐❛❧❡ ❞❡r ❛♥❞❡r♥ ❆t♦♠❡ ❛❧s
+❙tör✉♥❣✳ ❆✉s Ü❜❡r❧❛♣♣ ❆❜s❡♥❦✉♥❣ ❞❡r ❊♥❡r❣✐❡✳ ❩❡✐❝❤♥❡ ❛❧s ❋❦t✳ ❞❡s ❆❜✲
+st❛♥❞s✳ ❚✐❡❢❡ ❇ä♥❞❡r ✇❡♥✐❣❡r ❛✉❢❣❡s♣❛❧t❡♥ ❛❧s ❤♦❤❡✳
+    ❊✿ ❑ö♥♥t❡♥ s✐❝❤ ❞✐❡ ❇ä♥❞❡r ❛✉❝❤ ❦r❡✉③❡♥❄
+    ■✿ Ü❜❡r❧❛♣♣❡♥ s✐❝❤❡r✱ ❡s ❣✐❜t ▼❡t❛❧❧❡✱ ❞✐❡ ❣❡♠❡✐♥s❛♠❡s s♣✲❇❛♥❞ ❤❛❜❡♥✱
+③✳❇✳ ▼❛♥❣❛♥✳ ❆❜❡r ❦r❡✉③❡♥❄ ■❝❤ ✇üsst❡ ❦❡✐♥ ❇❡✐s♣✐❡❧✱ ❛❜❡r t❤❡♦r✳ ✇♦❤❧ ♠ö❣✲
+❧✐❝❤✳ ❉✐❡ ❦♦rr❡❦t❡ ❆♥t✇♦rt ✇✉r❞❡ ♥✐❡ ❣❡♥❛✉ ❣❡❦❧ärt✳✳✳
+    ❊✿ ❲✐❡ s✐❡❤ts ❜❡✐ ❑♦❤❧❡♥st♦✛ ❛✉s❄
+    ■✿ ❊r❦❧är❡ sp3 ✲❍②❜r✐❞✐s✐❡r✉♥❣✳
+    ❊✿ ❙tr✉❦t✉r ✈♦♥ ❉✐❛♠❛♥t❄ ❲❡❧❝❤❡ ❇✐♥❞✉♥❣❄ ❲❛r✉♠ ✐st ❉✐❛♠❛♥t s♦ ❤❛rt❄
+    ■✿ ❉✐❛♠❛♥tstr✉❦t✉r ✭❤❛❤❛ ✮✳ ✷ ❢❝❝✲●✐tt❡r ✉♠ ✶✴✹ ❘❛✉♠❞✐❛❣♦♥❛❧❡ ✈❡rs❝❤♦✲
+❜❡♥✳ ❑♦✈❛❧❡♥t❡ ❇✐♥❞✉♥❣✱ ❦❡✐♥❡ ❙❝❤✐❝❤t❡♥ ③✉♠ ❱❡rs❝❤✐❡❜❡♥✳
+    ❊✿ ❲❛s ❦❡♥♥❡♥ ❙✐❡ s♦♥st ♥♦❝❤ ❢ür ❦♦✈❛❧❡♥t❡ ❇✐♥❞✉♥❣❡♥❄
+    ■✿ ❙✐❧✐③✐✉♠✳ ❊r ✇✐❧❧ ❡t✇❛s ③✇✐s❝❤❡♥ ③✇❡✐ ✈❡rs❝❤✐❡❞❡♥❡♥ ❊❧❡♠❡♥t❡♥ ❤ör❡♥✳
+✳✳✳ ❲❛ss❡r✱ ✐st ③✇❛r ❦❡✐♥ ❑r✐st❛❧❧✳
+    ❊✿ ❍❛❜❡♥ ❙✐❡ ❞♦rt ❦❡✐♥❡ ❊❧❡❦tr♦♥❡♥✈❡rs❝❤✐❡❜✉♥❣❄
+    ■✿ ❉♦❝❤ s❝❤♦♥✱ ❞❛ ❖ ❡❧❡❦tr♦♥❡❣❛t✐✈❡r✱ ❛❧s♦ ✐♦♥✐s❝❤❡r ❆♥t❡✐❧✳ ❊s ❢♦❧❣t ❡✐♥❡
+❡t✇❛s ✈❡r✇✐rr❡♥❞❡ ❉✐s❦✉ss✐♦♥✱ ✇❛♥♥ ❡✐♥❡ ❇✐♥❞✉♥❣ ❥❡t③t ❦♦✈❛❧❡♥t ✉♥❞ ✇❛♥♥
+
+✐♦♥✐s❝❤ ✐st✳
+
+   ❊✿ ❩❡✐t ✐st ♥♦❝❤ ♥✐❝❤t ❣❛♥③ ✉♠ ✭❝❛✳ ✷✼ ♠✐♥✮✱ ❛❜❡r ❧❛ss❡♥ ✇✐rs✳
+
+    ❉✐❡ Prü❢✉♥❣s❛t♠♦s♣❤är❡ ✐st s❡❤r ❛♥❣❡♥❡❤♠ ✉♥❞ ❊♥ss❧✐♥ ❤✐❧❢t✱ ✇❡♥♥ ♠❛♥
+♥✐❝❤t ✇❡✐t❡r✇❡✐ss✳ ❍❡r❧❡✐t✉♥❣❡♥ ✉♥❞ ❣❡♥❛✉❡ ❋♦r♠❡❧♥ ♠✉ss ♠❛♥ ♥✐❝❤t ❦ö♥✲
+♥❡♥✱ ♥✉r ❆❜s❝❤ät③✉♥❣❡♥ ✉♥❞ Pr♦♣♦rt✐♦♥❛❧✐tät❡♥✳ ❉✐❡ ❋r❛❣❡♥ ✈❡r❧❛♥❣❡♥ ③✳❚✳
+◗✉❡r✈❡r❜✐♥❞✉♥❣❡♥ ③✇✐s❝❤❡♥ ❞❡♥ ❑❛♣✐t❡❧♥ ✉♥❞ ❣❡❤❡♥ ❛✉❝❤ ü❜❡r ❞❡♥ ❱♦r❧❡✲
+s✉♥❣sst♦✛ ❤✐♥❛✉s✳ ❉❡♥ ♠❛❦r♦s❦♦♣✐s❝❤❡♥ ❋❡rr♦♠❛❣♥❡t✐s♠✉s ❤❛tt❡♥ ✇✐r ✐♥ ❞❡r
+❱♦r❧❡s✉♥❣ ♥✐❡ ❜❡❤❛♥❞❡❧t ✭♥✉r ✐♥ P❤②s✐❦ ✸✮✳ ❯♥❜❡❞✐♥❣t ✈✐❡❧❡ Prü❢✉♥❣s♣r♦t♦✲
+❦♦❧❧❡ ❛♥s❝❤❛✉❡♥✱ ❞♦rt s✐♥❞ ✇♦❤❧ ❞✐❡ ♠❡✐st❡♥ s❡✐♥❡r ✬❣❡♠❡✐♥❡♥✬ ❩✇✐s❝❤❡♥❢r❛❣❡♥
+❜❡❛♥t✇♦rt❡t✳
+
+   ◆♦t❡✿ ✻
+
+
+                                      ✸
+          Prüfungsprotokoll von der Festkörperphysik 1
+
+                       von Selina Pekarek geprüft von Prof.Ensslin
+
+    Für den Einstieg darf man ein Thema selbst wählen. Ensslin stellt dabei Zwischenfragen.
+Ich wählte die Dynamik eines Atomgitters.
+
+    Ich: begann mit der 1-atomigen Kette: Newton, entkoppeln mit Ansatz ebener Wellen (gerechtfertigt,
+das periodische Struktur). Lösung dann: Dispersionsrelation.
+Ens.: Voraussetzung für das Potential?
+Ich: Es muss harmonisch sein, d.h. man nimmt an dass die Auslenkung der Atome ≪ als die Gitterkonstante.
+Weiter mit dem Übergang zur 2-atomigen Kette. Entweder 2 verschiedene Massen oder 2 vers. Abstände.
+Periodischer Abstand a wird also grösser, da Brillouinzone proportional a1 , wird Brillouinzone kleiner. Möchte
+aber immer noch alle Info in der 1. Brillouinzone. Daher faltet man zurück in 1. Brillouinzone.
+Ens.: Wieso zeichneten Sie nur die Seite rechts, bis πa ?
+Ich: ω(q) = ω(−q) und proportional zu sin( qa            π
+                                               2 ), also a -periodisch.
+Dann zeichnete ich die 1. BZ mit dem optischen und dem akustischen Ast. Wobei ich noch erwähnte, dass
+dort wo der akustische und der optische Ast den Rand der 1.BZ schneiden, je eine stehende Welle ist (Punkt
+3 und 2). Das gleiche gilt beim optischen Ast bei q = 0 (Punkt 1).
+Ens.: Stehende Welle genauer; was schwingt wie?
+Ich: Punkt 1: die beiden Massen schwingen genau gegeneinander, Punkt 2: die eine Masse ist in Ruhe, die
+andere schwingt, Punkt 3: genau umgekehrt.
+Ens.: Wieso optis. und akustischer Ast?
+Ich: akustis.Ast: ω = cq, bdt. dispersionsfreie Ausbreitung von Schallwellen
+optis.Ast: beim Punkt 1, falls entgegengesetzte Ladungen, kann Schwingung durch optis. Licht angeregt wer-
+den.
+Ens.: Wie misst man Phononen-Disp.kurven?
+Ich: Mit inelastis. Streuung
+Am Besten mit Neutronen, da deren Energie ungefähr 25meV und Energie Phononen: 0-100 meV, also Ener-
+gieüberlapp.
+Rönten: E: 50keV, brauche also Monochromatoren, das heisst brauche sehr hohe Intensitäten, damit nach
+den Monochromatoren noch genügend übrigbleibt. Geht nur mit Synchrotronstrahlung (aufwändig..)
+Raman: geht nur für kleine q
+Ens.: genauer?
+Ich: mit seiner Hilfe kam dann zustande, dass Raman nur gerade für einen Punkt und zwar Punkt 1 geht.
+Ens.: Erklärung Raman
+Ich: Begann dann mit: benützt sichtbares Licht u.s.w. Zeichnete Bildli von Suszeptibilität, Polarisation und
+Intensität (mit Zentral-, Stokes- und Antistokes-Linie) aus Ibach-Lüth.
+Ens.: Verstehe Bild von der Polarisation nicht.
+Ich: Da hat er mich erwischt, ich nämlich leider auch nicht..
+Ens.: Wieso kann man Phononen-Dispersionskurve nicht mit normalem Licht machen?
+
+
+                                                       1
+Ich: Energie, also λ stimmt nicht.
+Ens.: Laue-Bedingung für inelastische Streuung?
+Ich: G = k − k0 ± q
+Ens.: Genaue Erklärung wieso nicht mit normalem Licht?
+Ich: dazu müsste Betrag von 2k = Betrag von G. Aber Betrag von 2k: 2∗2π
+                                                                      λ ; λ ungefähr 400nm und Betrag
+von G: 2π
+        a ; a im Angströmbereich.
+
+    Ens.: Themawechsel, spezifis. Wärme von Phononen?
+Ich: Debyemodell: ω = cq, zeichnete cv (T ); bis Debyetemperatur proportional zu T 3 , dann konstant.
+Ens.: Debyetemperatur?
+Ich: h̄ωD = kB θD ; ωD : Debyefrequenz: Frequenz bei der alle Phononen aus Grundzustand angeregt. bei T
+grösser ωD : alle Phononen angeregt, also cv konstant.
+Ens.: anderes Modell?
+Ich: Einstein: statt proportional zu T 3 , exp(T).
+Ens.: Wieso exp?
+Ich: Einstein: für optischen Ast. Da sind schon alle Phononen bei Debye-Frequenz, muss sie also nicht mehr
+anregen.
+Ens.: cv für Metall?
+Ich: zusätzlich zu Phononenbeitrag gibt’s Beitrag von freien Elektronen. Beitrag proportional TTF , ist sehr
+klein, da TF = 105 K.
+Ens.: Wieso proportional zu T?
+Ich: da nicht alle Elektronen beitragen, sondern nur die bei der Verschmierung, also Anteil proportional zu
+4kB T
+Ens.: Wieso Verschmierung proportional zu 4kB T ?
+Ich: Häh? (Hab doch schon alles gesagt?)
+Ens.: cv ?
+Ich: ∂U
+      ∂T
+Ens.: also?
+Ich: ?
+Irgendwie kam dann heraus, dass Anzahl Elektronen proportional zu 4kB T und Energie pro Elektron pro-
+portional zu T. Zusammen proportional zu T 2 , dann ableiten für cv , also am Schluss proportional zu T...
+(Komische Diskussion...)
+Irgendwann noch die Frage:
+Ens.: Zustandsdichte im Debye-Modell?
+Ich: proportional zu ω 2
+
+   Ens.: Themawechsel: Diamagnetismus
+Ich: Beitrag von freien und gebundenen Elektronen
+Ens.: Gebundenen?
+Ich: Larmor und Lenz. Elektronen kreisen um Atomkern. mit B: Überlagerung der Bahnen. Daraus nach
+Lenz entgegengesetztes mag. Moment.
+Ens.: bei gefüllten Schalen?
+Ich: geht’s auch. nur Paramagnetismus geht bei gefüllten Schalen nicht.
+Ens.: bei halbgefüllten Schalen?
+Ich: geht’s immer noch! (War das eine Fangfrage?häh?)
+Ens.: jetzt Beitrag von freien Elektronen?
+Ich: Landau: Elektronen mit Geschwindigkeit v im Magnetfeld B, daraus gibt’s Lorentzkraft, also Elektronen
+auf quantisierten Kreisbahnen. Überlagerung. Daraus folgt entgegengesetztes Magnetfeld.
+Ens.: Geschwindigkeit vom Elektron?
+                                 1
+Ich: erhält man aus kF = 1010 m
+Ens.: ja, das kann man dann ja ausrechnen. Grössenordnung? Im Vergleich zu c?
+
+
+                                                     2
+Ich: ähh..sehr gross. fast c?..
+Ens.: Landau klassisch?
+Ich: gibt’s diesen Beitrag nicht, da klassisch Energie unabhängig vom Magnetfeld.
+Ens.: Genauer?
+Ich: (Mist, in alten Protokollen hat das als Antwort genügt..)(fröhliches Raten:) Quantisierung gibt’s nicht?
+Ens.: (war glaub nicht so zufrieden damit..)Zeichnen Sie mal?
+Ich: hab so kreisendes Elektron und induziertes Magnetfeld gezeichnet..
+Ens.: ja..
+hat dann Zeichnung von mir noch so gezeichnet, dass man auch etwas sieht :-)..Bildli kam mir irgendwie von
+der QM bekannt vor..
+Ens.: Jetzt?
+Ich: äh..Überlagerung gibt’s nur im quantenmechanischen Fall?
+Ens.: Wie heisst der Herr?
+Ich: Landau
+Ens.: (gab dann Diskusion endlich auf..)
+
+   Ens.: Themawechsel: p-n-Übergang, zeichnen Sie bei T = 0
+Ich: hab Bildli aus Ibach-Lüth gezeichnet. Wobei bei T = 0 EA über EF und ED unter EF . Durch Zu-
+sammenfügen werden Donatoren über EF , Akzeptoren unter EF gedrückt. Dadurch gefüllt bzw. entleert.
+Daraus entsteht Gebiet positiv und eines negativ, also Raumladung. Auch mathematisch: Raumladung und
+Potential über Poissongleichung miteinander verbunden.
+Es gibt also einen Feldstrom. Auf Grund von der unterschiedlichen Konzentration gibt’s zusätzlich Diffusi-
+onsstrom.
+Ens.: Grössen von ED und Eg ?
+Ich: ED = 30meV (Woher? Aus H-Atomrechnung) und Eg = 1eV
+Ens.: I-U-Kennlinie?
+Ich: Bildli aus Ibach-Lüth. Sperrrichtung: nur Generationsstrom da Verbiegung noch grösser und Elektronen
+nicht über Potentialbarriere kommen. Durchlassrichtung: U-abhängiger Rekombinationsstrom.
+Ens.: Abhängigkeit vom Generationsstrom?
+Ich: Generationsstrom entsteht durch thermisch angeregte Elektronen. Also T-abhängig.
+Ens.: Wie kann man in der Sperrrichtung -I verkleinern?
+Ich: Temperatur erniedrigen
+Ens.: und weiter? würden Sie Ge oder Si verwenden?
+Ich: kleiner Lacher meinerseits: Dazu müsste ich etwas mehr von Ge und Si wissen..
+Ens.: Ge: Bandlücke=.. , Si: Bandlücke=..
+Ich: Dasjenige mit kleinerer Bandlücke!
+
+    Ens.: nochmals Themawechsel: Supraleiter. Ich gebe Ihnen ein Material aus SL, wie zeigen Sie, dass das
+Material supraleitend ist?
+Ich: (Mir kommt ein etwas kompliziertes Experiment aus Ibach-Lüth in den Sinn:)
+Dampfe das Material auf Quarzstab, der an Faden aufgehängt ist. induziere Suprastrom (äusseres Magnetfeld
+an, abkühlen, äusseres Magnetfeld ab). Daraus habe ich ein magnetisches Dipol. Dann ein anderes Magnetfeld
+an; Drehmoment; Torsionsschwingung. Resonanzamplitude in Abhängigkeit vom Magnetfeld aufgezeichnet
+                      h
+zeigt quantisierte ( 2e ) Beiträge auf. Also SL.
+Ens.: Schmunzel..Richtig, etwas kompliziert..Andere Methode?
+Ich: Induziere wieder Suprastrom im Material und messe Suprastrom. Suprastrom messen: Suprastrom indu-
+ziert wiederum Magnetfeld, dieses messen mit Kernresonanzmethode (auf dieses Stichwort nickt Assi fleissig).
+                                   Rt
+Es folgt: I(t) = I0 ; I(t) = I0 e− L , also R = 0, also SL. Ens.: Okay, wir sind durch..
+
+Die Prüfung war ziemlich anstrengend. Aber ich fand die Prüfungsart trotzdem sehr angenehm. Ensslin
+lässt Zeit zum Überlegen. Bluffen funktioniert bei ihm nicht, er merkt genau was man nicht kann.. Note: 6
+
+
+                                                      3
+                  Fach: Festkörperphysik I
+                 Dozent: Prof. Dr. K. Ensslin
+                 Prüfungssession Herbst 2005
+Ich: Guten Morgen.
+KE: Guten Morgen Herr S., womit möchten Sie beginnen?
+Ich: Mit der Herleitung der Bloch-Zustände im periodischen Potential.
+KE: OK. Dann machen Sie mal.
+Ich: Fange an, mehr oder weniger Kapitel 7.1 aus dem Ibach-Lüth anzuschreiben.
+Nehme Schrödinger-Gleichung, Fourier-Entwicklung des periodischen Poten-
+tials, Superposition ebener Wellen als Ansatz für die Wellenfunktion. Will
+gerade mit der Umbenennung des Summationsindex kommen, als...
+KE: OK, schreiben Sie einfach das Ergebnis an!
+Ich: Schreibe die k-indizierten Wellenfunktionen hin, gitterperiodischer Mod-
+ulationsfaktor. Wellenfunktionen gehören zu jeweils einem k-Wert der En-
+ergie.
+KE: Und was bekommen Sie für die Energien?
+Ich: (überlege, was er meint, dann natürlich) Energie ist periodisch in k.
+KE: Und was sind die Voraussetzungen für das Bloch-Theorem?
+Ich: Perfekt periodisches Potential, damit die Fourier-Entwicklung geht.
+KE: Und was sind die VG s hier?
+Ich: Die Fourierkomponenten des Potentials.
+KE: Haben die einen Einfluss darauf, ob die Blochsche Näherung geht?
+Müssen die klein gegen etwas sein?
+Ich: Nein.
+KE: Wirklich?
+Ich: (etwas zögerlicher) glaub nicht?!?
+KE: Lassen Sie sich durch meine Fragerei nicht durcheinanderbringen. Hat
+die Größe der Fourierkomponenten einen Einfluss?
+Ich: Nur auf die Größe der Bandlücke im Modell der quasifreien Elektronen.
+KE: Quasifreie Elektronen, Bandstruktur. Erklären Sie das!
+Ich: Setze periodische Parabeln für die Energie an, Entartung, Überlagerung
+von Wellen am BZ-Rand...
+KE: Bitte gleich das Ergebnis!
+Ich: Gebe die Aufenthaltswahrscheinlichkeitsdichten an, Energieabsenkung
+resp. Erhöhung. Bandlücke ist proportional dem doppelten Fourierkoef-
+fizienten des Potentials, für glattes Potential monoton fallend.
+KE: Anderes Extrem: tight binding model!
+Ich: Erkläre Änderung des Hamiltonoperators, komme dann auf seine An-
+                                                       P
+weisung gleich zum Ergebnis E(k) = Ei − A − 2B · m6=n exp ik(rn − rn ).
+Sage zuerst versehentlich Ionisierungsenergie statt Eigenenergie, bessere mich
+auf seine Nachfrage ”Welche Ionisierungsenergie?” aus.
+KE: Was sind A und B?
+Ich: Störpotential am Ort n bzw. der Überlapp.
+
+                                    1
+KE: Welches Band wird mehr abgesenkt?
+Ich: Das Obere.
+KE: Können sich die Bänder überlappen oder gar kreuzen?
+Ich: Hm, wenn A groß genug ist, müsste es gehen...
+KE: Welches Band (welche Wellenfunktion) ist denn breiter?
+Ich: (stehe total auf der Leitung. Brauche recht lange Diskussion, bis) Das
+untere ist breiter, das bei der niedrigeren Energie.
+KE: Gut, Themenwechsel. Wie sieht die Temperaturabhängigkeit des Wider-
+stands für ein Metall aus?
+Ich: Zeichne den konstant für kleine T - T 5 -abhängig im Übergangsbereich
+- linear in T für große T - Graphen. Konstant wegen Störstellendominanz,
+linear, weil die Relaxationszeit für Phononenstreuung proportional 1/T .
+KE: Und die spezifische Wärme?
+Ich: Im Metall wahrscheinlich Elektronenenergie dominant, also linear in
+T.
+KE: Warum?
+Ich: Nur Elektronen in der Aufweichungszone der Fermi-Funktion (∝ 4kT )
+tragen zur inneren Energie bei. Sie können jeweils kT an Energie aufnehmen.
+Daher ist die innere Energie proportional T 2 und die Temperaturableitung
+linear in T.
+KE: Und experimentell? Bekommt man da wirklich eine lineare Beziehung?
+Ich: Nein. Phononen tragen auch noch zur spezifischen Wärme bei. Die
+Beziehung lautet cV ≈ γT + βT 3 .
+KE: Wann gilt diese Approximation?
+Ich: Für T klein gegen die Debye-Temperatur.
+KE: Wie ist die Debye-Temperatur definiert?
+Ich: Über die cut-off-Frequenz im Debye-Modell für die spezifische Wärme:
+ωD = kΘ/h̄.
+KE: Was brauchen Sie für das Debye-Modell?
+Ich: Freies Elektronengas.
+KE: Nein! Debye! Überlegen Sie nochmal.
+Ich: Ach so, natürlich! Harmonische Näherung, Auslenkung klein gegen die
+Gitterkonstante.
+KE: Und was noch?
+Ich: (ups. Noch was?? Hab keine Ahnung)
+KE: Was ist der Unterschied zwischen Debye und Einstein?
+Ich: Sorry, weiß nicht.
+KE: Gut. Temperaturabhängigkeit des Widerstands im Halbleiter?
+Ich: Mache ich gleich für den dotierten HL. Male die 3-Stufen-Graphik: ex-
+ponentiell fallend wegen Donatoranregung, mit T 3/2 steigend wegen Phononen-
+streuung, dann wieder exponentiell fallend wegen Anregung von Elektronen
+aus dem Leitungsband. Schreibe noch die exp Ed /2kT resp. exp Eg /2kT an,
+wobei er mich noch drauf aufmerksam macht, dass ich erst die 2 vergessen
+hatte.
+
+                                    2
+KE: Gut Herr S., das wars!
+Beisitzer: Nein, das war erst etwas über ne 1/4-Stunde!
+KE: (nach mehrmaligem Uhrenvergleich und Diskussion, wann die Prüfung
+angefangen hatte) Wie auch immer, ich sage das wars!
+
+Bemerkungen: Ensslin machte nen sympathischen Eindruck. Wenn man
+etwas nicht weiß, rate ich euch an, das klipp und klar zu sagen, dann geht
+er einfach zur nächsten Frage über. Hat man eine vage Ahnung, fragt er so
+lange gezielt, bis man draufgekommen ist.
+Ich war genau 20 Minuten drin, bis er meinte, es genüge ihm. Bei meinem
+Vorgänger hat er allerdings 5 Minuten überzogen.
+Beim Lernen auf keinen Fall irgendwelche Herleitungen auswendiglernen,
+sowas interessiert ihn überhaupt nicht.
+Viel Glück bei euren Prüfungen.
+
+
+
+
+                                    3
+   Prüfungsart         Physik, Schlussdiplom Teil A
+
+   Prüfungssession         Herbst 2005
+
+   Fach       Festkörperphysik
+
+   Dozent        Prof. K. Ensslin
+
+   Einstiegsvortrag über Debye Modell der spezifischen Wärme.
+
+    Formel für innere Energie mit Integral. Dispersionsrelation aufgezeichnet
+und lineare Näherung von Debye eingezeichnet. Abschneidefrequenz so defi-
+niert, dass Integral über Frequenzen Anzahl der Phononen 3rN gibt. Dann
+wollt er bereits den fertigen Graphen sehen. Dort habe ich noch den kon-
+stanten Grenzwert V1 3rN k eingezeichnet und die T 3 Abhängigkeit für tiefe
+Temperaturen. Dann wollte Ensslin das Einstein Modell. Nur eine Frequenz,
+das führt zur gleichen Konstanten für hohe Temperaturen und T −2 · eT für
+kleine Temperaturen. Dann wollte er wissen, welches Modell besser ist. De-
+bye ist im Bereich tiefer Temperaturen besser, da kleine Energien ⇒ kleine
+Frequenzen (akustischer Ast).
+
+    Als nächstes wollte er die spezifische Wärme für Elektronen. Ich erzählte
+von Elektronen aus Aufweichzone, die kT an Energie aufnehmen. Führt zur
+linearen Abhängigkeit in T , da C die Ableitung von U nach T ist. Dann kam
+ein kurzer Exkurs über spez. Wärme beim Supraleiter (lin. für Normalleiter,
+Sprung, Energielücke wegen exp Verhalten). Da wollte er noch wissen, ob man
+da einen Vergleich zum Einsteinmodell machen kann, wegen exp. Verhalten.
+Ja gibt es, wegen fixer Frequenz wie Energielücke die angeregt werden muss.
+
+     Dann Themawechsel zu tight binding. Da musste ich erklären wie das
+zustande kommt und was man da so macht. Superposition von atomaren
+Wellenfunktionen, Störung durch alle benachbarten atomaren Potenziale,
+Störungsrechnung. Berechnung des Energieerwartungswertes und ungefähre
+Formel E = Ei − A − B · Oszillation. A ist Absenkung und B Verbreiterung
+für Band. Dazu wollte er die Grafik sehen. Dann war die Frage ob höhere
+Energien stärker abgesenkt werden und ob die Bänder breiter werden. Dann
+noch die Frage, ob die Bänder sich schneiden können. Ja es ist so, aber die
+Begründung weiss ich nicht genau, wie ich auch kein Beispiel wusste.
+
+  Dann haben wir ionische, kovalente und metallische Bindung besprochen.
+Wie die zustande kommt und was die Eigenschaften sind und vorallem, wie
+
+                                       1
+genau die Energieabsenkung für die Bindung zu Stande kommt. Dann kam
+noch die Frage, ob metallische Bindung auch kovalenten Anteil hat.
+
+    Zum Schluss haben wir noch über Diamagnetismus gesprochen. Wie der
+zustande kommt und was die Bedingungen sind. Da habe ich leider nicht ge-
+rade viel gewusst. Ich habe über L und S Werte gesprochen, gefüllte Schalen
+und Kreisströme, die durch das Magnetfeld entstehen (Lorentzkraft, sie wer-
+den nicht durch Induktion gebildet). Dann noch wie es bei freien Elektronen
+aussieht. Reiner Quanteneffekt, klassisch kein netto Kreisstrom und daher
+kein Magnetismus. In QM kann man mit dem B-Feld die Energie ändern,
+darum klappt es mit den quantisierten Zyklotronfrequenzen.
+
+    Das war’s. Er bohrt teilweise recht nach, aber das weiss man ja. Dafür
+hilft er auch, wenn man nicht weiterkommt und versucht heraus zufinden, ob
+man es verstanden hat, oder einfach nur weiss.
+
+
+
+
+                                     2
+

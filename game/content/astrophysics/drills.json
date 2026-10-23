@@ -1,0 +1,3467 @@
+{
+ "spot": [
+  {
+   "id": "drill-astrophysics-spot-1",
+   "room": "photometry-radiation",
+   "title": "Distance modulus: which way does the sign go?",
+   "intro": "A star has apparent magnitude $m=12.0$ and absolute magnitude $M=2.0$. Find its distance. One step of the solution below is wrong.",
+   "steps": [
+    "$m-M = 12.0-2.0 = 10$.",
+    "The distance modulus is $m-M = 5\\log_{10}(d/10\\,\\mathrm{pc})$.",
+    "Solve for $d$: $d = 10\\,\\mathrm{pc}\\cdot 10^{-(m-M)/5}$.",
+    "$d = 10\\,\\mathrm{pc}\\cdot 10^{-2} = 0.1\\,\\mathrm{pc}$.",
+    "So the star is closer than any known star, and it would appear very bright."
+   ],
+   "error": 2,
+   "why": "Inverting $m-M=5\\log_{10}(d/10\\,\\mathrm{pc})$ gives a positive exponent. The star is fainter than its absolute magnitude (m > M), so it must be farther than 10 pc, not nearer.",
+   "fix": "$d = 10\\,\\mathrm{pc}\\cdot 10^{(m-M)/5} = 10\\,\\mathrm{pc}\\cdot 10^{2} = 1000\\,\\mathrm{pc}$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q1 (SN Ia magnitude), topic distance modulus"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-2",
+   "room": "photometry-radiation",
+   "title": "Wien peak to luminosity of a hot star",
+   "intro": "A star radiates as a blackbody with peak wavelength $\\lambda_\\mathrm{max}=290\\,\\mathrm{nm}$ and radius $R=2\\,R_\\odot$. Find $L/L_\\odot$ with $L_\\odot=3.83\\times10^{26}\\,\\mathrm{W}$. One step is wrong.",
+   "steps": [
+    "Wien: $T = b/\\lambda_\\mathrm{max}$ with $b=2.898\\times10^{-3}\\,\\mathrm{m\\,K}$, so $T\\approx 1.0\\times10^4\\,\\mathrm{K}$.",
+    "$R = 2\\times 6.96\\times10^{8}\\,\\mathrm{m} = 1.39\\times10^{9}\\,\\mathrm{m}$.",
+    "Flux from the surface: $\\sigma T^4 = 5.67\\times10^{-8}\\cdot 10^{16} = 5.67\\times10^{8}\\,\\mathrm{W\\,m^{-2}}$.",
+    "Emitting area: the star's disc, $A=\\pi R^2 = 6.07\\times10^{18}\\,\\mathrm{m^2}$.",
+    "$L = A\\,\\sigma T^4 = 3.4\\times10^{27}\\,\\mathrm{W}\\approx 9\\,L_\\odot$."
+   ],
+   "error": 3,
+   "why": "The star emits from its whole spherical surface, not only from the projected disc. Using $\\pi R^2$ instead of $4\\pi R^2$ loses a factor 4.",
+   "fix": "$A=4\\pi R^2 = 2.43\\times10^{19}\\,\\mathrm{m^2}$, so $L = 1.38\\times10^{28}\\,\\mathrm{W}\\approx 36\\,L_\\odot$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q3 (MS star, Wien peak, T_eff), topic Stefan-Boltzmann"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-3",
+   "room": "radiative-transfer",
+   "title": "From extinction in magnitudes to optical depth",
+   "intro": "Dust dims a background star by $A_V = 2.0$ mag. Find the optical depth $\\tau$ along the line of sight. One step is wrong.",
+   "steps": [
+    "Magnitude difference: $\\Delta m = -2.5\\log_{10}(F/F_0) = 2.0$.",
+    "So $F/F_0 = 10^{-0.4\\cdot 2.0} = 10^{-0.8}=0.158$.",
+    "Pure absorption in the slab: $F = F_0\\,e^{-\\tau}$.",
+    "Therefore $\\tau = -\\log_{10}(0.158) = 0.80$.",
+    "Since $\\tau<1$ the dust screen is optically thin."
+   ],
+   "error": 3,
+   "why": "The exponential $e^{-\\tau}$ has to be inverted with the natural logarithm, not $\\log_{10}$. Mixing the two logs is the classic slip: $A_V = 1.086\\,\\tau$, not $A_V=\\tau$.",
+   "fix": "$\\tau = -\\ln(0.158) = 1.84$ (equivalently $A_V/1.086$). The screen is optically thick at $\\tau>1$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q4 (extinction vs Galactic latitude), topic optical depth and magnitudes"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-4",
+   "room": "active-galaxies",
+   "title": "Eddington luminosity of a supermassive black hole",
+   "intro": "Compute $L_\\mathrm{Edd}$ for a black hole of $10^{7}\\,M_\\odot$ using the balance of radiation force on electrons and gravity. One step is wrong.",
+   "steps": [
+    "Radiation force per electron at radius $r$: $F_\\mathrm{rad}=\\sigma_T L/(4\\pi r^2 c)$.",
+    "Electrons are coupled to protons by the Coulomb force, so gravity acts on the pair: $F_\\mathrm{grav}= GM m_p/r^2$.",
+    "Setting $F_\\mathrm{rad}=F_\\mathrm{grav}$, the factor $r^2$ cancels: $L_\\mathrm{Edd}=4\\pi G M m_p c/\\sigma_T$.",
+    "Insert numbers with the electron mass, since electrons feel the radiation: $m=m_e=9.1\\times10^{-31}\\,\\mathrm{kg}$.",
+    "With $M=10^7\\,M_\\odot$ this gives $L_\\mathrm{Edd}\\approx 6.8\\times10^{34}\\,\\mathrm{W}$."
+   ],
+   "error": 3,
+   "why": "The radiation acts on electrons but the inertia/gravity is carried by the protons they are bound to, so $m_p$ appears. Using $m_e$ underestimates $L_\\mathrm{Edd}$ by $m_p/m_e\\approx1836$, in contradiction with step 2.",
+   "fix": "$L_\\mathrm{Edd}=4\\pi G M m_p c/\\sigma_T \\approx 1.26\\times10^{31}\\,\\mathrm{W}\\,(M/M_\\odot)=1.26\\times10^{38}\\,\\mathrm{W}$ for $10^7 M_\\odot$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q3 (hydrostatic equilibrium to Eddington luminosity), topic Eddington limit"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-5",
+   "room": "galactic-dynamics",
+   "title": "Virial mass of a galaxy cluster",
+   "intro": "Galaxies in a cluster of radius $R=1\\,\\mathrm{Mpc}$ have a line-of-sight velocity dispersion $\\sigma=1000\\,\\mathrm{km/s}$. Estimate the mass. One step is wrong.",
+   "steps": [
+    "Measured: $\\sigma$ is the dispersion of one velocity component only.",
+    "Isotropic orbits: $\\langle v^2\\rangle=\\sigma^2$.",
+    "Virial theorem: $2K+U=0$ with $K=\\tfrac12 M\\langle v^2\\rangle$ and $U\\approx -GM^2/R$.",
+    "So $M\\langle v^2\\rangle = GM^2/R$, i.e. $M = R\\langle v^2\\rangle/G$.",
+    "$M = (3.09\\times10^{22}\\,\\mathrm{m})(10^{12}\\,\\mathrm{m^2/s^2})/G = 4.6\\times10^{44}\\,\\mathrm{kg}\\approx 2.3\\times10^{14}\\,M_\\odot$."
+   ],
+   "error": 1,
+   "why": "The 3D mean square speed is the sum of three components: $\\langle v^2\\rangle = 3\\sigma^2$ for isotropic orbits. The line-of-sight dispersion is only one of them.",
+   "fix": "$\\langle v^2\\rangle=3\\sigma^2$, hence $M = 3\\sigma^2R/G\\approx 7\\times10^{14}\\,M_\\odot$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q5 (cluster L_X via virial) and Q5 of the practice exam, topic virial theorem"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-6",
+   "room": "interstellar-medium",
+   "title": "How the Jeans mass changes in an isothermal collapse",
+   "intro": "A cloud collapses isothermally and its density rises by a factor 100. How does the Jeans mass change? One step is wrong.",
+   "steps": [
+    "Jeans length: $\\lambda_J\\sim c_s\\sqrt{\\pi/(G\\rho)}$.",
+    "Jeans mass: $M_J\\sim\\rho\\,\\lambda_J^3$.",
+    "Hence $M_J\\propto c_s^3\\rho^{-1/2}\\propto T^{3/2}\\rho^{-1/2}$.",
+    "Isothermal means $T$ is constant, and $\\rho$ grows by 100.",
+    "Therefore $M_J\\propto\\rho^{-3/2}$ drops by a factor $100^{3/2}=1000$, so small fragments become unstable."
+   ],
+   "error": 4,
+   "why": "At fixed $T$, step 3 gives $M_J\\propto\\rho^{-1/2}$. The exponent $-3/2$ is that of $\\lambda_J^3$ alone; it ignores the factor $\\rho$ in $M_J\\sim\\rho\\lambda_J^3$.",
+   "fix": "$M_J\\propto\\rho^{-1/2}$ falls by $100^{1/2}=10$; fragmentation still follows, only less dramatically.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "adapted from Ch. 8.3, topic Jeans instability"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-7",
+   "room": "expanding-universe",
+   "title": "Age of a flat matter-dominated universe: units trap",
+   "intro": "Estimate the age of a flat, matter-only universe with $H_0=70\\,\\mathrm{km\\,s^{-1}\\,Mpc^{-1}}$. One step is wrong.",
+   "steps": [
+    "$H_0 = 70\\,\\mathrm{km/s/Mpc}$ and $1\\,\\mathrm{Mpc}=3.09\\times10^{22}\\,\\mathrm{m}$.",
+    "Convert: $H_0 = 70/(3.09\\times10^{22})\\,\\mathrm{s^{-1}} = 2.27\\times10^{-21}\\,\\mathrm{s^{-1}}$.",
+    "Flat matter-dominated: $a\\propto t^{2/3}$.",
+    "Then $H=\\dot a/a = 2/(3t)$, so $t_0 = 2/(3H_0)$.",
+    "$t_0 = 2.9\\times10^{20}\\,\\mathrm{s}\\approx 9\\times10^{12}\\,\\mathrm{yr}$."
+   ],
+   "error": 1,
+   "why": "The kilometre was not converted to metres. $70\\,\\mathrm{km}=7\\times10^4\\,\\mathrm{m}$, so the numerator must be $7\\times10^4$. The result 9 Tyr is absurd (older than any star) and should trigger a sanity check.",
+   "fix": "$H_0 = 7\\times10^4/3.09\\times10^{22} = 2.27\\times10^{-18}\\,\\mathrm{s^{-1}}$, so $t_0=2/(3H_0)=2.9\\times10^{17}\\,\\mathrm{s}\\approx 9.3\\,\\mathrm{Gyr}$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+    "where": "adapted from Open Q7 (Friedmann, a(t)), topic matter-dominated age"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-8",
+   "room": "expanding-universe",
+   "title": "Hubble-law distance from a measured redshift",
+   "intro": "The H$\\alpha$ line (656.3 nm) of a galaxy is observed at 722 nm. Use $H_0=70\\,\\mathrm{km\\,s^{-1}\\,Mpc^{-1}}$. One step is wrong.",
+   "steps": [
+    "$1+z=\\lambda_\\mathrm{obs}/\\lambda_\\mathrm{em}=722/656.3=1.100$.",
+    "So $z=0.100$, small enough for the low-redshift approximation.",
+    "$v = cz = 3.0\\times10^{4}\\,\\mathrm{km/s}$.",
+    "Hubble law: $d = H_0\\,v = 70\\cdot 3.0\\times10^4 = 2.1\\times10^{6}\\,\\mathrm{Mpc}$.",
+    "This is far beyond the observable universe, which is odd for $z=0.1$."
+   ],
+   "error": 3,
+   "why": "The Hubble law is $v=H_0 d$, so $d=v/H_0$. Multiplying gives units of $\\mathrm{km^2\\,s^{-2}\\,Mpc^{-1}}$, not Mpc, and an impossible distance.",
+   "fix": "$d = v/H_0 = 3.0\\times10^4/70\\,\\mathrm{Mpc}\\approx 430\\,\\mathrm{Mpc}$.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "adapted from Ch. 10.3-10.4, topic Hubble law and redshift"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-9",
+   "room": "stellar-forge",
+   "title": "Main-sequence lifetime of a 10 solar-mass star",
+   "intro": "Using $L\\propto M^3$ and a Sun lifetime $t_\\odot=10\\,\\mathrm{Gyr}$, estimate the main-sequence lifetime of a $10\\,M_\\odot$ star. One step is wrong.",
+   "steps": [
+    "Luminosity scaling: $L/L_\\odot=(M/M_\\odot)^3 = 10^3$.",
+    "Fuel available is proportional to the mass: $E\\propto M$.",
+    "Lifetime is fuel over burning rate: $t = E/L \\propto M/L$.",
+    "Hence $t = t_\\odot\\cdot (L/L_\\odot)/(M/M_\\odot) = 10\\,\\mathrm{Gyr}\\cdot 1000/10$.",
+    "$t = 1000\\,\\mathrm{Gyr}$: massive stars live far longer than the Sun."
+   ],
+   "error": 3,
+   "why": "Step 3 says $t\\propto M/L$, but step 4 inserts $L/M$, inverting the ratio. A bright star burns out faster; a result of 1000 Gyr (far above the age of the universe) is a red flag.",
+   "fix": "$t = t_\\odot\\,(M/M_\\odot)/(L/L_\\odot) = 10\\,\\mathrm{Gyr}\\cdot 10/1000 = 0.1\\,\\mathrm{Gyr}=100\\,\\mathrm{Myr}$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q3 (10 Msun star), topic M-L scaling and MS lifetime"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-10",
+   "room": "galactic-dynamics",
+   "title": "Flat rotation curve from an isothermal halo",
+   "intro": "A halo has density $\\rho(r)=\\rho_0 r_0^2/r^2$. Show that the circular speed is independent of $r$. One step is wrong.",
+   "steps": [
+    "Profile: $\\rho(r)=\\rho_0 r_0^2/r^2$.",
+    "Enclosed mass: $M(r)=\\int_0^r \\rho\\,r'^2\\,dr' = \\rho_0 r_0^2\\, r$.",
+    "Circular orbit: $v^2/r = GM(r)/r^2$, so $v^2=GM(r)/r$.",
+    "Insert $M(r)$: $v^2 = G\\rho_0 r_0^2$.",
+    "This does not depend on $r$, so the rotation curve is flat."
+   ],
+   "error": 1,
+   "why": "The mass element is $dM=4\\pi r'^2\\rho\\,dr'$. The factor $4\\pi$ from the solid angle was dropped, which rescales the plateau speed by $\\sqrt{4\\pi}$ even though the flatness conclusion survives.",
+   "fix": "$M(r)=4\\pi\\rho_0 r_0^2\\,r$, hence $v^2=4\\pi G\\rho_0 r_0^2$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+    "where": "adapted from Open Q6 (flat rotation curve, escape velocity), topic isothermal halo"
+   }
+  },
+  {
+   "id": "drill-astrophysics-spot-11",
+   "room": "early-universe",
+   "title": "Temperature during the radiation era",
+   "intro": "At $t=1\\,\\mathrm{s}$ the temperature is $10^{10}\\,\\mathrm{K}$. Estimate $T$ at $t=100\\,\\mathrm{s}$ in the radiation era. One step is wrong.",
+   "steps": [
+    "Radiation density $\\rho_r\\propto a^{-4}$ and $T\\propto 1/a$.",
+    "Friedmann (flat): $H^2\\propto\\rho_r\\propto a^{-4}$.",
+    "Use the matter-era result $a\\propto t^{2/3}$.",
+    "Then $T\\propto t^{-2/3}$.",
+    "$T(100\\,\\mathrm{s}) = 10^{10}\\,\\mathrm{K}\\cdot 100^{-2/3} = 4.6\\times10^{8}\\,\\mathrm{K}$."
+   ],
+   "error": 2,
+   "why": "$a\\propto t^{2/3}$ holds for matter. With $H^2\\propto a^{-4}$, $\\dot a\\,a=\\mathrm{const}$ so $a\\propto t^{1/2}$ in the radiation era.",
+   "fix": "$a\\propto t^{1/2}$, $T\\propto t^{-1/2}$, so $T(100\\,\\mathrm{s}) = 10^{10}\\cdot 100^{-1/2}=10^{9}\\,\\mathrm{K}$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q7 (radiation era, T(a), BBN), topic a(t) in radiation era"
+   }
+  }
+ ],
+ "limits": [
+  {
+   "id": "drill-astrophysics-lim-1",
+   "room": "radiative-transfer",
+   "title": "Thin slab, no background",
+   "formula": "$I_\\nu = I_\\nu(0)e^{-\\tau_\\nu}+S_\\nu\\,(1-e^{-\\tau_\\nu})$",
+   "prompt": "A slab of constant source function $S_\\nu$ with optical depth $\\tau_\\nu\\ll1$ is seen against no background ($I_\\nu(0)=0$). What is the emergent intensity?",
+   "options": [
+    "$I_\\nu\\approx S_\\nu$",
+    "$I_\\nu\\approx \\tau_\\nu S_\\nu$",
+    "$I_\\nu\\approx S_\\nu e^{-\\tau_\\nu}$",
+    "$I_\\nu\\approx 0$, since nothing is incident"
+   ],
+   "correct": 1,
+   "explain": "With $I_\\nu = I_\\nu(0)e^{-\\tau}+S_\\nu(1-e^{-\\tau})$ and $I_\\nu(0)=0$, expanding for small $\\tau$ gives $I_\\nu\\approx\\tau_\\nu S_\\nu$. The slab emits in proportion to its optical depth. Option 0 is the thick limit.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 2.2 (radiative transfer); HS24-HS25 MC on optical depth"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-2",
+   "room": "radiative-transfer",
+   "title": "Thick slab: what do you see?",
+   "prompt": "Looking into a very optically thick ($\\tau\\gg1$) gas in LTE at temperature $T$, the specific intensity you receive is:",
+   "options": [
+    "$B_\\nu(T)$ of the layer at $\\tau\\sim1$, independent of the background",
+    "$I_\\nu(0)e^{-\\tau}$, i.e. the attenuated background",
+    "$\\tau B_\\nu(T)$, growing with depth",
+    "Zero, because all light is absorbed"
+   ],
+   "correct": 0,
+   "explain": "For $\\tau\\gg1$ the background term is erased and $I_\\nu\\to S_\\nu = B_\\nu(T)$ in LTE. You only see down to $\\tau\\sim1$, which is why a photosphere has a well defined temperature.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 2.2-2.3 (source function, LTE, Kirchhoff)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-3",
+   "room": "degenerate-matter",
+   "title": "Adding mass to a white dwarf",
+   "formula": "$R\\propto M^{-1/3}$",
+   "prompt": "In the non-relativistic degenerate limit ($P\\propto\\rho^{5/3}$) a white dwarf gains mass. What happens to its radius?",
+   "options": [
+    "It grows, like for a normal star",
+    "It stays constant",
+    "It shrinks, $R\\propto M^{-1/3}$",
+    "It shrinks until it reaches the Schwarzschild radius"
+   ],
+   "correct": 2,
+   "explain": "Balancing $P\\sim GM^2/R^4$ with $P\\propto\\rho^{5/3}\\propto (M/R^3)^{5/3}$ gives $R\\propto M^{-1/3}$. More massive white dwarfs are smaller; the relativistic correction then stops the trend near $M_\\mathrm{Ch}$.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 5.2-5.3 (white dwarfs, Chandrasekhar), topic degeneracy limits"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-4",
+   "room": "degenerate-matter",
+   "title": "Ultra-relativistic degeneracy",
+   "prompt": "In the ultra-relativistic degenerate limit $P\\propto\\rho^{4/3}$. What does hydrostatic equilibrium then require?",
+   "options": [
+    "Any mass is stable with a suitable radius",
+    "A unique mass, independent of radius (the Chandrasekhar mass)",
+    "The radius to go to infinity as $M$ grows",
+    "The star to be stable only for $M\\to0$"
+   ],
+   "correct": 1,
+   "explain": "With $P\\sim K\\rho^{4/3}$ both the pressure and the gravitational requirement scale as $M^{2/3}/R^4$ versus $M^2/R^4$: the radius cancels and only one mass, $M_\\mathrm{Ch}\\approx1.4\\,M_\\odot$, satisfies equilibrium. Above it the star collapses.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 5.3 (Chandrasekhar limit)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-5",
+   "room": "early-universe",
+   "title": "What dominates the early universe?",
+   "formula": "$H^2=\\frac{8\\pi G}{3}\\left(\\rho_m+\\rho_r\\right)-\\frac{kc^2}{a^2}+\\frac{\\Lambda}{3}$",
+   "prompt": "In the Friedmann equation with matter ($\\propto a^{-3}$), radiation ($\\propto a^{-4}$), curvature ($\\propto a^{-2}$) and $\\Lambda$ ($\\propto a^0$), which term dominates as $a\\to0$?",
+   "options": [
+    "Matter",
+    "Curvature",
+    "Radiation",
+    "The cosmological constant"
+   ],
+   "correct": 2,
+   "explain": "At small $a$ the steepest power of $1/a$ wins: radiation. Curvature and $\\Lambda$ matter only later, which is why the early universe looks flat and $a\\propto t^{1/2}$ at first.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q7 (radiation era) and MC on Friedmann terms"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-6",
+   "room": "expanding-universe",
+   "title": "Late-time fate with a cosmological constant",
+   "prompt": "If $\\Omega_\\Lambda>0$ and the universe keeps expanding, what happens to $a(t)$ at very late times?",
+   "options": [
+    "$a\\propto t^{2/3}$ forever",
+    "$a\\propto t^{1/2}$",
+    "$a\\propto e^{Ht}$ with $H=\\sqrt{\\Lambda/3}$ constant",
+    "$a$ reaches a maximum and recollapses"
+   ],
+   "correct": 2,
+   "explain": "Matter and curvature terms fall as $a^{-3}$, $a^{-2}$ while the $\\Lambda$ term is constant, so eventually $H^2\\to\\Lambda/3$ and the expansion is exponential (de Sitter). Recollapse needs positive curvature dominating, not $\\Lambda>0$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+    "where": "Open Q7 (Friedmann, a(t))"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-7",
+   "room": "expanding-universe",
+   "title": "Curvature and the closed universe",
+   "prompt": "In a closed universe ($k=+1$) without $\\Lambda$, the Friedmann equation $\\dot a^2=\\frac{8\\pi G}{3}\\rho a^2-kc^2$ implies what for the expansion?",
+   "options": [
+    "It continues forever with $\\dot a\\to c$",
+    "It stops at a maximum $a_\\mathrm{max}$ where $\\dot a=0$, then recollapses",
+    "It stops at a finite $a$ and stays static",
+    "It accelerates"
+   ],
+   "correct": 1,
+   "explain": "As $\\rho a^2\\propto a^{-1}$ (matter) decreases, the first term eventually falls below $kc^2$, so $\\dot a^2=0$ at $a_\\mathrm{max}$ and the universe recollapses, giving a finite lifetime.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q7 (closed universe, lifetime)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-8",
+   "room": "stellar-forge",
+   "title": "High vs low mass: main-sequence lifetime",
+   "formula": "$t_\\mathrm{MS}\\propto M/L$",
+   "prompt": "Compared to the Sun, a $20\\,M_\\odot$ main-sequence star has a lifetime that is:",
+   "options": [
+    "Longer, since it has more fuel",
+    "About the same, since fuel and luminosity both scale with $M$",
+    "Much shorter, since $L$ grows faster than $M$",
+    "Shorter only because it is hotter, not because of $L$"
+   ],
+   "correct": 2,
+   "explain": "$t\\propto M/L$ and $L\\propto M^{3}$ or steeper, so $t\\propto M^{-2}$ or steeper: tens of Myr instead of 10 Gyr. This sets why massive stars are rare relics of recent star formation.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q3 (10 Msun star), MC on lifetimes"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-9",
+   "room": "nuclear-furnace",
+   "title": "pp chain vs CNO cycle",
+   "prompt": "Why does the CNO cycle dominate energy generation in stars somewhat more massive than the Sun?",
+   "options": [
+    "It needs less temperature than the pp chain",
+    "Its rate rises much more steeply with temperature ($\\epsilon\\propto T^{\\sim16}$ versus $T^{\\sim4}$) and massive stars have hotter cores",
+    "More massive stars have no hydrogen to fuse in pp",
+    "CNO is not affected by the Coulomb barrier"
+   ],
+   "correct": 1,
+   "explain": "Both cycles must overcome the Coulomb barrier, but CNO involves higher charge, so its rate is far more sensitive to $T$. Above a core temperature of roughly $1.7\\times10^7\\,\\mathrm{K}$ it wins, and it drives convective cores.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 4.1-4.3 (pp chain, CNO cycle)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-10",
+   "room": "galactic-dynamics",
+   "title": "Hot gas versus the virial temperature",
+   "prompt": "A cluster potential well has a virial temperature $kT_\\mathrm{vir}\\sim G M\\mu m_p/R$. Gas at $T\\gg T_\\mathrm{vir}$ will:",
+   "options": [
+    "Collapse rapidly into the centre",
+    "Stay in hydrostatic equilibrium by exact balance",
+    "Have pressure exceeding gravitational binding and flow out (or be heated further from the outside)",
+    "Cool by Compton scattering to $T_\\mathrm{vir}$ at once"
+   ],
+   "correct": 2,
+   "explain": "Gas can stay bound only if its thermal energy per particle is of order the potential depth. At $T\\gg T_\\mathrm{vir}$ it is energetically unbound, while at $T\\ll T_\\mathrm{vir}$ it falls inwards until pressure support builds up. This is the basis of the L_X estimate via the virial theorem.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q5 (thermal bremsstrahlung cluster via virial)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-11",
+   "room": "interstellar-medium",
+   "title": "Jeans length: small and large scales",
+   "prompt": "A perturbation in a gas cloud has a wavelength $\\lambda$. What distinguishes $\\lambda\\ll\\lambda_J$ from $\\lambda\\gg\\lambda_J$?",
+   "options": [
+    "Both collapse, only on different timescales",
+    "$\\lambda\\ll\\lambda_J$ oscillates as a sound wave; $\\lambda\\gg\\lambda_J$ grows (collapses) because gravity beats pressure",
+    "$\\lambda\\ll\\lambda_J$ collapses; $\\lambda\\gg\\lambda_J$ oscillates",
+    "Neither changes because the cloud is in equilibrium"
+   ],
+   "correct": 1,
+   "explain": "The sound-crossing time over a scale $\\lambda$ is $\\lambda/c_s$. If it is shorter than the free-fall time pressure can respond and the mode oscillates; if longer, gravity wins. The boundary is $\\lambda_J\\sim c_s/\\sqrt{G\\rho}$.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 8.3 (Jeans instability)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-12",
+   "room": "active-galaxies",
+   "title": "Black-hole growth at the Eddington limit",
+   "prompt": "A black hole accretes at its Eddington luminosity with radiative efficiency $\\eta$. How does its mass grow?",
+   "options": [
+    "Linearly, $M\\propto t$",
+    "Exponentially, with an e-folding (Salpeter) time independent of $M$",
+    "As $t^{2/3}$",
+    "It cannot grow since radiation pressure stops the infall"
+   ],
+   "correct": 1,
+   "explain": "$L_\\mathrm{Edd}\\propto M$ and $\\dot M=(1-\\eta)L/(\\eta c^2)\\propto M$, so $M\\propto e^{t/t_S}$ with $t_S=\\frac{\\eta}{1-\\eta}\\frac{\\sigma_T c}{4\\pi G m_p}\\approx 50\\,\\mathrm{Myr}$ for $\\eta=0.1$, independent of $M$. It sets the timescale for forming quasars at high $z$.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q6 (BH accretion growth, Eddington time)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-13",
+   "room": "photometry-radiation",
+   "title": "Two limits of the Planck function",
+   "formula": "$B_\\nu=\\frac{2h\\nu^3}{c^2}\\frac{1}{e^{h\\nu/kT}-1}$",
+   "prompt": "On a log-log plot of $B_\\nu(T)$, what do the low- and high-frequency sides look like?",
+   "options": [
+    "Both are power laws, $\\nu^2$ at low and $\\nu^{-3}$ at high frequency",
+    "A $\\nu^2$ power law at $h\\nu\\ll kT$ (Rayleigh-Jeans) and an exponential cutoff $\\nu^3e^{-h\\nu/kT}$ at $h\\nu\\gg kT$ (Wien)",
+    "A $\\nu^4$ law at low frequency and a constant at high frequency",
+    "An exponential at low and a power law at high frequency"
+   ],
+   "correct": 1,
+   "explain": "For $h\\nu\\ll kT$, $B_\\nu\\approx2\\nu^2kT/c^2$; for $h\\nu\\gg kT$, $B_\\nu\\approx(2h\\nu^3/c^2)e^{-h\\nu/kT}$. The CMB peak lies near 160 GHz.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+    "where": "Open Q2 (CMB, Rayleigh-Jeans, bolometer)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-14",
+   "room": "galactic-dynamics",
+   "title": "Collisional or collisionless?",
+   "formula": "$t_\\mathrm{relax}\\approx\\frac{N}{8\\ln N}\\,t_\\mathrm{cross}$",
+   "prompt": "A galaxy has $N\\sim10^{11}$ stars. Compared with the Hubble time, its two-body relaxation time $t_\\mathrm{relax}\\approx\\frac{N}{8\\ln N}t_\\mathrm{cross}$ is:",
+   "options": [
+    "Much shorter, so stars exchange energy often",
+    "Comparable to the age of the Universe",
+    "Much longer, so the stars move in the smooth mean potential (collisionless)",
+    "Independent of $N$"
+   ],
+   "correct": 2,
+   "explain": "With $t_\\mathrm{cross}\\sim10^8$ yr, $t_\\mathrm{relax}\\sim10^{8}\\cdot10^{11}/(8\\cdot25)\\sim5\\times10^{16}$ yr, far above the Hubble time. Galaxies are collisionless; globular clusters with $N\\sim10^5$ are not.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q4 (galaxy with BH and halo) and Ch. 7.2 on relaxation"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-15",
+   "room": "galactic-dynamics",
+   "title": "Rotation curve regimes",
+   "formula": "$v_c^2=\\frac{GM_\\mathrm{BH}}{r}+4\\pi G\\rho_0 r_0^2$",
+   "prompt": "For a galaxy with a central black hole of mass $M_\\mathrm{BH}$ and an $r^{-2}$ halo, how does $v_c(r)$ behave at small and at large $r$?",
+   "options": [
+    "$v_c\\propto r$ at small $r$ and $\\propto r^{-1/2}$ at large $r$",
+    "$v_c\\propto r^{-1/2}$ (Keplerian) at small $r$ and constant at large $r$",
+    "$v_c$ is constant everywhere",
+    "$v_c\\propto r^{-1/2}$ at both ends"
+   ],
+   "correct": 1,
+   "explain": "From $v_c^2=GM_\\mathrm{BH}/r+4\\pi G\\rho_0r_0^2$: the point mass dominates when $r$ is small ($v\\propto r^{-1/2}$), the halo term gives a flat $v_c$ far out.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q4 (galaxy with BH and r^-2 halo)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-16",
+   "room": "interstellar-medium",
+   "title": "Stroemgren radius and density",
+   "formula": "$R_S=\\left(\\frac{3Q}{4\\pi n^2\\alpha_B}\\right)^{1/3}$",
+   "prompt": "An HII region around an O star with ionizing photon rate $Q$ lies in uniform gas of density $n$. If $n$ doubles at fixed $Q$, the Stroemgren radius:",
+   "options": [
+    "Doubles",
+    "Halves",
+    "Decreases by $2^{-2/3}\\approx0.63$",
+    "Is unchanged since $Q$ is fixed"
+   ],
+   "correct": 2,
+   "explain": "Ionization balance: $Q=\\frac43\\pi R_S^3\\,n^2\\alpha_B$, so $R_S\\propto (Q/n^2)^{1/3}\\propto n^{-2/3}$. Denser gas recombines faster, so the same photon budget ionizes a smaller volume.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+    "where": "Open Q4 (HII region, ionizing photon balance)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-lim-17",
+   "room": "expanding-universe",
+   "title": "Distances at low and high redshift",
+   "prompt": "Which statement about cosmological distances is correct?",
+   "options": [
+    "For $z\\ll1$ all distance measures agree with $cz/H_0$; at high $z$ they differ and $d_L=(1+z)^2d_A$",
+    "$d_L=d_A$ at all redshifts",
+    "$d_L$ is always smaller than $d_A$ at low $z$",
+    "$d_L=cz/H_0$ exactly at every $z$"
+   ],
+   "correct": 0,
+   "explain": "At $z\\ll1$ every definition reduces to $d\\approx cz/H_0$. Beyond that they depend on the expansion history, and the Etherington relation $d_L=(1+z)^2d_A$ always holds for flux versus angular size.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 10.3-10.4 (redshift, distances)"
+   }
+  }
+ ],
+ "sketch": [
+  {
+   "id": "drill-astrophysics-sk-1",
+   "room": "photometry-radiation",
+   "title": "Blackbody spectra at two temperatures",
+   "task": "Sketch $B_\\lambda$ against wavelength on log-log axes for $T=5000\\,\\mathrm{K}$ and $T=10000\\,\\mathrm{K}$ (wavelength in nm).",
+   "x": {
+    "label": "wavelength (nm)",
+    "min": 100,
+    "max": 100000.0,
+    "log": true
+   },
+   "y": {
+    "label": "$B_\\lambda$ (W m$^{-2}$ sr$^{-1}$ m$^{-1}$)",
+    "min": 1000.0,
+    "max": 100000000000000.0,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "T = 5000 K",
+     "points": [
+      [
+       100.0,
+       3818000.0
+      ],
+      [
+       119.4,
+       168000000.0
+      ],
+      [
+       142.5,
+       3464000000.0
+      ],
+      [
+       170.1,
+       37850000000.0
+      ],
+      [
+       203.1,
+       243000000000.0
+      ],
+      [
+       242.4,
+       998900000000.0
+      ],
+      [
+       289.4,
+       2828000000000.0
+      ],
+      [
+       345.5,
+       5856000000000.0
+      ],
+      [
+       412.5,
+       9339000000000.0
+      ],
+      [
+       492.4,
+       11970000000000.0
+      ],
+      [
+       587.8,
+       12810000000000.0
+      ],
+      [
+       701.7,
+       11800000000000.0
+      ],
+      [
+       837.7,
+       9622000000000.0
+      ],
+      [
+       1000.0,
+       7107000000000.0
+      ],
+      [
+       1194.0,
+       4848000000000.0
+      ],
+      [
+       1425.0,
+       3104000000000.0
+      ],
+      [
+       1701.0,
+       1889000000000.0
+      ],
+      [
+       2031.0,
+       1104000000000.0
+      ],
+      [
+       2424.0,
+       624800000000.0
+      ],
+      [
+       2894.0,
+       344600000000.0
+      ],
+      [
+       3455.0,
+       186200000000.0
+      ],
+      [
+       4125.0,
+       98910000000.0
+      ],
+      [
+       4924.0,
+       51850000000.0
+      ],
+      [
+       5878.0,
+       26880000000.0
+      ],
+      [
+       7017.0,
+       13810000000.0
+      ],
+      [
+       8377.0,
+       7047000000.0
+      ],
+      [
+       10000.0,
+       3573000000.0
+      ],
+      [
+       11940.0,
+       1803000000.0
+      ],
+      [
+       14250.0,
+       905900000.0
+      ],
+      [
+       17010.0,
+       453600000.0
+      ],
+      [
+       20310.0,
+       226500000.0
+      ],
+      [
+       24240.0,
+       112900000.0
+      ],
+      [
+       28940.0,
+       56120000.0
+      ],
+      [
+       34550.0,
+       27860000.0
+      ],
+      [
+       41250.0,
+       13810000.0
+      ],
+      [
+       49240.0,
+       6840000.0
+      ],
+      [
+       58780.0,
+       3384000.0
+      ],
+      [
+       70170.0,
+       1673000.0
+      ],
+      [
+       83770.0,
+       826500.0
+      ],
+      [
+       100000.0,
+       408100.0
+      ]
+     ]
+    },
+    {
+     "label": "T = 10000 K",
+     "points": [
+      [
+       100.0,
+       6744000000000.0
+      ],
+      [
+       119.4,
+       28730000000000.0
+      ],
+      [
+       142.5,
+       83780000000000.0
+      ],
+      [
+       837.7,
+       63210000000000.0
+      ],
+      [
+       1000.0,
+       37060000000000.0
+      ],
+      [
+       1194.0,
+       21030000000000.0
+      ],
+      [
+       1425.0,
+       11620000000000.0
+      ],
+      [
+       1701.0,
+       6288000000000.0
+      ],
+      [
+       2031.0,
+       3345000000000.0
+      ],
+      [
+       2424.0,
+       1756000000000.0
+      ],
+      [
+       2894.0,
+       911000000000.0
+      ],
+      [
+       3455.0,
+       468500000000.0
+      ],
+      [
+       4125.0,
+       239100000000.0
+      ],
+      [
+       4924.0,
+       121300000000.0
+      ],
+      [
+       5878.0,
+       61220000000.0
+      ],
+      [
+       7017.0,
+       30770000000.0
+      ],
+      [
+       8377.0,
+       15410000000.0
+      ],
+      [
+       10000.0,
+       7699000000.0
+      ],
+      [
+       11940.0,
+       3837000000.0
+      ],
+      [
+       14250.0,
+       1908000000.0
+      ],
+      [
+       17010.0,
+       947300000.0
+      ],
+      [
+       20310.0,
+       469700000.0
+      ],
+      [
+       24240.0,
+       232600000.0
+      ],
+      [
+       28940.0,
+       115100000.0
+      ],
+      [
+       34550.0,
+       56900000.0
+      ],
+      [
+       41250.0,
+       28110000.0
+      ],
+      [
+       49240.0,
+       13880000.0
+      ],
+      [
+       58780.0,
+       6852000.0
+      ],
+      [
+       70170.0,
+       3381000.0
+      ],
+      [
+       83770.0,
+       1667000.0
+      ],
+      [
+       100000.0,
+       822100.0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Peak at $\\lambda_\\mathrm{max}=b/T$: about 580 nm and 290 nm (Wien)",
+    "The hotter curve lies above the cooler one at every wavelength",
+    "At long wavelengths both curves are parallel straight lines of slope $-4$ (Rayleigh-Jeans, $B_\\lambda\\propto T/\\lambda^4$)",
+    "On the short side the hot curve cuts off exponentially, but later than the cool one",
+    "Peak height scales as $T^5$ (factor 32 between the curves)"
+   ],
+   "tips": "Points where $B_\\lambda$ falls below the axis minimum are dropped.",
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q2-Q3 (CMB/dust blackbody, Wien peak), topic Planck function"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-2",
+   "room": "stellar-forge",
+   "title": "HR diagram: main sequence and giants",
+   "task": "Sketch the main sequence and the line of constant radius $R=100\\,R_\\odot$ in a Hertzsprung-Russell diagram. Remember that by convention temperature increases to the left.",
+   "x": {
+    "label": "$T_\\mathrm{eff}$ (K), conventionally reversed",
+    "min": 2500,
+    "max": 40000,
+    "log": true
+   },
+   "y": {
+    "label": "$L/L_\\odot$",
+    "min": 0.0001,
+    "max": 1000000.0,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "main sequence (0.2-40 M_sun, rough L-M relation)",
+     "points": [
+      [
+       2803.0,
+       0.0081
+      ],
+      [
+       3808.0,
+       0.0625
+      ],
+      [
+       5049.0,
+       0.4096
+      ],
+      [
+       5772.0,
+       1.0
+      ],
+      [
+       7362.0,
+       5.062
+      ],
+      [
+       8023.0,
+       11.31
+      ],
+      [
+       9727.0,
+       46.77
+      ],
+      [
+       12400.0,
+       279.5
+      ],
+      [
+       15500.0,
+       1448.0
+      ],
+      [
+       18790.0,
+       5986.0
+      ],
+      [
+       23950.0,
+       35780.0
+      ],
+      [
+       29040.0,
+       147900.0
+      ],
+      [
+       33290.0,
+       404800.0
+      ]
+     ]
+    },
+    {
+     "label": "R = 100 R_sun",
+     "points": [
+      [
+       2500.0,
+       351.9
+      ],
+      [
+       3217.0,
+       964.5
+      ],
+      [
+       4139.0,
+       2643.0
+      ],
+      [
+       5325.0,
+       7245.0
+      ],
+      [
+       6852.0,
+       19860.0
+      ],
+      [
+       8816.0,
+       54420.0
+      ],
+      [
+       11340.0,
+       149200.0
+      ],
+      [
+       14590.0,
+       408800.0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Main sequence runs from faint, cool (lower right) to bright, hot (upper left)",
+    "The Sun sits at $T\\approx5800\\,\\mathrm{K}$, $L=L_\\odot$ on the main sequence",
+    "Lines of constant $R$ have slope 4 on log-log axes ($L\\propto R^2T^4$), larger $R$ lies higher",
+    "Giants lie above the main sequence at the same $T$ because $R$ is larger",
+    "Red giants/supergiants occupy the cool, bright upper right"
+   ],
+   "tips": "The curve uses $L\\propto M^4$ below $2\\,M_\\odot$ and $M^{3.5}$ above, with $R\\propto M^{0.8}$: a rough model, check shape only.",
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 3.5 and 4.5 (HR diagram, main sequence); MC in every recent exam; own variation with L(M) piecewise power law"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-3",
+   "room": "nuclear-furnace",
+   "title": "Binding energy per nucleon",
+   "task": "Sketch the binding energy per nucleon $B/A$ as a function of mass number $A$ and mark where fusion and fission release energy.",
+   "x": {
+    "label": "mass number $A$",
+    "min": 0,
+    "max": 260
+   },
+   "y": {
+    "label": "$B/A$ (MeV)",
+    "min": 0,
+    "max": 10
+   },
+   "curves": [
+    {
+     "label": "measured B/A (selected nuclei)",
+     "points": [
+      [
+       2.0,
+       1.112
+      ],
+      [
+       3.0,
+       2.573
+      ],
+      [
+       4.0,
+       7.074
+      ],
+      [
+       6.0,
+       5.332
+      ],
+      [
+       9.0,
+       6.463
+      ],
+      [
+       12.0,
+       7.68
+      ],
+      [
+       14.0,
+       7.476
+      ],
+      [
+       16.0,
+       7.976
+      ],
+      [
+       20.0,
+       8.032
+      ],
+      [
+       24.0,
+       8.261
+      ],
+      [
+       28.0,
+       8.448
+      ],
+      [
+       40.0,
+       8.551
+      ],
+      [
+       56.0,
+       8.79
+      ],
+      [
+       62.0,
+       8.795
+      ],
+      [
+       90.0,
+       8.71
+      ],
+      [
+       120.0,
+       8.505
+      ],
+      [
+       132.0,
+       8.428
+      ],
+      [
+       208.0,
+       7.867
+      ],
+      [
+       238.0,
+       7.57
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Maximum near $^{56}$Fe/$^{62}$Ni at about 8.8 MeV per nucleon",
+    "Steep rise from 1 MeV ($^2$H) to 7 MeV ($^4$He) with a pronounced peak at $^4$He",
+    "Slow decline to about 7.6 MeV at $A\\approx240$",
+    "Fusion of light nuclei (left of the peak) and fission of heavy ones release energy",
+    "Local peaks at the alpha-nuclei $^{12}$C, $^{16}$O, $^{20}$Ne (stable shells)"
+   ],
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q2 (binding energy per nucleon sketch); values are measured data, not a formula"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-4",
+   "room": "galactic-dynamics",
+   "title": "Rotation curve with a black hole and a halo",
+   "task": "Sketch $v_c(r)$ for a galaxy with a central black hole $M_\\mathrm{BH}=2\\times10^9M_\\odot$ and an isothermal halo ($\\rho\\propto r^{-2}$, plateau 200 km/s), together with the two separate contributions.",
+   "x": {
+    "label": "radius $r$ (kpc)",
+    "min": 0.01,
+    "max": 100,
+    "log": true
+   },
+   "y": {
+    "label": "$v_c$ (km/s)",
+    "min": 10,
+    "max": 2000,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "total",
+     "points": [
+      [
+       0.01,
+       948.7
+      ],
+      [
+       0.01266,
+       848.0
+      ],
+      [
+       0.01604,
+       759.1
+      ],
+      [
+       0.02031,
+       680.8
+      ],
+      [
+       0.02572,
+       611.9
+      ],
+      [
+       0.03257,
+       551.4
+      ],
+      [
+       0.04125,
+       498.5
+      ],
+      [
+       0.05223,
+       452.4
+      ],
+      [
+       0.06615,
+       412.3
+      ],
+      [
+       0.08377,
+       377.7
+      ],
+      [
+       0.1061,
+       348.0
+      ],
+      [
+       0.1343,
+       322.5
+      ],
+      [
+       0.1701,
+       300.9
+      ],
+      [
+       0.2154,
+       282.7
+      ],
+      [
+       0.2728,
+       267.4
+      ],
+      [
+       0.3455,
+       254.7
+      ],
+      [
+       0.4375,
+       244.2
+      ],
+      [
+       0.5541,
+       235.6
+      ],
+      [
+       0.7017,
+       228.6
+      ],
+      [
+       0.8886,
+       222.9
+      ],
+      [
+       1.125,
+       218.3
+      ],
+      [
+       1.425,
+       214.6
+      ],
+      [
+       1.805,
+       211.6
+      ],
+      [
+       2.285,
+       209.2
+      ],
+      [
+       2.894,
+       207.3
+      ],
+      [
+       3.665,
+       205.8
+      ],
+      [
+       4.642,
+       204.6
+      ],
+      [
+       5.878,
+       203.6
+      ],
+      [
+       7.444,
+       202.9
+      ],
+      [
+       9.427,
+       202.3
+      ],
+      [
+       11.94,
+       201.8
+      ],
+      [
+       15.12,
+       201.4
+      ],
+      [
+       19.14,
+       201.1
+      ],
+      [
+       24.24,
+       200.9
+      ],
+      [
+       30.7,
+       200.7
+      ],
+      [
+       38.88,
+       200.6
+      ],
+      [
+       49.24,
+       200.4
+      ],
+      [
+       62.36,
+       200.3
+      ],
+      [
+       78.97,
+       200.3
+      ],
+      [
+       100.0,
+       200.2
+      ]
+     ]
+    },
+    {
+     "label": "black hole only",
+     "points": [
+      [
+       0.01,
+       927.4
+      ],
+      [
+       0.01266,
+       824.1
+      ],
+      [
+       0.01604,
+       732.3
+      ],
+      [
+       0.02031,
+       650.7
+      ],
+      [
+       0.02572,
+       578.3
+      ],
+      [
+       0.03257,
+       513.9
+      ],
+      [
+       0.04125,
+       456.6
+      ],
+      [
+       0.05223,
+       405.8
+      ],
+      [
+       0.06615,
+       360.6
+      ],
+      [
+       0.08377,
+       320.4
+      ],
+      [
+       0.1061,
+       284.7
+      ],
+      [
+       0.1343,
+       253.0
+      ],
+      [
+       0.1701,
+       224.8
+      ],
+      [
+       0.2154,
+       199.8
+      ],
+      [
+       0.2728,
+       177.5
+      ],
+      [
+       0.3455,
+       157.8
+      ],
+      [
+       0.4375,
+       140.2
+      ],
+      [
+       0.5541,
+       124.6
+      ],
+      [
+       0.7017,
+       110.7
+      ],
+      [
+       0.8886,
+       98.38
+      ],
+      [
+       1.125,
+       87.42
+      ],
+      [
+       1.425,
+       77.68
+      ],
+      [
+       1.805,
+       69.03
+      ],
+      [
+       2.285,
+       61.34
+      ],
+      [
+       2.894,
+       54.51
+      ],
+      [
+       3.665,
+       48.44
+      ],
+      [
+       4.642,
+       43.04
+      ],
+      [
+       5.878,
+       38.25
+      ],
+      [
+       7.444,
+       33.99
+      ],
+      [
+       9.427,
+       30.2
+      ],
+      [
+       11.94,
+       26.84
+      ],
+      [
+       15.12,
+       23.85
+      ],
+      [
+       19.14,
+       21.19
+      ],
+      [
+       24.24,
+       18.83
+      ],
+      [
+       30.7,
+       16.74
+      ],
+      [
+       38.88,
+       14.87
+      ],
+      [
+       49.24,
+       13.22
+      ],
+      [
+       62.36,
+       11.74
+      ],
+      [
+       78.97,
+       10.44
+      ]
+     ]
+    },
+    {
+     "label": "halo only",
+     "points": [
+      [
+       0.01,
+       200.0
+      ],
+      [
+       0.01266,
+       200.0
+      ],
+      [
+       0.01604,
+       200.0
+      ],
+      [
+       0.02031,
+       200.0
+      ],
+      [
+       0.02572,
+       200.0
+      ],
+      [
+       0.03257,
+       200.0
+      ],
+      [
+       0.04125,
+       200.0
+      ],
+      [
+       0.05223,
+       200.0
+      ],
+      [
+       0.06615,
+       200.0
+      ],
+      [
+       0.08377,
+       200.0
+      ],
+      [
+       0.1061,
+       200.0
+      ],
+      [
+       0.1343,
+       200.0
+      ],
+      [
+       0.1701,
+       200.0
+      ],
+      [
+       0.2154,
+       200.0
+      ],
+      [
+       0.2728,
+       200.0
+      ],
+      [
+       0.3455,
+       200.0
+      ],
+      [
+       0.4375,
+       200.0
+      ],
+      [
+       0.5541,
+       200.0
+      ],
+      [
+       0.7017,
+       200.0
+      ],
+      [
+       0.8886,
+       200.0
+      ],
+      [
+       1.125,
+       200.0
+      ],
+      [
+       1.425,
+       200.0
+      ],
+      [
+       1.805,
+       200.0
+      ],
+      [
+       2.285,
+       200.0
+      ],
+      [
+       2.894,
+       200.0
+      ],
+      [
+       3.665,
+       200.0
+      ],
+      [
+       4.642,
+       200.0
+      ],
+      [
+       5.878,
+       200.0
+      ],
+      [
+       7.444,
+       200.0
+      ],
+      [
+       9.427,
+       200.0
+      ],
+      [
+       11.94,
+       200.0
+      ],
+      [
+       15.12,
+       200.0
+      ],
+      [
+       19.14,
+       200.0
+      ],
+      [
+       24.24,
+       200.0
+      ],
+      [
+       30.7,
+       200.0
+      ],
+      [
+       38.88,
+       200.0
+      ],
+      [
+       49.24,
+       200.0
+      ],
+      [
+       62.36,
+       200.0
+      ],
+      [
+       78.97,
+       200.0
+      ],
+      [
+       100.0,
+       200.0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Keplerian fall-off $v\\propto r^{-1/2}$ at small $r$ (slope $-1/2$ on log-log)",
+    "Flat plateau at 200 km/s at large $r$",
+    "Crossover where $GM_\\mathrm{BH}/r=v_h^2$, near 0.2 kpc",
+    "The total curve lies above both components and is the quadrature sum $v^2=v_\\mathrm{BH}^2+v_h^2$"
+   ],
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q4 (galaxy with BH and r^-2 halo), topic rotation curve"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-5",
+   "room": "expanding-universe",
+   "title": "Scale factor a(t) for closed, flat and open",
+   "task": "Sketch $a(t)$ for a matter-only universe with $k=+1$, $k=0$ and $k=-1$, all with the same early behaviour (arbitrary units).",
+   "x": {
+    "label": "time $t$ (arbitrary units)",
+    "min": 0,
+    "max": 14
+   },
+   "y": {
+    "label": "scale factor $a$ (arbitrary units)",
+    "min": 0,
+    "max": 14
+   },
+   "curves": [
+    {
+     "label": "closed (k=+1)",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.0006452,
+       0.01231
+      ],
+      [
+       0.005142,
+       0.04894
+      ],
+      [
+       0.01725,
+       0.109
+      ],
+      [
+       0.04053,
+       0.191
+      ],
+      [
+       0.07829,
+       0.2929
+      ],
+      [
+       0.1335,
+       0.4122
+      ],
+      [
+       0.2086,
+       0.546
+      ],
+      [
+       0.3056,
+       0.691
+      ],
+      [
+       0.426,
+       0.8436
+      ],
+      [
+       0.5708,
+       1.0
+      ],
+      [
+       0.7402,
+       1.156
+      ],
+      [
+       0.9339,
+       1.309
+      ],
+      [
+       1.151,
+       1.454
+      ],
+      [
+       1.39,
+       1.588
+      ],
+      [
+       1.649,
+       1.707
+      ],
+      [
+       1.925,
+       1.809
+      ],
+      [
+       2.216,
+       1.891
+      ],
+      [
+       2.518,
+       1.951
+      ],
+      [
+       2.828,
+       1.988
+      ],
+      [
+       3.142,
+       2.0
+      ],
+      [
+       3.455,
+       1.988
+      ],
+      [
+       3.765,
+       1.951
+      ],
+      [
+       4.067,
+       1.891
+      ],
+      [
+       4.358,
+       1.809
+      ],
+      [
+       4.634,
+       1.707
+      ],
+      [
+       4.893,
+       1.588
+      ],
+      [
+       5.132,
+       1.454
+      ],
+      [
+       5.349,
+       1.309
+      ],
+      [
+       5.543,
+       1.156
+      ],
+      [
+       5.712,
+       1.0
+      ],
+      [
+       5.857,
+       0.8436
+      ],
+      [
+       5.978,
+       0.691
+      ],
+      [
+       6.075,
+       0.546
+      ],
+      [
+       6.15,
+       0.4122
+      ],
+      [
+       6.205,
+       0.2929
+      ],
+      [
+       6.243,
+       0.191
+      ],
+      [
+       6.266,
+       0.109
+      ],
+      [
+       6.278,
+       0.04894
+      ],
+      [
+       6.283,
+       0.01231
+      ],
+      [
+       6.283,
+       0.0
+      ]
+     ]
+    },
+    {
+     "label": "flat (k=0)",
+     "points": [
+      [
+       0.35,
+       0.8199
+      ],
+      [
+       0.7,
+       1.302
+      ],
+      [
+       1.05,
+       1.706
+      ],
+      [
+       1.4,
+       2.066
+      ],
+      [
+       1.75,
+       2.398
+      ],
+      [
+       2.1,
+       2.707
+      ],
+      [
+       2.45,
+       3.0
+      ],
+      [
+       2.8,
+       3.28
+      ],
+      [
+       3.15,
+       3.548
+      ],
+      [
+       3.5,
+       3.806
+      ],
+      [
+       3.85,
+       4.056
+      ],
+      [
+       4.2,
+       4.298
+      ],
+      [
+       4.55,
+       4.533
+      ],
+      [
+       4.9,
+       4.763
+      ],
+      [
+       5.25,
+       4.987
+      ],
+      [
+       5.6,
+       5.206
+      ],
+      [
+       5.95,
+       5.421
+      ],
+      [
+       6.3,
+       5.632
+      ],
+      [
+       6.65,
+       5.838
+      ],
+      [
+       7.0,
+       6.041
+      ],
+      [
+       7.35,
+       6.241
+      ],
+      [
+       7.7,
+       6.438
+      ],
+      [
+       8.05,
+       6.631
+      ],
+      [
+       8.4,
+       6.822
+      ],
+      [
+       8.75,
+       7.01
+      ],
+      [
+       9.1,
+       7.196
+      ],
+      [
+       9.45,
+       7.379
+      ],
+      [
+       9.8,
+       7.561
+      ],
+      [
+       10.15,
+       7.74
+      ],
+      [
+       10.5,
+       7.916
+      ],
+      [
+       10.85,
+       8.091
+      ],
+      [
+       11.2,
+       8.264
+      ],
+      [
+       11.55,
+       8.436
+      ],
+      [
+       11.9,
+       8.605
+      ],
+      [
+       12.25,
+       8.773
+      ],
+      [
+       12.6,
+       8.94
+      ],
+      [
+       12.95,
+       9.104
+      ],
+      [
+       13.3,
+       9.268
+      ],
+      [
+       13.65,
+       9.43
+      ],
+      [
+       14.0,
+       9.59
+      ]
+     ]
+    },
+    {
+     "label": "open (k=-1)",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.0001117,
+       0.003831
+      ],
+      [
+       0.0008946,
+       0.01535
+      ],
+      [
+       0.003025,
+       0.03465
+      ],
+      [
+       0.00719,
+       0.06188
+      ],
+      [
+       0.01409,
+       0.09724
+      ],
+      [
+       0.02445,
+       0.141
+      ],
+      [
+       0.03902,
+       0.1935
+      ],
+      [
+       0.05858,
+       0.2552
+      ],
+      [
+       0.08396,
+       0.3264
+      ],
+      [
+       0.116,
+       0.4079
+      ],
+      [
+       0.1556,
+       0.5001
+      ],
+      [
+       0.2039,
+       0.6038
+      ],
+      [
+       0.2617,
+       0.7198
+      ],
+      [
+       0.3302,
+       0.849
+      ],
+      [
+       0.4107,
+       0.9923
+      ],
+      [
+       0.5043,
+       1.151
+      ],
+      [
+       0.6125,
+       1.326
+      ],
+      [
+       0.7369,
+       1.519
+      ],
+      [
+       0.8789,
+       1.731
+      ],
+      [
+       1.04,
+       1.964
+      ],
+      [
+       1.223,
+       2.22
+      ],
+      [
+       1.43,
+       2.501
+      ],
+      [
+       1.662,
+       2.808
+      ],
+      [
+       1.922,
+       3.144
+      ],
+      [
+       2.213,
+       3.513
+      ],
+      [
+       2.538,
+       3.915
+      ],
+      [
+       2.899,
+       4.356
+      ],
+      [
+       3.301,
+       4.837
+      ],
+      [
+       3.747,
+       5.364
+      ],
+      [
+       4.241,
+       5.939
+      ],
+      [
+       4.788,
+       6.567
+      ],
+      [
+       5.392,
+       7.253
+      ],
+      [
+       6.059,
+       8.002
+      ],
+      [
+       6.794,
+       8.82
+      ],
+      [
+       7.605,
+       9.714
+      ],
+      [
+       8.497,
+       10.69
+      ],
+      [
+       9.478,
+       11.75
+      ],
+      [
+       10.56,
+       12.92
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "All three start at $a=0$ with $a\\propto t^{2/3}$ (the same Big Bang)",
+    "Closed: reaches $a_\\mathrm{max}$ and recollapses to $a=0$ (a cycloid)",
+    "Flat: $a\\propto t^{2/3}$ forever, with $\\dot a\\to0$ asymptotically",
+    "Open: ends in free expansion, $a\\propto t$",
+    "Ordering at late times: open > flat > closed"
+   ],
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+    "where": "adapted from Open Q7 (closed universe, lifetime), topic a(t) for three curvatures; parametric cycloid solutions"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-6",
+   "room": "photometry-radiation",
+   "title": "The CMB spectrum and its Rayleigh-Jeans tail",
+   "task": "Sketch the CMB specific intensity $I_\\nu$ for $T=2.725\\,\\mathrm{K}$ against frequency (GHz) and compare with the Rayleigh-Jeans law.",
+   "x": {
+    "label": "frequency (GHz)",
+    "min": 1,
+    "max": 3000,
+    "log": true
+   },
+   "y": {
+    "label": "$I_\\nu$ (MJy/sr)",
+    "min": 0.01,
+    "max": 1000.0,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "Planck, T = 2.725 K",
+     "points": [
+      [
+       1.0,
+       0.083
+      ],
+      [
+       1.228,
+       0.1249
+      ],
+      [
+       1.508,
+       0.1878
+      ],
+      [
+       1.851,
+       0.2823
+      ],
+      [
+       2.273,
+       0.4241
+      ],
+      [
+       2.791,
+       0.6365
+      ],
+      [
+       3.427,
+       0.9542
+      ],
+      [
+       4.208,
+       1.429
+      ],
+      [
+       5.167,
+       2.136
+      ],
+      [
+       6.345,
+       3.186
+      ],
+      [
+       7.791,
+       4.742
+      ],
+      [
+       9.566,
+       7.035
+      ],
+      [
+       11.75,
+       10.4
+      ],
+      [
+       14.42,
+       15.3
+      ],
+      [
+       17.71,
+       22.38
+      ],
+      [
+       21.74,
+       32.5
+      ],
+      [
+       26.7,
+       46.76
+      ],
+      [
+       32.78,
+       66.51
+      ],
+      [
+       40.26,
+       93.24
+      ],
+      [
+       49.43,
+       128.3
+      ],
+      [
+       60.69,
+       172.5
+      ],
+      [
+       74.52,
+       224.8
+      ],
+      [
+       91.51,
+       281.8
+      ],
+      [
+       112.4,
+       335.7
+      ],
+      [
+       138.0,
+       374.1
+      ],
+      [
+       169.4,
+       382.5
+      ],
+      [
+       208.0,
+       349.6
+      ],
+      [
+       255.4,
+       276.8
+      ],
+      [
+       313.6,
+       182.6
+      ],
+      [
+       385.1,
+       95.75
+      ],
+      [
+       472.8,
+       37.78
+      ],
+      [
+       580.6,
+       10.49
+      ],
+      [
+       712.9,
+       1.89
+      ],
+      [
+       875.3,
+       0.2003
+      ],
+      [
+       1075.0,
+       0.01106
+      ]
+     ]
+    },
+    {
+     "label": "Rayleigh-Jeans",
+     "points": [
+      [
+       1.0,
+       0.08374
+      ],
+      [
+       1.228,
+       0.1263
+      ],
+      [
+       1.508,
+       0.1904
+      ],
+      [
+       1.851,
+       0.287
+      ],
+      [
+       2.273,
+       0.4327
+      ],
+      [
+       2.791,
+       0.6524
+      ],
+      [
+       3.427,
+       0.9836
+      ],
+      [
+       4.208,
+       1.483
+      ],
+      [
+       5.167,
+       2.236
+      ],
+      [
+       6.345,
+       3.371
+      ],
+      [
+       7.791,
+       5.082
+      ],
+      [
+       9.566,
+       7.663
+      ],
+      [
+       11.75,
+       11.55
+      ],
+      [
+       14.42,
+       17.42
+      ],
+      [
+       17.71,
+       26.26
+      ],
+      [
+       21.74,
+       39.59
+      ],
+      [
+       26.7,
+       59.7
+      ],
+      [
+       32.78,
+       90.0
+      ],
+      [
+       40.26,
+       135.7
+      ],
+      [
+       49.43,
+       204.6
+      ],
+      [
+       60.69,
+       308.5
+      ],
+      [
+       74.52,
+       465.1
+      ],
+      [
+       91.51,
+       701.2
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Peak at about 160 GHz with $I_\\nu\\approx 370\\,\\mathrm{MJy/sr}$",
+    "Below about 5 GHz the Planck curve follows the RJ line, slope $+2$",
+    "Above the peak the Planck curve falls exponentially, while RJ grows without bound (ultraviolet-catastrophe analogue)",
+    "RJ overestimates the intensity near the peak by a factor of about 5 at 160 GHz"
+   ],
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+    "where": "Open Q2 (CMB, RJ limit, bolometer power), Winter 2025 Q2"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-7",
+   "room": "radiative-transfer",
+   "title": "Emergent intensity versus optical depth",
+   "task": "Sketch $I/S$ for a uniform slab of source function $S$ as a function of total optical depth $\\tau$, for a bright background ($I_0=2S$) and for no background ($I_0=0$).",
+   "x": {
+    "label": "optical depth $\\tau$",
+    "min": 0.01,
+    "max": 100,
+    "log": true
+   },
+   "y": {
+    "label": "$I_\\nu/S_\\nu$",
+    "min": 0.005,
+    "max": 3,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "I0 = 0",
+     "points": [
+      [
+       0.01,
+       0.00995
+      ],
+      [
+       0.01266,
+       0.01258
+      ],
+      [
+       0.01604,
+       0.01591
+      ],
+      [
+       0.02031,
+       0.0201
+      ],
+      [
+       0.02572,
+       0.02539
+      ],
+      [
+       0.03257,
+       0.03205
+      ],
+      [
+       0.04125,
+       0.04041
+      ],
+      [
+       0.05223,
+       0.05089
+      ],
+      [
+       0.06615,
+       0.06401
+      ],
+      [
+       0.08377,
+       0.08036
+      ],
+      [
+       0.1061,
+       0.1006
+      ],
+      [
+       0.1343,
+       0.1257
+      ],
+      [
+       0.1701,
+       0.1564
+      ],
+      [
+       0.2154,
+       0.1938
+      ],
+      [
+       0.2728,
+       0.2388
+      ],
+      [
+       0.3455,
+       0.2921
+      ],
+      [
+       0.4375,
+       0.3544
+      ],
+      [
+       0.5541,
+       0.4254
+      ],
+      [
+       0.7017,
+       0.5043
+      ],
+      [
+       0.8886,
+       0.5888
+      ],
+      [
+       1.125,
+       0.6755
+      ],
+      [
+       1.425,
+       0.7595
+      ],
+      [
+       1.805,
+       0.8355
+      ],
+      [
+       2.285,
+       0.8983
+      ],
+      [
+       2.894,
+       0.9447
+      ],
+      [
+       3.665,
+       0.9744
+      ],
+      [
+       4.642,
+       0.9904
+      ],
+      [
+       5.878,
+       0.9972
+      ],
+      [
+       7.444,
+       0.9994
+      ],
+      [
+       9.427,
+       0.9999
+      ],
+      [
+       11.94,
+       1.0
+      ],
+      [
+       15.12,
+       1.0
+      ],
+      [
+       19.14,
+       1.0
+      ],
+      [
+       24.24,
+       1.0
+      ],
+      [
+       30.7,
+       1.0
+      ],
+      [
+       38.88,
+       1.0
+      ],
+      [
+       49.24,
+       1.0
+      ],
+      [
+       62.36,
+       1.0
+      ],
+      [
+       78.97,
+       1.0
+      ],
+      [
+       100.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "label": "I0 = 2 S",
+     "points": [
+      [
+       0.01,
+       1.99
+      ],
+      [
+       0.01266,
+       1.987
+      ],
+      [
+       0.01604,
+       1.984
+      ],
+      [
+       0.02031,
+       1.98
+      ],
+      [
+       0.02572,
+       1.975
+      ],
+      [
+       0.03257,
+       1.968
+      ],
+      [
+       0.04125,
+       1.96
+      ],
+      [
+       0.05223,
+       1.949
+      ],
+      [
+       0.06615,
+       1.936
+      ],
+      [
+       0.08377,
+       1.92
+      ],
+      [
+       0.1061,
+       1.899
+      ],
+      [
+       0.1343,
+       1.874
+      ],
+      [
+       0.1701,
+       1.844
+      ],
+      [
+       0.2154,
+       1.806
+      ],
+      [
+       0.2728,
+       1.761
+      ],
+      [
+       0.3455,
+       1.708
+      ],
+      [
+       0.4375,
+       1.646
+      ],
+      [
+       0.5541,
+       1.575
+      ],
+      [
+       0.7017,
+       1.496
+      ],
+      [
+       0.8886,
+       1.411
+      ],
+      [
+       1.125,
+       1.325
+      ],
+      [
+       1.425,
+       1.24
+      ],
+      [
+       1.805,
+       1.165
+      ],
+      [
+       2.285,
+       1.102
+      ],
+      [
+       2.894,
+       1.055
+      ],
+      [
+       3.665,
+       1.026
+      ],
+      [
+       4.642,
+       1.01
+      ],
+      [
+       5.878,
+       1.003
+      ],
+      [
+       7.444,
+       1.001
+      ],
+      [
+       9.427,
+       1.0
+      ],
+      [
+       11.94,
+       1.0
+      ],
+      [
+       15.12,
+       1.0
+      ],
+      [
+       19.14,
+       1.0
+      ],
+      [
+       24.24,
+       1.0
+      ],
+      [
+       30.7,
+       1.0
+      ],
+      [
+       38.88,
+       1.0
+      ],
+      [
+       49.24,
+       1.0
+      ],
+      [
+       62.36,
+       1.0
+      ],
+      [
+       78.97,
+       1.0
+      ],
+      [
+       100.0,
+       1.0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Both curves converge to $I=S$ for $\\tau\\gg1$",
+    "For $I_0=0$ the curve grows linearly, $I\\approx\\tau S$, for $\\tau\\ll1$ (log-log slope 1)",
+    "For $I_0=2S$ the intensity starts at $2S$ and decreases (absorption dominates emission)",
+    "The transition happens at $\\tau\\sim1$"
+   ],
+   "source": {
+    "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+    "where": "Ch. 2.2 (formal solution of radiative transfer), MC on optical depth in each recent exam"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-8",
+   "room": "galactic-dynamics",
+   "title": "Circular speed of a Plummer sphere",
+   "task": "Sketch $v_c(r)/\\sqrt{GM/a}$ for a Plummer sphere with $M(<r)=Mr^3/(r^2+a^2)^{3/2}$ as a function of $r/a$.",
+   "x": {
+    "label": "$r/a$",
+    "min": 0.01,
+    "max": 100,
+    "log": true
+   },
+   "y": {
+    "label": "$v_c/\\sqrt{GM/a}$",
+    "min": 0.001,
+    "max": 1,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "Plummer",
+     "points": [
+      [
+       0.01,
+       0.009999
+      ],
+      [
+       0.01266,
+       0.01266
+      ],
+      [
+       0.01604,
+       0.01603
+      ],
+      [
+       0.02031,
+       0.0203
+      ],
+      [
+       0.02572,
+       0.02571
+      ],
+      [
+       0.03257,
+       0.03254
+      ],
+      [
+       0.04125,
+       0.04119
+      ],
+      [
+       0.05223,
+       0.05213
+      ],
+      [
+       0.06615,
+       0.06593
+      ],
+      [
+       0.08377,
+       0.08333
+      ],
+      [
+       0.1061,
+       0.1052
+      ],
+      [
+       0.1343,
+       0.1325
+      ],
+      [
+       0.1701,
+       0.1665
+      ],
+      [
+       0.2154,
+       0.2082
+      ],
+      [
+       0.2728,
+       0.2585
+      ],
+      [
+       0.3455,
+       0.3175
+      ],
+      [
+       0.4375,
+       0.3837
+      ],
+      [
+       0.5541,
+       0.4533
+      ],
+      [
+       0.7017,
+       0.5197
+      ],
+      [
+       0.8886,
+       0.5743
+      ],
+      [
+       1.125,
+       0.6092
+      ],
+      [
+       1.425,
+       0.6204
+      ],
+      [
+       1.805,
+       0.6089
+      ],
+      [
+       2.285,
+       0.58
+      ],
+      [
+       2.894,
+       0.5401
+      ],
+      [
+       3.665,
+       0.495
+      ],
+      [
+       4.642,
+       0.4486
+      ],
+      [
+       5.878,
+       0.4037
+      ],
+      [
+       7.444,
+       0.3616
+      ],
+      [
+       9.427,
+       0.323
+      ],
+      [
+       11.94,
+       0.2879
+      ],
+      [
+       15.12,
+       0.2564
+      ],
+      [
+       19.14,
+       0.2281
+      ],
+      [
+       24.24,
+       0.2028
+      ],
+      [
+       30.7,
+       0.1803
+      ],
+      [
+       38.88,
+       0.1603
+      ],
+      [
+       49.24,
+       0.1425
+      ],
+      [
+       62.36,
+       0.1266
+      ],
+      [
+       78.97,
+       0.1125
+      ],
+      [
+       100.0,
+       0.09999
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Rises as $v\\propto r$ at small $r$ (constant density core, solid-body rotation)",
+    "Maximum at $r=\\sqrt2\\,a$ with $v_\\mathrm{max}=0.62\\sqrt{GM/a}$",
+    "Keplerian decline $v\\propto r^{-1/2}$ at $r\\gg a$"
+   ],
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q4 (Plummer sphere), topic circular speed from M(<r)"
+   }
+  },
+  {
+   "id": "drill-astrophysics-sk-9",
+   "room": "early-universe",
+   "title": "Density components versus scale factor",
+   "task": "Sketch $\\rho_i/\\rho_{c,0}$ for radiation, matter and a cosmological constant as functions of $a$ (take $\\Omega_{m}=0.3$, $\\Omega_r=9\\times10^{-5}$, $\\Omega_\\Lambda=0.7$).",
+   "x": {
+    "label": "scale factor $a$",
+    "min": 0.0001,
+    "max": 1,
+    "log": true
+   },
+   "y": {
+    "label": "$\\rho/\\rho_{c,0}$",
+    "min": 0.1,
+    "max": 10000000000000.0,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "radiation",
+     "points": [
+      [
+       0.0001,
+       900000000000.0
+      ],
+      [
+       0.0001266,
+       349900000000.0
+      ],
+      [
+       0.0001604,
+       136100000000.0
+      ],
+      [
+       0.0002031,
+       52900000000.0
+      ],
+      [
+       0.0002572,
+       20570000000.0
+      ],
+      [
+       0.0003257,
+       7998000000.0
+      ],
+      [
+       0.0004125,
+       3110000000.0
+      ],
+      [
+       0.0005223,
+       1209000000.0
+      ],
+      [
+       0.0006615,
+       470100000.0
+      ],
+      [
+       0.0008377,
+       182800000.0
+      ],
+      [
+       0.001061,
+       71070000.0
+      ],
+      [
+       0.001343,
+       27630000.0
+      ],
+      [
+       0.001701,
+       10740000.0
+      ],
+      [
+       0.002154,
+       4177000.0
+      ],
+      [
+       0.002728,
+       1624000.0
+      ],
+      [
+       0.003455,
+       631500.0
+      ],
+      [
+       0.004375,
+       245600.0
+      ],
+      [
+       0.005541,
+       95470.0
+      ],
+      [
+       0.007017,
+       37120.0
+      ],
+      [
+       0.008886,
+       14430.0
+      ],
+      [
+       0.01125,
+       5612.0
+      ],
+      [
+       0.01425,
+       2182.0
+      ],
+      [
+       0.01805,
+       848.4
+      ],
+      [
+       0.02285,
+       329.9
+      ],
+      [
+       0.02894,
+       128.3
+      ],
+      [
+       0.03665,
+       49.87
+      ],
+      [
+       0.04642,
+       19.39
+      ],
+      [
+       0.05878,
+       7.539
+      ],
+      [
+       0.07444,
+       2.931
+      ],
+      [
+       0.09427,
+       1.14
+      ],
+      [
+       0.1194,
+       0.4431
+      ],
+      [
+       0.1512,
+       0.1723
+      ]
+     ]
+    },
+    {
+     "label": "matter",
+     "points": [
+      [
+       0.0001,
+       300000000000.0
+      ],
+      [
+       0.0001266,
+       147700000000.0
+      ],
+      [
+       0.0001604,
+       72730000000.0
+      ],
+      [
+       0.0002031,
+       35810000000.0
+      ],
+      [
+       0.0002572,
+       17630000000.0
+      ],
+      [
+       0.0003257,
+       8683000000.0
+      ],
+      [
+       0.0004125,
+       4275000000.0
+      ],
+      [
+       0.0005223,
+       2105000000.0
+      ],
+      [
+       0.0006615,
+       1037000000.0
+      ],
+      [
+       0.0008377,
+       510400000.0
+      ],
+      [
+       0.001061,
+       251300000.0
+      ],
+      [
+       0.001343,
+       123700000.0
+      ],
+      [
+       0.001701,
+       60930000.0
+      ],
+      [
+       0.002154,
+       30000000.0
+      ],
+      [
+       0.002728,
+       14770000.0
+      ],
+      [
+       0.003455,
+       7273000.0
+      ],
+      [
+       0.004375,
+       3581000.0
+      ],
+      [
+       0.005541,
+       1763000.0
+      ],
+      [
+       0.007017,
+       868300.0
+      ],
+      [
+       0.008886,
+       427500.0
+      ],
+      [
+       0.01125,
+       210500.0
+      ],
+      [
+       0.01425,
+       103700.0
+      ],
+      [
+       0.01805,
+       51040.0
+      ],
+      [
+       0.02285,
+       25130.0
+      ],
+      [
+       0.02894,
+       12370.0
+      ],
+      [
+       0.03665,
+       6093.0
+      ],
+      [
+       0.04642,
+       3000.0
+      ],
+      [
+       0.05878,
+       1477.0
+      ],
+      [
+       0.07444,
+       727.3
+      ],
+      [
+       0.09427,
+       358.1
+      ],
+      [
+       0.1194,
+       176.3
+      ],
+      [
+       0.1512,
+       86.83
+      ],
+      [
+       0.1914,
+       42.75
+      ],
+      [
+       0.2424,
+       21.05
+      ],
+      [
+       0.307,
+       10.37
+      ],
+      [
+       0.3888,
+       5.104
+      ],
+      [
+       0.4924,
+       2.513
+      ],
+      [
+       0.6236,
+       1.237
+      ],
+      [
+       0.7897,
+       0.6093
+      ],
+      [
+       1.0,
+       0.3
+      ]
+     ]
+    },
+    {
+     "label": "Lambda",
+     "points": [
+      [
+       0.0001,
+       0.7
+      ],
+      [
+       0.0001266,
+       0.7
+      ],
+      [
+       0.0001604,
+       0.7
+      ],
+      [
+       0.0002031,
+       0.7
+      ],
+      [
+       0.0002572,
+       0.7
+      ],
+      [
+       0.0003257,
+       0.7
+      ],
+      [
+       0.0004125,
+       0.7
+      ],
+      [
+       0.0005223,
+       0.7
+      ],
+      [
+       0.0006615,
+       0.7
+      ],
+      [
+       0.0008377,
+       0.7
+      ],
+      [
+       0.001061,
+       0.7
+      ],
+      [
+       0.001343,
+       0.7
+      ],
+      [
+       0.001701,
+       0.7
+      ],
+      [
+       0.002154,
+       0.7
+      ],
+      [
+       0.002728,
+       0.7
+      ],
+      [
+       0.003455,
+       0.7
+      ],
+      [
+       0.004375,
+       0.7
+      ],
+      [
+       0.005541,
+       0.7
+      ],
+      [
+       0.007017,
+       0.7
+      ],
+      [
+       0.008886,
+       0.7
+      ],
+      [
+       0.01125,
+       0.7
+      ],
+      [
+       0.01425,
+       0.7
+      ],
+      [
+       0.01805,
+       0.7
+      ],
+      [
+       0.02285,
+       0.7
+      ],
+      [
+       0.02894,
+       0.7
+      ],
+      [
+       0.03665,
+       0.7
+      ],
+      [
+       0.04642,
+       0.7
+      ],
+      [
+       0.05878,
+       0.7
+      ],
+      [
+       0.07444,
+       0.7
+      ],
+      [
+       0.09427,
+       0.7
+      ],
+      [
+       0.1194,
+       0.7
+      ],
+      [
+       0.1512,
+       0.7
+      ],
+      [
+       0.1914,
+       0.7
+      ],
+      [
+       0.2424,
+       0.7
+      ],
+      [
+       0.307,
+       0.7
+      ],
+      [
+       0.3888,
+       0.7
+      ],
+      [
+       0.4924,
+       0.7
+      ],
+      [
+       0.6236,
+       0.7
+      ],
+      [
+       0.7897,
+       0.7
+      ],
+      [
+       1.0,
+       0.7
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Straight lines on log-log axes with slopes $-4$ (radiation), $-3$ (matter), $0$ ($\\Lambda$)",
+    "Matter-radiation equality at $a_\\mathrm{eq}=\\Omega_r/\\Omega_m=3\\times10^{-4}$",
+    "Radiation dominates for $a<a_\\mathrm{eq}$, matter after, and $\\Lambda$ only at $a\\sim0.7$"
+   ],
+   "source": {
+    "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+    "where": "Open Q7 (radiation era, T(a)) and Ch. 10.5-10.7, topic eras of the universe"
+   }
+  }
+ ]
+}

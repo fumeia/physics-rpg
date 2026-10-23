@@ -1,0 +1,15 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Astro set preview</title><link rel="icon" href="data:,">
+<script type="importmap">{ "imports": { "three": "../vendor/three/three.module.js" } }</script>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block;width:100vw;height:100vh}</style></head>
+<body><canvas id="view"></canvas>
+<script type="module">
+// Preview of one astro set piece inside the real World (?room=astro-...). Used by test/astro-scenes.mjs.
+import { World } from '../src/world.js';
+import { buildRoom } from '../src/rooms/astrophysics.js';
+const world = new World(document.getElementById('view'));
+const set = buildRoom(world, { id: new URLSearchParams(location.search).get('room') });
+const cam = new (world.camera.constructor)(); cam.position.set(0, 2.2, 9.2); cam.rotation.set(-0.08, 0, 0);
+for (let i = 0; i < 40; i++) set.update(0.05);
+world.render(cam); window.__ready = true;
+</script></body></html>

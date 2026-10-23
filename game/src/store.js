@@ -1,0 +1,67 @@
+// Progress: XP, solved encounters and a Leitner-style spaced-repetition queue.
+// Uses localStorage when available, falls back to memory (previews, private windows).
+// Several profiles per browser: the 'default' profile keeps the original key (older progress stays valid).
+const PROFILE_PTR = 'physics-rpg-profile';
+export const profileName = () => { try { return localStorage.getItem(PROFILE_PTR) || 'default'; } catch { return 'default'; } };
+const KEY = profileName() === 'default' ? 'physics-rpg-v1' : `physics-rpg-v1:${profileName()}`;
+let saveHook = null;
+export const setSaveHook = (fn) => { saveHook = fn; };
+const DAY = 86400000;
+export const INTERVALS_DAYS = [1, 3, 7, 16]; // days until the respawn from box 0,1,2,3
+
+function load() {
+  try { const s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) { /* ignore */ }
+  return { xp: 0, solved: {}, reviews: {}, flags: {} };
+}
+let state = load();
+function save() { state.updated = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } if (saveHook) saveHook(state); }
+
+export const store = {
+  get profile() { return profileName(); },
+  get snapshot() { return state; },
+  get updated() { return state.updated || 0; },
+  // adopt a newer state from the save server (same profile)
+  adopt(remote) { state = { flags: {}, reviews: {}, solved: {}, xp: 0, ...remote }; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } },
+  get xp() { return state.xp; },
+  addXp(n) { state.xp = Math.max(0, state.xp + n); save(); },
+  isSolved(id) { return !!state.solved[id]; },
+  // solved without giving up / failing (used to open doors)
+  isPassed(id) { return !!state.solved[id] && !state.solved[id].failed; },
+  markSolved(id, info = {}) { state.solved[id] = { at: Date.now(), ...info }; save(); },
+  // Failed or given up: respawns in INTERVALS_DAYS[0] days. A review solved cleanly moves up a box.
+  fail(id) { const r = state.reviews[id]; state.reviews[id] = { box: 0, due: Date.now() + INTERVALS_DAYS[0] * DAY, fails: (r?.fails || 0) + 1 }; save(); },
+  reviewPassed(id) {
+    const r = state.reviews[id]; if (!r) return;
+    const box = r.box + 1;
+    if (box >= INTERVALS_DAYS.length) delete state.reviews[id];
+    else state.reviews[id] = { ...r, box, due: Date.now() + INTERVALS_DAYS[box] * DAY };
+    save();
+  },
+  reviewFailed(id) { this.fail(id); },
+  makeAllDue() { for (const r of Object.values(state.reviews)) r.due = Date.now(); save(); }, // debug
+  dueReviews(now = Date.now()) { return Object.entries(state.reviews).filter(([, r]) => r.due <= now).map(([id]) => id); },
+  // drop review entries whose exercise no longer exists (renamed or removed content); returns the dropped ids
+  pruneReviews(valid) { const gone = Object.keys(state.reviews).filter((id) => !valid.has(id)); if (!gone.length) return []; state.flags = { ...(state.flags || {}), 'dropped-reviews': [...(state.flags?.['dropped-reviews'] || []), ...gone] }; for (const id of gone) delete state.reviews[id]; save(); return gone; },
+  hasReview(id) { return !!state.reviews[id]; },
+  get last() { return state.last || null; },
+  setLast(ref) { state.last = ref; save(); },
+  // arbitrary persisted values (e.g. recently seen question ids)
+  val(name, d = null) { return (state.flags || {})[name] ?? d; },
+  setVal(name, v) { state.flags = { ...(state.flags || {}), [name]: v }; save(); },
+  // daily missions and streak
+  missionsOf(date) { return (state.missions || {})[date] || { done: {}, xp: 0 }; },
+  get streak() { return state.streak || { last: null, count: 0 }; },
+  completeMission(date, id, xp, yesterday) {
+    state.missions = state.missions || {}; const day = state.missions[date] || { done: {}, xp: 0 };
+    if (day.done[id]) return false;
+    day.done[id] = true; day.xp += xp; state.missions[date] = day;
+    const st = state.streak || { last: null, count: 0 };
+    if (st.last !== date) state.streak = { last: date, count: st.last === yesterday ? st.count + 1 : 1 };
+    save(); return true;
+  },
+  exportJson() { return JSON.stringify(state, null, 1); },
+  importJson(text) { try { const o = JSON.parse(text); if (typeof o.xp !== 'number' || !o.solved) return false; state = { flags: {}, reviews: {}, ...o }; save(); return true; } catch { return false; } },
+  flag(name) { return !!(state.flags || {})[name]; },
+  setFlag(name, v = true) { state.flags = { ...(state.flags || {}), [name]: v }; save(); },
+  reset() { state = { xp: 0, solved: {}, reviews: {}, flags: {} }; save(); },
+};

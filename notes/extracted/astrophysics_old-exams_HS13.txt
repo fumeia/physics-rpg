@@ -1,0 +1,232 @@
+                                        Astrophysik1
+                                       Prof. Refregier, HS 2013
+
+
+Zusammenfassung Im schönen Eckbüro von Prof. Refregier im HIT mit seinem Assistenten. Erst
+werde ich aufgefordert mich hinzusetzen, am Ende steh ich dann aber doch um an der Tafel Sachen zu
+erklären. Sowohl Assistent als auch Professor stellen Fragen. Draussen wechseln sich Schnee und Sonne
+ab (woraufhin Prof. Refregier jeweils aufspringt und die Jalousien auf- bzw. zumacht).
+
+
+Ablauf Prof: Hello, welcome, please sit down. We drew three topics randomly like we announced in
+the lecture. So let’s start with the first one: What can you tell us about globular clusters.
+Ich: A glob. cluster is a group of tightly bound stars. Which is interesting about them, is the approximate
+same age and distance from us. That makes it possible for us to determine both of these parameters
+from HR diagrams. Also we find them mostly in the galaxy’s center, so like this we can find out where
+this center is and determine the distance to it.
+Prof: Do we really find them in the center?
+Ich: Well I think that’s how we find out where the galactic center is. But there are also some distributed
+in the halo and bulge.
+Prof: Yes that’s it, they’re mostly in the bulge and halo.
+Ich: Ok so they are around the galactic center...
+Prof: Is there more you want to tell us about glob. clusters?
+Ich: There are around 105 stars in a globular cluster which make them useful for determining parameters
+for example from the spectrum.
+Prof: What about gravity?
+Ich: They’re stable, so neither growing or shrinking, so gravity has to be balanced, which is in this case
+done by random motion.
+Prof: Good. You mentioned that you can find out something with the HR diagram. Can you explain
+how that works?
+Ich: Explain on the whiteboard that the main sequence of nearby stars is the same as for a globular
+cluster, so we can fit it and from that determine the absolute magnitude. Also from the turning point of
+the sequence of the glob. cluster we can find out the age from τ = M −2 (figure 1).
+Prof: Yes very good. Do you know what for this was also important historically?
+
+
+ 1
+     MSc Physik, Wahlfach
+
+
+
+
+                                                    1
+                              Abbildung 1: HR-diagram of nearby stars.
+
+
+Ich: It’s possible to put a constraint on the age of the universe, because it can’t be older than the
+oldest globular cluster.
+Prof: Right. Was that a problem? There was a big discussion about that...
+Ich: Well... not sure what he wanted.
+Prof: What other ways are there to determine the age of the universe?
+Ich: Quite a lot I’d say, but I don’t know exactly what was historically used... hesitating
+Prof: Ok but from cosmology...
+Ich: Yes from Hubble’s law, the inverse of the constant, from the expansion of the universe we can get
+it.
+Prof: Good. Do you know the value for this? Actually these questions about historical things and age
+was the question of the assistant. At this point he asks the prof it this was covered in the lecture. Not
+really.
+Ich: Well probably it was bigger than the present one, so the inverse, the time, is smaller than the
+oldest age of globular clusters.
+Prof: Yes, that’s right. So let’s come to the next topic, a bit larger scales. What kind of galaxies are
+there.
+
+
+
+                                                   2
+Ich: First there are normal and active...
+Prof: Interrupts me. Yes for now we just consider normal galaxies.
+Ich: Then there are spirals and ellipticals. Spirals have circular motion, have ISM and therefore also
+new stars are born there in contrast to ellipticals.
+Prof: What about their age?
+Ich: Ellipticals have older stars than spirals, so they appear redder to us. Also spirals turn into ellipticals
+by loosing their ISM, so if we look to further distances we see more spirals than there are around us.
+Prof: Well there’s actually a lot of recent research going on there. Can you tell us more about their
+shape?
+Ich: Ellipticals are ... elliptical smile then for spirals there can be some without bar or with bar and
+then there are also irregular ones which are neither of these.
+Prof: How does the surface brightness profile look of ellipticals and spirals?
+Ich: That I didn’t know... Well I’m not sure about this. Ellipticals are more spherical, spirals more flat,
+so I would think that the brightness falls off less for ellipticals.
+Prof: Makes some signs with his hands Do you know what Vaucouleurs law is?
+Ich: Well I remember the name, but I don’t know the exact form of it.
+Prof: Ok qualitatively you said it right, it’s just exponential but different rate of decay for both galaxies.
+So next we have a look at fluid dynamic, which is used a lot in astrophysics. We had these equations...
+Do you know what they were about? Question was very cautious, maybe they thought I didn’t know hehe
+Ich: There are three, the first one is continuity equation ∂t ρ + ∇(ρv) = 0. It just means that the
+amount of material which changes inside a volume has to flow in or out through its surface. It follows
+from considering a box and using Gauss law. The second one is the Euler equation (write it down). So
+it says that the velocity is equal to...
+Prof: Is it the velocity?
+Ich: Ok no of course not, it’s the change of the velocity, so the a- or deceleration. On the right side we
+basically have the force, once acting on the surface and second acting on all points inside the fluid.
+Prof: That’s right. What exactly does this derivative mean?
+Ich: Uhh that’s quite mathematical, it’s the Euler derivative, which is the total derivative in contrast
+to the partial.
+Prof: Yes but what does it mean physically? I don’t know this, after same back and forth when they see
+that I’ll not get there, the assistant explains: The Euler derivative is the change when you move with
+the fluid, the partial derivative is when you are fixed at one point and look at the change there. Ok now
+I remembered, damn.
+
+
+
+
+                                                      3
+Prof: And the third?
+Ich: That’s just the derivative of P/ργ is zero. But we didn’t really motivate this equation. It just
+follows from an ideal gas where this quotient is constant, so the derivative is zero.
+Prof: Yes we didn’t really motivate it. It anyway can be any equation, but why do we need this?
+Ich: Because we have three variables ρ, P and v so we need three equations to solve them.
+Prof: Good. The force on the right side, how can we also write it?
+Ich: What is important is, that it’s the force per unit mass. So maybe we can write it as GM
+                                                                                           r2
+                                                                                              .
+Prof: But for a fluid we don’t have single particles with masses, so how else could we write this?
+Ich: We could put the density times the volume instead of the mass.
+Prof: There’s another way. If we have a potential... now I know what he wants
+Ich: Of course, you can write it as minus gradient of the potential.
+Prof: That’s it. Ok but now we have another variable we don’t know. How else can we express it from
+the variables we have? I hesitate, so the prof helps: Poisson...
+Ich: Of course we can write it as Poisson equation ∆Φ = 4πGρ.
+Prof: Very good. Ok thank you, we’re done.
+Ich: What, already?
+
+
+Bemerkungen Das erste mal bei meinen Prüfungen, dass auch der Assistent gleichberechtigt mit
+dem Prof gefragt hat. War aber deshalb auch sehr relaxte Atmosphäre, sowohl Prof als auch Assistent
+sind sehr nett und unterstützend. Manchmal fast schon ein bisschen viel, haben fast schon zu schnell
+weitergeholfen und mir wäre manches vielleicht eingefallen. Aber unterm Strich sehr angenehm wie sie
+es machen. Herleitungen braucht man nur sehr wenig, man muss aber auf jeden Fall wissen, was die
+Gleichungen bedeuten! Etwas überraschend, dass die Prüfung schon nach 25 min fertig war, aber ich
+war wahrscheinlich nicht der einzige nachdem wir schon 15 min früher angefangen hatten, weil sie beim
+Student davor auch so früh fertig waren. Auf jeden Fall cooler Prof für mündliche Prüfung.
+
+Erwartete Note: 5.5
+Erhaltene Note: 5.25
+
+
+
+
+                                                  4
+                                     Astrophysics I1
+                                      Prof. Refregier, HS2013
+                                             28.01.2014
+
+
+Summary In Prof. Refregier’s Office, Exam at Whiteboard, assistent doesn’t take any notes but
+actively asks questions together with the Professor.
+Content description: 3 questions on 3 different topics of the course. Very fast exam: once you’re done
+with the three questions, you’re done with the exam. For me it lasted 25 minutes.
+
+
+Ablauf ((Begrüssung))
+Prof: Can you tell me about the structure of the sun?
+Ich: The sun has a radiative core and a convective shell.
+Prof: What does convective and radiative physically mean?
+Ich: They are heat transfer processes. Convection involves displacement of matter (like the bubbles
+when water boils for instance), whereas radiation is heat transport through electromagnetic waves.
+Prof: Why do we have convection on the outside and radiation on the inside?
+Ich: Keyword: Schwarzschild stability condition. On the inside of the sun, the fusion process (pp-chain)
+isn’t efficient enough to produce a temperature gradient that is higher as Schwarzschild gradient so
+the system is stable to convection. On the outside, the structure of the sun is very opaque and thus
+produces a higher gradient of temperature so that the system is instable to convection.
+Prof: What about stars of bigger sizes?
+Ich: There it is the opposite: convective core and radiative radius.
+Prof: What is the main source of energy inside the sun?
+Ich: Nuclear fusion. Hydrogen into helium conversion.
+Prof: What happens when we don’t have any fuel anymore? How does the star evolve?
+Ich: HR-diagramm: main sequence → red giant → ends up in: white dwarf, neutron star, supernova or
+blackhole depending on the mass of the star.
+
+
+Prof: Good, next topic: What can you tell me about rotation curves of spiral galaxies?
+Ich: They are evidence for dark matter: Rotation curves (vc ) are linear outside the visible radius
+
+ 1
+     BSc Physik, Wahlfach
+
+
+
+
+                                                   1
+although classically expected to fall off like r−1/2
+Prof: Can you make a sketch?
+Ich: (I draw the curves: linear growth inside the visible radius of the galaxy and constant outside,
+Chuduri Astrophysics for physicists p.268)
+
+
+
+
+Prof: How does the mass evolve outside of the visible radius of the galaxy?
+Ich: M∝ r
+Prof: What can we deduce about how the density evolves?
+Ich: ρ = M/V so it must evolve like r−2 .
+Prof: Yes. Now a difficult one: What kind of dispersion did we see, which also have a density falling off
+in the same way (ρ ∝ r−2 )?
+Ich: ??? I didn’t know.
+Prof: Singular sphere. But this wasn’t really in the scope of the course.
+
+
+Prof: Okay next topic: Eddington Luminosity. What does it tell us?
+Ich: It represents an upper limit on the luminosity of a star as well as on its mass through the scaling
+relation: L ∝ M 3
+Prof: What happens to the star above this limit?
+Ich: The star explodes because the radiation pressure is bigger than the gravitational pressure.
+Prof: Do you know the explicit formula of the Eddington Luminosity?
+
+
+
+                                                       2
+Ich: Yes. L < 4πcGM
+                 χ
+
+Prof: and can you please derive it?
+This part took a bit more time as I didn’t remember the derivation and they helped me quite a lot. In
+the end, the derivation isn’t hard at all...if you know it! (Chuduri, Astrophysics for physicists p.86)
+
+
+
+
+Prof: Okay, we are done! Have a nice day.
+
+
+Remarks Nice atmosphere, Refregier and his assistant are helpful and try not to stress you. But
+especially the assistant tends to ask until one doesn’t know the answer any more.
+
+Erhaltene Note: 5.5
+Erwartete Note: 5
+
+
+
+
+                                                   3
+

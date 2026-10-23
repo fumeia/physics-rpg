@@ -1,0 +1,114 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                                 Exercise sheet X
+                                   Return:       26.11.2025
+
+
+Question 1 [Harmonic oscillator in spherical coordinates ]:
+Consider an isotropic harmonic oscillator in three dimensions with Hamiltonian
+
+                              1 2                   mω 2 2
+                        H=      (px + p2y + p2z ) +     (x + y 2 + z 2 ).                     (1)
+                             2m                      2
+The goal of this exercise is to derive the spectrum of this system using the same approach
+as for the hydrogen atom.
+
+  (i) Using what you know about the harmonic oscillator, what is the energy spectrum
+      and what are the degeneracies? (The purpose of the rest of the exercise will be to
+      recover this result... the hard way.)
+
+ (ii) In polar coordinates, let the function Ψ(r, θ, ϕ) = u(r)
+                                                           r
+                                                               Yℓm (θ, ϕ) (ℓ ∈ {0, 1, 2, ...} and
+      m ∈ {−ℓ, ..., ℓ}) be an eigenfunction of the Hamiltonian (1) with energy E, so that
+      (as shown in class) the corresponding time-independent Schrödinger equation reads
+
+                                 d2
+                                                      
+                                       ℓ(ℓ + 1)
+                              − 2+              + V(r) u(r) = ε u(r)                           (2)
+                                dr        r2
+
+     where V(r) = (m2 ω 2 /ℏ2 ) r2 and ε = 2mE/ℏ2 . Show that, for Ψ(r, θ, ϕ) to be
+     square-integrable, one must have (up to normalization)
+                                                        h          i
+            u(r) ∼ rℓ+1 as r → 0     and     u(r) ∼ exp − mω2ℏ
+                                                               r 2
+                                                                     as r → +∞. (3)
+
+     In what way is this radically different from the hydrogen atom, and why?
+
+(iii) Write an ansatz
+                                             h             i       +∞
+                                                                   X
+                                u(r) = exp       − mω
+                                                   2ℏ
+                                                      r2       ×           ck r k             (4)
+                                                                   k=ℓ+1
+
+     and use the Schrödinger equation to obtain the recursion relation
+                                              mω
+                                               ℏ
+                                                 (2k + 1) − ε
+                                ck+2 =                                       ck .             (5)
+                                         (k + 2)(k + 1) − ℓ(ℓ + 1)
+
+     What is the value of ck ’s when k − ℓ is even? How many of the ck ’s are free?
+
+(iv) Require that the wave-function be square-integrable and find the corresponding
+     allowed energies at fixed ℓ. Draw the resulting spectrum in the (ℓ, E) plane.
+
+ (v) Show that the energy spectrum, including degeneracies, reproduces the result an-
+     ticipated in point (i).
+Question 2 [Projective representations ]:
+As seen in class, the group SO(3) has projective representations (with half-integer spin).
+Here we study a simple analogue of that effect. Consider the finite group G = Z2 × Z2
+and denote its two generators by g and h, respectively, so that the group relations are
+
+                               g 2 = id = h2 ,            gh = hg .                      (6)
+
+  (i) Consider the map γ from Z2 × Z2 to the space of 2 × 2 matrices given by
+                                                                         
+                 1 0               1 0                    0 1               0 −1
+       γ(id) =          , γ(g) =             , γ(h) =           , γ(gh) =         .
+                 0 1               0 −1                   1 0               1 0
+                                                                                 (7)
+      Show that this map is a projective representation of G = Z2 × Z2 with cocycle
+      phases                   
+                                 +1 if a = id or b = id or a = h or b = g,
+                   c2 (a, b) =                                                   (8)
+                                 −1 otherwise.
+
+ (ii) Show that there exist no 1-cycle phases c1 (a) that remove the 2-cycle phase; that
+      is, show that for any 1-cycle c1 (a) there is always at least one pair (a, b) such that
+
+                                                        c1 (a)c1 (b)
+                               ĉ2 (a, b) ≡ c2 (a, b)                ̸= +1 .             (9)
+                                                          c1 (ab)
+
+(iii) Define the covering group E = Z2 × G, whose group multiplication is
+
+                                 (x, a) · (y, b) = (xyc2 (a, b), ab) ,                  (10)
+
+     where x, y ∈ {±1} = Z2 and a, b ∈ G. Show that E is really a group (in fact it is
+     isomorphic to the dihedral group D4 ) and that γ lifts to an honest, non-projective
+     representation of E defined for any a ∈ G by
+
+                            γ̂(1, a) = γ(a) ,           γ̂(−1, a) = −γ(a) .             (11)
+
+(iv) The construction of the covering group actually generalises to arbitrary projective
+     representations. Let G be any group and ρ any projective representation of G with
+     cocycle phases c2 (g, h). We define U to be the subgroup of U (1) generated by all
+     cocycle phases c2 (g, h), for g, h ∈ G. Then the covering group is the set E = U × G,
+     with group multiplication
+
+                               (u1 , g)(u2 , h) = (u1 u2 c2 (g, h), gh) .               (12)
+
+     Show that this defines a group, and that the projective representation ρ can be lifted
+     to an honest, non-projective representation ρ̂ of E by defining
+
+                                          ρ̂(u, g) = uρ(g) .                            (13)
+
+     Note that this readily applies to SO(3), whose cocycle phases are indeed only ±1.
+     Its covering group is thus a two-fold (Z2 ) cover, as is indeed the case for SU(2).
+

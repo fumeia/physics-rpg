@@ -1,0 +1,175 @@
+                                     Astrophysics 11
+                                 Prof. Alexandre Refregier, HS 2014
+                                   22.01.2014, 11:30, Oliver Reich
+
+
+Summary In Prof. office, me, him and the assistant sitting in a chair. I got a paper block to write
+things down. The assistant is taking notes.
+
+
+Ablauf Prof. and assistant come, say hello, and let me in the office. We sit down.
+Prof: Let’s start with our own galaxy, the Milky Way. Which parts from the structure can you tell us?
+Me: Roughly said we can distinguish the bulge, halo and disk. For example in the disk we have the
+younger, blue stars and in the bulge and halo we have the redder stars.
+Prof: Can you draw a sketch?
+Me: (Drawing a sketch of bulge with disk and with sphere around it as halo.)
+Prof: Ok. Then he wants to know the values for the disk, bulge and halo radius, the thickness of the
+disk, our position in the sketch.
+Me: Tell him the values and write them down in the sketch: radius disk about 10 kpc, the same for
+the halo radius, the bulge is about 2 kpc, the disk is several hundreds pc thick (actually it is about 50
+pc), we are at 8 kpc from the center.
+Prof: Wants to hear what the movement of the stars in the different regions looks like.
+Me: In the disk we can assume circular motion...
+Prof: At that point wants more information.
+                                    q
+Me: Well, there’s that formula v = GM     r
+                                         r .
+Mr is the mass inside radius r, which is perhaps interesting to know because it might differ from the
+visible mass.
+In the halo we have peculiar motion, or chaotic... well
+Prof: ...random motion, yes.
+Me: Ok.
+Prof: What do we find in the halo?
+Me: Star clusters, older stars, dark matter...
+Prof: What do we find in the disk?
+ 1
+     BSc Physics, Core Subject
+
+
+
+
+                                                   1
+Me: (Thinking) There are star clusters...
+Prof: Where are the star clusters?
+Me: No, they are mainly in the bulge and halo... So in the disk...
+Prof: (Says sth. that gives me a clue)
+Me: The spiral arms!
+Prof: Yes, what are they made of? (Sees me thinking) Are they made of stars?
+Me: No, they are made of ISM.
+Prof: Yes, what is ISM? You don’t have to list all types of ISM, just generally...
+Me: It’s gas and dust, mostly hydrogen
+Prof: Ok, now there are also elliptical galaxies. How are they different?
+Me: They don’t have these substructures. (Drawing an empty ellipsis) They have older redder stars,
+their luminosity falls off less with radius.
+Prof: What about ISM?
+Me: Much less than spirals. There’s the thinking that spirals turn into ellipticals when losing ISM.
+Prof: Ok, next chapter. How do stars power themselves?
+Me: Nuclear fusion. The smaller ones do a pp cycle, the bigger ones a CNO cycle.
+Prof: Ok, so what does pp and CNO exactly mean? And why do bigger stars one and smaller the
+other?
+Me: (My knowledge was a bit vague on this) pp is burning hydrogen into helium. CNO is burning
+carbon to N to oxygen.
+For the CNO the energy density needs to be bigger, so it happens in bigger stars.
+Prof: So is carbon the fuil in bigger stars?
+Me: No, you need hydrogen to burn this cycle, so you could call hydrogen the fuil.
+Prof: And the C, N, O?
+Me: It is the catalysator for the reaction.
+Prof: Where does the C, N, O come from?
+Me: From other stars. When dying, they produce heavier elements which are then blown off into the
+ISM.
+Prof: How are the light elements produced?
+
+
+
+
+                                                  2
+Me: In the first second after the Big Bang, Nucleosynthesis.
+Prof: What is produced there?
+Me: H, the second one (meant He) and Li.
+Prof: Li not so much
+Me: ...
+Prof: He you mentioned before.
+Me: Ok.
+Prof: Ok, now do the different cycles have consequences on the structures of stars?
+Me: Yes, (mentioning Schwarzschild instability condition) the pp chain does not produce enough
+temperature gradient, so the core of a light star is stable to convection, the CNO cycle does, so we have
+convective core.
+Prof: Why do star have a mass?
+Me: ?
+Prof: Explains, how comes we observe a certain range of masses, especially a lower limit, which is?
+Me: 0.1 – 100 M . The lower limit is because you need a certain energy density to start pp.
+Prof: So the energy density in small stars is about the binding energy of nuclei?
+Me: No (explain the tunneling effect, which starts pp chain even for lower densities)
+(change of topic)
+Prof: Can you tell me Jeans’ theorem?
+Me: ... it has to do with plasma?
+Prof: No (mentions stellar dynamics, how they evolve)
+Me: Oh, it’s a criterion, which decides whether local perturbations can collapse into structures...
+Prof: (Has to admit, this is also from Jeans, but it is not Jeans’ theorem)
+In stellar dynamics, we have a theorem...
+Me: The virial theorem...?
+Prof: Yes (No), but what are the systems we are looking at?
+Me: Point masses... in a force field.
+Prof: Yes, what causes the force?
+
+
+
+
+                                                   3
+Me: Mass distribution...
+Prof: Basically yes, it’s a self gravitating system.
+Me: Ok.
+Prof: Is it in thermal equilibrium?
+Me: No, you can see it from the specific heat of the system, it’s negative.
+Prof: Ok, do you know the Boltzmann equation?
+Me: Yes, you mean the collisionless?
+Prof: Yes.
+Me: df   ∂f     P ∂f          ∂f
+    dt = ∂t +        ∂xi vi + ∂vi ai = 0
+                 i
+
+Prof: What is f ?
+Me: It is the density of particles, mass density,... number of particles in a volume at x with velocity v
+at time t.
+Prof: So what kind of volume is it?
+Me: Well, six dimensional. It’s x and v.
+Prof: Yes, the phase volume.
+Me: Yes.
+Prof: And is the collisionless Boltzmann equation a good approximation here?
+Me: Yes (explain the relaxation time being about the age of the universe, so no collisions)
+Prof: Ok, and what is this equation good for in our case?
+Me: It is for systems not in an equilibrium.
+Prof: Yes, how does it look if we consider a static solution?
+Me: I set ∂f
+          ∂t = 0 in Boltzmann equation.
+
+Prof: How do we construct such solutions?
+                                                          d
+Me: We consider quantities that are conserved in time, so dt Qi (x, v) = 0.
+Prof: (asks how we call them, I don’t know, it’s constants of motion)
+And how do we see, f (Q(x, v)) is a solution?
+
+                d                   ∂f   P ∂f ∂Qi
+Me: I calculate dt f (Q(x, v)) =        + ∂Q       =0
+                                    ∂t
+                                   |{z}  i
+                                             i ∂t
+                                              |{z}
+                                     =0          =0
+
+
+
+
+                                                       4
+Prof: So now, how is this called?
+Me: That’s Jeans’ theorem!
+Prof: Yes. A solution to the Boltzmann equation using Jeans’ theorem?
+Me: (don’t know)
+Prof: The single isothermal sphere. Do you know what it looks like?
+Me: The density distribution? Yes, it’s ρ(r) ∼ r12 with a constant I don’t know.
+Prof: You know why this is interesting?
+Me: ρ ∼ r12 → Mr ∼ r → hv 2 i ∼ const as observed...
+Prof: ... as observed in galaxies. Thank you, the exam is over.
+
+
+Final Remarks (Assistant was taking notes, not asking any questions. As expected, there were three
+topics at the exam, after which the exam was over. Time was about 30 minutes, still.)
+
+Expected mark: 5.5
+Received mark: 5.5
+
+
+
+
+                                                 5
+

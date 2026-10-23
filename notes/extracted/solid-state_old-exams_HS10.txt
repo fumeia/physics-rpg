@@ -1,0 +1,328 @@
+                          Festkörperphysik
+                             Klaus Ensslin, HS 2010
+                         8.2.2011; 9:00-9:30, Beat Bräm
+
+Ich trete ins Büro, die Assistentin die meine Übungsstunde geleitet hat, ist als Zuhö-
+rerin da. Ich natürlich nervös, ist meine erste mündliche Prüfung. Prüfung auf Papier,
+sitze zusammen mit Ensslin und der Assistentin am Tisch.
+
+KE: mit was möchten Sie beginnen?
+BB: Ich möchte das Bloch Theorem herleiten und dann damit auf die Energielücke des
+quasifreien Elektronengases kommen. (ziemlich genau das, was auch im Ibach steht)
+KE: Dann dürfen Sie anfangen
+BB: Annahme: periodisches Potential, keine weiteren Forderungen an das Potential.
+Das würde eigentlich einen unendlich ausgedehnten Kristall erfordern, aber die Nä-
+herung ist gut genug. Ensslin stellt kurze Zwischenfragen, lässt mich aber arbeiten.
+Schreibe dann den Ansatz mit der überlagerung der ebenen Wellen hin und will die
+Schrödingerlgeichung hinschreiben, da unterbricht er mich definitiv und will direkt das
+Ergebnis.
+BB: schreibs hin, dann interessieren ihn vor allem die Periodizitäten von uk (r) und
+ψk (r) im reziproken und normalen Raum. Als wichtige Konsequenz dass auch die Ene-
+gie im k-Raum periodisch ist. Das brauche ich dann für die Herleitung der Energielücke.
+Dabei schreibe ich die Formel für ck−G hin (siehe Ibach).
+KE: warum uns denn die Zonenränder interessieren?
+BB: mit der Näherung des freien e− -Gases gilt E = h̄2 k 2 /2m, also der Nenner ver-
+schwindet fast auf dem Zonenrand. Daher ist das interessant. Erzähle was von der
+Koppelung der ck mit den ck−G und komme dann mit dem Erwähnen der Determi-
+nantenmethode auf das Resultat ∆E = E + − E − = 2 ∗ |VG | und erwähne, dass für die
+zweite Energielücke dann der zweite Fourierkoeffizient relevant wäre.
+KE: Dann gehen wir jetzt zum Tight Binding Modell: Was können Sie dazu sagen?
+BB: e− fest gebunden, daher in der Regel nur die Wechselwirkung nächster Nachbarn
+berücksichtigt, da der Überlapp zum übernächsten Nachbarn sehr gering ist.
+KE: konkret, wenn wir z.B. Gold haben:
+BB: verwirrt: Aber Gold ist ein Metall, die werden besser durch das freie Elektronen-
+gas beschrieben, z.B. die Rechnung für cv , dass ja proportional zur Temperatur ist,
+funktioniert damit ganz gut.
+KE: bohrt weiter, bis...
+BB: endlich sehe ichs: er will wissen dass man die TBA bei Gold für die Rumpfelek-
+tronen anwenden kann.
+KE: okay, zeigen Sie mir die Dispersionsrelation der zweiatomigen Kette
+BB: zeichne, erwähne den akustischen und optischen Ast
+KE: will die Schallgeschwindigkeit des akkustischen Astes (die ich hinschreibe) und
+wir kommen darauf, dann vG = ∂ω/∂k nur in der linearen Näherung als Schallge-
+schwindigkeit bezeichnet werden kann, da dort auch c = ω/k ist. Wieso „optisch“?
+
+
+
+                                          1
+BB: ω(k = 0) 6= 0, falls unterschiedliche Atome: Koppelung an elektromagnetische
+Wellen.
+KE: Geschwindigkeit dort? wieso?
+BB: null, stehende Wellen. Symmetrie
+KE: Geschwindigkeit bei der Zonengrenze? wieso?
+BB: ebenfalls null. Stetigkeit (?)
+KE: bei einem realen Festkörper, auch so?
+BB: (wusste kein Gegenbeispiel) ja, denke schon.
+KE: richtig (keine Begründung). Zeigt weiter oben auf das Blatt: was ist G?
+BB: reziproker Gittervektor
+KE: was ist das? ich begreif nicht was er will, schlussendlich will er ihn für einen
+SC-Kristall, und mir wird endlich klar:
+BB: |G| = 2π/a
+KE: Themenwechsel: zeichnen Sie mir einen p-n-Übergang
+BB: im thermodynamischen Gleichgewicht?
+KE: haben wir was anderes gemacht?
+BB: ja, z.B. eine Spannung angelegt (schneller Konter, hat er nicht erwartet) und
+dann ist EF nicht mehr konstant.
+KE: naja, dazu kommen wir später...
+BB: zeichne, erkläre, er fragt was z.B. die Linien von ED und EA sind (die ich nicht
+angeschrieben hatte), antworte und dass ED ca 10meV unter EL liegt, dass man das
+mit dem Wasserstoffmodell recht gut abschätzen könne. erwähne die Annahmen des
+Schottky-modells
+KE: wie breit ist die Raumladungszone?
+BB: will die Formel hinschreiben, doch er unterbricht und will es quantitativ. Ich habe
+keine Ahnung, schätze auf „einige 10 Angström“.
+KE: was wenn wir die Dotierung verändern?
+BB: falls ND grösser, dann dn kleiner, falls ND und NA grösser, dn vermutlich gleich
+(denke an Massenwirkungsgesetz oder was ähnliches, ist aber falsch).
+KE: dann schreiben Sie doch noch die Formel hin
+BB: schreibe, und sehe: für höhere Dotierungen ist dn kleiner
+KE: Zeichnen Sie das I(U ) Diagramm
+BB: Zeichne, erwähne dass Sperrstrom ≈ I gen von U = 0 ist
+KE: Themawechsel: Austauschwechselwirkung
+BB: (keine Ahnung, blackout) erzähle was von Spin und so, was eigentlich alles falsch
+ist, erwähne was von Austauschloch und gebe ihm einen Überblick über mein Wissen
+und meine Fantasie. Doch nichts über Austauschwechselwirkung...
+KE: macht Kommentare wie „das ist Pauli“, „das ist kovalente Bindung“, „was für
+Energieabsenkung“? bis dann die Zeit um ist. Bin ich froh, dass er damit nicht früher
+angefangen hat. Als Abschluss sein Kommentar: keine Angst, ist gut gelaufen, wollte
+am Schluss nur etwas tiefer bohren.
+Fertig, ich auch, und ich verabschiede mich. Eher längere Prüfung, war ca. 30min drin.
+Note: 5.5
+
+
+
+
+                                          2
+Festkörper                                                                                 HS10
+
+
+Prüfungsart Wahl-Kernfach Festkörperphysik, HS10
+
+Dozent Prof. K. Ensslin
+
+  Einstiegsthema darf man selbst wählen. Ich trage spezifische Wärme vor:
+                                                1 ∂U
+                                        cV :=    (   )V
+                                                V ∂T
+Dabei ist
+                                         Z∞
+                                    U=        Z(ω)E(ω, T )dω
+                                         0
+
+Um die Frage gleich vorweg zu nehmen sage ich noch, dass im Debye-Modell - auf das ich gleich
+zu sprechen käme - Z(ω) ∝ ω 2 .
+E: Warum ∝ ω 2 ?
+I: Debye. (Das hat er nicht einfach nur gesagt...?)
+E: Voraussetzungen für Debye-Modell?
+I: harmonische Näherung
+E: das heisst?
+I: Dass wir Terme höherer Ordnung ignorieren. Also wenn wir das Potential eines Kristalls
+nehmen und entwickeln:
+                                                          ∂2Φ
+                                Φ(rn + un (t)) ≈ Φ(rn ) +     .....
+                                                          ∂r2
+Wir betrachten Extremalpunkt, daher die erste Ableitung gleich Null. Und die höheren Terme
+lassen wir jetzt eben weg.
+E: Ja, das ist aber allgemein gültig, nicht Debye. Was ist mit der Zustandsdichte im Debye-
+Modell?
+I: (Diese Normierung wollte ich schon lange sagen, denn das ist für mich Debye :))
+                                                ZωD
+                                       3rN =          Z(ω)dω                                  (1)
+                                                0
+
+Interpretation: Wir lassen nur die Moden zu, bis alle angeregt sind.
+E: Ja, und was ist jetzt das Spezielle an Debye?
+I: ?!
+E: Was ist mit 2-atomiger linearer Kette?
+I: (keine Ahnung, worauf er hinaus wollte. Ich zeichnete lineare Kette mit zwei Massen und wollte
+erklären, was man damit macht...)
+E: Zeichnen Sie die Dispersion auf.
+I: (Zeichne akustischen und optischen Ast. (oh, wichtig: ich skizziere nicht schön; wir wissen
+schliesslich beide was ich mit der Zeichnung aussagen will und um sie zu erklären reicht das.
+Falsch: Die optische Dispersion hat bei mir zuerst eine leichte Steigung))
+E: (voller Entsetzen:) Wie sieht der optische Ast aus?!
+I: Sry, wüst gezeichnet (verbessert)
+E: (Gefällt ihm noch nicht:) Zeichnen Sie noch Tangente bei 0.
+I: Horizontal: Maximum. Hier schwingen die beiden Massen gegeneinander. An BZ-Rand steht
+je eine Masse still.
+E: Ok, und was ist jetzt Debye?
+I: Ich zeichne die Tangente an den akustischen Ast und sage, Debye lässt nur Moden zu bis alle
+angeregt sind.
+E: Ja, genau das ist Debye! (Ich bin echt voll der Überzeugung, dass ich das im Zusammenhang
+
+                                                 1
+Festkörper                                                                                 HS10
+
+
+mit (1) gesagt habe!)
+E: Aber Sie wollten noch den Grafen für cV (T ) zeichnen.
+I: (na endlich! zeichne:)
+
+                                                                     3rN k
+                         cV |T →0 ∝ T 3   ,   cV |T >>θD ∝ const =
+                                                                       V
+
+E: Wie kommt Dulong-Petit auf diesen Wert?
+I: (Sry?) Ein konstanter Wert für höhere Temperaturen.
+E: Versuchen wir’s so: Was ist die innere Energie eines klassischen Gases?
+I: Weiss ich nicht.
+E: Doch, das wissen Sie.
+Nach mehreren Anläufen und hilflosen Blicken: Die Lösung ist eigentlich ganz einfach. Wir haben
+3rN Zustände, verteilt auf Volumen V und jede Mode trägt kT bei; U ∝ T ⇒ cV ∝ const.
+E: Wo ist die Debye-Temperatur in der Zeichnung? Stimmt dieses Modell mit den Experimenten
+überein?
+I: (zeichne ein) Jein: T 3 ja, aber für höhere Temperaturen kommen anharmonische Effekte dazu.
+cV steigt weiter.
+E: Zeichnen Sie ein
+I: (?! Was will er? Zeichne linear steigende Linie)
+E: Wie steigt’s?
+I: Leicht linear in T (Will er das hören?)
+
+E: Genau. Themenwechsel: Tight binding.
+I: Warum dieses Modell: Am einzelnen Atom ist das Elektron lokalisiert, also ist es im Kristall
+immer noch an das Atom gebunden. (zeichne Abb 7.7 aus Ibach Lüth. Erkläre dass v(r − rn ) =
+VGitter − VA (r). Er will Energie-Resultat sehen:)
+                                                   X
+                                  E = Ei − A − B     eik(rn −rm )
+
+
+E: Was brauchen wir für diese Näherung?
+I: Kugelsymmetrie: s-Orbital
+E: Ok, aber vorher noch; was ist mit Ψ?
+I: (ah, Ritz’sches Näherungsverfahren:) Wir wollen die Schrödingergleichung mit den Potentialen
+füttern, kennen aber Ψ nicht. Wählen ein φ. Resultat umso besser, je besser wir φ wählen.
+E: Ja... und wie wählen wir φ?
+I: (Aufgrund alter Prüfungsprotokollen habe ich doch solche Herleitungen nicht weiter beachtet?)
+Ebene Wellen?
+Antwort ist irgend etwas mit Überlagerung der Störpotentiale moduliert mit ebener Welle um
+Bloch anwenden zu können...
+Wir kommen auf Abb 7.8 aus Ibach Lüth. (wieder wüst gezeichnet, er kann das a−1 nicht lesen.
+insistiert auf −1. weiss nicht was ich da soll, habe ich ja geschrieben... dann sieht er, dass da
+ein − steht...)
+E: Was sind diese Ei ?
+I: Elektron um Atomrumpf; Grundzustand, angeregter Zustand...
+E: Was wird stärker abgesenkt; obere oder untere Bänder?
+I: Obere. (warum?) Nun, intuitiv: Tight binding sagt letztlich, dass obere Bänder breiter werden
+(Ich fragte aber nach Absenkung!) Ja, aber weil Band breiter, muss es stärker abgesenkt werden,
+sonst kommen die e− über Ei heraus. Wieso sollte sich dann ein Kristall ausbilden?
+E: (Er sah echt nicht glücklich aus.) Nochmals: Warum stärkere Absenkung?
+I: (Spielverderber!) Ok, Absenkung wegen A: höhere e− spüren vergleichsweise das eigene Atom
+
+                                                 2
+Festkörper                                                                                HS10
+
+
+weniger während es das Störpotential stärker spürt.
+E: Was steckt in A?
+I: Überlapp mit Störpotential.
+E: Überlapp womit?
+I: (Nicht?) Mit anderen Elektronen? Aber das steckt in B!
+E: Überlapp womit?!
+I: (Konfusion total, was will er? Zeichne Atomfunktion der Nachbarn in Abb 7.7; kommen in
+Kegel des ausgewählten Atoms.)
+Nach längerer Diskussion kam raus was er hören wollte: „Überlapp mit Störpotential“ (Ich weiss
+echt nicht, was mit mir falsch ist, aber ich könnte schwören, dass ich damit angefangen habe.)
+I: (Fasse nochmals zusammen:) Absenkung des ausgewählten e− durch Atome, nicht e− , der
+Nachbarn.
+
+E: Themenwechsel: Elektrische Leitfähigkeit im Metall. Zeichnen Sie ρ(T ).
+I: (Zeichne und steige gleich mit Erklärung ein:)
+
+                               ρ ∝ const ,    ρ ∝ T5     ,   ρ∝T
+
+
+E: Erklärung für linearen Verlauf?
+I: (Allmählich bekam ich Zeitstress: Auf der Uhr war ca 25 nach (vergass, dass der vor mir über-
+zog...). Wollte abkürzern um endlich zu den advanced Topics zu kommen; überspringe Argument
+der freien Flugzeit und setze gleich Relation mit Widerstand (schien schlechte Idee zu sein:)
+Widerstand ist proportional zu mittlerem Quadrat der Amplitude
+
+                                         ρ ∝< s2 (q) >
+
+
+E: Proportional zur Amplitude.
+I: (insistiere:) Quadrat!
+(Weder in der VL noch im Ibach Lüth ist eine Erklärung dafür. IL schreibt das einfach... Nach
+längerem Überlegen kam ich vor ein paar Tagen auf eine (meiner Meinung nach) elegante Lösung.
+Die wollte ich jetzt gleich ausprobieren :) (Im Nachhinein, wenn ich dieses Protokoll schreibe,
+frage ich mich: War ich den Geistesgestört?! An einer Prüfung?!))
+Quadrat ist wichtig, denn: Phononen schwingen auf und ab. Aber diese Schwingung hat eine
+gewisse Varianz. Nun lässt sich schreiben:
+
+                                  Var(X) = E(X 2 ) − E(X)2
+
+Phononen schwingen um Nullpunkt (E(X) = 0) also gilt V ar(X) = E(X 2 ).
+(Ensslin ist normalerweise eine Frohnatur. Aber den Gesichtsausdruck, den er jetzt aufsetzte...
+ich weiss echt nicht ob das gut ist! Also weiss ich auch nicht, ob der Streuquerschnitt nun tat-
+sächlich wegen der Varianz proportional zu < s2 (q) > ist...)
+Und weil < s2 (q) >∝ T ist auch ρ ∝ T .
+(Er liess nicht locker, sieht noch nicht warum ich mit ρ überhaupt die Amplitude betrachte, bis
+ich erkläre):
+I: Wir betrachten die mittlere freie Flugzeit und die ist τ1 ∝ vΣ.
+E: Und was ist v?
+I: v = v(EF ) ∝ const (Grössenordnung?) v(EF ) ≈ 108 cms−1 .
+
+E: Gut, Themenwechsel: Ferromagnetismus. Erklären Sie Austauschwechselwirkung.
+I: Ψ = [φA (1) + φB (1)] [φA (2) + φB (2)]
+Mit den Atomen A, B und zwei Elektronen.
+
+                                               3
+Festkörper                                                                                  HS10
+
+
+E: Gut, wie kommt man auf diesen Ansatz?
+I: (Mensch, der fragt Sachen.) Wir gehen von H2 aus.
+E: Ja, aber wie kommen wir auf diesen Ansatz?
+I: (Was soll man denn sonst für einen Ansatz nehmen mit 2 Atomen und 2 e− ? Zeichne ein
+Dreieck mit A & B in den ersten beiden und einem e− im dritten Ecken. Da realisiere ich, das
+ist genau die Situation in den eckigen Klammern! Das sage ich dann auch.)
+E: Ja, schön, aber warum multiplizieren wir die Klammern?
+I: (Ganz ehrlich: Wie sollen wir die e− denn sonst verbinden?) Ein Plus macht keinen Sinn: Wir
+haben’s mit Wahrscheinlichkeiten zu tun, 200% sind nicht sinnvoll.
+E: Könnte ja einen Normierungsfaktor setzen. Sehen sich die e− ?
+I: Jein. Aufgrund Pauli können sie halt nicht an demselben Ort sein; daher nicht Plus.
+Ich weiss nicht mehr ob er eine Begründung für die Multiplikaiton gab, jedenfalls:
+E: Schreiben Sie die Singulett-Spinwelle auf.
+I: Nun, wegen dem verallgemeinerten Pauli muss sie antisymmetrisch sein.
+E: Schreiben Sie die Singulett-Spinwelle auf.
+I: (Wie bitte?) Ich weiss nicht ob ich jetzt das Richtige meine: (zeichne Abb 8.3)
+E: Das ist die kovalente Bindung. Wie ist die Spinwelle?
+I: ??
+Er nimmt einen Stift (nicht gut: In Fahrprüfung sollte der Experte auch nicht auf die Bremse
+stehen...):
+                                              1
+                                      |Ψi = √ (|↑↓i − |↓↑i)
+                                               2
+
+I: (Achso, hätte er doch gleich sagen können, dass er das meint) Ja, antisymmetrisch.
+E: Wieso?
+I: Wegen dem Minus.
+E: Wieso?
+I: Na wenn wir ↑ mit ↓ vertauschen haben wir nicht mehr das gleiche Resultat.
+E: Wieso?
+I: MINUS!
+(Ich weiss echt nicht mehr ob ich ihn an diesem Punkt angeschrien habe... Aber glaubt er, wir
+seien in einem nicht-konservativen Potential und es springt etwas heraus, wenn wir uns im Kreis
+drehen?!)
+
+
+    Ich habe mich mit Festkörperphysik lange beschäftigt. Es hat mich echt interessiert und ich
+habe es eigentlich auch verstanden. Aber ich habe das Gefühl, dass ich es nicht zeigen konnte.
+Nicht weil es so wäre, sondern weil ich mit seinen Fragen nicht zurecht kam.
+    In alten Prüfungsprotokollen hiess es, er wolle keine Herleitungen. Stimmt, er will das Resul-
+tat. Aber die Herleitung muss man dennoch mündlich wiedergeben können.
+    Offenbar wird auch weitergehender Stoff vorausgesetzt. Klar, Dulong-Petit hätte ich mir mal
+überlegen müssen... Das ganze Kapitel Magnetimus hatten wir in einer Woche, in der E nicht an-
+wesend war. Und eine Erklärung, warum dieser Ansatz... Auch die Spinwellen-Zustandsfunktionen
+wurden in der VL nur kurz erwähnt. Aber mehr im Sinn nice to know ; so lassen sich Singulett
+& Triplett auch noch schreiben...
+    Grundsätzlich will er helfen, wenn man ansteht. Ob’s hilft ist eine andere Frage.
+Note geschätzt ∼4.5
+Note erhalten 5
+    Viel Glück!
+
+
+
+
+                                                4
+

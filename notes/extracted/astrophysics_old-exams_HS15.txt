@@ -1,0 +1,336 @@
+                                             Astrophysics I1
+                                    Prof. Dr. Alexandre Refregier, HS 2015
+                                            February 9, 2016, 13:30
+
+
+
+
+Summary In Prof. office in HIT, exam on paper, in English. I sit at a very small table. The assistant
+sits beside me and takes notes for the protocol with a block on her knees, does not interfere in the
+examination. Prof. sits at first at his desk, later moves at the small table as well when I start writing
+things down, asks questions, looks at what I write and takes notes himself.
+Description of the content: Three topics from the material discussed in the lecture, as announced
+at the end of the semester.
+At first Scales in Astrophysics, chapter 2.1 (1.1); then Extinction by interstellar matter, chapter 5.3
+(6.1.3); at last Friedmann Equation and various things from Cosmology, chapter 9.3, 9.4, 9.5.1, 9.6 and
+9.7.6 (10.4, 10.5, 10.6 and 10.7).2
+
+
+Ablauf (Prof. asks me how I am, I say that I’m really nervous. Prof. explains quickly that the exam
+is subdivided in three parts, referring to three different topics covered in the lecture.)
+AR: To the first topic: Scales. What units are used in Astrophysics?
+Me: For distances, we sometimes use the Astronomical Unit. It’s defined as the distance between the
+earth and the sun and it’s about 1.5 · 1011 meters. For larger distances is the parsec, which is about
+3.26 light years. (I start to explain how parsec is defined, but the Prof. tells me to make a sketch. I
+draw Fig. 1.1 from the book (Figure 1 in this protocol), without labelling 1 AU.) If the sun is here, a
+star up here and the earth moves around it on this orbit, the apparent angle changes. Half this angle is
+the parallax. The unit parsec is defined so that the parallax is 1".
+AR: How is the Astronomical Unit defined here?
+Me: (I don’t understand his question; he means in the sketch.) Well, the earth moves around the sun
+in an ellipse, the Astronomical Unit is defined as the average of the radius.
+AR: Can you label it here?
+Me: Oh, assuming the orbit is a circle, it’s just this length. (I write 1 AU in the sketch.)
+AR: Okay, go on.
+
+
+ 1
+     BSc Physics, Core Subjects
+ 2
+     The first named chapter numbers refer to the lecture, the chapter numbers in brackets refer to the book Astrophysics
+      for Physicists, by A. R. Choudhuri.
+
+
+
+
+                                                             1
+                                   Figure 1: Fig. 1.1 from the book.
+
+
+Me: For masses we usually use the mass of the sun, which is about 2 · 1030 kg. We use it to say how
+heavy something is compared to the sun, as a reference. (talking nonsense, nervous babble)
+Me: For times we just use seconds and years, no special units.
+AR: Can you give some examples for distances?
+Me: Our galaxy, the Milky Way has a diameter of the disk of about 50 kpc and a thickness of about
+100 pc. The closest star, I think Proxima Centauri, is 1.31 pc away from us. The Andromeda Galaxy is
+0.74 Mpc away. Galaxy clusters have a size of the order 1 Mpc. (I should probably not have said that.)
+AR: What do you mean by size of the cluster?
+Me: Well, a galaxy cluster is of the order of a hundred stars, that are bound together by gravity. It’s
+not so clear which galaxies belong to it and which are not really bound, but I think it’s called a cluster
+if enough galaxies are close enough, which would be something like 1 Mpc. As I said, the Andromeda is
+not quite 1 Mpc away, and it belongs to the Local Group like the Milky Way. The Local Group is a
+group of galaxies. (A strange explanation, I don’t know what he wanted.)
+AR: How about distant galaxies?
+Me: They are about 1 Gpc away from us. The whole observable Universe is about 3 Gpc large.
+AR: What examples can you give for masses?
+Me: The sun is of course 1 solar mass. (Really, what was I thinking.) Planets are between 10−7 and
+10−3 solar masses. Stars are between 1/10 and 20 solar masses. Galaxies are of the order of 1012 solar
+masses. Galaxy clusters are about 100 Galaxies, so 1014 solar masses.
+AR: And globular clusters?
+Me: 105 solar masses, I think.
+AR: Next topic: Extinction by interstellar matter.
+
+
+
+
+                                                    2
+Me: (I’m very uncertain in this topic, I don’t really know what he wants.) When light comes from
+other stars, when it’s travelling through the galaxy, it gets taken away, I mean it gets absorbed by the
+interstellar matter.
+AR: Can you give a physical explanation to this?
+Me: Well, when light hits an atom, or an ion or whatever, it can get caught and the atom will get into
+a higher energetic state.
+AR: Okay, that goes into detail. How is the propagation affected?
+Me: The intensity we get will be smaller, because less light gets to us.
+AR: (Finally having mercy with me.) Do you have a formula that relates apparent and absolute
+magnitude?
+                                           d
+Me: (writing down:) m − M = 5 · log10 ( 10pc  ). I’m not sure with the distance here. (Pointing at 10 pc.
+I don’t remember now if I wrote down these distances correct, also in the following formulas. I might
+have written them differently than in this protocol.)
+AR: Do you take the extinction into account here?
+                                                                                     d
+Me: No. I’d have to alter this formula by an additional factor. m = M + 5 · log10 ( 10pc ) − Aλ .
+AR: Is A here positive or negative?
+Me: I think if the luminosity goes up, the magnitude gets smaller. So with the flux being proportional
+to the luminosity... (A discussion about magnitude, flux, intensity, bright and faint. I’m probably
+confusing everything.)
+AR: Write down the definition of the apparent magnitude, then you’ll see it.
+Me: m1 − m2 = 52 · log10 ( FF12 ). This magnitude belongs to this flux. (pointing at m1 and F1 )
+AR: Okay, now if let’s say F1 gets bigger...
+Me: Then m1 will get smaller. So the brighter it is, the smaller the apparent magnitude. (I really
+think I already said that before the whole discussion...)
+AR: So for this A...
+Me: The way I wrote it, it would have to me negative, so that m gets bigger when light is absorbed.
+AR: Yes. It’s usually defined with a plus in the formula. What is A now?
+                    d
+Me: Aλ = 1.5 · ( 1kpc  ). So the farther away the star is, the more of its light gets absorbed. This formula
+is only like this for visible wavelengths.
+AR: So if A is defined like this, is it now positive or negative?
+Me: It’s positive. So it should be like this: (I change the minus sign in the previous formula to a plus.)
+
+
+
+
+                                                     3
+AR: Is it the same for different wavelengths?
+Me: No. Blue light, so higher frequencies in the visible, gets absorbed stronger that red light. This
+makes the light that comes to us red shifted.
+AR: What do you mean by red shift?
+Me: Well, as blue light gets more easily absorbed, it wont reach us as much as the red light will. So
+the resulting light will be redder than what came from the star.
+AR: Is it really a red shift, so does the whole spectrum get shifted? (I should have said reddening
+instead of red shift.)
+Me: No, it’s not a red shift like we defined it in Cosmology. It’s not a complete shift. It’s just the
+visible light that doesn’t get all equally absorbed.
+AR: Do you have a value for this reddening?
+                                                                                                    d
+Me: (Not sure what to write, how we defined it in the lecture. Finally writing:) E(B − V ) = 0.5 · 1kpc .
+So for bigger distances, the light gets redder.
+AR: And the spectrum as a total? (I don’t understand him.) It won’t be just a continuum, but with
+some additional features.
+Me: It will have some peaks, as some frequencies or wavelengths will get absorbed more easily. (I
+finally draw an increasing line with a peak downward, without any labelling, calling it the intensity. Not
+really a sketch, just a thought. I don’t know how to explain it.)
+AR: There will be a specific absorption for graphite present in the interstellar medium.
+Me: Okay.
+AR: Last topic: Friedmann Equation. What does it say?
+Me: (I try to explain it in words, saying something about setting energies equal, differential equation
+for Cosmology etc.) I’ll just write it down first.
+AR: Yes, please.
+       2               2
+Me: ȧa2 = 83 ·πGρ− kaċ2 . The first part comes from the kinetic energy, the second part is the gravitational
+potential energy. These two together are the total energy. We set this equal to the energy from General
+                           2
+Relativity. That is − k·c2 . The left hand side of the equation is just the Hubble parameter squared.
+AR: What do the different symbols mean?
+Me: ρ is just the density of matter, mass per volume. c is simply the speed of light. k describes the
+curvature. If the universe is flat, so no curvature, then k = 0. If the curvature is positive, so a closed
+space, k = +1. For negative curvature, open space, k = −1. a is the factor between the physical
+distance and the co-moving distance. (I couldn’t remember the word scale factor...)
+AR: What is a physically?
+
+
+
+                                                      4
+Me: (I don’t know what he wants, I stammer around. I write down the equation:) l = a · χ
+AR: Let’s say if a gets bigger, what happens then?
+Me: The bigger a gets, the farther away the point is in space. It is the parameter for the expansion of
+the universe.
+AR: Can you solve the equation for flat space?
+Me:qSo then k = 0. I’ll just leave the third term away then. I rearrange the equation a bit:
+ȧ = 83 · πGρ · a. This side is just: a = da
+                                          dt .
+
+AR: Is this a?
+
+     q of course not, it should be ȧ. (I correct it on the paper.) To solve for a we need now:
+Me: No,
+1         8
+a da =    3 · πGρ · dt. We could just integrate this now. That would leave us with a logarithm on the
+left side... (I realize that I forgot the dependence of ρ on a)
+AR: Slowly...
+Me: ρ depends on a too, so we’d have to add this as well.
+AR: How is the dependence of ρ on a?
+Me: In general, we can write it as: ρ ∝ a−3(1+ω) , I think. ω depends now on what we’re looking at.
+For matter it’s equal to zero, for radiation it’s 13 .
+AR: Solve it for one case.
+Me: Okay, I’ll just pick matter. I’ll assume now that there’s only matter present. We get then:
+ρM = ρM,0 · ( aa0 )−3 . This we have to put in the equation above. So we get then... (I’m stuck for a
+while, confused.qNervousness is showing again.) Sorry I’m a bit confused right now. I’ll write it like
+                                     3/2
+this: a1 · a3/2 =   8
+                    3 · πG · ρM,0 · a0 · dt. That gives us...
+
+AR: Write it as an integral, that might help. You can leave the constant away.
+Me: Okay. ROn the right side Rwe just get the constant times t. I ignore any integration constant here.
+That gives: a1/2 dt = const · dt. That gives then: 32 · a3/2 = const · t. (It’s never taken me that long
+to solve an integral, I was REALLY nervous and felt like I did everything wrong.) That leaves us with:
+a ∝ t2/3 .
+AR: Is this correct?
+Me: (I look over my calculation again, searching for the error. My result is also what I remember
+having learned, so...) Yes, I think so...
+AR: It is. That was a catch question.
+
+
+
+
+                                                      5
+Me: For radiation we come up with: a ∝ t1/2 . If we assume there has either always been only matter
+or only radiation present, we get a different age of the universe, if we set our actual value for a and
+solve for the time. In the beginning there was mostly radiation, later then mostly matter.
+AR: When did that happen?
+Me: Until Radiation-Matter-Equality, radiation dominated. That was about 50’000 years after the
+Big-Bang, I think. Afterwards matter dominated, until Dark Matter started to dominate.
+AR: Dark Matter?
+Me: No, Dark Energy, of course.
+AR: How can we describe Dark Energy?
+Me: In this formalism (pointing at ρ ∝ a−3(1+ω) ) we put ω = −1. We observe nowadays an acceleration
+of the universe. For that to happen, we need ω of Dark Energy to be below − 13 . We observe that it is
+about −1 in fact.
+AR: What does it mean for ρ if ω = −1?
+Me: ρ for Dark Energy is constant then, so independent of a. That means while the universe expands,
+more and more Dark Energy would have to come into existence. (I’m not sure weather I’m confusing
+something now.) This also results into the Hubble Constant to be in fact a constant.
+AR: Okay, that’s it. The exam is over now.
+
+
+Final Remarks
+The exam was very comfortable. Prof. tried to help whenever necessary without saying the result
+himself too early. He has specific points for each of the three topics where he wants to get to. I don’t
+think the student can steer the exam himself. Prof. tried to calm me down when I got too nervous,
+encouraged me to write down formulas I knew and explain based on them or to write down more
+intermediate steps during the calculation.
+On the other hand, when I said something right, he sometimes didn’t just accept it but went on to see
+if I was certain and really understood it.
+The whole exam lasted for about 25 minutes. It already started 5 minutes late but the Prof. didn’t
+seam to be in a hurry. He just went through his three topics.
+
+
+
+Expected mark: 5.0
+Received mark: 5.5
+
+
+
+
+                                                   6
+                                        Astrophysics I1
+                                Prof. Dr. Alexandre Refregier, HS 2015
+
+
+Zusammenfassung In Prof. Refregier’s sehr schlichtem Büro, Prüfung auf Papier, mit Assistentin
+Chiway, die vereinzelt kleinere Fragen gestellt hat, um mich vom Schlach runterzuholen, als ich darauf
+stand. Skript: online2 .
+Inhaltliche Beschreibung: Aufschriebe aus den Vorlesungen bzw. die entsprechenden Kapitel aus dem
+Choudhuri.
+Kommentare in []-Klammern beziehen sich auf dieses Buch.
+
+
+Ablauf Begrüssung und Erkläung, dass er drei Themen wählt, die geprüft werden.
+Prof: First subject: Magnitudes. What do you know about them?
+Ich: There is the absolute magnitude, which is intrinsic of the star. It’s connected to the luminosity
+and equals the apparent magnitude at a distance of 10 pc. And there is the apparent magnitude, which
+depends on the distance to the star and is a measure for the brightness we see from the star.
+Prof: Why is magnitude defined with the log?
+Ich: Because our eyes sense an intensity of light with a log scale.
+Prof: Good. How can you connect two apparent magnitudes?
+                         
+Ich: m1 − m2 = 2.5 · log FF21
+
+Prof: How could you rewrite it with distances?
+                                                                                    
+                                        L                                      d
+Ich: I insert the definition of F: F = 4πd2 . And I get m − M = 5 · log       10pc       .
+
+Prof: Next subject: Active galactic nuclei. What is it?
+Ich: So there are normal galaxies and others which emit for example radio at a very high intensity.
+The huge amount of energy for that comes from very small nuclei, the AGNs.
+Prof: In the lecture we stated that these AGN are probably black holes. Which arguments led us there?
+Ich: ???
+Prof: What do you know about the size of a an AGN.
+Ich: Well actually, it has a very small diameter compared to the size of the galaxy. If I take for example
+the size of the Milky Way, if it hat an AGN, it would be few pc to one kpc of diameter.
+ 1
+     BSc Physik, Kernfach
+ 2
+     http://www.astro.ethz.ch/education/courses/astrophysics-11.html
+
+
+
+
+                                                     1
+Prof: How large was that distance in the lecture?
+Ich: Mmmmmh. (Then I got it.) Like 2 AUs.
+Prof: So, and now what do we know about the mass of it?
+Ich: It was around 8 solar masses.
+Prof: Where does this lead us?
+Ich: Well, we used the Schwartzschild radius and concluded that it must be a black hole.
+Prof: What do we know about the luminosity?
+Ich: It is around 1039 W .
+Prof: That’s correct. How was that an argument for a black hole?
+Ich: We did something with the Eddington luminosity ...
+Prof: (He explained it.)
+Prof: Last subject: Expansion of the universe. How do we notice it?
+Ich: If we look at galaxies further away the have a higher redshift than closer ones. From this we
+conclude that objects further away from us recede faster than objects closer to us.
+Prof: Can you give a formula?
+Ich: v = H0 · l.
+Prof: What’s the name of it?
+Ich: It’s the Hubble law.
+Prof: So is this always true?
+Ich: Not exactly: If we look for example at Andromeda, its light is actually blue shifted instead of red.
+That’s because this formula is better: v = H0 · l + δv.
+Prof: What is δv called?
+Ich: That’s the peculiar velocity.
+Prof: Why is that formula better?
+Ich: Because every galaxy has a peculiar velocity. Now the receding velocity grows with the distance,
+meaning that for closer objects like Andromeda, the peculiar velocity can be bigger than the recedeing
+velocity, which might result in a total velocity by which the object is moving towards us.
+Prof: What happens for larger l?
+Ich: We can neglect δv.
+
+
+
+
+                                                    2
+Prof: Are we at the center of the universe?
+Ich: Now we are not.
+Prof: But the universe is expanding uniformly around us.
+Ich: We looked at a model and calculated that we don’t necessarily need to be at the center to have
+that impression.
+Prof: Can you derive it?
+Ich: (I needed quite some help from him to derive that.)
+Prof: Ok we are done. Thank you.
+Ich: Thank you.
+
+
+Bemerkungen Solide. Sehr angenehme Atmosphäre.
+
+Erhaltene Note: 4.5
+Erwartete Note: 4.75
+
+
+
+
+                                                 3
+

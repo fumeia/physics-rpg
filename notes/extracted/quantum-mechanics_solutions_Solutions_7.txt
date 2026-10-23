@@ -1,0 +1,489 @@
+            Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                   Solution to exercise sheet VII
+
+Question 1 [2D harmonic oscillator ]:
+Consider the Hamiltonian of a particle moving in a two-dimensional harmonic potential
+                                   ℏω
+                                      −∂x2 − ∂y2 + x2 + y 2 .
+                                                           
+                            H=                                                           (1)
+                                    2
+ (i) Introduce ladder operators a, a† , b, b† and show that the Hamiltonian can be written
+     as
+                                  H = ℏω a† a + b† b + 1 .
+                                                           
+                                                                                       (2)
+     Write down the commutation relations the ladder operators a, a† , b, b† satisfy.
+
+ (ii) Find the eigenstates of H using the ladder operators. What is the wavefunction of
+      the vacuum ψ0 (x, y) = ⟨x, y|0⟩?
+
+(iii) Show that the Hamiltonian is invariant under a transformation of the ladder oper-
+      ators,                                         
+                              a(φ)       cos φ − sin φ     a
+                                     =                        ,                     (3)
+                              b(φ)        sin φ cos φ      b
+     with the same matrix acting on a† , b† . What is the corresponding transformation of
+     the coordinates x, y, and thus what is the interpretation of this symmetry?
+
+(iv) Find the generator of this transformation. That is, find an operator J which satisfies
+
+                                   d                            d
+                       [J, a] =          a(φ) ,     [J, b] =          b(φ) .             (4)
+                                  dφ φ=0                       dφ φ=0
+
+     Hint: The generator J is constructed from bilinears of ladder operators.
+
+ (v) Show that [H, J] = 0. The two operators can thus be simultaneously diagonalised.
+     Diagonalise J on the space of states with energy E ≤ 2ℏω.
+
+Solution:
+
+  (i) The Hamiltonian is equivalent to two independent 1D harmonic oscillators. We
+      can thus follow the procedure from the lecture notes for the x and y coordinates
+      independently. We thus define
+                        1                                     1
+                    a = √ (x + ∂x ) ,                    a† = √ (x − ∂x ) ,             (S.1)
+                         2                                     2
+                        1                                     1
+                    b = √ (y + ∂y ) ,                    b† = √ (y − ∂y ) .             (S.2)
+                         2                                     2
+     These ladder operators satisfy
+
+                                   [a, a† ] = 1 ,   [b, b† ] = 1 ,                      (S.3)
+      with all other commutators being zero, since ∂x y = ∂y x = 0. On a function ψ(x, y),
+      a† a acts as
+                                            1 2
+                             a† a ψ(x, y) =    x − 1 − ∂x2 ψ(x, y) ,
+                                                          
+                                                                                    (S.4)
+                                            2
+      with a similar equation for b† b, and thus
+                                      H = ℏω a† a + b† b + 1
+                                                             
+                                                                                    (S.5)
+      follows.
+ (ii) The eigenstates of the Hamiltonian are1
+                                             m † n
+                                          a†    b
+                                |m, n⟩ = √      √    |0, 0⟩ ,                                  (S.6)
+                                            m!    n!
+      where |0, 0⟩ =: |0⟩ is the vacuum, characterised by
+                                            a |0⟩ = b |0⟩ = 0 .                                (S.7)
+      The state |m, n⟩ has energy
+                                 H |m, n⟩ = ℏω (m + n + 1) |m, n⟩ .                            (S.8)
+      The wavefunction in position space ψ0 (x, y) = ⟨x, y|0⟩ can be found by writing the
+      algebraic condition a |0⟩ = b |0⟩ = 0 in coordinates,
+                              (x + ∂x ) ψ0 (x, y) = (y + ∂y ) ψ0 (x, y) = 0 .                  (S.9)
+      By making the separation ansatz ψ0 (x, y) = φ0 (x)φ0 (y) and requiring that ψ0 is
+      correctly normalised, we find
+                                                             1      2
+                                          φ0 (x) = π − 4 e−x /2 .                             (S.10)
+      The wavefunction ψ0 is thus the product of the vacuum wavefunctions of the 1D
+      harmonic oscillators in the x and y direction.
+ (iii) We can write                                                 
+                                                 †       †
+                                                                   a
+                                    H = ℏω a         b           ·     + ℏω ,                 (S.11)
+                                                                    b
+      where the · denotes matrix multiplication. If we denote the matrix in eq. (3) by
+      R(φ), we see that under this transformation, H transforms as
+                                                         
+                                      †     †
+                                                 a(φ)
+                       H(φ) = ℏω a (φ) b (φ) ·              + ℏω                (S.12)
+                                                     b(φ)
+                                                    
+                                      †  †
+                                            T      a
+                            = ℏω a b · R R ·            + ℏω = H(0) ,           (S.13)
+                                                     b
+
+      since RT R =√  I. The Hamiltonian
+                                     √ is thus invariant. The coordinate basis is given by
+                 †                †
+      x = (a+a )/ 2, y = (b+b )/ 2. Therefore, under the transformation of the ladder
+      operators, x, y are rotated by the same matrix R(φ). The fact that H is invariant
+      is the result of the rotational symmetry of the (isotropic) 2D harmonic oscillator.
+  1
+     The fact that m, n must be integers and that the vacuum is annihilated by the lowering operators
+follows in exactly the same way as for the 1D harmonic oscillator treated in the lecture.
+(iv) We have
+                             d                            d
+                                   a(φ) = −b ,                  b(φ) = a .              (S.14)
+                            dφ φ=0                       dφ φ=0
+     One can check that the generator for this transformation is
+
+                                          J = a† b − b † a .                            (S.15)
+
+ (v) To calculate [H, J], we use the commutator identity
+
+                                 [A, BC] = B[A, C] + [A, B]C ,                          (S.16)
+
+     which can be checked by expanding both sides. We then find
+
+                           [H, a† b] = a† (−ℏωb) + ℏωa† b = 0 ,
+                                                       
+                                                                                        (S.17)
+
+     and similarly [H, b† a] = 0. Therefore, [H, J] = 0. In particular, J leaves the
+     eigenspaces of H invariant, and can be diagonalised on subspaces of constant energy.
+     Explicitly, J acts on the eigenstates as
+                     p                            p
+          J |m, n⟩ = (m + 1)n |m + 1, n − 1⟩ − m(n + 1) |m − 1, n + 1⟩ .           (S.18)
+
+     The states with energy E ≤ 2ℏω are |0, 0⟩ , |1, 0⟩ , |0, 1⟩. In this basis, J is given by
+     the matrix                                           
+                                             0 0 0
+                                J E≤2ℏω = 0 0 1 .                                      (S.19)
+                                             0 −1 0
+     The eigenstates of J are thus
+                           1                               1
+               |0, 0⟩ ,    √ (|1, 0⟩ + i |0, 1⟩) ,        √ (|1, 0⟩ − i |0, 1⟩) ,       (S.20)
+                            2                               2
+     with eigenvalues 0, i, −i, respectively.
+
+
+Question 2 [Coherent states ]:
+Consider a harmonic oscillator with annihilation and creation operators a, a† such that
+[a, a† ] = 1, and let α ∈ C. A coherent state |α⟩ is a normalised eigenstate of the annihi-
+lation operator a with eigenvalue α, i.e.
+
+                               a|α⟩ = α|α⟩ ,         ⟨α|α⟩ = 1 .                           (5)
+
+  (i) Show that, up to a global phase,
+                                                     2     †
+                                       |α⟩ = e−|α| /2 eαa |0⟩,                             (6)
+
+     where |0⟩ is the ground state of the harmonic oscillator.
+
+ (ii) Let the initial state vector of a harmonic oscillator be |α⟩. Show that the state vector
+      at time t is
+                             |α⟩(t) = e−iωt/2 |α(t)⟩ ,   α(t) = αe−iωt ,                   (7)
+     i.e. that |α⟩(t) is again a coherent state.
+(iii) Calculate ⟨x⟩(t) := ⟨α(t)|x|α(t)⟩ and ⟨p⟩(t). Compare to the classical case.
+(iv) Check that coherent states have minimal uncertainty,
+                                                     ∆x ∆p = ℏ/2 .                                 (8)
+
+ (v) Show that the coherent states are complete, i.e. that
+                                                  ∞
+                                 dα∗ dα
+                             Z                   X
+                                        |α⟩⟨α| =      |n⟩⟨n| = I,                                  (9)
+                                  2πi            n=0
+
+     where dα∗ dα = 2i d(Re α)d(Im α).
+(vi) Show that the position-space wave-function ⟨x|α⟩ is Gaussian (though generally not
+     centred at x = 0). Referring to previous exercise sheets, could you have guessed that
+     result for α = 0?
+Solution:
+
+                  Pthe coefficients cn when we expand |α⟩ in the basis of energy eigen-
+ (i) We aim to find
+     states, |α⟩ = n cn |n⟩. Substituting this into Eq. (5), we find
+                ∞                  ∞                ∞                    ∞
+                X              !
+                                   X                X       √            X     √
+            α         cn |n⟩ = a         cn |n⟩ =         cn n |n − 1⟩ =   cn+1 n + 1 |n⟩ .     (S.21)
+                n=0                n=0              n=1                   n=0
+                                                    th
+     Comparing the coefficient of the n term in the leftmost and rightmost expressions,
+     we obtain the recurrence relation
+                       √                                  α
+            αcn = cn+1 n + 1 ∀n ≥ 0         =⇒     cn = √ cn−1 ∀n ≥ 1            (S.22)
+                                                           n
+                                                          αn
+                                            =⇒     cn = √ c0 .                   (S.23)
+                                                           n!
+                   √
+     Using a† |n⟩ = n + 1 |n + 1⟩, this gives us the desired expression for |α⟩:
+              ∞                 ∞                    ∞
+             X   αn            X   αn √             X   α n † n          †
+       |α⟩ =     √ c0 |n⟩ = c0          n! |n⟩ = c0         a |0⟩ = c0 eαa |0⟩ . (S.24)
+             n=0  n!           n=0
+                                   n!               n=0
+                                                        n!
+     We find c0 by imposing the normalisation condition
+                               ∞        ∞      2          ∞
+                           !
+                               X       X   αn            X   |α|2n              2
+                        1=     |cn | =   2
+                                           √ c0 = |c0 |2
+                                                                   = |c0 |2 e|α| ,              (S.25)
+                           n=0         n=0  n!           n=0
+                                                              n!
+                                       2
+     which implies c0 = e−|α| /2 , up to a global phase. Thus, for every α ∈ C and up to
+     a phase, there is exactly one normalized eigenvector of a with eigenvalue α.
+ (ii) We can compute the time-evolution by working in the energy eigenbasis and using
+      H |n⟩ = ℏω(n + 1/2) |n⟩:
+                                              ∞                      ∞
+                          −iHt/ℏ −|α|2 /2
+                                             X   αn       −|α|2 /2
+                                                                   X     αn
+            |α⟩ (t) = e            e             √ |n⟩ = e              √ e−iω(n+1/2)t |n⟩      (S.26)
+                                             n=0  n!                n=0    n!
+                                                                            ∞           n
+                                                           −|α|2 /2 −iωt/2
+                                                                           X   (αe−iωt )
+                                                       =e          e             √        |n⟩   (S.27)
+                                                                           n=0     n!
+                                                            = e−iωt/2 |αe−iωt ⟩ .               (S.28)
+      Remark: Although the global phase e−iωt/2 of the quantum state does not have any
+      physical significance, the phase e−iωt in the eigenvalue α(t) does: see part (iii).
+                                                        p                         p
+(iii) The definitions of a and a† read a + a† = 2mω/ℏ x and a − a† = i 2/mℏω p.
+      In addition, Eq. (5) yields ⟨α(t)|α(t)⟩ = 1, a |α(t)⟩ = α(t) |α(t)⟩, and ⟨α(t)| a† =
+      α(t) ⟨α(t)|. Thus we compute
+          r
+            2mω
+                  ⟨α(t)| x |α(t)⟩ = ⟨α(t)| (a + a† ) |α(t)⟩ = α(t) + α(t) = 2Re(α(t)), (S.29)
+             ℏ
+         r
+             2
+        i         ⟨α(t)| p |α(t)⟩ = ⟨α(t)| (a − a† ) |α(t)⟩ = α(t) − α(t) = 2iIm(α(t)), (S.30)
+            mℏω
+      Denoting α = |α|eiϕ0 and using α(t) = αe−iωt = |α|e−i(ωt−ϕ0 ) , this implies
+                                   r                    r
+                                      2ℏ                   2ℏ
+                        ⟨x⟩ (t) =         Re(α(t)) =          |α| cos(ωt − ϕ0 ),        (S.31)
+                                     mω                    mω
+                                √                        √
+                     ⟨p⟩ (t) = 2mℏω Im(α(t)) = − 2mℏω |α| sin(ωt − ϕ0 ),                (S.32)
+     which matches the solution of the equations of motion of a classical harmonic os-
+     cillator. This was to be expected, owing to Ehrenfest’s theorem and the fact that
+     ⟨V ′ (x)⟩ = V ′ (⟨x⟩) for a harmonic oscillator.
+(iv) From our calculations in part (iii) (setting t = 0), we already have
+                                 ℏ               ℏ
+                        ⟨x⟩2 =      (α + α)2 =      (2|α|2 + α2 + α2 ),                (S.33)
+                               2mω              2mω
+                                mℏω              mℏω
+                       ⟨p⟩2 = −      (α + α)2 =      (2|α|2 − α2 − α2 ).               (S.34)
+                                  2               2
+     We can evaluate ⟨x2 ⟩ and ⟨p2 ⟩ using the same methods as in part (iii), with the
+     additional observation that aa† = a† a + 1 (by the canonical commutation relation):
+                                    ℏ
+                           x2 =        ⟨α| (a2 + (a† )2 + aa† + a† a) |α⟩              (S.35)
+                                   2mω
+                                    ℏ
+                                 =     ⟨α| (1 + 2a† a + a2 + (a† )2 ) |α⟩              (S.36)
+                                   2mω
+                                    ℏ
+                                 =     (1 + 2|α|2 + α2 + α2 ),                         (S.37)
+                                   2mω
+
+                                 mℏω
+                          p2 = −       ⟨α| (a2 + (a† )2 − aa† − a† a) |α⟩              (S.38)
+                                   2
+                                mℏω
+                              =      ⟨α| (1 + 2a† a − a2 − (a† )2 ) |α⟩                (S.39)
+                                 2
+                                mℏω
+                              =      (1 + 2|α|2 − α2 − α2 ).                           (S.40)
+                                 2
+     We verify that the corresponding variances saturate the uncertainty relation:
+                                    ℏ                        mℏω
+             (∆x)2 = x2 − ⟨x⟩2 =       , (∆p)2 = p2 − ⟨p⟩2 =     .
+                                   2mω r                      2
+                                                                                       (S.41)
+                                          ℏ mℏω     ℏ
+                             =⇒ ∆x∆p =           = .
+                                         2mω 2      2
+    Thus coherent states have expectation values of x and p that behave classically as
+    in (S.31)-(S.32), while also having minimal uncertainty at all times. In that sense
+    they are the closest one can get to classical states in quantum mechanics.
+(v) We expand the terms in the energy eigenbasis and calculate as follows:
+                                                ∞
+                                                            !            ∞
+                                                                                 !
+         dα∗ dα             dα∗ dα                    n                       m
+      Z                  Z
+                                           2
+                                               X    α               2
+                                                                        X   α
+                |α⟩⟨α| =              e−|α| /2     √ |n⟩       e−|α| /2     √ ⟨m|
+           2πi                2πi              n=0   n!                 m=0  m!
+                                                                                (S.42)
+                          ∞   ∞
+                                                     dα∗ dα −|α|2 n m
+                         XX 1                     Z
+                       =          √      |n⟩⟨m|              e   α α .          (S.43)
+                         n=0 m=0    n!m!                2πi
+    Here dα∗ dα = 2i d(Re α)d(Im α); in polar coordinates such that α = reiθ , dα∗ dα =
+    2i rdrdθ. Hence
+                           ∞ X ∞                                 Z ∞
+          dα∗ dα                                1 2π i(n−m)θ
+        Z                                         Z
+                          X         1                                   2
+                 |α⟩⟨α| =         √      |n⟩⟨m|       e       dθ     e−r rn+m+1 dr.
+           2πi            n=0 m=0  n!m!         π 0               0
+                                                                                 (S.44)
+    When n ̸= m, the term ei(n−m)θ integrates
+                                            R 2π to zero over the interval [0, 2π]; when
+    n = m instead, it integrates to 2π, so 0 ei(n−m)θ dθ = 2πδmn . Hence
+                               ∞ X ∞                         Z ∞
+            dα∗ dα
+         Z                    X           1                          2
+                    |α⟩⟨α| =           √        |n⟩⟨m| 2δmn       e−r rn+m+1 dr    (S.45)
+              2πi             n=0 m=0    n!m!                  0
+                                ∞             Z ∞
+                               X    1                   2
+                           =2          |n⟩⟨n|        e−r r2n+1 dr                  (S.46)
+                               n=0
+                                    n!           0
+                               ∞            Z ∞
+                              X   1
+                           =         |n⟩⟨n|        e−u un du                       (S.47)
+                              n=0
+                                  n!          0
+                                            |       {z     }
+                                               =Γ(n+1)=n!
+                                ∞
+                                X
+                            =         |n⟩⟨n|                                       (S.48)
+                                n=0
+                            = I.                                                   (S.49)
+
+(vi) In position representation, pEq. (5) is a differential
+                                                     √      equation for the wave-function
+     ψα (x) := ⟨x|α⟩. Using a = mω/(2ℏ) x + ip/ 2mℏω, the equation yields
+                            r           r          !
+                               mω           ℏ d
+                                    x+                ψα (x) = αψα (x)              (S.50)
+                               2ℏ         2mω dx
+                                                      r          !
+                               ψα′ (x)       mω           2mω
+                                       =−        x−            α                    (S.51)
+                               ψα (x)          ℏ           ℏ
+                                                           r        !2
+                                              mω              2ℏ
+                           ln ψα (x) + C = −         x−           α                 (S.52)
+                                               2ℏ            mω
+                                                        r        !2 
+                                              mω             2ℏ
+                         ψα (x) = A exp −          x−           α .               (S.53)
+                                              2ℏ            mω
+      Therefore, the
+                  p wave-function for a coherent state with eigenvalue α is a Gaussian
+      centred at 2ℏ/mω α (which can be complex). When α = 0, Eq. (5) becomes
+      a |α⟩ = 0, i.e. the definition of the ground state. We showed in previous exercise
+      sessions that the latter is indeed a Gaussian.
+
+
+Question 3 [Degeneracies ]:
+Let Dnk be the number of ways of writing n as the sum of k non-negative integers n1 , n2 , . . . , nk .
+We define a generating function
+                                                             ∞
+                                                             X
+                                               F k (s) :=           Dnk sn                                                  (10)
+                                                             n=0
+
+where s ∈ C and |s| < 1.
+  (i) Show that
+                                                     ∞ X
+                                                     X ∞                 ∞
+                                                                         X
+                                         k
+                                        F (s) =                    ···           sn1 +···+nk .                              (11)
+                                                     n1 =0 n2 =0         nk =0
+
+ (ii) Deduce that F k (s) = (1 − s)−k , and hence or otherwise, show that
+                                                       
+                                         k    n+k−1
+                                       Dn =               .                                                                 (12)
+                                                  n
+
+(iii) Deduce the formulae for the degeneracy of energy eigenstates of isotropic harmonic
+      oscillators in two and three dimensions.
+Solution:
+  (i) We work “backwards”, first observing that
+           ∞ X ∞      ∞                  ∞
+                                                 !                          ∞
+                                                                                         !          ∞
+                                                                                                                   !
+          X           X                 X                                   X                       X
+                  ···   sn1 +···+nk =       sn 1                                   sn2       ···            sn k       .   (S.54)
+            n1 =0 n2 =0       nk =0                     n1 =0              n2 =0                    nk =0
+
+      This is a product of power series in s, so it can be expressed as a power series
+                          ∞
+                                  ! ∞         !       ∞
+                                                              !   ∞
+                         X           X               X            X
+                               n1          n2              nk
+                             s           s      ···      s      =    cn s n ,        (S.55)
+                                n1 =0           n2 =0                    nk =0                n=0
+                                                                     P∞
+      for some coefficients cn . Since each series nj =0 snj has unit coefficient for every
+      term, the nth coefficient cn is given by simply counting the number of terms of order
+      n when we expand the product. The number of such terms is precisely the number of
+      ways to write n = n1 + · · · + nk with non-negative integers n1 , n2 , . . . , nk . Therefore,
+      we just have cn = Dnk , which is the desired result.
+ (ii) All the power series ∞           nj
+                             P
+                               nj =0 s    in the previous part are identical; they are in fact
+      geometric series. The formula for geometric series is ∞              nj
+                                                                              = (1 − s)−1 , so
+                                                                P
+                                                                   nj =0 s
+
+                     ∞
+                            !         ∞
+                                              !
+                    X                X
+         F k (s) =      sn1 · · ·         snk = (1 − s)−1 · · · (1 − s)−1 = (1 − s)−k . (S.56)
+                      n1 =0                  nk =0
+     Owing to the definition F k (s) = ∞      k n         th
+                                                             derivative of F k (s) evaluated
+                                      P
+                                         n=0 Dn s , the m
+     at s = 0 is m!Dm . On the other hand, since F (s) = (1 − s)−k , we also have
+                     k                               k
+
+          m                  m
+           d                     d
+                   k
+                 F (s)      =         (1 − s)−k                                       (S.57)
+           ds           s=0     ds               s=0
+                             = (−k)(−k − 1) · · · (−k − (m − 1))(−1)m (1 − s)−k−m s=0
+                                                                                   (S.58)
+                             = (k)(k + 1) · · · (k + (m − 1))                             (S.59)
+                               (k + (m − 1))!
+                             =                   .                                        (S.60)
+                                   (k − 1)!
+
+     Equating the expressions obtained by these two arguments, we conclude that
+                                                                         
+           k    (k + (m − 1))!             k    (k + m − 1)!    m+k−1
+       m!Dm =                     =⇒     Dm =                =              . (S.61)
+                   (k − 1)!                      (k − 1)!m!         m
+
+     Alternatively, there is a standard combinatorial argument for this formula: the
+     number of ways to write n as the sum of k strictly positive integers n1 , n2 , . . . , nk is
+     found by taking n objects in a row and placing k − 1 dividers in the gaps between
+     them, partitioning the objects into k groups. Every such partition corresponds
+     to exactly one way to write n as such a sum;              there are n − 1 gaps and k − 1
+                                                       n−1
+                                                          
+     dividers, so the number of such ways is k−1 . To get the formula for sums of non-
+     negative (n1 , n2 , . . . , nk ), consider instead the number of ways to write n + k as a
+     sum of strictly positive (m1 , m2 , . . . , mk ), which is (n+k)−1
+                                                                  k−1
+                                                                         by our above result. By
+     defining nj = mj − 1, every such solution corresponds to one and only         onen+k−1
+                                                                                         wayto
+                                                                        k    n+k−1
+     write n as a sum of non-negative (n1 , n2 , . . . , nk ). Hence Dn = k−1 =           n
+                                                                                               .
+
+(iii) A 2D isotropic harmonic oscillator is equivalent to two decoupled 1D harmonic oscil-
+      lators, corresponding to motion along two perpendicular axes. Its energy eigenvalues
+      are (nx + ny + 1)ℏω where nx , ny are non-negative integers,
+                                                                 so the degeneracy of an
+                                                      2     n+1
+      energy eigenstate with energy (n + 1)ℏω is Dn = n = n + 1. Similarly, a 3D
+      isotropic harmonic oscillator has energy eigenvalues (nx + ny + nz + 3/2)ℏω, and the
+      degeneracy of an energy (n + 3/2)ℏω is Dn3 = n+2  n
+                                                            = (n + 2)(n + 1)/2.
+

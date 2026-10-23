@@ -1,0 +1,1066 @@
+                                      Quantenmechanik I                                 HS 2016
+                                        Nachklausur                       Prof. Thomas Gehrmann
+
+
+Name:                                          Matrikel-Nummer:
+
+
+
+
+              Aufgabe     max. Punkte       Punkte             Visum 1    Visum 2
+
+
+                 1              15
+
+                 2               5
+
+                 3               7
+
+                 4               8
+
+                 5               9
+
+
+             Summe              44
+
+
+
+
+Beachten Sie folgende Hinweise:
+
+   • Bearbeitunszeit: 180 Minuten.
+   • Hilfsmittel: ein beidseitig handbeschriebenes A4 Blatt als Formelsammlung.
+   • Verwenden Sie für jede Aufgabe ein separates Blatt, das mit Ihrem Namen, Ihrer Matrikel-Nummer
+     und der Nummer der Aufgabe versehen ist.
+   • Verwenden Sie keinen rot-farbigen Stift oder Bleistift.
+
+
+
+
+                                                   1
+Aufgabe 1.       [Kurzfragen]                                                               (15 Punkte)
+
+Die folgenden Fragen sollen kurz und ohne lange Herleitung beantwortet werden. Schreiben
+Sie die Lösung in den dafür vorgesehenen freien Platz nach jeder Frage.
+
+
+1.1. Selbstadjungierte Operatoren                                                              (1 P)
+
+Seien A und B selbstadjungierte Operatoren. Unter welcher Bedingung ist das Produkt AB selbstadjun-
+giert? Lassen sich in diesem Fall die Eigenwerte ci von AB durch die Eigenwerte aj von A und bk von
+B ausdrücken? Falls ja, wie?
+
+
+Lösung.
+
+   • AB selbstadjungiert, falls [A, B] = 0
+
+                                (AB)† = B † A† = BA ≡ AB               ⇒       [A, B] = 0         (L.1)
+
+   • ci = aj bk . Da [A, B] = 0 simultan diagonalisierbar. Wähle Eigenzustände |aj ; bk i:
+
+                                               A|aj ; bk i = aj |aj ; bk i,                       (L.2)
+                                               B|aj ; bk i = bk |aj ; bk i,                       (L.3)
+
+       und damit
+                                             AB|aj ; bk i = aj bk |aj ; bk i                      (L.4)
+                                                            |{z}
+                                                               =ci
+
+
+
+
+1.2. Drehimpuls                                                                                (2 P)
+
+                                             ~ = ~x × p~.
+Der Bahndrehimpulsoperator ist gegeben durch L
+
+ (a) Geben Sie die Kommutatoren [xj , Lk ] und [pj , Lk ] an.
+  (b) Geben Sie die Kommutatoren [~x2 , Lk ] und [~x · p~, Lk ] an.
+      ~ sei der Spinoperator und J~ = L
+  (c) S                                ~ +S
+                                          ~ der Gesamtdrehimpuls. Drücken Sie J~2 aus durch L
+                                                                                             ~ 2, S
+                                                                                                  ~ 2,
+      Lz , Sz und den Leiteroperatoren L± = Lx ± iLy , S± = Sx ± iSy .
+
+
+Lösung.
+
+ (a)
+
+                                [xj , Lk ] = kmn [xj , xm pn ] = kmn xm [xj , pn ]
+                                           = i~ kmn δjn xm = i~ kmj xm ,                        (L.5)
+
+
+                                [pj , Lk ] = kmn [pj , xm pn ] = kmn [pj , xm ]pn
+                                           = −i~ kmn δjm pn = −i~ kjn pn .                      (L.6)
+
+
+
+
+                                                        2
+ (b)
+                                                                 a)
+                         [~x2 , Lk ] = xj [xj , Lk ] + [xj , Lk ]xj = 2i~ kmj xj xm = 0 ,       (L.7)
+       weil kmj antisymmetrisch und xj xm symmetrisch ist unter der Vertauschung j ↔ m.
+
+                            [~x · p~, Lk ] = xj [pj , Lk ] + [xj , Lk ]pj
+                                          a)
+                                         = i~ (−kjn xj pn + kmj xm pj ) = 0 .                  (L.8)
+
+            ~ S]
+ (c) Wegen [L, ~ = 0 gilt
+                                              2
+                                   J~2 = L~ +S
+                                             ~ =L ~2 + S
+                                                       ~ 2 + 2L
+                                                              ~ ·S
+                                                                 ~.                              (L.9)
+
+       Mit Sx = (S+ + S− )/2, Sy = (S+ − S− )/2i und Lx , Ly analog ergibt sich
+
+                                      ~ ·S
+                                     2L  ~ = 2Sz Lz + S+ L− + S− L+                             (L.10)
+
+       und somit schliesslich
+
+                                 J~2 = L
+                                       ~2 + S
+                                            ~ 2 + 2Sz Lz + S+ L− + S− L+ .                      (L.11)
+
+
+
+1.3. Zeeman Effekt                                                                            (1 P)
+
+Was ist der (normale) Zeeman Effekt? Wie spaltet sich das Spektrum auf ?
+
+
+Lösung. Der Zeeman Effekt bezieht sich auf die Aufspaltung von atomaren Spektrallinien
+durch ein äusseres Magnetfeld. Hier ist das Magnetfeld schwach bezüglich der Spin–Bahn Kopp-
+lung und kann daher als eine Störung betrachtet werden. Die Zeeman-Korrektur auf die Ener-
+gieeigenzustände ist gegeben durch δE = (eB~/2me )m, wobei m die magnetische Quantenzahl
+ist. Für das Wasserstoffatom erhalten wir zum Beispiel, dass der 2s-Zustand nicht aufgespaltet
+wird. Dagegen wird der 2p-Zustand in 3 Energieniveaus aufgespaltet, denn für l = 1 haben wir
+m = −1, 0, 1.
+
+
+
+1.4. Harmonischer Oszillator                                                                  (2 P)
+
+Geben Sie die Definition der Auf- und Absteigeoperatoren (durch x und p) an. Drücken Sie den Hamilton-
+Operator des Harmonischen Oszillators (1D),
+
+                                                 p2   mω 2 2
+                                          H=        +     x ,                                         (1)
+                                                 2m    2
+mit Hilfe der Auf- und Absteigeoperatoren aus und bestimmen Sie die Wellenfunktion des Grundzustands
+bis auf eine Normierungskonstante.
+
+
+Lösung.    Wir definieren die Operatoren
+                                    ωmx + ip
+                                 a= √                    Absteigeoperator,                      (L.12)
+                                      2ωm~
+                                 †  ωmx − ip
+                                a = √                    Aufsteigeoperator,                     (L.13)
+                                      2ωm~
+
+                                                     3
+so dass
+                                             r
+                                              ~
+                                      x=         (a + a† ) ,                                   (L.14)
+                                            2ωm
+                                             r
+                                               ~ωm
+                                      p = −i        (a − a† ) .                                (L.15)
+                                                2
+Aus [x, p] = i~ folgt [a, a† ] = 1 und wir finden für den Hamilton-Operator,
+                                              1              
+                                        H = ~ω a† a + aa†                                      (L.16)
+                                              2           
+                                                    †    1
+                                           = ~ω a a +        .                                 (L.17)
+                                                         2
+
+Der Grundzustand |0i erfüllt,
+                                             1
+                                 a|0i = √        (ωmx + ip) |0i = 0 ,                          (L.18)
+                                            2ωm~
+woraus wir in Ortsdarstellung (φ0 (x) ≡ hx|0i) die Differentialgleichung
+                                      d            mω
+                                        φ0 (x) = −    xφ0 (x) ,                                (L.19)
+                                     dx             ~
+erhalten. Die Lösung ist gegeben durch
+                                                          mω   2
+                                           φ0 (x) = N e− 2~ x .                                (L.20)
+                                   4 mω
+                                   p
+Die Normierungskonstante N =          π~ erhalten wir aus der Bedingung
+                                            Z ∞
+                                          !
+                                        1=      dx |φ0 (x)|2 .                                 (L.21)
+                                                 −∞
+
+
+
+
+1.5. Brillouin–Wigner vs. Rayleigh–Schrödinger Störungstheorie                             (1 P)
+
+Was Sie die grundlegenden Ideen der Brillouin–Wigner und Rayleigh–Schröedinger Störungstheorie und
+worin unterscheiden sie sich?
+
+
+Lösung. In der Rayleigh–Schrödinger Störungstheorie (R.–S.) betrachtet man einen Hamil-
+tonoperator der Form H = H0 + λH 0 . Hier ist der entscheidende Punkt, dass H0 bekannt (exakt
+lösbar) und λH 0 (mit λ  1) eine kleine Störung ist. In der Brillouin–Wigner Störungstheorie
+(B.–W.) erhält man Ausdrücke, die nicht nur auf dem Wissen von H0 basieren. Konkret, sind
+die Potenzreihenentwicklungen für die Zustände und Energien in der R.–S. Störungstheorie nur
+von den ungestörten Zuständen und Energien abhängig. Andererseits, erhält man in der B.–W.
+Störungstheorie Ausdrücke, die von den gestörten, d.h. exakten, Energien abhängen.
+
+
+
+1.6. Eichtransformationen                                                                    (2 P)
+
+Geben Sie den Hamilton-Operator für ein geladenes Teilchen im elektromagnetischen Feld an. Wie trans-
+                         ~ und φ unter Eichtransformationen? Wie muss die Wellenfunktion Ψ trans-
+formieren die Potentiale A
+formieren, damit die Schrödingergleichung unter Eichtransformationen forminvariant bleibt?
+
+
+                                                      4
+Lösung.   Der Hamilton-Operator lautet
+                                           1           2
+                                                      ~ + qφ,
+                                    H=         p~ − q A                                     (L.22)
+                                          2m
+und die Potentiale transformieren wie folgt:
+
+                                         A ~0 = A
+                                         ~→A    ~ + ∇Λ,
+                                                    ~                                       (L.23)
+                                               0
+                                         φ → φ = φ − ∂t Λ.                                  (L.24)
+
+Die Schrödingergleichung bleibt forminvariant unter der Transformation
+
+                                 HΨ = i~∂t Ψ → H 0 Ψ0 = i~∂t Ψ0 ,                           (L.25)
+
+wobei die Wellenfunktion einen lokalen Phasenfaktor erhält
+
+                                      Ψ0 = exp ~i qΛ Ψ.
+                                                    
+                                                                                            (L.26)
+
+
+
+
+1.7. Feynman–Hellmann-Theorem                                                             (2 P)
+
+Beweisen Sie das Feynman–Hellmann-Theorem: Wenn der Hamilton-Operator eines Quantensystems eine
+Funktion von einem Parameter λ ist, dann gilt für die Eigenenergien En (λ) und die Eigenfunktionen
+ψn (λ) von H(λ)
+                                   ∂En (λ)             ∂H(λ)
+                                            = hψn (λ)|       |ψn (λ)i,
+                                     ∂λ                  ∂λ
+wobei die Zustände normiert sind (hψn (λ)|ψn (λ)i = 1).
+
+
+Lösung. Wir verwenden die Korrektur zur ersten Ordnung der Energien in der zeitunabhängigen
+Störungstheorie, d.h.
+                                   En1 = hψn0 |H 0 |ψn0 i,                           (L.27)
+wobei ψn0 die Eigenfunktionen von H(λ = λ0 ) sind und H 0 der Störoperator ist.
+
+Wir verschieben λ0 zu λ0 + dλ. Der Hamilton-Operator ist jetzt H(λ0 + dλ) = H(λ0 ) + H 0 ,
+wobei H 0 die Ableitung von H bei λ0 ist: H 0 = H(λ0 + dλ) − H(λ0 ) = ∂H
+                                                                      ∂λ dλ. Mit der Formel
+von oben bekommen wir
+                                                 ∂H 0
+                              dEn = En1 = hψn0 |    |ψ idλ                            (L.28)
+                                                 ∂λ n      λ0
+
+und daraus folgt ∂E         ∂H
+                  ∂λ = hψn | ∂λ |ψn i.
+                    n
+
+
+
+Alternative Herleitung.
+Wir leiten die Eigenwertgleichung von En (λ) nach λ ab:
+
+ ∂En (λ)   dEn (λ)    d
+         =         =    hψn |H(λ)|ψn i                                                       (L.29)
+   ∂λ        dλ      dλ
+                                                                                     
+                        d                         dH(λ)                         d
+                   =      hψn | H(λ)|ψn i + hψn |         |ψn i + hψn |H(λ)        |ψn i     (L.30)
+                       dλ                             dλ                       dλ
+                                                                                       
+                               d                     ∂H(λ)                         d
+                   = En (λ)      hψn | |ψn i + hψn |       |ψn i + En (λ)hψn |       |ψn i . (L.31)
+                              dλ                       ∂λ                         dλ
+
+
+
+
+                                                   5
+Aus der Normierung der Eigenzustände folgt:
+                                                                                 
+                               d                   d                         d
+    hψn |ψn i = 1      ⇒          (hψn |ψn i) =       hψn | |ψn i + hψn |      |ψn i = 0. (L.32)
+                              dλ                  dλ                        dλ
+        d                       d
+                                      
+Somit dλ  hψn | |ψn i = −hψn | dλ |ψn i und der erste Term in Gleichung (L.31) kürzt sich mit
+dem dritten. Es verbleibt:
+                                       ∂En           ∂H
+                                             = hψn |    |ψn i.                            (L.33)
+                                        ∂λ           ∂λ
+
+
+
+1.8. Darstellung des Rotationsoperators für Spin-1/2 Teilchen                                 (1.5 P)
+
+Der Generator, der Rotationen von Spin- 12 Systemen erzeugt, ist gegeben durch den Spin-Operator S mit
+Komponenten Si = ~2 σi (i = x, y, z), wobei σi die Pauli-Matrizen sind. Geben Sie den Operator für eine
+Rotation der Spinor-Wellenfunktion um die Ache n̂ mit dem Winkel θ an.
+
+Geben Sie explizit die 2 × 2 Rotationsmatrix für n̂ = êz in der Sz -Eigenbasis an und betrachten Sie den
+Fall einer Rotation mit θ = 2π. Erläutern Sie das Ergebnis, indem Sie begründen, weshalb dies in der
+Quantenmechanik kein Problem darstellt.
+
+
+Lösung. Der Rotationsoperator, der ein Spin-1/2 System um die Achse n̂ mit dem Winkel θ
+rotiert, ist gegeben durch
+                                  R(n̂, θ) = e−iθn̂·S/~ .                         (L.34)
+
+Für n̂ = êz finden wir
+                                     R(êz , θ) = e−iθSz /~                                        (L.35)
+                                                   −iθσz /2
+                                               =e                                                  (L.36)
+                                                  −iθ/2       
+                                                  e        0
+                                               =                 .                                 (L.37)
+                                                    0    eiθ/2
+Eine Rotation mit Winkel θ = 2π ist folglich gegeben durch
+                                                      
+                                                   1 0
+                                  R(êz , 2π) = −        ,                                         (L.38)
+                                                   0 1
+d.h. wir erhalten einen Faktor −1. Da Phasen der Wellenfunktion irrelevant sind, stellt dieses
+Ergebnis kein Problem dar.
+
+
+1.9. Messung im Potentialtopf                                                                  (1.5 P)
+
+Betrachten Sie einen unendlich tiefen Potentialtopf der Breite 2a:
+                                             
+                                             ∞ , x > a
+                                             
+                                      V (x) = 0 ,     −a < x < a                                         (2)
+                                             
+                                                ∞ , x < −a .
+                                             
+
+Die gebundenen Zustände sind gegeben durch die normierten Wellenfunktionen
+                                        (
+                                          √1 sin nπ x ,
+                                                     
+                                            a    2a      n gerade
+                               ψn (x) =                                                                  (3)
+                                          √1 cos nπ x , n ungerade .
+                                                     
+                                            a    2a
+
+Das System befinde sich zur Zeit t < t0 = 0 im ersten angeregten Zustand. Eine Messung zum Zeitpunkt
+t0 = 0 findet, dass sich das Teilchen mit Sicherheit in der linken Hälfte −a < x < 0 des Potentialtopfes
+befindet. Wie sieht die normierte Wellenfunktion ψ(t0 = 0) direkt nach der Messung aus?
+
+
+                                                    6
+Lösung. Der erste angeregte Zustand ist n = 2 mit ψ2 (x) = √1a sin πa x . Wir wissen, wo die
+                                                                        
+
+Lösung verschwinden muss, der Zustand Ψ(x) direkt nach der Messung ist daher gegeben durch
+                                                                   
+                                                                   0 ,
+                                                                                           x < −a
+                 Ψ(x) = C θ(−x) θ(x + a) ψ2 (x) = √Ca sin                        π
+                                                                                      
+                                                                                 ax       , −a < x < 0    (L.39)
+                                                 
+                                                                    0,                      x>0
+                                                                   
+
+mit einer Konstanten C, die wir über die Normierungsbedingung bestimmen:
+     Z +∞                        Z 0                   0
+                       C2       C2  x                      C2 !
+                                                 
+                    2        2 π           a       2π
+         |Ψ(x)| dx =      sin    x =     −   sin      x     =    = 1.                                     (L.40)
+      −∞             −a a      a     a 2 4π         a    −a   2
+                        √
+Daraus folgt C =            2.
+
+
+
+1.10. Matrixdarstellung                                                                                  (1 P)
+
+Sei {|ϕi i}ni=1 ein vollständiges System von Zuständen eines n-dimensionalen Hilbert-Raumes. Seien |αi,
+|βi beliebiege Zustände des Hilbert-Raumes. Wie lautet die Matrixdarstellung von C = |αihβ| in der
+|ϕi i-Basis? Wann ist C selbstadjungiert?
+
+
+Lösung.    Matrixdarstellung:
+                                                       n
+                                                       X
+                                       C = |αihβ| =        |ϕi i hϕi |αihβ|ϕj ihϕj |                      (L.41)
+                                                                 |     {z    }
+                                                       i,j=1
+                                                                          =Cij
+
+Selbstadjungiert:
+
+               C† = C                         ⇒                    hϕi |βihα|ϕj i = hϕi |αihβ|ϕj i        (L.42)
+                                                                          hϕi |βi   hβ|ϕj i
+                                              ⇒                                   =         ≡ k ∀i, j     (L.43)
+                                                                          hϕi |αi   hα|ϕj i
+
+Daraus folgt
+                                         X                     1X               1
+                                 |αi =        |ϕi ihϕi |αi =      |ϕi ihϕi |βi = |βi                      (L.44)
+                                                               k                k
+                                          i                         i
+
+und mit
+                                  C = k|αihα| ≡ C † = k ∗ |αihα|             ⇒        k∈R                 (L.45)
+folgt somit, dass |αi und |βi linear abhängig sind mit einem reellen Faktor.
+
+
+
+
+                                                               7
+Aufgabe 2.      [Der harmonische Oszillator in 3 Dimensionen]                                 (5 Punkte)
+
+Betrachten Sie den drei-dimensionalen harmonischen Oszillator mit dem Hamilton-Operator
+                                                  p2   mω 2 2
+                                          H=         +     x .                                         (4)
+                                                  2m    2
+
+ (a) Welche kontinuierlichen Symmetrieen besitzt der Hamilton-Operator in Gl. (4)? Geben Sie die
+     dazugehörigen Generatoren an. Was gilt für den Kommutator zwischen H und den Symmetrie-
+     Generatoren?                                                                        (0.5 P)
+  (b) Das Problem soll in Kugelkoordinaten (r, θ, φ) gelößt werden. Geben Sie hierzu den Hamilton-
+      Operator (4) in Kugelkoordinaten an. Verwenden Sie den Separationsansatz
+
+                                           Ψ(r, θ, φ) = R(r) Ylm (θ, φ)                                (5)
+
+      um aus der stationären Schrödingergleichung eine Differentialgleichung für den Radialanteil R(r)
+      abzuleiten. Wodurch ist der Separationsansatz (5) motiviert?                               (1.5 P)
+
+
+Nach der Substitution R(r) = u(r)/r erhält man eine ein-dimensionale Schrödingergleichung für u(r),
+                  ~2 d2                                             ~2 l(l + 1) mω 2 2
+                                   
+               −       2
+                         + Veff. (r)  u(r) = E u(r) mit Veff. (r) =            +      r .            (6)
+                 2m dr                                                2mr2       2
+Betrachten Sie das asymptotische Verhalten von u(r) für r → 0 und r → ∞. Im Folgenden dürfen Sie
+u(0) = 0 ohne Herleitung verwenden.
+
+  (c) Skizzieren Sie Veff. (r). Was gilt für die Existenz von gebundenen und nicht-gebundenen Zuständen?
+                                                                                                  (0.5 P)
+ (d) Wie lautet Gl. (6) für den Grenzübergang r → 0? Bestimmen Sie die Lösung u(r) in diesem Limes
+     unter Vernachlässigung konstanter Faktoren.                                               (1 P)
+     Hinweis: Verwenden Sie den Ansatz u(r) ∼ rα zur Lösung der Differentialgleichung.
+  (e) Wie lautet Gl. (6) für den Grenzübergang r → ∞? Identifizieren die resultierende Gleichung mit
+      der Schrödingergleichung eines bekannten Problems. Wie lautet das asymptotische Verhalten von
+      u(r) in diesem Limes? Vernachlässigen Sie hierbei polynomiale Faktoren.                 (1.5 P)
+
+
+
+Lösung.
+
+ (a) Wir haben es hier mit einem rotationssymmetrischen Problem zu tun. Die Generatoren
+     sind {Lx , Ly , Lz } und sie erfüllen [H, Li ] = 0. Streng genommen, gibt es noch den den
+     Lenz–Runge Vektor (eine extra Teilaufgabe?).
+ (b) Die Quadrate der Orts- und Impuls-Operatoren sind gegeben durch
+                                          2          
+                                2      2  ∂      2 ∂      1
+                               p = −~        2
+                                               +        + 2 L2 ,                                   (L.46)
+                                          ∂r     r ∂r    r
+                                     x2 = r 2 ,                                                    (L.47)
+
+      und wir erhalten
+                                  ~2           ∂2                     L2    mω 2 2
+                                                            
+                                                      2 ∂
+                              H=−                 2
+                                                    +            +        +     r .                (L.48)
+                                  2m           ∂r     r ∂r           2mr2    2
+      Einsetzten von Ψ(r, θ, φ) = R(r) Ylm (θ, φ) in die Schrödingergleichung HΨ = EΨ liefert
+                       ~2
+                           2
+                                              ~2 l(l + 1) mω 2 2
+                                                                 
+                              ∂    2 ∂
+                     −           +         +             +        r R(r) = E R(r).       (L.49)
+                       2m ∂r2 r ∂r              2mr2         2
+
+
+                                                     8
+      Der Separationsansatz ist motiviert durch die Rotationssymmetrie des Systems. Wie in
+      Teil (a) gezeigt, gilt [H, Lz ] = [H, L2 ] = 0 und somit sind H, Lz und L2 simultan dia-
+      gonalisierbar. Die Eigenfunktionen zu Lz und L2 sind bekannt und gegeben durch die
+      Kugelflächenfunktionen:
+
+                      Lz Ylm = ~m Ylm ,                      L2 Ylm = ~2 l(l + 1) Ylm .      (L.50)
+
+(c)
+                                                    ~2 l(l + 1) mω 2 2
+                                      Veff. (r) =              +    r                        (L.51)
+                                                      2mr2       2
+      Skizze:
+
+
+
+                                                                           1
+                                                                           r2
+
+                                                                           r2
+                                                                                1
+                                                                           r2 + 2
+                                                                                r
+
+
+
+
+      Es gibt nur gebundene Zustände mit E > 0.
+
+(d) Grenzübergang r → 0:
+    ∼ 1/r2 dominiert über ∼ r2 , mit u(0) = 0 verschwindet Eu(r) auf der rechten Seite
+
+                                     ~2 d2    ~2 l(l + 1)
+                                                         
+                                   −        +               u(r) = 0                   (L.52)
+                                     2m dr2     2mr2
+      Die allgemeine Lösung lautet
+                                                            u(0)=0
+                   u(r) = A rl+1 + B r−l                    −−−−→                   ∼ rl+1   (L.53)
+
+(e) Grenzübergang r → ∞:
+    ∼ r2 dominiert über ∼ 1/r2
+
+                                    ~2 d2    mω 2 2
+                                                   
+                                  −        +     r u(r) = E u(r)                             (L.54)
+                                    2m dr2    2
+      und wir erhalten den ein-dimensionalen harmonischen Oszillator. Die Lösungen sind be-
+      kannt und lauten
+                                     (      2 )                         r
+                       √
+                                                       
+            1D               −1/2        1   x           x                     ~
+          Ψn (x) = (n! πx0 )      exp −            Hn          mit x0 =          .    (L.55)
+                                         2 x0           x0                    ωm
+
+      Im Limes r → ∞ sind wir hautsächlich daran interessiert, den exponentiellen Abfall zu
+      beschreiben. Polynomiale Faktoren (Hermite-Polynome Hn ) werden hier vernachlässigt,
+      da der spätere Ansatz mit w(r) eine Potenzreihe enthält. Für das asymtotische Verhalten
+      erhalten wir somit
+                                                (      2 )
+                                                    1    x
+                                     u(r) ∼ exp −                                         (L.56)
+                                                    2 x0
+
+
+
+                                                     9
+Aufgabe 3.      [Spin-1 Teilchen]                                                                      (7 Punkte)
+
+Wir betrachten ein Teilchen mit Spin 1, dessen einziger Freiheitsgrad der Spin ist. Der Hamilton-Operator
+sei gegeben durch                             √
+                                                2A         A
+                                         H=          Sz + 2 Sx2 ,
+                                                ~         ~
+wobei A eine Konstante ist. Der Spinoperator S ist gegeben durch ((Si )jk = −i~εijk )
+                                                                                                  
+                   0   0   0                          0       0 i                          0    −i   0
+           Sx = ~ 0   0   −i ,             Sy = ~  0       0 0 ,               Sz = ~  i   0    0 .
+                   0   i   0                         −i       0 0                          0    0    0
+
+ (a) Lösen Sie die stationäre Schrödingergleichung und geben Sie die Energieeigenwerte und die zu-
+     gehörigen (normierten) Eigenzustände des   Systems an.p    p            p      p          (2 P)
+     Zur Kontrolle: Die Eigenzustände lauten (0, 0, 1)T , (i 2/3, 1/3, 0)T , ( 1/3, i 2/3, 0)T bei ge-
+                                                
+
+     eigneter Phasenwahl.
+  (b) Wie lautet die allgemeine Lösung ψ(t) der zeitabhängigen Schrödingergleichung? Drücken Sie hier-
+      zu den normierten Zustand ψ(t) durch die stationären Lösungen der vorherigen Teilaufgabe aus.
+                                                                                                            (2 P)
+
+  (c) Das System sei zur Zeit t = 0 in einem Spin-Eigenzustand mit Sz = +~. Bestimmen Sie den
+      Zustand ψ(t = 0).                                                               (0.5 P)
+
+ (d) Für den Anfangszustand ψ(t = 0) der vorherigen Teilaufgabe, geben Sie den Zustand ψ(t) für
+     beliebige Zeiten an. Berechnen Sie den Erwartungswert des Spins, hSiψ(t) , zur Zeit t. (2.5 P)
+
+
+
+Lösung.
+
+ (a) Die stationäre Schrödingergleichung lautet
+                                                √                      !
+                                                    2A      A
+                                     Hψ =              Sz + 2 Sx2          ψ = Eψ                           (L.57)
+                                                    ~      ~
+
+      und der Hamilton Operator ist in der Matrixdarstellung gegeben durch
+                                                   √       
+                                             0
+                                             √    −i  2   0
+                                    H = A i 2      1     0 .                                              (L.58)
+                                             0      0     1
+
+      Die Eigenwerte erhalten wir über die Gleichung
+                                                √        
+                                        −E −i 2A
+                                        √              0
+                                det i 2A A − E        0 =0                                                (L.59)
+                                         0        0   A−E
+
+      und sie lauten
+
+                       E1 = A,                       E−1 = −A,                         E2 = 2A.             (L.60)
+
+      Die Eigenwertgleichung zu E1 ist trivial
+                              (x)      (y)                                   (z)
+                             ψ1     = ψ1 = 0,                               ψ1 = const.                     (L.61)
+
+
+
+                                                         10
+    Die für E−1 ergibt
+                           (z)                                     (x)   √ (y)
+                          ψ−1 = 0,                                ψ−1 = i 2 ψ−1 .       (L.62)
+
+    und für E2 ergibt
+                           (z)                                     (y)  √ (x)
+                          ψ2 = 0,                                 ψ2 = i 2 ψ2 .         (L.63)
+
+    Damit erhalten wir die normierten Eigenfunktionen
+                                     p                                  p     
+                   0                     ip 2/3                               p1/3
+            ψ0 = 0 ,          ψ−1 =  1/3  ,                        ψ2 = i 2/3 .   (L.64)
+                   1                        0                                  0
+
+(b) Die zeitabhängige Schrödingergleichung lautet
+                                               ∂
+                                          i~      ψ(t) = Hψ(t).                         (L.65)
+                                               ∂t
+    Wir zerlegen den Zustand zum Zeitpunkt t = 0 in der Eigenbasis der stationären Zustände
+
+                                  ψ(0) = c1 ψ1 + c−1 ψ−1 + c2 ψ2 ,                      (L.66)
+
+    mit i.A. komplexen Koeffizienten ci wobei die Normierungsbedingung für ψ
+
+                                      |c0 |2 + |c+ |2 + |c− |2 = 1                      (L.67)
+
+    lautet. Für den allgemeinen zeitabhängigen Zustand erhalten wir somit
+                                                                           
+                             E1                       E−1                   E2
+        ψ(t) = c1 ψ1 exp −i     t + c−1 ψ−1 exp −i        t + c2 ψ2 exp −i     t        (L.68)
+                              ~                        ~                     ~
+                                                                        
+                             A                      A                    2A
+             = c1 ψ1 exp −i t + c−1 ψ−1 exp +i t + c2 ψ2 exp −i             t           (L.69)
+                             ~                       ~                    ~
+                                                                                        (L.70)
+
+(c) Wir bestimmen zunächst den Anfangszustand über die Eigenwert-Gleichung
+
+                                           Sz ψ(0) = +~ψ(0)                             (L.71)
+
+    und erhalten sofort                              
+                                                     1
+                                                  1
+                                          ψ(0) = √  i  .                              (L.72)
+                                                   2 0
+
+(d) Mit ψ(0) aus der vorherigen Teilaufgabe bestimmen wir die Koeffizienten in der Zerlegung
+    nach der Eigenbasis der stationären Zustände über
+
+                                               ci = hψi |ψ(0)i.                         (L.73)
+
+    Wir erhalten für die Koeffizienten
+
+                                           c1 = 0,                                      (L.74)
+                                                 i    √
+                                          c−1 = √ (1 − 2),                              (L.75)
+                                                   6
+                                                 1    √
+                                           c2 = √ (1 + 2).                              (L.76)
+                                                   6
+
+                                                  11
+und der Zustand ψ(t) zur Zeit t ist dann über Gl. (L.68) gegeben. Der Erwartungwert für
+die Komponenten des Spins zur Zeit t lautet
+
+    hSi iψ(t) = hψ(t)|Si |ψ(t)i                                                              (L.77)
+                                          +i E~n t      −i E~n t
+                  X           X
+              =                       c∗n e          cm e          hn|Si |mi                 (L.78)
+              n∈{1,−1,2} m∈{1,−1,2}
+                                                           n           3A
+                                                                                      o
+            = |c−1 |2 h−1|Si |−1i + |c2 |2 h2|Si |2i + 2 Re c∗−1 c2 e−i ~ t h−1|Si |2i ,     (L.79)
+
+wobei im letzten Schritt c1 = 0 verwendet wurde.
+Für Sx und Sy gilt weiter (nur nicht-verschwindende Komponente in z-Richtung!)
+
+                       Sx |−1i ∼ Sx |2i ∼ Sy |−1i ∼ Sy |2i ∼ (0, 0, 1)T                      (L.80)
+
+und eine Kontraktion von der linken Seite mit h−1| oder h2| ergibt somit Null und wir
+erhalten
+
+                                              hSx iψ(t) = 0,                                 (L.81)
+                                              hSy iψ(t) = 0.                                 (L.82)
+
+Für Sz haben wir dagegen
+                    √                      √
+                   2 2                    2 2                                           i
+   h−1|Sz |−1i = −     ~,     h2|Sz |2i =     ~,            h−1|Sz |2i = h2|Sz |−1i∗ = − ~   (L.83)
+                    3                      3                                            3
+Wir erhalten dann für den Erwartungswert
+                                                    
+                                         8 1      3A
+                           hSz iψ(t) =    + cos −    t ~                                     (L.84)
+                                         9 9      2~
+                                                   
+                                           2  2 3A
+                                     = 1 − sin      t ~.                                     (L.85)
+                                           9     2~
+
+
+
+
+                                                12
+Aufgabe 4.       [Potentialtopf mit Stufe]                                                         (8 Punkte)
+
+Betrachten Sie einen eindimensionalen Potentialtopf V0 (x) unendlicher Tiefe und der Breite L,
+                                              (
+                                               0    0<x<L
+                                     V0 (x) =                  .                                              (7)
+                                               ∞ sonst
+
+Der Potentialtopf sei weiter gestört durch eine kleine Stufe
+                                          (
+                                            v 0 ≤ x ≤ L/2
+                                 Vs (x) =                     ,      v1.                                     (8)
+                                            0 sonst
+
+
+  (a) Geben Sie die zeitunabhängige Schrödingergleichung für den Potentialtopf ohne Stufe an. Berech-
+                                         (0)                                       (0)
+      nen Sie damit die Eigenenergien En und normierten Wellenfunktionen ψn (x) der gebundenen
+      Zustände.
+      Zur Kontrolle: Die Eingenfunktionen sind gegeben durch ψn(0) (x) = 2/L sin nπx
+                                                                         p             
+                                                                                     L
+                                                                                         mit Eigenwerten
+       (0)    π 2 ~2  2
+      En = 2mL     2 n  .                                                                          (2 P)
+  (b) Berechnen Sie die Energien En für gebundene Zustände des modifizierten Potentialtopfs V (x) =
+      V0 (x) + Vs (x), indem Sie die Stufe Vs (x) in erster Ordnung Störungsrechnung berücksichtigen.
+      (2 P)
+
+
+Die WKB-Methode kann auch verwendet werden um gebundene Zustände eines Potentials V (x) mit
+Umkehrpunkten bei x = x1 und x = x2 anzunähern. In einem solchen Fall müssen die WKB-Lösungen
+eine zusätzliche Quantisierungsbedingung erfüllen,
+                                 Z x2
+                                      dx pE (x) = (n + ν) π ~, n∈N                           (9)
+                                    x1
+
+mit pE (x) = [2m(E − V (x))]1/2 und ν = 0, 21 , 34 , . . . (abhängig von Details des jeweiligen Problems).
+
+  (c) Bestimmen Sie die Quantisierungsbedingung Gl. (9) für unseren Potentialtopf mit Stufe und zeigen
+      Sie ν = 0. Verwenden Sie hierfür die Lösung der WKB-Näherung:
+
+                                                                             1 x 0
+                                                                               Z
+                     C1                    C2
+           ψ(x) = p        cos(φ(x)) + p         sin(φ(x))   mit     φ(x) =        dx pE (x0 ) ,   (10)
+                    pE (x)                pE (x)                             ~ x1
+
+      wobei C1 , C2 reelle Konstanten sind.                                                            (1.5 P)
+  (d) Berechnen Sie die Eigenenergien En der gebundenen Zustände des modifizierten Potentialtopfs
+      mit Hilfe der WKB-Methode. Vergleichen Sie das so erhaltene Ergebnis mit dem aus Teil (a) und
+      machen Sie den Unterschied kenntlich.                                                 (2.5 P)
+
+
+
+Lösung.
+
+ (a) Im Bereich des Topfs (0 < x < L) erhält man die freie Schrödingergleichung
+
+                                                 ~2 2
+                                             −     ∂ ψ(x) = E ψ(x) ,                                    (L.86)
+                                                 2m x
+      wobei die Wände die Randbedingungen ψ(0) = 0 und ψ(L) = 0 erzwingen. Die Lösung
+      lautet
+                                                                                      ~2 k 2
+                         ψ(x) = C1 sin(kx) + C2 cos(kx),                        E=           ,          (L.87)
+                                                                                       2m
+
+                                                      13
+    und aus den Randbedingungen   R Lfolgt C2 = 0 und kn L = n π mit n ∈ N. Die Normierung
+    erfolgt durch die Feststellung 0 sin2 (kn x) = L/2. Insgesamt finden wir also
+                                                                                  r
+                               π 2 ~2 2                                                2     nπx 
+                       En(0) =       n ,                            ψn(0) (x) =          sin        .               (L.88)
+                               2mL2                                                    L       L
+
+(b) Die Korrektur erster Ordnung die durch Vs (x) induziert wird ist dann
+                                             Z L/2                                Z L/2                      
+                 D                 E    2                      nπx         v                         2n πx
+       En(1) =       φ(0)    (0)
+                      n V s φn         = v            sin 2
+                                                                        dx =                   1 − cos              dx
+                                        L      0                L            L         0                 L
+            = v/2 .                                                                                                 (L.89)
+
+    Die Energien der gebundenen Zustände in erster Ordnung in v sind somit
+
+                                                          π 2 ~2 2 v
+                                                   En ≈         n + .                                               (L.90)
+                                                          2mL2     2
+
+(c) In unserem Fall x1 = 0 und x2 = L. Unsere Lösungen müssen Randbedingungen ψ(0) = 0
+    und ψ(L) = 0 erfüllen. Wegen φ(0) = 0 folgt aus der ersten Randbedigung C1 = 0. Die
+    zweite Randbedigung lautet nun
+                                                                                  Z L
+         sin(φ(L)) = 0             ⇔         φ(L) = n π              ⇔                     dx pE (x) = n π ~        (L.91)
+                                                                                   0
+
+    was genau der gewünschten Quantisierungsbedingung mit ν = 0 entspricht.
+
+(d) Wir bestimmen
+
+                                                      L√
+                              Z L                           p        p 
+                                       pEn (x) dx =      2m   En − v + En ,                                         (L.92)
+                               0                      2
+
+    woraus aus der zuvor bestimmten Quantisierungsregel direkt
+                                        p        p     2 nπ~  √
+                                         En − v + En = √     ≡ αn                                                   (L.93)
+                                                      L 2m
+    ergibt. Löst man diese Gleichung nach En auf, so findet man
+
+                                              αn v        v2
+                                        En =       + +
+                                               4      2 4 αn
+                                              π ~2 2      v m L2 v 2 1
+                                            =       2
+                                                      n2 + +           .                                            (L.94)
+                                              2mL         2  8π~2 n2
+    Somit findet man bis zur ersten Ordnung dasselbe Ergebnis wie in der Störungsrechung.
+    Die Abweichung zum vorherigen Ergebnis beträgt
+
+                                                               m L2 v 2 1
+                                                   ∆En =                                                            (L.95)
+                                                                8π~2 n2
+
+
+
+
+                                                          14
+                          z
+                                       µ
+                                       ~
+
+                              ~                                                   z
+                                   θ
+
+                                                                                       ~
+
+
+                                                                                            θ      µ
+                                                                                                   ~
+                                                                           J~
+                                             y
+             x
+
+
+                                                                                   ϕ                     y
+                                                                    x
+
+
+Abbildung 1: Aufgabe 4 (a,b): Starrer Rotor in ei-        Abbildung 2: Aufgabe 4 (c–e): Starrer Rotor, der
+nem elektrischen Feld ~, das in die Ebene der Ro-        sich in einem elektrischen Feld ~ befindet.
+tation zeigt.
+
+
+Aufgabe 5.       [Starrer Rotor]                                                                 (9 Punkte)
+
+Betrachten Sie einen quantenmechanischen starren Rotor, dessen Bewegung auf Rotationen in einer Ebene
+beschränkt sei. Der Rotor besitze ein Trägheitsmoment I bezüglich der Rotationsachse und ein elektrisches
+Dipolmoment µ   ~ (in der Ebene). In Abwesenheit externer Felder und einer Rotation in der xz-Ebene ist
+                                                                 2
+                                                                   ∂2
+der Hamilton-Operator für das System gegeben durch H0 = − ~2I ∂θ    2 wobei θ ∈ [0, 2π] (siehe Abbildung 1).
+
+
+
+
+  (a) Geben Sie die Eigenwerte und die zugehörigen normierten Eigenfunktionen des Systems an indem
+      Sie die stationäre Schrödingergleichung lösen.                                     (1.5 P)
+
+
+Der Rotor werde nun in einen schwachen homogenen elektrischen Feld ~ plaziert, das parallel zur Ebene
+der Rotation zeigt. Die Wechselwirkung des Rotors mit dem Feld ~ kann als Störung H 0 = −~    µ · ~ =
+−µ cos θ behandelt werden.
+
+  (b) Bestimmen Sie die erste nicht-verschwindende Korrektur zu den Energieniveaus.                    (3 P)
+
+
+Die Polarisation eines diatomaren Moleküls kann durch einen starren Rotor mit Trägheitsmoment I und
+elektrischem Dipolmoment µ  ~ beschrieben werden, das sich in einem schwachen elektrischen Feld ~ befindet.
+Unter Vernachlässigung der Schwerpunktsbewegung kann der Hamilton-Operator wie folgt geschrieben
+                         ~2
+werden H = H0 + H 0 = J2I − µ  ~ ·~ wobei J~ der Drehimpulsoperator ist. Beachten Sie, dass das Feld ~ hier
+nicht notwendigerweise in die Ebene der Rotation zeigen muss (siehe Abbildung 2).
+
+  (c) Finden Sie die exakten Lösungen des ungestörten Problems H0 . Wie sind die Energieniveaus ent-
+      artet?                                                                                    (1 P)
+  (d) Berechnen Sie die führende (erste nicht-verschwindende) Korrektur zu den Energieniveaus mit
+      Hilfe der nicht-entarteten Störungstheorie. Die folgende Relation kann ohne Herleitung verwendet
+      werden:
+                            s                                        s
+                              (l + 1 − m)(l + 1 + m)                   (l + m)(l − m)
+         cos θ Ylm (θ, ϕ) =                          Yl+1,m (θ, ϕ) +                    Yl−1,m (θ, ϕ). (11)
+                                  (2l + 1)(2l + 1)                     (2l + 1)(2l − 1)
+                                                                                                     (2.5 P)
+  (e) Erklären Sie, weshalb die nicht-entartete Störungstheorie anwendbar ist. Was ist die Entartung der
+      Niveaus unter Berücksichtigung der Störung?                                                 (1 P)
+
+
+                                                     15
+Lösung.
+
+ (a) The eigenequation is:
+                                                     ~2 ∂ 2 ψ
+                                                −             = Eψ,                                  (L.96)
+                                                     2I ∂ϕ2
+     which has the general solution
+                                                            2IE                 2IE
+                                       ψ(θ) = Ae+i ~2 θ + Be−i ~2 θ                                  (L.97)
+     With the quantisation condition (2π-periodicity)
+                                               ψ(θ) = ψ(θ + 2π)                                      (L.98)
+     we obtain the solutions
+                                         1
+                                    ψ = √ eimϕ ,              m = 0, ±1, ±2, ...,                    (L.99)
+                                         2π
+     corresponding to energy levels
+                                                    (0)       ~2 m2
+                                                   Em   =           .                               (L.100)
+                                                               2I
+ (b) Using the given perturbation hamiltonian, one gets for the first order correction in energy
+                                                                        Z2π
+                                                        µ
+                                 E (1) = hm|H 0 |mi = −                       cos ϕ dϕ = 0.         (L.101)
+                                                        2π
+                                                                        0
+
+     Since the first order correction is 0 we must consider the second order energy correction
+                                                      X | hm0 |H 0 |mi |2
+                                        E (2) =                   (0)          (0)
+                                                                                                    (L.102)
+                                                     m0 6=m   Em − Em0
+     As
+                                               Z2π
+                         0   0  µ                            0
+                       m H m =−                      ei(m−m )ϕ cos ϕ dϕ =
+                                2π
+                                               0
+                                               Z2π 
+                                          µ                 0             0
+                                                                                
+                                     =−                ei(m−m +1)ϕ + ei(m−m −1)ϕ dϕ =
+                                          4π
+                                               0
+                                       µ
+                                  = − (δm0 ,m+1 + δm0 ,m−1 ),                                       (L.103)
+                                         2
+     we get first non-vanishing correction
+                                µ2 2 2I
+                                                                    
+                                                   1          1
+                        E (2) =       · 2               +
+                                 4     ~ m2 − (m − 1)2 m2 − (m + 1)2
+                                 2  2
+                                µ  I        1
+                              =     2
+                                       ·     2
+                                                 .                                                  (L.104)
+                                 ~        4m − 1
+ (c) The eigenfunctions of the unperturbed system are
+                                               ψjm = Yjm (θ, ϕ),                                    (L.105)
+                                                                                              (0)   2
+     where m = −j, (−j + 1), ..., (j − 1), j and the energy eigenvalues are Ejm = j(j+1)~
+                                                                                     2I   . The
+                                                        (0)
+     levels are (2j + 1)-fold degenerate since Ejm does not depend on m at all.
+
+
+                                                       16
+(d) The first order energy correction is
+
+                                                              Zπ Z2π
+         hjm|−µ cos θ|jmi = −µ hjm|cos θ|jmi = −µ                     cos θ sin θ dθdϕ = 0   (L.106)
+                                                               0     0
+
+    For the second order correction we calculate
+                                                 X | hn|H 0 |ii |2
+                                       En(2) =         (0)  (0)
+                                                                                                (L.107)
+                                                 i6=n En − Ei
+
+    where n, i denote pairs of j, m. As the non-vanishing matrix elements are only
+                                                   s
+                                                      (j + 1 − m)(j + 1 + m)
+                    hj + 1, m|−µ cos θ|jmi = −µ                            ,                  (L.108)
+                                                          (2j + 1)(2j + 3)
+                                                   s
+                                                      (j + m)(j − m)
+                    hj − 1, m|−µ cos θ|jmi = −µ                      ,                        (L.109)
+                                                      (2j + 1)(2j − 1)
+
+    the lowest order energy correction is
+
+                          2Iµ2 2
+                                   
+                     (2)                        (j + 1 − m)(j + 1 + m)
+                   E =        2
+                             ~        (2j + 1)(2j + 3) [j(j + 1) − (j + 1)(j + 2)]
+                                                                               
+                                                   (j + m)(j − m)
+                                     +                                           =
+                                        (2j + 1)(2j − 1) [j(j + 1) − j(j − 1)]
+                             Iµ2 2 [j(j + 1) − 3m2 ]
+                         = 2                                                                    (L.110)
+                          ~ j(j + 1)(2j − 1)(2j + 3)
+
+(e) Because H 0 is already diagonal in the j subspace, the non-degenerate perturbation theory
+    is still applicable. However even with the perturbation, degeneracy does not completely
+    disappear. In fact states with same j but opposite m are still degenerate.
+
+
+
+
+                                                 17
+

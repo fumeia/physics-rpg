@@ -1,0 +1,11 @@
+<!doctype html><meta charset=utf-8><body style="background:#222"><canvas id=c width=1024 height=640></canvas><div id=o></div>
+<script type=importmap>{"imports":{"three":"../vendor/three/three.module.js"}}</script>
+<script type=module>
+import { mathTexture } from '../src/mathtex.js';
+const t = mathTexture(['STATION: Barrier $V_0$ and $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$', {text:'$T\\approx\\frac{16E(V_0-E)}{V_0^2}e^{-2\\kappa L}$', color:'#7dffb0'}, '3 / 4 done']);
+await t.userData.ready;
+const c=document.getElementById('c'); c.getContext('2d').drawImage(t.image,0,0,1024,640);
+let tainted=false; try{ t.image.toDataURL(); }catch(e){ tainted=true }
+document.getElementById('o').textContent='tainted='+tainted+' size='+t.image.width;
+window.__done=true;
+</script>

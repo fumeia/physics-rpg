@@ -1,0 +1,42 @@
+import { createServer } from 'node:http'; import { readFile } from 'node:fs/promises'; import { extname, join, normalize } from 'node:path';
+import { chromium } from 'playwright-core';
+const root=new URL('..',import.meta.url).pathname; const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.woff2':'font/woff2'};
+const server=createServer(async(q,res)=>{try{const p=normalize(decodeURIComponent(new URL(q.url,'http://x').pathname));if(p==='/api/ping'){res.writeHead(200,{'content-type':'application/json'});return res.end('{"ok":false}')}const f=await readFile(join(root,p==='/'?'index.html':p));res.writeHead(200,{'content-type':types[extname(p)]||'application/octet-stream'});res.end(f)}catch{res.writeHead(404);res.end('nf')}}).listen(0);
+const b=await chromium.launch({executablePath:process.env.CHROMIUM||'/tmp/chr-local/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const p=await b.newPage({viewport:{width:1280,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});
+await p.goto(`http://127.0.0.1:${server.address().port}/index.html?test=1`);await p.evaluate(()=>localStorage.clear());await p.reload();await p.waitForFunction(()=>!!window.__game);
+await p.evaluate(()=>{const t=document.getElementById('tut');if(t&&t.style.display!=='none')document.getElementById('tut-skip')?.click()});
+
+const results=[];const ck=(n,c)=>{results.push(c);console.log(`${c?'PASS':'FAIL'} ${n}`)};
+await p.evaluate(()=>window.__game.open('qm-tunnel-c1'));await p.waitForTimeout(500);
+ck('keep button shown in an exercise panel',await p.evaluate(()=>!!document.querySelector('.pilebtn')));
+await p.click('.pilebtn');await p.waitForTimeout(200);
+ck('exercise is in the pile',await p.evaluate(()=>document.querySelector('.pilebtn').classList.contains('on')));
+ck('pile chip counts 1',(await p.textContent('#btn-pile')).includes('1'));
+await p.fill('.pilenote','useful step: kappa');await p.press('.pilenote','Tab');
+await p.evaluate(()=>window.__game.open('qm-tunnel-b1'));await p.waitForTimeout(400);await p.screenshot({path:'/tmp/shots/pile-boss.png'});await p.click('.pilebtn');
+ck('pile chip counts 2',(await p.textContent('#btn-pile')).includes('2'));
+await p.evaluate(()=>window.__game.close());await p.keyboard.press('KeyV');await p.waitForTimeout(300);await p.click('[data-stab="pile"]');await p.waitForTimeout(200);
+ck('pile overlay lists both',await p.evaluate(()=>document.querySelectorAll('.pilerow').length===2));
+ck('note shown',await p.evaluate(()=>document.getElementById('ov-body').innerText.includes('useful step')));
+await p.click('#pile-all',{force:true});await p.waitForTimeout(800);
+ck('review all opens first exercise with next button',await p.evaluate(()=>!!document.querySelector('.pilenext')&&document.querySelector('.pilebar').innerText.includes('pile 1 / 2')));
+await p.click('.pilenext');await p.waitForTimeout(500);
+ck('next opens the second',await p.evaluate(()=>document.querySelector('.pilebar').innerText.includes('pile 2 / 2')));
+await p.reload();await p.waitForFunction(()=>!!window.__game);await p.waitForTimeout(500);
+ck('pile survives reload',(await p.textContent('#btn-pile')).includes('2'));
+await p.keyboard.press('KeyV');await p.waitForTimeout(300);await p.click('[data-stab="pile"]');await p.waitForTimeout(200);await p.click('[data-pilerm]');await p.waitForTimeout(200);
+ck('remove works',await p.evaluate(()=>document.querySelectorAll('.pilerow').length===1));
+// ---- study hub: mistakes, weak spots, feynman, planner
+await p.evaluate(()=>window.__game.open('astro-light-c1'));await p.waitForTimeout(500);
+const num=await p.evaluate(()=>{const inp=[...document.querySelectorAll('#panel input[type=text]')].find(i=>i.closest('.step')&&i.closest('.step').querySelector('select')&&!i.disabled);if(!inp)return null;const sel=inp.closest('.step').querySelector('select');if(sel)sel.selectedIndex=1;inp.value='12345';const b=inp.closest('.step').querySelector('button.go');b.click();return inp.closest('.step').querySelector('.msg')?.innerText||''});
+await p.waitForTimeout(300);ck('wrong numeric answer gives feedback',typeof num==='string');
+await p.evaluate(()=>window.__game.close());await p.keyboard.press('Escape');await p.waitForTimeout(200);await p.keyboard.press('KeyV');await p.waitForTimeout(300);
+for(const [tab,sel] of [['mistakes','.mcard'],['weak','.maplist, p'],['feynman','#fy-text'],['plan','[data-pm]']]){await p.click(`[data-stab="${tab}"]`);await p.waitForTimeout(250);ck('tab '+tab+' renders',await p.evaluate((s)=>!!document.querySelector('#study-body '+s.split(',')[0])||!!document.querySelector('#study-body p'),sel));}
+await p.click('[data-stab="mistakes"]');ck('mistake from the wrong answer is listed',await p.evaluate(()=>document.querySelectorAll('.mcard').length>=1));
+await p.click('[data-stab="feynman"]');await p.fill('#fy-text','The idea is that the wave function must be continuous at the step and so the amplitudes follow from matching.');await p.click('#fy-cmp');await p.waitForTimeout(200);
+await p.evaluate(()=>document.querySelectorAll('.fyk').forEach((c,i)=>{if(i<2)c.checked=true}));await p.click('#fy-save');await p.waitForTimeout(200);
+ck('feynman saved with xp',await p.evaluate(()=>document.querySelector('#fy-out')?.innerText.includes('key points')));
+await p.click('[data-stab="plan"]');await p.click('[data-pm="60"]');await p.waitForTimeout(300);
+ck('planner builds a session',await p.evaluate(()=>document.querySelectorAll('[data-pstart]').length>=1));
+const bad=results.some(x=>!x)||errs.length;console.log(bad?'FAIL '+errs.slice(0,3):'ALL PASS pile');await b.close();server.close();process.exit(bad?1:0);

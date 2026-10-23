@@ -1,0 +1,879 @@
+      Prüfung zur Quantenmechanik I: Allgemeine Hinweise
+
+
+Vor der Prüfung:
+  • Lesen Sie diese Hinweise und tragen Sie Ihren Namen auf dem Deckblatt ein. Warten Sie
+    auf das Startzeichen, bevor Sie die Aufgaben anschauen und die Prüfung beginnen.
+  • Bitte legen Sie Ihre Legi zur Kontrolle auf den Tisch.
+  • Stellen Sie sicher, dass alle elektronischen Geräte ausgeschaltet sind.
+
+Während der Prüfung:
+  • Die Prüfung dauert 3 Stunden.
+  • Die Aufgaben sind nicht nach steigendem Schwierigkeitsgrad geordnet.
+  • Beginnen Sie jede Aufgabe mit einem neuen Blatt und beschriften Sie jedes Blatt oben
+    mit Ihrem vollständigen Namen und der Aufgabennummer. Mit Ausnahme der Multiple-
+    Choice Fragen in Aufgabe 1.(a) werden Lösungen/Informationen auf den Aufgabenblättern
+    nicht berücksichtigt – bitte schreiben Sie Ihre Lösungen auf Ihre eigenen Blätter.
+  • Bitte schwarze oder blaue Kugelschreiber benutzen. Bitte halten Sie auf der rechten Seite
+    3 cm Platz frei für die Korrektur.
+  • Die Prüfung kann wahlweise auf Deutsch/Englisch geschrieben werden.
+  • Als Hilfsmittel ist ein doppelseitig beschriebenes A4-Blatt sowie, für fremdsprachige Stu-
+    dierende, ein fachneutrales Wörterbuch erlaubt. Während der Prüfung bitte keine Rechner,
+    Smartphones, etc. benutzen.
+  • Der Besuch der Toilette ist nur in Begleitung eines/einer Prüfungsassistenten/in erlaubt.
+
+Am Schluss der Prüfung:
+  • Bitte ordnen Sie Ihre Blätter nach Aufgabennummer und tragen Sie die Anzahl Lösungs-
+    blätter auf dem Deckblatt ein. Die Aufgabenblätter sind alle mit abzugeben.
+  • Am Ende der Prüfung warten Sie bitte an Ihrem Platz, bis die Prüfung eingesammelt wird.
+
+
+                                        Viel Erfolg!
+                                   Quantenmechanik I                         HS 2023
+                                Winter Prüfung - Lösungen        Prof. Renato Renner
+
+
+Datum der Prüfung: 07.02.2024
+Zeit: 15:00–18:00
+
+VORNAME:                                  NAME:
+MATRIKELNUMMER:
+Anzahl Lösungsblätter:
+
+
+
+
+     – Diese Seite nicht vor dem Startzeichen umblättern! –
+
+
+
+
+       Aufgabe                                     1    2    3    4    Summe
+       Punkte                                     24   37   24   34      119
+       Erreichte Punkte
+Aufgabe 1.     Grundlagen der Quantenmechanik [24 Punkte]
+
+
+ (a) Welche der folgenden Aussagen zu den Postulaten der Quantenmechanik ist wahr (W)
+     oder falsch (F)? Es sind keine Begründungen erforderlich.                     [4]
+
+    WF
+    □ □ Ein quantenmechanisches System wird durch eine C ∗ -Algebra A definiert.
+    □ □ Es existiert F ∈ Herm(A) und ein Zustand ρ mit ρ(F 2 ) < [ρ(F )]2 .
+    □ □ Für eine gegebene C ∗ -Algebra A und einen Zustand ρ gibt es einen Hilbertraum H,
+        eine Darstellung π von A auf H und einen Vektor ξ ∈ H, so dass ρ(F ) = ⟨ξ, π(F )ξ⟩
+        für alle F ∈ Herm(A).
+    □ □ Die Lie-Algebra eines Teilchens in einer Dimension wird durch zwei Elemente, Q und
+        P , erzeugt, die {Q, P } = 1, {Q, Q} = 0 und {P, P } = 0 erfüllen.
+
+ (b) In der Vorlesung wurde gezeigt, dass ein hermitescher Operator sowohl eine Observable
+     als auch eine reversible Aktion mathematisch vollständig charakterisiert. Gib in maximal
+     drei Sätzen eine Erklärung dafür, wieso sowohl Messungen als auch reversible Aktionen
+     durch dasselbe mathematische Objekt beschrieben werden können.                       [5]
+
+ (c) Wir betrachten ein freies Teilchen der Masse m in einer Dimension mit dem Hilbertraum
+     H = L2 (R) und einem Hamiltonoperator Ĥ ∈ Herm(H), der im Schrödinger-Bild zeitun-
+     abhängig ist. Für einen gegebenen hermiteschen Operator Ô(t) ∈ Herm(H) zur Zeit t im
+     Schrödinger-Bild bezeichnen wir im Folgenden als ÔH (t) den entsprechenden Operator im
+     Heisenberg-Bild.                                                                   [15]
+
+      (i) Zeige, dass ĤH (t) = Ĥ ∀t ∈ R.
+     (ii) Falls Ô(t) zeitunabhängig ist, lautet die Heisenbergsche Bewegungsgleichung für ÔH (t)
+
+                                        d            1
+                                           ÔH (t) = [ÔH (t), Ĥ] .                          (1)
+                                        dt          iℏ
+
+          Leite nun für den Fall, dass Ô(t) zeitabhängig ist, die Bewegungsgleichung für ÔH (t)
+          her.
+                                               P̂          P̂2
+     (iii) Bestimme ÔH (t) für Ô(t) = X̂ − t m  und Ĥ = 2m , wobei X̂ und P̂ ∈ Herm(H) der
+           Ortsoperator bzw. der Impulsoperator des Teilchens sind.
+
+
+
+
+                                               1
+Lösung.
+
+
+
+ (a) W, F, W, W.
+
+ (b) Eine Observable geht immer auch mit einer Messung einher, welche eine Interaktion zwi-
+     schen dem System und dem Messapparat ist, eine Messung ist als eine Aktion auf ein
+     Messapparat und das System. Insbesondere kann man Aktionen der Form Ô ⊗ P̂ betrach-
+     ten, wobei P̂ der Impulsoperator des Zeigers des Messapparates ist. Diese Interaktion
+     verschiebt nun den Zeiger des Messapparates abhängig von wie Ô auf den Zustand des
+     zu messenden Systems wirkt, es wirkt also wie eine Messung auf das System und den
+     Messapparat. Eine solche Aktion gibt es für jede reversible Aktion Ô auf dem System.
+
+ (c)    (i) Weil der gegebene Hamiltonoperator zeit-unabhängig ist, lautet der Propagator Û (t)
+            des Systems Û (t) = e−iĤt/ℏ . Deshalb ist
+
+                                             ĤH (t) := Û ∗ (t)Ĥ Û (t)                      (L.1)
+                                                     = eiĤt/ℏ Ĥe−iĤt/ℏ                      (L.2)
+                                                     = eiĤt/ℏ e−iĤt/ℏ Ĥ                     (L.3)
+                                                        ˆ Ĥ
+                                                     = id                                      (L.4)
+                                                     = Ĥ.                                     (L.5)
+
+       (ii) Wir beginnen mit der Definition von ÔH (t), d.h.
+
+                                            ÔH (t) := Û ∗ (t)Ô(t)Û (t),                    (L.6)
+
+            und leiten beide Seiten nach t ab. Dies führt zu einem der folgenden Ausdrücke oder
+            etwas Äquivalentes.
+                           d             1                    ∂
+                              ÔH (t) = [ÔH (t), Ĥ] + ÔH (t)                                (L.7)
+                           dt           iℏ                   ∂t
+                                         1 ∗                                d
+                                                                                   
+                                                                      ∗
+                                      = Û (t)[Ô(t), Ĥ]Û (t) + Û (t)       Ô(t) Û (t)    (L.8)
+                                        iℏ                                  dt
+                                                    1              d
+                                                                        
+                                      = Û ∗ (t)      [Ô(t), Ĥ] + Ô(t) Û (t).              (L.9)
+                                                   iℏ              dt
+
+                                P̂
+       (iii) Für Ô(t) = X̂ − t m  beobachten wir, dass
+
+                                         1                1                P̂
+                                           [Ô(t), Ĥ] =      [X̂, P̂ 2 ] = ,                 (L.10)
+                                        iℏ               2miℏ              m
+            und
+                                                   d           P̂
+                                                      Ô(t) = − .                             (L.11)
+                                                   dt          m
+            Dann folgt aus (ii), dass
+                                                    d
+                                                       ÔH (t) = 0.                           (L.12)
+                                                    dt
+            Daher ist
+                                                                                 P̂
+                            ÔH (t) = ÔH (0) = Û ∗ (0)Ô(0)Û (0) = X̂ − 0 ·      = X̂.     (L.13)
+                                                                                 m
+
+
+                                                    2
+Aufgabe 2.      Wellenmechanik in 1D [37 Punkte]
+
+Wir betrachten ein Teilchen der Masse m in einer Dimension, welches im Intervall [−a, a] ge-
+fangen ist. Der relevante Hilbertraum ist also L2 ([−a, a]) und es gelten die Randbedingungen
+ψ(−a) = ψ(a) = 0. Das Teilchen soll zudem einem vom Ort x abhängigen Potenzial V (x)
+ausgesetzt sein.
+
+
+ (a) Wie lauten der Hamiltonoperator Ĥ und die zeitunabhängige Schrödingergleichung? [2]
+
+ (b) Bezeichne mit |0⟩ den Grundzustand und mit |1⟩ den ersten angeregten Zustand, sowie
+     mit E0 und E1 die dazugehörigen Energien. Das System sei zur Zeit t = 0 im Zustand
+                                                 1
+                                           |ϕ⟩ = √ (|0⟩ + |1⟩)                                   (2)
+                                                  2
+     präpariert. Das Teilchen entwickle sich für t > 0 nach der zeitabhängigen Schrödingerglei-
+     chung.                                                                                [5]
+
+       (i) Wie gross ist die Wahrscheinlichkeit, das Teilchen zu einer gegebenen Zeit t im Zu-
+           stand |ϕ⟩ zu finden? Drücke das Resultat durch die Energien E0 und E1 aus.
+      (ii) Zu welcher Zeit ist das Teilchen zum ersten Mal wieder im Zustand |ϕ⟩?
+
+
+Wir wählen nun das Potenzial
+                                         V (x) = V0 · δ(x) ,                                     (3)
+wobei V0 eine Konstante ist.
+
+
+ (c) Betrachte den Spiegelungsoperator P̂ : L2 ([−a, a]) → L2 ([−a, a]), welcher durch
+                                                 
+                                               P̂ ψ (x) = ψ(−x)                                  (4)
+
+     definiert ist. Zeige, dass P̂ hermitesch ist und dass [Ĥ, P̂ ] = 0. Wieso ist diese Eigenschaft
+     bei der Analyse des Systems von Bedeutung?                                                   [8]
+
+ (d) Sei nun ψ eine Lösung der zeitunabhängigen Schrödingergleichung. Zeige, dass                [5]
+
+                                                                 2mV0
+                                 lim ψ ′ (x) = lim ψ ′ (x) +          ψ(0).
+                                x→0+             x→0−             ℏ2
+
+Für folgende Teilaufgaben wollen wir zudem annehmen, dass ψ stetig ist, also dass
+
+                                       lim ψ(x) = lim ψ(x) .                                     (5)
+                                    x→0+                  x→0−
+
+
+ (e) Verwende obige Resultate, um die zeitunabhängige Schrödingergleichung zu lösen. Es ge-
+     nügt, die Wellenfunktion bis auf Normierung zu bestimmen und eine algebraische Glei-
+     chung für die Energie-Eigenwerte herzuleiten.                                    [15]
+     Hinweis:    Betrachte die geraden und ungeraden Lösungen separat.
+
+  (f) Zeige, dass für V0 = 0 die Energie-Eigenwerte von der Form En = c · n2 /a2 sind, wobei c
+      eine Konstante ist. Wie gross ist c?                                                [2]
+
+                                                      3
+Lösung.
+
+
+
+ (a) Der Hamiltonoperator ist gegeben durch
+
+                                                  ℏ2 d2
+                                       Ĥ = −            + V (X̂) .                       (L.14)
+                                                  2m dx2
+
+    Die zeitunabhängige Schrödingergleichung lautet Ĥψ = Eψ.
+
+ (b) Lösung.
+
+      (i) Da |0⟩ und |1⟩ Eigenzustände sind entwickeln sie sich nach der zeitabhängigen Schrö-
+          dingergleichung als
+                                           |0⟩ 7→e−iE0 t/ℏ |0⟩,
+                                                                                        (L.15)
+                                           |1⟩ 7→e−iE1 t/ℏ |1⟩.
+          Der Zustand |ϕ⟩ entwickelt sich also zu
+                                              1                            
+                             |ϕ⟩ 7→ |ϕ(t)⟩ = √ e−iE0 t/ℏ |0⟩ + e−iE1 t/ℏ |1⟩ .            (L.16)
+                                               2
+          Die Wahrscheinlichkeit zur Zeit t den Zustand als |ϕ⟩ zu finden ist
+                                        1 −iE0 t/ℏ               2
+                         |⟨ϕ|ϕ(t)⟩|2 =    e         + e−iE1 t/ℏ
+                                        4
+                                        1                                      
+                                      = eiE0 t/ℏ + eiE1 t/ℏ e−iE0 t/ℏ + e−iE1 t/ℏ
+                                        4
+                                        1           h              i
+                                      = 2 + 2Re e−it(E1 −E0 )/ℏ                           (L.17)
+                                        4
+                                        1              t(E1 − E0 )
+                                                                  
+                                      =     1 + cos
+                                        2                   ℏ
+                                           2 t(E1 − E0 )
+                                                           
+                                      = cos                   .
+                                                    2ℏ
+
+     (ii) Wir verlangen dass |⟨ϕ|ϕ(t)⟩| = 1. Nach obiger Gleichung tritt dies ein falls
+
+                                     t(E1 − E0 )              2ℏπ
+                                                 = π ⇐⇒ t =         .                     (L.18)
+                                         2ℏ                 E1 − E0
+
+ (c) Seien ϕ, ψ ∈ L2 ([−a, a]). Man berechnet direkt
+                                D        E       Z a                      
+                                    ϕ, P̂ ψ =          dxϕ(x)∗ P̂ ψ (x)                   (L.19)
+                                                  −a
+                                                 Z a
+                                             =         dxϕ(x)∗ ψ(−x)                      (L.20)
+                                                  −a
+                                                     Z −a
+                                             =−             dyϕ(−y)∗ ψ(y)                 (L.21)
+                                                       a
+                                                 Z a        h        i∗
+                                             =         dy       P̂ ϕ (y)       ψ(y)       (L.22)
+                                                  −a
+                                                 D          E
+                                             = P̂ ϕ, ψ ,                                  (L.23)
+
+
+
+
+                                                     4
+   wobei wir y = −x substituiert haben. Für den zweiten Teil definieren wir χ : [−a, a] →
+   [−a, a] durch χ(x) = −x. Berechne
+                                                 
+                    (Ĥ P̂ ψ)(y) = Ĥ(ψ ◦ χ) (y)                                       (L.24)
+                                                                             !
+                                         ℏ2 d2
+                                 = −            (ψ ◦ χ) + V (X̂)(ψ ◦ χ) (y)            (L.25)
+                                         2m dx2
+                                       ℏ2    d
+                                                              
+                                 =−            (−ψ ′ ◦ χ) (y) + V (y)(ψ ◦ χ)(y)        (L.26)
+                                      2m dx
+                                       ℏ2 ′′
+                                 =−       ψ (−y) + V (−y)ψ(−y)                         (L.27)
+                                      2m
+                                 =(P̂ Ĥψ)(y),                                         (L.28)
+
+   wobei wir verwendet haben dass V (y) = V (−y). Somit ist [Ĥ, P̂ ] = 0, d.h. Ĥ und P̂
+   kommutieren. Da P̂ hermitesch ist schliessen wir dass sich P̂ diagonalisieren lässt. Da
+   zusätzlich Ĥ und P̂ kommutieren, lassen sie sich also gleichzeitig diagonalisieren.
+
+(d) Nach dem Fundamentalsatz der Analysis ist
+                                                Z ε
+                        ψ ′ (ε) − ψ ′ (−ε) =          dxψ ′′ (x)                       (L.29)
+                                                 −ε
+                                               2m ε
+                                                          Z
+                                            =−        dx(E − V0 δ(x))ψ(x)              (L.30)
+                                                ℏ2 −ε
+                                             2mV0
+                                            = 2 ψ(0) + O(ε).                           (L.31)
+                                              ℏ
+   Mit dem Limes ε → 0+ folgt dann die Aussage.
+
+(e) Auf den beiden Intervallen [−a, 0) und (0, a] folgt das Teilchen der Schrödingergleichung
+    eines freien Teilchens. Somit ist die Lösung
+                                       (
+                                         AL eikx + BL e−ikx        x ∈ [−a, 0],
+                            ψ(x) =                                                     (L.32)
+                                         AR eikx + BR e−ikx        x ∈ (0, a],
+
+   mit AL , BL , AR und BR Konstanten welche wir noch bestimmen müssen. Um diese Kon-
+   stanten zu bestimmen verwenden wir die Bedingung ψ(−a) = ψ(+a) = 0, sowie die
+   un/stetigkeits Bedingungen aus voriger Aufgabe. Dies gibt folgende Bedingungen:
+
+                     AL e−ika + BL e+ika =0,                                           (L.33)
+                         +ika            −ika
+                     AR e       + BR e          =0,                                    (L.34)
+                                 AR + BR =AL + BL ,                                    (L.35)
+                                                                    2mV0
+                            ik(AR − BR ) =ik(AL − BL ) +                 (AL + BL ).   (L.36)
+                                                                     ℏ2
+   Da der Hamiltonoperator symmetrisch ist unter Spiegelungen können wir o.B.d.A. die
+   Wellenfunktion als gerade oder ungerade wählen. Wir behandeln beide Fälle separat.
+
+   Ungerade: Für ungerade Wellenfunktionen ist ψ(−x) = −ψ(x) und somit AL = −BR , BL =
+   −AR . Nach Gleichung (L.35) ist also
+
+                                AR + BR = AL + BL = −(BR + AR )                        (L.37)
+
+
+                                                      5
+   und somit AR + BR = 0. Ähnlich ist AL + BL = 0. Die Randbedingung (L.33) ergibt
+                                     eika = e−ika ⇐⇒ e2ika = 1.                         (L.38)
+                                                            π
+   Diese Gleichung ist erfüllt g.d.w. 2ka = l · 2π ⇐⇒ k = 2a  · 2l für ein l ∈ N0 . Falls
+   l = 0 dann ist k = 0 und somit ψ(x) = const. Da ψ(−a) = 0 wäre ψ = 0, also keine
+   Eigenfunktion. Somit können wir uns auf l ∈ N beschränken. Die Eigenfunktionen sind
+   dann gegeben durch
+                                            ψ(x) ∝ sin(kx),                             (L.39)
+   wobei wir verwendet haben dass AR = AL = −BR = −BL . Die Proportionalitätskonstante
+   muss durch die Normierung von ψ bestimmt werden.
+
+   Gerade: Für gerade ψ ist ψ(−x) = ψ(x) und somit AL = BR , BL = AR . Einsetzen dieser
+   Relationen in (L.36) gibt
+                                                                  2mV0
+                         ik(AR − BR ) = −ik(AR − BR ) +                (AR + BR ).      (L.40)
+                                                                   ℏ2
+   Einsetzen der Gleichung (L.34) ergibt
+                                                      2mV0                 
+                           2ikAR 1 + e2ika =                 A R   1 − e 2ika
+                                                                                .       (L.41)
+                                 |     {z       }        ℏ2      |     {z       }
+                                 =eika 2 cos(ka)                  =eika (−2i) sin(ka)
+
+   Dies lässt sich umformen zu
+                                                    maV0
+                                       ak · cot(ak) = −    .                            (L.42)
+                                                      ℏ2
+   Für x > 0 lassen sich die Eigenfunktionen schreiben als
+                                                                   
+                               ψ(x) =AR eikx − e2ika e−ikx
+                                                                            
+                                      =AR eika eik(x−a) − e−ik(x−a)                     (L.43)
+
+                                      =2iAR eika sin(k(x − a)).
+   Für x < 0 sind die Eigenfunktionen
+                                                                    
+                               ψ(x) =AL eikx − e−2ika e−ikx
+                                                                             
+                                     =AL e−ika eik(x+a) − e−ik(x+a)                     (L.44)
+
+                                     = − 2iAR eika sin(k(x + a)).
+   Die Konstante AR muss dann durch die Normierung bestimmt werden.
+(f) Für V0 = 0 reduzieren sich die Bedingungen an die Eigenenergien zu
+                                           π
+                                      k = 2l                                         (L.45)
+                                          2a
+                                                       π
+                                cot(ak) =0 ⇐⇒ k =        (2l + 1).                   (L.46)
+                                                      2a
+                                              π
+    Die zulässigen Wellenzahlen sind also k = 2a n mit n ∈ N und die dazugehörigen Energien
+    lassen sich berechnen als
+                                                ℏ2 k 2   ℏ2 n2 π 2
+                                       En =            =           .                    (L.47)
+                                                 2m       8ma2
+                  2 2
+                   π
+   Somit ist c = ℏ8m .
+
+
+
+                                                    6
+Aufgabe 3.      Drehimpuls [24 Punkte]
+
+Wir betrachten zwei Spin-1/2-Teilchen mit gemeinsamem Hilbertraum H = D1/2 ⊗ D1/2 und
+eine Familie von Zuständen parametrisiert durch α, β ∈ C,
+                                       1         1            1           1
+                                                                            
+                             |ψ⟩ = α −                     +β           −              .      (6)
+                                       2       1 2       2    2       1   2        2
+
+Dabei ist |si,z ⟩i ein Eigenzustand von Ŝi,z , der z-Komponente des internen Drehimpulsoperators
+des i-ten Teilchens, S  ⃗ˆi , mit Eigenwert ℏsi,z für i = 1, 2.
+
+
+ (a) Bestimme alle physikalisch unterscheidbaren Zustände der Form (6), so dass die Wahr-
+     scheinlichkeit, S1,z = ℏ2 zu messen, 1/3 beträgt.                                [5]
+
+                                                                       ˆ
+ (b) Drücke die in (a) gefundenen Zustände in einer Basis aus, in der J⃗ 2 und Jˆz diagonal sind,
+            ˆ ⃗ˆ     ⃗ˆ
+     wobei J⃗ = S1 + S2 .                                                                     [5]
+
+ (c) Bestimme nun aus allen in (a) gefundenen Zuständen diejenigen, für welche zusätzlich gilt,
+     dass die Wahrscheinlichkeit, J⃗ 2 = 2ℏ2 zu messen, 1/2 beträgt.                       [5]
+
+ (d) Die Zeitentwicklung des Zweiteilchensystems soll nun durch den Hamiltonoperator
+                                                         ω ⃗ˆ ⃗ˆ
+                                               Ĥ =        S1 · S2                            (7)
+                                                         ℏ
+     gegeben sein. Bestimme den Zustand |ψ(t)⟩ zu einer beliebigen Zeit t unter der Annahme,
+     dass der Zustand des Teilchens bei t = 0
+                                                   1               1
+                                                                      
+                                        |ψ(0)⟩ = −                                            (8)
+                                                   2             1 2       2
+
+     ist.                                                                                    [7]
+
+ (e) Zum Zeitpunkt t = ωπ messen wir S1,z . Bestimme die Wahrscheinlichkeitsverteilung der
+     Messergebnisse.                                                                   [2]
+
+
+
+
+                                                     7
+Lösung.
+
+
+
+ (a) Die Wahrscheinlichkeit, S1,z = ℏ2 zu messen, ist gegeben durch
+                                                                     
+                                                      ℏ
+                                            Pr S1,z =                       = ⟨ψ|Πs1,z =1/2 |ψ⟩                                         (L.48)
+                                                      2
+
+      wobei Πs1,z =1/2 der Projektor auf den Eigenraum s1,z = 1/2 ist, i.e.
+
+                                         1            1 1                   1     1             1    1                          1
+                                                                                                              
+                            Πs1,z =1/2 =                                        +                  −                        −       .   (L.49)
+                                         2            2 1 2                 2 2   2             2 1 2                           2 2
+      Da
+                       
+                  ℏ
+        Pr S1,z =           = ⟨ψ| (|1/2⟩ ⟨1/2|1 |1/2⟩ ⟨1/2|2 + |1/2⟩ ⟨1/2|1 |−1/2⟩ ⟨−1/2|2 ) |ψ⟩ = |β|2 ,
+                  2
+                                                                                                                                        (L.50)
+
+      muss |β|2 = 1/3 gelten. Aufgrund der Normalisierung |α|2 + |β|2 = 1 folgt somit auch
+      |α|2 = 2/3.
+      Da wir uns des weiteren nur für physikalisch unterscheidbare Zustände interessieren, kön-
+      nen wir die globale Phase des Zustandes so wählen, dass z.B. α ∈ R. 1 Wir schlussfolgern
+      also aus der ersten Bedingung, dass wir Zustände der Form
+                                            r                                             r
+                                                 2 1                1                         1 1               1
+                                                                                                                 
+                                                                                     iϕ
+                                   |ψ⟩ =          −                             +e                          −               ,           (L.51)
+                                                 3 2              1 2       2                 3 2       1       2       2
+
+      für ein ϕ ∈ R brauchen.
+
+ (b) Wir nutzen, dass D1/2 ⊗ D1/2 = D0 ⊕ D1 und dass
+                                                                      r
+                                            1         1                   1
+                                                         
+                                        −                         =         (|1, 0⟩1,2 − |0, 0⟩1,2 )                                    (L.52)
+                                            2       1 2       2           2
+      und                                                             r
+                                        1           1                     1
+                                                         
+                                                  −               =         (|1, 0⟩1,2 + |0, 0⟩1,2 )                                    (L.53)
+                                        2       1   2         2           2
+                                                             ˆ
+      gilt, wobei |l, m⟩1,2 ein gemeinsamer Eigenvektor von J⃗ 2 und Jˆz mit Eigenwert jeweils
+      ℏ2 l(l + 1) und ℏm. Eingesetzt ergibt sich
+                        r r                                                      r r
+                             2    1                                 1 1
+                |ψ⟩ =               (|1, 0⟩1,2 − |0, 0⟩1,2 ) + eiϕ       (|1, 0⟩1,2 + |0, 0⟩1,2 )                                       (L.54)
+                             3    2r                                3 2
+                                      1 h√                       √                  i
+                                 =           2 + eiϕ |1, 0⟩1,2 −      2 − eiϕ |0, 0⟩1,2 .                                               (L.55)
+                                      6
+
+  (c) Die Wahrscheinlichkeit J⃗ 2 = 2ℏ2 = 1(1 + 1)ℏ2 zu messen ergibt sich als
+                                                                           
+                                                Pr J⃗ 2 = 2ℏ2 = ⟨ψ|Πl=1 |ψ⟩                                                             (L.56)
+  1
+    Andere Konditionen sind auch möglich, sofern die resultierenden Zustände von dem Beispiel dieser Lösung
+nur um eine globale Phase abweichen.
+
+
+
+                                                                      8
+    wobei Πl=1 der Projektor auf den Eigenraum mit J⃗ 2 = 2ℏ2 ist, i.e.
+
+                               Πl=1 = |1, −1⟩ ⟨1, −1|1,2 + |1, 0⟩ ⟨1, 0|1,2 + |1, 1⟩ ⟨1, 1|1,2 .                                                           (L.57)
+
+    Wir finden durch einsetzen und vereinfachen
+                                                                                                  2
+                                                                                                              √
+                                                                   1 √
+                                                                  r 
+                                                                                                       3 + 2 2 cos(ϕ)
+                                Pr J⃗ 2 = 2ℏ2 =                                  2+e         iϕ
+                                                                                                       =                .                                  (L.58)
+                                                                    6                                          6
+                                                         √
+    Insgesamt fordern wir also 3+2 26cos(ϕ) = 1/2, was wir nur mittels cos(ϕ) = 0 erreichen
+    können, also durch ϕ = ± π2 . Schlussendlich finden wir zwei unterscheidbare Zustände und
+    diese sind
+              r                                    r                                                        r                                r
+                  2 1             1                    1 1           1                                            2 1           1                1 1           1
+                                                                                                                                                          
+    |ψ+ ⟩ =        −                          +i                   −             und |ψ− ⟩ =                       −                        −i               −     .
+                  3 2           1 2       2            3 2       1   2       2                                    3 2         1 2       2        3 2       1   2 2
+                                                                                                                                                            (L.59)
+
+(d) Es gilt
+                  ˆ      ⃗ˆ1 + S
+                 J⃗ 2 = (S     ⃗ˆ2 )2 = S⃗1 2 + S⃗ 2 2 + 2S     ⃗ˆ2 = 2 3 ℏ2 + 2S
+                                                          ⃗ˆ1 · S               ⃗ˆ1 · S
+                                                                                      ⃗ˆ2 .                                                                (L.60)
+                                                                        4
+    Dementsprechend,
+                                                           ˆ2
+                                                                       
+                                       ω ⃗ˆ ⃗ˆ        ω J ⃗          2
+                                                                   3ℏ 
+                                Ĥ = S     1 · S2 =             −         .                                                                                (L.61)
+                                       ℏ              ℏ     2       4
+
+    Mit dem gegebenen Anfangswert finden wir die Zeitevolution
+                                                                                                        ˆ2          2
+                                                                                                                         r
+                                                                                                           J⃗
+                                                                1         1                   −i tω2             − 3ℏ4        1
+                                                                                
+                        −i ℏt Ĥ                   −i ℏt Ĥ                                                  2
+       |ψ(t)⟩ = e                  |ψ(0)⟩ = e                 −                          =e        ℏ
+                                                                                                                                (|1, 0⟩1,2 − |0, 0⟩1,2 )
+                                                                2       1 2          2                                        2
+                                                                                                                                                   (L.62)
+          r                                                                                      r 
+           1          −itω (1− 34 )                      −itω (− 43 )
+                                                                                                  1                                              
+      =           e                   |1, 0⟩1,2 − e                      |0, 0⟩1,2 ∼                         e−itω |1, 0⟩1,2 − |0, 0⟩1,2 , (L.63)
+              2                                                                                        2
+    wobei wir im letzten Schritt eine nicht messbare globale Phase eliminiert haben.
+
+(e) Der Zustand zur Zeit t = ωπ ist gegeben durch
+                                    r                                                            r
+                 π                   1                                       1
+                                                                                       
+                                               −iπ
+              |ψ   ⟩=                         e        |1, 0⟩1,2 − |0, 0⟩1,2 = (−|1, 0⟩1,2 − |0, 0⟩1,2 )                                                   (L.64)
+                 ω                        2                                  2
+                                              r
+                                                1                            1       1
+                                                                                      
+                                            ∼     (|1, 0⟩1,2 + |0, 0⟩1,2 ) =      −        .                                                               (L.65)
+                                                2                            2 1 2 2
+    Demzufolge resultiert eine Messung von S1,z garantiert bzw. mit Wahrscheinlichkeit 1 in
+    ℏ/2.
+
+
+
+
+                                                                          9
+Aufgabe 4.     Harmonischer Oszillator [34 Punkte]
+
+Sei Ĥ der Hamiltonoperator des eindimensionalen harmonischen Oszillators,
+
+                                            P̂ 2  1
+                                     Ĥ =        + mω 2 X̂ 2 ,                              (9)
+                                            2m 2
+und seien |n⟩ die Fock-Zustände.
+
+ (a) Drücke den Hamiltonoperator des Systems durch Auf- und Absteigeoperatoren aus. Was
+     ist die Wirkung dieser Operatoren auf einen Fock-Zustand? (Hier ist keine Rechnung er-
+     forderlich.)                                                                       [2]
+
+ (b) Berechne die Matrixelemente
+
+                                       ⟨n|X̂|m⟩    und     ⟨n|P̂ |m⟩                      (10)
+
+     für die Fock-Zustände |m⟩, |n⟩.                                                       [3]
+
+ (c) Zeige, dass die Zeitentwicklung der zu X̂ und P̂ gehörenden Operatoren X̂H (t) und P̂H (t)
+     im Heisenberg-Bild gegeben ist durch
+
+                                                      P̂
+                               X̂H (t) = X̂ cos(ωt) +    sin(ωt)                          (11)
+                                                     mω
+                               P̂H (t) = −mω X̂ sin(ωt) + P̂ cos(ωt) .                    (12)
+
+     Hinweis: Finde Ausdrücke für die zeitlichen Ableitungen dX̂H /dt und dP̂H /dt und löse
+     die daraus resultierende gekoppelte Differenzialgleichung.                         [8]
+
+ (d) Betrachte den Zustand
+                                                            !
+                                                    rP̂
+                                          |ψ⟩ = exp             |0⟩                       (13)
+                                                    iℏ
+
+     mit r ∈ R. Bestimme für t ≥ 0 den Erwartungswert von X̂H (t) bezüglich |ψ⟩. Welche
+     physikalische Bedeutung hätte die Konstante r bei einem klassischen Oszillator? [6]
+
+Wir fügen unserem Hamiltonoperator nun eine neue räumliche Dimension hinzu:
+
+                                    P̂x2   P̂y2  1
+                             Ĥ =        +      + mω 2 (X̂ 2 + Ŷ 2 ) .                   (14)
+                                    2m 2m 2
+
+ (e) Wie gross sind die Energien der drei niedrigsten Energie-Eigenzustände? Liegt eine Ent-
+     artung eines Energie-Eigenwertes vor?                                               [3]
+
+ (f) Betrachte nun die anharmonische Störung
+
+                                            Ĥ ′ = λmω 2 X̂ Ŷ ,                          (15)
+
+     wobei λ ≪ 1 ein dimensionsloser Parameter ist. Finde für die drei niedrigsten ungestörten
+     Energie-Eigenzustände die Energiekorrektur erster Ordnung des gestörten Systems.
+                                                                                          [12]
+
+
+                                                  10
+Lösung.
+
+
+
+ (a) Der Hamiltonoperator lässt sich durch Auf- und Absteigeoperatoren als
+
+                                            Ĥ = ℏω(â∗ â + 1/2)                   (L.66)
+
+    schreiben. Auf- und Absteigeoperatoren wirken auf einen Fock-Zustand |n⟩ mit n ∈ N wie
+    folgt:
+                                                 √
+                                          â|n⟩ = n|n − 1⟩,                         (L.67)
+                                      ∗
+                                              √
+                                    â |n⟩ = n + 1|n + 1⟩.                          (L.68)
+
+ (b) Um die Matrixelemente zu berechnen, schreiben wir zuerst die Operatoren X̂ und P̂ als
+     Linearkombination von Auf- und Absteigoperatoren. X̂ und P̂ lassen sich schreiben als
+                                                   s
+                                                        ℏ
+                                            X̂ =           (â∗ + â),              (L.69)
+                                                       2mω
+                                                   s
+                                                       mℏω ∗
+                                         P̂ = i           (â − â).                (L.70)
+                                                        2
+
+    Dann können wir die dazugehörigen Matrixelemente bezüglich der Fock-Zustände |m⟩, |n⟩
+    berechnen.
+                                            √
+                                  ⟨n|â|m⟩ = mδn,m−1 ,                            (L.71)
+                                      ∗
+                                            √
+                                 ⟨n|â |m⟩ = m + 1δn,m+1 .                        (L.72)
+
+    Es folgt, dass die Matrixelemente des Ortsoperators durch
+                                        s
+                                             ℏ
+                        ⟨n|X̂|m⟩ =              ⟨n|â∗ + â|m⟩                      (L.73)
+                                            2mω
+                                        s
+                                             ℏ √               √
+                                  =             ( m + 1δn,m+1 + mδn,m−1 )           (L.74)
+                                            2mω
+
+    gegeben sind. Analog gilt für die Matrixelemente des Impulsoperators
+                                        s
+                                            mℏω
+                        ⟨n|P̂ |m⟩ = i           ⟨n|â∗ − â|m⟩                      (L.75)
+                                             2
+                                        s
+                                            mℏω √             √
+                                 =i            ( m + 1δn,m+1 − mδn,m−1 ).           (L.76)
+                                             2
+
+ (c) Die Heisenbergsche Bewegungsgleichung für den Ortsoperator lautet
+
+                                        dX̂H       1
+                                             (t) = [X̂H (t), Ĥ].                   (L.77)
+                                         dt       iℏ
+
+
+
+
+                                                   11
+                                               i
+    Da der Zeitentwicklungsoperator U = e− ℏ Ĥt mit dem Hamiltonoperator kommutiert, er-
+    hält man:
+                                  [X̂H (t), Ĥ] = [U ∗ X̂H (t)U, Ĥ]                     (L.78)
+                                                    ∗
+                                               = U [X̂H (t), Ĥ]U                        (L.79)
+                                                  1 ∗
+                                               =    U [X̂, P̂ 2 ]U                       (L.80)
+                                                 2m
+                                                  1 ∗
+                                               =    U 2iℏP̂ U                            (L.81)
+                                                 2m
+                                                  1
+                                               =    2iℏP̂H (t).                          (L.82)
+                                                 2m
+    wobei wir die Form des Hamiltonoperators (9) ausgenutzt haben. Es folgt daher:
+
+                                        dX̂H       P̂H (t)
+                                             (t) =         .                             (L.83)
+                                         dt          m
+    Analog gilt für die zeitliche Ableitung des Impulsoperators
+                                     dP̂H       1
+                                          (t) = [P̂H (t), Ĥ],                           (L.84)
+                                      dt       iℏ
+    mit dem Kommutator
+                                               1
+                                [P̂H (t), Ĥ] = mω 2 (−2iℏX̂H (t)).                      (L.85)
+                                               2
+    Somit ist
+                                     dP̂H
+                                          (t) = −mω 2 X̂H (t).                           (L.86)
+                                      dt
+    Also haben wir ein System zwei gekoppelter Differentialgleichungen (L.83) und (L.86) ge-
+    funden. Wir können nun (L.83) ein weiteres mal nach der Zeit ableiten und bekommen eine
+    harmonische Differentialgleichung zweiten Grades für den Ortsoperator (analog natürlich
+    auch für den Impuls)
+
+                               d2 X̂H       1 dP̂H
+                                   2
+                                      (t) =        (t) = −ω 2 X̂H (t)                    (L.87)
+                                dt          m dt
+    Zusammen mit den Anfangsbedingungen X̂H (0) = X̂ und dX̂H /dt|t=0 = P̂ /m erhalten
+    wir die Zeitentwicklung des Ortsoperators
+                                                            P̂
+                               X̂H (t) = X̂ cos(ωt) +          sin(ωt).                  (L.88)
+                                                            mω
+    Ableiten nach der Zeit liefert nach (L.83) die Zeitentwicklung des Impulsoperators
+                               P̂H (t) = P̂ cos(ωt) − mω X̂ sin(ωt).                     (L.89)
+    .
+(d) Es gilt
+                                                        !                     !
+                                                rP̂                     rP̂
+                      ⟨ψ|X̂H (t)|ψ⟩ = ⟨0| exp −             X̂H (t) exp           |0⟩.   (L.90)
+                                                iℏ                      iℏ
+                                                   !"                      !#
+                                             rP̂                     rP̂
+                        = ⟨0|X̂H (t) + exp −            X̂H (t), exp              |0⟩    (L.91)
+                                             iℏ                      iℏ
+
+
+                                              12
+                                     
+   wobei wir X̂H (t) und exp riℏP̂ vertauscht haben. Den Kommutator berechnen wir unter
+   Nutzung der Lösung aus Teilaufgabe (c). Somit erhält man
+                         "                        !#                 "                !#
+                                          rP̂                             rP̂
+                             X̂H (t), exp               = cos(ωt) X̂, exp                   (L.92)
+                                          iℏ                              iℏ
+                                                                              !
+                                                                        rP̂
+                                                        = r cos(ωt) exp           .         (L.93)
+                                                                        iℏ
+
+   Desweiteren ist
+
+                                               ⟨0|X̂H (t)|0⟩ = 0,                           (L.94)
+
+   da ⟨0|X̂|0⟩ = ⟨0|P̂ |0⟩ = 0. Also findet man
+
+                                          ⟨ψ|X̂H (t)|ψ⟩ = r cos(ωt).                        (L.95)
+
+   Der Erwartungswert des Ortes eines Teilchens, das sich im Zustand |ψ⟩ befindet, hat die
+   Form einer Trajektorie von einem Teilchen in einem klassischen harmonischen Oszillator
+   mit Frequenz ω und Amplitude/Auslenkung r.
+
+(e) Wir können den Hamiltonoperator als Summe zwei eindimensionaler harmonischer Oszil-
+    latoren auffassen. Wie im eindimensionalen Fall, können wir für jede Raumrichtung ein
+    Auf- und Absteigeoperator definieren. Es gilt
+
+                                Ĥ = ℏω(â∗x âx + 1/2) + ℏω(â∗y ây + 1/2)                (L.96)
+                                    = ℏω(â∗x âx + â∗y ây + 1).                          (L.97)
+
+   Die Eigenzustände sind Tensorprodukte von Fock Zustände |n⟩ ⊗ |m⟩ =: |n, m⟩
+
+                                    Ĥ|n, m⟩ = ℏω(n + m + 1)|n, m⟩.                         (L.98)
+
+   Es folgt, dass die drei Zustände mit den niedrigsten Eigenwerten durch |0, 0⟩, |1, 0⟩ und
+   |0, 1⟩ gegeben sind sind:
+
+                                                  Ĥ|0, 0⟩ = ℏω,                            (L.99)
+                                                Ĥ|1, 0⟩ = 2ℏω,                            (L.100)
+                                                Ĥ|0, 1⟩ = 2ℏω.                            (L.101)
+
+   Der Eigenwert 2ℏω hat eine zweifache Entartung.
+
+(f) Da der Eigenwert ℏω nicht entartet ist, ist die Korrektur nullter Ordnung der Eigenzustand
+    einfach gegeben durch |0(0) ⟩ = |0, 0⟩. Die Korrektur erster Ordnung der Energie ist dann
+                                       (1)
+                                     E0 = ⟨0, 0|Ĥ ′ |0, 0⟩                                (L.102)
+                                                    2
+                                             = λmω ⟨0, 0|X̂ Ŷ |0, 0⟩ = 0,                 (L.103)
+
+   Dies liegt daran, dass die Operatoren X̂ und Ŷ nur Zustände verbinden, die sich nur um ein
+   Energieniveau unterscheiden. Da der Eigenwert 2ℏω entartet ist, müssen wir die Störung
+   innerhalb des entarteten Unterraums, der durch |1, 0⟩ und |0, 1⟩ aufgespannt ist, diagona-
+   lisieren, um die Zustände nullter Ordnung zu bekommen. Die dazugehörige Eigenwerten
+
+
+
+                                                    13
+sind gerade die Energiekorrekturen erster Ordnung. Wir berechnen die Matrixelemente der
+Störung. Es gilt für die Diagonalelemente
+
+                           ⟨1, 0|X̂ Ŷ |1, 0⟩ = ⟨0, 1|X̂ Ŷ |0, 1⟩ = 0.        (L.104)
+
+Die Elemente ausserhalb der Diagonalen verschwinden nicht, da wir eine Mischung von
+Zustände betrachten, die sich um ein Energieniveau unterscheiden. Es gilt
+                                                       ℏ        √ √
+                   ⟨1, 0|λmω 2 X̂ Ŷ |0, 1⟩ = λmω 2       ⟨1, 0| 1 1|1, 0⟩     (L.105)
+                                                      2mω
+                                             ℏω
+                                           =                                   (L.106)
+                                              2
+                                           = ⟨0, 1|λmω 2 X̂ Ŷ |1, 0⟩.         (L.107)
+
+Die Störungsmatrix ist also                          !
+                                         ℏω     0 1
+                                                    .                          (L.108)
+                                          2     1 0
+Die Dazugehörige Eigenvektoren sind
+                                           1
+                                |1(0) ⟩ = √ (|1, 0⟩ + |0, 1⟩),                 (L.109)
+                                            2
+                                           1
+                                |2(0) ⟩ = √ (|1, 0⟩ − |0, 1⟩).                 (L.110)
+                                            2
+Die Energiekorrekturen erster Ordnung sind also
+
+                                          (1) ℏω
+                                        ∆1 = λ   ,                             (L.111)
+                                               2
+                                         (1)    ℏω
+                                        ∆2 = −λ .                              (L.112)
+                                                 2
+
+
+
+
+                                           14
+

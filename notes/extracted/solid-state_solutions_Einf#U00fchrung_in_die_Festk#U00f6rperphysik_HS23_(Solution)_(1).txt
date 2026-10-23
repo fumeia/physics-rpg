@@ -1,0 +1,558 @@
+      Exam HS2023 Introduction to solid state physics
+
+
+1      Solution 1: Two-Dimensional Crystals
+                                     3
+3 points total, each question worth 18 points.
+
+    a) Yes, it is primitive.
+
+    b) The area is given as A = ab = 24 Å2 .
+
+    c) There are two distinct atoms in the crystal with coordinates r1 = (0, 0)
+       and r2 = (1/2, 1/2).
+
+    d) The cell given in the task is Wigner-Seitz, it has area A = ab = 24 Å2 .
+
+    e) In the figure below, the reciprocal lattice is given with a∗ and b∗
+
+    f) See figure below, first Brillouin zone is drawn with the rectangle given.
+
+                  b*
+
+
+
+
+                        a*
+
+
+                   BZ
+
+
+
+
+                                       2
+    g) The area is given as A∗ = (2π)
+                                   ab
+                                      = 1.64 Å−2 .
+
+    h) Using k = 2π
+                  λ
+                    we find |ki/f | ≈ 2.66Å−1 , alternatively 2.66 × 1010 m−1 .
+
+    i) Using the relation Q = 4π sin
+                                 λ
+                                     θ
+                                       we find for the respective scattering angle
+       for the two peaks
+                               λp
+              θ(2,1) = arcsin(    (2/a)2 + (1/b)2 ) ≈ 0.514 rad , 29.47 deg
+                                2
+                                λp
+               θ(1,1) = arcsin(   (1/a)2 + (1/b)2 ) ≈ 0.36 rad , 20.73 deg.
+                                2
+
+       The intensities are given as I = |F (Q)|2 with the structure factor F (Q) =
+    j) P
+               iQ·ri
+         i fi e      . For f1 = 2f2 it follows that
+                                                                       2
+                                                           I(2,1)      1
+             F(2,1) = f1 − f2     F(1,1) = f1 + f2      =⇒        =        .
+                                                           I(1,1)      3
+k) For f1 = f2 we find F(2,1) = 0 and F(1,1) = 2f1 .
+                                         I(2,1)  0
+                                                = =0
+                                         I(1,1)  4
+
+ l) No, it is not primitive.
+m) See figure below, black or blue cells are both solutions. The area is
+   A = ab2
+           = 12 Å2 .
+
+
+
+
+                         b
+
+
+                   UC
+                         a
+
+
+
+
+n) There is one atom per unit cell. make sure coordinates match the cell
+   drawn, for the blue cell it is r = (0, 0).
+o) See figure below for the diagram of the Wigner-Seitz cell. A = ab
+                                                                  2
+                                                                     .
+
+
+                             b
+
+
+
+                    UC
+                                 a
+
+
+
+p) See figure below for the reciprocal lattice.
+q) See figure below for the diagram of the Brillouin zone
+
+
+
+
+                  b*
+
+
+
+             BZ
+                  a*
+
+
+
+
+                             2       2
+r) The area is A∗ = (2π)
+                      A
+                         = 8π
+                            ab
+                               = 3.29.
+          Problem 2a: Metals and Transport
+          1 points for each part. 3 pts total.
+          Partial credit allowed.
+
+(1 pt.)     a) The Fermi momentum kF can be found using the sphere in momentum
+               space that holds the number of electrons Ni = ni V . Remember the
+               volume of each k-state is (2π)3 /V , and 2 e− can fit in each of these
+               spaces.
+
+
+                                                     2V 4 3
+                                           ni V =          πk
+                                                    (2π)3 3 F i
+                                                                1
+                                              kF i = (3ni π 2 ) 3                       0.25 pts.
+
+               The Fermi surface is thus
+
+                                                Si = 4πkF2 i                            0.25 pts.
+                                                                    2
+                                            SA = 4π(3nA π 2 )       3
+
+                                                                        2
+                                           SB = 4π(3(2nA )π 2 ) 3                       SA + SB 0.25 pts.
+                                               SA       2
+                                                   = 2− 3                               0.25 pts.
+                                               SB
+
+(1 pt.)     b) Density of states
+                                                          3
+                                                    me2 √
+                                             ν(ε) = 2 3 2ε                              0.25 pts.
+                                                   π ℏ
+               The Fermi energy of each can be found by pluggin in the Fermi momen-
+               tum into the dispersion relation
+                                                                    2
+                                                   ℏ2 (3ni π 2 ) 3
+                                            εF i =                                      0.25 pts.
+                                                       2me
+               Thus the density of states at the Fermi energy for both is as follows
+                                                   me         1
+                                      ν(εF A ) =   2 2
+                                                       3π 2 nA 3
+                                                 π ℏ
+                                                  me          1
+                                      ν(εF B ) = 2 2 6π 2 nA 3                          0.25 pts.
+                                                π ℏ
+                                                        13
+                                          ν(εF A )     1
+                                                   =                                    0.25 pts.
+                                          ν(εF B )     2
+(1 pt.)      c) Specific heat can be found from the energy
+                                              ∂U     π2            2
+                                        cv =       = ν(εF )kB        T                        0.25 pts.
+                                             V ∂T     3
+                                           π 2  me      2
+                                                               31  2
+                                     cvA =            3π nA          kB T
+                                           3 π 2 ℏ2
+                                           π 2  me      2
+                                                               31  2
+                                     cvB =            6π   nA        kB T                     cvA + cvB 0.5 pts.
+                                           3 π 2 ℏ2
+                                                       13
+                                               cvA     1
+                                                   =                                          0.25 pts.
+                                               cvB     2
+
+
+                Problem 2b: Metals and Transport
+                0.5 or 0.75 points for each part. 3 pts total.
+                Partial credit allowed.
+(0.75 pt.)   d) Resitivity is related to the density of states at the Fermi energy and mean
+                time between scattering events τ by the formula
+                                               1          3
+                                          ρ=     =       2
+                                                                                              0.25 pts.
+                                               σ   (evF ) τ ν(εF )
+                And the average velocity at the Fermi energy is
+                                                        ℏkF
+                                                 vF =
+                                                        me
+                The scattering rate τ is not dependent on the electron density, so we set
+                it to be the same in both.
+                                              1           3
+                                         ρ = = ℏkF 2
+                                             σ     (e me ) τ ν(εF )
+                                       2                         1
+                                                                       !2
+                            ρA     kF B      ν(εF B )        (2nA ) 3         1
+                               =                        =           1     (2) 3 = 2
+                            ρB     kF A      ν(εF A )         (nA ) 3
+
+                Metal A has a higher resisitivity.                                            0.5 pts.
+(0.75 pt.)   e) With different ΘD for the two metals, then τ is also different. At high
+                temperatures T > ΘD , the occupation of a phonon at energy ℏω is
+                np (ℏω) = kℏω
+                            BT
+                               . The density of phonon states in the Debye model is
+                 9n    2
+                    3 ω Total phonons is given by integrating the phonon density of states
+                V0 ωD
+                with the occupation.
+                                             Z ωD
+                                      Np =         np (ℏω)νp (ℏω)dω
+                                              0
+                                           Z ωD                 
+                                                kB T      9n 2
+                                    Np =                     3
+                                                               ω dω
+                                            0    ℏω V0 ωD
+                                                     9nkB T
+                                              Np =
+                                                    2ℏωD V0
+                   Where n is the number of atoms per unit cell. Considering ρ is a function
+                   of number of phonons, then metal A will have another factor of 2 higher
+                   resisitivity.                                                             reasoning 0.5 pts.
+                                                       ρA
+                                                          =4
+                                                       ρB
+
+                   Note that the problem does not ask for the exact ratio.                        answer 0.25 pts.
+
+(0.5 pt.)     f) Knowing the relation for τ
+                                                              1
+                                                    τ≈                                            0.25 pts.
+                                                           vF nd Q
+                                                                      1
+                                                                        !  1
+                                      τA   vF,B nd,B Q        (2nA )  3    1 3
+                                         =             =             1         =1                 answer 0.25 pts.
+                                      τB   vF,A nd,A Q         (nA ) 3     2
+
+(0.5 pt.)     g) The problem gives us ρA = 2ρB , we also know the following two relations:
+                                                        3nd Q
+                                                  ρ≈
+                                                       e2 v
+                                                         F ν(εF )
+                                                           1
+                                                    τ≈                                            0.25 pts.
+                                                       vF nd Q
+                   where Q is the cross section of the defects causing the scattering, and nd
+                   is the density of the defects. Using our answers from before, and that
+                                  1
+                   vF,A
+                        = (nA ) 1 .
+                               3
+                   vF,B   (2n ) 3
+                              A
+
+                                                                                1
+                                                                                      !
+                              ρA     nd,A vF,B ν(εF,B )     nd,A         (2nA ) 3             1
+                                 =2=                    =                         1       (2) 3
+                              ρB     nd,B vF,A ν(εF,A )     nd,B          (nA )   3
+                                                       
+                                                  nd,A       1
+                                                          = 23                                    answer 0.25 pts.
+                                                  nd,B
+
+(0.5 pt.)     h)    Thermal conductivity of a metal is related to the resistivity by the
+                   Wiedemann-Franz law:
+                                                           π 2 kB
+                                                                2
+                                                   κ=             Tσ                              0.25 pts.
+                                                            2e2
+                   Using the given resistivity we can find the ratio of the thermal conduc-
+                   tivity
+                                                κA   σA   ρB   1
+                                                   =    =    =                                    0.25 pts.
+                                                κB   σB   ρA   2
+
+            Problem 3: 1D Semiconductors
+            0.5 points for each part. 3 pts total.
+            Partial credit allowed.
+(0.5 pt.)   a) See diagram for solution                                                       if ommited labels
+                                                                                              or incorrect
+                                                                                              curve 0 pts.
+                                                                                              Mistake in labels
+                                                                                              0.25 pts. All
+                                                                                              correct 0.5 pts.
+
+
+
+
+(0.5 pt.)   b) The approximation means that only near the top of the valence and the
+               bottom of the conduction bands will matter. We can Taylor expand both
+               around k = 0
+                                                  ∂εcb          1 ∂ 2 εcb
+                              εcb (k) ≈ εcb (0) +           k+             k2
+                                                   ∂k k=0       2 ∂k 2 k=0
+                                       = EG + tcb a2 k 2 = EG + ta2 k 2                       0.25 pts.
+
+               And for the valence band
+                                                     ∂εvb        1 ∂ 2 εvb
+                             εvb (k) ≈ εvb (0) +             k+         2
+                                                                           k2
+                                                      ∂k k=0     2 ∂k k=0
+                                                          1
+                                       = −tvb a2 k 2 = − ta2 k 2                              0.25 pts.
+                                                          2
+
+(0.5 pt.)   c) We find the effective mass with
+                                 2     −1                 2     −1
+                             ∗   ∂ ε(k)
+                                   2            ∗        2  ∂ ε(k)
+                           m =ℏ               mholes = −ℏ                                     no penalty if
+                                  ∂k 2                       ∂k 2
+                                                                                              mistake from
+                                                  ℏ2                                          part b appears
+                                         m∗cb =
+                                                 2ta2                                         here
+                                                  ℏ2
+                                         m∗vb = 2                                             m∗cb + m∗vb 0.5
+                                                  ta
+                                                                                              pts.
+(0.5 pt.)   d) For the density of states we consider that each state takes a volume of
+               (2π)/L, 2 spin states are possibile in each spin state, and the total states
+               up to an energy E can be found summing the momentum
+                                                           Z k(E)
+                                                  L
+                                          N (E) =    (2)            dk
+                                                  2π        −k(E)
+               We substitute for                                                          procedure 0.25
+                                   r                                                      pts.
+                                     E
+                            k=
+                                   tcb a2
+                                     1
+                            dk = √
+                                 2a tcb E
+                                       Z E
+                                 L            1
+                        N (E) = (2)         √        dε
+                                 π                2
+                                         0 2 tcb a ε
+                                 1 ∂N (E)
+                       νcb (E) =
+                                 L ∂E
+                                          1                 1
+                               = p                  = p              , E ≥ EG
+                                 πa tcb (E − EG )      πa t(E − EG )
+
+               Similarly for the valence band we have
+                                            1           1
+                            νvb (E) =     p         = q        ,E ≤ 0                     0.25 pts.
+                                        πa tvb (−E)  πa t (−E)    2
+
+
+(0.5 pt.)   e) For finding the number of electrons in conduction band, we consider that
+               since |EG − µ| ≫ kB T , we can approximate
+                                                        µ−E
+                                            f (E) ≈ e kB T for CB
+                                                        E−µ
+                                            f (E) ≈ e kB T for VB
+
+                                           Z ∞
+                                   Ne =          dEνcb (E)f (E, T )
+                                           ZE∞
+                                             G
+
+                                                    dE          µ−E 
+                                       =        p               e kB T
+                                           EG πa tcb (E − EG )
+
+
+               We make the substitution
+                                                      E − EG
+                                                  x=
+                                                       kB T
+                                                  dE = kB T dx
+
+               Then the integral becomes
+                                                      Z ∞
+                                       kB T      µ−EG         1
+                                Ne = √          e B
+                                                  k T
+                                                          dx √ e−x
+                                    πa tcb kB T        0       x
+                                    √
+                                      kB T µ−EG √
+                                   = √ e kB T ( π)
+                                    πa tcb
+              Follow a similar procedure for the holes in valence band.
+                                         E−µ
+                              f (E) ≈ e kB T for VB
+                                      Z 0
+                                 Nh =        dEνvb (E)f (E, T )
+                                        −∞
+                                      Z 0
+                                                       1        E−µ
+                                    =        dE p             e kB T
+                                        −∞       πa tvb (−E)
+                                                      Z 0
+                                          1        −µ           1       E
+                                    = √ e B       k T
+                                                          dE √       e kB T   procedure 0.25
+                                      πa tvb           −∞       −E            pts.
+
+
+              Make the substitution of
+                                                  −E
+                                               x=
+                                                  kB T
+                                            dE = −kB T dx
+
+              And the integral now becomes
+                                                 Z ∞
+                                       1     −µ      k T dx −x
+                                 Nh = √ e B k  T     √B      e
+                                     πa tvb       0   kB T x
+                                     √
+                                       kB T k−µT ∞ dx −x
+                                                 Z
+                                    = √ e B          √ e
+                                     πa tvb       0   x
+                                     √
+                                       kB T −µ √
+                                    = √ e kB T ( π)
+                                     πa tvb
+
+
+              Final answer is thus
+                                             √
+                                               kB T µ−EG
+                                         Ne = √ e kB T
+                                              a πt
+                                             √
+                                               kB T −µ
+                                         Nh = q e kB T                        answer 0.25 pts.
+                                             a π 2t
+
+(0.5 pt.)   f) Intrinsic means ne = nh
+                                          √              √
+                                            kB T µ−E   G   kB T k−µT
+                             ne = nh =⇒ √        e B = √
+                                                   k  T
+                                                                e B           0.25 pts.
+                                          a πtcb         a πtvb
+                                                √
+                                       2µ−EG      tcb √
+                                      e kB T = √ = 2,
+                                                  tvb
+
+              we then get
+                                               EG kB T
+                                         µ=       +    ln 2                   0.25 pts.
+                                                2   2
+            Problem 4: Magnetism on a Honeycomb Lat-
+            tice
+            0.5 points for each part. 3 pts total.
+            Partial credit allowed.                                                        correct
+                                                                                           reasoning, but
+(0.5 pt.)     a) Solution is as follows, note that the solution can have all spins rotated mistake 0.25.
+                                                   J1
+                                                                                           right answer 0.5
+                                                          J2                               pts.
+
+
+
+
+                 by an arbitrary angle.
+
+(0.5 pt.)     b) The temperature can be calculated directly from the following            formula 0.25 pts.
+                                                                                          answer 0.25 pts.
+                                       −(J1 + 2J2 )CV0                S(S + 1)
+                              TW =              2
+                                                       = −(J1 + 2J2 )
+                                          (gµB ) µ0                     3kB
+
+(0.5 pt.)     c) Consider the spins canting by an angle θ away from the ground state
+                 towards the applied field. The energy for a given spin will be.
+
+
+                         J2
+
+                              J1
+                     θ
+
+
+
+
+                              E = J1 S 2 + 2J2 S 2 cos(π − 2θ) − gµB µ0 SH sin(θ)
+
+                 Minimize the energy                                                      partial work 0.25
+                                                                                          pts.
+                                   ∂E
+                                      = 4J2 S 2 sin(2θ) − gµB µ0 SH cos(θ) = 0
+                                   ∂θ
+                                         8J2 S sin(θ) − gµB µ0 H = 0
+
+
+                 Saturated when θ = π/2 → sin(θ) = 1
+                                                        8J2 S
+                                                  H=
+                                                       gµB µ0
+               Alternatively, the same solution can be found by looking at the formula
+               in the lecture relating the magnetization of an antiferromagnet with the
+               applied field. Consider the magnetization M1 of the antiferromagnetic
+               sublattice is given by
+                                             JZ
+                                   H=2               2V0 |M1 | sin(α).
+                                          (gµB )2 µ0
+
+               In the case of saturation, the canting angle α is π/2, and the magnetiza-
+               tion of the sublattice is M1 = gµB S/V0 , and considering that JZ = 2J2
+               we get the following:
+                                                    8J2 S
+                                             H=                                            answer 0.25 pts.
+                                                   gµB µ0
+
+(0.5 pt.)   d) Solution is as follows, note that the solution can have all spins rotated
+               by an arbitrary angle.                                                    correct
+                         J1
+                                                                                         reasoning, but
+                                                                                         mistake 0.25.
+                                J2
+                                                                                         right answer 0.5
+                                                                                         pts.
+
+
+
+
+(0.5 pt.)   e) This is the same answer as before
+
+                                  −(J1 + 2J2 )CV0                S(S + 1)
+                           TW =                   = −(J1 + 2J2 )                           partial work 0.25
+                                     (gµB )2 µ0                    3kB
+                                                                                           pts. answer 0.25
+                                                                                           pts.
+(0.5 pt.)   f) See solution for part 3, with J1 replacing 2J2                              work 0.25 pts.
+
+                                                    4J1 S
+                                             H=                                            answer 0.25 pts.
+                                                   gµB µ0
+

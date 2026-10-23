@@ -1,0 +1,258 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                    Solution to exercise sheet IV
+
+Question 1 [One-dimensional δ-function potential ]:
+    Consider a particle of mass m in one spatial dimension being shot from the left (x < 0)
+at the idealised potential V (x) = V δ(x). For the solution of the Schrödinger equation
+
+                               ℏ2 ′′
+                           −      ψ (x) + V δ(x)ψ(x) = Eψ(x)                           (1)
+                               2m
+we make the following ansatz
+
+                                     eikx/ℏ + Re−ikx/ℏ ,
+                                 
+                                                            x<0,
+                        ψ(x) =                                                         (2)
+                                     T eikx/ℏ ,             x>0,
+
+where E = k 2 /2m. Determine the continuity conditions for ψ and its first derivative at
+x = 0 in order to calculate the reflection and transmission coefficients R and T . Verify
+the probability conservation
+                                     |R|2 + |T |2 = 1 .                               (3)
+Hint: Integrating eq. (1) once shows that the first derivative of ψ jumps at x = 0.
+Solution: We integrate (1) over from −ϵ to ϵ and take the limit ϵ → 0. This gives
+                       Z ϵ
+                                                 ℏ2 ′
+                     E      dx ψ(x) = V ψ(0) −      (ψ (ϵ) − ψ ′ (−ϵ)) .            (S.1)
+                         −ϵ                     2m
+
+Upon taking the limit ϵ → 0, the left hand side goes to zero, since ψ(x) is bounded. Thus
+
+    ℏ2 ′ +                    ℏ2  ik ik    ik 
+       (ψ (0 ) − ψ ′ (0− )) =     T −    +R      = V ψ(0) = V + V R = V T .           (S.2)
+    2m                        2m    ℏ  ℏ     ℏ
+The last equality follows from the fact that we can evaluate ψ(0) by continuity of ψ at
+0+ or 0− . Solving these equations yields
+                                −imV                       ℏk
+                         R=             ,         T =            .                    (S.3)
+                               ℏk + imV                 ℏk + imV
+We have
+                                          m2 V 2           ℏ2 k 2
+                    |R|2 + |T |2 =                  +                =1.              (S.4)
+                                     ℏ2 k 2 + m2 V 2 ℏ2 k 2 + m2 V 2
+
+Question 2 [Infinite Square Well ]:
+   For the one-dimensional square well V = −V0 for |x| < a and V = 0 otherwise, show
+that in the limit in which the depth V0 → ∞ while the width a → 0 with V0 a constant, the
+ground state energy E0 remains finite (non-zero and negative).
+Solution: We make the following ansatz for a solution:
+                                     (
+                                       e−κ|x| ,       |x| ≥ a ,
+                           ψ(x) = N                                                 (S.5)
+                                       b cos(kx) ,    |x| ≤ a .
+for some constant b and normalization constant N . Here,
+                           p                        √
+                             2m(E + V0 )              −2mE
+                       k=                 ,     κ=         .                         (S.6)
+                                  ℏ                      ℏ
+We have already chosen an even solution ψ(x) = ψ(−x), since an odd solution ψ(x) =
+−ψ(−x) will have at least one zero and hence higher energy. The continuity conditions
+on ψ and its first derivative read
+
+                        e−κa = b cos(ka) ,         κe−κa = bk sin(ka) .              (S.7)
+
+In general, these equations are not solvable in closed form. We can however see what
+                                                                                   √
+happens when V0 → ∞ and a → 0 such that V0 a is held constant. Since k scales like V0 ,
+the argument ka becomes very small and we can approximate the sine (cosine) by the
+identity (constant) function. Similarly, κa becomes very small (assuming for now that E
+does not diverge). Thus, in this limit the equations become
+
+                                    1=b,           κ = bk 2 a .                      (S.8)
+
+Since finally k 2 a → 2m V a in this limit, we have
+                      ℏ2 0
+
+                                        ℏ2 κ2    2m
+                             E = E0 = −       = − 2 (V0 a)2 .                        (S.9)
+                                         2m      ℏ
+Notice in particular that the equations have a unique solution, thus there is a unique
+(even) bound state. This justifies a posteriori the assumption that E does not grow faster
+than V0 in the limit.
+   We can give a slightly slicker alternative solution. One can argue that in this limit,
+the potential V (x) becomes
+                                    V (x) = −2V0 aδ(x) ,                           (S.10)
+since this describes an infinitely thin potential well. The prefactor is fixed by noticing
+that                                        Z ∞
+                                   −2V0 a =      dxV (x)                            (S.11)
+                                                  −∞
+
+stays constant in the limit. One then makes the ansatz
+
+                                       ψ(x) = N e−κ|x| .                           (S.12)
+
+From question 1, we know the jump of the derivative at zero:
+                                                 2m                −4mV0 a
+                 ψ ′ (0+ ) − ψ ′ (0− ) = −2κ =    2
+                                                    (−2V0 a)ψ(0) =         .       (S.13)
+                                                 ℏ                   ℏ2
+Thus, we obtain again
+                                                 2mV0 a
+                                          κ=                                       (S.14)
+                                                   ℏ2
+and the ground state energy follows.
+
+Question 3 [General Potentials ]:
+ (i) Let V (x) be an arbitrary potential in one dimension, with V (x) → 0 as x → ±∞.
+     Let χ(x) be a stationary state for a particle scattering off this potential, with asymp-
+     totic behaviour χ(x) = eikx + Ae−ikx for x ≪ 0 and χ(x) = Beikx for x ≫ 0. Show
+     that the probability current is independent of x, and deduce that |A|2 + |B|2 = 1.
+     How should you interpret this?
+
+ (ii) Show that, for any state, ⟨T ⟩ ≥ 0, where T = p2 /2m. By considering ⟨T +V ⟩ deduce
+      that for a potential well V of any shape, the lowest energy state has energy greater
+      than that of the bottom of the well.
+
+Solution:
+ (i) By conservation of the probability current,
+                           ∂             ∂           ∂
+                              j(x, t) = − ρ(x, t) = − |ψ(x, t)|2 .                    (S.15)
+                           ∂x            ∂t          ∂t
+     Now ψ(x, t) = χ(x)e−iωt with E = ℏω the energy of the state. Hence,
+
+                                         |ψ(x, t)|2 = |χ(x)|2                         (S.16)
+
+     is time-independent. From the continuity equation, the probability current is then
+     independent of the position. Let us compute the probability current in the regimes
+     x ≪ 0 and x ≫ 0. With the definition
+                                  iℏ
+                                     ψ(x, t)∂x ψ(x, t)∗ − ψ(x, t)∗ ∂x ψ(x, t)
+                                                                              
+                      j(x, t) =                                                       (S.17)
+                                  2m
+     and the explicit forms of ψ(x, t) for x ≪ 0 and x ≫ 0, we have
+                                                      ℏk
+                                x≪0:        j(x, t) =    (1 − |A|2 ) ,                (S.18)
+                                                      m
+                                                      ℏk 2
+                                x≫0:        j(x, t) =    |B| .                        (S.19)
+                                                      m
+     This was also derived in exercise sheet II, question 3. Since the probability current is
+     independent of x, these two expressions have to agree, so we conclude |A|2 +|B|2 = 1.
+     We can interpret this as follows. χ(x) for x ≪ 0 describes an incoming wave from the
+     left. The reflected wave has amplitude A and the transmitted wave has amplitude
+     B. |A|2 + |B|2 = 1 expresses the conservation of particles or probability: each
+     particle has to be either reflected or transmitted.
+
+ (ii) As an operator, we have
+                                            p2      ℏ2 ∆
+                                        T =     =−       .                        (S.20)
+                                            2m      2m
+     The statement ⟨T ⟩ ≥ 0 follows from the fact that the Laplace operator ∆ is a
+     negative definite operator. In detail, the argument reads
+                       Z ∞                             Z ∞
+                   ℏ2           ∗                  ℏ2
+         ⟨T ⟩ = −          dx ψ (x, t)∆ψ(x, t) =           dx |∂x ψ(x, t)|2 ≥ 0 . (S.21)
+                  2m −∞                            2m −∞
+     Here, we integrated by parts and used the fact that ψ(x, t) → 0 as |x| → ∞, so
+     no boundary terms appear. We notice that equality can in fact never be attained
+     for a bound state, since then ψ(x, t) would be constant and hence not normalizable.
+     Thus, we have in fact ⟨T ⟩ > 0 for bound states. Since a scattering state has always
+     greater energy then the potential at infinity, it suffices to look at bound states. We
+     deduce immediately
+                                ⟨V + T ⟩ ≥ Vmin + ⟨T ⟩ > Vmin ,                       (S.22)
+     where Vmin is the energy at the bottom of the well.
+
+
+Question 4 [The Deuteron ]:
+   As a model for the deuteron (the deuterium nucleus) consider a particle in the three-
+dimensional square-well potential
+                                     
+                                       −V       r<a
+                             V (r) =                                                 (4)
+                                       0        r>a.
+
+Here, V > 0 is a constant. Find the spherically symmetric bound-state wave functions,
+                                                                                   ∂2
+i.e. those that are independent of the polar coordinates θ and ϕ so that ∆ ≡ 1r ∂r   2 r. Is
+
+there always a bound state?
+Hint: Define χ(r) ≡ rψ(r), where ψ(r) is a spherically symmetric solution to the Schrödinger
+equation and write down the differential equation χ(r) satsifies.
+Solution: The function χ(r) satisfies the equation
+
+                             ℏ2 ∂ 2
+                           −        χ(r) + V (r)χ(r) = Eχ(r) .                       (S.23)
+                             2m ∂r2
+Since we are searching for bound states, we require E < 0. We notice that this equation
+is exactly the same as the Schrödinger equation for the square well. The parity operation
+r → −r is a symmetry of the equation, thus eigenfunctions are either even or odd under
+this symmetry. Since ψ(r) has to behave regularly as r → 0, we need χ(r) → 0 as r → 0.
+Even solutions do not satisfy this constraint and thus only odd solutions are allowed in
+this case. From here on, the argument parallels exactly the one given in the lectures (see
+in particular the lecture notes). The general ansatz for the solution of this problem reads
+                                    (
+                                      2iB sin(kr) ,    r<a
+                             χ(r) =       −κr
+                                                                                     (S.24)
+                                      −Ae      ,       r≥a,
+
+since χ(r) is by assumption odd. We did not include the region r ≤ −a, since it is
+physically not sensible in spherical coordinates. Here,
+                              p                         √
+                                2m(E + V )               −2mE
+                         k=                  ,     κ=         .            (S.25)
+                                     ℏ                    ℏ
+The continuity conditions (χ(r) and χ′ (r) continuous at r = a) read
+
+                   Ae−κa = −2iB sin(ka)       κAe−κa = 2iBk cos(ka) .                (S.26)
+
+Let us define ξ = ka and η = κa. From the definitions, we have the constraint
+
+                                    2     2ma2 V
+                                          2
+                                   ξ +η =        .                                   (S.27)
+                                            ℏ2
+Dividing the two continuity equations gives a second equation
+
+                                      η = −ξ cot(ξ) .                                 (S.28)
+
+Let us find the smallest V such that the two equations (S.27)-(S.28) admit a simultaneous
+solution (see fig. 1 below). By definition, ξ > 0 and η > 0. Since
+                                        π
+                               0≤ξ≤       :    −ξ cot(ξ) ≤ 0 ,                        (S.29)
+                                        2
+we need at least ξ > π2 in order for a solution to exist. Provided the value of V is large
+enough, one sees graphically that there exists always a solution in the region ξ > π2 , since
+then the circle (S.27) intersects the function −ξ cot(ξ) at some point. Thus the necessary
+and sufficient condition for the existence of a bound state solution is that the radius of
+the circle (S.27) be large enough, i.e.
+
+                                              2ma2 V   π2
+                                 ξ 2 + η2 =          >    .                           (S.30)
+                                                ℏ2     4
+
+
+                                        η
+
+
+
+
+                                                        •
+
+
+                                                                 ξ
+                                                  •
+                                                  π/2
+
+
+
+
+Figure 1: Sections of the curves (S.27) and (S.28) for two different values of the potential
+V : a small one that does not satisfy the bound (S.30), and a large one that does. A
+bound state exists if the two curves admit an intersection in the first quadrant (ξ, η both
+positive). Such an intersection does not exist when V is too small, and the critical value
+of V at which a first intersection appears is given by eq. (S.30).
+

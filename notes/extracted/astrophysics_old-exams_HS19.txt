@@ -1,0 +1,117 @@
+                                              Astrophyisk I1
+                                         Prof. H. M. Schmid, HS 2019
+                                               Wanja Gianocca,
+
+
+Zusammenfassung In Prof. Schmids Büro, Prüfung auf Papier, der Assistent (G. Cugno) und Prof.
+Schmid sitzen am Tisch und der Assistent protokolliert. Angenehme Atmosphäre.
+Inhaltliche Beschreibung: Geprüfte Kapitel aus der Vorlesung: 5.4, 5.5, 8.4, 9.4, 9.5.2
+
+
+Ablauf Begrüssung, Prof. Schmied hat Fragen zu drei Themen. Je mehr man weis, desto genauer fragt
+er nach. Man muss die Legi vorweisen.
+Prof. H.M.S.: Was sind die Eigenschaften von Sternen auf der Hauptreihe (main sequence)?
+Ich: Luminosität und Temperatur skalieren wie L ∝ T 6 , liegen also in einem logL-logT plot auf einer
+geraden, sog. Herzsprung-Russel Diagramm, welches ich skizziere siehe Abb. 1. Die Temperatur steigt
+von rechts nach links, weil das HR-Diagramm ursprünglich als Funktion von spektroskopischen Gruppen
+geplotted wurde. Die Sterne auf der Haupsequenz haben circa 0.1 M bis 100 M .
+Prof. H.M.S.: Was sind die Brennzyklen?
+Ich: Auf der Hauptsequenz wird hauptsächlich Wasserstoff zu Helium "verbrannt". Die wichtigsten
+Zyklen sind der pp-Zyklus und der CNO-Zyklus, welche bei 5 resp 15 mal 106 K beginnen. Bei höheren
+Temperaturen ist der CNO effizienter, siehe Abb 2.
+Prof. H.M.S.: Was ist der grosse Unterschied zwischen den Zyklen?
+Ich: Für den CNO-Zyklus muss bereits O, N und C vorhanden sein.
+Prof. H.M.S.: Wie sieht die pp-Kette aus?
+Ich: (hier muss mir Prof. Schmid etwas helfen)
+                                                 1
+                                                     H +1 H → 2 H + e+ + ν
+                                                       2
+                                                           H +1 H → 3 He + γ
+                                          3
+                                              He +3 He → 4 He +1 H +1 H
+
+wobei das letzte die pp1 Reaktion ist, für pp2 und pp3 brauchen wir noch Li und Be
+Prof. H.M.S.: Wie können wir diese Prozesse beobachten?
+Ich: Neutrino-Experimente. Die Neutrinos aus den verschiedenen Zyklen haben verschieden grosse
+Energien. Ich skizziere Abb. 3. Daher brauchte man zuerst genug gute Experimente (Gallium-Experiment
+ 1
+     BSc Physik, Kernfach
+ 2
+     Die Kapitelnummern beziehen sich auf das Skript .
+
+
+
+
+                                                              1
+Abbildung 1: Von Wikipedia
+
+
+
+
+Abbildung 2: Aus Wikipedia
+
+
+
+
+            2
+                                     Abbildung 3: Wie in Slides.
+
+hat tiefsten threshold) um das Sonnenmodel bestätigen zu können.
+Prof. H.M.S.: Zweites Thema. Was ist das Prinzip von Aktiven Galaktischen Nuklei?
+Ich: Skizziere das Vereinigungs-Schema für AGNs, siehe Abb. 4. In der Mitte ein schwazes Loch mit
+einem accretion disk. Diese Scheibe wird erhitzt, weil potentielle in thermische Energie umgewandelt
+wird. Um die Scheibe ist ein Staub-Donut. Es wird in einem (oder zwei) relativistischen Jet Plasma
+ausgespien. Je nach Blickwinkel nennt man es eine Seyfert I oder II Galaxie (wenn man auf den
+Staub-Donat schaut), einen Quasar (wenn man in den Jet schaut), oder Radio Galaxien.
+Prof. H.M.S.: Was ist die Eddington Limite?
+Ich: Damit der Stern stabil ist, muss der Druck (wegen Energiefluss) gegen aussen kleiner als die
+Gravitationskraft sein. Kräftegleichgewicht (per 1 H):
+                                                  GM mp
+                                             FG =
+                                                   r2
+                                                   L σ
+                                              F =
+                                                  4πr2 c
+wobei σ der Wirkungsquerschnitt für ein Elektron ist. Dies ergibt LE ≈ 104.5 MM L .
+Prof. H.M.S.: Wie Effizient ist die Energieproduktion wirklich?
+                                                                                                    2
+Ich: Etwa 0.1 von der Eddington Luminosität. (Wieso 0.1?) Ein Proton verliert ∆Epot = GM     m
+                                                                                          3RS = 6
+                                                                                                   mc
+
+wenn es bis zum letzten stabilen Orbit fällt (drei Schwarzschild Radien), also etwa ein zehntel seiner
+Ruheenergie kann weggestrahlt werden.
+Prof. H.M.S.: Drittes Thema. Friedmann Gleichung.
+Ich: Schreibe die Friedmann Gleichung auf:
+                                          ȧ2 kc2  8πG
+                                             + 2 =     ρ                                           (1)
+                                          a2   a    3
+
+
+                                                    3
+                                  Abbildung 4: Von Researchgate
+
+
+
+
+                                Abbildung 5: Von SemanticScholar
+
+
+wobei a der Skalenfaktor ist, k = −1, 0, +1 für negative, keine oder positive Krümmung steht und
+ρ die Dichte des Universums ist. Der Skalenfaktor kommt aus der Robertson-Walker Metrik für ein
+homogenes und isotropes Universum (Kosmologisches Prinzip). Für die verschiedenen Krümmungen
+gibt es verschiedene Lösungen, ich skizziere Abb. 5. Positive Krümmung führt zu einer geschlossenen
+Lösung, dh. es gibt einen "Big Crunch". Die Hubble Zeit H0−1 ≈ 1010 yr gibt eine grobe Abschätzung
+für das Alter des Universums.
+
+
+Bemerkungen Sehr angenehme Atmosphäre, Prof. Schmid weist auf Fehler hin und lässt einem Zeit
+zu überlegen.
+
+Erhaltene Note: 6
+Erwartete Note: 6
+
+
+
+                                                4
+

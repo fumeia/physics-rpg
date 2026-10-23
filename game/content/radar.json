@@ -1,0 +1,639 @@
+{
+ "topics": [
+  {
+   "course": "qm",
+   "topic": "ho-ladder",
+   "label": "Harmonic oscillator, ladder operators, coherent states",
+   "count": 12,
+   "of": 14,
+   "rooms": [
+    "harmonic-oscillator-elevator"
+   ],
+   "note": "Syllabus: ~12 exams"
+  },
+  {
+   "course": "qm",
+   "topic": "angular-momentum",
+   "label": "Angular momentum algebra, rotations, spin-1/2 and spin-1",
+   "count": 12,
+   "of": 14,
+   "rooms": [
+    "angular-momentum-spin"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "pt-nondegenerate",
+   "label": "Time-independent perturbation theory",
+   "count": 9,
+   "of": 14,
+   "rooms": [
+    "perturbation-forge"
+   ],
+   "note": "Nearly every Gaberdiel exam has a PT problem"
+  },
+  {
+   "course": "qm",
+   "topic": "pt-degenerate",
+   "label": "Degenerate perturbation theory (Stark, fine structure)",
+   "count": 4,
+   "of": 14,
+   "rooms": [
+    "perturbation-forge",
+    "hydrogen-lamp"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "pt-time-dependent",
+   "label": "Time-dependent perturbation theory, golden rule",
+   "count": 3,
+   "of": 14,
+   "rooms": [
+    "perturbation-forge"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "box-well-parity",
+   "label": "1D box, finite well, parity, bound-state existence",
+   "count": 10,
+   "of": 14,
+   "rooms": [
+    "wave-mechanics-basics",
+    "tunneling-bridge"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "heisenberg-picture",
+   "label": "Heisenberg picture, commutators, conservation laws",
+   "count": 8,
+   "of": 14,
+   "rooms": [
+    "formalism-and-uncertainty"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "uncertainty",
+   "label": "Uncertainty relation and its proofs",
+   "count": 4,
+   "of": 14,
+   "rooms": [
+    "formalism-and-uncertainty"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "spin-addition",
+   "label": "Spin addition, Clebsch-Gordan",
+   "count": 8,
+   "of": 14,
+   "rooms": [
+    "spin-addition-stern-gerlach"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "epr-entanglement",
+   "label": "EPR pairs, entanglement, reduced measurement",
+   "count": 4,
+   "of": 14,
+   "rooms": [
+    "entanglement-lab"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "scattering-1d",
+   "label": "1D scattering, delta/step/barrier, S-matrix, transfer matrix",
+   "count": 6,
+   "of": 14,
+   "rooms": [
+    "tunneling-bridge"
+   ],
+   "note": "Matches the current weeks (sheets 4-5)"
+  },
+  {
+   "course": "qm",
+   "topic": "tunneling",
+   "label": "Tunneling through a barrier",
+   "count": 3,
+   "of": 14,
+   "rooms": [
+    "tunneling-bridge"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "ehrenfest-continuity",
+   "label": "Ehrenfest theorem and probability current",
+   "count": 4,
+   "of": 14,
+   "rooms": [
+    "formalism-and-uncertainty",
+    "wave-mechanics-basics"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "density-matrices",
+   "label": "Density matrices and mixed states",
+   "count": 2,
+   "of": 14,
+   "rooms": [
+    "entanglement-lab"
+   ],
+   "note": "Only old-format exams; check with the new professor"
+  },
+  {
+   "course": "qm",
+   "topic": "hydrogen",
+   "label": "Hydrogen atom, spectrum, symmetries",
+   "count": 8,
+   "of": 14,
+   "rooms": [
+    "hydrogen-lamp"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "zeeman-finestructure",
+   "label": "Zeeman effect and fine structure",
+   "count": 3,
+   "of": 14,
+   "rooms": [
+    "hydrogen-lamp",
+    "angular-momentum-spin"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "wkb",
+   "label": "WKB approximation",
+   "count": 1,
+   "of": 14,
+   "rooms": [
+    "wave-mechanics-basics"
+   ],
+   "note": "Only HS22; depends on the new professor"
+  },
+  {
+   "course": "qm",
+   "topic": "born-partial-waves",
+   "label": "Lippmann-Schwinger, Born approximation, partial waves",
+   "count": 2,
+   "of": 14,
+   "rooms": [
+    "tunneling-bridge"
+   ],
+   "note": "Old-format exams only"
+  },
+  {
+   "course": "qm",
+   "topic": "variational",
+   "label": "Variational method",
+   "count": 3,
+   "of": 14,
+   "rooms": [
+    "perturbation-forge"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "spin-in-b-field",
+   "label": "Spin-1/2 and spin-1 in a magnetic field, time evolution",
+   "count": 4,
+   "of": 14,
+   "rooms": [
+    "spin-addition-stern-gerlach",
+    "angular-momentum-spin"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "ho-2d-3d",
+   "label": "2D and 3D harmonic oscillator, degeneracy",
+   "count": 5,
+   "of": 14,
+   "rooms": [
+    "harmonic-oscillator-elevator",
+    "perturbation-forge"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "central-potential",
+   "label": "3D wave mechanics, central potentials, radial equation",
+   "count": 5,
+   "of": 14,
+   "rooms": [
+    "wave-mechanics-basics",
+    "hydrogen-lamp"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "symmetry-operators",
+   "label": "Parity, exchange and symmetry operators",
+   "count": 3,
+   "of": 14,
+   "rooms": [
+    "formalism-and-uncertainty"
+   ]
+  },
+  {
+   "course": "qm",
+   "topic": "postulates",
+   "label": "Postulates, measurement, self-adjoint operators",
+   "count": 3,
+   "of": 14,
+   "rooms": [
+    "formalism-and-uncertainty"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "lattice-bz",
+   "label": "Real/reciprocal lattice, Wigner-Seitz cell, Brillouin zone",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "lattice-gate"
+   ],
+   "note": "Problem 1 in all written exams"
+  },
+  {
+   "course": "solid-state",
+   "topic": "diffraction",
+   "label": "Bragg/Laue diffraction, structure factor, neutron scattering",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "lattice-gate"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "phonons",
+   "label": "Phonon dispersion, acoustic and optical branches",
+   "count": 1,
+   "of": 3,
+   "rooms": [
+    "phonon-halls"
+   ],
+   "note": "Most frequent in the oral protocols"
+  },
+  {
+   "course": "solid-state",
+   "topic": "specific-heat",
+   "label": "Debye/Einstein model, C(T), Grueneisen parameter",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "phonon-halls"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "free-electron",
+   "label": "Free-electron gas: E_F, S_F, DOS, C_V",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "fermi-sea",
+    "degenerate-core"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "bands",
+   "label": "Bloch theorem, nearly-free electrons, tight binding",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "fermi-sea",
+    "semiconductor-forge"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "transport",
+   "label": "Drude transport, tau, rho(T), thermal conductivity",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "drift-corridor"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "hall",
+   "label": "Hall effect",
+   "count": 1,
+   "of": 3,
+   "rooms": [
+    "drift-corridor"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "semiconductors",
+   "label": "Semiconductors: gap, effective mass, DOS, n and p",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "semiconductor-forge"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "doping-pn",
+   "label": "Doping, Fermi level versus T, p-n junction",
+   "count": 1,
+   "of": 3,
+   "rooms": [
+    "semiconductor-forge"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "magnetism",
+   "label": "Exchange J, Weiss temperature, saturation field",
+   "count": 3,
+   "of": 3,
+   "rooms": [
+    "magnet-vault"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "bonding",
+   "label": "Bonding types",
+   "count": 1,
+   "of": 3,
+   "rooms": [
+    "bonding-grotto"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "dos-2d",
+   "label": "2D density of states",
+   "count": 2,
+   "of": 3,
+   "rooms": [
+    "fermi-sea"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "topic": "superconductivity",
+   "label": "Superconductivity (not in the 2026 script)",
+   "count": 1,
+   "of": 3,
+   "rooms": [
+    "drift-corridor"
+   ],
+   "note": "Ask the lecturer whether it is covered"
+  },
+  {
+   "course": "astrophysics",
+   "topic": "magnitudes",
+   "label": "Magnitudes, distance modulus, parallax, flux",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "photometry-radiation"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "angular-size",
+   "label": "Angular size, telescope resolution",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "photometry-radiation"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "radiative-transfer",
+   "label": "Specific intensity, optical depth, source function",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "radiative-transfer"
+   ],
+   "note": "MC in every exam"
+  },
+  {
+   "course": "astrophysics",
+   "topic": "blackbody",
+   "label": "Blackbody, Wien, Stefan-Boltzmann, Rayleigh-Jeans",
+   "count": 3,
+   "of": 4,
+   "rooms": [
+    "photometry-radiation"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "cmb",
+   "label": "CMB temperature and spectrum",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "photometry-radiation",
+    "early-universe"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "hydrostatic",
+   "label": "Hydrostatic equilibrium, stellar structure, scalings",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "stellar-forge"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "eddington",
+   "label": "Eddington luminosity and BH accretion growth",
+   "count": 3,
+   "of": 4,
+   "rooms": [
+    "active-galaxies"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "virial",
+   "label": "Virial theorem for stars, clusters, galaxies",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "stellar-forge",
+    "galactic-dynamics"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "hr-diagram",
+   "label": "HR diagram, spectral class, stellar evolution",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "stellar-forge"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "nucleosynthesis",
+   "label": "Nucleosynthesis, pp/CNO, binding energy curve",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "nuclear-furnace"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "neutrinos-sn",
+   "label": "Solar neutrinos, supernovae, exoplanets",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "nuclear-furnace"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "degenerate-stars",
+   "label": "White dwarfs, Chandrasekhar, neutron stars",
+   "count": 0,
+   "of": 4,
+   "rooms": [
+    "degenerate-matter"
+   ],
+   "note": "Not in 2024-25 exams, needed for the boss"
+  },
+  {
+   "course": "astrophysics",
+   "topic": "galaxy-structure",
+   "label": "Galaxy structure, rotation curve, populations",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "galactic-dynamics"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "extinction",
+   "label": "Extinction and reddening",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "radiative-transfer",
+    "interstellar-medium"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "ism",
+   "label": "ISM: HI, HII, 21 cm, molecular clouds",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "interstellar-medium"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "stellar-dynamics",
+   "label": "Stellar dynamics: Plummer, relaxation, Jeans equation",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "galactic-dynamics"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "jeans-bremsstrahlung",
+   "label": "Jeans instability, bremsstrahlung, synchrotron",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "interstellar-medium",
+    "galactic-dynamics"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "agn-morphology",
+   "label": "Galaxy morphology, AGN, clusters, dark matter",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "active-galaxies"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "friedmann",
+   "label": "FRW, Friedmann equations, a(t), curvature, age",
+   "count": 4,
+   "of": 4,
+   "rooms": [
+    "expanding-universe"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "bbn-recombination",
+   "label": "BBN, radiation era, recombination, structure formation",
+   "count": 3,
+   "of": 4,
+   "rooms": [
+    "early-universe"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "inflation-sz",
+   "label": "Inflation, baryogenesis, SZ effect",
+   "count": 3,
+   "of": 4,
+   "rooms": [
+    "early-universe"
+   ],
+   "note": "MC only, at most one question per exam"
+  },
+  {
+   "course": "astrophysics",
+   "topic": "redshift-distances",
+   "label": "Redshift, Hubble law, distance measures",
+   "count": 3,
+   "of": 4,
+   "rooms": [
+    "expanding-universe"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "topic": "tde-quasar",
+   "label": "Tidal disruption, quasar variability bounds",
+   "count": 2,
+   "of": 4,
+   "rooms": [
+    "active-galaxies"
+   ]
+  }
+ ]
+}

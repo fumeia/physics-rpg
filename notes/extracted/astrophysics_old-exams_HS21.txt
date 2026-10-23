@@ -1,0 +1,201 @@
+                                         Astrophysics I1
+                                         Prof. Simon Lilly, Hs 2021
+                                           16.02.2022, 2.30-3pm
+
+
+Summary The exam took place on zoom. The assistant and professor were both already there ready
+to take note during the exam. The exam has been recorded. I used my phone to film my notes during
+the oral. I wrote all the answers on paper. Very relaxed and friendly atmosphere. Mr. Lilly helps if
+needed and explains physical properties sometimes.
+Description of the content: Chapters 4.3 (nuclear fusion in stars), 5.1 (Nucleosynthesis beyond 4 He)
+and 9 (AGN).
+
+
+Ablauf I logged on the zoom session, professor Lilly and the assistant were in their office also connected
+on zoom. Both welcomed me and the teacher told me that the exam was recorded and asked me a
+number between 1 to 10 to choose the subject of the exam. I chose the number (6) and the exam
+started.
+Prof: As a first topic, let’s start with nuclear fusion. Can you draw the diagram of the binding energy
+with respect to the atomic number please ?
+Me: I draw the diagram in Figure 1. I put the most important atoms on the graph (hydrogen, helium,
+carbon, iron). We see that the binding energy increases until Helium when it drops and then increases
+again all the was to 56 F e. After that it decreases till the end.
+
+
+
+
+                             Figure 1: Binding energy with respect to mass number
+
+Prof: And why is this binding energy decreasing after 56 F e ?
+
+ 1
+     BSc Physics, Core Subjects
+
+
+
+
+                                                      1
+Me: It is because the strong force is highly dependant on the distance. As Iron are more massive, they
+get bigger and the strong force is less and less important. After Iron, The radius of atoms is bigger
+and this force decreases. the electromagnetic force start to become more and more important, thus the
+binding energy decreases.
+Prof: Good ! And where is this binding energy coming from ?
+Me: Atomic nuclei have masses less than the sum of their constituent nucleons. This mass deficit is
+because of the binding energy EB (negative potential energy) due to the (very strong) Strong Force
+attraction between the particles in the nucleus. We have
+
+                                              EB = ∆mc2                                                (1)
+
+From this, the binding energy per nucleon is given by:
+                                                        EB
+                                                 f=                                                    (2)
+                                                        A
+where A is the number of nucleons.
+Prof: Yes. Do you know what is the binding energy of 4 He ? and what is the rest-mass energy-equivalent
+of the constituent protons and neutrons ?
+Me: I have don’t know the exact number, and I have no idea for the second question I am not sure but
+I would say that it is of the order of a few MeV... And I don’t know for your second question
+Prof: Yes more or less. The exact number is 6.6 MeV. This corresponds to 0.7 % of the rest-mass
+energy-equivalent of the constituent protons and neutrons.
+Next question: Can you tell me why we need high temperature for fusing heavy two elements
+Me: I explain basically what we did in the lecture in the beginning of section 4.3.2. Nuclei are positively
+charged, and therefore experience an electrostatic repulsion before they get close enough to feel the
+very strong attraction. When we bring together two nuclei (r decreases), the energy we need increases
+till a certain distance ( 10−15 m) where the Strong attraction dominates. (I draw Figure 2). To do so,
+they have to cross the Coulomb barrier (the peak) with equation:
+
+                                                   1 Z1 Z2 e2
+                                           EC =                                                        (3)
+                                                  4πϵ0  r
+
+Normally without quantum mechanics, we need really high temperature to cross this peak, of order 109
+K. As this barrier depends on the atomic number of the atoms, the heavier are the atoms the higher
+the temperature needs to be.
+Prof: Exactly, can you tell me a bit more about the role of quantum mechanics and explain me what
+is the Gamow Peak ?
+Me: I continue to explain the contents of section 4.3.2. Let’s consider two species of nuclei with number
+densities n1 and n2 existing in a plasma at temperature T. Both species will have a Maxwellian velocity
+
+
+
+
+                                                    2
+                   Figure 2: Energy on nuclei when we bring them closer and closer
+
+distribution, and it is easy to show that the distribution of relative velocities also follows a Maxwellian
+distribution. If we rewrite this distribution in terms of the kinetic energy we have:
+                                                           E
+                                          f (E) ∝ exp(−        )                                       (4)
+                                                          kB T
+Now, we can introduce a cross-section σ for the reaction in the usual way, defining σ so that the reaction
+rate r of nuclei with relative velocity v is given by the usual relation: r = n1 n2 σv (where v is given by
+the Maxwell distribution above). The cross-sections will reflect the probability of quantum tunneling
+which is given by:
+                                                         −Z1 Z2
+                                            P (E) ∝ exp( √      )                                       (5)
+                                                            E
+Combining these two exponential, we have the diagram in Figure 3. Their product is a rather sharply
+peaked function, which is small except in a rather small range of E around some particular value E0 , the
+Gamow Peak. It tells us that most of the collisions within a hot gas that actually result in successful
+fusion will occur between nuclei that started out with a relatively small range of kinetic energies.
+Prof: Yes. Now let’s move on. How can we form carbon in stars ?
+Me: During my explanation I am using the Figure 1. Carbon is theoretically not easy to fuse because
+there are no nuclei that are more tightly bound than 4He lying between it and 12C. To get energy out
+we’d need to jump from 4He straight to 12C. 4He nuclei are continually colliding, and fusing as 8Be.
+This is already an endothermic reaction: it does not release energy, but rather requires the input of
+a small amount of energy. Furthermore, 8Be is unstable so we need a high rate to have equilibrium
+between 4He and 8Be. If a 4He atom then fuses again with this 8Be, then we will produce 12C* which
+can decay into 12C.
+Prof: And how does Carbon leak out form this excited state of carbon ?
+Me: I don’t remember at all how it worked, so I think a bit but can’t find the solution I don’t know...
+Prof: The professor explains how it works so repeat what is in section 5.1.1. It turns out that there is
+an excited quantum state of the 12C nucleus at 7.65 MeV above the ground state. This very lucky
+
+
+
+                                                    3
+                        Figure 3: probability rate of fusion versus the Energy
+
+
+coincidence makes it much easier than we would otherwise expect for the composite nucleus to de-excite
+down to the ground-state of the stable 12C, instead of simply falling apart again.
+Let’s change subject. How is energy released in AGN ?
+Me: Section 9.2.3 in the lecture. Because of torques, we have material flowing inward the accretion
+disk in the AGN. As mass falls into the potential, we have a release of heat which is then radiating and
+very luminous.
+Prof: Yes this is true, but where is this energy coming from ?
+Me: Oh, from a loss of gravitational potential energy which is then released. Because of Virial theorem,
+one half will go into increasing the kinetic energy of particles and the other half as heat, which will
+radiate.
+Prof: Exactly ! And can you derive the formula for this radiation?
+Me: Yes, so we have a increase in luminosity given by:
+                                                         .
+                                                1 GM m
+                                           dL =        dr                                            (6)
+                                                2 r2
+When integrating this equation over r and setting router to zero, we have:
+                                                             .
+                                                1 GM m
+                                             L=                                                      (7)
+                                                2 rinner
+
+Prof: Yes, and for Black-Holes what is this rinner ?
+                           6GM
+Me: It is given by 3Rs =       , where Rs is the Schwarzschild radius.
+                            c2
+Prof: Yes, and is there a limit to this radiation coming from the mass accretion ?
+
+
+
+                                                   4
+Me: I explain what we did in the lecture in section 9.3. As we know, radiation can exert a pressure and
+                               LσT
+the force is given by Frad =         . So as mass is flowing inward, the luminosity increases and so does
+                              4πr2 c
+the pressure. At some point the force coming from radiation might be bigger than the gravitational
+                GM mp
+force Fgrav =          . Putting those two equals we find the Eddington limit.
+                  r2
+Prof: Good ! Can you write the luminosity in term of the radiative efficiency ?
+                           .
+Me: Yes, we have L = ϵL mc2 with ϵL the radiative efficiency.
+Prof: And what are roughly the values for Black-Hole rotating and non-rotating for this ϵ ?
+Me: I don’t remember these values at all I have no idea..
+Prof: Explains the expected answer. For a non rotating Black-Hole it is only of 0.057 but for a fully
+co-rotating Black-Hole with the disk, it can have an ϵL = 40%.
+Finally, in AGN we have broad line emissions and narrow line emissions. Can you explain me where are
+these emissions lines coming from and what is the "unified model of AGN", so the difference between a
+Type-1 and 2 AGN ?
+
+
+
+
+                               Figure 4: AGN and its different emissions
+
+Me: First I start explaining the general form of an AGN, with the different emissions (see section
+9.1.1) and I draw Figure 4. I explain the different component on this diagram before. So we have broad
+line emissions, coming from the dense clouds near to the Black-Hole and accretion disk. We also have
+narrow line emissions coming from “normal" gas in the galaxy that is illuminated by the accretion disk.
+Furthermore, we know think that Type 1 and 2 AGN are the same but only from a different point of
+view. Type 2 AGN are probably AGN seen from directions in which the accretion disk and broad-line
+region are obscured by the dust torus.Type 1 are AGN seen from directions in which these central
+regions are unobscured.
+
+
+
+
+                                                   5
+Prof: Yes exactly. This is the end of the exam, you can leave.
+
+
+Final Remarks The assistant didn’t say anything for the whole exam and professor Lilly was very
+nice and helpful the whole time.
+
+Expected mark: 5
+Received mark: 5.5
+
+
+
+
+                                                 6
+

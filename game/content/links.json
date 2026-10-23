@@ -1,0 +1,1638 @@
+{
+ "links": [
+  {
+   "id": "tunneling-bridge~nuclear-furnace",
+   "a": "qm/tunneling-bridge",
+   "b": "astrophysics/nuclear-furnace",
+   "title": "Fusion needs tunnelling",
+   "level": "same-equation",
+   "sideA": {
+    "context": "QM: particle of energy $E$ below a rectangular barrier of height $V_0$ and width $L$, with $\\kappa L\\gg1$",
+    "tex": "T\\approx\\frac{16E(V_0-E)}{V_0^2}\\,e^{-2\\kappa L},\\quad \\kappa=\\frac{\\sqrt{2m(V_0-E)}}{\\hbar}"
+   },
+   "sideB": {
+    "context": "Astro: two nuclei $Z_1,Z_2$ with reduced mass $m_r$ and relative energy $E\\ll$ Coulomb barrier, in a plasma of temperature $T$",
+    "tex": "P(E)\\approx e^{-\\sqrt{E_G/E}},\\quad E_G=2m_rc^2\\,(\\pi\\alpha Z_1Z_2)^2"
+   },
+   "map": [
+    [
+     "$\\kappa(x)$ constant, width $L$",
+     "$\\kappa(r)=\\sqrt{2m_r\\,(V_C(r)-E)}/\\hbar$ with $V_C=Z_1Z_2e^2/4\\pi\\epsilon_0r$, integrated from the turning point $r_t$ to the nuclear radius"
+    ],
+    [
+     "$2\\kappa L$",
+     "$2\\int_{r_n}^{r_t}\\kappa(r)\\,dr\\to\\sqrt{E_G/E}$ (for $E\\ll V_C(r_n)$)"
+    ],
+    [
+     "$m$",
+     "reduced mass $m_r=m_1m_2/(m_1+m_2)$ (for pp: $m_p/2$)"
+    ],
+    [
+     "$V_0-E$",
+     "$Z_1Z_2e^2/(4\\pi\\epsilon_0r)-E$, which varies with $r$ (a sloping barrier, not a rectangle)"
+    ]
+   ],
+   "regime": "The WKB form $e^{-2\\int\\kappa\\,dx}$ is valid when $\\kappa L\\gg1$ and $\\kappa$ varies slowly. For pp, $E_G=m_pc^2(\\pi\\alpha)^2\\approx 493$ keV, but the Sun's core has only $k_BT\\approx 1.3$ keV at $1.5\\times10^7$ K, so the Gamow exponent is large and the rate is tiny but non-zero. The prefactor $16E(V_0-E)/V_0^2$ is replaced by the nuclear $S$-factor.",
+   "experiment": "The pp-chain rate is $\\propto\\int e^{-E/k_BT}e^{-\\sqrt{E_G/E}}dE$, peaked at the Gamow energy $E_0=(E_G(k_BT/2)^2)^{1/3}\\approx 5.9$ keV, where the tunnelling factor is $e^{-9.1}\\approx 10^{-4}$. Accelerator experiments (LUNA) measure cross sections $\\sigma=S(E)e^{-\\sqrt{E_G/E}}/E$ at keV energies.",
+   "intuition": "The same exponential suppression by a forbidden region: the wave function decays as $e^{-\\kappa x}$ inside. In the bridge the barrier is a rectangle; in the star it is the Coulomb tail, so $\\kappa$ must be integrated.",
+   "exam": "Nuclear Furnace: Gamow peak and temperature dependence of the rate; Tunneling Bridge: $T\\approx e^{-2\\kappa L}$ estimates.",
+   "tex": "T\\approx\\frac{16E(V_0-E)}{V_0^2}\\,e^{-2\\kappa L},\\quad \\kappa=\\frac{\\sqrt{2m(V_0-E)}}{\\hbar}\\ \\ \\leftrightarrow\\ \\ P(E)\\approx e^{-\\sqrt{E_G/E}},\\quad E_G=2m_rc^2\\,(\\pi\\alpha Z_1Z_2)^2",
+   "why": "The same exponential suppression by a forbidden region: the wave function decays as $e^{-\\kappa x}$ inside. In the bridge the barrier is a rectangle; in the star it is the Coulomb tail, so $\\kappa$ must be integrated."
+  },
+  {
+   "id": "tunneling-bridge~fermi-sea",
+   "a": "qm/tunneling-bridge",
+   "b": "solid-state/fermi-sea",
+   "title": "The STM reads the density of states",
+   "level": "application",
+   "sideA": {
+    "context": "QM: electron of energy $E$ tunnelling through a vacuum gap of width $d$ with work function $\\phi$ ($V_0-E=\\phi$)",
+    "tex": "T\\sim e^{-2\\kappa d},\\quad \\kappa=\\frac{\\sqrt{2m\\phi}}{\\hbar}"
+   },
+   "sideB": {
+    "context": "Metals: sample as a free-electron gas at $T\\ll T_F$, probed by a tip at small bias $U$",
+    "tex": "I\\propto U\\,\\nu_s(E_F)\\,e^{-2\\kappa d},\\quad \\nu(E)=\\frac{V}{2\\pi^2}\\Big(\\frac{2m}{\\hbar^2}\\Big)^{3/2}\\sqrt{E}"
+   },
+   "map": [
+    [
+     "$T$ (transmission)",
+     "$I/U$ (tunnel conductance), times the number of available initial states"
+    ],
+    [
+     "$d$ (barrier width)",
+     "tip-sample distance"
+    ],
+    [
+     "$V_0-E=\\phi$",
+     "work function of tip/sample, typically $4$ to $5$ eV"
+    ],
+    [
+     "one incoming state",
+     "all occupied sample states within $eU$ of $E_F$: weight $\\nu_s(E_F)\\,eU$"
+    ]
+   ],
+   "regime": "Valid for small bias ($eU\\ll\\phi$) and low temperature so that only states at $E_F$ matter. For $\\phi=4.5$ eV, $\\kappa\\approx1.09\\ \\text{\\AA}^{-1}$, so the current drops by $e^{-2.17}\\approx0.11$, about one decade, per Ångstrom of extra distance.",
+   "experiment": "An STM at constant current follows the surface corrugation with sub-picometre vertical resolution; sweeping $U$ gives $dI/dU\\propto\\nu(eU)$, the local density of states. Typical currents: nA at $d\\approx5$ Å.",
+   "intuition": "Tunnelling probability supplies the extreme distance sensitivity (exponential), the electron gas supplies how many electrons can tunnel (Pauli: only filled states below $E_F$, empty states above).",
+   "exam": "Tunneling Bridge STM side quest; Fermi Sea: free-electron $\\nu(E)$.",
+   "tex": "T\\sim e^{-2\\kappa d},\\quad \\kappa=\\frac{\\sqrt{2m\\phi}}{\\hbar}\\ \\ \\leftrightarrow\\ \\ I\\propto U\\,\\nu_s(E_F)\\,e^{-2\\kappa d},\\quad \\nu(E)=\\frac{V}{2\\pi^2}\\Big(\\frac{2m}{\\hbar^2}\\Big)^{3/2}\\sqrt{E}",
+   "why": "Tunnelling probability supplies the extreme distance sensitivity (exponential), the electron gas supplies how many electrons can tunnel (Pauli: only filled states below $E_F$, empty states above)."
+  },
+  {
+   "id": "wave-mechanics-basics~fermi-sea",
+   "a": "qm/wave-mechanics-basics",
+   "b": "solid-state/fermi-sea",
+   "title": "Box states become the Fermi sea",
+   "level": "same-equation",
+   "sideA": {
+    "context": "QM: free particle of mass $m$ in a cubic box of side $a$ with hard walls (or periodic boundary conditions)",
+    "tex": "E_{\\mathbf n}=\\frac{\\pi^2\\hbar^2}{2ma^2}\\,(n_x^2+n_y^2+n_z^2)"
+   },
+   "sideB": {
+    "context": "Metals: $N$ non-interacting electrons in volume $V=L^3$ at $T=0$, periodic boundary conditions",
+    "tex": "k_F=(3\\pi^2n)^{1/3},\\quad E_F=\\frac{\\hbar^2k_F^2}{2m},\\quad n=\\frac{N}{V}"
+   },
+   "map": [
+    [
+     "quantum numbers $(n_x,n_y,n_z)$",
+     "wave vector $\\mathbf k=2\\pi\\mathbf n/L$ (periodic b.c.)"
+    ],
+    [
+     "one level, 2 spin states",
+     "one $k$-point holds 2 electrons: $N=2\\cdot\\frac{V}{(2\\pi)^3}\\frac{4\\pi}{3}k_F^3$"
+    ],
+    [
+     "ground state of $N$ particles",
+     "filled sphere $|\\mathbf k|\\le k_F$ (Fermi sea)"
+    ],
+    [
+     "level spacing $\\sim\\hbar^2/ma^2$",
+     "$\\sim E_F/N$, so $\\nu(E)=\\tfrac{3N}{2E_F}\\sqrt{E/E_F}$ is quasi-continuous"
+    ]
+   ],
+   "regime": "Needs non-interacting fermions, $T\\ll T_F$ and $k$-points dense enough to replace the sum by an integral (macroscopic $L$). For copper, $n=8.49\\times10^{28}$ m$^{-3}$ gives $k_F=1.36\\times10^{10}$ m$^{-1}$ and $E_F=7.0$ eV, $T_F=8.2\\times10^4$ K.",
+   "experiment": "Fermi energies of metals are read off from photoemission and de Haas-van Alphen experiments (few eV up to 10 eV for simple metals); the free-electron $k_F$ matches the Fermi-surface radius of Na, K, Cu to within a few percent.",
+   "intuition": "A solid is a gigantic box; the Pauli principle fills it from the bottom, two per orbital level, so even at $T=0$ electrons carry huge kinetic energy.",
+   "exam": "Free-electron gas problems: derive $k_F$, $E_F$, $\\nu(E_F)$ from state counting.",
+   "tex": "E_{\\mathbf n}=\\frac{\\pi^2\\hbar^2}{2ma^2}\\,(n_x^2+n_y^2+n_z^2)\\ \\ \\leftrightarrow\\ \\ k_F=(3\\pi^2n)^{1/3},\\quad E_F=\\frac{\\hbar^2k_F^2}{2m},\\quad n=\\frac{N}{V}",
+   "why": "A solid is a gigantic box; the Pauli principle fills it from the bottom, two per orbital level, so even at $T=0$ electrons carry huge kinetic energy."
+  },
+  {
+   "id": "fermi-sea~degenerate-core",
+   "a": "solid-state/fermi-sea",
+   "b": "solid-state/degenerate-core",
+   "title": "The same Fermi gas, three courses",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Metals: degenerate electrons ($T\\ll T_F$) held in the solid by the positive ion lattice",
+    "tex": "P=\\tfrac23\\frac{U}{V}=\\tfrac25\\,nE_F\\propto n^{5/3}"
+   },
+   "sideB": {
+    "context": "White dwarf / degenerate stellar core: degenerate electrons held by gravity, ions provide the mass",
+    "tex": "\\frac{dP}{dr}=-\\frac{G M_r\\rho}{r^2}\\ \\Rightarrow\\ P\\sim\\frac{GM^2}{R^4}"
+   },
+   "map": [
+    [
+     "$n$ (electrons per volume)",
+     "$n_e=\\rho/(\\mu_em_u)$ with $\\mu_e=2$ for He/C/O matter"
+    ],
+    [
+     "ion lattice (restoring force, Coulomb attraction)",
+     "gravity of the ions (the electrons are nearly massless to gravity)"
+    ],
+    [
+     "bulk modulus $B=\\tfrac53P\\approx\\tfrac{10}{9}\\tfrac{U}{V}$",
+     "$\\Gamma_1=5/3$ adiabatic index of the star"
+    ],
+    [
+     "$E_F\\sim7$ eV",
+     "$E_F\\sim 0.1$ MeV for $n_e\\sim10^{35}$ m$^{-3}$, then $P\\propto n^{5/3}$ turns into $n^{4/3}$"
+    ]
+   ],
+   "regime": "Same formula as long as $T\\ll T_F$ and the electrons are non-relativistic ($E_F\\ll m_ec^2=511$ keV). Copper: $n=8.5\\times10^{28}$ m$^{-3}$, $E_F=7.0$ eV, $k_BT/E_F=3.7\\times10^{-3}$ at 300 K. A $0.6\\,M_\\odot$ white dwarf of radius $0.0125\\,R_\\odot$: $n_e\\approx1.3\\times10^{35}$ m$^{-3}$, $E_F\\approx 94$ keV, $k_B(10^4\\text{ K})/E_F\\approx10^{-5}$.",
+   "experiment": "In metals the degeneracy pressure shows up in the bulk modulus and in the electronic contribution to cohesion (order $10^{10}$ Pa); in white dwarfs it is measured through the mass-radius relation (Sirius B, $M\\approx1\\,M_\\odot$, $R\\approx0.008\\,R_\\odot$).",
+   "intuition": "Pauli pressure is the same quantum kinetic energy per electron in both; what differs is the \"container\": electrostatics in the solid, gravity in the star. The density is $10^6$ times higher in the star, so $E_F$ is $10^4$ times larger.",
+   "exam": "Degenerate Matter boss: cross-course Fermi gas.",
+   "tex": "P=\\tfrac23\\frac{U}{V}=\\tfrac25\\,nE_F\\propto n^{5/3}\\ \\ \\leftrightarrow\\ \\ \\frac{dP}{dr}=-\\frac{G M_r\\rho}{r^2}\\ \\Rightarrow\\ P\\sim\\frac{GM^2}{R^4}",
+   "why": "Pauli pressure is the same quantum kinetic energy per electron in both; what differs is the \"container\": electrostatics in the solid, gravity in the star. The density is $10^6$ times higher in the star, so $E_F$ is $10^4$ times larger."
+  },
+  {
+   "id": "degenerate-core~degenerate-matter",
+   "a": "solid-state/degenerate-core",
+   "b": "astrophysics/degenerate-matter",
+   "title": "Metals and white dwarfs",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Solid state: Fermi gas with $E_F\\ll m_ec^2$, non-relativistic ($p=\\hbar k$)",
+    "tex": "P=K_{\\rm NR}\\,n^{5/3},\\quad K_{\\rm NR}=\\frac{(3\\pi^2)^{2/3}\\hbar^2}{5m_e}"
+   },
+   "sideB": {
+    "context": "Astro: white dwarf with hydrostatic equilibrium $P\\sim GM^2/R^4$ and $n\\propto M/R^3$",
+    "tex": "R\\propto M^{-1/3};\\quad P=K_{\\rm UR}\\,n^{4/3}\\ \\Rightarrow\\ M_{Ch}=\\frac{5.83}{\\mu_e^2}M_\\odot\\approx1.46\\,M_\\odot"
+   },
+   "map": [
+    [
+     "$n^{5/3}$ (non-relativistic)",
+     "$P\\propto (M/R^3)^{5/3}=GM^2/R^4\\ \\Rightarrow\\ M^{1/3}R=\\text{const}$"
+    ],
+    [
+     "$p_F\\gg m_ec$ (ultra-relativistic, $E=pc$)",
+     "$P\\propto n^{4/3}\\propto M^{4/3}/R^4$, the same $R^{-4}$ as the gravity requirement $GM^2/R^4$: $R$ cancels, and only one mass $M_{Ch}$ balances"
+    ],
+    [
+     "electrons per nucleon $\\mu_e^{-1}$",
+     "$\\mu_e=2$ for He, C, O; $M_{Ch}\\propto\\mu_e^{-2}$"
+    ]
+   ],
+   "regime": "The $R\\propto M^{-1/3}$ law holds for $0.1\\lesssim M/M_\\odot\\lesssim0.8$ (non-relativistic). Near $1\\,M_\\odot$ the electrons become relativistic ($p_Fc\\sim m_ec^2$), the radius shrinks faster, and $R\\to0$ at $M_{Ch}$ (with $\\mu_e=2$: $5.83/4=1.46$, quoted as about $1.4$).",
+   "experiment": "Mass-radius relation from binary white dwarfs and Gaia parallaxes: more massive dwarfs are smaller. Sirius B has about $1\\,M_\\odot$ in the volume of the Earth.",
+   "intuition": "Gravity wants to compress the star; Pauli pressure grows as $n^{5/3}$ and so wins at some radius. When electrons are ultra-relativistic the pressure only grows as $n^{4/3}$, the same scaling as gravity, so a critical mass appears.",
+   "exam": "Degenerate Matter room: $R(M)$ and Chandrasekhar mass.",
+   "tex": "P=K_{\\rm NR}\\,n^{5/3},\\quad K_{\\rm NR}=\\frac{(3\\pi^2)^{2/3}\\hbar^2}{5m_e}\\ \\ \\leftrightarrow\\ \\ R\\propto M^{-1/3};\\quad P=K_{\\rm UR}\\,n^{4/3}\\ \\Rightarrow\\ M_{Ch}=\\frac{5.83}{\\mu_e^2}M_\\odot\\approx1.46\\,M_\\odot",
+   "why": "Gravity wants to compress the star; Pauli pressure grows as $n^{5/3}$ and so wins at some radius. When electrons are ultra-relativistic the pressure only grows as $n^{4/3}$, the same scaling as gravity, so a critical mass appears."
+  },
+  {
+   "id": "formalism-and-uncertainty~degenerate-matter",
+   "a": "qm/formalism-and-uncertainty",
+   "b": "astrophysics/degenerate-matter",
+   "title": "Uncertainty holds up a star",
+   "level": "analogy",
+   "sideA": {
+    "context": "QM: confinement to size $\\Delta x$ costs momentum spread $\\Delta p\\ge\\hbar/2\\Delta x$",
+    "tex": "E_{\\rm kin}\\sim\\frac{(\\Delta p)^2}{2m}\\sim\\frac{\\hbar^2}{2m\\,\\Delta x^2}"
+   },
+   "sideB": {
+    "context": "Astro: $N$ electrons in a star of radius $R$ ($\\Delta x\\sim R/N^{1/3}$), gravity from the baryons $M=Nm_p$",
+    "tex": "E(R)=\\frac{\\hbar^2N^{5/3}}{2m_eR^2}-\\frac{GM^2}{R}\\ \\Rightarrow\\ R_0=\\frac{\\hbar^2N^{5/3}}{m_eGM^2}"
+   },
+   "map": [
+    [
+     "$\\Delta x$",
+     "mean electron spacing $n^{-1/3}=R/N^{1/3}$"
+    ],
+    [
+     "$\\Delta p$",
+     "Fermi momentum $p_F\\sim\\hbar n^{1/3}$ (Pauli: one electron per $h^3$ of phase space)"
+    ],
+    [
+     "$E_{\\rm kin}$ of one particle",
+     "$N$ times that: $A/R^2$ with $A=\\hbar^2N^{5/3}/2m_e$"
+    ],
+    [
+     "attractive potential energy",
+     "$-B/R$ with $B=GM^2$"
+    ]
+   ],
+   "regime": "An order-of-magnitude argument: the numerical factor is not $\\hbar/2$-exact (Fermi gas gives $\\tfrac35E_F$ per electron and $-\\tfrac35GM^2/R$). For $N=M_\\odot/m_p=1.2\\times10^{57}$, $R_0\\approx6\\times10^6$ m, close to real white dwarfs ($\\sim7\\times10^6$ m).",
+   "experiment": "The prediction $R\\propto M^{-1/3}$ follows from $R_0\\propto N^{-1/3}$; white-dwarf radii of order Earth radius are observed.",
+   "intuition": "Squeeze electrons into a smaller volume and uncertainty forces them to move faster, the cost grows as $1/R^2$ and beats gravity's $1/R$ at small $R$, giving a minimum of $E(R)$.",
+   "exam": "Fermi-estimate quick fights on white dwarf size.",
+   "tex": "E_{\\rm kin}\\sim\\frac{(\\Delta p)^2}{2m}\\sim\\frac{\\hbar^2}{2m\\,\\Delta x^2}\\ \\ \\leftrightarrow\\ \\ E(R)=\\frac{\\hbar^2N^{5/3}}{2m_eR^2}-\\frac{GM^2}{R}\\ \\Rightarrow\\ R_0=\\frac{\\hbar^2N^{5/3}}{m_eGM^2}",
+   "why": "Squeeze electrons into a smaller volume and uncertainty forces them to move faster, the cost grows as $1/R^2$ and beats gravity's $1/R$ at small $R$, giving a minimum of $E(R)$."
+  },
+  {
+   "id": "formalism-and-uncertainty~hydrogen-lamp",
+   "a": "qm/formalism-and-uncertainty",
+   "b": "qm/hydrogen-lamp",
+   "title": "The size of the atom from uncertainty",
+   "level": "analogy",
+   "sideA": {
+    "context": "QM: one electron confined within radius $r$, $p\\sim\\hbar/r$",
+    "tex": "E(r)=\\frac{\\hbar^2}{2mr^2}-\\frac{e^2}{4\\pi\\epsilon_0r}"
+   },
+   "sideB": {
+    "context": "Hydrogen: exact Schroedinger solution of the Coulomb problem",
+    "tex": "a_0=\\frac{4\\pi\\epsilon_0\\hbar^2}{me^2}=0.529\\ \\text{\\AA},\\quad E_n=-\\frac{13.6\\text{ eV}}{n^2}"
+   },
+   "map": [
+    [
+     "minimum of $E(r)$ at $dE/dr=0$",
+     "$r=a_0$ and $E(a_0)=-\\frac{e^2}{8\\pi\\epsilon_0a_0}=-13.6$ eV"
+    ],
+    [
+     "kinetic term $\\hbar^2/2mr^2$",
+     "$\\langle T\\rangle=+13.6$ eV for $n=1$"
+    ],
+    [
+     "potential term $-e^2/4\\pi\\epsilon_0r$",
+     "$\\langle V\\rangle=-27.2$ eV (virial theorem: $2\\langle T\\rangle=-\\langle V\\rangle$)"
+    ]
+   ],
+   "regime": "The heuristic with $p=\\hbar/r$ happens to give the exact ground state; in general only the scaling is trustworthy (factors of order 1). It works for the ground state, not for excited states ($n>1$), where nodes matter.",
+   "experiment": "The atomic size $\\sim\\text{\\AA}$ and the binding energy $\\sim10$ eV are measured by ionisation and X-ray scattering; Lyman limit at 91.2 nm.",
+   "intuition": "The atom is stable because squeezing the electron toward the nucleus costs kinetic energy $\\propto1/r^2$ faster than the Coulomb gain $\\propto1/r$.",
+   "tex": "E(r)=\\frac{\\hbar^2}{2mr^2}-\\frac{e^2}{4\\pi\\epsilon_0r}\\ \\ \\leftrightarrow\\ \\ a_0=\\frac{4\\pi\\epsilon_0\\hbar^2}{me^2}=0.529\\ \\text{\\AA},\\quad E_n=-\\frac{13.6\\text{ eV}}{n^2}",
+   "why": "The atom is stable because squeezing the electron toward the nucleus costs kinetic energy $\\propto1/r^2$ faster than the Coulomb gain $\\propto1/r$."
+  },
+  {
+   "id": "phonon-halls~harmonic-oscillator-elevator",
+   "a": "solid-state/phonon-halls",
+   "b": "qm/harmonic-oscillator-elevator",
+   "title": "Every normal mode is an oscillator",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Solid state: monatomic chain, lattice constant $a$, spring constant $C$, mass $M$, normal-mode wave vector $q$",
+    "tex": "\\omega(q)=2\\sqrt{\\frac{C}{M}}\\,\\Big|\\sin\\frac{qa}{2}\\Big|"
+   },
+   "sideB": {
+    "context": "QM: harmonic oscillator of frequency $\\omega$ with ladder operators",
+    "tex": "H=\\hbar\\omega\\Big(a^\\dagger a+\\tfrac12\\Big),\\quad E_n=\\hbar\\omega\\Big(n+\\tfrac12\\Big)"
+   },
+   "map": [
+    [
+     "normal mode $(q,s)$ of $N$ coupled masses",
+     "one independent oscillator with $\\omega=\\omega_s(q)$ (after diagonalising the coupled system)"
+    ],
+    [
+     "excitation number $n_{q,s}$",
+     "number of phonons in the mode: $E=\\sum_{q,s}\\hbar\\omega_s(q)(n_{q,s}+\\tfrac12)$"
+    ],
+    [
+     "$a^\\dagger$, $a$",
+     "phonon creation and annihilation operators; bosons, so any $n$ allowed"
+    ],
+    [
+     "zero-point energy $\\tfrac12\\hbar\\omega$",
+     "$\\tfrac12\\hbar\\omega$ per mode remains at $T=0$ (zero-point motion of the lattice)"
+    ]
+   ],
+   "regime": "Exact in the harmonic approximation. Anharmonic terms (thermal expansion, finite phonon lifetimes) couple the modes and break it. A typical phonon of $\\omega\\approx10^{13}$ rad/s has $\\hbar\\omega\\approx6.6$ meV, which corresponds to $T\\approx76$ K and sets the scale of $\\Theta_D$.",
+   "experiment": "Inelastic neutron scattering measures $\\omega(q)$ and the creation/annihilation of single phonons ($\\hbar\\omega\\sim$ meV to tens of meV). The Einstein heat capacity is just $N$ copies of the oscillator thermal average.",
+   "intuition": "A crystal is $3N$ uncoupled quantum oscillators after the change to normal coordinates; \"phonon\" is the name for one quantum $\\hbar\\omega$ of such a mode.",
+   "exam": "Phonon Halls: Einstein vs Debye; elevator: ladder operators.",
+   "tex": "\\omega(q)=2\\sqrt{\\frac{C}{M}}\\,\\Big|\\sin\\frac{qa}{2}\\Big|\\ \\ \\leftrightarrow\\ \\ H=\\hbar\\omega\\Big(a^\\dagger a+\\tfrac12\\Big),\\quad E_n=\\hbar\\omega\\Big(n+\\tfrac12\\Big)",
+   "why": "A crystal is $3N$ uncoupled quantum oscillators after the change to normal coordinates; \"phonon\" is the name for one quantum $\\hbar\\omega$ of such a mode."
+  },
+  {
+   "id": "phonon-halls~photometry-radiation",
+   "a": "solid-state/phonon-halls",
+   "b": "astrophysics/photometry-radiation",
+   "title": "Debye $T^3$ and Stefan-Boltzmann $T^4$",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Solid state: phonon gas at $T\\ll\\Theta_D$, linear dispersion $\\omega=vq$, 3 polarisations (1 longitudinal, 2 transverse)",
+    "tex": "\\frac{U}{V}=\\frac{\\pi^2(k_BT)^4}{10\\,\\hbar^3v^3}\\ \\Rightarrow\\ \\frac{C}{V}=\\frac{2\\pi^2k_B^4T^3}{5\\hbar^3v^3}"
+   },
+   "sideB": {
+    "context": "Astro: photon gas in a cavity (blackbody), $\\omega=ck$, 2 polarisations",
+    "tex": "\\frac{U}{V}=aT^4=\\frac{\\pi^2(k_BT)^4}{15\\,\\hbar^3c^3}\\ \\Rightarrow\\ F=\\frac{ac}{4}T^4=\\sigma T^4"
+   },
+   "map": [
+    [
+     "$v$ (sound speed)",
+     "$c$ (light speed)"
+    ],
+    [
+     "3 polarisations",
+     "2 polarisations: $\\pi^2/15=2\\times\\pi^2/30$ instead of $3\\times\\pi^2/30=\\pi^2/10$"
+    ],
+    [
+     "Bose-Einstein occupation $1/(e^{\\hbar\\omega/k_BT}-1)$ with $\\mu=0$",
+     "same Planck occupation (number not conserved)"
+    ],
+    [
+     "Debye cutoff $\\omega_D$ (finite number of modes, $3N$)",
+     "no cutoff: infinitely many modes, hence $U\\propto T^4$ at all $T$"
+    ]
+   ],
+   "regime": "Phonons follow $T^3$ only for $T\\ll\\Theta_D$ (rule of thumb $T\\lesssim\\Theta_D/50$); above the cutoff all $3N$ modes are filled and $C\\to3Nk_B$ (Dulong-Petit). Photons have no cutoff. Copper ($\\Theta_D=343$ K) at 10 K: $C/Nk_B=\\tfrac{12\\pi^4}{5}(T/\\Theta_D)^3\\approx5.8\\times10^{-3}$. Radiation constant $a=7.566\\times10^{-16}$ J m$^{-3}$K$^{-4}$.",
+   "experiment": "Low-temperature heat capacities of insulators follow $C=\\beta T^3$ over decades; the blackbody spectrum of the CMB or of the Sun follows $T^4$, so $F=\\sigma T^4$ with $\\sigma=5.67\\times10^{-8}$ W m$^{-2}$K$^{-4}$.",
+   "intuition": "Both are a gas of massless bosons with $\\mu=0$ and linear dispersion; they differ only in the speed, the polarisation count and the Debye cutoff that a lattice must have.",
+   "exam": "Heat-capacity problems (Debye law) and blackbody problems share the integral $\\int_0^\\infty x^3/(e^x-1)\\,dx=\\pi^4/15$.",
+   "tex": "\\frac{U}{V}=\\frac{\\pi^2(k_BT)^4}{10\\,\\hbar^3v^3}\\ \\Rightarrow\\ \\frac{C}{V}=\\frac{2\\pi^2k_B^4T^3}{5\\hbar^3v^3}\\ \\ \\leftrightarrow\\ \\ \\frac{U}{V}=aT^4=\\frac{\\pi^2(k_BT)^4}{15\\,\\hbar^3c^3}\\ \\Rightarrow\\ F=\\frac{ac}{4}T^4=\\sigma T^4",
+   "why": "Both are a gas of massless bosons with $\\mu=0$ and linear dispersion; they differ only in the speed, the polarisation count and the Debye cutoff that a lattice must have."
+  },
+  {
+   "id": "magnet-vault~spin-addition-stern-gerlach",
+   "a": "solid-state/magnet-vault",
+   "b": "qm/spin-addition-stern-gerlach",
+   "title": "Hund's rules and the Lande factor",
+   "level": "application",
+   "sideA": {
+    "context": "Solid state: ion with total $\\mathbf J=\\mathbf L+\\mathbf S$ (Hund's rules, LS coupling), paramagnet at high $T$",
+    "tex": "g_J=1+\\frac{J(J+1)+S(S+1)-L(L+1)}{2J(J+1)},\\quad \\mu_{\\rm eff}=g_J\\sqrt{J(J+1)}\\,\\mu_B"
+   },
+   "sideB": {
+    "context": "QM: addition of two angular momenta, coupled basis $|J,M\\rangle$ built from $|L,m_L\\rangle|S,m_S\\rangle$ with Clebsch-Gordan coefficients",
+    "tex": "J=|L-S|,\\dots,L+S;\\quad \\langle\\mathbf L\\cdot\\mathbf S\\rangle=\\tfrac{\\hbar^2}{2}\\big[J(J+1)-L(L+1)-S(S+1)\\big]"
+   },
+   "map": [
+    [
+     "$J$ for the ion",
+     "allowed total angular momentum of the coupled pair, the lowest/highest by Hund's third rule"
+    ],
+    [
+     "$g_J$ (Lande)",
+     "projection theorem: $\\langle\\boldsymbol\\mu\\rangle=-g_J\\mu_B\\mathbf J/\\hbar$, with $g_L=1$, $g_s\\approx2$"
+    ],
+    [
+     "Gd$^{3+}$ ($4f^7$: $L=0$, $S=\\tfrac72$)",
+     "$J=\\tfrac72$, $g_J=2$, $\\mu_{\\rm eff}=7.94\\,\\mu_B$"
+    ],
+    [
+     "Pr$^{3+}$ ($4f^2$: $L=5$, $S=1$)",
+     "$J=4$, $g_J=\\tfrac45$, $\\mu_{\\rm eff}=3.58\\,\\mu_B$"
+    ]
+   ],
+   "regime": "Valid for rare-earth ions (4f electrons well shielded, spin-orbit coupling $\\gg$ crystal field) at temperatures where only the ground $J$-multiplet is populated. For 3d ions the crystal field quenches $L$ and $\\mu_{\\rm eff}\\approx g\\sqrt{S(S+1)}\\mu_B$ fits better.",
+   "experiment": "The Curie constant $C=\\mu_0N\\mu_{\\rm eff}^2/3k_B$ is read from the slope of $1/\\chi(T)$; Gd$^{3+}$ salts give $7.9\\,\\mu_B$ as predicted from the spin-only sum.",
+   "intuition": "Hund's rules tell you which $|L,S,J\\rangle$ multiplet is lowest; the Clebsch-Gordan/projection machinery gives the magnetic moment of that coupled state.",
+   "tex": "g_J=1+\\frac{J(J+1)+S(S+1)-L(L+1)}{2J(J+1)},\\quad \\mu_{\\rm eff}=g_J\\sqrt{J(J+1)}\\,\\mu_B\\ \\ \\leftrightarrow\\ \\ J=|L-S|,\\dots,L+S;\\quad \\langle\\mathbf L\\cdot\\mathbf S\\rangle=\\tfrac{\\hbar^2}{2}\\big[J(J+1)-L(L+1)-S(S+1)\\big]",
+   "why": "Hund's rules tell you which $|L,S,J\\rangle$ multiplet is lowest; the Clebsch-Gordan/projection machinery gives the magnetic moment of that coupled state."
+  },
+  {
+   "id": "magnet-vault~angular-momentum-spin",
+   "a": "solid-state/magnet-vault",
+   "b": "qm/angular-momentum-spin",
+   "title": "Spin-1/2 in a field is a magnet",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Solid state: independent localised moments $\\mu=\\tfrac12g\\mu_B$ in field $B$ at temperature $T$ (Langevin, $J=\\tfrac12$)",
+    "tex": "M=n\\mu_B\\tanh\\frac{\\mu_BB}{k_BT}\\ \\xrightarrow{\\ \\mu_BB\\ll k_BT\\ }\\ \\chi=\\frac{\\mu_0n\\mu_B^2}{k_BT}"
+   },
+   "sideB": {
+    "context": "QM: spin-1/2 with $g=2$ in $\\mathbf B=B\\hat z$",
+    "tex": "H=g\\mu_B\\,\\frac{\\mathbf S\\cdot\\mathbf B}{\\hbar}=\\mu_BB\\,\\sigma_z,\\quad E_\\pm=\\pm\\mu_BB"
+   },
+   "map": [
+    [
+     "two levels $E_\\pm=\\pm\\mu_BB$",
+     "two Zeeman levels with Boltzmann weights $e^{\\mp\\mu_BB/k_BT}$"
+    ],
+    [
+     "$\\langle\\sigma_z\\rangle$",
+     "$-\\tanh(\\mu_BB/k_BT)$, the magnetisation per moment"
+    ],
+    [
+     "Larmor frequency $\\omega_L=2\\mu_BB/\\hbar$",
+     "electron spin resonance frequency, $28$ GHz per T"
+    ]
+   ],
+   "regime": "Free-spin Curie law needs $k_BT\\gg\\mu_BB$ and no interaction. At 1 T, $\\mu_BB/k_B=0.67$ K, so at 300 K the polarisation is only $\\tanh(2.2\\times10^{-3})\\approx2\\times10^{-3}$. Interactions give Curie-Weiss $\\chi\\propto1/(T-\\Theta)$.",
+   "experiment": "SQUID magnetometry of $\\chi(T)$ and electron spin resonance at $\\approx28$ GHz/T are direct measurements of this two-level splitting.",
+   "intuition": "A paramagnet is a statistical ensemble of Stern-Gerlach spins: each moment is a two-level quantum system; only the Boltzmann populations of the two levels are new.",
+   "tex": "M=n\\mu_B\\tanh\\frac{\\mu_BB}{k_BT}\\ \\xrightarrow{\\ \\mu_BB\\ll k_BT\\ }\\ \\chi=\\frac{\\mu_0n\\mu_B^2}{k_BT}\\ \\ \\leftrightarrow\\ \\ H=g\\mu_B\\,\\frac{\\mathbf S\\cdot\\mathbf B}{\\hbar}=\\mu_BB\\,\\sigma_z,\\quad E_\\pm=\\pm\\mu_BB",
+   "why": "A paramagnet is a statistical ensemble of Stern-Gerlach spins: each moment is a two-level quantum system; only the Boltzmann populations of the two levels are new."
+  },
+  {
+   "id": "lattice-gate~wave-mechanics-basics",
+   "a": "solid-state/lattice-gate",
+   "b": "qm/wave-mechanics-basics",
+   "title": "Electron waves diffract: Bragg and de Broglie",
+   "level": "application",
+   "sideA": {
+    "context": "Solid state: scattering of waves from a crystal with lattice planes of spacing $d$",
+    "tex": "2d\\sin\\theta=n\\lambda\\ \\Leftrightarrow\\ \\mathbf k'-\\mathbf k=\\mathbf G"
+   },
+   "sideB": {
+    "context": "QM: free particle of momentum $\\mathbf p$ has plane-wave state $e^{i\\mathbf k\\cdot\\mathbf r}$",
+    "tex": "\\lambda=\\frac{h}{p}=\\frac{h}{\\sqrt{2mE}}\\approx\\frac{12.26\\ \\text{\\AA}}{\\sqrt{E/\\text{eV}}}"
+   },
+   "map": [
+    [
+     "wavelength $\\lambda$ of the probe",
+     "de Broglie wavelength of electrons/neutrons"
+    ],
+    [
+     "momentum transfer $\\hbar\\mathbf G$",
+     "crystal momentum conservation: $\\mathbf k'=\\mathbf k+\\mathbf G$, elastic: $|\\mathbf k'|=|\\mathbf k|$"
+    ],
+    [
+     "lattice plane spacing $d$",
+     "reciprocal lattice vector $G=2\\pi n/d$"
+    ]
+   ],
+   "regime": "Diffraction needs $\\lambda\\lesssim2d$ (Bragg condition has a solution). Electrons of 54 eV have $\\lambda=1.67$ Å, comparable to atomic spacing; thermal neutrons (25 meV) have 1.8 Å; X-rays of 8 keV have 1.5 Åbut different scattering mechanism (charge density).",
+   "experiment": "Davisson-Germer 1927: 54 eV electrons on Ni(111), peak at $\\varphi=50^\\circ$, and $d\\sin\\varphi=2.15\\,\\text{\\AA}\\cdot0.766=1.65$ Åversus the de Broglie prediction $1.67$ Å.",
+   "intuition": "Matter waves interfere on a crystal exactly like X-rays: the periodic potential only allows momentum changes of $\\hbar\\mathbf G$, which is why the diffraction pattern is a map of the reciprocal lattice.",
+   "tex": "2d\\sin\\theta=n\\lambda\\ \\Leftrightarrow\\ \\mathbf k'-\\mathbf k=\\mathbf G\\ \\ \\leftrightarrow\\ \\ \\lambda=\\frac{h}{p}=\\frac{h}{\\sqrt{2mE}}\\approx\\frac{12.26\\ \\text{\\AA}}{\\sqrt{E/\\text{eV}}}",
+   "why": "Matter waves interfere on a crystal exactly like X-rays: the periodic potential only allows momentum changes of $\\hbar\\mathbf G$, which is why the diffraction pattern is a map of the reciprocal lattice."
+  },
+  {
+   "id": "fermi-sea~perturbation-forge",
+   "a": "solid-state/fermi-sea",
+   "b": "qm/perturbation-forge",
+   "title": "Pauli paramagnetism from Zeeman perturbation",
+   "level": "application",
+   "sideA": {
+    "context": "Metals: free-electron gas with $T\\ll T_F$ in a small field $B$",
+    "tex": "\\chi_P=\\mu_0\\mu_B^2\\,\\nu(E_F)=\\frac{3\\mu_0\\,n\\mu_B^2}{2E_F}"
+   },
+   "sideB": {
+    "context": "QM: first-order perturbation theory for a spin-1/2 electron, $H'=\\pm\\mu_BB$",
+    "tex": "E_\\pm^{(1)}=\\langle\\pm|H'|\\pm\\rangle=\\pm\\mu_BB"
+   },
+   "map": [
+    [
+     "spin-up/down bands shifted by $\\mp\\mu_BB$",
+     "first-order energy shifts of the two spin states"
+    ],
+    [
+     "excess of one spin direction $\\delta n=\\tfrac12\\nu(E_F)\\mu_BB$ per volume",
+     "electrons near $E_F$ flip to the lower-energy spin band (only a shell of width $\\mu_BB$ below $E_F$ can)"
+    ],
+    [
+     "$\\nu(E_F)=\\tfrac{3n}{2E_F}$ (both spins)",
+     "replaces the classical Curie factor $1/k_BT$: effective $k_BT\\to E_F$"
+    ]
+   ],
+   "regime": "Valid for $\\mu_BB\\ll E_F$ (always, $\\mu_BB\\sim0.06$ meV at 1 T) and $T\\ll T_F$. Compared with free moments (Curie), the susceptibility is reduced by $\\sim k_BT/E_F\\sim10^{-2}$ and is temperature independent. Na ($n=2.65\\times10^{28}$ m$^{-3}$, $E_F=3.24$ eV): $\\chi_P\\approx8.3\\times10^{-6}$ (SI).",
+   "experiment": "Susceptibility of simple metals (Na, K) is of order $10^{-5}$ and nearly $T$-independent; it also enters in Knight-shift NMR. Landau diamagnetism of the electron gas subtracts $-\\tfrac13\\chi_P$.",
+   "intuition": "Spins lower their energy in the field, but the Pauli principle forbids flipping any electron deep in the sea, so only the small fraction $\\sim\\mu_BB/E_F$ near the Fermi surface responds.",
+   "tex": "\\chi_P=\\mu_0\\mu_B^2\\,\\nu(E_F)=\\frac{3\\mu_0\\,n\\mu_B^2}{2E_F}\\ \\ \\leftrightarrow\\ \\ E_\\pm^{(1)}=\\langle\\pm|H'|\\pm\\rangle=\\pm\\mu_BB",
+   "why": "Spins lower their energy in the field, but the Pauli principle forbids flipping any electron deep in the sea, so only the small fraction $\\sim\\mu_BB/E_F$ near the Fermi surface responds."
+  },
+  {
+   "id": "semiconductor-forge~hydrogen-lamp",
+   "a": "solid-state/semiconductor-forge",
+   "b": "qm/hydrogen-lamp",
+   "title": "A donor is a hydrogen atom in a crystal",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Solid state: shallow donor (P in Si, Si in GaAs) with effective mass $m^*$ in a dielectric of relative permittivity $\\epsilon_r$",
+    "tex": "E_d=\\frac{m^*}{m_e}\\frac{1}{\\epsilon_r^2}\\,\\mathrm{Ry},\\quad a_d=\\frac{\\epsilon_r}{m^*/m_e}\\,a_0"
+   },
+   "sideB": {
+    "context": "QM: hydrogen atom, electron mass $m_e$ in vacuum",
+    "tex": "E_n=-\\frac{m_ee^4}{2(4\\pi\\epsilon_0)^2\\hbar^2}\\frac1{n^2}=-\\frac{\\mathrm{Ry}}{n^2},\\quad a_0=\\frac{4\\pi\\epsilon_0\\hbar^2}{m_ee^2}"
+   },
+   "map": [
+    [
+     "$m_e$",
+     "$m^*$ (band effective mass, e.g. $0.067\\,m_e$ in GaAs)"
+    ],
+    [
+     "$\\epsilon_0$",
+     "$\\epsilon_r\\epsilon_0$ (static screening by the lattice, $\\epsilon_r=12.9$ for GaAs)"
+    ],
+    [
+     "Ry $=13.6$ eV",
+     "$E_d=13.6\\text{ eV}\\cdot0.067/12.9^2=5.5$ meV"
+    ],
+    [
+     "$a_0=0.53$ Å",
+     "$a_d=0.53\\text{ \\AA}\\cdot12.9/0.067\\approx100$ Å, about 20 lattice constants"
+    ]
+   ],
+   "regime": "Valid when $a_d\\gg a_{\\rm lattice}$ (effective-mass theory, slowly varying envelope) and the carrier sits at a band edge with isotropic parabolic $E(k)$. In Si the anisotropic mass and central-cell corrections give 45 meV for P instead of the 26 meV hydrogenic estimate; the hydrogenic series $E_n\\propto1/n^2$ is seen for excited donor states.",
+   "experiment": "Far-infrared absorption shows the donor Lyman series (1s to 2p) at meV energies; carriers freeze out below $T\\sim E_d/k_B\\approx64$ K in GaAs ($5.5$ meV), above it all donors are ionised, giving $n=N_d$ (extrinsic regime).",
+   "intuition": "The electron orbits the ionised donor like in hydrogen, but the lattice makes it light ($m^*$) and screens the Coulomb force ($\\epsilon_r$), so the atom is $10^3$ times bigger and $10^3$ times more weakly bound.",
+   "exam": "Semiconductor Forge: \"A hydrogen atom in a crystal: the donor\".",
+   "tex": "E_d=\\frac{m^*}{m_e}\\frac{1}{\\epsilon_r^2}\\,\\mathrm{Ry},\\quad a_d=\\frac{\\epsilon_r}{m^*/m_e}\\,a_0\\ \\ \\leftrightarrow\\ \\ E_n=-\\frac{m_ee^4}{2(4\\pi\\epsilon_0)^2\\hbar^2}\\frac1{n^2}=-\\frac{\\mathrm{Ry}}{n^2},\\quad a_0=\\frac{4\\pi\\epsilon_0\\hbar^2}{m_ee^2}",
+   "why": "The electron orbits the ionised donor like in hydrogen, but the lattice makes it light ($m^*$) and screens the Coulomb force ($\\epsilon_r$), so the atom is $10^3$ times bigger and $10^3$ times more weakly bound."
+  },
+  {
+   "id": "drift-corridor~radiative-transfer",
+   "a": "solid-state/drift-corridor",
+   "b": "astrophysics/radiative-transfer",
+   "title": "Drude conduction and photon diffusion",
+   "level": "analogy",
+   "sideA": {
+    "context": "Solid state: electrons scattering with mean free time $\\tau$ and mean free path $\\ell=v_F\\tau$ in a metal",
+    "tex": "\\sigma=\\frac{ne^2\\tau}{m},\\quad D=\\tfrac13 v_F\\ell"
+   },
+   "sideB": {
+    "context": "Astro: photons scattering in a stellar interior with mean free path $\\ell=1/(\\kappa\\rho)$",
+    "tex": "t_{\\rm diff}\\approx\\frac{R^2}{\\ell c},\\quad D=\\tfrac13c\\,\\ell"
+   },
+   "map": [
+    [
+     "$\\tau$, $\\ell=v\\tau$",
+     "photon mean free path $\\ell=1/(\\kappa\\rho)$ ($\\kappa$ opacity)"
+    ],
+    [
+     "velocity $v_F$ (electrons)",
+     "$c$ (photons)"
+    ],
+    [
+     "random walk of electrons between collisions",
+     "random walk of photons: $N=(R/\\ell)^2$ steps, time $N\\ell/c$"
+    ],
+    [
+     "diffusion constant $D$",
+     "$D=\\tfrac13c\\ell$; energy flux $F=-\\tfrac13c\\ell\\,\\nabla u$"
+    ]
+   ],
+   "regime": "Both need $\\ell\\ll$ system size (diffusive, not ballistic). Cu at 300 K: $\\tau\\approx2.5\\times10^{-14}$ s, $v_F=1.57\\times10^6$ m/s, $\\ell\\approx39$ nm, $\\sigma\\approx6\\times10^7$ S/m. Solar centre: $\\kappa\\approx1$ cm$^2$/g, $\\rho\\approx1.5\\times10^5$ kg/m$^3$, $\\ell\\approx0.07$ mm, so a photon needs $\\sim8\\times10^5$ yr to leave. (Estimates with a larger $\\ell$, e.g. 1 cm, give $5\\times10^3$ yr.)",
+   "experiment": "Ohm's law and Wiedemann-Franz relate $\\sigma$ to $\\kappa_{\\rm th}$ in metals; in the Sun the photons made at the core arrive as sunlight after $10^4$ to $10^6$ yr, while neutrinos arrive after 8 minutes.",
+   "intuition": "Frequent collisions turn directed motion into diffusion with $D\\sim v\\ell$. Same random-walk logic, but electrons carry charge (drift in $E$ field), photons carry energy (drift down a temperature gradient).",
+   "tex": "\\sigma=\\frac{ne^2\\tau}{m},\\quad D=\\tfrac13 v_F\\ell\\ \\ \\leftrightarrow\\ \\ t_{\\rm diff}\\approx\\frac{R^2}{\\ell c},\\quad D=\\tfrac13c\\,\\ell",
+   "why": "Frequent collisions turn directed motion into diffusion with $D\\sim v\\ell$. Same random-walk logic, but electrons carry charge (drift in $E$ field), photons carry energy (drift down a temperature gradient)."
+  },
+  {
+   "id": "interstellar-medium~spin-addition-stern-gerlach",
+   "a": "astrophysics/interstellar-medium",
+   "b": "qm/spin-addition-stern-gerlach",
+   "title": "The 21 cm line is $\\tfrac12\\otimes\\tfrac12=0\\oplus1$",
+   "level": "application",
+   "sideA": {
+    "context": "Astro: neutral hydrogen in the ISM, electron and proton spin in the 1s ground state",
+    "tex": "\\nu=1420.4\\text{ MHz},\\quad\\lambda=21.1\\text{ cm},\\quad \\frac{n_{F=1}}{n_{F=0}}=\\frac{3}{1}e^{-h\\nu/k_BT_S}"
+   },
+   "sideB": {
+    "context": "QM: addition of two spins-1/2 with $H=A\\,\\mathbf I\\cdot\\mathbf S/\\hbar^2$",
+    "tex": "\\tfrac12\\otimes\\tfrac12=0\\oplus1;\\quad \\langle\\mathbf I\\cdot\\mathbf S\\rangle=\\tfrac{\\hbar^2}{2}\\big[F(F+1)-\\tfrac32\\big]=\\begin{cases}+\\hbar^2/4&F=1\\\\-3\\hbar^2/4&F=0\\end{cases}"
+   },
+   "map": [
+    [
+     "triplet $F=1$ ($m_F=0,\\pm1$)",
+     "upper level, statistical weight $g_1=3$"
+    ],
+    [
+     "singlet $F=0$",
+     "lower level, $g_0=1$"
+    ],
+    [
+     "energy gap $A$",
+     "$A=E_{F=1}-E_{F=0}=h\\nu=5.87\\ \\mu$eV"
+    ],
+    [
+     "$\\Delta F=\\pm1,0$, magnetic dipole",
+     "spin-flip transition, $A_{10}=2.9\\times10^{-15}$ s$^{-1}$ (lifetime $1.1\\times10^7$ yr)"
+    ]
+   ],
+   "regime": "The $3{:}1$ population ratio holds whenever the spin temperature $T_S\\gg h\\nu/k=0.068$ K, which is true almost everywhere (collisions, Lyman-$\\alpha$ pumping). The line is optically thin in most directions, so intensity $\\propto N_{HI}$. Very forbidden: only the huge column densities of the ISM make it visible.",
+   "experiment": "Radio telescopes map HI (spiral arms, rotation curves via Doppler shift of 21 cm), Zeeman splitting gives $B$ in the ISM; the Epoch of Reionization uses it at redshift.",
+   "intuition": "The magnetic interaction between the two spins only distinguishes total spin 1 (parallel) from 0 (antiparallel); the difference is tiny, $5.9\\ \\mu$eV, so the photon wavelength is 21 cm.",
+   "exam": "Angular-momentum addition exercises; ISM column density.",
+   "tex": "\\nu=1420.4\\text{ MHz},\\quad\\lambda=21.1\\text{ cm},\\quad \\frac{n_{F=1}}{n_{F=0}}=\\frac{3}{1}e^{-h\\nu/k_BT_S}\\ \\ \\leftrightarrow\\ \\ \\tfrac12\\otimes\\tfrac12=0\\oplus1;\\quad \\langle\\mathbf I\\cdot\\mathbf S\\rangle=\\tfrac{\\hbar^2}{2}\\big[F(F+1)-\\tfrac32\\big]=\\begin{cases}+\\hbar^2/4&F=1\\\\-3\\hbar^2/4&F=0\\end{cases}",
+   "why": "The magnetic interaction between the two spins only distinguishes total spin 1 (parallel) from 0 (antiparallel); the difference is tiny, $5.9\\ \\mu$eV, so the photon wavelength is 21 cm."
+  },
+  {
+   "id": "radiative-transfer~hydrogen-lamp",
+   "a": "astrophysics/radiative-transfer",
+   "b": "qm/hydrogen-lamp",
+   "title": "Absorption lines are hydrogen transitions",
+   "level": "application",
+   "sideA": {
+    "context": "Astro: stellar atmosphere in LTE, level populations of H at temperature $T$ (Boltzmann, Saha)",
+    "tex": "\\frac{n_2}{n_1}=\\frac{g_2}{g_1}\\,e^{-(E_2-E_1)/k_BT},\\quad g_n=2n^2"
+   },
+   "sideB": {
+    "context": "QM: hydrogen levels $E_n=-\\mathrm{Ry}/n^2$ and transitions $n\\to m$",
+    "tex": "\\frac1\\lambda=R_H\\Big(\\frac1{m^2}-\\frac1{n^2}\\Big),\\quad \\mathrm{H}\\alpha:\\ 3\\to2,\\ \\lambda=656.5\\text{ nm (vacuum)}"
+   },
+   "map": [
+    [
+     "level energy $E_n$",
+     "$E_n=-13.6\\text{ eV}/n^2$; Balmer series starts from $n=2$"
+    ],
+    [
+     "degeneracy $g_n$",
+     "$2n^2$ (counting $l$, $m$ and spin)"
+    ],
+    [
+     "line absorption at depth $\\tau_\\nu$",
+     "Balmer absorption needs atoms in $n=2$, i.e. $10.2$ eV above the ground state"
+    ]
+   ],
+   "regime": "In LTE the fraction of atoms in $n=2$ at $T=10^4$ K is only $4e^{-11.8}\\approx3\\times10^{-5}$ ($k_BT=0.86$ eV), but at the same time ionisation (Saha) depletes H; the product peaks at about $9{,}500$ K, which is why Balmer lines are strongest in A stars and weaker in hotter or cooler stars.",
+   "experiment": "The spectral type sequence OBAFGKM is a temperature sequence read from line strengths: He II (O), Balmer (A), Ca II (F/G), molecules (M). Hα at $656.3$ nm in air is the standard hydrogen line.",
+   "intuition": "Quantum mechanics gives the wavelengths (where the lines are), statistical mechanics plus radiative transfer give how deep they are (how many atoms in the right level).",
+   "tex": "\\frac{n_2}{n_1}=\\frac{g_2}{g_1}\\,e^{-(E_2-E_1)/k_BT},\\quad g_n=2n^2\\ \\ \\leftrightarrow\\ \\ \\frac1\\lambda=R_H\\Big(\\frac1{m^2}-\\frac1{n^2}\\Big),\\quad \\mathrm{H}\\alpha:\\ 3\\to2,\\ \\lambda=656.5\\text{ nm (vacuum)}",
+   "why": "Quantum mechanics gives the wavelengths (where the lines are), statistical mechanics plus radiative transfer give how deep they are (how many atoms in the right level)."
+  },
+  {
+   "id": "photometry-radiation~wave-mechanics-basics",
+   "a": "astrophysics/photometry-radiation",
+   "b": "qm/wave-mechanics-basics",
+   "title": "Planck spectrum from standing waves",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Astro: blackbody specific intensity of a star or the CMB",
+    "tex": "B_\\nu(T)=\\frac{2h\\nu^3}{c^2}\\frac1{e^{h\\nu/k_BT}-1};\\quad\\lambda_{\\max}T=2.898\\text{ mm K}"
+   },
+   "sideB": {
+    "context": "QM: standing waves in a box, energy of a mode $\\hbar\\omega$ per quantum",
+    "tex": "g(\\omega)\\,d\\omega=\\frac{V\\omega^2}{\\pi^2c^3}d\\omega,\\quad \\langle E\\rangle=\\frac{\\hbar\\omega}{e^{\\hbar\\omega/k_BT}-1}"
+   },
+   "map": [
+    [
+     "mode counting $k=\\pi n/L$",
+     "density of electromagnetic modes (2 polarisations)"
+    ],
+    [
+     "energy levels $\\hbar\\omega(n+\\tfrac12)$",
+     "thermal average gives the Planck factor (see harmonic oscillator)"
+    ],
+    [
+     "classical equipartition $k_BT$ per mode",
+     "Rayleigh-Jeans limit $h\\nu\\ll k_BT$: $B_\\nu=2\\nu^2k_BT/c^2$"
+    ]
+   ],
+   "regime": "Holds in thermal equilibrium (cavity, optically thick source). Stars are approximate blackbodies; the Sun at $T_{\\rm eff}=5772$ K peaks at $502$ nm (Wien in wavelength). The CMB at $2.725$ K is the best blackbody measured.",
+   "experiment": "Fitting $B_\\lambda(T)$ to a spectrum gives $T_{\\rm eff}$; with the flux $F=\\sigma T^4$ and luminosity this gives the radius $R=\\sqrt{L/4\\pi\\sigma T^4}$.",
+   "intuition": "Quantised standing waves give a finite number of modes per frequency, quantised energy suppresses high-frequency modes ($h\\nu\\gg k_BT$), which cures the ultraviolet catastrophe.",
+   "tex": "B_\\nu(T)=\\frac{2h\\nu^3}{c^2}\\frac1{e^{h\\nu/k_BT}-1};\\quad\\lambda_{\\max}T=2.898\\text{ mm K}\\ \\ \\leftrightarrow\\ \\ g(\\omega)\\,d\\omega=\\frac{V\\omega^2}{\\pi^2c^3}d\\omega,\\quad \\langle E\\rangle=\\frac{\\hbar\\omega}{e^{\\hbar\\omega/k_BT}-1}",
+   "why": "Quantised standing waves give a finite number of modes per frequency, quantised energy suppresses high-frequency modes ($h\\nu\\gg k_BT$), which cures the ultraviolet catastrophe."
+  },
+  {
+   "id": "photometry-radiation~early-universe",
+   "a": "astrophysics/photometry-radiation",
+   "b": "astrophysics/early-universe",
+   "title": "The CMB is a redshifted blackbody",
+   "level": "application",
+   "sideA": {
+    "context": "Astro: blackbody of temperature $T$, photon number density",
+    "tex": "n_\\gamma=\\frac{2\\zeta(3)}{\\pi^2}\\Big(\\frac{k_BT}{\\hbar c}\\Big)^3,\\quad \\lambda_{\\max}T=2.898\\text{ mm K}"
+   },
+   "sideB": {
+    "context": "Cosmology: expansion with scale factor $a$ and redshift $1+z=a_0/a$",
+    "tex": "T(z)=T_0(1+z),\\quad \\lambda\\propto a"
+   },
+   "map": [
+    [
+     "$T$ at emission (about 3000 K)",
+     "$T_0=2.725$ K today, ratio $1+z\\approx1100$"
+    ],
+    [
+     "$\\lambda_{\\max}$",
+     "stretched by $a$: $\\lambda_{\\max}$ moves from about $1\\ \\mu$m to $1.06$ mm"
+    ],
+    [
+     "photon number density $n_\\gamma\\propto T^3$",
+     "$n_\\gamma\\propto a^{-3}$: conserved number, $n_\\gamma=411$ cm$^{-3}$ today"
+    ]
+   ],
+   "regime": "The blackbody shape survives expansion because $\\nu\\to\\nu/(1+z)$ and $dn/d\\nu\\propto a^{-3}$ together keep the Planck form with $T\\to T/(1+z)$. Valid after decoupling (photons free streaming); the universe was a plasma before, $T\\approx3000$ K at recombination.",
+   "experiment": "COBE-FIRAS measured $T_0=2.7255$ K with deviations below $10^{-4}$; peak frequency about $160$ GHz.",
+   "intuition": "Expansion stretches every wavelength by the same factor, so a blackbody remains a blackbody at lower temperature.",
+   "tex": "n_\\gamma=\\frac{2\\zeta(3)}{\\pi^2}\\Big(\\frac{k_BT}{\\hbar c}\\Big)^3,\\quad \\lambda_{\\max}T=2.898\\text{ mm K}\\ \\ \\leftrightarrow\\ \\ T(z)=T_0(1+z),\\quad \\lambda\\propto a",
+   "why": "Expansion stretches every wavelength by the same factor, so a blackbody remains a blackbody at lower temperature."
+  },
+  {
+   "id": "stellar-forge~galactic-dynamics",
+   "a": "astrophysics/stellar-forge",
+   "b": "astrophysics/galactic-dynamics",
+   "title": "The virial theorem from stars to clusters",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Stars: self-gravitating gas ball in hydrostatic equilibrium, $K$ thermal energy",
+    "tex": "2K+U=0,\\quad \\bar T\\approx\\frac{G M\\mu m_p}{5k_BR}"
+   },
+   "sideB": {
+    "context": "Galaxies: collisionless system of stars with velocity dispersion $\\sigma$ (1D)",
+    "tex": "2K+U=0\\ \\Rightarrow\\ M\\approx\\frac{5\\sigma^2R}{G}"
+   },
+   "map": [
+    [
+     "$K=\\tfrac32Nk_BT$",
+     "$K=\\tfrac12M\\langle v^2\\rangle=\\tfrac32M\\sigma^2$"
+    ],
+    [
+     "$U=-\\tfrac35GM^2/R$ (uniform sphere)",
+     "same $U$; actual profile changes the factor of order 1"
+    ],
+    [
+     "temperature $T$ of the star",
+     "velocity dispersion $\\sigma^2$ plays the role of $k_BT/m$"
+    ]
+   ],
+   "regime": "Needs a steady state (time average) and a bound system. For the Sun with $\\mu=0.6$, $\\bar T\\approx2.8\\times10^6$ K (core is hotter, $1.5\\times10^7$ K). A cluster with $\\sigma=1000$ km/s and $R=1.5$ Mpc has $M\\sim 10^{15}M_\\odot$, far above the luminous mass.",
+   "experiment": "Zwicky 1933 (Coma): applying the virial theorem to the galaxies' velocities gave the first evidence for dark matter. Stellar temperatures are checked by solar neutrinos and helioseismology.",
+   "intuition": "Heat plays the role of kinetic energy in the star; random motion of galaxies plays it in the cluster. Gravity gives negative heat capacity: losing energy makes the system hotter.",
+   "tex": "2K+U=0,\\quad \\bar T\\approx\\frac{G M\\mu m_p}{5k_BR}\\ \\ \\leftrightarrow\\ \\ 2K+U=0\\ \\Rightarrow\\ M\\approx\\frac{5\\sigma^2R}{G}",
+   "why": "Heat plays the role of kinetic energy in the star; random motion of galaxies plays it in the cluster. Gravity gives negative heat capacity: losing energy makes the system hotter."
+  },
+  {
+   "id": "stellar-forge~active-galaxies",
+   "a": "astrophysics/stellar-forge",
+   "b": "astrophysics/active-galaxies",
+   "title": "The Eddington limit for stars and quasars",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Stars: radiation pressure on electrons vs gravity on protons, Thomson scattering $\\sigma_T=6.65\\times10^{-29}$ m$^2$",
+    "tex": "L_{\\rm Edd}=\\frac{4\\pi GMm_pc}{\\sigma_T}=3.3\\times10^4\\Big(\\frac{M}{M_\\odot}\\Big)L_\\odot"
+   },
+   "sideB": {
+    "context": "AGN: accretion onto a supermassive black hole, luminosity from infall",
+    "tex": "L=\\eta\\dot Mc^2\\le L_{\\rm Edd},\\quad \\eta\\approx0.1"
+   },
+   "map": [
+    [
+     "mass $M$ of the star",
+     "mass $M_{\\rm BH}$ of the black hole"
+    ],
+    [
+     "fusion efficiency $0.007$",
+     "accretion efficiency $\\eta\\sim0.1$"
+    ],
+    [
+     "$L_{\\rm Edd}\\approx1.26\\times10^{31}\\,(M/M_\\odot)$ W",
+     "$M_{\\rm BH}=10^8M_\\odot$: $L_{\\rm Edd}\\approx1.26\\times10^{39}$ W, needs $\\dot M\\approx2.2\\,M_\\odot$/yr"
+    ]
+   ],
+   "regime": "Spherical, fully ionised hydrogen, steady state, opacity from Thomson scattering. Stars above $\\sim100\\,M_\\odot$ approach $L_{\\rm Edd}$ and lose mass in winds; AGN can be super-Eddington only briefly or non-spherically.",
+   "experiment": "Quasar luminosities $10^{38}$ to $10^{40}$ W imply black holes of $10^8$ to $10^9M_\\odot$ if they radiate near Eddington.",
+   "intuition": "Same balance in both: outward momentum of the light per unit time against inward gravity. The limit scales with $M$ and not with radius because both forces fall as $r^{-2}$.",
+   "tex": "L_{\\rm Edd}=\\frac{4\\pi GMm_pc}{\\sigma_T}=3.3\\times10^4\\Big(\\frac{M}{M_\\odot}\\Big)L_\\odot\\ \\ \\leftrightarrow\\ \\ L=\\eta\\dot Mc^2\\le L_{\\rm Edd},\\quad \\eta\\approx0.1",
+   "why": "Same balance in both: outward momentum of the light per unit time against inward gravity. The limit scales with $M$ and not with radius because both forces fall as $r^{-2}$."
+  },
+  {
+   "id": "nuclear-furnace~early-universe",
+   "a": "astrophysics/nuclear-furnace",
+   "b": "astrophysics/early-universe",
+   "title": "Reaction rates against expansion: BBN",
+   "level": "application",
+   "sideA": {
+    "context": "Astro: weak interactions interconverting $n\\leftrightarrow p$ in equilibrium",
+    "tex": "\\frac nP=e^{-\\Delta m c^2/k_BT},\\quad \\Delta mc^2=1.293\\text{ MeV}"
+   },
+   "sideB": {
+    "context": "Cosmology: freeze-out when the interaction rate $\\Gamma$ falls below the Hubble rate $H$",
+    "tex": "\\Gamma(T)\\sim H(T)\\propto T^2\\ \\Rightarrow\\ Y_p=\\frac{2(n/p)}{1+n/p}\\approx0.25"
+   },
+   "map": [
+    [
+     "reaction rate $\\Gamma\\propto n\\langle\\sigma v\\rangle$",
+     "$\\Gamma$ drops as $T^5$ (weak) while $H\\propto T^2$ (radiation era)"
+    ],
+    [
+     "Boltzmann factor for mass difference",
+     "$n/p\\approx0.2$ at freeze-out ($k_BT\\approx0.8$ MeV), $\\approx1/7$ after neutron decay"
+    ],
+    [
+     "helium mass fraction",
+     "all neutrons end in $^4$He: $Y_p=2x/(1+x)$ with $x=1/7$ gives $0.25$"
+    ]
+   ],
+   "regime": "Equilibrium requires $\\Gamma\\gg H$. After freeze-out only free neutron decay ($\\tau_n=880$ s) changes $n/p$ until deuterium forms at $k_BT\\approx0.07$ MeV, since the photon-to-baryon ratio ($\\sim10^9$) delays deuterium by photodissociation.",
+   "experiment": "Observed primordial helium abundance $Y_p=0.245\\pm0.003$ and deuterium $D/H\\approx2.5\\times10^{-5}$ fix the baryon density.",
+   "intuition": "Nuclear physics (Q-values, Boltzmann factors) in a fire that cools: whichever reaction is faster than expansion stays in equilibrium, the rest freezes.",
+   "tex": "\\frac nP=e^{-\\Delta m c^2/k_BT},\\quad \\Delta mc^2=1.293\\text{ MeV}\\ \\ \\leftrightarrow\\ \\ \\Gamma(T)\\sim H(T)\\propto T^2\\ \\Rightarrow\\ Y_p=\\frac{2(n/p)}{1+n/p}\\approx0.25",
+   "why": "Nuclear physics (Q-values, Boltzmann factors) in a fire that cools: whichever reaction is faster than expansion stays in equilibrium, the rest freezes."
+  },
+  {
+   "id": "galactic-dynamics~expanding-universe",
+   "a": "astrophysics/galactic-dynamics",
+   "b": "astrophysics/expanding-universe",
+   "title": "Enclosed mass and the Friedmann equation",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Galaxies: circular orbit, mass enclosed by shell theorem",
+    "tex": "\\frac{v^2}{r}=\\frac{GM(<r)}{r^2}\\ \\Rightarrow\\ M(<r)=\\frac{v^2r}{G}"
+   },
+   "sideB": {
+    "context": "Cosmology: test particle at comoving radius $r=a\\chi$ in a uniform sphere of density $\\rho$",
+    "tex": "\\tfrac12\\dot r^2-\\frac{GM}{r}=E\\ \\Rightarrow\\ H^2=\\frac{8\\pi G}{3}\\rho-\\frac{kc^2}{a^2}"
+   },
+   "map": [
+    [
+     "enclosed mass $M(<r)=\\tfrac43\\pi r^3\\rho$",
+     "same shell theorem for a homogeneous sphere"
+    ],
+    [
+     "circular velocity $v$",
+     "expansion velocity $v=Hr$"
+    ],
+    [
+     "bound orbit, $E<0$",
+     "closed universe $k=+1$; $E=0$ gives critical density $\\rho_c=3H^2/8\\pi G$"
+    ]
+   ],
+   "regime": "Newtonian derivation reproduces Friedmann for matter-only (pressure-free) universes; it fails for radiation and for $\\Lambda$ without GR. With $H_0=70$ km/s/Mpc, $\\rho_c=9.2\\times10^{-27}$ kg/m$^3$ (about 5.5 protons/m$^3$). The Milky Way: $v=220$ km/s at 8 kpc encloses $9\\times10^{10}M_\\odot$.",
+   "experiment": "Flat rotation curves ($v\\approx$ const out to tens of kpc) imply $M(<r)\\propto r$, the dark halo.",
+   "intuition": "Both use the shell theorem: only mass inside the radius matters; orbits vs expansion are the same gravitational dynamics with different initial velocities.",
+   "tex": "\\frac{v^2}{r}=\\frac{GM(<r)}{r^2}\\ \\Rightarrow\\ M(<r)=\\frac{v^2r}{G}\\ \\ \\leftrightarrow\\ \\ \\tfrac12\\dot r^2-\\frac{GM}{r}=E\\ \\Rightarrow\\ H^2=\\frac{8\\pi G}{3}\\rho-\\frac{kc^2}{a^2}",
+   "why": "Both use the shell theorem: only mass inside the radius matters; orbits vs expansion are the same gravitational dynamics with different initial velocities."
+  },
+  {
+   "id": "harmonic-oscillator-elevator~perturbation-forge",
+   "a": "qm/harmonic-oscillator-elevator",
+   "b": "qm/perturbation-forge",
+   "title": "Anharmonic oscillator with ladder operators",
+   "level": "application",
+   "sideA": {
+    "context": "QM: oscillator with $x=\\sqrt{\\hbar/2m\\omega}\\,(a+a^\\dagger)$",
+    "tex": "\\langle n|x^4|n\\rangle=3\\Big(\\frac{\\hbar}{2m\\omega}\\Big)^2(2n^2+2n+1)"
+   },
+   "sideB": {
+    "context": "Perturbation theory: $H=H_0+\\lambda x^4$",
+    "tex": "E_n^{(1)}=\\lambda\\langle n|x^4|n\\rangle=\\frac{3\\lambda\\hbar^2}{4m^2\\omega^2}(2n^2+2n+1)"
+   },
+   "map": [
+    [
+     "non-degenerate level $|n\\rangle$",
+     "unperturbed oscillator states with $E_n^{(0)}=\\hbar\\omega(n+\\tfrac12)$"
+    ],
+    [
+     "ladder operators $a,a^\\dagger$",
+     "make the matrix elements of $H'$ calculable by counting the paths of raising/lowering"
+    ],
+    [
+     "selection rule $\\Delta n\\in\\{0,\\pm2,\\pm4\\}$",
+     "$x^4$ couples $n$ to $n\\pm2,\\pm4$ at second order"
+    ]
+   ],
+   "regime": "First order is valid for $E^{(1)}\\ll\\hbar\\omega$, i.e. $\\lambda\\hbar/m^2\\omega^3\\ll1$; higher $n$ makes it worse because $E^{(1)}\\propto n^2$. For the quartic oscillator the perturbation series is asymptotic, not convergent.",
+   "experiment": "Level spacing of anharmonic vibrations of molecules (overtones are not exactly at $n\\omega$) and thermal expansion of crystals.",
+   "intuition": "Ladder operators turn each position operator into $a+a^\\dagger$, so every perturbation theory integral becomes an algebraic count.",
+   "tex": "\\langle n|x^4|n\\rangle=3\\Big(\\frac{\\hbar}{2m\\omega}\\Big)^2(2n^2+2n+1)\\ \\ \\leftrightarrow\\ \\ E_n^{(1)}=\\lambda\\langle n|x^4|n\\rangle=\\frac{3\\lambda\\hbar^2}{4m^2\\omega^2}(2n^2+2n+1)",
+   "why": "Ladder operators turn each position operator into $a+a^\\dagger$, so every perturbation theory integral becomes an algebraic count."
+  },
+  {
+   "id": "angular-momentum-spin~hydrogen-lamp",
+   "a": "qm/angular-momentum-spin",
+   "b": "qm/hydrogen-lamp",
+   "title": "Zeeman splitting of hydrogen lines",
+   "level": "application",
+   "sideA": {
+    "context": "QM: orbital angular momentum $l$, magnetic moment $-\\mu_B\\mathbf L/\\hbar$ in field $B$",
+    "tex": "E_Z=\\mu_B B\\,m_l\\quad(\\text{normal Zeeman effect})"
+   },
+   "sideB": {
+    "context": "Hydrogen lamp: Balmer line H$\\alpha$ in a magnetic field",
+    "tex": "\\Delta E=\\mu_BB=58\\ \\mu\\text{eV/T}\\ \\Rightarrow\\ \\Delta\\lambda=\\frac{\\lambda^2\\mu_BB}{hc}"
+   },
+   "map": [
+    [
+     "$m_l=-1,0,+1$",
+     "three lines: $\\pi$ ($\\Delta m_l=0$) and $\\sigma_\\pm$ ($\\Delta m_l=\\pm1$)"
+    ],
+    [
+     "$g_J$ with spin included",
+     "anomalous Zeeman effect (spin-orbit $\\gg\\mu_BB$)"
+    ],
+    [
+     "$\\mu_BB$ at 1 T",
+     "$\\Delta\\lambda=0.020$ nm for H$\\alpha$ ($656.3$ nm)"
+    ]
+   ],
+   "regime": "Normal Zeeman applies when spin is zero or when $\\mu_BB\\gg$ spin-orbit (Paschen-Back); in weak fields with spin-orbit, $g_J$ weights. For H $n=2$, fine structure is $4.5\\times10^{-5}$ eV, comparable to $\\mu_BB$ at $0.8$ T.",
+   "experiment": "Spectrograph at $R=\\lambda/\\Delta\\lambda\\sim10^5$ resolves $0.02$ nm; sunspots with $B\\sim0.3$ T show the splitting (Hale 1908).",
+   "intuition": "The magnetic field lifts the $m$-degeneracy of the level: each $m$ gets its own energy, and the emitted photons have the polarisation fixed by $\\Delta m$.",
+   "tex": "E_Z=\\mu_B B\\,m_l\\quad(\\text{normal Zeeman effect})\\ \\ \\leftrightarrow\\ \\ \\Delta E=\\mu_BB=58\\ \\mu\\text{eV/T}\\ \\Rightarrow\\ \\Delta\\lambda=\\frac{\\lambda^2\\mu_BB}{hc}",
+   "why": "The magnetic field lifts the $m$-degeneracy of the level: each $m$ gets its own energy, and the emitted photons have the polarisation fixed by $\\Delta m$."
+  },
+  {
+   "id": "spin-addition-stern-gerlach~entanglement-lab",
+   "a": "qm/spin-addition-stern-gerlach",
+   "b": "qm/entanglement-lab",
+   "title": "The singlet is the entangled state",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Two spins-1/2 coupled to total spin $S=0$",
+    "tex": "|0,0\\rangle=\\tfrac1{\\sqrt2}\\big(|\\uparrow\\downarrow\\rangle-|\\downarrow\\uparrow\\rangle\\big)"
+   },
+   "sideB": {
+    "context": "Measurement of spin along $\\hat a$ and $\\hat b$ on the two particles",
+    "tex": "E(\\hat a,\\hat b)=-\\hat a\\cdot\\hat b=-\\cos\\theta,\\quad S_{\\rm CHSH}=2\\sqrt2"
+   },
+   "map": [
+    [
+     "$S=0$ (singlet)",
+     "maximally entangled pair, not a product of single-particle states"
+    ],
+    [
+     "$\\mathbf S_{\\rm tot}|0,0\\rangle=0$",
+     "perfect anticorrelation along any common axis"
+    ],
+    [
+     "Clebsch-Gordan coefficients $\\pm1/\\sqrt2$",
+     "amplitudes of the Bell state; they cannot factor"
+    ]
+   ],
+   "regime": "Holds for ideal projective measurements and no decoherence. Local hidden variable theories satisfy $|S_{\\rm CHSH}|\\le2$; the singlet reaches $2\\sqrt2=2.83$ for suitable angles.",
+   "experiment": "Aspect 1982 and loophole-free tests (2015) measure $S\\approx2.4$ to $2.8$ with photon or electron pairs.",
+   "intuition": "The Clebsch-Gordan decomposition makes the singlet's anticorrelation automatic; entanglement is a property of that coupled state.",
+   "tex": "|0,0\\rangle=\\tfrac1{\\sqrt2}\\big(|\\uparrow\\downarrow\\rangle-|\\downarrow\\uparrow\\rangle\\big)\\ \\ \\leftrightarrow\\ \\ E(\\hat a,\\hat b)=-\\hat a\\cdot\\hat b=-\\cos\\theta,\\quad S_{\\rm CHSH}=2\\sqrt2",
+   "why": "The Clebsch-Gordan decomposition makes the singlet's anticorrelation automatic; entanglement is a property of that coupled state."
+  },
+  {
+   "id": "hydrogen-lamp~perturbation-forge",
+   "a": "qm/hydrogen-lamp",
+   "b": "qm/perturbation-forge",
+   "title": "Fine structure as first-order perturbation",
+   "level": "application",
+   "sideA": {
+    "context": "Hydrogen with relativistic and spin-orbit corrections",
+    "tex": "E_{nj}^{(1)}=E_n\\,\\frac{\\alpha^2}{n^2}\\Big(\\frac{n}{j+1/2}-\\frac34\\Big)"
+   },
+   "sideB": {
+    "context": "Degenerate perturbation theory: diagonalise $H'$ in the degenerate subspace",
+    "tex": "\\langle n l j m_j|H'|n l' j' m_j'\\rangle\\ \\text{diagonal in the coupled basis}"
+   },
+   "map": [
+    [
+     "degenerate $n=2$ subspace",
+     "splits into $2p_{3/2}$ and $2p_{1/2}$ (and $2s_{1/2}$ degenerate with $2p_{1/2}$ at this order)"
+    ],
+    [
+     "good quantum numbers",
+     "$j$, $m_j$ (since $\\mathbf L\\cdot\\mathbf S$ commutes with $J^2$, not with $L_z,S_z$)"
+    ],
+    [
+     "splitting $E_{3/2}-E_{1/2}$",
+     "$\\frac{\\alpha^2}{4}|E_2|\\cdot1=4.5\\times10^{-5}$ eV ($10.9$ GHz)"
+    ]
+   ],
+   "regime": "Valid for $H'\\ll$ level spacing; relative size $\\alpha^2/n^2\\approx5\\times10^{-5}$ for $n=1$. It needs the right basis: $|n,l,m_l,m_s\\rangle$ would give wrong results because $H'$ is not diagonal there.",
+   "experiment": "Fine-structure splitting of Balmer lines requires resolution $\\lambda/\\Delta\\lambda\\sim10^5$; the Lamb shift lifts the $2s$-$2p_{1/2}$ degeneracy (1057 MHz).",
+   "intuition": "Perturbation theory is only meaningful in the basis that diagonalises the perturbation inside each degenerate level.",
+   "tex": "E_{nj}^{(1)}=E_n\\,\\frac{\\alpha^2}{n^2}\\Big(\\frac{n}{j+1/2}-\\frac34\\Big)\\ \\ \\leftrightarrow\\ \\ \\langle n l j m_j|H'|n l' j' m_j'\\rangle\\ \\text{diagonal in the coupled basis}",
+   "why": "Perturbation theory is only meaningful in the basis that diagonalises the perturbation inside each degenerate level."
+  },
+  {
+   "id": "fermi-sea~degenerate-matter",
+   "a": "solid-state/fermi-sea",
+   "b": "astrophysics/degenerate-matter",
+   "title": "Only a thin shell of electrons carries heat",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Metals: Sommerfeld heat capacity of the degenerate electron gas, $T\\ll T_F$",
+    "tex": "C_{el}=\\frac{\\pi^2}{2}\\,Nk_B\\,\\frac{T}{T_F}=\\gamma T"
+   },
+   "sideB": {
+    "context": "White dwarf interior: electron gas with $T\\ll T_F$ inside a classical ion gas",
+    "tex": "C_{\\rm ions}=\\tfrac32Nk_B\\gg C_{el}\\sim\\frac{\\pi^2}{2}Nk_B\\frac{T}{T_F}"
+   },
+   "map": [
+    [
+     "$T_F=E_F/k_B$ of the metal ($8.2\\times10^4$ K for Cu)",
+     "$T_F\\sim10^9$ K for $n_e\\sim10^{35}$ m$^{-3}$"
+    ],
+    [
+     "fraction $T/T_F$ of electrons that can absorb heat",
+     "same fraction, so the electrons are a heat-less pressure source and the ions store the heat"
+    ],
+    [
+     "$C_{el}/Nk_B=\\frac{\\pi^2}{2}\\frac{300\\text{ K}}{T_F}=0.018$ (Cu, 300 K)",
+     "$C_{el}/Nk_B\\approx0.05$ at $10^7$ K"
+    ]
+   ],
+   "regime": "Requires $T\\ll T_F$ (Pauli blocking: only states within $k_BT$ of $E_F$ can be excited). For Cu at 300 K only $0.6\\%$ of the Dulong-Petit value $3Nk_B$ comes from electrons; it dominates below $\\sim4$ K. In a white dwarf the cooling is controlled by the ions (heat capacity) and by the thin non-degenerate envelope.",
+   "experiment": "Cu: $\\gamma\\approx0.7$ mJ/(mol K$^2$) from low-$T$ calorimetry. White-dwarf cooling curves (luminosity function of the Galactic disc) give ages up to $\\sim10$ Gyr.",
+   "intuition": "Pauli blocking prevents most electrons from taking up energy; the same Fermi surface constraint sets both the metallic heat capacity and the slow cooling of dead stars.",
+   "tex": "C_{el}=\\frac{\\pi^2}{2}\\,Nk_B\\,\\frac{T}{T_F}=\\gamma T\\ \\ \\leftrightarrow\\ \\ C_{\\rm ions}=\\tfrac32Nk_B\\gg C_{el}\\sim\\frac{\\pi^2}{2}Nk_B\\frac{T}{T_F}",
+   "why": "Pauli blocking prevents most electrons from taking up energy; the same Fermi surface constraint sets both the metallic heat capacity and the slow cooling of dead stars."
+  },
+  {
+   "id": "bonding-grotto~tunneling-bridge",
+   "a": "solid-state/bonding-grotto",
+   "b": "qm/tunneling-bridge",
+   "title": "A covalent bond is a split double well",
+   "level": "analogy",
+   "sideA": {
+    "context": "Solid state: two atoms with orbitals $|a\\rangle$, $|b\\rangle$ and overlap/transfer integral $t=-\\langle a|H|b\\rangle$",
+    "tex": "E_\\pm=\\epsilon_0\\mp t,\\quad |\\pm\\rangle=\\tfrac1{\\sqrt2}(|a\\rangle\\pm|b\\rangle)"
+   },
+   "sideB": {
+    "context": "QM: a particle in a symmetric double well, barrier of width $d$ between the minima",
+    "tex": "\\Delta E=E_{\\rm odd}-E_{\\rm even}=2t\\sim\\hbar\\omega\\,e^{-\\kappa d}"
+   },
+   "map": [
+    [
+     "bonding orbital $|+\\rangle$, lower by $t$",
+     "even ground state of the double well"
+    ],
+    [
+     "antibonding $|-\\rangle$, higher by $t$",
+     "odd first excited state"
+    ],
+    [
+     "transfer integral $t$",
+     "proportional to the barrier tunnelling amplitude $\\propto e^{-\\kappa d}$"
+    ],
+    [
+     "bond length $R_e$",
+     "balance of $t(R)$ (decreasing with distance) against ion-ion repulsion"
+    ]
+   ],
+   "regime": "Two-level (tight-binding) approximation holds when the splitting is small compared to the other level spacings, $t\\ll\\hbar\\omega$, and $\\kappa d\\gg1$. Simple LCAO for H$_2^+$: $D_e=1.76$ eV at $R_e=2.49\\,a_0$, while the exact value is $2.79$ eV at $2.00\\,a_0$.",
+   "experiment": "Ammonia inversion: the N atom tunnels between two sides of the H$_3$ plane, splitting $h\\times23.79$ GHz $=98$ $\\mu$eV (maser line). In solids, $N$ coupled wells give a band of width $4t$.",
+   "intuition": "Tunnelling lets the electron be in both wells at once; the symmetric combination has no node between them and is lower, giving the bond. The exponential sensitivity to distance is why bonds are short-ranged.",
+   "tex": "E_\\pm=\\epsilon_0\\mp t,\\quad |\\pm\\rangle=\\tfrac1{\\sqrt2}(|a\\rangle\\pm|b\\rangle)\\ \\ \\leftrightarrow\\ \\ \\Delta E=E_{\\rm odd}-E_{\\rm even}=2t\\sim\\hbar\\omega\\,e^{-\\kappa d}",
+   "why": "Tunnelling lets the electron be in both wells at once; the symmetric combination has no node between them and is lower, giving the bond. The exponential sensitivity to distance is why bonds are short-ranged."
+  },
+  {
+   "id": "bonding-grotto~hydrogen-lamp",
+   "a": "solid-state/bonding-grotto",
+   "b": "qm/hydrogen-lamp",
+   "title": "LCAO: building molecules from hydrogen orbitals",
+   "level": "application",
+   "sideA": {
+    "context": "Solid state: LCAO ansatz $\\psi=c_a\\phi_a+c_b\\phi_b$ for two identical atoms, overlap $S=\\langle\\phi_a|\\phi_b\\rangle$",
+    "tex": "E_\\pm=\\frac{H_{aa}\\pm H_{ab}}{1\\pm S},\\quad H_{ab}<0"
+   },
+   "sideB": {
+    "context": "QM: hydrogen 1s orbital $\\phi=\\frac1{\\sqrt{\\pi a_0^3}}e^{-r/a_0}$, $E_{1s}=-13.6$ eV",
+    "tex": "S=e^{-R/a_0}\\Big(1+\\frac R{a_0}+\\frac{R^2}{3a_0^2}\\Big)"
+   },
+   "map": [
+    [
+     "$H_{aa}$",
+     "$E_{1s}$ plus Coulomb integral to the other nucleus"
+    ],
+    [
+     "$H_{ab}$",
+     "exchange (resonance) integral, negative because the orbitals overlap in the attractive region"
+    ],
+    [
+     "$S(R)$",
+     "analytic function of $R/a_0$; at $R=2.5\\,a_0$, $S\\approx0.46$"
+    ]
+   ],
+   "regime": "Works best for small overlap and for atoms whose valence orbitals are hydrogen-like (s orbitals). The LCAO H$_2^+$ binding energy $1.76$ eV at $R_e=2.49\\,a_0$ underestimates the exact $2.79$ eV; adding a variational exponent improves it.",
+   "experiment": "Molecular spectroscopy of H$_2$ and H$_2^+$: $D_0(\\mathrm{H}_2)=4.52$ eV, $R_e=0.74$ Å, with vibrational quanta $\\hbar\\omega\\approx0.52$ eV.",
+   "intuition": "Atomic orbitals from the hydrogen problem are the basis functions; the bond forms because the electron can be shared, lowering the kinetic energy.",
+   "tex": "E_\\pm=\\frac{H_{aa}\\pm H_{ab}}{1\\pm S},\\quad H_{ab}<0\\ \\ \\leftrightarrow\\ \\ S=e^{-R/a_0}\\Big(1+\\frac R{a_0}+\\frac{R^2}{3a_0^2}\\Big)",
+   "why": "Atomic orbitals from the hydrogen problem are the basis functions; the bond forms because the electron can be shared, lowering the kinetic energy."
+  },
+  {
+   "id": "semiconductor-forge~fermi-sea",
+   "a": "solid-state/semiconductor-forge",
+   "b": "solid-state/fermi-sea",
+   "title": "Degenerate metal versus Boltzmann semiconductor",
+   "level": "analogy",
+   "sideA": {
+    "context": "Metal: Fermi-Dirac occupation with $E_F\\gg k_BT$, $\\mu\\approx E_F$ inside the band",
+    "tex": "f(E)=\\frac1{e^{(E-\\mu)/k_BT}+1},\\quad n\\approx8.5\\times10^{28}\\text{ m}^{-3}\\text{ (Cu)}"
+   },
+   "sideB": {
+    "context": "Semiconductor: $\\mu$ in the gap, $E_c-\\mu\\gg k_BT$, non-degenerate",
+    "tex": "n=N_c\\,e^{-(E_c-\\mu)/k_BT},\\quad N_c=2\\Big(\\frac{m^*k_BT}{2\\pi\\hbar^2}\\Big)^{3/2},\\quad n_i\\propto e^{-E_g/2k_BT}"
+   },
+   "map": [
+    [
+     "Fermi-Dirac $f(E)$",
+     "reduces to the Boltzmann factor $e^{-(E-\\mu)/k_BT}$ when $E-\\mu\\gg k_BT$"
+    ],
+    [
+     "$E_F$ in the band",
+     "$\\mu$ at mid-gap for intrinsic material (up to $\\tfrac34k_BT\\ln(m_h^*/m_e^*)$)"
+    ],
+    [
+     "$n$ nearly independent of $T$",
+     "$n_i\\propto T^{3/2}e^{-E_g/2k_BT}$, exponentially $T$-dependent"
+    ]
+   ],
+   "regime": "Boltzmann statistics need $n\\ll N_c$. Si at 300 K: $E_g=1.12$ eV, $k_BT=25.9$ meV, $e^{-E_g/2k_BT}=3.9\\times10^{-10}$, so $n_i\\approx10^{10}$ cm$^{-3}$, $13$ orders below Cu's $8.5\\times10^{22}$ cm$^{-3}$. Heavy doping ($>10^{19}$ cm$^{-3}$) makes a semiconductor degenerate and metallic.",
+   "experiment": "Resistivity of Cu rises weakly with $T$ (more scattering), that of Si falls exponentially with $T$; the slope of $\\ln\\sigma$ vs $1/T$ gives $E_g/2$.",
+   "intuition": "The same distribution: in a metal the Fermi sea fills it up to $E_F$, in a semiconductor the chemical potential lies in the gap and only the exponential tail reaches the band.",
+   "tex": "f(E)=\\frac1{e^{(E-\\mu)/k_BT}+1},\\quad n\\approx8.5\\times10^{28}\\text{ m}^{-3}\\text{ (Cu)}\\ \\ \\leftrightarrow\\ \\ n=N_c\\,e^{-(E_c-\\mu)/k_BT},\\quad N_c=2\\Big(\\frac{m^*k_BT}{2\\pi\\hbar^2}\\Big)^{3/2},\\quad n_i\\propto e^{-E_g/2k_BT}",
+   "why": "The same distribution: in a metal the Fermi sea fills it up to $E_F$, in a semiconductor the chemical potential lies in the gap and only the exponential tail reaches the band."
+  },
+  {
+   "id": "lattice-gate~formalism-and-uncertainty",
+   "a": "solid-state/lattice-gate",
+   "b": "qm/formalism-and-uncertainty",
+   "title": "Bloch theorem is a commuting operator",
+   "level": "prerequisite",
+   "sideA": {
+    "context": "Solid state: periodic potential $V(\\mathbf r+\\mathbf R)=V(\\mathbf r)$, eigenstates labelled by crystal momentum $\\mathbf k$",
+    "tex": "\\psi_{\\mathbf k}(\\mathbf r+\\mathbf R)=e^{i\\mathbf k\\cdot\\mathbf R}\\psi_{\\mathbf k}(\\mathbf r)"
+   },
+   "sideB": {
+    "context": "QM: translation operator and commuting observables",
+    "tex": "T_a=e^{-i\\hat pa/\\hbar},\\quad[H,T_a]=0\\ \\Rightarrow\\ \\text{common eigenstates},\\ T_a\\psi=e^{-ika}\\psi"
+   },
+   "map": [
+    [
+     "lattice symmetry",
+     "$[H,T_{\\mathbf R}]=0$ for lattice vectors only, not for all translations"
+    ],
+    [
+     "eigenvalue $e^{ik a}$",
+     "unit-modulus eigenvalue of unitary $T$; $k$ is defined only mod $2\\pi/a$"
+    ],
+    [
+     "Brillouin zone $-\\pi/a<k\\le\\pi/a$",
+     "all inequivalent eigenvalues of $T_a$"
+    ]
+   ],
+   "regime": "Exact for an infinite perfect periodic lattice. Crystal momentum $\\hbar k$ is not the momentum $\\langle p\\rangle$ because $[p,T]\\neq0$ when $V$ is only discretely periodic. For Cu (fcc, $a=3.61$ Å) the zone boundary along the cube edge is $\\pi/a=0.87$ Å$^{-1}$, where a free electron has $\\hbar^2k^2/2m=2.9$ eV.",
+   "experiment": "ARPES measures $E(\\mathbf k)$ within the first zone; Bragg reflection at the zone boundary opens gaps (Lattice Gate).",
+   "intuition": "A symmetry gives a conserved quantity; for a lattice the symmetry is discrete, so the conserved quantity ($k$) is only defined up to reciprocal lattice vectors.",
+   "tex": "\\psi_{\\mathbf k}(\\mathbf r+\\mathbf R)=e^{i\\mathbf k\\cdot\\mathbf R}\\psi_{\\mathbf k}(\\mathbf r)\\ \\ \\leftrightarrow\\ \\ T_a=e^{-i\\hat pa/\\hbar},\\quad[H,T_a]=0\\ \\Rightarrow\\ \\text{common eigenstates},\\ T_a\\psi=e^{-ika}\\psi",
+   "why": "A symmetry gives a conserved quantity; for a lattice the symmetry is discrete, so the conserved quantity ($k$) is only defined up to reciprocal lattice vectors."
+  },
+  {
+   "id": "phonon-halls~radiative-transfer",
+   "a": "solid-state/phonon-halls",
+   "b": "astrophysics/radiative-transfer",
+   "title": "Kinetic conduction: phonons and photons",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Solid state: thermal conductivity of a phonon gas with heat capacity $C$ (per volume), speed $v$, mean free path $\\ell$",
+    "tex": "\\kappa_{\\rm th}=\\tfrac13\\,C\\,v\\,\\ell"
+   },
+   "sideB": {
+    "context": "Stars: radiative conductivity of a photon gas, $C_{\\rm rad}=4aT^3$, speed $c$, $\\ell=1/(\\kappa\\rho)$",
+    "tex": "K_{\\rm rad}=\\frac{4acT^3}{3\\kappa\\rho}=\\tfrac13C_{\\rm rad}c\\,\\ell"
+   },
+   "map": [
+    [
+     "$C\\propto T^3$ (Debye)",
+     "$C_{\\rm rad}=4aT^3$ (Stefan-Boltzmann $u=aT^4$)"
+    ],
+    [
+     "$v$ (sound)",
+     "$c$"
+    ],
+    [
+     "phonon scattering: Umklapp, defects, boundaries",
+     "photon scattering and absorption: opacity $\\kappa$"
+    ],
+    [
+     "low $T$: $\\ell$ limited by sample size, $\\kappa_{\\rm th}\\propto T^3$",
+     "energy flux $F=-K_{\\rm rad}\\,dT/dr=L/4\\pi r^2$, so $dT/dr=-\\frac{3\\kappa\\rho L}{16\\pi acT^3r^2}$"
+    ]
+   ],
+   "regime": "Both need the diffusion regime $\\ell\\ll$ size. At the solar centre ($T=1.57\\times10^7$ K, $\\rho=1.5\\times10^5$ kg/m$^3$, $\\kappa=0.1$ m$^2$/kg) $C_{\\rm rad}=1.2\\times10^7$ J/(m$^3$K) and $\\ell=0.07$ mm. In dielectric crystals $\\kappa_{\\rm th}$ peaks at $T\\approx\\Theta_D/20$ and falls as $1/T$ above (Umklapp).",
+   "experiment": "The temperature gradient in the radiative zone follows from the diffusion equation (stellar structure); low-temperature thermal conductivity of insulators shows the $T^3$ rise and then the maximum.",
+   "intuition": "Both are a gas of massless bosons carrying heat in random-walk steps; the kinetic formula $\\tfrac13Cv\\ell$ is the same, the difference is which scattering process sets $\\ell$.",
+   "tex": "\\kappa_{\\rm th}=\\tfrac13\\,C\\,v\\,\\ell\\ \\ \\leftrightarrow\\ \\ K_{\\rm rad}=\\frac{4acT^3}{3\\kappa\\rho}=\\tfrac13C_{\\rm rad}c\\,\\ell",
+   "why": "Both are a gas of massless bosons carrying heat in random-walk steps; the kinetic formula $\\tfrac13Cv\\ell$ is the same, the difference is which scattering process sets $\\ell$."
+  },
+  {
+   "id": "degenerate-core~stellar-forge",
+   "a": "solid-state/degenerate-core",
+   "b": "astrophysics/stellar-forge",
+   "title": "Degeneracy removes the stellar thermostat: helium flash",
+   "level": "application",
+   "sideA": {
+    "context": "Solid state / degenerate gas: pressure independent of temperature for $T\\ll T_F$",
+    "tex": "P\\approx\\tfrac25nE_F\\,\\big[1+\\mathcal O\\big((T/T_F)^2\\big)\\big]"
+   },
+   "sideB": {
+    "context": "Red-giant helium core with $\\rho_c\\approx10^9$ kg/m$^3$ and $T\\approx10^8$ K, triple-alpha rate $\\varepsilon_{3\\alpha}\\propto T^{\\sim40}$",
+    "tex": "\\text{heat}\\ \\Rightarrow\\ T\\uparrow,\\ P\\ \\text{unchanged}\\ \\Rightarrow\\ \\text{no expansion}\\ \\Rightarrow\\ \\varepsilon\\uparrow"
+   },
+   "map": [
+    [
+     "$n=\\rho/(\\mu_em_u)=3.0\\times10^{35}$ m$^{-3}$",
+     "electron density of the core ($\\mu_e=2$)"
+    ],
+    [
+     "$E_F\\approx0.16$ MeV, $T_F\\approx1.9\\times10^9$ K",
+     "$T/T_F\\approx0.05$ at $10^8$ K"
+    ],
+    [
+     "bulk modulus insensitive to $T$",
+     "no negative feedback: normal stars expand when heated and cool, degenerate ones do not"
+    ]
+   ],
+   "regime": "Non-degenerate gas: $P\\propto\\rho T$ increases with heating and expands, throttling the burn (stable thermostat). Degenerate gas: only the lifting of degeneracy ($T\\sim T_F$) restores $P(T)$, which takes a thermonuclear runaway ($L_{3\\alpha}\\sim10^{10}L_\\odot$ for seconds) before the core expands. Valid for stars of $M\\lesssim2.2\\,M_\\odot$.",
+   "experiment": "Observationally the red-clump and horizontal-branch stars (post-flash) have nearly identical luminosity because the core mass at the flash is fixed ($0.47\\,M_\\odot$).",
+   "intuition": "A stove with a throttle that cannot open: heat the degenerate gas and it cannot expand, so the energy goes into more burning.",
+   "tex": "P\\approx\\tfrac25nE_F\\,\\big[1+\\mathcal O\\big((T/T_F)^2\\big)\\big]\\ \\ \\leftrightarrow\\ \\ \\text{heat}\\ \\Rightarrow\\ T\\uparrow,\\ P\\ \\text{unchanged}\\ \\Rightarrow\\ \\text{no expansion}\\ \\Rightarrow\\ \\varepsilon\\uparrow",
+   "why": "A stove with a throttle that cannot open: heat the degenerate gas and it cannot expand, so the energy goes into more burning."
+  },
+  {
+   "id": "fermi-sea~early-universe",
+   "a": "solid-state/fermi-sea",
+   "b": "astrophysics/early-universe",
+   "title": "Fermi-Dirac vs Bose-Einstein: relic neutrinos",
+   "level": "analogy",
+   "sideA": {
+    "context": "Metals: fermions with density of states $\\propto\\sqrt E$, $T\\ll T_F$",
+    "tex": "n=\\int g(E)f_{FD}(E)\\,dE,\\quad f_{FD}=\\frac1{e^{(E-\\mu)/k_BT}+1}"
+   },
+   "sideB": {
+    "context": "Cosmology: massless fermions (neutrinos) decoupled at $k_BT\\sim1$ MeV, versus photons",
+    "tex": "n_\\nu=\\tfrac34\\cdot\\frac{4}{11}\\,n_\\gamma\\ \\text{per species (}\\nu+\\bar\\nu)=112\\ \\text{cm}^{-3},\\quad T_\\nu=\\Big(\\frac4{11}\\Big)^{1/3}T_\\gamma=1.95\\text{ K}"
+   },
+   "map": [
+    [
+     "$f_{FD}$ with $+1$",
+     "$\\int x^2/(e^x+1)=\\tfrac34\\int x^2/(e^x-1)$: factor $\\tfrac34$ in $n$, $\\tfrac78$ in $\\rho$"
+    ],
+    [
+     "$\\mu=E_F\\gg k_BT$",
+     "$\\mu\\approx0$, thermal (non-degenerate) at $T\\gg m_\\nu$"
+    ],
+    [
+     "Pauli blocking",
+     "limits phase-space density to $\\le1$ and gives a lower mass bound for fermionic dark matter (Tremaine-Gunn)"
+    ]
+   ],
+   "regime": "Massless approximation holds for $T_\\nu\\gg m_\\nu$; since $\\sum m_\\nu\\gtrsim0.06$ eV, at least two species are non-relativistic today. $e^+e^-$ annihilation at $k_BT\\sim0.5$ MeV heated the photons by $(11/4)^{1/3}$ but not the neutrinos.",
+   "experiment": "Not directly detected. $N_{\\rm eff}=3.0$ from the CMB damping tail and BBN helium measures the radiation density from relic neutrinos.",
+   "intuition": "The metallic electron gas and the cosmic neutrino sea are both Fermi gases with the same statistics; what differs is the temperature relative to $\\mu$: far below it (metal) versus far above it (early universe).",
+   "tex": "n=\\int g(E)f_{FD}(E)\\,dE,\\quad f_{FD}=\\frac1{e^{(E-\\mu)/k_BT}+1}\\ \\ \\leftrightarrow\\ \\ n_\\nu=\\tfrac34\\cdot\\frac{4}{11}\\,n_\\gamma\\ \\text{per species (}\\nu+\\bar\\nu)=112\\ \\text{cm}^{-3},\\quad T_\\nu=\\Big(\\frac4{11}\\Big)^{1/3}T_\\gamma=1.95\\text{ K}",
+   "why": "The metallic electron gas and the cosmic neutrino sea are both Fermi gases with the same statistics; what differs is the temperature relative to $\\mu$: far below it (metal) versus far above it (early universe)."
+  },
+  {
+   "id": "magnet-vault~interstellar-medium",
+   "a": "solid-state/magnet-vault",
+   "b": "astrophysics/interstellar-medium",
+   "title": "Zeeman effect measures interstellar fields",
+   "level": "application",
+   "sideA": {
+    "context": "Solid state / atomic: level with $g_F$ in field $B$: $\\Delta E=g_F m_F\\mu_BB$",
+    "tex": "\\Delta\\nu=\\frac{g_F\\mu_BB}{h}=1.40\\ \\text{MHz/G}\\ (g_F=1)"
+   },
+   "sideB": {
+    "context": "ISM: 21 cm line of HI in a cloud with line-of-sight field $B_\\parallel$, thermal width $\\Delta v\\sim1$ km/s",
+    "tex": "\\nu_{\\sigma_\\pm}=\\nu_0\\pm1.4\\ \\text{Hz}\\,(B/\\mu\\text{G}),\\quad V(\\nu)\\propto B_\\parallel\\,\\frac{dI}{d\\nu}"
+   },
+   "map": [
+    [
+     "$F=1$ hyperfine level with $g_F\\approx1$",
+     "upper level of 21 cm: $m_F=0,\\pm1$ split by $1.4$ Hz/$\\mu$G"
+    ],
+    [
+     "circular polarisation $\\sigma_\\pm$",
+     "opposite handedness: the splitting between them is $2.8$ Hz/$\\mu$G"
+    ],
+    [
+     "typical $B$",
+     "$B\\approx5\\ \\mu$G: shift $\\approx7$ Hz per component"
+    ]
+   ],
+   "regime": "The splitting ($14$ Hz) is far smaller than the Doppler width ($\\sim5$ kHz), so it is not resolved; the Stokes-$V$ spectrum gives the derivative of $I(\\nu)$ times $B_\\parallel$. Needs strong lines, high S/N; also OH, CN masers for larger fields.",
+   "experiment": "Arecibo, GBT HI Zeeman measurements give $B\\sim5$ to $10\\ \\mu$G in diffuse clouds, $10$ to $1000\\ \\mu$G in dense molecular clouds. Starlight polarisation and Faraday rotation complement.",
+   "intuition": "The same level splitting as for an atom in the lab, but with a precision of one part in $10^{8}$ of the line frequency, which radio astronomers detect via circular polarisation.",
+   "tex": "\\Delta\\nu=\\frac{g_F\\mu_BB}{h}=1.40\\ \\text{MHz/G}\\ (g_F=1)\\ \\ \\leftrightarrow\\ \\ \\nu_{\\sigma_\\pm}=\\nu_0\\pm1.4\\ \\text{Hz}\\,(B/\\mu\\text{G}),\\quad V(\\nu)\\propto B_\\parallel\\,\\frac{dI}{d\\nu}",
+   "why": "The same level splitting as for an atom in the lab, but with a precision of one part in $10^{8}$ of the line frequency, which radio astronomers detect via circular polarisation."
+  },
+  {
+   "id": "semiconductor-forge~photometry-radiation",
+   "a": "solid-state/semiconductor-forge",
+   "b": "astrophysics/photometry-radiation",
+   "title": "Band gap sets the detector cut-off and LED colour",
+   "level": "application",
+   "sideA": {
+    "context": "Solid state: absorption/emission across the direct gap $E_g$",
+    "tex": "h\\nu\\ge E_g\\ \\Leftrightarrow\\ \\lambda\\le\\lambda_g=\\frac{1.2398\\ \\mu\\text{m}}{E_g/\\text{eV}}"
+   },
+   "sideB": {
+    "context": "Astro: CCD photometry and filter bands (U,B,V,R,I)",
+    "tex": "\\text{quantum efficiency}\\to0\\ \\text{for}\\ \\lambda>\\lambda_g,\\quad m=-2.5\\log_{10}F+\\text{const}"
+   },
+   "map": [
+    [
+     "$E_g=1.12$ eV (Si, indirect)",
+     "CCD cut-off $\\lambda_g=1.107\\ \\mu$m, hence I band and the $\\approx1\\ \\mu$m limit"
+    ],
+    [
+     "$E_g=1.42$ eV (GaAs, direct)",
+     "$\\lambda_g=0.873\\ \\mu$m; used for detectors and red LEDs"
+    ],
+    [
+     "$E_g=0.66$ eV (Ge)",
+     "$\\lambda_g=1.88\\ \\mu$m, infrared detectors; narrow-gap HgCdTe for 2 to 20 $\\mu$m"
+    ]
+   ],
+   "regime": "Photon absorption needs $h\\nu\\ge E_g$ (plus a phonon in indirect-gap materials such as Si, where absorption is weak near the edge so photons penetrate microns deep). Temperature shifts $E_g$ ($dE_g/dT\\approx-0.3$ meV/K), so IR detectors are cooled.",
+   "experiment": "A typical Si CCD detects photons from $\\sim0.4$ to $1.1\\ \\mu$m; infrared photometry (J,H,K at 1.2 to 2.2 $\\mu$m) requires narrower-gap materials.",
+   "intuition": "The same gap that sets the colour of an LED sets the longest wavelength that a detector can see; a star is only observed in the band its detector's gap allows.",
+   "tex": "h\\nu\\ge E_g\\ \\Leftrightarrow\\ \\lambda\\le\\lambda_g=\\frac{1.2398\\ \\mu\\text{m}}{E_g/\\text{eV}}\\ \\ \\leftrightarrow\\ \\ \\text{quantum efficiency}\\to0\\ \\text{for}\\ \\lambda>\\lambda_g,\\quad m=-2.5\\log_{10}F+\\text{const}",
+   "why": "The same gap that sets the colour of an LED sets the longest wavelength that a detector can see; a star is only observed in the band its detector's gap allows."
+  },
+  {
+   "id": "drift-corridor~interstellar-medium",
+   "a": "solid-state/drift-corridor",
+   "b": "astrophysics/interstellar-medium",
+   "title": "Plasma frequency: metals and the ISM",
+   "level": "same-equation",
+   "sideA": {
+    "context": "Solid state: free-electron (Drude) gas, density $n$, dielectric function without damping",
+    "tex": "\\epsilon(\\omega)=1-\\frac{\\omega_p^2}{\\omega^2},\\quad\\omega_p^2=\\frac{ne^2}{\\epsilon_0m}"
+   },
+   "sideB": {
+    "context": "ISM: ionised gas, electron column density $\\mathrm{DM}=\\int n_e\\,dl$, pulsar signal at frequency $\\nu\\gg\\nu_p$",
+    "tex": "v_g=c\\sqrt{1-\\omega_p^2/\\omega^2},\\quad\\Delta t=\\frac{e^2}{8\\pi^2\\epsilon_0m_ec}\\frac{\\mathrm{DM}}{\\nu^2}=4.15\\text{ ms}\\,\\frac{\\mathrm{DM}}{\\mathrm{pc\\,cm^{-3}}}\\Big(\\frac{\\nu}{\\text{GHz}}\\Big)^{-2}"
+   },
+   "map": [
+    [
+     "$n=8.5\\times10^{28}$ m$^{-3}$ (Cu)",
+     "$n_e\\approx0.03$ cm$^{-3}=3\\times10^4$ m$^{-3}$"
+    ],
+    [
+     "$\\hbar\\omega_p\\approx10.8$ eV (free-electron Cu, UV)",
+     "$\\nu_p\\approx1.6$ kHz (the cut-off for radio waves)"
+    ],
+    [
+     "$\\omega<\\omega_p$: $\\epsilon<0$, wave reflected",
+     "$\\omega<\\omega_p$: wave cannot propagate (ionosphere reflects short-wave radio)"
+    ]
+   ],
+   "regime": "Lossless plasma, $\\omega\\tau\\gg1$ (collisionless). In real metals interband transitions shift the reflection edge (Cu is red/orange; the Drude edge is hidden); alkali metals become transparent in the UV near the free-electron value.",
+   "experiment": "Dispersion measure from the arrival-time delay of a pulsar between 1.4 and 0.4 GHz: for $\\mathrm{DM}=50$ pc cm$^{-3}$ the delay at 400 MHz is $1.3$ s; fast radio bursts probe the intergalactic gas the same way.",
+   "intuition": "Free electrons respond to the wave by moving, which makes the medium behave like a metal below $\\omega_p$ (reflection) and slow the group velocity above it.",
+   "tex": "\\epsilon(\\omega)=1-\\frac{\\omega_p^2}{\\omega^2},\\quad\\omega_p^2=\\frac{ne^2}{\\epsilon_0m}\\ \\ \\leftrightarrow\\ \\ v_g=c\\sqrt{1-\\omega_p^2/\\omega^2},\\quad\\Delta t=\\frac{e^2}{8\\pi^2\\epsilon_0m_ec}\\frac{\\mathrm{DM}}{\\nu^2}=4.15\\text{ ms}\\,\\frac{\\mathrm{DM}}{\\mathrm{pc\\,cm^{-3}}}\\Big(\\frac{\\nu}{\\text{GHz}}\\Big)^{-2}",
+   "why": "Free electrons respond to the wave by moving, which makes the medium behave like a metal below $\\omega_p$ (reflection) and slow the group velocity above it."
+  },
+  {
+   "id": "harmonic-oscillator-elevator~photometry-radiation",
+   "a": "qm/harmonic-oscillator-elevator",
+   "b": "astrophysics/photometry-radiation",
+   "title": "A radiation mode is an oscillator",
+   "level": "analogy",
+   "sideA": {
+    "context": "QM: oscillator in thermal equilibrium at temperature $T$",
+    "tex": "\\langle n\\rangle=\\frac1{e^{\\hbar\\omega/k_BT}-1},\\quad\\langle E\\rangle=\\hbar\\omega\\Big(\\langle n\\rangle+\\tfrac12\\Big)"
+   },
+   "sideB": {
+    "context": "Astro: electromagnetic mode of frequency $\\nu$ in a blackbody cavity (photon number)",
+    "tex": "\\bar n_\\nu=\\frac1{e^{h\\nu/k_BT}-1},\\quad B_\\nu=\\frac{2h\\nu^3}{c^2}\\bar n_\\nu"
+   },
+   "map": [
+    [
+     "quantum number $n$",
+     "number of photons in the mode"
+    ],
+    [
+     "$a^\\dagger a$",
+     "photon number operator; $a^\\dagger$ adds a photon"
+    ],
+    [
+     "$k_BT\\gg\\hbar\\omega$",
+     "Rayleigh-Jeans: $\\bar n\\approx k_BT/h\\nu\\gg1$ (classical field)"
+    ],
+    [
+     "$k_BT\\ll\\hbar\\omega$",
+     "Wien tail: $\\bar n\\approx e^{-h\\nu/k_BT}\\ll1$ (few photons)"
+    ]
+   ],
+   "regime": "Each mode of the free field is independent when interactions are negligible; the zero-point $\\tfrac12\\hbar\\omega$ is dropped from the thermal energy of the cavity (it gives the Casimir force, not blackbody emission). At $h\\nu=k_BT$, $\\bar n=1/(e-1)=0.58$.",
+   "experiment": "The spectrum of the CMB is fitted by $\\bar n(\\nu)$; stimulated emission $\\propto\\bar n+1$ explains lasers and masers.",
+   "intuition": "Light is made of the same oscillators: raising the quantum number of a mode adds one photon, with the same ladder structure as the elevator's levels.",
+   "tex": "\\langle n\\rangle=\\frac1{e^{\\hbar\\omega/k_BT}-1},\\quad\\langle E\\rangle=\\hbar\\omega\\Big(\\langle n\\rangle+\\tfrac12\\Big)\\ \\ \\leftrightarrow\\ \\ \\bar n_\\nu=\\frac1{e^{h\\nu/k_BT}-1},\\quad B_\\nu=\\frac{2h\\nu^3}{c^2}\\bar n_\\nu",
+   "why": "Light is made of the same oscillators: raising the quantum number of a mode adds one photon, with the same ladder structure as the elevator's levels."
+  },
+  {
+   "id": "tunneling-bridge~semiconductor-forge",
+   "a": "qm/tunneling-bridge",
+   "b": "solid-state/semiconductor-forge",
+   "title": "Zener tunnelling through the gap",
+   "level": "application",
+   "sideA": {
+    "context": "QM: WKB transmission through a triangular barrier in a uniform field $\\mathcal E$",
+    "tex": "T\\approx\\exp\\Big(-2\\!\\int\\kappa\\,dx\\Big)=\\exp\\Big(-\\frac{4\\sqrt{2m^*}\\,E_g^{3/2}}{3e\\hbar\\mathcal E}\\Big)"
+   },
+   "sideB": {
+    "context": "Semiconductor: reverse-biased heavily doped p-n junction, valence electrons tunnel to the conduction band",
+    "tex": "I_{\\rm Zener}\\propto e^{-b/\\mathcal E},\\quad b=\\frac{4\\sqrt{2m^*}E_g^{3/2}}{3e\\hbar}"
+   },
+   "map": [
+    [
+     "$V_0-E$ (barrier height)",
+     "gap $E_g$ at the band edge; the barrier height varies linearly $E_g-e\\mathcal Ex$"
+    ],
+    [
+     "width $L=E_g/e\\mathcal E$",
+     "tunnelling length through the gap"
+    ],
+    [
+     "mass $m$",
+     "tunnelling (reduced) effective mass $m^*\\approx0.2\\,m_e$ in Si"
+    ]
+   ],
+   "regime": "WKB valid for $\\kappa L\\gg1$. For Si ($E_g=1.12$ eV, $m^*=0.2m_e$) the exponent is $36$ at $\\mathcal E=10^8$ V/m and $12$ at $3\\times10^8$ V/m, so $T$ rises from $10^{-16}$ to $6\\times10^{-6}$: a very steep threshold (Zener diode breakdown $<6$ V). At low doping avalanche breakdown dominates.",
+   "experiment": "The Esaki tunnel diode shows negative differential resistance; the Zener breakdown voltage has a negative temperature coefficient (gap shrinks with $T$), opposite to avalanche breakdown.",
+   "intuition": "The gap is the classically forbidden region; a strong electric field tilts the bands so that the forbidden region becomes thin, and electrons tunnel exactly like on the bridge.",
+   "tex": "T\\approx\\exp\\Big(-2\\!\\int\\kappa\\,dx\\Big)=\\exp\\Big(-\\frac{4\\sqrt{2m^*}\\,E_g^{3/2}}{3e\\hbar\\mathcal E}\\Big)\\ \\ \\leftrightarrow\\ \\ I_{\\rm Zener}\\propto e^{-b/\\mathcal E},\\quad b=\\frac{4\\sqrt{2m^*}E_g^{3/2}}{3e\\hbar}",
+   "why": "The gap is the classically forbidden region; a strong electric field tilts the bands so that the forbidden region becomes thin, and electrons tunnel exactly like on the bridge."
+  },
+  {
+   "id": "angular-momentum-spin~degenerate-matter",
+   "a": "qm/angular-momentum-spin",
+   "b": "astrophysics/degenerate-matter",
+   "title": "Spin 1/2 counts the states of a neutron star",
+   "level": "application",
+   "sideA": {
+    "context": "QM: spin-1/2 fermion has two spin states $m_s=\\pm\\tfrac12$ per orbital state",
+    "tex": "n=g_s\\frac{4\\pi k_F^3/3}{(2\\pi)^3}=\\frac{k_F^3}{3\\pi^2}\\quad(g_s=2)"
+   },
+   "sideB": {
+    "context": "Neutron-star matter: neutrons (spin-1/2) at nuclear density $n_0=0.16$ fm$^{-3}$",
+    "tex": "k_F=(3\\pi^2n)^{1/3}=1.68\\ \\text{fm}^{-1},\\quad E_F=\\frac{\\hbar^2k_F^2}{2m_n}\\approx58\\text{ MeV}"
+   },
+   "map": [
+    [
+     "$g_s=2$",
+     "two neutron states per $k$-point (also for electrons in white dwarfs)"
+    ],
+    [
+     "spin-1/2: $s=\\tfrac12$ gives $2s+1$ states",
+     "$g_s=2s+1$, bosons (integer $s$) would not obey the exclusion principle"
+    ],
+    [
+     "ordinary nuclear matter (p and n, $g=4$)",
+     "$k_F=1.33$ fm$^{-1}$ for symmetric matter at the same density"
+    ]
+   ],
+   "regime": "Non-interacting estimate; nuclear forces change the equation of state by factors of order 1 but $E_F\\approx58$ MeV$\\ll m_nc^2=940$ MeV, so neutrons are non-relativistic. The pressure $P=\\tfrac25nE_F$ would give a mass limit of about $0.7\\,M_\\odot$ (Oppenheimer-Volkoff); repulsive nuclear forces raise it to $\\sim2\\,M_\\odot$.",
+   "experiment": "The mass of PSR J0348+0432 ($2.01\\,M_\\odot$) constrains the equation of state; radii from X-ray bursts ($\\sim12$ km).",
+   "intuition": "Spin-1/2 means exactly two quantum states per orbital state, so the Fermi sphere holds twice $k_F^3/6\\pi^2$ particles per volume.",
+   "tex": "n=g_s\\frac{4\\pi k_F^3/3}{(2\\pi)^3}=\\frac{k_F^3}{3\\pi^2}\\quad(g_s=2)\\ \\ \\leftrightarrow\\ \\ k_F=(3\\pi^2n)^{1/3}=1.68\\ \\text{fm}^{-1},\\quad E_F=\\frac{\\hbar^2k_F^2}{2m_n}\\approx58\\text{ MeV}",
+   "why": "Spin-1/2 means exactly two quantum states per orbital state, so the Fermi sphere holds twice $k_F^3/6\\pi^2$ particles per volume."
+  },
+  {
+   "id": "perturbation-forge~radiative-transfer",
+   "a": "qm/perturbation-forge",
+   "b": "astrophysics/radiative-transfer",
+   "title": "Fermi golden rule gives the Einstein A coefficient",
+   "level": "application",
+   "sideA": {
+    "context": "QM: time-dependent perturbation theory, transition rate to a continuum of photon modes",
+    "tex": "A_{21}=\\frac{\\omega^3\\,|\\mathbf d_{12}|^2}{3\\pi\\epsilon_0\\hbar c^3},\\quad\\mathbf d_{12}=-e\\langle1|\\mathbf r|2\\rangle"
+   },
+   "sideB": {
+    "context": "Astro: radiative transfer with Einstein coefficients, $g_1B_{12}=g_2B_{21}$",
+    "tex": "B_{21}=\\frac{c^3}{8\\pi h\\nu^3}A_{21},\\quad j_\\nu=\\frac{h\\nu}{4\\pi}n_2A_{21}\\phi(\\nu)"
+   },
+   "map": [
+    [
+     "matrix element $\\langle 1s|z|2p_0\\rangle=\\frac{128\\sqrt2}{243}a_0=0.745\\,a_0$",
+     "dipole moment fixing $A_{21}$ of Ly$\\alpha$"
+    ],
+    [
+     "density of photon states $\\propto\\omega^2$",
+     "$A\\propto\\omega^3$ (one factor $\\omega$ from the matrix element of the field)"
+    ],
+    [
+     "Ly$\\alpha$ ($\\omega=0.75\\,\\mathrm{Ry}/\\hbar=1.55\\times10^{16}$ s$^{-1}$)",
+     "$A_{21}=6.27\\times10^{8}$ s$^{-1}$ (lifetime $1.6$ ns)"
+    ]
+   ],
+   "regime": "Electric dipole approximation holds if the atom is much smaller than the wavelength ($a_0\\ll121$ nm for Ly$\\alpha$). Forbidden transitions (magnetic dipole, e.g. 21 cm with $A=2.9\\times10^{-15}$ s$^{-1}$) are $10^{23}$ times slower because $\\omega^3$ and the matrix element are tiny.",
+   "experiment": "Line emissivities in nebulae use these $A$ coefficients; lifetimes of excited states are measured by decay curves ($1.6$ ns for 2p in H).",
+   "intuition": "Quantum theory supplies the rate at which an excited atom radiates; radiative transfer needs those rates (and the stimulated counterparts) to relate emission to absorption and to LTE.",
+   "tex": "A_{21}=\\frac{\\omega^3\\,|\\mathbf d_{12}|^2}{3\\pi\\epsilon_0\\hbar c^3},\\quad\\mathbf d_{12}=-e\\langle1|\\mathbf r|2\\rangle\\ \\ \\leftrightarrow\\ \\ B_{21}=\\frac{c^3}{8\\pi h\\nu^3}A_{21},\\quad j_\\nu=\\frac{h\\nu}{4\\pi}n_2A_{21}\\phi(\\nu)",
+   "why": "Quantum theory supplies the rate at which an excited atom radiates; radiative transfer needs those rates (and the stimulated counterparts) to relate emission to absorption and to LTE."
+  },
+  {
+   "id": "formalism-and-uncertainty~radiative-transfer",
+   "a": "qm/formalism-and-uncertainty",
+   "b": "astrophysics/radiative-transfer",
+   "title": "Natural line width and the Voigt profile",
+   "level": "application",
+   "sideA": {
+    "context": "QM: energy-time uncertainty for a state of lifetime $\\tau=1/A$",
+    "tex": "\\Delta E\\,\\tau\\sim\\frac\\hbar2,\\quad \\phi_L(\\nu)=\\frac{A/4\\pi^2}{(\\nu-\\nu_0)^2+(A/4\\pi)^2},\\quad\\Delta\\nu_{\\rm nat}=\\frac{A}{2\\pi}"
+   },
+   "sideB": {
+    "context": "Astro: absorption line in a hot gas at temperature $T$",
+    "tex": "\\Delta\\nu_D=\\nu_0\\sqrt{\\frac{2k_BT}{m_Hc^2}},\\quad\\phi=\\phi_L*\\phi_D\\ (\\text{Voigt})"
+   },
+   "map": [
+    [
+     "natural width $A/2\\pi$ (Lorentz)",
+     "wings of the line profile"
+    ],
+    [
+     "Doppler width from Maxwell velocities",
+     "line core (Gaussian)"
+    ],
+    [
+     "Ly$\\alpha$: $A=6.27\\times10^8$ s$^{-1}$",
+     "$\\Delta\\nu_{\\rm nat}=100$ MHz vs $\\Delta\\nu_D(10^4\\text{ K})=106$ GHz, the Doppler core is 1000 times wider"
+    ]
+   ],
+   "regime": "Lorentzian wings decay as $(\\nu-\\nu_0)^{-2}$ and Gaussians exponentially, so at large optical depth ($N_{HI}\\gtrsim10^{20}$ cm$^{-2}$) the damping wings dominate and become visible (damped Lyman-$\\alpha$ systems). Collisions add pressure broadening.",
+   "experiment": "Voigt fits to quasar absorption spectra give $N_{HI}$ from the wing shape and $T$ from the core.",
+   "intuition": "A short-lived state has no sharp energy, so the line has a Lorentzian profile; thermal motion in the gas washes out the centre but not the far wings.",
+   "tex": "\\Delta E\\,\\tau\\sim\\frac\\hbar2,\\quad \\phi_L(\\nu)=\\frac{A/4\\pi^2}{(\\nu-\\nu_0)^2+(A/4\\pi)^2},\\quad\\Delta\\nu_{\\rm nat}=\\frac{A}{2\\pi}\\ \\ \\leftrightarrow\\ \\ \\Delta\\nu_D=\\nu_0\\sqrt{\\frac{2k_BT}{m_Hc^2}},\\quad\\phi=\\phi_L*\\phi_D\\ (\\text{Voigt})",
+   "why": "A short-lived state has no sharp energy, so the line has a Lorentzian profile; thermal motion in the gas washes out the centre but not the far wings."
+  },
+  {
+   "id": "wave-mechanics-basics~degenerate-core",
+   "a": "qm/wave-mechanics-basics",
+   "b": "solid-state/degenerate-core",
+   "title": "Thermal de Broglie wavelength decides degeneracy",
+   "level": "prerequisite",
+   "sideA": {
+    "context": "QM: thermal de Broglie wavelength",
+    "tex": "\\lambda_{\\rm th}=\\frac{h}{\\sqrt{2\\pi mk_BT}}"
+   },
+   "sideB": {
+    "context": "Solid state / stars: degeneracy criterion",
+    "tex": "n\\lambda_{\\rm th}^3\\gg1\\ \\Leftrightarrow\\ T\\ll T_F\\sim\\frac{\\hbar^2n^{2/3}}{mk_B}"
+   },
+   "map": [
+    [
+     "wave packets overlap when $\\lambda_{\\rm th}\\gtrsim n^{-1/3}$",
+     "quantum statistics matter (Fermi-Dirac / Bose-Einstein)"
+    ],
+    [
+     "Cu electrons at 300 K: $\\lambda_{\\rm th}=4.3$ nm",
+     "$n\\lambda_{\\rm th}^3=6.7\\times10^3$: strongly degenerate"
+    ],
+    [
+     "N$_2$ at 300 K: $\\lambda_{\\rm th}=0.019$ nm",
+     "$n\\lambda_{\\rm th}^3=1.7\\times10^{-7}$: classical"
+    ],
+    [
+     "WD core electrons at $10^7$ K, $n=1.3\\times10^{35}$ m$^{-3}$",
+     "$n\\lambda_{\\rm th}^3\\approx1.7\\times10^3$: degenerate"
+    ]
+   ],
+   "regime": "Order-of-magnitude criterion (exact one: $T$ vs $T_F=E_F/k_B$). Not applicable if the particles are relativistic ($\\lambda_{\\rm th}$ then uses $hc/k_BT$).",
+   "experiment": "Bose-Einstein condensation of dilute atoms requires cooling to $\\mu$K because $n\\sim10^{19}$ m$^{-3}$ gives $n\\lambda^3\\sim1$ only when $\\lambda_{\\rm th}\\sim0.5\\ \\mu$m.",
+   "intuition": "Quantum statistics matters once the matter waves of neighbouring particles overlap.",
+   "tex": "\\lambda_{\\rm th}=\\frac{h}{\\sqrt{2\\pi mk_BT}}\\ \\ \\leftrightarrow\\ \\ n\\lambda_{\\rm th}^3\\gg1\\ \\Leftrightarrow\\ T\\ll T_F\\sim\\frac{\\hbar^2n^{2/3}}{mk_B}",
+   "why": "Quantum statistics matters once the matter waves of neighbouring particles overlap."
+  },
+  {
+   "id": "phonon-halls~fermi-sea",
+   "a": "solid-state/phonon-halls",
+   "b": "solid-state/fermi-sea",
+   "title": "The $\\gamma T+\\beta T^3$ plot",
+   "level": "application",
+   "sideA": {
+    "context": "Phonons: Debye heat capacity per mole at $T\\ll\\Theta_D$",
+    "tex": "C_{ph}=\\beta T^3,\\quad\\beta=\\frac{12\\pi^4}{5}\\frac{R}{\\Theta_D^3}=\\frac{1944\\ \\text{J mol}^{-1}\\text{K}^{-1}}{\\Theta_D^3}"
+   },
+   "sideB": {
+    "context": "Electrons: Sommerfeld heat capacity",
+    "tex": "C_{el}=\\gamma T,\\quad\\gamma=\\frac{\\pi^2}{2}\\frac{R}{T_F}\\ (\\text{free electrons})"
+   },
+   "map": [
+    [
+     "$\\Theta_D=343$ K (Cu)",
+     "$\\beta=4.8\\times10^{-5}$ J/(mol K$^4$)"
+    ],
+    [
+     "$T_F=8.2\\times10^4$ K",
+     "$\\gamma_{\\rm free}=0.50$ mJ/(mol K$^2$), measured $0.695$: $m^*/m=1.4$"
+    ],
+    [
+     "crossover $C_{el}=C_{ph}$",
+     "$T_c=\\sqrt{\\gamma/\\beta}\\approx3.8$ K for Cu"
+    ]
+   ],
+   "regime": "Plot $C/T$ against $T^2$: a straight line with intercept $\\gamma$ and slope $\\beta$ valid for $T\\lesssim\\Theta_D/50$ (about 7 K in Cu). Below $T_c$ the electrons dominate, above it the phonons. The effective mass from $\\gamma$ includes electron-phonon and band effects.",
+   "experiment": "Standard calorimetry on metals at 1 to 10 K; superconductors show an exponential drop of $C_{el}$ below $T_c$ instead.",
+   "intuition": "Two bosonic and fermionic excitation gases with different low-energy laws: $T^3$ for phonons (linear dispersion, 3D) and $T$ for electrons (a sharp Fermi surface).",
+   "tex": "C_{ph}=\\beta T^3,\\quad\\beta=\\frac{12\\pi^4}{5}\\frac{R}{\\Theta_D^3}=\\frac{1944\\ \\text{J mol}^{-1}\\text{K}^{-1}}{\\Theta_D^3}\\ \\ \\leftrightarrow\\ \\ C_{el}=\\gamma T,\\quad\\gamma=\\frac{\\pi^2}{2}\\frac{R}{T_F}\\ (\\text{free electrons})",
+   "why": "Two bosonic and fermionic excitation gases with different low-energy laws: $T^3$ for phonons (linear dispersion, 3D) and $T$ for electrons (a sharp Fermi surface)."
+  },
+  {
+   "id": "nuclear-furnace~stellar-forge",
+   "a": "astrophysics/nuclear-furnace",
+   "b": "astrophysics/stellar-forge",
+   "title": "Gamow peak sets the temperature sensitivity",
+   "level": "application",
+   "sideA": {
+    "context": "Nuclear: rate $\\propto\\int e^{-E/k_BT}e^{-\\sqrt{E_G/E}}\\,dE$, saddle point at $E_0$",
+    "tex": "\\langle\\sigma v\\rangle\\propto T^{\\nu},\\quad\\nu=\\frac{\\tau-2}{3},\\quad\\tau=3\\Big(\\frac{E_G}{4k_BT}\\Big)^{1/3}"
+   },
+   "sideB": {
+    "context": "Stellar structure: energy generation $\\varepsilon\\propto\\rho T^\\nu$ sets the core temperature gradient and convection",
+    "tex": "\\varepsilon=\\varepsilon_0\\rho T^{\\nu},\\quad\\nu_{pp}\\approx4,\\ \\nu_{CNO}\\approx20"
+   },
+   "map": [
+    [
+     "pp: $E_G=493$ keV, $k_BT=1.29$ keV ($1.5\\times10^7$ K)",
+     "$\\tau=13.7$, $\\nu=3.9\\approx4$"
+    ],
+    [
+     "CNO ($^{14}$N + p, $Z_1Z_2=7$): $E_G=44.8$ MeV",
+     "$\\tau=61.6$, $\\nu=19.9\\approx20$"
+    ],
+    [
+     "large $\\nu$",
+     "energy production concentrated near the centre, steep temperature gradient, convective core for $M\\gtrsim1.3\\,M_\\odot$"
+    ]
+   ],
+   "regime": "Valid for non-resonant charged-particle reactions with $E_0\\gg k_BT$ and $\\tau\\gg1$. At $T\\approx1.5\\times10^7$ K pp dominates in the Sun; above $\\sim1.8\\times10^7$ K CNO takes over. Neutron-induced reactions have no Coulomb factor.",
+   "experiment": "Solar neutrino flux and its sensitivity: the $^8$B flux scales as $T_c^{\\sim24}$, so the measured value fixes the core temperature to $\\sim1\\%$.",
+   "intuition": "The steeper the rate depends on temperature, the more the burning concentrates at the centre, which determines whether the core is radiative or convective and the mass-luminosity relation.",
+   "tex": "\\langle\\sigma v\\rangle\\propto T^{\\nu},\\quad\\nu=\\frac{\\tau-2}{3},\\quad\\tau=3\\Big(\\frac{E_G}{4k_BT}\\Big)^{1/3}\\ \\ \\leftrightarrow\\ \\ \\varepsilon=\\varepsilon_0\\rho T^{\\nu},\\quad\\nu_{pp}\\approx4,\\ \\nu_{CNO}\\approx20",
+   "why": "The steeper the rate depends on temperature, the more the burning concentrates at the centre, which determines whether the core is radiative or convective and the mass-luminosity relation."
+  }
+ ]
+}

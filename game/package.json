@@ -1,0 +1,23 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "description": "Run: `./game/run.sh` (serves on 127.0.0.1:8123, opens a Chromium app window if available), or `python3 -m http.server -d game 8123` and open the page. No dependencies, no network.",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "katex": "^0.16.11",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.49.1"
+  }
+}

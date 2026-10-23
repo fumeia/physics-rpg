@@ -1,0 +1,60 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                               Exercise sheet IV
+                                  Return:     15.10.2025
+
+
+Question 1 [One-dimensional δ-function potential ]:
+    Consider a particle of mass m in one spatial dimension being shot from the left (x < 0)
+at the idealised potential V (x) = V δ(x). For the solution of the Schrödinger equation
+
+                               ℏ2 ′′
+                           −      ψ (x) + V δ(x)ψ(x) = Eψ(x)                           (1)
+                               2m
+we make the following ansatz
+
+                                     eikx/ℏ + Re−ikx/ℏ ,
+                                 
+                                                           x<0,
+                        ψ(x) =                                                         (2)
+                                     T eikx/ℏ ,            x>0,
+
+where E = k 2 /2m. Determine the continuity conditions for ψ and its first derivative at
+x = 0 in order to calculate the reflection and transmission coefficients R and T . Verify
+the probability conservation
+                                     |R|2 + |T |2 = 1 .                               (3)
+Hint: Integrating eq. (1) once shows that the first derivative of ψ jumps at x = 0.
+
+Question 2 [Infinite Square Well ]:
+   For the one-dimensional square well V = −V0 for |x| < a and V = 0 otherwise, show
+that in the limit in which the depth V0 → ∞ while the width a → 0 with V0 a constant,
+the ground state energy E0 remains finite (non-zero and negative).
+
+Question 3 [General Potentials ]:
+
+  (i) Let V (x) be an arbitrary potential in one dimension, with V (x) → 0 as x →
+      ±∞. Let χ(x) be a stationary state for a particle scattering off this potential,
+      with asymptotic behaviour χ(x) = eikx + Ae−ikx for x ≪ 0 and χ(x) = Beikx for
+      x ≫ 0. Show that the probability current is independent of x, and deduce that
+      |A|2 + |B|2 = 1. How should you interpret this?
+
+ (ii) Show that, for any state, ⟨T ⟩ ≥ 0, where T = p2 /2m. By considering ⟨T + V ⟩
+      deduce that for a potential well V of any shape, the lowest energy state has energy
+      greater than that of the bottom of the well.
+
+
+Question 4 [The Deuteron ]:
+   As a model for the deuteron (the deuterium nucleus) consider a particle in the three-
+dimensional square-well potential
+                                     
+                                       −V       r<a
+                             V (r) =                                                 (4)
+                                       0        r>a.
+Here, V > 0 is a constant. Find the spherically symmetric bound-state wave functions,
+                                                                                   ∂2
+i.e. those that are independent of the polar coordinates θ and ϕ so that ∆ ≡ 1r ∂r   2 r. Is
+
+there always a bound state?
+Hint: Define χ(r) ≡ rψ(r), where ψ(r) is a spherically symmetric solution to the Schrödinger
+equation and write down the differential equation χ(r) satsifies.
+

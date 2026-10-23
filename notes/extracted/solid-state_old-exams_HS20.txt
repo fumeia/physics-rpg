@@ -1,0 +1,431 @@
+                                 Probeprüfung HS20
+                         Einführung in die Festkörperphysik
+                                            Prof. Klaus Ensslin
+                                               ETH Zürich
+                                             05. Februar 2021
+
+                                         Hinweise zur Prüfung:
+    • Lesen Sie die Aufgaben sorgfältig durch.
+    • Nummerieren Sie all Ihre Lösungsblätter und schreiben Sie auf jedes Blatt Vor- und Nachnamen.
+    • Geben Sie alle Aufgabenblätter und Lösungsblätter am Ende ab.
+    • Bei den Multiple Choice Fragen gibt es genau eine richtige Antwort.
+
+    • Verwenden Sie keinen Bleistift, Füllfedern oder sonstige auslöschbare Stifte.
+    • Die Prüfungsfragen sind auf Deutsch formuliert und dürfen auf Englisch oder auf Deutsch beantwortet
+      werden.
+                                            Erlaubte Hilfsmittel:
+    • Einfacher Taschenrechner (nicht programmierbar)
+    • 10 A4 Seiten (von Hand geschrieben oder gedruckte) Zusammenfassung
+    • Mathematische Formelsammlung
+
+    • Englisch-Deutsch Wörterbuch
+
+
+
+Nachname:
+
+Vorname:
+
+Legi Nummer:
+
+
+                                 Aufgabe      Punkte       1. Korr.   2. Korr.
+                                     1          30
+                                     2          14
+                                     3          12
+                                     4          12
+                                     5          13
+                                   Total:       81
+
+                                                       1
+Festkörperphysik                     Propbeprüfung - Seite 2 von 20                             05.02.2021
+
+
+   Quantity                      Symbol               Value
+   Vakuumlichtgeschwindigkeit    c                    299 792 458 m s−1
+   Elementarladung               e                    1.602 177 × 10−19 C
+   Planck Konstante              h                    6.626 070 × 10−34 J s
+   Reduzierte Planck Konstante   ~ = h/(2π)           1.054 572 × 10−34 J s = 6.582 119 × 10−16 eV s
+   freie Elektronenmasse         me                   9.109 383 × 10−31 kg
+   Atomare Masseneinheit         u = (1g)/(NA mol)    1.660 539 × 10−27 kg
+   Elektrische Feldkonstante     0 = 1/(µ0 c2 )      8.854 188 × 10−12 F m−1
+   Magnetische Permeabilität    µ0                   4π × 10−7 N A−2 = 12.566 371 × 10−7 N A−2
+   Feinstrukturkonstante         α = e2 /(4π0 ~c)    7.297 353 × 10−3 = 1/137.035 999
+   Rydberg Energie               RY = me c2 α2 /2     13.605 693 eV
+   Bohr Magneton                 µB = e~/(2me )       5.788 381 × 10−5 eV T−1
+   Avogadro Konstante            NA                   6.022 141 × 1023 mol−1
+   Boltzmann Konstante           k                    1.380 649 × 10−23 J K−1 = 8.617 330 × 10−5 eV K−1
+Festkörperphysik   Propbeprüfung - Seite 3 von 20   05.02.2021
+Festkörperphysik                     Propbeprüfung - Seite 4 von 20                            05.02.2021
+
+Aufgabe 1: Multiple Choice Questions(30 Punkte)
+    Bitte kreuzen Sie jeweils die richtige Antwortmöglichkeit an. Es gibt genau eine richtige Antwort.
+
+    (a) (11/2 Punkte) Das hier gezeigte Diagramm zeigt die temperaturabhängige Ladungsträgerdichte ei-
+        nes...
+                Isolators.
+                dotierten Halbleiters.
+                intrinsischen Halbleiters.
+                Metalls.
+
+
+
+
+    (b) (11/2 Punkte) Die Zustandsdichte von Elektronen eines Supraleiters mit Energielücke ∆ ...
+                verschwindet für Energien in der Bandlücke und divergiert für Energien nahe der Band-
+                 kante.
+                verschwindet für Energien ausserhalb der Energielücke und ist konstant für alle Energien
+                 in der Bandlücke.
+                ist konstant für alle Energien.
+                divergiert im limes von null Energie und verschwindet an der Bandkante.
+
+
+    (c) (11/2 Punkte) Bei einem p-dotierten Halbleiter bei T = 0 liegt die Fermi Energie ...
+                an der Leitungsbandkante.
+                an der Valenzbandkante.
+                zwischen Valenzband und Akzeptorniveau.
+                oberhalb des Akzeptorniveaus.
+Festkörperphysik                     Propbeprüfung - Seite 5 von 20                           05.02.2021
+
+    (d) (11/2 Punkte) Der Widerstand eines Metalls ist im Limes T → 0 K ...
+                  linear in der Temperatur aufgrund der Phononen-Streuung.
+                  unabhängig von der Temperatur aufgrund der Phononen-Streuung
+                  linear in der Temperatur wegen Störstellen-Streuung
+                  unabhängig von der Temperatur wegen Störstellen-Streuung.
+
+
+    (e) (11/2 Punkte) Die unten abgebildete Anordnung von Punkten stellt ein 2D Gitter in der Ebene dar.
+        Welches der eingezeichneten Vektorpaare ist ein Set von primitiven Translationsverktoren?
+                  a1 , a2
+                  b1 , b2
+                  c1 , c2
+                  d1 , d2
+
+
+                                                  d2                  d1
+
+
+
+
+                                                       a2
+                                                            a1
+
+
+
+                                                            c2
+                                        b2                       c1
+
+                                             b1
+
+
+     (f) (11/2 Punkte) Welche der in der untenstehend Grafik dargestellten geometrischen Formen bilden
+         mögliche Einheitszellen eines Kristallgitters? Die Gitterpunkte sind durch (•) gekennzeichnet.
+
+           (a)                                                    (c)            (regelmäßiges Siebeneck)
+                                (regelmäßiges Fünfeck)
+
+
+
+           (b)                  (regelmäßiges Sechseck)           (d)            (regelmäßiges Achteck)
+
+
+
+                  a
+                  b
+                  c
+                  d
+Festkörperphysik                     Propbeprüfung - Seite 6 von 20                            05.02.2021
+
+    (g) (11/2 Punkte) Die Abbildungen zeigen schematisch das Laue Interferenzmuster für zwei der folgen-
+        den drei Kristallstrukturen: einfach kubisch (sc), kubisch flächenzentriert (fcc), kubisch raumzen-
+        triert (bcc). Die Grösse der Punkte ist proportional zur Intensität des Beugungsreflexes. Schwarze
+        Punkte entsprechen nicht beobachteten Beugungsreflexen.
+        Welche der folgenden Zuordnungen ist korrekt?
+                       (a)                                        (b)
+
+
+
+
+                (a): fcc, (b): sc
+                (a): sc, (b): fcc
+                (a): bcc, (b): fcc
+                (a): fcc, (b): bcc
+
+
+    (h) (11/2 Punkte) Im Debye-Scherrer-Verfahren wird eine Probe eines pulverisierten Kristalls mit mo-
+        nochromatischer Strahlung (λ0 = 2π/|k0 |) bestrahlt. Dabei beobachtet man im Sinne der Ewald-
+        kugel ...
+                alle Reflexe, die sich auf einer Sphäre mit Radius |k0 | um den Ursprung des reziproken
+                 Gitters befinden.
+                alle Reflexe, die sich auf einer Sphäre mit Radius |k0 | um den Punkt k0 des reziproken
+                 Gitters befinden.
+                alle Reflexe, die sich auf einer Sphäre mit Radius 2|k0 | um den Ursprung des reziproken
+                 Gitters befinden.
+                alle Reflexe, die sich innerhalb einer Kugel mit Radius 2|k0 | um den Ursprung des rezi-
+                 proken Gitters befinden.
+
+
+     (i) (11/2 Punkte) Wie viele Phononenzweige liefert die Dispersionsrelation für das NaCl Gitter?
+                2 akustische und 1 optische
+                0 akustische und 1 optische
+                1 akustische und 0 optische
+                3 akustische und 3 optische
+
+
+     (j) (11/2 Punkte) Welche der folgenden Aussagen trifft zu?
+                Kovalente Bindungen treten nur unter Atomen desselben Elements auf.
+                Ionische Bindungen treten nur unter Atomen desselben Elements auf.
+                Kovalente Bindungen sind im Allgemeinen räumlich ungerichtet.
+                Van-der-Waals-Bindungen werden von Ladungsfluktuationen verursacht.
+Festkörperphysik                    Propbeprüfung - Seite 7 von 20                            05.02.2021
+
+
+    (k) (11/2 Punkte) Wird das Volumen eines Kristalles halbiert, ...
+                ändert sich der Strukturfaktor.
+                wird die spezifische Wärmekapazität der Elektronen verändert.
+                wird die Anzahl Phononenäste verändert.
+                bleiben Strukturfaktor, die spezifische Wärmekapazität der Elektronen und die Anzahl
+                 Phononenäste unverändert.
+
+     (l) (11/2 Punkte) Wir betrachten das Einstein-Modell für die spezifische Wärmekapazität. Welche der
+         folgenden Aussagen ist falsch?
+                Das Einstein-Modell liefert gute Werte für c(T) bei hohen Temperaturen.
+                Bei hohen Temperaturen stimmt das Einstein Modell mit dem Dulong-Petit Gesetz
+                 überein.
+                Die Zustandsdichte wird durch eine δ-Funktion beschreiben.
+                Da im Einstein-Modell eine lineare Phononendispersion vorausgesetzt wird, besitzen alle
+                 Moden dieselbe Geschwindigkeit.
+
+
+    (m) (11/2 Punkte) Ein Metall hat eine Elektronendichte von 5.00 × 1022 cm−3 . Im Sinne des Modells der
+        freien Elektronen bei T = 0 ist die Fermienergie gleich
+                310 eV.
+                0.786 meV.
+                3.118 eV.
+                4.95 eV.
+
+    (n) (11/2 Punkte) Das Tight-Binding-Modell für ein eindimensionales Gitter liefert die Dispersion
+        E(k) = Ei − Ai − 2Bi cos(ka). Wie gross ist die effektive Masse m∗ im Minimum?
+                     2
+                2B~i a2
+                         2
+                2B~i2a
+                Bi a2
+                2Bi
+Festkörperphysik                    Propbeprüfung - Seite 8 von 20                          05.02.2021
+
+    (o) (11/2 Punkte) Gegeben sei die folgende im k-Raum isotrope Bandstruktur eines zweidimensionalen
+        Halbleiters mit parabolischer Dispersion in der Nähe der Bandlücke. Welche Zustandsdichte D(E)
+        gehört zu dieser Bandstruktur?
+                a
+                b
+                c
+                d
+
+
+
+
+    (p) (11/2 Punkte) Das Bloch-Theorem ...
+                beschreibt eine Wellenfunktion, welche durch eine ebene Welle, multipliziert mit einem
+                 Gitter-periodischen Teil, gegeben ist.
+                beschreibt die spezifische Wärmekapazität der Elektronen
+                wird im tight-binding Modell nicht verwendet
+                gilt nur für 3-dimensionale Systeme mit Spin-Entartung
+
+
+    (q) (11/2 Punkte) Elektronen, welche durch ein elektrisches Feld in einem Kristall beschleunigt wer-
+        den, unterliegen Streuprozessen. Welcher Streuprozess trägt nicht zum endlichen Widerstand eines
+        Festkörpers bei?
+                Streuung an Phononen
+                Streuung an den Ionenrümpfen des exakt periodischen Gitters
+                Streuung an ionisierten Störstellen
+                Streuung an Gitterdefekten
+
+
+     (r) (11/2 Punkte) Die Austauschenergie J ...
+                ist J > 0 in einem Ferromagneten und J > 0 in einem Diamagneten.
+                ist J > 0 in einem Paramagneten und J < 0 in einem Ferromagneten.
+                ist J > 0 in einem Ferromagneten und J < 0 in einem gewöhnlichen Metall.
+                ist J = 0 in einem Ferromagneten und J 6= 0 in einem Supraleiter.
+Festkörperphysik                     Propbeprüfung - Seite 9 von 20                           05.02.2021
+
+     (s) (11/2 Punkte) Welche der Aussagen sind korrekt: Der elektrische Widerstand eines Supraleiters ...
+          (a) verschwindet, wenn die Temperatur kleiner ist als die Debye-Temperatur.
+          (b) verschwindet, wenn die Temperatur kleiner ist als die kritische Temperatur.
+          (c) verschwindet für Magnetfelder grösser als das kritische Magnetfeld.
+          (d) ist proportional zur Temperatur oberhalb der Debye-Temperatur.
+                a und b
+                b und c
+                b und d
+                c und d
+
+     (t) (11/2 Punkte) Welches der folgenden Bandkantendiagramme stellt einen p−n Übergang physikalisch
+         korrekt dar? Es ist auf die Raumladungszone, dargestellt durch die Zeichen + und -, und die Art
+         der Dotierung zu achten.
+                a
+                b
+                c
+                d
+Festkörperphysik                      Propbeprüfung - Seite 10 von 20                               05.02.2021
+
+Aufgabe 2: Kristallstruktur von BaTiO3 (14 Punkte)
+    Bariumtitanat BaTiO3 kristalliert in einer Gitterstruktur, bei der jeweils ein Ba-Atom die Ecke eines
+    Würfels, ein Ti-Atom das Zentrum des Würfels und jeweils ein O-Atom das Zentrum der Seitenflächen
+    besetzt. Diese Kristallstruktur wird auch (Bario-)Perowskit-Struktur genannt. Nehmen Sie eine Kan-
+    tenlänge a für den Würfel an. Die Kristallstruktur ist in der Abbildung dargestellt. Beachten Sie für die
+    Aufgabe den eingezeichneten Koordinatenursprung.
+
+                                            z
+                                        x
+                                             y
+
+                                                    Ti4+        O2- a
+
+
+                                                                a
+                                                  a          Ba2+
+                                        (0,0,0)
+
+
+    (a) (2 Punkte) Welchem Bravais-Gitter kann diese Kristallstruktur zugeordnet werden? Geben Sie in
+        Vektorschreibweise die Basisvektoren ai des Bravais-Gitters an.
+    (b) (2 Punkte) Geben Sie die Basis, d.h. die Position der jeweiligen Atome innerhalb einer primitiven
+        Einheitszelle, an. Verwenden Sie die Vektorschreibweise bezüglich dem angegebenen Ursprung und
+        geben Sie die dazugehörige Atomart an. Wie viele Atome von jedem Element sind in einer primitiven
+        Einheitszelle enthalten?
+    (c) (2 Punkte) Geben Sie die Basis für die reziproken Gittervektoren gi an, die zu den in (a) angegebe-
+        nen Basisvektoren ai des Gitters gehört. Um welches Bravaisgitter handelt es sich beim reziproken
+        Gitter?
+    (d) (2 Punkte) Wie sieht die erste Brillouinzone aus (benennen Sie den geometrischen Körper)? Wie
+        gross ist das Volumen der dritten Brillouinzone?
+    (e) (4 Punkte) Wir betrachten nun Braggstreuung an einem BaTiO3 -Kristall. Bestimmen Sie den
+        Strukturfaktor S(G) für beliebige reziproke Gittervektoren G und berechnen Sie den Struktur-
+        faktor für Braggstreuung an der (110)-Ebene. Nehmen Sie dabei an, dass für die atomaren Streu-
+        faktoren gilt: fBa = 5fO and fTi = 4fO . Sie können die atomaren Streufaktoren als unabhängig von
+        reziproken Gittervektoren G annehmen (fO (G) = fO ).
+     (f) (2 Punkte) Berechnen Sie das Verhältnis der Intensität der Braggstreuung an der (200)-Ebene und
+         der (110)-Ebene.
+Festkörperphysik                   Propbeprüfung - Seite 11 von 20                             05.02.2021
+
+Aufgabe 3: Halleffekt(12 Punkte)
+    Die Drude-Bewegungsgleichung für geladene Teilchen mit Geschwindigkeit v in einem 3-dimensionalen
+    Elektronengas unter einem externen elektrischen Feld E ist gegeben als:
+                                                    m
+                                            mv̇ +     |v| = −e |E|
+                                                    τ
+    (a) (11/2 Punkte) Sie schalten plötzlich das externe Feld E aus. Was geschieht? Begründen Sie Ihre
+        Antwort mit einer kleinen Rechnung.
+    (b) (11/2 Punkte) Berechnen Sie die Stromdichte j im stationären Fall für ein Elektronengas mit einer
+        Elektronendichte n.
+    (c) (2 Punkte) Wir betrachten nun ein Elektronengas, welches mehr Störstellen besitzt. Welcher Pa-
+        rameter in dem oben hergeleiteten Ausdruck für die Stromdichte j ändert sich? Wie verändert sich
+        die Stromdichte qualitativ?
+    (d) (1 Punkt) Sie legen zusätzlich zum elektrischen Feld ein magnetisches Feld an. Geben Sie die mo-
+        difizierte Drude-Formel in Vektorschreibweise an.
+    (e) (3 Punkte) Sie legen einen stationären Strom in y-Richtung (technische Stromrichtung in positive y-
+        Richtung) und ein Magnetfeld in positve z-Richtung an. Skizzieren Sie den experimentellen Aufbau
+        um die Hall-Spannung zu messen. Achten Sie darauf, dass Sie auch die Richtung der Ströme und des
+        Magnetfeldes in diese Skizze eintragen. Zeichnen Sie die Richtung der Lorentzkraft (Kraft aufgrund
+        des Magnetfeldes) auf ein Elektron ein. Zeichnen Sie die x,y und z Achsen in Ihre Skizze ein.
+        Hinweis: Bitte verwenden Sie keinen Bleistift.
+     (f) (3 Punkte) Sie haben die Hall-Spannung UH und die Dimension der Probe (d, d, d) bei bekanntem
+         Bz und jy gemessen. Leiten Sie einen Ausdruck für die Elektronendichte her. Beginnen Sie Ihre
+         Rechnung mit der Formel aus Teilaufgabe (d).
+Festkörperphysik                                                   Propbeprüfung - Seite 12 von 20                 05.02.2021
+
+Aufgabe 4: Bandstruktur eines Halbleiters(12 Punkte)
+    Im folgenden betrachten wir die Bandstruktur von GaAs, welches eine direkte Bandlücke besitzt. In der
+    untenstehenden Grafik sehen Sie ein Absorptionsspektrum von GaAs, gemessen bei 300 K. Dabei wird
+    die Absorption von Photonen in GaAs als Funktion ihrer Frequenz ν gemessen.
+
+                                                             x104
+                                                          1.2
+
+                       Absorptionskoeffiizient a [cm-1]   1.1
+
+                                                          1.0
+
+                                                          0.9
+
+                                                          0.8
+
+                                                          0.7
+
+                                                          0.6
+
+                                                            0
+                                                            343.2 345.6 348    350.4 352.8 355.2 357.6 360   362.4
+                                                                              Frequenz [THz]
+
+
+                                                           Messung adaptiert von Phys. Rev. 127 768 (1962)
+
+    (a) (1 Punkt) Bestimmen sie die Bandlücke von GaAs unter Verwendung der gezeigten Absorptions-
+        messung.
+    (b) (1 Punkt) Begründen Sie, wieso wir mit diesem Experiment wirklich die Bandlücke bei k = 0 m−1
+        messen.
+    (c) (1 Punkt) Schätzen Sie die Wahrscheinlichkeit ab, dass bei einer Temperatur von 300 K ein Elektron
+        thermisch vom Valenzband ins Leitungsband angeregt wird.
+    (d) (2 Punkte) Die Elektronen in GaAs haben laut Literatur eine effektive Masse von me = 0.067m0 ,
+        Löcher mh = 0.45m0 . Ihnen steht ein Laser mit einer Wellenlänge von 671 nm zur Verfügung sowie
+        eine Magnetspule, welche maximal ein magnetisches Feld von 10 T erzeugen kann. Können Sie mit
+        den Ihnen gegeben Geräten die effektive Masse von Elektronen und Löchern in GaAs über die
+        Zyklotronresonanz messen? Begründen Sie ihre Antwort mit einer Rechnung.
+    (e) (4 Punkte) Berechnen Sie die Lage der Fermi-Energie bezüglich der Mitte der Bandlücke sowie
+        die intrinsische Ladungsträgerdichte von Elektronen und Löchern bei einer Temperatur von 300 K.
+        Berechnen Sie zudem die totale Leitfähigkeit bei einer gegebenen Elektronenmobilität von µe =
+        1.6 m2 V−1 s−1 und Löchermobilität von µh = 0.4 m2 V−1 s−1 .
+     (f) (3 Punkte) Nun betrachten wir einen GaAs Kristall, welcher mit Donatoren einer Dichte Nd =
+         10 × 1022 m−3 dotiert ist. Die Dielektrizitätskonstante von GaAs ist εr = 12.9. Berechnen Sie
+         den Bohrradius und begründen Sie, wieso es gerechtfertigt ist, für diese Rechnung die Dielektri-
+         zitätskonstante von GaAs zu verwenden, und nicht die des Donators. Die Gitterkonstante von
+         GaAs ist a = 565 pm.
+Festkörperphysik                     Propbeprüfung - Seite 13 von 20                               05.02.2021
+
+Aufgabe 5: Bandlücke am M-Punkt in einem 2D-Gitter(13 Punkte)
+    Wir betrachten Elektronen in einem quadratischen Gitter in zwei Dimensionen. Das periodische Potential
+    ist gegeben als                                                    
+                                                          2πx         2πy
+                                     U (x, y) = 4U0 cos         cos                                   (1)
+                                                           a           a
+    mit einer Gitterkonstanten a. In dieser Aufgabe berechenen Sie Schritt für Schritt die Bandlücke am
+    M -Punkt des reziproken Gitters, der gegeben ist durch kM = πa (ex + ey ).
+    (a) (3 Punkte) Wir betrachten die Schrödingergleichung für dieses Problem
+
+                                               ~2 2
+                                                              
+                                 Hψ(r) = −       ∇ + U (x, y) ψ(r) = Eψ(r),                                 (2)
+                                              2m
+
+        wobei r = (xex + yey ). Da das Potential U (x, y) gitterperiodisch ist, lässt es sich als eine Fourier-
+        reihe entwickeln                                 X
+                                             U (x, y) =      UG eiGr                                         (3)
+                                                              G
+
+        Wir nehmen an, dass wir die Wellenfunktion mit ebenen Wellen entwickeln können
+                                                       X
+                                             ψ(x, y) =    Ck eikr .                                         (4)
+                                                              k
+
+        Zeigen Sie, dass die Schrödingergleichung (2) umgeformt werden kann zu
+                                         2 2      
+                                          ~ k             X
+                                               − E Ck +       UG Ck−G = 0.                                  (5)
+                                           2m
+                                                               G
+
+
+    (b) (3 Punkte) Bestimmen Sie die Fourierkomponenten UG des periodischen Potentials. Hinweis: Schrei-
+        ben Sie das Potential U (x, y) mit Hilfe von Exponentialfunktionen um.
+    (c) (2 Punkte) Für die Bestimmung der Bandlücke an kM = πa (ex + ey ) betrachten wir in erster
+        Näherung nur die nächsten reziproken Gitterpunkte zu kM . Geben Sie die Koordinaten der vier
+        reziproken Gitterpunkte an, die am nächsten zum M -Punkt bei kM sind.
+    (d) (4 Punkte) Betrachten Sie die Schrödingergleichung im reziproken Raum (5) und lösen Sie das
+        entstehende Gleichungssystem, um die Energien E± am M -Punkt zu erhalten. Hinweis: In der
+        Vorlesung haben wir ein 1D Modell betrachtet. Für die Brechnung von Eg am Rand der Brillouin-
+        zone waren die Beiträge von zwei k-Vektoren k und k − G relevant. Betrachten Sie hier nur die
+        Vektoren G1 = 0 und G2 = 2π   a (ex + ey ). Nur diese sind durch U (x, y) verbunden. Sie erhalten
+        zwei Gleichungen und können diese als eine 2 dimensionale Determinantengleichung lösen.
+                                                   (M )
+    (e) (1 Punkt) Wie gross ist die Bandlücke Eg         , die am M -Punkt entsteht?
+

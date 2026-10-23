@@ -1,0 +1,245 @@
+                                      Astrophysics I1
+                                  Prof. Hans-Martin Schmid, FS 2019
+
+
+Summary The exam takes place in Prof. Schmids office. You sit with him and an assistant at a table
+and are given paper and pens to write. The atmosphere is nice. Since this was my first oral exam I was
+quite nervous and asked what exactly had to be written down. He explained shortly that I only had to
+write down the things that I think would help me to explain something or if he explicitly asks for it.
+Description of the content: HR-diagram, stellar evolution, nucleosynthesis, galaxies, dark matter,
+thermal history of the universe, big bang nucleosynthesis.
+
+
+Ablauf I wait in a chair in front of the professors office (HIT 22.2). After the student before me
+finishes, the professor comes to the door and asks me to enter. I sit down, he introduces the assistant
+and we get to business.
+Prof: In the lecture we discussed stellar evolution. To illustrate this we used something called the
+HR-diagram. Can you explain this?
+Me: I will start by just drawing the diagram. See fig. 1. During the drawing process I mention how the
+axes are labled and that we can choose to plot the HR-diagram with observational quantities (absolute
+magnitude vs. B−V) or against theoretical quantities (luminosity vs. temperature). I then go on to
+draw the main sequence, the red giant branch and the white dwarf line. I also mention that we have
+different spectral classes for the stars (O,B,A,F,G,K,M) and draw them in the diagram.
+Prof: Can you draw in where our sun currently lies in here?
+Me: Yes, our sun is a G star, so it is approximately here. Draw the sun at its appropriate place.
+Prof: Good. Can you now draw in the path that our sun will take?
+Me: I start drawing the branching of from the main sequence. In all my nervousness I start mumbling
+about how there technically could also be a phase where the sun starts returning to the main sequence if
+it was massive enough. He doesn’t seem to be happy about me mentioning this, so I just drop the topic
+and draw in the path of the sun in the diagram.
+Prof: Ok. So we talked about different types of gases that a star can consist of. Can you maybe
+explain to me of what kind of gas our sun is made of?
+Me: Here I was confused, I just didn’t get what he was asking, but then remembered a certain plot from
+the lecture. Maybe I can draw a plot? I’m not sure if he wanted to see this, but I just started to draw
+anyway... See fig. 2. We can now describe just as well the evolution of a star in this plot. Draw in the
+approximate line of our sun. So according to this the sun would end up being a relativistic degenerate
+gas.
+ 1
+     BSc Physics, Core Subjects
+
+
+
+
+                                                   1
+              Figure 1: This is pretty close to how I drew the diagram during the exam.
+
+
+Prof: Mhm, this is not really correct. Our sun could at best become a degenerate gas. No idea if I
+just remembered the plot incorrectly or if I just misunderstood it at this point. But lets move on. Can
+you explain to me what a degenerate gas is?
+Me: Yes. The degenerate gas is a gas that is really high in density and usually rather low on the
+temperature side. It is relevant for us since it is the main stabilizing mechanism for stars that don’t
+have nuclear burning anymore. Let me explain. If a star exhausts its Hydrogen the gravitational pull
+inwards wont be balanced anymore by the radiation, so the star starts collapsing. The density and core
+temperature therefore start to rise. At a certain density the electron degeneracy pressure will start to
+kick in and the star will be balanced. If the star is too massive this might not be enough to balance
+gravity and the star collapses further. If the density rises sufficiently high neutron degeneracy pressure
+will kick in and start stabilizing our core.
+Prof: Before we move on to the second question: during your explanations just now you mentioned
+nucleosynthesis, could you maybe elaborate on that?
+Me: Sure. We have two relevant processes taking place in star formation: the pp-chain and the
+CNO-cycle. The pp-chain has three branches of which two aren’t really relevant for our sun, since its
+
+
+
+
+                                                    2
+                               Figure 2: Taken from the slides of week 6.
+
+
+core temperature is not bigger than 107 K (pp2- and pp3-branch). The pp1-branch looks like this
+                                           1
+                                               H +1 H −→ 2 H + e+ + ν
+                                           2
+                                               H + 1 H −→ 3 He + γ
+                                      3
+                                          He + 3 He −→ 4 He + 1 H + 1 H
+
+So baisically we convert Hydrogen to 4 He. The CNO cycle is relevant for more massive stars and the
+main difference to the pp-chain is that it need catalysts A friend of mine who just had the exam told
+me that he was really particular about hearing “catalysts” so I made sure to mention that. If you want I
+can write down this reaction chain as well.
+Prof: Nah, its fine. Try to just explain whats happening.
+Me: Ok, so we start with 12 C which combines with a hydrogen atom to 13 N, which then decays and
+the resulting product again combines with an Hydrogen atom and so on until we eventually reach 4 He
+and two Hydrogen atoms.
+Prof: Good, then lets move on to the second question. In the lecture we talked about galaxies. What
+types of galaxies are there?
+Me: We fist differentiated between the elliptical and spiral galaxies. For the elliptical galaxies we start
+with E0, which is basically a spherical galaxy, and move to E7, which is fairly flatted. For spiral galaxies
+we differentiate between barred and non-barred galaxies. Each of these categories can be further divided
+in three subcategories which we label with a, b and c. These three categories describe the tightness
+of the “tails” he corrected me here, since I used the wrong word to describe it, but I honestly forgot it
+
+
+
+                                                         3
+already again and the size of the central bulge/bar. I also wanted to sketch the Turning Fork diagram,
+but the Professor didn’t seem to be interested in that, so I dropped it...
+Prof: Ok, so this is what we call the morphological classification of galaxies. But we also talked a bit
+about the contents of the different types of galaxies and their parts.
+Me: Yes, so in elliptical galaxies the stars counter gravity mainly with random motions. They don’t
+have a lot of ISM and they are usually metal-poor.
+Prof: Well, that is not really true. He starts explaining that there are actually metal poor and rich
+ones, so we can’t really make such a general statement. This goes on for like 20 seconds. But anyway,
+can you say something else to the contents?
+Me: The elliptical galaxies mainly consist of reddish, older stars. For the spherical galaxies we know
+that the stars in the disk are blueish, younger stars. They balance the gravitational pull with the
+“circular motion” I think I used again the wrong word here and he was quick to correct me, but very
+friendly on not really intimidating or anything. The center of a spherical galaxy again contains rather
+old, reddish stars and gravity is balanced by random motions.
+Prof: Good. When we talked about galaxies we also discussed rotationcurves. Can you elaborate?
+Me: Yes. Before I start drawing how the rotation cure looks like let us try to get a theoretical estimate.
+For gravity to be balanced by the centrifugal force we have
+                                                              r
+                                     mv 2    GM m               GM
+                                          =       2
+                                                     =⇒ v =         .
+                                       r        r                 r
+Now let Rgal be the radius of a spiral galaxy. We expect the mass of the galaxy M to be proportional
+to r3 , for r < Rgal and constant for r > Rgal . With this we have
+                                           
+                                              r       for r < Rgal
+                                       v=       −1/2
+                                              r       for r > Rgal
+I then go on and draw how this would look like and what we actually measure. See fig. 3 The most
+plausible explanation that we have for this behaviour for r > Rgal is that there is actually a lot more
+matter present in spiral galaxies than we can see. This invisible matter we call dark matter.
+Prof: Good. Now this concept of dark matter seems rather strange in the first moment. Can you think
+of other ways to detect dark matter?
+Me: I have absolutely no idea what he is getting at. I don’t remember us discussing anything, so I just
+start guessing. I know that dark matter only interacts weakly, so I would probably try to do something
+with this. We also used the CMB to map the dark matter distribution in the early universe.
+Prof: This is true and if you were a particle physicist you could try detecting it. But aren’t there other
+phenomenons in the universe were we could observe this?
+Me: I still have no idea what he is talking about. At this point I also don’t have any other ideas what
+he could mean. I’m sorry, but I don’t know any other phenomenons that we could use to observe dark
+matter.
+
+
+
+                                                    4
+                                                 Figure 3: Rotation curve
+
+
+Prof: Well, doesn’t anything in regards to galaxies comes to mind? I will tell you what it is in a
+minute, but maybe you have an idea now?
+Me: I take a moment to think about it but I still have no idea what he wantss to hear Sorry, but no, I
+don’t remember anything.
+Prof: The mass of galaxy clusters! He then goes on to very briefly tell me how we can observe dark
+matter in this context, but I didn’t really get any of that, since I still had no recollection of us doing this
+in the lecture...2 Now lets move on to the last topic for today. Cosmology, or to be more specific, the
+thermal history of the universe. We have nine minutes left, so you can’t really tell me everything there
+is to say about this topic, but try to explain to me briefly the most important epoches of the early
+universe.
+Me: Nice, a topic that I just revised the evening before. Ok, so we have:
+      • t < 10−6 s:
+        Quark epoch consisting of a quark/gluon plasma. Typical energies E ≥ GeV. Moreover, nγ ≈ nq .
+        I said that the first epoch was the quark epoch to which the Prof. jokingly added that we just don’t
+        have any clue if there was an epoch before this time, so we just assume this to be the start.
+      • 10−6 s < t < 1 s:
+        Hadron epoch, where quarks got bounded in hadrons. Photons cool down to hν < GeV ≈ mp , mn .
+        Moreover, we have to assume that an asymmetry in the densities of hadronic matter and anti
+        hadronic matter occurred, because matter is now much more abundant than antimatter. I’m
+        not sure what my exact words were but I mentioned here Baryogenesis at some point and tried
+        to explain it a bit... Lastly, due to the low density the Neutrinos do not interact with matter
+        anymore, decouple and form a background radiation.
+      • 1 s < t < 10 s :
+ 2
+     A friend of mine later reminded me that we talked about how the ratio of the mass of a galactic cluster to its luminosity
+      can be used to make some estimates on dark matter.
+
+
+
+
+                                                               5
+      Lepton epoch, where leptonic matter dominates the interacting matter. In this epoch, the
+      temperature shrinks down such that the e+ e− annihilation is no longer in equilibrium with its
+      inverse reaction and all the positrons annihilate with the electrons, leaving behind n (e− ) ≈
+      n(p) ≈ 10−8 nγ . I couldn’t remember the exact temperature, but the Prof. didn’t seem to mind that
+      much.
+    • 10 s < t < 3800 000 yr:
+      Photon epoch, where the universe consisted of a plasma. At the end of the photon epoch, charged
+      particles start to form neutral atoms (recombination) and radiation decouples from matter. This
+      is the birth of the CMB.
+    • 3800 000 yr < t < 108 yr :
+      Dark ages, where, at the end, stars form in protogalaxies.
+Prof: Good. But you skipped one of the epochs, the big bang nucleosynthesis part. Can you tell me
+something about this?
+Me: Yes. This happend from approximately 10s-1000s after the big bang. In the beginning we had two
+process that kept the number of protons and neutrons roughly constant. During this time of equilibrium
+we could use the Boltzman equation to estimate the ratio np /nn between the number of protons np
+and the number of neutrons nn . We get np /nn ≈ 5 : 1. From this fraction we can estimate nH /nHe = 6.
+This deviates from the actually observed value of nH /nHe ≈ 10. To get to this value we need to take
+into account that the neutron decay with a half life of about 10 min, which brings us to np /nn ≈ 7. At
+some point in this explanation I also mentioned that the temperature at which the equilibrium is not
+fulfilled anymore is about T = 0.8 MeV.
+The protons can also, by means of various chemical reactions, get transformed into 4 He. I forgot to
+mention that at this point there were no heavier elements synthesized since there are no stable nuclei of
+atomic number 5 or 8.
+Prof: You were really fast with this topic and we have two minutes left, so lets return to question one.
+You can imagine how thrilled I was to hear this... We didn’t really have time to go into stellar structure,
+can you maybe tell me some equation that relate the different quantities of the HR diagram.
+Me: Here I was a bit hesitant to give straight answers since I know most of the equations, but I can’t
+really derive any of them. I therefore started with one for which I knew the derivation. We could
+                                                                                 6 . Another relevant
+start with the one that is most obvious to see in this plot, which would be L ∝ Teff
+equation in this context could be L ∝ M .3
+
+
+Prof: Yes, the second one is really important! Can you tell me why?
+Me: I have no idea, so lets again start guessing. Well, it lets us estimate the mass of the star?
+Prof: Well yes, but I was thinking more of something in regards to its lifetime.
+Me: Ah yes, of course. We assume that the lifetime τ of a star is given by τ ∝ M/L and by inserting
+this relation we get τ ∝ M −2 .
+
+
+
+
+                                                    6
+Prof: Good, so how would you now estimate the lifetime for some stellar constellation in the sky?
+Me: Once again I don’t really get what this has to do with this equation, so I just start talking about
+something I read on Wikipedia in regards to how the lifetime is found. Well, we could plot the HR-
+diagram for this stellar constellation and the use stellar-evolution models at different times to see at
+which time the model best fits the plotted data.
+Prof: Yes, and what is the important part that needs to match well?
+Me: The point at which the stars start leaving the main sequence. Again, forgot how that specific point
+is called.
+Prof: Yes, the turn of point. Good. Time is up, thank you.
+
+
+Final Remarks There are three questions. They are not ordered by difficulty or anything, just topics
+that were covered in the lecture. Most of the exam consists of explaining concepts and almost no hard
+mathematics is needed (This was the case for almost all of my friends who took the same exam as well).
+The professor is friendly and tries to help you if you’re stuck. This can even take up a 2-3 min, but in
+the end he well tell you what he was trying to get at and give you a chance to talk about it, even if you
+didn’t figure it out yourself. The atmosphere was really relaxed during the whole exam.
+
+Expected mark: ≥ 5
+Received mark: 6
+
+
+
+
+                                                   7
+

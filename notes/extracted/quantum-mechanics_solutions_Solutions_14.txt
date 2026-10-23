@@ -1,0 +1,508 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                   Solution to exercise sheet XIV
+
+Question 1 [Anharmonic oscillator ]:
+Consider the Hamiltonian of an anharmonic oscillator in one dimension:
+                                                                    4
+                                       ℏ2     1   2 2                x
+          H = H0 + Ha ,       H0 = −      ∆ + mω x ,       Ha = λ         ,       (1)
+                                      2m      2                      x0
+            q
+                ℏ
+where x0 =     mω
+                  . The aim of this question is to determine the corresponding energy
+spectrum in second-order perturbation theory.
+
+ (i) Express H in terms of creation and annihilation operators of the harmonic oscillator.
+
+ (ii) Determine the matrix elements of Ha in the eigenbasis {|n⟩}, n = 0, 1, . . . , of the
+      harmonic oscillator; deduce the first order correction to the energy eigenvalues.
+
+(iii) Calculate the eigenvalues of H to second order in λ.
+
+(iv) The relative corrections diverge for large energies (large n). For these eigenstates,
+     perturbation theory is therefore not particularly useful. Why was this to be expected?
+
+Solution:
+
+  (i) This exercise relies on a number of results about the 1D harmonic oscillator in
+      section 6.1.2 of the script. In terms of the creation and annihilation operators a† , a,
+                                                          
+                                                   †     1
+                                       H0 = ℏω a a +         .                         (S.1)
+                                                         2
+
+     To write Ha in terms of the creation and annihilation operators, we use
+                                        r
+                                            ℏ
+                                                a† + a ,
+                                                      
+                                   x=                                                   (S.2)
+                                          2mω
+     which then upon substitution immediately gives
+                                                    λ †   4
+                                             Ha =     a +a .                            (S.3)
+                                                    4
+     Expanding the parenthesis, remembering that the creation/annihilation operators
+     do not commute, we get
+                              4             4             2                2
+                     a† + a        =    a† + a† (a)2 a† + a† aa† + a† a a†
+                                            3                               2
+                                       +a a† + (a)3 a† + aa† aa† + (a)2 a†
+                                           3                2
+                                       + a† a + a† (a)3 + a† a2 + a† aa† a
+                                            2
+                                       +a a† a + (a)4 + aa† a2 + (a)2 a† a .            (S.4)
+    In the following, antinormal ordering the operators (putting all creation operators
+    to the right) will be useful: using [a, a† ] = 1 we find
+                            λ  † 4            3          2
+                     Ha =        a + 4a a† + 6a2 a† + 4a3 a† + a4
+                            4                                                    (S.5)
+                                     2
+                              −6 a† − 12aa† − 6a2 + 3 .
+    The complete perturbed Hamiltonian is H = H0 + Ha , whose two terms are given
+    in terms of a, a† by eqs. (S.1) and (S.5), respectively.
+(ii) We want to calculate ⟨m|Ha |n⟩ for all m, n ∈ N. Since (S.5) involves at most 4 cre-
+     ation or annihilation operators, any matrix element of the form ⟨n ± 5 ± n′ |Ha |n⟩
+     vanishes, for any n′ = 0, 1, 2, .... Furthermore all matrix elements of the kind
+     ⟨n ± 3|Ha |n⟩ and ⟨n ± 1|Ha |n⟩ are also zero, because each term in (S.5) changes
+     the level by 0, ±2, ±4. Thus there are only 5 matrix elements we need to calculate
+     (though we do not need diagonal √ elements for second √ order corrections), which is
+                              †
+     straightforward using a |n⟩ = n + 1|n + 1⟩, a|n⟩ = n|n − 1⟩ and orthonormality
+     of the basis:
+                                λp
+            ⟨n + 4|Ha |n⟩ =         (n + 1)(n + 2)(n + 3)(n + 4)                    (S.6)
+                                4
+                                λ p                             p               
+            ⟨n + 2|Ha |n⟩ =         4 (n + 1)(n + 2)(n + 3)2 − 6 (n + 1)(n + 2) (S.7)
+                                4
+                                λ
+                                   6n2 + 6n + 3
+                                                
+                ⟨n|Ha |n⟩ =                                                         (S.8)
+                                4
+                                λ p
+                                                          p         
+            ⟨n − 2|Ha |n⟩ =         4 (n + 1)2 n(n − 1) − 6 n(n − 1) δn≥2           (S.9)
+                                4
+                                λp
+            ⟨n − 4|Ha |n⟩ =         n(n − 1)(n − 2)(n − 3)δn≥4 .                   (S.10)
+                                4
+     Here δn≥N := 1 if n ≥ N , and δn≥N := 0 if n < N . The diagonal elements ⟨n|Ha |n⟩
+     are just the first order corrections to the energy.
+(iii) Since unperturbed energies are non-degenerate, their second order correction is
+                                          X |⟨m|Ha |n⟩|2
+                                   E2,n =                                         (S.11)
+                                          m̸=n
+                                               E n − Em
+
+    where En = ℏω(n + 1/2). There are only four non-zero contributions to the sum,
+    namely those from m = n ± 4 and n ± 2. Using En − Em = ℏω(n − m) we get:
+                                                4   2
+                  λ2     X         n + ℓ a† + a n
+       E2,n = −
+                16ℏω                       ℓ
+                     ℓ∈{4,2,−2,−4}
+
+                  λ2
+                     
+                       (n + 1)(n + 2)(n + 3)(n + 4) n(n − 1)(n − 2)(n − 3)
+            =−                                     −                       δn≥4
+                16ℏω                 4                          4
+                 p                            p              2
+                  4 (n + 1)(n + 2)(n + 3)2 − 6 (n + 1)(n + 2)
+              +
+                                        2
+                 p                      p         2
+                  4 (n + 1)2 n(n − 1) − 6 n(n − 1)        
+              −                                       δn≥2 ,                 (S.12)
+                                   2
+     which can be simplified to
+                    λ2
+                        
+                           (n + 1)(n + 2)(n + 3)(n + 4) − n(n − 1)(n − 2)(n − 3)δn≥4
+       E2,n = −
+                   16ℏω                                4
+                                                                    
+                             2           2                     2
+                +2(3 + 2n) (2 + 3n + n ) − 2n(n − 1)(1 − 2n) δn≥2 .              (S.13)
+
+(iv) As we can see already from the first order term (S.8), the correction grows with n.
+     This can be understood intuitively by looking at the wave-functions: the larger n is,
+     the more the wave-functions spread out in position space due to higher and higher
+     order Hermite polynomials (see Figure 10 in the script). Since Ha is a fourth order
+     monomial in x, it becomes of the same order as the quadratic potential in H0 for
+     large enough x, regardless how small λ is. Accordingly, for large n the anharmonic
+     ‘perturbation’ actually dominates the contributions of energy — the harmonic piece
+     is then mostly irrelevant. When this happens, the perturbation is no longer ‘small’
+     and perturbation theory breaks down, which is reflected in energy corrections.
+
+Question 2 [Stark effect ]:
+                                                        ⃗ This modifies the electronic
+A hydrogen atom is placed in an external electric field E.
+Hamiltonian by a term
+                                  ∆H = −eE   ⃗ · ⃗x ,                              (2)
+where e < 0 is the charge of an electron. Use degenerate perturbation theory to determine
+the change in the energy spectrum and the eigenstates to first order in the perturbation
+(2) for the states with n = 2.
+Hint: The eigenfunctions Ψn,ℓ,m (r, θ, ϕ) of the hydrogen atom with n = 2 are given by
+                                                               r
+                 1             r     − 2ar                          3
+     Ψ2,0,0 = p          1−         e 0 ,                 Y1,0 =       cos θ ,
+                8πa0 3        2a0                                  4π
+                                                                  r
+                 1        r −r/2a0                                    3 ±iϕ
+     Ψ2,1,m =       3/2
+                        √ e          Y1,m ,             Y1,±1 = ∓       e sin θ .
+              (2a0 )      3a0                                        8π
+Solution: For the states with n = 2, the energy levels are four-fold degenerate. Hence
+we are forced to consider degenerate perturbation theory. We exclude the spin degrees of
+freedom of the electron as the perturbation ∆H does not act on the spin Hilbert space,
+but they do of course double the degeneracy.
+    We thus need to evaluate a 4 × 4 perturbation matrix with entries ⟨2ℓ′ m′ |∆H|2ℓm⟩.
+Without loss of generality we assume that the electric field points along the z-axis so that
+                               ∆H = −eEz = −eEr cos θ .                              (S.14)
+As explained in class, only one integral actually needs to be calculated:
+   • We must have m′ = m otherwise the matrix element is zero; this follows from
+     ∆H ∝ z, which commutes with Lz , and the fact that |nℓm⟩ states are eigenvectors of
+     Lz : [Lz , ∆H] = 0 ⇒ 0 = ⟨2ℓ′ m′ |Lz ∆H − ∆HLz |2ℓm⟩ = (m′ − m) ⟨2ℓ′ m′ |∆H|2ℓm⟩.
+   • All diagonal matrix elements are zero; this follows from the odd parity of z, i.e.
+     P zP −1 = −z, and the parity (−1)ℓ of the spherical harmonics Yℓ,m (cfr quiz XII):
+     ⟨2ℓm|∆H|2ℓm⟩ ∝ ⟨2ℓm|z|2ℓm⟩ = ⟨2ℓm|P −1 P zP −1 P |2ℓm⟩ = − ⟨2ℓm|P −1 zP |2ℓm⟩ =
+     −(−1)2ℓ ⟨2ℓm|z|2ℓm⟩ = − ⟨2ℓm|z|2ℓm⟩.
+This leaves ⟨210|∆H|200⟩ = ⟨200|∆H|210⟩ as the only non-zero matrix elements. Alter-
+natively one can also reach this conclusion from the symmetry properties of the angular
+parts of the integrands, which show that all but ⟨210|∆H|200⟩ must vanish without even
+evaluating them explicitly. In any case, using the position space wave-functions given in
+the hint, we get:
+
+    ⟨210|∆H|200⟩ =
+       Z ∞ Z π Z 2π
+     =      dr      dθ      dϕ r2 sin θ Ψ∗210 (r, θ, ϕ)∆HΨ200 (r, θ, ϕ)
+        0
+              Z 0∞ Z0 π Z 2π                                                             
+        −eE                               2             − 2ar                          r     − 2ar
+     =              dr     dθ        dϕ r   sin θ ×  re      0 cos θ × r cos θ ×  1 −       e      0
+       16πa40 0         0      0                                                      2a0
+              Z ∞ Z π Z 2π                                           
+        −eE                                       2    4           r     − r
+     =      4
+                             drdθdϕ sin θ cos θ r 1 −                   e a0
+       16πa0 0                                                   2a0
+             Z ∞ 0 0                        Z π
+       −eE                      r       − r
+     =    4
+                   dr r4 1 −           e a0        dθ sin θ cos2 θ
+        8a0 0                  2a0
+                                             Z 0π
+       −eEa0 ∞                     5
+               Z                    
+                                 x
+     =               dx x4 −           e−x        dθ sin θ cos2 θ,                              (S.15)
+          8      0               2            0
+
+where we defined x := r/a0 . For the integral over θ we let y := cos θ and find
+                          Z π                   Z 1
+                                           2                 2
+                               dθ sin θ cos θ =     dy y 2 = .                                                   (S.16)
+                            0                    −1          3
+
+For the integral over x we integrate by parts repeatedly to find
+            Z +∞               Z +∞                         Z +∞
+                       n −x                n−1 −x
+                  dx x e =          dx n x    e = ... = n!       dx e−x = n!                                     (S.17)
+               0                          0                                         0
+
+(alternatively, just note that this is Γ(n + 1) = n!). This finally gives
+
+                                                           −eEa0              2
+                                   ⟨210|∆H|200⟩ =                (4! − 12 5!)
+                                                             8                3
+                                                                        5
+                                                         = −2eEa0 (1 − 2 )
+                                                         = +3eEa0 .                                              (S.18)
+
+The perturbation matrix is thus
+         ⟨2, 0, 0|∆H|2, 0, 0⟩    ⟨2, 0, 0|∆H|2, 1, −1⟩    ⟨2, 0, 0|∆H|2, 1, 0⟩    ⟨2, 0, 0|∆H|2, 1, 1⟩
+                                                                                                         !
+        ⟨2, 1, −1|∆H|2, 0, 0⟩   ⟨2, 1, −1|∆H|2, 1, −1⟩   ⟨2, 1, −1|∆H|2, 1, 0⟩   ⟨2, 1, −1|∆H|2, 1, 1⟩
+         ⟨2, 1, 0|∆H|2, 0, 0⟩    ⟨2, 1, 0|∆H|2, 1, −1⟩    ⟨2, 1, 0|∆H|2, 1, 0⟩    ⟨2, 1, 0|∆H|2, 1, 1⟩       =
+         ⟨2, 1, 1|∆H|2, 0, 0⟩    ⟨2, 1, 1|∆H|2, 1, −1⟩    ⟨2, 1, 1|∆H|2, 1, 0⟩    ⟨2, 1, 1|∆H|2, 1, 1⟩
+                                                                                                         
+                                                                        0               0 3eEa0          0       (S.19)
+                                                                      0                0   0            0
+                                                                    =
+                                                                     3eEa0
+                                                                                                          
+                                                                                        0   0            0
+                                                                        0               0   0            0
+
+which has eigenvalues {−3eEa0 , +3eEa0 , 0, 0}. These eigenvalues are the first-order cor-
+rections to the energy of the states |2ℓm⟩. More precisely, the eigenstates of the perturbed
+Hamiltonian at this order of perturbation theory are
+
+                    √1
+                                           
+                      2
+                        2, 1, 0 + 2, 0, 0 with energy E2 + 3eEa0 ,                    (S.20)
+                   √1
+                                           
+                      2
+                        2, 1, 0 −  2, 0, 0   with energy E2 − 3eEa0 ,                 (S.21)
+                                  2, 1, 1 with energy E2 ,                            (S.22)
+                                 2, 1, −1 with energy E2 ,                            (S.23)
+
+where En = −me e4 /(2ℏ2 n2 ) is the nth unperturbed energy of the hydrogen atom.
+
+Question 3 [Spin-orbit coupling and Zeemann effect ]:
+Consider an electron in a hydrogen atom in the presence of a constant magnetic field B,   ⃗
+which we take to be parallel to the z-axis. Without the magnetic field and ignoring the
+spin-orbit coupling, the eigenfunctions are labelled by (n, ℓ, m, ms ), where ms denotes the
+spin quantum number ms = ± 21 . The additional effects lead to H = H0 + ∆H with
+
+                                       1 1 dV ⃗ ⃗ µB Bz
+                ∆H = HSO + HZ =                   L·S+   (Lz + 2Sz ) ,                   (3)
+                                     2m2e c2 r dr      ℏ
+
+where V (r) = −e2 /r and µB = 2m
+                               ℏe
+                                ec
+                                   is the Bohr magneton.
+
+  (i) If the second term dominates (Paschen-Back effect), determine the first order pertur-
+      bation of the energy spectrum, treating only the spin-orbit coupling as a perturbation.
+      How big does Bz have to be in order to justify this approximation?
+      Hint: The following expectation value may be useful (see eq. (9.7.29) in the script):
+                                 
+                                  1          1           1
+                                        =   3
+                                                                   ,                      (4)
+                                  r3 nℓ a0 n3 ℓ(ℓ + 1/2)(ℓ + 1)
+
+     where a0 := ℏ2 /(me e2 ) is the Bohr radius.
+
+ (ii) Next, determine the energy spectrum to first order perturbation theory, treating both
+      terms (i.e. ∆H) as a perturbation.
+      Hint: You need to diagonalise the 2n2 × 2n2 matrix where ℓ = 0, 1, . . . , n − 1,
+                                            ⃗ 2 , ∆H] = [Lz + Sz , ∆H] = 0, this matrix is
+      m = −ℓ, ..., ℓ and ms = ± 21 . Since [L
+      block-diagonal with 2 × 2 blocks.
+
+(iii) For Bz = 0, reproduce the result for the spin orbit coupling that was derived in the
+      lectures. Show that the first order correction in Bz of this result is given by
+
+                          ∆Enℓjmj = gℓj µB Bz mj ,       mj = −j, ..., j ,               (5)
+
+     where j and mj refer to the diagonal representation of the rotation group corre-
+     sponding to J⃗ = L
+                      ⃗ +S
+                         ⃗ and
+
+                                         2 + 2ℓ                     2ℓ
+                            gℓ,ℓ+1/2 =          ,    gℓ,ℓ−1/2 =          .               (6)
+                                         1 + 2ℓ                   1 + 2ℓ
+
+Solution:
+(i) We will work in a basis where the Zeeman term is diagonal (i.e. |n, ℓ, m, ms ⟩ with
+    m = −ℓ, ..., ℓ and ms = ±1/2) and treat the spin-orbit (SO) term perturbatively.
+    In this basis, the energy splitting of the energy levels of the hydrogen atom (En =
+    −Ry/n2 ) due to the Zeeman term is
+
+                                         ∆EZ = µB Bz (m + 2ms ) .                      (S.24)
+
+   The degeneration is thus not fully broken by the Zeeman term; for each integer M
+   in between −n and n, all the states |n, l, m, ms ⟩ with m + 2ms = M have the same
+   energy. We need to find the energy corrections using degenerate perturbation theory,
+   as in Section 11.2 in the lecture notes. The energy corrections are the eigenvalues
+   of the matrix
+
+                                                         m + 2ms = m′ + 2m′s = M ,
+     (⟨n, ℓ′ , m′ , m′s | HSO |n, ℓ, m, ms ⟩)ℓ,m,ms ;ℓ′ ,m′ ,m′s ,
+                                                                                (S.25)
+                     1  1 dV ⃗ ⃗
+   where HSO = 2m2 c2 r dr L · S is the spin orbit interaction. However, this matrix is
+   actually diagonal, as one can see by using the symmetries of the problem. Specif-
+                ⃗ 2 and Jz = Lz + Sz are conserved quantities, i.e. they commute with
+   ically, both L
+   the full Hamiltonian. This implies that the only non-zero matrix elements above
+   are those with ℓ = ℓ′ , m = m′ , ms = m′s :
+
+                                     ⃗ 2 , HSO ] |n, ℓ, m, ms ⟩
+            0 = ⟨n, ℓ′ , m′ , m′s | [L
+              = ℏ2 (ℓ′ (ℓ′ + 1) − ℓ(ℓ + 1)) ⟨n, ℓ′ , m′ , m′s | HSO |n, ℓ, m, ms ⟩ ,   (S.26)
+            0 = ⟨n, ℓ′ , m′ , m′s | [Jz , HSO ] |n, ℓ, m, ms ⟩
+              = ℏ ((m′ + m′s ) − (m + ms )) ⟨n, ℓ′ , m′ , m′s | HSO |n, ℓ, m, ms ⟩ .   (S.27)
+
+   The first equation implies that only matrix elements with ℓ = ℓ′ can be non-zero.
+   Furthermore, since we diagonalise HSO on the subspace with m + 2ms = m′ + 2m′s ,
+   the second equation implies that furthermore m = m′ , ms = m′s for the element to
+   be non-zero.
+   As HSO is diagonal on the degenerate subspace, we only need to calculate the diag-
+   onal elements to find the eigenvalues. Using L ⃗ ·S
+                                                     ⃗ = 1 (L− S+ + L+ S− ) + Lz Sz we
+                                                           2
+   can now calculate the first-order corrections in perturbation theory due to the SO
+   term
+                                                 
+                                    1 1 dV ⃗ ⃗
+                      ∆ESO =                 L·S                                (S.28)
+                                 2m2 c2 r dr        n,ℓ,m,ms
+                                                             
+                                   1
+                             =κ      (L− S+ + L+ S− ) + Lz Sz                   (S.29)
+                                   2                            ℓ,m,ms
+
+
+   where κ := 2m12 c2 ⟨ 1r dV ⟩ . And since the expectation values of L− S+ and L+ S−
+                           dr n,ℓ
+   vanish,
+                                                            2
+                                                                     
+                                             2           2 e mms     1
+               ∆ESO = κ ⟨Lz Sz ⟩ℓ,m,ms = ℏ κ mms = ℏ          2   2
+                                                                                (S.30)
+                                                            2me c    r3 nℓ
+   where m in the numerator is an angular momentum quantum number, while me in
+   the denominator is the electron mass. Using the expectation value (4) and expressing
+   the result in terms of the fine-structure constant α = e2 /ℏc ≈ 1/137 and the energies
+   En = −Ry/n2 = −me e4 /(2ℏ2 n2 ), one finds
+                                            2         3 6
+                                         2 e mms me e         1
+                                 ∆ESO = ℏ      2 2   6  3
+                                                                                                               (S.31)
+                                            2me c ℏ n ℓ(ℓ + 1/2)(ℓ + 1)
+                                              |En | α2
+                                      =                   mms .                                                (S.32)
+                                              nℓ(ℓ + 1/2)(ℓ + 1)
+
+   To estimate the minimal strength of the magnetic field which justifies the approxi-
+   mation where the spin-orbit coupling is seen as a perturbation of the Zeeman term,
+   we have to compare the amplitudes of the SO correction and the Zeeman correction
+   which split the degenerate levels of the hydrogen atom:
+
+                       ∆ESO   Ry α2                                       Ry α2
+                            ∼       ≪1                   ⇒       Bz ≫           ≈ 105 Gauss.                   (S.33)
+                       ∆EZ    µB Bz                                        µB
+   The magnetic field should thus have a magnitude much larger than approximately
+   105 Gauss = 10 Tesla. This is pretty high: the magnets used at LHC produce a
+   magnetic field of about 8 Tesla!
+
+(ii) In this case we have to apply degenerate perturbation theory to the sum ∆H =
+     HSO + HZ , which means that we need to diagonalise the 2n2 × 2n2 matrix
+
+                              (⟨n, ℓ′ , m′ , m′s | ∆H |n, ℓ, m, ms ⟩)ℓ,m,ms ;ℓ′ ,m′ ,m′s .                     (S.34)
+
+   However, similarly as in (i), the symmetries of the problem imply that almost all
+                                                                            ⃗ 2 , ∆H] =
+   of the off-diagonal elements vanish. In particular, as a consequence of [L
+   [Jz , ∆H] = 0,
+
+               ⟨n, ℓ′ , m′ , m′s |∆H|n, ℓ, m, ms ⟩ ∝ δℓ,ℓ′ δm+ms ,m′ +m′s = δℓ,ℓ′ δmj ,m′j .                   (S.35)
+
+   This means that the perturbation Hamiltonian ∆H acts on the Hilbert space H as
+   a block-diagonal matrix. Since ms takes only two values ms = ±1/2 for a given mj
+   the corresponding block is the following 2 × 2 matrix:
+
+          ⟨n, ℓ, mj + 21 , − 12 |∆H|n, ℓ, mj + 21 , − 12 ⟩   ⟨n, ℓ, mj + 12 , − 12 |∆H|n, ℓ, mj − 12 , 12 ⟩
+                                                                                                           
+
+           ⟨n, ℓ, mj − 21 , 12 |∆H|n, ℓ, mj + 21 , − 12 ⟩     ⟨n, ℓ, mj − 12 , 12 |∆H|n, ℓ, mj − 12 , 21 ⟩
+                                                                                                             
+                                                                                                    A B
+                                                                                             :=                 . (S.36)
+                                                                                                    C D
+
+   Using
+                                          ⃗ = 1 (L− S+ + L+ S− ) + Lz Sz
+                                       ⃗ ·S
+                                       L
+                                              2
+   we obtain
+                                                   1      1      1
+                                  A = µB Bz (mj − ) − κℏ2 (mj + ),                                             (S.37)
+                                                   2      2      2
+                                                   1      1      1
+                                  D = µB Bz (mj + ) + κℏ2 (mj − ),                                             (S.38)
+                                           r       2      2      2
+                                         2
+                                      κℏ              1           1
+                                B=C=         (ℓ + mj + )(ℓ − mj + ).                                           (S.39)
+                                       2              2           2
+     The eigenvalues of the this matrix give the splitting of energy levels for the given ℓ
+     and mj :
+
+                             κℏ2 h 1
+                                                   q                             i
+                  ∆Eℓ,mj =        − 2 + 2mj x ±        x2 + 2mj x + (ℓ + 1/2)2          (S.40)
+                              2
+     where x := µB Bz /(κℏ2 ).
+
+(iii) We will work in a basis in which the SO term L· ⃗ S⃗ is diagonalized (with basis vectors
+      |ℓ, 1/2, j = ℓ ± 1/2, mj ⟩ := |ℓ ± 1/2, mj ⟩ where mj = −j, ..., j). First we check that
+      the states |ℓ ± 1/2, mj ⟩ are indeed eigenstates of the operator L  ⃗ · S:
+                                                                              ⃗
+
+                      L   ⃗ ± 1/2, mj ⟩ = 1 (J 2 − L2 − S 2 )|ℓ ± 1/2, mj ⟩
+                      ⃗ · S|ℓ                                                           (S.41)
+                                          2 
+                                          ℏ2
+                                                        
+                                                    ℓ
+                                        =                   |ℓ ± 1/2, mj ⟩.             (S.42)
+                                          2      −ℓ − 1
+
+     Hence due to the SO term the energy level En = −Ry/n2 gets the following correc-
+     tion (so called fine-structure corrections):
+
+                  ∆ESO = ⟨HSO ⟩ℓ±1/2,mj                                                 (S.43)
+                            ℏ2 ℓ
+                                 
+                                            for j = ℓ + 1/2
+                       =κ                                                               (S.44)
+                            2       −ℓ − 1 for j = ℓ − 1/2
+                              2
+                                            ℏ2 ℓ
+                                             
+                             e        1                   for j = ℓ + 1/2
+                       =                                                                (S.45)
+                               2
+                           2me c  2    3
+                                      r n,ℓ 2     −ℓ − 1 for j = ℓ − 1/2
+                                    |En |α2
+                                                 
+                       (4)                         ℓ        for j = ℓ + 1/2,
+                       =                                                                (S.46)
+                           2nℓ(ℓ + 1/2)(ℓ + 1) −ℓ − 1 for j = ℓ − 1/2.
+     In order to calculate the splitting of the energy levels En,ℓ = En + ∆ESO due to
+     the small Zeeman term in first-order perturbation theory, we need to calculate the
+     matrix elements ⟨HZ ⟩ℓ±1/2,mj (again, because [Jz , HZ ] = 0, the off-diagonal elements
+     of the perturbation matrix vanish). Note that the Zeeman term is diagonal in the
+     basis states |ℓ, 1/2, m, ms ⟩, but not in the states |ℓ, 1/2, ℓ ± 1/2, mj ⟩. These basis
+     states are related by Clebsch-Gordan coefficients. From the summation of angular
+     momentum ℓ and spin-1/2, one has
+
+      |ℓ, 1/2, ℓ ± 1/2, mj ⟩ = A± |ℓ, 1/2, mj − 1/2, 1/2⟩ + B± |ℓ, 1/2, mj + 1/2, −1/2⟩, (S.47)
+
+     where the Clebsch-Gordan coefficients are
+                                             r
+                                                    ℓ ± mj + 1/2
+                                 A± = ±B∓ = ±                    .                      (S.48)
+                                                       2ℓ + 1
+     Hence the Zeeman splitting in first-order perturbation theory becomes
+                               eBz                          eBz        ℏ
+        ∆EZ = ⟨HZ ⟩ℓ±1/2,mj =       ⟨(Jz + Sz )⟩ℓ±1/2,mj =       [ℏmj + (A2± − B±
+                                                                                2
+                                                                                  )]
+                              2me c                        2me c       2
+                                                                                (S.49)
+                                   
+                                1
+              = µB Bz mj 1 ±          ,                                         (S.50)
+                             2ℓ + 1
+where µB = eℏ/2me c is the Bohr magneton. We see that the levels |ℓ ± 1/2, mj ⟩ are
+split by the magnetic field into 2ℓ + 2 and 2ℓ levels (in total 2(2ℓ + 1) levels), and
+the magnitude of the splitting depends on ℓ in a way that reproduces the expected
+result (5)-(6).
+

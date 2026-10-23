@@ -1,0 +1,361 @@
+{
+ "qm-tunnel-b1": {
+  "start": [
+   "Which single local conservation law is hiding behind this whole problem, and which quantity must therefore be built from $\\Psi$ and $\\Psi^*$?",
+   "Start from $i\\hbar\\partial_t\\Psi=-\\frac{\\hbar^2}{2m}\\Psi''+V\\Psi$ and its complex conjugate; then write the plane-wave ansatz in each region where $V$ is constant."
+  ],
+  "parts": {
+   "j2": [
+    "The current of a superposition of left- and right-movers: do the two waves contribute with the same sign, and does a cross term survive?",
+    "Use $j=\\frac{\\hbar}{m}\\,\\mathrm{Im}(\\Psi^*\\partial_x\\Psi)$ (here with $\\hbar=1$). Evaluate it for each exponential separately and check the interference terms.",
+    "Each plane wave gives $\\pm\\frac{k}{m}$ times its squared amplitude. Write the right-mover contribution first, then subtract the left-mover one, and only then insert $A$, $B$, $m$, $k$."
+   ],
+   "R": [
+    "What must be continuous at $x=0$ for $\\psi$, and what does that give you for the amplitudes of incoming, reflected and transmitted waves?",
+    "Match $\\psi$ and $\\psi'$ at $x=0$ with $\\psi=e^{ikx}+re^{-ikx}$ for $x<0$ and $\\psi=te^{ilx}$ for $x>0$, where $l$ follows from $E-V_0$. Solve for $r$ in terms of $k$ and $l$.",
+    "You should find $r$ as a ratio of a difference to a sum of the two wave numbers. Express $l/k$ through $V_0/E$, then square the modulus of $r$."
+   ],
+   "Tt": [
+    "Is the transmission probability the ratio of squared amplitudes, or of currents? What differs between the two regions?",
+    "Compute the transmitted current $j_t$ with the wave number $l$ in the region $x>0$ and divide by the incident current. Alternatively use current conservation.",
+    "Since $j_{\\text{in}}=j_{\\text{refl}}+j_{\\text{trans}}$, you have $T=1-R$. Write the result as a function of $\\sqrt{1-V_0/E}$ and then insert the given ratio."
+   ]
+  }
+ },
+ "qm-ho-b1": {
+  "start": [
+   "Which algebraic relation between $a$, $a^\\dagger$ lets you solve the oscillator without ever writing a differential equation, and what does it imply for the spectrum?",
+   "Express $q$ and $p$ through $a$ and $a^\\dagger$ (or compute $a^\\dagger a$ directly), use $[q,p]=i\\hbar$, then treat $H'$ as a sum of operators changing $n$ by a fixed amount."
+  ],
+  "parts": {
+   "cup": [
+    "Which intermediate states $|l\\rangle$ can have a nonzero matrix element $\\langle l|H'|n\\rangle$ with $H'\\propto a^2+(a^\\dagger)^2$, and what is the sign of $E_n-E_l$ for the upper one?",
+    "Use $a^\\dagger|n\\rangle=\\sqrt{n+1}|n+1\\rangle$ twice to get $(a^\\dagger)^2|n\\rangle$. Then apply $|\\Psi_n^{(1)}\\rangle=\\sum_{l\\neq n}\\frac{\\langle l|H'|n\\rangle}{E_n-E_l}|l\\rangle$ with $E_n-E_{n+2}=-2\\hbar\\omega$.",
+    "The coefficient is a product of the two square roots from the ladder, times the prefactor of $H'$ (in units of $\\hbar\\omega$), divided by the energy denominator. Mind the sign of the denominator."
+   ],
+   "cdown": [
+    "For the lower state $|n-2\\rangle$, which operator of $H'$ connects it to $|n\\rangle$, and what is the sign of $E_n-E_{n-2}$ compared with the upper case?",
+    "Use $a|n\\rangle=\\sqrt n|n-1\\rangle$ twice, so $a^2|n\\rangle\\propto|n-2\\rangle$, and divide by $E_n-E_{n-2}$ in the formula for $|\\Psi_n^{(1)}\\rangle$.",
+    "Form the product of the two square roots from lowering, multiply by the prefactor of $H'$ in units of $\\hbar\\omega$, and divide by the energy denominator, which is now positive."
+   ],
+   "E2": [
+    "Which two terms survive in $\\sum_{l\\neq n}$, and do their contributions have the same sign?",
+    "Use $E_n^{(2)}=\\sum_{l\\ne n}\\frac{|\\langle l|H'|n\\rangle|^2}{E_n-E_l}$ with the two squared matrix elements $\\propto(n+1)(n+2)$ and $n(n-1)$ and denominators of opposite sign.",
+    "Write both terms as (squared matrix element)/(denominator) in units of $\\hbar\\omega$, with the prefactor squared. Add them and simplify the combination of $(n+1)(n+2)$ and $n(n-1)$ to a linear function of $n$."
+   ]
+  }
+ },
+ "qm-ho-b2": {
+  "start": [
+   "Which basis makes $\\hat X$, $\\hat P$ and $\\hat H$ trivial to handle, and how do the Heisenberg equations tie parts (c) and (d) together?",
+   "Write $\\hat X,\\hat P$ in terms of $a,a^\\dagger$ for (a),(b); use $\\frac{d}{dt}\\hat O_H=\\frac{i}{\\hbar}[\\hat H,\\hat O_H]$ for (c); for (e),(f) think of two independent oscillators and degenerate perturbation theory."
+  ],
+  "parts": {
+   "M": [
+    "Which ladder operator terms in $\\hat X\\propto(a+a^\\dagger)$ can connect $\\langle n|$ to $|m\\rangle$ when $n=m\\pm1$?",
+    "Use $\\hat X=\\sqrt{\\hbar/2m\\omega}\\,(a+a^\\dagger)$ and $a^\\dagger|m\\rangle=\\sqrt{m+1}\\,|m+1\\rangle$. Which of the two terms gives $\\langle m+1|$?",
+    "$\\langle n|\\hat X|m\\rangle$ for $n=m+1$ equals the prefactor times the square root from raising $|m\\rangle$. Insert $m$ only in that radicand."
+   ],
+   "xh": [
+    "How does the operator $e^{r\\hat P/i\\hbar}$ act on position states, and what does it do to $\\langle\\hat X\\rangle$ at $t=0$?",
+    "It is the translation operator $\\hat T(r)=e^{-ir\\hat P/\\hbar}$. Compute $\\langle\\psi|\\hat X|\\psi\\rangle$ via $\\hat T^\\dagger\\hat X\\hat T=\\hat X+\\dots$ and use $\\langle0|\\hat X|0\\rangle=\\langle0|\\hat P|0\\rangle=0$.",
+    "Insert the shifted expectation values $\\langle\\hat X\\rangle$, $\\langle\\hat P\\rangle$ at $t=0$ into the Heisenberg-picture formula from (c). Which of the two terms survives?"
+   ],
+   "E0": [
+    "What is the ground-state energy of one oscillator, and how many independent oscillators are there in two dimensions?",
+    "Use $E_{n_x,n_y}=\\hbar\\omega(n_x+n_y+1)$ and set $n_x=n_y=0$.",
+    "Each of the two oscillators contributes its zero-point energy $\\frac12\\hbar\\omega$; add them. State the value in units of $\\hbar\\omega$."
+   ],
+   "shift": [
+    "Which unperturbed states form the degenerate subspace at this energy, and which matrix must you diagonalise in it?",
+    "Write $\\hat X\\hat Y=\\frac{\\hbar}{2m\\omega}(a+a^\\dagger)(b+b^\\dagger)$ and find the matrix elements of $\\hat H'$ between $|1,0\\rangle$ and $|0,1\\rangle$. Diagonal elements vanish.",
+    "The $2\\times2$ matrix has vanishing diagonal, so its eigenvalues are plus and minus the off-diagonal element. Compute that element from $\\lambda m\\omega^2\\cdot\\frac{\\hbar}{2m\\omega}\\langle1,0|(a+a^\\dagger)(b+b^\\dagger)|0,1\\rangle$."
+   ]
+  }
+ },
+ "qm-ho-b3": {
+  "start": [
+   "Which two operators' expectation values obey the Ehrenfest relations, and what does that imply for oscillating observables in a stationary state versus a superposition?",
+   "Write $a$ via $x$ and $p$, derive $[a,a^\\dagger]$, find the state that $a$ annihilates (a first-order ODE), then build $\\psi_n$ with $a^\\dagger$."
+  ],
+  "parts": {
+   "psi2": [
+    "What is the structure of $\\psi_2$: a polynomial times which Gaussian, and which polynomial degree does the second excited state carry?",
+    "Apply $a^\\dagger$ twice to $\\psi_0\\propto e^{-\\xi^2/2}$, using $a^\\dagger\\propto\\xi-\\partial_\\xi$ and normalisation $\\frac{1}{\\sqrt{n!}}$. Express the result as $(\\text{poly}(\\xi))\\,e^{-\\xi^2/2}$.",
+    "The polynomial is $c(2\\xi^2-1)$ up to normalisation. Find $c$ by requiring $\\int|\\psi_2|^2d\\xi=1$ with the Gaussian integral $\\int\\xi^{2k}e^{-\\xi^2}d\\xi$, then evaluate at $\\xi=0$."
+   ],
+   "amp": [
+    "Which matrix element of $x$ survives between $\\psi_0$ and $\\psi_1$, and what time dependence does the cross term acquire?",
+    "Compute $\\langle x\\rangle=\\langle\\Psi|x|\\Psi\\rangle$ with $x\\propto a+a^\\dagger$; the cross term carries the phase $e^{\\pm i\\omega t}$ from $E_1-E_0=\\hbar\\omega$.",
+    "The amplitude has the form $2AB\\cdot\\langle0|x|1\\rangle$ with $\\langle0|x|1\\rangle=\\sqrt{\\hbar/2m\\omega}$. Express it in units of $x_0$ and insert $A,B$."
+   ],
+   "E2": [
+    "What is the general formula for the oscillator spectrum and how does $n=2$ enter?",
+    "Use $E_n=\\hbar\\omega(n+\\tfrac12)$ from $H=\\frac{\\hbar\\omega}{2}(aa^\\dagger+a^\\dagger a)$.",
+    "Insert $n=2$ into $n+\\tfrac12$ and express the result in units of $\\hbar\\omega$."
+   ]
+  }
+ },
+ "qm-am-b1": {
+  "start": [
+   "Which basis is natural for $L_3$ measurements, and how would you express the $L_1$ eigenstate in it?",
+   "Write $L_1=\\frac12(L_++L_-)$ and $L_2=\\frac{1}{2i}(L_+-L_-)$ as $3\\times3$ matrices in the basis $|1,m\\rangle$; then use the $\\psi$ given, $[L_1,\\cdot]$ identities and $\\Delta L=\\sqrt{\\langle L^2\\rangle-\\langle L\\rangle^2}$."
+  ],
+  "parts": {
+   "p0": [
+    "Which component of $|\\psi\\rangle$ in the $L_3$ eigenbasis determines the probability of the outcome $m=0$?",
+    "Use the Born rule $P(m)=|\\langle1,m|\\psi\\rangle|^2$ with the coefficient of $|1,0\\rangle$ given in (ii).",
+    "Square the modulus of that coefficient (including the factor $\\sqrt2$ and the overall prefactor) and check that the three probabilities add to one."
+   ],
+   "l2sq": [
+    "Which relation from (iv) lets you avoid computing $L_2^2$ directly, and what is $\\langle L_3^2\\rangle$ in this state?",
+    "Use $\\langle L_2^2\\rangle=\\langle L_3^2\\rangle$ and compute $\\langle L_3^2\\rangle=\\hbar^2\\sum_m m^2P(m)$ from the probabilities of (iii).",
+    "Only the outcomes $m=\\pm1$ contribute to the sum; add their probabilities, each weighted by $m^2\\hbar^2$."
+   ],
+   "dl2": [
+    "Given $\\langle L_2\\rangle=0$, what is the uncertainty $\\Delta L_2$ in terms of $\\langle L_2^2\\rangle$?",
+    "Use $\\Delta L_2=\\sqrt{\\langle L_2^2\\rangle-\\langle L_2\\rangle^2}$ with the value of $\\langle L_2^2\\rangle$ from the previous part.",
+    "Take the square root of $\\langle L_2^2\\rangle$, which already has units of $\\hbar^2$, and report it in units of $\\hbar$."
+   ],
+   "prod": [
+    "Since $\\Delta L_2=\\Delta L_3$, how does the product $\\Delta L_2\\Delta L_3$ relate to $\\Delta L_2^2$?",
+    "Compute $\\Delta L_2\\Delta L_3=(\\Delta L_2)^2=\\langle L_2^2\\rangle$ and compare it to the bound $\\frac12|\\langle[L_2,L_3]\\rangle|=\\frac\\hbar2|\\langle L_1\\rangle|$.",
+    "Insert $\\langle L_2^2\\rangle$ from before, and check that the Heisenberg bound with $\\langle L_1\\rangle=\\hbar$ is the same expression, so the inequality is saturated."
+   ]
+  }
+ },
+ "qm-am-b2": {
+  "start": [
+   "Which algebraic identity relates the product $L_+L_-$ to $L^2$, $L_3$, and why do the expectation values of $L_1,L_2$ vanish in an $L_3$ eigenstate?",
+   "Write $L_1=\\frac12(L_++L_-)$, $L_2=\\frac1{2i}(L_+-L_-)$. Compute the commutators with $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$ and the squares via $L_\\pm|l,m\\rangle$."
+  ],
+  "parts": {
+   "comm": [
+    "Express $[L_+,L_-]$ through $[L_1,L_2]$: which terms survive when you expand $(L_1+iL_2)(L_1-iL_2)-(L_1-iL_2)(L_1+iL_2)$?",
+    "Expand: the result is a multiple of $[L_1,L_2]$, which equals $i\\hbar L_3$. Count the factors of $i$.",
+    "$[L_+,L_-]=-2i[L_1,L_2]$. Insert $[L_1,L_2]=i\\hbar L_3$ and read off the number multiplying $\\hbar L_3$."
+   ],
+   "prod": [
+    "Using $\\langle L_1\\rangle=\\langle L_2\\rangle=0$, what are $\\Delta L_1^2$ and $\\Delta L_2^2$ in terms of $\\langle L^2_{1,2}\\rangle$, and how do they relate by symmetry?",
+    "From $L_1^2+L_2^2=L^2-L_3^2$ and $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$ in $|l,m\\rangle$, get $\\langle L_1^2\\rangle$ in terms of $l(l+1)$ and $m^2$.",
+    "Then $\\Delta L_1\\Delta L_2=\\langle L_1^2\\rangle=\\frac{\\hbar^2}{2}[l(l+1)-m^2]$. Substitute the given $l$ and $m$ in units of $\\hbar^2$."
+   ],
+   "bound": [
+    "Which commutator enters the Heisenberg relation for $L_1,L_2$, and what is its expectation value in $|l,m\\rangle$?",
+    "Use $\\Delta A\\Delta B\\ge\\frac12|\\langle[A,B]\\rangle|$ with $[L_1,L_2]=i\\hbar L_3$, so the bound is $\\frac\\hbar2|\\langle L_3\\rangle|$.",
+    "Insert $\\langle L_3\\rangle=\\hbar m$ for the given state and express the bound in units of $\\hbar^2$ (watch the absolute value)."
+   ],
+   "sat": [
+    "When is the Heisenberg inequality an equality here, and which relation between $l$ and $m$ makes this happen?",
+    "Evaluate $\\frac{\\hbar^2}{2}[l(l+1)-m^2]$ for $m=l$ and compare with the bound $\\frac{\\hbar^2}{2}|m|$.",
+    "Substitute $m=l$ in the bracket and simplify to a single term. Then insert $l=2$ and check that it equals the lower bound for this $m$."
+   ]
+  }
+ },
+ "qm-am-b3": {
+  "start": [
+   "What does it mean for $H$ to commute with $L_j$, and which part of $H$ can possibly break the commutation?",
+   "Compute $[\\nabla^2,x_k\\partial_l]$, note that $L_j$ commutes with $\\nabla^2$, so only $[V,L_j]$ remains. For the oscillator, act with $H$ on $x_ie^{-m\\omega x^2/2\\hbar}$ directly."
+  ],
+  "parts": {
+   "E": [
+    "How is $\\psi_i=x_ie^{-m\\omega\\vec x^2/2\\hbar}$ related to the Gaussian ground state, and which eigenvalue do you obtain from the kinetic and potential terms together?",
+    "Compute $\\nabla^2\\psi_i$ with the product rule: terms with $x_i\\vec x^{\\,2}$ cancel against $\\frac12m\\omega^2\\vec x^2\\psi_i$, leaving a constant times $\\psi_i$.",
+    "The constant is $\\frac{\\hbar^2}{2m}$ times a term from the Gaussian derivatives. Alternatively count: $\\hbar\\omega(N+\\frac32)$ with $N$ the total excitation."
+   ],
+   "deg": [
+    "How many values of $m$ are allowed for a given $\\ell$, and which $\\ell$ do the functions $x_i e^{-\\dots}$ carry?",
+    "The functions transform as a vector under rotations, so $\\ell=1$. The degeneracy of a rotation multiplet is $2\\ell+1$.",
+    "Evaluate $2\\ell+1$ for $\\ell=1$ and check against the number of functions $\\psi_1,\\psi_2,\\psi_3$."
+   ],
+   "m1": [
+    "Which linear combination of $x_1$ and $x_2$ behaves like $Y_{1,\\pm1}\\propto x\\pm iy$, and what does $L_3$ do to it?",
+    "Apply $L_3=-i\\hbar(x_1\\partial_2-x_2\\partial_1)$ to $\\psi_1+i\\psi_2$ and compare with the original function.",
+    "After applying $L_3$ you get $\\hbar$ times a numerical factor times the same function; read off the factor."
+   ],
+   "m3": [
+    "Does $L_3=-i\\hbar(x_1\\partial_2-x_2\\partial_1)$ do anything to a function proportional to $x_3\\,e^{-\\dots\\vec x^2}$?",
+    "Compute $L_3\\psi_3$ using that $\\partial_1,\\partial_2$ act only on the Gaussian, and examine the combination $x_1\\partial_2-x_2\\partial_1$ on a function of $\\vec x^{\\,2}$.",
+    "The derivatives of the Gaussian give terms $\\propto x_2$ and $x_1$ that cancel in the antisymmetric combination. Report the resulting eigenvalue."
+   ]
+  }
+ },
+ "qm-pf-b1": {
+  "start": [
+   "Which quantity do you expand in powers of $\\epsilon=\\hbar\\omega/mc^2$, and what do first-order and second-order perturbation theory need as input for $H'=\\alpha p^4$?",
+   "Express $p$ via $a,a^\\dagger$, compute $p^4|0\\rangle$, then evaluate $\\langle0|H'|0\\rangle$ and $\\sum_l\\frac{|\\langle l|H'|0\\rangle|^2}{E_0-E_l}$. For (iii) repeat first order with $p^6$."
+  ],
+  "parts": {
+   "e1": [
+    "Which expectation value do you need, and what is $\\langle0|p^4|0\\rangle$ in terms of the oscillator length scale?",
+    "Use $p=-i\\sqrt{\\hbar m\\omega/2}\\,(a-a^\\dagger)$, so $p^4\\propto(\\hbar m\\omega/2)^2(a-a^\\dagger)^4$. Compute $\\langle0|(a-a^\\dagger)^4|0\\rangle$ by counting contractions.",
+    "The result is $\\langle0|H'|0\\rangle=\\alpha(\\hbar m\\omega/2)^2\\times(\\text{integer})$. Insert $\\alpha=-1/(8m^3c^2)$ and write it as (number)$\\,\\epsilon\\hbar\\omega$."
+   ],
+   "e2": [
+    "Which states $|l\\rangle$ does $p^4|0\\rangle$ contain, and do all of them contribute to second order?",
+    "$(a-a^\\dagger)^4|0\\rangle$ has components along $|0\\rangle,|2\\rangle,|4\\rangle$. Only $|2\\rangle$ and $|4\\rangle$ enter $E_0^{(2)}$ with denominators $-2\\hbar\\omega$ and $-4\\hbar\\omega$.",
+    "Compute the coefficients of $|2\\rangle$ and $|4\\rangle$ in $(a-a^\\dagger)^4|0\\rangle$ with the ladder relations, square them, divide by the denominators, add, and multiply by $\\alpha^2(\\hbar m\\omega/2)^4$."
+   ],
+   "e3": [
+    "Which expectation value in the ground state do you need for $p^6$, and how does it scale in $\\hbar m\\omega$?",
+    "$\\langle0|(a-a^\\dagger)^6|0\\rangle$ is a combinatorial number. Use $\\langle p^{2k}\\rangle=(\\hbar m\\omega/2)^k\\cdot(2k-1)!!$ for the Gaussian ground state.",
+    "First-order shift $=\\beta\\langle p^6\\rangle$. Insert $\\beta=1/(16m^5c^4)$, express in $\\epsilon^2\\hbar\\omega$ and compute the double factorial."
+   ],
+   "etot": [
+    "Which contributions to the coefficient of $\\epsilon^2\\hbar\\omega$ do you have to combine, and with what signs?",
+    "Add the second-order term from $p^4$ (check its sign, since second-order energy of the ground state is negative) and the first-order term from $p^6$.",
+    "Put the two fractions on a common denominator, taking the sign of the $p^4$ term into account, and add."
+   ]
+  }
+ },
+ "qm-pf-b2": {
+  "start": [
+   "Which symmetries does the $p^4$ term respect (think of rotations and parity), and which hidden one of the Coulomb problem does it break?",
+   "Use that $H'$ commutes with $\\vec L^2$ and $L_3$, so it is diagonal in $|n,l,m\\rangle$. Then write $p^2=2m(E_n-V)$ to get $p^4$, and evaluate $\\langle r^\\alpha\\rangle$ for $n=2$ for $l=0,1$."
+  ],
+  "parts": {
+   "r1": [
+    "Which formula for $\\langle r^{-1}\\rangle$ in hydrogen holds for every $l$ at fixed $n$ (virial theorem)?",
+    "Use $\\langle V\\rangle=2E_n$ with $V=-e^2/r$ and $E_n=-\\frac{e^2}{2an^2}$. Solve for $\\langle1/r\\rangle$.",
+    "$\\langle\\frac1r\\rangle=\\frac{1}{an^2}$. Evaluate it at $n=2$ and multiply by $a$."
+   ],
+   "rr0": [
+    "For $l=0$, $n=2$, which radial wave function $R_{2,0}(r)$ do you use, and what integral $\\int R^2r^{0}dr$ does $\\langle r^{-2}\\rangle$ give?",
+    "Use $R_{20}\\propto(1-\\frac{r}{2a})e^{-r/2a}$ and compute $\\int_0^\\infty R_{20}^2\\,dr$ with $\\int_0^\\infty r^ne^{-r/a}dr=a^{n+1}n!$.",
+    "Expand $(1-\\frac r{2a})^2$, integrate term by term with the factorial formula, and multiply by the normalisation constant and $a^2$."
+   ],
+   "rr1": [
+    "For $l=1$, which formula gives $\\langle r^{-2}\\rangle$ directly, and how does $l$ enter?",
+    "Use the Kramers-type result $\\langle r^{-2}\\rangle=\\frac{1}{a^2n^3(l+\\frac12)}$.",
+    "Insert $n=2$, $l=1$ and simplify $n^3(l+\\tfrac12)$. Multiply by $a^2$."
+   ],
+   "E20": [
+    "Which formula from (iii) do you insert, and what are $E_2$, $\\langle1/r\\rangle$, $\\langle1/r^2\\rangle$ in units of $e^2/a$ for $l=0$?",
+    "Use $E^{(1)}=-\\frac{1}{2mc^2}(E_n^2+2e^2E_n\\langle1/r\\rangle+e^4\\langle1/r^2\\rangle)$ with $E_2=-\\frac{e^2}{8a}$ and $\\frac{e^2}{a}=mc^2\\alpha^2$.",
+    "Write the bracket in units of $(e^2/a)^2$ using your results from (iv); compute the three terms, add and multiply by $-\\frac{1}{2mc^2}$, expressing $e^2/a$ via the fine-structure constant."
+   ],
+   "E21": [
+    "What changes compared with $l=0$ in the formula of (iii), and which expectation value do you replace?",
+    "Only $\\langle1/r^2\\rangle$ differs; $\\langle1/r\\rangle$ and $E_2$ are unchanged. Use your $l=1$ value for $a^2\\langle1/r^2\\rangle$.",
+    "Evaluate the bracket $E_2^2+2e^2E_2\\langle\\frac1r\\rangle+e^4\\langle\\frac1{r^2}\\rangle$ in units of $(e^2/a)^2$, then multiply by $\\frac1{2mc^2}$, giving $\\alpha^4$ times $mc^2$."
+   ]
+  }
+ },
+ "qm-pf-b3": {
+  "start": [
+   "What changes in perturbation theory when several unperturbed states share the same energy, and which matrix replaces the single matrix element $\\langle n|H'|n\\rangle$?",
+   "Write $H'=\\omega L_z$ in terms of $a,b,c$ operators and restrict it to the degenerate subspace of $E=\\frac52\\hbar\\omega$ (one quantum in $x,y$ or $z$). Diagonalise this matrix."
+  ],
+  "parts": {
+   "plus": [
+    "Which states of the degenerate subspace are eigenstates of $L_z$, and what are the eigenvalues of $L_z$ for them?",
+    "In the subspace spanned by $|1,0,0\\rangle,|0,1,0\\rangle,|0,0,1\\rangle$ compute $L_z$ matrix elements (e.g. $\\propto\\hbar(a^\\dagger b-b^\\dagger a)$) and diagonalise.",
+    "The eigenvectors are $x\\pm iy$ and $z$, with $L_z=\\pm\\hbar$ and $0$. The shift is $\\omega L_z$ expectation; find the largest in units of $\\lambda\\hbar\\omega$ (the problem scales $H'$ by $\\lambda$)."
+   ],
+   "minus": [
+    "Which eigenvector has the opposite sign of $L_z$ compared with the previous part?",
+    "The state with $L_z=-\\hbar$ is the combination of $|1,0,0\\rangle$ and $|0,1,0\\rangle$ with relative phase opposite to the previous one.",
+    "The corresponding shift is $\\omega\\cdot(-\\hbar)$ times $\\lambda$. Express it in units of $\\lambda\\hbar\\omega$ with sign."
+   ],
+   "deg": [
+    "How many ways can you distribute a single excitation quantum over the three oscillators?",
+    "Count the states with $n_x+n_y+n_z=1$, using $E=\\hbar\\omega(n_x+n_y+n_z+\\tfrac32)$.",
+    "There is one state per axis. Count them."
+   ],
+   "Em": [
+    "What is the energy of a state with a single excitation quantum in the three-dimensional oscillator?",
+    "Use $E=\\hbar\\omega(a^\\dagger a+b^\\dagger b+c^\\dagger c+\\tfrac32)$ and one quantum in total.",
+    "Add one unit to the zero-point energy $\\tfrac32$ and express the result in units of $\\hbar\\omega$."
+   ]
+  }
+ },
+ "qm-hl-b1": {
+  "start": [
+   "What condition must hold for $\\psi$ to solve $H\\psi=E\\psi$ at all $r$, and which terms in $H\\psi$ have to cancel?",
+   "Compute $\\nabla^2\\psi$ for a purely radial function $\\psi(r)$ with $\\nabla^2=\\partial_r^2+\\frac2r\\partial_r$; collect $1/r$ terms and constant terms separately. Then use symmetry arguments for (iii) and the overlap integral for (v)."
+  ],
+  "parts": {
+   "a": [
+    "If you apply the Laplacian to $e^{-r/a}$, which two kinds of terms appear (in powers of $r$), and which of them must cancel against the Coulomb term?",
+    "$\\nabla^2e^{-r/a}=(\\frac1{a^2}-\\frac{2}{ar})e^{-r/a}$. Set the $1/r$ coefficient in $H\\psi$ to zero.",
+    "The $1/r$ condition links $a$ to $\\hbar^2/m$ and $Ze^2$. Solve for $a$ and express it via the Bohr radius $a_0=\\hbar^2/me^2$."
+   ],
+   "E": [
+    "Once $a$ is fixed, which terms remain in $H\\psi/\\psi$ and how do they scale with $Z$?",
+    "The constant term is $E=-\\frac{\\hbar^2}{2ma^2}$. Insert $a=a_0/Z$, so $E\\propto Z^2$, and use $13.6$ eV for the Rydberg energy at $Z=1$.",
+    "Scale the hydrogen ground-state energy by $Z^2$ and take the absolute value for the given $Z$."
+   ],
+   "dx": [
+    "How do you compute $\\langle x_i^2\\rangle$ from $\\langle\\vec x^2\\rangle$ using the symmetry from (iii), and what is $\\langle x_i\\rangle$?",
+    "Compute $\\langle r^2\\rangle=\\frac{4\\pi}{\\pi a^3}\\int_0^\\infty r^4e^{-2r/a}dr$ with the given integral formula; then $\\langle x_i^2\\rangle=\\frac13\\langle r^2\\rangle$ and $\\Delta x_i=\\sqrt{\\langle x_i^2\\rangle}$.",
+    "With $b=a/2$ the integral gives $b^5\\,4!$. Multiply, divide by $3$, take the square root and divide by $a$."
+   ],
+   "prod": [
+    "What is the product of the two uncertainties and how does it compare with the Heisenberg bound?",
+    "Multiply $\\Delta x_i$ from the previous part by the given $\\Delta p_j=\\frac{\\hbar}{\\sqrt3a}$; the length scale $a$ cancels.",
+    "The product is $\\hbar$ times a pure number involving $\\sqrt3$. Compare with $\\hbar/2$."
+   ],
+   "P": [
+    "Which overlap between the old state and the new ground state determines the probability, and is it the amplitude or its square?",
+    "The probability is $|\\langle\\psi_{\\tilde Z}|\\psi_Z\\rangle|^2$, where both are 1s states with $a_Z=a_0/Z$. Compute the overlap integral with $\\int_0^\\infty r^2e^{-\\beta r}dr=2/\\beta^3$.",
+    "Write the overlap as normalisation constants $\\frac{1}{\\sqrt{\\pi a_Z^3}}\\frac{1}{\\sqrt{\\pi a_{\\tilde Z}^3}}$ times $4\\pi\\int r^2e^{-r(1/a_Z+1/a_{\\tilde Z})}dr$; square it and insert $Z=1$, $\\tilde Z=2$."
+   ]
+  }
+ },
+ "qm-hl-b2": {
+  "start": [
+   "Which two angular-momentum-like algebras are generated by $\\vec S$ and $\\vec D$, and what does a highest-weight vector say about their quantum numbers?",
+   "Start from $[L_j,J_k]=i\\hbar\\varepsilon_{jkl}J_l$ and $S_+=\\frac12(L_++aJ_+)$, $D_+=\\frac12(L_+-aJ_+)$; show $S_+|\\psi\\rangle=D_+|\\psi\\rangle=0\\Rightarrow L_+|\\psi\\rangle=J_+|\\psi\\rangle=0$."
+  ],
+  "parts": {
+   "s": [
+    "If both su(2) factors carry the same spin $s$ and $l$ runs up to $n-1$, how are $s$ and $n$ related?",
+    "The highest weight $|n,n-1,n-1\\rangle$ has $L_3=\\hbar(n-1)$, and $L_3=S_3+D_3$ with equal spins: $n-1=2s$.",
+    "Solve $2s=n-1$ for $s$ and insert the given $n$."
+   ],
+   "deg": [
+    "How is the degeneracy of level $n$ built from the su(2)$\\oplus$su(2) multiplet?",
+    "The multiplet has dimension $(2s+1)^2$ with $2s+1=n$; check against $\\sum_{l=0}^{n-1}(2l+1)$.",
+    "Evaluate $n^2$ for the given $n$."
+   ],
+   "lmax": [
+    "Which angular momentum $l$ is the highest one allowed in the multiplet, and which weight does the highest-weight vector have?",
+    "The highest weight vector $|n,n-1,n-1\\rangle$ has $l=m=n-1$.",
+    "Insert the given $n$ into $n-1$."
+   ],
+   "A7": [
+    "Which representation of su(2) has the given Casimir eigenvalue $\\frac{15}{4}\\hbar^2$, and how large is this representation?",
+    "Use $\\vec A^2=\\hbar^2s(s+1)$ and solve $s(s+1)=\\frac{15}4$ for $s$; the representation dimension is $2s+1$.",
+    "With $s$ found, the product of the two su(2) factors (each dimension $2s+1$) gives the total count; compute $(2s+1)^2$."
+   ]
+  }
+ },
+ "qm-hl-b3": {
+  "start": [
+   "Which quantum numbers are good in the strong-field regime and which in the weak-field regime, and how does that decide the perturbation basis?",
+   "In (iii) use the basis $|n,\\ell,j,m_j\\rangle$; $\\Delta E_Z=\\mu_BB(m_\\ell+2m_s)$. Project $\\vec S$ onto $\\vec J$ via the Landé factor, $\\vec L\\cdot\\vec S=\\frac12(J^2-L^2-S^2)$."
+  ],
+  "parts": {
+   "gp": [
+    "How do you obtain the Zeeman operator's expectation value within a fixed $j$ multiplet, and what projection theorem do you use?",
+    "Use $g_{\\ell j}=1+\\frac{\\langle\\vec S\\cdot\\vec J\\rangle}{\\hbar^2j(j+1)}$ with $\\vec S\\cdot\\vec J=\\frac12(J^2+S^2-L^2)$ evaluated for $\\ell=1,j=\\frac32$.",
+    "Insert $j(j+1)=\\frac{15}4$, $\\ell(\\ell+1)=2$, $s(s+1)=\\frac34$ into $1+\\frac{j(j+1)+s(s+1)-\\ell(\\ell+1)}{2j(j+1)}$."
+   ],
+   "gm": [
+    "Same projection as for $j=\\frac32$: what changes in the three Casimir values when $j=\\ell-\\frac12$?",
+    "Use $g=1+\\frac{j(j+1)+s(s+1)-\\ell(\\ell+1)}{2j(j+1)}$ with $j=\\frac12$, $\\ell=1$, $s=\\frac12$.",
+    "Insert $j(j+1)=\\frac34$, $s(s+1)=\\frac34$, $\\ell(\\ell+1)=2$ and simplify."
+   ],
+   "shift": [
+    "Which two numbers multiply to give the Zeeman shift of a fine-structure state?",
+    "$\\Delta E=g_{\\ell j}\\mu_BB\\,m_j$ with $g$ for $2p_{3/2}$ from the previous part.",
+    "Multiply the Landé factor by $m_j=\\frac32$ and report in units of $\\mu_BB$."
+   ],
+   "blocks": [
+    "Which states are unpaired (cannot mix) and which pair up under the conservation of $m_j=m+m_s$?",
+    "For each $\\ell\\ge1$ a given $m_j$ with $|m_j|<\\ell+\\frac12$ appears twice (from $m_s=\\pm\\frac12$); $\\ell=0$ has no pairs.",
+    "For $n=2$ only $\\ell=1$ can contribute; count the allowed values of $m_j$ with $|m_j|<\\frac32$."
+   ]
+  }
+ }
+}

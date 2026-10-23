@@ -1,0 +1,255 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                    Solution to exercise sheet XIII
+
+Question 1 [Time-energy uncertainty ]:
+ (i) Let |ψ(t)⟩ be a solution of the Schrödinger equation (with a time-independent Hamil-
+     tonian H), and write the normalized initial state as |ψ(0)⟩ := |ψ⟩. Show that
+                                                   t2
+                                                             
+                                        it                  2
+                                                                1 + O(|t|3 ) ,
+                                                                            
+                    ⟨ψ|ψ(t)⟩ = exp − ⟨H⟩ − 2 (∆H)                                      (1)
+                                         ℏ        2ℏ
+     where (∆H)2 = ⟨H 2 ⟩ − ⟨H⟩2 and ⟨·⟩ denotes expectation values in the state |ψ⟩.
+ (ii) Show that the probability that the state |ψ⟩ does not change within a time t is
+                      P [no change] = exp −(∆H)2 t2 /ℏ2 1 + O(|t|3 ) .
+                                                                      
+                                                                                         (2)
+     This is a ‘time-energy uncertainty relation’ in the sense that the typical time needed
+     to jump from the state |ψ⟩ to some other state is inversely proportional to ∆H.
+(iii) What is the probability P [no change] when |ψ⟩ is an eigenstate of H? Is that con-
+      sistent with eq. (2)?
+Solution:
+ (i) We have
+                                                        2         !
+                            H                 H    1     H
+       ⟨ψ|ψ(t)⟩ = ⟨ψ| exp −i t |ψ⟩ = ⟨ψ| 1 − i t +     −i t + O(|t|3 ) |ψ⟩
+                            ℏ                 ℏ    2!    ℏ
+                                             it     t2
+                                        = 1 − ⟨H⟩ − 2 H 2 + O(|t|3 ),                   (S.1)
+                                             ℏ     2ℏ
+     and
+                                                                        2
+                       t2                          t2
+                                                               
+             it                2         it                 2 1     it
+     exp − ⟨H⟩ − 2 (∆H) =1 − ⟨H⟩ − 2 (∆H) +                        − ⟨H⟩ + O(|t|3 )
+             ℏ        2ℏ                 ℏ        2ℏ          2!    ℏ
+                                                     2
+                                         it        t
+                                   =1 − ⟨H⟩ − 2 (∆H)2 + ⟨H⟩2 + O(|t|3 )
+                                                                    
+                                         ℏ        2ℏ
+                                          it        t2
+                                   = 1 − ⟨H⟩ − 2 H 2 + O(|t|3 ),             (S.2)
+                                          ℏ        2ℏ
+     which coincides with (S.1), giving the desired relation.
+ (ii) We compute the probability:
+                                                                                2
+                                                         t2
+                                                                   
+                                    2           it                2           3
+            P [no change] = |⟨ψ|ψ(t)⟩| = exp − ⟨H⟩ − 2 (∆H) (1 + O(|t| ))
+                                                ℏ       2ℏ
+                                                  2
+                                                           2
+                                                 t       2                  2
+                                       = exp − 2 (∆H)          1 + O(|t|3 )
+                                                2ℏ
+                                             2         
+                                               t      2
+                                                            1 + O(|t|3 ) .
+                                                                        
+                                       = exp − 2 (∆H)                             (S.3)
+                                               ℏ
+(iii) |ψ⟩ being an eigenstate of H, it is stationary (it never evolves into any other state):
+                                                            2
+                                  2                 H
+        P [no change] = |⟨ψ|ψ(t)⟩| = ⟨ψ| exp −i t |ψ⟩
+                                                     ℏ
+                                                            2
+                                                    E
+                                    = ⟨ψ| exp −i t |ψ⟩ where E is the eigenvalue
+                                                     ℏ
+                                    = 1.                                                (S.4)
+
+     This is consistent with Eq. (2) since ∆H = 0 for eigenstates of H.
+
+
+Question 2 [Quantum Zeno effect ]:
+Let Ut = e−iHt/ℏ be the evolution operator associated with the Hamiltonian H, and let
+P = |ϕ⟩⟨ϕ| be the projector on some normalised state vector |ϕ⟩.
+  (i) Show that
+                              P Ut/n P Ut/n · · · P Ut/n P = ⟨ϕ|Ut/n |ϕ⟩n P .                    (3)
+                              |         {z             }
+                                       n times
+
+ (ii) Using question 1 above, show that
+
+                                ⟨ϕ|Ut/n |ϕ⟩n = e−i⟨H⟩t/ℏ 1 + O(t2 /n)
+                                                                     
+                                                                                                 (4)
+
+     where ⟨H⟩ is the expectation value of H in the state |ϕ⟩.
+(iii) Deduce that, for t fixed,
+
+                              lim P Ut/n P Ut/n · · · P Ut/n P = e−i⟨H⟩t/ℏ P .                   (5)
+                             n→+∞ |         {z             }
+                                            n times
+
+
+Note: This exhibits the fact that abrupt changes of states caused by measurements are
+radically different from the steady evolution described by the Schrödinger equation. Here
+(eq. (3)) we repeated the measurement P = |ϕ⟩⟨ϕ|, over and over again, on an evolving
+system. This led to eq. (5), which shows that repeated measurements ‘freeze’ quantum
+states: the system never moves away from |ϕ⟩.
+Solution:
+  (i) We evaluate the operator (3):
+
+          P Ut/n P Ut/n · · · P Ut/n P = |ϕ⟩ ⟨ϕ| Ut/n |ϕ⟩ ⟨ϕ| Ut/n · · · |ϕ⟩ ⟨ϕ| Ut/n |ϕ⟩ ⟨ϕ|   (S.5)
+          |         {z             }         |                  {z                      }
+                   n times                                      n times
+                                                          n
+                                      = |ϕ⟩ ⟨ϕ| Ut/n |ϕ⟩ ⟨ϕ|                                    (S.6)
+                                      = ⟨ϕ| Ut/n |ϕ⟩n |ϕ⟩⟨ϕ| .                                  (S.7)
+
+ (ii) We use Eq. (1) with t/n instead of t, but only keep the first-order term:
+                                                                     n
+                                n             i(t/n)              2   2
+                    ⟨ϕ| Ut/n |ϕ⟩ = exp −             ⟨H⟩ (1 + O(t /n ))                         (S.8)
+                                                 ℏ
+                                                  
+                                           it
+                                  = exp − ⟨H⟩ (1 + O(t2 /n2 ))n                                 (S.9)
+                                           ℏ
+        Here we expand (1 + O(t2 /n2 ))n = 1 + nO(t2 /n2 ) = 1 + O(t2 /n), so
+                                                      
+                                      n         it
+                          ⟨ϕ| Ut/n |ϕ⟩ = exp − ⟨H⟩ (1 + O(t2 /n)).                       (S.10)
+                                                ℏ
+
+(iii) We compute the limit
+                                           
+                          n             it
+          lim ⟨ϕ| Ut/n |ϕ⟩ P = lim exp − ⟨H⟩ 1 + O(t2 /n) P = e−i⟨H⟩t/ℏ P. (S.11)
+                                                         
+         n→+∞                 n→+∞      ℏ
+
+        Alternative: Leaving (1+O(t2 /n2 ))n unexpanded in (S.9), the definition of O(t2 /n2 )
+        ensures that ∃ N, k > 0 such that (1 + O(t2 /n2 ))n is upper/lower-bounded by
+        (1 ± kt2 /n2 )n for all n > N . Since limn→∞ (1 ± kt2 /n2 )n = 1, the squeeze theorem
+        yields limn→∞ (1 + O(t2 /n2 ))n = 1.
+
+
+Question 3 [Hardy’s paradox ]:
+In this exercise, we will study an entangled system in which the measurement results cannot
+be described by classical random variables. Let HA and HB be 2-dimensional Hilbert
+spaces, each with an orthonormal basis {|±⟩}. Alice and Bob perform measurements on
+a system in the state
+                      1                                       
+               |ψ⟩ = √ |+⟩ ⊗ |+⟩ + |−⟩ ⊗ |+⟩ + |−⟩ ⊗ |−⟩ ∈ HA ⊗ HB .                    (6)
+                       3
+Alice can measure two observables A0 , A1 , which are defined by their action on states
+
+        A0 |±⟩ ⊗ |ϕ⟩ = ± |±⟩ ⊗ |ϕ⟩ ,    A1 |±n̂⟩ ⊗ |ϕ⟩ = ± |±n̂⟩ ⊗ |ϕ⟩ ,    ∀ |ϕ⟩ ∈ HB      (7)
+
+where
+                                         1          
+                               |±n̂⟩ := √ |+⟩ ± |−⟩ .                                       (8)
+                                          2
+Denote the result of measuring Ai by ai ∈ {+1, −1}.
+Subsequently, Bob measures either B0 or B1 , where
+
+  B0 |ω⟩ ⊗ |±⟩ = ± |ω⟩ ⊗ |±⟩ ,       B1 |ω⟩ ⊗ |±m̂⟩ = ± |ω⟩ ⊗ |±m̂⟩ ,      ∀ |ω⟩ ∈ HA ,     (9)
+
+with
+                          1                           1      
+               |+m̂⟩ := √ 2 |+⟩ + |−⟩ , |−m̂⟩ := √ |+⟩ − 2 |−⟩ .                          (10)
+                           5                            5
+Again, denote the result of measuring Bj by bj ∈ {+1, −1}.
+
+  (i) Show that                                        
+                              |ψ⟩ ∝ |+n̂⟩ ⊗ 2 |+⟩ + |−⟩ − |−n̂⟩ ⊗ |−⟩ .                   (11)
+
+ (ii) Show that measurement probabilities satisfy the following:
+
+                 When Alice measures A0 and Bob measures B0 , P [a0 > b0 ] = 0.           (12)
+                 When Alice measures A1 and Bob measures B0 , P [b0 > a1 ] = 0.           (13)
+                 When Alice measures A1 and Bob measures B1 , P [a1 > b1 ] = 0.           (14)
+(iii) Argue that if a0 , a1 , b0 , b1 were classical random variables, then (12)–(14) would imply
+      P [a0 > b1 ] = 0 when Alice measures A0 and Bob measures B1 .
+
+(iv) Show that when Alice measures A0 and Bob measures B1 on the state |ψ⟩, then
+     P [a0 > b1 ] > 0, contrary to the classical reasoning! This shows we cannot simply
+     think of the quantum measurement results a0 , a1 , b0 , b1 as jointly distributed classical
+     random variables — a key point here is that e.g. a0 and a1 cannot be simultaneously
+     observed, since their measurement operators do not commute.
+
+Solution:
+
+ (i) We compute:
+
+                            1 √ |+⟩ + |−⟩
+                                                                  
+                     |ψ⟩ = √       2     √      ⊗ |+⟩ + |−⟩ ⊗ |−⟩                         (S.12)
+                             3             2
+                            1 √
+                                                                        
+                                                     |+n̂⟩ − |−n̂⟩
+                         =√        2 |+n̂⟩ ⊗ |+⟩ +        √          ⊗ |−⟩                (S.13)
+                             3                              2
+                         ∝ |+n̂⟩ ⊗ (2 |+⟩ + |−⟩) − |−n̂⟩ ⊗ |−⟩ .                          (S.14)
+
+ (ii) There is only one choice of values a0 , b0 such that a0 > b0 , namely a0 = +1 and
+      b0 = −1. Suppose Alice measures A0 and gets a0 = +1. The eigenspace of A0 with
+      eigenvalue +1 is V = span{|+⟩} ⊗ HB , so the post-measurement state |ψ ′ ⟩ is the
+      projection of |ψ⟩ on this eigenspace:
+                                                                
+           ′
+         |ψ ⟩ ∝ PV |ψ⟩ ∝ PV |+⟩ ⊗ |+⟩ + |−⟩ ⊗ |+⟩ + |−⟩ ⊗ |−⟩ = |+⟩ ⊗ |+⟩ . (S.15)
+
+     This is an eigenstate of B0 with eigenvalue +1, so Bob always gets the result +1
+     when measuring B0 on |ψ ′ ⟩. Hence P [a0 > b0 ] = P [a0 = +1 and b0 = −1] = 0.
+     The proof of the other two statements (13)-(14) is very similar: (i) Suppose Alice
+     measures A1 and gets a1 = −1. The eigenspace of A1 with eigenvalue −1 is W =
+     span{|−n̂⟩} ⊗ HB , so the post-measurement state |ψ ′ ⟩ is (using Eq. (11))
+                           h                                     i
+         ′
+                                                
+       |ψ ⟩ ∝ PW |ψ⟩ ∝ PW |+n̂⟩ ⊗ 2 |+⟩ + |−⟩ − |−n̂⟩ ⊗ |−⟩ = |−n̂⟩ ⊗ |−⟩ . (S.16)
+
+     This is an eigenstate of B0 with eigenvalue −1, so P [b0 > a1 ] = P [b0 = +1 and a1 =
+     −1] = 0. (ii) Suppose Alice measures A1 and gets a1 = +1. The eigenspace of A1
+     with eigenvalue +1 is U = span{|+n̂⟩} ⊗ HB , so the post-measurement state |ψ ′ ⟩ is
+
+                    |ψ ′ ⟩ ∝ PU |ψ⟩ ∝ PU (|+n̂⟩ ⊗ (2 |+⟩ + |−⟩) − |−n̂⟩ ⊗ |−⟩)            (S.17)
+                                    = |+n̂⟩ ⊗ (2 |+⟩ + |−⟩)                               (S.18)
+                                    ∝ |+n̂⟩ ⊗ |+m̂⟩ .                                     (S.19)
+
+     This has eigenvalue +1 under B1 , so P [a1 > b1 ] = P [a1 = +1 and b1 = −1] = 0.
+     Alternative: Directly compute PB−0 PA+0 |ψ⟩ = PB+0 PA−1 |ψ⟩ = PB−1 PA+1 |ψ⟩ = 0 where
+      λ
+     PM  projects on the λ-eigenspace of M , e.g. PA−1 ∝ (|+⟩ − |−⟩)(⟨+| − ⟨−|) ⊗ IB .
+
+(iii) P [a0 > b0 ] = 0 means we always have a0 ≤ b0 . Doing the same with (13)-(14) shows
+      we always have a0 ≤ b0 ≤ a1 ≤ b1 , so we always have a0 ≤ b1 , i.e. P [a0 > b1 ] = 0.
+    Alternative: Entirely in terms of probabilities, we can write
+
+       P [a0 ≤ b1 ] ≥ P [a0 ≤ b0 and b0 ≤ a1 and a1 ≤ b1 ]                             (S.20)
+                    = 1 − P [a0 > b0 or b0 > a1 or a1 > b1 ]                           (S.21)
+                    ≥ 1 − (P [a0 > b0 ] + P [b0 > a1 ] + P [a1 > b1 ]) (union bound)   (S.22)
+                    = 1.                                                               (S.23)
+
+    This exhibits that we did not assume the variables are independent.
+
+(iv) As before, if Alice measures A0 and gets a0 = +1, the post-measurement state is
+
+                           |ψ ′ ⟩ ∝ PV |ψ⟩ ∝ |+⟩ ⊗ |+⟩                                 (S.24)
+                                           ∝ |+⟩ ⊗ (2 |+m̂⟩ + |−m̂⟩).                  (S.25)
+
+    This has a |+⟩ ⊗ |−m̂⟩ component (i.e. its projection onto the eigenspace of B1 with
+    eigenvalue −1 is nonzero), so P [a0 > b1 ] = P [a0 = +1 and b1 = −1] > 0. (Keeping
+    track of normalizations, the exact probability is ∥PB−1 PA+0 |ψ⟩∥2 = 1/15.)
+

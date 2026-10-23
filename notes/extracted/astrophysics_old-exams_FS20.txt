@@ -1,0 +1,208 @@
+                                                                                                            vmp.png
+
+
+
+
+                                     Astrophysics 11
+                                                        HS 2020
+                                    Prof. H. M. Schmid, FS  2019
+                                                           2013
+                                      18/08/2020, Oral exam
+
+
+Summary We were in a room that is usually used for exercise classes. The assistant and professor sit
+at the table in front of me with a transparent plexiglas screen between us. I had paper to write on.
+Both the assistant and the professor take notes for the protocol. Very relaxed and friendly atmosphere.
+Description of the content: HR diagram 3.6 Chudori, Galaxies 7.1 notes, Galactic rotation curve 6.4
+notes, Thermal history of the universe 8.8 notes, Friedman equation 8.5 notes.
+
+
+Ablauf Beginning formality
+Prof: So let’s talk about stellar evolution, what can you tell me about it?
+Me: We looked at the HR diagram. We can either plot it with respect to observational quantities,
+absolute magnitude or theoretical quantities, luminosity and temperature. I choose to plot it with
+respect to the absolute magnitude and B-V for a star of about the mass of sun. Then I go on and
+explain the main sequence, red giants and white dwarfs and draw.
+
+
+
+
+Prof: And for other stars?
+Me: For more massive stars the process would be analogous but they will be able to synthesize heavier
+elements, up to iron. Then the gravitational pressure will be so big that it will overcome the degeneracy
+pressure and there will a supernova explosion.
+
+ 1
+     BSc Physics, Core Subjects
+
+
+
+
+                                                   1
+                                                                                                            vmp.png
+
+
+
+
+Prof: Why will they synthesize heavier atoms only up to iron?
+Me: I draw the picture below. Up to iron nuclear fusion is energetically eﬃcient, then the binding
+energy per nuclei drops and it will more eﬃcient to have nuclear fission.
+
+
+
+
+Prof: And what is this degeneracy pressure you mentioned ?
+Me: According to Pauli’s principle there can be at most two fermions per energy level. Since electrons
+have a smaller momentum than other fermions such as neutrons and protons, due to Heisenberg
+uncertainty principle V 3 p ~2 they will occupy more volume in phase space and therefore they will
+be the first to reach the degenerate state.
+Prof: Does the star always become a white dwarf or are there other options?
+Me: If inverse neutron decay takes place protons and electrons combine to form neutrons and they
+can’t decay since the electrons are in a degenerate state. So the star crushes further he didn’t like the
+word crush till it reaches the neutron degeneracy and become a neutron star .
+Prof: Where does the energy for the inverse neutron decay come from?
+Me: From the supernova explosion.
+Prof: Good. Now last tricky question on this. How can we estimate the age of a star?
+Me: confused ⌧ / M12 according to this the lifetime is related to the mass ...
+Prof: Yes, but how can we actually know the age of a star?
+Me: looking confused
+Prof: Ok, or of a galaxy for instance.
+Me: I remember this from a protocol but never read anything about it in the book or lecture notes We
+could plot the stars of the galaxy in a HR diagram and make diﬀerent models and see which one fits
+best. In particular it is important that the turn oﬀ point matches with the model he was very happy to
+hear the word “turn oﬀ point “
+
+
+
+
+                                                   2
+                                                                                                             vmp.png
+
+
+
+
+Prof: Very goood. Now next topic: what can you tell me about the characteristics of spiral and
+elliptical galaxies ?
+Me: Spiral galaxies have a central bulge and the disk with spirals around it, elliptical galaxies on
+the other hand have an elliptical shape. Spiral galaxies counter balance the gravitational pull with a
+rotational motion in the disk and random motions in the bulge, while in elliptical galaxies we only find
+random motions. Moreover, in spiral galaxies we find ISM and star formation is happening, we can
+therefore find younger stars in spiral galaxies than in elliptical galaxies, where there is no ISM and the
+stars are quite old.
+Prof: You mentioned the rotational movement of the galaxy disk, what can we learn from it? Especially
+from the galactic rotation curve.
+                                                                                     q
+                                                                     mv 2
+Me: It gives us proof of the existence of dark matter. From GMr2
+                                                                 m
+                                                                   =  r   we get v =   GM
+                                                                                         r . We expect
+the galaxy to behave like a solid body towards the center and then we expect the mass of the galaxy to
+remain to remain constant. Then I draw how the curve should look like for diﬀerent values of M and
+what we actually observe (upper left corner in the picture below) concluding that at some point (after
+the increase and light decrease of the curve) the mass is proportional to r and that there is mass that
+we have not yet detected.
+
+
+
+
+Prof: Ok, we still have some time, so can you tell me in detail the thermal history of the universe?
+Me: Here I basically repeat section 8.8 of the notes Quark epoch: time <10 6 s, the universe is a
+quark-gluon plasma with energies above GeV. The energy is too high to form hadrons. The photon
+density and quark density are comparable.
+Hadron epoch (hadrons - particles held together by the strong force): time 10 6 to 1 s. During this
+epoch quarks are bound into hadrons, photon energy smaller than GeV. Hadrons and anti-hadrons
+eliminate each other (annihilation). There is a small asymmetry between matter and anti-matter, for
+this reason today we see much more matter and antimatter. Still today: n ⇡ 10 8 nb . At the end of
+the hadron area there are remaining stable particles: p, n, e, e+, neutrinos, and dark matter. Neutrinos
+decouple, because of the low density of the universe they do not interact with “matter” anymore, so
+there must be a neutrino background in the Universe.
+Lepton epoch: time 1 s – 10 s, leptons dominated the “interacting” matter of the Universe. Electrons
+
+
+
+                                                    3
+                                                                                                              vmp.png
+
+
+
+
+and positrons are first in thermal equilibrium, then the temperature falls below the threshold and most
+leptons annihilate, only ne ⇡ np ⇡ 108 n survive.
+Big bang nucleosynthesis: time 10 s – 1000 s. For high temperatures the neutron/proton ratio is in
+equilibrium. The reaction falls out of equilibrium for temperatures lower than T ⇡ 0.8M eV . If we think
+of the proton as the ground state and the neutron as the excited state, than we can use Boltzmann
+                                                    (mn mp )c2
+level population law to find the ratio nnnp = exp(     kB T    ) at T ⇡ 0.8M eV . In order to get a correct
+value we also need to take into account the free-neutrons decay in about 10 minutes. During this epoch
+we also have the Helium synthesis.
+Photon epoch: we reach a temperature of eV and finally protons and electrons can combine and form
+the first neutral atoms. So there are no free electrons floating abound anymore that can absorb photons
+and the universe become transparent. Here we go from a radiation dominated universe to a matter
+dominated universe, here is when the CMB starts.
+Prof: Actually we go from radiation dominated universe to matter dominated universe already before
+and the decoupling is not connected to it. He said it in a very nice way, trying to not make me nervous
+But tell me, what does the CMB tell us?
+Me: It is a proof for the Big Bang model since the temperature matches our expectations.
+Prof: ok, and what else?
+Me: hmm I am not sure. Ah, it is a proof of the existence of dark matter I remember a friend telling
+me that he likes to hear about how we know that dark matter exists
+Prof: How?
+Me: I don’t remember.
+Prof: Giving a hint Is it homogeneous?
+Me: Finally I remember Yes it is quite homogeneous except for some small variations which show us
+that matter aggregates into gravitational potentials .
+Prof: Nodding happily Yes. Where else is the homogeneity of the universe important?
+Me: hmmm
+Prof: Can you tell me about the Friedman equations?
+Me: I could derive them quickly I had heard that he loves this derivation but...
+Prof: No, no, our derivation wasn’t accurate anyways. Just write it.
+          2     2
+Me: Ok ȧa2 + kca2
+                   = 8⇡G⇢
+                       3  where a is the scale factor and k can be 1, -1 or 0 depending on the curvature
+of the univere.
+Prof: Why can k only have these values?
+Me: I finally understand Because we assume the universe to me homogeneous and isotropic.
+
+
+
+
+                                                    4
+                                                                                                              vmp.png
+
+
+
+
+Prof: Yes, here is the connection. So what are the solutions to this equation ?
+Me: Draw picture below. For k=1 the universe is finite in time and space while for k=-1 it will expand
+forever and has an infinite size. k=0 is the threshold between these two situations.
+
+
+
+
+Prof: People were very worried about what could happen at l=0 but now they are not anymore. Can
+you tell me why?
+Me: Because we are there right now. If we sum the density coeﬃcient for dark matter, stars, X-ray
+radiation and dark energy we have a density coeﬃcient of about one.
+Prof: Can you please explain a bit more in detail?
+Me: Yes, we can find the threshold density by setting k=0 and solving for ⇢. For this density we are at
+the threshold situation. The density factor is defined as ⌦ = ⇢⇢c,0
+                                                                 0
+                                                                    . It has been observed that the density
+factor for dark matter is 0.025, for baryonic matter is 0.05, for dark energy 0.7, and for x-ray radiation
+0.01. Adding them up we see that we are close to one, hence close to the threshold density.
+Prof: The exam is finished.
+
+
+Final Remarks The assistant didn’t say anything for the whole exam and the professor was very nice
+the whole time and tried to make me feel at ease.
+
+Expected mark: 6
+Received mark: 6
+
+
+
+
+                                                    5
+

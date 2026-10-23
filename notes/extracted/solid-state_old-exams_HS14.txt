@@ -1,0 +1,831 @@
+                       Einführung in die Festkörperphysik1
+                                    Prof. Klaus Ennslin, HS 2014, HS 2014
+                                     26.01.2015, 8:00-8:30 Uhr, M. Statz
+
+
+Zusammenfassung Die Prüfung findet im Büro von Prof. Ennslin im HPF E3 statt. Assistent und
+Prof. sitzen sich gegenüber, Studenten setzen sich an den Kopf des Tisches, wo Papier und Kugelschreiber
+bereitliegen.
+Inhaltliche Beschreibung: Inhaltlich waren die Fragen aus folgenden Kapiteln des Skripts: 4.3, 5.1, 5.3,
+6.2, 8.1, 8.5, 8.6, 8.7, 9.5, 10.1, 11.1.2
+
+
+Ablauf Prof: Guten Tag Herr Statz. Womit möchten Sie beginnen?
+Ich: Ich würde gerne die Temperaturabhängigkeit des elektrischen Widerstandes von Metallen mit
+dotierten Halbleitern anhand des Drude-Modells vergleichen.
+Prof: Gut, dann beginnen Sie!
+Ich: Schreibe Bewegungsgleichung auf: mv̇ + mvτ D = −eE
+Prof: Das ist also ein klassischer Ansatz?
+Ich: Ja. Klassisch ist m die Elektronenmasse, n sind bei Drude alle freien Elektronen und τ ist die
+mittlere Zeit zwischen zwei Stössen eines Elektrons. Drude nimmt fälschlischerweise an, dass alle freien
+Elektronen am Stromtransport teilnehmen und dass diese an den Atomrümpfen streuen. Daher gibt es
+auch die quantenmechanische Betrachtung von Boltzmann. Dort nehmen lediglich die freien Elektronen
+in halbvollen Bändern am Stromtransport teil. τ bezeichnet dort die Relaxationszeit der Fermikugel in
+die ursprüngliche Fermikugel nach Ausschalten der Störung.
+Prof: Können sie diesen Prozess mal zeichnen?
+Ich: Zeichne Abb. 8.5 aus dem Skript.
+Prof: Wird die Fermikugel viel verschoben?
+Ich: Nein, extrem wenig, daher spüren auch nur die Elektronen an der Fermikante etwas von der
+Verschiebung.
+Prof: Wie gross ist die Verschiebung?
+Ich: dk = ~e τ E
+Prof: Wie kommt die Fermikugel wieder in den Gleichgewichtszustand?
+
+ 1
+     MSc Elektrotechnik und Informationstechnologie, BSc Physik, Kernfach
+ 2
+     Die Kapitelnummern beziehen sich auf das Skript1-3 Skript4-6 Skript7-8 Skript9 Skript10-11
+
+
+
+
+                                                           1
+Ich: Prinzipiell gibt es elastische und inelastische Streuprozesse. Lediglich die inelastischen sind für
+die Relaxation verantwortlich, weil sich nur bei diesen die Grösse des k − V ektors ändert und damit
+Stösse vom rechten Rand der Fermikugel im Ungleichgewicht zum linken Rand der Gleichgewichtsfermi-
+kugel zustande kommen. Die wichigsten Streuprozesse sind Streuung mit Phononen und Streuung an
+Störstellen.
+Prof: Können Sie das mal einzeichen?(zeichne ein)
+Prof: Erkenne ich nicht. (zeichne nochmal ein)
+Prof: Ok. Wie gross ist die Fermienergie typischer Metalle?
+Ich: Im eV − Bereich
+Prof: Wie gross ist kT bei Raumtemperatur?
+Ich: 26meV
+Prof: Ist es gerechtfertigt, dass wir Elektron-Elektron-WW vernachlässigen?
+Ich: Ja weil sie klein ist, weil lediglich die Elektronen an der Fermikante am Stromtransport teilnehmen.
+Prof: Wieso ist sie klein?
+Ich: Wir vernachlässigen sie immer, weil so wenige Elektronen für die Streuung zu Verfügung stehen.
+Prof: Ist sie elastisch oder inelastisch?
+Ich: Vermutlich elastisch, weil wir sie vernachlässigen.
+Prof: Sie können mir beide Antworten geben, aber Sie müssen mir eine Begründung geben.
+Ich: Hm. Elektronen haben dieselbe Ladung, daher sind es gleich grosse Partner und streuen elastisch.
+Prof: Störstellen aber auch (und die streuen, aber inelastisch).(bin mir nicht sicher ob er es so gesagt
+hatte, dachte immer Streuung an Störstellen wäre elastisch.)
+Ich: Hm. Ich weiss es nicht, ich will weitermachen.
+Prof: Ok. Also es ist so, dass die Streuung für ein einzelnes Elektron inelastisch ist, für das Gesamtsystem
+der zwei Elektronen ist die Streuung aber elastisch. (Aha, hatten wir meine ich nie in der Vorlesung,
+aber gut)
+Prof: Dann zeichnen Sie mal den Temperaturverlauf des spezifischen Widerstandes eines Metalls.
+Ich: Zeichne Abb. 8.9 aus dem Skript. Zeichne konstanten Widerstand für sehr niedrige Temp. (Stör-
+stellenstreuung), T 5 -Abhängigkeit für beginnende Phononenanregung und lineare Abhängigkeit für
+hohe Temperaturen. Soll ich erklären wieso die Abhängkeiten so sind?
+Prof: Ja.
+Ich: Wir verwenden Matthiesen Regel, dass wir spezifische Widerstände addieren können, wir nehmen
+
+
+
+                                                     2
+also an, dass die Streuprozesse unabhängig sind. Nun könnten wir für jeden einzelenen Streuprozess mit
+Fermi’s Goldener Regel die quantenmechanischen Übergangsraten bestimmen, das machen wir aber
+                                                         2
+nicht. Wir schätzen die Streuraten nur ab. Schreibe σ = emnτ          1
+                                                           ∗ und ρ = σ auf. ρ ist also proportional zur
+
+Streurate τ1 und das ist proportional zu Σ hvi.
+Prof: Wieso?
+Ich: Ja, wenn das Elektron schnell ist, dann sieht es in einer gewissen Zeit mehr Störstellen und wenn
+sein Streuquerschnitt grösser ist, dann heisst das einfach, dass es wahrscheinlicher ist für dieses Elektron
+mit der Störstelle zu streuen.
+Prof: Ok.
+Ich: Für Störstellen ist nun Σ prop. zu hvi−4 da Rutherfordstreuung, da nun aber hvi const. in T
+ist, weil hvi die Fermigeschwindigkeit bei Metallen ist und diese von der Fermienergie abhängt und
+diese nahzu temperaturunabhängig ist, ist ρ für Störstellen konstant. Die T 5 -Abhängigkeit wurde
+von Grüneisen aufgestellt. Die lineare T-Abhängigkeit rührt dann von Phononenstreuung. Dort gilt:
+1        1        1                   2 s2 = kT . Daher weil 1 prop. s2 ist ρ prop. T.
+2 f s = 2 mv = 2 kT daraus folgt mω
+     2        2
+                                                              τ
+
+Prof: Wenn ich Ihnen jetzt zwei verschiedene Stücke Kupfer gebe, wie würde die Kurve für das
+Kupferstück mit der geringeren Störstellenkonzentration dann aussehen?
+Ich: zeichne Kurve genau gleich, nur um einen kleinen Offset nach unten verschoben
+Prof: Wieso?
+Ich: An der Phononenstreuung ändert sich nichts, lediglich an der Störstellenstreuung und die ist dann
+beim reineren Kupfer geringer und daher ist der Widerstand für sehr niedrige Temperaturen geringer.
+Prof: Gut Sie haben ja vorhin schon die Phononen eingeführt. Zeichnen Sie mal die Cv (T )-Kurve.
+Ich: Soll ich nicht noch den Widerstand von dotierten HL erklären? Das war ja mein Einstiegsthema.
+Prof: Nein, schaun Sie mal auf die Uhr, die halbe Prüfung ist schon um.
+Ich: Zeichne Abb. 5.5 aus dem Skript. Sage T 3 -Abhängigkeit für niedrige Temperaturen (Phononenan-
+regung) und konstanter Wert 3kn für hohe T (Dulong Petit).
+Prof: Auf welchem Modell beruht ihre Skizze?
+Ich: Debye.
+Prof: Und was sagt Debye?
+Ich: Dass die Zustandsdichte Z(ω) prop. zu ω 2 ist.
+Prof: Wieso?
+Ich: Das kommt letztlich von einer Integration über eine Fläche im k-Raum.
+Prof: Ist die Zustandsdichte für jedes Modell prop. ω 2 ?
+
+
+
+                                                     3
+Ich: Nein, für Einsteinmodell prop. δ(ω − ωE ).
+Prof: Wieso?
+Ich: Weil Dispersionsrelation als ω = ωE als konstant angenommen wird.
+Prof: Wie ist das bei Debye?
+Ich: Lineare Dispersionsrelation ω = cq bis ωD .
+Prof: Wo ist in Ihrer Graphik die Debye-Frequenz?
+Ich: Gar nicht. Höchstens die Debye-Temp.?
+Prof: Ja dann halt die.
+Ich: Etwa kurz vor dem Maximalwert von Cv .
+Prof: Wie gross ist die Debye-Temp. etwa?
+Ich: Etwa 100K (z.B. für Pb).
+Prof: Wenn Sie jetzt Diamant und Blei vergleichen, welches Element hat die höhere Debye-Temperatur?
+Ich: Diamant
+Prof: Wieso?
+Ich: Die Federkonstanten bei Diamant sind grösser.
+Prof: Ja Sie sind auf dem richtigen Weg, d.h. also die Frequenzen sind höher?
+Ich: Man braucht mehr Energie um die Phononen anzuregen, weil die Federkonstanten von Diamant
+grösser sind.
+Prof: Stimmen Sie meiner Aussage zu?
+Ich: Hm. Ja, die Frequenzen (bzw. die Debye-Frequenz) sind wegen den grösseren Federkonstanten
+höher und deshalb ist auch die Debye-Temperatur höher.
+Prof: Spielt noch etwas eine Rolle?
+                                                             q
+                                                                 f
+Ich: Hm. Ja, die Massen! Diamant ist viel leichter, da ω =       m , verstärkt das den Effekt ebenfalls.
+
+Prof: Gut. Jetzt tragen Sie das nochmal geordnet vor. (mache dies)
+Prof: Supraleitung. Zeichnen Sie die Cv (T )-Kurve.
+Ich: Zeichne Abb. 11.3 und 11.6.
+Prof: Wie ist die T-Abhängigkeit im supraleitenden Zustand?
+Ich: Exponentiell.
+
+
+
+
+                                                   4
+Prof: Welchen Wert hat Cv (T = 0K)?
+Ich: Null.
+Prof: Das sehe ich in Ihrer Skizze nicht. (korrigiere)
+Prof: Gibt es Modelle bei denen Cv (T = 0K) nicht Null ist?
+Ich: Hm. Einstein und Supraleitung sicher nicht. Dann Debye?
+Prof: Schauen Sie sich mal die Kurve an, die Sie auf der Rückseite gezeichnet haben.
+Ich: Ist auch Null.
+Prof: Ja, alle Modelle haben Cv (T = 0K)=0. Macht das Sinn?
+Ich: Ja, weil man bei T=0K keine Phononenanregungen hat.
+Prof: Wenn ich im Labor ein Element habe, wie kann ich dann messen, ob es ein Supraleiter ist?
+Ich: Charakteristische Eigenschaften sind R=0 und idealer Diamagnetismus für T < Tc und H < Hc .
+Prof: Wie messe ich idealen Diamagnetismus?
+Ich: Meissner Ochsenfeldeffekt. Beginne Abb. 11.1/11.2 zu zeichnen.
+Prof: Nein, das meine ich nicht. Das Experiment?
+Ich: Achso. Lege supraleitendes Plättchen auf z.B. Ferromagneten. Wenn Gradient des Feldes bekannt
+ist, da Diamagnet Feld verdrängen will und sich daher aus dem Feld bewegt, kann über die Höhe, wie
+hoch der Diamagnet schwebt, idealer Diamagnetismus bestimmt werden.
+Prof: Wie messe ich R=0?
+Ich: Nehme supraleitenden Ring. Induziere Strom in Supraleiter mittels magnetischer Flussdichteän-
+derung. Wenn das Element ein Supraleiter ist, dann wird man auch nach der Magnetfeldänderung
+mittels einer Hall-Sonde einen Strom im Supraleiter messen, da am Rand von diesem Supraströme
+dissipationsfrei fliessen.
+Prof: Wie kann ich im Experiment dieses zeitl. veränderliche B-Feld erzeugen?
+Ich: Nehme Stabmagnet und ziehe diesen aus dem supraleitenden Ring.
+Prof: Diamagnetismus. Was ist die Ursache für Diamagnetismus gebundener Elektronen?
+Ich: Lamorprezessionen um das Magnetfeld.
+Prof: Wie lautet die Formel für diesen Diamagnetismus?
+             2
+Ich: χ = − e6mn µ0 i Φ|ri2 |Φ
+                  P
+
+Prof: Wenn Sie mir jetzt ein Element mit möglichst grossem Diamagnetismus geben würden, welches
+wäre dies?
+
+
+
+                                                   5
+Ich: Zuerst einmal würde ich dafür sorgen, dass ich eins wähle, das weder Ferro- noch Paramagnetismus
+aufweist. Das heisst volle Elektronenschalen. Ein Edelgas, z.B. Neon.
+Prof: Würden Sie im Periodensystem rauf oder runtergehen?
+Ich: Rauf.
+Prof: Also Helium?
+Ich: Nein.
+Prof: Also doch runter?
+Ich: Ja das meinte ich ja damit.
+Prof: Wie soll ich das denn wissen? (lacht, lache auch)
+Ich: Keine Ahnung. Im Sinne der Ordnungszahl.
+Prof: Jetzt haben Sie sich aber gerettet. Wieso?
+Ich: Sieht man ja an der Formel, dass grössere ri zu grösseren Beiträgen führen.
+Prof: Danke Ihnen!
+
+
+Bemerkungen Sehr angenehme Atmosphäre. Es ist zu bemerken, dass Prof. Ennslin immer tiefer
+die Aussagen hinterfragt und manchmal solange fragt bis man nicht mehr weiter weiss (ob das dann
+alles in der Vorlesung behandelt wurde ist fraglich). Da kann ich nur empfehlen, was ich auch in alten
+Protokollen gelesen habe, dass man dann nicht immer weiter rumrät, sondern sagt, ich weiss es nicht
+und möchte weitermachen, damit man keine Zeit verliert. Ich empfehle ebenfalls den Ibach-Lüth zu
+grossen Teilen zu lesen (alle Themen der Vorlesung).
+
+Erhaltene Note: 5.75
+Erwartete Note: 5.5+
+
+
+
+
+                                                   6
+                      Einführung in die Festkörperphysik1
+                                   Prof. Klaus Ensslin, HS 2014
+                            20.01.2014, 13:30-14:00, Oscar Bettermann
+
+
+Zusammenfassung Die Prüfung findet in Ensslins Büro statt, im HPF E3. Man sitzt an einem Tisch
+dem Prof und der Assistentin gegenüber und schreibt auf ein Blatt Papier. Die Assistentin sagt während
+der ganzen Prüfung überhaupt nichts und schreibt einfach alles auf, was gesagt wird. Das kann am
+Anfang etwas nervös machen, aber man vergisst ganz schnell, dass eine dritte Person am Tisch sitzt.
+Inhaltliche Beschreibung: Kapitel 10.2, 10.1, 2 und 7.3 aus dem Skript .
+
+
+Ablauf Nach einer kurzen Begrüssung fragt Ensslin sofort, welches Thema ich mir ausgesucht habe.
+Ich antworte Magnetismus, insbesondere Paramagnetismus freier Ladungsträger.
+Prof: Na dann, fangen sie an!
+Ich: Wir wissen, dass eine Magnetisierung M in einem Festkörper durch den Einfluss eines externen
+magnetischen Feldes B0 erzeugt wird, die gegeben ist durch
+
+                                              M = χB0                                               (1)
+
+wobei χ die magnetische Suszeptibilität bezeichnet. Dieses lineare Verhältnis ist im allgemeinen eine
+gute Näherung...
+Prof: (unterbricht mich sofort, scheint an einer allgemeinen Einführung nur wenig interessiert zu sein)
+Ja ok, kommen Sie bitte zum Paramagnetismus!
+Ich: Wenn χ > 0 ist dann spricht man von Paramagnetismus, weil M parallel zu B0 ist. Sonst spricht
+man von Diamagnetismus. In Abwesenheit eines externen Magnetfelds sieht die Energiedispersion D(E)
+einfach wie folgt aus (zeichne eine einfache (D(E), E) Parabel).
+Prof: Reden Sie wirklich über eine Energiedispersion?
+Ich: (Aua, wenn man nervös ist, kann man ziemlich viel Unsinn sagen) Nein, natürlich nicht! Das ist
+die Zustandsdichte! Die habe ich jetzt im 3D-Fall gezeichnet, in niedrigeren Dimensionen ändert sich
+die Energieabhängigkeit.
+Prof: Ist die Zustandsdichte in 3D massenabhängig?
+Ich: (Ohje, die Prüfung läuft seit kaum einer Minute und schon kommt meine erste peinliche Gedächt-
+nislücke) Mmh, ich glaube nicht...
+Prof: pokerface
+
+ 1
+     Physik BSc, Kernfach
+
+
+
+
+                                                  1
+Ich: Oder doch?
+Prof: pokerface
+Ich: Ich würde doch nein sagen...
+Prof: Ist massenabhängig. D(E) ∝ m3/2 (Mann bin ich ein Idiot!). Machen Sie weiter.
+Ich: (zeichne die Parabel aus Seite 10.3 im Skript und kommentiere)
+
+
+
+
+                      Abbildung 1: Abbildung aus der Seite 10.3 des Skripts.
+
+
+Wenn man ein externes magnetisches Feld B0 einschaltet, richten sich die Spins entweder parallel
+oder antiparallel zu B0 aus. Durch den Zeeman-Effekt wird diese Parabel aufgespaltet, und die
+Energieaufspaltung zwischen parallelen/antiparallelen Spins ist ∆E = µB g0 B0 . Alle Zustände bis
+zur Fermi-Energie EF sind besetzt, es folgt also eine gewisse Menge an Spins, deren Beitrag zur
+Magnetisierung unkompensiert ist.
+Prof: Grössenordnung einer Fermi-Energie?
+Ich: ∼ 1 eV.
+Prof: Mmmh ja, ich würde eher 10 eV sagen.
+Ich: Die Beispiele im Skript waren ja meistens zwischen 1 und 10 eV...
+Prof: Ja, Sie können aber auch Metalle mit einer Fermi-Energie über 10 eV finden. Ok, machen Sie
+weiter.
+                                                                            1
+Ich: Im allgemeinen gilt ∆E ≪ EF , die Dichte unkompensierter Spins ist also D(EF )µB g0 B0 .
+                                                                            2
+Prof: Wo sehe ich jetzt den Zusammenhang mit dem Magnetismus?
+                                                   1
+Ich: Jedes Elektron hat ein magnetisches Moment:     µB g0 , dann ist die Magnetisierung gegeben durch
+                                                   2
+                                  1
+                               M = D(EF )µ2B g02 B0 ≈ µ2B D(EF )B0                                 (2)
+                                  4
+
+
+                                                 2
+weil g0 ≈ 2 ist.
+Prof: Welche Elektronen tragen zur Magnetisierung bei? Die mit parallelen oder antiparallelen Spins?
+Ich: (Habe keine grosse Ahnung. Nach einer kurzen Diskussion ergibt sich, dass die Elektronen mit
+antiparallelem Spin zur Magnetisierung beitragen, was wegen dem negativen Vorzeichen des Bohrschen
+Magneton µB eigentlich Sinn macht). Dann kann man die magnetische Suszeptibilität finden...
+Prof: (unterbricht) Ja, dann findet man ganz einfach die magnetische Suszeptibilität, ich glaube das
+können Sie. Wie sieht es jetzt bei gebundenen Elektronen aus?
+Ich: Wir haben zwei Beiträge zur Magnetisierung: den Bahndrehimpuls und den Spin der Elektronen,
+die sich in einem äusseren magnetischen Feld orientieren.
+Prof: (Die Antwort scheint ihm zu reichen) Wie sieht es bei Lithium aus?
+Ich: ??
+Prof: Sie haben Wasserstoff, dann Helium, und dann Lithium, das dritte Element im periodischem
+System. Wie sieht die Elektronenkonfiguration in Lithium aus?
+Ich: Mmh, 1s2 2p1 .
+Prof: Nein.
+Ich: Ach! 1s2 2s1 (verdammt noch mal!)! Ok, jetzt sieht man, dass die 2s1 Schale nur teilweise gefüllt ist
+und dass Lithium ein paramagnetisches Verhalten zeigt.
+Prof: (noch nicht ganz zufrieden) Was trägt zum Paramagnetismus bei? Die Bahndrehimpulse oder die
+Spins der Elektronen?
+Ich: (Weiss nicht wirklich weiter) Beide?
+Prof: Wie sieht die Drehimpulsquantenzahl bei einer s-Schale aus?
+Ich: l = 0. (Jetzt wird es mir klar) Und also tragen nur die Spins zum Paramagnetismus bei.
+Prof: Gut. Gehen wir jetzt zum Anfang der Vorlesung zurück. Was können Sie mir über Streuexperimente
+sagen?
+Ich: (Weiss nicht wirklich, wie ich anfangen soll) Wollen Sie Beispiele von Streuexperimenten oder das
+allgemeine Verfahren?
+Prof: Fangen Sie mit dem allgemeinem Verfahren an.
+Ich: Mmh. (Zeichne Abb. 2.1 aus dem Skript und erkläre)
+Wenn wir elastische Streuung annehmen ist der Betrag des k0 -Vektors der einfallenden Welle gleich
+dem der gestreuten Welle k.
+Prof: Ja und was wird letztendlich gemessen?
+
+
+
+
+                                                    3
+                               Abbildung 2: Abbildung 2.1 des Skripts.
+
+
+Ich: Die Amplitude der gestreuten Welle.
+Prof: Als Funktion von?
+Ich: Ja, zum Beispiel als Funktion des Winkels α zwischen k0 und k.
+Prof: Und wie würde das aussehen?
+Ich: (Zeichne I(α), mit Peaks von verschiedener Höhe) Es gibt ein Peak wenn die Laue-Bedingung
+G = K erfüllt ist. Die Breite der Peaks ist durch das Volumen des Festkörpers bestimmt. Je grös-
+ser der Festkörper, desto schmaler die Peaks. Man kann noch erwähnen, dass die Höhe der Peaks
+temperaturabhängig ist.
+Prof: Und durch welchen Faktor ist die Temperaturabhängigkeit der Höhe des Peaks gegeben?
+Ich: Debye-Waller Faktor
+Prof: Sie wissen, das Leben eines Experimentalphysikers ist nicht immer einfach. Welche Annahmen
+die Sie gemacht haben werden Sie im Labor nicht erfüllen können?
+Ich: Der Festkörper muss unendlich gross sein, mit einer perfekten Periodizität.
+Prof: Das bedeutet?
+Ich: Keine Störstellen.
+Prof: Und?
+Ich: Es fällt mir nichts mehr ein.
+
+
+
+
+                                                  4
+Prof: Wie sieht die einfallende Welle aus?
+Ich: Es ist eine ebene Welle. Ok, dann muss die Quelle unendlich weit vom Festkörper entfernt sein.
+Prof: Ok. Und warum haben diese Peaks jetzt verschiedene Höhen?
+Ich: Mmh...weil manche Bragg-Ebenen weniger streuen?
+Prof: Warum?
+Ich: (Habe echt keine Ahnung) Weil ein Streuereigniss an diesen Ebenen weniger wahrscheinlich ist?
+Prof: (Lacht) Ja ok, aber warum? Ok, was ist der Unterschied zwischen den (1 0 0) und (156 97 73)
+Ebenen?
+Ich: ??
+Prof: Welche werden mehr Atome enthalten?
+Ich: Ah, die (1 0 0). Dann sind Reflexe an der (1 0 0) Ebene im allgemeinen wahrscheinlicher.
+Prof: Ok. Themawechsel. Erklären Sie mir bitte die Bandstruktur im Festkörper mithilfe des Modells
+der fast freien Elektronen.
+Ich: Es ist dem Fall des freien Elektronengases im Potentialkasten ziemlich ähnlich, ausser dass man ein
+periodisches Störpotential hinzufügt. Da das Potential jetzt periodisch ist müssen die Wellenfunktionen
+die Form einer Bloch-Welle haben:
+                                           ψk (x) = uk (x)eik⋅x                                      (3)
+wobei uk (x) ein ortsperiodisches Modulationsterm ist und eik⋅x eine einfache ebene Welle bezeichnet.
+Prof: Ja, ich würde es persönlich nicht Modulationsterm nennen...
+Ich: Wie würden Sie es denn nennen?
+Prof: Naja nicht so, ist egal. Ist ψk (x) periodisch im Ortsraum?
+Ich: Nein, die Wellenfunktion ist aber periodisch im k-Raum. Ist das periodische Potential verschwindend
+klein, muss die Energiedispersion immer noch periodisch im k-Raum sein (zeichne Abb. 7.2 aus dem
+Skript ). Für ein solches Potential sind die Wellenfunktionen proportional zu cos( πx             πx
+                                                                                     a ) und sin( a ).
+
+Prof: Wie findet man diese Funktionen?
+Ich: Mit dem Ansatz, dass die Wellenfunktionen lineare Kombinationen der ebenen Wellen e±iGx/2 sind,
+also
+                                       ψ± ∼ eiGx/2 ± e−iGx/2                                     (4)
+
+Prof: Und wieso macht man diesen Ansatz? Haben Sie eine physikalische Erklärung dafür?
+Ich: (Habe keine Ahnung. Es folgt eine kleine Diskussion und Ensslin klärt schliesslich die Frage.
+Ich mache dann weiter.) Wenn wir jetzt ein endliches Potential haben wird an den Rändern der
+
+
+
+
+                                                   5
+Brillouin-Zonen eine Erhebung und eine Absenkung der Energie stattfinden.
+Prof: (Und schon kommt es wieder) Warum?
+Ich: Naja, weil wir zwei Wellenfunktionen haben, eine symmetrische, ψ+ , die eine Energieabsenkung
+erzeugt und eine antisymmetrische, ψ− , die eine Energieerhebung erzeugt.
+Prof: Ja, aber wie kann man das verstehen?
+Ich: (Mann, wann wird er mit dem Bohren aufhören?) Mmh, ich kann vielleicht die Wellenfunktionen
+im Ortsraum zeichnen...(zeichne Abb.7.4 aus dem Skript )
+Prof: Und wo befinden sich die Atome?
+Ich: (Wusste es leider nicht mehr genau, Ensslin hilft und die Frage ist endlich geklärt)
+
+
+
+
+    Abbildung 3: Abb.7.2 aus dem Skript                       Abbildung 4: Abb.7.4 aus dem Skript
+
+Prof: Ok, wie sieht jetzt die Bandstruktur aus?
+Ich: (Zeichne Abb 7.6 aus dem Skript , und erkläre) Die Breite der ersten Energielücke ist 2 ⋅ ∣VG ∣, wobei
+VG die G-te Fourierkomponente des Potentials ist. Die Breite der nächsten Lücke ist dann 2 ⋅ ∣V2G ∣.
+
+
+
+
+                                Abbildung 5: Abbildung 7.6 des Skripts.
+
+
+Prof: Und wie ist die Breite der zweiten Lücke im vergleich zur ersten?
+
+
+
+                                                    6
+Ich: Naja, im allgemeinen sind die verschiedenen Fourierkomponenten ungleich, also werden die Lücken
+unterschiedliche Grössen haben.
+Prof: Ja, aber wird sie kleiner oder grösser sein?
+Ich: Vermutlich kleiner...
+Prof: Nehmen Sie zum Beispiel eine Sinusfunktion. Wie viele Fourierkomponenten wird sie haben?
+Ich: Unendlich?
+Prof: (Die Antwort hat ihm scheinbar überhaupt nicht gefallen) Nein!
+Ich: (Versuche mich, so schnell wie möglich zu korrigieren) Ja nein, nur eine Fourierkomponente.
+Prof: (Erleichtert) Ja, das hört sich besser an!
+Ich: Und so sieht man, dass die zweite Lücke null also kleiner ist.
+Prof: Ja. So, Herr Bettermann, die Zeit ist um! Schönen Tag noch! (Was? Schon? Die Zeit ist wirklich
+schnell gelaufen! Von der Prüfung verwirrt frage ich Ensslin noch ob er mir sagen kann ob ich die
+Prüfung bestanden habe, worauf er mit einem beruhigendem „Ja!“ antwortet.)
+
+
+Bemerkungen Ziemlich anstrengende Prüfung. Sobald Ensslin merkt, dass man die wichtigsten Punkte
+fleissig gelernt hat, versucht er wirklich, die Grenzen des Studenten zu finden. Man muss sich also nicht
+wundern, wenn er immer wieder bohrt, bis man keine Ahnung mehr hat. Als Austauschstudent war es
+meine allererste Prüfung an der ETH und noch auf Deutsch, was nicht wirklich meine Muttersprache
+ist. Es ist also eine relativ stressige Prüfung für mich gewesen. Ensslin bleibt aber während der ganzen
+Prüfung ganz nett und hilft immer wenn man nicht weiter weiss. Man kann am Ende der Prüfung etwas
+frustriert sein und den Eindruck haben, es sei schlecht gelaufen, aber die Notengebung ist offensichtlich
+noch ganz fair. Ich war zum Beispiel von meiner Note ganz positiv überrascht. Fazit: Die Prüfung ist
+zwar anstrengend und stressig, aber Ensslin ist doch wohlwollend. Viel Glück! ,
+
+Erhaltene Note: 5.5
+Erwartete Note: 4 - 4.5
+
+
+
+
+                                                     7
+                       Einführung in die Festkörperphysik1
+                                       Prof. Klaus Ensslin, HS 2014
+                              21 Januar 2015, 15:00 bis 15:30, Jens Kammerer
+
+
+Zusammenfassung Die Prüfung findet im Büro des Profs statt. Ich sitze mit dem Prof und dem
+Assistenten an einem grossen Tisch. Vor mir liegen ein Kugelschreiber und ein Block.
+Beschreibung des Inhalts: Spezifische Wärme, Supraleitung, Austausch-Wechselwirkung, Ferromag-
+netismus, p-n-Übergang
+
+
+Ablauf      Der Prof begrüsst mich und sagt mir, wo ich mich setzen darf.
+Prof: Womit möchten Sie beginnen?
+Ich: Spezifische Wärme der Phononen: Schreibe
+                                                              ∂U
+                                                       cV =        ,                               (1)
+                                                              ∂T V
+und erwähne, dass für Festkörper cV ≈ cp , da eine Druckänderung nur eine vernachlässigbare Volu-
+menänderung verursacht. Schreibe
+                                                   1
+                                                       Z
+                                         U=                Z(ω)E(ω, T )dω,                         (2)
+                                                   V
+wobei Z(ω) ∝ ω 2 die Zustandsdichte für ein elastisches isotropes Medium, also lineare Dispersionsrela-
+tion ω(q) = cq (Debye-Modell), und E(ω, T ) die mittlere thermische Energie pro Mode. Diese erhält
+man, indem man einen harmonischen Oszillator in einem Wärmebad der Temperatur T betrachtet,
+welcher sich
+           mit der Wahrscheinlichkeit Pn ∝ e−En /kB T (Boltzmann-Verteilung) im Zustand zur Energie
+               1
+En = ~ω n + 2 befindet. Mit n Pn = 1 erhält man dann
+                                P
+
+
+                                                                            1
+                                               X                                     
+                                  E(ω, T ) =       Pn En = ~ω                             .        (3)
+                                               n                       e~ω/kB T − 1
+
+Prof: Sehr zufrieden: Gut, kommen Sie direkt zum Resultat!
+Ich: Ok, man verwendet als obere Integralgrenze die Debye-Frequenz ωD , welche man dadurch erhält,
+dass die Gesamtzahl der Moden 0ωD Z(ω)dω = 3rN , und dann folgt
+                              R
+
+                                                                                     3
+                                                       1        4π 4            T
+                                                                           
+                                  T < ΘD           cV ≈  3rN kB                           ,        (4)
+                                                       V         5              ΘD
+                                                       1
+                                  T > ΘD           cV ≈ 3rN kB ,                                   (5)
+                                                       V
+ 1
+     BSc Physik, Kernfächer
+
+
+
+
+                                                              1
+also gerade Dulong-Petit für grosse Temperaturen.
+Prof: Schmunzelnd: Ich bin begeistert über Ihre Koeffizienten-Kenntnisse!
+Ich: Ja, ich male vielleicht besser noch ein Bildchen (zeichne Abbildung 5.3 aus dem Ibach-Lüth)
+und erwähne einen flachen linearen Anstieg für grosse Temperaturen, der aus nicht berücksichtigten
+Effekten wie denen des elektronischen Systems kommt.
+Prof: Verwundert es, dass für grosse Temperaturen gerade Dulong-Petit herauskommt?
+Ich: Nein, das liegt ja an der Normierung für die Abschneide-Frequenz ωD .
+Prof: Dann leiten Sie doch kurz die spezifische Wärme des elektronischen Systems her!
+Ich: Sage, dass die Elektronen der Fermi-Verteilung genügen müssen und zeichne Abbildung 6.6
+aus dem Ibach-Lüth, erwähne, dass die Breite der Stufe etwa 4kB T beträgt und dass man mit dem
+Gleichverteilungssatz davon ausgehen kann, dass jedes Elektron dieselbe Energie kB T absorbieren kann.
+Dann folgt
+                                                4(kB T )2 n
+                                           U≈                                                      (6)
+                                                   EF
+und
+                                                   8kB T n
+                                            cV =           ,                                       (7)
+                                                     TF
+wobei TF = EF /kB . Ich erwähne noch, dass TF ∼ 105 K und der Anteil des elektronischen Systems
+bei Raumtemperatur deshalb sehr gering ist.
+Prof: Gut, kommen wir zum Supraleiter. Wie sieht da die spezifische Wärme aus?
+Ich: Zeichne und beschreibe Abbildung 10.3 aus dem Ibach-Lüth (nur cs ).
+Prof: Zeichnet cn (linearer normalleitender Graph): Wieso verläuft der normalleitende Graph manch-
+mal oberhalb und manchmal unterhalb des supraleitenden Graphen?
+Ich: Unsicher: Naja, der exponentielle Teil beim supraleitenden Graphen kommt ja von cs ∝
+γTc e−bTc /T , wobei bTc ∝ ∆E, es muss also irgendwie mit der Energielücke zusammenhängen.
+Prof: Ja, was ist denn cs ?
+Ich: Die Wärmemenge, die pro Kelvin absorbiert werden kann.
+Prof: Genau, also die Energie, die man braucht, um die Temperatur zu erhöhen.
+Ich: Ja...
+Prof: Prof erklärt es dann, ich habe es allerdings nicht verstanden. Zwischendurch fragt er noch etwas
+über die Dichte der Cooperpaare, ich habe zuerst keine Ahnung, dann zeigt er explizit auf den Punkt
+T = Tc und ich sage, dass dort die Dichte der Cooperpaare 0 ist und ansteigt, je kleiner die Temperatur
+wird. Prof sagt dann, dass also für T → Tc immer mehr Cooperpaare Energie absorbieren und zu
+normalen Elektronen werden.
+
+
+
+
+                                                   2
+Ich: Erleichtert: Alles klar.
+Prof: Aufmunternd: Das hatten wir auch nicht in der Vorlesung. Ok, erklären Sie die Austausch-
+Wechselwirkung gebundener Elektronen nach Heitler-London.
+Ich: Schockiert, ich fand das war das komplizierteste Thema aus der ganzen Vorlesung: Man hat ein
+zweiatomiges Molekül mit zwei Valenzelektronen und geht davon aus, dass der Hamilton geschrieben
+werden kann als
+                                    H = H(1) + H(2) + HWW .                                   (8)
+Den Wechselwirkungsteil HWW vernachlässigt man und als Ansatz für die Wellenfunktion hat man
+
+                                Ψ12 = [ΦA (1) + ΦB (1)][ΦA (2) + ΦB (2)].                          (9)
+
+Prof: Woher kommt dieser Ansatz?
+Ich: Habe keine Ahnung: Sage irgendwas von Symmetrie und dass er wahrscheinlich aus der Teilbarkeit
+des Hamilton folgt.
+Prof: Nein, den hat man einfach geraten.
+Ich: Na toll: Komme dann zum Singlett-Zustand, welcher ionische Zustände beschreibt. Die Wellen-
+funktion muss dort symmetrisch im Ortsraum sein, da jedes Atom ein Valenzelektron haben soll,
+also
+                               Ψ = ΦA (1)ΦB (2) + ΦA (2)ΦB (1).                            (10)
+
+Prof: Der Ansatz Ψ12 ist doch auch schon symmetrisch!
+Ich: Verzweifelt: Ja stimmt...ahh, ich glaube Heitler-London besteht darin, den Singlett-Zustand so
+anzunehmen (Prof nickt). Die Spin-Wellenfunktion muss also antisymmetrisch sein und ergibt sich zu
+                                              1
+                                         Ψ = √ (|↑↓i − |↓↑i).                                     (11)
+                                               2
+Im Triplett-Zustand ist die Wellenfunktion im Ortsraum antisymmetrisch, also im Spin-Raum sym-
+metrisch und lautet
+
+                                         Ψ = |↑↑i ,                                               (12)
+                                         Ψ = |↓↓i ,                                               (13)
+                                              1
+                                         Ψ = √ (|↑↓i + |↓↑i).                                     (14)
+                                               2
+
+Mit E ≤ hΨ|H|Ψi
+           hΨ|Ψi kann man dann die Energien abschätzen und definiert −J = ETriplett − ESinglett . Falls
+also J > 0, dann ist der Singlett-Zustand der Grundzustand und es gibt keine besonderen magnetischen
+Eigenschaften und falls J < 0, dann ist der Triplett-Zustand der Grundzustand und es gibt eine
+Kopplung der Elektronenspins → Ferromagnetismus.
+Prof: Ok, kennen Sie ein Beispiel für den Fall J < 0?
+
+
+
+                                                      3
+Ich: Fragend: Eisen?
+Prof: Naja, Eisen hat ja viel mehr Valenzelektronen. Wie beschreibt man den Eisen?
+Ich: Mit dem Bandmodell für den Ferromagnetismus...soll ich das kurz hinschreiben?
+Prof: Nur ganz knapp!
+Ich: Schreibe
+                                                            In
+                                        E ↑ (k) = E(k) −       ,                              (15)
+                                                            N
+äquivalent für E ↓ , dann definiert man noch
+                                                    n↑ − n↓
+                                               R=           ,                                 (16)
+                                                       N
+was den Nettospin angibt und wenn R =
+                                    6 0, dann gibt es Ferromagnetismus und eine Nettomag-
+netisierung selbst für Bext = 0.
+Prof: Ok, wie kann man herausfinden, ob ein Material ferromagnetisch ist?
+Ich: Naja, es gibt halt auch den Para- und den Diamagnetismus. Den Paramagnetismus bekommt
+man weg, indem man ein Material mit vollen Schalen verwendet, aber ich weiss nicht, wie man den
+Diamagnetismus weg bekommt, sodass man dann nur die Stärke des ferromagnetischen Anteils messen
+könnte.
+Prof: Vorsicht, die Frage war nur, wie man herausfinden kann, ob ein Material ferromagnetische
+Eigenschaften hat.
+Ich: Ahh, das geht mit der Hysteresekurve (zeichne Abbildung 8.14 aus dem Ibach-Lüth).
+Prof: Welcher Zustand ist der energetisch niedrigste?
+Ich: Der in der Mitte, wo es keine Magnetisierung gibt.
+Prof: Schaut seltsam.
+Ich: Nachdenklich: Vielleicht doch der bei B = 0 und M =
+                                                       6 0, denn da sind die Spins ja parallel
+ausgerichtet und das ist ja energetisch günstiger.
+Prof: Nein, der in der Mitte war schon richtig. Für B = 0 und M = 6 0 gibt es zwar einen lokalen
+Energiegewinn, die globale Energie ist aber bei B = 0 und M = 0 am niedrigsten. Zeichnen Sie bitte
+den p-n-Übergang im thermodynamischen Gleichgewicht bei T = 0 K.
+Ich: Zeichne Abbildung 12.16c aus dem Ibach-Lüth, allerdings bei T = 0 K, sprich das Akzeptor- und
+das Donatorniveau kreuzen die Fermienergie.
+Prof: Unterbricht mich während dem zeichnen: Wie gross ist die Bandlücke von Silizium?
+Ich: Rate: 4 eV.
+Prof: Nein, das ist Diamant, bei Silizium sind es etwa 1.1 eV.
+
+
+
+                                                     4
+Ich: Zeichne gerade die Diffusionsspannung ein.
+Prof: Wie gross ist die Diffusionsspannung?
+Ich: Ahnungslos: Auch so im eV-Bereich.
+Prof: Wie gross ist denn die Donator-Ionisierungsenergie?
+Ich: Das weiss ich: Etwa 30 meV.
+Prof: Gut, kann denn die Diffusionsspannung grösser als die Bandlücke sein?
+Ich: Nein, das geht nicht, dann müsste ja EF einen Knick haben.
+Prof: Ja, wie kann man denn nun die Diffusionsspannung aus den ganzen anderen Grössen hier
+bestimmen?
+Ich: Ich weiss es nicht.
+Prof: Zeichnet jetzt in meinem Bildchen EF nochmal besser ein.
+Ich: Ahh, natürlich muss VD ≈ Eg − Ed − Ea sein und somit auch im eV-Bereich liegen.
+Prof: Wie gross ist die Raumladungszone?
+Ich: Im Schottky-Modell, bei dem man von einer Raumladungszone mit abruptem Ende ausgeht, ist
+                                                s
+                                                    NA /ND
+                                         dn ∝               .                              (17)
+                                                    NA + ND
+
+Prof: Kennen Sie einen Zahlenwert?
+Ich: Ja, das sind so 100 − 10000 Å.
+Prof: Genau, was passiert, wenn man die Dotierdichte erhöht?
+Ich: Die Raumladungszone wird kleiner.
+Prof: Warum?
+Ich: Das sieht man an der Formel.
+Prof: Schon, aber warum ist das physikalisch so?
+Ich: Naja, weil dann pro Meter mehr Ionen sind und sich ein gleich starkes Feld schon bei einer
+kleineren Raumladungszone aufbaut.
+Prof: Ok, das wars (erst 20 Minuten waren vergangen).
+
+
+Abschliessende Bemerkungen Die Atmosphäre ist sehr entspannt, aber der Prof merkt schnell, wie
+viel man kann und fragt dann dementsprechend Dinge, bei denen man erstmal keine Ahnung hat.
+
+
+
+                                                    5
+Gerade im Bereich Halbleiter sollte man unbedingt auch einige Zahlenwerte parat haben.
+
+Expected mark: 5.5
+Received mark: 6.0
+
+
+
+
+                                                6
+    Einführung in die Festkörper Physik, HS 2014
+
+
+                     21.01.2015, Prof. Klaus Ensslin
+
+
+Zusammenfassung Die Prüfung findet im HPF E5 im Büro von Professor
+Ensslin statt. Prüfer und Beisitzer sitzen sich gegenüber, der Prüfling nimmt
+stirnseitig platz. Man bekommt einen Kugelschreiber und einen Block um
+Notizen zu machen, sowie Bilder und Graphen zu zeichnen. Die Atmo-
+sphäre ist angenehm, Professor Ensslin ist freundlich und versucht durch
+gut gewählte Fragen zu helfen, wenn man mal nicht weiter weiss. Zu beginn
+durfte man mit einem selbstgewählten Thema ca. 5 Minuten beginnen. (En-
+sslin unterbricht ab und zu mit Zwischenfragen zum tieferen Verständinis)
+    Inhaltlich kamen folgende Themen dran: Halbleiter, Tight-Binding, Supraleiter,
+spezifische Wärme
+
+Ablauf Kurze Begrüssung
+E: Womit möchten sie beginnen?
+I: Ladungsträgerdichte im intrinsischen Halbleiter
+E: Dann können sie beginnen
+I: Erkläre kurz getroffenen Annahmen (m∗ = const, woher diese kommt,
+warum sie angenommen werden darf), gebe dann die Formel für die Ladungsträgerdichte
+                                                                               3
+                                                                            ∗) 2 √
+n = EL DL (E)f (E, T )dEan, sowie die der Zustandsdichte DL (E) = (2m
+     R∞
+                                                                        2π 2 ~3
+                                                                                   E − EL .
+E: Wie sieht die Zustandsdichte und Ladungsträgerdichte beim Metall aus,
+sowie beim dotierten HL?
+I: Ladungsträgerdichte
+√             √          gleich, Zustandsdichte bei Metall fast identisch, nur
+  E anstatt E − EL , für Halbleiter wusst ichs nicht.
+E: ok schreiben sie bitte direkt das Ergebnis für n hin, nachdem man die
+Fermi-Verteilung mit Boltzman angenähert hat etc.
+                                     −EL −EF                        3
+I: Schreib die Formel hin n = NeffL e kB T , sowie N L = 2 m∗ kB T 2
+                                                     eff        2π~
+E: Da sieht man jetzt aber die Temperatur abhängigkeit der Fermi-Energie
+nicht gut, wie sieht die denn aus?
+I: Erkläre, dass man mit Hilfe von Massenwirkungsgesetzt und Ladungsneu-
+tralität nach EF umformen kann und schreibe die Fermi-Energie hin EF =
+
+                                       1
+EL +EV             NV
+   2     + kB2T ln( Neff
+                     L )
+                    eff
+E: Und was passiert mit der Fermi-Energie wenn ich jetzt z.B. Neff V erhöhe?
+
+I: ((Dann wandert sie näher an das Leitungsband, da sie durch Ladungsneu-
+tralität definiert ist.))
+E: Ok, zeichnen sie mal bitte einen p-n-übergang im limes T=0
+I: Zeichne übergang, erkläre die Bänder, dass Fermi Energie überall gleich,
+deshalb Bänder verbogen. Erkläre auch, worüber der Abstand zwischen Do-
+nator niveau und Leitungsband etc kommen.
+E: Wie gross ist die Raumladungszone
+                                  r      denn?
+                                      NA
+
+I: Schreibe die Formel auf dn ∝ NAN+N   D
+                                          D
+E: Und was für grössen sind so typisch?
+I: (wusste es nicht genau) So 30 Gitterkonstanten? (war natürlich viel zu
+klein)
+E: Was sind denn so typische Dotier-Dichten?
+I: (wieder keine Ahnung) So ca. 108 pro cm−3 ?
+E: Das wäre ein extrem Reiner HL, wie viele Atome hat denn ein Festkörper
+typischerweise?
+Es folgte ein kurzer Exkurs darüber wieviele Atome (es sind (1024 pro cm−3 )
+E: Also, wie gross wären dann wohl die Dotierdichten?
+I: Schätze so 1020
+E: Dass wäre ein stark entarteter Halbleiter, meist liegt sie zwischen 1014
+bis 1018 pro cm−3
+I: Ok...
+E: Zeichnen sie mal die I-U-Kennlinie
+I: (Zeichne Abb 12.18 aus Lüth) Erkläre wie der Sperr-Strom zustande
+kommt
+E: Wie könnte ich den denn reduzieren?
+I: Durch senken der Temperatur oder durch ein Material mit grösserer En-
+ergielücke
+E: Gut, Themenwechsel: Tight-Binding
+I: Erkläre Ansatz mit Potential des einzelnen Atoms + Störterm mit Poten-
+tial der anderen Atome. Dann dass die Wellenfunktion als Superposition der
+Atomaren Wellenfunktionen geschrieben wird, der koeffizient davon durch
+Bloch-Charakter bestimmt wird.
+E: Was kommt dann   Pfür die Energie raus?
+I: E = Ei + A + B m6=n exp(~rm − ~rn ) Erkläre was A, B sind und dass die
+Summe nur über nächste Nachbarn geht.
+E: Zeichnen sie mal was dazu
+
+
+                                      2
+I: Zeichne Abb 7.8 aus Lüth,
+E: Ok, nochmal Themenwechsel: Supraleiter, zeichnen sie die c(T) abhängigkeit
+I: Zeichne etwas ähnlich zu 10.3 aus Lüth
+E: Wohin geht denn die lineare Interpolation wenn wir sie im SL bereich
+fortführen (zeigt aufs Blatt)
+I: Gegen 0 (hab nicht schön gezeichnet)
+E: Gut, ich zeichne das ganze nochmal grösser für meine nächste Frage (ze-
+ichnet etwas schöner als ich). Wieso haben wir hier Bereiche in denen der
+Exponentielle teil unter, bzw über der Interpolation liegt?
+I: Wird wohl irgendwie mit der Energielücke zusammen hängen, aber genau
+weiss ichs nicht
+E: Ja, viel anderes haben wir auch nicht. Wo haben wir denn sonst noch
+eine exp. Abhängigkeit von der Temperatur gesehn?
+I: Beim Einstein Modell, bei dem angenommen wird, es gibt nur eine Fre-
+quenz für die Phononen
+E: Genau, was ist die gemeinsamkeit zwischen diesen beiden Modellen, auch
+wenn wir hier äpfel mit Birnen vergleichen (Phononen mit Cooper-Pairs)
+I: Es sind beides Bosonen, also alle im Grundzustand?
+E: Genau und was sagt die spezische Wärme physikalisch aus?
+I: (mit etwas Hilfe von E.) wie viel Energie aufgenommen wird, wenn wir
+um eine bestimmte Temperatur erwärmen.
+E: Genau (er erklärt dann noch genauer wieso es also exponentiell steigt,
+hab ich aber nicht ganz verstanden)
+E: Wie kann ich diese interpolierte Kurve in Realität messen?
+I: In dem man ein starkes Magnetfeld anlegt und den Supraleitenden Zus-
+tand zerstört.
+E: Gut, letzte FragE: Wie kann man die Ladung der Cooper Paare nach-
+weisen. Geben sie mir auch ein Experiment
+I: Flussquantisierung, erkläre ein Experiment mit Torsions Pendel, dass man
+am Ende findet, dass die Energie 2e ist.
+E: Ok, das war gut, nur mit den Zahlen hatten sie ein paar Probleme, aber
+die Physik haben sie verstanden
+
+
+Bemerkungen Professor Ensslin erwartet keine Detailierten Herleitun-
+gen, sondern Ergebnisse und die Ideen der Herleitung. Zahlenwerte sind
+ihm auch teilweise wichtig.
+Erwartete Note: 5.75
+Erhaltene Note: 5.75
+
+
+                                    3
+

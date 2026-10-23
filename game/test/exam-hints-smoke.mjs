@@ -1,0 +1,24 @@
+import { createServer } from 'node:http'; import { readFile } from 'node:fs/promises'; import { extname, join, normalize } from 'node:path';
+import { chromium } from 'playwright-core';
+const root=new URL('..',import.meta.url).pathname; const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.woff2':'font/woff2'};
+const server=createServer(async(q,res)=>{try{const p=normalize(decodeURIComponent(new URL(q.url,'http://x').pathname));if(p==='/api/ping'){res.writeHead(200,{'content-type':'application/json'});return res.end('{"ok":false}')}const f=await readFile(join(root,p==='/'?'index.html':p));res.writeHead(200,{'content-type':types[extname(p)]||'application/octet-stream'});res.end(f)}catch{res.writeHead(404);res.end('nf')}}).listen(0);
+const b=await chromium.launch({executablePath:process.env.CHROMIUM||'/tmp/chr-local/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const p=await b.newPage({viewport:{width:1280,height:900}});const errs=[];p.on('console',m=>{if(m.text().startsWith('DBG'))console.log(m.text())});p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});
+await p.goto(`http://127.0.0.1:${server.address().port}/index.html?test=1`);await p.evaluate(()=>localStorage.clear());await p.reload();await p.waitForFunction(()=>!!window.__game);
+await p.evaluate(()=>{const t=document.getElementById('tut');if(t&&t.style.display!=='none')document.getElementById('tut-skip')?.click()});
+
+const results=[];const ck=(n,c)=>{results.push(c);console.log(`${c?'PASS':'FAIL'} ${n}`)};
+await p.keyboard.press('KeyX');await p.waitForTimeout(400);await p.selectOption('#ex-one','qm-fu-b1');await p.click('#ex-one-go');await p.waitForTimeout(500);
+ck('hint buttons exist',await p.evaluate(()=>document.querySelectorAll('.hintbtn').length>=2));
+const xp0=await p.evaluate(()=>window.__game.state().xp);
+await p.click('[data-hint$=":start"]');await p.waitForTimeout(200);
+ck('start hint shown, katex ok',await p.evaluate(()=>{const b=document.querySelector('[data-hbox$=":start"]');return b.innerText.includes('Hint 1')&&!b.querySelector('.katex-error')}));
+await p.click('[data-hint$=":start"]');await p.waitForTimeout(200);
+ck('second start hint appended',await p.evaluate(()=>document.querySelector('[data-hbox$=":start"]').innerText.includes('Hint 2')));
+const first=await p.evaluate(()=>[...document.querySelectorAll('.hintbtn')].find(b=>!b.dataset.hint.endsWith(':start')).dataset.hint);
+for(let i=0;i<3;i++)await p.click(`[data-hint="${first}"]`);
+ck('3 hints for one answer then disabled',await p.evaluate((k)=>{const b=document.querySelector(`[data-hint="${k}"]`);return b.disabled&&document.querySelector(`[data-hbox="${k}"]`).innerText.includes('Hint 3/3')},first));
+ck('hint counter',(await p.textContent('.hused')).includes('5'));
+await p.click('#ex-submit');await p.waitForTimeout(300);await p.click('#ex-final');await p.waitForTimeout(400);
+console.log((await p.evaluate(()=>document.querySelector('#ex-res').innerText)).slice(0,400));ck('result mentions hints',await p.evaluate(()=>document.querySelector('.examres').parentElement.innerText.includes('hint')));
+const bad=results.some(x=>!x)||errs.length;console.log(bad?'FAIL '+errs.slice(0,3):'ALL PASS exam hints');await b.close();server.close();process.exit(bad?1:0);

@@ -1,0 +1,90 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                               Exercise sheet XIV
+                                  Return:       24.12.2025 z
+
+
+Question 1 [Anharmonic oscillator ]:
+Consider the Hamiltonian of an anharmonic oscillator in one dimension:
+                                                                    4
+                                      ℏ2      1    2 2               x
+          H = H0 + Ha ,      H0 = −      ∆ + mω x ,         Ha = λ        ,       (1)
+                                     2m       2                      x0
+            q
+                ℏ
+where x0 =     mω
+                  . The aim of this question is to determine the corresponding energy
+spectrum in second-order perturbation theory.
+  (i) Express H in terms of creation and annihilation operators of the harmonic oscillator.
+ (ii) Determine the matrix elements of Ha in the eigenbasis {|n⟩}, n = 0, 1, . . . , of the
+      harmonic oscillator; deduce the first order correction to the energy eigenvalues.
+(iii) Calculate the eigenvalues of H to second order in λ.
+(iv) The relative corrections diverge for large energies (large n). For these eigenstates,
+     perturbation theory is therefore not particularly useful. Why was this to be ex-
+     pected?
+
+Question 2 [Stark effect ]:
+                                                        ⃗ This modifies the electronic
+A hydrogen atom is placed in an external electric field E.
+Hamiltonian by a term
+                                  ∆H = −eE  ⃗ · ⃗x ,                               (2)
+where e < 0 is the charge of an electron. Use degenerate perturbation theory to determine
+the change in the energy spectrum and the eigenstates to first order in the perturbation
+(2) for the states with n = 2.
+Hint: The eigenfunctions Ψn,ℓ,m (r, θ, ϕ) of the hydrogen atom with n = 2 are given by
+                                                                 r
+                  1           r      − 2ar                          3
+    Ψ2,0,0 = p          1 −        e      0 ,
+                                                          Y1,0 =       cos θ ,
+               8πa30         2a0                                   4π
+                                                                   r
+                1        r                                            3 ±iϕ
+    Ψ2,1,m =       3/2
+                       √ e−r/2a0 Y1,m ,                  Y1,±1 = ∓      e sin θ .
+             (2a0 )      3a0                                         8π
+
+Question 3 [Spin-orbit coupling and Zeemann effect ]:
+Consider an electron in a hydrogen atom in the presence of a constant magnetic field B,   ⃗
+which we take to be parallel to the z-axis. Without the magnetic field and ignoring the
+spin-orbit coupling, the eigenfunctions are labelled by (n, ℓ, m, ms ), where ms denotes the
+spin quantum number ms = ± 21 . The additional effects lead to H = H0 + ∆H with
+                                          1 1 dV ⃗ ⃗ µB Bz
+                ∆H = HSO + HZ =                      L·S+   (Lz + 2Sz ) ,               (3)
+                                        2m2e c2 r dr      ℏ
+where V (r) = −e2 /r and µB = 2m
+                               ℏe
+                                ec
+                                   is the Bohr magneton.
+ (i) If the second term dominates (Paschen-Back effect), determine the first order per-
+     turbation of the energy spectrum, treating only the spin-orbit coupling as a pertur-
+     bation. How big does Bz have to be in order to justify this approximation?
+     Hint: The following expectation value may be useful (see eq. (9.7.29) in the script):
+                               
+                                1         1           1
+                                 3
+                                     = 3 3                     ,                       (4)
+                                r nℓ a0 n ℓ(ℓ + 1/2)(ℓ + 1)
+
+    where a0 := ℏ2 /(me e2 ) is the Bohr radius.
+
+(ii) Next, determine the energy spectrum to first order perturbation theory, treating
+     both terms (i.e. ∆H) as a perturbation.
+     Hint: You need to diagonalise the 2n2 × 2n2 matrix where ℓ = 0, 1, . . . , n − 1,
+                                           ⃗ 2 , ∆H] = [Lz + Sz , ∆H] = 0, this matrix is
+     m = −ℓ, ..., ℓ and ms = ± 21 . Since [L
+     block-diagonal with 2 × 2 blocks.
+
+(iii) For Bz = 0, reproduce the result for the spin orbit coupling that was derived in the
+      lectures. Show that the first order correction in Bz of this result is given by
+
+                        ∆Enℓjmj = gℓj µB Bz mj ,       mj = −j, ..., j ,               (5)
+
+    where j and mj refer to the diagonal representation of the rotation group corre-
+    sponding to J⃗ = L
+                     ⃗ +S
+                        ⃗ and
+
+                                       2 + 2ℓ                     2ℓ
+                          gℓ,ℓ+1/2 =          ,    gℓ,ℓ−1/2 =          .               (6)
+                                       1 + 2ℓ                   1 + 2ℓ
+

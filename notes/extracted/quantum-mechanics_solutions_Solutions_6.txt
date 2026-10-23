@@ -1,0 +1,320 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                    Solution to exercise sheet VI
+
+Question 1 [Dirac-delta well in momentum space ]:
+Consider the potential V (x) = −αδ(x) for some constant α > 0. We study its bound
+states in position and momentum representations. Both approaches should give the same
+results, since they simply correspond to a change of basis.
+  (i) For E < 0, solve the time-independent Schrödinger equation separately for the re-
+      gions x < 0 and x > 0, requiring the wave-function to be normalisable. By imposing
+      suitable continuity conditions at x = 0, find the allowed values of E.
+
+ (ii) We now solve for the bound states with a different method. Consider the Fourier
+      transform                               Z ∞
+                                ˜         1
+                               f (p) := √          f (x)e−ipx/ℏ dx.                 (1)
+                                          2πℏ −∞
+      Show that, as a consequence, the time-independent Schrödinger equation in momen-
+      tum representation reads
+                                         Z ∞
+                       p2             1
+                          ψ̃(p) + √          Ṽ (p − p′ )ψ̃(p′ ) dp′ = E ψ̃(p).     (2)
+                       2m            2πℏ −∞
+     Note how the product V (x)ψ(x) becomes a convolution between the Fourier trans-
+     forms of V and ψ. State the interpretation of ψ̃(p) in quantum mechanics.
+
+(iii) For V (x) = −αδ(x), calculate Ṽ (p). For that potential,
+                                                        R∞      solve the momentum-space
+      equation (2) in terms of the free parameter C ≡ −∞ ψ̃(p) dp. How is C related to
+      the wave-function in position space?
+
+(iv) By integrating the solution found in (iii) from p = −∞ to p = ∞, find the allowed
+     values of E. Do they coincide with what you found in (i)?
+
+ (v) Show that the Fourier transform of the wave-function found in (i) is a momentum
+     space wave-function of the form found in (iii)-(iv).
+
+(vi) Suppose we had instead considered a scattering state E > 0. Would this cause any
+     difficulties in the analysis in part (iv)? What about if we still had E < 0, but
+     considered a Dirac-delta barrier instead (V (x) = α′ δ(x) with α′ > 0)?
+Solution:
+Throughout parts (i)–(v), it is helpful to keep in mind that −E is positive.
+
+  (i) For x > 0, the time-independent Schrödinger equation for this potential is
+
+                        ℏ2 ′′                                  2mE
+                     −     ψ (x) + 0 = Eψ(x) =⇒ ψ ′′ (x) = − 2 ψ(x).              (S.1)
+                       2m                                       ℏ
+                                                                  √
+     This has two linearly independent solutions e±κx , where κ = −2mE/ℏ > 0. How-
+     ever, the solution eκx diverges as x → ∞, hence would result in a non-normalisable
+    wave-function, so we only keep the solution e−κx in this region. Thus, for x > 0,
+    ψ(x) = Ae−κx for some constant A. For x < 0, we similarly keep only the solution
+    eκx , and conclude that for x < 0, ψ(x) = A′ eκx for some constant A′ .
+    To find the allowed values of energy we require ψ(x) to be continuous at x = 0, so
+    A = A′ . Secondly, we found in the previous exercise session (sheet IV, question 1)
+    that a Dirac-delta potential imposes a condition on the jump of the derivative of
+    ψ(x) at x = 0:
+                              ℏ2 ′ +
+                                 (ψ (0 ) − ψ ′ (0− )) = −αψ(0).                   (S.2)
+                             2m
+    For the exponential solutions relevant here, this yields
+
+         ℏ2 ′ +                    Aℏ2              Aℏ2 κ !
+            (ψ (0 ) − ψ ′ (0− )) =     (−κ − κ) = −       = −αA = −αψ(0).     (S.3)
+         2m                        2m                m
+                           p
+    Hence α = ℏ2 κ/m = ℏ −2E/m, so there is only one bound state for this potential,
+                   2
+    with E = − mα
+                2ℏ2
+                     .
+
+(ii) We have the time-independent Schrödinger equation
+
+                                   ℏ2 ′′
+                               −      ψ (x) + V (x)ψ(x) = Eψ(x).                         (S.4)
+                                   2m
+    We now multiply this by e−ipx/ℏ and integrate over x to compute the Fourier trans-
+    form (1). The result involves
+                            Z +∞
+                                                ℏ2 ′′         p2
+                                                       
+                        1             −ipx/ℏ
+                     √            dx e        −    ψ (x) =       ψ̃(p)           (S.5)
+                       2πℏ −∞                   2m            2m
+
+    where we integrated by parts (all boundary terms vanish because ψ falls off at
+    infinity) and used the definition (1). For the product V (x)ψ(x), we need to use the
+    inverse Fourier transforms
+                       Z +∞                                  Z +∞
+                   1             ipx/ℏ                   1
+        V (x) = √           dp e       Ṽ (p)  ψ(x) = √           dp eipx/ℏ ψ̃(p). (S.6)
+                   2πℏ −∞                               2πℏ −∞
+    This yields
+            Z +∞
+       1
+     √            dx e−ipx/ℏ V (x)ψ(x)                                                    (S.7)
+       2πℏ −∞
+                Z +∞                       Z +∞                      Z +∞
+           1               −ipx/ℏ     1             iqx/ℏ          1
+     =√               dx e         √            dq e      Ṽ (q) √        dk eikx/ℏ ψ̃(k) (S.8)
+          2πℏ Z−∞ Z                  2πℏ −∞                       2πℏ −∞
+           1
+     =√           dq dk δ(p − q − k)Ṽ (q)ψ̃(k)                                           (S.9)
+          2πℏ Z
+           1
+     =√           dp′ Ṽ (p − p′ )ψ̃(p′ ).                                               (S.10)
+          2πℏ
+
+    Combining this with eq. (S.5) yields the expected answer (2). Interpretation: ψ̃(p)
+    is the wave-function in the momentum representation, i.e. |ψ̃(p)|2 is the probability
+    density function for a measurement of momentum.
+(iii) The Fourier transform of the delta-function potential is
+                                      Z ∞
+                                   1                           −α
+                        Ṽ (p) = √         −αδ(x)e−ipx/ℏ dx = √     .               (S.11)
+                                  2πℏ −∞                        2πℏ
+    Thus we evaluate the integral term in Eq. (2) as
+              Z ∞                                    Z ∞
+          1                 ′     ′    ′    1   −α                     −αC
+        √          Ṽ (p − p )ψ̃(p ) dp = √    √         ψ̃(p′ ) dp′ ≡     .        (S.12)
+          2πℏ −∞                           2πℏ 2πℏ −∞                  2πℏ
+
+    Eq. (2) is now simply an algebraic expression, without any differential or integral
+    operators. With a little rearrangement of terms, it becomes
+                                   2      
+                                    p                αC
+                                       − E ψ̃(p) =       ,                       (S.13)
+                                    2m               2πℏ
+    which yields the desired solution
+                                               αC     1
+                                     ψ̃(p) =        2    .                          (S.14)
+                                               2πℏ p − E
+                                                   2m
+
+    The constant C is                Z ∞                √
+                                C=         ψ̃(p) dp =       2πℏ ψ(0)                (S.15)
+                                      −∞
+    where ψ(x) is the standard wave-function in position space.
+(iv) The left side of Eq. (S.14) simply integrates to C, while the right side integrates to
+                   Z ∞
+                                             mαC ∞
+                                                   Z
+                        αC      2m                              1
+                              2
+                                       dp =                   √        2 dp         (S.16)
+                    −∞ 2πℏ p − 2mE            πℏ −∞ p2 +        −2mE
+                                                             √          ∞
+                                             mαC tan−1 (p/ −2mE)
+                                                   
+                                          =              √                           (S.17)
+                                              πℏ           −2mE          −∞
+                                               mαC
+                                          = √          .                             (S.18)
+                                             ℏ −2mE
+     Since the integrals of both sides
+                                    √ must be equal, we cancel off the common factor of
+     C and conclude that mα = ℏ −2mE, which indeed matches the answer obtained
+     in (i).
+(v) We compute the Fourier transform of the function
+                                     
+                                         A eκx if x < 0
+                              ψ(x) =                                                (S.19)
+                                        A e−κx if x > 0
+    and find
+                              Z ∞
+                           1
+                 ψ̃(p) = √        ψ(x)e−ipx/ℏ dx                                    (S.20)
+                          2πℏ −∞
+                              Z 0                      Z +∞
+                           A           (κ−ip/ℏ)x    A
+                       =√         dx e           +√         dx e(−κ−ip/ℏ)x          (S.21)
+                          2πℏ −∞                    2πℏ 0
+                                                    
+                           A       1             1
+                       =√                 +                                         (S.22)
+                          2πℏ κ − ip/ℏ κ + ip/ℏ
+                           A      2κ
+                       =√                                                           (S.23)
+                          2πℏ κ2 + p2 /ℏ2
+                         (S.15) √                √                           2
+      Here A = ψ(0) = C/ 2πℏ while κ = −2mE/ℏ and E = − mα                2ℏ2
+                                                                               for the unique
+      bound state. Plugging this data in (S.23) reproduces the momentum-space wave-
+      function (S.14), as desired.
+                                                                      √
+ (vi) If E > 0, then the denominator in Eq.R∞ (S.14) is zero at p = ±  2mE ∈ R. Therefore,
+      ψ̃(p) is singular at those points and −∞ ψ̃(p) dp diverges, contradicting the fact that
+      the position-space wave-function ψ(x) must be finite for any x. This issue is related
+      to the fact that scattering states are not normalisable. On the other hand, if E < 0
+                       ′             ′
+      but V (x) =  √ α δ(x) with α > 0, our argument in part (iv) would require that
+            ′
+      −mα = ℏ −2mE > 0, a contradiction. This indicates that there are no bound
+      states for the Dirac-delta barrier, as expected.
+
+
+Question 2 [Uncertainty relation in a box ]:
+Recall from Question 3 of Exercise Sheet III that for the n-th eigenstate of the particle
+confined to the one-dimensional box we found
+                                                 a2
+                                                              
+                           a                2               6
+                      ⟨x⟩ = ,     ⟨(x − ⟨x⟩) ⟩ =      1− 2 2 .                        (3)
+                           2                     12       nπ
+Similarly, determine the expectation value and the variance of p and confirm the Heisen-
+berg uncertainty relation ∆x · ∆p ≥ ℏ/2.
+Solution: We have
+                                      2ℏ a
+            Z                            Z
+                    ∗ℏ d
+                                                 nπx  nπ      nπx 
+      ⟨p⟩ = ψn (x)         ψn (x)dx =       sin            cos         dx = 0,    (S.24)
+                      i dx            ai 0         a     a        a
+where we have concluded the integral is zero by using     the symmetries nπx   of the integrand
+about the midpoint of the box: for odd n, sin nπx     a
+                                                           is even  and  cos    a
+                                                                                      is odd with
+respect to x = a/2, so their   product is odd with respect to x = a/2; for even n,
+     nπx                   nπx
+sin a is odd and    cos a2nπxis even with respect to x = a/2. Alternatively, one can use
+2 sin nπx
+        a
+            cos nπx
+                 a
+                      = sin a and evaluate the integral directly. The fact that ⟨p⟩ = 0
+matches our intuition that the particle is equally likely to be moving in either direction
+in the box, since the setup is symmetric.
+    Next we compute
+                            2
+                                           2ℏ2 a
+           Z                                  Z
+     2             ∗   ℏ d                               nπx   nπ 2       nπx 
+    p = ψn (x)                  ψn (x)dx =         sin                   sin           dx (S.25)
+                       i dx                 a 0            a       a            a
+                                           ℏ2  nπ 2 a
+                                                       Z                    
+                                                                      2nπx
+                                         =                 1 − cos             dx           (S.26)
+                                           a     a       0              a
+                                                                               a
+                                           ℏ2  nπ 2
+                                                                     
+                                                               a        2nπx
+                                         =               x−       sin                       (S.27)
+                                           a     a            2nπ          a      0
+                                                 2
+                                             nπℏ
+                                         =           .                                      (S.28)
+                                              a
+Therefore, the variance for momentum is (∆p)2 = ⟨p2 ⟩ − ⟨p⟩2 = (nπℏ/a)2 . We confirm
+that this satisfies the Heisenberg uncertainty relation:
+                               r           !             r
+                              a 1       2      nπℏ       ℏ n2 π 2    ℏ
+                 ∆x · ∆p =          − 2 2             =           −2> ,       (S.29)
+                              2 3 nπ             a       2   3       2
+              p                                                  p
+noting that    n2 π 2 /3 − 2 increases with n and takes the value π 2 /3 − 2 ≈ 1.13 at n = 1.
+
+Question 3 [Uncertainty relation and energy ]:
+A particle of mass m moves in one dimension subject to the potential V (x) = 21 kx2
+(k > 0). Express the expectation value of the energy E in terms of ⟨x⟩, ⟨p⟩, ∆x and ∆p.
+Then, using the uncertainty relation ∆x · ∆p ≥ ℏ/2, show that
+                                              r
+                                            ℏ k
+                                     ⟨E⟩ ≥         .                                (4)
+                                            2 m
+This implies that for this potential, there is a nonzero lower bound for the energy.
+Solution: We have (∆x)2 = ⟨x2 ⟩ − ⟨x⟩2 and similarly for (∆p)2 . Therefore, using the
+linearity of expectation values,
+          2
+                 kx2       ⟨p2 ⟩ k ⟨x2 ⟩
+                     
+            p                                 1                k
+                                                  (∆p)2 + ⟨p⟩2 +    (∆x)2 + ⟨x⟩2 . (S.30)
+                                                                                 
+  ⟨E⟩ =        +        =       +        =
+           2m      2       2m        2      2m                    2
+
+Since ⟨x⟩2 , ⟨p⟩2 ≥ 0, this implies
+                        1        k
+                ⟨E⟩ ≥     (∆p)2 + (∆x)2                                               (S.31)
+                       2m        2              r              r
+                        1        k           ∆p   k         ∆p   k
+                     =    (∆p)2 + (∆x)2 − 2 √       ∆x + 2 √       ∆x                 (S.32)
+                       2m        2            2m 2          2m 2
+                                r     !2        r
+                          ∆p      k               k
+                     = √      −     ∆x + ∆p∆x                                         (S.33)
+                          2m      2               m
+                             r
+                               k
+                     ≥ ∆p∆x                                                           (S.34)
+                        r      m
+                       ℏ k
+                     ≥       ,                                                        (S.35)
+                       2 m
+which was to be shown.
+   Alternatively, we can directly use the Heisenberg uncertainty relation in eq. (S.31)
+above to find
+                              1          kℏ2 1
+                      ⟨E⟩ ≥      (∆p)2 +           := f ((∆p)2 ) ,               (S.36)
+                             2m           8 (∆p)2
+where we assume ∆p ̸= 0. Since we do not know the value of (∆p)2 , we have to find a lower
+bound on f ((∆p)2 ) that holds for any (∆p)2 . This can be done by finding its minimum
+with respect to (∆p)2 . We introduce µ := (∆p)2 ∈ (0, ∞) and solve for f ′ (µ) = 0:
+                                                                      √
+                             kℏ2 1             kℏ2 1
+                                  
+              ! d      1                 1                          ℏ mk
+            0=           µ+          =     −            =⇒     µ=            .      (S.37)
+                 dµ 2m         8 µ      2m      8 µ2                   2
+This is a global minimum of f on (0, ∞) (as can be seen by noting that f is differentiable
+on (0, ∞) and f (µ) → ∞ as µ → 0 or µ → ∞). Therefore, we conclude again that
+                                   √                       r
+                               1 ℏ mk kℏ2 2              ℏ k
+                       ⟨E⟩ ≥             +      √     =         .                   (S.38)
+                              2m 2           8 ℏ mk      2 m
+

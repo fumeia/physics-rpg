@@ -1,0 +1,236 @@
+                       Exam HS 2023
+              Introduction to solid state physics
+                           Prof. Dr. A. Zheludev
+                              January 25, 2024
+
+
+
+                                   Please note:
+ • Please read the cover sheet, but do not begin writing until instructed to.
+
+ • On each sheet of paper used, please write your full name and Legi number at the top.
+
+ • Please use only black or blue ink pen.
+
+ • After the exam, all paper will be collected, including the exam problems and all scrap
+   paper used.
+
+ • Please stay seated until instructed to. If you need to use the restroom or if you intend
+   to leave the exam early, raise your hand and a TA will assist.
+
+                               Allowed materials:
+ • Handwritten, self-prepared formula sheets (5 sheets A4)
+
+ • Calculator (without communication or programmable)
+
+ • Dual-language dictionary
+
+
+
+Given name:
+
+Surname:
+
+Legi Number:
+Exam HS 2023                                                                    Jan. 25, 2024
+
+
+
+
+Problem 1: Two-dimensional crystals
+We consider the following two-dimensional crystal. The empty and filled circles represent
+two different atoms, respectively. The vectors have lengths of a = 6.0 Å and b = 4.0 Å.
+
+
+
+
+  a) Is the parallelogram spanned by the vectors ⃗a and ⃗b a primitive unit cell?
+  b) What is the area A of the primitive unit cell?
+  c) What is the basis of this crystal? Write down the coordinates of the atomic positions
+     for each atom within the basis in the unit cell spanned by ⃗a and ⃗b.
+  d) Sketch a Wigner-Seitz unit cell. What is the area of the Wigner-Seitz unit cell?
+     In two-dimensional space, one can define the reciprocal lattice vectors similarly to the
+three-dimensional space. If ⃗a and ⃗b are primitive translation vectors of the real-space
+lattice, the primitive translation vectors of the reciprocal lattice ⃗a∗ and ⃗b∗ can be defined
+as follows:
+                                                2π ⃗
+                                         ⃗a∗ =     (b × ẑ)
+                                                A
+                                          ⃗b∗ = 2π (ẑ × ⃗a)
+                                                 A
+where A is the area of the primitive unit cell in real space. ẑ is the unit vector perpen-
+dicular to the two-dimensional plane spanned by ⃗a and ⃗b, which is defined by ẑ = â × b̂
+(â, b̂ are unit vectors along ⃗a and ⃗b direction).
+  e) Sketch the reciprocal lattice of the two-dimensional crystal above.
+   f) In the sketch of the reciprocal lattice, draw the first Brillouin zone.
+  g) What is the area of the first Brillouin zone?
+     We conduct a neutron diffraction experiment using monochromatic neutron beams
+with
+P wavelength λ = 2.36 Å. The scattering density is a sum of delta functions ρ(r) =
+   i fi δ(r − ri ), where ri is the position of the nucleus of the i-th atom in the unit cell
+and fi is the amplitude of the scattering potential produced by the nucleus at position ri .
+The value of fi of the two atoms represented by the empty and filled circles is f1 and f2 ,
+respectively.
+
+                                              2
+Exam HS 2023                                                                   Jan. 25, 2024
+
+
+  h) Assuming elastic scattering, what is the magnitude of the wavevectors ki and kf of
+     the incident and reflected neutron beams.
+
+   i) Calculate the scattering angle between ki and kf for the two Bragg peaks with
+      q = (2, 1) and (1, 1). Here q = (h, k) is a wave vector defined by the principal
+      translation vectors of the reciprocal space: q = h⃗a∗ + k⃗b∗ .
+
+   j) Compare the intensities I of the two Bragg peaks above. Calculate I(2,1) /I(1,1) if
+      f1 = 2f2 .
+
+  k) Calculate the intensities I of the two Bragg peaks above if all the atoms in the
+     crystal are identical: f1 = f2 .
+
+   From now on we suppose that all atoms in this 2D crystal are identical. The crystal
+becomes the following:
+
+
+
+
+   l) Is the parallelogram spanned by the vectors ⃗a and ⃗b a primitive unit cell?
+
+ m) Sketch a primitive unit cell. What is the area A1 of the primitive unit cell?
+
+  n) What is the basis of this crystal? Write down the coordinates of the positions of
+     the atoms within the basis in the primitive cell you have sketched.
+
+  o) Sketch a Wigner-Seitz unit cell. What is the area of the Wigner-Seitz unit cell?
+
+  p) Sketch the reciprocal lattice of this two-dimensional crystal.
+
+  q) In the sketch of the reciprocal lattice, draw the first Brillouin zone.
+
+  r) What is the area of the first Brillouin zone?
+
+
+Problem 2a: Metals and Transport
+We consider two 3D metals A and B. They both have a simple cubic crystal structure
+with one atom per unit cell, and the volume of the unit cell is the same. The dispersion
+                                                                                      2 k2
+relation of their conduction electrons is the same as the free electron gas E = ℏ2m        .
+Suppose the conduction electron density of metal A is nA , while that of metal B is twice
+lager nB = 2nA . Hint: when working out the following solutions you can save time by
+not writing out any coefficients and constants that cancel out in a ratio.
+
+                                             3
+Exam HS 2023                                                                 Jan. 25, 2024
+
+
+  a) Compare the area S of the Fermi surface for these two metals. Calculate SA /SB .
+
+  b) Compare the density of states ν(ε) of the conduction electrons for these two metals
+     at the Fermi energy. Calculate νA (εF )/νB (εF ).
+
+  c) Compare the specific heat capacity per unit volume cv = CV /V of these two metals
+     at 10 K. Calculate cv,A /cv,B .
+
+
+Problem 2b: Metals and Transport
+Continuing from Problem 3a.
+    At high temperature (T much greater than the Debye temperature ΘD of the metal),
+the dominant scattering process in the transport is the scattering from phonons. Suppose
+the scattering mechanism of the conduction electrons by phonons is similar for these two
+metals. The scattering rate τ −1 is proportional to the total number of phonons present
+in the system (τ is the relaxation time). The Debye temperatures of these two metals are
+ΘD,A = ΘD,B = 100 K, respectively.
+
+  d) Compare the resistivity ρ of these two metals at 300 K. Which metal has higher
+     resistivity?
+
+  e) If the Debye temperature of metal B is ΘD,B = 200 K instead, which metal would
+     have higher resistivity at 300 K?
+
+   At very low temperature, the resistivity ρ of both metals start to level off. The
+dominant scattering process in the transport is the scattering from defects in the crystal.
+Suppose the effective cross section of the defects in these two metals is the same. At
+T = 5 K, the magnitude of the resistivity of these two metals is ρA = 2ρB .
+
+  f) How does the relaxation time τ of these two metals compare? Calculate τA /τB .
+
+  g) How does the concentration of defects nd in these two metals compare? Calculate
+     nd,A /nd,B .
+
+  h) Compare the thermal conductivity κ of these two metals at this temperature. Cal-
+     culate κA /κB .
+
+
+Problem 3: 1D Semiconductors
+Suppose we have a 1D semiconductor with a conduction band described by
+
+                              Ecb = EG − 2tcb [cos(ka) − 1],
+
+and a valence band described by
+
+                                  Evb = 2tvb [cos(ka) − 1],
+
+where tcb = 2tvb = t. Furthermore, the chemical potential is set at 0 < µ < EG .
+
+                                             4
+Exam HS 2023                                                                Jan. 25, 2024
+
+
+  a) Make a sketch of the band structure.
+
+  b) Assume that the Fermi level is far away from both bands. That is, |EG − µ| ≫ kB T
+     and µ ≫ kB T . In that case, write down approximate expressions of these bands for
+     small k up to the second order.
+
+  c) Using the approximation from part b), find the effective mass for electrons in the
+     conduction band and holes in the valence band.
+
+  d) Write down an expression for the density of states per unit length for both bands
+     using the approximated expressions from part b).
+
+  e) Calculate the electron number per unit length in the conduction band and the hole
+     density in the valence band.
+
+  f) What would the chemical potential µ be in case of an intrinsic semiconductor?
+
+
+Problem 4: Magnetism on a Honeycomb Lattice
+Consider the following lattice of magnetic atoms of spin S, with two different magnetic
+Heisenberg couplings; ferromagnetic J1 < 0, and antiferromagnetic J2 > 0.
+
+                                   J1
+
+                                            J2
+
+
+
+
+  a) Draw a ground state spin configuration.
+
+  b) Find the Weiss temperature.
+
+  c) Imagine a field is applied perpendicular (H ⊥ S) to the spin direction from your
+     answer in part a). At what magnitude of H is the moment saturated. Assume this
+     is at zero temperature.
+
+   Consider now, for the same lattice, the case where J1 > 0, and J2 < 0.
+
+  d) Draw a ground state spin configuration.
+
+
+                                            5
+Exam HS 2023                                                           Jan. 25, 2024
+
+
+  e) Find the Weiss temperature.
+
+  f) Imagine a field is applied perpendicular (H ⊥ S) to the spin direction from your
+     answer in part d). At what magnitude of H is the moment saturated. Assume this
+     is at zero temperature.
+
+
+
+
+                                         6
+

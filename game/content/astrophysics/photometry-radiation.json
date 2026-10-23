@@ -1,0 +1,941 @@
+{
+  "id": "astro-photometry-radiation",
+  "region": "Astro Observatory Ship",
+  "title": "The Light Deck",
+  "course": "astrophysics",
+  "topics": [
+    "magnitudes",
+    "angular size",
+    "Wien law",
+    "main-sequence scaling",
+    "blackbody",
+    "Rayleigh-Jeans",
+    "CMB"
+  ],
+  "sources": [
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+      "where": "Open Q1 (magnitudes, eye resolution), Q2 (CMB vs dust), Q3 (10 Msun star), MC 1-4"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+      "where": "Open Q1 (SN Ia in Andromeda), Q2 (CMB, Rayleigh-Jeans, bolometer, dT)"
+    },
+    {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Ch. 1.3-1.4 (magnitudes, parallax), Ch. 2.2-2.3 (radiative transfer, blackbody), Ch. 3.5 (main sequence)"
+    },
+    {
+      "file": "notes/astrophysics/01-light-and-radiation.md",
+      "where": "transcription, formulas and checks"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "HS24 winter: MC 1-2"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+      "where": "HS25 practice: MC 1, 5; open Q1"
+    }
+  ],
+  "intro": "The Light Deck is where every number on the ship starts: how bright is a star, how far away, how hot, and what colour. Every Refregier exam opens with magnitudes and blackbody radiation, so these doors must be fast and automatic. Constants come from the exam table: use SI.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "astro-light-L1",
+      "title": "Scales of the sky: AU, parsec, parallax",
+      "tier": "intuition",
+      "minutes": 6,
+      "xp": 10,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §1.1 (mass, length and time scales), §1.3 (coordinates, parallax)"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "Astronomy measures almost nothing directly except <b>angles</b> and <b>fluxes</b>. Distances, sizes, masses and luminosities are all inferred. The first skill is to move between angles and lengths with the small-angle approximation $\\theta\\simeq D/d$ (radians)."
+        },
+        {
+          "kind": "eq",
+          "tex": "1\\,\\mathrm{AU}=1.496\\times10^{11}\\,\\mathrm m,\\qquad 1\\,\\mathrm{pc}=\\frac{1\\,\\mathrm{AU}}{1''}=206\\,265\\,\\mathrm{AU}=3.086\\times10^{16}\\,\\mathrm m\\approx3.26\\,\\mathrm{ly}",
+          "label": "The parsec is the distance at which 1 AU subtends 1 arcsecond."
+        },
+        {
+          "kind": "eq",
+          "tex": "d\\,[\\mathrm{pc}]=\\frac{1}{p\\,['']}",
+          "label": "Parallax: p is half the yearly back-and-forth shift of a nearby star against the distant background."
+        },
+        {
+          "kind": "intuition",
+          "html": "Ladder of sizes to keep in your head: Sun $7\\times10^8$ m; Earth–Sun 1 AU; nearest star (Proxima) 1.3 pc; Sun–Galactic centre 8 kpc; Milky Way disk radius ~15 kpc; Andromeda 0.77 Mpc; a rich cluster ~2 Mpc across; observable Universe ~$10^4$ Mpc. Each step is roughly a factor of $10^3$–$10^5$."
+        },
+        {
+          "kind": "text",
+          "html": "Angles you will need: $1^\\circ=\\pi/180$ rad, $1'=1^\\circ/60$, $1''=1'/60=4.85\\times10^{-6}$ rad. A telescope of diameter $D$ resolves at best $\\theta\\simeq1.22\\lambda/D$ (Rayleigh criterion, diffraction limit); the eye resolves about $1'$."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Parallax halves when distance doubles: $p\\propto1/d$ (HS24 summer MC1: four times further means $p/4$, not $p/16$). And for \"how far away is a star at $l=180^\\circ$\" draw the picture: longitude $180^\\circ$ points away from the Galactic centre, so distances add."
+        },
+        {
+          "kind": "exam",
+          "html": "MC: parallax to distance, Galactic geometry. Open: \"how far away would the Sun no longer be resolved\" (HS25 winter Q1), \"is the Moon resolved by a 6 m CMB telescope at 150 GHz\" (HS25 practice Q1)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Barnard's Star has a parallax of 547 milliarcseconds. Its distance is about",
+          "options": [
+            "1.8 pc",
+            "18 pc",
+            "180 pc",
+            "0.55 pc"
+          ],
+          "correct": 0,
+          "explain": "$d=1/p=1/0.547''\\approx1.8$ pc.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 2"
+          }
+        },
+        {
+          "q": "A telescope with a 6 m mirror observes at $\\lambda=2$ mm. Its resolution is about",
+          "options": [
+            "1.4 arcsec",
+            "1.4 arcmin",
+            "1.4 degree",
+            "0.5 degree"
+          ],
+          "correct": 1,
+          "explain": "$1.22\\lambda/D=4.1\\times10^{-4}$ rad $=1.4'$. The Moon ($30'$) is resolved.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: open Q1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-light-L2",
+      "title": "Magnitudes: a backwards logarithmic scale",
+      "tier": "theory",
+      "minutes": 10,
+      "xp": 15,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §1.4 Magnitude scale"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC 1"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: MC 1-2"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: MC 1"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "The eye responds roughly logarithmically, so Hipparchus' brightness classes became a logarithmic scale. Five magnitudes are <b>exactly</b> a factor 100 in flux; a <b>larger</b> magnitude means <b>fainter</b>."
+        },
+        {
+          "kind": "eq",
+          "tex": "m_1-m_2=-2.5\\log_{10}\\frac{F_1}{F_2}\\qquad\\Longleftrightarrow\\qquad\\frac{F_1}{F_2}=10^{-0.4(m_1-m_2)}",
+          "label": "Apparent magnitude compares fluxes. 1 mag = factor 2.512."
+        },
+        {
+          "kind": "text",
+          "html": "The <b>absolute magnitude</b> $M$ is the apparent magnitude the object would have at 10 pc. Since $F\\propto L/d^2$, comparing the same object at $d$ and at 10 pc gives the distance modulus. Interstellar dust adds an extinction $A_\\lambda>0$ (in magnitudes)."
+        },
+        {
+          "kind": "eq",
+          "tex": "m-M=5\\log_{10}\\frac{d}{10\\,\\mathrm{pc}}+A_\\lambda",
+          "label": "Distance modulus with extinction."
+        },
+        {
+          "kind": "text",
+          "html": "A <b>colour index</b> is a difference of magnitudes in two filters, e.g. $B-V=m_B-m_V$. Small (or negative) $B-V$ means relatively more flux in the bluer $B$ band, i.e. a hotter star. The colour does not depend on distance (both bands dim equally), so it measures temperature, not brightness."
+        },
+        {
+          "kind": "intuition",
+          "html": "Memorise anchors: $\\Delta m=5\\Rightarrow100\\times$, $\\Delta m=2.5\\Rightarrow10\\times$, $\\Delta m=1\\Rightarrow2.5\\times$, $\\Delta m=4\\Rightarrow40\\times$. The Sun is $m=-26.8$, the faintest naked-eye stars $m\\approx6$–$7$. The Sun's absolute magnitude is $M\\approx4.8$: a very ordinary star."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Two traps: (1) the sign: brighter = smaller $m$; (2) flux goes as $d^{-2}$, so distance enters with $5\\log_{10}$, not $2.5\\log_{10}$. Extinction makes $m$ larger (fainter): $m=M+5\\log_{10}(d/10\\,\\mathrm{pc})+A$."
+        },
+        {
+          "kind": "exam",
+          "html": "Every exam: flux ratio from $\\Delta m$ (MC), distance from $m$ and $M$ (MC), SN Ia apparent magnitude (HS24 summer Q1), limiting distance for the naked eye (HS25 winter Q1b)."
+        }
+      ],
+      "check": [
+        {
+          "q": "Two stars have $m_1=9$ and $m_2=13$. $F_1/F_2\\approx$",
+          "options": [
+            "5",
+            "15",
+            "20",
+            "40"
+          ],
+          "correct": 3,
+          "explain": "$10^{0.4\\cdot4}=10^{1.6}=39.8$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 1"
+          }
+        },
+        {
+          "q": "$M=1.0$, $d=100$ pc, extinction $A=0.2$. Apparent magnitude?",
+          "options": [
+            "5.2",
+            "6.2",
+            "6.7",
+            "7.2"
+          ],
+          "correct": 1,
+          "explain": "$m=1+5\\log_{10}(10)+0.2=6.2$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 1"
+          }
+        },
+        {
+          "q": "Star S1 has $B-V=0.5$, star S2 has $B-V=1.0$. Which must be true?",
+          "options": [
+            "S1 emits relatively more short-wavelength light than S2",
+            "S2 emits relatively more short-wavelength light",
+            "S1 is brighter than S2",
+            "S2 is more distant"
+          ],
+          "correct": 0,
+          "explain": "Smaller $B-V$: relatively brighter in $B$ (blue). Colour says nothing about distance or total brightness.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-light-L3",
+      "title": "Blackbody radiation: Planck, Wien, Stefan–Boltzmann",
+      "tier": "theory",
+      "minutes": 12,
+      "xp": 15,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §2.2.1 eq. (2.1), (2.6); §2.3"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC 4, open Q2-Q3"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: open Q2"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "A blackbody is matter in thermal equilibrium with its radiation: it absorbs everything and emits a spectrum fixed by $T$ alone. Its specific intensity is the Planck function (Choudhuri (2.6))."
+        },
+        {
+          "kind": "eq",
+          "tex": "B_\\nu(T)=\\frac{2h\\nu^3}{c^2}\\,\\frac{1}{e^{h\\nu/k_BT}-1}\\qquad[\\mathrm{W\\,m^{-2}\\,Hz^{-1}\\,sr^{-1}}]"
+        },
+        {
+          "kind": "text",
+          "html": "Three limits/integrals you must be able to state and use:"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\text{Rayleigh–Jeans }(h\\nu\\ll k_BT):\\ B_\\nu\\simeq\\frac{2k_BT\\nu^2}{c^2}\\qquad\\text{Wien }(h\\nu\\gg k_BT):\\ B_\\nu\\simeq\\frac{2h\\nu^3}{c^2}e^{-h\\nu/k_BT}"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\lambda_{\\max}T=b=2.898\\times10^{-3}\\,\\mathrm{m\\,K},\\qquad u=a_BT^4,\\qquad F=\\sigma_{SB}T^4,\\qquad L=4\\pi R^2\\sigma_{SB}T_{\\rm eff}^4",
+          "label": "Wien displacement, energy density, emergent flux, luminosity. The last one defines the effective temperature of a star."
+        },
+        {
+          "kind": "intuition",
+          "html": "Increase $T$ and the whole curve moves <b>up and to the right</b>: $\\partial B_\\nu/\\partial T>0$ at every $\\nu$ (HS25 winter Q2a), so blackbody curves of different temperature never cross. Hotter stars are brighter at every wavelength and bluer. The RJ tail is linear in $T$: that is why radio astronomers quote brightness as a temperature."
+        },
+        {
+          "kind": "figure",
+          "html": "Plot $\\log B_\\nu$ against $\\log\\nu$: a rising straight line of slope 2 (RJ), a peak at $h\\nu\\approx2.8k_BT$, then an exponential cliff (Wien). The CMB (2.73 K) peaks near 160 GHz (mm waves), the Sun (5770 K) near 500 nm in $\\lambda$."
+        },
+        {
+          "kind": "pitfall",
+          "html": "$\\lambda_{\\max}$ from $B_\\lambda$ and $\\nu_{\\max}$ from $B_\\nu$ are <b>not</b> related by $\\lambda=c/\\nu$: the two distributions have different peaks because $d\\nu\\neq d\\lambda$. Use $\\lambda_{\\max}T=2.898$ mm K only for wavelength peaks. And RJ requires $\\nu\\ll k_BT/h$ (57 GHz for the CMB), so at 100 GHz you must use the full Planck formula."
+        },
+        {
+          "kind": "exam",
+          "html": "MC: $u\\propto T^4$, colour vs temperature. Open: derive RJ by expanding $e^x\\approx1+x$ (HS24 summer Q2a), CMB power on a bolometer, temperature fluctuation from $\\partial B/\\partial T$, dust vs CMB (HS25 winter Q2), Wien peak of a 10 $M_\\odot$ star (Q3)."
+        }
+      ],
+      "check": [
+        {
+          "q": "The total energy density of blackbody radiation scales as",
+          "options": [
+            "$T$",
+            "$T^2$",
+            "$T^{-1}$",
+            "$T^4$"
+          ],
+          "correct": 3,
+          "explain": "$U=\\int U_\\nu d\\nu=a_BT^4$ with $a_B=8\\pi^5k_B^4/(15c^3h^3)$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 4"
+          }
+        },
+        {
+          "q": "Hotter stars appear bluer because",
+          "options": [
+            "their spectrum peaks at higher $\\nu_{\\max}$",
+            "their spectrum peaks at lower $\\nu_{\\max}$",
+            "they are closer",
+            "they have more metals"
+          ],
+          "correct": 0,
+          "explain": "Wien: $\\nu_{\\max}\\propto T$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 6"
+          }
+        },
+        {
+          "q": "In the Rayleigh–Jeans regime, doubling $T$ multiplies $B_\\nu$ by",
+          "options": [
+            "2",
+            "4",
+            "16",
+            "$e^2$"
+          ],
+          "correct": 0,
+          "explain": "$B_\\nu\\simeq2k_BT\\nu^2/c^2$ is linear in $T$."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "astro-light-Q1",
+      "title": "Light Deck multiple choice",
+      "xp": 30,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: MC"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Star S1 has parallax $0.25''$. Star S2 is four times further away. Parallax of S2?",
+          "options": [
+            "$1.00''$",
+            "$0.50''$",
+            "$0.0625''$",
+            "$0.125''$"
+          ],
+          "correct": 2,
+          "explain": "$p\\propto1/d$: $0.25''/4$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 1"
+          }
+        },
+        {
+          "q": "The Sun is 8 kpc from the Galactic centre. A star 10 kpc from us at $l=180^\\circ$, $b=0^\\circ$ is how far from the centre?",
+          "options": [
+            "2 kpc",
+            "8 kpc",
+            "10 kpc",
+            "18 kpc"
+          ],
+          "correct": 3,
+          "explain": "$l=180^\\circ$ is the anticentre direction: $8+10$ kpc.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 2"
+          }
+        },
+        {
+          "q": "Naked-eye limit $m=6.5$. Out to what distance is a star with $M=4$ visible (no extinction)?",
+          "options": [
+            "~10 pc",
+            "~30 pc",
+            "~50 pc",
+            "~100 pc"
+          ],
+          "correct": 1,
+          "explain": "$5\\log_{10}(d/10)<2.5\\Rightarrow d<10^{1.5}\\cdot10=32$ pc.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 1"
+          }
+        },
+        {
+          "q": "In terms of spectral classification, the Sun is a",
+          "options": [
+            "class O main-sequence star",
+            "class G main-sequence star",
+            "white dwarf",
+            "class M red giant"
+          ],
+          "correct": 1,
+          "explain": "OBAFGKM from hot to cool; the Sun is G2V.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 5"
+          }
+        },
+        {
+          "q": "Which pairs a radiative quantity with a <b>wrong</b> SI unit?",
+          "options": [
+            "$I_\\nu$: W m$^{-2}$ sr$^{-1}$ Hz$^{-1}$",
+            "$F_\\nu$: W m$^{-2}$",
+            "$j_\\nu$: W m$^{-3}$ sr$^{-1}$ Hz$^{-1}$",
+            "none of the above"
+          ],
+          "correct": 1,
+          "explain": "Specific flux is per Hz: W m$^{-2}$ Hz$^{-1}$ (= Jy $\\times10^{26}$).",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 4"
+          }
+        },
+        {
+          "q": "A 21 cm line is observed at 700 MHz. Redshift of emission?",
+          "options": [
+            "$z\\approx0.3$",
+            "$z\\approx0.5$",
+            "$z\\approx1$",
+            "$z\\approx2$"
+          ],
+          "correct": 2,
+          "explain": "$\\lambda_{obs}=c/700\\,$MHz$=43$ cm; $1+z=43/21\\approx2$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 14"
+          }
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "astro-light-D1",
+      "title": "Rayleigh–Jeans limit of the Planck law",
+      "xp": 25,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+        "where": "HS24 summer: open Q2(a) [3 pt]"
+      },
+      "goal": "Starting from $B_\\nu(T)=\\frac{2h\\nu^3}{c^2}\\frac{1}{e^{h\\nu/k_BT}-1}$, derive $B_{\\nu,RJ}=\\frac{2k_BT}{c^2}\\nu^2$ for $h\\nu\\ll k_BT$, and give the limiting frequency for the CMB ($T=2.725$ K) in GHz.",
+      "given": [
+        "$h=6.626\\times10^{-34}$ J s",
+        "$k_B=1.381\\times10^{-23}$ J/K"
+      ],
+      "steps": [
+        {
+          "prompt": "Introduce a dimensionless variable that makes the small parameter visible.",
+          "reveal": "$x=h\\nu/k_BT$, so $B_\\nu=\\frac{2k_B^3T^3}{h^2c^2}\\frac{x^3}{e^x-1}$."
+        },
+        {
+          "prompt": "Expand the denominator for $xll1$.",
+          "reveal": "$e^x-1=x+O(x^2)$, so $\\frac{x^3}{e^x-1}\\simeq x^2$."
+        },
+        {
+          "prompt": "Substitute back.",
+          "reveal": "$B_\\nu\\simeq\\frac{2k_B^3T^3}{h^2c^2}\\frac{h^2\\nu^2}{k_B^2T^2}=\\frac{2k_BT\\nu^2}{c^2}$. Planck's constant drops out: RJ is the classical (equipartition) result."
+        },
+        {
+          "prompt": "Limit for the CMB.",
+          "reveal": "$\\nu\\ll k_BT/h=1.381\\times10^{-23}\\cdot2.725/6.626\\times10^{-34}=5.7\\times10^{10}$ Hz $=57$ GHz."
+        }
+      ],
+      "keyPoints": [
+        "dimensionless $x$",
+        "first-order expansion of $e^x$",
+        "clean final form without $h$",
+        "57 GHz with units"
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "astro-light-D2",
+      "title": "Why specific intensity is conserved in empty space",
+      "xp": 20,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+        "where": "HS25 practice: MC 2 (solution) and Choudhuri §2.2.2 eq. (2.10)"
+      },
+      "goal": "Show that $I_\\nu$ is the same at both ends of a ray in vacuum, and explain why a distant resolved galaxy has the same surface brightness as a nearby one.",
+      "given": [
+        "$dE=I_\\nu\\,dA\\,d\\Omega\\,d\\nu\\,dt$"
+      ],
+      "steps": [
+        {
+          "prompt": "Take two small areas $dA_1$, $dA_2$ perpendicular to the ray, a distance $R$ apart. Write the energy through both, seen from each end.",
+          "reveal": "$I_{\\nu1}dA_1d\\Omega_1\\,d\\nu\\,dt=I_{\\nu2}dA_2d\\Omega_2\\,d\\nu\\,dt$, where $d\\Omega_1$ is the solid angle of $dA_2$ seen from $dA_1$ and vice versa."
+        },
+        {
+          "prompt": "Express the solid angles through the areas.",
+          "reveal": "$d\\Omega_1=dA_2/R^2$, $d\\Omega_2=dA_1/R^2$. Then both sides contain $dA_1dA_2/R^2$, so $I_{\\nu1}=I_{\\nu2}$: $dI_\\nu/ds=0$."
+        },
+        {
+          "prompt": "Interpret.",
+          "reveal": "Flux falls as $R^{-2}$ but so does the solid angle of the source; their ratio (surface brightness) is constant. Unresolved stars still look dimmer because their image size is set by diffraction/seeing, not by their true angular size."
+        }
+      ],
+      "keyPoints": [
+        "energy balance through two areas",
+        "solid angles $dA/R^2$",
+        "flux and solid angle both $\\propto R^{-2}$"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-light-c1",
+      "title": "How far can you still see the Sun?",
+      "fight": "normal",
+      "problem": "The Sun has radius $R_\\odot=6.957\\times10^8$ m and apparent magnitude $m_\\odot=-26.8$ at $1$ AU ($=1.495\\times10^{11}$ m). The naked eye resolves $1$ arcmin and detects sources down to $m\\sim7$. Ignore extinction and expansion.",
+      "vars": {
+        "Rsun": 695700000,
+        "AU": 149500000000,
+        "pc": 30856775810000000,
+        "msun": -26.8,
+        "mlim": 7
+      },
+      "steps": [
+        {
+          "id": "theta",
+          "prompt": "Angular resolution of the eye in radians, $1' = \\frac{1}{60}\\frac{\\pi}{180}$.",
+          "answer": "(1/60)*(pi/180)",
+          "unit": "rad",
+          "units": [
+            "rad",
+            "deg",
+            "arcsec",
+            "dimensionless"
+          ],
+          "tol": 0.01,
+          "hint": "$1^\\circ=\\pi/180$ rad and $1^\\circ=60'$. The result is about $2.9\\times10^{-4}$."
+        },
+        {
+          "id": "dres",
+          "prompt": "Distance at which the Sun (diameter $2R_\\odot$) shrinks to $1'$: $\\theta\\simeq 2R_\\odot/d$. Give it in AU.",
+          "answer": "2*Rsun/theta/AU",
+          "unit": "AU",
+          "units": [
+            "AU",
+            "pc",
+            "m",
+            "R_sun"
+          ],
+          "tol": 0.03,
+          "hint": "Small-angle approximation $\\theta\\simeq D/d$ with $D=2R_\\odot$. Then divide by $1\\,\\text{AU}$."
+        },
+        {
+          "id": "dvis",
+          "prompt": "Distance at which the Sun fades to $m=7$. From $m_\\odot-m = 2.5\\log_{10}(F/F_\\odot)=5\\log_{10}(1\\,\\text{AU}/d)$. Give it in parsec.",
+          "answer": "AU*10**((mlim-msun)/5)/pc",
+          "unit": "pc",
+          "units": [
+            "pc",
+            "AU",
+            "kpc",
+            "ly"
+          ],
+          "tol": 0.03,
+          "hint": "Flux $\\propto d^{-2}$, so $\\Delta m = 5\\log_{10}(d/1\\,\\text{AU})$. Solve for $d$: $d=1\\,\\text{AU}\\cdot10^{(7-m_\\odot)/5}$, then divide by $3.0857\\times10^{16}$ m/pc."
+        }
+      ],
+      "xp": 40
+    },
+    {
+      "type": "calc",
+      "id": "astro-light-c2",
+      "title": "A 10 solar-mass star: colour and temperature",
+      "fight": "normal",
+      "problem": "On the main sequence $L\\propto M^3$ and $L\\propto T_{\\rm eff}^6$ (Refregier's scalings). A star has $M=10\\,M_\\odot$. Take $T_{\\rm eff,\\odot}=5770$ K and Wien's law $\\lambda_{\\max}T=b=2.898\\times10^{-3}$ m K.",
+      "vars": {
+        "M": 10,
+        "Tsun": 5770,
+        "b": 0.002898
+      },
+      "steps": [
+        {
+          "id": "Teff",
+          "prompt": "Surface temperature of the star: eliminate $L$, $T_{\\rm eff}\\propto M^{1/2}$.",
+          "answer": "Tsun*M**0.5",
+          "unit": "K",
+          "units": [
+            "K",
+            "eV",
+            "K^2",
+            "dimensionless"
+          ],
+          "tol": 0.02,
+          "hint": "$M^3\\propto T^6\\Rightarrow T\\propto M^{1/2}$."
+        },
+        {
+          "id": "lam",
+          "prompt": "Peak wavelength of the star in nm.",
+          "answer": "b/Teff*1e9",
+          "unit": "nm",
+          "units": [
+            "nm",
+            "m",
+            "Å",
+            "µm"
+          ],
+          "tol": 0.02,
+          "hint": "Wien: $\\lambda_{\\max}=b/T$; multiply by $10^9$ for nm. Sun: 502 nm."
+        },
+        {
+          "id": "ratio",
+          "prompt": "Ratio $\\lambda_{\\max,\\star}/\\lambda_{\\max,\\odot}$. (Below 1 means the star looks bluer.)",
+          "answer": "lam/(b/Tsun*1e9)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "nm",
+            "K",
+            "K^-1"
+          ],
+          "tol": 0.02,
+          "hint": "Equals $T_\\odot/T_\\star=M^{-1/2}$."
+        }
+      ],
+      "xp": 30
+    },
+    {
+      "type": "calc",
+      "id": "astro-light-c3",
+      "title": "A supernova in Andromeda",
+      "fight": "normal",
+      "problem": "A Type Ia supernova (peak absolute magnitude $M=-19.3$) explodes in Andromeda at $d=765$ kpc. Ignore extinction. Proxima Centauri has $m=11$.",
+      "vars": {
+        "M": -19.3,
+        "dkpc": 765,
+        "mprox": 11
+      },
+      "steps": [
+        {
+          "id": "m",
+          "prompt": "Apparent magnitude from the distance modulus $m-M=5\\log_{10}(d/10\\,\\text{pc})$.",
+          "answer": "5*log10(dkpc*1000/10)+M",
+          "unit": "mag",
+          "units": [
+            "mag",
+            "dimensionless",
+            "pc",
+            "W m^-2"
+          ],
+          "tol": 0.02,
+          "hint": "$d/10\\,\\text{pc}=7.65\\times10^4$, so the modulus is $24.4$."
+        },
+        {
+          "id": "F",
+          "prompt": "Flux ratio $F_{\\rm SN}/F_{\\rm Proxima}$ with $\\Delta m = 2.5\\log_{10}(F_1/F_2)$.",
+          "answer": "10**((mprox-m)/2.5)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "mag",
+            "W m^-2",
+            "pc"
+          ],
+          "tol": 0.05,
+          "hint": "Fainter objects have the bigger magnitude: $F_{\\rm SN}/F_{\\rm P}=10^{0.4(m_P-m_{SN})}$. Expect a few hundred."
+        }
+      ],
+      "xp": 30
+    },
+    {
+      "type": "calc",
+      "id": "astro-light-c4",
+      "title": "CMB in the Rayleigh-Jeans window",
+      "fight": "normal",
+      "problem": "The CMB has $T=2.725$ K. A telescope with $A=3\\,\\text{m}^2$ sees $\\Omega=0.5\\,\\text{deg}^2$ of sky in the K-band $18$-$27$ GHz, uniformly sensitive. Use $B_\\nu=\\frac{2h\\nu^3}{c^2}\\frac{1}{e^{h\\nu/k_BT}-1}$.",
+      "vars": {
+        "h": 6.62607015e-34,
+        "kB": 1.380649e-23,
+        "c": 299792458,
+        "T": 2.725,
+        "A": 3,
+        "Om_deg2": 0.5,
+        "n1": 18000000000,
+        "n2": 27000000000,
+        "n3": 100000000000
+      },
+      "steps": [
+        {
+          "id": "nuRJ",
+          "prompt": "The Rayleigh-Jeans limit holds for $\\nu\\ll k_BT/h$. Compute $k_BT/h$ in GHz.",
+          "answer": "kB*T/h*1e-9",
+          "unit": "GHz",
+          "units": [
+            "GHz",
+            "MHz",
+            "THz",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "Expand $e^x-1\\approx x$ with $x=h\\nu/k_BT$. The limit frequency is $k_BT/h\\approx57$ GHz."
+        },
+        {
+          "id": "P",
+          "prompt": "Power on the sensor in pW: $P=\\frac{2k_BT}{c^2}\\frac{\\nu_2^3-\\nu_1^3}{3}A\\,\\Omega$, with $\\Omega$ in sr.",
+          "answer": "2*kB*T/c**2*(n2**3-n1**3)/3*A*Om_deg2*(pi/180)**2*1e12",
+          "unit": "pW",
+          "units": [
+            "pW",
+            "nW",
+            "W",
+            "W m^-2"
+          ],
+          "tol": 0.03,
+          "hint": "RJ: $B_\\nu=2k_BT\\nu^2/c^2$. Integrate $\\int\\nu^2d\\nu=\\Delta(\\nu^3)/3$. Convert $\\text{deg}^2$ to sr with $(\\pi/180)^2$. Expect about $1.8$ pW. (The printed official key says $2.5$ pW, but it does not follow from its own prefactor $3.83\\times10^{-43}$: see notes.)"
+        },
+        {
+          "id": "x",
+          "prompt": "At $\\nu=100$ GHz, RJ is no longer valid. Compute $x=h\\nu/k_BT$.",
+          "answer": "h*n3/(kB*T)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "GHz",
+            "K",
+            "eV"
+          ],
+          "tol": 0.02,
+          "hint": "$x=h\\nu/(k_BT)\\approx1.76$ (order unity: far from $x\\ll1$)."
+        },
+        {
+          "id": "dT",
+          "prompt": "The 100 GHz intensity fluctuation $\\delta I_\\nu=0.05$ MJy/sr corresponds to what $\\delta T_{\\rm CMB}$ in µK? Use $\\partial B_\\nu/\\partial T=\\frac{2h\\nu^3}{c^2T}\\frac{xe^x}{(e^x-1)^2}$ and $1\\,\\text{Jy}=10^{-26}$ W m$^{-2}$Hz$^{-1}$.",
+          "answer": "0.05e6*1e-26/(2*h*n3**3/(c**2*T)*x*exp(x)/(exp(x)-1)**2)*1e6",
+          "unit": "µK",
+          "units": [
+            "µK",
+            "mK",
+            "K",
+            "MJy/sr"
+          ],
+          "tol": 0.03,
+          "hint": "Invert: $\\delta T=\\delta I_\\nu\\big/\\frac{\\partial B_\\nu}{\\partial T}$. Expect a couple of hundred µK."
+        }
+      ],
+      "xp": 60
+    },
+    {
+      "type": "calc",
+      "id": "astro-light-c5",
+      "title": "Is the Moon a good calibrator for a CMB telescope?",
+      "fight": "normal",
+      "xp": 25,
+      "problem": "A CMB telescope with a mirror of diameter $D=6$ m observes at $150$ GHz. The Moon spans $0.5^\\circ$. Use the Rayleigh criterion $\\theta\\simeq1.22\\lambda/D$.",
+      "vars": {
+        "c": 299792458,
+        "nu": 150000000000,
+        "D": 6
+      },
+      "steps": [
+        {
+          "id": "lam",
+          "prompt": "Observing wavelength in mm.",
+          "answer": "c/nu*1e3",
+          "unit": "mm",
+          "units": [
+            "mm",
+            "m",
+            "µm",
+            "GHz"
+          ],
+          "tol": 0.02,
+          "hint": "$\\lambda=c/\\nu$."
+        },
+        {
+          "id": "th",
+          "prompt": "Resolution in arcmin.",
+          "answer": "1.22*lam*1e-3/D*180/pi*60",
+          "unit": "arcmin",
+          "units": [
+            "arcmin",
+            "arcsec",
+            "deg",
+            "rad"
+          ],
+          "tol": 0.02,
+          "hint": "$\\theta=1.22\\lambda/D$ in rad, times $180/\\pi$ for degrees, times 60 for arcmin."
+        },
+        {
+          "id": "ratio",
+          "prompt": "How many resolution elements fit across the Moon? ($30'/\\theta$)",
+          "answer": "30/th",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "arcmin",
+            "deg",
+            "rad"
+          ],
+          "tol": 0.03,
+          "hint": "About 21: the Moon is well resolved, so it is not a point-source calibrator."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-light-c6",
+      "title": "Quick fight: how far can the eye see a Sun-like star?",
+      "fight": "fermi",
+      "xp": 15,
+      "problem": "The naked eye sees stars with $m<6.5$. A star with absolute magnitude $M=4$ (a bit brighter than the Sun) is visible out to which distance? No extinction. Within 25 %.",
+      "vars": {
+        "m": 6.5,
+        "M": 4
+      },
+      "steps": [
+        {
+          "id": "d",
+          "prompt": "Limiting distance in pc.",
+          "answer": "10*10**((m-M)/5)",
+          "unit": "pc",
+          "units": [
+            "pc",
+            "kpc",
+            "AU",
+            "ly"
+          ],
+          "tol": 0.1,
+          "hint": "$m-M=5\\log_{10}(d/10\\,\\mathrm{pc})$.",
+          "tolType": "log"
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-light-c7",
+      "title": "The Sun as a blackbody",
+      "fight": "normal",
+      "xp": 25,
+      "problem": "Treat the Sun as a blackbody with $R_\\odot=6.957\\times10^8$ m and $T_{\\rm eff}=5772$ K. $\\sigma_{SB}=5.670\\times10^{-8}$ W m$^{-2}$ K$^{-4}$.",
+      "vars": {
+        "Rsun": 695700000,
+        "sigSB": 5.670374419e-8,
+        "AU": 149500000000,
+        "T": 5772
+      },
+      "steps": [
+        {
+          "id": "L",
+          "prompt": "Luminosity $L=4\\pi R^2\\sigma_{SB}T^4$ in units of $10^{26}$ W.",
+          "answer": "4*pi*Rsun**2*sigSB*T**4/1e26",
+          "unit": "10^26 W",
+          "units": [
+            "10^26 W",
+            "W m^-2",
+            "J",
+            "erg"
+          ],
+          "tol": 0.02,
+          "hint": "$\\approx3.83\\times10^{26}$ W: this is how $L_\\odot$ is defined in practice."
+        },
+        {
+          "id": "F",
+          "prompt": "Solar constant: flux at 1 AU, in W/m$^2$.",
+          "answer": "L*1e26/(4*pi*AU**2)",
+          "unit": "W m^-2",
+          "units": [
+            "W m^-2",
+            "W",
+            "W m^-2 Hz^-1",
+            "Jy"
+          ],
+          "tol": 0.02,
+          "hint": "$F=L/4\\pi d^2$ with $d=1$ AU: about 1360 W/m$^2$."
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-light-b1",
+      "title": "Boss: CMB versus thermal dust (exam problem)",
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+        "where": "Open Question 2 [CMB and thermal dust, 10 pt], HS25 winter session"
+      },
+      "minutes": 20,
+      "instructions": "Solve on paper under the timer, then enter the final answers. Parts (a) and (c) are graded by you against the key points.",
+      "statement": [
+        "In cosmological observations of fluctuations in the cosmic microwave background (CMB), thermal dust emission in our galaxy can act as a systematic foreground.",
+        "(a) [4 pt] The specific intensity $I_\\nu$ of thermal emission of an optically thick object depends only on its temperature $T$ and is given by $B_\\nu(T)=\\frac{2h}{c^2}\\frac{\\nu^3}{e^{h\\nu/k_BT}-1}$. Show that for all frequencies $\\nu$ this specific intensity increases as the temperature increases.",
+        "(b) [4 pt] The CMB is observed as a near perfect blackbody of temperature $T_{\\rm CMB}=2.73$ K. A typical CMB intensity fluctuation has amplitude $10^{-5}B_\\nu(T_{\\rm CMB})$. Dust in our galaxy is observed at $T_d=20$ K. Assuming this dust emission is also optically thick everywhere, show that at $\\nu=100$ GHz the dust emission would be $\\sim1.8\\times10^6$ times brighter than the CMB fluctuation.",
+        "(c) [2 pt] The dust is not optically thick but a modified blackbody (greybody): $I_\\nu=\\tau_\\nu B_\\nu(T_d)$ with $\\tau_\\nu=\\tau_{353}(\\nu/353\\,\\text{GHz})^\\beta$. With $T_d=20$ K and $\\beta=1.6$, for what values of $\\tau_{353}$ would the CMB fluctuation be brighter than the dust at $\\nu=100$ GHz?"
+      ],
+      "finalAnswers": [
+        {
+          "id": "ratio",
+          "prompt": "Part (b): the ratio $B_{100}(20\\,\\text{K})/(10^{-5}B_{100}(2.73\\,\\text{K}))$ (enter as e.g. 1.8e6).",
+          "answer": "(1/(exp(h*nu/(kB*Td))-1))/(1e-5/(exp(h*nu/(kB*Tc))-1))",
+          "vars": {
+            "h": 6.62607015e-34,
+            "kB": 1.380649e-23,
+            "nu": 100000000000,
+            "Td": 20,
+            "Tc": 2.73
+          },
+          "tol": 0.05
+        },
+        {
+          "id": "tau",
+          "prompt": "Part (c): the upper bound on $\\tau_{353}$ (enter as e.g. 4.2e-6).",
+          "answer": "(1e11/353e9)**(-1.6)/((1/(exp(h*nu/(kB*Td))-1))/(1e-5/(exp(h*nu/(kB*Tc))-1)))",
+          "vars": {
+            "h": 6.62607015e-34,
+            "kB": 1.380649e-23,
+            "nu": 100000000000,
+            "Td": 20,
+            "Tc": 2.73
+          },
+          "tol": 0.05
+        }
+      ],
+      "keyPoints": [
+        "(a) Differentiate: $\\partial B_\\nu/\\partial T=\\frac{2h^2\\nu^4}{c^2k_BT^2}\\frac{e^{h\\nu/k_BT}}{(e^{h\\nu/k_BT}-1)^2}>0$ since both exponentials are positive.",
+        "(b) Only the temperature-dependent factor matters: $h\\nu/k_BT_d=0.24$ gives $1/(e^{0.24}-1)=3.7$; $h\\nu/k_BT_{CMB}=1.76$ gives $0.21$. Ratio $3.7/(0.21\\times10^{-5})\\simeq1.8\\times10^6$.",
+        "(c) Require $\\tau_{100}=\\tau_{353}(100/353)^{1.6}<1/(1.8\\times10^6)$, so $\\tau_{353}\\lesssim4.2\\times10^{-6}$."
+      ],
+      "xp": 120
+    }
+  ]
+}

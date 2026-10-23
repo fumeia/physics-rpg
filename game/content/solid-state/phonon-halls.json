@@ -1,0 +1,725 @@
+{
+  "id": "ss-phonon-halls",
+  "region": "Solid State Crystal Caverns",
+  "title": "The Phonon Halls",
+  "course": "solid-state",
+  "topics": [
+    "diatomic chain, acoustic/optical branches",
+    "group velocity at the zone boundary",
+    "Bose–Einstein phonons, density of states",
+    "Debye T^3 law, Dulong–Petit, Einstein model",
+    "electrons vs phonons in C_V",
+    "inelastic neutron scattering"
+  ],
+  "sources": [
+    {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 2.2.5 (pp. 45–48 diatomic chain, zone folding), Ch. 2.3–2.4 (pp. 52–65 phonon gas, DOS, Debye, Einstein, C_V)"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "MC (i) phonon branches NaCl, (k) volume halved, (l) Einstein model"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS23 (1).pdf",
+      "where": "Problem 2b (e)-(i): phonon DOS, Debye temperature, Grüneisen (used in the Drift Corridor boss)"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS05.pdf",
+      "where": "oral protocol: dispersion of the monatomic chain; also HS04 (specific heat, DOS), HS14"
+    },
+    {
+      "file": "notes/solid-state/02-phonons-and-heat.md",
+      "where": "transcription, formulas and checks"
+    }
+  ],
+  "links": [
+    {
+      "course": "qm",
+      "room": "harmonic-oscillator-elevator",
+      "why": "Every normal mode is a quantum harmonic oscillator: $E=\\hbar\\omega(n+\\frac12)$. The Einstein solid is $3N$ copies of the QM oscillator; Debye adds a spectrum of $\\omega$.",
+      "planned": false
+    },
+    {
+      "course": "astrophysics",
+      "room": "photometry-radiation",
+      "why": "Debye's $T^3$ law is Planck's $T^4$ energy density for a gas of bosons with $\\omega=vq$: phonons ($3$ polarisations, speed $v$) versus photons ($2$, speed $c$). See the Degenerate Core room.",
+      "planned": false
+    },
+    {
+      "course": "astrophysics",
+      "room": "photometry-radiation",
+      "why": "Blackbody radiation: the photon version of the phonon gas.",
+      "planned": false
+    }
+  ],
+  "intro": "Beneath the caverns the atoms ring like bells. Solve the two-atom chain for its acoustic and optical branches, count phonons with Bose–Einstein statistics and use them to explain why the specific heat of a solid goes as $T^3$ at low temperature and saturates at $3Nk_B$ at high temperature.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "ss-pho-L1",
+      "title": "Lattice vibrations: chains, branches, phonons",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 2.2-2.3, eqs. (2.19)-(2.39), pp. 40-58"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "Atoms in a crystal are coupled harmonic oscillators. Plane-wave ansatz $u_n\\propto e^{i(qna-\\omega t)}$ turns Newton's equations into an eigenvalue problem of the dynamical matrix $D(q)$; its eigenvalues are $\\omega^2$. With $m$ atoms per cell there are $3m$ branches: 3 acoustic ($\\omega\\to0$ for $q\\to0$), $3(m-1)$ optical."
+        },
+        {
+          "kind": "eq",
+          "tex": "\\text{monatomic: }\\ \\omega(q)=2\\sqrt{\\frac{k}{M}}\\left|\\sin\\frac{qa}{2}\\right|,\\qquad v_s=a\\sqrt{\\frac kM}",
+          "label": "Nearest-neighbour springs k, mass M, spacing a."
+        },
+        {
+          "kind": "eq",
+          "tex": "\\text{diatomic: }\\ \\omega^2=k\\Big(\\tfrac1{M_1}+\\tfrac1{M_2}\\Big)\\pm k\\sqrt{\\Big(\\tfrac1{M_1}+\\tfrac1{M_2}\\Big)^2-\\tfrac{2}{M_1M_2}(1-\\cos qa)}",
+          "label": "(2.37); gap at q = π/a between √(2k/M_heavy) and √(2k/M_light)."
+        },
+        {
+          "kind": "intuition",
+          "html": "Acoustic: neighbouring atoms move together (sound). Optical: the two atoms of a cell move against each other, so in an ionic crystal the mode has an oscillating dipole and couples to infrared light. At the zone edge $d\\omega/dq=0$: standing waves, the phonon is Bragg-reflected by the lattice just like an electron."
+        },
+        {
+          "kind": "text",
+          "html": "Quantisation: each normal mode is a harmonic oscillator, $E=\\hbar\\omega(n+\\frac12)$; the quantum $\\hbar\\omega$ is a <b>phonon</b>, a boson with $\\langle n\\rangle=1/(e^{\\hbar\\omega/k_BT}-1)$. Crystal momentum $\\hbar q$ is defined modulo $\\hbar G$. Inelastic neutron scattering measures $\\omega(q)$ directly."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Branch counting is in 3D: NaCl (2 atoms/cell) has 3 acoustic + 3 optical branches, not 1D's 1+1 (HS20 MC (i)). And $q$ only runs over the first BZ: $q$ and $q+G$ are the same vibration."
+        }
+      ],
+      "check": [
+        {
+          "q": "Group velocity of both diatomic branches at $q=\\pi/a$:",
+          "options": [
+            "zero",
+            "infinite",
+            "equal to the sound velocity",
+            "maximal"
+          ],
+          "correct": 0,
+          "explain": "$\\omega(q)=\\omega(-q)$ and periodicity force $d\\omega/dq=0$ at the zone edge."
+        },
+        {
+          "q": "Number of phonon branches of a crystal with 3 atoms per primitive cell:",
+          "options": [
+            "27",
+            "3",
+            "6",
+            "9"
+          ],
+          "correct": 3,
+          "explain": "$3m=9$: 3 acoustic, 6 optical."
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "ss-pho-L2",
+      "title": "Heat capacity: Dulong–Petit, Einstein, Debye",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 2.1 and 2.4, eqs. (2.60)-(2.80), pp. 38-65"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "eq",
+          "tex": "U=\\int d\\epsilon\\,\\nu(\\epsilon)\\,\\frac{\\epsilon}{e^{\\epsilon/k_BT}-1},\\qquad C_V=\\frac{\\partial U}{\\partial T}",
+          "label": "(2.75)-(2.76), ν per unit volume."
+        },
+        {
+          "kind": "eq",
+          "tex": "\\nu_{\\rm Debye}(\\epsilon)=\\frac{9m}{V_0(\\hbar\\omega_D)^3}\\,\\epsilon^2\\,\\Theta(\\hbar\\omega_D-\\epsilon),\\qquad T_D=\\frac{\\hbar\\omega_D}{k_B}",
+          "label": "(2.73): ε² from the linear acoustic dispersion, cutoff holds 3mN modes."
+        },
+        {
+          "kind": "eq",
+          "tex": "C_V\\xrightarrow{T\\ll T_D}\\frac{12\\pi^4}{5}\\frac{mk_B}{V_0}\\Big(\\frac{T}{T_D}\\Big)^3,\\qquad C_V\\xrightarrow{T\\gtrsim T_D}\\frac{3mk_B}{V_0}",
+          "label": "(2.79), (2.80): T³ law and Dulong–Petit."
+        },
+        {
+          "kind": "text",
+          "html": "Einstein: all modes at one $\\omega_E$, $C/3Nk_B=x^2e^x/(e^x-1)^2$ with $x=\\Theta_E/T$. Correct at high $T$ (Dulong–Petit), exponentially too small at low $T$; good for flat optical branches."
+        },
+        {
+          "kind": "intuition",
+          "html": "'Active modes': at temperature $T$ only modes with $\\hbar\\omega\\lesssim k_BT$ are excited, each classically ($k_B$). For acoustic phonons these fill a sphere of radius $q=k_BT/\\hbar v$ in $q$-space: number $\\propto T^3$. That is the whole $T^3$ law (2.40-2.41); the same counting with photons gives Stefan–Boltzmann."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Fraction of Dulong–Petit at low $T$: $\\frac{4\\pi^4}{5}(T/T_D)^3=77.9\\,(T/T_D)^3$, not $\\frac{12\\pi^4}5(\\ldots)$. And in metals add the electronic $\\gamma T$: $C=\\gamma T+\\beta T^3$."
+        },
+        {
+          "kind": "exam",
+          "html": "HS20 MC (l): Einstein assumes a <i>flat</i> dispersion ($\\delta$-function DOS), not a linear one. Aug 2024 2b: Debye DOS $\\propto1/(V_0\\omega_D^3)$, number of phonons at high $T$ $\\propto T/\\Theta_D$."
+        }
+      ],
+      "check": [
+        {
+          "q": "At $T=T_D/10$ the Debye low-temperature formula gives $C_V$ as a fraction of $3Nk_B$ of about",
+          "options": [
+            "0.23",
+            "0.078",
+            "0.78",
+            "0.0078"
+          ],
+          "correct": 1,
+          "explain": "$77.9\\times10^{-3}=0.078$ (the exact Debye function at $T_D/10$ is a bit lower, 0.07, as the $T^3$ law starts to fail)."
+        },
+        {
+          "q": "Why does the Einstein model fail at low temperature?",
+          "options": [
+            "it uses Boltzmann statistics",
+            "its density of states has a gap: no modes below ħω_E",
+            "it ignores quantisation",
+            "it overcounts modes"
+          ],
+          "correct": 1,
+          "explain": "Real crystals have gapless acoustic phonons, so some modes are always excitable: power law instead of $e^{-\\Theta_E/T}$."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "ss-pho-Q1",
+      "title": "Phonon Halls multiple choice",
+      "xp": 25,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/solid-state/old-exams/HS20.pdf",
+          "where": "Task 1 MC (i),(l)"
+        },
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 2"
+        }
+      ],
+      "questions": [
+        {
+          "q": "How many phonon branches does the dispersion of the NaCl lattice have?",
+          "options": [
+            "2 acoustic and 1 optical",
+            "0 acoustic and 1 optical",
+            "1 acoustic and 0 optical",
+            "3 acoustic and 3 optical"
+          ],
+          "correct": 3,
+          "explain": "Two atoms per primitive cell, three dimensions.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (i)"
+          }
+        },
+        {
+          "q": "Which statement about the Einstein model is FALSE?",
+          "options": [
+            "it gives good values of c(T) at high T",
+            "at high T it agrees with Dulong–Petit",
+            "the density of states is a δ-function",
+            "it assumes a linear dispersion so all modes have the same velocity"
+          ],
+          "correct": 3,
+          "explain": "Einstein's modes have one frequency: a flat dispersion with zero group velocity.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (l)"
+          }
+        },
+        {
+          "q": "In an optical mode at $q=0$ of a diatomic chain the centre of mass of each cell",
+          "options": [
+            "moves opposite to the neighbouring cell",
+            "oscillates at twice the frequency",
+            "is at rest",
+            "moves with the sound velocity"
+          ],
+          "correct": 2,
+          "explain": "$M_1u_1+M_2u_2=0$: the two atoms move against each other."
+        },
+        {
+          "q": "Which material has the highest Debye temperature?",
+          "options": [
+            "aluminium",
+            "lead",
+            "diamond",
+            "copper"
+          ],
+          "correct": 2,
+          "explain": "Light and stiff: diamond 2240 K; Pb 105 K, Cu 343 K, Al 428 K (script 2.4.2)."
+        },
+        {
+          "q": "For $M_1\\to M_2$ the gap at the zone boundary of the diatomic chain",
+          "options": [
+            "stays the same",
+            "becomes infinite",
+            "closes, and the BZ effectively doubles",
+            "grows"
+          ],
+          "correct": 2,
+          "explain": "Identical atoms: the true period is $a/2$, one branch in a twice larger zone (Fig. 2.2)."
+        },
+        {
+          "q": "The low-temperature heat capacity of an insulator goes as",
+          "options": [
+            "$T$",
+            "$T^3$",
+            "$e^{-\\Theta/T}$",
+            "$T^2$"
+          ],
+          "correct": 1,
+          "explain": "Debye; a metal adds $\\gamma T$ from the electrons."
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "ss-pho-D1",
+      "title": "Dispersion of the monatomic chain",
+      "xp": 30,
+      "source": {
+        "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+        "where": "Ch. 2.2.3-2.2.4; oral protocol HS05 (materials/solid-state/old-exams/HS05.pdf)"
+      },
+      "goal": "Atoms of mass $M$ at $x_n=na$, nearest-neighbour springs $k$. Derive $\\omega(q)$, its long-wavelength limit and the group velocity, and explain why $q$ can be restricted to the first Brillouin zone.",
+      "given": [
+        "potential energy $\\Phi=\\frac k2\\sum_n(u_{n+1}-u_n)^2$"
+      ],
+      "steps": [
+        {
+          "prompt": "Equation of motion for $u_n$.",
+          "reveal": "$M\\ddot u_n=-\\partial\\Phi/\\partial u_n=k(u_{n+1}-2u_n+u_{n-1})$."
+        },
+        {
+          "prompt": "Insert $u_n=Ae^{i(qna-\\omega t)}$.",
+          "reveal": "$-M\\omega^2=k(e^{iqa}-2+e^{-iqa})=-2k(1-\\cos qa)=-4k\\sin^2\\frac{qa}2$, so $\\omega=2\\sqrt{k/M}\\,|\\sin\\frac{qa}2|$."
+        },
+        {
+          "prompt": "Long wavelength $qa\\ll1$ and group velocity.",
+          "reveal": "$\\omega\\approx a\\sqrt{k/M}\\,q$: sound with $v_s=a\\sqrt{k/M}$. $v_g=d\\omega/dq=a\\sqrt{k/M}\\cos\\frac{qa}2$, zero at $q=\\pm\\pi/a$."
+        },
+        {
+          "prompt": "Why only $-\\pi/a<q\\le\\pi/a$?",
+          "reveal": "$q\\to q+2\\pi/a$ changes $e^{iqna}$ by $e^{2\\pi in}=1$: the displacements of the atoms are identical. Only $N$ distinct $q$ exist for $N$ atoms (periodic boundary conditions): one per atom per direction."
+        }
+      ],
+      "keyPoints": [
+        "$M\\ddot u_n=k(u_{n+1}+u_{n-1}-2u_n)$",
+        "$\\omega=2\\sqrt{k/M}|\\sin(qa/2)|$",
+        "$v_s=a\\sqrt{k/M}$, $v_g=0$ at the zone edge",
+        "$q$ defined modulo $2\\pi/a$: N states in the first BZ"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "ss-pho-c1",
+      "title": "A diatomic chain: acoustic and optical branches",
+      "fight": "normal",
+      "problem": "Script 2.2.5: $N$ cells of lattice constant $a$, two atoms per cell (masses $M_1,M_2$ at fractional positions $0$ and $\\frac12$), nearest-neighbour springs $k$, longitudinal motion. The dispersion is $\\omega^2=k\\big(\\tfrac1{M_1}+\\tfrac1{M_2}\\big)\\pm k\\sqrt{\\big(\\tfrac1{M_1}+\\tfrac1{M_2}\\big)^2-\\tfrac{2}{M_1M_2}(1-\\cos qa)}$. Take a toy NaCl chain: $M_1=22.99\\,$u (Na), $M_2=35.45\\,$u (Cl), $k=15$ N/m, $a=5.64$ Å. Give frequencies as $\\nu=\\omega/2\\pi$ in THz.",
+      "vars": {
+        "u": 1.6605390666e-27,
+        "M1": 22.99,
+        "M2": 35.45,
+        "k": 15.0,
+        "a": 5.64e-10
+      },
+      "steps": [
+        {
+          "id": "nuopt0",
+          "prompt": "Optical branch at $q=0$: $\\omega=\\sqrt{2k(1/M_1+1/M_2)}$. Give $\\nu$ in THz.",
+          "answer": "sqrt(2*k*(1/(M1*u)+1/(M2*u)))/(2*pi)/1e12",
+          "unit": "THz",
+          "units": [
+            "THz",
+            "rad/s",
+            "meV",
+            "m/s"
+          ],
+          "tol": 0.02,
+          "hint": "At $q=0$: $(1-\\cos qa)=0$, the root is $2k(1/M_1+1/M_2)$ (plus sign) or 0 (acoustic). The two atoms in the cell move against each other."
+        },
+        {
+          "id": "nuac",
+          "prompt": "Acoustic branch at the zone edge $q=\\pi/a$ (the upper end of the acoustic branch is set by the **heavier** mass): $\\nu=\\frac1{2\\pi}\\sqrt{2k/M_2}$ in THz.",
+          "answer": "sqrt(2*k/(M2*u))/(2*pi)/1e12",
+          "unit": "THz",
+          "units": [
+            "THz",
+            "rad/s",
+            "meV",
+            "m/s"
+          ],
+          "tol": 0.02,
+          "hint": "At $q=\\pi/a$, $1-\\cos qa=2$ and the square root becomes $k|1/M_1-1/M_2|$, so $\\omega^2=2k/M_{\\max}$ (acoustic) and $2k/M_{\\min}$ (optical)."
+        },
+        {
+          "id": "nuop",
+          "prompt": "Optical branch at $q=\\pi/a$: $\\nu=\\frac1{2\\pi}\\sqrt{2k/M_1}$ in THz.",
+          "answer": "sqrt(2*k/(M1*u))/(2*pi)/1e12",
+          "unit": "THz",
+          "units": [
+            "THz",
+            "rad/s",
+            "meV",
+            "m/s"
+          ],
+          "tol": 0.02,
+          "hint": "Lighter atom oscillates against a nearly still heavy neighbour."
+        },
+        {
+          "id": "gap",
+          "prompt": "Frequency gap at the zone boundary in THz (nothing propagates in the gap).",
+          "answer": "nuop-nuac",
+          "unit": "THz",
+          "units": [
+            "THz",
+            "meV",
+            "rad/s",
+            "m/s"
+          ],
+          "tol": 0.05,
+          "hint": "$\\Delta\\propto 1/\\sqrt{M_1}-1/\\sqrt{M_2}\\to0$ for $M_1\\to M_2$: then the zone folds and one branch remains (script, Fig. 2.2). At the boundary both group velocities vanish: $\\omega(q)=\\omega(-q)$ and $\\omega(q+2\\pi/a)=\\omega(q)$ force $d\\omega/dq=0$ at $q=\\pi/a$."
+        },
+        {
+          "id": "v",
+          "prompt": "Sound velocity from the small-$q$ acoustic branch $\\omega\\approx vq$ with $v=a\\sqrt{k/[2(M_1+M_2)]}$, in m/s.",
+          "answer": "a*sqrt(k/(2*(M1+M2)*u))",
+          "unit": "m/s",
+          "units": [
+            "m/s",
+            "THz",
+            "km/s^2",
+            "m"
+          ],
+          "tol": 0.02,
+          "hint": "Expand $\\omega^2\\approx\\frac{k\\,a^2}{2(M_1+M_2)}q^2$. Check: for $M_1=M_2=M$ this is $(a/2)\\sqrt{k/M}$, the monatomic chain with spacing $a/2$."
+        },
+        {
+          "id": "hbarw",
+          "prompt": "Energy $\\hbar\\omega$ of the optical $q=0$ phonon in meV (this is what inelastic neutron scattering measures).",
+          "answer": "nuopt0*1e12*2*pi*hbar/eV*1e3",
+          "unit": "meV",
+          "units": [
+            "meV",
+            "eV",
+            "THz",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$\\hbar\\omega=h\\nu$; 1 THz = 4.136 meV. Thermal neutrons ($\\sim25$ meV) match phonon energies.",
+          "bonus": true
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-pho-c2",
+      "title": "Copper: where do phonons stop mattering?",
+      "fight": "normal",
+      "problem": "Copper has $n=8.47\\times10^{28}$ m$^{-3}$ atoms, one conduction electron each, and Debye temperature $T_D=343$ K (script 2.4). Free-electron gas: $c_{\\rm el}=\\frac{\\pi^2}{3}\\nu(\\epsilon_F)k_B^2T=\\gamma T$ with $\\nu(\\epsilon_F)=\\frac{3n}{2\\epsilon_F}$. Debye low-$T$ law (script 2.79): $c_{\\rm ph}=\\frac{12\\pi^4}{5}\\,nk_B\\,(T/T_D)^3=\\beta T^3$. Find the temperature where both contribute equally.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "n": 8.47e+28,
+        "TD": 343.0
+      },
+      "steps": [
+        {
+          "id": "DP",
+          "prompt": "Dulong–Petit limit $3nk_B$ of the lattice heat capacity per volume, in J m$^{-3}$ K$^{-1}$.",
+          "answer": "3*n*kB",
+          "unit": "J/(m^3 K)",
+          "units": [
+            "J/(m^3 K)",
+            "J/(m^3 K^2)",
+            "J/(m^3 K^4)",
+            "J/K"
+          ],
+          "tol": 0.01,
+          "hint": "Classical equipartition: $3k_B$ per atom, valid for $T\\gtrsim T_D$ (script 2.80)."
+        },
+        {
+          "id": "EF",
+          "prompt": "Free-electron Fermi energy $\\epsilon_F=\\hbar^2(3\\pi^2n)^{2/3}/2m_e$ in eV.",
+          "answer": "hbar**2*(3*pi**2*n)**(2/3)/(2*me)/eV",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "J",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$k_F=(3\\pi^2n)^{1/3}=1.36$ Å$^{-1}$, $\\hbar^2/2m_e=3.81$ eV Å$^2$. One electron per atom."
+        },
+        {
+          "id": "gam",
+          "prompt": "Electronic coefficient $\\gamma=\\frac{\\pi^2}{2}\\,\\frac{nk_B^2}{\\epsilon_F}$ in J m$^{-3}$ K$^{-2}$.",
+          "answer": "pi**2/2*n*kB**2/(EF*eV)",
+          "unit": "J/(m^3 K^2)",
+          "units": [
+            "J/(m^3 K^2)",
+            "J/(m^3 K)",
+            "J/(m^3 K^4)",
+            "J/K"
+          ],
+          "tol": 0.02,
+          "hint": "$\\frac{\\pi^2}{3}\\nu k_B^2=\\frac{\\pi^2}{3}\\frac{3n}{2\\epsilon_F}k_B^2$. Only electrons within $k_BT$ of $\\epsilon_F$ (a fraction $T/T_F$) can absorb heat."
+        },
+        {
+          "id": "beta",
+          "prompt": "Phonon coefficient $\\beta=\\frac{12\\pi^4}{5}nk_B/T_D^3$ in J m$^{-3}$ K$^{-4}$.",
+          "answer": "12*pi**4/5*n*kB/TD**3",
+          "unit": "J/(m^3 K^4)",
+          "units": [
+            "J/(m^3 K^4)",
+            "J/(m^3 K^2)",
+            "J/(m^3 K)",
+            "J/K"
+          ],
+          "tol": 0.02,
+          "hint": "$12\\pi^4/5=233.8$. Debye assumes $\\nu(\\epsilon)\\propto\\epsilon^2$ up to a cutoff that holds $3N$ modes."
+        },
+        {
+          "id": "Tx",
+          "prompt": "Crossover temperature $\\gamma T=\\beta T^3$, i.e. $T_\\times=\\sqrt{\\gamma/\\beta}$, in K.",
+          "answer": "sqrt(gam/beta)",
+          "unit": "K",
+          "units": [
+            "K",
+            "mK",
+            "eV",
+            "K^2"
+          ],
+          "tol": 0.03,
+          "hint": "Below $T_\\times$ electrons dominate $C_V\\propto T$; above it phonons $\\propto T^3$. Plotting $C/T$ against $T^2$ gives a straight line with intercept $\\gamma$ and slope $\\beta$. Here $T_\\times\\approx3$ K, well inside the $T^3$ regime ($T<T_D/50\\approx7$ K)."
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-pho-c3",
+      "title": "Einstein versus Debye at low temperature",
+      "fight": "normal",
+      "problem": "A solid has a single Einstein temperature $\\Theta_E=300$ K (all $3N$ modes at one frequency, $\\nu(\\epsilon)\\propto\\delta(\\hbar\\omega_E-\\epsilon)$) and, in the Debye model, $T_D=300$ K. Heat capacity as a fraction of $3Nk_B$: Einstein $f_E(x)=x^2e^x/(e^x-1)^2$ with $x=\\Theta_E/T$; Debye low-$T$: $f_D=\\frac{4\\pi^4}{5}(T/T_D)^3$ (this is $C_V/3Nk_B$; the script's (2.79) $C_V=\\frac{12\\pi^4}{5}Nk_B(T/T_D)^3$ divided by the Dulong–Petit value $3Nk_B$).",
+      "vars": {
+        "ThetaE": 300.0,
+        "TD": 300.0,
+        "T1": 100.0,
+        "T2": 15.0
+      },
+      "steps": [
+        {
+          "id": "x1",
+          "prompt": "At $T_1=100$ K: $x=\\Theta_E/T_1$.",
+          "answer": "ThetaE/T1",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "K",
+            "eV",
+            "K^-1"
+          ],
+          "tol": 0.01,
+          "hint": "Ratio of the oscillator quantum to $k_BT$."
+        },
+        {
+          "id": "fE1",
+          "prompt": "Einstein heat capacity fraction $f_E$ at $T_1$.",
+          "answer": "x1**2*exp(x1)/(exp(x1)-1)**2",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "J/K",
+            "K",
+            "eV"
+          ],
+          "tol": 0.02,
+          "hint": "At $x=3$ about half of the classical Dulong–Petit value: the oscillators are partly frozen out."
+        },
+        {
+          "id": "fD2",
+          "prompt": "Debye $T^3$ fraction $f_D$ at $T_2=15$ K ($T_2/T_D=0.05$).",
+          "answer": "4*pi**4/5*(T2/TD)**3",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "J/K",
+            "K",
+            "eV"
+          ],
+          "tol": 0.02,
+          "hint": "$\\frac{4\\pi^4}{5}=77.9$, so $77.9\\times(0.05)^3=0.0097$: about 1 % of the classical value (and the exact Debye function agrees). The $T^3$ law needs only the **linear** acoustic dispersion at small $q$."
+        },
+        {
+          "id": "fE2",
+          "prompt": "Einstein fraction $f_E$ at $T_2$ ($x=20$).",
+          "answer": "(ThetaE/T2)**2*exp(ThetaE/T2)/(exp(ThetaE/T2)-1)**2",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "J/K",
+            "K",
+            "eV"
+          ],
+          "tol": 0.05,
+          "hint": "For $x\\gg1$: $f_E\\to x^2e^{-x}$, an activated (exponential) freeze-out: far too fast. Einstein's model has a gap at $\\epsilon=\\hbar\\omega_E$, real solids have gapless acoustic phonons."
+        },
+        {
+          "id": "rat",
+          "prompt": "How many times larger is the Debye value than the Einstein value at $T_2$? (quick estimate within 25 %)",
+          "answer": "fD2/fE2",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "K",
+            "eV",
+            "J/K"
+          ],
+          "tol": 0.1,
+          "hint": "That is why Einstein's 1907 model failed experiment at low $T$ and Debye's gives the $T^3$ law. Einstein remains the right tool for flat optical branches (script 2.4.2).",
+          "tolType": "log"
+        }
+      ],
+      "xp": 60
+    },
+    {
+      "type": "calc",
+      "id": "ss-pho-c4",
+      "title": "Why neutrons and not X-rays?",
+      "fight": "fermi",
+      "problem": "Quick fight. Phonon energies are of order 10 meV, and inelastic scattering needs the probe energy to be comparable. Take a thermal neutron with the exam's $\\lambda=2.36$ Å ($\\hbar^2k^2/2m_n$) and compare it with an X-ray photon of the same wavelength ($E=hc/\\lambda$). Ratio in a factor of 1.3.",
+      "vars": {
+        "h": 6.62607015e-34,
+        "c": 299792458,
+        "mn": 1.67492749804e-27,
+        "lam": 2.36e-10
+      },
+      "steps": [
+        {
+          "id": "En",
+          "prompt": "Neutron energy in meV.",
+          "answer": "(h/lam)**2/(2*mn)/eV*1e3",
+          "unit": "meV",
+          "units": [
+            "meV",
+            "eV",
+            "keV",
+            "K"
+          ],
+          "tol": 0.03,
+          "hint": "$E=p^2/2m_n$ with $p=h/\\lambda$. Handy: $E[{\\rm meV}]\\approx81.8/\\lambda[\\text{Å}]^2$."
+        },
+        {
+          "id": "Ex",
+          "prompt": "X-ray photon energy in keV.",
+          "answer": "h*c/lam/eV/1e3",
+          "unit": "keV",
+          "units": [
+            "keV",
+            "meV",
+            "eV",
+            "MeV"
+          ],
+          "tol": 0.03,
+          "hint": "$E[{\\rm keV}]=12.398/\\lambda[\\text{Å}]$."
+        },
+        {
+          "id": "R",
+          "prompt": "$E_X/E_n$.",
+          "answer": "Ex*1e3*1e3/En",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "keV",
+            "K"
+          ],
+          "tol": 0.1,
+          "hint": "A $10$ meV phonon changes a 5 keV photon's energy by one part in $5\\times10^5$: practically unresolvable. For neutrons the same energy transfer is a $\\sim70\\%$ effect. Same wavelength (atomic spacing), very different energy: the neutron is the phonon probe. Bridge to QM: de Broglie $\\lambda=h/p$.",
+          "tolType": "log"
+        }
+      ],
+      "xp": 20
+    },
+    {
+      "type": "boss",
+      "id": "ss-pho-b1",
+      "title": "Boss: the diatomic chain (constructed in exam style)",
+      "source": {
+        "file": "notes/solid-state/02-phonons-and-heat.md",
+        "where": "constructed from script 2.2.5 and Debye/Einstein 2.4; oral protocols HS04, HS05, HS14 (materials/solid-state/old-exams) show the chain, Debye model and neutron scattering as the recurring phonon questions. Not a verbatim past exam."
+      },
+      "minutes": 30,
+      "instructions": "No written phonon problem exists in the recent exams, so this one is built from the script derivation and the oral-exam checklist. Do it on paper, then check the numbers.",
+      "statement": [
+        "A one-dimensional crystal has two atoms per unit cell of length $a$, with masses $M_1=M$ and $M_2=3M$, coupled only to nearest neighbours by springs of constant $k$.",
+        "(a) [5 pt] Write the equations of motion for the displacements $\\rho_{i,1},\\rho_{i,2}$ and derive the dispersion $\\omega^2(q)$ with the plane-wave ansatz.",
+        "(b) [3 pt] Sketch both branches over $-2\\pi/a<q<2\\pi/a$. Mark the first Brillouin zone and the group velocity at $q=\\pi/a$. Why does it vanish?",
+        "(c) [4 pt] Give $\\omega$ of the acoustic and optical branches at $q=0$ and $q=\\pi/a$ in units of $\\sqrt{k/M}$. For $q\\to0$ describe the atomic motion in both branches.",
+        "(d) [3 pt] What happens to the gap at $q=\\pi/a$ for $M_2\\to M_1$? Explain through the folding of the Brillouin zone.",
+        "(e) [3 pt] The crystal is probed by inelastic neutron scattering with $\\lambda=2.36$ Å. Why can this energy window resolve $\\hbar\\omega(q)$?"
+      ],
+      "finalAnswers": [
+        {
+          "id": "wac",
+          "prompt": "(c) $\\omega_{\\rm ac}(\\pi/a)$ in units of $\\sqrt{k/M}$.",
+          "answer": "sqrt(2/3)",
+          "vars": {},
+          "tol": 0.01
+        },
+        {
+          "id": "wop",
+          "prompt": "(c) $\\omega_{\\rm opt}(\\pi/a)$ in units of $\\sqrt{k/M}$.",
+          "answer": "sqrt(2)",
+          "vars": {},
+          "tol": 0.01
+        },
+        {
+          "id": "wop0",
+          "prompt": "(c) $\\omega_{\\rm opt}(0)$ in units of $\\sqrt{k/M}$.",
+          "answer": "sqrt(2*(1+1/3))",
+          "vars": {},
+          "tol": 0.01
+        },
+        {
+          "id": "ratio",
+          "prompt": "(c) $\\omega_{\\rm opt}(0)/\\omega_{\\rm ac}(\\pi/a)$.",
+          "answer": "sqrt((1+1/3)/(1/3))",
+          "vars": {},
+          "tol": 0.01
+        },
+        {
+          "id": "vs",
+          "prompt": "(c) Sound velocity $v=\\lim\\omega/q$ in units of $a\\sqrt{k/M}$.",
+          "answer": "sqrt(1/(2*(1+3)))",
+          "vars": {},
+          "tol": 0.01
+        }
+      ],
+      "keyPoints": [
+        "(a) $M_1\\ddot\\rho_{i,1}=-k(2\\rho_{i,1}-\\rho_{i,2}-\\rho_{i-1,2})$ and $M_2\\ddot\\rho_{i,2}=-k(2\\rho_{i,2}-\\rho_{i,1}-\\rho_{i+1,1})$; ansatz $\\rho_{i,\\alpha}=A_\\alpha e^{i(qia-\\omega t)}/\\sqrt{M_\\alpha}$ gives the $2\\times2$ dynamical matrix $D$ with $D_{11}=2k/M_1$, $D_{22}=2k/M_2$, $D_{12}=-k(1+e^{iqa})/\\sqrt{M_1M_2}$, and $\\det(D-\\omega^2)=0$.",
+        "(a) Result: $\\omega^2=k(\\frac1{M_1}+\\frac1{M_2})\\pm k\\sqrt{(\\frac1{M_1}+\\frac1{M_2})^2-\\frac{2}{M_1M_2}(1-\\cos qa)}$.",
+        "(b) The acoustic branch starts at 0, the optical at $\\omega_{\\rm opt}(0)$. Both flatten at $q=\\pi/a$ because $\\omega(q)=\\omega(-q)$ and $\\omega(q)=\\omega(q+2\\pi/a)$, so $d\\omega/dq=0$ at the zone edge (standing waves, Bragg reflection of the phonon).",
+        "(c) $q=0$: acoustic 0, optical $\\sqrt{2(1+1/3)}\\sqrt{k/M}=1.63\\sqrt{k/M}$; $q=\\pi/a$: acoustic $\\sqrt{2k/M_2}=0.82\\sqrt{k/M}$, optical $\\sqrt{2k/M_1}=1.41\\sqrt{k/M}$. Acoustic at $q\\to0$: both atoms in phase (sound wave); optical: the two atoms of a cell move against each other, centre of mass at rest.",
+        "(d) The gap $\\propto|1/\\sqrt{M_1}-1/\\sqrt{M_2}|$ closes: the cell has halved to $a/2$ with one atom per cell, the Brillouin zone doubles, and the two branches are one branch in the extended zone (Fig. 2.2). Same story for a dimerisation: the gap opens as the cell doubles.",
+        "(e) $\\lambda=2.36$ Å gives $E_n\\approx15$ meV, matching $\\hbar\\omega$ of phonons (10–100 meV) while its momentum $2\\pi/\\lambda\\approx2.7$ Å$^{-1}$ is large compared with $\\pi/a$: the transfers of both energy and momentum can be read off. X-rays of the same $\\lambda$ have keV energy: the phonon energy is far below the resolution."
+      ],
+      "xp": 90
+    }
+  ]
+}

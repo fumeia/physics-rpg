@@ -75,17 +75,25 @@ fi
 if [ ! -f "$SNIPPET" ]; then
   PASS=$(python3 -c 'import secrets; print(secrets.token_urlsafe(12))')
   HASH=$(caddy hash-password --plaintext "$PASS")
-  # basic_auth is the name since Caddy 2.8; older versions only know basicauth
-  AUTH=basic_auth; caddy version | grep -qE '^v2\.[0-7]\.' && AUTH=basicauth
-  cat >"$SNIPPET" <<SITE
+  # the directive is basic_auth since Caddy 2.8 and basicauth before; use whichever this Caddy accepts
+  write_site() { cat >"$1" <<SITE
 $DOMAIN {
 	encode zstd gzip
-	$AUTH {
+	$2 {
 		$LOGIN $HASH
 	}
 	reverse_proxy 127.0.0.1:$PORT
 }
 SITE
+  }
+  AUTH=
+  for name in basic_auth basicauth; do
+    write_site /tmp/physics-rpg-test.caddy "$name"
+    if caddy validate --config /tmp/physics-rpg-test.caddy --adapter caddyfile >/dev/null 2>&1; then AUTH=$name; break; fi
+  done
+  rm -f /tmp/physics-rpg-test.caddy
+  [ -n "$AUTH" ] || { echo "This Caddy accepts neither basic_auth nor basicauth. Run: caddy version"; exit 1; }
+  write_site "$SNIPPET" "$AUTH"
   printf 'https://%s\nuser: %s\npassword: %s\n' "$DOMAIN" "$LOGIN" "$PASS" >"$LOGINFILE"; chmod 600 "$LOGINFILE"
 fi
 if ! grep -qF "import $SNIPPET" "$CADDYFILE"; then

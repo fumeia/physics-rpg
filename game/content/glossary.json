@@ -1,0 +1,793 @@
+{
+ "global": {
+  "\\pi": "$\\pi=3.14159\\ldots$",
+  "\\hbar": "reduced Planck constant, $\\hbar=h/2\\pi=1.055\\times10^{-34}$ J s",
+  "h": "Planck constant, $h=6.626\\times10^{-34}$ J s",
+  "c": "speed of light, $2.998\\times10^{8}$ m/s",
+  "k_B": "Boltzmann constant, $1.381\\times10^{-23}$ J/K"
+ },
+ "astrophysics": {
+  "e": [
+   {
+    "when": "Hydrogen burning",
+    "text": "$e^{+}$: positron"
+   }
+  ],
+  "G": "gravitational constant, $6.674\\times10^{-11}$ m$^3$ kg$^{-1}$ s$^{-2}$",
+  "m": [
+   {
+    "when": "Magnitudes|Distance modulus",
+    "text": "apparent magnitude (brightness on a logarithmic scale; smaller = brighter)"
+   },
+   {
+    "when": "Jeans",
+    "text": "mean particle mass"
+   },
+   {
+    "text": "mass of a particle"
+   }
+  ],
+  "m_1": "mass 1 or magnitude of star 1 (by context)",
+  "m_2": "apparent magnitude of star 2",
+  "M": [
+   {
+    "when": "Distance modulus",
+    "text": "absolute magnitude (apparent magnitude the star would have at 10 pc)"
+   },
+   {
+    "when": "Jeans",
+    "text": "mass"
+   },
+   {
+    "text": "mass (of the star, galaxy or enclosed mass, by context)"
+   }
+  ],
+  "M_\\odot": "solar mass, $1.989\\times10^{30}$ kg",
+  "L_\\odot": "solar luminosity, $3.828\\times10^{26}$ W",
+  "M_r": "mass enclosed within radius $r$",
+  "L_r": "luminosity passing through radius $r$ (energy per time)",
+  "M_\\star": "mass of the star",
+  "M_Ch": "Chandrasekhar mass: maximum mass of a white dwarf, $\\approx1.4\\,M_\\odot$",
+  "M_J": "Jeans mass: smallest mass that collapses under its own gravity",
+  "L": [
+   {
+    "when": "Random walk",
+    "text": "net distance covered by the random walk"
+   },
+   {
+    "when": "Flux freezing",
+    "text": "length scale of the flow"
+   },
+   {
+    "text": "luminosity (total power emitted)"
+   }
+  ],
+  "R": [
+   {
+    "when": "Escape velocity|Tidal",
+    "text": "radius (cut-off radius of the halo / size of the small galaxy)"
+   },
+   {
+    "text": "radius"
+   }
+  ],
+  "R_s": "Strömgren radius (size of the ionised HII region)",
+  "R_M": "magnetic Reynolds number",
+  "R_0": "distance of the Sun from the Galactic centre",
+  "R_p": "planet radius",
+  "R_\\star": "stellar radius",
+  "r": "distance from the centre (radial coordinate)",
+  "r_H": "harmonic radius of a system of $N$ bodies",
+  "r_e": "effective (half-light) radius",
+  "r_d": "scale length of the disc",
+  "d": [
+   {
+    "when": "Oort",
+    "text": "distance to the star"
+   },
+   {
+    "when": "Tidal",
+    "text": "distance between the two galaxies"
+   },
+   {
+    "when": "Hubble|Redshift",
+    "text": "distance to the galaxy"
+   },
+   {
+    "text": "distance"
+   }
+  ],
+  "a": [
+   {
+    "when": "Plummer",
+    "text": "Plummer scale radius"
+   },
+   {
+    "when": "Closed matter|Friedmann|Flat solutions|Critical|Critical|Early|Equation of state|Hubble|Linear|Matter",
+    "text": "scale factor $a(t)$ of the universe (distances grow $\\propto a$)"
+   },
+   {
+    "text": "scale factor"
+   }
+  ],
+  "a_0": "scale factor today (normalised to 1)",
+  "a_B": "radiation constant, $a_B=7.57\\times10^{-16}$ J m$^{-3}$ K$^{-4}$",
+  "\\dota": "time derivative of the scale factor, $da/dt$",
+  "t": "time",
+  "t_diff": "photon diffusion time out of a star",
+  "T": [
+   {
+    "when": "Surface|Cluster|Variab",
+    "text": "temperature"
+   },
+   {
+    "text": "temperature (K)"
+   }
+  ],
+  "T_eff": "effective temperature: temperature of a blackbody with the same surface flux, $F=\\sigma_{SB}T_{\\rm eff}^4$",
+  "T_0": "temperature today ($2.725$ K for the CMB)",
+  "T_gamma": "photon (CMB) temperature",
+  "T_nu": "neutrino background temperature",
+  "T_rec": "recombination temperature",
+  "T_rel": "relaxation time of a stellar system",
+  "T_cross": "crossing time of a stellar system",
+  "P": [
+   {
+    "when": "Gamow",
+    "text": "probability of tunnelling through the Coulomb barrier"
+   },
+   {
+    "text": "pressure"
+   }
+  ],
+  "P_nu": "radiation pressure per frequency",
+  "P_min": "shortest possible spin period (break-up)",
+  "p": [
+   {
+    "when": "Parallax",
+    "text": "parallax angle in arcseconds"
+   },
+   {
+    "when": "Synchrotron",
+    "text": "power-law index of the electron energy distribution"
+   },
+   {
+    "text": "momentum"
+   }
+  ],
+  "p_F": "Fermi momentum of the degenerate electron gas",
+  "p_n": "proton density",
+  "\\rho": "mass density",
+  "\\rho_0": "mean (initial) density",
+  "\\rho_c": "critical density for a flat universe",
+  "\\rho_g": "gas density",
+  "\\rho_M": "matter density",
+  "\\rho_R": "radiation density",
+  "\\rho_gamma": "photon energy density (as mass density)",
+  "\\rho_M0": "matter density today",
+  "\\rho_R0": "radiation density today",
+  "v": "velocity",
+  "v_c": "circular velocity",
+  "v_esc": "escape velocity",
+  "v_R": "radial (line-of-sight) velocity",
+  "v_T": "tangential (proper-motion) velocity",
+  "v_\\star": "velocity of the star around the common centre of mass",
+  "v_p": "velocity of the planet",
+  "v_perp": "apparent transverse velocity of a jet blob",
+  "V": [
+   {
+    "when": "Flux freezing",
+    "text": "typical flow velocity"
+   },
+   {
+    "text": "volume"
+   }
+  ],
+  "\\nu": "frequency of the radiation",
+  "\\nu_e": "electron neutrino",
+  "\\lambda": "wavelength",
+  "\\lambda_max": "wavelength where the Planck spectrum peaks",
+  "\\lambda_J": "Jeans wavelength",
+  "I_nu": "specific intensity: power per area, per solid angle, per frequency [W m$^{-2}$ sr$^{-1}$ Hz$^{-1}$]",
+  "I_0": "initial intensity (before absorption)",
+  "I_e": "surface brightness at the effective radius",
+  "I": [
+   {
+    "when": "Pulsar",
+    "text": "moment of inertia of the neutron star"
+   },
+   {
+    "text": "intensity"
+   }
+  ],
+  "F": "flux: power per unit area",
+  "F_nu": "flux density: flux per unit frequency",
+  "F_0": "flux without extinction",
+  "F_ext": "flux after extinction",
+  "F_1": "flux of star 1",
+  "F_2": "flux of star 2",
+  "B_nu": "Planck function: specific intensity of a blackbody at temperature $T$",
+  "S_nu": "source function $S_\\nu=j_\\nu/\\alpha_\\nu$: intensity the matter drives the radiation towards",
+  "j_nu": "emission coefficient (power per volume, solid angle and frequency)",
+  "U_nu": "radiation energy density per frequency",
+  "\\alpha": [
+   {
+    "when": "Opacities",
+    "text": "absorption coefficient [1/length]"
+   },
+   {
+    "when": "Gamow",
+    "text": "fine-structure constant, $1/137$"
+   },
+   {
+    "when": "Strömgren",
+    "text": "recombination coefficient of hydrogen"
+   },
+   {
+    "text": "recombination coefficient or absorption coefficient (by context)"
+   }
+  ],
+  "\\alpha_nu": "absorption coefficient at frequency $\\nu$ [1/length]",
+  "\\chi": "opacity: absorbing cross-section per unit mass [m$^2$/kg]",
+  "\\chi_T": "Thomson (electron-scattering) opacity, $\\sigma_T/m_H$",
+  "\\sigma_T": "Thomson cross-section, $6.65\\times10^{-29}$ m$^2$",
+  "\\sigma_SB": "Stefan–Boltzmann constant, $5.67\\times10^{-8}$ W m$^{-2}$ K$^{-4}$",
+  "\\sigma": "velocity dispersion of the stars",
+  "\\sigma_v": "velocity dispersion",
+  "\\tau": [
+   {
+    "when": "Main-sequence",
+    "text": "lifetime of a main-sequence star"
+   },
+   {
+    "when": "Extinction",
+    "text": "optical depth: $\\tau=\\int\\chi\\rho\\,ds$; light is dimmed by $e^{-\\tau}$"
+   },
+   {
+    "text": "optical depth: $\\tau=\\int\\alpha\\,ds$ (dimensionless); intensity is dimmed by $e^{-\\tau}$. $\\tau\\ll1$ transparent, $\\tau\\gg1$ opaque"
+   }
+  ],
+  "\\tau_nu": "optical depth at frequency $\\nu$",
+  "\\tau_lambda": "optical depth at wavelength $\\lambda$ (extinction $A_\\lambda=1.086\\,\\tau_\\lambda$)",
+  "\\tau_KH": "Kelvin–Helmholtz time: how long a star could shine by contracting alone",
+  "\\tau_nuc": "nuclear time scale: how long the star can burn its fuel",
+  "\\tau_MS": "main-sequence lifetime",
+  "\\tau_c": "characteristic age of a pulsar, $P/2\\dot P$",
+  "\\theta": [
+   {
+    "when": "Moments|Superluminal|Synchrotron",
+    "text": "angle between the ray (or jet) and the normal (or line of sight)"
+   },
+   {
+    "text": "angular size / angle"
+   }
+  ],
+  "\\mu": [
+   {
+    "when": "Ideal gas",
+    "text": "mean molecular weight (mass per particle in units of $m_H$)"
+   },
+   {
+    "when": "21 cm",
+    "text": "micro: $\\mu$eV $=10^{-6}$ eV"
+   },
+   {
+    "when": "Moments|Grey",
+    "text": "$\\cos\\theta$ of the ray angle"
+   },
+   {
+    "text": "mean molecular weight"
+   }
+  ],
+  "\\mu_e": "mean molecular weight per electron (mass per electron in units of $m_H$)",
+  "\\varepsilon": "nuclear energy generation rate per unit mass [W/kg]",
+  "\\varepsilon_pp": "energy generation rate of the proton-proton chain",
+  "\\varepsilon_CNO": "energy generation rate of the CNO cycle",
+  "\\epsilon_nu": "emissivity of bremsstrahlung per unit volume and frequency",
+  "\\epsilon": "emissivity per unit volume",
+  "\\gamma": [
+   {
+    "when": "Schwarzschild",
+    "text": "adiabatic index $c_P/c_V$ of the gas"
+   },
+   {
+    "when": "Synchrotron|Superluminal|Jet",
+    "text": "Lorentz factor $1/\\sqrt{1-\\beta^2}$"
+   },
+   {
+    "text": "Lorentz factor or adiabatic index (by context)"
+   }
+  ],
+  "\\beta": "$v/c$ (speed in units of the speed of light)",
+  "\\eta": [
+   {
+    "when": "Accretion|Quasar|Eddington",
+    "text": "radiative efficiency: fraction of $\\dot Mc^2$ turned into light"
+   },
+   {
+    "when": "Photon density",
+    "text": "baryon-to-photon ratio $n_B/n_\\gamma$"
+   },
+   {
+    "when": "Flux freezing",
+    "text": "magnetic diffusivity"
+   },
+   {
+    "when": "Closed",
+    "text": "conformal-time-like parameter of the cycloid solution"
+   },
+   {
+    "text": "efficiency"
+   }
+  ],
+  "N": [
+   {
+    "when": "Random walk",
+    "text": "number of random-walk steps"
+   },
+   {
+    "when": "Euclidean",
+    "text": "number of stars"
+   },
+   {
+    "text": "number of particles or steps"
+   }
+  ],
+  "N_gamma": "number of ionising photons emitted per second",
+  "n": "number density",
+  "n_e": "electron number density",
+  "n_p": "proton number density",
+  "n_n": "neutron number density",
+  "n_i": "ion number density",
+  "n_B": "baryon number density",
+  "n_gamma": "photon number density",
+  "n_pn": "product of proton and electron number densities (recombination rate)",
+  "X": "mass fraction of hydrogen",
+  "Y": "mass fraction of helium",
+  "Z": [
+   {
+    "when": "Binding|Gamow|Hydrogen|Bremsstrahlung",
+    "text": "atomic number (number of protons)"
+   },
+   {
+    "text": "mass fraction of heavier elements (metals); $X+Y+Z=1$"
+   }
+  ],
+  "Z_1": "charge number of nucleus 1",
+  "Z_2": "charge number of nucleus 2",
+  "A": [
+   {
+    "when": "Binding",
+    "text": "mass number (protons + neutrons)"
+   },
+   {
+    "when": "Oort",
+    "text": "Oort constant $A$ (shear of galactic rotation)"
+   },
+   {
+    "text": "extinction in magnitudes"
+   }
+  ],
+  "A_lambda": "extinction in magnitudes at wavelength $\\lambda$",
+  "A_B": "extinction in the B band",
+  "A_V": "extinction in the V band",
+  "B": [
+   {
+    "when": "Oort",
+    "text": "Oort constant $B$ (vorticity of galactic rotation)"
+   },
+   {
+    "text": "magnetic field strength"
+   }
+  ],
+  "K_1": "constant in the non-relativistic degeneracy pressure $P=K_1\\rho^{5/3}$",
+  "K_2": "constant in the ultra-relativistic degeneracy pressure $P=K_2\\rho^{4/3}$",
+  "K": "constant",
+  "E": "energy",
+  "E_G": [
+   {
+    "when": "Virial",
+    "text": "gravitational potential energy of the star"
+   },
+   {
+    "text": "Gamow energy: $2m c^2(\\pi\\alpha Z_1Z_2)^2$, sets the tunnelling probability $e^{-\\sqrt{E_G/E}}$"
+   }
+  ],
+  "E_T": "total thermal (kinetic) energy",
+  "E_B": "nuclear binding energy",
+  "E_0": "Gamow peak: the most effective energy for fusion",
+  "f": [
+   {
+    "when": "Collisionless",
+    "text": "phase-space distribution function of the stars"
+   },
+   {
+    "text": "function / fraction"
+   }
+  ],
+  "g": "Gaunt factor (order-one correction)",
+  "u": "radiation energy density",
+  "w": "equation-of-state parameter: $P=w\\rho c^2$ ($w=0$ matter, $1/3$ radiation, $-1$ dark energy)",
+  "z": "redshift",
+  "z_eq": "redshift of matter-radiation equality",
+  "H": "Hubble parameter $H=\\dot a/a$ (expansion rate)",
+  "H_0": "Hubble constant today, about 70 km s$^{-1}$ Mpc$^{-1}$",
+  "\\Omega": [
+   {
+    "when": "Moments",
+    "text": "solid angle"
+   },
+   {
+    "text": "density parameter $\\Omega=\\rho/\\rho_c$"
+   }
+  ],
+  "\\Omega_M": "matter density parameter",
+  "\\Omega_0": "total density parameter today",
+  "\\Lambda": "cosmological constant (dark energy)",
+  "k": [
+   {
+    "when": "Friedmann|Critical|Early",
+    "text": "curvature constant ($k=+1,0,-1$: closed, flat, open)"
+   },
+   {
+    "when": "Jeans",
+    "text": "wavenumber $2\\pi/\\lambda$ of the perturbation"
+   },
+   {
+    "text": "constant"
+   }
+  ],
+  "k_J": "Jeans wavenumber",
+  "c_s": "sound speed",
+  "\\omega": "angular frequency",
+  "\\Phi": "gravitational potential",
+  "\\delta": "density contrast $\\delta\\rho/\\rho$",
+  "\\zeta": "Riemann zeta function, $\\zeta(3)=1.202$",
+  "\\Delta": "difference or interval",
+  "b": "galactic latitude or impact parameter (by context)",
+  "l": [
+   {
+    "when": "Oort",
+    "text": "galactic longitude"
+   },
+   {
+    "when": "Random walk",
+    "text": "mean free path of a photon"
+   },
+   {
+    "text": "length"
+   }
+  ],
+  "s": "path length",
+  "m_H": "mass of a hydrogen atom, $1.674\\times10^{-27}$ kg",
+  "m_p": "proton mass, $1.673\\times10^{-27}$ kg",
+  "m_n": "neutron mass",
+  "m_e": "electron mass",
+  "S": "source function",
+  "D": "telescope diameter",
+  "U": "internal energy",
+  "\\rho_M,0": "matter density today",
+  "\\rho_R,0": "radiation density today",
+  "L_Edd": "Eddington luminosity: maximum luminosity at which radiation pressure still balances gravity",
+  "T_c": "central temperature",
+  "k_B": "Boltzmann constant, $1.381\\times10^{-23}$ J/K",
+  "\\rho_\\Lambda": "dark-energy density"
+ },
+ "solid-state": {
+  "e": [
+   {
+    "when": "Drude|Hall|Intrinsic|Doping|Para|What scatters|Electrons",
+    "text": "elementary charge $e=1.602\\times10^{-19}$ C (or Euler number in $e^{x}$)"
+   },
+   {
+    "text": "Euler's number in $e^{x}$, or the elementary charge"
+   }
+  ],
+  "n": [
+   {
+    "when": "Fermi|Drude|Hall|free-electron|One Fermi|Intrinsic",
+    "text": "electron number density"
+   },
+   {
+    "text": "electron density (or an integer index)"
+   }
+  ],
+  "a": "lattice constant (the lattice vectors are $\\vec a,\\vec b,\\vec c$)",
+  "b": "second lattice constant",
+  "c": "third lattice constant (or the speed of light)",
+  "R": [
+   {
+    "when": "Bonding",
+    "text": "distance between two atoms"
+   },
+   {
+    "when": "Drude|Hall",
+    "text": "(see $R_H$)"
+   },
+   {
+    "text": "lattice vector"
+   }
+  ],
+  "G": "reciprocal lattice vector ($e^{i\\vec G\\cdot\\vec R}=1$)",
+  "K": "scattering vector $\\vec k_f-\\vec k_i$",
+  "k": "wave vector",
+  "V": [
+   {
+    "when": "Lattice|Diffraction",
+    "text": "volume of the primitive cell"
+   },
+   {
+    "text": "volume or potential (by context)"
+   }
+  ],
+  "V_0": "volume per atom (or per formula unit)",
+  "V^*": "volume of the reciprocal unit cell",
+  "F": "structure factor",
+  "f_j": "atomic form factor (scattering amplitude) of atom $j$",
+  "I": [
+   {
+    "when": "Hall",
+    "text": "current"
+   },
+   {
+    "when": "p.n|junction",
+    "text": "diode current"
+   },
+   {
+    "text": "intensity of a Bragg peak"
+   }
+  ],
+  "N": "number of unit cells (or atoms)",
+  "h": "Miller index (or Planck constant)",
+  "l": "Miller index",
+  "d": [
+   {
+    "when": "Hall",
+    "text": "thickness of the sample"
+   },
+   {
+    "when": "p.n|Doping",
+    "text": "width of the depletion layer"
+   },
+   {
+    "text": "lattice-plane spacing"
+   }
+  ],
+  "d_hkl": "spacing of the lattice planes $(hkl)$",
+  "\\lambda": "wavelength of the probe (neutrons, X-rays)",
+  "\\theta": "scattering (Bragg) angle",
+  "k_i": "incident wave vector",
+  "k_f": "scattered wave vector",
+  "r": "position",
+  "r_j": "position of atom $j$ in the unit cell",
+  "x_j": "fractional coordinate of atom $j$",
+  "y_j": "fractional coordinate of atom $j$",
+  "z_j": "fractional coordinate of atom $j$",
+  "\\epsilon": "energy",
+  "\\epsilon_0": "vacuum permittivity $8.854\\times10^{-12}$ F/m (or the energy of an atomic level)",
+  "\\epsilon_F": "Fermi energy: energy of the highest occupied state at $T=0$",
+  "\\epsilon_c": "energy of the conduction-band edge",
+  "\\epsilon_v": "energy of the valence-band edge",
+  "\\epsilon_\\sigma": "Zeeman energy of spin state $\\sigma$",
+  "U_0": "depth of the potential well",
+  "U": [
+   {
+    "when": "Bonding",
+    "text": "interaction (lattice) energy"
+   },
+   {
+    "when": "Hall",
+    "text": "voltage"
+   },
+   {
+    "when": "Debye|Heat|Lattice vib",
+    "text": "internal energy of the lattice vibrations"
+   },
+   {
+    "text": "potential energy or voltage"
+   }
+  ],
+  "U_H": "Hall voltage",
+  "U_G": "Fourier component of the periodic potential",
+  "U_LJ": "Lennard-Jones potential",
+  "U_vdW": "van-der-Waals potential",
+  "\\sigma": [
+   {
+    "when": "Bonding",
+    "text": "length scale of the Lennard-Jones potential (atomic diameter)"
+   },
+   {
+    "when": "Drude|Intrinsic|Hall",
+    "text": "electrical conductivity"
+   },
+   {
+    "text": "conductivity or length scale"
+   }
+  ],
+  "R_min": "equilibrium distance of the potential",
+  "\\alpha": "Madelung constant ($\\sum\\pm1/p_j$)",
+  "\\omega": "angular frequency of the lattice vibration",
+  "\\omega_D": "Debye frequency (cut-off frequency of the phonons)",
+  "T_D": "Debye temperature, $\\hbar\\omega_D/k_B$",
+  "\\Theta": "Heaviside step function (1 for positive argument, 0 otherwise)",
+  "q": "phonon wave number",
+  "M": [
+   {
+    "when": "chain|Lattice vib",
+    "text": "atomic mass"
+   },
+   {
+    "text": "mass"
+   }
+  ],
+  "M_1": "mass of atom 1",
+  "M_2": "mass of atom 2",
+  "v_s": "speed of sound",
+  "C_V": "heat capacity at constant volume",
+  "c_V": "heat capacity per volume",
+  "C": [
+   {
+    "when": "Para|Curie",
+    "text": "Curie constant"
+   },
+   {
+    "text": "constant"
+   }
+  ],
+  "\\nu": "density of states per unit volume and energy: $\\nu(\\epsilon)$",
+  "m": [
+   {
+    "when": "Fermi|Drude|Intrinsic",
+    "text": "electron mass"
+   },
+   {
+    "when": "Phonon|Heat|Debye",
+    "text": "number of atoms per unit cell"
+   },
+   {
+    "text": "mass"
+   }
+  ],
+  "m_e": "free-electron mass $9.109\\times10^{-31}$ kg",
+  "m_h": "effective mass of the holes",
+  "m^*": "effective mass",
+  "k_F": "Fermi wave number: radius of the Fermi sphere",
+  "v_F": "Fermi velocity",
+  "g": "Landé g-factor ($\\approx2$ for electrons)",
+  "\\tau": "relaxation time: mean time between scattering events of an electron",
+  "\\tau_i": "relaxation time of scattering mechanism $i$",
+  "\\mu": [
+   {
+    "when": "Drude|Intrinsic|Hall",
+    "text": "mobility $\\mu=e\\tau/m^*$ (velocity per electric field)"
+   },
+   {
+    "when": "Para|Curie",
+    "text": "magnetic moment"
+   },
+   {
+    "text": "mobility or chemical potential (by context)"
+   }
+  ],
+  "\\mu_e": "electron mobility",
+  "\\mu_h": "hole mobility",
+  "\\mu_B": "Bohr magneton $e\\hbar/2m_e$",
+  "\\mu_0": "vacuum permeability $4\\pi\\times10^{-7}$ N/A$^2$",
+  "B": "magnetic field",
+  "E": [
+   {
+    "when": "Drude|Hall|Intrinsic",
+    "text": "electric field or energy"
+   },
+   {
+    "text": "energy"
+   }
+  ],
+  "E_y": "Hall electric field",
+  "E_g": "band gap",
+  "E_d": "donor binding energy",
+  "j": "current density",
+  "j_x": "current density along $x$",
+  "B_z": "magnetic field along $z$",
+  "R_H": "Hall coefficient ($-1/ne$ for electrons)",
+  "n_e": "electron density in the conduction band",
+  "n_h": "hole density in the valence band",
+  "n_d": "density of defects",
+  "Q": "scattering cross-section of a defect",
+  "\\rho": "electrical resistivity (1/conductivity)",
+  "\\rho_0": "residual resistivity (defects)",
+  "\\rho_ph": "resistivity from phonons",
+  "\\rho_def": "resistivity from defects",
+  "\\rho_ee": "resistivity from electron-electron scattering",
+  "\\kappa": "thermal conductivity",
+  "\\Delta": "band gap $E_g$ (energy gap between valence and conduction band)",
+  "N_d": "donor density",
+  "N_a": "acceptor density",
+  "d_n": "width of the depletion layer on the n side",
+  "d_p": "width of the depletion layer on the p side",
+  "r_d": "Bohr radius of the donor electron",
+  "a_0": "Bohr radius $0.529$ Å",
+  "Ry": "Rydberg energy 13.6 eV",
+  "n_i": "intrinsic carrier density",
+  "H": [
+   {
+    "when": "Para|Exchange|Magnet|Heisenberg",
+    "text": "magnetic field $H$ (or the Hamiltonian in the Heisenberg model)"
+   },
+   {
+    "text": "magnetic field"
+   }
+  ],
+  "H_sat": "saturation field",
+  "\\chi": "magnetic susceptibility $M/H$",
+  "\\chi_P": "Pauli susceptibility of the conduction electrons",
+  "\\chi_L": "Landau diamagnetic susceptibility",
+  "J": "exchange constant ($J>0$ ferromagnetic)",
+  "J_ij": "exchange constant between spins $i$ and $j$",
+  "S": "spin quantum number (or spin operator)",
+  "S_i": "spin at site $i$",
+  "S_j": "spin at site $j$",
+  "J_total": "sum of exchange constants of one spin",
+  "J_AF": "sum of the antiferromagnetic couplings",
+  "T_W": "Weiss temperature: $\\chi\\propto1/(T-T_W)$",
+  "T": "temperature",
+  "P": "pressure",
+  "p": "momentum",
+  "p_j": "distance (in units of the nearest-neighbour spacing) of the $j$-th ion",
+  "v": "velocity",
+  "u": "periodic part of the Bloch function (or atomic displacement)",
+  "u_nk": "periodic part of the Bloch wave",
+  "\\psi_nk": "Bloch wave function",
+  "A": "constant",
+  "t": "time",
+  "i": "imaginary unit",
+  "f": [
+   {
+    "when": "Debye|Heat",
+    "text": "distribution function"
+   },
+   {
+    "text": "Fermi function or form factor"
+   }
+  ],
+  "\\Omega": "Ohm (unit)",
+  "M_\\odot": "solar mass (white-dwarf mass scale)"
+ },
+ "qm": {
+  "\\hbar": "reduced Planck constant $h/2\\pi$",
+  "m": "mass of the particle",
+  "V": "potential energy",
+  "V_0": "height of the potential barrier (or depth of the well)",
+  "E": "energy of the particle",
+  "k": [
+   {
+    "when": "step|Step",
+    "text": "momentum or wave number outside the barrier"
+   },
+   {
+    "text": "wave number $\\sqrt{2mE}/\\hbar$ (or $\\sqrt{2m(E+V)}/\\hbar$ inside a well)"
+   }
+  ],
+  "\\kappa": "decay constant $\\sqrt{2m(V-E)}/\\hbar$ of the wave in a classically forbidden region",
+  "l": "wave number inside the barrier $\\sqrt{2m(E-V_0)}/\\hbar$ (for $E>V_0$)",
+  "a": "half-width of the well (or the width of the box)",
+  "L": "width of the barrier",
+  "x": "position",
+  "t": "time",
+  "T": "transmission probability",
+  "R": "reflection probability",
+  "\\psi": "stationary wave function (spatial part)",
+  "\\Psi": "time-dependent wave function",
+  "j": "probability current density",
+  "A": "amplitude of the wave",
+  "B": "amplitude of the wave",
+  "\\eta": "$\\kappa a$ (dimensionless decay constant)",
+  "\\xi": "$ka$ (dimensionless wave number)",
+  "N": "number of bound states",
+  "n": "quantum number",
+  "b": "constant",
+  "v": "velocity",
+  "I": "identity or intensity",
+  "i": "imaginary unit"
+ }
+}

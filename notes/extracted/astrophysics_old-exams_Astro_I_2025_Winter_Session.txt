@@ -1,0 +1,352 @@
+                            Astrophysics I                                      HS 2025
+                             402-0263-00L                              Prof. A. Refregier
+                                                                        February 4, 2026
+                           Winter Final Exam
+
+Full Name:
+Legi Number:
+
+                            Exam Instructions
+   • Write your full name and Legi number on the top of this sheet and every
+     sheet turned in.
+   • Short notes allowed: maximum 4 A4 pages (4 sheets 1-sided or 2 sheets 2-
+     sided)
+   • A non-programmable calculator is allowed, all other electronic devices are not
+     permitted and must be in a closed bag.
+   • Pens (blue or black ink) or pencils are allowed, no red or green ink is permit-
+     ted. Tipp-ex may be used.
+   • Clearly fill the box corresponding to your selection for multiple choice.
+   • Dictionaries (English, German, French, Italian) are permitted.
+   • No other books allowed.
+   • Multiple choice questions have only one correct answer.
+   • Write down intermediate steps for the non-multiple choice questions.
+   • Keep page margins free for grading purposes.
+   • Clearly indicate the question number you are working on in all written work.
+ Table 1: Physical Constants and Useful Quantities in SI Units
+Quantity                Symbol Value (SI Units)
+Gravitational constant G          6.67430 × 10−11 m3 kg−1 s−2
+Boltzmann constant      kB        1.380649 × 10−23 J K−1
+Planck’s constant       h         6.62607015 × 10−34 J s
+Speed of light          c         2.99792458 × 108 m s−1
+Proton mass             mp        1.67262192369 × 10−27 kg
+Solar mass              M⊙        1.9884 × 1030 kg
+Solar radius            R⊙        6.9570 × 108 m
+Parsec                  pc        3.085677581 × 1016 m
+Jansky                  Jy        1 × 10−26 W m−2 Hz−1
+Thomson cross section σT          6.652 458 × 10−29 m2
+1   Multiple Choice (45 points)
+Mark only one correct answer for each question.
+
+1. (3 points) Two stars have apparent magnitudes of m1 = 9.0 and m2 = 13.0. What is
+   the ratio of their fluxes?
+         □ F1 /F2 ≈ 5
+         □ F1 /F2 ≈ 15
+         □ F1 /F2 ≈ 20
+         □ F1 /F2 ≈ 40
+
+2. (3 points) Barnard’s Star has a Parallax of 547 milliarcseconds. How far away is it?
+         □ 1.8 pc
+         □ 18 pc
+         □ 180 pc
+         □ 1800 pc
+
+3. (3 points) In empty space, the specific intensity along a ray path remains constant be-
+   cause:
+         □ The energy density of radiation is conserved along the ray.
+         □ Both the received flux and the solid angle occupied by the source decrease as
+           the inverse square of distance.
+         □ The radiation field is isotropic in empty space.
+         □ The flux of the radiation is zero when averaged over all directions.
+
+4. (3 points) According to the Stefan-Boltzmann law, how does the total energy density U
+   of black body radiation in thermal equilibrium depend on its temperature T?
+         □ U ∝T
+         □ U ∝ T2
+         □ U ∝ T −1
+         □ U ∝ T4
+
+5. (3 points) Two main sequence stars differ in mass by a factor of 4. Approximately how
+   much longer does the lower-mass star live compared to the higher-mass star?
+         □ 4
+         □ 8
+         □ 16
+         □ 64
+6. (3 points) The upper mass limit of stars on the main sequence is due to
+          □ The small optical depth of the material in the stellar interior.
+          □ The depletion of hydrogen in the stellar core.
+          □ Cosmic Rays in the environment of the star.
+          □ The outward pressure exerted by radiation overcoming the inward pull of grav-
+            ity.
+
+7. (3 points) The 21 cm spectral line is one of the most important tools for mapping the
+   structure of the Milky Way. What is the physical origin of this emission line?
+          □ The recombination of an electron with a proton in ionized Hydrogen regions.
+          □ Rotational transitions of Carbon monoxide molecules in dense clouds.
+          □ The hyperfine splitting of the ground state of neutral Hydrogen.
+          □ Synchrotron radiation emitted by cosmic rays spiralling in the Galactic mag-
+            netic field.
+
+8. (3 points) Stars in the Milky Way and similar galaxies are broadly categorized into
+   two populations based on their age, location, and chemical composition. Which of the
+   following statements best describes Population II stars?
+          □ They are young, metal-rich stars located primarily in the galactic disk.
+          □ They are old, metal-poor stars located primarily in the galactic halo and bulge.
+          □ They are stars currently forming within dense molecular clouds in the spiral
+            arms.
+          □ They are exclusively white dwarfs.
+
+9. (3 points) In the context of stellar dynamics, galaxies (with N ≈ 1011 stars) are often
+   described as collisionless systems. What is the primary physical reason for this classifi-
+   cation?
+          □ The physical radius of stars is large enough compared to the distance between
+            stars that close encounters are frequent.
+          □ The time required for gravitational encounters to significantly change the star’s
+            velocities is much longer than the age of the Universe.
+          □ The dark matter halo suppresses the random motions of stars, preventing them
+            from interacting.
+          □ The stars all have coherent circular velocities and thus remain equidistant from
+            one another.
+10. (3 points) For a virialized stellar cluster made up of N identical stars of mass m and with
+    a cluster radius ⟨R⟩, which expression is the square velocity dispersion ⟨v 2 ⟩ proportional
+    to?
+           □ N⟨R⟩
+                m
+
+
+           □ Nm
+              ⟨R⟩
+
+           □ N⟨R⟩
+                m
+              m
+           □ ⟨R⟩ 2
+
+
+
+11. (3 points) Free relativistic electrons with an energy distribution N (E) ∝ E −2 in a region
+    of the interstellar medium with magnetic fields emit synchrotron radiation. What is the
+    spectrum f (ν) of the radiation emitted, where ν is the photon frequency?
+                         1
+           □ f (ν) ∝ ν − 2
+           □ f (ν) ∝ ν −1
+                         3
+           □ f (ν) ∝ ν − 2
+           □ f (ν) ∝ ν −2
+
+12. (3 points) Measurements find that the rotation curves of spiral galaxies become asymp-
+    totically flat (vc ≈ constant) at large radii r. For the outer regions of these galaxies,
+    what does this imply for the mass Mr enclosed within a radius r?
+           □ Mr = constant
+                  √
+           □ Mr ∝ r
+           □ Mr ∝ r
+           □ Mr ∝ r2
+
+13. (3 points) An astronomer observes a distant galaxy with a redshift of z = 0.024. Assum-
+    ing that the galaxy follows Hubble’s Law and taking the Hubble constant to be H0 = 72
+    km s−1 Mpc−1 , what is the approximate distance to this galaxy?
+           □ 10 Mpc
+           □ 100 Mpc
+           □ 300 Mpc
+           □ 720 Mpc
+
+14. (3 points) If we observe the 21 cm line at 700 MHz at which redshift was it emitted?
+           □ z ≈ 0.3
+           □ z ≈ 0.5
+           □ z≈1
+           □ z≈2
+15. (3 points) If measurements indicate that the total density of the universe is greater
+    than the critical density (i.e., Ωtot = ρtot /ρcrit > 1), what is the spatial geometry of the
+    universe?
+           □ Flat (k = 0)
+           □ Open / Hyperbolic (k = −1)
+           □ Closed / Spherical (k = +1)
+           □ Cylindrical
+2    Open Questions (68 points)
+1. (6 points) The Sun has a radius R⊙ = 6.9570 × 108 m and an apparent magnitude seen
+   from 1 astronomical unit (1 AU =1.495 × 1011 m) away of m⊙ = −26.8.
+    (a) (3 points) The average human eye can resolve details in objects with an angular
+        diameter of 1 arcminute or larger. How far away from the Sun would an observer
+        need to be to no longer be able to resolve it with the naked eye? Express your
+        answer in AU. Hint: You can use the small angle approximation.
+    (b) (3 points) Under optimal conditions, the human eye can detect sources with an
+        apparent magnitude as faint as m ∼ 7. Use this information to determine the
+        distance at which a human would no longer be able to see the Sun with the naked
+        eye. Express your answer in parsecs.
+    Note: For both of these questions you can ignore the effect of the expansion of the
+    universe as well as the extinction due to the ISM.
+2. (10 points) In cosmological observations of fluctuations in the cosmic microwave back-
+   ground (CMB), thermal dust emission in our galaxy can act as a systematic foreground.
+   (a) (4 points) The specific intensity, Iν , of thermal emission of an optically thick ob-
+       ject depends only on its temperature T and is given by Bν (T ). Show that for all
+       frequencies, ν, this specific intensity increases as the temperature increases. Use,
+
+                                                  2h      ν3
+                                      Bν (T ) =                .
+                                                  c2 e khν
+                                                        BT − 1
+
+
+
+   (b) (4 points) The CMB is observed as a near perfect blackbody spectrum charac-
+       terised by a temperature of TCMB = 2.73 K. A typical CMB intensity fluctuation
+       is of amplitude 10−5 Bν (TCMB ). Thermally emitting dust in our galaxy is typically
+       observed with a temperature of Td =20 K. Assuming this dust emission was also
+       optically thick everywhere, show that, at ν = 100 GHz, the thermal dust emission
+       would be ∼ 1.8 × 106 times brighter than the magnitude of this CMB fluctuation.
+   (c) (2 points) There is in fact an observational window where the CMB fluctuations
+       are brighter than thermal dust emission in some regions of the sky and at some
+       frequencies. This is due to the fact that the thermal dust is not optically thick
+       and instead emits with a modified blackbody (sometimes referred to as a greybody)
+       spectrum which can be modelled as:
+                                                                   ν    β
+                          Iν = τν Bν (Td ) where τν = τ353                  ,
+                                                                 353 GHz
+       where τ353 is the optical thickness at 353 GHz. Using typical values of Td = 20 K
+       and β = 1.6, for what values of τ353 would the CMB fluctuation of amplitude given
+       in part b) be brighter than the thermal dust at ν = 100 GHz?
+3. (7 points) A main sequence star has a mass of 10 M⊙ .
+   (a) (3 points) Derive an expression for the surface temperature of the star, Teff⋆ , in
+       terms of the surface temperature of the Sun, Teff⊙ , and the mass of the Sun, M⊙ .
+       Given that Teff⊙ ≃ 5770 K, compute the value of Teff⋆ . Hint: Use the scaling
+       relations L ∝ M 3 and L ∝ Teff
+                                   6
+                                      for main sequence stars.
+   (b) (3 points) Compute the peak wavelength, λmax⋆ , of the radiation emitted by this
+       star and compare it the peak wavelength of the Sun, λmax⊙ . You can assume
+       that stars emit thermal black body radiation. Hint: Use Wien’s displacement law
+       λmax T = b = 2.898 × 10−3 m K.
+   (c) (1 point) Does the star appear to be more red or blue compared to the Sun?
+4. (14 points) A Plummer sphere is a collisionless stellar system of self-gravitating particles
+   of mass m which is spherically symmetric and has a phase-space distribution function
+   of the following form               
+                                       f0 (−E) 72 , E < 0,
+                               f (E) =
+                                       0,              E ≥ 0,
+                                     2
+   where f0 is a constant, and E = v2 + Φ(r) is the energy (per unit mass) and is a constant
+   of motion.
+   (a) (6 points) For the above distribution function, show that the mass density
+
+                                            ρ(Φ) ∝ (−Φ)5
+
+        Hints: Using the relation
+                                R v between the   density ρ and the distribution function f ,
+                                            7
+        show that ρ(r) = 4πm 0 max f0 (−E) 2 v 2 dv and relate vmax to the potential Φ. Define
+                                                                                    R1 1
+        x = v 2 /(−2Φ) and make a change of variable in the integral. Note that 0 x 2 (1 −
+           7       7π
+        x) 2 dx = 256 is a constant.
+   (b) (4 points) Using the results from part (a) and the Poisson equation, one can show
+       that the potential has the following radial dependence
+                                                    GM
+                                         Φ(r) = − √         ,
+                                                   r 2 + a2
+        where a is a parameter and M is the total mass. (Note: you do not need to derive
+        this equation.) Find an explicit expression for the circular velocity profile vc (r) of
+        the Plummer sphere. Hint: Start by equating the centripetal acceleration to the
+        gravitational acceleration dΦ/dr.
+    (c) (4 points) Using the form for Φ(r) given in part (b) and the Poisson equation,
+                                                 
+                                    1 d      2 dΦ
+                                           r        = 4πG ρ(r),
+                                    r2 dr      dr
+
+        derive an explicit expression for the density profile ρ(r) of the Plummer sphere.
+        What is the density at the centre of the Plummer sphere?
+5. (11 points) Consider the total X-ray luminosity due to thermal bremsstrahlung emission
+   from the ionised plasma at temperature T in the intracluster medium of a galaxy cluster.
+   We will derive an approximate scaling relation between this observed luminosity and the
+   total mass of the cluster.
+   (a) (3 points) Given the emissivity of thermal bremsstrahlung due to the scattering of
+       electrons and protons (assuming the Gaunt factor is roughly constant with ν and
+       T in the relevant regime),
+                                                            −hν
+                                       ϵν ∝ ne np T −1/2 e kB T .
+
+       Show that the bolometric luminosity integrated over the cluster volume,
+                                  Z      Z ∞         Z
+                            LX = dV          ϵν dν ∝ ρ2g T 1/2 dV.
+                                              0
+
+       Use the fact that the plasma is neutral such that the number densities of electrons
+       and protons ne , np are equal, and that the mean molecular weight per electron, µe
+       is constant such that the gas density ρg = µe ne mp .
+   (b) (3 points) Assuming the intracluster gas is in virial equilibrium, supported against
+       gravity by its thermal energy, derive a scaling relation for the gas temperature in
+       terms of the total cluster mass, M , and a characteristic radius, ⟨R⟩. First, let the
+       total potential energy,
+
+                                                −GM 2
+                                           V̄ ∝       .
+                                                 ⟨R⟩
+
+       For the kinetic term, start with a kinetic energy per particle ∝ kB T and, by relating
+       the number of gas particles N , each of mass µe mp to the total gas mass, Mg , write a
+       relationship for the total kinetic energy. For the final relationship assume the mass
+       of the gas is a constant fraction, fg of the total cluster mass so Mg = fg M .
+   (c) (2 points) Using this result, show that if we further simplify by assuming, M ∝ ⟨R⟩3
+       one finds,
+
+                                             T ∝ M 2/3
+
+   (d) (3 points) Finally, by roughly approximating the integral as,
+                                      Z
+                                LX ∝ ρ2g T 1/2 dV ∝ ρ2g T 1/2 ⟨R⟩3 ,
+
+       and using the same assumptions as above, derive the mass-luminosity scaling rela-
+       tion,
+
+                                            LX ∝ M 4/3
+6. (8 points) Consider a black hole of mass MBH (t) accreting mass at a rate
+
+                                                 dMacc
+                                       Ṁacc ≡         .
+                                                  dt
+  A fraction η = 0.1 of the rest-mass energy of the accreted material is converted into
+  radiation, producing a luminosity
+
+                                        L = η Ṁacc c2 .
+
+  The remaining fraction of the accreted mass is added to the black hole, leading to its
+  mass increase
+                                             dMBH
+                                     ṀBH ≡        .
+                                               dt
+  Assume that the black hole radiates at the Eddington luminosity
+                                            4πGMBH mp c
+                                   LEdd =               ,
+                                               σT
+  where mp is the proton mass, σT is the Thomson scattering cross section and G is the
+  gravitational constant.
+   (a) (6 points) Write a differential equation governing the growth of MBH (t) in terms of
+       η, LEdd , and fundamental constants. Substitute the expression for LEdd and show
+       that the solution to the differential equation is
+
+                                     MBH (t) = MBH (0)et/tS .
+
+       Give an expression for the Salpeter time tS and show that it is approximately equal
+       to tS ≃ 5.0 × 107 yr.
+   (b) (2 points) Using the above results, estimate the time required for the black hole to
+       double its mass.
+7. (12 points) The early universe was hot, dense, and dominated by radiation. Consider a
+   spatially flat (k = 0) universe containing only radiation.
+   (a) (4 points) The energy density of radiation scales with the scale factor as ρ ∝ a−4 .
+       Starting from the Friedmann equation for a flat universe
+                                         2
+                                          ȧ      8πG
+                                               =      ρ
+                                          a        3
+
+       show that the scale factor scales as a(t) ∝ t1/2 in this case. You may assume that,
+       at the Big Bang, t = 0 and a(0) = 0.
+   (b) (4 points) The energy density of blackbody radiation is related to its temperature
+       T by the Stefan-Boltzmann law, ρ ∝ T 4 . Using the results from part (a), show that
+       the temperature of the universe evolves with cosmic time as T (t) ∝ t−1/2 .
+   (c) (4 points) Big Bang Nucleosynthesis took place when the universe has cooled to a
+       temperature of TBBN ≈ 109 K. Assuming that the universe is radiation dominated
+       throughout this epoch, and given that the temperature at t = 1 s was approximately
+       T ≈ 1.5 × 1010 K, estimate the age of the universe tBBN when nucleosynthesis took
+       place.
+

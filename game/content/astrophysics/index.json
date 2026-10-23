@@ -1,0 +1,17 @@
+{
+  "region": "Astro Observatory Ship",
+  "rooms": [
+    "photometry-radiation",
+    "radiative-transfer",
+    "stellar-forge",
+    "nuclear-furnace",
+    "degenerate-matter",
+    "interstellar-medium",
+    "galactic-dynamics",
+    "active-galaxies",
+    "expanding-universe",
+    "early-universe",
+    "exam-hall"
+  ],
+  "codex": "codex.json"
+}

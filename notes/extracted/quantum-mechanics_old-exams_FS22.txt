@@ -1,0 +1,189 @@
+          Repeat Exam, 16. August 2022
+
+                   08:30 – 11:30
+
+
+
+
+Name:
+
+
+Matrikel-Nummer:
+
+
+
+
+For correction — please leave empty
+
+
+Question 1:
+
+
+Question 2:
+
+
+Question 3:
+
+
+Question 4:
+Question 1 [Wave mechanics — 17 pt ]: Let Ψ(x, t) be a solution of the time-dependent
+Schrödinger equation (in one spatial dimension). The probability density is dened by
+ρ(x, t) = |Ψ(x, t)|2 .
+
+  (i) Show the continuity equation
+
+                                   d
+                                      ρ(x, t) + ∂x j(x, t) = 0 ,                         (1)
+                                   dt
+     where j(x, t) is the probability current that you should dene. [4 pt]
+
+ (ii) For a free particle of mass m in one dimension (i.e. V (x) = 0), state the most general
+      (non-normalised) solution of the time-dependent Schrödinger equation with energy
+            k2
+      E = 2m   . Determine the probability current of this solution. [4 pt]
+
+(iii) Consider now the situation where the potential is given by
+                                         {
+                                           0        x<0
+                                 V (x) =                                                 (2)
+                                           V0       x>0,
+
+     where 0 < V0 . Derive the most general (non-normalised) solution of the time-
+     independent Schrödinger equation with energy E > V0 , describing an incoming
+     particle from the left. Determine the probability current of this solution and conrm
+     that the continuity equation (1) holds. [7 pt]
+
+(iv) For E < V0 , briey argue that the probability current vanishes, i.e. j(x, t) = 0. [2
+     pt]
+Question 2 [Angular momentum — 15 pt ]: The angular momentum operator is dened
+by
+                       Lj = −i~jkl xk ∂xl , j = 1, 2, 3 ,                   (3)
+where xj is the position operator.
+
+  (i) Show that the commutator [Lj , Lk ] equals
+
+                                     [Lj , Lk ] = i~ jkl Ll .                         (4)
+
+     [Hint: Work out [L1 , L2 ], and then argue by symmetry.] [2 pt]
+
+ (ii) Let us dene the generators L± = L1 ± iL2 . Calculate the commutators [L3 , L± ]
+      and [L+ , L− ], and express the answers in terms of these generators. [2 pt]
+
+(iii) In an irreducible representation of the rotation group the generators L3 and L± act
+      as
+                                                   
+         L3 |l, m〉 = ~ m |l, m〉 ,    L± |l, m〉 = ~ l(l + 1) − m(m ± 1) |l, m ± 1〉 . (5)
+
+     Show that the expectation value of L1 and L2 in such a state |l, m〉 vanishes,
+
+                                 〈L1 〉 = 〈L2 〉 = 0 .       [3 pt]                      (6)
+
+(iv) Determine the uncertainties ∆L1 and ∆L2 in this state, and show that
+                                   1 (
+                          ∆L1 ∆L2 = ~2 l(l + 1) − m2 .
+                                                    )
+                                                                    [5 pt]             (7)
+                                   2
+
+ (v) State the Heisenberg uncertainty relation for L1 and L2 . Compute the lower bound
+     in the uncertainty relation explicitly and show that eq. (7) is compatible with this.
+     [3 pt]
+Question 3 [Heisenberg picture — 17 pt ]: The propagator is dened by
+
+                                    Ψ(t) = U (t, s) Ψ(s) ,                              (8)
+
+where Ψ(t) is a solution of the time-dependent Schrödinger equation.
+
+  (i) State the time-dependent Schrödinger equation, and the dierential equation (in t)
+      for U (t, s). [2 pt]
+
+ (ii) We denote the wavefunction in the Schrödinger picture by ΨS (t). Dene the wave
+      function ΨH and the operators AH in the Heisenberg picture. Using the dierential
+      equation satised by the propagator (or alternatively starting from the Schrödinger
+      equation), show that the equation of motion of an operator AH in the Heisenberg
+      picture is
+                                 d       i
+                                   AH = [HH , AH ] + ∂t AH ,                           (9)
+                                dt       ~
+      where HH is the Hamilton operator in the Heisenberg picture. [6 pt]
+
+(iii) A particle in three dimensions is described by the Hamiltonian
+
+                                              ~p 2
+                                     H=            + k 1 x + k2 y ,                    (10)
+                                              2m
+     where k1 and k2 are constants. Evaluate the commutators
+
+                       [H, px ] ,      [H, py ] ,       [H, pz ] ,     [H, x] .        (11)
+
+     Which, if any, of 〈px 〉, 〈py 〉, or 〈pz 〉 are conserved under time evolution (for an
+     arbitrary initial state)? [3 pt]
+
+(iv) Suppose A is a hermitian operator, and the ψn represent energy eigenstates satis-
+     fying the eigenvalue equation Hψn = En ψn . Show that
+
+                      〈ψn |[H, A]|ψ` 〉 = (En − E` ) 〈ψn |A|ψ` 〉 .             [2 pt]   (12)
+
+ (v) Consider now a general Hamilton operator of the form
+
+                                                 ~p 2
+                                        H=            + V (~r) .                       (13)
+                                                  2m
+     Using the result of (iv) deduce that for eigenstates ψn and ψ` of H
+                                              im
+                            〈ψn |~p |ψ` 〉 =      (En − E` ) 〈ψn |~r |ψ` 〉 .            (14)
+                                               ~
+     The case ` = n can be obtained from a known theorem from the lecture. State that
+     theorem in general, and explain how your result follows from it. [4 pt]
+Question 4 [Degenerate perturbation theory — 15 pt ]: Let H0 be a Hamiltonian whose
+complete set of eigenfunctions is described by
+
+                                 H0 ψ n = E n ψ n ,     n = 0, 1, 2, . . . .                            (15)
+
+We want to nd the eigenfunctions of the perturbed Hamiltonian
+
+                                            H = H0 + λH ′ .                                             (16)
+
+  (i) Let ψ be an eigenstate of the perturbed system with energy E. Make an ansatz for
+      ψ and E as a power series in λ, and derive the equations for the perturbation at
+      any order λs . [5 pt]
+      [Hint: Derive a general equation that holds for s ≥ 2, and then treat the cases s = 0
+      and s = 1 separately.]
+
+ (ii) Let us assume that the unperturbed energy Em of the solution whose perturbed
+      energy we want to determine is 3-fold degenerate, and denote the corresponding
+      orthonormal eigenstates of H0 by |`〉, |n〉 and |k〉. Using the relevant relation from
+      (i), derive an eigenvalue equation that determines the values of the perturbed energy
+      E of H to rst order in λ. (You do not need to solve this eigenvalue equation.)
+      [4 pt]
+
+(iii) Consider the three-dimensional harmonic oscillator
+
+                               H0 = ~ω a† a + b† b + c† c + 32 ,
+                                       (                      )
+                                                                                                        (17)
+
+     where (a, a† ), (b, b† ), and (c, c† ) are the annihilation and creation operators associ-
+     ated to the three coordinate axes x, y, and z, i.e.
+                             √                               √
+                                 ~            †                 ~mω
+                      x=             (a + a ) ,       px = −         i (a − a† ) ,         (18)
+                                2mω                              2
+     and similarly for (y, py ) and (z, pz ). We take H ′ to be the operator
+
+                                          H ′ = ωLz = ω (xpy − ypx ) .                                  (19)
+
+     Consider the three-fold degenerate eigenstates of H0 with eigenvalue Em = 52 ~ω, and
+     determine the eigenvalues of the perturbed problem to rst order in perturbation
+     theory. [5 pt]
+     [Hint: It is convenient to label the states in terms of their excitation numbers
+     |na , nb , nc 〉, where a† a|na , nb , nc 〉 = na |na , nb , nc 〉 and similarly for nb and nc . You
+     may also use that
+
+       a|1, nb , nc 〉 = |0, nb , nc 〉 ,      a|0, nb , nc 〉 = 0 ,      a† |0, nb , nc 〉 = |1, nb , nc 〉 , (20)
+
+     and similarly for the other generators.]
+
+(iv) Comment briey on why you could have expected this result based on the represen-
+     tation theory of SO(3). [1 pt]
+

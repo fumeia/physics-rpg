@@ -1,0 +1,1523 @@
+{
+ "region": "QM Interference Labs",
+ "course": "quantum-mechanics",
+ "exhibit": "set",
+ "id": "qm-entanglement-lab",
+ "title": "Entanglement Lab: EPR, Bell and CHSH",
+ "topics": [
+  "tensor products and product vs entangled states",
+  "Bell basis and the singlet",
+  "density matrix, purity, partial trace",
+  "EPR pair and spin correlations",
+  "Bell-CHSH inequality and the bound 2 sqrt 2",
+  "Hardy paradox",
+  "quantum teleportation",
+  "no-cloning (supplement)"
+ ],
+ "sources": [
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 10.1-10.3 (pp. 108-113): EPR paradox, Bell inequality, teleportation"
+  },
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 9.1-9.3 (pp. 93-98): tensor products, two spin-1/2"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 13.pdf",
+   "where": "Question 3 [Hardy's paradox]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+   "where": "Question 3 [EPR pair, 12 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+   "where": "Question 3 [Spin 1 EPR pair, 18 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+   "where": "Aufgabe D [Dichtematrizen, 18 Punkte]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS14.pdf",
+   "where": "E.3-E.5"
+  },
+  {
+   "file": "notes/quantum-mechanics/ch10-entanglement.md",
+   "where": "transcription and worked solutions"
+  }
+ ],
+ "intro": "Two particles, one state: $|\\psi\\rangle=\\frac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)$ cannot be written as a product, each particle alone is maximally random ($\\rho_A=\\frac12\\mathbb 1$), yet the outcomes along any common axis are perfectly anticorrelated. Bell and CHSH turn this into a number: local hidden variables obey $|S|\\le2$, the singlet reaches $2\\sqrt2$. The room covers product vs entangled states, the Bell basis, density matrices and partial traces, the EPR pair (HS21 Q3, FS19 Q3, FS16 D), CHSH, Hardy and teleportation.",
+ "tutorial": [
+  {
+   "title": "The source",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The glowing orb in the middle emits the singlet pair; the two pillars are Alice's and Bob's detectors. Each particle alone is random, the pair is perfectly anticorrelated: $C=-\\vec n_1\\cdot\\vec n_2$.</p>"
+  },
+  {
+   "title": "The CHSH dial",
+   "look": {
+    "x": 4,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The bars show the CHSH value $S(\\varphi)=2(\\cos\\varphi+\\sin\\varphi)$ as Bob's detector turns. The classical limit $2$ is the white line, the quantum maximum $2\\sqrt2\\approx2.83$ the gold line, reached at $\\varphi=\\frac\\pi4$.</p>"
+  },
+  {
+   "title": "Consoles",
+   "look": {
+    "x": 0,
+    "z": 0
+   },
+   "focus": null,
+   "html": "<p>Four lessons (product states, density matrices, EPR, Bell/CHSH), a quiz, six derivations (singlet, correlation, CHSH, partial trace, teleportation, no-cloning), three calculation fights and three bosses (HS21 Q3, FS19 Q3, FS16 D).</p>"
+  }
+ ],
+ "encounters": [
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ent-L1",
+   "title": "Product states, entangled states and the Bell basis",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 9.1-9.3 (pp. 93-98) tensor products; Ch. 10.1 (p. 108) EPR pair"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+     "where": "Aufgabe D, D.3-D.4 (entangled or not?)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS14.pdf",
+     "where": "E.4-E.5"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Two systems $A,B$ with Hilbert spaces $V_A,V_B$ live in $V_A\\otimes V_B$. A <b>product state</b> is $|\\varphi\\rangle_A\\otimes|\\chi\\rangle_B$; every other pure state is <b>entangled</b>. The general two-qubit state is $|\\Psi\\rangle=\\sum_{i,j\\in\\{0,1\\}}c_{ij}|ij\\rangle$ (first index system $A$, second $B$), and it is a product state exactly when the coefficient matrix has rank one:"
+    },
+    {
+     "kind": "eq",
+     "tex": "|\\Psi\\rangle=\\varphi\\otimes\\chi\\iff c_{ij}=\\varphi_i\\chi_j\\iff \\det C=c_{00}c_{11}-c_{01}c_{10}=0",
+     "label": "rank-one test; the same test works for $|\\!\\uparrow\\rangle,|\\!\\downarrow\\rangle$ instead of $|0\\rangle,|1\\rangle$"
+    },
+    {
+     "kind": "text",
+     "html": "<b>FS16 D.3 in this language</b> (states $|ij\\rangle=|i\\rangle_A|j\\rangle_B$, unnormalised). $|11\\rangle$: only $c_{11}\\neq0$, $\\det C=0$, product. $|10\\rangle-|01\\rangle$: $c_{10}=1,c_{01}=-1$, $\\det C=0\\cdot0-(-1)(1)=1\\neq0$, entangled. $|11\\rangle+|00\\rangle$: $\\det C=1$, entangled. $|10\\rangle+|11\\rangle=|1\\rangle\\otimes(|0\\rangle+|1\\rangle)$: row $c_{0j}$ vanishes, $\\det C=0\\cdot1-1\\cdot0=0$, product."
+    },
+    {
+     "kind": "eq",
+     "tex": "|\\Phi^\\pm\\rangle=\\tfrac1{\\sqrt2}(|{\\uparrow\\uparrow}\\rangle\\pm|{\\downarrow\\downarrow}\\rangle),\\quad |\\Psi^\\pm\\rangle=\\tfrac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle\\pm|{\\downarrow\\uparrow}\\rangle),\\qquad |\\Psi^-\\rangle=|0,0\\rangle\\ \\text{(singlet)},\\ \\ |\\Psi^+\\rangle=|1,0\\rangle",
+     "label": "the four Bell states: an orthonormal basis of maximally entangled states; in the script the singlet (10.1) and the triplet of Ch. 9.3"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Where do the Bell states come from?</b> Ch. 9: the total spin $\\vec S=\\vec S_1+\\vec S_2$ gives $D_{1/2}\\otimes D_{1/2}=D_1\\oplus D_0$. The singlet $|0,0\\rangle$ is the unique state with $S_a|0,0\\rangle=0$ for $a=x,y,z$; it is therefore invariant under a joint rotation of both spins (script p. 108). The other three Bell states lie in the triplet $D_1$ ($\\vec S^2=2\\hbar^2$): $\\Psi^+=|1,0\\rangle$, $\\Phi^+=\\frac1{\\sqrt2}(|1,1\\rangle+|1,-1\\rangle)$, $\\Phi^-=\\frac1{\\sqrt2}(|1,1\\rangle-|1,-1\\rangle)$ (definite $\\vec S^2$, not definite $S_z$ for $\\Phi^\\pm$)."
+    },
+    {
+     "kind": "intuition",
+     "html": "Entangled means: the whole is described completely, the parts are not. For $|0,0\\rangle$ the spin of particle 1 along <i>any</i> axis is $\\pm\\frac\\hbar2$ with probability $\\frac12$ each (no preferred direction), yet the two outcomes along the same axis are perfectly anticorrelated."
+    },
+    {
+     "kind": "pitfall",
+     "html": "A superposition of two product states is not automatically entangled: $\\frac1{\\sqrt2}(|\\!\\uparrow\\rangle+|\\!\\downarrow\\rangle)\\otimes|\\chi\\rangle$ is a product state. Also $\\frac12(|\\!\\uparrow\\uparrow\\rangle+|\\!\\uparrow\\downarrow\\rangle+|\\!\\downarrow\\uparrow\\rangle+|\\!\\downarrow\\downarrow\\rangle)=|+x\\rangle|+x\\rangle$ is a product: the determinant test, not the look of the sum, decides. Entanglement is basis independent."
+    }
+   ],
+   "check": [
+    {
+     "q": "Which two-qubit state is entangled?",
+     "options": [
+      "$\\frac1{\\sqrt2}(|00\\rangle+|11\\rangle)$",
+      "$\\frac12(|00\\rangle+|01\\rangle+|10\\rangle+|11\\rangle)$",
+      "$\\frac1{\\sqrt2}(|10\\rangle+|11\\rangle)$",
+      "$|01\\rangle$"
+     ],
+     "correct": 0,
+     "explain": "$\\det C=\\frac12\\neq0$ for the Bell state; the other three have rank one."
+    },
+    {
+     "q": "The singlet $|0,0\\rangle=\\frac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)$ is characterised by",
+     "options": [
+      "$S_z|0,0\\rangle=\\hbar|0,0\\rangle$",
+      "$S_{1z}|0,0\\rangle=\\frac\\hbar2|0,0\\rangle$",
+      "$\\vec S^2|0,0\\rangle=\\frac34\\hbar^2|0,0\\rangle$",
+      "$S_a|0,0\\rangle=0$ for $a=x,y,z$ (invariance under joint rotations)"
+     ],
+     "correct": 3,
+     "explain": "Total spin zero means all three components of $\\vec S$ annihilate the state."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ent-L2",
+   "title": "Density matrix, purity and the reduced density matrix",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS14.pdf",
+     "where": "E.3 (Bloch form of rho), E.5 (density matrices, decoherence)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+     "where": "Aufgabe D, D.4-D.7 [18 pt]"
+    },
+    {
+     "file": "materials/quantum-mechanics/solutions/Quantenmechanik I FS16 (Solution).pdf",
+     "where": "D.3-D.7"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "A (pure or mixed) state is described by a density matrix $\\rho\\ge0$ with $\\mathrm{tr}\\rho=1$; $\\langle A\\rangle=\\mathrm{tr}(\\rho A)$. Pure: $\\rho=|\\psi\\rangle\\langle\\psi|$, equivalently $\\rho^2=\\rho$, equivalently $\\mathrm{tr}\\rho^2=1$ (eigenvalues $\\{1,0,\\dots\\}$). Mixed: $\\mathrm{tr}\\rho^2<1$ (FS16 D.4, D.7: \"pure or mixed?\" is answered by the eigenvalues or by $\\rho^2$)."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\rho=\\tfrac12\\big(a\\,\\mathbb 1+\\vec b\\cdot\\vec\\sigma\\big),\\quad \\mathrm{tr}\\rho=1\\Rightarrow a=1,\\quad \\mathrm{tr}\\rho^2=\\tfrac12(1+|\\vec b|^2),\\quad \\text{pure}\\iff|\\vec b|=1,\\ \\ \\text{mixed}\\iff|\\vec b|<1",
+     "label": "HS14 E.3 (3 pt): Bloch representation; $\\vec b=\\langle\\vec\\sigma\\rangle$, positivity requires $|\\vec b|\\le1$"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Derivation of the conditions (HS14 E.3).</b> $\\mathrm{tr}\\sigma_i=0$ and $\\mathrm{tr}\\mathbb 1=2$ give $\\mathrm{tr}\\rho=a=1$. With $(\\vec b\\cdot\\vec\\sigma)^2=|\\vec b|^2\\mathbb 1$: $\\rho^2=\\tfrac14(1+|\\vec b|^2+2\\vec b\\cdot\\vec\\sigma)$. Then $\\rho^2=\\rho$ requires $1+|\\vec b|^2=2$, i.e. $|\\vec b|=1$. The eigenvalues of $\\rho$ are $\\frac12(1\\pm|\\vec b|)$, so $|\\vec b|\\le1$ is positivity. FS16 D.7: $\\rho_1=\\frac12\\mathbb 1$ has $\\vec b=0$ (maximally mixed), $\\rho_2=\\frac12\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}=\\frac12(\\mathbb 1+\\sigma_x)$ has $\\vec b=(1,0,0)$: pure, it is $|+x\\rangle$."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\rho_A=\\mathrm{tr}_B\\,\\rho_{AB},\\qquad \\langle O_A\\otimes\\mathbb 1_B\\rangle=\\mathrm{tr}_A(\\rho_AO_A);\\qquad |\\Psi\\rangle=\\tfrac1{\\sqrt2}(|00\\rangle+|11\\rangle)\\Rightarrow\\rho_A=\\tfrac12\\big(|0\\rangle\\langle0|+|1\\rangle\\langle1|\\big)=\\tfrac12\\mathbb 1",
+     "label": "partial trace; FS16 D.6a: if the result of the measurement on B is not known, A is maximally mixed"
+    },
+    {
+     "kind": "text",
+     "html": "<b>The punchline.</b> A pure entangled state of $AB$ has <i>mixed</i> subsystems, and the purity of $\\rho_A$ measures the entanglement: product state $\\mathrm{tr}\\rho_A^2=1$, Bell state $\\mathrm{tr}\\rho_A^2=\\frac12$ (the minimum for a qubit). Measuring $B$ and learning the result $|1\\rangle$ projects, $\\tilde\\rho_{AB}=(\\mathbb 1\\otimes P_1)\\rho_{AB}(\\mathbb 1\\otimes P_1)=|11\\rangle\\langle11|$, so $\\rho_A=|1\\rangle\\langle1|$ is pure again (FS16 D.6b). Not learning the result averages over the outcomes with the weights $\\frac12$ and gives the mixed $\\frac12(|0\\rangle\\langle0|+|1\\rangle\\langle1|)$."
+    },
+    {
+     "kind": "eq",
+     "tex": "P_{x_i}=\\langle x_i|\\rho_{AB}|x_i\\rangle:\\quad \\rho_{AB}=|\\Phi^+\\rangle\\langle\\Phi^+|\\ \\Rightarrow\\ (P_{x_1},P_{x_2},P_{x_3},P_{x_4})=(1,0,0,0)",
+     "label": "FS16 D.5: measurement in the Bell basis $x_1=\\Phi^+,x_2=\\Phi^-,x_3=\\Psi^+,x_4=\\Psi^-$ identifies the state with certainty"
+    },
+    {
+     "kind": "exam",
+     "html": "HS14 E.5 (3 pt): the state $\\frac12(|\\!\\downarrow\\rangle+|\\!\\uparrow\\rangle)\\otimes(|\\!\\downarrow\\rangle+|\\!\\uparrow\\rangle)$ is a product, $\\rho=\\rho_1\\otimes\\rho_2$ with $\\rho_i=\\frac12(\\mathbb 1+\\sigma_x)$. After complete decoherence (in the $\\sigma_z$ basis) all off-diagonal elements vanish: $\\rho\\to\\frac14\\mathbb 1_4$. The Bell state $\\frac1{\\sqrt2}(|{\\uparrow\\uparrow}\\rangle+|{\\downarrow\\downarrow}\\rangle)$ decoheres to $\\frac12(|{\\uparrow\\uparrow}\\rangle\\langle{\\uparrow\\uparrow}|+|{\\downarrow\\downarrow}\\rangle\\langle{\\downarrow\\downarrow}|)$: classically correlated, no longer entangled."
+    },
+    {
+     "kind": "pitfall",
+     "html": "$\\mathrm{tr}\\rho^2=1$ is for the density matrix of the system you ask about. The two-qubit state can be pure while $\\rho_A$ is mixed; do not conclude \"mixed, so not entangled\" from $\\rho_{AB}$ when you only looked at $\\rho_A$ (and vice versa). Also: a mixture is not a superposition: $\\frac12\\mathbb 1\\neq|\\psi\\rangle\\langle\\psi|$ for any $\\psi$."
+    }
+   ],
+   "check": [
+    {
+     "q": "A qubit state has $\\rho=\\frac12(\\mathbb 1+\\vec b\\cdot\\vec\\sigma)$ with $|\\vec b|=\\frac12$. Then $\\mathrm{tr}\\rho^2$ equals",
+     "options": [
+      "$1$",
+      "$\\frac12$",
+      "$\\frac14$",
+      "$\\frac58$"
+     ],
+     "correct": 3,
+     "explain": "$\\mathrm{tr}\\rho^2=\\frac12(1+|\\vec b|^2)$."
+    },
+    {
+     "q": "For the Bell state $\\Phi^+$ the reduced density matrix of subsystem $A$ is",
+     "options": [
+      "$|0\\rangle\\langle0|$",
+      "$\\frac12(|0\\rangle\\langle 0|+|0\\rangle\\langle1|+|1\\rangle\\langle0|+|1\\rangle\\langle1|)$",
+      "$\\frac12\\mathbb 1$ (purity $\\frac12$)",
+      "$\\Phi^+$ itself"
+     ],
+     "correct": 2,
+     "explain": "$\\mathrm{tr}_B(|00\\rangle\\langle11|)=|0\\rangle\\langle1|\\,\\langle1|0\\rangle=0$, only the diagonal terms survive."
+    },
+    {
+     "q": "The matrix $\\frac12\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$ is",
+     "options": [
+      "pure, $\\vec b=(1,0,0)$",
+      "mixed, $\\vec b=0$",
+      "mixed, since it has off-diagonal entries",
+      "not a valid density matrix"
+     ],
+     "correct": 0,
+     "explain": "FS16 D.7: eigenvalues $1$ and $0$, so rank one."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ent-L3",
+   "title": "The EPR pair: the singlet, perfect anticorrelation and the correlation function",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 10.1 (p. 108-109) EPR paradox, eq. (10.1), (10.9)-(10.11)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+     "where": "Question 3 [EPR pair, 12 pt] (iii)-(v)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+     "where": "Aufgabe 3 / Question 3 [Spin 1 EPR pair, 18 pt]"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS16.pdf",
+     "where": "Aufgabe 1.10 (EPR-Paradoxon, 1 P)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "<b>The singlet from its defining property (HS21 Q3 (iii), 4 pt).</b> The state with $S_a|\\psi_s\\rangle=0$ for $a=x,y,z$ ($S_a=S_a^{(1)}+S_a^{(2)}$). Write $|\\psi_s\\rangle=\\alpha|{\\uparrow\\uparrow}\\rangle+\\beta|{\\uparrow\\downarrow}\\rangle+\\gamma|{\\downarrow\\uparrow}\\rangle+\\delta|{\\downarrow\\downarrow}\\rangle$. $S_z\\psi_s=0$ gives $\\alpha=\\delta=0$ (the $m=\\pm1$ components). With $S_+=S_x+iS_y$ and $S_\\pm|j,m\\rangle=\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$ ($\\hbar=1$): $S_+(\\beta|{\\uparrow\\downarrow}\\rangle+\\gamma|{\\downarrow\\uparrow}\\rangle)=(\\beta+\\gamma)|{\\uparrow\\uparrow}\\rangle=0$, so $\\gamma=-\\beta$."
+    },
+    {
+     "kind": "eq",
+     "tex": "|\\psi_s\\rangle=\\tfrac1{\\sqrt2}\\big(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle\\big)=|0,0\\rangle,\\qquad P\\big(S_z^{(1)}=\\tfrac12\\big)=\\tfrac12,\\qquad P\\big(S_z^{(2)}=\\tfrac12\\,\\big|\\,S_z^{(1)}=\\tfrac12\\big)=0",
+     "label": "HS21 Q3 (iv) 1 pt and (v) 2 pt: after the first outcome the state is projected on $|{\\uparrow\\downarrow}\\rangle$"
+    },
+    {
+     "kind": "text",
+     "html": "<b>EPR (script 10.1, HS16 1.10).</b> Prepare the singlet (e.g. from a decay $\\pi^0\\to e^-e^+$), let the particles separate far (space-like separated measurements). Alice measures $S^{(1)}_{\\vec n}$, Bob $S^{(2)}_{\\vec n}$ along the same axis: always opposite results $(\\frac\\hbar2,-\\frac\\hbar2)$ or $(-\\frac\\hbar2,\\frac\\hbar2)$, each with probability $\\frac12$, <i>for every axis</i> since the singlet is rotation invariant. So Bob's result can be predicted without disturbing his particle. Either the outcome was fixed in advance (hidden variables) or the measurement on one side influences the other. Local hidden variables are excluded by Bell's inequality (next lesson)."
+    },
+    {
+     "kind": "eq",
+     "tex": "C(\\vec n_1,\\vec n_2)=\\langle\\psi_s|(\\vec\\sigma^{(1)}\\!\\cdot\\vec n_1)(\\vec\\sigma^{(2)}\\!\\cdot\\vec n_2)|\\psi_s\\rangle=-\\vec n_1\\cdot\\vec n_2",
+     "label": "script (10.11); uses $(\\vec\\sigma^{(1)}+\\vec\\sigma^{(2)})\\cdot\\vec v\\,|\\psi_s\\rangle=0$ and the product $(\\vec n_1\\!\\cdot\\!\\vec\\sigma)(\\vec n_2\\!\\cdot\\!\\vec\\sigma)=\\vec n_1\\!\\cdot\\!\\vec n_2+i(\\vec n_1\\times\\vec n_2)\\!\\cdot\\!\\vec\\sigma$"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Derivation.</b> Replace $\\vec\\sigma^{(2)}\\cdot\\vec n_2\\,|\\psi_s\\rangle=-\\vec\\sigma^{(1)}\\cdot\\vec n_2\\,|\\psi_s\\rangle$. Then $C=-\\langle(\\vec\\sigma^{(1)}\\!\\cdot\\vec n_1)(\\vec\\sigma^{(1)}\\!\\cdot\\vec n_2)\\rangle=-\\vec n_1\\cdot\\vec n_2-i(\\vec n_1\\times\\vec n_2)\\cdot\\langle\\vec\\sigma^{(1)}\\rangle=-\\vec n_1\\cdot\\vec n_2$ because $\\langle\\psi_s|\\vec\\sigma^{(1)}\\cdot\\vec v|\\psi_s\\rangle=0$ (script 10.10). Check: $\\vec n_1=\\vec n_2$ gives $-1$ (perfect anticorrelation), perpendicular axes give $0$."
+    },
+    {
+     "kind": "exam",
+     "html": "<b>FS19 Q3 (spin-1 EPR pair, 18 pt).</b> For two $D_1$ particles $D_1\\otimes D_1=D_2\\oplus D_1\\oplus D_0$ and the singlet is $|0,0\\rangle=\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$ (Lesson of room \"Spin Addition\"). Alice measures $J_z=+1$ with probability $\\frac13$, Bob also $\\frac13$; but once Alice has measured $m=+1$ the state is $|1;-1\\rangle$ and Bob finds $m=-1$ with probability 1 ($m=0,+1$ with probability 0)."
+    },
+    {
+     "kind": "intuition",
+     "html": "The marginal statistics on each side are completely random (maximally mixed reduced state, previous lesson), the correlations are perfect. This is why no signal is sent: Bob's local statistics do not change when Alice measures; only the joint statistics, which need a classical comparison of results, show the correlation."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Do not say \"Alice's measurement sets Bob's spin\". The conditional probability $P(m_B|m_A)$ is a statement about the joint state; Bob's reduced state remains $\\frac12\\mathbb 1$ as long as he does not know Alice's result (FS16 D.6a vs b). Also: the singlet's anticorrelation holds for <i>any</i> common axis, the triplet $|\\!\\uparrow\\uparrow\\rangle$ does not (only for $z$)."
+    }
+   ],
+   "check": [
+    {
+     "q": "HS21 Q3 (v): in the singlet, Alice measures $S_z^{(1)}=+\\frac12$. The probability that Bob finds $S_z^{(2)}=+\\frac12$ is",
+     "options": [
+      "$\\frac12$",
+      "$1$",
+      "$0$",
+      "$\\frac14$"
+     ],
+     "correct": 2,
+     "explain": "The state collapses to $|{\\uparrow\\downarrow}\\rangle$."
+    },
+    {
+     "q": "For the singlet the correlation $\\langle(\\vec\\sigma^{(1)}\\cdot\\vec n_1)(\\vec\\sigma^{(2)}\\cdot\\vec n_2)\\rangle$ with $\\vec n_1\\cdot\\vec n_2=\\cos\\theta$ is",
+     "options": [
+      "$-\\cos\\theta$",
+      "$+\\cos\\theta$",
+      "$-\\cos^2\\frac\\theta2$",
+      "$0$ for all $\\theta\\neq0$"
+     ],
+     "correct": 0,
+     "explain": "Script (10.11)."
+    },
+    {
+     "q": "FS19 Q3 (iv)-(v): spin-1 singlet. $P(\\text{Alice finds }m=+1)$ and $P(\\text{Bob }m=-1\\mid\\text{Alice }m=+1)$ are",
+     "options": [
+      "$\\frac13$ and $1$",
+      "$\\frac13$ and $\\frac13$",
+      "$\\frac12$ and $1$",
+      "$1$ and $\\frac13$"
+     ],
+     "correct": 0,
+     "explain": "Singlet coefficients $\\pm\\frac1{\\sqrt3}$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-ent-L4",
+   "title": "Bell and CHSH: why no local hidden variable theory works",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 10.2 (pp. 109-111) Die Bellsche Ungleichung, eq. (10.4)-(10.12), Abb. 19"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 13.pdf",
+     "where": "Question 3 [Hardy's paradox]"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "A <b>local hidden-variable theory</b>: the state is a probability measure $d\\rho$ on a space $\\Omega$ of hidden variables $\\omega$, every observable is a function $A(\\omega)$, $\\langle A\\rangle=\\int A(\\omega)\\,d\\rho(\\omega)$, and for space-like separated $A,B$ one has $(AB)(\\omega)=A(\\omega)B(\\omega)$ (locality). Let $A,A'$ (Alice) and $B,B'$ (Bob) take values $\\pm1$. Then for each $\\omega$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "(A+A')B+(A-A')B'=\\pm2\\ \\ \\Rightarrow\\ \\ \\big|\\langle AB\\rangle+\\langle A'B\\rangle+\\langle AB'\\rangle-\\langle A'B'\\rangle\\big|\\le2",
+     "label": "CHSH inequality, script (10.4)-(10.5): if $A=A'$ the first bracket is $\\pm2$ and the second 0; if $A=-A'$ the other way round; averaging over $\\rho$ keeps $|\\cdot|\\le2$"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Quantum prediction.</b> Take $A=\\vec n_1\\cdot\\vec\\sigma^{(1)}$, $A'=\\vec n_1'\\cdot\\vec\\sigma^{(1)}$, $B=\\vec n_2\\cdot\\vec\\sigma^{(2)}$, $B'=\\vec n_2'\\cdot\\vec\\sigma^{(2)}$ on the singlet. By $C(\\vec n_1,\\vec n_2)=-\\vec n_1\\cdot\\vec n_2$ the CHSH combination is $-[\\vec n_1\\!\\cdot\\!\\vec n_2+\\vec n_1'\\!\\cdot\\!\\vec n_2+\\vec n_1\\!\\cdot\\!\\vec n_2'-\\vec n_1'\\!\\cdot\\!\\vec n_2']$, to be compared with 2 (script (10.12)). Choose coplanar vectors as in the script's figure 19: all three of $\\vec n_1\\!\\cdot\\!\\vec n_2$, $\\vec n_1'\\!\\cdot\\!\\vec n_2$, $\\vec n_1\\!\\cdot\\!\\vec n_2'$ equal $\\cos\\frac\\pi4=\\frac{\\sqrt2}2$ and $\\vec n_1'\\!\\cdot\\!\\vec n_2'=\\cos\\frac{3\\pi}4=-\\frac{\\sqrt2}2$."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\Big|\\vec n_1\\!\\cdot\\!\\vec n_2+\\vec n_1'\\!\\cdot\\!\\vec n_2+\\vec n_1\\!\\cdot\\!\\vec n_2'-\\vec n_1'\\!\\cdot\\!\\vec n_2'\\Big|=3\\cdot\\tfrac{\\sqrt2}2+\\tfrac{\\sqrt2}2=2\\sqrt2\\approx2.83>2",
+     "label": "one explicit choice: in a plane $\\vec n_1$ at $0$, $\\vec n_1'$ at $\\pi/2$, $\\vec n_2$ at $\\pi/4$, $\\vec n_2'$ at $-\\pi/4$"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Conclusion.</b> QM, applied to the EPR pair, is not equivalent to any local hidden-variable theory; experiments (Freedman-Clauser 1972, Aspect-Dalibard-Roger 1982, with polarised photons) agree with QM. <i>Not in the script, supplement:</i> $2\\sqrt2$ is the maximal quantum value (Tsirelson): with $S=(A+A')B+(A-A')B'$ one finds $S^2=4\\cdot\\mathbb 1-[A,A'][B,B']$, and $\\|[A,A'][B,B']\\|\\le4$ gives $\\|S\\|\\le2\\sqrt2$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Hardy's paradox (sheet 13 Q3).</b> The non-maximally entangled state $|\\psi\\rangle=\\frac1{\\sqrt3}(|{+}{+}\\rangle+|{-}{+}\\rangle+|{-}{-}\\rangle)$ already contradicts classical, jointly distributed values $a_0,a_1,b_0,b_1\\in\\{\\pm1\\}$. Alice measures $A_0$ (basis $|\\pm\\rangle$) or $A_1$ (basis $|\\pm\\hat n\\rangle=\\frac1{\\sqrt2}(|+\\rangle\\pm|-\\rangle)$), Bob $B_0$ (basis $|\\pm\\rangle$) or $B_1$ (basis $|+\\hat m\\rangle=\\frac1{\\sqrt5}(2|+\\rangle+|-\\rangle)$, $|-\\hat m\\rangle=\\frac1{\\sqrt5}(|+\\rangle-2|-\\rangle)$). QM gives three vanishing probabilities, $P[a_0>b_0]=P[b_0>a_1]=P[a_1>b_1]=0$. For classical variables these force the chain $a_0\\le b_0\\le a_1\\le b_1$, hence $P[a_0>b_1]=0$. In QM, however, $P[a_0=+1,b_1=-1]=|\\langle{+}|\\langle{-\\hat m}|\\psi\\rangle|^2=\\big(\\tfrac1{\\sqrt3}\\tfrac1{\\sqrt5}\\big)^2=\\tfrac1{15}>0$."
+    },
+    {
+     "kind": "intuition",
+     "html": "The proof structure is always: assume that all four observables have values simultaneously (realism) and that Alice's choice does not affect Bob's outcome (locality); derive an inequality; show that QM violates it. The loophole of a failing assumption is exactly what the CHSH angle choice tests."
+    },
+    {
+     "kind": "pitfall",
+     "html": "The inequality is $\\le2$ in absolute value for <i>four</i> correlators with one minus sign, not for \"any\" sum. And $2\\sqrt2$ needs coplanar, equally spaced axes; for $\\vec n_1=\\vec n_2$ type settings (all parallel) the combination is only $2$. The classical bound 2 also holds for a deterministic strategy such as \"always $+1$\": $1+1+1-1=2$."
+    }
+   ],
+   "check": [
+    {
+     "q": "The maximal value of $|\\langle AB\\rangle+\\langle A'B\\rangle+\\langle AB'\\rangle-\\langle A'B'\\rangle|$ for local hidden variables and in QM is",
+     "options": [
+      "$2\\sqrt2$ and $4$",
+      "$1$ and $\\sqrt2$",
+      "$2$ and $2$",
+      "$2$ and $2\\sqrt2$"
+     ],
+     "correct": 3,
+     "explain": "Script (10.4) and (10.12) with figure 19."
+    },
+    {
+     "q": "The proof of the bound 2 uses",
+     "options": [
+      "only that $\\langle AB\\rangle=\\langle A\\rangle\\langle B\\rangle$",
+      "$(A+A')B+(A-A')B'=\\pm2$ for each $\\omega$ and averaging over the hidden variable",
+      "the singlet state",
+      "that $A$ and $A'$ commute"
+     ],
+     "correct": 1,
+     "explain": "Script (10.5)."
+    }
+   ]
+  },
+  {
+   "type": "quiz",
+   "xp": 30,
+   "passMark": 0.75,
+   "id": "qm-ent-Q1",
+   "title": "Entanglement, Bell and CHSH: exam-style multiple choice",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 10.1-10.3 (pp. 108-113)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+     "where": "Aufgabe D.3-D.7"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+     "where": "Question 3"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+     "where": "Question 3"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 13.pdf",
+     "where": "Question 3 [Hardy]"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "questions": [
+    {
+     "q": "Which of the states $|ij\\rangle=|i\\rangle_A|j\\rangle_B$ is entangled (FS16 D.3 type)?",
+     "options": [
+      "$|11\\rangle+|00\\rangle$ and $|10\\rangle-|01\\rangle$ only",
+      "$|11\\rangle$ and $|10\\rangle+|11\\rangle$ only",
+      "all four",
+      "$|10\\rangle-|01\\rangle$ only"
+     ],
+     "correct": 0,
+     "explain": "Rank test of the coefficient matrix: $\\det C=c_{00}c_{11}-c_{01}c_{10}$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+      "where": "D.3"
+     }
+    },
+    {
+     "q": "$\\rho_{AB}=\\frac12\\begin{pmatrix}1&0&0&1\\\\0&0&0&0\\\\0&0&0&0\\\\1&0&0&1\\end{pmatrix}$ (FS16 D.4) is",
+     "options": [
+      "mixed, $\\frac12(|00\\rangle\\langle00|+|11\\rangle\\langle11|)$",
+      "pure, $\\rho_{AB}=|\\Phi^+\\rangle\\langle\\Phi^+|$ with $\\Phi^+=\\frac1{\\sqrt2}(|00\\rangle+|11\\rangle)$",
+      "pure, $\\rho=|00\\rangle\\langle00|$",
+      "mixed, maximally mixed $\\frac14\\mathbb 1$"
+     ],
+     "correct": 1,
+     "explain": "$\\rho^2=\\rho$ and $\\mathrm{tr}\\rho^2=1$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+      "where": "D.4"
+     }
+    },
+    {
+     "q": "For $\\Phi^+$ the reduced matrix $\\rho_A$ and its purity $\\mathrm{tr}\\rho_A^2$ are",
+     "options": [
+      "$|0\\rangle\\langle0|$ and $1$",
+      "$\\frac12\\mathbb 1$ and $1$",
+      "$\\frac12\\mathbb 1$ and $\\frac12$",
+      "$\\Phi^+$ and $1$"
+     ],
+     "correct": 2,
+     "explain": "$\\mathrm{tr}_B$ kills the coherences; purity $\\frac12$ is the minimum for a qubit.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+      "where": "D.6a"
+     }
+    },
+    {
+     "q": "The singlet correlator $\\langle(\\vec\\sigma^{(1)}\\!\\cdot\\!\\vec n_1)(\\vec\\sigma^{(2)}\\!\\cdot\\!\\vec n_2)\\rangle$ and $P(\\uparrow\\uparrow)$ along these axes (angle $\\theta$) are",
+     "options": [
+      "$-\\cos\\theta$ and $\\frac14(1+\\cos\\theta)$",
+      "$-\\cos\\theta$ and $\\frac14(1-\\cos\\theta)$",
+      "$\\cos\\theta$ and $\\frac14(1-\\cos\\theta)$",
+      "$-\\cos\\theta$ and $\\frac12\\sin\\theta$"
+     ],
+     "correct": 1,
+     "explain": "$C=P_{++}+P_{--}-P_{+-}-P_{-+}$ with $P_{++}=P_{--}=\\frac14(1-\\cos\\theta)$.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "(10.11)"
+     }
+    },
+    {
+     "q": "The CHSH bounds for $|\\langle AB\\rangle+\\langle A'B\\rangle+\\langle AB'\\rangle-\\langle A'B'\\rangle|$ are",
+     "options": [
+      "$\\sqrt2$ and $2$",
+      "$2$ and $4$",
+      "$2$ (local hidden variables), $2\\sqrt2$ (QM maximum), reached for the singlet with coplanar axes at $\\frac\\pi4$ steps",
+      "$2\\sqrt2$ in both"
+     ],
+     "correct": 2,
+     "explain": "Script (10.4), (10.12), figure 19.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "Ch. 10.2"
+     }
+    },
+    {
+     "q": "In Hardy's paradox (sheet 13 Q3), $P[a_0>b_1]$ for the state $\\frac1{\\sqrt3}(|{+}{+}\\rangle+|{-}{+}\\rangle+|{-}{-}\\rangle)$ is",
+     "options": [
+      "$0$ in both",
+      "$\\frac13$",
+      "$\\frac1{15}$, classically it would be $0$",
+      "$\\frac1{5}$"
+     ],
+     "correct": 2,
+     "explain": "$|\\langle{+}|\\langle{-\\hat m}|\\psi\\rangle|^2=\\big(\\frac1{\\sqrt3}\\frac1{\\sqrt5}\\big)^2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 13.pdf",
+      "where": "Q3"
+     }
+    },
+    {
+     "q": "Teleportation (script 10.3): Alice's Bell measurement on particles $0,1$ has $4$ outcomes with probability $\\frac14$ each. After outcome 3 ($\\chi_3$) Bob applies",
+     "options": [
+      "nothing, the state is already $|\\varphi\\rangle$",
+      "$\\sigma_3$ and no classical information is needed",
+      "$\\sigma_1$ and recovers $|\\varphi\\rangle$ exactly, after receiving 2 classical bits",
+      "$\\sigma_2$, giving $|\\varphi\\rangle$ up to the phase $-i$"
+     ],
+     "correct": 2,
+     "explain": "Table in script 10.3: outcome $1,2,3,4\\to\\mathbb 1,\\sigma_3,\\sigma_1,\\sigma_2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "Ch. 10.3, p. 112"
+     }
+    },
+    {
+     "q": "No cloning (supplement, not in the script): there is no unitary $U$ with $U|\\varphi\\rangle|0\\rangle=|\\varphi\\rangle|\\varphi\\rangle$ for all $\\varphi$ because",
+     "options": [
+      "measurement collapses the state",
+      "unitarity preserves $\\langle\\varphi|\\chi\\rangle$, but copying would give $\\langle\\varphi|\\chi\\rangle^2$",
+      "the Hilbert space is too small",
+      "$|0\\rangle$ is not normalised"
+     ],
+     "correct": 1,
+     "explain": "Only orthogonal (or identical) states can be copied by one device.",
+     "source": {
+      "file": "notes/quantum-mechanics/ch10-entanglement.md",
+      "where": "transcription and worked solutions"
+     }
+    }
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ent-D1",
+   "title": "The singlet from its defining property (HS21 Q3 (iii))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+    "where": "Question 3 (iii), 4 pt"
+   },
+   "goal": "Show that the state with $S_a|\\psi_s\\rangle=0$ ($a=x,y,z$) is $\\frac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)$.",
+   "given": [
+    "$S_a=S_a^{(1)}+S_a^{(2)}$, $S_\\pm|j,m\\rangle=\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$ ($\\hbar=1$)",
+    "ansatz $\\alpha|{\\uparrow\\uparrow}\\rangle+\\beta|{\\uparrow\\downarrow}\\rangle+\\gamma|{\\downarrow\\uparrow}\\rangle+\\delta|{\\downarrow\\downarrow}\\rangle$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Use $S_z|\\psi_s\\rangle=0$.",
+     "reveal": "$S_z$ has eigenvalues $+1,0,0,-1$ on the four product states, so $\\alpha=\\delta=0$: only the $m=0$ states $\\beta|{\\uparrow\\downarrow}\\rangle+\\gamma|{\\downarrow\\uparrow}\\rangle$ survive."
+    },
+    {
+     "prompt": "(b) Use $S_+|\\psi_s\\rangle=0$.",
+     "reveal": "$S_+=S_+^{(1)}+S_+^{(2)}$ with $S_+|{\\downarrow}\\rangle=|{\\uparrow}\\rangle$, $S_+|{\\uparrow}\\rangle=0$: $S_+(\\beta|{\\uparrow\\downarrow}\\rangle+\\gamma|{\\downarrow\\uparrow}\\rangle)=(\\beta+\\gamma)|{\\uparrow\\uparrow}\\rangle=0$, so $\\gamma=-\\beta$. ($S_-$ gives the same condition.)"
+    },
+    {
+     "prompt": "(c) Normalise.",
+     "reveal": "$|\\beta|^2+|\\gamma|^2=1\\Rightarrow\\beta=\\frac1{\\sqrt2}$ (overall phase free): $|\\psi_s\\rangle=\\frac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)$."
+    },
+    {
+     "prompt": "(d) Probabilities (iv)-(v).",
+     "reveal": "$P(S_z^{(1)}=\\frac12)=|\\beta|^2=\\frac12$. After this outcome the state is projected on $|{\\uparrow\\downarrow}\\rangle$, so $P(S_z^{(2)}=\\frac12)=0$."
+    }
+   ],
+   "keyPoints": [
+    "$S_z\\psi=0$ restricts to the $m=0$ sector",
+    "$S_+\\psi=0$ gives $\\gamma=-\\beta$",
+    "$P(S_z^{(1)}=\\frac12)=\\frac12$",
+    "after the first outcome the second is fixed: probability $0$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ent-D2",
+   "title": "Spin correlation of the EPR pair: $C=-\\vec n_1\\cdot\\vec n_2$ (script 10.11)",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "Ch. 10.2, eqs. (10.9)-(10.11)"
+   },
+   "goal": "Show $\\langle\\psi|(\\vec\\sigma^{(1)}\\!\\cdot\\vec n_1)(\\vec\\sigma^{(2)}\\!\\cdot\\vec n_2)|\\psi\\rangle=-\\vec n_1\\cdot\\vec n_2$ for the singlet.",
+   "given": [
+    "$(\\vec\\sigma^{(1)}+\\vec\\sigma^{(2)})\\cdot\\vec v\\,|\\psi\\rangle=0$ for all $\\vec v$ (rotation invariance, 10.9)",
+    "$(\\vec a\\cdot\\vec\\sigma)(\\vec b\\cdot\\vec\\sigma)=\\vec a\\cdot\\vec b\\,\\mathbb 1+i(\\vec a\\times\\vec b)\\cdot\\vec\\sigma$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Move $\\vec\\sigma^{(2)}$ to particle 1.",
+     "reveal": "From (10.9) with $\\vec v=\\vec n_2$: $\\vec\\sigma^{(2)}\\!\\cdot\\vec n_2|\\psi\\rangle=-\\vec\\sigma^{(1)}\\!\\cdot\\vec n_2|\\psi\\rangle$. The operators of different particles commute, so $C=-\\langle(\\vec\\sigma^{(1)}\\!\\cdot\\vec n_1)(\\vec\\sigma^{(1)}\\!\\cdot\\vec n_2)\\rangle$."
+    },
+    {
+     "prompt": "(b) Use the Pauli product identity.",
+     "reveal": "$C=-\\vec n_1\\cdot\\vec n_2\\langle\\mathbb 1\\rangle-i(\\vec n_1\\times\\vec n_2)\\cdot\\langle\\vec\\sigma^{(1)}\\rangle$."
+    },
+    {
+     "prompt": "(c) Show that $\\langle\\psi|\\vec\\sigma^{(1)}\\cdot\\vec v|\\psi\\rangle=0$ (10.10).",
+     "reveal": "Choose the 3-axis along $\\vec v$: $\\langle\\psi|\\sigma_3^{(1)}|\\psi\\rangle=\\frac12(\\langle{\\uparrow\\downarrow}|\\sigma_3|{\\uparrow\\downarrow}\\rangle+\\langle{\\downarrow\\uparrow}|\\sigma_3|{\\downarrow\\uparrow}\\rangle)=\\frac12(1-1)=0$."
+    },
+    {
+     "prompt": "(d) Result and checks.",
+     "reveal": "$C=-\\vec n_1\\cdot\\vec n_2$. Check: $\\vec n_1=\\vec n_2$ gives $-1$ (perfect anticorrelation), perpendicular axes give $0$ (outcomes independent)."
+    }
+   ],
+   "keyPoints": [
+    "rotation invariance: $(\\vec\\sigma^{(1)}+\\vec\\sigma^{(2)})\\cdot\\vec v\\,\\psi=0$",
+    "Pauli product identity",
+    "$\\langle\\vec\\sigma^{(1)}\\rangle=0$ in the singlet",
+    "$C=-\\vec n_1\\cdot\\vec n_2$, $=-\\cos\\theta$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ent-D3",
+   "title": "The CHSH inequality and its violation by $2\\sqrt2$ (script 10.4-10.12)",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "Ch. 10.2, eqs. (10.4), (10.5), (10.12), Abb. 19"
+   },
+   "goal": "Prove $|\\langle AB\\rangle+\\langle A'B\\rangle+\\langle AB'\\rangle-\\langle A'B'\\rangle|\\le2$ for local hidden variables and show that the singlet gives $2\\sqrt2$.",
+   "given": [
+    "$A,A',B,B'\\in\\{\\pm1\\}$ functions of $\\omega$, $\\langle X\\rangle=\\int X(\\omega)\\,d\\rho(\\omega)$, locality $(AB)(\\omega)=A(\\omega)B(\\omega)$",
+    "$C(\\vec n_1,\\vec n_2)=-\\vec n_1\\cdot\\vec n_2$ on the singlet"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) The pointwise bound.",
+     "reveal": "For fixed $\\omega$: if $A=A'$ then $A+A'=\\pm2$ and $A-A'=0$; if $A=-A'$ then $A+A'=0$, $A-A'=\\pm2$. Hence $(A+A')B+(A-A')B'=\\pm2$ (10.5)."
+    },
+    {
+     "prompt": "(b) Average over $\\rho$.",
+     "reveal": "The average of a quantity of modulus 2 has modulus $\\le2$: $|\\langle AB\\rangle+\\langle A'B\\rangle+\\langle AB'\\rangle-\\langle A'B'\\rangle|\\le2$ (10.4). Locality entered when factorising $(AB)(\\omega)=A(\\omega)B(\\omega)$."
+    },
+    {
+     "prompt": "(c) Quantum value with $C=-\\vec n_1\\cdot\\vec n_2$.",
+     "reveal": "The combination is $-[\\vec n_1\\!\\cdot\\!\\vec n_2+\\vec n_1'\\!\\cdot\\!\\vec n_2+\\vec n_1\\!\\cdot\\!\\vec n_2'-\\vec n_1'\\!\\cdot\\!\\vec n_2']$ (10.12)."
+    },
+    {
+     "prompt": "(d) Choose the axes of figure 19.",
+     "reveal": "In a plane: $\\vec n_1$ at angle $0$, $\\vec n_2$ at $\\frac\\pi4$, $\\vec n_1'$ at $\\frac\\pi2$, $\\vec n_2'$ at $-\\frac\\pi4$. Then $\\vec n_1\\!\\cdot\\!\\vec n_2=\\vec n_1'\\!\\cdot\\!\\vec n_2=\\vec n_1\\!\\cdot\\!\\vec n_2'=\\cos\\frac\\pi4$ and $\\vec n_1'\\!\\cdot\\!\\vec n_2'=\\cos\\frac{3\\pi}4$. Sum: $3\\frac{\\sqrt2}2+\\frac{\\sqrt2}2=2\\sqrt2>2$."
+    },
+    {
+     "prompt": "(e) General Bob angles (check).",
+     "reveal": "With Alice at $0,\\frac\\pi2$ and Bob at $\\varphi,-\\varphi$ the value is $2|\\cos\\varphi+\\sin\\varphi|=2\\sqrt2|\\cos(\\varphi-\\frac\\pi4)|$, maximal at $\\varphi=\\frac\\pi4$."
+    }
+   ],
+   "keyPoints": [
+    "pointwise value $\\pm2$ because $A=\\pm A'$",
+    "averaging keeps the bound 2; uses locality $(AB)(\\omega)=A(\\omega)B(\\omega)$",
+    "QM: $C=-\\vec n_1\\cdot\\vec n_2$",
+    "coplanar $\\frac\\pi4$ steps give $2\\sqrt2$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ent-D4",
+   "title": "Reduced density matrix, purity and measurement on one part (FS16 D.4-D.6)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+    "where": "Aufgabe D.4, D.5, D.6 (German), 8 pt"
+   },
+   "goal": "For $\\rho_{AB}=|\\Phi^+\\rangle\\langle\\Phi^+|$ find the Bell-basis probabilities and $\\rho_A$ if $B$'s result is unknown or equal to $|1\\rangle$.",
+   "given": [
+    "$\\rho_{AB}=\\frac12\\begin{pmatrix}1&0&0&1\\\\0&0&0&0\\\\0&0&0&0\\\\1&0&0&1\\end{pmatrix}$ in the basis $|00\\rangle,|01\\rangle,|10\\rangle,|11\\rangle$",
+    "$P_{x_i}=\\langle x_i|\\rho_{AB}|x_i\\rangle$, $\\rho_A=\\mathrm{tr}_B\\rho_{AB}$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Pure or mixed? Find the state.",
+     "reveal": "$\\rho^2=\\rho$, $\\mathrm{tr}\\rho^2=1$ (eigenvalues $1,0,0,0$), the nonzero eigenvector is $\\frac1{\\sqrt2}(|00\\rangle+|11\\rangle)=|\\Phi^+\\rangle=|x_1\\rangle$: pure."
+    },
+    {
+     "prompt": "(b) Probabilities in the basis $x_1..x_4$.",
+     "reveal": "$P_{x_i}=|\\langle x_i|\\Phi^+\\rangle|^2=(1,0,0,0)$ because the $x_i$ are the orthonormal Bell states."
+    },
+    {
+     "prompt": "(c) $\\rho_A$ if $B$'s result is not known.",
+     "reveal": "$\\rho_A=\\mathrm{tr}_B\\rho_{AB}=\\frac12(|0\\rangle\\langle0|+|1\\rangle\\langle1|)=\\frac12\\mathbb 1$: the cross terms $|00\\rangle\\langle11|$ contain $\\langle1|0\\rangle_B=0$ after the trace. Purity $\\frac12$."
+    },
+    {
+     "prompt": "(d) $\\rho_A$ if $B$ was found in $|1\\rangle$.",
+     "reveal": "Projection $\\tilde\\rho=(\\mathbb 1\\otimes P_1)\\rho(\\mathbb 1\\otimes P_1)=\\frac12|11\\rangle\\langle11|$, normalised $|11\\rangle\\langle11|$, so $\\rho_A=|1\\rangle\\langle1|$: pure."
+    }
+   ],
+   "keyPoints": [
+    "pure iff $\\mathrm{tr}\\rho^2=1$",
+    "$\\rho_A=\\mathrm{tr}_B\\rho_{AB}=\\frac12\\mathbb 1$ for a Bell state",
+    "conditional state after learning $B$'s result is pure",
+    "$P_{x_i}=\\langle x_i|\\rho|x_i\\rangle$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ent-D5",
+   "title": "Quantum teleportation (script 10.3)",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "Ch. 10.3, pp. 111-113, eqs. (10.13)-(10.15)"
+   },
+   "goal": "Show that Alice's Bell measurement on particles $0,1$ plus 2 classical bits lets Bob recover $|\\varphi\\rangle=a|{\\uparrow}\\rangle+b|{\\downarrow}\\rangle$ on particle 2.",
+   "given": [
+    "$|\\psi\\rangle_{12}=\\frac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)$ shared by Alice (1) and Bob (2)",
+    "$\\chi_1=\\frac1{\\sqrt2}(\\uparrow\\downarrow-\\downarrow\\uparrow),\\ \\chi_2=\\frac1{\\sqrt2}(\\uparrow\\downarrow+\\downarrow\\uparrow),\\ \\chi_3=\\frac1{\\sqrt2}(\\uparrow\\uparrow-\\downarrow\\downarrow),\\ \\chi_4=\\frac1{\\sqrt2}(\\uparrow\\uparrow+\\downarrow\\downarrow)$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Write the three-particle state.",
+     "reveal": "$|\\varphi\\rangle\\otimes|\\psi\\rangle=\\frac1{\\sqrt2}\\big(|\\varphi,{\\uparrow}\\rangle|{\\downarrow}\\rangle-|\\varphi,{\\downarrow}\\rangle|{\\uparrow}\\rangle\\big)$ (10.14); particles $0,1$ are Alice's, $2$ is Bob's."
+    },
+    {
+     "prompt": "(b) Decompose with $\\mathbb 1=\\sum_iP_i$.",
+     "reveal": "Expand $|\\varphi,{\\uparrow}\\rangle,|\\varphi,{\\downarrow}\\rangle$ in the Bell basis $\\chi_i$ of particles $0,1$. Each term $P_i(|\\varphi\\rangle|\\psi\\rangle)=\\frac12|\\chi_i\\rangle\\otimes|\\text{Bob}_i\\rangle$ has weight $\\frac14$ since $\\| |\\text{Bob}_i\\rangle\\|^2=|a|^2+|b|^2=1$."
+    },
+    {
+     "prompt": "(c) Bob's state for each outcome.",
+     "reveal": "$i=1$: $-|\\varphi\\rangle$; $i=2$: $-\\sigma_3|\\varphi\\rangle$ (i.e. $+|{\\downarrow}\\rangle\\langle{\\downarrow}|\\varphi\\rangle-|{\\uparrow}\\rangle\\langle{\\uparrow}|\\varphi\\rangle$); $i=3$: $\\sigma_1|\\varphi\\rangle=a|{\\downarrow}\\rangle+b|{\\uparrow}\\rangle$; $i=4$: $a|{\\downarrow}\\rangle-b|{\\uparrow}\\rangle=-i\\sigma_2|\\varphi\\rangle$. All four outcomes are equally likely (probability $\\frac14$)."
+    },
+    {
+     "prompt": "(d) The correction.",
+     "reveal": "Alice sends $i$ (2 bits). Bob applies $\\mathbb 1,\\sigma_3,\\sigma_1,\\sigma_2$ and obtains $-|\\varphi\\rangle,-|\\varphi\\rangle,|\\varphi\\rangle,-i|\\varphi\\rangle$: the same state up to a global phase. Without the bits Bob's state is $\\frac12\\mathbb 1$, so no information travels faster than light."
+    }
+   ],
+   "keyPoints": [
+    "write $|\\varphi\\rangle\\otimes|\\psi\\rangle$ and decompose Alice's two particles in the Bell basis",
+    "four outcomes with probability $\\frac14$",
+    "Bob's state is $|\\varphi\\rangle$ rotated by $\\mathbb 1,\\sigma_3,\\sigma_1,\\sigma_2$",
+    "two classical bits are needed; no signalling"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-ent-D6",
+   "title": "No cloning (supplement, not in the script)",
+   "source": {
+    "file": "notes/quantum-mechanics/ch10-entanglement.md",
+    "where": "no-cloning supplement"
+   },
+   "goal": "Show that no unitary $U$ satisfies $U|\\varphi\\rangle|0\\rangle=|\\varphi\\rangle|\\varphi\\rangle$ for all states $|\\varphi\\rangle$.",
+   "given": [
+    "Unitarity preserves the scalar product: $\\langle U\\alpha|U\\beta\\rangle=\\langle\\alpha|\\beta\\rangle$",
+    "two arbitrary states $|\\varphi\\rangle,|\\chi\\rangle$ and a fixed blank $|0\\rangle$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Assume the cloner works for $\\varphi$ and $\\chi$.",
+     "reveal": "$U|\\varphi\\rangle|0\\rangle=|\\varphi\\rangle|\\varphi\\rangle$ and $U|\\chi\\rangle|0\\rangle=|\\chi\\rangle|\\chi\\rangle$."
+    },
+    {
+     "prompt": "(b) Take the scalar product of the two equations.",
+     "reveal": "Left sides: $\\langle\\varphi|\\chi\\rangle\\langle0|0\\rangle=\\langle\\varphi|\\chi\\rangle$ (unitarity). Right sides: $\\langle\\varphi|\\chi\\rangle^2$."
+    },
+    {
+     "prompt": "(c) Conclude.",
+     "reveal": "$z=z^2$ with $z=\\langle\\varphi|\\chi\\rangle$ gives $z\\in\\{0,1\\}$: only identical or orthogonal states can be cloned by one device. A superposition cannot be copied."
+    },
+    {
+     "prompt": "(d) Link to entanglement.",
+     "reveal": "Cloning $\\frac1{\\sqrt2}(|0\\rangle+|1\\rangle)$ linearly gives $\\frac1{\\sqrt2}(|00\\rangle+|11\\rangle)$, the Bell state, not the product $|{+}{+}\\rangle$. This is also why teleportation destroys the original."
+    }
+   ],
+   "keyPoints": [
+    "assume the cloner for two states",
+    "unitarity preserves $\\langle\\varphi|\\chi\\rangle$",
+    "$z=z^2\\Rightarrow z\\in\\{0,1\\}$",
+    "linear cloning of a superposition yields an entangled state"
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 50,
+   "id": "qm-ent-c1",
+   "title": "CHSH on the singlet",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 10.2, (10.4)-(10.12)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "problem": "Two spin-$\\frac12$ particles are in the singlet. Alice measures $\\vec\\sigma^{(1)}\\!\\cdot\\vec n_1$ or $\\vec\\sigma^{(1)}\\!\\cdot\\vec n_1'$, Bob $\\vec\\sigma^{(2)}\\!\\cdot\\vec n_2$ or $\\vec\\sigma^{(2)}\\!\\cdot\\vec n_2'$ (results $\\pm1$). Show that $S=|C(\\vec n_1,\\vec n_2)+C(\\vec n_1',\\vec n_2)+C(\\vec n_1,\\vec n_2')-C(\\vec n_1',\\vec n_2')|$ exceeds the bound for local hidden variables.",
+   "symbols": [
+    [
+     "$C(\\vec n_1,\\vec n_2)$",
+     "spin correlation $\\langle\\sigma_{\\vec n_1}^{(1)}\\sigma_{\\vec n_2}^{(2)}\\rangle$"
+    ],
+    [
+     "$\\theta$",
+     "angle between the two measurement axes"
+    ],
+    [
+     "$\\varphi$",
+     "Bob's axes are at $\\pm\\varphi$, Alice's at $0$ and $\\frac\\pi2$ (one plane)"
+    ],
+    [
+     "$S$",
+     "CHSH combination"
+    ]
+   ],
+   "vars": {
+    "phi": 0.7853981633974483
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Classical bound from $(A+A')B+(A-A')B'=\\pm2$; quantum value from $C=-\\cos\\theta$ for the singlet (script 10.11).</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "order",
+     "prompt": "Put the proof of $S\\le2$ for local hidden variables in order.",
+     "items": [
+      {
+       "text": "for fixed $\\omega$, all of $A,A',B,B'$ are numbers $\\pm1$",
+       "why": "Realism: values exist before the measurement."
+      },
+      {
+       "text": "distinguish $A=A'$ and $A=-A'$",
+       "why": "Only after assigning values can the case split be made."
+      },
+      {
+       "text": "conclude $(A+A')B+(A-A')B'=\\pm2$ for each $\\omega$",
+       "why": "Uses the case split: one bracket is $\\pm2$, the other 0."
+      },
+      {
+       "text": "average over $d\\rho(\\omega)$ using $(AB)(\\omega)=A(\\omega)B(\\omega)$",
+       "why": "Averaging comes last and uses locality; it keeps $|S|\\le2$."
+      }
+     ],
+     "hint": "Values first, case distinction, pointwise result, then average."
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Singlet, axes at angle $\\theta$: type $P(\\uparrow\\uparrow)$ (both $+\\frac\\hbar2$ along their own axes), symbol <code>theta</code>.",
+     "answer": "(1-cos(theta))/4",
+     "symbols": {
+      "theta": [
+       0.2,
+       3
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "P_{++}=\\tfrac14(1-\\cos\\theta)",
+     "hint": "At $\\theta=0$ the particles are anticorrelated, so $P_{++}=0$. By symmetry $P_{--}=P_{++}$ and $P_{+-}=P_{-+}=\\frac14(1+\\cos\\theta)$.",
+     "wrong": [
+      "(1+cos(theta))/4",
+      "sin(theta)/2",
+      "(1-cos(theta))/2"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type the correlation $C=P_{++}+P_{--}-P_{+-}-P_{-+}$ as a function of <code>theta</code>.",
+     "answer": "-cos(theta)",
+     "symbols": {
+      "theta": [
+       0.2,
+       3
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "C=-\\cos\\theta=-\\vec n_1\\cdot\\vec n_2",
+     "hint": "$C=\\frac12(1-\\cos\\theta)-\\frac12(1+\\cos\\theta)$; compare script (10.11).",
+     "wrong": [
+      "cos(theta)",
+      "-sin(theta)",
+      "-cos(theta/2)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Alice at $0$ and $\\frac\\pi2$, Bob at $\\varphi$ and $-\\varphi$: type $S(\\varphi)$ for $0<\\varphi<\\frac\\pi2$ (symbol <code>phi</code>).",
+     "answer": "2*(cos(phi)+sin(phi))",
+     "symbols": {
+      "phi": [
+       0.1,
+       1.4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "S=2(\\cos\\varphi+\\sin\\varphi)",
+     "hint": "The four angle differences are $\\varphi$, $\\frac\\pi2-\\varphi$, $\\varphi$, $\\frac\\pi2+\\varphi$; with $C=-\\cos(\\Delta)$ the sum has magnitude $2\\cos\\varphi+2\\sin\\varphi$.",
+     "wrong": [
+      "2*(cos(phi)-sin(phi))",
+      "cos(phi)+sin(phi)",
+      "2*cos(phi)"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "choice",
+     "prompt": "What value of $\\varphi$ maximises $S$, and what is the maximum?",
+     "options": [
+      "$\\varphi=\\frac\\pi2$, $S=2$",
+      "$\\varphi=0$, $S=4$",
+      "$\\varphi=\\frac\\pi4$, $S=4\\sqrt2$",
+      "$\\varphi=\\frac\\pi4$, $S=2\\sqrt2$ (Tsirelson's bound)"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "That is $2(\\cos+\\sin)=2$ at $\\frac\\pi2$, no violation.",
+      "1": "4 is not reachable; $S(0)=2$.",
+      "2": "$2(\\frac{\\sqrt2}2+\\frac{\\sqrt2}2)=2\\sqrt2$."
+     }
+    },
+    {
+     "id": "s6",
+     "kind": "numeric",
+     "prompt": "Bonus: $S$ at $\\varphi=\\frac\\pi4$.",
+     "answer": "2*(cos(phi)+sin(phi))",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "tol": 0.01,
+     "hint": "Insert $\\varphi=\\pi/4$: $2(0.7071+0.7071)=2.828$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 50,
+   "id": "qm-ent-c2",
+   "title": "Reduced density matrix and purity",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+     "where": "D.4-D.7"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS14.pdf",
+     "where": "E.3, E.5"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "problem": "Two qubits are in the pure state $|\\psi\\rangle=\\cos\\alpha\\,|00\\rangle+\\sin\\alpha\\,|11\\rangle$. Determine the reduced density matrix of $A$, its purity and what it tells about the entanglement.",
+   "symbols": [
+    [
+     "$\\alpha$",
+     "mixing angle of the state"
+    ],
+    [
+     "$\\rho_A$",
+     "reduced density matrix of $A$"
+    ],
+    [
+     "$\\mathrm{tr}\\rho_A^2$",
+     "purity of $A$"
+    ]
+   ],
+   "vars": {
+    "alpha": 0.39269908169872414
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$\\rho_A=\\mathrm{tr}_B|\\psi\\rangle\\langle\\psi|=\\cos^2\\alpha\\,|0\\rangle\\langle0|+\\sin^2\\alpha\\,|1\\rangle\\langle1|$ (the coherences vanish since $\\langle0|1\\rangle_B=0$).</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "How do you obtain the state of $A$ alone from $|\\psi\\rangle$?",
+     "options": [
+      "delete all terms containing $|1\\rangle_B$",
+      "take $|\\psi_A\\rangle=\\cos\\alpha|0\\rangle+\\sin\\alpha|1\\rangle$",
+      "partial trace over $B$: $\\rho_A=\\mathrm{tr}_B|\\psi\\rangle\\langle\\psi|$",
+      "take $\\rho_A=\\rho_{AB}$ since the state is pure"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "That is a projective measurement on $B$ with a particular result, not the average over results.",
+      "1": "That would be a pure superposition; the coherence $|0\\rangle\\langle1|$ is multiplied by $\\langle1|0\\rangle_B=0$.",
+      "3": "$\\rho_{AB}$ is $4\\times4$; purity of the whole does not imply purity of the part."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type the entry $(\\rho_A)_{00}$ (symbol <code>alpha</code>).",
+     "answer": "cos(alpha)**2",
+     "symbols": {
+      "alpha": [
+       0.1,
+       1.4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "(\\rho_A)_{00}=\\cos^2\\alpha",
+     "hint": "Probability that $A$ is found in $|0\\rangle$: the $|00\\rangle$ component squared.",
+     "wrong": [
+      "cos(alpha)",
+      "sin(alpha)**2",
+      "cos(2*alpha)"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type the purity $\\mathrm{tr}\\rho_A^2$.",
+     "answer": "cos(alpha)**4+sin(alpha)**4",
+     "symbols": {
+      "alpha": [
+       0.1,
+       1.4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "\\mathrm{tr}\\rho_A^2=\\cos^4\\alpha+\\sin^4\\alpha",
+     "hint": "$\\rho_A$ is diagonal with entries $\\cos^2\\alpha,\\sin^2\\alpha$, so the trace of its square is the sum of the squares.",
+     "wrong": [
+      "cos(alpha)**2+sin(alpha)**2",
+      "cos(alpha)**2*sin(alpha)**2",
+      "1-sin(2*alpha)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "Interpretation of the purity.",
+     "options": [
+      "purity 1 means maximally entangled",
+      "$\\alpha=0$ gives purity 1 (product state), $\\alpha=\\frac\\pi4$ gives the minimum $\\frac12$ (maximally entangled Bell state $\\Phi^+$)",
+      "purity is $\\frac12$ for every $\\alpha$",
+      "purity below 1 means the state of $AB$ is mixed"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "Purity 1 of $\\rho_A$ means $A$ is in a pure state: no entanglement.",
+      "2": "$\\cos^4\\alpha+\\sin^4\\alpha=1-\\frac12\\sin^22\\alpha$ depends on $\\alpha$.",
+      "3": "$AB$ is pure by construction; it is the subsystem that is mixed."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: the purity for $\\alpha=\\frac\\pi8$.",
+     "answer": "cos(alpha)**4+sin(alpha)**4",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "tol": 0.01,
+     "hint": "$1-\\frac12\\sin^2(\\pi/4)=1-\\frac14=0.75$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 50,
+   "id": "qm-ent-c3",
+   "title": "Teleporting a spin state",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 10.3, pp. 111-113"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch10-entanglement.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "problem": "Alice and Bob share the singlet (particles 1, 2). Alice holds particle 0 in the unknown state $|\\varphi\\rangle=a|{\\uparrow}\\rangle+b|{\\downarrow}\\rangle$ and measures particles $0,1$ in the Bell basis $\\chi_1..\\chi_4$. Work out what Bob must do.",
+   "symbols": [
+    [
+     "$a,b$",
+     "amplitudes of $|\\varphi\\rangle$ with $|a|^2+|b|^2=1$"
+    ],
+    [
+     "$\\chi_i$",
+     "Bell basis of particles $0,1$ (script 10.3)"
+    ],
+    [
+     "$\\sigma_k$",
+     "Pauli matrices used for the correction"
+    ]
+   ],
+   "vars": {
+    "a": 0.6,
+    "b": 0.8
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$|\\varphi\\rangle|\\psi\\rangle=\\frac12\\sum_i|\\chi_i\\rangle\\otimes|\\text{Bob}_i\\rangle$ with $|\\text{Bob}_i\\rangle=U_i^{-1}|\\varphi\\rangle$ up to phases (script 10.14 and table).</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "order",
+     "prompt": "Order the teleportation protocol.",
+     "items": [
+      {
+       "text": "create the singlet of particles 1 (Alice) and 2 (Bob) and separate them",
+       "why": "The shared entanglement is the resource and must exist first."
+      },
+      {
+       "text": "Alice measures particles $0,1$ in the Bell basis $\\chi_i$",
+       "why": "The unknown $|\\varphi\\rangle$ is on particle 0; the measurement projects Bob's particle."
+      },
+      {
+       "text": "Alice sends the result $i$ (2 classical bits) to Bob",
+       "why": "Bob cannot know the outcome otherwise, so no signal faster than light."
+      },
+      {
+       "text": "Bob applies $\\mathbb 1,\\sigma_3,\\sigma_1,\\sigma_2$ to particle 2",
+       "why": "The correction needs the bits and ends the protocol."
+      }
+     ],
+     "hint": "Resource, measurement, communication, correction."
+    },
+    {
+     "id": "s2",
+     "kind": "choice",
+     "prompt": "Without receiving the bits, Bob's particle is in the state",
+     "options": [
+      "$\\rho_B=\\frac12\\mathbb 1$ (all four outcomes equally likely, corrections differ)",
+      "$|\\varphi\\rangle$, so the classical bits are not needed",
+      "$\\sigma_1|\\varphi\\rangle$",
+      "$|{\\uparrow}\\rangle\\langle{\\uparrow}|$"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "Only after the correction by $U_i$ does Bob hold $|\\varphi\\rangle$.",
+      "2": "That is only the state for outcome 3.",
+      "3": "The average $\\frac14\\sum_i U_i^{-1}|\\varphi\\rangle\\langle\\varphi|U_i$ is $\\frac12\\mathbb 1$."
+     }
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "For outcome $\\chi_3$ Bob's particle is $a|{\\downarrow}\\rangle+b|{\\uparrow}\\rangle$. Type the coefficient of $|{\\uparrow}\\rangle$ (symbols <code>a</code>, <code>b</code>).",
+     "answer": "b",
+     "symbols": {
+      "a": [
+       0.1,
+       0.9
+      ],
+      "b": [
+       0.1,
+       0.9
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "c_\\uparrow=b",
+     "hint": "Script: $P_3|\\varphi\\rangle|\\psi\\rangle=\\frac12|\\chi_3\\rangle\\otimes(|{\\downarrow}\\rangle\\langle{\\uparrow}|\\varphi\\rangle+|{\\uparrow}\\rangle\\langle{\\downarrow}|\\varphi\\rangle)$; the spin up component comes from $\\langle{\\downarrow}|\\varphi\\rangle=b$.",
+     "wrong": [
+      "a",
+      "-b",
+      "a*b"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "Which operation restores $|\\varphi\\rangle$ for outcome $\\chi_3$?",
+     "options": [
+      "$\\sigma_3$",
+      "$\\sigma_2$",
+      "$\\mathbb 1$",
+      "$\\sigma_1$ (it swaps up and down)"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "$\\sigma_3$ only flips the sign of the down component (outcome 2).",
+      "1": "$\\sigma_2$ belongs to outcome 4.",
+      "2": "That is outcome 1."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: probability of outcome $\\chi_3$ for $a=0.6$, $b=0.8$.",
+     "answer": "(a**2+b**2)/4",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "tol": 0.02,
+     "hint": "Each term is $\\frac12|\\chi_i\\rangle\\otimes|\\text{Bob}_i\\rangle$ with $\\||\\text{Bob}_i\\rangle\\|^2=|a|^2+|b|^2=1$, so $p_i=\\frac14$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-ent-b1",
+   "title": "EPR pair (HS21 Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+    "where": "Question 3 [EPR pair, 12 points]"
+   },
+   "minutes": 24,
+   "instructions": "Solve on paper under the timer (2 min per point). Then enter the numbers.",
+   "statement": [
+    "Consider a single particle transforming in the representation $D_j$ of su(2). We choose an orthonormal basis of $D_j$ consisting of the vectors $|j,m\\rangle$ that are eigenvectors of $S_z$ with eigenvalue $m$: $S_z|j,m\\rangle=m|j,m\\rangle$. Furthermore $S_\\pm=S_x\\pm iS_y$ acts as $S_\\pm|j,m\\rangle=\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$.",
+    "(i) Using $[S_x,S_y]=iS_z$, $[S_y,S_z]=iS_x$, $[S_z,S_x]=iS_y$, deduce the commutation relations $[S_z,S_\\pm]$ and $[S_+,S_-]$. [2 points]",
+    "(ii) Using the formulas for $S_z$ and $S_\\pm$ above, but not your result from (i), compute $[S_\\pm,S_z]|j,m\\rangle$ and $[S_+,S_-]|j,m\\rangle$. Show that this agrees with (i). [3 points]",
+    "Consider now a pair of particles, each transforming in the $j=\\frac12$ representation, with generators $\\vec S^{(1)}$ and $\\vec S^{(2)}$ (components of $\\vec S^{(1)}$ commute with those of $\\vec S^{(2)}$). The total spin is $\\vec S=\\vec S^{(1)}+\\vec S^{(2)}$. For each of the two $j=\\frac12$ representations we write $|{\\uparrow}\\rangle\\equiv|\\frac12,+\\frac12\\rangle$ and $|{\\downarrow}\\rangle\\equiv|\\frac12,-\\frac12\\rangle$; the combined system is described by $|{\\uparrow\\uparrow}\\rangle,|{\\uparrow\\downarrow}\\rangle,|{\\downarrow\\uparrow}\\rangle,|{\\downarrow\\downarrow}\\rangle$. The system is initially in the singlet state $|\\psi_s\\rangle$ with respect to the total spin, i.e. the state annihilated by $S_a$, $a\\in\\{x,y,z\\}$: $S_a|\\psi_s\\rangle=0$.",
+    "(iii) Starting from the defining property of the singlet, derive the explicit state vector of $|\\psi_s\\rangle$ in the basis $\\{|{\\uparrow\\uparrow}\\rangle,|{\\uparrow\\downarrow}\\rangle,|{\\downarrow\\uparrow}\\rangle,|{\\downarrow\\downarrow}\\rangle\\}$. [4 points]",
+    "(iv) When measuring the $S_z^{(1)}$ spin component on the singlet state, what is the probability of finding $S_z^{(1)}=\\frac12$? [1 point]",
+    "(v) Suppose that we measured $S_z^{(1)}$ on the singlet state and obtained $S_z^{(1)}=\\frac12$. Subsequently we measure $S_z^{(2)}$. What is the probability of finding $S_z^{(2)}=\\frac12$? [2 points]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "cplus",
+     "prompt": "(i) $[S_+,S_-]=c\\,S_z$: the number $c$.",
+     "answer": "2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "coef",
+     "prompt": "(iii) Absolute value of the coefficient of $|{\\uparrow\\downarrow}\\rangle$ in $|\\psi_s\\rangle$.",
+     "answer": "1/sqrt(2)",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "p1",
+     "prompt": "(iv) $P(S_z^{(1)}=\\frac12)$.",
+     "answer": "1/2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "p2",
+     "prompt": "(v) $P(S_z^{(2)}=\\frac12)$ after the first result $S_z^{(1)}=\\frac12$.",
+     "answer": "0",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $[S_z,S_\\pm]=\\pm S_\\pm$, $[S_+,S_-]=2S_z$ from the Cartan-Weyl combination of $[S_x,S_y]=iS_z$ etc.",
+    "(ii) $S_zS_\\pm|j,m\\rangle=(m\\pm1)S_\\pm|j,m\\rangle$ so $[S_\\pm,S_z]=\\mp S_\\pm$ on $|j,m\\rangle$; $[S_+,S_-]|j,m\\rangle=[j(j+1)-m(m-1)-j(j+1)+m(m+1)]|j,m\\rangle=2m|j,m\\rangle$",
+    "(iii) $S_z\\psi=0$: $\\alpha=\\delta=0$; $S_+\\psi=0$: $\\beta+\\gamma=0$; normalisation: $\\frac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)$",
+    "(iv) $\\frac12$; (v) the state collapses to $|{\\uparrow\\downarrow}\\rangle$: probability $0$ (perfect anticorrelation)"
+   ],
+   "requires": "qm-ent-c1"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-ent-b2",
+   "title": "Spin-1 EPR pair (FS19 Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+    "where": "Question 3 [Representations of SO(3) and Spin 1 EPR pair, 18 points] (English version printed after the German)"
+   },
+   "minutes": 36,
+   "instructions": "Solve on paper under the timer (2 min per point). Then enter the numbers.",
+   "statement": [
+    "(i) Consider first a single particle transforming in the $D_1$ representation of SO(3). We choose an orthonormal basis of $D_1$ consisting of the vectors $|1,m\\rangle$ that are $J_z$ eigenstates with eigenvalue $m$, $m=0,\\pm1$. The operators $J^\\pm=J_x\\pm iJ_y$ of su(2) act as $J^\\pm|j,m\\rangle=\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$ with $j=1$. For a particle in the state $|1,1\\rangle$ what is the expectation value for the measurement of $J_x$, $J_y$ and $J_z$? What are the corresponding results for the state $|1,0\\rangle$? [4 points]",
+    "(ii) Consider now two particles, each transforming in the $D_1$ representation of SO(3). By considering the eigenvalues of $J_z$ on the tensor product, determine the representations with respect to the diagonal rotation group SO(3) in which the two-particle system transforms. (You need not identify the explicit basis vectors for all cases, but you must explain how you conclude that these and only these representations appear.) [6 points]",
+    "(iii) Find an explicit expression for the normalised singlet state in the two-particle system. (This state describes the EPR-like pair.) [3 points]",
+    "(iv) Now suppose that Alice has only access to the first particle of this EPR-like pair, while Bob only has access to the second particle (and Alice and Bob are far separated from one another). What is the probability that Alice measures $m=+1$ when she measures $J_z$ of her particle? What is the situation for Bob? [2 points]",
+    "(v) Now suppose Alice has measured $m=+1$ for her particle. What is the probability that Bob measures subsequently $m=+1$, $m=0$ or $m=-1$ for his particle? [3 points]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "Jz11",
+     "prompt": "(i) $\\langle J_z\\rangle$ in $|1,1\\rangle$ (units of $\\hbar$).",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "Jx11",
+     "prompt": "(i) $\\langle J_x\\rangle$ in $|1,1\\rangle$.",
+     "answer": "0",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "dimsum",
+     "prompt": "(ii) Dimension check: $\\dim D_2+\\dim D_1+\\dim D_0$.",
+     "answer": "5+3+1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "coef",
+     "prompt": "(iii) Absolute value of the coefficient of $|0;0\\rangle$ in the singlet.",
+     "answer": "1/sqrt(3)",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "pA",
+     "prompt": "(iv) $P(\\text{Alice finds }m=+1)$.",
+     "answer": "1/3",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "pB",
+     "prompt": "(v) $P(\\text{Bob finds }m=-1\\mid\\text{Alice }m=+1)$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "pB0",
+     "prompt": "(v) $P(\\text{Bob finds }m=0\\mid\\text{Alice }m=+1)$.",
+     "answer": "0",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $|1,1\\rangle$: $\\langle J_z\\rangle=1$, $\\langle J_x\\rangle=\\langle J_y\\rangle=0$ (since $J_\\pm$ change $m$); $|1,0\\rangle$: all three vanish",
+    "(ii) $m_{tot}=m_1+m_2\\in\\{-2..2\\}$ with multiplicities $1,2,3,2,1$: peel off $D_2$ (5 states), then $D_1$ (3), then $D_0$ (1): $D_1\\otimes D_1=D_2\\oplus D_1\\oplus D_0$, $9=5+3+1$",
+    "(iii) $\\sigma=0$: $\\frac1{\\sqrt3}(|1;-1\\rangle-|0;0\\rangle+|-1;1\\rangle)$ from $S_+\\psi=0$ in the $m=0$ sector",
+    "(iv) $\\frac13$ for Alice and for Bob (marginal probabilities, maximally mixed reduced state)",
+    "(v) after Alice's $m=+1$ the state is $|1;-1\\rangle$: Bob finds $m=-1$ with probability 1, $m=0,+1$ with probability 0"
+   ],
+   "requires": "qm-ent-c3"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-ent-b3",
+   "title": "Pair states and density matrices (FS16 D.3-D.7, translated)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS16.pdf",
+    "where": "Aufgabe D [Spin, Drehimpuls und Dichtematrizen, 18 Punkte], parts D.3-D.7 (13 of 18 points; German original, statement translated)"
+   },
+   "minutes": 26,
+   "instructions": "Solve on paper under the timer (2 min per point). Parts D.1 and D.2 of the same problem (tritium angular momenta, spin precession) are not part of this boss. The statement is a translation of the German text.",
+   "statement": [
+    "D.3 [2] Consider the pair states $|ij\\rangle\\equiv|i\\rangle_A\\otimes|j\\rangle_B$ with $i,j\\in\\{0,1\\}$. Are the states $|11\\rangle$, $(|10\\rangle-|01\\rangle)$, $(|11\\rangle+|00\\rangle)$, $(|10\\rangle+|11\\rangle)$ entangled?",
+    "D.4 [2] Given the density matrix $\\rho_{AB}=\\frac12\\begin{pmatrix}1&0&0&1\\\\0&0&0&0\\\\0&0&0&0\\\\1&0&0&1\\end{pmatrix}$ in the basis $\\{|00\\rangle,|01\\rangle,|10\\rangle,|11\\rangle\\}$, where the first (second) entry refers to system $A$ ($B$). Is this state pure or mixed? Find the wave function or the mixture of states belonging to the density matrix.",
+    "D.5 [2] We keep the density matrix $\\rho_{AB}$ of (1) and perform a measurement in the basis $\\{|x_1\\rangle,\\dots,|x_4\\rangle\\}$ with $|x_1\\rangle=(|00\\rangle+|11\\rangle)/\\sqrt2$, $|x_2\\rangle=(|00\\rangle-|11\\rangle)/\\sqrt2$, $|x_3\\rangle=(|01\\rangle+|10\\rangle)/\\sqrt2$, $|x_4\\rangle=(|01\\rangle-|10\\rangle)/\\sqrt2$. Determine the probabilities $P_{x_i}$ to measure the states $|x_i\\rangle$.",
+    "D.6 [4] Assume a measurement of the system of D.5 gave the state $|x_1\\rangle$. We now measure the state of subsystem $B$. Give the density matrix of subsystem $A$ for the following cases: a) we do not know the result of the measurement on $B$; b) $B$ was found in the state $|1\\rangle$.",
+    "D.7 [3] Consider the two density matrices of a two-state system, $\\rho_1=\\frac12\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$ and $\\rho_2=\\frac12\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$. Which of these systems is pure, which mixed? Determine the representations of $\\rho_1$ and $\\rho_2$ on/in the Bloch sphere."
+   ],
+   "finalAnswers": [
+    {
+     "id": "nent",
+     "prompt": "D.3 Number of entangled states among the four.",
+     "answer": "2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "pur4",
+     "prompt": "D.4 $\\mathrm{tr}\\rho_{AB}^2$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "Px1",
+     "prompt": "D.5 $P_{x_1}$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "purA",
+     "prompt": "D.6 a) $\\mathrm{tr}\\rho_A^2$ if the result of $B$ is unknown.",
+     "answer": "1/2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "purAb",
+     "prompt": "D.6 b) $\\mathrm{tr}\\rho_A^2$ if $B$ was found in $|1\\rangle$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "b1",
+     "prompt": "D.7 Length $|\\vec b|$ of the Bloch vector of $\\rho_1$.",
+     "answer": "0",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "b2",
+     "prompt": "D.7 Length $|\\vec b|$ of the Bloch vector of $\\rho_2$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "D.3: rank test $\\det C=c_{00}c_{11}-c_{01}c_{10}$: entangled are $|10\\rangle-|01\\rangle$ and $|11\\rangle+|00\\rangle$; $|11\\rangle$ and $|10\\rangle+|11\\rangle=|1\\rangle(|0\\rangle+|1\\rangle)$ are products",
+    "D.4: $\\rho^2=\\rho$, pure, $\\rho_{AB}=|x_1\\rangle\\langle x_1|$ with $x_1=\\frac1{\\sqrt2}(|00\\rangle+|11\\rangle)$",
+    "D.5: $P_{x_i}=\\langle x_i|\\rho|x_i\\rangle=(1,0,0,0)$",
+    "D.6: a) $\\rho_A=\\mathrm{tr}_B\\rho=\\frac12\\mathbb 1$ (mixed); b) after finding $B=|1\\rangle$ the state is $|11\\rangle$ so $\\rho_A=|1\\rangle\\langle1|$ (pure)",
+    "D.7: $\\rho_1=\\frac12\\mathbb 1$ mixed, $\\vec b=0$ (centre of the sphere); $\\rho_2=\\frac12(\\mathbb 1+\\sigma_x)$ pure, $\\vec b=(1,0,0)$ on the surface"
+   ],
+   "requires": "qm-ent-c2"
+  }
+ ]
+}

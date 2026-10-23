@@ -1,0 +1,680 @@
+                                     Astrophysics I1
+                                      Prof. Refregier, HS 2014
+                                         19.01.2015, 15:00
+
+
+Summary In Prof. Refregier’s corner office, exam on paper, I’m sitting at a small table, the assistant
+and Prof. sit at the table and the assistant takes notes for the protocol.
+Description of the content: Rotation curve, Thermal Bremsstrahlung, Boltzmann equation, Singular
+Isothermal Sphere
+
+
+Ablauf Prof tells me that he picked three topics from the lecture as mentioned and we start already.
+Prof: What can you tell me about the rotation curve?
+Me: In a spiral galaxy we have the bulge in the middle and the disk outside. (I ask whether i should
+explain what we observe or what we expect → both) So what we assume: it is a good approximation to
+say that most of the mass is concentrated in the bulge and thus we assume ρ = const. in the bulge and
+ρ = 0 in the disk. From Newtonian gravity we then get (equating centripetal force and gravitational
+force)
+
+                                                v2   GM m
+                                            m      =                                                (1)
+                                                r     r2
+                                                      s
+                                                        Mr
+                                           ⇒ v(r) ∝                                                 (2)
+                                                        r
+
+Then for constant density we have from ρ = Mr/r3 that Mr ∝ r3 and hence v(r) ∝ r in the bulge. In
+the disk we assumed ρ to be constant and hence we get v(r) ∝ r−1/2 .
+What we actually observe is that the velocity grows more or less linearly at first but then saturates to
+a more or less constant value (picture from Choudhuri).
+
+
+
+
+From this discrepancy we then conclude that there has to be some kind of non luminous matter →
+ 1
+     BSc Physics,
+
+
+
+
+                                                   1
+Dark Matter!
+(I started a little fast and had to jump back once or twice but in general I think there was nothing wrong
+in what I said)
+Prof: Is this the only time we see evidence for Dark Matter?
+Me: Start with the Zwicky stuff. From the Virial theorem we know that for self-gravitating system
+
+                                              V̄ + 2K̄ = 0                                            (3)
+
+from that we can conclude that
+                                              D   E       GM
+                                               v2 =                                                   (4)
+                                                          2 hRi
+plugging in some values (velocity from redshift, average size from distance and angular size) we get for
+the factor of mass and luminosity
+                                              M       M
+                                                ≈ 100                                                 (5)
+                                              L       L
+and hence that we have way more mass than what we expect from the brightness → Dark Matter.
+Prof: Okay. Let’s continue. What can you tell me about Thermal Bremsstrahlung?
+Me: (Shit! I had no idea about that) Well...it occures when we have ionized plasma and the ionized
+particles get decelerated. Then they emit radiation...probably in the X-ray. If it’s X-ray then we need
+rockets to look for it since the atmosphere absorbs most of the X-rays.
+Prof: What else?
+Me: Eh...there is a mechanism for cooling of gas inside of galaxy (or stellar clusters? I don’t really
+remember) clusters where the cooling is way better towards the inside of the cluster due to the increasing
+density because the bremsstrahlung emission is proportional to the density squared.
+Prof: That’s right, do you have an explicit formula for the emissivity?
+Me: Is it the one with the gaunt-factor?
+Prof: Yes.
+Me: sorry, I don’t know that one by heart.
+Prof: You already mentioned the dependence on the density, does the emissivity have other dependen-
+cies?
+Me: I’m not sure.
+Prof: Assume a gas at very low temperature and one at a very high temperature.
+Me: Ah since the particles are slower at low temperatures the emission might be weaker and thus the
+emissivity increases with the temperature?
+
+
+
+                                                      2
+Prof: Yes, then we have the one density and the other and then we have this exponential factor in the
+formula. What else can we use bremsstrahlung for?
+Me: (Thinking) Don’t know anything at the moment.
+Prof: You were talking earlier about Dark Matter in galaxy clusters...
+Me: Ah, right. We can use it to measure the the mass of the ionized gas inside of the cluster.
+Prof: Is it a high fraction of the mass?
+Me: No.
+Prof: Ok. How can we use this to measure the mass?
+Me: ...we know the luminosity and...
+Prof: Yes, we know it has a temperature dependence, what else?
+Me: (Thinking about it some time) The mass? Just kidding!
+Prof: (Laughs)
+Me: Oh, of course, the density and with the volume we can estimate the mass.
+Prof: Okay. Another subject. What can you tell me about the Jeans theorem?
+Me: Okay. It has something to do with the Boltzmann equation. (make some comments (not wrong
+in my opinion) and he interrupts me)
+Me: Okay. From the start: we have the distribution function f (x, v, t) which is defined by
+f (x, v, t) dx dv = # particles in the phase space volume dx dv around (x, v) at time t. The col-
+issionless Boltzmann equation is
+                                df   ∂f X ∂f ∂xi X ∂f ∂vi
+                                   =    +      ·   +      ·   .                                           (6)
+                                dt   ∂t   i
+                                            ∂xi ∂t   i
+                                                       ∂vi ∂t
+
+Now to the Jeans theorem: if the distribution function f only depends on x and v through constants
+of motion, i.e. ck (x, v) with ∂t ck (x, v) = 0 and f (x, v, t) = f (ck (x, v)) then f automatically satisfies
+the collisionless Boltzmann equation because of the chain rule
+                                           df   ∂f ∂ck
+                                              =    ·     = 0.                                             (7)
+                                           dt   ∂ck |{z}
+                                                     ∂t
+                                                          =0
+
+This is the Jeans theorem.
+Prof: Okay. Why is this interesting?
+Me: Often for the constant of motion we use the energy E = 12 mv 2 + mφ(x) where ∂t φ(x) = 0 is a
+time independent potential. In particular we talked about the Singular Isothermal Sphere that goes
+
+
+
+                                                      3
+something like
+                                                   ρ0 − E 2
+                                         f (E) =       e ...σ                                     (8)
+                                                   ...
+I don’t know the exact dependence right now.
+Prof: That’s Okay. How do the useful properties look like here?
+Me: We have ρ ∝ 1/r2 and hence Mr ∝ r. This is int...
+Prof: Why is this interesting?
+Me: This is interesting because with a mass proportionality Mr ∝ r we get a constant velocity (c.f.
+equation ??) and thus a good model for the distribution of Dark Matter.
+Prof: Right. And there’s the loop. Now We’re done.
+
+
+Final Remarks The prof helps when one doesn’t know any more and is in general quite nice. What
+might be a little bad is that he sticks to the subjects he picked in advance rather strong and if you
+don’t know anything about them he probably won’t change the subject → you’re fucked. Allso it was
+an extremely fast exam, we started 5 minutes late and finished 5 minutes early hence it only took 20
+min. I don’t know if that’s good or bad. Also he tends to ask things that you already said because he
+needs them for another question but doesn’t want to name them since they were part of an earlier
+question, so don’t hesitate to say things twice.
+
+Expected mark: 5.25
+Received mark: 5.5
+
+
+
+
+                                                   4
+                                       Astrophysics I1
+                                  Prof. Alexandre Refregier, HS 2014
+                       19 January 2015, 3:30 p.m. until 4:00 p.m., Jens Kammerer
+
+
+Summary The exam takes place in the Profs office. I sit at a small table and can write on paper.
+The assistant sits beside me and takes notes. The Prof sits at his desk.
+Description of the content: Our galaxy, gravitational lensing, stellar structure.
+
+
+Procedure The Prof welcomes me and shows me where I can put my bag and sit.
+Prof: First question: Our galaxy. What’s the name of our galaxy?
+Me: Milky Way.
+Prof: What can you tell me about the shape and the contents of our galaxy?
+Me: I draw figure 6.1 from Choudhuri, explain the disk, the spheroidal bulge, the spherical halo of
+globular clusters and mark our position in the galaxy. I mention that the distance from us to the
+galactic center is about 8 kpc and that the thickness of the disk is about 500 pc, but that depends on
+whether one is observing brighter or fainter stars since the young and bright O and B stars are found
+rather close to the galactic midplane.
+Prof: Ok, but isn’t there missing something?
+Me: Thinking: Sure, the interstellar matter (ISM). It’s distributed throughout the whole galaxy and
+is extended well beyond where stars are found.
+Prof: What’s the radius of the galaxy with the ISM?
+Me: I don’t know.
+Prof: Assistant: Ok, but there is still missing something.
+Me: Confused: Maybe the spiral arms? I draw a top view of the galaxy so that the spiral arms are
+noticeable and mark our position in an outlying region of one of the spiral arms.
+Prof: So 8 kpc is the radius of the disk?
+Me: Yes, since we’re at an outlying region of the galaxy that’s approximately the case.
+Prof: No, there is much beyond us! But there is still missing something, something one can’t see.
+Me: Finally I got it: Dark matter! It’s distributed homogeneous throughout the galaxy.
+Prof: Does it trace out the spiral arms?
+ 1
+     BSc Physics, Core Subjects
+
+
+
+
+                                                   1
+Me: I’m not sure: Hmmm.
+Prof: No, the dark matter is in a nearly spherical halo around the whole galaxy. Our galaxy can be
+split up into to subsystems, what can you tell me about them?
+Me: The disk is a population I stellar system, gravity is balanced by circular motion, there is a lot
+of ISM, star formation does continuously take place and there are a lot of young and bright O and
+B stars. The spheroidal bulge and the halo are population II stellar systems, gravity is balanced by
+random motions, there is not much ISM, star formation does not take place and there are older and
+fainter stars.
+Prof: You said something about the ISM. What’s that?
+Me: H1 clouds: 40% of the mass of the ISM, 5% of the volume of the ISM, neutral hydrogen. Molecular
+clouds: 40% of the mass of the ISM, 1% of the volume of the ISM, also complex molecules, but basically
+H2 , birthplaces of stars. Hot coronal gas: 50% of the volume of the ISM, only a small fraction of the
+mass of the ISM.
+Prof: Satisfied: Second question: Gravitational lensing. Can you explain the basic concept?
+Me: I draw a scheme with a light ray which is deflected by a mass and give the equation for the
+deflection angle
+                                                   4GM
+                                              Θ= 2 ,                                                (1)
+                                                    c b
+where b is the distance to the mass. I explain that the light from objects behind the mass is deflected
+and that gravitational lensing is good to probe the dark components of the universe.
+Prof: Can you give me any applications?
+Me: One can figure out the distribution of dark matter or search for planets with microlensing, where
+one can only measure an increase in luminosity but not a change in position.
+Prof: What can act as a gravitational lens?
+Me: Basically every mass which lies in the line of sight.
+Prof: Also galaxy clusters?
+Me: Sure, since they are massive objects.
+Prof: How does it look if there is gravitational lensing?
+Me: I draw an arc and explain that the light of the lensed object, for example a galaxy, is deflected and
+stretched into such parts of a ring (I didn’t remember the word arc.) and that they’re called Einstein
+rings.
+Prof: Smiling: It’s rather an arc than a ring. Ok, but do the galaxies really have this shape?
+Me: No, of course not, it only seems as if since their light is deflected by gravitational lensing.
+
+
+
+
+                                                    2
+Prof: How much dark matter is there in a galaxy cluster?
+Me: From gravitational lensing one gets a mass of about 1015 M but the luminosity is only about
+1013 L , so 99% of the galaxy cluster has to be dark matter if we assume the Sun to be an average star.
+Prof: How is the dark matter distributed? Homogeneously?
+Me: No, it’s only there where mass is, thus in galaxy clusters. This can be explained by the theory of
+cold dark matter out of neutrinos which would have decoupled from radiation much before the ordinary
+matter and created potential wells in which the ordinary matter would fell in.
+Prof: Third question: Stellar structure. Do you know the stellar structure equations?
+Me: I derive the first three stellar structure equations like it is done in Choudhuri:
+                                          dMr
+                                               = 4πr2 ρ,                                        (2)
+                                           dr
+                                            dP      GMr
+                                               = − 2 ρ,                                         (3)
+                                            dr       r
+                                           dLr
+                                               = 4πr2 ρ.                                       (4)
+                                            dr
+For the equations of energy transport by radiation or convection I only mention how one proceeds to
+derive them and write down the results:
+                                       dT         3 χρ Lr
+                                           =−                 ,                                 (5)
+                                       dr       4a c T 3 4πr2
+                                               B 
+                                       dT          1 T dP
+                                           = 1−               .                                 (6)
+                                       dr          γ P dr
+
+Prof: What’s χ?
+Me: That’s the opacity and it states how transparent or not transparent the stars layers are.
+Prof: Ok, is that enough to solve the stellar structure equations?
+Me: No, one also needs the chemical composition Xi as well as P (Xi , T, ρ), (Xi , T, ρ) and χ(Xi , T, ρ)
+and the boundary conditions
+                                               Mr (0) = 0,                                            (7)
+                                               Lr (0) = 0,                                            (8)
+                                               P (R) = 0,                                             (9)
+                                                T (R) = 0,                                           (10)
+where R is the radius of the star.
+Prof: Good! What are the solutions one obtain?
+Me: More massive stars have convective cores due to the steep temperature gradient due to the CNO
+cycle surrounded by stable layers, whereas less massive stars have stable cores surrounded by convective
+layers.
+
+
+
+                                                    3
+Prof: To which of those belongs the Sun?
+Me: The Sun has a stable core since it’s temperature is only about 107 K what is too less for energy
+production by the CNO cycle.
+Prof: Good! How does one know if there is convection or not.
+Me: I think one solves the equations in case of radiative transfer and if the temperature gradient turns
+out to be steeper than the critical value one uses the equation for energy transport by convection.
+Prof: Correct. What can you tell me about the HR diagram?
+Me: I draw figure 3.5 from Choudhuri, explain the axes, that the slope of the main sequence is given
+by L ∝ T −6 and say where red giants and white dwarfs are located.
+Prof: Ok, that’s it (only 23 minutes were over).
+
+
+Final Remarks The atmosphere was really relaxed, but the Prof was only interested in things which
+are directly related to his questions. He doesn’t respond if you try to tell him some advanced knowledge.
+
+Expected mark: 5.5
+Received mark: 5.5
+
+
+
+
+                                                   4
+                     Astrophysics I, HS 2014
+
+
+                  20.01.2015, Prof. Alexander Refregier
+
+
+Summary The exam takes place in Prof. Refregier’s office in the HIT
+building. It is divided into three questions. With each question he asks for
+more detailed information on formulas and less general knowledge.
+
+   Content of the exam: Sources of Information in Astrophysics, Active
+Galaxies and Friedman equation
+
+Exam After a short greeting the exam begins
+R: What can you tell me about the sources of information in Astrophysics?
+I: I begin to list the different sources of electromagnetic radiation (radio-,
+infra red-, visible, UV-radiation), as well as neutrinos. I explain the differ-
+ence in telescopes used to detect these different sources.
+After I finished explaining those, Prof. R. interrupts R: Could we go to
+higher energies in the electro-magnetic spectrum?
+I: Sure, there is nothing stopping us, so we could detect gamma-rays or even
+more energetic radiation.
+R:And is there anything else we could use? (I didn’t immediately realise
+what he was talking about) Something mass-related?
+I: Ah, gravitational waves, although they are still very difficult to detect
+and we are far away from gaining any knowledge from them.
+R: Ok, lets switch to another topic. Active galaxies, what can you tell me
+about them?
+I: I begin to explain what an active galaxy is. (Active nucleus at the core of
+a galaxy, emitting high amounts of radiation) I then list the different kinds
+of active galaxies that were discussed in the lecture and what distinguishes
+them from each other. (Seyfert I and II, radio-galaxies, radio-loud and radio-
+quite quasars). When talking about radio-galaxies I explain the radio jets
+and radio lobes, as well as superluminal motion. He then asks about the
+unification scheme discussed in the lecture, so I draw a (poor) version of the
+
+
+                                      1
+picture shown in the lecture. I also explain how the different viewing angles
+can explain why these objects may appear very different although they are
+the same.
+R: Now for the last topic, can you write down the Friedmann equation?
+I: I write it down
+                             ȧ2 kc2       8πG
+                                 + 2 =         ρ                          (1)
+                             a2     a       3
+R: Now can you solve this equation?
+I: I began with introducing the time-like variable η by cdt = adη.(I then
+hesitated a bit because I was unsure how to continue, so he aided me)
+R: How can you rewrite ȧ with this?
+I: After a short time to think I write it down
+                                        c da
+                                 ȧ =                                     (2)
+                                        a dη
+R: Ok, now plug it into the Friedmann equation and solve it
+I: Here I thought we would need to differentiate between the different cases
+of k = 0, +1, −1, but R. told me we can still go on without that. Again
+some hesitation before I start solving it and find
+                                  r
+                          da         8πG 4
+                             =±           ρa − ka2                       (3)
+                          dη          3c2
+
+R: And the solution for η?
+I: Again i thought I need to take the cases of k into account, but again it
+was not necessary. So I write
+                               Z
+                                         da
+                         η=± q                                          (4)
+                                    8πG    4 − ka2
+                                    3c 2 ρa
+
+but am uncertain about the borders of the integral, so I ask him. R: They
+can be anything. Okay, that’s it. You did very well.
+Expected grade: 5.75
+Recieved grade: 5.75
+
+
+
+
+                                        2
+                                      Astrophysics I1
+                                  Prof. Alexandre Refregier, HS 2014
+                                    January 19, 2015, 10:00 - 10:30
+
+
+Summary In Prof. office, exam on paper, the assistent (Chihway Chang) and Prof. sit at the (really
+small) table and ask together questions about the universe.
+Description of the content: Parallax, astronomical length scales, HR-diagram, Collisionless Boltzmann-
+equation
+
+
+Ablauf Prof: Hello, welcome, how are you?
+Me: Well, kind of nervous..
+Prof: That’s alright, please sit down. As announced in the lecture we drew three topics randomly so
+let’s start: What’s a parallax?
+Me: I start to talk but realize that I might first draw the earth-sun-plane-scheme.. So the parallax is
+the half of the difference in angle a star has viewed from earth.
+Prof: Ok, and isn’t there an unit we’ve introduced in the lecture involving the parallax...
+Me: Yes, the parsec! It’s the distance to the earth-sun-plane a star would have if it’s observed under a
+parallax of 100 . This distance is approximately 3 · 1016 m.
+Prof: Good, are also other units we have in astrophysics?
+Me: We have also the astronomical unit which is the average distance between earth and sun,
+approximately 1, 5 · 1011 m. Obviously this is a unit that is only useful to describe our solar system. For
+galactic lengths one uses the parsec.
+Prof: Right, can you give us examples for lengths in the universe?
+Me: The nearest star (I said Sirius, actually it’s Proxima Centauri) is about 1pc away, Galaxies have
+a diameter of 100kpc, the nearest (irregular) galaxy cluster, the Virgo Cluster, is 20Mpc and the next
+regular cluster, the Come Cluster, is 100Mpc away. Furthermore the observable universe is of a size of
+about 3Gpc.
+Prof: Good, Chihway do you have questions left? - she shakes her head - ok then we move on: Show
+me the HR-Diagram
+Me: First I draw the HR-diagram
+
+
+
+ 1
+     BSc Physics, Core Subjects
+
+
+
+
+                                                    1
+Me: Then I’m explaining the 3 main accumulation points (Main sequence,
+Red giants, White dwarfs). I mention the two limits of the main sequence
+(upper: Eddington luminosity, lower: minimum mass, otherwise brown dwarf)
+and tell him the mass quantities (main sequence: 0, 1 − 100 M◦ ). so far so
+good, but now he’s asking me why I labeled the x-axis with mass. After a
+little discussion about what was first magnitude classes (B-V) or mass, I
+agree that (B-V) should be on the x-axis and the mass can be related via the
+effective surface temperature, but for the HR-diagram in the traditional way
+there should be the spectral class
+Prof: So now tell me, the magnitude how can we measure it?
+Me: For the apparent magnitude we just measure the flux on earth as it
+comes from the star.
+Prof: Ok, then we have the flux, but how do we get the magnitude?
+Me: ??? unsettled I just write down the definition of the difference in
+magnitude m1 − m2 = 2, 5 · log FF12
+
+Prof: Yeah, that’s fine. Next question: Tell me something about the Figure 1: credit:
+Boltzmann equation.                                                           Choudhuri
+
+Me: The Boltzmann equation is used to describe stellar dynamic, so a large
+group of self-gravitating particles like stars forming a galaxy. We differ
+between the collisional and collision-less Boltzmann equation
+Prof: Slow down a bit, could you please write down the equation
+                                            N             N
+                              df   ∂f X ∂f ∂xi X ∂f ∂vi
+                                 =    +        +        =0
+                              dt   ∂t   ∂xi ∂t   ∂vi ∂t
+                                           i=0           i=0
+
+
+Me: f corresponds to the probability density function in the phase-space, so f d3 xd3 v gives the number
+of particles within d3 xd3 v.
+Prof: What else do we need?
+Me: first I was a bit suck.. Ah yes, we need the Possion-equation, the definition of the density and we
+insert terms for the partial derivations
+                                               Z
+                                                                 ∂xi         ∂vi      Φ(x, t)
+           ∆Φ(x, t) = 4πGρ(x, t) , ρ(x, t) = m d3 vf (x, v, t) ,     = vi ,      =−
+                                                                 ∂t           ∂t        ∂xi
+
+Me: Then we have this 3 coupled differential equations to solve.
+Prof: Good. In the Boltzmann equation, you wrote that this is equal to zero - is that a good
+approximation?
+
+
+
+                                                   2
+Me: If we can neglect collisions in the system then the Liouville theorem states that df
+                                                                                      dt = 0. This is
+the case when we can neglect the gas respectively the ISM in-between the stars, so when collisions can
+be neglected.
+Prof: Yeah, but can we do this?
+Me: I start talking about collisional/violent relaxation and dynamic friction..
+Prof: That’s all correct does this allow us to set neglect collisions?
+Me: I totally didn’t get what he wanted to hear - after some time of hopeless quiet
+Prof: Since the collisional relaxation time is much longer than the age of the universe we’re allowed to
+do this
+Me: Damned, I would have known that...
+Prof: So times over, thank you.
+
+
+Final Remarks The exam atomshere is really nice, Refregier let you time to think and pushes you if
+you need it. Sometimes it’s just sufficient to write down the formula or graph. At some points of the
+exam he wants to her from you something specific what he has on his list in front of himself. In that
+situation you should do minesweeper and say everything related you know about it until you got it. He
+appreciates all true statements.
+I met Prof. Refregier in the new semester to hear from him what I did wrong in the three topics: He
+explained that each topic is equivalent to 2 mark points which sum up to the final mark. Concerning
+the time you have no limits in theory, but if you cannot cover everything they want to hear you will get
+minus points for the missing answers.
+   • 1. topic [1,75 pts.]: Here everything was right except for the distance to the next galaxy
+     (Andromeda, 1 Mpc).
+   • 2. topic [1,5 pts.]: My mass labeling in the HR-diagram was a really bad idea! Furthermore
+     the magnitude-flux relation could have come faster to my mind.
+   • 3. topic [1,25 pts.]: The time scale of the relaxation should have been said immediately. In
+     this section of the exam the lack of time brought me some reduction in the mark.
+Expected mark: 4,75
+Received mark: 4,5
+
+
+
+
+                                                    3
+                                     Astrophysics 11
+                                 Prof. Alexandre Refregier, HS 2014
+                                   22.01.2014, 11:30, Oliver Reich
+
+
+Summary In Prof. office, me, him and the assistant sitting in a chair. I got a paper block to write
+things down. The assistant is taking notes.
+
+
+Ablauf Prof. and assistant come, say hello, and let me in the office. We sit down.
+Prof: Let’s start with our own galaxy, the Milky Way. Which parts from the structure can you tell us?
+Me: Roughly said we can distinguish the bulge, halo and disk. For example in the disk we have the
+younger, blue stars and in the bulge and halo we have the redder stars.
+Prof: Can you draw a sketch?
+Me: (Drawing a sketch of bulge with disk and with sphere around it as halo.)
+Prof: Ok. Then he wants to know the values for the disk, bulge and halo radius, the thickness of the
+disk, our position in the sketch.
+Me: Tell him the values and write them down in the sketch: radius disk about 10 kpc, the same for
+the halo radius, the bulge is about 2 kpc, the disk is several hundreds pc thick (actually it is about 50
+pc), we are at 8 kpc from the center.
+Prof: Wants to hear what the movement of the stars in the different regions looks like.
+Me: In the disk we can assume circular motion...
+Prof: At that point wants more information.
+                                    q
+Me: Well, there’s that formula v = GM     r
+                                         r .
+Mr is the mass inside radius r, which is perhaps interesting to know because it might differ from the
+visible mass.
+In the halo we have peculiar motion, or chaotic... well
+Prof: ...random motion, yes.
+Me: Ok.
+Prof: What do we find in the halo?
+Me: Star clusters, older stars, dark matter...
+Prof: What do we find in the disk?
+ 1
+     BSc Physics, Core Subject
+
+
+
+
+                                                   1
+Me: (Thinking) There are star clusters...
+Prof: Where are the star clusters?
+Me: No, they are mainly in the bulge and halo... So in the disk...
+Prof: (Says sth. that gives me a clue)
+Me: The spiral arms!
+Prof: Yes, what are they made of? (Sees me thinking) Are they made of stars?
+Me: No, they are made of ISM.
+Prof: Yes, what is ISM? You don’t have to list all types of ISM, just generally...
+Me: It’s gas and dust, mostly hydrogen
+Prof: Ok, now there are also elliptical galaxies. How are they different?
+Me: They don’t have these substructures. (Drawing an empty ellipsis) They have older redder stars,
+their luminosity falls off less with radius.
+Prof: What about ISM?
+Me: Much less than spirals. There’s the thinking that spirals turn into ellipticals when losing ISM.
+Prof: Ok, next chapter. How do stars power themselves?
+Me: Nuclear fusion. The smaller ones do a pp cycle, the bigger ones a CNO cycle.
+Prof: Ok, so what does pp and CNO exactly mean? And why do bigger stars one and smaller the
+other?
+Me: (My knowledge was a bit vague on this) pp is burning hydrogen into helium. CNO is burning
+carbon to N to oxygen.
+For the CNO the energy density needs to be bigger, so it happens in bigger stars.
+Prof: So is carbon the fuil in bigger stars?
+Me: No, you need hydrogen to burn this cycle, so you could call hydrogen the fuil.
+Prof: And the C, N, O?
+Me: It is the catalysator for the reaction.
+Prof: Where does the C, N, O come from?
+Me: From other stars. When dying, they produce heavier elements which are then blown off into the
+ISM.
+Prof: How are the light elements produced?
+
+
+
+
+                                                  2
+Me: In the first second after the Big Bang, Nucleosynthesis.
+Prof: What is produced there?
+Me: H, the second one (meant He) and Li.
+Prof: Li not so much
+Me: ...
+Prof: He you mentioned before.
+Me: Ok.
+Prof: Ok, now do the different cycles have consequences on the structures of stars?
+Me: Yes, (mentioning Schwarzschild instability condition) the pp chain does not produce enough
+temperature gradient, so the core of a light star is stable to convection, the CNO cycle does, so we have
+convective core.
+Prof: Why do star have a mass?
+Me: ?
+Prof: Explains, how comes we observe a certain range of masses, especially a lower limit, which is?
+Me: 0.1 – 100 M . The lower limit is because you need a certain energy density to start pp.
+Prof: So the energy density in small stars is about the binding energy of nuclei?
+Me: No (explain the tunneling effect, which starts pp chain even for lower densities)
+(change of topic)
+Prof: Can you tell me Jeans’ theorem?
+Me: ... it has to do with plasma?
+Prof: No (mentions stellar dynamics, how they evolve)
+Me: Oh, it’s a criterion, which decides whether local perturbations can collapse into structures...
+Prof: (Has to admit, this is also from Jeans, but it is not Jeans’ theorem)
+In stellar dynamics, we have a theorem...
+Me: The virial theorem...?
+Prof: Yes (No), but what are the systems we are looking at?
+Me: Point masses... in a force field.
+Prof: Yes, what causes the force?
+
+
+
+
+                                                   3
+Me: Mass distribution...
+Prof: Basically yes, it’s a self gravitating system.
+Me: Ok.
+Prof: Is it in thermal equilibrium?
+Me: No, you can see it from the specific heat of the system, it’s negative.
+Prof: Ok, do you know the Boltzmann equation?
+Me: Yes, you mean the collisionless?
+Prof: Yes.
+Me: df   ∂f     P ∂f          ∂f
+    dt = ∂t +        ∂xi vi + ∂vi ai = 0
+                 i
+
+Prof: What is f ?
+Me: It is the density of particles, mass density,... number of particles in a volume at x with velocity v
+at time t.
+Prof: So what kind of volume is it?
+Me: Well, six dimensional. It’s x and v.
+Prof: Yes, the phase volume.
+Me: Yes.
+Prof: And is the collisionless Boltzmann equation a good approximation here?
+Me: Yes (explain the relaxation time being about the age of the universe, so no collisions)
+Prof: Ok, and what is this equation good for in our case?
+Me: It is for systems not in an equilibrium.
+Prof: Yes, how does it look if we consider a static solution?
+Me: I set ∂f
+          ∂t = 0 in Boltzmann equation.
+
+Prof: How do we construct such solutions?
+                                                          d
+Me: We consider quantities that are conserved in time, so dt Qi (x, v) = 0.
+Prof: (asks how we call them, I don’t know, it’s constants of motion)
+And how do we see, f (Q(x, v)) is a solution?
+
+                d                   ∂f   P ∂f ∂Qi
+Me: I calculate dt f (Q(x, v)) =        + ∂Q       =0
+                                    ∂t
+                                   |{z}  i
+                                             i ∂t
+                                              |{z}
+                                     =0          =0
+
+
+
+
+                                                       4
+Prof: So now, how is this called?
+Me: That’s Jeans’ theorem!
+Prof: Yes. A solution to the Boltzmann equation using Jeans’ theorem?
+Me: (don’t know)
+Prof: The single isothermal sphere. Do you know what it looks like?
+Me: The density distribution? Yes, it’s ρ(r) ∼ r12 with a constant I don’t know.
+Prof: You know why this is interesting?
+Me: ρ ∼ r12 → Mr ∼ r → hv 2 i ∼ const as observed...
+Prof: ... as observed in galaxies. Thank you, the exam is over.
+
+
+Final Remarks (Assistant was taking notes, not asking any questions. As expected, there were three
+topics at the exam, after which the exam was over. Time was about 30 minutes, still.)
+
+Expected mark: 5.5
+Received mark: 5.5
+
+
+
+
+                                                 5
+

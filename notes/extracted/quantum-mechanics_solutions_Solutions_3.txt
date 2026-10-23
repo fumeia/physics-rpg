@@ -1,0 +1,377 @@
+               Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                    Solution to exercise sheet III
+
+Question 1 [Gaussian wave-functions ]:
+Consider the Gaussian wave-function
+
+                                 Ψ(x) = A exp −λx2 /2
+                                                     
+                                                                                        (1)
+
+where λ > 0.
+
+ (i) Find A such that this wave function is normalised.
+
+ (ii) Sketch Ψ(x). How does the picture depend on λ? Find the potential V (x) such that
+      the wave-function (1) solves the stationary Schrödinger equation for a certain value
+      of energy, and derive the energy E assuming V (0) = 0. Where have you encountered
+      that potential before?
+                                                                               2
+(iii) Compute the variance of position and momentum measurements, ∆x = ⟨x2 ⟩ −
+                2
+      ⟨x⟩2 , ∆p = ⟨p2 ⟩ − ⟨p⟩2 . Calculate ∆x · ∆p.
+                                                  ∂
+      Hint: The momentum operator is p = −iℏ ∂x     .
+
+(iv) Suppose you want to trap a particle in the potential V (x) from exercise (ii). How
+     would you tune λ if you want to have good control over the position of the particle?
+     Explain why it impossible to perfectly localise the particle (∆x = 0) by considering
+     two of the key quantities mentioned in earlier parts of this problem.
+
+Solution:
+
+  (i) Normalisation means that |Ψ(x)|2 is a probability density, i.e. |Ψ(x)|2 must integrate
+      to 1. So we compute
+                   Z +∞               Z ∞                                r
+                                 2                2           2
+                                                                      2   π
+                        dx |Ψ(x)| =         dx |A| exp −λx = |A|              .        (S.1)
+                    −∞                 −∞                                  λ
+
+     Therefore the wave function is normalised provided
+                                             1/4
+                                             λiα
+                                        A=e                                           (S.2)
+                                             π
+
+     for an arbitrary real phase α.
+
+ (ii) The picture is a standard bell-shaped curve (Gaussian distribution). Its width
+      decreases when λ increases. This is shown below.
+                                              Ψ
+
+
+
+
+                                            1.5
+
+
+
+
+                                                                               λ=1
+                                            1.0
+                                                                               λ=5
+                                                                               λ=25
+                                            0.5
+
+
+
+
+                                                                           x
+                     -3      -2     -1                   1     2       3
+
+
+
+
+     To find V , we compute the second derivative of the Gaussian wave function (1):
+                                                               2
+                                         ∂x Ψ = −λA x e−λx /2                                   (S.3)
+                                         ∂x2 Ψ = −λΨ + λ2 x2 Ψ.                                 (S.4)
+
+     Given V (0) = 0, it follows that
+
+                   ℏ2 2                               ℏ2 λ2 2                         ℏ2 λ
+               −      ∂x Ψ + V (x)Ψ = EΨ with V (x) =      x,                  E=          .    (S.5)
+                   2m                                  2m                             2m
+     The potential V (x) should be familiar from classical mechanics: it is the potential
+     of a harmonic oscillator.
+
+(iii) We first notice that                        Z ∞
+                                                                   2
+                                  ⟨x⟩ = |A|  2
+                                                        dx x e−λx = 0 ,                         (S.6)
+                                                  −∞
+
+     because the integrand is odd in x. The expectation value of x2 can be calculated as
+     follows:
+                                             Z ∞
+                                                            2
+                                 2
+                                x = |A|   2
+                                                 dx x2 e−λx                        (S.7)
+                                              −∞
+                                                  Z ∞
+                                             2 ∂              2
+                                    = −|A|            dx e−λx                      (S.8)
+                                               ∂λ −∞
+                                                 r
+                                             2 ∂    π
+                                    = −|A|                                         (S.9)
+                                               ∂λ λ
+                                        1
+                                    =      ,                                      (S.10)
+                                       2λ
+                           q
+     where we used |A| = πλ in the last step. The variance of x is therefore
+                       2
+
+
+
+                                                        1
+                                       q
+                                   ∆x = ⟨x2 ⟩ − ⟨x⟩2 = √ .                                     (S.11)
+                                                        2λ
+     We see that as we increase λ, the particle localises closer to x = 0, which is what
+     we observe in the figure of part (ii).
+     To compute ∆p, we can use ∂x Ψ and ∂x2 Ψ from exercise (ii). We find
+                                     Z ∞
+                          ⟨p⟩ = −iℏ       dx Ψ∗ (x) ∂x Ψ(x) = 0 ,                   (S.12)
+                                      −∞
+                                     Z ∞
+                           2
+                         p = −ℏ    2
+                                          dx Ψ∗ (x) ∂x2 Ψ(x)                        (S.13)
+                                       −∞
+                                        Z ∞
+                                                                 2
+                                 2    2
+                                             dx λ − λ2 x2 e−λx
+                                                           
+                              = ℏ |A|                                               (S.14)
+                                         −∞
+                                          λ2
+                                            
+                                 2                  λ
+                              =ℏ λ−            = ℏ2 .                               (S.15)
+                                          2λ        2
+
+     Therefore,                                                 r
+                                                         λ
+                                         q
+                                  ∆p =       ⟨p2 ⟩ − ⟨p⟩2 = ℏ
+                                                           .                      (S.16)
+                                                         2
+     The variances thus saturate the Heisenberg uncertainty relation (discussed later in
+     the lecture)
+                                                 ℏ
+                                      ∆x · ∆p = .                                 (S.17)
+                                                 2
+(iv) If we want to know the particle’s position as precisely as possible, i.e. have small
+     variance ∆x, we must make λ large, corresponding to a very steep harmonic trap
+     V (x). By the result of part (iii), we see then that as ∆x decreases, ∆p must
+                                                                 2
+     increase. In the limit ∆x → 0, clearly ∆p → ∞ and E = ℏ2mλ → ∞ (since λ → ∞);
+     the probability of finding the particle with infinite momentum is very high, and the
+     energy diverges, making it impossible to reach ∆x = 0.
+
+
+Question 2 [Particle in one-dimensional box I ]:
+
+ (i) Consider a particle of mass m on the interval [0, a] (one-dimensional box). Suppose
+     that the system is described, at time t = 0, by the wave-function Ψ(x, 0) = √1a . What
+                                                  2 2 2
+     is the probability that the energy En = n2ma
+                                                π ℏ
+                                                  2  is measured?
+     Hint: Remember that the eigenstates with energies En are given by
+                                             r
+                                               2      nπx 
+                                    ψn (x) =     sin         .                         (2)
+                                               a        a
+
+ (ii) Deduce that
+                                     ∞
+                                     X       1       π2
+                                                   =    ,                              (3)
+                                     m=1
+                                         (2m − 1)2   8
+     and hence that the ζ-function
+                                                   ∞
+                                                   X
+                                         ζ(s) =           n−s                          (4)
+                                                   n=1
+                            π2
+     takes the value ζ(2) = 6 .
+
+Solution:
+  (i) The probability of measuring the energy En is given by
+                         Z a                          Z a√
+                                   ∗
+                                                2          2         nπx  2
+                 pn =          dx ψn (x)Ψ(x, 0) =            dx sin           =
+                          0                            0  a            a
+                         √
+                            2 a h         nπx ix=a 2      2 h         n
+                                                                              i2
+                     =             − cos                 = 2 2 −(−1) + 1 =             (S.18)
+                       ( a nπ               a     x=0     nπ
+                             8
+                            2 2    n odd
+                     = nπ
+                          0        n even
+              P∞
+ (ii) Using    n=0 pn = 1 implies
+                         ∞                                        ∞
+           X      8      X       8                                X       1       π2
+                       =                  =1         ⇒                          =      (S.19)
+           n odd
+                 n2 π 2 m=1 (2m − 1)2 π 2                         m=1
+                                                                      (2m − 1)2   8
+
+      We then rewrite
+                   ∞                                  ∞           ∞
+                  X   1      X 1         X 1         X     1     X       1
+           ζ(2) =       2
+                          =          2
+                                       +         2
+                                                   =         2
+                                                               +                       (S.20)
+                  n=1
+                      n     n even
+                                   n     n odd
+                                               n     m=1
+                                                         (2m)    m=1
+                                                                     (2m − 1)2
+                                                     | {z }
+                                                         ζ(2)/4
+
+      Using the result of (i) implies the relation
+                                     ζ(2) π 2                              π2
+                            ζ(2) =       +           ⇒            ζ(2) =               (S.21)
+                                      4    8                               6
+
+
+Question 3 [Particle in one-dimensional box II ]:
+Show that for a particle confined to the one-dimensional box [0, a] in its nth eigenstate we
+have
+                                                      a2
+                                                                  
+                              1                  2              6
+                       ⟨x⟩ = a ,       ⟨(x − ⟨x⟩) ⟩ =      1− 2 2 ,                       (5)
+                              2                       12       nπ
+and show that as n → ∞ the classical limit is approached. (In the classical limit, the
+particle bounces back and forth between the ends of the box, and is equally likely to be
+anywhere in it.)
+Solution: The expectation value of the particle’s position is
+         Z a                      Z a                     Z a
+                 ∗                       2x 2  nπx            xh          2πnx i
+  ⟨x⟩ =      dx ψn (x) x ψn (x) =     dx    sin        =      dx 1 − cos              (S.22)
+          0                        0      a        a       0    a              a
+Using integration by parts,
+    Z a                                             Z a
+           x     2πnx  h x a        2πnx ix=a   1            2πnx 
+        dx cos           =        sin           −       dx sin         =0              (S.23)
+     0     a        a       a 2πn       a x=0 2πn 0               a
+and therefore ⟨x⟩ = a/2. Analogously, we calculate ⟨x2 ⟩:
+         Z a                       Z a                   Z a
+    2             ∗     2                 2x2     2 nπx
+                                                                x2 h        2πnx i
+  ⟨x ⟩ =     dx ψn (x) x ψn (x) =      dx     sin        =    dx     1 − cos          =
+           0                        0      a         a     0     a              a
+                                                                                    (S.24)
+           2   Z a      2
+         a            x       2πnx 
+       =     −      dx cos                                                          (S.25)
+          3     0      a         a
+The remaining integral is calculated by applying integration by parts repeatedly,
+   Z a                                   2πnx ix=a 1 Z a
+          x2      2πnx  h x2 a                                      2πnx 
+       dx cos             =          sin              −      dx x sin         = (S.26)
+    0      a         a      | a 2πn {z a          x=0
+                                                     } πn 0              a
+                                        =0
+                                         Z a
+      h ax         2πnx ix=a     a                2πnx     a2
+   =           cos             − 2 2         dx cos         = 2 2                 (S.27)
+       2π 2 n2        a    x=0   2π n 0                a     2π n
+Finally,
+
+               2             2        2      2a2   a2      a2     6 
+           (∆x) = ⟨(x − ⟨x⟩) ⟩ = ⟨x ⟩ − ⟨x⟩ =    −       =      1− 2 2                    (S.28)
+                                              12 2π 2 n2   12     nπ
+Classically, the probability
+                  Ra         distribution for particle
+                                                Ra     in a box is uniform on the interval [0, a]
+and thus ⟨x⟩ = 0 dx (x/a) = a/2, ⟨x ⟩ = 0 dx (x2 /a) = a2 /3, hence (∆x)2 = a2 /12.
+                                          2
+
+Hence we see that the classical result is recovered from the quantum result in the limit
+n → ∞.
+
+Question 4 [Particle in one-dimensional box III ]:
+A particle, moving freely between impenetrable barriers at x = 0 and x = a, is in its
+lowest energy stationary state when the barrier at x = a is suddenly displaced to x = 2a.
+By expanding the original wave function in terms of eigenfunctions for the motion within
+[0, 2a], find the wave function at subsequent time t, and show that it is a superposition of
+states of energies
+                                                n2 π 2 ℏ2
+                                         En =                                            (6)
+                                                 8ma2
+with only the n = 2 state and n = 1, 3, 5, . . . states making contributions to the super-
+position. Show that the probability of finding the particle energy unchanged (compared to
+the energy in the original setup) is 1/2. What would the classical intuition be for how the
+energy is expected to change (or not)?
+Solution: We expand the lowest energy state for a box of size a,
+                                     (q         
+                                          2      πx
+                                          a
+                                            sin   a
+                                                          0 < x < a,
+                             ψ(x) =                                                   (S.29)
+                                       0                   otherwise
+
+in terms of the energy eigenstate ψn (x) for a box of size 2a,
+                                    (        
+                                      √1 sin nπx    0 < x < 2a
+                                        a     2a
+                           ψn (x) =                                                       (S.30)
+                                      0              otherwise
+
+The expansion reads (one must be careful with the limits of integration)
+           ∞                   Z 2a                   √ Z a
+          X
+                                         ∗              2            πx   nπx 
+  ψ(x) =      cn ψn (x),  cn =      dx ψ (x)ψn (x) =          dx sin      sin
+          n=1                   0                      a 0             a      2a
+                                                                                (S.31)
+   To calculate the expansion coefficients cn we use the identity
+                                    α+β     α−β
+                            2 sin       sin     = cos β − cos α                           (S.32)
+                                     2       2
+with
+                              πx     n            πx     n
+                         α=        1+    ,     β=        1−                        (S.33)
+                               a      2              a      2
+to obtain
+                            Z a
+                      1           h    πx     n       πx     n i
+                 cn = √         dx cos      1−    − cos      1+      ,             (S.34)
+                     a 2      0         a      2         a      2
+
+                                            
+                  Z a                       a                   n=2
+                              πx     n 
+                       dx cos     1−      = a sin[π(1 − n/2)]                      (S.35)
+                    0          a      2                         n ̸= 2
+                                                  π(1 − n/2)
+                                            
+                   Z a
+                              πx     n    a sin[π(1 + n/2)]
+                       dx cos      1+     =                                        (S.36)
+                    0          a      2         π(1 + n/2)
+                                          √
+The coefficients are thus given by c2 = 1/ 2 and for n ̸= 2:
+
+                              sin π(1 − n/2) sin π(1 + n/2)
+                         cn = √             −√                                     (S.37)
+                                2π(1 − n/2)    2π(1 + n/2)
+
+and vanish for even n > 2. The particle’s energy is unchanged if it is found in the state
+n = 2. This happens with probability |c2 |2 = 1/2.
+    Classically, energy is not conserved for time-dependent Hamiltonians (e.g. think of
+a classical harmonic oscillator where the spring constant suddenly changes with all else
+unchanged). However, for the square well setup, the particle bounces between the walls
+and moves freely in between. When one suddenly moves the walls, one would therefore
+expect the particle energy to remain the same.
+

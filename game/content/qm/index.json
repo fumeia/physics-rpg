@@ -1,0 +1,14 @@
+{
+  "region": "QM Interference Labs",
+  "rooms": [
+    "tunneling-bridge",
+    "harmonic-oscillator-elevator",
+    "angular-momentum-spin",
+    "perturbation-forge",
+    "hydrogen-lamp",
+    "spin-addition-stern-gerlach",
+    "formalism-and-uncertainty",
+    "entanglement-lab",
+    "wave-mechanics-basics"
+  ]
+}

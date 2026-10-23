@@ -1,0 +1,239 @@
+              Exam: Quantum Mechanics I
+
+                    25 August 2026
+                     14:00 – 17:00
+
+
+
+Surname (first 4 letters):
+
+
+
+Immatriculation-number:
+
+
+
+
+For correction — please leave empty
+
+
+
+Question 1:
+
+
+
+Question 2:
+
+
+
+Question 3:
+
+
+
+Question 4:
+Question 1 [Angular momentum, measurements, and uncertainty – 20 points ]:
+  (i) The components of the angular momentum operator L are given by
+
+                                             Lj = εjkl xk pl ,                             (1)
+
+      where repeated indices are summed over. Show that
+
+                               [Lj , Lk ] = iℏ εjkl Ll .      [5 points]                   (2)
+
+      Hint: Show that [L1 , L2 ] = iℏ L3 and argue by cyclicity of the indices.
+The spin j representation is spanned by |j, m⟩, m = −j,√︂. . . , j, with L3 |j, m⟩ = ℏm |j, m⟩.
+The ladder operators L± = L1 ±iL2 act as L± |j, m⟩ = ℏ j(j + 1) − m(m ± 1) |j, m ± 1⟩.
+ (ii) We now consider a particle with angular momentum j = 1. The system is initially
+      in an unknown state. Suppose that the angular momentum L1 is measured and the
+      measurement outcome is ℏ. Show that after the measurement the system will be in
+      the state
+                          1 (︂         √                  )︂
+                   |ψ⟩ =       |1, 1⟩ + 2 |1, 0⟩ + |1, −1⟩ . [3 points]           (3)
+                          2
+(iii) Suppose the system is in the state |ψ⟩ of eq. (3) and we measure L3 . What are the
+      possible measurement outcomes and the measurement probabilities? What is the
+      expectation value ⟨ψ| L3 |ψ⟩? [3 points]
+ (iv) Show that
+                                         0 = ⟨ψ| [L1 , O] |ψ⟩                              (4)
+      for any operator O. Use this to show that
+
+                  ⟨ψ| L2 |ψ⟩ = 0 ,       ⟨ψ| L22 |ψ⟩ = ⟨ψ| L23 |ψ⟩ .         [4 points]    (5)
+
+ (v) Compute the uncertainties
+                                        √︂
+                               ∆Lj =         ⟨ψ| L2j |ψ⟩ − (⟨ψ| Lj |ψ⟩)2 .                 (6)
+
+      Show that the Heisenberg uncertainty principle is satisfied for all the combinations
+
+                                     ∆Lj ∆Lk .          [5 points]                         (7)
+
+      Hint: Use (iv) to show that ∆L2 = ∆L3 .
+Question 2 [Particle in the box – 20 points ]:
+Consider a particle in 1d, confined to a box of length a. The system is described by the
+Hamiltonian
+                                                             ⎧
+                  ℏ2 ∂ 2                                     ⎨0         if x ∈ [0, a] ,
+              H=−        + V (x) ,                 V (x) =                                 (8)
+                  2m ∂x2                                     ⎩∞         else .
+
+  (i) Find the (normalised) eigenfunctions ψn and the associated eigenvalues En of the
+      Hamiltonian for the particle in the box. What boundary conditions does the wave-
+      function have to satisfy? [5 points]
+ (ii) Consider the operator P which acts as
+
+                                        (Pψ) (x) = ψ(a − x) .                              (9)
+
+     Show that P is a symmetry of the Hamiltonian, and that the eigenfunctions of H
+     are eigenfunctions of P. [4 points]
+Let the wavefunction of the particle be
+                                              √︄
+                                                   30
+                                     ψ(x) =           x (a − x) .                         (10)
+                                                   a5
+
+(iii) We can write this wavefunction in terms of the eigenfunctions from above,
+                                                     ∑︂
+                                        ψ(x) =            cn ψn (x) .                     (11)
+                                                      n
+
+     Which cn are allowed to be non-zero by the symmetry P? [3 points]
+(iv) The energy of the particle in eq. (10) is measured. Calculate the probability that
+     one measures the energy En . [5 points]
+     Hint: You may use the integrals
+                         ∫︂ 1
+                                               (−1)n+1
+                                dy y sin (πny) =       ,
+                            0                    πn
+                        ∫︂ 1
+                                  2            (−1)n+1    1 − (−1)n
+                              dy y sin (πny) =         −2           .
+                          0                      πn         π 3 n3
+
+ (v) Use the previous result to show that
+                                ∞
+                                ∑︂      1        π6
+                                             6 =     .            [3 points]              (12)
+                                l=0 (2l + 1)     960
+Question 3 [Rotational symmetry – 19 points ]:
+Consider the Hamiltonian for a particle moving in three dimensions,
+
+                                           ℏ2 2
+                                   H=−        ∇ + V (x) .                                     (13)
+                                           2m
+  (i) The angular momentum operator L is given by
+
+                                                            ∂
+                                       Lj = −iℏ εjkl xk        ,                              (14)
+                                                           ∂xl
+     where repeated indices are summed over. Show that, for any function ψ
+                                                            ∂V
+                 [H, Lj ] ψ = 0 if and only if εjkl xk          =0.            [5 points]     (15)
+                                                            ∂xl
+                                                               [︂             ]︂
+     Hint: To show that [∇2 , Lj ]ψ = 0, first show that ∇2 , xk ∂x∂ l ψ = 2 ∂x∂ k ∂x∂ l ψ.
+ (ii) Show that for
+                              V (x) = V (r) ,        r2 = x21 + x22 + x23 ,                   (16)
+     the Hamiltonian is rotationally symmetric, i.e. [H, Lj ] = 0 for j = 1, 2, 3. What does
+     this imply for the form of the eigenstates of the Hamiltonian and the degeneracies
+     of the energies? [4 points]
+We now consider the potential
+                               1
+                        V (x) = mω 2 x2 ,         x2 = x21 + x22 + x23 .                      (17)
+                               2
+(iii) Consider the (unnormalised) wavefunctions
+                                                mω   2
+                                 ψi (x) = xi e− 2ℏ x ,     i = 1, 2, 3 .                      (18)
+
+     Show that the ψi are eigenfunctions of the Hamiltonian with the potential given in
+     eq. (17) above. What are the energies? [5 points]
+(iv) Show that the action of the angular momentum operator L closes on the space of
+     ψi , i.e. that
+                                Lj ψk ∈ span {ψ1 , ψ2 , ψ3 } .                 (19)
+     Find the eigenvectors and eigenvalues of L3 in this space. [5 points]
+Question 4 [Fine structure corrections – 21 points ]:
+                                                            p
+Typical speeds of the electron in the hydrogen atom are mc    ≈ 0.007, and thus relativistic
+corrections play a role. The relativistic kinetic energy is
+                                                  √︂
+                                         T =           p2 c2 + m2 c4 − m c2 .                                                               (20)
+
+  (i) Expand T to show that the first order relativistically corrected Hamiltonian of the
+      hydrogen atom is
+                                           p2   p4     e2         p4
+                                   H=         −      −    = H0 −        .                                                                   (21)
+                                           2m 8m3 c2   r         8m3 c2
+     Which symmetries of the hydrogen atom are preserved and which do you expect to
+     be broken when this correction is added? [4 points]
+We want to find the energy corrections using perturbation theory. The bound eigenstates
+of H0 are
+
+           |n, l, m⟩ ,       n = 1, 2, 3, . . . ,            l = 0, . . . , n − 1 ,                      m = −l, . . . , l .                (22)
+
+States with the same quantum number n are degenerate,
+
+                                         H0 |n, l, m⟩ = En |n, l, m⟩ .                                                                      (23)
+
+ (ii) In degenerate perturbation theory, the first order energy corrections to En are the
+      eigenvalues of the matrix
+                                           (︂                                 )︂
+                                                ⟨n, l′ , m′ | H ′ |n, l, m⟩                     ,                                           (24)
+                                                                                   l,m;l′ ,m′
+
+     where H ′ is the perturbation. Use the symmetries of the Hamiltonian from (i) to
+                                           (1)
+     show that the first order correction En,l,m of the state |n, l, m⟩ is simply given by
+                                   (1)
+                                 En,l,m = ⟨n, l, m| H ′ |n, l, m⟩ ,                       [4 points]                                        (25)
+                            4
+     where H ′ = − 8mp3 c2 is the correction term in eq. (21).
+(iii) Show that
+                                                   (︄                                                                      )︄
+                                          1                            1                                 1
+                                                                      ⟨︃ ⟩︃                         ⟨︃        ⟩︃
+                          (1)
+                         En,l,m = −                    En2 + 2e2 En                      +e     4
+                                                                                                                                ,           (26)
+                                         2mc2                          r      n,l,m                      r2        n,l,m
+
+     where
+                                ⟨O⟩n,l,m := ⟨n, l, m| O |n, l, m⟩ .                        [4 points]                                       (27)
+     Hint: Find an expression for p2 |n, l, m⟩ in terms of En and V , and use this to find
+     an expression for the expectation value of p4 .
+                                                                                                                                    ⟨︂ ⟩︂
+                                                                                                                                     1
+(iv) For the n = 2 wavefunctions ψ2,l,m (r, θ, ϕ) = R2,l (r) Yl,m (θ, ϕ), calculate                                                  r 2,l,m
+                                                                                                                                             and
+     ⟨︂    ⟩︂
+          1
+          r2 2,l,m
+                   using that
+                                                  ∫︂ ∞
+                                ⟨rα ⟩2,l,m =             dr r2 rα (R2,l (r))2 . [6 points]                                                  (28)
+                                                   0
+    Hints: The radial wavefunctions are given by
+                                           1         r
+                                                   (︃           )︃
+                                                              r
+                              R2,0 (r) = √        2−      e− 2a ,                     (29)
+                                           8 a3      a
+                                            1     r −r
+                              R2,1 (r) = √         e 2a ,                             (30)
+                                           24 a a
+                                                3
+
+
+    where a is the Bohr radius.
+    Furthermore, you can use the integrals
+                                  ∫︂ ∞
+                                         dr rn e−r/a = an+1 n! .                      (31)
+                                   0
+
+
+(v) Sketch the splitting of the n-th energy level due to the relativistic correction to the
+    kinetic energy, depending on the quantum numbers l, m. [3 points]
+    Hint: What can you say about the sign⟨︂ of⟩︂ the energy ⟨︂ correction?
+                                                                ⟩︂           Furthermore,
+    what is the qualitative l dependence of 1r         and r12         (using (iv))? Note
+                                                        n,l,m        n,l,m
+    that the wavefunction of |n, l, m⟩ scales as rl for r → 0.
+

@@ -1,0 +1,257 @@
+      Prüfung zur Quantenmechanik I: Allgemeine Hinweise
+
+
+Vor der Prüfung:
+  • Lesen Sie diese Hinweise und tragen Sie Ihren Namen auf dem Deckblatt ein. Warten Sie
+    auf das Startzeichen, bevor Sie die Aufgaben anschauen und die Prüfung beginnen.
+  • Bitte legen Sie Ihre Legi zur Kontrolle auf den Tisch.
+  • Stellen Sie sicher, dass alle elektronischen Geräte ausgeschaltet sind.
+
+Während der Prüfung:
+  • Die Prüfung dauert 3 Stunden.
+  • Die Aufgaben sind nicht nach steigendem Schwierigkeitsgrad geordnet.
+  • Beginnen Sie jede Aufgabe mit einem neuen Blatt und beschriften Sie jedes Blatt oben
+    mit Ihrem vollständigen Namen und der Aufgabennummer. Mit Ausnahme der Multiple-
+    Choice Fragen in Aufgabe 1.(a) werden Lösungen/Informationen auf den Aufgabenblättern
+    nicht berücksichtigt – bitte schreiben Sie Ihre Lösungen auf Ihre eigenen Blätter.
+  • Bitte schwarze oder blaue Kugelschreiber benutzen. Bitte halten Sie auf der rechten Seite
+    3 cm Platz frei für die Korrektur.
+  • Die Prüfung kann wahlweise auf Deutsch/Englisch geschrieben werden.
+  • Als Hilfsmittel ist ein doppelseitig beschriebenes A4-Blatt sowie, für fremdsprachige Stu-
+    dierende, ein fachneutrales Wörterbuch erlaubt. Während der Prüfung bitte keine Rechner,
+    Smartphones, etc. benutzen.
+  • Der Besuch der Toilette ist nur in Begleitung eines/einer Prüfungsassistenten/in erlaubt.
+
+Am Schluss der Prüfung:
+  • Bitte ordnen Sie Ihre Blätter nach Aufgabennummer und tragen Sie die Anzahl Lösungs-
+    blätter auf dem Deckblatt ein. Die Aufgabenblätter sind alle mit abzugeben.
+  • Am Ende der Prüfung warten Sie bitte an Ihrem Platz, bis die Prüfung eingesammelt wird.
+
+
+                                        Viel Erfolg!
+                                Quantenmechanik I                      HS 2023
+                                Winterprüfung 2024         Prof. Renato Renner
+
+
+
+Datum der Prüfung: 07.02.2024
+Zeit: 15:00–18:00
+
+VORNAME:                                NAME:
+MATRIKELNUMMER:
+Anzahl Lösungsblätter:
+
+
+
+
+      – Diese Seite nicht vor dem Startzeichen umblättern! –
+
+
+
+
+      Aufgabe                                1   2    3    4    Summe
+      Punkte                                24   37   24   34     119
+      Erreichte Punkte
+Aufgabe 1.     Grundlagen der Quantenmechanik [24 Punkte]
+
+
+ (a) Welche der folgenden Aussagen zu den Postulaten der Quantenmechanik ist wahr (W)
+     oder falsch (F)? Es sind keine Begründungen erforderlich.                     [4]
+
+    WF
+    □ □ Ein quantenmechanisches System wird durch eine C ∗ -Algebra A definiert.
+    □ □ Es existiert F ∈ Herm(A) und ein Zustand ρ mit ρ(F 2 ) < [ρ(F )]2 .
+    □ □ Für eine gegebene C ∗ -Algebra A und einen Zustand ρ gibt es einen Hilbertraum H,
+        eine Darstellung π von A auf H und einen Vektor ξ ∈ H, so dass ρ(F ) = ⟨ξ, π(F )ξ⟩
+        für alle F ∈ Herm(A).
+    □ □ Die Lie-Algebra eines Teilchens in einer Dimension wird durch zwei Elemente, Q und
+        P , erzeugt, die {Q, P } = 1, {Q, Q} = 0 und {P, P } = 0 erfüllen.
+
+ (b) In der Vorlesung wurde gezeigt, dass ein hermitescher Operator sowohl eine Observable
+     als auch eine reversible Aktion mathematisch vollständig charakterisiert. Gib in maximal
+     drei Sätzen eine Erklärung dafür, wieso sowohl Messungen als auch reversible Aktionen
+     durch dasselbe mathematische Objekt beschrieben werden können.                       [5]
+
+ (c) Wir betrachten ein freies Teilchen der Masse m in einer Dimension mit dem Hilbertraum
+     H = L2 (R) und einem Hamiltonoperator Ĥ ∈ Herm(H), der im Schrödinger-Bild zeitun-
+     abhängig ist. Für einen gegebenen hermiteschen Operator Ô(t) ∈ Herm(H) zur Zeit t im
+     Schrödinger-Bild bezeichnen wir im Folgenden als ÔH (t) den entsprechenden Operator im
+     Heisenberg-Bild.                                                                   [15]
+
+      (i) Zeige, dass ĤH (t) = Ĥ ∀t ∈ R.
+     (ii) Falls Ô(t) zeitunabhängig ist, lautet die Heisenbergsche Bewegungsgleichung für ÔH (t)
+
+                                        d            1
+                                           ÔH (t) = [ÔH (t), Ĥ] .                          (1)
+                                        dt          iℏ
+
+          Leite nun für den Fall, dass Ô(t) zeitabhängig ist, die Bewegungsgleichung für ÔH (t)
+          her.
+                                               P̂          P̂2
+     (iii) Bestimme ÔH (t) für Ô(t) = X̂ − t m  und Ĥ = 2m , wobei X̂ und P̂ ∈ Herm(H) der
+           Ortsoperator bzw. der Impulsoperator des Teilchens sind.
+
+
+
+
+                                               1
+Aufgabe 2.      Wellenmechanik in 1D [37 Punkte]
+
+Wir betrachten ein Teilchen der Masse m in einer Dimension, welches im Intervall [−a, a] ge-
+fangen ist. Der relevante Hilbertraum ist also L2 ([−a, a]) und es gelten die Randbedingungen
+ψ(−a) = ψ(a) = 0. Das Teilchen soll zudem einem vom Ort x abhängigen Potenzial V (x)
+ausgesetzt sein.
+
+
+ (a) Wie lauten der Hamiltonoperator Ĥ und die zeitunabhängige Schrödingergleichung? [2]
+
+ (b) Bezeichne mit |0⟩ den Grundzustand und mit |1⟩ den ersten angeregten Zustand, sowie
+     mit E0 und E1 die dazugehörigen Energien. Das System sei zur Zeit t = 0 im Zustand
+                                                 1
+                                           |ϕ⟩ = √ (|0⟩ + |1⟩)                                   (2)
+                                                  2
+     präpariert. Das Teilchen entwickle sich für t > 0 nach der zeitabhängigen Schrödingerglei-
+     chung.                                                                                [5]
+
+       (i) Wie gross ist die Wahrscheinlichkeit, das Teilchen zu einer gegebenen Zeit t im Zu-
+           stand |ϕ⟩ zu finden? Drücke das Resultat durch die Energien E0 und E1 aus.
+      (ii) Zu welcher Zeit ist das Teilchen zum ersten Mal wieder im Zustand |ϕ⟩?
+
+
+Wir wählen nun das Potenzial
+                                         V (x) = V0 · δ(x) ,                                     (3)
+wobei V0 eine Konstante ist.
+
+
+ (c) Betrachte den Spiegelungsoperator P̂ : L2 ([−a, a]) → L2 ([−a, a]), welcher durch
+                                                 
+                                               P̂ ψ (x) = ψ(−x)                                  (4)
+
+     definiert ist. Zeige, dass P̂ hermitesch ist und dass [Ĥ, P̂ ] = 0. Wieso ist diese Eigenschaft
+     bei der Analyse des Systems von Bedeutung?                                                   [8]
+
+ (d) Sei nun ψ eine Lösung der zeitunabhängigen Schrödingergleichung. Zeige, dass                [5]
+
+                                                                 2mV0
+                                 lim ψ ′ (x) = lim ψ ′ (x) +          ψ(0).
+                                x→0+             x→0−             ℏ2
+
+Für folgende Teilaufgaben wollen wir zudem annehmen, dass ψ stetig ist, also dass
+
+                                       lim ψ(x) = lim ψ(x) .                                     (5)
+                                    x→0+                  x→0−
+
+
+ (e) Verwende obige Resultate, um die zeitunabhängige Schrödingergleichung zu lösen. Es ge-
+     nügt, die Wellenfunktion bis auf Normierung zu bestimmen und eine algebraische Glei-
+     chung für die Energie-Eigenwerte herzuleiten.                                    [15]
+     Hinweis:    Betrachte die geraden und ungeraden Lösungen separat.
+
+  (f) Zeige, dass für V0 = 0 die Energie-Eigenwerte von der Form En = c · n2 /a2 sind, wobei c
+      eine Konstante ist. Wie gross ist c?                                                [2]
+
+
+                                                      2
+Aufgabe 3.      Drehimpuls [24 Punkte]
+
+Wir betrachten zwei Spin-1/2-Teilchen mit gemeinsamem Hilbertraum H = D1/2 ⊗ D1/2 und
+eine Familie von Zuständen parametrisiert durch α, β ∈ C,
+                                       1         1            1           1
+                                                                            
+                             |ψ⟩ = α −                     +β           −              .      (6)
+                                       2       1 2       2    2       1   2        2
+
+Dabei ist |si,z ⟩i ein Eigenzustand von Ŝi,z , der z-Komponente des internen Drehimpulsoperators
+des i-ten Teilchens, S  ⃗ˆi , mit Eigenwert ℏsi,z für i = 1, 2.
+
+
+ (a) Bestimme alle physikalisch unterscheidbaren Zustände der Form (6), so dass die Wahr-
+     scheinlichkeit, S1,z = ℏ2 zu messen, 1/3 beträgt.                                [5]
+
+                                                                       ˆ
+ (b) Drücke die in (a) gefundenen Zustände in einer Basis aus, in der J⃗ 2 und Jˆz diagonal sind,
+            ˆ ⃗ˆ     ⃗ˆ
+     wobei J⃗ = S1 + S2 .                                                                     [5]
+
+ (c) Bestimme nun aus allen in (a) gefundenen Zuständen diejenigen, für welche zusätzlich gilt,
+     dass die Wahrscheinlichkeit, J⃗ 2 = 2ℏ2 zu messen, 1/2 beträgt.                       [5]
+
+ (d) Die Zeitentwicklung des Zweiteilchensystems soll nun durch den Hamiltonoperator
+                                                         ω ⃗ˆ ⃗ˆ
+                                               Ĥ =        S1 · S2                            (7)
+                                                         ℏ
+     gegeben sein. Bestimme den Zustand |ψ(t)⟩ zu einer beliebigen Zeit t unter der Annahme,
+     dass der Zustand des Teilchens bei t = 0
+                                                   1               1
+                                                                      
+                                        |ψ(0)⟩ = −                                            (8)
+                                                   2             1 2       2
+
+     ist.                                                                                    [7]
+
+ (e) Zum Zeitpunkt t = ωπ messen wir S1,z . Bestimme die Wahrscheinlichkeitsverteilung der
+     Messergebnisse.                                                                   [2]
+
+
+
+
+                                                     3
+Aufgabe 4.     Harmonischer Oszillator [34 Punkte]
+
+Sei Ĥ der Hamiltonoperator des eindimensionalen harmonischen Oszillators,
+
+                                            P̂ 2  1
+                                     Ĥ =        + mω 2 X̂ 2 ,                              (9)
+                                            2m 2
+und seien |n⟩ die Fock-Zustände.
+
+ (a) Drücke den Hamiltonoperator des Systems durch Auf- und Absteigeoperatoren aus. Was
+     ist die Wirkung dieser Operatoren auf einen Fock-Zustand? (Hier ist keine Rechnung er-
+     forderlich.)                                                                       [2]
+
+ (b) Berechne die Matrixelemente
+
+                                       ⟨n|X̂|m⟩       und   ⟨n|P̂ |m⟩                     (10)
+
+     für die Fock-Zustände |m⟩, |n⟩.                                                       [3]
+
+ (c) Zeige, dass die Zeitentwicklung der zu X̂ und P̂ gehörenden Operatoren X̂H (t) und P̂H (t)
+     im Heisenberg-Bild gegeben ist durch
+
+                                                      P̂
+                               X̂H (t) = X̂ cos(ωt) +    sin(ωt)                          (11)
+                                                     mω
+                               P̂H (t) = −mω X̂ sin(ωt) + P̂ cos(ωt) .                    (12)
+
+     Hinweis: Finde Ausdrücke für die zeitlichen Ableitungen dX̂H /dt und dP̂H /dt und löse
+     die daraus resultierende gekoppelte Differenzialgleichung.                         [8]
+
+ (d) Betrachte den Zustand
+                                                            !
+                                                    rP̂
+                                          |ψ⟩ = exp             |0⟩                       (13)
+                                                    iℏ
+
+     mit r ∈ R. Bestimme für t ≥ 0 den Erwartungswert von X̂H (t) bezüglich |ψ⟩. Welche
+     physikalische Bedeutung hätte die Konstante r bei einem klassischen Oszillator? [6]
+
+Wir fügen unserem Hamiltonoperator nun eine neue räumliche Dimension hinzu:
+
+                                    P̂x2   P̂y2  1
+                             Ĥ =        +      + mω 2 (X̂ 2 + Ŷ 2 ) .                   (14)
+                                    2m 2m 2
+
+ (e) Wie gross sind die Energien der drei niedrigsten Energie-Eigenzustände? Liegt eine Ent-
+     artung eines Energie-Eigenwertes vor?                                               [3]
+
+ (f) Betrachte nun die anharmonische Störung
+
+                                            Ĥ ′ = λmω 2 X̂ Ŷ ,                          (15)
+
+     wobei λ ≪ 1 ein dimensionsloser Parameter ist. Finde für die drei niedrigsten ungestörten
+     Energie-Eigenzustände die Energiekorrektur erster Ordnung des gestörten Systems.
+                                                                                          [12]
+
+
+                                                  4
+

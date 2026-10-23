@@ -1,0 +1,559 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                     Solution to exercise sheet IX
+
+Question 1 [The sech2 potential ]:
+Consider the Hamiltonian
+                                         ℏ2 ∂ 2
+                                 H=−            + V (x) ,                                (1)
+                                         2m ∂x2
+with the potential
+                                     ℏ2               ℏ2   1
+                         V (x) = −      sech2 (x) = −             .                      (2)
+                                     m                m cosh2 (x)
+  (i) Sketch the potential and what you expect the ground state wavefunction to look like.
+
+ (ii) Show that the Schrödinger equation can be recast as
+
+                                     A† A ψ = ϵ + 1 ψ ,
+                                                     
+                                                                                         (3)
+
+     where ϵ = 2mE
+                ℏ2
+                   and
+                                            ∂
+                                       A=      + tanh(x) .                               (4)
+                                            ∂x
+(iii) Show that the spectrum is bounded from below by ϵ0 = −1 and find the ground state
+      wavefunction ψ0 .
+      Hint: What can you say about A ψ0 ?
+
+Solution:
+                                                                         2
+  (i) The potential is a symmetric function and has its minimum at − ℏm . For a symmetric
+      potential, the ground state is always symmetric (even). It has no nodes (it does not
+      cross the x axis), and it is localized in the region where the potential is deepest, as
+      shown below
+
+
+
+
+            Figure 1: Sketch of V (x) ∝ sech x and expected ground state ψ0
+ (ii) The conjugate A† is given by
+                                                 ∂
+                                        A† = −      + tanh(x) .                              (S.1)
+                                                 ∂x
+     Therefore,
+                       A† A ψ = −ψ ′′ + tanh2 (x) − tanh′ (x) ψ
+                                                             
+
+                              = −ψ ′′ + 1 − 2sech2 (x) ψ
+                                                      
+
+                                2m                   
+                              = 2 Hψ + ψ = ϵ + 1 ψ ,                                         (S.2)
+                                 ℏ
+     where we used Hψ = Eψ for the last equality.
+(iii) The spectrum of A† A is non-negative, because
+                                   ⟨χ| A† A |χ⟩ = ⟨Aχ|Aχ⟩ ≥ 0 .                              (S.3)
+     This translates to the bound ϵ ≥ −1. This bound is saturated if A annihilates the
+     state. Therefore, the ground state wavefunction is characterised by
+                                   0 = A ψ0 = ψ0′ (x) + tanh(x) .                            (S.4)
+     This differential equation can be solved as follows:
+                                  Z
+                                                             
+                 log ψ0 (x) = − dx tanh(x) + C = − log cosh(x) + C .                         (S.5)
+
+     Therefore,
+                                                         N
+                                            ψ0 (x) =           ,                             (S.6)
+                                                       cosh(x)
+     where N = √12 is a normalisation constant that can be fixed by imposing ⟨ψ0 |ψ0 ⟩ =
+     1.
+
+
+Question 2 [Discreteness of spectrum ]:
+In this exercise, you will derive a bound on the partition function of a particle and apply
+it to show discretenss of the spectrum. Let
+                                         ℏ2 2
+                                    H=−     ∇ + V (q)                                  (5)
+                                         2m
+be the Hamiltonian of a particle in d-dimensions. The partition function is defined as
+                            Z(β) = tr e−βH ,
+                                             
+                                                    β>0.                               (6)
+  (i) Argue that Z(β) < ∞ implies that the spectrum of H is discrete.
+ (ii) Use the Golden-Thompson inequality
+                       tr eA+B ≤ tr eA eB ,
+                                        
+                                                              A, B hermitian ,                (7)
+     to show that
+                                        Z
+                               1                            p2
+                                                                    
+                                             d   d     −β      +V (q)
+                    Z(β) ≤         d       d qd p e        2m          = Zclassical (β) .    (8)
+                             2πℏ
+     Hint: ∇ is diagonal in the momentum basis, V is diagonal in the position basis.
+(iii) Find a sufficient condition on V for the spectrum of H to be discrete. Show that the
+      spectrum of
+                                     ℏ2 2
+                             H=−       ∇ + ν ∥q∥α ,       ν, α > 0 ,                   (9)
+                                    2m
+      is discrete.
+Solution:
+  (i) Intuitively, a continuous spectrum means that one sums over a continuum of values,
+      giving an infinite result. Only if the spectrum is discrete can one obtain a finite
+      result.
+       Mathematically, the spectral theorem guarantees that H has discrete spectrum.
+       Concretely, Z(β) < ∞ means that e−βH is trace class (i.e. the trace can be defined).
+       As it is furthermore self-adjoint, the spectral theorem says that e−βH has discrete
+       spectrum, and therefore H does, too, as its eigenvalues can be obtained by taking
+       the logarithm.
+       As an example to see how the infinity in the partition function arises for Hamilto-
+       nians with continuous spectra, consider V = 0. Then, one has
+                ℏ2 2  Z                 ℏ2
+                                                     Z
+                                                               β
+                 − 2m ∇                −β 2m ∇2                   2
+             tr e              d
+                         = d p ⟨p| e            |p⟩ = dd p e− 2m p ⟨p|p⟩ = ∞ ,       (S.7)
+                                                                    | {z }
+                                                                                           =δ(0)
+
+       because of the infinite volume δ(0) = ∞.1
+ (ii) Applying the Golden-Thompson inequality to H = T + V gives
+
+                           Z(β) ≤ tr e−βT e−βV
+                                               
+                                  Z
+                                = dd q ⟨q| e−βT e−βV |q⟩
+                                  Z
+                                = dd q ⟨q| e−βT |q⟩ e−βV (q) ,                                      (S.8)
+
+       where we have used that |q⟩ is an eigenstate
+                                                  R d of V . To calculate the expectation
+                 −βT
+       value of e    , we insert a complete basis d p |p⟩⟨p| = I,
+                                      Z
+                             −βT
+                        ⟨q| e    |q⟩ = dd p dd p′ ⟨q|p′ ⟩ ⟨p′ | e−βT |p⟩ ⟨p|q⟩ .    (S.9)
+
+       Using then
+                                                           β       2
+                                   ⟨p′ | e−βT |p⟩ = e− 2m p δ p − p′
+                                                                                   
+                                                                                                   (S.10)
+       and                                           − d i
+                                          ⟨q|p⟩ = 2πℏ 2 e ℏ p·q ,                                  (S.11)
+       one finds                                               Z
+                                        −βT            1                       β       2
+                                ⟨q| e         |q⟩ =      d            dd p e− 2m p .              (S.12)
+                                                      2πℏ
+       Plugging this into eq. (S.8) leads to eq. (8).
+   1
+    This infinity can be regulated by putting the free particle into a box of finite volume. Then, the
+spectrum becomes discrete.
+(iii) Since the integral over p converges, a sufficient condition on V for the spectrum of
+      H to be discrete is      Z
+                                 dd q e−βV (q) < ∞ ,      ∀β>0.                      (S.13)
+
+     In particular, for V (q) = ν∥q∥α , one has
+                                                     ∞
+                        Z                            Z
+                                −βV (q)                                α
+                            d
+                           d qe         = vol S d−1
+                                                        dr rd−1 e−β ν r .                  (S.14)
+                                                          0
+
+     The integral over r is finite, as one can see by making the substitution t = βνrα ,
+        Z ∞                               Z ∞
+                  d−1 −β ν rα        1             d             1
+                                              dt t α −1 e−t =            d
+                                                                           
+             dr r    e        =         d                            d Γ α   <∞.   (S.15)
+          0                      α (βν) α 0                   α (βν) α
+
+
+
+Question 3 [Pauli matrices ]:
+In this problem, we want to show that
+                                                ω        
+                                  U (ω⃗n) = exp −i ⃗n · ⃗σ ,                                (10)
+                                                  2
+as an element of SU(2), corresponds to a finite rotation by the angle ω around an axis
+given by the unit vector ⃗n. The Pauli matrices ⃗σ = (σ1 , σ2 , σ3 ) are
+                                                                       
+                     0 1                  0 −i                         1 0
+             σ1 =             ,    σ2 =              ,      σ3 =              .   (11)
+                     1 0                   i 0                         0 −1
+
+ (i) Show that
+                                       σj σk = δjk I + iεjkl σl .                           (12)
+
+ (ii) Show that
+                              U (ω⃗n) = cos(ω/2)I − i sin(ω/2)(⃗n · ⃗σ ) .                  (13)
+
+(iii) Show that (10) really describes the rotation by ω around ⃗n. Hint: Use the isomor-
+      phism SU(2)/{±I} ≃ SO(3) and calculate x̃′ = U x̃U † .
+Solution:
+
+  (i) The desired relation can be restated as σj σk = I for j = k and σj σk = iεjkl σl for
+      j ̸= k. We can verify by direct computation
+                            2           2             2         
+                       0 1            0 −i          1 0            1 0
+                                =             =               =                   (S.16)
+                       1 0            i 0           0 −1           0 1
+
+     and                                                                        
+                        0 1        0 −i                i 0                      1 0
+                                               =                  = iε123                  (S.17)
+                        1 0        i 0                 0 −i                     0 −1
+
+     and similarly for the remaining five products, confirming the desired relation.
+(ii) We first derive the useful property that for any ⃗x, ⃗y ∈ R3 ,
+
+        (⃗x · ⃗σ )(⃗y · ⃗σ ) = xj σj yk σk = xj yk (δjk I + iεjkl σl ) = (⃗x · ⃗y ) I + i(⃗x × ⃗y ) · ⃗σ .   (S.18)
+
+     In particular, for a unit vector ⃗n, we have (⃗n · ⃗σ )2 = I. This implies that (⃗n · ⃗σ )m = I
+     for even m and (⃗n · ⃗σ )m = ⃗n · ⃗σ for odd m.
+     Denoting α = ω/2, we split the series expansion of U (ω⃗n) = exp (−iα⃗n · ⃗σ ) into
+     even and odd terms, which yields the desired result:
+                    ∞                          ∞                          ∞
+                    X (−iα⃗n · ⃗σ )m           X (−iα⃗n · ⃗σ )2k          X (−iα⃗n · ⃗σ )2k+1
+       U (ω⃗n) =                           =                          +                                      (S.19)
+                    m=0
+                                m!             k=0
+                                                         (2k)!         k=0
+                                                                                   (2k + 1)!
+                                                ∞                      ∞
+                                               X   (−1)k α2k        −i (−1)k α2k+1
+                                                                       X
+                                           =                 I+                    (⃗n · ⃗σ )                (S.20)
+                                               k=0
+                                                     (2k)!      k=0
+                                                                       (2k + 1)!
+                                           = cos α I − i sin α (⃗n · ⃗σ ).                                   (S.21)
+
+(iii) Writing x̃ = ⃗x · ⃗σ as in the proof of the isomorphism SU(2)/{±I} ≃ SO(3), the
+      transformation x̃′ = U x̃U † preserves det(x̃) = −⃗x2 and thus corresponds to a ro-
+      tation from ⃗x to ⃗x′ in R3 . It remains to find the axis and angle of the rotation
+      corresponding to (10). First note that (10) is an exponential of ⃗n · ⃗σ , so it leaves ⃗n
+      invariant, so the axis of the rotation is ⃗n. To find the angle, we use the rotational
+      symmetry of R3 to choose coordinates such that ⃗n = ê3 . We know that a rotation
+      by an angle θ about this axis transforms ê1 to cos θ ê1 + sin θ ê2 . Compare this to
+      the transformation e˜1 ′ = U e˜1 U † :
+
+            e˜1 ′ = (cos α I − i sin α (ê3 · ⃗σ ))(ê1 · ⃗σ )(cos α I + i sin α (ê3 · ⃗σ ))                (S.22)
+                  = (cos α σ1 + sin α σ2 )(cos α I + i sin α σ3 )                                            (S.23)
+                  = cos2 α σ1 + sin α cos α σ2 + i sin α cos α (−iσ2 ) + i sin2 α (iσ1 )                     (S.24)
+                  = (cos2 α − sin2 α) σ1 + 2 sin α cos α σ2                                                  (S.25)
+                  = cos ω σ1 + sin ω σ2 .                                                                    (S.26)
+
+     Therefore, ê1 is mapped on cos ω ê1 +sin ω ê2 by this transformation, and we conclude
+     the angle of rotation is indeed ω.
+
+
+     Alternative solution: For the transformation x̃′ = U x̃U † , we compute
+
+              x̃′ = (cos α I − i sin α (⃗n · ⃗σ ))(⃗x · ⃗σ )(cos α I + i sin α (⃗n · ⃗σ ))                   (S.27)
+                  = cos2 α (⃗x · ⃗σ ) + i sin α cos α ((⃗x · ⃗σ )(⃗n · ⃗σ ) − (⃗n · ⃗σ )(⃗x · ⃗σ ))
+                                                                                                             (S.28)
+                      + sin2 α (⃗n · ⃗σ )(⃗x · ⃗σ )(⃗n · ⃗σ ).
+
+     We evaluate some individual terms using Eq. (S.18):
+
+        (⃗x · ⃗σ )(⃗n · ⃗σ ) − (⃗n · ⃗σ )(⃗x · ⃗σ ) = (⃗x · ⃗n) I + i(⃗x × ⃗n) · ⃗σ − (⃗n · ⃗x) I − i(⃗n × ⃗x) · ⃗σ
+                                                                                                               (S.29)
+                                               = 2i(⃗x × ⃗n) · ⃗σ ,                                          (S.30)
+         (⃗n · ⃗σ )(⃗x · ⃗σ )(⃗n · ⃗σ ) = (⃗n · ⃗σ )((⃗x · ⃗n) I + i(⃗x × ⃗n) · ⃗σ )                              (S.31)
+                                        = (⃗x · ⃗n)(⃗n · ⃗σ ) + i((⃗n · (⃗x × ⃗n)) I + i(⃗n × (⃗x × ⃗n)) · ⃗σ )   (S.32)
+                                        = (⃗x · ⃗n)(⃗n · ⃗σ ) + 0 − (⃗x(⃗n · ⃗n) − ⃗n(⃗x · ⃗n)) · ⃗σ              (S.33)
+                                        = 2(⃗x · ⃗n)(⃗n · ⃗σ ) − ⃗x · ⃗σ .                                        (S.34)
+
+       Therefore,
+
+         x̃′ = cos2 α (⃗x · ⃗σ ) − 2 sin α cos α (⃗x × ⃗n) · ⃗σ + sin2 α (2(⃗x · ⃗n)(⃗n · ⃗σ ) − ⃗x · ⃗σ ) (S.35)
+             = ((cos2 α − sin2 α)⃗x − 2 sin α cos α (⃗x × ⃗n) + 2 sin2 α (⃗x · ⃗n)⃗n) · ⃗σ                 (S.36)
+             = (cos ω ⃗x − sin ω (⃗x × ⃗n) + (1 − cos ω)(⃗x · ⃗n) ⃗n) · ⃗σ .                               (S.37)
+
+       Hence the vector ⃗x′ ∈ R3 corresponding to x̃′ is
+
+                             ⃗x′ = cos ω ⃗x − sin ω (⃗x × ⃗n) + (1 − cos ω)(⃗x · ⃗n) ⃗n.                          (S.38)
+
+       This is Rodrigues’ formula for the rotation of ⃗x by an angle ω about the axis ⃗n.
+       We conclude that when such a rotation maps a vector ⃗x ∈ R3 on ⃗x′ ∈ R3 , the
+       corresponding matrices x̃, x̃′ are indeed related by x̃′ = U x̃U † with U given by (10).
+
+
+
+
+Question 4 [3d harmonic oscillator and su(3) representation theory ]:
+In this exercise, you will develop some su(3) representation theory and apply it to the 3d
+harmonic oscillator with Hamiltonian
+                                                            
+                                      †      †       †     3
+                            H = ℏω a1 a1 + a2 a2 + a3 a3 +     .                      (14)
+                                                           2
+
+  (i) Show that
+                                                         Jij = a†i aj                                              (15)
+       is conserved, i.e. [H, Jij ] = 0. Show furthermore that there is an algebra isomor-
+       phism2                                            
+                    φ : u(3) = span Eij ij } −→ span Jij ij }; Eij 7−→ Jij ,          (16)
+       where Eij denotes the 3 × 3 matrix with zeros everywhere except for a one in the
+       (i, j)-th entry,                   
+                                       Eij kl = δik δjl .                          (17)
+       Hint: For the map to be a Lie algebra isomorphism means that φ is an isomorphism
+       of vector spaces and that [φ(x), φ(y)] = φ [x, y] .
+
+ (ii) The u(3) algebra is semi-simple, u(3) ∼= u(1) ⊕ su(3), where the u(1) is spanned by
+      I and the (complexified) su(3) is given by
+                                   n                           o
+                           su(3) = A ∈ Mat3×3 C tr A = 0 .                           (18)
+   2
+    Technically, we consider here the complexification u(3)C , which is the space of complex 3 × 3 matrices
+with Lie bracket given by the matrix commutator.
+        To understand the representation theory, we thus focus on su(3). Let us define the
+        following basis of su(3),
+
+                   h1 = E11 − E22 ,                h2 = E22 − E33 ,
+                   e1 = E12 ,                      e2 = E23 ,                      e3 = E13 ,
+                   f1 = E21 ,                      f2 = E32 ,                      f3 = E31 .   (19)
+
+        We now investigate some properties of this basis.
+
+         (a) Calculate the commutator of hi with the other elements, or in other words
+             calculate
+                                 adhi (·) ,      where adx (y) = [x, y] .         (20)
+                                                         
+         (b) We define the Cartan subalgebra h = span h1 , h2 . Show that su(3) can be
+             decomposed3 as follows,                    M
+                                            su(3) = h ⊕     gα ,                  (21)
+                                                                  α
+                            ∗
+              where α ∈ h is called a root and each gα is a simultaneous eigenspace for the
+              adjoint action of h on su(3), i.e.
+
+                                           x ∈ gα =⇒ adhi (x) = α(hi ) x .                      (22)
+
+              Show that the roots α that appear can be split into positive and negative roots,
+              denoted by ∆+ and ∆− , respectively, with
+
+               ∆+ = (2, −1), (1, 1), (−1, 2) ,     ∆− = (−2, 1), (−1, −1), (1, −2) . (23)
+                                                         
+
+              Here, α = (m, n) denotes the element of h∗ given by
+
+                                            α(h1 ) = m ,          α(h2 ) = n .                  (24)
+
+         (c) Show that for each α ∈ ∆+ , there is a su(2) subalgebra of su(3), spanned by
+
+                                         eα ∈ gα ,    hα ∈ h ,        fα ∈ g−α .                (25)
+
+(iii) We can now describe what irreducible representations of su(3) look like. Consider a
+      finite dimensional irrep                         
+                                   ρ : su(3) −→ gl V .                               (26)
+
+         (a) Show that there is a highest weight vector v ∈ V which is characterised by the
+             following properties. Firstly, it is a common eigenvector of h1 and h2 ,
+
+                                          ρ(hi ) v = λ(hi ) v ,        λ ∈ h∗ .                 (27)
+
+              Furthermore, v is annihilated by all the eα for positive roots,
+
+                                           ρ(eα ) v = 0 ,         ∀ α ∈ ∆+ .                    (28)
+
+              Show that V is generated by the action of ρ(fα ) on the highest weight vector v.
+  3
+      As a vector space, not as a Lie algebra.
+      (b) Show that λ has the property
+
+                                               λ(hα ) ∈ Z ,              ∀ α ∈ ∆+ .                          (29)
+
+      (c) What is the highest weight vector of the adjoint representation from (ii)?
+
+(iv) We now come back to the 3d harmonic oscillator. What are the degenerate eigenspaces
+     of H? Show that each such eigenspace is an irrep of su(3) and find the highest weight.
+Solution:
+ (i) We have [H, ai ] = −ℏωai and [H, a†i ] = ℏωa†i . Using furthermore [A, BC] =
+     B[A, C] + [A, B]C, one has
+                                                         
+                           [H, Jij ] = ℏω a†i −aj + a†i aj = 0 .
+                                                 
+                                                                             (S.39)
+
+     The map φ is clearly an isomorphism, but we still need to show
+                                                        
+                                 [φ(x), φ(y)] = φ [x, y] .                                                  (S.40)
+
+     Let us first find the u(3) commutators. We calculate
+                                                                 
+                         [Eij , Ekl ]mn = Eij mr Ekl rn − Ekl mr Eij rn
+                                               = δim δjr δkr δln − δkm δlr δir δjn
+                                                                           
+                                               = δjk Eil mn − δil Ekj mn ,                                  (S.41)
+
+     where the sum over r is implicit. Therefore,
+
+                                           [Eij , Ekl ] = δjk Eil − δil Ekj .                               (S.42)
+
+     We must show the map φ(Eij ) = Jij is an isomorphism by verifying it preserves the
+     Lie bracket: [φ(Eij ), φ(Ekl )] = φ([Eij , Ekl ]).
+     For u(3), the commutator of the matrix units is:
+
+                                            [Eij , Ekl ] = δjk Eil − δil Ekj .                              (S.43)
+
+     Applying φ to the right-hand side yields δjk Jil − δil Jkj .
+     Now we compute the commutator explicitly for Jij :
+
+             [Jij , Jkl ] = [a†i aj , a†k al ] = a†i [aj , a†k al ] + [a†i , a†k al ]aj                     (S.44)
+                          = a†i ([aj , a†k ]al + a†k [aj , al ]) + (a†k [a†i , al ] + [a†i , a†k ] al )aj   (S.45)
+                                                       | {z }               | {z }        | {z }
+                                                           0                  −δil          0
+
+                          = a†i (δjk al ) − δil a†k aj                                                      (S.46)
+                          = δjk Jil − δil Jkj .                                                             (S.47)
+
+     Since [Jij , Jkl ] = φ([Eij , Ekl ]), the map is a Lie algebra isomorphism.
+
+
+ (ii) (a) We calculate adhi (x) = [hi , x] for the basis elements.
+      • Action of h1 = E11 − E22 :
+
+                      [h1 , e1 ] = [E11 − E22 , E12 ] = E12 − (−E12 ) = 2e1
+                      [h1 , e2 ] = [E11 − E22 , E23 ] = 0 − E23 = −e2
+                      [h1 , e3 ] = [E11 − E22 , E13 ] = E13 − 0 = e3
+                      [h1 , f1 ] = [E11 − E22 , E21 ] = −E21 − E21 = −2f1
+                      [h1 , f2 ] = [E11 − E22 , E32 ] = 0 − (−E32 ) = f2
+                      [h1 , f3 ] = [E11 − E22 , E31 ] = −E31 − 0 = −f3
+
+      • Action of h2 = E22 − E33 :
+
+                      [h2 , e1 ] = [E22 − E33 , E12 ] = −E12 − 0 = −e1
+                      [h2 , e2 ] = [E22 − E33 , E23 ] = E23 − (−E23 ) = 2e2
+                      [h2 , e3 ] = [E22 − E33 , E13 ] = 0 − (−E13 ) = e3
+                      [h2 , f1 ] = [E22 − E33 , E21 ] = E21 − 0 = f1
+                      [h2 , f2 ] = [E22 − E33 , E32 ] = −E32 − E32 = −2f2
+                      [h2 , f3 ] = [E22 − E33 , E31 ] = 0 − E31 = −f3
+
+
+(b) From the commutators above, we identify the roots α = (α(h1 ), α(h2 )) such
+    that [hi , xα ] = α(hi )xα :
+      • e1 : α = (2, −1)
+      • e2 : α = (−1, 2)
+      • e3 : α = (1, 1)
+    These form the set of positive roots ∆+ = {(2, −1), (1, 1), (−1, 2)}.
+      • f1 : α = (−2, 1)
+      • f2 : α = (1, −2)
+      • f3 : α = (−1, −1)
+    These form the set of negative roots ∆−L= {(−2, 1), (−1, −1), (1, −2)}. This
+    confirms the decomposition su(3) = h ⊕ α∈∆ gα .
+
+(c) Since [h1 , h2 ] = 0, they can be simultaneously diagonalized. In Lie algebra
+    terms, they form a subalgebra, denoted by h. For each α ∈ ∆+ , we identify
+    the su(2) triplet {eα , fα , hα = [eα , fα ]}.
+     i. For α = (2, −1): Let eα = e1 , fα = f1 .
+
+                           hα = [e1 , f1 ] = [E12 , E21 ] = E11 − E22 = h1 .
+
+     ii. For α = (−1, 2): Let eα = e2 , fα = f2 .
+
+                           hα = [e2 , f2 ] = [E23 , E32 ] = E22 − E33 = h2 .
+
+    iii. For α = (1, 1): Let eα = e3 , fα = f3 .
+
+        hα = [e3 , f3 ] = [E13 , E31 ] = E11 −E33 = (E11 −E22 )+(E22 −E33 ) = h1 +h2 .
+         In all cases, the triplets satisfy the su(2) commutation relations (we also had it
+         in question 3 of exercise sheet 8) [hα , eα ] = 2eα , [hα , fα ] = −2fα , and [eα , fα ] =
+         hα .
+
+
+(iii) (a) We are given a finite-dimensional irreducible representation ρ : su(3) −→
+          gl(V ), where gl(V ) denotes the general linear Lie algebra of a vector space
+          V . In our context, ρ : su(3) −→ gl(V ) means ρ is a map that assigns every
+          element of su(3) to a linear operator acting on the vector space V .
+           • Since [h1 , h2 ] = 0, the operators ρ(h1 ) and ρ(h2 ) can be simultaneously
+             diagonalized. Thus, there exists at least one common eigenvector v0 with
+             weight λ0 , such that ρ(hi )v0 = λ0 (hi )v0 .
+           • The commutation relations [hi , eα ] = α(hi )eα imply that ρ(eα ) acts as a
+             raising operator: if a vector has weight λ, then applying ρ(eα ) yields a
+             vector with weight λ + α. We can show this by applying ρ(hi ) to the
+             vector ρ(eα )v:
+                                             ρ(hi ) (ρ(eα )v)                     (S.48)
+              However, for the weight vector v we had: ρ(hi )v = λ(hi )v. Additionally,
+              the representation preserves the commutation relations
+
+                      [ρ(hi ), ρ(eα )] = ρ([hi , eα ]) = ρ(α(hi )eα ) = α(hi )ρ(eα ).       (S.49)
+
+              By substituting the commutation relation in our equation we have
+
+                             ρ(hi ) (ρ(eα )v) = ρ(eα )(λ(hi )v) + α(hi )ρ(eα )v             (S.50)
+                                              = λ(hi )(ρ(eα )v) + α(hi )(ρ(eα )v)           (S.51)
+                                              = (λ(hi ) + α(hi ))(ρ(eα )v)                  (S.52)
+
+             Therefore, ρ(eα )v is an eigenvector of ρ(hi ) with eigenvalue λ(hi ) + α(hi ).
+             So, the new vector has weight λ + α, confirming that ρ(eα ) acts as a raising
+             operator.
+           • Because V is finite-dimensional, applying successive raising operators must
+             eventually yield zero. Therefore, there exists a nonzero highest weight
+             vector v such that ρ(eα )v = 0 for all positive roots α ∈ ∆+ .
+           • Let W ⊆ V be the subspace generated by acting on v with all lowering
+             operators ρ(fα ). W is invariant under the full algebra su(3). Since V is
+             irreducible, it has no proper invariant subspaces, so W = V . Thus, V is
+             generated by the action of ρ(fα ) on v.
+
+     (b) The Lie algebra su(3) contains multiple smaller su(2) subalgebras. In the
+         context of quantum mechanics, su(2) is well-known as the algebra describing
+         angular momentum (eα ↔ J+ , fα ↔ J− , and hα ↔ 2Jz ).
+         When we restrict our attention purely to one of these su(2) subalgebras, the
+         states of the full system must still behave as valid states for this smaller algebra.
+         A fundamental result of standard angular momentum theory is that for any
+         finite-dimensional irreducible representation, the eigenvalues of the diagonal
+         operator (analogous to 2Jz ) must be integers.
+          Consequently, since the highest weight vector must be a valid state for all these
+          internal su(2) subalgebras simultaneously, its eigenvalues λ(hα ) with respect
+          to these diagonal operators must all be integers.
+
+      (c) The adjoint representation is defined on the vector space V = su(3) with the
+          action ρ(x)y = adx (y) = [x, y].
+          We seek a highest weight vector v ∈ su(3) that is a simultaneous eigenvector
+          of adh1 , adh2 and is annihilated by all positive root operators ade1 , ade2 , ade3 .
+          The candidates for highest weight are the positive root vectors themselves. We
+          test v = e3 = E13 :
+
+                                    ade1 (e3 ) = [e1 , e3 ] = [E12 , E13 ] = 0
+                                    ade2 (e3 ) = [e2 , e3 ] = [E23 , E13 ] = 0
+                                    ade3 (e3 ) = [e3 , e3 ] = 0
+
+
+          Since e3 is annihilated by all positive root operators, it is the highest weight
+          vector.
+          Its weight is λ = α3 = (1, 1), as determined in part (ii)(b).
+
+
+(iv) The Hamiltonian H = ℏω( i a†i ai + 3/2) has eigenvalues EN = ℏω(N + 3/2). The
+                                  P
+     degenerate eigenspace P VN corresponding to energy EN is spanned by the basis states
+     |n1 , n2 , n3 ⟩ where  ni = N . Since [H, Jij ] = 0, the operators Jij map states within
+     VN to other states in VN , making each VN a representation of su(3).
+
+     We seek a vector v ∈ VN annihilated by all positive root operators ρ(e1 ) = J12 =
+     a†1 a2 , ρ(e2 ) = J23 = a†2 a3 , and ρ(e3 ) = J13 = a†1 a3 . For a basis state |n1 , n2 , n3 ⟩:
+
+        • J12 |n1 , n2 , n3 ⟩ = 0 =⇒ n2 = 0
+        • J23 |n1 , n2 , n3 ⟩ = 0 =⇒ n3 = 0
+
+     With n2 = n3 = 0 and n1 +n2 +n3 = N , the unique highest weight vector is |N, 0, 0⟩.
+
+     The weight λ = (λ1 , λ2 ) is found by applying the Cartan generators, h1 and h2 . For
+     h1 we have ρ(h1 ) = J11 − J22 = a†1 a1 − a†2 a2 , and for h2 we have ρ(h2 ) = J22 − J33 =
+     a†2 a2 − a†3 a3 . So by applying them on the highest weight vector we get
+
+             ρ(h1 )|N, 0, 0⟩ = (a†1 a1 − a†2 a2 )|N, 0, 0⟩ = (N − 0)|N, 0, 0⟩ = N |N, 0, 0⟩
+             ρ(h2 )|N, 0, 0⟩ = (a†2 a2 − a†3 a3 )|N, 0, 0⟩ = (0 − 0)|N, 0, 0⟩ = 0|N, 0, 0⟩.
+
+     Thus, the highest weight of the representation VN is λ = (N, 0).
+

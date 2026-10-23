@@ -1,0 +1,920 @@
+{
+  "course": "solid-state",
+  "questions": [
+    {
+      "id": "blitz-solid-state-01",
+      "room": "lattice-gate",
+      "kind": "concept",
+      "q": "A reciprocal lattice vector $\\mathbf G$ is defined by the condition",
+      "options": [
+        "$e^{i\\mathbf G\\cdot\\mathbf R}=1$ for all direct lattice vectors $\\mathbf R$",
+        "$\\mathbf G\\cdot\\mathbf R=0$ for all $\\mathbf R$",
+        "$|\\mathbf G|=|\\mathbf R|$",
+        "$\\mathbf G\\parallel\\mathbf R$ for every $\\mathbf R$"
+      ],
+      "correct": 0,
+      "explain": "The reciprocal lattice is the set of wave vectors whose plane waves have the periodicity of the Bravais lattice, i.e. $\\mathbf G\\cdot\\mathbf R\\in2\\pi\\mathbb Z$. For a primitive basis $\\mathbf a_i$ it is spanned by $\\mathbf b_j$ with $\\mathbf a_i\\cdot\\mathbf b_j=2\\pi\\delta_{ij}$.",
+      "source": "Kittel 2; HS20 MC"
+    },
+    {
+      "id": "blitz-solid-state-02",
+      "room": "lattice-gate",
+      "kind": "concept",
+      "q": "The Laue condition for elastic scattering is",
+      "options": [
+        "$\\mathbf k'-\\mathbf k=\\mathbf R$",
+        "$\\mathbf k'+\\mathbf k=\\mathbf G$",
+        "$\\mathbf k'-\\mathbf k=\\mathbf G$",
+        "$|\\mathbf k'|=2|\\mathbf k|$"
+      ],
+      "correct": 2,
+      "explain": "Constructive interference of waves scattered from all lattice sites requires the momentum transfer $\\Delta\\mathbf k=\\mathbf k'-\\mathbf k$ to be a reciprocal lattice vector. With $|\\mathbf k'|=|\\mathbf k|$ this is equivalent to Bragg's law $2d\\sin\\theta=n\\lambda$.",
+      "source": "Kittel 2; diffraction"
+    },
+    {
+      "id": "blitz-solid-state-03",
+      "room": "lattice-gate",
+      "kind": "concept",
+      "q": "The first Brillouin zone is",
+      "options": [
+        "the Wigner–Seitz cell of the direct lattice",
+        "the Wigner–Seitz cell of the reciprocal lattice",
+        "the conventional unit cell of the reciprocal lattice",
+        "the set of all $\\mathbf k$ with $|\\mathbf k|<\\pi/a$"
+      ],
+      "correct": 1,
+      "explain": "It consists of all $\\mathbf k$ closer to $\\mathbf G=0$ than to any other reciprocal lattice point, bounded by Bragg planes. Every Bloch state has a representative in it, since $\\mathbf k$ and $\\mathbf k+\\mathbf G$ are equivalent.",
+      "source": "Kittel 2; Bloch states"
+    },
+    {
+      "id": "blitz-solid-state-04",
+      "room": "lattice-gate",
+      "kind": "concept",
+      "q": "In the conventional cubic cell of a BCC lattice, the reflections that vanish are those with",
+      "options": [
+        "$h,k,l$ of mixed parity",
+        "$h+k+l$ even",
+        "$h,k,l$ all odd",
+        "$h+k+l$ odd"
+      ],
+      "correct": 3,
+      "explain": "With basis positions $(0,0,0)$ and $(\\tfrac12,\\tfrac12,\\tfrac12)$ the structure factor is $S=1+e^{i\\pi(h+k+l)}$, which vanishes for odd $h+k+l$. The mixed-parity rule belongs to FCC.",
+      "source": "Kittel 2; structure factor"
+    },
+    {
+      "id": "blitz-solid-state-05",
+      "room": "phonon-halls",
+      "kind": "concept",
+      "q": "For a diatomic chain the optical branch has $\\omega\\neq0$ at $k=0$ because",
+      "options": [
+        "the atoms oscillate in phase",
+        "the force constant vanishes at $k=0$",
+        "the dispersion is linear there",
+        "the two atoms of the basis oscillate against each other, with the centre of mass at rest"
+      ],
+      "correct": 3,
+      "explain": "At $k=0$ the acoustic mode is a rigid translation (zero restoring force, $\\omega=0$), while the optical mode has opposite displacements, so the springs are stretched and $\\omega^2=2C(1/m_1+1/m_2)$. At $q=\\pi/a$ the branches are separated by a gap because $\\omega^2=2C/m_1$ and $2C/m_2$ there.",
+      "source": "Kittel 4; phonons"
+    },
+    {
+      "id": "blitz-solid-state-06",
+      "room": "phonon-halls",
+      "kind": "concept",
+      "q": "In the Debye model the low-temperature heat capacity follows $C\\propto T^3$ because",
+      "options": [
+        "all modes are excited at any $T$",
+        "the dispersion is quadratic",
+        "the number of excited modes grows as $T^3$ (a sphere in $\\mathbf k$-space) and each carries energy $\\sim k_BT$",
+        "only optical phonons contribute"
+      ],
+      "correct": 2,
+      "explain": "For $\\omega=vk$ and $k_BT\\ll k_B\\theta_D$ only modes with $k\\lesssim k_BT/\\hbar v$ are excited; their number scales as $k^3\\propto T^3$. The energy per mode is $k_BT$, so $U\\propto T^4$ and $C=\\mathrm dU/\\mathrm dT\\propto T^3$.",
+      "source": "Kittel 5; Debye model"
+    },
+    {
+      "id": "blitz-solid-state-07",
+      "room": "fermi-sea",
+      "kind": "concept",
+      "q": "The electronic heat capacity of a metal is linear in $T$ because",
+      "options": [
+        "every electron carries $\\tfrac32k_B$",
+        "only electrons within $\\sim k_BT$ of $E_F$ can be excited, so their number is $\\propto T$",
+        "the phonon contribution vanishes",
+        "electrons obey the Boltzmann distribution"
+      ],
+      "correct": 1,
+      "explain": "Pauli blocking: states deep in the Fermi sea are filled. The number of excitable electrons is $\\sim g(E_F)k_BT$, each gaining $\\sim k_BT$, so $U\\sim g(E_F)(k_BT)^2$ and $C=\\gamma T$ with $\\gamma=\\tfrac{\\pi^2}{3}g(E_F)k_B^2$.",
+      "source": "Kittel 6; Sommerfeld"
+    },
+    {
+      "id": "blitz-solid-state-08",
+      "room": "degenerate-core",
+      "kind": "concept",
+      "q": "For free electrons in 3D, $E_F\\propto n^{2/3}$ because",
+      "options": [
+        "$N$ states fill a sphere of radius $k_F$ with $n\\propto k_F^3$, and $E=\\hbar^2k^2/2m$",
+        "the density of states is constant",
+        "the electrons are classical",
+        "$E_F$ is set by the lattice constant only"
+      ],
+      "correct": 0,
+      "explain": "Counting two spin states per $\\mathbf k$: $n=k_F^3/3\\pi^2$. With $E_F=\\hbar^2k_F^2/2m$ this gives $E_F=\\frac{\\hbar^2}{2m}(3\\pi^2n)^{2/3}$. The same law applies to metals and white dwarfs.",
+      "source": "Kittel 6; HS20"
+    },
+    {
+      "id": "blitz-solid-state-09",
+      "room": "drift-corridor",
+      "kind": "concept",
+      "q": "In the Drude model the relaxation time $\\tau$ is",
+      "options": [
+        "the time for an electron to cross the sample",
+        "the lifetime of the conduction electron",
+        "the mean time between collisions of an electron",
+        "the period of the lattice vibration"
+      ],
+      "correct": 2,
+      "explain": "Drude: $m\\dot{\\mathbf v}=-e\\mathbf E-m\\mathbf v/\\tau$, so $\\mathbf v_d=-e\\tau\\mathbf E/m$ and $\\sigma=ne^2\\tau/m$. After each collision, the memory of the velocity is lost.",
+      "source": "Kittel 6; Drude"
+    },
+    {
+      "id": "blitz-solid-state-10",
+      "room": "drift-corridor",
+      "kind": "concept",
+      "q": "The sign of the Hall coefficient $R_H=1/(nq)$ tells you",
+      "options": [
+        "only the mobility",
+        "the sign of the dominant charge carriers and their density",
+        "the Fermi velocity",
+        "the relaxation time"
+      ],
+      "correct": 1,
+      "explain": "In crossed $\\mathbf E$ and $\\mathbf B$ the Lorentz force is balanced by the Hall field $E_y=R_HjB$ with $R_H=1/(nq)$: negative for electrons, positive for holes. $\\tau$ drops out in the simple Drude model.",
+      "source": "Kittel 6; Hall effect"
+    },
+    {
+      "id": "blitz-solid-state-11",
+      "room": "semiconductor-forge",
+      "kind": "concept",
+      "q": "In an intrinsic semiconductor $n_i\\propto\\exp(-E_g/2k_BT)$ with a factor 2 in the exponent because",
+      "options": [
+        "$n=p$ and the mass-action law gives $np\\propto e^{-E_g/k_BT}$",
+        "there are two valence bands",
+        "the Fermi level is at the conduction band edge",
+        "both spin states contribute"
+      ],
+      "correct": 0,
+      "explain": "The law of mass action $np=n_i^2\\propto e^{-E_g/k_BT}$ with $n=p=n_i$ gives $n_i\\propto e^{-E_g/2k_BT}$, since the Fermi level sits at mid-gap. So the thermal activation energy per carrier is $E_g/2$, not $E_g$.",
+      "source": "Kittel 8; semiconductors"
+    },
+    {
+      "id": "blitz-solid-state-12",
+      "room": "magnet-vault",
+      "kind": "concept",
+      "q": "The Pauli paramagnetic susceptibility of a metal is nearly independent of $T$ because",
+      "options": [
+        "the spins are localised",
+        "the magnetic moment of the electron vanishes at low $T$",
+        "the exchange interaction aligns all spins",
+        "only electrons within $\\sim k_BT$ of $E_F$ can flip their spin, giving $\\chi\\propto g(E_F)\\mu_B^2$ (not $1/T$)"
+      ],
+      "correct": 3,
+      "explain": "Curie's law $\\chi=C/T$ holds for independent localised moments. In a degenerate gas, the fraction of excitable spins is $\\sim k_BT/E_F$, which cancels the $1/T$ and leaves $\\chi_P=\\mu_0\\mu_B^2g(E_F)$.",
+      "source": "Kittel 11; Pauli paramagnetism"
+    },
+    {
+      "id": "blitz-solid-state-13",
+      "room": "bonding-grotto",
+      "kind": "concept",
+      "q": "The van der Waals attraction between two neutral atoms falls off as $r^{-6}$ because",
+      "options": [
+        "the Coulomb interaction between two ions is $\\propto r^{-6}$",
+        "a fluctuating dipole $p$ creates a field $\\propto r^{-3}$, inducing a dipole whose energy scales as $E^2\\propto r^{-6}$",
+        "the exchange interaction decays as $r^{-6}$",
+        "the Pauli principle causes it"
+      ],
+      "correct": 1,
+      "explain": "The field of a dipole at distance $r$ is $\\propto p/r^3$, an induced dipole is $\\alpha E$ and the energy is $-\\tfrac12\\alpha E^2\\propto-\\alpha p^2/r^6$. The repulsion is modelled by $r^{-12}$ in the Lennard-Jones potential.",
+      "source": "Kittel 3; bonding"
+    },
+    {
+      "id": "blitz-solid-state-14",
+      "room": "lattice-gate",
+      "kind": "whatif",
+      "q": "The lattice constant $a$ of a simple cubic crystal is doubled. The shortest reciprocal lattice vector $2\\pi/a$ becomes",
+      "options": [
+        "half as long",
+        "twice as long",
+        "unchanged",
+        "four times as long"
+      ],
+      "correct": 0,
+      "explain": "$|\\mathbf G_{\\min}|=2\\pi/a$ is inversely proportional to $a$. The Brillouin zone shrinks in the same way, and diffraction peaks move closer together.",
+      "source": "Kittel 2"
+    },
+    {
+      "id": "blitz-solid-state-15",
+      "room": "lattice-gate",
+      "kind": "whatif",
+      "q": "The X-ray wavelength is doubled for a fixed first-order Bragg reflection (still allowed). $\\sin\\theta$ becomes",
+      "options": [
+        "half as large",
+        "unchanged",
+        "twice as large",
+        "four times as large"
+      ],
+      "correct": 2,
+      "explain": "$2d\\sin\\theta=\\lambda$ gives $\\sin\\theta=\\lambda/2d$, which is proportional to $\\lambda$. The reflection exists only while $\\lambda\\le2d$.",
+      "source": "Kittel 2; Bragg"
+    },
+    {
+      "id": "blitz-solid-state-16",
+      "room": "phonon-halls",
+      "kind": "whatif",
+      "q": "In a diatomic chain with alternating masses, the masses become equal. What happens at the zone boundary of the original cell?",
+      "options": [
+        "the optical branch gains a lower frequency than the acoustic branch",
+        "the acoustic branch disappears",
+        "the gap opens further",
+        "the gap between acoustic and optical branches closes"
+      ],
+      "correct": 3,
+      "explain": "At the zone boundary $\\omega^2=2C/m_1$ (acoustic) and $2C/m_2$ (optical). If $m_1=m_2$, they coincide and the chain becomes monatomic with half the lattice constant (the zone is unfolded).",
+      "source": "Kittel 4; diatomic chain"
+    },
+    {
+      "id": "blitz-solid-state-17",
+      "room": "phonon-halls",
+      "kind": "whatif",
+      "q": "The atoms of a crystal are replaced by an isotope four times heavier with the same springs. The Debye temperature $\\theta_D$",
+      "options": [
+        "doubles",
+        "is unchanged",
+        "falls to a quarter",
+        "halves"
+      ],
+      "correct": 3,
+      "explain": "Frequencies scale as $\\omega\\propto\\sqrt{C/M}$ and $k_B\\theta_D=\\hbar\\omega_D$, so $\\theta_D\\propto M^{-1/2}$, giving a factor $1/2$ for $M\\to4M$. Only the inertia changes (the springs are the same), so $v_s$ and $\\omega_D$ both scale as $M^{-1/2}$.",
+      "source": "Kittel 5; Debye"
+    },
+    {
+      "id": "blitz-solid-state-18",
+      "room": "phonon-halls",
+      "kind": "whatif",
+      "q": "For $T\\ll\\theta_D$ the temperature of an insulator is doubled. Its lattice heat capacity changes by a factor",
+      "options": [
+        "2",
+        "8",
+        "4",
+        "16"
+      ],
+      "correct": 1,
+      "explain": "Debye: $C=\\tfrac{12\\pi^4}{5}Nk_B(T/\\theta_D)^3\\propto T^3$, so $2^3=8$. Only long-wavelength acoustic phonons ($\\hbar\\omega\\lesssim k_BT$) are excited, which gives the $T^3$ law; the electronic term is separate and linear in $T$.",
+      "source": "Kittel 5; Debye $T^3$"
+    },
+    {
+      "id": "blitz-solid-state-19",
+      "room": "degenerate-core",
+      "kind": "whatif",
+      "q": "The electron density of a free-electron gas is doubled. $E_F$ changes by a factor",
+      "options": [
+        "$2^{2/3}\\approx1.6$",
+        "2",
+        "$2^{1/3}\\approx1.26$",
+        "4"
+      ],
+      "correct": 0,
+      "explain": "$E_F=\\frac{\\hbar^2}{2m}(3\\pi^2n)^{2/3}\\propto n^{2/3}$. Doubling $n$ gives $2^{2/3}=1.59$.",
+      "source": "Kittel 6"
+    },
+    {
+      "id": "blitz-solid-state-20",
+      "room": "fermi-sea",
+      "kind": "whatif",
+      "q": "The effective mass of the electrons doubles at fixed density. $E_F$ and the Sommerfeld coefficient $\\gamma$ become",
+      "options": [
+        "$E_F$ doubles and $\\gamma$ halves",
+        "both double",
+        "$E_F$ halves and $\\gamma$ doubles",
+        "both halve"
+      ],
+      "correct": 2,
+      "explain": "$E_F=\\hbar^2k_F^2/2m^*$ with $k_F$ fixed by $n$, so $E_F\\propto1/m^*$. The density of states at $E_F$ is $\\propto m^*$, hence $\\gamma\\propto g(E_F)\\propto m^*$.",
+      "source": "Kittel 6; heavy fermions"
+    },
+    {
+      "id": "blitz-solid-state-21",
+      "room": "drift-corridor",
+      "kind": "whatif",
+      "q": "A metal is heated from 300 K to 600 K, well above $\\theta_D$. Its resistivity roughly",
+      "options": [
+        "halves",
+        "quadruples",
+        "stays the same",
+        "doubles"
+      ],
+      "correct": 3,
+      "explain": "Above $\\theta_D$ the phonon number is $\\propto T$, so $1/\\tau\\propto T$ and $\\rho=m/ne^2\\tau\\propto T$ (Bloch–Grüneisen, high-$T$ limit). Therefore $\\rho(600\\,\\mathrm K)/\\rho(300\\,\\mathrm K)\\approx2$.",
+      "source": "Kittel 6; resistivity"
+    },
+    {
+      "id": "blitz-solid-state-22",
+      "room": "drift-corridor",
+      "kind": "whatif",
+      "q": "The scattering time $\\tau$ of a metal doubles at fixed $n$. What happens to $\\sigma$ and $R_H$?",
+      "options": [
+        "$\\sigma$ doubles and $R_H$ is unchanged",
+        "$\\sigma$ is unchanged and $R_H$ doubles",
+        "both double",
+        "$\\sigma$ doubles and $R_H$ halves"
+      ],
+      "correct": 0,
+      "explain": "$\\sigma=ne^2\\tau/m\\propto\\tau$ while $R_H=-1/ne$ contains no $\\tau$. So the conductivity probes $\\tau$, while the Hall coefficient probes only carrier density and sign.",
+      "source": "Kittel 6; Drude"
+    },
+    {
+      "id": "blitz-solid-state-23",
+      "room": "semiconductor-forge",
+      "kind": "whatif",
+      "q": "Silicon ($n_i=10^{10}$ cm$^{-3}$) is doped with $N_D=10^{16}$ cm$^{-3}$ donors at room temperature. The hole density is about",
+      "options": [
+        "$10^{10}$ cm$^{-3}$",
+        "$10^{16}$ cm$^{-3}$",
+        "$10^{4}$ cm$^{-3}$",
+        "$10^{6}$ cm$^{-3}$"
+      ],
+      "correct": 2,
+      "explain": "Full ionisation gives $n\\approx N_D$, and the mass-action law $np=n_i^2$ gives $p=n_i^2/N_D=10^{20}/10^{16}=10^4$ cm$^{-3}$. The minority density is thus suppressed by $n_i^2/N_D^2=10^{-12}$ relative to the majority density.",
+      "source": "Kittel 8; doping"
+    },
+    {
+      "id": "blitz-solid-state-24",
+      "room": "semiconductor-forge",
+      "kind": "whatif",
+      "q": "An n-type semiconductor is heated until $n_i\\gg N_D$. Its carrier densities then become",
+      "options": [
+        "$n\\approx N_D$ and $p\\approx0$",
+        "$n\\approx p\\approx n_i$ (intrinsic behaviour)",
+        "$n\\approx0$ and $p\\approx N_D$",
+        "$n=N_D+n_i$ and $p=N_D-n_i$"
+      ],
+      "correct": 1,
+      "explain": "At high $T$ thermally excited carriers across $E_g$ outnumber the donor electrons, so the Fermi level moves to mid-gap and $n=p=n_i$. This is the reason for the upper temperature limit of devices.",
+      "source": "Kittel 8"
+    },
+    {
+      "id": "blitz-solid-state-25",
+      "room": "magnet-vault",
+      "kind": "whatif",
+      "q": "The temperature of a Curie paramagnet is doubled. The susceptibility $\\chi=C/T$ changes by a factor",
+      "options": [
+        "2",
+        "$1/4$",
+        "$1/2$",
+        "no change"
+      ],
+      "correct": 2,
+      "explain": "Curie's law $\\chi=C/T$ with $C\\propto n\\mu_\\mathrm{eff}^2$ gives $\\chi\\to\\chi/2$. Thermal agitation disorders the moments.",
+      "source": "Kittel 11; Curie law"
+    },
+    {
+      "id": "blitz-solid-state-26",
+      "room": "magnet-vault",
+      "kind": "whatif",
+      "q": "A ferromagnet is heated above its Curie temperature $T_C$. Then",
+      "options": [
+        "the spontaneous magnetisation vanishes and $\\chi=C/(T-T_C)$ (Curie–Weiss)",
+        "the exchange interaction is switched off",
+        "it becomes a diamagnet",
+        "it keeps its magnetisation but loses its domains"
+      ],
+      "correct": 0,
+      "explain": "Thermal fluctuations overcome the exchange coupling $J$, so the long-range order disappears, but the spins still respond with an enhanced susceptibility $\\chi=C/(T-T_C)$. The exchange interaction itself is unchanged.",
+      "source": "Kittel 11; Weiss"
+    },
+    {
+      "id": "blitz-solid-state-27",
+      "room": "degenerate-core",
+      "kind": "estimate",
+      "q": "Copper has $n=8.47\\times10^{28}$ m$^{-3}$. Its Fermi energy is about",
+      "options": [
+        "$0.7$ eV",
+        "$70$ eV",
+        "$2.3$ eV",
+        "$7.0$ eV"
+      ],
+      "correct": 3,
+      "explain": "$E_F=\\frac{\\hbar^2}{2m}(3\\pi^2n)^{2/3}=7.0$ eV (with $k_F=1.36\\times10^{10}$ m$^{-1}$). Typical metals lie between 2 and 12 eV.",
+      "source": "Kittel 6"
+    },
+    {
+      "id": "blitz-solid-state-28",
+      "room": "fermi-sea",
+      "kind": "estimate",
+      "q": "With $E_F=7.0$ eV the Fermi temperature $T_F=E_F/k_B$ is about",
+      "options": [
+        "$8.2\\times10^{2}$ K",
+        "$8.2\\times10^{4}$ K",
+        "$8.2\\times10^{6}$ K",
+        "$300$ K"
+      ],
+      "correct": 1,
+      "explain": "$T_F=7.0\\,\\mathrm{eV}/(8.617\\times10^{-5}\\,\\mathrm{eV/K})=8.1\\times10^4$ K. Room temperature $T/T_F\\sim4\\times10^{-3}$, so the electron gas is deeply degenerate.",
+      "source": "Kittel 6"
+    },
+    {
+      "id": "blitz-solid-state-29",
+      "room": "lattice-gate",
+      "kind": "estimate",
+      "q": "Cu K$_\\alpha$ X-rays ($\\lambda=0.154$ nm) hit planes with $d=0.20$ nm. The first-order Bragg angle $\\theta$ is about",
+      "options": [
+        "$45^\\circ$",
+        "$11^\\circ$",
+        "$23^\\circ$",
+        "$7.7^\\circ$"
+      ],
+      "correct": 2,
+      "explain": "$\\sin\\theta=\\lambda/2d=0.154/0.40=0.385$, so $\\theta=22.6^\\circ$. Remember that the detector angle is $2\\theta$.",
+      "source": "Kittel 2; Bragg"
+    },
+    {
+      "id": "blitz-solid-state-30",
+      "room": "drift-corridor",
+      "kind": "estimate",
+      "q": "Copper at 300 K has $\\rho=1.7\\times10^{-8}\\,\\Omega$ m and $n=8.47\\times10^{28}$ m$^{-3}$. The Drude time $\\tau=m/(ne^2\\rho)$ is about",
+      "options": [
+        "$2.5\\times10^{-14}$ s",
+        "$2.5\\times10^{-11}$ s",
+        "$2.5\\times10^{-17}$ s",
+        "$2.5\\times10^{-8}$ s"
+      ],
+      "correct": 0,
+      "explain": "$\\tau=9.109\\times10^{-31}/(8.47\\times10^{28}\\cdot(1.602\\times10^{-19})^2\\cdot1.7\\times10^{-8})=2.5\\times10^{-14}$ s, with mean free path $v_F\\tau\\approx40$ nm. So the Drude conductivity is frequency independent up to $\\omega\\sim1/\\tau\\approx4\\times10^{13}$ s$^{-1}$.",
+      "source": "Kittel 6; Drude"
+    },
+    {
+      "id": "blitz-solid-state-31",
+      "room": "drift-corridor",
+      "kind": "estimate",
+      "q": "The magnitude of the Hall coefficient $|R_H|=1/(ne)$ of copper is about",
+      "options": [
+        "$7.4\\times10^{-8}$ m$^3$ C$^{-1}$",
+        "$7.4\\times10^{-11}$ m$^3$ C$^{-1}$",
+        "$7.4\\times10^{-14}$ m$^3$ C$^{-1}$",
+        "$7.4\\times10^{-5}$ m$^3$ C$^{-1}$"
+      ],
+      "correct": 1,
+      "explain": "$1/(8.47\\times10^{28}\\cdot1.602\\times10^{-19})=7.4\\times10^{-11}$ m$^3$/C. In a semiconductor $n$ is smaller by $10^{6}$ or more, so $R_H$ is far larger.",
+      "source": "Kittel 6; Hall"
+    },
+    {
+      "id": "blitz-solid-state-32",
+      "room": "semiconductor-forge",
+      "kind": "estimate",
+      "q": "Silicon has $E_g=1.12$ eV. The absorption edge wavelength $\\lambda=hc/E_g$ is about",
+      "options": [
+        "$0.55$ $\\mu$m",
+        "$11$ $\\mu$m",
+        "$0.11$ $\\mu$m",
+        "$1.1$ $\\mu$m"
+      ],
+      "correct": 3,
+      "explain": "$\\lambda=1239.84\\,\\mathrm{eV\\,nm}/1.12\\,\\mathrm{eV}=1107$ nm, in the near infrared; this is why silicon is opaque to visible light. Photons with $\\lambda<1.1$ $\\mu$m have energy above the gap, so visible light is absorbed.",
+      "source": "Kittel 8; band gap"
+    },
+    {
+      "id": "blitz-solid-state-33",
+      "room": "semiconductor-forge",
+      "kind": "estimate",
+      "q": "For Si at 300 K ($k_BT=0.02585$ eV) the Boltzmann factor $\\exp(-E_g/2k_BT)$ with $E_g=1.12$ eV is about",
+      "options": [
+        "$4\\times10^{-5}$",
+        "$4\\times10^{-20}$",
+        "$4\\times10^{-10}$",
+        "$0.02$"
+      ],
+      "correct": 2,
+      "explain": "$E_g/2k_BT=1.12/0.0517=21.7$ and $e^{-21.7}=3.9\\times10^{-10}$. Multiplying by the effective density of states $\\sqrt{N_cN_v}\\sim3\\times10^{19}$ cm$^{-3}$ gives $n_i\\sim10^{10}$ cm$^{-3}$.",
+      "source": "Kittel 8"
+    },
+    {
+      "id": "blitz-solid-state-34",
+      "room": "phonon-halls",
+      "kind": "estimate",
+      "q": "The Dulong–Petit heat capacity $3R$ of a monatomic solid per mole is about",
+      "options": [
+        "$12.5$ J mol$^{-1}$K$^{-1}$",
+        "$8.3$ J mol$^{-1}$K$^{-1}$",
+        "$75$ J mol$^{-1}$K$^{-1}$",
+        "$25$ J mol$^{-1}$K$^{-1}$"
+      ],
+      "correct": 3,
+      "explain": "Equipartition gives $k_BT$ per atom per direction (kinetic + potential), so $3k_B$ per atom and $3N_Ak_B=3R=24.9$ J mol$^{-1}$K$^{-1}$. The value $\\tfrac32R=12.5$ would be for a monatomic gas at constant volume.",
+      "source": "Kittel 5"
+    },
+    {
+      "id": "blitz-solid-state-35",
+      "room": "phonon-halls",
+      "kind": "estimate",
+      "q": "At $T=\\theta_D/20$ the Debye heat capacity $C/3Nk_B=\\tfrac{4\\pi^4}{5}(T/\\theta_D)^3$ is about",
+      "options": [
+        "$1\\times10^{-2}$",
+        "$1\\times10^{-1}$",
+        "$1\\times10^{-3}$",
+        "$0.5$"
+      ],
+      "correct": 0,
+      "explain": "$\\tfrac{4\\pi^4}{5}=77.9$ and $(1/20)^3=1.25\\times10^{-4}$, so the ratio is $9.7\\times10^{-3}\\approx10^{-2}$: only about 1 % of the Dulong–Petit value. Only acoustic phonons with $\\hbar\\omega\\lesssim k_BT$ are excited, which gives the $T^3$ law.",
+      "source": "Kittel 5"
+    },
+    {
+      "id": "blitz-solid-state-36",
+      "room": "drift-corridor",
+      "kind": "estimate",
+      "q": "The Wiedemann–Franz law $\\kappa=L\\sigma T$ with $L=2.44\\times10^{-8}$ W$\\Omega$K$^{-2}$ and $\\sigma=5.9\\times10^{7}$ S m$^{-1}$ (copper) gives at 300 K about",
+      "options": [
+        "$43$ W m$^{-1}$K$^{-1}$",
+        "$430$ W m$^{-1}$K$^{-1}$",
+        "$4300$ W m$^{-1}$K$^{-1}$",
+        "$4.3$ W m$^{-1}$K$^{-1}$"
+      ],
+      "correct": 1,
+      "explain": "$\\kappa=2.44\\times10^{-8}\\cdot5.9\\times10^7\\cdot300=432$ W m$^{-1}$K$^{-1}$, close to the measured value of 400. $L=\\tfrac{\\pi^2}{3}(k_B/e)^2$ is universal.",
+      "source": "Kittel 6; Wiedemann–Franz"
+    },
+    {
+      "id": "blitz-solid-state-37",
+      "room": "lattice-gate",
+      "kind": "exam",
+      "q": "Which of the following is a Bravais lattice?",
+      "options": [
+        "honeycomb",
+        "simple cubic",
+        "diamond structure",
+        "hexagonal close-packed"
+      ],
+      "correct": 1,
+      "explain": "A Bravais lattice looks the same from every lattice point. The honeycomb, diamond and hcp structures need a two-point basis, so they are not Bravais lattices.",
+      "source": "HS20 MC topic, adapted (not verbatim) (lattices)"
+    },
+    {
+      "id": "blitz-solid-state-38",
+      "room": "lattice-gate",
+      "kind": "exam",
+      "q": "The number of nearest neighbours in an FCC lattice is",
+      "options": [
+        "8",
+        "6",
+        "12",
+        "4"
+      ],
+      "correct": 2,
+      "explain": "In the FCC lattice each atom touches 4 neighbours in each of the three orthogonal planes, giving $z=12$ (SC: 6, BCC: 8, diamond: 4). The 12 nearest neighbours of the origin sit at $\\frac a2(\\pm1,\\pm1,0)$ and its permutations.",
+      "source": "HS20 MC topic, adapted (not verbatim) (lattices)"
+    },
+    {
+      "id": "blitz-solid-state-39",
+      "room": "bonding-grotto",
+      "kind": "exam",
+      "q": "The packing fraction of the BCC lattice of touching hard spheres is",
+      "options": [
+        "$\\pi/(3\\sqrt2)\\approx0.74$",
+        "$\\pi/6\\approx0.52$",
+        "$\\pi\\sqrt3/16\\approx0.34$",
+        "$\\pi\\sqrt3/8\\approx0.68$"
+      ],
+      "correct": 3,
+      "explain": "Spheres touch along the body diagonal $\\sqrt3a=4R$, with 2 spheres per cube: $f=2\\cdot\\tfrac43\\pi R^3/a^3=\\pi\\sqrt3/8$. The 0.74 is FCC and hcp, and 0.34 is diamond.",
+      "source": "HS20 MC topic, adapted (not verbatim) (packing)"
+    },
+    {
+      "id": "blitz-solid-state-40",
+      "room": "phonon-halls",
+      "kind": "exam",
+      "q": "For the monatomic chain $\\omega=2\\sqrt{C/m}\\,|\\sin(ka/2)|$, the group velocity at the zone boundary $k=\\pi/a$ is",
+      "options": [
+        "zero",
+        "maximal",
+        "equal to the sound velocity",
+        "infinite"
+      ],
+      "correct": 0,
+      "explain": "$v_g=\\mathrm d\\omega/\\mathrm dk=a\\sqrt{C/m}\\cos(ka/2)$, which vanishes at $k=\\pi/a$. The wave is standing (Bragg-reflected).",
+      "source": "HS20 MC topic, adapted (not verbatim) (phonons)"
+    },
+    {
+      "id": "blitz-solid-state-41",
+      "room": "phonon-halls",
+      "kind": "exam",
+      "q": "A 3D crystal has 4 atoms per primitive cell. The number of optical phonon branches is",
+      "options": [
+        "12",
+        "3",
+        "9",
+        "6"
+      ],
+      "correct": 2,
+      "explain": "There are $3p=12$ branches in total, 3 of which are acoustic, leaving $3p-3=9$ optical branches. Rule: $3p$ branches, of which 3 are acoustic and $3(p-1)$ optical.",
+      "source": "HS20 MC topic, adapted (not verbatim) (phonons)"
+    },
+    {
+      "id": "blitz-solid-state-42",
+      "room": "fermi-sea",
+      "kind": "exam",
+      "q": "The density of states $g(E)$ of the free electron gas in 3D scales as",
+      "options": [
+        "$E$",
+        "constant",
+        "$1/\\sqrt E$",
+        "$\\sqrt E$"
+      ],
+      "correct": 3,
+      "explain": "From $N(E)\\propto k^3\\propto E^{3/2}$ one gets $g=\\mathrm dN/\\mathrm dE\\propto E^{1/2}$. In 2D it is constant and in 1D $\\propto E^{-1/2}$.",
+      "source": "HS20 MC topic, adapted (not verbatim) (free electrons)"
+    },
+    {
+      "id": "blitz-solid-state-43",
+      "room": "phonon-halls",
+      "kind": "exam",
+      "q": "A monatomic crystal has $N$ primitive cells. The number of allowed $\\mathbf k$ points in the first Brillouin zone is",
+      "options": [
+        "$N$",
+        "$2N$",
+        "$3N$",
+        "$N/2$"
+      ],
+      "correct": 0,
+      "explain": "Periodic boundary conditions allow one $\\mathbf k$ per volume $(2\\pi)^3/V$, and the zone has volume $(2\\pi)^3/V_c$, giving $V/V_c=N$ points. Together with 3 polarisations this gives $3N$ modes.",
+      "source": "HS20 MC topic, adapted (not verbatim) (counting states)"
+    },
+    {
+      "id": "blitz-solid-state-44",
+      "room": "semiconductor-forge",
+      "kind": "exam",
+      "q": "Which of these semiconductors has a direct band gap?",
+      "options": [
+        "Si",
+        "GaAs",
+        "Ge",
+        "diamond"
+      ],
+      "correct": 1,
+      "explain": "In GaAs the conduction-band minimum and valence-band maximum are both at $\\Gamma$, so optical transitions conserve $\\mathbf k$ (LEDs, lasers). Si, Ge and diamond are indirect.",
+      "source": "HS20 MC topic, adapted (not verbatim) (semiconductors)"
+    },
+    {
+      "id": "blitz-solid-state-45",
+      "room": "drift-corridor",
+      "kind": "exam",
+      "q": "A Hall measurement on a p-doped semiconductor gives a Hall coefficient that is",
+      "options": [
+        "positive, $R_H\\approx1/(pe)$",
+        "negative, $R_H\\approx-1/(pe)$",
+        "zero",
+        "positive, $R_H\\approx1/(ne)$ with the electron density"
+      ],
+      "correct": 0,
+      "explain": "The Hall field adjusts to balance the Lorentz force on holes, which carry charge $+e$ and have density $p$: $R_H=1/(pe)>0$. For electrons the sign is negative, $R_H=-1/ne$, so the sign of $R_H$ identifies the majority carrier.",
+      "source": "HS20 MC topic, adapted (not verbatim) (Hall)"
+    },
+    {
+      "id": "blitz-solid-state-46",
+      "room": "drift-corridor",
+      "kind": "exam",
+      "q": "The mobility is $\\mu=e\\tau/m^*$. At equal $\\tau$ a carrier with a smaller effective mass has",
+      "options": [
+        "a smaller mobility",
+        "the same mobility",
+        "a larger mobility",
+        "a larger density but the same mobility"
+      ],
+      "correct": 2,
+      "explain": "$\\mu\\propto1/m^*$: a lighter carrier accelerates more under the same force, as in $v_d=\\mu E$ for electrons in GaAs, with $\\mu$ much larger than for holes. Hence GaAs electrons ($m^*=0.067m_0$) are much more mobile than holes ($m^*=0.45m_0$) at the same $\\tau$.",
+      "source": "HS20 MC topic, adapted (not verbatim) (transport)"
+    },
+    {
+      "id": "blitz-solid-state-47",
+      "room": "magnet-vault",
+      "kind": "exam",
+      "q": "The exchange interaction responsible for ferromagnetism originates from",
+      "options": [
+        "the magnetic dipole–dipole interaction",
+        "the spin–orbit coupling",
+        "electron–phonon coupling",
+        "the Coulomb repulsion together with the Pauli principle"
+      ],
+      "correct": 3,
+      "explain": "Dipole–dipole energies are $\\sim10^{-4}$ eV (about 1 K), too small for $T_C\\sim10^3$ K. The Coulomb energy depends on the spin through the symmetry of the spatial wave function, so $J\\sim$ eV.",
+      "source": "HS20 MC topic, adapted (not verbatim) (magnetism)"
+    },
+    {
+      "id": "blitz-solid-state-48",
+      "room": "phonon-halls",
+      "kind": "exam",
+      "q": "Van Hove singularities in the phonon density of states occur at frequencies where",
+      "options": [
+        "$\\omega=0$",
+        "the group velocity $\\nabla_{\\mathbf k}\\omega$ vanishes",
+        "only $\\mathbf k=0$ is allowed",
+        "the wavelength is infinite"
+      ],
+      "correct": 1,
+      "explain": "The DOS is $g(\\omega)\\propto\\int\\mathrm dS/|\\nabla_{\\mathbf k}\\omega|$, which has integrable singularities at critical points (zone boundary, band edges) where $\\nabla_{\\mathbf k}\\omega=0$. Example: in the 1D chain $g(\\omega)\\propto1/\\sqrt{\\omega_{\\max}^2-\\omega^2}$ diverges at the zone-boundary frequency $2\\sqrt{C/m}$.",
+      "source": "HS20 MC topic, adapted (not verbatim) (phonons)"
+    },
+    {
+      "id": "blitz-solid-state-49",
+      "room": "semiconductor-forge",
+      "kind": "exam",
+      "q": "In a p-doped semiconductor at $T=0$ the Fermi energy lies",
+      "options": [
+        "at the conduction band edge",
+        "at the valence band edge",
+        "between the valence band edge and the acceptor level",
+        "above the acceptor level"
+      ],
+      "correct": 2,
+      "explain": "At $T=0$ the acceptor level is empty and the valence band full, so $E_F$ lies midway between the valence band edge and the acceptor level; with rising $T$ it moves towards mid-gap.",
+      "source": "HS20 MC (c), verbatim topic and options, German original translated"
+    },
+    {
+      "id": "blitz-solid-state-50",
+      "room": "drift-corridor",
+      "kind": "exam",
+      "q": "In the limit $T\\to0$ the resistivity of a metal is",
+      "options": [
+        "linear in $T$ because of phonon scattering",
+        "independent of $T$ because of phonon scattering",
+        "linear in $T$ because of impurity scattering",
+        "independent of $T$ because of impurity scattering"
+      ],
+      "correct": 3,
+      "explain": "Phonons freeze out ($\\rho_\\mathrm{ph}\\propto T^5$ below $\\theta_D$), leaving the temperature-independent residual resistivity $\\rho_0$ from impurities and defects (Matthiessen's rule).",
+      "source": "HS20 MC (d), verbatim topic and options, German original translated"
+    },
+    {
+      "id": "blitz-solid-state-51",
+      "room": "phonon-halls",
+      "kind": "exam",
+      "q": "Einstein model of the specific heat: which statement is FALSE?",
+      "options": [
+        "It gives good values of $c(T)$ at high temperatures.",
+        "At high temperatures it agrees with the Dulong-Petit law.",
+        "Its density of states is described by a $\\delta$ function.",
+        "It assumes a linear phonon dispersion, so all modes have the same velocity."
+      ],
+      "correct": 3,
+      "explain": "The Einstein model assumes all modes have one frequency $\\omega_E$, i.e. a flat dispersion with zero group velocity, which gives the $\\delta$-function DOS; a linear dispersion is the Debye assumption. It fails at low $T$ (exponential instead of $T^3$).",
+      "source": "HS20 MC (l), verbatim topic and options, German original translated"
+    },
+    {
+      "id": "blitz-solid-state-52",
+      "room": "fermi-sea",
+      "kind": "exam",
+      "q": "A metal has the electron density $5.00\\times10^{22}$ cm$^{-3}$. In the free-electron model at $T=0$ the Fermi energy is",
+      "options": [
+        "310 eV",
+        "0.786 meV",
+        "3.118 eV",
+        "4.95 eV"
+      ],
+      "correct": 3,
+      "explain": "$n=5\\times10^{28}$ m$^{-3}$ gives $k_F=(3\\pi^2n)^{1/3}=1.14\\times10^{10}$ m$^{-1}$ and $E_F=\\hbar^2k_F^2/2m=7.9\\times10^{-19}$ J $=4.95$ eV, a typical metal value.",
+      "source": "HS20 MC (m), verbatim topic and options, German original translated"
+    },
+    {
+      "id": "blitz-solid-state-53",
+      "room": "drift-corridor",
+      "kind": "exam",
+      "q": "Which scattering process does NOT contribute to the finite resistance of a solid?",
+      "options": [
+        "scattering from phonons",
+        "scattering from the ion cores of the exactly periodic lattice",
+        "scattering from ionised impurities",
+        "scattering from lattice defects"
+      ],
+      "correct": 1,
+      "explain": "By the Bloch theorem electrons move without scattering in a perfectly periodic potential; only deviations from periodicity (phonons, impurities, defects) cause resistance.",
+      "source": "HS20 MC (q), verbatim topic and options, German original translated"
+    },
+    {
+      "id": "blitz-solid-state-54",
+      "room": "semiconductor-forge",
+      "kind": "exam",
+      "q": "The figure shows the temperature dependence of a carrier density: $\\log_{10}n$ (cm$^{-3}$, from $10^{13}$ to $10^{17}$) against $1000/T$ (K$^{-1}$, from 0 to 20). From high $T$ (left) the curve first falls steeply (a dashed line $n_i$ continues this steep fall), then forms a flat plateau at $n\\approx10^{15}$ cm$^{-3}$ between about $1000/T=3$ and $8$, and at low $T$ (right) falls again along a straight line of small slope. The figure shows the carrier density of a(n)",
+      "options": [
+        "insulator",
+        "doped semiconductor",
+        "intrinsic semiconductor",
+        "metal"
+      ],
+      "correct": 1,
+      "explain": "A plateau (saturation: all donors ionised, $n\\approx N_D$) between a steep intrinsic rise at high $T$ ($n\\propto e^{-E_g/2k_BT}$, the dashed $n_i$) and a freeze-out branch at low $T$ ($n\\propto e^{-E_d/2k_BT}$, small slope) is the fingerprint of a doped semiconductor. A metal would be flat everywhere; an intrinsic semiconductor would be one straight line in this plot.",
+      "source": "HS20 MC (a), options verbatim (German original translated); figure described in words"
+    },
+    {
+      "id": "blitz-solid-state-55",
+      "room": "degenerate-core",
+      "kind": "exam",
+      "q": "The density of states of the electrons of a superconductor with energy gap $\\Delta$",
+      "options": [
+        "vanishes for energies in the gap and diverges for energies near the band edge",
+        "vanishes for energies outside the gap and is constant for all energies in the gap",
+        "is constant for all energies",
+        "diverges in the limit of zero energy and vanishes at the band edge"
+      ],
+      "correct": 0,
+      "explain": "BCS: $D_s(E)=D_n(0)\\,E/\\sqrt{E^2-\\Delta^2}$ for $|E|>\\Delta$ and $0$ for $|E|<\\Delta$: no states in the gap and square-root (inverse) singularities at the edges, where the removed states pile up.",
+      "source": "HS20 MC (b), options verbatim (German original translated); figure described in words"
+    },
+    {
+      "id": "blitz-solid-state-56",
+      "room": "lattice-gate",
+      "kind": "exam",
+      "q": "A 2D lattice of points is drawn: the points lie on horizontal rows with in-row spacing $p$; neighbouring rows are a distance $p/2$ apart and shifted sideways by $p/2$ (a centred rectangular lattice). Four pairs of vectors are drawn: $a_1=(p,0)$, $a_2=(p/2,p/2)$; $b_1=(p,0)$, $b_2=(0,p)$ (up two rows); $c_1=(2p,0)$, $c_2=(-p/2,p/2)$; $d_1=(3p/2,p/2)$, $d_2=(-3p/2,p/2)$. Which pair is a set of primitive translation vectors?",
+      "options": [
+        "$a_1,a_2$",
+        "$b_1,b_2$",
+        "$c_1,c_2$",
+        "$d_1,d_2$"
+      ],
+      "correct": 0,
+      "explain": "Primitive vectors span a cell of one lattice point, here area $p\\cdot p/2=p^2/2$ (row spacing times in-row spacing). $|a_1\\times a_2|=p^2/2$ yes; $b$: $p^2$ (two points), $c$: $p^2$ (two points), $d$: $3p^2/2$ (three points). The cell area is the check: $A_{\\rm cell}=|\\mathbf a_1\\times\\mathbf a_2|$ must equal the area per lattice point.",
+      "source": "HS20 MC (e), options verbatim (German original translated); figure described in words"
+    },
+    {
+      "id": "blitz-solid-state-57",
+      "room": "lattice-gate",
+      "kind": "exam",
+      "q": "Which of the following shapes can be the unit cell of a crystal lattice? The lattice points sit on the corners of a regular (a) pentagon, (b) hexagon, (c) heptagon, (d) octagon.",
+      "options": [
+        "pentagon",
+        "hexagon",
+        "heptagon",
+        "octagon"
+      ],
+      "correct": 1,
+      "explain": "Unit cells must tile the plane without gaps. Only rotation axes of order 1, 2, 3, 4 and 6 are compatible with translation symmetry (crystallographic restriction), so 5-, 7- and 8-fold polygons cannot tile; the regular hexagon does (the Wigner-Seitz cell of the triangular lattice, also the first BZ of graphene).",
+      "source": "HS20 MC (f), options verbatim (German original translated); figure described in words"
+    },
+    {
+      "id": "blitz-solid-state-58",
+      "room": "lattice-gate",
+      "kind": "exam",
+      "q": "Two Laue patterns (spots in a square grid on a screen, spot size proportional to the intensity, black dots mark unobserved reflections) belong to two of sc, fcc, bcc. Pattern (a): along the rows and columns the observed spots form a checkerboard: spots where $h+k$ is even, nothing at the sites with $h+k$ odd. Pattern (b): spots only on every second row and every second column (both indices even); all other grid sites are dark. The correct assignment is",
+      "options": [
+        "(a): fcc, (b): sc",
+        "(a): sc, (b): fcc",
+        "(a): bcc, (b): fcc",
+        "(a): fcc, (b): bcc"
+      ],
+      "correct": 2,
+      "explain": "A cubic Laue pattern (plane $l=0$) shows the reciprocal lattice. sc has no extinctions (every site lit). bcc: $S\\neq0$ only for $h+k+l$ even, which in the $l=0$ plane is the checkerboard (a). fcc: $h,k,l$ all even or all odd, in the $l=0$ plane both $h,k$ even (b).",
+      "source": "HS20 MC (g), options verbatim (German original translated); figure described in words"
+    },
+    {
+      "id": "blitz-solid-state-59",
+      "room": "lattice-gate",
+      "kind": "exam",
+      "q": "In the Debye-Scherrer method a powder sample is illuminated with monochromatic radiation $\\lambda_0=2\\pi/|\\mathbf k_0|$. In terms of the Ewald construction one observes",
+      "options": [
+        "all reflections on a sphere of radius $|\\mathbf k_0|$ around the origin of the reciprocal lattice",
+        "all reflections on a sphere of radius $|\\mathbf k_0|$ around the point $\\mathbf k_0$ of the reciprocal lattice",
+        "all reflections on a sphere of radius $2|\\mathbf k_0|$ around the origin of the reciprocal lattice",
+        "all reflections inside a sphere of radius $2|\\mathbf k_0|$ around the origin of the reciprocal lattice"
+      ],
+      "correct": 3,
+      "explain": "The powder contains all crystal orientations, so the Ewald sphere (radius $|\\mathbf k_0|$, through the origin) takes every orientation: every $\\mathbf G$ with $|\\mathbf G|\\le2|\\mathbf k_0|$ can be reached, each giving a Debye-Scherrer ring $|\\mathbf G|=2k_0\\sin\\theta$. (Single crystal: only the points that lie exactly on the sphere.)",
+      "source": "HS20 MC (h), options verbatim (German original translated); figure described in words"
+    },
+    {
+      "id": "blitz-solid-state-60",
+      "room": "fermi-sea",
+      "kind": "exam",
+      "q": "The tight-binding model of a 1D lattice gives the dispersion $E(k)=E_i-A_i-2B_i\\cos(ka)$ (with $B_i>0$). The effective mass $m^*$ at the minimum is",
+      "options": [
+        "$\\hbar^2/(2B_ia^2)$",
+        "$2B_ia^2/\\hbar^2$",
+        "$B_ia^2$",
+        "$2B_i$"
+      ],
+      "correct": 0,
+      "explain": "$m^*=\\hbar^2/(\\partial^2E/\\partial k^2)$ and $\\partial^2E/\\partial k^2=2B_ia^2\\cos(ka)=2B_ia^2$ at $k=0$ (minimum). A wide band (large $B_i$) means a light electron; $2B_ia^2/\\hbar^2$ is the inverse mass, a typical wrong option.",
+      "source": "HS20 MC (n), options verbatim (German original translated); figure described in words"
+    },
+    {
+      "id": "blitz-solid-state-61",
+      "room": "semiconductor-forge",
+      "kind": "exam",
+      "q": "The figure shows a $k$-space isotropic band structure of a 2D semiconductor with parabolic dispersion near the gap: a steep conduction-band parabola with minimum at $E=+\\Delta/2$ (large curvature, small mass) and a shallow valence-band parabola with maximum at $E=-\\Delta/2$ (small curvature, large mass). Four sketches of the density of states $D(E)$ are offered. (a): step functions with the lower (valence) step small and the upper (conduction) step large; (b): step functions, valence step large and conduction step small; (c): curves falling to zero away from the gap (square-root type); (d): curves rising from zero away from the gap. Which belongs to this band structure?",
+      "options": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correct": 1,
+      "explain": "In 2D the density of states of a parabolic band is a step: $D(E)=m^*/(\\pi\\hbar^2)$, independent of $E$ (the factor 2 for spin included), starting at the band edge. The flat valence band has the larger mass, so the larger step, and the steep conduction band the smaller step: sketch (b). Square-root shapes (c), (d) would be 3D.",
+      "source": "HS20 MC (o), options verbatim (German original translated); figure described in words"
+    }
+  ]
+}

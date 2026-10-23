@@ -1,0 +1,1461 @@
+{
+ "region": "QM Interference Labs",
+ "course": "quantum-mechanics",
+ "exhibit": "set",
+ "id": "qm-formalism-and-uncertainty",
+ "title": "The Formalism Vault",
+ "topics": [
+  "Hilbert space, hermitian operators, Dirac notation",
+  "spectral decomposition, projectors and the measurement postulate",
+  "commutators and the (generalised) uncertainty relation",
+  "Schrodinger and Heisenberg picture, Ehrenfest, conservation laws",
+  "finite-dimensional quantum mechanics"
+ ],
+ "sources": [
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 4.1-4.6 (pp. 41-50): Hilbert space, operators, measurement"
+  },
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 5.1-5.3 (pp. 52-58): commutators and uncertainty relation"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+   "where": "Question 2 [Heisenberg uncertainty relation, 18 pt], Question 3 [Heisenberg picture, 22 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+   "where": "Part A, A2, A3, A4, A7 (adapted) and B.1 [QM in finite dimensions, 20 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+   "where": "Question 3 [Heisenberg picture, 17 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+   "where": "Question 1 [angular momentum, measurements, uncertainty, 20 pt]"
+  },
+  {
+   "file": "notes/quantum-mechanics/ch04-formalism.md",
+   "where": "transcription and worked solutions"
+  }
+ ],
+ "intro": "The vault is where the rules of quantum mechanics are kept: states are vectors in a Hilbert space, observables are hermitian operators, a measurement projects onto an eigenspace, and noncommuting observables obey $\\Delta A\\Delta B\\ge\\frac12|\\langle[A,B]\\rangle|$. Exams ask the same set of proofs again and again (HS18 Q2 and Q3, FS22 Q3, HS22 A and B.1), so the derivation desk matters as much as the fights.",
+ "tutorial": [
+  {
+   "title": "The phase-space plate",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The horizontal axis is the width $\\Delta x$ of a state, the vertical axis its momentum width $\\Delta p$ (units $\\hbar=1$). The glowing hyperbola is $\\Delta x\\Delta p=\\hbar/2$: <b>no state lives below it</b>. The marker slides along it for Gaussian states; squeezing $\\Delta x$ blows up $\\Delta p$.</p>"
+  },
+  {
+   "title": "The rotating dial",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The second marker is the Heisenberg-picture oscillator: $x_H(t)=x\\cos\\omega t+\\frac{p}{m\\omega}\\sin\\omega t$ rotates in phase space while the commutator $[x_H,p_H]=i\\hbar$ is preserved (the area of the ellipse never shrinks).</p>"
+  },
+  {
+   "title": "Consoles",
+   "look": {
+    "x": 0,
+    "z": 0
+   },
+   "focus": null,
+   "html": "<p>Library: four lessons (Hilbert space, projectors and measurement, uncertainty, time evolution). Quiz includes adapted HS22 part A items. Derivation desk: the proofs asked in HS18 Q2/Q3 and HS22 B.1. Fights: spin-1 measurement, Heisenberg picture of the oscillator, the stronger uncertainty relation. Boss gate: HS18 Q2, HS18 Q3, HS22 B.1.</p>"
+  }
+ ],
+ "encounters": [
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-fu-L1",
+   "title": "Hilbert space, operators and Dirac notation",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 4.1-4.4 (pp. 41-46): Hilbertraum, L2, Operatoren und Observable"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+     "where": "B.1 a)-c)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+     "where": "Question 2(i)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch04-formalism.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "A <b>Hilbert space</b> $\\mathcal H$ is a complex vector space with a positive-definite sesquilinear inner product $\\langle\\cdot|\\cdot\\rangle$ (script 4.2-4.4: linear in the <i>second</i> argument, $\\langle\\psi|\\chi\\rangle=\\overline{\\langle\\chi|\\psi\\rangle}$, $\\langle\\psi|\\psi\\rangle\\ge0$ with equality only for $\\psi=0$) such that the induced norm $\\|\\psi\\|=\\sqrt{\\langle\\psi|\\psi\\rangle}$ is complete. Examples: $\\mathbb C^n$ with $\\langle x|y\\rangle=\\sum\\bar x_iy_i$, and $L^2(\\mathbb R)$ with $\\langle f|g\\rangle=\\int dx\\,\\bar f(x)g(x)$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Cauchy-Schwarz</b> $|\\langle\\varphi|\\psi\\rangle|^2\\le\\langle\\varphi|\\varphi\\rangle\\langle\\psi|\\psi\\rangle$ follows from the axioms (script 4.6) and is the engine of the uncertainty relation. A physical state is a <i>ray</i>: normalised vectors $\\langle\\psi|\\psi\\rangle=1$ modulo a phase $e^{i\\alpha}$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Operators.</b> An observable is a linear operator $A:\\mathcal H\\to\\mathcal H$ (e.g. $x\\,f(x)=xf(x)$, $p\\,f=-i\\hbar f'$). The <b>adjoint</b> $A^\\dagger$ is defined by $\\langle f|Bg\\rangle=\\langle B^\\dagger f|g\\rangle$ for all $f,g$ (script 4.23). $A$ is <b>self-adjoint</b> (hermitian) if $A^\\dagger=A$. In $\\mathbb C^n$ the matrix of $A^\\dagger$ is the conjugate transpose, so observables are hermitian matrices: $A_{ij}=\\overline{A_{ji}}$."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle A\\rangle_\\Psi=\\langle\\Psi|A\\Psi\\rangle\\in\\mathbb R\\ \\Longleftrightarrow\\ \\langle\\Psi_1|A\\Psi_2\\rangle=\\langle A\\Psi_1|\\Psi_2\\rangle,\\qquad (AB)^\\dagger=B^\\dagger A^\\dagger",
+     "label": "script 4.20-4.24: reality of expectation values defines \"symmetric\"; self-adjoint is slightly stronger (same domain of definition)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Dirac notation.</b> A vector is a ket $|a\\rangle$, an element of the dual space is a bra $\\langle a|$, and the inner product is the bracket $\\langle a|b\\rangle$ (script 4.29-4.31). The outer product $|\\alpha\\rangle\\langle\\beta|$ is an operator with matrix elements $C_{ij}=\\langle\\varphi_i|\\alpha\\rangle\\langle\\beta|\\varphi_j\\rangle$ (HS16 asks exactly this). Insert a complete set as $\\mathbb 1=\\sum_n|\\varphi_n\\rangle\\langle\\varphi_n|$ whenever you need components."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Eigenvalues of hermitian operators</b> (script 4.27). If $A\\psi_n=\\lambda_n\\psi_n$, then $\\lambda_n\\langle\\psi_m|\\psi_n\\rangle=\\langle\\psi_m|A\\psi_n\\rangle=\\langle A\\psi_m|\\psi_n\\rangle=\\bar\\lambda_m\\langle\\psi_m|\\psi_n\\rangle$. For $m=n$: $\\lambda_n\\in\\mathbb R$. For $\\lambda_m\\ne\\lambda_n$: $\\langle\\psi_m|\\psi_n\\rangle=0$. Degenerate eigenvectors are orthonormalised with Gram-Schmidt."
+    },
+    {
+     "kind": "intuition",
+     "html": "Why hermitian? Because the possible measurement results are eigenvalues and a measured number must be real. A non-hermitian $A$ would have complex \"outcomes\"."
+    },
+    {
+     "kind": "pitfall",
+     "html": "$[A,B]$ of two hermitian operators is <i>anti</i>-hermitian: $[A,B]^\\dagger=[B,A]=-[A,B]$. The combination $i[A,B]$ is hermitian (HS18 Q2(i), 2 pt), and so is $\\{A,B\\}=AB+BA$. Never say that $AB$ is hermitian unless $[A,B]=0$."
+    },
+    {
+     "kind": "exam",
+     "html": "HS22 B.1(a)-(c): build $\\hat x=\\mathrm{diag}(0,1,2)$ on a 3-point space, show it is hermitian, show a Fourier matrix is unitary ($S^\\dagger S=\\mathbb 1$) and use $e^{SAS^{-1}}=Se^AS^{-1}$. The whole problem is Hilbert-space linear algebra in $\\mathbb C^3$."
+    }
+   ],
+   "check": [
+    {
+     "q": "$A$ and $B$ are hermitian. Which operator is hermitian for sure?",
+     "options": [
+      "$i[A,B]$",
+      "$[A,B]$",
+      "$AB$",
+      "$A+iB$"
+     ],
+     "correct": 0,
+     "explain": "$(i[A,B])^\\dagger=-i[B,A]=i[A,B]$ (HS18 Q2(i)).",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+      "where": "Q2(i)"
+     }
+    },
+    {
+     "q": "$A\\psi_1=\\lambda_1\\psi_1$, $A\\psi_2=\\lambda_2\\psi_2$ with $A=A^\\dagger$ and $\\lambda_1\\ne\\lambda_2$. Then",
+     "options": [
+      "$\\lambda_{1,2}$ may be complex, but $\\langle\\psi_1|\\psi_2\\rangle=0$",
+      "$\\lambda_{1,2}\\in\\mathbb R$, but the eigenvectors need not be orthogonal",
+      "$\\lambda_{1,2}\\in\\mathbb R$ and $\\langle\\psi_1|\\psi_2\\rangle=0$",
+      "$\\langle\\psi_1|\\psi_2\\rangle=1$"
+     ],
+     "correct": 2,
+     "explain": "Script (4.27)."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-fu-L2",
+   "title": "Spectral decomposition, projectors and the measurement postulate",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 4.5-4.6 (pp. 46-50)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+     "where": "Question 1 (iii)-(v): measuring a hermitian R"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 1 (iii): measurement probabilities"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch04-formalism.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Let $A=A^\\dagger$ on $\\mathbb C^N$ with orthonormal eigenvectors $A\\psi_n=\\lambda_n\\psi_n$. The <b>spectral projectors</b> $P_n=|\\psi_n\\rangle\\langle\\psi_n|$ satisfy $P_n^\\dagger=P_n$, $P_n^2=P_n$, $P_mP_n=0$ ($m\\ne n$), $\\sum_nP_n=\\mathbb 1$ (script 4.32)."
+    },
+    {
+     "kind": "eq",
+     "tex": "A=\\sum_n\\lambda_nP_n=\\sum_n\\lambda_n|\\psi_n\\rangle\\langle\\psi_n|,\\qquad f(A)=\\sum_nf(\\lambda_n)P_n",
+     "label": "spectral decomposition (4.33) and functional calculus (4.42-4.46); e.g. e^{-iHt/hbar}"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Measurement postulate</b> (generalised from script 2.7 to 4.35):"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\text{outcomes}\\in\\{\\lambda_n\\},\\qquad W(\\lambda)=\\sum_{\\lambda_m=\\lambda}|\\langle\\psi_m|\\psi\\rangle|^2=\\langle\\psi|P_\\lambda|\\psi\\rangle,\\qquad\\langle A\\rangle_\\psi=\\sum_n\\lambda_n|\\langle\\psi_n|\\psi\\rangle|^2=\\langle\\psi|A|\\psi\\rangle",
+     "label": "script (4.34), (4.35)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Collapse.</b> After the result $\\lambda$ the state is the normalised projection $\\psi\\to P_\\lambda\\psi/\\|P_\\lambda\\psi\\|$ (for a degenerate eigenvalue the projection onto the whole eigenspace, not onto one vector; FS19 Q1(v), 5 pt). An immediate second measurement of $A$ gives $\\lambda$ again with probability $1$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Infinite dimensions</b> (4.6): replace \"eigenvalues\" by the <i>spectrum</i> $\\sigma(A)\\subset\\mathbb R$, and projectors $P_I(A)$ onto an interval $I$ of the spectrum, $W_\\psi(I)=\\langle\\psi|P_I(A)|\\psi\\rangle=\\|P_I(A)\\psi\\|^2$. Examples: $\\sigma(x)=\\sigma(p)=\\mathbb R$ for a free particle, $\\sigma(H)=\\mathbb R_+$ free, $\\{E_1,\\dots,E_N\\}\\cup\\mathbb R_+$ for a finite well, $\\{\\hbar\\omega(n+\\frac12)\\}$ for the oscillator."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Compatible observables.</b> If $[A,B]=0$ they have a common eigenbasis (e.g. $\\vec L^2$ and $L_z$) and can be measured in any order without disturbing each other. If $[A,B]\\ne0$ the order matters (next lesson). A <i>complete set of commuting observables</i> labels the states uniquely."
+    },
+    {
+     "kind": "intuition",
+     "html": "Probability = squared length of the projection of $\\psi$ on the eigenspace. Expectation value = average of the eigenvalues weighted by these probabilities. A superposition keeps both amplitudes until a measurement picks one."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Probabilities add as $|c_n|^2$ for <i>different</i> outcomes, amplitudes add only inside one outcome. The relative phase of $c_1,c_2$ drops out of $W(\\lambda_n)$ for $A$, but not for another observable $B$ whose eigenvectors mix them."
+    }
+   ],
+   "check": [
+    {
+     "q": "$A$ has eigenvalues $1,3$ with eigenvectors $|a\\rangle,|b\\rangle$. In $|\\psi\\rangle=(|a\\rangle+2i|b\\rangle)/\\sqrt5$ the expectation value $\\langle A\\rangle$ is",
+     "options": [
+      "$2$",
+      "$(1+6i)/5$",
+      "$7/5$",
+      "$13/5$"
+     ],
+     "correct": 3,
+     "explain": "$\\langle A\\rangle=\\frac15\\cdot1+\\frac45\\cdot3$."
+    },
+    {
+     "q": "The state after measuring $A$ with outcome $\\lambda_n$ (non-degenerate) is",
+     "options": [
+      "unchanged, $|\\psi\\rangle$: a measurement does not disturb",
+      "$\\sum_k|\\psi_k\\rangle$ with equal weights",
+      "$A|\\psi\\rangle$",
+      "$|\\psi_n\\rangle$, up to a phase; an immediate repeat gives $\\lambda_n$ with certainty"
+     ],
+     "correct": 3,
+     "explain": "Projection postulate (script 2.7/4.5)."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-fu-L3",
+   "title": "Commutators and the generalised uncertainty relation",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 5.1-5.3 (pp. 52-58)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+     "where": "Question 2 (18 pt)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+     "where": "Question 1/2 (v)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch04-formalism.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "<b>Commutator rules</b> (use them to avoid expanding anything): $[A,B]=-[B,A]$, $[A,BC]=[A,B]C+B[A,C]$, $[AB,C]=A[B,C]+[A,C]B$, Jacobi identity. From $[x,p]=i\\hbar$ one gets $[x,p^n]=i\\hbar np^{n-1}$, $[x,g(p)]=i\\hbar g'(p)$, $[p,h(x)]=-i\\hbar h'(x)$. If the commutator $[A,B]=c$ is a number, then $[A,e^{B}]=c\\,e^{B}$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Variance.</b> $(\\Delta A)^2_\\psi=\\langle(A-\\langle A\\rangle)^2\\rangle_\\psi=\\langle A^2\\rangle-\\langle A\\rangle^2$ (script 5.2; HS18 eq. (11)). $\\Delta A=0$ exactly when $\\psi$ is an eigenvector of $A$."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\Delta A\\,\\Delta B\\ \\ge\\ \\tfrac12\\big|\\langle[A,B]\\rangle\\big|=\\tfrac12\\big|\\langle i[A,B]\\rangle\\big|",
+     "label": "script 5.3, HS18 Q2(ii) (4 pt)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Proof idea</b> (you must be able to write it): put $\\hat A=A-\\langle A\\rangle$, $\\hat B=B-\\langle B\\rangle$ and $|\\psi_A\\rangle=\\hat A|\\psi\\rangle$, $|\\psi_B\\rangle=\\hat B|\\psi\\rangle$. Cauchy-Schwarz: $\\|\\psi_A\\|^2\\|\\psi_B\\|^2\\ge|\\langle\\psi_A|\\psi_B\\rangle|^2=|\\langle\\hat A\\hat B\\rangle|^2$. Split $\\hat A\\hat B=\\frac12[\\hat A,\\hat B]+\\frac12\\{\\hat A,\\hat B\\}$: the first part is anti-hermitian (purely imaginary expectation), the second is hermitian (real expectation), so $|\\langle\\hat A\\hat B\\rangle|^2=\\frac14\\langle i[A,B]\\rangle^2+\\frac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2$. This is the <b>stronger form</b> (HS18 eq. (15)); dropping the second term gives the textbook inequality."
+    },
+    {
+     "kind": "eq",
+     "tex": "(\\Delta A)^2(\\Delta B)^2\\ \\ge\\ \\tfrac14\\langle i[A,B]\\rangle^2+\\tfrac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2",
+     "label": "HS18 Q2(iv), 4 pt"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Position and momentum.</b> $[x,p]=i\\hbar$ gives $\\Delta x\\Delta p\\ge\\hbar/2$. Equality needs equality in Cauchy-Schwarz ($\\hat B\\psi\\propto\\hat A\\psi$ with imaginary coefficient) and a vanishing anticommutator term. Solution: Gaussians, $\\psi\\propto e^{-(x-x_0)^2/4\\sigma^2+ip_0x/\\hbar}$ with $\\Delta x=\\sigma$, $\\Delta p=\\hbar/2\\sigma$. For the oscillator state $|n\\rangle$: $\\Delta x\\Delta p=\\hbar(n+\\frac12)$ (HS18 Q2(iii), 5 pt), minimal only for $n=0$."
+    },
+    {
+     "kind": "intuition",
+     "html": "$\\Delta A\\Delta B$ is not about measurement disturbance: it constrains the <i>preparation</i>. No state has both a sharp $x$ and a sharp $p$, because $\\hat x$ and $\\hat p$ do not share eigenvectors."
+    },
+    {
+     "kind": "pitfall",
+     "html": "The right-hand side depends on the state: for $[A,B]=i\\hbar C$ the bound is $\\frac\\hbar2|\\langle C\\rangle|$, which vanishes e.g. for $A=L_x,B=L_y$ in a state with $\\langle L_z\\rangle=0$. Uncertainty relations are state-dependent unless $[A,B]$ is a number."
+    },
+    {
+     "kind": "exam",
+     "html": "HS18 Q2 is the template: (i) hermiticity of $i[A,B]$ and $\\{A,B\\}$ [2], (ii) the relation [4], (iii) oscillator $\\Delta x\\Delta p=\\hbar(n+\\frac12)$ [5], (iv) the stronger form [4], (v) check it for $\\psi_n$ [3]. See the boss gate."
+    }
+   ],
+   "check": [
+    {
+     "q": "$[x,p^3]=$",
+     "options": [
+      "$i\\hbar p^3$",
+      "$3i\\hbar x^2$",
+      "$3i\\hbar p^2$",
+      "$0$"
+     ],
+     "correct": 2,
+     "explain": "Leibniz rule: $[x,p^3]=[x,p]p^2+p[x,p]p+p^2[x,p]=3i\\hbar p^2$."
+    },
+    {
+     "q": "In $|n\\rangle$ of the oscillator, $\\Delta x\\Delta p$ equals",
+     "options": [
+      "$\\hbar(n+\\frac12)$, so the stronger bound $\\frac\\hbar2$ is saturated only for $n=0$",
+      "$\\hbar/2$ for all $n$",
+      "$\\hbar n$",
+      "$\\hbar(n+\\frac12)^2$"
+     ],
+     "correct": 0,
+     "explain": "$\\langle x^2\\rangle=\\frac\\hbar{2m\\omega}(2n+1)$, $\\langle p^2\\rangle=\\frac{m\\hbar\\omega}2(2n+1)$, $\\langle x\\rangle=\\langle p\\rangle=0$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-fu-L4",
+   "title": "Time evolution: Schrodinger vs Heisenberg picture, Ehrenfest",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 2.3 (Ehrenfest, p. 17) and Ch. 4.5 (postulate ii)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+     "where": "Question 3 (Heisenberg picture, 17 pt)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+     "where": "Question 1 (Ehrenfest, 10 pt)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+     "where": "A4"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch04-formalism.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "<b>Schrodinger picture.</b> States evolve, $i\\hbar\\partial_t\\Psi=H\\Psi$, with propagator $\\Psi(t)=U(t,s)\\Psi(s)$, $i\\hbar\\partial_tU=HU$. For time-independent $H$: $U=e^{-iH(t-s)/\\hbar}$, unitary ($U^\\dagger U=\\mathbb 1$), and $U$ commutes with $H$. In an eigenstate $H\\psi_n=E_n\\psi_n$ only a phase $e^{-iE_nt/\\hbar}$ appears, so all expectation values of time-independent operators are constant."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Heisenberg picture.</b> $\\Psi_H=\\Psi_S(0)$ is constant, and the operators carry the time dependence, $A_H(t)=U^\\dagger AU$, so that $\\langle\\Psi_S(t)|A\\Psi_S(t)\\rangle=\\langle\\Psi_H|A_H(t)\\Psi_H\\rangle$. Differentiating and using the equation for $U$ (FS22 Q3(ii), 6 pt):"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\frac{d}{dt}A_H=\\frac i\\hbar\\,[H_H,A_H]+(\\partial_tA)_H,\\qquad H_H=U^\\dagger HU=H\\ \\ (\\text{if }\\partial_tH=0)",
+     "label": "FS22 eq. (9)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Consequences.</b> (1) $A$ is conserved if $[H,A]=0$ and $\\partial_tA=0$. (2) Commutators are preserved: $[A_H(t),B_H(t)]=U^\\dagger[A,B]U$, so a c-number commutator $c$ stays $c$ (HS22 A4, 4 pt). (3) The canonical commutator $[x_H(t),p_H(t)]=i\\hbar$ holds at all times."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Ehrenfest in operator form.</b> Taking the expectation value of the Heisenberg equation (or differentiating $\\langle\\Psi|A|\\Psi\\rangle$ with the Schrodinger equation, HS21 Q1(ii), 2 pt):"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\frac{d}{dt}\\langle A\\rangle=\\frac i\\hbar\\langle[H,A]\\rangle+\\Big\\langle\\frac{\\partial A}{\\partial t}\\Big\\rangle,\\quad\\frac{d\\langle x\\rangle}{dt}=\\frac{\\langle p\\rangle}m,\\quad\\frac{d\\langle p\\rangle}{dt}=-\\langle V'(x)\\rangle",
+     "label": "for H = p^2/2m + V(x): [H,x] = -i hbar p/m, [H,p] = i hbar V'"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Matrix elements between energy eigenstates.</b> Since $\\langle\\psi_n|[H,A]|\\psi_\\ell\\rangle=(E_n-E_\\ell)\\langle\\psi_n|A|\\psi_\\ell\\rangle$ (FS22 Q3(iv), 2 pt), choosing $A=\\vec r$ and using $[H,\\vec r]=-i\\hbar\\vec p/m$ gives $\\langle\\psi_n|\\vec p|\\psi_\\ell\\rangle=\\frac{im}\\hbar(E_n-E_\\ell)\\langle\\psi_n|\\vec r|\\psi_\\ell\\rangle$ (FS22 Q3(v)). For $\\ell=n$ the right side is $0$: <b>in a stationary state $\\langle\\vec p\\rangle=0$</b>, the quantum form of the virial/Ehrenfest argument."
+    },
+    {
+     "kind": "intuition",
+     "html": "The two pictures are two bookkeepings of the same physics: either the state rotates in Hilbert space and the operator stays, or the other way round. Heisenberg is the natural one for conservation laws and for the classical limit, where $\\dot A=\\{A,H\\}$ becomes $\\frac i\\hbar[H,A]$."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Signs: $\\frac{d}{dt}A_H=\\frac i\\hbar[H,A]$ equals $\\frac1{i\\hbar}[A,H]$. A common slip is $\\frac i\\hbar[A,H]$. Check on $A=x$: $[H,x]=-i\\hbar p/m$, so $\\frac i\\hbar\\cdot(-i\\hbar p/m)=+p/m$ as required."
+    }
+   ],
+   "check": [
+    {
+     "q": "Free particle $H=p^2/2m+Fx$. Then $\\frac d{dt}\\langle p\\rangle=$",
+     "options": [
+      "$+F$",
+      "$\\langle p\\rangle/m$",
+      "$-F$",
+      "$0$"
+     ],
+     "correct": 2,
+     "explain": "$\\dot p=\\frac i\\hbar[H,p]=-V'(x)=-F$."
+    },
+    {
+     "q": "$A_H(t)=U^\\dagger AU$. If $[A,B]=c\\in\\mathbb C$ then $[A_H(t),B_H(t)]=$",
+     "options": [
+      "$c\\,e^{-i\\omega t}$ with $\\omega=E/\\hbar$",
+      "$0$ for $t>0$",
+      "$c$, for all $t$",
+      "$c$ only if $[A,H]=0$"
+     ],
+     "correct": 2,
+     "explain": "$U^\\dagger ABU-U^\\dagger BAU=U^\\dagger[A,B]U$ (HS22 A4)."
+    }
+   ]
+  },
+  {
+   "type": "quiz",
+   "xp": 30,
+   "passMark": 0.75,
+   "id": "qm-fu-Q1",
+   "title": "Formalism and uncertainty: exam-style multiple choice",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 4-5 (pp. 41-58)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+     "where": "Part A, A2, A3, A4, A7 (free-form in the exam; multiple-choice adaptations here)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+     "where": "Question 2"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 1"
+    }
+   ],
+   "questions": [
+    {
+     "q": "Adapted from HS22 A2 (free-form, 6 pt): the operator $f(\\hat x,\\hat p)$ obeys $[\\hat x,f]=i\\hbar f$ and $[\\hat p,f]=-i\\hbar f$. In units where the length and momentum scales are 1 (the exponent must be dimensionless), $f$ is proportional to",
+     "options": [
+      "$\\exp(\\hat x+\\hat p)$",
+      "$\\hat x+\\hat p$",
+      "$\\exp(\\hat x-\\hat p)$",
+      "$\\exp(i(\\hat x+\\hat p))$"
+     ],
+     "correct": 0,
+     "explain": "If $[A,B]=c$ is a number then $[A,e^{B}]=c\\,e^{B}$. Take $B=\\hat x+\\hat p$: $[\\hat x,B]=i\\hbar$ and $[\\hat p,B]=-i\\hbar$. Equivalently $f(x,p)=\\hbar$-derivatives: $i\\hbar\\partial_pf=i\\hbar f$ and $-i\\hbar\\partial_xf=-i\\hbar f$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+      "where": "A2 (adapted)"
+     }
+    },
+    {
+     "q": "Adapted from HS22 A3 (3 pt): $\\psi(x)=Ax\\,e^{-\\alpha x^2}$ is an energy eigenstate of $V=\\frac12m\\omega^2x^2$. Then",
+     "options": [
+      "$\\alpha=\\dfrac{m\\omega}{2\\hbar}$ and $E=\\dfrac32\\hbar\\omega$",
+      "$\\alpha=\\dfrac{m\\omega}{\\hbar}$ and $E=\\dfrac32\\hbar\\omega$",
+      "$\\alpha=\\dfrac{m\\omega}{2\\hbar}$ and $E=\\dfrac12\\hbar\\omega$",
+      "$\\alpha=\\dfrac{m\\omega}{2\\hbar}$ and $E=\\dfrac52\\hbar\\omega$"
+     ],
+     "correct": 0,
+     "explain": "$\\psi_1\\propto x\\,e^{-m\\omega x^2/2\\hbar}$ (odd, one node), so $\\alpha=m\\omega/2\\hbar$ and $E_1=\\frac32\\hbar\\omega$. Check: $\\psi''=(4\\alpha^2x^3-6\\alpha x)e^{-\\alpha x^2}$ and $-\\frac{\\hbar^2}{2m}\\psi''+\\frac12m\\omega^2x^2\\psi=E\\psi$ needs $\\alpha=m\\omega/2\\hbar$ (cubic terms) and $E=3\\alpha\\hbar^2/m$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+      "where": "A3 (adapted)"
+     }
+    },
+    {
+     "q": "Adapted from HS22 A7 (5 pt): $N$ commuting copies $\\vec A^{(m)}$ of an angular-momentum algebra, each with $\\vec A^{(m)2}=\\frac{15}4\\hbar^2$. The number of simultaneous eigenstates of all $\\vec A^{(m)2}$ and $A_3^{(m)}$ is",
+     "options": [
+      "$4^N$ (each copy has $l=\\frac32$, so $2l+1=4$ values of $A_3$)",
+      "$4N$",
+      "$2^N$",
+      "$16$ for every $N$"
+     ],
+     "correct": 0,
+     "explain": "$l(l+1)=\\frac{15}{4}\\Rightarrow l=\\frac32$, $A_3\\in\\{\\pm\\frac32,\\pm\\frac12\\}\\hbar$. For $N=2$: $4^2=16=n^2$ with $n=2l+1=4$: the hydrogen level $n=4$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+      "where": "A7 (adapted)"
+     }
+    },
+    {
+     "q": "$\\Delta A=0$ in the state $\\psi$ if and only if",
+     "options": [
+      "$\\langle A\\rangle=0$",
+      "$A$ commutes with $H$",
+      "$\\psi$ is an eigenvector of $A$",
+      "$[A,B]=0$ for all $B$"
+     ],
+     "correct": 2,
+     "explain": "$(\\Delta A)^2=\\|(A-\\langle A\\rangle)\\psi\\|^2=0$ means $A\\psi=\\langle A\\rangle\\psi$.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "Ch. 5.2"
+     }
+    },
+    {
+     "q": "Spin-1 state $|l{=}1,m{=}1\\rangle$: $\\langle L_z\\rangle=\\hbar$. The product $\\Delta L_x\\Delta L_y$ is",
+     "options": [
+      "$0$",
+      "$\\hbar^2$",
+      "$\\hbar^2/4$",
+      "$\\hbar^2/2$, saturating $\\frac12|\\langle[L_x,L_y]\\rangle|$"
+     ],
+     "correct": 3,
+     "explain": "$[L_x,L_y]=i\\hbar L_z$ gives the bound $\\frac{\\hbar}{2}|\\langle L_z\\rangle|=\\frac{\\hbar^2}2$, attained here (FS26 Q1(v) and FS22 Q2(v) ask this).",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+      "where": "Question 2 (iv)-(v)"
+     }
+    },
+    {
+     "q": "$P=|\\psi\\rangle\\langle\\psi|$ for a normalised $\\psi$. Which statement is true?",
+     "options": [
+      "$P^2=0$",
+      "$P^\\dagger=P$, $P^2=P$, eigenvalues $0$ and $1$",
+      "$P$ has eigenvalues $\\pm1$",
+      "$P$ is anti-hermitian"
+     ],
+     "correct": 1,
+     "explain": "$P\\phi=\\langle\\psi|\\phi\\rangle\\psi$: eigenvalue $1$ on $\\psi$, $0$ on the orthogonal complement.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "Ch. 4.5 (4.32)"
+     }
+    },
+    {
+     "q": "In a stationary state $H\\psi_n=E_n\\psi_n$ the Heisenberg equation for $A=x$ implies $\\langle p\\rangle=$",
+     "options": [
+      "$m\\,E_n/\\hbar$",
+      "$\\sqrt{2mE_n}$",
+      "$\\hbar k$ with $k$ arbitrary",
+      "$0$, because $\\frac d{dt}\\langle x\\rangle=\\frac i\\hbar\\langle[H,x]\\rangle=\\frac i\\hbar(E_n-E_n)\\langle x\\rangle_{nn}=0$"
+     ],
+     "correct": 3,
+     "explain": "FS22 Q3(iv)-(v): $\\langle\\psi_n|[H,x]|\\psi_n\\rangle=0$ and $[H,x]=-i\\hbar p/m$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+      "where": "Question 3 (iv)-(v)"
+     }
+    },
+    {
+     "q": "HS22 A4 (4 pt): hermitian $A,B$ with $[A(0),B(0)]=c\\in\\mathbb C$. In the Heisenberg picture, for $t>0$ the commutator $[A(t),B(t)]$ is",
+     "options": [
+      "$c\\,e^{-iEt/\\hbar}$",
+      "$0$",
+      "$c+t\\,\\frac i\\hbar[H,c]$",
+      "$c$, since $[U^\\dagger AU,U^\\dagger BU]=U^\\dagger[A,B]U=c\\,U^\\dagger U=c$"
+     ],
+     "correct": 3,
+     "explain": "Insert $U U^\\dagger=\\mathbb 1$ between $A$ and $B$; unitary conjugation preserves all algebraic relations.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+      "where": "A4"
+     }
+    }
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-fu-D1",
+   "title": "Hermitian operators: i[A,B] and {A,B}, real eigenvalues",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 2 (i), 2 pt (plus script 4.27)"
+   },
+   "goal": "Show that $i[A,B]$ and $\\{A,B\\}=AB+BA$ are hermitian for hermitian $A,B$, and that the eigenvalues of a hermitian operator are real with orthogonal eigenvectors for different eigenvalues.",
+   "given": [
+    "$A^\\dagger=A$, $B^\\dagger=B$",
+    "$(XY)^\\dagger=Y^\\dagger X^\\dagger$, $(cX)^\\dagger=\\bar cX^\\dagger$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Compute $(AB)^\\dagger$ and $(i[A,B])^\\dagger$.",
+     "reveal": "$(AB)^\\dagger=B^\\dagger A^\\dagger=BA$. Hence $[A,B]^\\dagger=BA-AB=-[A,B]$ (anti-hermitian) and $(i[A,B])^\\dagger=-i\\cdot(-[A,B])=i[A,B]$."
+    },
+    {
+     "prompt": "(b) Compute $\\{A,B\\}^\\dagger$.",
+     "reveal": "$\\{A,B\\}^\\dagger=(AB)^\\dagger+(BA)^\\dagger=BA+AB=\\{A,B\\}$."
+    },
+    {
+     "prompt": "(c) Eigenvalue equation $A\\psi_n=\\lambda_n\\psi_n$: take $\\langle\\psi_m|A\\psi_n\\rangle$ in two ways.",
+     "reveal": "$\\langle\\psi_m|A\\psi_n\\rangle=\\lambda_n\\langle\\psi_m|\\psi_n\\rangle$ and, by hermiticity, $=\\langle A\\psi_m|\\psi_n\\rangle=\\bar\\lambda_m\\langle\\psi_m|\\psi_n\\rangle$ (inner product antilinear in the first argument)."
+    },
+    {
+     "prompt": "(d) Conclude for $m=n$ and for $\\lambda_m\\neq\\lambda_n$.",
+     "reveal": "$m=n$: $(\\lambda_n-\\bar\\lambda_n)\\|\\psi_n\\|^2=0\\Rightarrow\\lambda_n\\in\\mathbb R$. Then $(\\lambda_n-\\lambda_m)\\langle\\psi_m|\\psi_n\\rangle=0$, so $\\langle\\psi_m|\\psi_n\\rangle=0$ for $\\lambda_m\\neq\\lambda_n$."
+    }
+   ],
+   "keyPoints": [
+    "dagger reverses the order of products and conjugates numbers",
+    "commutator of hermitian operators is anti-hermitian, so $i[A,B]$ is hermitian",
+    "reality of eigenvalues from $m=n$; orthogonality from $m\\neq n$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-fu-D2",
+   "title": "The Heisenberg uncertainty relation (HS18 Q2 (ii), 4 pt)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 2 (ii), 4 pt; script 5.3"
+   },
+   "goal": "Prove $\\Delta A\\,\\Delta B\\ge\\frac12|\\langle i[A,B]\\rangle|$ for hermitian $A,B$ in a normalised state $\\psi$.",
+   "given": [
+    "$\\hat A=A-\\langle A\\rangle$, $\\hat B=B-\\langle B\\rangle$ (hermitian), $(\\Delta A)^2=\\langle\\hat A^2\\rangle$",
+    "Cauchy-Schwarz $\\|\\varphi\\|^2\\|\\chi\\|^2\\ge|\\langle\\varphi|\\chi\\rangle|^2$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Define the vectors for Cauchy-Schwarz and express the norms.",
+     "reveal": "$|\\psi_A\\rangle=\\hat A|\\psi\\rangle$, $|\\psi_B\\rangle=\\hat B|\\psi\\rangle$. Then $\\|\\psi_A\\|^2=\\langle\\psi|\\hat A^2|\\psi\\rangle=(\\Delta A)^2$ and $\\|\\psi_B\\|^2=(\\Delta B)^2$."
+    },
+    {
+     "prompt": "(b) Write the inner product $\\langle\\psi_A|\\psi_B\\rangle$.",
+     "reveal": "$\\langle\\psi_A|\\psi_B\\rangle=\\langle\\psi|\\hat A\\hat B|\\psi\\rangle$ (using $\\hat A^\\dagger=\\hat A$)."
+    },
+    {
+     "prompt": "(c) Decompose $\\hat A\\hat B$ into hermitian and anti-hermitian parts.",
+     "reveal": "$\\hat A\\hat B=\\frac12[\\hat A,\\hat B]+\\frac12\\{\\hat A,\\hat B\\}$. Since $[\\hat A,\\hat B]=[A,B]$, $\\langle\\hat A\\hat B\\rangle=-\\frac i2\\langle i[A,B]\\rangle+\\frac12\\langle\\{\\hat A,\\hat B\\}\\rangle$ with both expectation values real."
+    },
+    {
+     "prompt": "(d) Take the modulus squared and drop the non-negative anticommutator term.",
+     "reveal": "$|\\langle\\hat A\\hat B\\rangle|^2=\\frac14\\langle i[A,B]\\rangle^2+\\frac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2\\ge\\frac14\\langle i[A,B]\\rangle^2$. With Cauchy-Schwarz: $(\\Delta A)^2(\\Delta B)^2\\ge\\frac14\\langle i[A,B]\\rangle^2$; take the square root."
+    }
+   ],
+   "keyPoints": [
+    "Cauchy-Schwarz applied to $\\hat A\\psi$ and $\\hat B\\psi$",
+    "real part = anticommutator, imaginary part = commutator (real/imaginary parts of the same complex number)",
+    "$[\\hat A,\\hat B]=[A,B]$: shifts by numbers do not change commutators",
+    "the bound depends on the state unless $[A,B]$ is a number"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-fu-D3",
+   "title": "The stronger uncertainty relation (HS18 Q2 (iv), 4 pt)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 2 (iv), 4 pt, eq. (15)"
+   },
+   "goal": "Prove $(\\Delta A)^2(\\Delta B)^2\\ge\\frac14\\langle i[A,B]\\rangle^2+\\frac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2$ and state when it is an equality.",
+   "given": [
+    "$|\\psi_A\\rangle=\\hat A|\\psi\\rangle$, $|\\psi_B\\rangle=\\hat B|\\psi\\rangle$",
+    "for $z=\\langle\\psi_A|\\psi_B\\rangle$: $|z|^2=(\\mathrm{Re}\\,z)^2+(\\mathrm{Im}\\,z)^2$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Real and imaginary part of $z=\\langle\\hat A\\hat B\\rangle$.",
+     "reveal": "$\\bar z=\\langle\\hat B\\hat A\\rangle$ (hermitian operators). So $\\mathrm{Re}\\,z=\\frac12\\langle\\hat A\\hat B+\\hat B\\hat A\\rangle=\\frac12\\langle\\{\\hat A,\\hat B\\}\\rangle$ and $\\mathrm{Im}\\,z=\\frac1{2i}\\langle[A,B]\\rangle=-\\frac12\\langle i[A,B]\\rangle$ (the commutator is anti-hermitian, its expectation value purely imaginary)."
+    },
+    {
+     "prompt": "(b) Insert into $|z|^2$.",
+     "reveal": "$|z|^2=\\frac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2+\\frac14\\langle i[A,B]\\rangle^2$ (the sign of the imaginary part drops out)."
+    },
+    {
+     "prompt": "(c) Use Cauchy-Schwarz.",
+     "reveal": "$(\\Delta A)^2(\\Delta B)^2=\\|\\psi_A\\|^2\\|\\psi_B\\|^2\\ge|z|^2$, which is eq. (15)."
+    },
+    {
+     "prompt": "(d) Equality?",
+     "reveal": "Equality in Cauchy-Schwarz iff $\\hat B\\psi=\\mu\\hat A\\psi$. For $\\hat x,\\hat p$ and $\\mu=-i\\kappa$ purely imaginary the anticommutator term vanishes: minimal-uncertainty (Gaussian) states."
+    }
+   ],
+   "keyPoints": [
+    "real part of $z$ is the anticommutator, imaginary part the commutator",
+    "the extra term $\\frac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2$ is the covariance",
+    "for $\\psi_n$ of the oscillator: $\\langle\\{\\hat x,\\hat p\\}\\rangle=0$, so (15) reads $(n+\\frac12)^2\\hbar^2\\ge\\hbar^2/4$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-fu-D4",
+   "title": "Oscillator: $\\Delta x\\,\\Delta p=\\hbar(n+\\frac12)$ (HS18 Q2 (iii), 5 pt)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 2 (iii), 5 pt"
+   },
+   "goal": "Show $(\\Delta x)_{\\psi_n}(\\Delta p)_{\\psi_n}=\\hbar(n+\\frac12)$ with the ladder operators and say what is special at $n=0$.",
+   "given": [
+    "$x=\\sqrt{\\hbar/2m\\omega}\\,(a+a^\\dagger)$, $p=-\\sqrt{\\hbar m\\omega/2}\\,i(a-a^\\dagger)$",
+    "$a|n\\rangle=\\sqrt n|n-1\\rangle$, $a^\\dagger|n\\rangle=\\sqrt{n+1}|n+1\\rangle$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Expectation values $\\langle x\\rangle$, $\\langle p\\rangle$.",
+     "reveal": "$a$ and $a^\\dagger$ change $n$ by $\\pm1$, so $\\langle n|a|n\\rangle=\\langle n|a^\\dagger|n\\rangle=0$: $\\langle x\\rangle=\\langle p\\rangle=0$."
+    },
+    {
+     "prompt": "(b) $\\langle x^2\\rangle$: which terms of $(a+a^\\dagger)^2$ survive?",
+     "reveal": "$a^2,(a^\\dagger)^2$ change $n$ by $\\pm2$ and vanish. $\\langle aa^\\dagger+a^\\dagger a\\rangle=(n+1)+n=2n+1$, so $\\langle x^2\\rangle=\\frac{\\hbar}{2m\\omega}(2n+1)$."
+    },
+    {
+     "prompt": "(c) $\\langle p^2\\rangle$.",
+     "reveal": "$p^2=-\\frac{\\hbar m\\omega}2(a-a^\\dagger)^2=\\frac{\\hbar m\\omega}2(aa^\\dagger+a^\\dagger a-a^2-a^{\\dagger2})$, so $\\langle p^2\\rangle=\\frac{m\\hbar\\omega}2(2n+1)$."
+    },
+    {
+     "prompt": "(d) Multiply and discuss $n=0$.",
+     "reveal": "$\\Delta x\\Delta p=\\sqrt{\\frac{\\hbar}{2m\\omega}\\frac{m\\hbar\\omega}{2}}(2n+1)=\\frac\\hbar2(2n+1)=\\hbar(n+\\frac12)$. For $n=0$: $\\hbar/2$, the minimum of the uncertainty relation (ground state is the Gaussian)."
+    }
+   ],
+   "keyPoints": [
+    "odd/even changes of $n$ kill $\\langle x\\rangle,\\langle p\\rangle$ and the $a^2$ terms",
+    "$\\langle aa^\\dagger+a^\\dagger a\\rangle=2n+1$",
+    "only $n=0$ saturates $\\Delta x\\Delta p\\ge\\hbar/2$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-fu-D5",
+   "title": "Heisenberg picture: equation of motion (HS18 Q3 (i)-(iii), FS22 Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 3 (i)-(iii), 10 pt; FS22 Question 3 (Heisenberg picture)"
+   },
+   "goal": "Define $U$, the Heisenberg operator $A_H(t)$, derive $\\dot A_H=\\frac i\\hbar[H,A_H]+(\\partial_tA)_H$ and the condition for conservation.",
+   "given": [
+    "$i\\hbar\\partial_t\\Psi=H\\Psi$, $\\Psi(t)=U(t,t_0)\\Psi(t_0)$",
+    "$H$ time independent for the formal solution"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Differential equation and formal solution for $U$.",
+     "reveal": "$i\\hbar\\partial_tU=HU$, $U(t_0,t_0)=\\mathbb 1$. For time-independent $H$: $U=e^{-iH(t-t_0)/\\hbar}$ (in general a time-ordered exponential). $U$ is unitary since $H=H^\\dagger$."
+    },
+    {
+     "prompt": "(b) Define the Heisenberg picture.",
+     "reveal": "Choose $\\Psi_H=\\Psi(t_0)$ constant and $A_H(t)=U^\\dagger AU$ so that $\\langle\\Psi(t)|A\\Psi(t)\\rangle=\\langle\\Psi_H|A_H(t)\\Psi_H\\rangle$ for all states."
+    },
+    {
+     "prompt": "(c) Differentiate $A_H(t)$.",
+     "reveal": "$\\partial_tU=-\\frac i\\hbar HU$ and $\\partial_tU^\\dagger=\\frac i\\hbar U^\\dagger H$. So $\\dot A_H=\\frac i\\hbar U^\\dagger HAU-\\frac i\\hbar U^\\dagger AHU+U^\\dagger\\partial_tAU=\\frac i\\hbar[H_H,A_H]+(\\partial_tA)_H$ with $H_H=U^\\dagger HU=H$."
+    },
+    {
+     "prompt": "(d) Conservation law.",
+     "reveal": "If $\\partial_tA=0$ then $\\dot A_H=0$ iff $[H,A]=0$: $A$ is a constant of motion. Also, then $\\langle A\\rangle$ and the whole distribution of outcomes is time independent."
+    }
+   ],
+   "keyPoints": [
+    "$i\\hbar\\dot U=HU$ and unitarity",
+    "$A_H=U^\\dagger AU$ and $\\dot A_H=\\frac i\\hbar[H,A_H]$ (sign check with $A=x$)",
+    "conserved iff $[H,A]=0$ and no explicit $t$ dependence"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-fu-D6",
+   "title": "$[x,p]=i\\hbar$ is impossible in finite dimensions (HS22 B.1 e)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+    "where": "B.1 e), 3 pt"
+   },
+   "goal": "Show that no finite matrices $\\hat x,\\hat p$ satisfy $[\\hat x,\\hat p]=i\\hbar\\mathbb 1$.",
+   "given": [
+    "$\\mathrm{tr}(MN)=\\mathrm{tr}(NM)$ for finite matrices",
+    "$\\dim\\mathcal H=N<\\infty$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Take the trace of the commutator.",
+     "reveal": "$\\mathrm{tr}[\\hat x,\\hat p]=\\mathrm{tr}(\\hat x\\hat p)-\\mathrm{tr}(\\hat p\\hat x)=0$ by cyclicity."
+    },
+    {
+     "prompt": "(b) Take the trace of the right-hand side.",
+     "reveal": "$\\mathrm{tr}(i\\hbar\\mathbb 1)=i\\hbar N\\neq0$."
+    },
+    {
+     "prompt": "(c) Conclude and say what changes in infinite dimensions.",
+     "reveal": "Contradiction, so $N$ must be infinite. In $L^2$ the operators are unbounded, $xp$ and $px$ have no trace, and cyclicity fails; this is why the uncertainty bound $\\frac\\hbar2$ cannot be applied for the 3-point model of HS22 B.1 d)."
+    }
+   ],
+   "keyPoints": [
+    "cyclicity of the trace",
+    "$\\mathrm{tr}\\,\\mathbb 1=N$",
+    "finite-dimensional models have no canonical pair; position and momentum need infinite dimensions"
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 55,
+   "id": "qm-fu-c1",
+   "title": "Measurement and spread of $L_z$ in a spin-1 superposition",
+   "problem": "An $l=1$ system is prepared in $|\\psi\\rangle=\\cos\\theta\\,|1,1\\rangle+\\sin\\theta\\,|1,0\\rangle$ (basis of $L_z$ eigenstates $m=1,0,-1$). Find the outcome probabilities of an $L_z$ measurement, $\\langle L_z\\rangle$ and $\\Delta L_z$. Style: FS26 Q1 (measurement probabilities and uncertainties); the state is chosen here.",
+   "symbols": [
+    [
+     "$\\theta$",
+     "mixing angle of the superposition"
+    ],
+    [
+     "$\\hbar$",
+     "Planck constant over $2\\pi$"
+    ],
+    [
+     "$W(m)$",
+     "probability to measure $L_z=m\\hbar$"
+    ],
+    [
+     "$P_m$",
+     "projector $|1,m\\rangle\\langle1,m|$"
+    ]
+   ],
+   "vars": {
+    "th": 0.5235987756
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$L_z$ is diagonal in the given basis, so $W(m)=\\langle\\psi|P_m|\\psi\\rangle=|c_m|^2$. Then $\\langle L_z\\rangle=\\sum_mm\\hbar W(m)$ and $(\\Delta L_z)^2=\\langle L_z^2\\rangle-\\langle L_z\\rangle^2$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which statement gives the probability of measuring $L_z=0$?",
+     "options": [
+      "$W(0)=\\sin\\theta$",
+      "$W(0)=\\cos^2\\theta$",
+      "$W(0)=\\langle\\psi|P_0|\\psi\\rangle=|\\langle1,0|\\psi\\rangle|^2=\\sin^2\\theta$",
+      "$W(0)=\\tfrac13$"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "Probabilities are squared moduli of amplitudes.",
+      "1": "That is the probability of $m=1$: the coefficient of $|1,1\\rangle$ is $\\cos\\theta$.",
+      "3": "Equal weights hold only for a uniformly random state, not for this prepared state."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "order",
+     "prompt": "Order the steps that give $\\Delta L_z$.",
+     "items": [
+      {
+       "text": "Read off the amplitudes $c_1=\\cos\\theta$, $c_0=\\sin\\theta$, $c_{-1}=0$",
+       "note": "normalised: $\\cos^2+\\sin^2=1$",
+       "why": "Everything follows from the amplitudes in the eigenbasis of the measured observable."
+      },
+      {
+       "text": "Probabilities $W(m)=|c_m|^2$",
+       "note": "projection postulate",
+       "why": "Needs the amplitudes."
+      },
+      {
+       "text": "$\\langle L_z\\rangle=\\sum m\\hbar W(m)$ and $\\langle L_z^2\\rangle=\\sum m^2\\hbar^2W(m)$",
+       "note": "weighted averages",
+       "why": "Needs the probabilities."
+      },
+      {
+       "text": "$\\Delta L_z=\\sqrt{\\langle L_z^2\\rangle-\\langle L_z\\rangle^2}$",
+       "note": "variance last",
+       "why": "Needs both moments; a variance cannot be computed from the mean alone."
+      }
+     ],
+     "hint": "amplitudes, probabilities, first and second moment, variance."
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle L_z\\rangle$ (symbols <code>hbar</code>, <code>th</code>).",
+     "answer": "hbar*cos(th)**2",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "th": [
+       0.2,
+       1.3
+      ]
+     },
+     "units": [
+      "action",
+      "dimensionless",
+      "energy",
+      "action^2"
+     ],
+     "unit": "action",
+     "latex": "\\langle L_z\\rangle=\\hbar\\cos^2\\theta",
+     "hint": "Only $m=1$ contributes: $1\\cdot\\hbar\\cdot\\cos^2\\theta+0\\cdot\\sin^2\\theta$.",
+     "wrong": [
+      "hbar*cos(th)",
+      "hbar*sin(th)**2",
+      "hbar**2*cos(th)**2"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type $\\Delta L_z$ (symbols <code>hbar</code>, <code>th</code>).",
+     "answer": "hbar*cos(th)*sin(th)",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "th": [
+       0.2,
+       1.3
+      ]
+     },
+     "units": [
+      "action",
+      "dimensionless",
+      "action^2",
+      "energy"
+     ],
+     "unit": "action",
+     "latex": "\\Delta L_z=\\hbar\\,|\\cos\\theta\\sin\\theta|",
+     "hint": "$\\langle L_z^2\\rangle=\\hbar^2\\cos^2\\theta$, so $(\\Delta L_z)^2=\\hbar^2\\cos^2\\theta(1-\\cos^2\\theta)$. The spread vanishes for $\\theta=0$ (eigenstate) and for $\\theta=\\pi/2$ (the state is an $m=0$ eigenstate).",
+     "wrong": [
+      "hbar*cos(th)**2",
+      "hbar*sin(th)**2*cos(th)",
+      "hbar**2*cos(th)*sin(th)"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $\\Delta L_z/\\hbar$ for $\\theta=\\pi/6$ (<code>th</code> in vars).",
+     "answer": "cos(th)*sin(th)",
+     "unit": "ħ",
+     "units": [
+      "ħ",
+      "ħ²",
+      "dimensionless"
+     ],
+     "tol": 0.02,
+     "hint": "$\\cos\\frac\\pi6\\sin\\frac\\pi6=\\frac{\\sqrt3}{2}\\cdot\\frac12=0.433$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 60,
+   "id": "qm-fu-c2",
+   "title": "Heisenberg picture of the oscillator: $x_H(t)$ and Ehrenfest",
+   "problem": "For $H=\\frac{p^2}{2m}+\\frac12m\\omega^2x^2$ derive the Heisenberg equations of motion, solve them and give $\\langle x\\rangle(t)$ for a state with $\\langle x\\rangle_0=x_0$, $\\langle p\\rangle_0=p_0$. Source: HS18 Q3 (ii)-(iii), FS22 Q3 (Heisenberg picture), HS21 Q1 (Ehrenfest).",
+   "symbols": [
+    [
+     "$x_0,p_0$",
+     "initial expectation values $\\langle x\\rangle,\\langle p\\rangle$"
+    ],
+    [
+     "$m,\\omega$",
+     "mass and angular frequency"
+    ],
+    [
+     "$t$",
+     "time"
+    ],
+    [
+     "$x_H(t)$",
+     "Heisenberg operator $U^\\dagger xU$"
+    ]
+   ],
+   "vars": {
+    "x0": 1,
+    "p0": 0.5,
+    "m": 1,
+    "w": 2,
+    "t": 0.3926990817
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$\\dot A_H=\\frac i\\hbar[H,A_H]$. With $[H,x]=-i\\hbar p/m$ and $[H,p]=i\\hbar m\\omega^2x$ the equations are linear and closed, so they are solved exactly (as in the classical oscillator).</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which pair of Heisenberg equations is correct?",
+     "options": [
+      "$\\dot x_H=-p_H/m$, $\\dot p_H=-m\\omega^2x_H$",
+      "$\\dot x_H=p_H/m$, $\\dot p_H=-m\\omega^2x_H$",
+      "$\\dot x_H=p_H/m$, $\\dot p_H=+m\\omega^2x_H$",
+      "$\\dot x_H=\\frac{i}{\\hbar}[x_H,H]$"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "Sign: $\\frac i\\hbar[H,x]=\\frac i\\hbar(-i\\hbar p/m)=+p/m$.",
+      "2": "$\\frac i\\hbar[H,p]=\\frac i\\hbar(i\\hbar m\\omega^2x)=-m\\omega^2x$: the restoring force.",
+      "3": "The commutator order is reversed; this flips the sign."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "order",
+     "prompt": "Order the solution steps.",
+     "items": [
+      {
+       "text": "Compute $[H,x]$ and $[H,p]$ from $[x,p]=i\\hbar$",
+       "note": "$-i\\hbar p/m$, $i\\hbar m\\omega^2x$",
+       "why": "The commutators are the input of the Heisenberg equation."
+      },
+      {
+       "text": "Write $\\dot x_H=p_H/m$, $\\dot p_H=-m\\omega^2x_H$",
+       "note": "operator equations",
+       "why": "Uses the commutators."
+      },
+      {
+       "text": "Decouple: $\\ddot x_H=-\\omega^2x_H$ and solve with the initial values $x_H(0)=x$, $p_H(0)=p$",
+       "note": "$x_H=x\\cos\\omega t+\\frac p{m\\omega}\\sin\\omega t$",
+       "why": "Needs the first-order system."
+      },
+      {
+       "text": "Take the expectation value in the (time-independent) Heisenberg state",
+       "note": "$\\langle x\\rangle_0=x_0$, $\\langle p\\rangle_0=p_0$",
+       "why": "Expectation values come last: the operator solution holds for every state."
+      }
+     ],
+     "hint": "commutators, equations of motion, solve, expectation value."
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle x\\rangle(t)$ (symbols <code>x0</code>, <code>p0</code>, <code>m</code>, <code>w</code>, <code>t</code>).",
+     "answer": "x0*cos(w*t)+p0*sin(w*t)/(m*w)",
+     "symbols": {
+      "x0": [
+       0.5,
+       2
+      ],
+      "p0": [
+       0.5,
+       2
+      ],
+      "m": [
+       0.5,
+       2
+      ],
+      "w": [
+       0.5,
+       2
+      ],
+      "t": [
+       0.1,
+       2
+      ]
+     },
+     "units": [
+      "length",
+      "momentum",
+      "dimensionless",
+      "energy"
+     ],
+     "unit": "length",
+     "latex": "\\langle x\\rangle(t)=x_0\\cos\\omega t+\\frac{p_0}{m\\omega}\\sin\\omega t",
+     "hint": "Initial conditions: $x(0)=x_0$, $\\dot x(0)=p_0/m$, and the solution of $\\ddot x=-\\omega^2x$.",
+     "wrong": [
+      "x0*cos(w*t)+p0*sin(w*t)/m",
+      "x0*cos(w*t)+p0*m*w*sin(w*t)",
+      "x0*sin(w*t)+p0*cos(w*t)/(m*w)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "What is $[x_H(t),p_H(t)]$ at time $t$?",
+     "options": [
+      "$i\\hbar$ for all $t$: $[U^\\dagger xU,U^\\dagger pU]=U^\\dagger[x,p]U=i\\hbar$",
+      "$i\\hbar\\cos^2\\omega t$",
+      "$0$ for $t>0$",
+      "depends on the state"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "Compute with the solution: the $\\sin\\cos$ cross terms cancel and $\\cos^2+\\sin^2=1$.",
+      "2": "Unitary conjugation preserves commutators.",
+      "3": "A c-number commutator is the same in every state."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $\\langle x\\rangle$ for $x_0=1$, $p_0=0.5$, $m=1$, $\\omega=2$ at $t=\\pi/8$ (vars).",
+     "answer": "x0*cos(w*t)+p0*sin(w*t)/(m*w)",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "m",
+      "ħ"
+     ],
+     "tol": 0.02,
+     "hint": "$\\omega t=\\pi/4$: $\\cos=\\sin=0.7071$; $0.7071+0.5\\cdot0.7071/2=0.884$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 65,
+   "id": "qm-fu-c3",
+   "title": "The stronger uncertainty relation for spin-1/2 (HS18 Q2 (iv))",
+   "problem": "Spin-1/2 in the state $|\\psi\\rangle=\\cos\\frac\\theta2|\\uparrow\\rangle+e^{i\\varphi}\\sin\\frac\\theta2|\\downarrow\\rangle$. For $A=\\sigma_x$, $B=\\sigma_y$ evaluate both sides of $(\\Delta A)^2(\\Delta B)^2\\ge\\frac14\\langle i[A,B]\\rangle^2+\\frac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2$. Use $\\langle\\sigma_x\\rangle=\\sin\\theta\\cos\\varphi$, $\\langle\\sigma_y\\rangle=\\sin\\theta\\sin\\varphi$, $\\langle\\sigma_z\\rangle=\\cos\\theta$. Source: inequality (15) of HS18 Q2 applied to spin (the state is chosen here).",
+   "symbols": [
+    [
+     "$\\theta,\\varphi$",
+     "polar and azimuthal angle of the Bloch vector"
+    ],
+    [
+     "$\\hat A,\\hat B$",
+     "$A-\\langle A\\rangle$, $B-\\langle B\\rangle$"
+    ],
+    [
+     "$\\sigma_i$",
+     "Pauli matrices, $\\sigma_x^2=\\mathbb 1$"
+    ],
+    [
+     "$\\{\\cdot,\\cdot\\}$",
+     "anticommutator"
+    ]
+   ],
+   "vars": {
+    "th": 1.5707963268,
+    "ph": 0.7853981634
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$\\sigma_i^2=\\mathbb 1$ gives $(\\Delta\\sigma_i)^2=1-\\langle\\sigma_i\\rangle^2$. $[\\sigma_x,\\sigma_y]=2i\\sigma_z$ and $\\{\\sigma_x,\\sigma_y\\}=0$, so $\\langle\\{\\hat A,\\hat B\\}\\rangle=-2\\langle\\sigma_x\\rangle\\langle\\sigma_y\\rangle$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "What is $\\frac12|\\langle[\\sigma_x,\\sigma_y]\\rangle|$, the textbook bound?",
+     "options": [
+      "$2|\\langle\\sigma_z\\rangle|$",
+      "$1$, always",
+      "$|\\langle\\sigma_x\\sigma_y\\rangle|$",
+      "$|\\langle\\sigma_z\\rangle|=|\\cos\\theta|$, from $[\\sigma_x,\\sigma_y]=2i\\sigma_z$"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "The factor $\\frac12$ of the relation cancels the 2 of the commutator.",
+      "1": "The commutator is an operator ($\\sigma_z$), so the bound is state dependent.",
+      "2": "That is not the commutator expectation value; $\\langle\\sigma_x\\sigma_y\\rangle=i\\langle\\sigma_z\\rangle$ and the anticommutator vanishes, but one must use $[\\sigma_x,\\sigma_y]$."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type the left side $(\\Delta\\sigma_x)^2(\\Delta\\sigma_y)^2$ (symbols <code>th</code>, <code>ph</code>).",
+     "answer": "(1-sin(th)**2*cos(ph)**2)*(1-sin(th)**2*sin(ph)**2)",
+     "symbols": {
+      "th": [
+       0.2,
+       1.4
+      ],
+      "ph": [
+       0.2,
+       1.4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "action",
+      "action^2",
+      "angle"
+     ],
+     "unit": "dimensionless",
+     "latex": "(\\Delta\\sigma_x)^2(\\Delta\\sigma_y)^2=(1-\\sin^2\\theta\\cos^2\\varphi)(1-\\sin^2\\theta\\sin^2\\varphi)",
+     "hint": "$(\\Delta\\sigma_i)^2=\\langle\\sigma_i^2\\rangle-\\langle\\sigma_i\\rangle^2=1-\\langle\\sigma_i\\rangle^2$.",
+     "wrong": [
+      "(1-sin(th)*cos(ph))*(1-sin(th)*sin(ph))",
+      "(1-sin(th)**2)",
+      "cos(th)**2"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type the anticommutator term $\\frac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2$ (symbols <code>th</code>, <code>ph</code>).",
+     "answer": "sin(th)**4*cos(ph)**2*sin(ph)**2",
+     "symbols": {
+      "th": [
+       0.2,
+       1.4
+      ],
+      "ph": [
+       0.2,
+       1.4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "action",
+      "action^2",
+      "angle"
+     ],
+     "unit": "dimensionless",
+     "latex": "\\tfrac14\\langle\\{\\hat A,\\hat B\\}\\rangle^2=\\sin^4\\theta\\cos^2\\varphi\\sin^2\\varphi",
+     "hint": "$\\{\\hat\\sigma_x,\\hat\\sigma_y\\}=\\{\\sigma_x,\\sigma_y\\}-2\\langle\\sigma_x\\rangle\\sigma_y-2\\langle\\sigma_y\\rangle\\sigma_x+2\\langle\\sigma_x\\rangle\\langle\\sigma_y\\rangle=-2\\langle\\sigma_x\\rangle\\sigma_y-\\dots$; its expectation value is $-2\\langle\\sigma_x\\rangle\\langle\\sigma_y\\rangle$.",
+     "wrong": [
+      "sin(th)**2*cos(ph)*sin(ph)",
+      "sin(th)**4*cos(ph)*sin(ph)",
+      "cos(th)**2"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "order",
+     "prompt": "Order the verification of (15).",
+     "items": [
+      {
+       "text": "Evaluate the variances $1-\\langle\\sigma_i\\rangle^2$ and multiply",
+       "note": "left side",
+       "why": "Defines the left-hand side."
+      },
+      {
+       "text": "Evaluate $\\langle i[\\sigma_x,\\sigma_y]\\rangle=-2\\langle\\sigma_z\\rangle$, square and divide by 4",
+       "note": "$\\cos^2\\theta$",
+       "why": "Independent of the previous steps; gives the commutator term."
+      },
+      {
+       "text": "Evaluate $\\langle\\{\\hat\\sigma_x,\\hat\\sigma_y\\}\\rangle=-2\\langle\\sigma_x\\rangle\\langle\\sigma_y\\rangle$, square and divide by 4",
+       "note": "$\\sin^4\\theta\\cos^2\\varphi\\sin^2\\varphi$",
+       "why": "The covariance term; needs the means."
+      },
+      {
+       "text": "Compare: $\\cos^2\\theta+\\sin^4\\theta\\cos^2\\varphi\\sin^2\\varphi$ equals the left side exactly",
+       "note": "equality for spin-1/2",
+       "why": "Last: needs all three."
+      }
+     ],
+     "hint": "left side, commutator term, anticommutator term, compare."
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: left side at $\\theta=\\pi/2$, $\\varphi=\\pi/4$ (vars <code>th</code>, <code>ph</code>).",
+     "answer": "(1-sin(th)**2*cos(ph)**2)*(1-sin(th)**2*sin(ph)**2)",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "ħ²"
+     ],
+     "tol": 0.02,
+     "hint": "$\\sin^2\\theta\\cos^2\\varphi=\\frac12$ for both, so the product is $\\frac14$; here the textbook bound $\\cos^2\\theta=0$ is far from sharp, the stronger bound (0.25) is exact.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-fu-b1",
+   "title": "Heisenberg uncertainty relation (HS18 Q2, 18 pt)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 2 [Heisenberg Uncertainty Relation, 18 pt]"
+   },
+   "minutes": 36,
+   "instructions": "Solve on paper under the timer (2 min per point). Enter the final numbers with $\\hbar=1$ for the instances below (the exam asks for general $n$; here you evaluate your general results).",
+   "statement": [
+    "Suppose $A$ and $B$ are two self-adjoint operators acting on a Hilbert space. We define the variance of $A$ via $(\\Delta A)_\\psi\\equiv\\sqrt{\\langle(A-\\langle A\\rangle_\\psi)^2\\rangle_\\psi}$, where the expectation value is taken with respect to some state $\\psi$ in the Hilbert space.",
+    "(i) Prove that $i[A,B]$ and $\\{A,B\\}\\equiv AB+BA$ are hermitian operators. [2 pt]",
+    "(ii) Prove the Heisenberg uncertainty relation $(\\Delta A)_\\psi(\\Delta B)_\\psi\\ge\\frac12|\\langle i[A,B]\\rangle_\\psi|$. [4 pt]",
+    "(iii) Consider the one-dimensional harmonic oscillator with mass $m$ in the eigenstate $\\psi_n$ of energy $E=\\hbar\\omega(n+\\frac12)$. Show that for all $n$: $(\\Delta x)_{\\psi_n}(\\Delta p)_{\\psi_n}=(n+\\frac12)\\hbar$. What is special about the case $n=0$? [5 pt] [Hint: $x=\\sqrt{\\hbar/2m\\omega}\\,(a+a^\\dagger)$, $p=-\\sqrt{\\hbar m\\omega/2}\\,i(a-a^\\dagger)$]",
+    "(iv) There exists a slightly stronger version, $(\\Delta A)^2_\\psi(\\Delta B)^2_\\psi\\ge\\big(\\frac12\\langle i[A,B]\\rangle_\\psi\\big)^2+\\big(\\frac12\\langle\\{\\hat A,\\hat B\\}\\rangle_\\psi\\big)^2$ with $\\hat A=A-\\langle A\\rangle_\\psi$, $\\hat B=B-\\langle B\\rangle_\\psi$. Prove it by considering the Cauchy-Schwarz inequality for the vectors $|\\psi_A\\rangle=\\hat A|\\psi\\rangle$ and $|\\psi_B\\rangle=\\hat B|\\psi\\rangle$. [Hint: write $|\\langle\\psi_A|\\psi_B\\rangle|^2$ in terms of real and imaginary parts.] [4 pt]",
+    "(v) Confirm the stronger inequality for the position and momentum operators in the eigenstates $\\psi_n$. [3 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "dxdp2",
+     "prompt": "(iii) $\\Delta x\\,\\Delta p$ for $n=2$, in units of $\\hbar$.",
+     "answer": "5/2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "lhs3",
+     "prompt": "(v) Left side $(\\Delta x)^2(\\Delta p)^2$ for $n=3$, in units of $\\hbar^2$.",
+     "answer": "49/4",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "anti",
+     "prompt": "(v) $\\langle\\{\\hat x,\\hat p\\}\\rangle$ in $\\psi_n$ (any $n$), in units of $\\hbar$.",
+     "answer": "0",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "rhs",
+     "prompt": "(v) Right side of the stronger inequality, in units of $\\hbar^2$ (any $n$).",
+     "answer": "1/4",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $(i[A,B])^\\dagger=-i[B,A]=i[A,B]$, $\\{A,B\\}^\\dagger=BA+AB$",
+    "(ii) Cauchy-Schwarz for $\\hat A\\psi,\\hat B\\psi$; $\\hat A\\hat B=\\frac12[A,B]+\\frac12\\{\\hat A,\\hat B\\}$; imaginary part gives the commutator",
+    "(iii) $\\langle x\\rangle=\\langle p\\rangle=0$, $\\langle x^2\\rangle=\\frac\\hbar{2m\\omega}(2n+1)$, $\\langle p^2\\rangle=\\frac{m\\hbar\\omega}2(2n+1)$, product $\\hbar(n+\\frac12)$; $n=0$ saturates the bound (Gaussian)",
+    "(iv) $|z|^2=(\\mathrm{Re}\\,z)^2+(\\mathrm{Im}\\,z)^2$ with $\\mathrm{Re}\\,z=\\frac12\\langle\\{\\hat A,\\hat B\\}\\rangle$, $\\mathrm{Im}\\,z=-\\frac12\\langle i[A,B]\\rangle$",
+    "(v) $xp+px\\propto i(a^{\\dagger2}-a^2)$ changes $n$ by $\\pm2$, so $\\langle\\{\\hat x,\\hat p\\}\\rangle=0$ and $\\langle x\\rangle=\\langle p\\rangle=0$, so $(n+\\frac12)^2\\hbar^2\\ge\\frac{\\hbar^2}4$"
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-fu-b2",
+   "title": "Heisenberg picture and conservation laws (HS18 Q3, 22 pt)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 3 [Heisenberg picture and conservation laws, 22 pt]"
+   },
+   "minutes": 44,
+   "instructions": "Solve on paper under the timer. The final answers ask for one concrete instance of (vi): $l=1$, $s=\\frac12$, energy shifts of $\\kappa\\vec L\\cdot\\vec S$ in units of $\\kappa\\hbar^2$.",
+   "statement": [
+    "(i) State the time-dependent Schrodinger equation, and write down the solution with initial state $\\Psi(t_0)$ as $\\Psi(t)=U(t,t_0)\\Psi(t_0)$. Deduce the differential equation the propagator $U(t,t_0)$ has to solve, and construct its (formal) solution. [5 pt]",
+    "(ii) Explain how to define the Heisenberg picture, and deduce the equations of motion of an operator in the Heisenberg picture. [3 pt]",
+    "(iii) Determine the condition for an observable $A$ that does not depend explicitly on time, to be conserved. [2 pt]",
+    "(iv) Consider a Hamiltonian of the form $H_0\\equiv H_0(r,\\vec L^2,\\vec S^2)$, where $r$ is the radial coordinate, while $\\vec L$ and $\\vec S$ describe the orbital angular momentum and spin operators. Write the components of $\\vec L$ in terms of differential operators, and calculate $[\\vec L,r]$. Using $[L_x,L_y]=i\\hbar L_z$ (and cyclic), show also that $[\\vec L,\\vec L^2]=0$. Deduce that if $H_0$ describes the Hamiltonian of the system, $\\vec L$ is conserved. [5 pt]",
+    "(v) Suppose the eigenstates of $H_0$ are $H_0|n,l,m,s,m_s\\rangle=E(n,l,m,s,m_s)|n,l,m,s,m_s\\rangle$. On which of these quantum numbers do the eigenvalues of $H_0$ actually not depend? Justify. [2 pt]",
+    "(vi) Now consider $H_1=H_0+\\kappa\\,\\vec L\\cdot\\vec S$. What are the eigenvalues of $H_1$ on the space spanned by the states $|n,l,m,s,m_s\\rangle$? On which combination of quantum numbers do the eigenvalues of $H_1$ not depend? [5 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "j32",
+     "prompt": "(vi) Shift of the $j=\\frac32$ level of $l=1,s=\\frac12$ in units of $\\kappa\\hbar^2$.",
+     "answer": "1/2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "j12",
+     "prompt": "(vi) Shift of the $j=\\frac12$ level in units of $\\kappa\\hbar^2$.",
+     "answer": "-1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "dim",
+     "prompt": "(vi) Dimension of the space for fixed $n,l=1,s=\\frac12$ (number of states $|m,m_s\\rangle$).",
+     "answer": "6",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "trace",
+     "prompt": "(vi) Sum of all six shifts (with degeneracy), in units of $\\kappa\\hbar^2$ (check: $\\mathrm{tr}\\,\\vec L\\cdot\\vec S=0$).",
+     "answer": "4*(1/2)+2*(-1)",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $i\\hbar\\partial_t\\Psi=H\\Psi$; $i\\hbar\\partial_tU=HU$, $U(t_0,t_0)=\\mathbb 1$; $U=e^{-iH(t-t_0)/\\hbar}$ (time-ordered exponential in general); unitary",
+    "(ii) $A_H=U^\\dagger AU$, $\\Psi_H=\\Psi(t_0)$; $\\dot A_H=\\frac i\\hbar[H,A_H]+(\\partial_tA)_H$",
+    "(iii) $[H,A]=0$ (with $\\partial_tA=0$)",
+    "(iv) $\\vec L=-i\\hbar\\,\\vec r\\times\\nabla$; $[L_i,r]=0$ because $r$ is a function of $\\vec r^2$ and $L_i$ is a derivative along rotations; $[L_i,\\vec L^2]=0$ from $[L_x,L_y^2]=[L_x,L_y]L_y+L_y[L_x,L_y]=i\\hbar(L_zL_y+L_yL_z)$ and the cyclic partners cancelling; $[H_0,\\vec L]=0$",
+    "(v) $H_0$ is a function of $r,\\vec L^2,\\vec S^2$ only: no dependence on $m$ and $m_s$ (rotational invariance, degeneracy $(2l+1)(2s+1)$)",
+    "(vi) $\\vec L\\cdot\\vec S=\\frac12(\\vec J^2-\\vec L^2-\\vec S^2)$ with $\\vec J=\\vec L+\\vec S$: eigenvalues $\\frac{\\kappa\\hbar^2}2[j(j+1)-l(l+1)-s(s+1)]$ for $j=l\\pm\\frac12$; independent of $m_j$ (not of $m$ and $m_s$ separately)"
+   ],
+   "requires": "qm-fu-c2"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-fu-b3",
+   "title": "QM in finite dimensions (HS22 B.1, 20 pt)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+    "where": "B.1 - QM in finite dimensions [20 points]"
+   },
+   "minutes": 40,
+   "instructions": "Solve on paper under the timer. Enter the final numbers with $\\hbar=1$: a matrix element of $T$ and the moments of $\\hat p$ in the state $|0\\rangle$.",
+   "statement": [
+    "a) [1p] Imagine that the space of positions is discrete, consisting of only three points. The corresponding position eigenstates $|x\\rangle\\in|0\\rangle,|1\\rangle,|2\\rangle$ satisfy $\\hat x|x\\rangle=x|x\\rangle$. Construct a matrix representation of the position operator $\\hat x$ in the $|x\\rangle$-basis and show that it is hermitian.",
+    "b) [3p] Show that for an invertible matrix $S$, one has $e^{SAS^{-1}}=Se^AS^{-1}$ for any matrix $A$.",
+    "c) [7p] Consider the operator $\\hat p=S\\hat xS^{-1}$ obtained by applying the discrete Fourier transform $S=\\frac1{\\sqrt3}\\begin{pmatrix}1&1&1\\\\1&\\omega&\\omega^*\\\\1&\\omega^*&\\omega\\end{pmatrix}$, $\\omega=e^{2\\pi i/3}$, to the position operator. Show that $S$ is unitary and determine the matrix representation of $T=\\omega^{\\hat p}=e^{2\\pi i\\hat p/3}$ in the basis $|x\\rangle\\in|0\\rangle,|1\\rangle,|2\\rangle$. What is the action of $T$ on a position eigenstate? Use this to deduce the physical meaning of $\\hat p$. [Hint: express everything in terms of $\\omega$.]",
+    "d) [6p] Calculate the uncertainty of the momentum and position of a particle that is in the state $|0\\rangle$. Is the relation of the \"uncertainty principle\" for positions and momenta satisfied?",
+    "e) [3p] Prove that $[\\hat x,\\hat p]=i\\hbar$ cannot hold when $\\hat x$ and $\\hat p$ are operators on a Hilbert space in finite dimensions. [Hint: recall that for a finite-dimensional Hilbert space the trace is finite.]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "p0",
+     "prompt": "d) $\\langle0|\\hat p|0\\rangle$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "dp",
+     "prompt": "d) $\\Delta p$ in the state $|0\\rangle$.",
+     "answer": "sqrt(2/3)",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "dx",
+     "prompt": "d) $\\Delta x$ in the state $|0\\rangle$.",
+     "answer": "0",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "T01",
+     "prompt": "c) The matrix element $T_{01}=\\langle0|T|1\\rangle$ (shift operator: $T|1\\rangle=|0\\rangle$ means 1).",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "a) $\\hat x=\\mathrm{diag}(0,1,2)$ real symmetric, hence hermitian",
+    "b) $(SAS^{-1})^n=SA^nS^{-1}$ term by term in the exponential series",
+    "c) $S^\\dagger S=\\mathbb 1$ (columns orthonormal: $\\sum_k\\omega^{(j-l)k}=3\\delta_{jl}$); $T=S\\,\\mathrm{diag}(1,\\omega,\\omega^*)S^\\dagger$ is a cyclic shift, $T|x\\rangle=|x-1\\bmod3\\rangle$: $\\hat p$ generates translations (momentum)",
+    "d) $\\Delta x=0$ ($|0\\rangle$ is an eigenstate of $\\hat x$); $\\langle p\\rangle=1$, $\\langle p^2\\rangle=\\frac53$, $\\Delta p=\\sqrt{2/3}$; product $0$ is not a violation because $[\\hat x,\\hat p]\\ne i\\hbar$ in $\\mathbb C^3$ (see e)",
+    "e) $\\mathrm{tr}[\\hat x,\\hat p]=0$ but $\\mathrm{tr}(i\\hbar\\mathbb 1)=i\\hbar N\\ne0$"
+   ]
+  }
+ ]
+}

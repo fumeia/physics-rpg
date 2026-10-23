@@ -1,0 +1,905 @@
+{
+ "course": "astrophysics",
+ "questions": [
+  {
+   "id": "blitz-astrophysics-01",
+   "room": "photometry-radiation",
+   "kind": "concept",
+   "q": "Why is the absolute magnitude $M$ of a star independent of its distance?",
+   "options": [
+    "It is measured in a filter that removes the inverse-square dilution of the flux",
+    "It is defined with the flux at the stellar surface, not at the observer",
+    "It is the apparent magnitude corrected for interstellar extinction only",
+    "It is defined as the apparent magnitude the star would have at a fixed distance of 10 pc"
+   ],
+   "correct": 3,
+   "explain": "$M$ is defined through $m-M=5\\log_{10}(d/10\\,\\mathrm{pc})$ (ignoring extinction), i.e. $M$ is $m$ evaluated at $d=10$ pc. Since $F=L/4\\pi d^2$ the flux at a fixed reference distance depends only on the luminosity $L$.",
+   "source": "Choudhuri 3.2; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-02",
+   "room": "photometry-radiation",
+   "kind": "concept",
+   "q": "Wien's displacement law $\\lambda_{\\max}T=\\mathrm{const}$ states that",
+   "options": [
+    "hotter blackbodies have their Planck peak at longer wavelengths",
+    "hotter blackbodies have their Planck peak at shorter wavelengths",
+    "the total emitted power is independent of $T$",
+    "the peak wavelength scales as $T^{4}$"
+   ],
+   "correct": 1,
+   "explain": "Maximising the Planck function $B_\\lambda(T)$ gives $\\lambda_{\\max}T\\approx2.9\\times10^{-3}$ m K, so the peak moves blue as $T$ rises. The $T^4$ is the Stefan–Boltzmann law for the integrated flux, a different statement.",
+   "source": "Choudhuri 3.4; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-03",
+   "room": "radiative-transfer",
+   "kind": "concept",
+   "q": "An optical depth $\\tau_\\nu=1$ along a ray means",
+   "options": [
+    "the intensity of the incident radiation is attenuated by a factor $e$ (path length equals one mean free path)",
+    "the intensity is attenuated by a factor 2",
+    "the medium is perfectly transparent",
+    "the intensity equals the source function $S_\\nu$"
+   ],
+   "correct": 0,
+   "explain": "With $\\mathrm{d}I_\\nu/\\mathrm{d}\\tau_\\nu=-I_\\nu+S_\\nu$ the attenuated part of the incident intensity is $I_0e^{-\\tau_\\nu}$, so $\\tau_\\nu=1$ gives $1/e$. $\\tau=\\int\\kappa\\rho\\,\\mathrm{d}s$ counts mean free paths.",
+   "source": "Radiative transfer; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-04",
+   "room": "stellar-forge",
+   "kind": "concept",
+   "q": "Hydrostatic equilibrium, $\\mathrm{d}P/\\mathrm{d}r=-Gm(r)\\rho/r^2$, states that",
+   "options": [
+    "radiation pressure equals gas pressure",
+    "the energy generated equals the luminosity",
+    "at every radius the pressure gradient balances the local gravitational pull",
+    "the star does not rotate"
+   ],
+   "correct": 2,
+   "explain": "A thin shell of density $\\rho$ feels gravity $-Gm\\rho/r^2$ per unit volume from the mass $m(r)$ inside, which must be cancelled by the pressure difference across the shell. It makes no statement about energy or rotation.",
+   "source": "Choudhuri 3.1; stellar structure"
+  },
+  {
+   "id": "blitz-astrophysics-05",
+   "room": "nuclear-furnace",
+   "kind": "concept",
+   "q": "The Gamow peak is the energy at which",
+   "options": [
+    "the product of the Maxwell–Boltzmann tail $e^{-E/k_BT}$ and the tunnelling factor $e^{-\\sqrt{E_G/E}}$ is maximal",
+    "the thermal energy equals the Coulomb barrier height",
+    "the nuclear cross-section diverges",
+    "the nuclei move at the sound speed"
+   ],
+   "correct": 0,
+   "explain": "Fusion needs nuclei from the thermal tail to tunnel through the Coulomb barrier, with $E_G$ the Gamow energy. The integrand $e^{-E/k_BT-\\sqrt{E_G/E}}$ peaks at $E_0=(E_G(k_BT)^2/4)^{1/3}\\gg k_BT$ but far below the barrier.",
+   "source": "Choudhuri 3.6; nuclear burning"
+  },
+  {
+   "id": "blitz-astrophysics-06",
+   "room": "degenerate-matter",
+   "kind": "concept",
+   "q": "What stabilises a white dwarf against gravitational collapse?",
+   "options": [
+    "thermal pressure of the carbon and oxygen nuclei",
+    "electron degeneracy pressure resulting from the Pauli principle",
+    "radiation pressure",
+    "ongoing helium fusion in the core"
+   ],
+   "correct": 1,
+   "explain": "Fermi-gas electrons at density $\\rho\\sim10^9$ kg m$^{-3}$ have a Fermi pressure $P\\propto\\rho^{5/3}$ that is independent of temperature and exceeds thermal pressure. This is why a white dwarf can cool without collapsing.",
+   "source": "Choudhuri 6; degenerate matter"
+  },
+  {
+   "id": "blitz-astrophysics-07",
+   "room": "interstellar-medium",
+   "kind": "concept",
+   "q": "The 21 cm line of neutral hydrogen arises from",
+   "options": [
+    "the $n=3\\to2$ transition",
+    "a rotational transition of H$_2$",
+    "the hyperfine spin-flip of the electron relative to the proton in the $1s$ ground state",
+    "free–free emission of ionised hydrogen"
+   ],
+   "correct": 2,
+   "explain": "The ground state splits into a triplet and a singlet by the magnetic coupling of the electron and proton spins; the transition between them emits at $\\nu=1420$ MHz. It is a forbidden line (lifetime $\\sim10^7$ yr) but traces cold H I because of the huge column densities.",
+   "source": "ISM; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-08",
+   "room": "galactic-dynamics",
+   "kind": "concept",
+   "q": "A flat rotation curve $v(r)\\approx\\mathrm{const}$ at large $r$ implies that the enclosed mass",
+   "options": [
+    "stays constant, $M(<r)=\\mathrm{const}$",
+    "grows as $r^2$",
+    "decreases with the light profile",
+    "grows linearly with radius, $M(<r)\\propto r$"
+   ],
+   "correct": 3,
+   "explain": "For circular orbits $v^2=GM(<r)/r$, so $v=\\mathrm{const}$ requires $M(<r)=v^2r/G\\propto r$, i.e. $\\rho\\propto r^{-2}$ (isothermal halo). Since the light falls off exponentially this is the dark-matter argument.",
+   "source": "Galactic dynamics; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-09",
+   "room": "active-galaxies",
+   "kind": "concept",
+   "q": "The Eddington luminosity is reached when",
+   "options": [
+    "gas pressure equals radiation pressure",
+    "the nuclear burning rate equals the cooling rate",
+    "the Schwarzschild radius equals the photon sphere",
+    "the outward radiation force on electrons (Thomson scattering) balances gravity acting on the protons"
+   ],
+   "correct": 3,
+   "explain": "Radiation force per electron is $\\sigma_TF/c$ with $F=L/4\\pi r^2$, gravity is $GMm_p/r^2$, giving $L_\\mathrm{Edd}=4\\pi GMm_pc/\\sigma_T$. Both forces scale as $r^{-2}$ so the balance is independent of radius.",
+   "source": "Active galaxies; accretion"
+  },
+  {
+   "id": "blitz-astrophysics-10",
+   "room": "expanding-universe",
+   "kind": "concept",
+   "q": "Hubble's law $v=H_0d$ follows from uniform expansion because",
+   "options": [
+    "galaxies are repelled by the Milky Way",
+    "proper distance is $d=a(t)x$ with fixed comoving $x$, so $\\dot d=(\\dot a/a)\\,d=H\\,d$",
+    "light loses energy to intergalactic dust",
+    "it is purely a Doppler effect of peculiar velocities"
+   ],
+   "correct": 1,
+   "explain": "With scale factor $a(t)$ and comoving coordinate $x$, differentiating $d=a(t)x$ gives $\\dot d=H(t)d$ with $H=\\dot a/a$. Any observer sees the same law, so there is no centre.",
+   "source": "Cosmology; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-11",
+   "room": "early-universe",
+   "kind": "concept",
+   "q": "The CMB was released at $T\\approx3000$ K because at that time",
+   "options": [
+    "the first stars ignited",
+    "big-bang nucleosynthesis ended",
+    "hydrogen recombined, so photons no longer Thomson-scattered off free electrons",
+    "neutrinos decoupled"
+   ],
+   "correct": 2,
+   "explain": "When $k_BT\\sim0.3$ eV (not 13.6 eV, because of the huge photon-to-baryon ratio, Saha equation) the ionised fraction collapses and the mean free path grows beyond the horizon. The photons then free-stream and are redshifted by $1+z\\approx1100$ to 2.7 K.",
+   "source": "Early universe; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-12",
+   "room": "stellar-forge",
+   "kind": "concept",
+   "q": "For a quasi-static contraction of a self-gravitating ideal gas ($2K+U=0$), the star",
+   "options": [
+    "radiates half of the released gravitational energy and heats up",
+    "radiates all the released energy and cools down",
+    "stores all the released energy as heat and does not radiate",
+    "cools down and expands"
+   ],
+   "correct": 0,
+   "explain": "Virial theorem: $E=K+U=U/2=-K$, so the total energy decreases when it radiates ($L>0$) while $K\\propto T$ increases. The release $|\\Delta U|$ splits equally between radiation and heating (negative heat capacity).",
+   "source": "Choudhuri 3.1; virial theorem"
+  },
+  {
+   "id": "blitz-astrophysics-13",
+   "room": "interstellar-medium",
+   "kind": "concept",
+   "q": "The Jeans mass $M_J\\propto T^{3/2}\\rho^{-1/2}$ decreases with density because",
+   "options": [
+    "denser gas is hotter",
+    "denser gas has stronger self-gravity relative to its pressure gradient, so smaller clumps collapse",
+    "denser gas has a larger sound speed",
+    "the gas becomes optically thin"
+   ],
+   "correct": 1,
+   "explain": "Collapse occurs when the sound-crossing time exceeds the free-fall time $t_\\mathrm{ff}\\propto\\rho^{-1/2}$. A clump of size $\\lambda_J=c_s t_\\mathrm{ff}$ collapses, with $M_J\\sim\\rho\\lambda_J^3\\propto T^{3/2}\\rho^{-1/2}$.",
+   "source": "ISM; Jeans criterion"
+  },
+  {
+   "id": "blitz-astrophysics-14",
+   "room": "photometry-radiation",
+   "kind": "whatif",
+   "q": "The distance to a star is doubled. Its apparent magnitude changes by",
+   "options": [
+    "$+1.5$",
+    "$+0.75$",
+    "$+2.5$",
+    "$-1.5$"
+   ],
+   "correct": 0,
+   "explain": "$F\\propto d^{-2}$ gives $F\\to F/4$, and $\\Delta m=-2.5\\log_{10}(F'/F)=2.5\\log_{10}4=1.51$. A larger flux ratio means a larger (fainter) magnitude.",
+   "source": "Choudhuri 3.2"
+  },
+  {
+   "id": "blitz-astrophysics-15",
+   "room": "photometry-radiation",
+   "kind": "whatif",
+   "q": "At fixed temperature the radius of a star is doubled. Its luminosity changes by a factor",
+   "options": [
+    "2",
+    "8",
+    "4",
+    "16"
+   ],
+   "correct": 2,
+   "explain": "$L=4\\pi R^2\\sigma T_\\mathrm{eff}^4$, so $L\\propto R^2$ at fixed $T$. Check: $R\\to2R$ gives $L\\to4L$, which is why giants at similar $T_\\mathrm{eff}$ are far brighter than dwarfs.",
+   "source": "Stefan–Boltzmann"
+  },
+  {
+   "id": "blitz-astrophysics-16",
+   "room": "photometry-radiation",
+   "kind": "whatif",
+   "q": "A star's temperature doubles at constant radius. What happens to $\\lambda_{\\max}$ and $L$?",
+   "options": [
+    "$\\lambda_{\\max}$ halves and $L$ grows by 4",
+    "$\\lambda_{\\max}$ doubles and $L$ grows by 16",
+    "$\\lambda_{\\max}$ halves and $L$ grows by 8",
+    "$\\lambda_{\\max}$ halves and $L$ grows by 16"
+   ],
+   "correct": 3,
+   "explain": "Wien: $\\lambda_{\\max}\\propto T^{-1}$. Stefan–Boltzmann: $L=4\\pi R^2\\sigma T^4\\propto T^4$, and $2^4=16$.",
+   "source": "Wien; Stefan–Boltzmann"
+  },
+  {
+   "id": "blitz-astrophysics-17",
+   "room": "stellar-forge",
+   "kind": "whatif",
+   "q": "A main-sequence star has twice the Sun's mass. With $L\\propto M^{3.5}$, its main-sequence lifetime is about",
+   "options": [
+    "$1/2$ of the Sun's",
+    "$1/12$ of the Sun's",
+    "$1/6$ of the Sun's",
+    "$1/4$ of the Sun's"
+   ],
+   "correct": 2,
+   "explain": "The fuel supply is $\\propto M$ and the burn rate is $L$, so $t_\\mathrm{MS}\\propto M/L\\propto M^{-2.5}$. For $M\\to2M$: $2^{-2.5}=0.177\\approx1/5.7$.",
+   "source": "Choudhuri 3.3; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-18",
+   "room": "nuclear-furnace",
+   "kind": "whatif",
+   "q": "The core temperature of a pp-chain star rises by 10 %. With $\\epsilon_{pp}\\propto T^4$ the energy generation rate increases by about",
+   "options": [
+    "10 %",
+    "46 %",
+    "21 %",
+    "a factor 4.6"
+   ],
+   "correct": 1,
+   "explain": "$\\epsilon\\propto T^{4}$ gives $(1.1)^4=1.46$. The factor 4.6 would correspond to the CNO cycle ($\\epsilon\\propto T^{16}$) with $1.1^{16}=4.6$.",
+   "source": "Choudhuri 3.6; nuclear burning"
+  },
+  {
+   "id": "blitz-astrophysics-19",
+   "room": "degenerate-matter",
+   "kind": "whatif",
+   "q": "The mass of a non-relativistic white dwarf is doubled. Its radius ($R\\propto M^{-1/3}$)",
+   "options": [
+    "shrinks by a factor $2^{-1/3}\\approx0.79$",
+    "doubles",
+    "stays the same",
+    "grows by $2^{1/3}\\approx1.26$"
+   ],
+   "correct": 0,
+   "explain": "Equating gravitational pressure $\\sim GM^2/R^4$ with Fermi pressure $\\propto(M/R^3)^{5/3}$ gives $R\\propto M^{-1/3}$. More massive white dwarfs are smaller.",
+   "source": "Choudhuri 6; degenerate matter"
+  },
+  {
+   "id": "blitz-astrophysics-20",
+   "room": "interstellar-medium",
+   "kind": "whatif",
+   "q": "The temperature of a molecular cloud is doubled at fixed density. The Jeans mass changes by",
+   "options": [
+    "a factor 2",
+    "a factor 4",
+    "a factor $2^{-3/2}\\approx0.35$",
+    "a factor $2^{3/2}\\approx2.8$"
+   ],
+   "correct": 3,
+   "explain": "$M_J\\propto T^{3/2}\\rho^{-1/2}$, so doubling $T$ gives $2^{3/2}=2.83$. Hotter gas needs more mass to collapse, which is why star formation happens in cold cores.",
+   "source": "ISM; Jeans criterion"
+  },
+  {
+   "id": "blitz-astrophysics-21",
+   "room": "galactic-dynamics",
+   "kind": "whatif",
+   "q": "If the dark halo of a galaxy suddenly disappeared, the rotation curve outside the stellar disc would follow",
+   "options": [
+    "stay flat",
+    "rise linearly, $v\\propto r$",
+    "Kepler: $v\\propto r^{-1/2}$",
+    "vanish at once"
+   ],
+   "correct": 2,
+   "explain": "Without the halo $M(<r)$ is the finite visible mass, so $v^2=GM/r$ gives $v\\propto r^{-1/2}$. The observed flatness is evidence for $M(<r)\\propto r$.",
+   "source": "Galactic dynamics"
+  },
+  {
+   "id": "blitz-astrophysics-22",
+   "room": "active-galaxies",
+   "kind": "whatif",
+   "q": "The mass of a black hole doubles. Its Eddington luminosity changes by a factor",
+   "options": [
+    "4",
+    "2",
+    "1 (no change)",
+    "$1/2$"
+   ],
+   "correct": 1,
+   "explain": "$L_\\mathrm{Edd}=4\\pi GMm_pc/\\sigma_T\\propto M$. A larger mass can hold down radiation pressure from proportionally more luminosity.",
+   "source": "Active galaxies; accretion"
+  },
+  {
+   "id": "blitz-astrophysics-23",
+   "room": "expanding-universe",
+   "kind": "whatif",
+   "q": "If the Hubble constant were twice as large, the Hubble time $1/H_0$ would",
+   "options": [
+    "double",
+    "stay the same",
+    "reduce to a quarter",
+    "halve"
+   ],
+   "correct": 3,
+   "explain": "$t_H=1/H_0$ is inversely proportional to $H_0$. Using $H_0=70$ km s$^{-1}$ Mpc$^{-1}$, $t_H=14$ Gyr, so $2H_0$ gives 7 Gyr.",
+   "source": "Cosmology"
+  },
+  {
+   "id": "blitz-astrophysics-24",
+   "room": "early-universe",
+   "kind": "whatif",
+   "q": "The scale factor doubles during the radiation era. The CMB temperature and the photon number density become",
+   "options": [
+    "$T\\to T/2$ and $n_\\gamma\\to n_\\gamma/8$",
+    "$T\\to T/2$ and $n_\\gamma\\to n_\\gamma/4$",
+    "$T\\to T/4$ and $n_\\gamma\\to n_\\gamma/8$",
+    "$T\\to T/8$ and $n_\\gamma\\to n_\\gamma/2$"
+   ],
+   "correct": 0,
+   "explain": "Photons redshift as $T\\propto1/a$, and the number density dilutes with volume, $n_\\gamma\\propto a^{-3}$ (also $n_\\gamma\\propto T^3$). So $T\\to T/2$ and $n_\\gamma\\to n_\\gamma/8$.",
+   "source": "Early universe"
+  },
+  {
+   "id": "blitz-astrophysics-25",
+   "room": "interstellar-medium",
+   "kind": "whatif",
+   "q": "You use $m-M=5\\log_{10}(d/10\\,\\mathrm{pc})$ but ignore an extinction of $A=1$ mag. You will",
+   "options": [
+    "underestimate $d$ by a factor 1.6",
+    "overestimate $d$ by a factor $10^{0.2}\\approx1.6$",
+    "overestimate $d$ by a factor 2.5",
+    "overestimate $d$ by a factor 4"
+   ],
+   "correct": 1,
+   "explain": "With extinction $m-M=5\\log_{10}(d/10\\,\\mathrm{pc})+A$. Ignoring $A$ makes the apparent distance modulus 1 mag too large, so $\\log_{10}d$ is too large by $A/5=0.2$.",
+   "source": "ISM; extinction"
+  },
+  {
+   "id": "blitz-astrophysics-26",
+   "room": "stellar-forge",
+   "kind": "whatif",
+   "q": "The temperature of a radiation-dominated gas is doubled. The radiation pressure $P=aT^4/3$ changes by a factor",
+   "options": [
+    "16",
+    "2",
+    "4",
+    "8"
+   ],
+   "correct": 0,
+   "explain": "Radiation pressure scales as $T^4$ ($a$ is the radiation constant), so $2^4=16$. At fixed density the gas pressure only doubles, which makes radiation pressure dominate in massive hot stars.",
+   "source": "Choudhuri 3.1"
+  },
+  {
+   "id": "blitz-astrophysics-27",
+   "room": "photometry-radiation",
+   "kind": "estimate",
+   "q": "The solar constant is $S=1361$ W m$^{-2}$ at 1 AU. The solar luminosity is about",
+   "options": [
+    "$3.0\\times10^{25}$ W",
+    "$3.8\\times10^{30}$ W",
+    "$3.8\\times10^{26}$ W",
+    "$1.2\\times10^{27}$ W"
+   ],
+   "correct": 2,
+   "explain": "$L=4\\pi d^2S$ with $d=1.496\\times10^{11}$ m gives $3.83\\times10^{26}$ W. Forgetting the $4\\pi$ gives the too-small $3.0\\times10^{25}$ W.",
+   "source": "Choudhuri 3.2"
+  },
+  {
+   "id": "blitz-astrophysics-28",
+   "room": "photometry-radiation",
+   "kind": "estimate",
+   "q": "With $L=3.83\\times10^{26}$ W and $R=6.96\\times10^{8}$ m the Sun's effective temperature is about",
+   "options": [
+    "$2900$ K",
+    "$11000$ K",
+    "$23000$ K",
+    "$5800$ K"
+   ],
+   "correct": 3,
+   "explain": "$T_\\mathrm{eff}=(L/4\\pi R^2\\sigma)^{1/4}=5.77\\times10^3$ K. The fourth root makes the result insensitive to modest errors in $L$ or $R$.",
+   "source": "Stefan–Boltzmann"
+  },
+  {
+   "id": "blitz-astrophysics-29",
+   "room": "photometry-radiation",
+   "kind": "estimate",
+   "q": "With $\\lambda_{\\max}T=2.898\\times10^{-3}$ m K, the Sun ($T=5772$ K) peaks at a wavelength of",
+   "options": [
+    "$250$ nm",
+    "$1000$ nm",
+    "$5000$ nm",
+    "$500$ nm"
+   ],
+   "correct": 3,
+   "explain": "$\\lambda_{\\max}=b/T=2.898\\times10^{-3}/5772=502$ nm, which lies in the green part of the visible band. Wien's law $\\lambda_{\\max}=b/T$ means hotter stars peak at shorter wavelengths (10 000 K gives 290 nm, in the UV).",
+   "source": "Wien"
+  },
+  {
+   "id": "blitz-astrophysics-30",
+   "room": "nuclear-furnace",
+   "kind": "estimate",
+   "q": "The Sun burns 10 % of its mass at efficiency $0.007\\,Mc^2$. With $L=3.83\\times10^{26}$ W its main-sequence lifetime is about",
+   "options": [
+    "$10^{10}$ yr",
+    "$10^{8}$ yr",
+    "$10^{12}$ yr",
+    "$10^{9}$ yr"
+   ],
+   "correct": 0,
+   "explain": "$t=0.1\\times0.007\\,M_\\odot c^2/L=3.3\\times10^{17}$ s, about $1.0\\times10^{10}$ yr. The 0.7 % is the mass fraction released when four protons fuse to He-4.",
+   "source": "Choudhuri 3.3"
+  },
+  {
+   "id": "blitz-astrophysics-31",
+   "room": "active-galaxies",
+   "kind": "estimate",
+   "q": "The Schwarzschild radius $2GM/c^2$ of the Sun is about",
+   "options": [
+    "$30$ km",
+    "$0.3$ km",
+    "$3$ km",
+    "$700$ km"
+   ],
+   "correct": 2,
+   "explain": "$r_s=2GM_\\odot/c^2=2.95$ km. The Sun's actual radius is $7\\times10^5$ km.",
+   "source": "Active galaxies; GR"
+  },
+  {
+   "id": "blitz-astrophysics-32",
+   "room": "degenerate-matter",
+   "kind": "estimate",
+   "q": "The mean density of one solar mass compressed into a sphere of the radius of the Earth ($6.37\\times10^6$ m) is about",
+   "options": [
+    "$1.8\\times10^{6}$ kg m$^{-3}$",
+    "$1.8\\times10^{9}$ kg m$^{-3}$",
+    "$1.8\\times10^{12}$ kg m$^{-3}$",
+    "$5.5\\times10^{3}$ kg m$^{-3}$"
+   ],
+   "correct": 1,
+   "explain": "$\\rho=M_\\odot/(\\tfrac43\\pi R^3)=1.8\\times10^9$ kg m$^{-3}$, the typical white dwarf density. For comparison, the Earth's mean density is $5.5\\times10^3$ kg m$^{-3}$.",
+   "source": "Choudhuri 6"
+  },
+  {
+   "id": "blitz-astrophysics-33",
+   "room": "active-galaxies",
+   "kind": "estimate",
+   "q": "The Eddington luminosity $L_\\mathrm{Edd}=4\\pi GMm_pc/\\sigma_T$ of a $10^8M_\\odot$ black hole is about",
+   "options": [
+    "$1.3\\times10^{39}$ W",
+    "$1.3\\times10^{36}$ W",
+    "$1.3\\times10^{42}$ W",
+    "$4\\times10^{30}$ W"
+   ],
+   "correct": 0,
+   "explain": "$L_\\mathrm{Edd}=1.26\\times10^{31}\\,(M/M_\\odot)$ W, so $10^8M_\\odot$ gives $1.3\\times10^{39}$ W, a few $10^{12}L_\\odot$, which is typical of quasars. Radiation pressure on the infalling gas would exceed gravity above this luminosity, so it limits the accretion rate.",
+   "source": "Active galaxies"
+  },
+  {
+   "id": "blitz-astrophysics-34",
+   "room": "expanding-universe",
+   "kind": "estimate",
+   "q": "With $H_0=70$ km s$^{-1}$ Mpc$^{-1}$ the Hubble distance $c/H_0$ is about",
+   "options": [
+    "$430$ Mpc",
+    "$43000$ Mpc",
+    "$4300$ Mpc",
+    "$43$ Mpc"
+   ],
+   "correct": 2,
+   "explain": "$c/H_0=3\\times10^5/70$ Mpc $=4286$ Mpc, the scale of the observable universe (about 14 Gpc comoving). It is the distance at which $v=H_0d$ would equal $c$, a convenient yardstick for cosmological distances.",
+   "source": "Cosmology"
+  },
+  {
+   "id": "blitz-astrophysics-35",
+   "room": "stellar-forge",
+   "kind": "estimate",
+   "q": "The escape velocity from the solar surface, $\\sqrt{2GM/R}$, is about",
+   "options": [
+    "$62$ km s$^{-1}$",
+    "$6200$ km s$^{-1}$",
+    "$18$ km s$^{-1}$",
+    "$620$ km s$^{-1}$"
+   ],
+   "correct": 3,
+   "explain": "$v_\\mathrm{esc}=\\sqrt{2GM_\\odot/R_\\odot}=618$ km s$^{-1}$, a factor $\\sqrt2$ above the circular speed at the surface. Compare $v_\\mathrm{circ}=\\sqrt{GM_\\odot/R_\\odot}=437$ km s$^{-1}$, so $v_\\mathrm{esc}=\\sqrt2\\,v_\\mathrm{circ}$.",
+   "source": "Stellar structure"
+  },
+  {
+   "id": "blitz-astrophysics-36",
+   "room": "galactic-dynamics",
+   "kind": "estimate",
+   "q": "The Sun orbits at $v=220$ km s$^{-1}$ at $r=8$ kpc. The mass enclosed, $M=v^2r/G$, is about",
+   "options": [
+    "$9\\times10^{8}M_\\odot$",
+    "$9\\times10^{10}M_\\odot$",
+    "$9\\times10^{12}M_\\odot$",
+    "$9\\times10^{6}M_\\odot$"
+   ],
+   "correct": 1,
+   "explain": "$M=(2.2\\times10^5)^2\\cdot8\\times3.086\\times10^{19}/6.674\\times10^{-11}=1.8\\times10^{41}$ kg $=9\\times10^{10}M_\\odot$. This is only the mass inside $r=8$ kpc for a spherical distribution; a flat rotation curve gives $M\\propto r$ beyond it (dark matter).",
+   "source": "Galactic dynamics"
+  },
+  {
+   "id": "blitz-astrophysics-37",
+   "room": "photometry-radiation",
+   "kind": "exam",
+   "q": "Star A has $m_A=3$, star B has $m_B=8$. The flux ratio $F_A/F_B$ is about",
+   "options": [
+    "$12.5$",
+    "$5$",
+    "$100$",
+    "$10^{4}$"
+   ],
+   "correct": 2,
+   "explain": "$m_B-m_A=-2.5\\log_{10}(F_B/F_A)$ gives $F_A/F_B=10^{0.4\\cdot5}=10^2$. A factor of 5 magnitudes is exactly 100 in flux.",
+   "source": "Refregier MC style (adapted, not verbatim) (magnitudes)"
+  },
+  {
+   "id": "blitz-astrophysics-38",
+   "room": "radiative-transfer",
+   "kind": "exam",
+   "q": "A slab with constant source function $S$ has no incident light, $I(0)=0$. After optical depth $\\tau=2$ the emergent intensity is",
+   "options": [
+    "$0.86\\,S$",
+    "$0.14\\,S$",
+    "$0.5\\,S$",
+    "$2S$"
+   ],
+   "correct": 0,
+   "explain": "The formal solution is $I=S(1-e^{-\\tau})$ since the background is not attenuated. For $\\tau=2$: $1-e^{-2}=0.865$, which tends to $S$ for $\\tau\\gg1$.",
+   "source": "Refregier MC style (adapted, not verbatim) (radiative transfer)"
+  },
+  {
+   "id": "blitz-astrophysics-39",
+   "room": "degenerate-matter",
+   "kind": "exam",
+   "q": "The Chandrasekhar mass limit follows from",
+   "options": [
+    "the electrons becoming non-degenerate at high $T$",
+    "electron degeneracy becoming relativistic, $P\\propto\\rho^{4/3}$, so that the adiabatic index is $4/3$ and no stable radius exists",
+    "the neutron drip density being reached",
+    "thermal pressure exceeding degeneracy pressure"
+   ],
+   "correct": 1,
+   "explain": "For ultra-relativistic electrons $P\\propto\\rho^{4/3}$ and $GM^2/R^4\\propto M^{4/3}/R^4$, so $R$ cancels and only the mass $M_\\mathrm{Ch}\\approx1.4M_\\odot$ can be supported. Above it the star collapses.",
+   "source": "Refregier MC style (adapted, not verbatim); Choudhuri 6"
+  },
+  {
+   "id": "blitz-astrophysics-40",
+   "room": "nuclear-furnace",
+   "kind": "exam",
+   "q": "The CNO cycle dominates over the pp chain in more massive stars because",
+   "options": [
+    "it needs no catalysts",
+    "its Coulomb barrier is lower",
+    "it produces more neutrinos",
+    "its rate rises much more steeply with temperature ($\\epsilon\\propto T^{\\sim17}$) and the core is hotter"
+   ],
+   "correct": 3,
+   "explain": "The CNO cycle uses C, N, O as catalysts, so the barrier $Z_1Z_2e^2$ is higher, but the Gamow factor makes it $\\propto T^{16-20}$ against $T^4$ for pp. Above $\\sim1.3M_\\odot$ the hotter core makes CNO dominant.",
+   "source": "Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-41",
+   "room": "degenerate-matter",
+   "kind": "exam",
+   "q": "A neutron star is far smaller than a white dwarf of the same mass because",
+   "options": [
+    "neutrons have a larger charge",
+    "the degenerate fermions are about 1840 times heavier, so the same Fermi pressure needs a much smaller radius",
+    "neutron stars are hotter",
+    "fusion continues inside a neutron star"
+   ],
+   "correct": 1,
+   "explain": "In a degenerate gas $P_F\\propto\\hbar^2n^{5/3}/m$, so a heavier fermion gives less pressure at equal density and the star must compress until $n$ is higher. The result is $R\\sim10$ km instead of $\\sim10^4$ km.",
+   "source": "Choudhuri 6; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-42",
+   "room": "interstellar-medium",
+   "kind": "exam",
+   "q": "The radius of a Strömgren sphere scales as $R_S\\propto(Q/n^2)^{1/3}$. If the gas density $n$ doubles, $R_S$ changes by a factor",
+   "options": [
+    "$1/2$",
+    "$2^{-1/3}\\approx0.79$",
+    "$2^{-2/3}\\approx0.63$",
+    "$1/4$"
+   ],
+   "correct": 2,
+   "explain": "Ionising photons $Q$ (per second) are balanced by recombinations $\\tfrac43\\pi R_S^3n^2\\alpha$, so $R_S\\propto n^{-2/3}$ at fixed $Q$.",
+   "source": "ISM; Strömgren sphere"
+  },
+  {
+   "id": "blitz-astrophysics-43",
+   "room": "galactic-dynamics",
+   "kind": "exam",
+   "q": "Two galaxies have the same radius, but the velocity dispersion of A is three times that of B. With $M\\sim\\sigma^2R/G$ the mass ratio $M_A/M_B$ is",
+   "options": [
+    "$9$",
+    "$3$",
+    "$27$",
+    "$\\sqrt3$"
+   ],
+   "correct": 0,
+   "explain": "The virial theorem gives $M\\propto\\sigma^2R$, so for equal $R$, $M_A/M_B=3^2=9$. Equivalently $M\\sim\\sigma^2R/G$, which is how dynamical masses of clusters are estimated.",
+   "source": "Galactic dynamics; virial mass"
+  },
+  {
+   "id": "blitz-astrophysics-44",
+   "room": "active-galaxies",
+   "kind": "exam",
+   "q": "Superluminal motion ($v_\\mathrm{app}>c$) of jet blobs is explained by",
+   "options": [
+    "the faster-than-light expansion of space",
+    "tachyonic particles in the jet",
+    "gravitational lensing by the host galaxy",
+    "a projection effect of a relativistic jet pointing close to the line of sight"
+   ],
+   "correct": 3,
+   "explain": "For $v\\approx c$ at angle $\\theta$ to the line of sight, $v_\\mathrm{app}=v\\sin\\theta/(1-(v/c)\\cos\\theta)$ can exceed $c$ because the blob nearly catches up with its own light. Nothing travels faster than $c$.",
+   "source": "Active galaxies; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-45",
+   "room": "expanding-universe",
+   "kind": "exam",
+   "q": "The H$\\alpha$ line (rest $656.3$ nm) of a galaxy is observed at $984.5$ nm. What are $z$ and $a(t_\\mathrm{emit})/a(t_0)$?",
+   "options": [
+    "$z=0.5$ and $a=0.67$",
+    "$z=0.5$ and $a=0.5$",
+    "$z=1.5$ and $a=0.67$",
+    "$z=1.5$ and $a=0.4$"
+   ],
+   "correct": 0,
+   "explain": "$1+z=\\lambda_\\mathrm{obs}/\\lambda_\\mathrm{em}=a(t_0)/a(t_\\mathrm{em})=1.5$, so $z=0.5$ and $a(t_\\mathrm{em})/a(t_0)=1/1.5=0.67$. Always compute $1+z$ first; the scale factor at emission is then simply its inverse.",
+   "source": "Refregier MC style (adapted, not verbatim) (redshift)"
+  },
+  {
+   "id": "blitz-astrophysics-46",
+   "room": "early-universe",
+   "kind": "exam",
+   "q": "After matter–radiation equality, the ratio $\\rho_r/\\rho_m$ scales with the scale factor as",
+   "options": [
+    "$a^{+1}$",
+    "$a^{-4}$",
+    "$a^{-1}$",
+    "it stays constant"
+   ],
+   "correct": 2,
+   "explain": "$\\rho_r\\propto a^{-4}$ (photon number dilutes and each photon redshifts) and $\\rho_m\\propto a^{-3}$, so the ratio decreases as $a^{-1}$ and matter dominates. Equality is at $z\\approx3400$; afterwards $\\rho_r/\\rho_m\\propto1/a$ keeps falling.",
+   "source": "Early universe; Refregier MC style (adapted, not verbatim)"
+  },
+  {
+   "id": "blitz-astrophysics-47",
+   "room": "photometry-radiation",
+   "kind": "exam",
+   "q": "A star has the same $T_\\mathrm{eff}$ as the Sun but 100 times its luminosity. Its radius is about",
+   "options": [
+    "$100R_\\odot$",
+    "$4.6R_\\odot$",
+    "$1000R_\\odot$",
+    "$10R_\\odot$"
+   ],
+   "correct": 3,
+   "explain": "$L\\propto R^2T^4$, so at equal $T$, $R/R_\\odot=\\sqrt{L/L_\\odot}=10$. Stefan-Boltzmann: $L=4\\pi R^2\\sigma T_\\mathrm{eff}^4$, so a factor 100 in $L$ at fixed $T$ means a factor 10 in $R$.",
+   "source": "Refregier MC style (adapted, not verbatim) (HR diagram)"
+  },
+  {
+   "id": "blitz-astrophysics-48",
+   "room": "stellar-forge",
+   "kind": "exam",
+   "q": "When a Sun-like star exhausts hydrogen in its core and becomes a red giant, then",
+   "options": [
+    "the core expands and cools while the envelope contracts",
+    "the inert He core contracts and heats while the envelope expands and cools",
+    "the whole star contracts and heats",
+    "hydrogen burning stops everywhere and the luminosity drops"
+   ],
+   "correct": 1,
+   "explain": "H-shell burning above the inert He core deposits ash on it, so the core contracts (virial theorem, heats) while the envelope expands to large $R$ at low $T_\\mathrm{eff}$. The luminosity increases.",
+   "source": "Choudhuri 3.4; stellar evolution"
+  },
+  {
+   "id": "blitz-astrophysics-49",
+   "room": "photometry-radiation",
+   "kind": "exam",
+   "q": "Proxima Centauri has a parallax of 768 milliarcseconds. How far away is it?",
+   "options": [
+    "0.13 pc",
+    "1.3 pc",
+    "13 pc",
+    "130 pc"
+   ],
+   "correct": 1,
+   "explain": "$d[\\mathrm{pc}]=1/p[\\mathrm{arcsec}]=1/0.768=1.30$ pc. Quick check: $1/0.75=4/3$. The parallax is the angle subtended by 1 AU, so a parallax of 1 arcsec means 1 pc.",
+   "source": "adapted from Astro_I_2025_Winter_Session MC 2, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-50",
+   "room": "stellar-forge",
+   "kind": "exam",
+   "q": "Two main-sequence stars differ in mass by a factor of 3. Approximately how much longer does the lower-mass star live?",
+   "options": [
+    "3",
+    "6",
+    "9",
+    "27"
+   ],
+   "correct": 2,
+   "explain": "Lifetime = fuel/luminosity $\\propto M/L$ and $L\\propto M^3$, so $\\tau\\propto M^{-2}$ and $\\tau_{\\rm low}/\\tau_{\\rm high}=3^2=9$ (with $L\\propto M^{3.5}$ one would get $3^{2.5}\\approx15$; the course uses $M^{-2}$).",
+   "source": "adapted from Astro_I_2025_Winter_Session MC 5, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-51",
+   "room": "active-galaxies",
+   "kind": "exam",
+   "q": "Relativistic electrons with an energy distribution $N(E)\\propto E^{-3}$ radiate synchrotron emission in a magnetic field. The spectrum $f(\\nu)$ is",
+   "options": [
+    "$f\\propto\\nu^{-1/2}$",
+    "$f\\propto\\nu^{-1}$",
+    "$f\\propto\\nu^{-3/2}$",
+    "$f\\propto\\nu^{-3}$"
+   ],
+   "correct": 1,
+   "explain": "For $N(E)\\propto E^{-p}$ the synchrotron spectrum is $f(\\nu)\\propto\\nu^{(1-p)/2}$ (each electron radiates mainly at $\\nu\\propto E^2B$). With $p=3$: $\\nu^{-1}$; the exam's $p=2$ gives $\\nu^{-1/2}$.",
+   "source": "adapted from Astro_I_2025_Winter_Session MC 11, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-52",
+   "room": "expanding-universe",
+   "kind": "exam",
+   "q": "A galaxy has the redshift $z=0.05$. For $H_0=70$ km s$^{-1}$ Mpc$^{-1}$ and Hubble's law, its distance is about",
+   "options": [
+    "20 Mpc",
+    "70 Mpc",
+    "200 Mpc",
+    "700 Mpc"
+   ],
+   "correct": 2,
+   "explain": "For $z\\ll1$, $v\\approx cz=1.5\\times10^4$ km/s and $d=v/H_0=1.5\\times10^4/70\\approx214$ Mpc. Estimate: $3\\times10^5\\times0.05/70\\approx200$.",
+   "source": "adapted from Astro_I_2025_Winter_Session MC 13, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-53",
+   "room": "expanding-universe",
+   "kind": "exam",
+   "q": "The 21 cm line (rest frequency 1420 MHz) of a distant galaxy is observed at 473 MHz. At which redshift was it emitted?",
+   "options": [
+    "$z\\approx0.5$",
+    "$z\\approx1$",
+    "$z\\approx2$",
+    "$z\\approx3$"
+   ],
+   "correct": 2,
+   "explain": "$1+z=\\nu_{\\rm em}/\\nu_{\\rm obs}=1420/473=3.0$, so $z=2$. Frequencies and wavelengths scale oppositely: $1+z=\\lambda_{\\rm obs}/\\lambda_{\\rm em}=63$ cm/21 cm.",
+   "source": "adapted from Astro_I_2025_Winter_Session MC 14, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-54",
+   "room": "radiative-transfer",
+   "kind": "exam",
+   "q": "The 'curve of growth' describes the relation between",
+   "options": [
+    "the equivalent width of a spectral line and the column density of the absorbing gas",
+    "the amplitude of density perturbations and time",
+    "the Einstein coefficients and the energy difference of a two-level system",
+    "the luminosity of an AGN and the mass of its black hole"
+   ],
+   "correct": 0,
+   "explain": "Equivalent width $W$ against column density $N$: linear for weak (optically thin) lines, flat (saturated) when the line core is optically thick, and rising again $\\propto\\sqrt N$ when the damping wings take over. It is the tool to get abundances from absorption lines.",
+   "source": "adapted from Astro_I_2024_Winter_Session MC 9, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-55",
+   "room": "nuclear-furnace",
+   "kind": "exam",
+   "q": "Solar neutrino detectors that are sensitive only to electron neutrinos $\\nu_e$ find roughly",
+   "options": [
+    "no neutrinos at all",
+    "one third of the $\\nu_e$ flux predicted by solar models",
+    "three times the predicted $\\nu_e$ flux",
+    "the predicted flux, but only $\\nu_\\mu$ and $\\nu_\\tau$"
+   ],
+   "correct": 1,
+   "explain": "The Sun emits only $\\nu_e$ (pp chain, $^8$B), but flavour oscillation (neutrinos have mass) converts them on the way, so on average one third arrive as $\\nu_e$; the total flux of all flavours agrees with the model (SNO). This was the 'solar neutrino problem'.",
+   "source": "adapted from Astro_I_2024_Winter_Session MC 6, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-56",
+   "room": "radiative-transfer",
+   "kind": "exam",
+   "q": "The ionised intracluster medium of a galaxy cluster has the same temperature and metallicity everywhere. In a region where the gas density is twice as large, the thermal bremsstrahlung emissivity (X-rays) is",
+   "options": [
+    "the same",
+    "twice as large",
+    "four times as large",
+    "half as large"
+   ],
+   "correct": 2,
+   "explain": "Emissivity $\\propto n_en_p\\propto\\rho_{\\rm gas}^2$ (collisions between electrons and ions), so $2^2=4$. This is why the X-ray image is concentrated on the dense cluster centre and why $\\rho_{\\rm gas}$ can be deprojected from it.",
+   "source": "adapted from Astro_I_2024_Winter_Session MC 12, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-57",
+   "room": "galactic-dynamics",
+   "kind": "exam",
+   "q": "A massive object moves through a collisionless sea of lighter stars. Dynamical friction is a net gravitational force on the object",
+   "options": [
+    "backwards, because the stars it has attracted pile up in its wake",
+    "forwards, because the stars it has attracted pile up in its wake",
+    "backwards, because the density in its wake is reduced",
+    "forwards, because the density in its wake is reduced"
+   ],
+   "correct": 0,
+   "explain": "The object pulls stars towards its path, creating an over-density behind it; that over-density pulls it back (Chandrasekhar: $\\mathrm{d}v/\\mathrm{d}t\\propto-G^2M\\rho/v^2$). It slows massive satellites, globular clusters and black holes, which sink to the centre.",
+   "source": "adapted from Astro_I_2024_Summer_Session MC 9, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-58",
+   "room": "interstellar-medium",
+   "kind": "exam",
+   "q": "In the Jeans analysis of a non-expanding fluid, a perturbation with wavelength $\\lambda<\\lambda_J$ will",
+   "options": [
+    "grow exponentially",
+    "decay exponentially",
+    "oscillate (a sound wave)",
+    "stay constant"
+   ],
+   "correct": 2,
+   "explain": "Dispersion relation $\\omega^2=c_s^2k^2-4\\pi G\\rho_0$. For $k>k_J$ (i.e. $\\lambda<\\lambda_J$) $\\omega^2>0$: pressure wins, the mode is an oscillating sound wave; for $k<k_J$ $\\omega^2<0$ and the mode grows (collapse). $M_J\\propto\\lambda_J^3$.",
+   "source": "adapted from Astro_I_2024_Summer_Session MC 10, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-59",
+   "room": "radiative-transfer",
+   "kind": "exam",
+   "q": "Cloud 1 has uniform density $\\rho_0$ and diameter $D$. Cloud 2 has the same composition and constant opacity, uniform density $4\\rho_0$ and diameter $D/2$. Along a line of sight through the centres, the optical depths compare as",
+   "options": [
+    "$\\tau_1=\\tau_2$",
+    "$\\tau_2=2\\tau_1$",
+    "$\\tau_1=2\\tau_2$",
+    "$\\tau_2=4\\tau_1$"
+   ],
+   "correct": 1,
+   "explain": "$\\tau=\\int\\chi\\rho\\,\\mathrm ds=\\chi\\rho L$: $\\tau_1=\\chi\\rho_0D$ and $\\tau_2=\\chi\\,4\\rho_0\\,D/2=2\\chi\\rho_0D=2\\tau_1$. (In the exam the density ratio is 2, which gives equal optical depths.)",
+   "source": "adapted from Astro_I_2024_Summer_Session MC 3, not verbatim"
+  },
+  {
+   "id": "blitz-astrophysics-60",
+   "room": "galactic-dynamics",
+   "kind": "exam",
+   "q": "The Sun is about 8 kpc from the Galactic Centre. A star is 6 kpc from us in the direction of Galactic longitude $l=180^\\circ$, latitude $b=0^\\circ$. Its distance from the Galactic Centre is about",
+   "options": [
+    "2 kpc",
+    "8 kpc",
+    "10 kpc",
+    "14 kpc"
+   ],
+   "correct": 3,
+   "explain": "$l=180^\\circ$ points directly away from the Galactic Centre (which is at $l=0^\\circ$), so the distances add: $8+6=14$ kpc. For $l=0^\\circ$ it would be $|8-6|=2$ kpc.",
+   "source": "adapted from Astro_I_2024_Summer_Session MC 2, not verbatim"
+  }
+ ]
+}

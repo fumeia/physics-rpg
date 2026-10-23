@@ -1,0 +1,2089 @@
+{
+ "spot": [
+  {
+   "id": "drill-solid-state-spot-1",
+   "room": "lattice-gate",
+   "title": "Bragg angle of the (100) reflection",
+   "intro": "A simple cubic crystal with lattice constant $a=4.0$ Å is hit by Cu K$\\alpha$ X-rays, $\\lambda=1.54$ Å. Find the Bragg angle $\\theta$ of the first (100) peak.",
+   "steps": [
+    "Reciprocal lattice: $b_1=2\\pi/a$, so $|\\mathbf G_{100}|=2\\pi/a=1.57\\ \\text{Å}^{-1}$.",
+    "Plane spacing: $d_{100}=2\\pi/|\\mathbf G_{100}|=a=4.0$ Å.",
+    "Laue condition for elastic scattering: $\\mathbf k'-\\mathbf k=\\mathbf G$, with $|\\mathbf k|=|\\mathbf k'|=2\\pi/\\lambda$.",
+    "Hence $\\sin\\theta=\\lambda/d=0.385$ and $\\theta\\approx22.6^\\circ$.",
+    "The peak appears at a detector angle $2\\theta\\approx45.3^\\circ$."
+   ],
+   "error": 3,
+   "why": "Bragg's law is $2d\\sin\\theta=n\\lambda$. The factor 2 comes from $|\\mathbf G|=2k\\sin\\theta$ (the scattering vector is $2k\\sin\\theta$ long), i.e. the path difference between neighbouring planes is $2d\\sin\\theta$.",
+   "fix": "$\\sin\\theta=\\lambda/(2d)=0.1925$, so $\\theta\\approx11.1^\\circ$ and $2\\theta\\approx22.2^\\circ$.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 1 (Bragg/reciprocal lattice), topic: Laue condition vs Bragg law"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-2",
+   "room": "fermi-sea",
+   "title": "Fermi energy at $n=5.00\\cdot10^{22}\\,\\text{cm}^{-3}$",
+   "intro": "Free electron gas in 3D with $n=5.00\\cdot10^{22}\\,\\text{cm}^{-3}$. Compute $k_F$ and $E_F$.",
+   "steps": [
+    "Convert units: $n=5.00\\cdot10^{28}\\,\\text{m}^{-3}$.",
+    "States in k-space: one k-point occupies $(2\\pi)^3/V$, and the Fermi sphere has volume $\\tfrac{4\\pi}{3}k_F^3$.",
+    "Counting electrons: $N=\\dfrac{4\\pi k_F^3/3}{(2\\pi)^3/V}$, hence $k_F=(6\\pi^2 n)^{1/3}$.",
+    "$k_F=1.44\\ \\text{Å}^{-1}$.",
+    "$E_F=\\hbar^2k_F^2/2m_e\\approx7.86$ eV."
+   ],
+   "error": 2,
+   "why": "Every k-point holds two electrons (spin up and down), so $N=2\\cdot\\frac{4\\pi k_F^3/3}{(2\\pi)^3/V}$. The spin factor 2 was forgotten, which gives $6\\pi^2$ instead of $3\\pi^2$ and an $E_F$ too large by $2^{2/3}$.",
+   "fix": "$k_F=(3\\pi^2n)^{1/3}=1.14\\ \\text{Å}^{-1}$ and $E_F\\approx4.95$ eV.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS20.pdf",
+    "where": "adapted from MC (m) Fermi energy of 5.00e22 cm^-3, topic: spin factor in k_F"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-3",
+   "room": "fermi-sea",
+   "title": "Mean energy per electron at $T=0$",
+   "intro": "Show that the mean kinetic energy per electron of a 3D free Fermi gas at $T=0$ is $\\tfrac35E_F$.",
+   "steps": [
+    "Density of states $g(E)=C\\sqrt E$ with $C$ constant, filled up to $E_F$.",
+    "$N=\\int_0^{E_F}C\\sqrt E\\,dE=\\tfrac23 C E_F^{3/2}$.",
+    "$U=\\int_0^{E_F}C E^{3/2}\\,dE=\\tfrac23 C E_F^{5/2}$.",
+    "$U/N=\\dfrac{\\tfrac23 CE_F^{5/2}}{\\tfrac23 CE_F^{3/2}}=E_F$.",
+    "Compare with the known result $\\tfrac35E_F$: the discrepancy means the integration must be rechecked."
+   ],
+   "error": 2,
+   "why": "$\\int E^{3/2}dE=\\tfrac{2}{5}E^{5/2}$, not $\\tfrac23E^{5/2}$: the exponent after integration is $3/2+1=5/2$, and the prefactor is the inverse of this exponent, $2/5$.",
+   "fix": "$U=\\tfrac25CE_F^{5/2}$, so $U/N=\\dfrac{2/5}{2/3}E_F=\\tfrac35E_F$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, free electron gas (Sommerfeld), topic: ground-state energy"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-4",
+   "room": "phonon-halls",
+   "title": "Debye temperature of a monatomic solid",
+   "intro": "A monatomic solid has $N/V=6\\cdot10^{28}\\,\\text{m}^{-3}$ atoms and a mean sound velocity $v=3000$ m/s. Determine the Debye temperature $\\Theta_D$.",
+   "steps": [
+    "Debye model: linear dispersion $\\omega=vk$ for all three branches, cut at $k_D$.",
+    "Each branch has exactly $N$ allowed k-values in the first Brillouin zone.",
+    "Counting modes: $3\\cdot\\frac{4\\pi k_D^3/3}{(2\\pi)^3/V}=3N$ gives $k_D=(6\\pi^2N/V)^{1/3}$.",
+    "Take instead the total mode count in one cut: $\\frac{4\\pi k_D^3/3}{(2\\pi)^3/V}=3N$, so $k_D=(18\\pi^2N/V)^{1/3}$.",
+    "$\\Theta_D=\\hbar v k_D/k_B\\approx504$ K."
+   ],
+   "error": 3,
+   "why": "The 3 polarisations are already used in step 3 (each branch contains $N$ modes). Step 4 counts the factor 3 a second time with a single sphere and mixes up per-branch and total mode number.",
+   "fix": "Use $k_D=(6\\pi^2N/V)^{1/3}=1.53\\ \\text{Å}^{-1}$, giving $\\Theta_D\\approx350$ K.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.3-2.4 (pp. 52-65), topic: Debye model, adapted numbers"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-5",
+   "room": "phonon-halls",
+   "title": "Zone-boundary frequencies of the diatomic chain",
+   "intro": "Linear chain with masses $m<M$ alternating, nearest-neighbour spring constant $C$, lattice constant $a$ (two atoms per cell). Find the frequencies at $q=\\pi/a$.",
+   "steps": [
+    "Equations of motion: $-m\\omega^2u=C(v+v'-2u)$ and $-M\\omega^2v=C(u+u''-2v)$.",
+    "Secular equation: $(2C-m\\omega^2)(2C-M\\omega^2)=4C^2\\cos^2(qa/2)$.",
+    "At $q=\\pi/a$ the right-hand side vanishes, so $\\omega^2=2C/m$ or $\\omega^2=2C/M$.",
+    "Since $m<M$, $2C/m>2C/M$, so the optical branch has $\\omega_{opt}=\\sqrt{2C/m}$ (upper).",
+    "The acoustic branch at the boundary is therefore $\\omega_{ac}=\\sqrt{2C/m}$ as well, and the gap closes."
+   ],
+   "error": 4,
+   "why": "The two roots are different: the larger one belongs to the optical branch, the smaller one to the acoustic branch. The acoustic mode at the boundary is $\\sqrt{2C/M}$ (heavy atoms move, light atoms at rest), so a gap of width $\\sqrt{2C/m}-\\sqrt{2C/M}$ exists.",
+   "fix": "$\\omega_{ac}(\\pi/a)=\\sqrt{2C/M}$, $\\omega_{opt}(\\pi/a)=\\sqrt{2C/m}$; the gap closes only for $m=M$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.2.5 (pp. 45-48), topic: diatomic chain, zone boundary"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-6",
+   "room": "drift-corridor",
+   "title": "Sign of the Hall field for electron conduction",
+   "intro": "A rectangular conductor carries a current density $j_x>0$ in a field $\\mathbf B=B\\hat z$. The charge carriers are electrons ($q=-e$). Determine $E_y$ and $R_H$.",
+   "steps": [
+    "Electrons drift opposite to the current: $\\mathbf v_d=-v_d\\hat x$ with $v_d=j_x/(ne)$.",
+    "Lorentz force $\\mathbf F=q(\\mathbf E+\\mathbf v_d\\times\\mathbf B)$ pushes the electrons towards $-y$.",
+    "In steady state no net force acts in $y$: $\\mathbf E+\\mathbf v_d\\times\\mathbf B=0$ (the factor $q$ drops out).",
+    "$\\mathbf v_d\\times\\mathbf B=(-v_d\\hat x)\\times B\\hat z=+v_dB\\hat y$, so $E_y=+v_dB$.",
+    "$R_H=E_y/(j_xB)=+1/(ne)$, i.e. positive, about $7.34\\cdot10^{-11}\\ \\text{m}^3/\\text{C}$ for copper."
+   ],
+   "error": 3,
+   "why": "The balance gives $\\mathbf E=-\\mathbf v_d\\times\\mathbf B$, so $E_y=-v_dB$ (the minus sign in step 3 was dropped). The electrons pile up at $-y$, so that side is negative and the field points towards $-y$.",
+   "fix": "$E_y=-v_dB=-j_xB/(ne)$ and $R_H=-1/(ne)\\approx-7.34\\cdot10^{-11}\\ \\text{m}^3/\\text{C}$ for Cu with $n=8.5\\cdot10^{28}\\,\\text{m}^{-3}$.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2b (Hall effect), topic: sign of R_H"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-7",
+   "room": "drift-corridor",
+   "title": "Mean free path of electrons in copper",
+   "intro": "Copper at 300 K: $n=8.5\\cdot10^{28}\\,\\text{m}^{-3}$, $\\rho=1.7\\cdot10^{-8}\\,\\Omega$m. Estimate relaxation time $\\tau$ and mean free path $\\ell$ using the Drude relation and Fermi-gas velocities.",
+   "steps": [
+    "Drude: $\\sigma=ne^2\\tau/m$, so $\\tau=m/(ne^2\\rho)$.",
+    "$\\tau=\\dfrac{9.11\\cdot10^{-31}}{8.5\\cdot10^{28}\\,(1.6\\cdot10^{-19})^2\\,1.7\\cdot10^{-8}}\\approx2.46\\cdot10^{-14}$ s.",
+    "Speed of the conducting electrons: the classical thermal velocity $v=\\sqrt{3k_BT/m}\\approx1.17\\cdot10^{5}$ m/s.",
+    "$\\ell=v\\tau\\approx2.87$ nm.",
+    "Result: about 10 lattice constants between collisions."
+   ],
+   "error": 2,
+   "why": "Only electrons near $E_F$ carry current, with $v_F=\\hbar k_F/m\\approx1.57\\cdot10^6$ m/s, about 10 times the classical thermal value (Pauli principle, Sommerfeld correction to Drude).",
+   "fix": "$\\ell=v_F\\tau\\approx38.7$ nm, i.e. about 100 lattice constants.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2b (Drude conductivity), topic: v_F vs v_thermal"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-8",
+   "room": "semiconductor-forge",
+   "title": "Intrinsic carrier density at 400 K versus 300 K",
+   "intro": "Silicon, $E_g=1.12$ eV. By which factor does the intrinsic carrier density $n_i$ increase from 300 K to 400 K (assume $E_g$ constant)?",
+   "steps": [
+    "Non-degenerate statistics: $n=N_c e^{-(E_c-\\mu)/k_BT}$, $p=N_v e^{-(\\mu-E_v)/k_BT}$.",
+    "Mass-action law: $np=N_cN_v\\,e^{-E_g/k_BT}$, and $n=p=n_i$ for the intrinsic case.",
+    "Therefore $n_i=\\sqrt{N_cN_v}\\,e^{-E_g/k_BT}$.",
+    "$N_{c,v}\\propto T^{3/2}$, so $n_i\\propto T^{3/2}e^{-E_g/k_BT}$.",
+    "Ratio: $\\exp\\!\\big[\\tfrac{E_g}{k_B}(\\tfrac1{300}-\\tfrac1{400})\\big]\\,(4/3)^{3/2}\\approx7.8e+04$."
+   ],
+   "error": 2,
+   "why": "Taking the square root of $np$ halves the exponent: $n_i\\propto e^{-E_g/2k_BT}$. The activation energy of intrinsic carriers is $E_g/2$ (the chemical potential sits mid-gap).",
+   "fix": "Ratio $=\\exp[\\tfrac{E_g}{2k_B}(\\tfrac1{300}-\\tfrac1{400})](4/3)^{3/2}\\approx346$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, semiconductors chapter, topic: intrinsic carrier density"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-9",
+   "room": "magnet-vault",
+   "title": "Effective moment of Fe$^{3+}$",
+   "intro": "Fe$^{3+}$ has configuration $3d^5$. Using Hund's rules, find $S,L,J$ and the effective paramagnetic moment $p_{\\rm eff}$ (in $\\mu_B$).",
+   "steps": [
+    "Hund 1: maximise $S$. Five electrons in five orbitals with parallel spin: $S=5/2$.",
+    "Hund 2: maximise $L$ compatible with it. Each $m_l=-2,\\dots,2$ occurs once, so $L=\\sum m_l=0$.",
+    "Hund 3: shell exactly half filled, $J=|L-S|=S=5/2$.",
+    "Landé factor: $g=1+\\dfrac{J(J+1)+S(S+1)-L(L+1)}{2J(J+1)}=2$.",
+    "Effective moment $p_{\\rm eff}=gJ=2\\cdot\\tfrac52=5.0$, in $\\mu_B$."
+   ],
+   "error": 4,
+   "why": "The Curie constant contains $\\langle\\mu^2\\rangle=g^2\\mu_B^2J(J+1)$, so $p_{\\rm eff}=g\\sqrt{J(J+1)}$, not $gJ$. The latter would be the maximal projection of the moment.",
+   "fix": "$p_{\\rm eff}=2\\sqrt{35/4}=\\sqrt{35}\\approx5.92$, in agreement with experiment (5.9).",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, magnetism chapter, topic: Hund's rules and Curie law"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-10",
+   "room": "degenerate-core",
+   "title": "Degeneracy pressure of the free electron gas",
+   "intro": "Copper conduction electrons: $n=8.5\\cdot10^{28}\\,\\text{m}^{-3}$, $E_F=7.0$ eV. Estimate the degeneracy pressure at $T=0$.",
+   "steps": [
+    "Ground-state energy $U=\\tfrac35NE_F$ with $E_F\\propto n^{2/3}\\propto V^{-2/3}$.",
+    "So $U\\propto V^{-2/3}$ and $P=-\\partial U/\\partial V=\\tfrac23\\,U/V$.",
+    "Insert $U/V=\\tfrac35 nE_F$: $P=\\tfrac25nE_F$.",
+    "Substituting numbers the shortcut $P=\\tfrac23nE_F$ is used: $P\\approx64$ GPa.",
+    "Same order as the bulk modulus of Cu (about 140 GPa): the gas pressure dominates the electronic part of the stiffness."
+   ],
+   "error": 3,
+   "why": "In step 3 the factor $\\tfrac35$ was kept, but then the number uses $\\tfrac23 nE_F$, which is $2U/(3V)$ with $U/V=nE_F$ (forgetting that the mean energy is only $\\tfrac35E_F$).",
+   "fix": "$P=\\tfrac25nE_F\\approx38$ GPa.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2a/2b (metal under pressure), topic: P = 2U/3V"
+   }
+  },
+  {
+   "id": "drill-solid-state-spot-11",
+   "room": "fermi-sea",
+   "title": "Effective mass at the bottom of a tight-binding band",
+   "intro": "1D tight-binding chain, $E(k)=\\varepsilon_0-2t\\cos ka$ with $t=1$ eV and $a=3$ Å. Determine the effective mass at $k=0$ in units of $m_e$ ($\\hbar^2/m_e=7.62$ eV Å$^2$).",
+   "steps": [
+    "Band bottom at $k=0$ with $E=\\varepsilon_0-2t$.",
+    "Expand: $\\cos ka\\approx1-(ka)^2/2$, so $E\\approx\\varepsilon_0-2t+t\\,a^2k^2$.",
+    "Compare with $E=\\hbar^2k^2/2m^*$: $\\hbar^2/(2m^*)=ta^2$.",
+    "Hence $m^*=\\hbar^2/(ta^2)$.",
+    "$m^*/m_e=7.62/(1\\cdot9)\\approx0.85$."
+   ],
+   "error": 3,
+   "why": "From $\\hbar^2/(2m^*)=ta^2$ follows $m^*=\\hbar^2/(2ta^2)$; the factor 2 stayed on the wrong side. Equivalent: $m^*=\\hbar^2/(\\partial^2E/\\partial k^2)=\\hbar^2/(2ta^2)$.",
+   "fix": "$m^*=\\hbar^2/(2ta^2)$, so $m^*/m_e=7.62/(2\\cdot9)\\approx0.42$.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS20.pdf",
+    "where": "adapted from MC (n) tight-binding mass"
+   }
+  }
+ ],
+ "limits": [
+  {
+   "id": "drill-solid-state-lim-1",
+   "room": "phonon-halls",
+   "title": "Debye heat capacity at low temperature",
+   "formula": "$C_V(T\\ll\\Theta_D)=?$",
+   "prompt": "How does the lattice heat capacity of an insulator behave for $T\\ll\\Theta_D$?",
+   "options": [
+    "$C_V\\propto T^3$",
+    "$C_V\\propto T$",
+    "$C_V\\to3Nk_B$",
+    "$C_V\\propto e^{-\\Theta_D/T}$"
+   ],
+   "correct": 0,
+   "explain": "Only long-wavelength acoustic phonons with $\\hbar\\omega\\lesssim k_BT$ are excited: the number of excited modes scales as $T^3$ (3D, $g(\\omega)\\propto\\omega^2$) and each carries energy $\\sim k_BT$, giving $C_V=\\tfrac{12\\pi^4}{5}Nk_B(T/\\Theta_D)^3$. Option 4 is the Einstein result.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.3-2.4 (pp. 52-65), topic: Debye T^3 law"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-2",
+   "room": "phonon-halls",
+   "title": "Einstein model at low temperature",
+   "prompt": "In the Einstein model with frequency $\\omega_E$, what is $C_V$ for $k_BT\\ll\\hbar\\omega_E$?",
+   "options": [
+    "$C_V\\propto T^3$",
+    "$C_V\\propto (\\Theta_E/T)^2\\,e^{-\\Theta_E/T}$",
+    "$C_V\\propto T$",
+    "$C_V=3Nk_B$"
+   ],
+   "correct": 1,
+   "explain": "A single mode of energy $\\hbar\\omega_E$ is frozen out exponentially: $C_V=3Nk_B(\\Theta_E/T)^2e^{\\Theta_E/T}/(e^{\\Theta_E/T}-1)^2\\to3Nk_B(\\Theta_E/T)^2e^{-\\Theta_E/T}$. This is why the Einstein model fails against the measured $T^3$ law.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS20.pdf",
+    "where": "MC (l) Einstein model"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-3",
+   "room": "phonon-halls",
+   "title": "Heat capacity at high temperature",
+   "prompt": "What value does $C_V$ of the Debye and the Einstein model approach for $T\\gg\\Theta$?",
+   "options": [
+    "$3Nk_B$ (Dulong-Petit) for both",
+    "$\\tfrac32Nk_B$",
+    "$3Nk_B$ for Einstein, $\\propto T^3$ for Debye",
+    "It diverges $\\propto T$"
+   ],
+   "correct": 0,
+   "explain": "For $k_BT\\gg\\hbar\\omega_{max}$ every one of the $3N$ oscillators contributes $k_B$ (equipartition: $\\tfrac12k_BT$ kinetic plus $\\tfrac12k_BT$ potential energy). Both models therefore share the Dulong-Petit value.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.3-2.4 (pp. 52-65), topic: classical limit of C_V"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-4",
+   "room": "phonon-halls",
+   "title": "Monatomic chain for small q",
+   "formula": "$\\omega(q)=2\\sqrt{C/m}\\,|\\sin(qa/2)|$",
+   "prompt": "For the monatomic chain $\\omega(q)=2\\sqrt{C/m}\\,|\\sin(qa/2)|$, what is the limit $q\\to0$?",
+   "options": [
+    "$\\omega\\to a\\sqrt{C/m}\\,|q|$, a constant sound velocity",
+    "$\\omega\\to2\\sqrt{C/m}$",
+    "$\\omega\\propto q^2$",
+    "$\\omega\\to0$ independent of $q$"
+   ],
+   "correct": 0,
+   "explain": "$\\sin x\\approx x$ gives $\\omega\\approx a\\sqrt{C/m}\\,|q|$, so $v=a\\sqrt{C/m}$ equals the sound velocity of the elastic continuum. At the zone boundary $\\omega_{max}=2\\sqrt{C/m}$ with zero group velocity.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.2 (pp. 40-48), topic: monatomic chain"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-5",
+   "room": "phonon-halls",
+   "title": "Diatomic chain with equal masses",
+   "prompt": "In the diatomic chain take $m\\to M$ (same atoms, same springs). What happens to the gap at $q=\\pi/a$?",
+   "options": [
+    "It closes; the dispersion folds back onto the monatomic one",
+    "It doubles",
+    "It stays finite, $\\sqrt{2C/m}-\\sqrt{2C/M}$ is unchanged",
+    "The optical branch disappears, only the acoustic one remains in the extended zone"
+   ],
+   "correct": 0,
+   "explain": "The gap is $\\sqrt{2C}(1/\\sqrt m-1/\\sqrt M)$, which vanishes for $m=M$. The cell is then really half as large; the zone $[-\\pi/a,\\pi/a]$ is the monatomic zone folded in half (zone folding). Option 4 is a restatement of the same effect in the extended-zone picture, not a statement of what happens in the diatomic scheme.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.2.5 (pp. 45-48), topic: zone folding"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-6",
+   "room": "drift-corridor",
+   "title": "Drude conductivity at high frequency",
+   "formula": "$\\sigma(\\omega)=\\dfrac{\\sigma_0}{1-i\\omega\\tau},\\ \\sigma_0=\\dfrac{ne^2\\tau}{m}$",
+   "prompt": "The Drude conductivity is $\\sigma(\\omega)=\\sigma_0/(1-i\\omega\\tau)$. What is its limit for $\\omega\\tau\\gg1$?",
+   "options": [
+    "$\\sigma\\to i\\,ne^2/(m\\omega)$, purely reactive",
+    "$\\sigma\\to\\sigma_0$",
+    "$\\sigma\\to0$ and the current is in phase with $E$",
+    "$\\sigma\\to ne^2\\tau\\omega/m$"
+   ],
+   "correct": 0,
+   "explain": "For $\\omega\\tau\\gg1$ the electrons do not collide during one period, they simply accelerate: $m\\dot v=-eE$ gives $j=i\\,ne^2E/(m\\omega)$, 90 degrees out of phase with $E$ (no dissipation). For $\\omega\\tau\\ll1$ one recovers $\\sigma_0=ne^2\\tau/m$.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2b, topic: Drude AC conductivity"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-7",
+   "room": "drift-corridor",
+   "title": "Reflectivity of a metal around the plasma frequency",
+   "prompt": "With $\\varepsilon(\\omega)=1-\\omega_p^2/\\omega^2$ (undamped), how does an electromagnetic wave behave for $\\omega>\\omega_p$ and for $\\omega<\\omega_p$?",
+   "options": [
+    "$\\omega>\\omega_p$: transparent; $\\omega<\\omega_p$: total reflection",
+    "$\\omega>\\omega_p$: total reflection; $\\omega<\\omega_p$: transparent",
+    "Always transparent",
+    "Always reflected"
+   ],
+   "correct": 0,
+   "explain": "For $\\omega>\\omega_p$, $\\varepsilon>0$ and the wavenumber $k=\\sqrt\\varepsilon\\,\\omega/c$ is real: the wave propagates. For $\\omega<\\omega_p$, $\\varepsilon<0$, $k$ is imaginary and the wave is evanescent (reflected). Alkali metals become transparent in the UV.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2b, topic: plasma frequency"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-8",
+   "room": "semiconductor-forge",
+   "title": "Donor semiconductor at low temperature",
+   "prompt": "In an n-type semiconductor (donor density $N_d$, ionisation energy $E_d$) at very low temperature, how does the electron density depend on $T$?",
+   "options": [
+    "$n\\propto T^{3/4}e^{-E_d/2k_BT}$ (freeze-out)",
+    "$n\\approx N_d$",
+    "$n\\propto e^{-E_g/2k_BT}$",
+    "$n\\propto T^{3/2}$ without exponential"
+   ],
+   "correct": 0,
+   "explain": "At $k_BT\\ll E_d$ the chemical potential lies midway between donor level and conduction band edge; with $n\\approx\\sqrt{N_cN_d/2}\\,e^{-E_d/2k_BT}$ and $N_c\\propto T^{3/2}$ one finds $T^{3/4}e^{-E_d/2k_BT}$. Option 2 is the exhaustion range at intermediate $T$, option 3 is intrinsic conduction at high $T$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, doped semiconductors, topic: freeze-out"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-9",
+   "room": "semiconductor-forge",
+   "title": "Exhaustion range",
+   "prompt": "In the same semiconductor at intermediate temperature ($E_d\\ll k_BT$ but $n_i\\ll N_d$) what is $n$?",
+   "options": [
+    "$n\\approx N_d$, independent of $T$",
+    "$n\\approx n_i$",
+    "$n\\propto e^{-E_d/2k_BT}$",
+    "$n\\propto T^3$"
+   ],
+   "correct": 0,
+   "explain": "All donors are ionised, and thermally excited intrinsic carriers are still negligible: $n=N_d$. In this plateau the conductivity is governed by the temperature dependence of the mobility. At higher $T$ intrinsic carriers $n_i\\propto e^{-E_g/2k_BT}$ take over.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, doped semiconductors, topic: exhaustion regime"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-10",
+   "room": "semiconductor-forge",
+   "title": "Hall coefficient of an intrinsic semiconductor",
+   "prompt": "For an intrinsic semiconductor with $n=p$, mobilities $\\mu_e,\\mu_h$: what is $R_H$? ",
+   "options": [
+    "$R_H=\\dfrac{\\mu_h-\\mu_e}{en(\\mu_h+\\mu_e)}$, sign of the faster carrier",
+    "$R_H=0$ always",
+    "$R_H=-1/(2ne)$",
+    "$R_H=1/(ne)$ independent of the mobilities"
+   ],
+   "correct": 0,
+   "explain": "Two-band formula $R_H=\\dfrac{p\\mu_h^2-n\\mu_e^2}{e(p\\mu_h+n\\mu_e)^2}$ with $n=p$ yields option 1. Since $\\mu_e>\\mu_h$ in most semiconductors, $R_H<0$ (electron-like) even though both carriers exist.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2b, topic: Hall effect, two carrier types"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-11",
+   "room": "fermi-sea",
+   "title": "Fermi function far above the chemical potential",
+   "prompt": "What does the Fermi function $f(E)=1/(e^{(E-\\mu)/k_BT}+1)$ approach for $E-\\mu\\gg k_BT$?",
+   "options": [
+    "$e^{-(E-\\mu)/k_BT}$ (Boltzmann)",
+    "$1/2$",
+    "$1-e^{-(E-\\mu)/k_BT}$",
+    "$0$ exactly"
+   ],
+   "correct": 0,
+   "explain": "The exponential in the denominator dominates: $f\\approx e^{-(E-\\mu)/k_BT}$. This classical limit is applied for carriers in the conduction band of semiconductors. Exactly $f=\\tfrac12$ holds only at $E=\\mu$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, Fermi-Dirac statistics"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-12",
+   "room": "fermi-sea",
+   "title": "Electronic heat capacity of a metal",
+   "prompt": "How does the electronic contribution to $C$ of a metal behave at low $T$, and what does $C/T$ against $T^2$ show?",
+   "options": [
+    "$C=\\gamma T+\\beta T^3$, a straight line in $C/T$ versus $T^2$ with intercept $\\gamma$",
+    "$C=\\tfrac32Nk_B$ constant",
+    "$C=\\gamma T^3$",
+    "$C=\\beta T^3$ only, the electrons don't contribute"
+   ],
+   "correct": 0,
+   "explain": "Only electrons within $k_BT$ of $E_F$ can be excited (fraction $T/T_F$), so $C_{el}=\\gamma T$ with $\\gamma=\\tfrac{\\pi^2}{2}Nk_B/T_F$; phonons add $\\beta T^3$. Plotting $C/T=\\gamma+\\beta T^2$ gives $\\gamma$ and $\\Theta_D$. The classical value $\\tfrac32Nk_B$ is wrong by a factor $T/T_F\\sim10^{-2}$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, Sommerfeld theory, topic: electronic specific heat"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-13",
+   "room": "fermi-sea",
+   "title": "Density of states in different dimensions",
+   "prompt": "For free electrons ($E=\\hbar^2k^2/2m$), which statement on $g(E)$ near $E\\to0$ is correct?",
+   "options": [
+    "1D: $g\\propto E^{-1/2}$; 2D: $g=$ const; 3D: $g\\propto E^{1/2}$",
+    "1D: const; 2D: $E^{1/2}$; 3D: $E^{-1/2}$",
+    "All dimensions: $g\\propto E^{1/2}$",
+    "1D: $E^{1/2}$; 2D: $E$; 3D: $E^{3/2}$"
+   ],
+   "correct": 0,
+   "explain": "$g(E)\\propto k^{d-1}\\,dk/dE\\propto E^{(d-2)/2}$. Hence $E^{-1/2}$ in 1D (van Hove singularity at the band edge), constant $m/\\pi\\hbar^2$ per area in 2D, $\\sqrt E$ in 3D.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS20.pdf",
+    "where": "MC (o) 2D DOS"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-14",
+   "room": "fermi-sea",
+   "title": "Metal under pressure",
+   "prompt": "A free-electron metal is compressed to half its volume at fixed electron number. By which factor does $E_F$ change?",
+   "options": [
+    "$2^{2/3}\\approx1.59$ larger",
+    "$2$ larger",
+    "$2^{3/2}\\approx2.83$ larger",
+    "It is unchanged"
+   ],
+   "correct": 0,
+   "explain": "$E_F\\propto n^{2/3}\\propto V^{-2/3}$. Halving $V$ doubles $n$ and multiplies $E_F$ by $2^{2/3}$. Note that the exponent 2/3 holds for 3D; in 2D $E_F\\propto n$.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problems 2a/2b (Aug 2024), metal under pressure"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-15",
+   "room": "magnet-vault",
+   "title": "Curie-Weiss susceptibility near $T_C$",
+   "formula": "$\\chi(T)=\\dfrac{C}{T-T_C}$",
+   "prompt": "$\\chi=C/(T-T_C)$ above the Curie temperature of a ferromagnet. What happens for $T\\to T_C^+$ and for $T\\gg T_C$?",
+   "options": [
+    "Diverges at $T_C$; for $T\\gg T_C$ reduces to Curie law $\\chi\\approx C/T$",
+    "Vanishes at $T_C$; Curie law for $T\\gg T_C$",
+    "Finite at $T_C$; $\\chi\\to$ const for $T\\gg T_C$",
+    "Diverges for $T\\to\\infty$"
+   ],
+   "correct": 0,
+   "explain": "In the molecular-field picture the internal exchange field enhances the response, so $\\chi\\to\\infty$ as $T\\to T_C^+$ (onset of spontaneous magnetisation). For $T\\gg T_C$ the shift in the denominator is negligible and the Curie law of free moments is recovered.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, magnetism chapter, topic: Curie-Weiss law"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-16",
+   "room": "drift-corridor",
+   "title": "Resistivity of a metal at low and high T",
+   "prompt": "How does the ideal (phonon) resistivity of a metal vary for $T\\ll\\Theta_D$ and $T\\gg\\Theta_D$ (Bloch-Gruneisen)?",
+   "options": [
+    "$\\propto T^5$ for $T\\ll\\Theta_D$, $\\propto T$ for $T\\gg\\Theta_D$",
+    "$\\propto T$ for $T\\ll\\Theta_D$, $\\propto T^5$ for $T\\gg\\Theta_D$",
+    "$\\propto T^3$ in both limits",
+    "Constant in both limits, only the impurity term $\\rho_0$ matters"
+   ],
+   "correct": 0,
+   "explain": "At high $T$ the number of phonons is $\\propto T$ and each scatters equally, so $\\rho\\propto T$. At low $T$ fewer phonons ($T^3$) and small-angle scattering (an extra factor $T^2$) give $T^5$. Matthiessen: $\\rho=\\rho_0+\\rho_{ph}(T)$, with the constant residual $\\rho_0$ from impurities.",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2b, topic: Matthiessen rule and rho(T)"
+   }
+  },
+  {
+   "id": "drill-solid-state-lim-17",
+   "room": "degenerate-core",
+   "title": "Degenerate matter: dependence of pressure on density",
+   "prompt": "For a 3D degenerate non-relativistic electron gas at $T=0$, how does $P$ depend on density $n$, and what changes in the ultra-relativistic limit?",
+   "options": [
+    "$P\\propto n^{5/3}$ non-relativistic, $P\\propto n^{4/3}$ ultra-relativistic",
+    "$P\\propto n^{4/3}$ non-relativistic, $P\\propto n^{5/3}$ ultra-relativistic",
+    "$P\\propto n$ in both limits",
+    "$P\\propto n^{2}$ non-relativistic, $P\\propto n^{3}$ ultra-relativistic"
+   ],
+   "correct": 0,
+   "explain": "NR: $P=\\tfrac25nE_F\\propto n\\cdot n^{2/3}$. UR: $E=\\hbar ck$, $E_F\\propto n^{1/3}$ and $P=\\tfrac13nE_F\\propto n^{4/3}$. The softer $n^{4/3}$ equation of state leads to the Chandrasekhar mass limit.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, free electron gas, topic: degeneracy pressure (cross-region boss)"
+   }
+  }
+ ],
+ "sketch": [
+  {
+   "id": "drill-solid-state-sk-1",
+   "room": "phonon-halls",
+   "title": "Phonon dispersion of the diatomic chain",
+   "task": "Sketch $\\omega(q)$ for a linear chain of alternating masses $m<M$ with spring constant $C$ over the first Brillouin zone (positive $q$ only). Mark band edges and the gap.",
+   "x": {
+    "label": "q a / pi",
+    "min": 0,
+    "max": 1
+   },
+   "y": {
+    "label": "omega / sqrt(C/m)",
+    "min": 0,
+    "max": 2
+   },
+   "curves": [
+    {
+     "label": "acoustic branch (m=1, M=2)",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.0625,
+       0.08012
+      ],
+      [
+       0.125,
+       0.15997
+      ],
+      [
+       0.1875,
+       0.23931
+      ],
+      [
+       0.25,
+       0.31786
+      ],
+      [
+       0.3125,
+       0.39533
+      ],
+      [
+       0.375,
+       0.47142
+      ],
+      [
+       0.4375,
+       0.54578
+      ],
+      [
+       0.5,
+       0.61803
+      ],
+      [
+       0.5625,
+       0.68769
+      ],
+      [
+       0.625,
+       0.75412
+      ],
+      [
+       0.6875,
+       0.8165
+      ],
+      [
+       0.75,
+       0.87361
+      ],
+      [
+       0.8125,
+       0.92361
+      ],
+      [
+       0.875,
+       0.96381
+      ],
+      [
+       0.9375,
+       0.99053
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "label": "optical branch",
+     "points": [
+      [
+       0.0,
+       1.73205
+      ],
+      [
+       0.0625,
+       1.7302
+      ],
+      [
+       0.125,
+       1.72465
+      ],
+      [
+       0.1875,
+       1.71544
+      ],
+      [
+       0.25,
+       1.70264
+      ],
+      [
+       0.3125,
+       1.68633
+      ],
+      [
+       0.375,
+       1.66666
+      ],
+      [
+       0.4375,
+       1.64381
+      ],
+      [
+       0.5,
+       1.61803
+      ],
+      [
+       0.5625,
+       1.58968
+      ],
+      [
+       0.625,
+       1.55926
+      ],
+      [
+       0.6875,
+       1.52752
+      ],
+      [
+       0.75,
+       1.4956
+      ],
+      [
+       0.8125,
+       1.46524
+      ],
+      [
+       0.875,
+       1.43912
+      ],
+      [
+       0.9375,
+       1.42087
+      ],
+      [
+       1.0,
+       1.41421
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Acoustic branch starts linearly, $\\omega=vq$, from 0 (slope = sound velocity).",
+    "Optical branch starts at $\\sqrt{2C(1/m+1/M)}$ at $q=0$ and decreases with zero slope.",
+    "At $q=\\pi/a$: $\\omega_{ac}=\\sqrt{2C/M}$ (lower) and $\\omega_{opt}=\\sqrt{2C/m}$ (upper), both with zero group velocity.",
+    "A frequency gap exists between the branches, closing for $m=M$.",
+    "Both branches have horizontal tangents at the zone boundary."
+   ],
+   "tips": "Mark the three special frequencies on the $\\omega$ axis before drawing curves.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.2.5 (pp. 45-48), topic: diatomic chain"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-2",
+   "room": "phonon-halls",
+   "title": "Debye versus Einstein heat capacity",
+   "task": "Sketch $C_V/(3Nk_B)$ against $T/\\Theta$ for the Debye model and for the Einstein model (take $\\Theta_E=0.75\\,\\Theta_D$ and plot against $T/\\Theta_D$). Indicate the limits.",
+   "x": {
+    "label": "T / Theta_D",
+    "min": 0,
+    "max": 2
+   },
+   "y": {
+    "label": "C_V / (3 N k_B)",
+    "min": 0,
+    "max": 1.05
+   },
+   "curves": [
+    {
+     "label": "Debye",
+     "points": [
+      [
+       0.02,
+       0.00062
+      ],
+      [
+       0.05,
+       0.00974
+      ],
+      [
+       0.1,
+       0.07582
+      ],
+      [
+       0.15,
+       0.21299
+      ],
+      [
+       0.2,
+       0.36863
+      ],
+      [
+       0.3,
+       0.6077
+      ],
+      [
+       0.4,
+       0.74585
+      ],
+      [
+       0.5,
+       0.82541
+      ],
+      [
+       0.7,
+       0.90495
+      ],
+      [
+       1.0,
+       0.95173
+      ],
+      [
+       1.4,
+       0.97495
+      ],
+      [
+       2.0,
+       0.98761
+      ]
+     ]
+    },
+    {
+     "label": "Einstein (Theta_E = 0.75 Theta_D)",
+     "points": [
+      [
+       0.02,
+       0.0
+      ],
+      [
+       0.05,
+       7e-05
+      ],
+      [
+       0.1,
+       0.03115
+      ],
+      [
+       0.15,
+       0.17074
+      ],
+      [
+       0.2,
+       0.34684
+      ],
+      [
+       0.3,
+       0.60889
+      ],
+      [
+       0.4,
+       0.75214
+      ],
+      [
+       0.5,
+       0.83185
+      ],
+      [
+       0.7,
+       0.90959
+      ],
+      [
+       1.0,
+       0.95441
+      ],
+      [
+       1.4,
+       0.97642
+      ],
+      [
+       2.0,
+       0.98836
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Both curves tend to 1 (Dulong-Petit) at high $T$.",
+    "Debye: $C_V\\propto T^3$ at low $T$ (cubic rise).",
+    "Einstein: exponentially small at low $T$, below the Debye curve there.",
+    "Debye reaches about 95% of the classical value at $T\\approx\\Theta_D$.",
+    "Both curves start at 0 for $T\\to0$ (third law)."
+   ],
+   "tips": "Einstein: $C=3Nk_B x^2e^x/(e^x-1)^2$ with $x=\\Theta_E/T$; Debye: integral up to $x_D=\\Theta_D/T$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.3-2.4 (pp. 52-65), topic: Debye and Einstein models"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-3",
+   "room": "fermi-sea",
+   "title": "3D free-electron DOS and electron distribution",
+   "task": "Sketch the free-electron density of states $g(E)$ and the occupied density $g(E)f(E)$ at $k_BT=0.1E_F$ and at $T=0$ against $E/E_F$.",
+   "x": {
+    "label": "E / E_F",
+    "min": 0,
+    "max": 2
+   },
+   "y": {
+    "label": "g(E) in units of g(E_F)",
+    "min": 0,
+    "max": 1.5
+   },
+   "curves": [
+    {
+     "label": "g(E) = g(E_F) sqrt(E/E_F)",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.1,
+       0.31623
+      ],
+      [
+       0.25,
+       0.5
+      ],
+      [
+       0.5,
+       0.70711
+      ],
+      [
+       0.75,
+       0.86603
+      ],
+      [
+       0.9,
+       0.94868
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       1.1,
+       1.04881
+      ],
+      [
+       1.25,
+       1.11803
+      ],
+      [
+       1.5,
+       1.22474
+      ],
+      [
+       1.75,
+       1.32288
+      ],
+      [
+       2.0,
+       1.41421
+      ]
+     ]
+    },
+    {
+     "label": "g f, T = 0",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.1,
+       0.31623
+      ],
+      [
+       0.25,
+       0.5
+      ],
+      [
+       0.5,
+       0.70711
+      ],
+      [
+       0.75,
+       0.86603
+      ],
+      [
+       0.9,
+       0.94868
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       1.0001,
+       0.0
+      ],
+      [
+       1.1,
+       0.0
+      ],
+      [
+       1.5,
+       0.0
+      ],
+      [
+       2.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "label": "g f, k_BT = 0.1 E_F (mu = 0.992 E_F)",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.1,
+       0.31619
+      ],
+      [
+       0.25,
+       0.4997
+      ],
+      [
+       0.5,
+       0.70196
+      ],
+      [
+       0.75,
+       0.79508
+      ],
+      [
+       0.9,
+       0.67767
+      ],
+      [
+       1.0,
+       0.47913
+      ],
+      [
+       1.1,
+       0.26518
+      ],
+      [
+       1.25,
+       0.07849
+      ],
+      [
+       1.5,
+       0.00754
+      ],
+      [
+       1.75,
+       0.00067
+      ],
+      [
+       2.0,
+       6e-05
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "$g\\propto\\sqrt E$ rises with infinite slope at $E=0$.",
+    "At $T=0$ the occupied part ends sharply at $E_F$ (step).",
+    "At finite $T$ the step is smeared over a width of a few $k_BT$ around $\\mu$.",
+    "$\\mu$ is slightly lower than $E_F$ (by $\\tfrac{\\pi^2}{12}(k_BT)^2/E_F$) because $g$ rises with $E$.",
+    "The number of electrons (area under $gf$) is the same as at $T=0$."
+   ],
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, Sommerfeld theory"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-4",
+   "room": "drift-corridor",
+   "title": "Resistivity versus temperature (Matthiessen)",
+   "task": "Sketch $\\rho(T)$ of a metal with impurities and of a purer sample of the same metal, up to $2\\Theta_D$. Indicate the low- and high-$T$ regimes.",
+   "x": {
+    "label": "T / Theta_D",
+    "min": 0,
+    "max": 2
+   },
+   "y": {
+    "label": "rho / rho_ph(Theta_D)",
+    "min": 0,
+    "max": 2.5
+   },
+   "curves": [
+    {
+     "label": "pure sample (rho_0 = 0.02)",
+     "points": [
+      [
+       0.02,
+       0.02
+      ],
+      [
+       0.05,
+       0.02016
+      ],
+      [
+       0.1,
+       0.02492
+      ],
+      [
+       0.15,
+       0.04663
+      ],
+      [
+       0.2,
+       0.08798
+      ],
+      [
+       0.3,
+       0.20118
+      ],
+      [
+       0.4,
+       0.32451
+      ],
+      [
+       0.6,
+       0.56547
+      ],
+      [
+       0.8,
+       0.79597
+      ],
+      [
+       1.0,
+       1.02
+      ],
+      [
+       1.4,
+       1.45805
+      ],
+      [
+       2.0,
+       2.10405
+      ]
+     ]
+    },
+    {
+     "label": "impure sample (rho_0 = 0.4)",
+     "points": [
+      [
+       0.02,
+       0.4
+      ],
+      [
+       0.05,
+       0.40016
+      ],
+      [
+       0.1,
+       0.40492
+      ],
+      [
+       0.15,
+       0.42663
+      ],
+      [
+       0.2,
+       0.46798
+      ],
+      [
+       0.3,
+       0.58118
+      ],
+      [
+       0.4,
+       0.70451
+      ],
+      [
+       0.6,
+       0.94547
+      ],
+      [
+       0.8,
+       1.17597
+      ],
+      [
+       1.0,
+       1.4
+      ],
+      [
+       1.4,
+       1.83805
+      ],
+      [
+       2.0,
+       2.48405
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Both curves tend to the residual resistivity $\\rho_0$ as $T\\to0$.",
+    "The $T$-dependent part is identical (Matthiessen's rule): the curves are shifted by $\\Delta\\rho_0$.",
+    "Low $T$: $\\rho-\\rho_0\\propto T^5$ (very flat).",
+    "High $T$ ($T\\gtrsim\\Theta_D$): linear in $T$.",
+    "Crossover near $T\\approx\\Theta_D/4$ to $\\Theta_D/2$."
+   ],
+   "tips": "$\\rho_{ph}\\propto T^5\\int_0^{\\Theta/T}\\frac{x^5dx}{(e^x-1)(1-e^{-x})}$ (Bloch-Gruneisen).",
+   "source": {
+    "file": "materials/solid-state/old-exams/HS23.pdf",
+    "where": "adapted from Problem 2b, topic: Matthiessen rule and rho(T)"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-5",
+   "room": "fermi-sea",
+   "title": "1D tight-binding band",
+   "task": "Sketch $E(k)=\\varepsilon_0-2t\\cos ka$ for $0\\le k\\le\\pi/a$ (set $\\varepsilon_0=0$, energies in units of $t$) and add the parabola of the effective-mass approximation at the band bottom.",
+   "x": {
+    "label": "k a / pi",
+    "min": 0,
+    "max": 1
+   },
+   "y": {
+    "label": "E / t",
+    "min": -2.2,
+    "max": 2.2
+   },
+   "curves": [
+    {
+     "label": "tight-binding band",
+     "points": [
+      [
+       0.0,
+       -2.0
+      ],
+      [
+       0.0625,
+       -1.96157
+      ],
+      [
+       0.125,
+       -1.84776
+      ],
+      [
+       0.1875,
+       -1.66294
+      ],
+      [
+       0.25,
+       -1.41421
+      ],
+      [
+       0.3125,
+       -1.11114
+      ],
+      [
+       0.375,
+       -0.76537
+      ],
+      [
+       0.4375,
+       -0.39018
+      ],
+      [
+       0.5,
+       -0.0
+      ],
+      [
+       0.5625,
+       0.39018
+      ],
+      [
+       0.625,
+       0.76537
+      ],
+      [
+       0.6875,
+       1.11114
+      ],
+      [
+       0.75,
+       1.41421
+      ],
+      [
+       0.8125,
+       1.66294
+      ],
+      [
+       0.875,
+       1.84776
+      ],
+      [
+       0.9375,
+       1.96157
+      ],
+      [
+       1.0,
+       2.0
+      ]
+     ]
+    },
+    {
+     "label": "parabola, m* = hbar^2/(2 t a^2)",
+     "points": [
+      [
+       0.0,
+       -2.0
+      ],
+      [
+       0.075,
+       -1.94448
+      ],
+      [
+       0.15,
+       -1.77793
+      ],
+      [
+       0.225,
+       -1.50035
+      ],
+      [
+       0.3,
+       -1.11174
+      ],
+      [
+       0.375,
+       -0.61209
+      ],
+      [
+       0.45,
+       -0.00141
+      ],
+      [
+       0.525,
+       0.72031
+      ],
+      [
+       0.6,
+       1.55306
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Band bottom $E=-2t$ at $k=0$, band top $E=+2t$ at $k=\\pi/a$; bandwidth $4t$.",
+    "Zero slope at $k=0$ and at the zone boundary $k=\\pi/a$.",
+    "Parabola agrees with the band for small $k$ and lies above it afterwards.",
+    "Inflection point at $ka=\\pi/2$ where $m^*$ changes sign (effective mass diverges).",
+    "Negative effective mass in the upper half (holes at the band top)."
+   ],
+   "source": {
+    "file": "materials/solid-state/old-exams/HS20.pdf",
+    "where": "adapted from MC (n) tight-binding mass"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-6",
+   "room": "fermi-sea",
+   "title": "Fermi function at several temperatures",
+   "task": "Sketch $f(E)=1/(e^{(E-\\mu)/k_BT}+1)$ for $T=0$, and for $k_BT=0.02\\mu$ and $0.1\\mu$, against $E/\\mu$.",
+   "x": {
+    "label": "E / mu",
+    "min": 0.5,
+    "max": 1.5
+   },
+   "y": {
+    "label": "f(E)",
+    "min": 0,
+    "max": 1
+   },
+   "curves": [
+    {
+     "label": "T = 0",
+     "points": [
+      [
+       0.5,
+       1.0
+      ],
+      [
+       0.7,
+       1.0
+      ],
+      [
+       0.9,
+       1.0
+      ],
+      [
+       0.99,
+       1.0
+      ],
+      [
+       0.999,
+       1.0
+      ],
+      [
+       1.001,
+       0.0
+      ],
+      [
+       1.01,
+       0.0
+      ],
+      [
+       1.1,
+       0.0
+      ],
+      [
+       1.3,
+       0.0
+      ],
+      [
+       1.5,
+       0.0
+      ]
+     ]
+    },
+    {
+     "label": "k_B T = 0.02 mu",
+     "points": [
+      [
+       0.5,
+       1.0
+      ],
+      [
+       0.7,
+       1.0
+      ],
+      [
+       0.8,
+       0.99995
+      ],
+      [
+       0.9,
+       0.99331
+      ],
+      [
+       0.95,
+       0.92414
+      ],
+      [
+       0.98,
+       0.73106
+      ],
+      [
+       1.0,
+       0.5
+      ],
+      [
+       1.02,
+       0.26894
+      ],
+      [
+       1.05,
+       0.07586
+      ],
+      [
+       1.1,
+       0.00669
+      ],
+      [
+       1.2,
+       5e-05
+      ],
+      [
+       1.3,
+       0.0
+      ],
+      [
+       1.5,
+       0.0
+      ]
+     ]
+    },
+    {
+     "label": "k_B T = 0.1 mu",
+     "points": [
+      [
+       0.5,
+       0.99331
+      ],
+      [
+       0.7,
+       0.95257
+      ],
+      [
+       0.8,
+       0.8808
+      ],
+      [
+       0.9,
+       0.73106
+      ],
+      [
+       0.95,
+       0.62246
+      ],
+      [
+       0.98,
+       0.54983
+      ],
+      [
+       1.0,
+       0.5
+      ],
+      [
+       1.02,
+       0.45017
+      ],
+      [
+       1.05,
+       0.37754
+      ],
+      [
+       1.1,
+       0.26894
+      ],
+      [
+       1.2,
+       0.1192
+      ],
+      [
+       1.3,
+       0.04743
+      ],
+      [
+       1.5,
+       0.00669
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "All curves pass through $f=1/2$ at $E=\\mu$.",
+    "T=0 is a step function; the smearing region is of width $\\approx\\pm2k_BT$.",
+    "The curves are point-symmetric about $(\\mu,\\tfrac12)$: $f(\\mu+\\delta)=1-f(\\mu-\\delta)$.",
+    "For $E-\\mu\\gg k_BT$ the tail is Boltzmann-like.",
+    "Slope at $\\mu$ is $-1/4k_BT$."
+   ],
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, Fermi-Dirac statistics"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-7",
+   "room": "semiconductor-forge",
+   "title": "Carrier density of a doped semiconductor",
+   "task": "Sketch $n(T)$ on a logarithmic scale against $1000/T$ for an n-type semiconductor ($N_d=10^{16}$ cm$^{-3}$, $E_d=50$ meV below the band edge, $E_g=1.12$ eV). Label the three regimes.",
+   "x": {
+    "label": "1000 / T  (1/K)",
+    "min": 1,
+    "max": 30
+   },
+   "y": {
+    "label": "n (cm^-3)",
+    "min": 100000000.0,
+    "max": 1e+19,
+    "log": true
+   },
+   "curves": [
+    {
+     "label": "n(T)",
+     "points": [
+      [
+       1.0,
+       1.613876953179014e+17
+      ],
+      [
+       1.5,
+       1.0986418073404356e+16
+      ],
+      [
+       2.0,
+       9990119607480302.0
+      ],
+      [
+       3.0,
+       9965467577294914.0
+      ],
+      [
+       4.0,
+       9906147035975934.0
+      ],
+      [
+       5.0,
+       9771982846657408.0
+      ],
+      [
+       6.0,
+       9494504534614836.0
+      ],
+      [
+       8.0,
+       8163675194459611.0
+      ],
+      [
+       10.0,
+       5827070921955431.0
+      ],
+      [
+       14.0,
+       1968093744749562.0
+      ],
+      [
+       20.0,
+       290444861187030.94
+      ],
+      [
+       30.0,
+       11943807641672.441
+      ]
+     ]
+    },
+    {
+     "label": "intrinsic n_i(T)",
+     "points": [
+      [
+       1.0,
+       1.5632515502854205e+17
+      ],
+      [
+       1.25,
+       2.2032694604641464e+16
+      ],
+      [
+       1.5,
+       3301410375753865.0
+      ],
+      [
+       1.75,
+       516039675682893.25
+      ],
+      [
+       2.0,
+       83195328201717.81
+      ],
+      [
+       2.5,
+       2309624895900.7285
+      ],
+      [
+       3.0,
+       68167460564.9188
+      ],
+      [
+       3.5,
+       2098768143.32967
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "High $T$ (small $1000/T$): intrinsic, slope given by $E_g/2$.",
+    "Plateau $n\\approx N_d$ (exhaustion) at intermediate $T$.",
+    "Low $T$: freeze-out with slope $E_d/2$ (flatter than intrinsic slope).",
+    "Intrinsic and doped curves merge at high $T$ and the plateau lies at $10^{16}$.",
+    "Slopes on this plot are $-E_a/k_B$ (Arrhenius)."
+   ],
+   "tips": "Think of three Arrhenius lines: $E_g/2$, plateau (slope 0), $E_d/2$.",
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, doped semiconductors"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-8",
+   "room": "magnet-vault",
+   "title": "Inverse susceptibility versus temperature",
+   "task": "Sketch $1/\\chi(T)$ for a paramagnet, a ferromagnet with $T_C=100$ K and an antiferromagnet with $\\Theta=-50$ K (in units $C=1$), for $T>0$ in the paramagnetic phase.",
+   "x": {
+    "label": "T (K)",
+    "min": 0,
+    "max": 400
+   },
+   "y": {
+    "label": "1/chi (units of 1/C)",
+    "min": 0,
+    "max": 460
+   },
+   "curves": [
+    {
+     "label": "paramagnet: Curie law",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       50.0,
+       50.0
+      ],
+      [
+       100.0,
+       100.0
+      ],
+      [
+       150.0,
+       150.0
+      ],
+      [
+       200.0,
+       200.0
+      ],
+      [
+       250.0,
+       250.0
+      ],
+      [
+       300.0,
+       300.0
+      ],
+      [
+       350.0,
+       350.0
+      ],
+      [
+       400.0,
+       400.0
+      ]
+     ]
+    },
+    {
+     "label": "ferromagnet: Curie-Weiss, T_C = 100 K",
+     "points": [
+      [
+       100.0,
+       0.0
+      ],
+      [
+       125.0,
+       25.0
+      ],
+      [
+       150.0,
+       50.0
+      ],
+      [
+       200.0,
+       100.0
+      ],
+      [
+       250.0,
+       150.0
+      ],
+      [
+       300.0,
+       200.0
+      ],
+      [
+       350.0,
+       250.0
+      ],
+      [
+       400.0,
+       300.0
+      ]
+     ]
+    },
+    {
+     "label": "antiferromagnet: Theta = -50 K",
+     "points": [
+      [
+       0.0,
+       50.0
+      ],
+      [
+       50.0,
+       100.0
+      ],
+      [
+       100.0,
+       150.0
+      ],
+      [
+       150.0,
+       200.0
+      ],
+      [
+       200.0,
+       250.0
+      ],
+      [
+       250.0,
+       300.0
+      ],
+      [
+       300.0,
+       350.0
+      ],
+      [
+       350.0,
+       400.0
+      ],
+      [
+       400.0,
+       450.0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Paramagnet: straight line through the origin (Curie law).",
+    "Ferromagnet: parallel line shifted to the right, intercept at $T_C$, valid only for $T>T_C$.",
+    "Antiferromagnet: parallel line shifted left, intercept at negative $\\Theta$ (and the Neel point lies above 0).",
+    "All three have the same slope $1/C$ at high $T$.",
+    "Intercept with the $T$ axis gives sign and size of the exchange interaction."
+   ],
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "adapted from the script, magnetism chapter, topic: Curie-Weiss law"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-9",
+   "room": "phonon-halls",
+   "title": "1D phonon DOS: chain versus Debye",
+   "task": "Sketch the phonon density of states of the monatomic chain, $g(\\omega)\\propto1/\\sqrt{\\omega_m^2-\\omega^2}$, and compare with the Debye approximation of the same chain (same sound velocity and same number of modes).",
+   "x": {
+    "label": "omega / omega_max",
+    "min": 0,
+    "max": 1.8
+   },
+   "y": {
+    "label": "g(omega) (norm. to 1/omega_max)",
+    "min": 0,
+    "max": 5
+   },
+   "curves": [
+    {
+     "label": "monatomic chain",
+     "points": [
+      [
+       0.0,
+       0.63662
+      ],
+      [
+       0.1,
+       0.63983
+      ],
+      [
+       0.3,
+       0.66736
+      ],
+      [
+       0.5,
+       0.73511
+      ],
+      [
+       0.7,
+       0.89145
+      ],
+      [
+       0.85,
+       1.20851
+      ],
+      [
+       0.95,
+       2.03881
+      ],
+      [
+       0.99,
+       4.51288
+      ],
+      [
+       1.01,
+       0.0
+      ],
+      [
+       1.3,
+       0.0
+      ],
+      [
+       1.8,
+       0.0
+      ]
+     ]
+    },
+    {
+     "label": "1D Debye model",
+     "points": [
+      [
+       0.0,
+       0.63662
+      ],
+      [
+       0.3,
+       0.63662
+      ],
+      [
+       0.6,
+       0.63662
+      ],
+      [
+       0.9,
+       0.63662
+      ],
+      [
+       1.2,
+       0.63662
+      ],
+      [
+       1.5,
+       0.63662
+      ],
+      [
+       1.57,
+       0.63662
+      ],
+      [
+       1.58,
+       0.0
+      ],
+      [
+       1.8,
+       0.0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Chain: $g(\\omega)=\\tfrac{2}{\\pi}(\\omega_m^2-\\omega^2)^{-1/2}$, minimum $2/\\pi$ at $\\omega=0$.",
+    "Van Hove singularity (diverges) at $\\omega_m$ where the group velocity vanishes.",
+    "Zero for $\\omega>\\omega_m$.",
+    "Debye (1D): constant, cut off at $\\omega_D=\\tfrac\\pi2\\omega_m$, larger than the true maximum.",
+    "Both match for $\\omega\\to0$ (same sound velocity)."
+   ],
+   "source": {
+    "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+    "where": "Ch. 2.3 (pp. 52-65), topic: phonon DOS, van Hove singularity"
+   }
+  },
+  {
+   "id": "drill-solid-state-sk-10",
+   "room": "fermi-sea",
+   "title": "Nearly free electrons: band gap at the zone boundary",
+   "task": "Sketch the free-electron parabola $E=\\hbar^2k^2/2m$ (extended zone) and the two lowest bands of the nearly-free-electron model in the reduced zone, showing the gap opening at $k=\\pi/a$.",
+   "x": {
+    "label": "k a / pi",
+    "min": 0,
+    "max": 1.5
+   },
+   "y": {
+    "label": "E / (hbar^2 pi^2 / 2 m a^2)",
+    "min": -0.5,
+    "max": 4.5
+   },
+   "curves": [
+    {
+     "label": "free electrons E = k^2",
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.125,
+       0.01562
+      ],
+      [
+       0.25,
+       0.0625
+      ],
+      [
+       0.375,
+       0.14062
+      ],
+      [
+       0.5,
+       0.25
+      ],
+      [
+       0.625,
+       0.39062
+      ],
+      [
+       0.75,
+       0.5625
+      ],
+      [
+       0.875,
+       0.76562
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       1.125,
+       1.26562
+      ],
+      [
+       1.25,
+       1.5625
+      ],
+      [
+       1.375,
+       1.89062
+      ],
+      [
+       1.5,
+       2.25
+      ]
+     ]
+    },
+    {
+     "label": "lowest band (potential V = 0.4)",
+     "points": [
+      [
+       0.0,
+       -0.03961
+      ],
+      [
+       0.08333,
+       -0.03618
+      ],
+      [
+       0.16667,
+       -0.01955
+      ],
+      [
+       0.25,
+       0.01008
+      ],
+      [
+       0.33333,
+       0.0524
+      ],
+      [
+       0.41667,
+       0.10694
+      ],
+      [
+       0.5,
+       0.17297
+      ],
+      [
+       0.58333,
+       0.24925
+      ],
+      [
+       0.66667,
+       0.33365
+      ],
+      [
+       0.75,
+       0.42219
+      ],
+      [
+       0.83333,
+       0.50709
+      ],
+      [
+       0.91667,
+       0.57361
+      ],
+      [
+       1.0,
+       0.6
+      ]
+     ]
+    },
+    {
+     "label": "second band (reduced zone)",
+     "points": [
+      [
+       0.0,
+       4.03961
+      ],
+      [
+       0.08333,
+       3.71674
+      ],
+      [
+       0.16667,
+       3.40844
+      ],
+      [
+       0.25,
+       3.11492
+      ],
+      [
+       0.33333,
+       2.83649
+      ],
+      [
+       0.41667,
+       2.57361
+      ],
+      [
+       0.5,
+       2.32703
+      ],
+      [
+       0.58333,
+       2.09797
+      ],
+      [
+       0.66667,
+       1.88857
+      ],
+      [
+       0.75,
+       1.70281
+      ],
+      [
+       0.83333,
+       1.54846
+      ],
+      [
+       0.91667,
+       1.44028
+      ],
+      [
+       1.0,
+       1.4
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Free parabola reaches the zone boundary $k=\\pi/a$ with $E=\\hbar^2\\pi^2/2ma^2$.",
+    "Bragg reflection at $k=\\pi/a$ mixes $e^{ikx}$ and $e^{i(k-G)x}$, forming standing waves.",
+    "A gap $E_g=2|V_G|$ opens at the boundary: lower band flattens (zero slope), upper band starts flat.",
+    "Away from the boundary the bands follow the free-electron parabola (bands folded back).",
+    "The lower band edge sits at $E\\approx-0.04$, slightly below the free value due to level repulsion with $k-G$."
+   ],
+   "source": {
+    "file": "materials/solid-state/old-exams/HS20.pdf",
+    "where": "adapted from Task 5 (M-point gap), topic: nearly free electron model"
+   }
+  }
+ ]
+}

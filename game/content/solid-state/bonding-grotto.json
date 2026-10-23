@@ -1,0 +1,546 @@
+{
+  "id": "ss-bonding-grotto",
+  "region": "Solid State Crystal Caverns",
+  "title": "The Bonding Grotto",
+  "course": "solid-state",
+  "topics": [
+    "van der Waals and Pauli repulsion",
+    "Lennard-Jones potential, noble-gas crystals",
+    "ionic crystals, Madelung constant",
+    "cohesive energy and bulk modulus",
+    "covalent, metallic and hydrogen bonds"
+  ],
+  "sources": [
+    {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 1.6 (pp. 24–37): eqs. 1.37–1.47, Tables 1.1–1.2"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "MC (j)"
+    },
+    {
+      "file": "notes/solid-state/07-bonding.md",
+      "where": "transcription, formulas, two script inconsistencies"
+    }
+  ],
+  "links": [
+    {
+      "course": "qm",
+      "room": "tunneling-bridge",
+      "why": "Pauli repulsion and the exponential tails of atomic orbitals; the H$_2$ bond is the QM two-level problem (bonding/antibonding).",
+      "planned": false
+    },
+    {
+      "course": "astrophysics",
+      "room": "degenerate-matter",
+      "why": "The same Pauli principle that makes atoms repel at short distance holds up white dwarfs.",
+      "planned": false
+    }
+  ],
+  "intro": "Why do crystals hold together at all? In the grotto you weigh the four kinds of glue: fluctuating dipoles (van der Waals), Coulomb lattices (ionic), shared orbitals (covalent) and the electron sea (metallic). Compute binding energies and stiffness from two formulas each.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "ss-bon-L1",
+      "title": "Bonding in crystals",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 1.6, eqs. (1.37)-(1.47), pp. 24-37"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "Five bond types: van der Waals (noble gases, molecular crystals), ionic (NaCl), covalent (diamond, Si), hydrogen (ice), metallic (Na, Cu). All are electrostatic plus quantum mechanics (Pauli repulsion, orbital overlap)."
+        },
+        {
+          "kind": "eq",
+          "tex": "U_{\\rm vdW}(R)\\approx-\\frac{e^2r_0^5}{4\\pi\\epsilon_0R^6},\\qquad U_{LJ}(R)=4U_0\\Big[\\Big(\\frac\\sigma R\\Big)^{12}-\\Big(\\frac\\sigma R\\Big)^6\\Big],\\quad R_{\\min}=2^{1/6}\\sigma",
+          "label": "(1.42)-(1.43). The R⁻¹² is Pauli repulsion."
+        },
+        {
+          "kind": "eq",
+          "tex": "U=-N\\frac{e^2\\alpha}{4\\pi\\epsilon_0R_0},\\qquad \\alpha=\\sum_{j\\ne0}\\frac{\\pm1}{p_j}\\ \\ (\\text{NaCl }1.7476,\\ \\text{CsCl }1.7627)",
+          "label": "(1.45)-(1.47): Madelung energy, N ion pairs."
+        },
+        {
+          "kind": "intuition",
+          "html": "Van der Waals: a fluctuating dipole on one atom polarises the other; energy $\\propto\\alpha_{\\rm pol}p^2/R^6$, always attractive and isotropic, so noble gases pack like spheres (fcc, filling 0.74). Ionic: long-range Coulomb dominates, repulsion only fixes $R_0$. Covalent: a bonding orbital puts charge between the nuclei; directional (diamond tetrahedra). Metallic: a collective band, non-directional."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Covalent bonds are directional and can join different elements (GaAs is partly ionic); ionic bonds join different elements; van der Waals comes from charge fluctuations (HS20 MC (j)). The script's 'R<sub>min</sub> ≈ 1.3σ' and its Table 1.2 cohesion values do not follow from its own eqs. 1.43 and 1.47: compute from the formulas."
+        },
+        {
+          "kind": "exam",
+          "html": "No written-exam problem on bonding so far (HS20 MC (j) only); oral protocols asked why ionic crystals are insulators and how van der Waals arises. Low priority, but cheap points: Madelung, Lennard-Jones minimum, bulk modulus as a second derivative."
+        }
+      ],
+      "check": [
+        {
+          "q": "The minimum of the Lennard-Jones potential lies at",
+          "options": [
+            "$2^{1/6}\\sigma\\approx1.12\\sigma$",
+            "$2\\sigma$",
+            "$\\sigma$",
+            "$1.3\\sigma$"
+          ],
+          "correct": 0,
+          "explain": "$dU/dR=0\\Rightarrow(\\sigma/R)^6=1/2$."
+        },
+        {
+          "q": "Which statement is true?",
+          "options": [
+            "covalent bonds occur only between atoms of the same element",
+            "ionic bonds occur only between atoms of the same element",
+            "covalent bonds are generally non-directional",
+            "van der Waals bonds are caused by charge fluctuations"
+          ],
+          "correct": 3,
+          "explain": "HS20 MC (j).",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (j)"
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "ss-bon-Q1",
+      "title": "Bonding multiple choice",
+      "xp": 25,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/solid-state/old-exams/HS20.pdf",
+          "where": "MC (j)"
+        },
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 1.6"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Which statement is true?",
+          "options": [
+            "covalent bonds occur only between atoms of the same element",
+            "ionic bonds occur only between atoms of the same element",
+            "covalent bonds are generally non-directional",
+            "van der Waals bonds are caused by charge fluctuations"
+          ],
+          "correct": 3,
+          "explain": "Fluctuating dipoles induce dipoles.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (j)"
+          }
+        },
+        {
+          "q": "The van der Waals attraction falls off as",
+          "options": [
+            "$R^{-12}$",
+            "$R^{-3}$",
+            "$R^{-6}$",
+            "$R^{-1}$"
+          ],
+          "correct": 2,
+          "explain": "Dipole field $\\propto R^{-3}$, induced energy $\\propto E^2$."
+        },
+        {
+          "q": "The short-range repulsion between closed-shell atoms is mainly due to",
+          "options": [
+            "nuclear forces",
+            "magnetic dipoles",
+            "gravity",
+            "the Pauli principle"
+          ],
+          "correct": 3,
+          "explain": "Overlapping filled orbitals must be orthogonalised using higher orbitals (script 1.6.2)."
+        },
+        {
+          "q": "Noble-gas crystals adopt fcc or hcp because",
+          "options": [
+            "of the Madelung constant",
+            "their bonds are directional",
+            "they are ionic",
+            "isotropic forces favour densest sphere packing"
+          ],
+          "correct": 3,
+          "explain": "Filling fraction 0.74."
+        },
+        {
+          "q": "NaCl is an electrical insulator because",
+          "options": [
+            "the ions are too heavy",
+            "it is a van der Waals solid",
+            "electron transfer fills the Cl 3p shell: closed shells, a large gap",
+            "it has free electrons"
+          ],
+          "correct": 2,
+          "explain": "Na$^+$ and Cl$^-$ are closed-shell ions; the band gap is about 8.5 eV."
+        },
+        {
+          "q": "Why does a NaCl crystal not evaporate as ions at its boiling point despite $U_{\\rm coh}/k_B\\sim10^5$ K?",
+          "options": [
+            "Madelung energy is zero",
+            "it does",
+            "the ions are bound by van der Waals forces",
+            "it evaporates as neutral atoms/molecules: electron transfer back costs less"
+          ],
+          "correct": 3,
+          "explain": "Script 1.6.3: ionisation energy of Na minus electron affinity of Cl is regained on neutralisation."
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "ss-bon-D1",
+      "title": "Bulk modulus of an ionic crystal",
+      "xp": 30,
+      "source": {
+        "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+        "where": "Ch. 1.6.3 eq. (1.47) plus a 1/R^n repulsion (standard Born model, not in the script)"
+      },
+      "goal": "With $U(R)=N\\big[-\\frac{\\alpha e^2}{4\\pi\\epsilon_0R}+\\frac{C}{R^n}\\big]$ for $N$ ion pairs in NaCl structure ($V=2NR^3$), find $R_0$, $U(R_0)$ and $B=V\\,\\partial^2U/\\partial V^2$.",
+      "given": [
+        "$V=2NR^3$ for the rock-salt structure",
+        "$B=V\\frac{\\partial^2U}{\\partial V^2}$ at equilibrium"
+      ],
+      "steps": [
+        {
+          "prompt": "Equilibrium.",
+          "reveal": "$\\frac{dU}{dR}=0\\Rightarrow\\frac{\\alpha e^2}{4\\pi\\epsilon_0R_0^2}=\\frac{nC}{R_0^{n+1}}$, so $C=\\frac{\\alpha e^2R_0^{n-1}}{4\\pi\\epsilon_0n}$."
+        },
+        {
+          "prompt": "Cohesive energy.",
+          "reveal": "$U(R_0)=-N\\frac{\\alpha e^2}{4\\pi\\epsilon_0R_0}\\big(1-\\frac1n\\big)$: the repulsion only removes the fraction $1/n$."
+        },
+        {
+          "prompt": "Convert $d/dV$ to $d/dR$ at the minimum.",
+          "reveal": "$\\frac{d^2U}{dV^2}=\\frac{U''(R)}{(dV/dR)^2}$ (the $U'$ term vanishes), $dV/dR=6NR^2$."
+        },
+        {
+          "prompt": "Second derivative and result.",
+          "reveal": "$U''(R_0)=N\\frac{\\alpha e^2}{4\\pi\\epsilon_0R_0^3}(n-1)$, so $B=\\frac{2NR_0^3\\cdot N\\alpha e^2(n-1)}{4\\pi\\epsilon_0R_0^3\\cdot36N^2R_0^4}=\\frac{(n-1)\\alpha e^2}{72\\pi\\epsilon_0R_0^4}$; NaCl with $n\\approx8$: 25 GPa (measured 24 GPa)."
+        }
+      ],
+      "keyPoints": [
+        "$C$ from $dU/dR=0$",
+        "$U_0=-\\frac{\\alpha e^2}{4\\pi\\epsilon_0R_0}(1-\\frac1n)$",
+        "$d^2U/dV^2=U''/(dV/dR)^2$ at the minimum",
+        "$B=\\frac{(n-1)\\alpha e^2}{72\\pi\\epsilon_0R_0^4}$"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "ss-bon-c1",
+      "title": "Noble-gas crystal: argon from the Lennard-Jones potential",
+      "fight": "normal",
+      "problem": "Script 1.6.2: $U(R)=4U_0\\big[(\\sigma/R)^{12}-(\\sigma/R)^6\\big]$ (eq. 1.43). Argon: $U_0/k_B=121$ K, $\\sigma=3.4$ Å (Table 1.1). Model the fcc crystal with nearest neighbours only ($Z=12$), so the energy per atom is $\\frac Z2U(R)=6U(R)$ and the volume per atom is $R^3/\\sqrt2$.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "U0K": 121.0,
+        "sigma": 3.4e-10
+      },
+      "steps": [
+        {
+          "id": "Rmin",
+          "prompt": "Position of the minimum $R_{\\min}=2^{1/6}\\sigma$ in Å.",
+          "answer": "2**(1/6)*sigma*1e10",
+          "unit": "A",
+          "units": [
+            "A",
+            "nm",
+            "A^-1",
+            "K"
+          ],
+          "tol": 0.01,
+          "hint": "$dU/dR=0\\Rightarrow(\\sigma/R)^6=\\frac12$. $1.12\\sigma=3.82$ Å, close to the measured nearest-neighbour distance 3.76 Å (Table 1.1). (The script's text and its $R_{\\min}$ column say $\\approx1.3\\sigma$; that does not follow from eq. 1.43.)"
+        },
+        {
+          "id": "Umin",
+          "prompt": "Depth of the pair potential at the minimum, $U(R_{\\min})$, in units of $U_0$.",
+          "answer": "4*(0.25-0.5)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "K",
+            "eV",
+            "A"
+          ],
+          "tol": 0.01,
+          "hint": "$(\\sigma/R)^{12}=\\frac14$, $(\\sigma/R)^6=\\frac12$: $4(\\frac14-\\frac12)=-1$. $U_0$ is the well depth."
+        },
+        {
+          "id": "Ecoh",
+          "prompt": "Cohesive energy per atom $6U_0$ (nearest neighbours only) in meV.",
+          "answer": "6*U0K*kB/eV*1e3",
+          "unit": "meV",
+          "units": [
+            "meV",
+            "eV",
+            "K",
+            "J"
+          ],
+          "tol": 0.02,
+          "hint": "$6\\times121$ K $=726$ K $=63$ meV. Full lattice sums (all shells) give $8.6U_0$; experiment 80 meV. Note $U_0/k_B\\approx$ the boiling point (87 K): bonding of this strength melts near $U_0/k_B$."
+        },
+        {
+          "id": "B",
+          "prompt": "Bulk modulus $B=v\\,\\frac{d^2E}{dv^2}=\\frac{96}{\\sqrt2}\\frac{U_0}{R_{\\min}^3}$ in GPa (from $E=6U(R)$, $v=R^3/\\sqrt2$, at the minimum).",
+          "answer": "96/sqrt(2)*U0K*kB/(Rmin*1e-10)**3/1e9",
+          "unit": "GPa",
+          "units": [
+            "GPa",
+            "Pa",
+            "MPa",
+            "J/m^3 K"
+          ],
+          "tol": 0.02,
+          "hint": "$U''(R_{\\min})=72U_0/R_{\\min}^2$; $B=\\frac{v\\,E''(R)}{(dv/dR)^2}$ with $dv/dR=3R^2/\\sqrt2$. About 2 GPa (measured 2.7 GPa): van der Waals solids are soft. Copper: 140 GPa."
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-bon-c2",
+      "title": "Ionic crystal: the Madelung energy of NaCl",
+      "fight": "normal",
+      "problem": "Script 1.6.3: ignoring the short-range repulsion, the cohesion energy per ion pair is the Madelung energy $U_{\\rm coh}=-\\frac{e^2\\alpha}{4\\pi\\epsilon_0R_0}$ (eq. 1.47), $\\alpha=1.7476$ for NaCl, $R_0=2.82$ Å. A repulsion $\\propto1/R^n$ fixes $R_0$ and gives (standard extension, not in the script) $U=-\\frac{e^2\\alpha}{4\\pi\\epsilon_0R_0}\\big(1-\\frac1n\\big)$ and the bulk modulus $B=\\frac{(n-1)\\alpha e^2}{4\\pi\\epsilon_0\\,18R_0^4}$. Measured: $B=24$ GPa.",
+      "vars": {
+        "e": 1.602176634e-19,
+        "eps0": 8.8541878128e-12,
+        "kB": 1.380649e-23,
+        "alpha": 1.7476,
+        "R0": 2.82e-10,
+        "n": 8.0,
+        "Bexp": 24000000000.0
+      },
+      "steps": [
+        {
+          "id": "UM",
+          "prompt": "Madelung energy per ion pair, $e^2\\alpha/(4\\pi\\epsilon_0R_0)$, in eV.",
+          "answer": "e**2*alpha/(4*pi*eps0*R0)/e",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "K",
+            "kJ"
+          ],
+          "tol": 0.01,
+          "hint": "$e^2/4\\pi\\epsilon_0=14.40$ eV Å: $14.40\\times1.7476/2.82=8.9$ eV."
+        },
+        {
+          "id": "UMK",
+          "prompt": "The same in kelvin ($U/k_B$).",
+          "answer": "UM*eV/kB",
+          "unit": "K",
+          "units": [
+            "K",
+            "eV",
+            "meV",
+            "J"
+          ],
+          "tol": 0.01,
+          "hint": "$1.04\\times10^5$ K per pair. (The script's Table 1.2 lists $1.8\\times10^4$ K 'per ion' as computed from eq. 1.47, which does not reproduce: eq. 1.47 gives $5.2\\times10^4$ K per ion. Use the formula.)"
+        },
+        {
+          "id": "Un",
+          "prompt": "Including the repulsion with $n=8$: lattice energy per pair in eV.",
+          "answer": "UM*(1-1/n)",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "K",
+            "kJ"
+          ],
+          "tol": 0.01,
+          "hint": "At equilibrium the repulsion is $1/n$ of the attraction: $7.8$ eV. Experimental lattice energy of NaCl: 7.9 eV per pair. The repulsion costs only $\\sim12\\%$: the cohesion is almost entirely Madelung (script's argument)."
+        },
+        {
+          "id": "Bth",
+          "prompt": "Bulk modulus for $n=8$ in GPa.",
+          "answer": "(n-1)*alpha*e**2/(4*pi*eps0*18*R0**4)/1e9",
+          "unit": "GPa",
+          "units": [
+            "GPa",
+            "Pa",
+            "MPa",
+            "eV"
+          ],
+          "tol": 0.02,
+          "hint": "$V=2NR_0^3$ for NaCl; $B=V\\,\\partial^2U/\\partial V^2$ at $R_0$. $\\approx25$ GPa against the measured 24 GPa."
+        },
+        {
+          "id": "nfit",
+          "prompt": "Invert: which $n$ reproduces the measured $B=24$ GPa?",
+          "answer": "1+Bexp*4*pi*eps0*18*R0**4/(alpha*e**2)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "GPa",
+            "eV",
+            "A"
+          ],
+          "tol": 0.02,
+          "hint": "$n=1+\\frac{72\\pi\\epsilon_0R_0^4B}{\\alpha e^2}\\approx7.8$: the repulsion is very steep, as the script says (much faster than Coulomb)."
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-bon-c3",
+      "title": "Why van der Waals is weak",
+      "fight": "fermi",
+      "problem": "Quick fight (script 1.6.1): two neutral atoms of radius $r_0$ at distance $R$ attract with $U\\approx-\\frac{e^2r_0^5}{4\\pi\\epsilon_0R^6}$ (eq. 1.42), while two electrons at the same distance repel with $\\frac{e^2}{4\\pi\\epsilon_0R}$. Compare at $R=2r_0$ and $R=3r_0$ (factor-of-1.3 estimates).",
+      "vars": {},
+      "steps": [
+        {
+          "id": "r2",
+          "prompt": "$|U_{\\rm vdW}|/U_{\\rm Coulomb}$ at $R=2r_0$.",
+          "answer": "(1/2)**5",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "K",
+            "A"
+          ],
+          "tol": 0.1,
+          "hint": "Ratio $=(r_0/R)^5=1/32$: 'two orders of magnitude weaker' in the script's words, roughly.",
+          "tolType": "log"
+        },
+        {
+          "id": "r3",
+          "prompt": "Same at $R=3r_0$.",
+          "answer": "(1/3)**5",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "K",
+            "A"
+          ],
+          "tol": 0.1,
+          "hint": "$1/243$: two to three orders. The $R^{-6}$ law (fluctuating dipole inducing a dipole) makes van der Waals the weakest bond: noble gases boil at tens of K.",
+          "tolType": "log"
+        }
+      ],
+      "xp": 20
+    },
+    {
+      "type": "calc",
+      "id": "ss-bon-c4",
+      "title": "The 1D Madelung constant",
+      "fight": "normal",
+      "problem": "An infinite chain of alternating charges $\\pm e$ with spacing $R_0$. Madelung's sum for one ion: $\\alpha=\\sum_{j\\ne0}\\frac{\\pm1}{p_j}$ (eq. 1.46) with $p_j=|j|$ and sign $+$ for opposite charges (attraction counted positive). Sum it.",
+      "vars": {},
+      "steps": [
+        {
+          "id": "alpha",
+          "prompt": "$\\alpha=2\\big(1-\\frac12+\\frac13-\\frac14+\\dots\\big)$.",
+          "answer": "2*log(2)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "A",
+            "K"
+          ],
+          "tol": 0.01,
+          "hint": "Two neighbours at each distance $j$, alternating sign: $2\\ln2=1.386$. Compare NaCl 1.7476, CsCl 1.7627 (script). The series converges only conditionally: the order of summation matters in 3D, which is why Madelung sums need care."
+        },
+        {
+          "id": "partial",
+          "prompt": "How large is the partial sum over the first 10 neighbours on each side, as a fraction of the limit?",
+          "answer": "2*(1-1/2+1/3-1/4+1/5-1/6+1/7-1/8+1/9-1/10)/(2*log(2))",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "A",
+            "K"
+          ],
+          "tol": 0.01,
+          "hint": "Still off by $\\sim7\\%$ after 20 ions: the slow, sign-alternating convergence the script warns about."
+        }
+      ],
+      "xp": 50
+    },
+    {
+      "type": "boss",
+      "id": "ss-bon-b1",
+      "title": "Boss: cohesion of rare-gas and ionic crystals (constructed in exam style)",
+      "source": {
+        "file": "notes/solid-state/07-bonding.md",
+        "where": "constructed from script Ch. 1.6 (eqs. 1.42-1.47, Tables 1.1-1.2) and HS20 MC (j); no written exam has a full bonding problem"
+      },
+      "minutes": 25,
+      "instructions": "Written in the style of a Zheludev problem (short parts, numbers at the end). Do it on paper, then enter the numbers.",
+      "statement": [
+        "(a) [1 pt] Explain in two sentences why neutral noble-gas atoms attract each other at large distance, and derive the $R$-dependence of the interaction energy.",
+        "(b) [1 pt] For the Lennard-Jones potential $U=4U_0[(\\sigma/R)^{12}-(\\sigma/R)^6]$ find the equilibrium distance of a pair and the binding energy. For krypton ($U_0/k_B=163$ K, $\\sigma=3.65$ Å) give $R_{\\min}$.",
+        "(c) [1 pt] Treat solid Kr as fcc with nearest-neighbour bonds only. Give the cohesive energy per atom (in meV) and the bulk modulus.",
+        "(d) [1 pt] For NaCl ($R_0=2.82$ Å, $\\alpha=1.7476$) give the Madelung energy per ion pair and explain why the short-range repulsion barely changes it.",
+        "(e) [1 pt] Explain why NaCl boils near 1700 K although its cohesive energy per pair corresponds to $\\sim10^5$ K."
+      ],
+      "finalAnswers": [
+        {
+          "id": "Rmin",
+          "prompt": "(b) $R_{\\min}$ of Kr in Å.",
+          "answer": "2**(1/6)*3.65",
+          "vars": {},
+          "tol": 0.01
+        },
+        {
+          "id": "Ecoh",
+          "prompt": "(c) Cohesive energy per atom (nearest neighbours) in meV.",
+          "answer": "6*163*kB/eV*1e3",
+          "vars": {
+            "kB": 1.380649e-23
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "B",
+          "prompt": "(c) Bulk modulus in GPa.",
+          "answer": "96/sqrt(2)*163*kB/(2**(1/6)*3.65e-10)**3/1e9",
+          "vars": {
+            "kB": 1.380649e-23
+          },
+          "tol": 0.03
+        },
+        {
+          "id": "UM",
+          "prompt": "(d) Madelung energy of NaCl per ion pair in eV.",
+          "answer": "e**2*1.7476/(4*pi*eps0*2.82e-10)/e",
+          "vars": {
+            "e": 1.602176634e-19,
+            "eps0": 8.8541878128e-12
+          },
+          "tol": 0.01
+        }
+      ],
+      "keyPoints": [
+        "(a) Fluctuating dipole $p\\sim er_0$ gives a field $\\sim p/4\\pi\\epsilon_0R^3$ that induces $p_2=\\alpha E$ with $\\alpha\\sim4\\pi\\epsilon_0r_0^3$; energy $-p_2E\\propto-R^{-6}$, always attractive.",
+        "(b) $R_{\\min}=2^{1/6}\\sigma$, $U(R_{\\min})=-U_0$. Kr: 4.10 Å (measured nearest-neighbour distance 4.01 Å).",
+        "(c) $E/N=\\frac{12}{2}U(R_{\\min})=-6U_0=-84$ meV; $B=\\frac{96}{\\sqrt2}U_0/R_{\\min}^3\\approx2.2$ GPa (nearest neighbours only; measured $\\approx3.5$ GPa; lattice sums raise $|E|$ to $8.6U_0$).",
+        "(d) $\\frac{e^2\\alpha}{4\\pi\\epsilon_0R_0}=8.9$ eV per pair; the repulsion is so steep ($n\\sim8$) that it only subtracts $1/n$ of this.",
+        "(e) Boiling produces neutral atoms, not ions: subtract the cost of moving the electron back from Cl$^-$ to Na$^+$ (ionisation energy of Na minus electron affinity of Cl, $\\approx1.5$ eV). The script's balance is per ion with different numbers; check its table against eq. 1.47.",
+        "Units: $e^2/4\\pi\\epsilon_0=14.40$ eV Å; $1$ eV $=11\\,604$ K."
+      ],
+      "xp": 80
+    }
+  ]
+}

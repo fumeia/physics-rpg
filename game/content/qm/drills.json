@@ -1,0 +1,2749 @@
+{
+ "spot": [
+  {
+   "id": "drill-qm-spot-1",
+   "room": "tunneling-bridge",
+   "title": "Tunnelling through a 1 eV barrier",
+   "intro": "An electron ($m_e$) with $E$ below a rectangular barrier of height $V_0$ and width $a$, $V_0-E=1\\,\\mathrm{eV}$, $a=0.5\\,\\mathrm{nm}$. Estimate the transmission. One step is wrong.",
+   "steps": [
+    "Inside the barrier $\\psi''=\\kappa^2\\psi$ with $\\kappa>0$ real, since $E<V_0$.",
+    "$\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$.",
+    "$\\kappa=\\sqrt{2\\cdot 0.511\\times10^{6}\\,\\mathrm{eV}\\cdot 1\\,\\mathrm{eV}}/(197.3\\,\\mathrm{eV\\,nm})\\approx 5.1\\,\\mathrm{nm^{-1}}$.",
+    "Hence $\\kappa a\\approx 2.56\\gg 1$, so the thick-barrier approximation applies.",
+    "$T\\approx e^{-\\kappa a}\\approx 0.08$."
+   ],
+   "error": 4,
+   "why": "The transmission probability is $|t|^2$, and the amplitude inside the barrier decays as $e^{-\\kappa a}$. The probability therefore decays with the square of that factor, $e^{-2\\kappa a}$. Using $e^{-\\kappa a}$ overestimates $T$ by more than an order of magnitude.",
+   "fix": "$T\\approx e^{-2\\kappa a}=e^{-5.12}\\approx 6\\times10^{-3}$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3 (simple systems/tunnelling) and the tunnelling sheets, topic T ~ e^{-2 kappa a}"
+   }
+  },
+  {
+   "id": "drill-qm-spot-2",
+   "room": "harmonic-oscillator-elevator",
+   "title": "Position variance in the state $|n\\rangle$",
+   "intro": "Compute $\\langle x^2\\rangle$ in the oscillator eigenstate $|n\\rangle$ with ladder operators. One step contains an error.",
+   "steps": [
+    "$x=\\sqrt{\\hbar/(2m\\omega)}\\,(a+a^\\dagger)$.",
+    "$x^2=\\frac{\\hbar}{2m\\omega}\\,(a^2+a^{\\dagger2}+aa^\\dagger+a^\\dagger a)$.",
+    "$\\langle n|a^2|n\\rangle=\\langle n|a^{\\dagger2}|n\\rangle=0$ since they change $n$ by $\\pm2$.",
+    "$\\langle n|a^\\dagger a|n\\rangle=n$ and $\\langle n|aa^\\dagger|n\\rangle=n+1$.",
+    "$\\langle x^2\\rangle=\\frac{\\hbar}{2m\\omega}\\,(n+1-n)=\\frac{\\hbar}{2m\\omega}$."
+   ],
+   "error": 4,
+   "why": "The two surviving terms must be added, not subtracted: both $aa^\\dagger$ and $a^\\dagger a$ appear with a plus sign in $x^2$. The subtraction would make $\\langle x^2\\rangle$ independent of $n$, which contradicts the growing classical amplitude.",
+   "fix": "$\\langle x^2\\rangle=\\frac{\\hbar}{2m\\omega}(2n+1)=\\frac{\\hbar}{m\\omega}(n+\\tfrac12)$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 6 (harmonic oscillator), topic ladder-operator expectation values"
+   }
+  },
+  {
+   "id": "drill-qm-spot-3",
+   "room": "angular-momentum-spin",
+   "title": "The commutator $[L_x,L_y]$",
+   "intro": "Derive $[L_x,L_y]$ from $L_x=yp_z-zp_y$, $L_y=zp_x-xp_z$ and $[x_i,p_j]=i\\hbar\\delta_{ij}$. One step is wrong.",
+   "steps": [
+    "$[L_x,L_y]=[yp_z,zp_x]-[yp_z,xp_z]-[zp_y,zp_x]+[zp_y,xp_z]$.",
+    "$[yp_z,xp_z]=[zp_y,zp_x]=0$ because the operators involved all commute.",
+    "$[yp_z,zp_x]=y[p_z,z]p_x=-i\\hbar\\,y\\,p_x$.",
+    "$[zp_y,xp_z]=p_y[z,p_z]x=i\\hbar\\,x\\,p_y$.",
+    "Summing: $[L_x,L_y]=i\\hbar\\,(yp_x-xp_y)=i\\hbar L_z$."
+   ],
+   "error": 4,
+   "why": "The sum is $i\\hbar(xp_y-yp_x)$, and $L_z=xp_y-yp_x$. Writing $yp_x-xp_y$ is $-L_z$, so the claimed identification with $L_z$ has the wrong sign (it would flip the orientation of the algebra).",
+   "fix": "$[L_x,L_y]=i\\hbar\\,(xp_y-yp_x)=i\\hbar L_z$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 7 (angular momentum), topic commutation relations of L"
+   }
+  },
+  {
+   "id": "drill-qm-spot-4",
+   "room": "perturbation-forge",
+   "title": "First-order shift: half-filled box",
+   "intro": "Infinite well $0<x<L$, $\\psi_1=\\sqrt{2/L}\\sin(\\pi x/L)$. Perturbation $H'=V_0$ for $0<x<L/2$ and $0$ elsewhere. Find $E_1^{(1)}$. One step is wrong.",
+   "steps": [
+    "First order: $E_1^{(1)}=\\langle\\psi_1|H'|\\psi_1\\rangle$.",
+    "$E_1^{(1)}=V_0\\,\\frac2L\\int_0^{L/2}\\sin^2\\!\\big(\\tfrac{\\pi x}{L}\\big)dx$.",
+    "Use $\\sin^2\\theta=\\tfrac12(1-\\cos2\\theta)$.",
+    "$\\int_0^{L/2}\\sin^2(\\pi x/L)\\,dx=\\tfrac L2$, since the integral of $\\sin^2$ over a half period is the full-box value.",
+    "$E_1^{(1)}=V_0\\,\\frac2L\\cdot\\frac L2=V_0$."
+   ],
+   "error": 3,
+   "why": "The cosine term gives $\\sin(2\\pi x/L)\\big|_0^{L/2}=0$, so the integral is $\\tfrac12\\cdot\\tfrac L2=\\tfrac L4$. The value $L/2$ is the integral over the whole box $0..L$. The result $E_1^{(1)}=V_0$ is also impossible: perturbing only half of the box must shift the energy by less than $V_0$.",
+   "fix": "$\\int_0^{L/2}\\sin^2(\\pi x/L)\\,dx=\\tfrac L4\\Rightarrow E_1^{(1)}=V_0/2$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 11 (perturbation theory), topic first-order shift in the infinite well"
+   }
+  },
+  {
+   "id": "drill-qm-spot-5",
+   "room": "formalism-and-uncertainty",
+   "title": "Probabilities of a non-normalised spinor",
+   "intro": "A spin-1/2 particle is prepared in $|\\psi\\rangle=|{\\uparrow}\\rangle+(1+i)|{\\downarrow}\\rangle$ (eigenstates of $S_z$). Find $P(\\uparrow)$ and $\\langle S_z\\rangle$. One step is wrong.",
+   "steps": [
+    "$\\langle\\psi|\\psi\\rangle=1+|1+i|^2=1+2=3$, so $|\\psi\\rangle$ is not normalised.",
+    "Normalised: $|\\psi\\rangle=\\tfrac1{\\sqrt3}\\big(|{\\uparrow}\\rangle+(1+i)|{\\downarrow}\\rangle\\big)$.",
+    "$P(\\uparrow)=1/\\sqrt3\\approx0.58$.",
+    "$P(\\downarrow)=|1+i|^2/3=2/3$.",
+    "$\\langle S_z\\rangle=\\tfrac\\hbar2\\,(P_\\uparrow-P_\\downarrow)$."
+   ],
+   "error": 2,
+   "why": "A probability is the squared modulus of the amplitude. The amplitude is $1/\\sqrt3$, so $P(\\uparrow)=1/3$. The values $1/\\sqrt3$ and $2/3$ do not even add up to 1, which is a quick check that catches this error.",
+   "fix": "$P(\\uparrow)=|1/\\sqrt3|^2=1/3$, so $\\langle S_z\\rangle=\\tfrac\\hbar2(\\tfrac13-\\tfrac23)=-\\tfrac\\hbar6$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 4 (formalism), topic Born rule with normalisation"
+   }
+  },
+  {
+   "id": "drill-qm-spot-6",
+   "room": "hydrogen-lamp",
+   "title": "Wavelength of the Balmer-$\\alpha$ line",
+   "intro": "Compute the wavelength of the hydrogen transition $n=3\\to n=2$ with $E_n=-13.6\\,\\mathrm{eV}/n^2$. One step is wrong.",
+   "steps": [
+    "$\\Delta E=13.6\\,\\mathrm{eV}\\,\\big(\\tfrac1{2^2}-\\tfrac1{3^2}\\big)$.",
+    "$\\Delta E=13.6\\cdot\\tfrac5{36}\\,\\mathrm{eV}=1.89\\,\\mathrm{eV}$.",
+    "Photon energy $\\hbar\\omega=\\Delta E$ and $\\omega=2\\pi c/\\lambda$.",
+    "$\\lambda=\\hbar c/\\Delta E=197.3\\,\\mathrm{eV\\,nm}/1.89\\,\\mathrm{eV}\\approx104\\,\\mathrm{nm}$."
+   ],
+   "error": 3,
+   "why": "From $\\hbar\\omega=\\Delta E$ and $\\omega=2\\pi c/\\lambda$ one gets $\\lambda=2\\pi\\hbar c/\\Delta E=hc/\\Delta E$. Using $\\hbar c$ instead of $hc$ drops a factor $2\\pi$ (h versus hbar mix-up). The result 104 nm would be in the UV, but Balmer-$\\alpha$ is the red line.",
+   "fix": "$\\lambda=hc/\\Delta E=1240\\,\\mathrm{eV\\,nm}/1.89\\,\\mathrm{eV}\\approx656\\,\\mathrm{nm}$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 8 (hydrogen), topic Rydberg spectrum, Balmer series"
+   }
+  },
+  {
+   "id": "drill-qm-spot-7",
+   "room": "formalism-and-uncertainty",
+   "title": "Hydrogen ground state from the uncertainty principle",
+   "intro": "Estimate the ground-state energy: take $p\\sim\\hbar/r$ and minimise $E(r)=\\frac{p^2}{2m}-\\frac{e^2}{r}$ (Gaussian units, $a=\\hbar^2/me^2$). One step is wrong.",
+   "steps": [
+    "Insert $p\\sim\\hbar/r$: $E(r)=\\dfrac{\\hbar^2}{2mr^2}-\\dfrac{e^2}{r}$.",
+    "$\\dfrac{dE}{dr}=-\\dfrac{\\hbar^2}{2mr^3}+\\dfrac{e^2}{r^2}$.",
+    "Setting $dE/dr=0$ gives $r_0=\\dfrac{\\hbar^2}{2me^2}=\\dfrac a2$.",
+    "$E(r_0)=\\dfrac{2\\hbar^2}{ma^2}-\\dfrac{2e^2}{a}=0$ using $\\hbar^2/(ma)=e^2$."
+   ],
+   "error": 1,
+   "why": "The derivative of $\\hbar^2/(2mr^2)$ is $-\\hbar^2/(mr^3)$: the factor 2 from the power cancels the 2 in the denominator. The wrong factor leads to a vanishing energy, in contradiction with the existence of a bound state.",
+   "fix": "$\\dfrac{dE}{dr}=-\\dfrac{\\hbar^2}{mr^3}+\\dfrac{e^2}{r^2}\\Rightarrow r_0=a$, $E(r_0)=-\\dfrac{e^2}{2a}=-13.6\\,\\mathrm{eV}$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 4/8, topic uncertainty-principle estimate of the hydrogen ground state"
+   }
+  },
+  {
+   "id": "drill-qm-spot-8",
+   "room": "spin-addition-stern-gerlach",
+   "title": "Building the triplet state $|1,0\\rangle$",
+   "intro": "Two spin-1/2 particles. Starting from $|1,1\\rangle=|{\\uparrow\\uparrow}\\rangle$ construct $|1,0\\rangle$ with the lowering operator. One step is wrong.",
+   "steps": [
+    "$S_-=S_{1-}+S_{2-}$ acts on the product space.",
+    "$S_-|s,m\\rangle=\\hbar\\sqrt{s(s+1)-m(m-1)}\\,|s,m-1\\rangle$, so $S_-|1,1\\rangle=\\sqrt2\\,\\hbar\\,|1,0\\rangle$.",
+    "$S_-|{\\uparrow\\uparrow}\\rangle=\\hbar\\big(|{\\downarrow\\uparrow}\\rangle+|{\\uparrow\\downarrow}\\rangle\\big)$.",
+    "Equating: $|1,0\\rangle=\\dfrac{1}{2}\\big(|{\\uparrow\\downarrow}\\rangle+|{\\downarrow\\uparrow}\\rangle\\big)$.",
+    "The singlet is orthogonal to it: $|0,0\\rangle=\\tfrac1{\\sqrt2}\\big(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle\\big)$."
+   ],
+   "error": 3,
+   "why": "Dividing $\\hbar(|{\\downarrow\\uparrow}\\rangle+|{\\uparrow\\downarrow}\\rangle)$ by $\\sqrt2\\hbar$ gives a prefactor $1/\\sqrt2$, not $1/2$. With $1/2$ the state has norm $1/\\sqrt2$, so it is not normalised.",
+   "fix": "$|1,0\\rangle=\\tfrac1{\\sqrt2}\\big(|{\\uparrow\\downarrow}\\rangle+|{\\downarrow\\uparrow}\\rangle\\big)$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 9 (spin addition), topic Clebsch-Gordan via lowering operator"
+   }
+  },
+  {
+   "id": "drill-qm-spot-9",
+   "room": "entanglement-lab",
+   "title": "Is one half of a singlet pure?",
+   "intro": "Two qubits in the singlet $|\\psi\\rangle=\\tfrac1{\\sqrt2}(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)$. Characterise the state of qubit A alone. One step is wrong.",
+   "steps": [
+    "$\\rho=|\\psi\\rangle\\langle\\psi|=\\tfrac12\\big(|{\\uparrow\\downarrow}\\rangle\\langle{\\uparrow\\downarrow}|-|{\\uparrow\\downarrow}\\rangle\\langle{\\downarrow\\uparrow}|-|{\\downarrow\\uparrow}\\rangle\\langle{\\uparrow\\downarrow}|+|{\\downarrow\\uparrow}\\rangle\\langle{\\downarrow\\uparrow}|\\big)$.",
+    "Trace over B: the cross terms carry $\\langle{\\uparrow}|{\\downarrow}\\rangle_B=0$ and drop out.",
+    "$\\rho_A=\\tfrac12\\big(|{\\uparrow}\\rangle\\langle{\\uparrow}|+|{\\downarrow}\\rangle\\langle{\\downarrow}|\\big)=\\tfrac12\\mathbb 1$.",
+    "$\\mathrm{Tr}\\,\\rho_A^2=1$, so qubit A is in a pure state."
+   ],
+   "error": 3,
+   "why": "For $\\rho_A=\\mathbb 1/2$ one finds $\\mathrm{Tr}\\rho_A^2=2\\cdot\\tfrac14=\\tfrac12<1$, so A is in a maximally mixed state. A global pure state that is entangled always has mixed subsystems.",
+   "fix": "$\\mathrm{Tr}\\,\\rho_A^2=\\tfrac12<1$: A is maximally mixed, with entropy $S=\\ln2$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 10 (entanglement), topic reduced density matrix of the singlet"
+   }
+  },
+  {
+   "id": "drill-qm-spot-10",
+   "room": "wave-mechanics-basics",
+   "title": "Heisenberg equation for the free particle",
+   "intro": "Show $\\frac d{dt}\\langle x\\rangle=\\langle p\\rangle/m$ for $H=p^2/2m$ using $\\frac d{dt}\\langle x\\rangle=\\frac i\\hbar\\langle[H,x]\\rangle$. One step is wrong.",
+   "steps": [
+    "$\\frac{d}{dt}\\langle x\\rangle=\\frac i\\hbar\\langle[H,x]\\rangle$ with $H=\\frac{p^2}{2m}$.",
+    "$[p^2,x]=p\\,[p,x]+[p,x]\\,p$.",
+    "$[p,x]=i\\hbar$.",
+    "$[p^2,x]=2i\\hbar\\,p$.",
+    "$\\frac{d}{dt}\\langle x\\rangle=\\frac i\\hbar\\cdot\\frac1{2m}\\cdot2i\\hbar\\langle p\\rangle=-\\frac{\\langle p\\rangle}m$."
+   ],
+   "error": 2,
+   "why": "The canonical commutator is $[x,p]=i\\hbar$, so $[p,x]=-i\\hbar$. With the order reversed the sign flips and the velocity comes out opposite to the momentum.",
+   "fix": "$[p,x]=-i\\hbar\\Rightarrow[p^2,x]=-2i\\hbar p\\Rightarrow\\frac d{dt}\\langle x\\rangle=\\langle p\\rangle/m$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 2/4, topic Ehrenfest theorem and Heisenberg equation"
+   }
+  }
+ ],
+ "limits": [
+  {
+   "id": "drill-qm-lim-1",
+   "room": "tunneling-bridge",
+   "title": "Doubling the barrier width",
+   "formula": "$T\\approx e^{-2\\kappa a}$ for $\\kappa a\\gg1$",
+   "prompt": "A barrier with $\\kappa a\\gg1$ has transmission $T_1$. The width is doubled at fixed $V_0-E$. What is the new transmission?",
+   "options": [
+    "$T\\approx2T_1$",
+    "$T\\approx T_1/2$",
+    "$T\\approx T_1^2$",
+    "$T\\approx T_1$, since the exponent is independent of $a$"
+   ],
+   "correct": 2,
+   "explain": "The exponent is linear in $a$, so doubling $a$ doubles $2\\kappa a$ and squares the exponential: $e^{-4\\kappa a}=(e^{-2\\kappa a})^2$. Tunnelling currents therefore depend exponentially on distance, which is why an STM tip resolves single atoms.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, tunnelling"
+   }
+  },
+  {
+   "id": "drill-qm-lim-2",
+   "room": "tunneling-bridge",
+   "title": "Transmission far above the barrier",
+   "formula": "$T(E)=\\Big[1+\\dfrac{V_0^2\\sin^2(k'a)}{4E(E-V_0)}\\Big]^{-1}$ for $E>V_0$",
+   "prompt": "What happens to $T$ for a rectangular barrier as $E/V_0\\to\\infty$?",
+   "options": [
+    "$T\\to1$, with $T=1$ exactly at $k'a=n\\pi$ below that limit",
+    "$T\\to0$, because the barrier reflects more at high energy",
+    "$T\\to\\tfrac12$",
+    "$T$ oscillates with constant amplitude around $\\tfrac12$"
+   ],
+   "correct": 0,
+   "explain": "The correction term scales like $V_0^2/(4E^2)\\to0$, so $T\\to1$: the barrier becomes a small perturbation. At finite $E>V_0$ the transmission is below 1 except at the resonances $k'a=n\\pi$, where the reflected waves from the two edges cancel.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, scattering from a barrier"
+   }
+  },
+  {
+   "id": "drill-qm-lim-3",
+   "room": "tunneling-bridge",
+   "title": "Classical limit of tunnelling",
+   "formula": "$T\\sim\\exp\\!\\big(-2a\\sqrt{2m(V_0-E)}/\\hbar\\big)$",
+   "prompt": "What happens to the tunnelling probability in the limit $\\hbar\\to0$ at fixed $m$, $a$, $V_0-E>0$?",
+   "options": [
+    "$T\\to1$",
+    "$T\\to0$ exponentially: the classical result",
+    "$T$ stays finite, because tunnelling is a wave effect",
+    "$T\\to\\tfrac12$"
+   ],
+   "correct": 1,
+   "explain": "$\\kappa\\propto1/\\hbar$ diverges, so the exponent goes to $-\\infty$ and $T\\to0$. The same happens for macroscopic $m$ or $a$: a ball does not tunnel through a wall.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, tunnelling and correspondence"
+   }
+  },
+  {
+   "id": "drill-qm-lim-4",
+   "room": "harmonic-oscillator-elevator",
+   "title": "Large-$n$ oscillator density",
+   "formula": "$|\\psi_n(x)|^2$ for $n\\gg1$",
+   "prompt": "For large $n$ the locally averaged probability density $|\\psi_n(x)|^2$ of the harmonic oscillator approaches the classical one. Where is the classical probability largest?",
+   "options": [
+    "At the centre $x=0$, where the particle is fastest",
+    "At the turning points $x=\\pm A$, where the particle is slowest",
+    "Uniform in $|x|<A$",
+    "At $x=\\pm A/2$"
+   ],
+   "correct": 1,
+   "explain": "The classical density is $\\propto1/v(x)\\propto1/\\sqrt{A^2-x^2}$, which diverges at the turning points where the velocity vanishes. The quantum density oscillates fast, with the envelope following this form (correspondence principle), unlike the ground state which peaks at $x=0$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 6, correspondence principle"
+   }
+  },
+  {
+   "id": "drill-qm-lim-5",
+   "room": "harmonic-oscillator-elevator",
+   "title": "Stiffening the oscillator",
+   "formula": "$x_0=\\sqrt{\\hbar/(m\\omega)}$",
+   "prompt": "The spring constant is increased so that $\\omega\\to\\infty$. What happens to the ground-state width and energy?",
+   "options": [
+    "Width $\\to0$ and $E_0=\\hbar\\omega/2\\to\\infty$",
+    "Width $\\to\\infty$ and $E_0\\to0$",
+    "Width $\\to0$ and $E_0\\to0$, as for a classical particle at rest",
+    "Width fixed, $E_0\\to\\infty$"
+   ],
+   "correct": 0,
+   "explain": "The width $\\propto\\omega^{-1/2}$ shrinks, so confinement raises the kinetic energy. The zero-point energy $\\hbar\\omega/2$ grows linearly in $\\omega$. A classical particle could sit at rest at the bottom with $E=0$, but this would violate $\\Delta x\\Delta p\\ge\\hbar/2$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 6, zero-point energy"
+   }
+  },
+  {
+   "id": "drill-qm-lim-6",
+   "room": "hydrogen-lamp",
+   "title": "Large-$n$ hydrogen transitions",
+   "formula": "$\\omega_{n\\to n-1}=\\dfrac{R}{\\hbar}\\Big(\\dfrac1{(n-1)^2}-\\dfrac1{n^2}\\Big)$",
+   "prompt": "For $n\\gg1$, how does the frequency of the $n\\to n-1$ transition scale?",
+   "options": [
+    "$\\omega\\propto1/n^2$",
+    "$\\omega\\propto1/n^3$, matching the classical orbital frequency",
+    "$\\omega\\propto n$",
+    "$\\omega\\to$ const (the Rydberg frequency)"
+   ],
+   "correct": 1,
+   "explain": "Expanding gives $\\tfrac1{(n-1)^2}-\\tfrac1{n^2}\\approx2/n^3$. Classically $\\omega_{orb}\\propto r^{-3/2}$ with $r\\propto n^2$, i.e. $\\propto n^{-3}$. This is Bohr's correspondence principle for hydrogen.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 8, hydrogen spectrum"
+   }
+  },
+  {
+   "id": "drill-qm-lim-7",
+   "room": "hydrogen-lamp",
+   "title": "Positronium binding energy",
+   "formula": "$E_n=-\\dfrac{\\mu e^4}{2\\hbar^2n^2}$, $\\mu=\\dfrac{m_1m_2}{m_1+m_2}$",
+   "prompt": "Replace the proton by a positron (equal mass $m_e$, charge $+e$). How does the ground-state binding energy compare to hydrogen?",
+   "options": [
+    "It is doubled",
+    "It is the same, because only the charge enters",
+    "It is halved, about $6.8\\,\\mathrm{eV}$",
+    "It is zero, since particle and antiparticle annihilate"
+   ],
+   "correct": 2,
+   "explain": "The energy scale is set by the reduced mass. For hydrogen $\\mu\\approx m_e$; for equal masses $\\mu=m_e/2$, so all binding energies halve and the Bohr radius doubles. Annihilation only limits the lifetime, not the level scheme.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 8, reduced mass"
+   }
+  },
+  {
+   "id": "drill-qm-lim-8",
+   "room": "hydrogen-lamp",
+   "title": "Strong-field Zeeman effect",
+   "formula": "$H_Z=\\dfrac{\\mu_B B}{\\hbar}\\,(L_z+2S_z)$",
+   "prompt": "In the limit $B\\to\\infty$ (Paschen-Back), which are the good quantum numbers and what is the energy shift?",
+   "options": [
+    "$j,m_j$ with $\\Delta E=g_J\\mu_Bm_jB$",
+    "$m_l,m_s$ with $\\Delta E=\\mu_B B\\,(m_l+2m_s)$",
+    "$l$ only, with a shift $\\propto B^2$",
+    "$n$ only; no splitting remains"
+   ],
+   "correct": 1,
+   "explain": "When the Zeeman term dominates over spin-orbit coupling, $L_z$ and $S_z$ are conserved separately and the first-order shift is $\\mu_BB(m_l+2m_s)$. The Landé form $g_J\\mu_Bm_jB$ only holds for weak fields ($B\\to0$), where $\\vec L\\cdot\\vec S$ dominates.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 8/11, Zeeman effect"
+   }
+  },
+  {
+   "id": "drill-qm-lim-9",
+   "room": "perturbation-forge",
+   "title": "Sign of the second-order shift",
+   "formula": "$E_0^{(2)}=\\sum_{m\\ne0}\\dfrac{|\\langle m|H'|0\\rangle|^2}{E_0-E_m}$",
+   "prompt": "What is the sign of the second-order correction to the ground-state energy for any perturbation $H'$?",
+   "options": [
+    "Positive, because $|\\langle m|H'|0\\rangle|^2\\ge0$",
+    "Negative, because $E_0-E_m<0$ for all $m$",
+    "It depends on the sign of $H'$",
+    "Zero, since first order already gives the exact shift"
+   ],
+   "correct": 1,
+   "explain": "All numerators are non-negative and all denominators $E_0-E_m$ are negative for the ground state, so $E_0^{(2)}\\le0$ whatever the sign of $H'$: level repulsion pushes the ground state down. This also agrees with the variational bound.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 11, perturbation theory"
+   }
+  },
+  {
+   "id": "drill-qm-lim-10",
+   "room": "angular-momentum-spin",
+   "title": "Large-$l$ angular momentum",
+   "formula": "$|\\vec L|=\\hbar\\sqrt{l(l+1)},\\quad L_z=\\hbar m$",
+   "prompt": "What happens to the relative spacing $\\Delta L_z/|\\vec L|$ of the allowed $L_z$ values for $l\\to\\infty$?",
+   "options": [
+    "It tends to 0, so $\\vec L$ can point in any direction (classical limit)",
+    "It tends to 1",
+    "It diverges",
+    "It stays at $1/2$"
+   ],
+   "correct": 0,
+   "explain": "Neighbouring $m$ values differ by $\\hbar$, so $\\Delta L_z/|\\vec L|=1/\\sqrt{l(l+1)}\\to0$. The discrete orientations merge into a continuum, as required by the correspondence principle.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 7, angular momentum"
+   }
+  },
+  {
+   "id": "drill-qm-lim-11",
+   "room": "wave-mechanics-basics",
+   "title": "Box of growing width",
+   "formula": "$E_n=\\dfrac{\\pi^2\\hbar^2n^2}{2mL^2}$",
+   "prompt": "What happens to the level spacing $E_{n+1}-E_n$ of the infinite well as $L\\to\\infty$?",
+   "options": [
+    "It grows $\\propto L$",
+    "It tends to 0 as $1/L^2$, giving a continuum of free-particle states",
+    "It stays constant",
+    "It tends to 0 as $1/L$"
+   ],
+   "correct": 1,
+   "explain": "The spacing is $\\pi^2\\hbar^2(2n+1)/(2mL^2)\\to0$. The levels become dense, and the standing waves turn into a continuous free-particle spectrum $E=\\hbar^2k^2/2m$.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, infinite well"
+   }
+  },
+  {
+   "id": "drill-qm-lim-12",
+   "room": "wave-mechanics-basics",
+   "title": "Very shallow 1D well",
+   "formula": "$V(x)=-V_0$ for $|x|<a$, else $0$",
+   "prompt": "How many bound states does a 1D symmetric well have in the limit $V_0\\to0$ at fixed width?",
+   "options": [
+    "None; a minimum depth is needed",
+    "Exactly one, with binding energy $\\propto V_0^2$",
+    "Infinitely many",
+    "Exactly one, with binding energy $\\propto V_0$"
+   ],
+   "correct": 1,
+   "explain": "In one dimension every attractive well has at least one even bound state. For $V_0\\to0$ it is very extended, $\\kappa\\propto V_0$, so the binding energy $\\propto\\kappa^2\\propto V_0^2$. The depth threshold exists only in 3D.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, finite well"
+   }
+  },
+  {
+   "id": "drill-qm-lim-13",
+   "room": "formalism-and-uncertainty",
+   "title": "Long-time spreading",
+   "formula": "$\\Delta x(t)=\\Delta x_0\\sqrt{1+\\big(\\tfrac{\\hbar t}{2m\\Delta x_0^2}\\big)^2}$",
+   "prompt": "How does the width of a free Gaussian packet behave for $t\\to\\infty$?",
+   "options": [
+    "It approaches a constant, set by $\\Delta x_0$",
+    "It grows linearly, $\\Delta x\\to\\hbar t/(2m\\Delta x_0)$, so a narrower initial packet spreads faster",
+    "It grows as $\\sqrt t$",
+    "It shrinks again after the packet reaches its focus"
+   ],
+   "correct": 1,
+   "explain": "For large $t$ the second term dominates and $\\Delta x\\to\\hbar t/(2m\\Delta x_0)$. A small $\\Delta x_0$ means a large $\\Delta p$, so faster spreading. The momentum spread $\\Delta p$ does not change in free evolution.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 2/4, free wave packet"
+   }
+  },
+  {
+   "id": "drill-qm-lim-14",
+   "room": "entanglement-lab",
+   "title": "Singlet correlations at 90 degrees",
+   "formula": "$\\langle\\sigma_{\\vec a}\\otimes\\sigma_{\\vec b}\\rangle=-\\cos\\theta$ for the singlet",
+   "prompt": "Alice measures along $z$, Bob along $x$ on a singlet. What is the correlation $E=\\langle\\sigma_z\\otimes\\sigma_x\\rangle$?",
+   "options": [
+    "$-1$ (perfect anticorrelation)",
+    "$+1$",
+    "$0$: Bob's outcome is statistically independent of Alice's",
+    "$-1/\\sqrt2$"
+   ],
+   "correct": 2,
+   "explain": "The correlation is $-\\cos\\theta$ with $\\theta=90^\\circ$, which vanishes: each outcome is $\\pm1$ with probability $1/2$ independent of the other. Perfect anticorrelation holds only for parallel axes.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 10, entanglement"
+   }
+  },
+  {
+   "id": "drill-qm-lim-15",
+   "room": "spin-addition-stern-gerlach",
+   "title": "Landé factor for $L=0$",
+   "formula": "$g_J=1+\\dfrac{j(j+1)+s(s+1)-l(l+1)}{2j(j+1)}$",
+   "prompt": "What is $g_J$ for a state with $l=0$ ($j=s=\\tfrac12$)?",
+   "options": [
+    "$g_J=1$",
+    "$g_J=0$",
+    "$g_J=2$",
+    "$g_J=1/2$"
+   ],
+   "correct": 2,
+   "explain": "With $l=0$: $g_J=1+\\frac{3/4+3/4}{2\\cdot3/4}=2$. For pure orbital angular momentum ($s=0$) one gets 1 instead, so $g_J$ interpolates between the orbital and the spin $g$-factor.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 9, Landé factor"
+   }
+  }
+ ],
+ "sketch": [
+  {
+   "id": "drill-qm-sk-1",
+   "room": "wave-mechanics-basics",
+   "title": "Probability densities in the infinite well",
+   "task": "Sketch $|\\psi_n(x)|^2$ for $n=1,2,3$ in the infinite well $0<x<L$.",
+   "x": {
+    "label": "x / L",
+    "min": 0,
+    "max": 1
+   },
+   "y": {
+    "label": "L |psi_n|^2",
+    "min": 0,
+    "max": 2.1
+   },
+   "curves": [
+    {
+     "label": "n=1",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.025,
+       0.0123
+      ],
+      [
+       0.05,
+       0.0489
+      ],
+      [
+       0.075,
+       0.109
+      ],
+      [
+       0.1,
+       0.191
+      ],
+      [
+       0.125,
+       0.2929
+      ],
+      [
+       0.15,
+       0.4122
+      ],
+      [
+       0.175,
+       0.546
+      ],
+      [
+       0.2,
+       0.691
+      ],
+      [
+       0.225,
+       0.8436
+      ],
+      [
+       0.25,
+       1
+      ],
+      [
+       0.275,
+       1.1564
+      ],
+      [
+       0.3,
+       1.309
+      ],
+      [
+       0.325,
+       1.454
+      ],
+      [
+       0.35,
+       1.5878
+      ],
+      [
+       0.375,
+       1.7071
+      ],
+      [
+       0.4,
+       1.809
+      ],
+      [
+       0.425,
+       1.891
+      ],
+      [
+       0.45,
+       1.9511
+      ],
+      [
+       0.475,
+       1.9877
+      ],
+      [
+       0.5,
+       2
+      ],
+      [
+       0.525,
+       1.9877
+      ],
+      [
+       0.55,
+       1.9511
+      ],
+      [
+       0.575,
+       1.891
+      ],
+      [
+       0.6,
+       1.809
+      ],
+      [
+       0.625,
+       1.7071
+      ],
+      [
+       0.65,
+       1.5878
+      ],
+      [
+       0.675,
+       1.454
+      ],
+      [
+       0.7,
+       1.309
+      ],
+      [
+       0.725,
+       1.1564
+      ],
+      [
+       0.75,
+       1
+      ],
+      [
+       0.775,
+       0.8436
+      ],
+      [
+       0.8,
+       0.691
+      ],
+      [
+       0.825,
+       0.546
+      ],
+      [
+       0.85,
+       0.4122
+      ],
+      [
+       0.875,
+       0.2929
+      ],
+      [
+       0.9,
+       0.191
+      ],
+      [
+       0.925,
+       0.109
+      ],
+      [
+       0.95,
+       0.0489
+      ],
+      [
+       0.975,
+       0.0123
+      ],
+      [
+       1,
+       0
+      ]
+     ]
+    },
+    {
+     "label": "n=2",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.025,
+       0.0489
+      ],
+      [
+       0.05,
+       0.191
+      ],
+      [
+       0.075,
+       0.4122
+      ],
+      [
+       0.1,
+       0.691
+      ],
+      [
+       0.125,
+       1
+      ],
+      [
+       0.15,
+       1.309
+      ],
+      [
+       0.175,
+       1.5878
+      ],
+      [
+       0.2,
+       1.809
+      ],
+      [
+       0.225,
+       1.9511
+      ],
+      [
+       0.25,
+       2
+      ],
+      [
+       0.275,
+       1.9511
+      ],
+      [
+       0.3,
+       1.809
+      ],
+      [
+       0.325,
+       1.5878
+      ],
+      [
+       0.35,
+       1.309
+      ],
+      [
+       0.375,
+       1
+      ],
+      [
+       0.4,
+       0.691
+      ],
+      [
+       0.425,
+       0.4122
+      ],
+      [
+       0.45,
+       0.191
+      ],
+      [
+       0.475,
+       0.0489
+      ],
+      [
+       0.5,
+       0
+      ],
+      [
+       0.525,
+       0.0489
+      ],
+      [
+       0.55,
+       0.191
+      ],
+      [
+       0.575,
+       0.4122
+      ],
+      [
+       0.6,
+       0.691
+      ],
+      [
+       0.625,
+       1
+      ],
+      [
+       0.65,
+       1.309
+      ],
+      [
+       0.675,
+       1.5878
+      ],
+      [
+       0.7,
+       1.809
+      ],
+      [
+       0.725,
+       1.9511
+      ],
+      [
+       0.75,
+       2
+      ],
+      [
+       0.775,
+       1.9511
+      ],
+      [
+       0.8,
+       1.809
+      ],
+      [
+       0.825,
+       1.5878
+      ],
+      [
+       0.85,
+       1.309
+      ],
+      [
+       0.875,
+       1
+      ],
+      [
+       0.9,
+       0.691
+      ],
+      [
+       0.925,
+       0.4122
+      ],
+      [
+       0.95,
+       0.191
+      ],
+      [
+       0.975,
+       0.0489
+      ],
+      [
+       1,
+       0
+      ]
+     ]
+    },
+    {
+     "label": "n=3",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.025,
+       0.109
+      ],
+      [
+       0.05,
+       0.4122
+      ],
+      [
+       0.075,
+       0.8436
+      ],
+      [
+       0.1,
+       1.309
+      ],
+      [
+       0.125,
+       1.7071
+      ],
+      [
+       0.15,
+       1.9511
+      ],
+      [
+       0.175,
+       1.9877
+      ],
+      [
+       0.2,
+       1.809
+      ],
+      [
+       0.225,
+       1.454
+      ],
+      [
+       0.25,
+       1
+      ],
+      [
+       0.275,
+       0.546
+      ],
+      [
+       0.3,
+       0.191
+      ],
+      [
+       0.325,
+       0.0123
+      ],
+      [
+       0.35,
+       0.0489
+      ],
+      [
+       0.375,
+       0.2929
+      ],
+      [
+       0.4,
+       0.691
+      ],
+      [
+       0.425,
+       1.1564
+      ],
+      [
+       0.45,
+       1.5878
+      ],
+      [
+       0.475,
+       1.891
+      ],
+      [
+       0.5,
+       2
+      ],
+      [
+       0.525,
+       1.891
+      ],
+      [
+       0.55,
+       1.5878
+      ],
+      [
+       0.575,
+       1.1564
+      ],
+      [
+       0.6,
+       0.691
+      ],
+      [
+       0.625,
+       0.2929
+      ],
+      [
+       0.65,
+       0.0489
+      ],
+      [
+       0.675,
+       0.0123
+      ],
+      [
+       0.7,
+       0.191
+      ],
+      [
+       0.725,
+       0.546
+      ],
+      [
+       0.75,
+       1
+      ],
+      [
+       0.775,
+       1.454
+      ],
+      [
+       0.8,
+       1.809
+      ],
+      [
+       0.825,
+       1.9877
+      ],
+      [
+       0.85,
+       1.9511
+      ],
+      [
+       0.875,
+       1.7071
+      ],
+      [
+       0.9,
+       1.309
+      ],
+      [
+       0.925,
+       0.8436
+      ],
+      [
+       0.95,
+       0.4122
+      ],
+      [
+       0.975,
+       0.109
+      ],
+      [
+       1,
+       0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "$|\\psi_n|^2$ vanishes at both walls, $x=0$ and $x=L$.",
+    "$n$ maxima, each of height $2/L$.",
+    "$n-1$ interior nodes at $x=kL/n$.",
+    "All curves are symmetric or antisymmetric about $L/2$ (the density is always symmetric)."
+   ],
+   "tips": "Every curve has the same area 1.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, topic infinite well eigenfunctions"
+   }
+  },
+  {
+   "id": "drill-qm-sk-2",
+   "room": "tunneling-bridge",
+   "title": "Transmission across a rectangular barrier",
+   "task": "Sketch the transmission $T$ as a function of $E/V_0$ for a rectangular barrier with $\\sqrt{2mV_0}\\,a/\\hbar=4$.",
+   "x": {
+    "label": "E / V0",
+    "min": 0,
+    "max": 3
+   },
+   "y": {
+    "label": "T",
+    "min": 0,
+    "max": 1.05
+   },
+   "curves": [
+    {
+     "label": "T(E)",
+     "points": [
+      [
+       0.05,
+       0.0003
+      ],
+      [
+       0.1318,
+       0.0011
+      ],
+      [
+       0.2136,
+       0.0022
+      ],
+      [
+       0.2955,
+       0.004
+      ],
+      [
+       0.3773,
+       0.0068
+      ],
+      [
+       0.4591,
+       0.011
+      ],
+      [
+       0.5409,
+       0.0174
+      ],
+      [
+       0.6227,
+       0.0273
+      ],
+      [
+       0.7045,
+       0.0423
+      ],
+      [
+       0.7864,
+       0.0655
+      ],
+      [
+       0.8682,
+       0.1009
+      ],
+      [
+       0.95,
+       0.1548
+      ],
+      [
+       1,
+       0.2
+      ],
+      [
+       1.05,
+       0.2567
+      ],
+      [
+       1.0831,
+       0.3011
+      ],
+      [
+       1.1161,
+       0.3512
+      ],
+      [
+       1.1492,
+       0.4069
+      ],
+      [
+       1.1822,
+       0.4675
+      ],
+      [
+       1.2153,
+       0.5319
+      ],
+      [
+       1.2483,
+       0.5984
+      ],
+      [
+       1.2814,
+       0.6651
+      ],
+      [
+       1.3144,
+       0.7297
+      ],
+      [
+       1.3475,
+       0.7898
+      ],
+      [
+       1.3805,
+       0.8436
+      ],
+      [
+       1.4136,
+       0.8895
+      ],
+      [
+       1.4466,
+       0.9269
+      ],
+      [
+       1.4797,
+       0.9557
+      ],
+      [
+       1.5127,
+       0.9764
+      ],
+      [
+       1.5458,
+       0.9899
+      ],
+      [
+       1.5788,
+       0.9974
+      ],
+      [
+       1.6119,
+       1
+      ],
+      [
+       1.6449,
+       0.9988
+      ],
+      [
+       1.678,
+       0.995
+      ],
+      [
+       1.711,
+       0.9893
+      ],
+      [
+       1.7441,
+       0.9825
+      ],
+      [
+       1.7771,
+       0.9752
+      ],
+      [
+       1.8102,
+       0.9676
+      ],
+      [
+       1.8432,
+       0.9603
+      ],
+      [
+       1.8763,
+       0.9534
+      ],
+      [
+       1.9093,
+       0.947
+      ],
+      [
+       1.9424,
+       0.9414
+      ],
+      [
+       1.9754,
+       0.9364
+      ],
+      [
+       2.0085,
+       0.9322
+      ],
+      [
+       2.0415,
+       0.9287
+      ],
+      [
+       2.0746,
+       0.926
+      ],
+      [
+       2.1076,
+       0.924
+      ],
+      [
+       2.1407,
+       0.9227
+      ],
+      [
+       2.1737,
+       0.922
+      ],
+      [
+       2.2068,
+       0.9219
+      ],
+      [
+       2.2398,
+       0.9224
+      ],
+      [
+       2.2729,
+       0.9233
+      ],
+      [
+       2.3059,
+       0.9248
+      ],
+      [
+       2.339,
+       0.9266
+      ],
+      [
+       2.372,
+       0.9287
+      ],
+      [
+       2.4051,
+       0.9312
+      ],
+      [
+       2.4381,
+       0.9339
+      ],
+      [
+       2.4712,
+       0.9368
+      ],
+      [
+       2.5042,
+       0.9399
+      ],
+      [
+       2.5373,
+       0.9432
+      ],
+      [
+       2.5703,
+       0.9465
+      ],
+      [
+       2.6034,
+       0.9499
+      ],
+      [
+       2.6364,
+       0.9533
+      ],
+      [
+       2.6695,
+       0.9567
+      ],
+      [
+       2.7025,
+       0.9601
+      ],
+      [
+       2.7356,
+       0.9635
+      ],
+      [
+       2.7686,
+       0.9667
+      ],
+      [
+       2.8017,
+       0.9699
+      ],
+      [
+       2.8347,
+       0.9729
+      ],
+      [
+       2.8678,
+       0.9758
+      ],
+      [
+       2.9008,
+       0.9786
+      ],
+      [
+       2.9339,
+       0.9812
+      ],
+      [
+       2.9669,
+       0.9836
+      ],
+      [
+       3,
+       0.9859
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "$T\\to0$ as $E\\to0$, exponentially small ($\\sim e^{-2\\kappa a}$).",
+    "$T$ is smooth through $E=V_0$, with $T=1/(1+g^2/4)=0.2$ there for $g=4$.",
+    "For $E>V_0$, $T$ oscillates and reaches $1$ at the resonances $k'a=n\\pi$.",
+    "The oscillation minima rise towards $1$ as $E/V_0\\to\\infty$."
+   ],
+   "tips": "Here g = sqrt(2 m V0) a / hbar.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, topic rectangular barrier transmission"
+   }
+  },
+  {
+   "id": "drill-qm-sk-3",
+   "room": "hydrogen-lamp",
+   "title": "Radial probability densities of hydrogen n=2",
+   "task": "Sketch the radial probability density $P(r)=r^2R_{nl}(r)^2$ for the $2s$ and $2p$ states of hydrogen as a function of $r/a$.",
+   "x": {
+    "label": "r / a",
+    "min": 0,
+    "max": 20
+   },
+   "y": {
+    "label": "a P(r)",
+    "min": 0,
+    "max": 0.25
+   },
+   "curves": [
+    {
+     "label": "2s",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.25,
+       0.0186
+      ],
+      [
+       0.5,
+       0.0426
+      ],
+      [
+       0.75,
+       0.0519
+      ],
+      [
+       1,
+       0.046
+      ],
+      [
+       1.25,
+       0.0315
+      ],
+      [
+       1.5,
+       0.0157
+      ],
+      [
+       1.75,
+       0.0042
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2.25,
+       0.0042
+      ],
+      [
+       2.5,
+       0.016
+      ],
+      [
+       2.75,
+       0.034
+      ],
+      [
+       3,
+       0.056
+      ],
+      [
+       3.25,
+       0.08
+      ],
+      [
+       3.5,
+       0.104
+      ],
+      [
+       3.75,
+       0.1266
+      ],
+      [
+       4,
+       0.1465
+      ],
+      [
+       4.25,
+       0.163
+      ],
+      [
+       4.5,
+       0.1757
+      ],
+      [
+       4.75,
+       0.1845
+      ],
+      [
+       5,
+       0.1895
+      ],
+      [
+       5.25,
+       0.191
+      ],
+      [
+       5.5,
+       0.1893
+      ],
+      [
+       5.75,
+       0.185
+      ],
+      [
+       6,
+       0.1785
+      ],
+      [
+       6.25,
+       0.1703
+      ],
+      [
+       6.5,
+       0.1608
+      ],
+      [
+       6.75,
+       0.1505
+      ],
+      [
+       7,
+       0.1396
+      ],
+      [
+       7.25,
+       0.1286
+      ],
+      [
+       7.5,
+       0.1176
+      ],
+      [
+       7.75,
+       0.1069
+      ],
+      [
+       8,
+       0.0966
+      ],
+      [
+       8.25,
+       0.0868
+      ],
+      [
+       8.5,
+       0.0776
+      ],
+      [
+       8.75,
+       0.0691
+      ],
+      [
+       9,
+       0.0612
+      ],
+      [
+       9.25,
+       0.054
+      ],
+      [
+       9.5,
+       0.0475
+      ],
+      [
+       9.75,
+       0.0416
+      ],
+      [
+       10,
+       0.0363
+      ],
+      [
+       10.25,
+       0.0316
+      ],
+      [
+       10.5,
+       0.0274
+      ],
+      [
+       10.75,
+       0.0237
+      ],
+      [
+       11,
+       0.0205
+      ],
+      [
+       11.25,
+       0.0176
+      ],
+      [
+       11.5,
+       0.0151
+      ],
+      [
+       11.75,
+       0.0129
+      ],
+      [
+       12,
+       0.0111
+      ],
+      [
+       12.25,
+       0.0094
+      ],
+      [
+       12.5,
+       0.008
+      ],
+      [
+       12.75,
+       0.0068
+      ],
+      [
+       13,
+       0.0058
+      ],
+      [
+       13.25,
+       0.0049
+      ],
+      [
+       13.5,
+       0.0041
+      ],
+      [
+       13.75,
+       0.0035
+      ],
+      [
+       14,
+       0.0029
+      ],
+      [
+       14.25,
+       0.0025
+      ],
+      [
+       14.5,
+       0.0021
+      ],
+      [
+       14.75,
+       0.0017
+      ],
+      [
+       15,
+       0.0015
+      ],
+      [
+       15.25,
+       0.0012
+      ],
+      [
+       15.5,
+       0.001
+      ],
+      [
+       15.75,
+       0.0008
+      ],
+      [
+       16,
+       0.0007
+      ],
+      [
+       16.25,
+       0.0006
+      ],
+      [
+       16.5,
+       0.0005
+      ],
+      [
+       16.75,
+       0.0004
+      ],
+      [
+       17,
+       0.0003
+      ],
+      [
+       17.25,
+       0.0003
+      ],
+      [
+       17.5,
+       0.0002
+      ],
+      [
+       17.75,
+       0.0002
+      ],
+      [
+       18,
+       0.0002
+      ],
+      [
+       18.25,
+       0.0001
+      ],
+      [
+       18.5,
+       0.0001
+      ],
+      [
+       18.75,
+       0.0001
+      ],
+      [
+       19,
+       0.0001
+      ],
+      [
+       19.25,
+       0.0001
+      ],
+      [
+       19.5,
+       0
+      ],
+      [
+       19.75,
+       0
+      ],
+      [
+       20,
+       0
+      ]
+     ]
+    },
+    {
+     "label": "2p",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.25,
+       0.0001
+      ],
+      [
+       0.5,
+       0.0016
+      ],
+      [
+       0.75,
+       0.0062
+      ],
+      [
+       1,
+       0.0153
+      ],
+      [
+       1.25,
+       0.0291
+      ],
+      [
+       1.5,
+       0.0471
+      ],
+      [
+       1.75,
+       0.0679
+      ],
+      [
+       2,
+       0.0902
+      ],
+      [
+       2.25,
+       0.1126
+      ],
+      [
+       2.5,
+       0.1336
+      ],
+      [
+       2.75,
+       0.1523
+      ],
+      [
+       3,
+       0.168
+      ],
+      [
+       3.25,
+       0.1802
+      ],
+      [
+       3.5,
+       0.1888
+      ],
+      [
+       3.75,
+       0.1938
+      ],
+      [
+       4,
+       0.1954
+      ],
+      [
+       4.25,
+       0.1939
+      ],
+      [
+       4.5,
+       0.1898
+      ],
+      [
+       4.75,
+       0.1835
+      ],
+      [
+       5,
+       0.1755
+      ],
+      [
+       5.25,
+       0.1661
+      ],
+      [
+       5.5,
+       0.1558
+      ],
+      [
+       5.75,
+       0.145
+      ],
+      [
+       6,
+       0.1339
+      ],
+      [
+       6.25,
+       0.1227
+      ],
+      [
+       6.5,
+       0.1118
+      ],
+      [
+       6.75,
+       0.1013
+      ],
+      [
+       7,
+       0.0912
+      ],
+      [
+       7.25,
+       0.0818
+      ],
+      [
+       7.5,
+       0.0729
+      ],
+      [
+       7.75,
+       0.0647
+      ],
+      [
+       8,
+       0.0573
+      ],
+      [
+       8.25,
+       0.0504
+      ],
+      [
+       8.5,
+       0.0443
+      ],
+      [
+       8.75,
+       0.0387
+      ],
+      [
+       9,
+       0.0337
+      ],
+      [
+       9.25,
+       0.0293
+      ],
+      [
+       9.5,
+       0.0254
+      ],
+      [
+       9.75,
+       0.022
+      ],
+      [
+       10,
+       0.0189
+      ],
+      [
+       10.25,
+       0.0163
+      ],
+      [
+       10.5,
+       0.0139
+      ],
+      [
+       10.75,
+       0.0119
+      ],
+      [
+       11,
+       0.0102
+      ],
+      [
+       11.25,
+       0.0087
+      ],
+      [
+       11.5,
+       0.0074
+      ],
+      [
+       11.75,
+       0.0063
+      ],
+      [
+       12,
+       0.0053
+      ],
+      [
+       12.25,
+       0.0045
+      ],
+      [
+       12.5,
+       0.0038
+      ],
+      [
+       12.75,
+       0.0032
+      ],
+      [
+       13,
+       0.0027
+      ],
+      [
+       13.25,
+       0.0023
+      ],
+      [
+       13.5,
+       0.0019
+      ],
+      [
+       13.75,
+       0.0016
+      ],
+      [
+       14,
+       0.0013
+      ],
+      [
+       14.25,
+       0.0011
+      ],
+      [
+       14.5,
+       0.0009
+      ],
+      [
+       14.75,
+       0.0008
+      ],
+      [
+       15,
+       0.0006
+      ],
+      [
+       15.25,
+       0.0005
+      ],
+      [
+       15.5,
+       0.0004
+      ],
+      [
+       15.75,
+       0.0004
+      ],
+      [
+       16,
+       0.0003
+      ],
+      [
+       16.25,
+       0.0003
+      ],
+      [
+       16.5,
+       0.0002
+      ],
+      [
+       16.75,
+       0.0002
+      ],
+      [
+       17,
+       0.0001
+      ],
+      [
+       17.25,
+       0.0001
+      ],
+      [
+       17.5,
+       0.0001
+      ],
+      [
+       17.75,
+       0.0001
+      ],
+      [
+       18,
+       0.0001
+      ],
+      [
+       18.25,
+       0.0001
+      ],
+      [
+       18.5,
+       0
+      ],
+      [
+       18.75,
+       0
+      ],
+      [
+       19,
+       0
+      ],
+      [
+       19.25,
+       0
+      ],
+      [
+       19.5,
+       0
+      ],
+      [
+       19.75,
+       0
+      ],
+      [
+       20,
+       0
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "2s has a node at $r=2a$ and two maxima, at $r\\approx0.76a$ and $r\\approx5.2a$.",
+    "2p has no node and a single maximum at $r=4a$ (Bohr radius of $n=2$).",
+    "$P\\propto r^2$ for 2s but $\\propto r^4$ for 2p near the origin: the centrifugal barrier suppresses 2p at small $r$.",
+    "Both curves decay as $e^{-r/a}$ and each integrates to 1."
+   ],
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 8, topic hydrogen radial wave functions R20 and R21"
+   }
+  },
+  {
+   "id": "drill-qm-sk-4",
+   "room": "hydrogen-lamp",
+   "title": "Normal Zeeman splitting of the 2p level",
+   "task": "Sketch the energy shift of the $l=1$ level (spin neglected) as a function of $B$ for $m=-1,0,+1$.",
+   "x": {
+    "label": "B (T)",
+    "min": 0,
+    "max": 5
+   },
+   "y": {
+    "label": "E - E0 (ueV)",
+    "min": -300,
+    "max": 300
+   },
+   "curves": [
+    {
+     "label": "m=1",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.625,
+       36.18
+      ],
+      [
+       1.25,
+       72.35
+      ],
+      [
+       1.875,
+       108.53
+      ],
+      [
+       2.5,
+       144.71
+      ],
+      [
+       3.125,
+       180.89
+      ],
+      [
+       3.75,
+       217.06
+      ],
+      [
+       4.375,
+       253.24
+      ],
+      [
+       5,
+       289.42
+      ]
+     ]
+    },
+    {
+     "label": "m=0",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.625,
+       0
+      ],
+      [
+       1.25,
+       0
+      ],
+      [
+       1.875,
+       0
+      ],
+      [
+       2.5,
+       0
+      ],
+      [
+       3.125,
+       0
+      ],
+      [
+       3.75,
+       0
+      ],
+      [
+       4.375,
+       0
+      ],
+      [
+       5,
+       0
+      ]
+     ]
+    },
+    {
+     "label": "m=-1",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.625,
+       -36.18
+      ],
+      [
+       1.25,
+       -72.35
+      ],
+      [
+       1.875,
+       -108.53
+      ],
+      [
+       2.5,
+       -144.71
+      ],
+      [
+       3.125,
+       -180.89
+      ],
+      [
+       3.75,
+       -217.06
+      ],
+      [
+       4.375,
+       -253.24
+      ],
+      [
+       5,
+       -289.42
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "All three levels start at the same energy at $B=0$ (threefold degeneracy).",
+    "$E=m\\mu_BB$: straight lines with slopes $+\\mu_B,0,-\\mu_B$.",
+    "Equidistant splitting $\\mu_BB\\approx58\\,\\mu\\mathrm{eV}$ per tesla."
+   ],
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 8/11, topic Zeeman effect, first-order perturbation theory"
+   }
+  },
+  {
+   "id": "drill-qm-sk-5",
+   "room": "wave-mechanics-basics",
+   "title": "Finite square well and its ground state",
+   "task": "Sketch the potential $V(x)$ of a finite square well of half-width $a$ and depth $V_0$, and the ground-state wave function, drawn at its energy level (here $\\sqrt{2mV_0}\\,a/\\hbar=3$).",
+   "x": {
+    "label": "x / a",
+    "min": -3.2,
+    "max": 3.2
+   },
+   "y": {
+    "label": "V/V0 and psi at E/V0",
+    "min": -0.05,
+    "max": 1.1
+   },
+   "curves": [
+    {
+     "label": "V/V0 (well floor at 0, walls at 1)",
+     "points": [
+      [
+       -3,
+       1
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -1.001,
+       1
+      ],
+      [
+       -1,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1.001,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ]
+    },
+    {
+     "label": "psi_0 at E/V0=0.15",
+     "points": [
+      [
+       -3,
+       0.1527
+      ],
+      [
+       -2.9,
+       0.1528
+      ],
+      [
+       -2.8,
+       0.1531
+      ],
+      [
+       -2.7,
+       0.1534
+      ],
+      [
+       -2.6,
+       0.1538
+      ],
+      [
+       -2.5,
+       0.1543
+      ],
+      [
+       -2.4,
+       0.155
+      ],
+      [
+       -2.3,
+       0.1559
+      ],
+      [
+       -2.2,
+       0.1571
+      ],
+      [
+       -2.1,
+       0.1587
+      ],
+      [
+       -2,
+       0.1608
+      ],
+      [
+       -1.9,
+       0.1635
+      ],
+      [
+       -1.8,
+       0.1671
+      ],
+      [
+       -1.7,
+       0.1719
+      ],
+      [
+       -1.6,
+       0.1782
+      ],
+      [
+       -1.5,
+       0.1864
+      ],
+      [
+       -1.4,
+       0.1973
+      ],
+      [
+       -1.3,
+       0.2117
+      ],
+      [
+       -1.2,
+       0.2307
+      ],
+      [
+       -1.1,
+       0.2557
+      ],
+      [
+       -1,
+       0.2886
+      ],
+      [
+       -0.9,
+       0.3253
+      ],
+      [
+       -0.8,
+       0.3597
+      ],
+      [
+       -0.7,
+       0.3911
+      ],
+      [
+       -0.6,
+       0.4194
+      ],
+      [
+       -0.5,
+       0.4439
+      ],
+      [
+       -0.4,
+       0.4645
+      ],
+      [
+       -0.3,
+       0.4808
+      ],
+      [
+       -0.2,
+       0.4926
+      ],
+      [
+       -0.1,
+       0.4997
+      ],
+      [
+       0,
+       0.5021
+      ],
+      [
+       0.1,
+       0.4997
+      ],
+      [
+       0.2,
+       0.4926
+      ],
+      [
+       0.3,
+       0.4808
+      ],
+      [
+       0.4,
+       0.4645
+      ],
+      [
+       0.5,
+       0.4439
+      ],
+      [
+       0.6,
+       0.4194
+      ],
+      [
+       0.7,
+       0.3911
+      ],
+      [
+       0.8,
+       0.3597
+      ],
+      [
+       0.9,
+       0.3253
+      ],
+      [
+       1,
+       0.2886
+      ],
+      [
+       1.1,
+       0.2557
+      ],
+      [
+       1.2,
+       0.2307
+      ],
+      [
+       1.3,
+       0.2117
+      ],
+      [
+       1.4,
+       0.1973
+      ],
+      [
+       1.5,
+       0.1864
+      ],
+      [
+       1.6,
+       0.1782
+      ],
+      [
+       1.7,
+       0.1719
+      ],
+      [
+       1.8,
+       0.1671
+      ],
+      [
+       1.9,
+       0.1635
+      ],
+      [
+       2,
+       0.1608
+      ],
+      [
+       2.1,
+       0.1587
+      ],
+      [
+       2.2,
+       0.1571
+      ],
+      [
+       2.3,
+       0.1559
+      ],
+      [
+       2.4,
+       0.155
+      ],
+      [
+       2.5,
+       0.1543
+      ],
+      [
+       2.6,
+       0.1538
+      ],
+      [
+       2.7,
+       0.1534
+      ],
+      [
+       2.8,
+       0.1531
+      ],
+      [
+       2.9,
+       0.1528
+      ],
+      [
+       3,
+       0.1527
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "The ground state is even and nodeless, with its energy $E_0>0$ above the well floor and below $V_0$.",
+    "Inside, $\\psi\\propto\\cos kx$ with $k<\\pi/2a$, so the curve is rounder than in the infinite well.",
+    "Outside, $\\psi$ decays exponentially (evanescent tail), with a continuous slope at $x=\\pm a$.",
+    "The wave function penetrates into the classically forbidden region; the tail is the reason $E_0$ is lower than the infinite-well value."
+   ],
+   "tips": "The baseline of psi is drawn at E/V0; the amplitude scale is arbitrary.",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 3, topic finite potential well"
+   }
+  },
+  {
+   "id": "drill-qm-sk-6",
+   "room": "formalism-and-uncertainty",
+   "title": "Spreading of a free Gaussian wave packet",
+   "task": "Sketch the width $\\Delta x(t)/\\Delta x_0$ of a free Gaussian packet as a function of $t/t_s$, $t_s=2m\\Delta x_0^2/\\hbar$, and add its late-time asymptote.",
+   "x": {
+    "label": "t / t_s",
+    "min": 0,
+    "max": 5
+   },
+   "y": {
+    "label": "Dx(t)/Dx0",
+    "min": 0,
+    "max": 5.2
+   },
+   "curves": [
+    {
+     "label": "Dx(t)/Dx0",
+     "points": [
+      [
+       0,
+       1
+      ],
+      [
+       0.2,
+       1.0198
+      ],
+      [
+       0.4,
+       1.077
+      ],
+      [
+       0.6,
+       1.1662
+      ],
+      [
+       0.8,
+       1.2806
+      ],
+      [
+       1,
+       1.4142
+      ],
+      [
+       1.2,
+       1.562
+      ],
+      [
+       1.4,
+       1.7205
+      ],
+      [
+       1.6,
+       1.8868
+      ],
+      [
+       1.8,
+       2.0591
+      ],
+      [
+       2,
+       2.2361
+      ],
+      [
+       2.2,
+       2.4166
+      ],
+      [
+       2.4,
+       2.6
+      ],
+      [
+       2.6,
+       2.7857
+      ],
+      [
+       2.8,
+       2.9732
+      ],
+      [
+       3,
+       3.1623
+      ],
+      [
+       3.2,
+       3.3526
+      ],
+      [
+       3.4,
+       3.544
+      ],
+      [
+       3.6,
+       3.7363
+      ],
+      [
+       3.8,
+       3.9294
+      ],
+      [
+       4,
+       4.1231
+      ],
+      [
+       4.2,
+       4.3174
+      ],
+      [
+       4.4,
+       4.5122
+      ],
+      [
+       4.6,
+       4.7074
+      ],
+      [
+       4.8,
+       4.9031
+      ],
+      [
+       5,
+       5.099
+      ]
+     ]
+    },
+    {
+     "label": "asymptote t/t_s",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0.2,
+       0.2
+      ],
+      [
+       0.4,
+       0.4
+      ],
+      [
+       0.6,
+       0.6
+      ],
+      [
+       0.8,
+       0.8
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1.2,
+       1.2
+      ],
+      [
+       1.4,
+       1.4
+      ],
+      [
+       1.6,
+       1.6
+      ],
+      [
+       1.8,
+       1.8
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2.2,
+       2.2
+      ],
+      [
+       2.4,
+       2.4
+      ],
+      [
+       2.6,
+       2.6
+      ],
+      [
+       2.8,
+       2.8
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       3.2,
+       3.2
+      ],
+      [
+       3.4,
+       3.4
+      ],
+      [
+       3.6,
+       3.6
+      ],
+      [
+       3.8,
+       3.8
+      ],
+      [
+       4,
+       4
+      ],
+      [
+       4.2,
+       4.2
+      ],
+      [
+       4.4,
+       4.4
+      ],
+      [
+       4.6,
+       4.6
+      ],
+      [
+       4.8,
+       4.8
+      ],
+      [
+       5,
+       5
+      ]
+     ]
+    }
+   ],
+   "features": [
+    "Starts at $\\Delta x(0)/\\Delta x_0=1$ with zero slope (parabolic start).",
+    "At $t=t_s$ the width is $\\sqrt2\\,\\Delta x_0$.",
+    "Late times: linear growth $\\Delta x\\to\\Delta x_0\\,t/t_s$, i.e. the asymptote.",
+    "The curve lies above the asymptote everywhere and approaches it from above."
+   ],
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "adapted from script ch. 2/4, topic free particle Gaussian wave packet"
+   }
+  }
+ ]
+}

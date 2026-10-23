@@ -1,0 +1,104 @@
+              Introduction to Astrophysics
+                            Michael Meyer, HS 2010
+                        10.2.2011, 9:30-10:00, Beat Bräm
+
+Ich bin einige Minuten zu früh dort, er winkt mich ins Büro und stellt seinen Assisten-
+ten vor. Trotzdem will er noch bis um 9:30 warten, um mit der Prüfung zu beginnen
+und macht sich noch weitere Notizen zum vorhergehenden Studenten. Während der
+Prüfung kriege ich Notizpapier um gegebenenfalls Formeln aufschreiben zu können.
+Während der Prüfung sitzen wir alle am Tisch in seinem Büro.
+
+Er hatte ja die Liste mit den 72 Key Concepts veröffentlicht, jeder kriegt 6 verschiedene
+Topics in 4 kurzen Fragen (je 2 Minuten) und 2 längeren Themen (je 6 Minuten,
+gibt zusammen mit dem Einsteigsgespräch 22 Minuten, er stellt den Timer). Zuerst
+3 kurze Fragen, dann eine längere, eine kurze zur Abwechslung und dann eine lange
+zum Schluss, so sein Fahrplan. Mir egal, soll er machen was er will.
+
+MM: Von den „Astrophysical News“, die ich in der Stunde vorgestellt habe, ist Ihnen
+davon etwas speziell in Erinnerung geblieben?
+BB: Ja, die Helligkeitskurve des Exoplaneten der Kepler Mission, die er in der Prü-
+fungsvorbereitungsstunde gezeigt hat, denn in der Astrowoche hat unser Team ja genau
+so was zu messen versucht. Dazu noch einige News erwähnt zur Kepler Mission, die
+ich interessant fand. Gemütliches Gespräch.
+MM: Gut, was können Sie mir über den Cosmic Microwave Background erzählen?
+Wissenschaftliche Bedeutung?
+BB: Der beschreibt extrem gut die Intensitätskurve eines schwarzen Körpers der Tem-
+peratur 2.7K, die Abweichungen im Bereich von 30 µK. Hinweis auf ehemaliges Thermi-
+sches Gleichgewicht und Expansion. Hinweis auf heisses, dichtes Universum in früherer
+Zeit, „Surface of last scattering“ zu t=380’000yr.
+MM: was war nötig, um dieses ebene Background Bild, dass sie beschreiben, zu er-
+halten?
+BB: Abziehen des Doppler Shifts, der von der Bewegung unseres Sonnensystems
+kommt, dazu Entfernen der Störungen durch die Milchstrasse.
+MM: was, wenn das Universum statisch wäre?
+BB: verstehe die Frage nicht, erzähle was von speziellen Bedingungen die dafür erfüllt
+sein müssten (z.B. P=0 oder so) aus den Friedmann equations
+MM: Gibt es Hinweise auf die Expansion des Universums?
+BB: Ja, z.B. den Redshift entfernter Objekte (das reicht ihm schon)
+MM: Was wissen Sie über Raten der Nuklearen Reaktionen? Temperaturen?
+BB: eine klassische Überwindung der Coulombbarriere würde T≈ 1010 K erfordern,
+höhere Raten durch Tunneling und dass die Boltzmannverteilung nach oben offen ist.
+Erwähne noch den Gamow-Peak und dass dieser in Sternen bei ca. 300keV liegt. Am
+Schluss fällt mir ja ein, dass für Sterne eine tiefe Reaktionsrate genügt.
+MM: Sie haben die Boltzmann Verteilung erwähnt, können sie die zeichnen?
+
+
+
+                                           1
+BB: Tue es (falsch da nicht durch 0 bei v=0)
+MM: erwähnt irgendwas, dass da noch etwas unklar sei und erwähnt einen Peak - mir
+wirds klar und korrigiere die Kurve durch Nullpunkt. Wo ist der Mittelwert und der
+Peak?
+BB: Mittelwert rechts vom Maximum
+MM: wie würden Sie so was berechnen?
+BB: v · fB über v integrieren
+MM: Was ist das Hydrostatic Equilibrium?
+BB: schreib die Formel hin
+MM: Konsequenzen?
+BB: Exponentielle Athmosphäre, aus idealem Gasgesetz
+MM: was ist die Konsequenz für Wasserstoff in der Athmosphäre der frühen Erde?
+BB: es entweicht leichter, da schwächer durch Gravitation gebunden als schwerere
+Moleküle.
+MM: auch wenn sie es eigentlich schon gesagt haben, was ist die Konsequnez für CO2
+BB: entweicht nicht, bzw. langsamer als H2
+MM: Nun zur Planetenformation in Circumstellar Disks: es gibt da ein Kriterium ...
+BB: schreib das Toomre-Kriterium hin
+MM: unter welchen Voraussetzungen / Annahmen wurde es gemacht?
+BB: Egrav > Etherm und EGrav > Erot
+MM: G ist eine Konstante, erklären sie die Effekte der anderen Komponenten
+BB: erkläre Bedeutung und Effekt von ω, cs und Σ.
+MM: Okay, was ist degeneracy Pressure?
+BB: Elektronen, Pauli, höhere Energieen nötig bei höherer Dichte, muss Energie auf-
+wenden um Dichte zu erhöhen ⇒ Druck. Es gib unterschiedliche Exponenten der Ab-
+hängigkeit von der Dichte für den Relativistischen und den Nicht-Relativistischen Fall,
+schreibe diese hin.
+MM: Wie ist die Temperaturabhängigkeit?
+BB: keine
+MM: und was ist die Konsequenz für einen entarteten Kern am Ende einer Sternent-
+wicklung?
+BB: weiss, er will einen bestimmten Ausdruck hören, komme aber nicht drauf. Wir
+sprechen darüber, dass bei weiterer Kontraktion die Temperatur ansteigt, usw., kom-
+me auf den Helium Flash und das ε(T ) Diagramm, dass die Energiegenerierungsrate
+der PP-, CNO- und Triple-Alpha-Prozesse zeigt und keine Gleichgewichtslage mehr
+entsteht. Doch dann ertönt der Timer.
+MM: Erklärt noch, dass er hätte hören wollen, dass keine Rück-Expansion bei Über-
+hitzung entsteht, und wir einfach drumherum gereded hätten.
+
+Irgendwann dazwischen, weiss nicht mehr wann, wollte er noch das Kosmologische
+Prinzip erklärt haben, dazu noch was Isotropie und Homogenität bedeuten. Die Prü-
+fung ging sehr schnell vorüber in einer gemütlichen Athmosphäre, so dass man auch
+noch einige Zeit weiter miteinander gereded hätte, hätte der Timer nicht unterbrochen.
+Nachdem man schon etwas allgemeines zum Thema gesagt hat, sind einige seiner nach-
+folgenden Fragen schon beantwortet. Er stellt sie trotzdem noch, vielleicht um noch
+
+
+
+                                          2
+mehr Details oder die Antwort nochmals zu hören.
+Note: 6
+
+
+
+
+                                       3
+

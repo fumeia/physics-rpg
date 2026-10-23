@@ -1,0 +1,26 @@
+# Physics RPG: study game for QM, solid state and astrophysics
+
+Run (progress is saved to a JSON file per profile):
+
+    cd game && python3 serve.py          # http://127.0.0.1:8123, profiles in game/profiles/<name>.json
+    python3 serve.py --port 9000 --host 0.0.0.0   # on a server; set PHYSICS_RPG_TOKEN=secret to require a token
+
+`./run.sh` starts the same server and opens an app window if Chromium exists. Any static server also works
+(then progress is kept in the browser only; use P -> export/import). Keys: F1 in the game.
+
+- Profiles: P in the game. Progress lives in localStorage and is mirrored to `profiles/<name>.json` (atomic, 5 backups);
+  after clearing the browser or moving to a server (copy the `profiles` folder) nothing is lost.
+- Exam hall (X): per course mock exams (timer, points, Swiss grade 4.0 at 50 %, 6.0 at 82.5 %, history chart).
+- Nexus (start room), guide route, daily missions (T), formula drawer (B), connections (K), labs, "What if?" explorer after every fight.
+- Content is data: `content/<course>/*.json` (see `../docs/CONTENT.md`), rooms in `src/rooms/`, models in `src/labmodels.js`.
+
+Tests (node, plus headless Chromium via `test/setup-chromium.sh`):
+
+    node test/labs-check.mjs && node test/missions-check.mjs && node test/explorer-check.mjs
+    node test/content-check.mjs && node test/content-check-qm.mjs && node test/content-check-solid-state.mjs
+    node test/content-check-astrophysics.mjs && node test/content-check-blitz.mjs && node test/content-check-links.mjs
+    node test/exam-check.mjs           # grade scale, mock exam builder
+    node test/exam-smoke.mjs           # exam hall in the browser
+    node test/pile-smoke.mjs           # the "look later" pile
+    node test/rooms-smoke.mjs          # loads every room, opens every encounter, drives every lab
+    node test/e2e.mjs                  # plays through the game (about 6 minutes)

@@ -1,0 +1,1507 @@
+{
+ "region": "QM Interference Labs",
+ "course": "quantum-mechanics",
+ "exhibit": "set",
+ "id": "qm-hydrogen-lamp",
+ "title": "The Hydrogen Lamp",
+ "topics": [
+  "radial equation and spectrum of hydrogen",
+  "Rydberg lines and degeneracy n^2",
+  "dynamical so(4) symmetry (Runge-Lenz vector)",
+  "hydrogenic ground state, sudden change of Z, uncertainty",
+  "spin-orbit coupling, Zeeman and Paschen-Back effect, Lande g-factor",
+  "variational principle"
+ ],
+ "sources": [
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 8.1-8.3 (pp. 82-92): hydrogen atom, radial problem, dynamical symmetry"
+  },
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 9.7 (pp. 105-107): anomalous Zeeman effect, spin-orbit coupling, eq. (9.7.29)"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 10.pdf",
+   "where": "Q1 oscillator in spherical coordinates (same method as hydrogen)"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+   "where": "Q1 more on the dynamical symmetry so(4)"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+   "where": "Q3 spin-orbit coupling and Zeeman effect"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+   "where": "Question 2 [Ground state of a hydrogenic atom, 20 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+   "where": "A.7 (N commuting su(2); N=2 is hydrogen)"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS16.pdf",
+   "where": "1.3 Zeeman Effekt"
+  },
+  {
+   "file": "materials/quantum-mechanics/scripts/Tong Quantum Mechanics.pdf",
+   "where": "variational principle (supplementary; not in the lecturer script)"
+  },
+  {
+   "file": "notes/quantum-mechanics/ch08-hydrogen.md",
+   "where": "transcription and worked solutions"
+  }
+ ],
+ "intro": "The lamp is a hydrogen discharge tube. Its lines $\\hbar\\omega=13.6\\,\\mathrm{eV}\\,(n^{-2}-n'^{-2})$ come from the Coulomb spectrum $E_n=-e^2/2an^2$ with the unusual degeneracy $n^2$, which is explained by a hidden so(4) symmetry. Perturb the lamp with a magnetic field and the lines split: weak field (anomalous Zeeman, Lande $g$) or strong field (Paschen-Back). The exam routine: write the radial equation, know $\\langle r^{k}\\rangle$, count states with $n^2$, and use $\\vec L\\cdot\\vec S=\\frac12(J^2-L^2-S^2)$.",
+ "tutorial": [
+  {
+   "title": "The lamp",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The horizontal lines are the levels $E_n=-13.6\\,\\mathrm{eV}/n^2$ crowding together towards the ionisation threshold $E=0$. The arrows are the emitted photons: Lyman ($n'\\to1$), Balmer ($n'\\to2$). The orange sphere is an electron in the radial orbit around the proton.</p>"
+  },
+  {
+   "title": "The Zeeman ladder",
+   "look": {
+    "x": -4,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>On the left the $2p$ level splits first by spin-orbit coupling ($j=\\frac32,\\frac12$) and then by $B$ in $2j+1$ equidistant sublevels $g_{lj}\\mu_BBm_j$ (weak field). The slope differs between $j=\\frac32$ ($g=\\frac43$) and $j=\\frac12$ ($g=\\frac23$).</p>"
+  },
+  {
+   "title": "Consoles",
+   "look": {
+    "x": 0,
+    "z": 0
+   },
+   "focus": null,
+   "html": "<p>Library: spectrum and radial functions, so(4), HS25 Q2, spin-orbit and Zeeman. Quiz, derivation desk and fights follow the sheets; the boss gate holds HS25 Q2, the so(4) sheet problem (with HS22 A.7) and the spin-orbit and Zeeman sheet problem.</p>"
+  }
+ ],
+ "encounters": [
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-hl-L1",
+   "title": "Hydrogen: radial equation, spectrum, degeneracy and expectation values",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 8.1-8.2, pp. 82-87"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 10.pdf",
+     "where": "Q1 (same method with the oscillator)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 4 (iv) radial functions"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch08-hydrogen.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Separate the centre-of-mass motion (reduced mass $m$) and write $\\Psi=\\frac{u(r)}rY_{lm}(\\theta,\\phi)$. The radial Schroedinger equation is a one-dimensional problem with an effective potential:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\Big[-\\frac{\\hbar^2}{2m}\\frac{d^2}{dr^2}+\\frac{\\hbar^2l(l+1)}{2mr^2}-\\frac{e^2}r\\Big]u(r)=E\\,u(r)",
+     "label": "script (8.x); in the exam e^2/r, in sheet 11 kappa/r"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Boundary behaviour</b> (sheet 10 Q1(ii) does this for the oscillator): near $r=0$ the centrifugal term dominates, $u\\sim r^{l+1}$ (the other solution $r^{-l}$ is not square-integrable for the 3D wave function). For $r\\to\\infty$ one has $u''=-\\frac{2mE}{\\hbar^2}u$, so $u\\sim e^{-\\sqrt{-2mE}\\,r/\\hbar}$ for $E<0$. For the oscillator the large-$r$ behaviour is a Gaussian instead, because $V\\sim r^2$ rather than $1/r$."
+    },
+    {
+     "kind": "text",
+     "html": "Insert $u=r^{l+1}e^{-r/(na)}\\sum_kc_kr^k$: the power series terminates only if $E=-e^2/(2an^2)$ with an integer $n=l+1+k_{max}$, so that $l\\le n-1$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "E_n=-\\frac{me^4}{2\\hbar^2n^2}=-\\frac{e^2}{2a\\,n^2},\\quad a=\\frac{\\hbar^2}{me^2},\\quad \\deg(E_n)=\\sum_{l=0}^{n-1}(2l+1)=n^2",
+     "label": "n^2 is larger than the 2l+1 expected from rotation symmetry: see the so(4) lesson"
+    },
+    {
+     "kind": "eq",
+     "tex": "R_{10}=\\tfrac{2}{a^{3/2}}e^{-r/a},\\ R_{20}=\\tfrac1{\\sqrt{8a^3}}\\big(2-\\tfrac ra\\big)e^{-r/2a},\\ R_{21}=\\tfrac1{\\sqrt{24a^3}}\\tfrac rae^{-r/2a};\\quad \\langle r^{-1}\\rangle=\\tfrac1{n^2a},\\ \\langle r^{-2}\\rangle=\\tfrac1{n^3(l+\\frac12)a^2}",
+     "label": "integrals: int r^n e^{-r/a} dr = a^{n+1} n!"
+    },
+    {
+     "kind": "intuition",
+     "html": "Photon energies $\\hbar\\omega=13.6\\,\\mathrm{eV}\\,(n^{-2}-n'^{-2})$: Lyman-$\\alpha$ ($2\\to1$) $10.2$ eV (ultraviolet), Balmer-$\\alpha$ ($3\\to2$) $1.89$ eV, $656$ nm (red). The series limit is the ionisation energy $13.6$ eV."
+    },
+    {
+     "kind": "pitfall",
+     "html": "$\\int_0^\\infty R^2r^2dr=1$: the radial measure includes $r^2$, so $\\langle r^k\\rangle=\\int R^2r^{k+2}dr$. Do not forget the factor $a^{n+1}n!$ when integrating with several powers. Scale: the exam gives $a$ as the Bohr radius, in HS25 Q2 $a$ is the hydrogenic radius $a_0/Z$."
+    }
+   ],
+   "check": [
+    {
+     "q": "The lowest-energy radial behaviour at $r\\to0$ is $u(r)\\sim$",
+     "options": [
+      "$r^{l}$",
+      "$r^{l+1}$",
+      "$r^{-l}$",
+      "$e^{-r}$"
+     ],
+     "correct": 1,
+     "explain": "$u''=\\frac{l(l+1)}{r^2}u$ has solutions $r^{l+1}$ and $r^{-l}$."
+    },
+    {
+     "q": "The degeneracy of the hydrogen level $E_n$ (without spin) is",
+     "options": [
+      "$2n^2$",
+      "$2n+1$",
+      "$n$",
+      "$n^2$"
+     ],
+     "correct": 3,
+     "explain": "$\\sum_{l=0}^{n-1}(2l+1)=n^2$."
+    },
+    {
+     "q": "Photon energy of the line $3\\to2$ in hydrogen",
+     "options": [
+      "$13.6\\,\\mathrm{eV}\\cdot(\\frac19-\\frac14)$",
+      "$13.6\\,\\mathrm{eV}\\cdot(\\frac14-\\frac19)=1.89$ eV",
+      "$13.6\\,\\mathrm{eV}\\cdot(\\frac12-\\frac13)$",
+      "$13.6\\,\\mathrm{eV}/(3-2)$"
+     ],
+     "correct": 1,
+     "explain": "$E_3-E_2$ with $E_n=-13.6/n^2$ eV."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-hl-L2",
+   "title": "Why n^2? The hidden so(4) symmetry of the Coulomb problem",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 8.3, pp. 88-92"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+     "where": "Q1"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+     "where": "A.7"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch08-hydrogen.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Classically the Kepler orbit is closed because of an extra conserved vector, the Runge-Lenz (Pauli-Lenz) vector. Quantum mechanically, for $H=\\frac{p^2}{2m}-\\frac\\kappa r$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\vec J=\\frac1{2m}\\big(\\vec p\\wedge\\vec L-\\vec L\\wedge\\vec p\\big)-\\kappa\\frac{\\vec x}{r},\\quad [H,\\vec J]=0,\\quad \\vec J\\cdot\\vec L=0,\\quad \\vec J^{\\,2}=\\frac{2H}{m}(\\vec L^2+\\hbar^2)+\\kappa^2",
+     "label": "sheet 11 Q1 (1)"
+    },
+    {
+     "kind": "text",
+     "html": "On a subspace of fixed $E<0$ the operator $H$ is a number, so $[J_i,J_j]=i\\hbar\\epsilon_{ijk}\\big(-\\tfrac{2E}m\\big)L_k$ and $[L_i,J_j]=i\\hbar\\epsilon_{ijk}J_k$. Rescale $\\vec J\\to a\\vec J$ with $a=\\sqrt{-m/2E}$ to get the same algebra as $\\vec L$. Then $\\vec S=\\frac12(\\vec L+a\\vec J)$ and $\\vec D=\\frac12(\\vec L-a\\vec J)$ are two commuting su(2) algebras: so(4) $\\cong$ su(2)$\\oplus$su(2)."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\vec S^2=\\vec D^2=\\frac14\\Big(-\\hbar^2-\\frac{m\\kappa^2}{2E}\\Big)=\\hbar^2s(s+1),\\quad s=\\frac{n-1}2\\ \\Leftrightarrow\\ E_n=-\\frac{m\\kappa^2}{2\\hbar^2n^2}",
+     "label": "uses J.L = 0 (cross terms vanish) and J^2 above"
+    },
+    {
+     "kind": "text",
+     "html": "The energy eigenspace is the representation $D_s\\otimes D_s$ of dimension $(2s+1)^2=n^2$. Angular momentum is $\\vec L=\\vec S+\\vec D$, so by Clebsch-Gordan $D_s\\otimes D_s=\\bigoplus_{l=0}^{2s}D_l$ with $l=0,\\dots,n-1$ each once: exactly the hydrogen spectrum. The highest-weight state (annihilated by $S_+$ and $D_+$, hence by $L_+$ and $J_+$) is $|n,n-1,n-1\\rangle$, with $\\psi\\propto r^{n-1}\\sin^{n-1}\\theta\\,e^{i(n-1)\\phi}e^{-r/(na)}$ (sheet 11 Q1(iii)); lower states come from applying $S_-,D_-$."
+    },
+    {
+     "kind": "intuition",
+     "html": "The accidental degeneracy in $l$ is thus a true symmetry. A perturbation that is rotation invariant but not so(4) invariant (the $p^4$ correction, the $1/r^2$-type fine structure) lifts it, as seen in the perturbation forge."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\text{HS22 A.7: }N\\text{ commuting su(2) with }\\vec A^{(m)2}=\\tfrac{15}4\\hbar^2\\ (s=\\tfrac32):\\ \\ \\#\\text{states}=(2s+1)^N=4^N,\\ N=2\\ (n=4)\\Rightarrow16=n^2",
+     "label": "the hint of the exam: N = 2 is the hydrogen atom"
+    },
+    {
+     "kind": "pitfall",
+     "html": "$s=(n-1)/2$ and not $n/2$: $n=1$ must give the trivial representation ($s=0$), one state. And $S^2=D^2$ always, since $\\vec L\\cdot\\vec J=0$."
+    }
+   ],
+   "check": [
+    {
+     "q": "Which representation of so(4) $\\cong$ su(2)$\\oplus$su(2) describes the level $E_n$?",
+     "options": [
+      "$D_n\\otimes D_n$",
+      "$D_{(n-1)/2}\\oplus D_{(n-1)/2}$",
+      "$D_{(n-1)/2}\\otimes D_{(n-1)/2}$ with dimension $n^2$",
+      "$D_{n-1}$"
+     ],
+     "correct": 2,
+     "explain": "$s(s+1)=\\frac{n^2-1}4$ gives $s=\\frac{n-1}2$."
+    },
+    {
+     "q": "$\\vec L=\\vec S+\\vec D$ with $S^2=D^2=\\hbar^2s(s+1)$, $s=1$ ($n=3$). Allowed $l$ are",
+     "options": [
+      "$l=0,1,2,3,4$",
+      "$l=0,1,2$, each once",
+      "$l=1,2$",
+      "$l=2$ only"
+     ],
+     "correct": 1,
+     "explain": "$1\\otimes1=0\\oplus1\\oplus2$, dimension $9=n^2$."
+    },
+    {
+     "q": "The highest weight state of the $n$-th level is",
+     "options": [
+      "$|n,l=n-1,m=n-1\\rangle$",
+      "$|n,0,0\\rangle$",
+      "$|n,n-1,0\\rangle$",
+      "$|n,n,n\\rangle$"
+     ],
+     "correct": 0,
+     "explain": "Annihilated by $L_+$ and $J_+$; its wave function is $r^{n-1}\\sin^{n-1}\\theta\\,e^{i(n-1)\\phi}e^{-r/na}$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-hl-L3",
+   "title": "Hydrogenic ground state, sudden change of the charge, uncertainty (HS25 Q2)",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 2 (i)-(v), 20 pt"
+    },
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 8.2"
+    },
+    {
+     "file": "materials/quantum-mechanics/scripts/Tong Quantum Mechanics.pdf",
+     "where": "variational principle (supplementary; not in the lecturer script)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch08-hydrogen.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "For $H=-\\frac{\\hbar^2}{2m}\\nabla^2-\\frac{Ze^2}r$ test $\\psi=\\frac1{\\sqrt{\\pi a^3}}e^{-r/a}$. Radial derivatives: $\\psi'=-\\psi/a$, $\\psi''=\\psi/a^2$, so $\\nabla^2\\psi=\\psi''+\\frac2r\\psi'=\\big(\\frac1{a^2}-\\frac2{ar}\\big)\\psi$ and"
+    },
+    {
+     "kind": "eq",
+     "tex": "H\\psi=\\Big[-\\frac{\\hbar^2}{2ma^2}+\\Big(\\frac{\\hbar^2}{ma}-Ze^2\\Big)\\frac1r\\Big]\\psi\\ \\Rightarrow\\ a=\\frac{\\hbar^2}{mZe^2}=\\frac{a_0}Z,\\quad E=-\\frac{\\hbar^2}{2ma^2}=-\\frac{Z^2e^2}{2a_0}",
+     "label": "(i): the 1/r terms must cancel"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Symmetries (ii)-(iii).</b> Parity $P\\psi(\\vec x)=\\psi(-\\vec x)$: $P\\psi=\\psi$. Rotations $e^{-i\\theta\\hat n\\cdot\\vec L/\\hbar}$ with $L_j\\psi=0$ because $\\psi$ depends only on $r$. If $Q=Q^\\dagger$ has $Q\\psi=q\\psi$, then $\\langle[Q,O]\\rangle=0$ for any $O$. Parity with $O=x_i$ ($Px_iP=-x_i$, so $\\{P,x_i\\}=0$) gives $\\langle x_i\\rangle=0$. With $O=x_k$, $Q=L_j$: $[L_j,x_k]=i\\hbar\\epsilon_{jkl}x_l$ implies $\\langle x_l\\rangle=0$ again; with $O=x_kx_l$ one finds $\\langle x_ix_j\\rangle\\propto\\delta_{ij}$, so $\\langle x_i^2\\rangle=\\frac13\\langle r^2\\rangle$."
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle r^2\\rangle=\\frac4{a^3}\\int_0^\\infty r^4e^{-2r/a}dr=\\frac4{a^3}\\cdot4!\\Big(\\frac a2\\Big)^5=3a^2\\ \\Rightarrow\\ \\Delta x_i=a,\\quad \\Delta p_j=\\frac{\\hbar}{\\sqrt3\\,a},\\quad \\Delta x_i\\Delta p_j=\\frac{\\hbar}{\\sqrt3}>\\frac\\hbar2",
+     "label": "(iv): the uncertainty principle holds with room to spare"
+    },
+    {
+     "kind": "text",
+     "html": "<b>(v) Sudden change $Z\\to\\tilde Z$.</b> The wave function does not change during the sudden jump; afterwards the energy is measured. The probability to find the new ground state is the squared overlap with $\\tilde\\psi=\\frac1{\\sqrt{\\pi\\tilde a^3}}e^{-r/\\tilde a}$, $\\tilde a=a_0/\\tilde Z$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle\\tilde\\psi|\\psi\\rangle=\\frac{8(a\\tilde a)^{3/2}}{(a+\\tilde a)^3}=\\frac{8(Z\\tilde Z)^{3/2}}{(Z+\\tilde Z)^3},\\qquad P=\\frac{64\\,(Z\\tilde Z)^3}{(Z+\\tilde Z)^6}\\ \\ (Z=1\\to2:\\ 0.702)",
+     "label": "int e^{-beta r} d^3x = 8 pi / beta^3"
+    },
+    {
+     "kind": "intuition",
+     "html": "$P=1$ for $\\tilde Z=Z$ and decreases as the two functions differ more. The rest of the probability is shared among excited s-states of the new atom (and the continuum)."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Variational principle.</b> For any normalised trial $\\phi$: $\\langle\\phi|H|\\phi\\rangle\\ge E_0$. With $\\phi_b\\propto e^{-r/b}$: $\\langle T\\rangle=\\frac{\\hbar^2}{2mb^2}$, $\\langle V\\rangle=-\\frac{e^2}b$, minimised at $b=a$ with the exact $E=-\\frac{e^2}{2a}$, because the trial family contains the exact ground state."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Sign and factor: $\\nabla^2$ of $e^{-r/a}$ gives $+\\frac1{a^2}-\\frac2{ar}$. Forgetting the $\\frac2r\\partial_r$ term gives no cancellation of the $1/r$ terms and the wrong $a$."
+    }
+   ],
+   "check": [
+    {
+     "q": "For $\\psi\\propto e^{-r/a}$ in the Coulomb potential $-Ze^2/r$, the condition to cancel the $1/r$ term is",
+     "options": [
+      "$a=\\hbar^2/(2mZe^2)$",
+      "$a=mZe^2/\\hbar^2$",
+      "$a=\\hbar^2/(mZe^2)$",
+      "$a=\\hbar^2/(mZ^2e^2)$"
+     ],
+     "correct": 2,
+     "explain": "$\\frac{\\hbar^2}{ma}=Ze^2$."
+    },
+    {
+     "q": "For the hydrogenic ground state, $\\Delta x_i\\,\\Delta p_j$ is",
+     "options": [
+      "$\\hbar/2$",
+      "$\\hbar/\\sqrt3\\approx0.577\\hbar$",
+      "$\\hbar$",
+      "$\\sqrt3\\hbar/2$"
+     ],
+     "correct": 1,
+     "explain": "$\\langle x_i^2\\rangle=\\langle r^2\\rangle/3=a^2$."
+    },
+    {
+     "q": "The charge jumps from $Z=1$ to $\\tilde Z=2$ suddenly. The probability to measure the new ground-state energy is",
+     "options": [
+      "$1/2$",
+      "$64\\cdot8/729\\approx0.70$",
+      "$1$",
+      "$(8\\cdot2^{3/2}/27)=0.838$"
+     ],
+     "correct": 1,
+     "explain": "$P=64(Z\\tilde Z)^3/(Z+\\tilde Z)^6$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-hl-L4",
+   "title": "Spin-orbit coupling and the Zeeman effect: strong and weak field",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 9.7 (pp. 105-107), (9.7.29)"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+     "where": "Q3"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS16.pdf",
+     "where": "1.3 Zeeman Effekt"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch08-hydrogen.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "The electron has spin $\\vec S$ and moves in the field $V=-e^2/r$: in its rest frame it sees a magnetic field, so $H_{SO}=\\frac1{2m^2c^2}\\frac1r\\frac{dV}{dr}\\,\\vec L\\cdot\\vec S=\\frac{e^2}{2m^2c^2r^3}\\vec L\\cdot\\vec S$. In a field $B\\hat z$: $H_Z=\\frac{\\mu_BB}{\\hbar}(L_z+2S_z)$, $\\mu_B=\\frac{e\\hbar}{2mc}$ (orbital $g=1$, spin $g=2$). Total: $\\Delta H=H_{SO}+H_Z$ (sheet 14 Q3)."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Zero field.</b> Couple $\\vec J=\\vec L+\\vec S$: $[H_{SO},J^2]=[H_{SO},J_z]=0$, so use $|n,l,j,m_j\\rangle$ and $\\vec L\\cdot\\vec S=\\frac12(J^2-L^2-S^2)=\\frac{\\hbar^2}2\\big[j(j+1)-l(l+1)-\\tfrac34\\big]$. With $\\langle r^{-3}\\rangle=\\frac{1}{n^3a^3\\,l(l+\\frac12)(l+1)}$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "E^{SO}_{nlj}=\\frac{n\\,E_n^2}{mc^2}\\,\\frac{j(j+1)-l(l+1)-\\frac34}{l(l+\\frac12)(l+1)}\\qquad (l\\ge1);\\quad 2p:\\ j=\\tfrac32:\\ +\\tfrac{mc^2\\alpha^4}{96},\\ \\ j=\\tfrac12:\\ -\\tfrac{mc^2\\alpha^4}{48}",
+     "label": "splitting alpha^4 mc^2/32 = 4.5e-5 eV"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Strong field (Paschen-Back, (i))</b>: $\\mu_BB\\gg E^{SO}$, treat $H_{SO}$ as a perturbation of $H_0+H_Z$. The good basis is $|n,l,m_l,m_s\\rangle$ with $E=\\mu_BB(m_l+2m_s)$, and $\\langle\\vec L\\cdot\\vec S\\rangle=\\hbar^2m_lm_s$ (only $L_zS_z$ is diagonal):"
+    },
+    {
+     "kind": "eq",
+     "tex": "E^{(1)}=\\mu_BB\\,(m_l+2m_s)+\\frac{2nE_n^2}{mc^2}\\frac{m_l\\,m_s}{l(l+\\frac12)(l+1)},\\qquad B\\gg\\frac{E^{SO}}{\\mu_B}",
+     "label": "for 2p: B >> 0.8 T"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Weak field (anomalous Zeeman, (iii))</b>: $H_Z$ is the perturbation in the $j$-basis. The projection theorem (Wigner-Eckart) gives $\\langle jm_j|L_z+2S_z|jm_j\\rangle=g_{lj}\\,\\hbar m_j$ with"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\Delta E_{nljm_j}=g_{lj}\\,\\mu_BB\\,m_j,\\quad g_{lj}=1+\\frac{j(j+1)+\\frac34-l(l+1)}{2j(j+1)}\\ \\Rightarrow\\ g_{l,l+\\frac12}=\\frac{2+2l}{1+2l},\\quad g_{l,l-\\frac12}=\\frac{2l}{1+2l}",
+     "label": "sheet 14 Q3 (iii), eqs. (5), (6); 2p3/2: 4/3, 2p1/2: 2/3, s: 2"
+    },
+    {
+     "kind": "intuition",
+     "html": "Weak field: the field only splits each $j$ multiplet ($2j+1$ equidistant levels, spacing $g\\mu_BB$), so there are more lines than the \"normal\" Zeeman triplet. Strong field: the spin-orbit term is a small correction to the free Larmor levels $\\mu_BB(m_l+2m_s)$ and the \"normal\" triplet returns. Intermediate fields need the $2\\times2$ blocks of the sheet hint (block diagonal because $[L^2,\\Delta H]=[L_z+S_z,\\Delta H]=0$)."
+    },
+    {
+     "kind": "pitfall",
+     "html": "The factor 2 in front of $S_z$ is the electron's spin $g$-factor, it is why $g_{lj}\\neq1$. For $l=0$ there is no spin-orbit coupling and $g=2$. Do not mix $j$ and $l$: $m_j$ runs over $2j+1$ values, not $2l+1$."
+    }
+   ],
+   "check": [
+    {
+     "q": "$\\langle\\vec L\\cdot\\vec S\\rangle$ in the state $|l=1,s=\\frac12;j=\\frac32\\rangle$ is",
+     "options": [
+      "$\\hbar^2/2$",
+      "$-\\hbar^2$",
+      "$3\\hbar^2/4$",
+      "$\\hbar^2$"
+     ],
+     "correct": 0,
+     "explain": "$\\frac12[j(j+1)-l(l+1)-\\frac34]$ in units of $\\hbar^2$."
+    },
+    {
+     "q": "In the Paschen-Back limit the spin-orbit correction of the state $|m_l,m_s\\rangle$ is proportional to",
+     "options": [
+      "$j(j+1)-l(l+1)-\\frac34$",
+      "$m_lm_s$",
+      "$m_j$",
+      "$m_l+2m_s$"
+     ],
+     "correct": 1,
+     "explain": "$\\langle L_zS_z+\\frac12(L_+S_-+L_-S_+)\\rangle=\\hbar^2m_lm_s$."
+    },
+    {
+     "q": "Weak-field Zeeman shift of $2p_{3/2}$, $m_j=\\frac32$",
+     "options": [
+      "$\\frac32\\mu_BB$",
+      "$2\\mu_BB$",
+      "$\\mu_BB$",
+      "$3\\mu_BB$"
+     ],
+     "correct": 1,
+     "explain": "$m_j=\\frac32$ is $|m_l=1,m_s=\\frac12\\rangle$ with $\\mu_BB(1+1)=2\\mu_BB$ in both limits."
+    }
+   ]
+  },
+  {
+   "type": "quiz",
+   "xp": 30,
+   "passMark": 0.75,
+   "id": "qm-hl-Q1",
+   "title": "Hydrogen lamp: exam-style multiple choice",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 8-9.7"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 2"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+     "where": "A.7"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+     "where": "Q1"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+     "where": "Q3"
+    }
+   ],
+   "questions": [
+    {
+     "q": "HS22 A.7 with $N=2$ and $\\vec A^{(m)2}=\\frac{15}4\\hbar^2$: the number of degenerate states is",
+     "options": [
+      "$4$",
+      "$8$",
+      "$15$",
+      "$16$"
+     ],
+     "correct": 3,
+     "explain": "$s(s+1)=15/4\\Rightarrow s=\\frac32$; $4^2=16=n^2$ with $n=4$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS22.pdf",
+      "where": "A.7"
+     }
+    },
+    {
+     "q": "The energy of hydrogenic He$^+$ ($Z=2$) in the ground state is",
+     "options": [
+      "$-27.2$ eV",
+      "$-54.4$ eV",
+      "$-13.6$ eV",
+      "$-108.8$ eV"
+     ],
+     "correct": 1,
+     "explain": "$E=-Z^2\\cdot13.6$ eV.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 2(i)"
+     }
+    },
+    {
+     "q": "The commutator $[H,\\vec J]$ with the Runge-Lenz vector $\\vec J$ is",
+     "options": [
+      "$0$",
+      "$i\\hbar\\vec L$",
+      "$-\\kappa\\vec x/r$",
+      "it depends on $l$"
+     ],
+     "correct": 0,
+     "explain": "This conservation is what gives $n^2$ degeneracy.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+      "where": "Q1"
+     }
+    },
+    {
+     "q": "Wave function exponent: bound-state $u(r)$ at large $r$ for hydrogen behaves like",
+     "options": [
+      "$\\exp(-\\sqrt{-2mE}\\,r/\\hbar)$, an exponential, unlike a Gaussian for the oscillator",
+      "$\\exp(-mr^2\\omega/2\\hbar)$",
+      "$r^{-l}$",
+      "$r^{l+1}$"
+     ],
+     "correct": 0,
+     "explain": "$u''=-(2mE/\\hbar^2)u$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 10.pdf",
+      "where": "Q1(ii)"
+     }
+    },
+    {
+     "q": "$\\langle r^2\\rangle$ of the hydrogenic ground state is",
+     "options": [
+      "$a^2$",
+      "$2a^2$",
+      "$3a^2$",
+      "$\\frac32a^2$"
+     ],
+     "correct": 2,
+     "explain": "$\\frac4{a^3}\\int r^4e^{-2r/a}dr$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 2(iv)"
+     }
+    },
+    {
+     "q": "Spin-orbit splitting between $2p_{3/2}$ and $2p_{1/2}$ in hydrogen",
+     "options": [
+      "$\\alpha^2mc^2/32\\approx0.4$ eV",
+      "$\\alpha^4mc^2/32\\approx4.5\\times10^{-5}$ eV",
+      "$\\alpha^4mc^2\\approx1.4\\times10^{-3}$ eV",
+      "$0$"
+     ],
+     "correct": 1,
+     "explain": "$(\\frac1{96}+\\frac1{48})mc^2\\alpha^4$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+      "where": "Q3 (ii)"
+     }
+    },
+    {
+     "q": "Landé factors of $p$ electrons ($l=1$)",
+     "options": [
+      "$g_{3/2}=\\frac43$, $g_{1/2}=\\frac23$",
+      "$g_{3/2}=\\frac23$, $g_{1/2}=\\frac43$",
+      "both $2$",
+      "both $1$"
+     ],
+     "correct": 0,
+     "explain": "$g_{l,l\\pm1/2}$ from sheet 14 Q3 eq. (6).",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+      "where": "Q3 (iii)"
+     }
+    },
+    {
+     "q": "The variational energy $\\langle H\\rangle(b)$ with trial $e^{-r/b}$ is minimal at",
+     "options": [
+      "$b=a/2$",
+      "$b=a$, giving the exact ground state energy",
+      "$b\\to\\infty$",
+      "$b=2a$"
+     ],
+     "correct": 1,
+     "explain": "$E(b)\\ge E_0=-\\frac{e^2}{2a}$ and equal at $b=a$.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/Tong Quantum Mechanics.pdf",
+      "where": "variational principle (supplementary; not in the lecturer script)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-hl-D1",
+   "title": "Radial equation: boundary behaviour and quantisation of $E_n$",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "Ch. 8.2, pp. 84-87; method of sheet 10 Q1 (ii)-(iv)"
+   },
+   "goal": "Show $u\\sim r^{l+1}$ and $u\\sim e^{-\\sqrt{-2mE}r/\\hbar}$, and that termination of the power series gives $E_n=-e^2/(2an^2)$.",
+   "given": [
+    "$-\\frac{\\hbar^2}{2m}u''+\\big[\\frac{\\hbar^2l(l+1)}{2mr^2}-\\frac{e^2}r\\big]u=Eu$",
+    "$\\Psi=\\frac{u}rY_{lm}$ square integrable"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Behaviour near $r=0$.",
+     "reveal": "Dominant terms: $-u''+\\frac{l(l+1)}{r^2}u=0$. Try $u=r^s$: $s(s-1)=l(l+1)$, so $s=l+1$ or $s=-l$. The second makes $\\Psi=\\frac urY$ singular like $r^{-l-1}$ and not a solution at the origin (for $l=0$ a delta function), so $u\\sim r^{l+1}$."
+    },
+    {
+     "prompt": "(b) Behaviour at large $r$ and the ansatz.",
+     "reveal": "For $r\\to\\infty$: $u''=\\kappa^2u$ with $\\kappa=\\sqrt{-2mE}/\\hbar$ (needs $E<0$), $u\\sim e^{-\\kappa r}$. Ansatz: $u=e^{-\\kappa r}\\sum_{k\\ge l+1}c_kr^k$."
+    },
+    {
+     "prompt": "(c) Insert into the equation and find the recursion.",
+     "reveal": "Collecting $r^{k-1}$: $\\big[k(k+1)-l(l+1)\\big]c_{k+1}=\\big[2\\kappa k-\\frac{2me^2}{\\hbar^2}\\big]c_k$, i.e. $c_{k+1}=\\frac{2(\\kappa k-1/a)}{k(k+1)-l(l+1)}c_k$ with $a=\\hbar^2/me^2$."
+    },
+    {
+     "prompt": "(d) Why must the series terminate?",
+     "reveal": "If it does not, $c_{k+1}/c_k\\to2\\kappa/k$ and the series behaves like $e^{2\\kappa r}$, so $u\\sim e^{+\\kappa r}$ and the state is not normalisable. Termination at $k_{max}$ requires $\\kappa k_{max}=1/a$."
+    },
+    {
+     "prompt": "(e) Quantisation and degeneracy.",
+     "reveal": "$\\kappa=1/(na)$ with $n=k_{max}\\ge l+1$ integer, hence $E=-\\frac{\\hbar^2\\kappa^2}{2m}=-\\frac{\\hbar^2}{2ma^2n^2}=-\\frac{e^2}{2an^2}$; $l\\le n-1$ gives $\\sum(2l+1)=n^2$. For the oscillator the large-$r$ behaviour is $e^{-m\\omega r^2/2\\hbar}$ and the energies are $\\hbar\\omega(2k+l+\\frac32)$ (sheet 10 Q1)."
+    }
+   ],
+   "keyPoints": [
+    "centrifugal term fixes $u\\sim r^{l+1}$",
+    "large $r$: $E<0$ needed, decaying exponential",
+    "recursion for the coefficients and termination condition $\\kappa k_{max}=1/a$",
+    "$E_n=-e^2/2an^2$ with $l\\le n-1$, degeneracy $n^2$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-hl-D2",
+   "title": "Ground state of a hydrogenic atom (HS25 Q2 (i))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+    "where": "Question 2 (i), 4 pt"
+   },
+   "goal": "Show that $\\psi=\\frac1{\\sqrt{\\pi a^3}}e^{-r/a}$ solves $H\\psi=E\\psi$ for a certain $a$; find $a$ and $E$.",
+   "given": [
+    "$H=-\\frac{\\hbar^2}{2m}\\nabla^2-\\frac{Ze^2}r$",
+    "$\\nabla^2\\psi=\\psi''+\\frac2r\\psi'$ for radial functions (the angular terms of the given Laplacian vanish)"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Compute $\\nabla^2\\psi$.",
+     "reveal": "$\\psi'=-\\psi/a$, $\\psi''=\\psi/a^2$, so $\\nabla^2\\psi=\\big(\\frac1{a^2}-\\frac2{ar}\\big)\\psi$."
+    },
+    {
+     "prompt": "(b) Apply $H$.",
+     "reveal": "$H\\psi=-\\frac{\\hbar^2}{2m}\\big(\\frac1{a^2}-\\frac2{ar}\\big)\\psi-\\frac{Ze^2}r\\psi=\\Big[-\\frac{\\hbar^2}{2ma^2}+\\Big(\\frac{\\hbar^2}{ma}-Ze^2\\Big)\\frac1r\\Big]\\psi$."
+    },
+    {
+     "prompt": "(c) Demand an eigenfunction and read off $a$.",
+     "reveal": "The $1/r$ term must vanish: $a=\\frac{\\hbar^2}{mZe^2}=\\frac{a_0}Z$."
+    },
+    {
+     "prompt": "(d) Energy and normalisation.",
+     "reveal": "$E=-\\frac{\\hbar^2}{2ma^2}=-\\frac{Z^2e^2}{2a_0}=-Z^2\\cdot13.6$ eV. Normalisation: $\\int|\\psi|^2d^3x=\\frac{4\\pi}{\\pi a^3}\\int r^2e^{-2r/a}dr=\\frac4{a^3}\\cdot2\\Big(\\frac a2\\Big)^3=1$."
+    }
+   ],
+   "keyPoints": [
+    "radial Laplacian $\\psi''+\\frac2r\\psi'$",
+    "$1/r$ terms cancel $\\Rightarrow a=a_0/Z$",
+    "$E=-Z^2e^2/2a_0$",
+    "normalisation with $\\int r^ne^{-2r/a}dr=n!(a/2)^{n+1}$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-hl-D3",
+   "title": "Symmetry constraints and uncertainty for the ground state (HS25 Q2 (ii)-(iv))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+    "where": "Question 2 (ii)-(iv), 12 pt"
+   },
+   "goal": "Show $\\langle x_i\\rangle=0$, $\\langle x_i^2\\rangle=\\frac13\\langle r^2\\rangle$, evaluate $\\Delta x_i$ and check $\\Delta x_i\\Delta p_j\\ge\\hbar/2$.",
+   "given": [
+    "$\\psi=\\frac1{\\sqrt{\\pi a^3}}e^{-r/a}$, parity $P\\psi(\\vec x)=\\psi(-\\vec x)$, rotations $R=e^{-i\\theta\\hat n\\cdot\\vec L/\\hbar}$",
+    "$[L_j,x_k]=i\\hbar\\epsilon_{jkl}x_l$, $\\Delta p_j=\\hbar/(\\sqrt3a)$, $\\int r^ne^{-r/b}=b^{n+1}n!$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) How do the symmetries act on $\\psi$?",
+     "reveal": "$P\\psi=\\psi$ (eigenvalue $+1$, $\\psi$ is even); $L_j\\psi=0$ since $\\psi=\\psi(r)$ has no angular dependence, so $R\\psi=\\psi$."
+    },
+    {
+     "prompt": "(b) Use the generator trick: $Q\\psi=q\\psi$ implies $\\langle[Q,O]\\rangle=0$.",
+     "reveal": "$\\langle\\psi|[Q,O]\\psi\\rangle=\\langle Q\\psi|O\\psi\\rangle-\\langle\\psi|OQ\\psi\\rangle=(q-q)\\langle O\\rangle=0$ for hermitian $Q$. With $Q=L_j$: $0=\\langle[L_j,x_k]\\rangle=i\\hbar\\epsilon_{jkl}\\langle x_l\\rangle$, so all $\\langle x_l\\rangle=0$."
+    },
+    {
+     "prompt": "(c) Show $\\langle x_i^2\\rangle=\\frac13\\langle r^2\\rangle$.",
+     "reveal": "With $O=x_kx_m$ the same relation gives $\\epsilon_{jkl}\\langle x_lx_m\\rangle+\\epsilon_{jml}\\langle x_kx_l\\rangle=0$, which forces $\\langle x_ix_j\\rangle=c\\,\\delta_{ij}$; the trace gives $3c=\\langle r^2\\rangle$. (Alternatively: symmetry of $|\\psi|^2$ under rotation.)"
+    },
+    {
+     "prompt": "(d) Evaluate and compare with Heisenberg.",
+     "reveal": "$\\langle r^2\\rangle=\\frac4{a^3}\\int r^4e^{-2r/a}dr=\\frac4{a^3}\\cdot24\\frac{a^5}{32}=3a^2$, so $\\Delta x_i=a$. Then $\\Delta x_i\\Delta p_j=\\frac{\\hbar}{\\sqrt3}\\approx0.577\\hbar\\ge\\frac\\hbar2$: satisfied."
+    }
+   ],
+   "keyPoints": [
+    "$P\\psi=\\psi$, $L_j\\psi=0$",
+    "$\\langle[Q,O]\\rangle=0$ for an eigenstate of $Q$",
+    "$\\langle x_i^2\\rangle=\\langle r^2\\rangle/3=a^2$",
+    "$\\hbar/\\sqrt3>\\hbar/2$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-hl-D4",
+   "title": "so(4): $S^2=D^2$ and the $n^2$ degeneracy (sheet 11 Q1)",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+    "where": "Question 1 (i)-(v)"
+   },
+   "goal": "Show that at energy $E_n$ the algebra su(2)$\\oplus$su(2) acts as $D_s\\otimes D_s$ with $s=\\frac{n-1}2$ and that this contains exactly $l=0,\\dots,n-1$.",
+   "given": [
+    "$\\vec J^{\\,2}=\\frac{2H}m(\\vec L^2+\\hbar^2)+\\kappa^2$, $\\vec J\\cdot\\vec L=0$, $[J_i,J_j]=i\\hbar\\epsilon_{ijk}(-\\frac{2H}m)L_k$",
+    "$\\vec S=\\frac12(\\vec L+a\\vec J)$, $\\vec D=\\frac12(\\vec L-a\\vec J)$, $a=\\sqrt{-m/2E}$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Show $[S_i,S_j]=i\\hbar\\epsilon_{ijk}S_k$, $[D_i,D_j]=i\\hbar\\epsilon_{ijk}D_k$ and $[S_i,D_j]=0$.",
+     "reveal": "$a^2[J_i,J_j]=a^2(-\\frac{2E}m)i\\hbar\\epsilon_{ijk}L_k=i\\hbar\\epsilon_{ijk}L_k$ at fixed $E$; with $[L_i,J_j]=i\\hbar\\epsilon_{ijk}J_k$ both $\\vec S$, $\\vec D$ close, and the cross commutator $\\frac14([L,L]-a^2[J,J]\\mp\\dots)$ cancels."
+    },
+    {
+     "prompt": "(b) Compute $S^2$ and $D^2$.",
+     "reveal": "$S^2=\\frac14\\big(L^2+a^2J^2+2a\\vec L\\cdot\\vec J\\big)=\\frac14\\big(L^2+a^2\\tfrac{2E}m(L^2+\\hbar^2)+a^2\\kappa^2\\big)$. With $a^2\\frac{2E}m=-1$: $S^2=\\frac14\\big(-\\hbar^2-\\frac{m\\kappa^2}{2E}\\big)=D^2$."
+    },
+    {
+     "prompt": "(c) Insert $E_n$ and read off $s$.",
+     "reveal": "$E_n=-\\frac{m\\kappa^2}{2\\hbar^2n^2}$ gives $-\\frac{m\\kappa^2}{2E}=\\hbar^2n^2$, so $S^2=D^2=\\frac{\\hbar^2}{4}(n^2-1)=\\hbar^2s(s+1)$ with $s=\\frac{n-1}2$."
+    },
+    {
+     "prompt": "(d) Decompose with $\\vec L=\\vec S+\\vec D$.",
+     "reveal": "$D_s\\otimes D_s=\\bigoplus_{l=0}^{2s}D_l$ with $2s=n-1$: dimension $(2s+1)^2=n^2$. The highest weight $|s,s\\rangle\\otimes|s,s\\rangle$ has $L_z=2s\\hbar=(n-1)\\hbar$, $l=n-1$: it is $|n,n-1,n-1\\rangle$."
+    }
+   ],
+   "keyPoints": [
+    "$J\\cdot L=0$ kills the cross term",
+    "rescale $J$ by $a$ at fixed $E$",
+    "$S^2=D^2=\\hbar^2\\frac{n^2-1}4$",
+    "Clebsch-Gordan $D_s\\otimes D_s=\\oplus_{l\\le2s}D_l$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-hl-D5",
+   "title": "Landé $g$-factor and the Paschen-Back limit (sheet 14 Q3 (i), (iii))",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+    "where": "Question 3 (i)-(iii)"
+   },
+   "goal": "Show $\\Delta E=g_{lj}\\mu_BBm_j$ with $g_{l,l+1/2}=\\frac{2+2l}{1+2l}$ and give the Paschen-Back energies.",
+   "given": [
+    "$H_Z=\\frac{\\mu_BB}{\\hbar}(L_z+2S_z)=\\frac{\\mu_BB}\\hbar(J_z+S_z)$",
+    "$\\vec L\\cdot\\vec S=\\frac12(J^2-L^2-S^2)$, $s=\\frac12$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Rewrite $L_z+2S_z$ and use the projection theorem.",
+     "reveal": "$L_z+2S_z=J_z+S_z$. Within a $j$ multiplet $\\vec S\\to\\frac{\\langle\\vec S\\cdot\\vec J\\rangle}{j(j+1)\\hbar^2}\\vec J$, so $\\langle S_z\\rangle=\\frac{\\langle\\vec S\\cdot\\vec J\\rangle}{j(j+1)\\hbar^2}\\hbar m_j$."
+    },
+    {
+     "prompt": "(b) Evaluate $\\vec S\\cdot\\vec J=\\frac12(J^2+S^2-L^2)$.",
+     "reveal": "$\\vec S\\cdot\\vec J=\\frac{\\hbar^2}2\\big[j(j+1)+\\frac34-l(l+1)\\big]$. Hence $g=1+\\frac{j(j+1)+\\frac34-l(l+1)}{2j(j+1)}$."
+    },
+    {
+     "prompt": "(c) Specialise.",
+     "reveal": "$j=l+\\frac12$: $j(j+1)=l^2+2l+\\frac34$, so the numerator is $l+\\frac32$ and $g=1+\\frac{l+3/2}{(2l+1)(l+3/2)}=\\frac{2l+2}{2l+1}$ (check $l=1$: $\\frac43$). $j=l-\\frac12$: $j(j+1)=l^2-\\frac14$, numerator $\\frac12-l$, $g=1-\\frac1{2l+1}=\\frac{2l}{2l+1}$ (check $l=1$: $\\frac23$)."
+    },
+    {
+     "prompt": "(d) Paschen-Back: strong field.",
+     "reveal": "$H_Z$ dominates: eigenstates $|m_l,m_s\\rangle$, $E=\\mu_BB(m_l+2m_s)$; first-order spin-orbit with $\\langle\\vec L\\cdot\\vec S\\rangle=\\hbar^2m_lm_s$ and $\\langle r^{-3}\\rangle=\\frac1{n^3a^3l(l+\\frac12)(l+1)}$. Valid for $\\mu_BB\\gg$ the spin-orbit splitting ($\\gtrsim 0.8$ T for $2p$)."
+    }
+   ],
+   "keyPoints": [
+    "$L_z+2S_z=J_z+S_z$",
+    "projection theorem on the $j$ multiplet",
+    "$g=1+\\frac{j(j+1)+s(s+1)-l(l+1)}{2j(j+1)}$",
+    "Paschen-Back: $m_l+2m_s$ plus $m_lm_s$ spin-orbit"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-hl-D6",
+   "title": "Variational principle for the hydrogen ground state",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/Tong Quantum Mechanics.pdf",
+    "where": "variational principle (supplementary; not in the lecturer script)"
+   },
+   "goal": "Show $\\langle\\phi|H|\\phi\\rangle\\ge E_0$ for every normalised $\\phi$ and apply it to $\\phi_b\\propto e^{-r/b}$.",
+   "given": [
+    "$H|n\\rangle=E_n|n\\rangle$ complete orthonormal, $E_0\\le E_n$",
+    "$\\langle T\\rangle$ of $e^{-r/b}$ is $\\frac{\\hbar^2}{2mb^2}$, $\\langle1/r\\rangle=\\frac1b$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Expand $\\phi=\\sum c_n|n\\rangle$ and show the bound.",
+     "reveal": "$\\langle H\\rangle=\\sum|c_n|^2E_n\\ge E_0\\sum|c_n|^2=E_0$."
+    },
+    {
+     "prompt": "(b) Compute $\\langle H\\rangle(b)$ for $\\phi_b=\\frac1{\\sqrt{\\pi b^3}}e^{-r/b}$.",
+     "reveal": "$\\langle T\\rangle=\\frac{\\hbar^2}{2m}\\langle\\nabla\\phi|\\nabla\\phi\\rangle=\\frac{\\hbar^2}{2mb^2}$ (as $\\langle p^2\\rangle=\\hbar^2/b^2$), $\\langle V\\rangle=-e^2\\langle1/r\\rangle=-\\frac{e^2}b$."
+    },
+    {
+     "prompt": "(c) Minimise over $b$.",
+     "reveal": "$\\frac d{db}\\big(\\frac{\\hbar^2}{2mb^2}-\\frac{e^2}b\\big)=-\\frac{\\hbar^2}{mb^3}+\\frac{e^2}{b^2}=0\\Rightarrow b=\\frac{\\hbar^2}{me^2}=a$, $E_{min}=-\\frac{e^2}{2a}$."
+    },
+    {
+     "prompt": "(d) Why is the answer exact here?",
+     "reveal": "The trial family contains the true ground state $e^{-r/a}$. For a Gaussian trial function the minimum would be $-\\frac{4}{3\\pi}\\frac{e^2}{a}=-0.424\\frac{e^2}{a}>-0.5\\frac{e^2}a$: still above $E_0$."
+    }
+   ],
+   "keyPoints": [
+    "expansion in energy eigenstates",
+    "$\\langle T\\rangle\\sim1/b^2$ rises, $\\langle V\\rangle\\sim-1/b$ falls",
+    "minimum at $b=a$",
+    "bound is always from above"
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 70,
+   "id": "qm-hl-c1",
+   "title": "Sudden change of the nuclear charge (HS25 Q2 (v))",
+   "problem": "A hydrogenic atom with charge $Ze$ is in its ground state. The nuclear charge suddenly becomes $\\tilde Ze$ and the energy is measured at once. Find the probability of the new ground-state energy. Source: HS25 Q2 (v).",
+   "symbols": [
+    [
+     "$Z,\\tilde Z$",
+     "nuclear charge before and after"
+    ],
+    [
+     "$a,\\tilde a$",
+     "ground state radii $a_0/Z$, $a_0/\\tilde Z$"
+    ],
+    [
+     "$\\psi,\\tilde\\psi$",
+     "ground states of the old and new Hamiltonian"
+    ],
+    [
+     "$P$",
+     "probability to find $\\tilde E_0$"
+    ]
+   ],
+   "vars": {
+    "Z": 1,
+    "Zt": 2
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Sudden approximation: the state is unchanged right after the jump, $\\psi$; the energy measurement projects on eigenstates of the new $H$. So $P=|\\langle\\tilde\\psi|\\psi\\rangle|^2$ with $\\int e^{-\\beta r}d^3x=8\\pi/\\beta^3$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "What is the state immediately after the jump?",
+     "options": [
+      "the new ground state $\\tilde\\psi$",
+      "$\\tilde\\psi$ multiplied by $\\sqrt{Z/\\tilde Z}$",
+      "still $\\psi=\\frac1{\\sqrt{\\pi a^3}}e^{-r/a}$: a sudden change leaves the wave function unchanged",
+      "a superposition fixed by the energy change"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "That would be an adiabatic (slow) change.",
+      "1": "Normalisation does not change; $\\psi$ is simply continuous in time.",
+      "3": "The state is determined by continuity; the superposition appears when you expand it in the new eigenstates."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "choice",
+     "prompt": "How is the probability expressed?",
+     "options": [
+      "$P=\\langle\\tilde\\psi|\\psi\\rangle$",
+      "$P=|\\langle\\tilde\\psi|\\psi\\rangle|^2$",
+      "$P=\\langle\\psi|\\tilde H|\\psi\\rangle/\\tilde E_0$",
+      "$P=\\tilde E_0/E_0$"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "The amplitude must be squared.",
+      "2": "That is an average energy ratio, not the probability.",
+      "3": "Energies are not probabilities."
+     }
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type the overlap $\\langle\\tilde\\psi|\\psi\\rangle$ (symbols <code>Z</code>, <code>Zt</code>).",
+     "answer": "8*(Z*Zt)**1.5/(Z+Zt)**3",
+     "symbols": {
+      "Z": [
+       1,
+       4
+      ],
+      "Zt": [
+       1,
+       4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "length",
+      "energy",
+      "length^-3"
+     ],
+     "unit": "dimensionless",
+     "latex": "\\langle\\tilde\\psi|\\psi\\rangle=\\frac{8(Z\\tilde Z)^{3/2}}{(Z+\\tilde Z)^3}",
+     "hint": "$\\frac1{\\pi(a\\tilde a)^{3/2}}\\cdot\\frac{8\\pi}{(1/a+1/\\tilde a)^3}=\\frac{8(a\\tilde a)^{3/2}}{(a+\\tilde a)^3}$ and $a\\propto1/Z$.",
+     "wrong": [
+      "8*(Z*Zt)/(Z+Zt)**2",
+      "4*(Z*Zt)**1.5/(Z+Zt)**3",
+      "(Z*Zt)**1.5/(Z+Zt)**3"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type $P$.",
+     "answer": "64*(Z*Zt)**3/(Z+Zt)**6",
+     "symbols": {
+      "Z": [
+       1,
+       4
+      ],
+      "Zt": [
+       1,
+       4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "length"
+     ],
+     "unit": "dimensionless",
+     "latex": "P=\\frac{64(Z\\tilde Z)^3}{(Z+\\tilde Z)^6}",
+     "hint": "Square the overlap. Check $\\tilde Z=Z$: $64Z^6/(2Z)^6=1$.",
+     "wrong": [
+      "8*(Z*Zt)**1.5/(Z+Zt)**3",
+      "64*(Z*Zt)**3/(Z+Zt)**3",
+      "16*(Z*Zt)**3/(Z+Zt)**6"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $Z=1\\to\\tilde Z=2$.",
+     "answer": "64*(Z*Zt)**3/(Z+Zt)**6",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "eV"
+     ],
+     "tol": 0.01,
+     "hint": "$64\\cdot8/729=0.7023$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 70,
+   "id": "qm-hl-c2",
+   "title": "Spin-orbit splitting of the $2p$ level",
+   "problem": "Compute the spin-orbit splitting between $2p_{3/2}$ and $2p_{1/2}$ in hydrogen, using $H_{SO}=\\frac{e^2}{2m^2c^2r^3}\\vec L\\cdot\\vec S$ and $\\langle r^{-3}\\rangle_{nl}=\\frac1{n^3a^3l(l+\\frac12)(l+1)}$. Source: sheet 14 Q3 (ii)-(iii), script eq. (9.7.29).",
+   "symbols": [
+    [
+     "$j$",
+     "total angular momentum $\\vec J=\\vec L+\\vec S$"
+    ],
+    [
+     "$l,n$",
+     "orbital and principal quantum numbers"
+    ],
+    [
+     "$E_n$",
+     "Bohr energy of the level"
+    ],
+    [
+     "$mc^2$",
+     "electron rest energy"
+    ]
+   ],
+   "vars": {
+    "alpha": 0.007297352573756914,
+    "mc2": 510998.95
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$H_{SO}$ commutes with $J^2,J_z,L^2$ so the $|l,s;j,m_j\\rangle$ basis diagonalises it; use $\\vec L\\cdot\\vec S=\\frac12(J^2-L^2-S^2)$ and $e^2\\hbar^2/(m a)=e^4$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which basis diagonalises $\\vec L\\cdot\\vec S$?",
+     "options": [
+      "$|l,s;j,m_j\\rangle$: $\\vec L\\cdot\\vec S=\\frac12(J^2-L^2-S^2)$ is diagonal there",
+      "$|l,m_l\\rangle|s,m_s\\rangle$",
+      "$|n,l,m\\rangle$ only",
+      "any basis, since $H_{SO}$ is a scalar"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "$L_+S_-$ terms connect different $(m_l,m_s)$ with the same $m_j$.",
+      "2": "Spin must be included.",
+      "3": "Scalar under total $J$, not diagonal in the uncoupled basis."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle\\vec L\\cdot\\vec S\\rangle/\\hbar^2$ (symbols <code>j</code>, <code>l</code>).",
+     "answer": "(j*(j+1)-l*(l+1)-0.75)/2",
+     "symbols": {
+      "j": [
+       0.5,
+       3
+      ],
+      "l": [
+       0,
+       3
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "angular momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "\\frac{\\langle\\vec L\\cdot\\vec S\\rangle}{\\hbar^2}=\\frac12\\Big[j(j+1)-l(l+1)-\\frac34\\Big]",
+     "hint": "$J^2=L^2+S^2+2\\vec L\\cdot\\vec S$ and $s(s+1)=\\frac34$.",
+     "wrong": [
+      "(j*(j+1)-l*(l+1)-0.75)",
+      "(j*(j+1)+l*(l+1)-0.75)/2",
+      "(j*(j+1)-l*(l+1))/2"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $E^{SO}_{nlj}$ (symbols <code>n</code>, <code>l</code>, <code>j</code>, <code>En</code>, <code>mc2</code>).",
+     "answer": "En**2*n*(j*(j+1)-l*(l+1)-0.75)/(mc2*l*(l+0.5)*(l+1))",
+     "symbols": {
+      "n": [
+       1,
+       4
+      ],
+      "l": [
+       1,
+       3
+      ],
+      "j": [
+       0.5,
+       3
+      ],
+      "En": [
+       0.5,
+       2
+      ],
+      "mc2": [
+       1,
+       3
+      ]
+     },
+     "units": [
+      "energy",
+      "energy^2",
+      "dimensionless"
+     ],
+     "unit": "energy",
+     "latex": "E^{SO}_{nlj}=\\frac{nE_n^2}{mc^2}\\frac{j(j+1)-l(l+1)-\\frac34}{l(l+\\frac12)(l+1)}",
+     "hint": "$\\frac{e^2}{2m^2c^2}\\cdot\\frac{\\hbar^2}{2}[\\dots]\\cdot\\frac1{n^3a^3l(l+\\frac12)(l+1)}$ and $E_n^2=\\frac{e^4}{4n^4a^2}$, $\\hbar^2/ma=e^2$.",
+     "wrong": [
+      "En**2*(j*(j+1)-l*(l+1)-0.75)/(mc2*l*(l+0.5)*(l+1))",
+      "En*n*(j*(j+1)-l*(l+1)-0.75)/(mc2*l*(l+0.5)*(l+1))",
+      "En**2*n*(j*(j+1)-l*(l+1)-0.75)/(2*mc2*l*(l+0.5)*(l+1))"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "Which of the two levels lies lower, and by what ratio?",
+     "options": [
+      "$2p_{3/2}$ lies lower",
+      "both shift upwards",
+      "they are not split",
+      "$2p_{1/2}$ lies lower; the shifts are in ratio $+\\frac1{96}:-\\frac1{48}$, i.e. the centre of gravity $(4\\cdot\\frac1{96}+2\\cdot(-\\frac1{48}))=0$ is preserved"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "The sign of $\\vec L\\cdot\\vec S$ is positive for parallel $\\vec L,\\vec S$ ($j=l+\\frac12$) and $e^2/r^3>0$: that level is higher.",
+      "1": "The trace of $\\vec L\\cdot\\vec S$ over the 6 states vanishes.",
+      "2": "$\\vec L\\cdot\\vec S$ differs for $j=\\frac32$ and $\\frac12$."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: the splitting $E(2p_{3/2})-E(2p_{1/2})$ in eV (<code>alpha</code>, <code>mc2</code> in eV).",
+     "answer": "alpha**4*mc2/32",
+     "unit": "eV",
+     "units": [
+      "eV",
+      "meV",
+      "J"
+     ],
+     "tol": 0.02,
+     "hint": "$mc^2\\alpha^4(\\frac1{96}+\\frac1{48})=\\frac{mc^2\\alpha^4}{32}=\\frac{1.449\\times10^{-3}}{32}$ eV $=4.5\\times10^{-5}$ eV.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 60,
+   "id": "qm-hl-c3",
+   "title": "Zeeman splitting of $2p$: weak or strong field? (sheet 14 Q3)",
+   "problem": "The $2p$ level of hydrogen sits in a field $B\\hat z$. Decide which limit applies, compute the $g$-factors and the shifts, and the field strength at which $\\mu_BB$ equals the spin-orbit splitting. Source: sheet 14 Q3.",
+   "symbols": [
+    [
+     "$\\mu_B$",
+     "Bohr magneton $e\\hbar/2mc$"
+    ],
+    [
+     "$g_{lj}$",
+     "Lande factor"
+    ],
+    [
+     "$m_j$",
+     "magnetic quantum number of $J_z$"
+    ],
+    [
+     "$\\Delta E^{SO}$",
+     "spin-orbit splitting of the level"
+    ]
+   ],
+   "vars": {
+    "alpha": 0.007297352573756914,
+    "mc2": 510998.95,
+    "muB": 0.000057883818
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Compare $\\mu_BB$ with $\\Delta E^{SO}=\\alpha^4mc^2/32=4.5\\times10^{-5}$ eV. Weak: $g_{lj}\\mu_BBm_j$. Strong: $\\mu_BB(m_l+2m_s)$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "For $B=0.01$ T, which description applies?",
+     "options": [
+      "strong field (Paschen-Back)",
+      "neither: $\\mu_BB\\ll$ the Bohr energy, so nothing happens",
+      "weak field: $\\mu_BB=5.8\\times10^{-7}$ eV $\\ll\\Delta E^{SO}$, so use the $j$ basis and $g_{lj}\\mu_BBm_j$",
+      "the field is too weak to split anything"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "That needs $\\mu_BB\\gg\\Delta E^{SO}\\approx4.5\\times10^{-5}$ eV, i.e. $B\\gg0.8$ T.",
+      "1": "The relevant comparison is with the fine-structure splitting, not with $E_n$.",
+      "3": "It splits each $j$ multiplet; a small but non-zero splitting."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type $g_{l,l+1/2}$ (symbol <code>l</code>).",
+     "answer": "(2+2*l)/(1+2*l)",
+     "symbols": {
+      "l": [
+       1,
+       5
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "magnetic moment"
+     ],
+     "unit": "dimensionless",
+     "latex": "g_{l,l+\\frac12}=\\frac{2+2l}{1+2l}",
+     "hint": "$g=1+\\frac{j(j+1)+\\frac34-l(l+1)}{2j(j+1)}$ with $j=l+\\frac12$.",
+     "wrong": [
+      "2*l/(1+2*l)",
+      "(1+2*l)/(2+2*l)",
+      "2+2*l"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $g_{l,l-1/2}$ (symbol <code>l</code>).",
+     "answer": "2*l/(1+2*l)",
+     "symbols": {
+      "l": [
+       1,
+       5
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "magnetic moment"
+     ],
+     "unit": "dimensionless",
+     "latex": "g_{l,l-\\frac12}=\\frac{2l}{1+2l}",
+     "hint": "$j=l-\\frac12$: $g=1-\\frac{1}{2l+1}=\\frac{2l}{2l+1}$.",
+     "wrong": [
+      "(2+2*l)/(1+2*l)",
+      "(2*l+1)/(2*l)",
+      "2*l/(2+2*l)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "order",
+     "prompt": "Order the steps of the weak-field derivation.",
+     "items": [
+      {
+       "text": "Write $L_z+2S_z=J_z+S_z$",
+       "note": "orbital $g=1$, spin $g=2$",
+       "why": "First rewriting: it exposes the part proportional to $J_z$."
+      },
+      {
+       "text": "Replace $\\vec S$ in the $j$ multiplet by its projection on $\\vec J$",
+       "note": "projection theorem",
+       "why": "Needs the rewriting so that only $\\vec S$ remains to be projected."
+      },
+      {
+       "text": "Evaluate $\\vec S\\cdot\\vec J=\\frac12(J^2+S^2-L^2)$",
+       "note": "uses the quantum numbers $j,l,s$",
+       "why": "Needs the projection factor to be known."
+      },
+      {
+       "text": "Read off $g_{lj}=1+\\frac{j(j+1)+\\frac34-l(l+1)}{2j(j+1)}$ and $\\Delta E=g\\mu_BBm_j$",
+       "note": "$\\frac43$ and $\\frac23$ for $l=1$",
+       "why": "Last step."
+      }
+     ],
+     "hint": "rewrite, project, evaluate, read off."
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: the field in tesla at which $\\mu_BB=\\alpha^4mc^2/32$ (<code>muB</code> in eV/T).",
+     "answer": "alpha**4*mc2/32/muB",
+     "unit": "T",
+     "units": [
+      "T",
+      "eV",
+      "mT"
+     ],
+     "tol": 0.02,
+     "hint": "$4.53\\times10^{-5}$ eV $/5.788\\times10^{-5}$ eV/T $=0.78$ T.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-hl-b1",
+   "title": "Ground state of a hydrogenic atom (HS25 Q2)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+    "where": "Question 2 [Ground state of a hydrogenic atom, 20 points]"
+   },
+   "minutes": 40,
+   "instructions": "Solve on paper under the timer (2 min per point). Then enter the numbers.",
+   "statement": [
+    "Consider the Hamiltonian of an electron orbiting a nucleus of charge $Ze$, $H=-\\frac{\\hbar^2}{2m}\\nabla^2-\\frac{Ze^2}r$, $r=\\sqrt{\\vec x^2}$.",
+    "(i) Show that the (normalised) ground state wave function $\\psi(\\vec x)=\\frac1{\\sqrt{\\pi a^3}}e^{-r/a}$ is an eigenfunction of $H$ for a certain value of $a$. Determine $a$ and the eigenvalue $E$ in terms of $Z$. [4 points] Hint: The Laplacian in spherical coordinates $(r,\\theta,\\phi)$ is $\\nabla^2=\\partial_r^2+\\frac2r\\partial_r+\\frac1{r^2}\\partial_\\theta^2+\\frac{\\cot\\theta}{r^2}\\partial_\\theta+\\frac1{r^2\\sin^2\\theta}\\partial_\\phi^2$.",
+    "(ii) The Hamiltonian has a parity symmetry $P$, and a rotational symmetry generated by $L_j$, $j=1,2,3$. Define how these symmetries act on wavefunctions, and evaluate them on $\\psi$ from eq. (10). [4 points]",
+    "(iii) Show that the symmetries from (ii) imply that $\\langle x_i\\rangle=0$, $\\langle x_i^2\\rangle=\\frac13\\langle\\vec x^2\\rangle$, where $\\langle O\\rangle:=\\langle\\psi|O|\\psi\\rangle$. [4 points] Hint: Let $Q=Q^\\dagger$ be a self-adjoint (symmetry) generator, for which $\\psi$ is an eigenstate. What can you say about $\\langle[Q,O]\\rangle$? You may also use the commutation relations $[L_j,x_k]=i\\hbar\\varepsilon_{jkl}x_l$.",
+    "(iv) Calculate the variation $\\Delta x_i$. Use the variation $\\Delta p_j=\\frac{\\hbar}{\\sqrt3a}$ to show that the Heisenberg uncertainty principle is satisfied. [4 points] Hint: The following integral may be helpful, $\\int_0^\\infty dr\\,r^ne^{-r/b}=b^{n+1}n!$.",
+    "(v) The system is in the state $\\psi$ in eq. (10). Then, the charge of the nucleus is suddenly changed to $\\tilde Ze$, and the energy is measured immediately afterwards. What is the probability that the ground state energy of the new system is measured? [4 points]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "a",
+     "prompt": "(i) $a$ in units of $a_0/Z$ (i.e. $aZ/a_0$).",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "E",
+     "prompt": "(i) $|E|$ for $Z=2$ in eV.",
+     "answer": "4*13.6057",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "dx",
+     "prompt": "(iv) $\\Delta x_i$ in units of $a$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "prod",
+     "prompt": "(iv) $\\Delta x_i\\Delta p_j$ in units of $\\hbar$.",
+     "answer": "1/sqrt(3)",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "P",
+     "prompt": "(v) Probability for $Z=1\\to\\tilde Z=2$.",
+     "answer": "64*(1*2)**3/(1+2)**6",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $\\nabla^2\\psi=(\\frac1{a^2}-\\frac2{ar})\\psi$; $1/r$ terms cancel for $a=\\frac{\\hbar^2}{mZe^2}=\\frac{a_0}{Z}$; $E=-\\frac{\\hbar^2}{2ma^2}=-\\frac{Z^2e^2}{2a_0}$",
+    "(ii) $P\\psi(\\vec x)=\\psi(-\\vec x)=\\psi$; rotations act by $e^{-i\\vec\\theta\\cdot\\vec L/\\hbar}$, $L_j\\psi=0$ since $\\psi=\\psi(r)$",
+    "(iii) $\\langle[Q,O]\\rangle=0$ for an eigenstate of $Q$; parity with $O=x_i$ and $L_j$ with $[L_j,x_k]=i\\hbar\\epsilon_{jkl}x_l$ give $\\langle x_i\\rangle=0$, $\\langle x_ix_j\\rangle\\propto\\delta_{ij}$, so $\\langle x_i^2\\rangle=\\frac13\\langle r^2\\rangle$",
+    "(iv) $\\langle r^2\\rangle=3a^2$, $\\Delta x_i=a$, $\\Delta x_i\\Delta p_j=\\hbar/\\sqrt3>\\hbar/2$",
+    "(v) sudden approximation, $P=|\\langle\\tilde\\psi|\\psi\\rangle|^2=\\frac{64(Z\\tilde Z)^3}{(Z+\\tilde Z)^6}$; for $1\\to2$: $\\frac{512}{729}=0.70$"
+   ],
+   "requires": "qm-hl-c1"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-hl-b2",
+   "title": "The dynamical symmetry of hydrogen (sheet 11 Q1 with HS22 A.7)",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+    "where": "Question 1 [More on the dynamical symmetry]; with HS22 A.7 as the counting check"
+   },
+   "minutes": 40,
+   "instructions": "Sheet problem used as a boss (exam-style, the algebraic route to the hydrogen spectrum). Solve on paper under the timer, then enter the numbers.",
+   "statement": [
+    "The additional conserved charge for the hydrogen atom $H=\\frac{p^2}{2m}-\\frac\\kappa r$ is the Pauli-Lenz vector $\\vec J=\\frac1{2m}(\\vec p\\wedge\\vec L-\\vec L\\wedge\\vec p)-\\kappa\\frac{\\vec x}r$. On a subspace of fixed negative energy, one can form an su(2)$\\oplus$su(2) algebra by combining $\\vec S=\\frac12(\\vec L+a\\vec J)$, $\\vec D=\\frac12(\\vec L-a\\vec J)$, with $a$ some energy dependent factor. We want to describe the representations of this algebra which appear for the hydrogen atom more concretely.",
+    "(i) We know that the eigenspace of energy $E_n$ is spanned by $|n,l,m\\rangle$, $l=0,\\dots,n-1$, $m=-l,\\dots,l$. In this space, there must exist a highest weight vector $|\\psi\\rangle$ which is annihilated by $S_+$ and $D_+$. Show that this vector must satisfy $J_+|\\psi\\rangle=L_+|\\psi\\rangle=0$, and that therefore $|\\psi\\rangle$ must be a superposition of $|n,l,l\\rangle$, $l=0,\\dots,n-1$.",
+    "(ii) Calculate the commutators $[L_\\pm,J_+]$, $[L_3,J_+]$, and use the result to show that $J_+|n,l,l\\rangle\\propto|n,l+1,l+1\\rangle$. Conclude that the highest weight vector is given by $|\\psi\\rangle=|n,n-1,n-1\\rangle$. Hint: Use the commutation relations $[L_j,J_k]=i\\hbar\\varepsilon_{jkl}J_l$ and the definition $V_\\pm=V_1\\pm iV_2$.",
+    "(iii) For the argument in the previous section, we needed to know the bound $l\\le n-1$. We now want to show these properties by explicit calculation. (a) First, use the method from Section 8.2.2 in the lecture notes to show that the wavefunction of $|n,n-1,n-1\\rangle$ is given by $\\psi(r,\\theta,\\phi)\\propto r^{n-1}\\sin^{n-1}\\theta\\,e^{i(n-1)\\phi}\\exp\\big(-\\frac{m\\kappa}{\\hbar^2n}r\\big)$. (b) Show that $J_+$ can be expressed as $J_+=\\frac im\\big(p_3L_+-\\hbar p_+-p_+L_3\\big)-\\kappa\\sin\\theta\\,e^{i\\phi}$. (c) Show that $J_+\\psi(r,\\theta,\\phi)=0$.",
+    "(v) Use the results from the previous exercises to give a description of the energy eigenspace in terms of ladder operators acting on $|n,n-1,n-1\\rangle$. Once more count the degeneracy of this eigenspace.",
+    "Counting check (HS22 A.7): $N=2$ vector operators $\\vec A^{(m)}$ obeying $[A_i^{(m)},A_j^{(n)}]=i\\hbar\\epsilon_{ijk}A_k^{(m)}\\delta_{mn}$ with $\\vec A^{(m)2}=\\frac{15}4\\hbar^2$ for all $m$: how many degenerate states are simultaneous eigenstates of $\\vec A^{(m)2}$ and $A_3^{(m)}$?"
+   ],
+   "finalAnswers": [
+    {
+     "id": "s",
+     "prompt": "The spin $s$ of both su(2) factors for $n=3$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "deg",
+     "prompt": "Degeneracy of the level $n=4$.",
+     "answer": "16",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "lmax",
+     "prompt": "Largest $l$ in the level $n=5$.",
+     "answer": "4",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "A7",
+     "prompt": "HS22 A.7 count for $N=2$, $\\vec A^{(m)2}=\\frac{15}4\\hbar^2$.",
+     "answer": "16",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $S_+\\psi=D_+\\psi=0$: add and subtract, $L_+\\psi=0$ and $aJ_+\\psi=0$; $L_+\\psi=0$ means $\\psi$ is a superposition of $m=l$ states $|n,l,l\\rangle$",
+    "(ii) $[L_3,J_+]=\\hbar J_+$, $[L_+,J_+]=0$, $[L_-,J_+]=2\\hbar J_3$: $J_+$ raises $l$ and $m$ together, and it must annihilate the state, which is only possible at $l=n-1$",
+    "(iii) $L_+\\psi=0$ and $L^2\\psi=\\hbar^2(n-1)n\\psi$ give the angular dependence $\\sin^{n-1}\\theta e^{i(n-1)\\phi}$; the radial part follows from the radial equation ($u\\sim r^ne^{-r/na}$)",
+    "(v) $S^2=D^2=\\hbar^2\\frac{n^2-1}4$: apply $S_-$ and $D_-$ up to $2s=n-1$ times each; $n^2$ states",
+    "A.7: $s=\\frac32$, $4^2=16$"
+   ],
+   "requires": "qm-hl-c2"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-hl-b3",
+   "title": "Spin-orbit coupling and the Zeeman effect (sheet 14 Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+    "where": "Question 3 [Spin-orbit coupling and Zeeman effect]; solution Solutions 14"
+   },
+   "minutes": 40,
+   "instructions": "Sheet problem used as a boss (the standard exam topic \"fine structure in a magnetic field\", compare HS16 1.3). Solve on paper under the timer, then enter the numbers.",
+   "statement": [
+    "Consider an electron in a hydrogen atom in the presence of a constant magnetic field $\\vec B$, which we take to be parallel to the $z$-axis. Without the magnetic field and ignoring the spin-orbit coupling, the eigenfunctions are labelled by $(n,\\ell,m,m_s)$, where $m_s$ denotes the spin quantum number $m_s=\\pm\\frac12$. The additional effects lead to $H=H_0+\\Delta H$ with $\\Delta H=H_{SO}+H_Z=\\frac1{2m_e^2c^2}\\frac1r\\frac{dV}{dr}\\vec L\\cdot\\vec S+\\frac{\\mu_BB_z}{\\hbar}(L_z+2S_z)$, where $V(r)=-e^2/r$ and $\\mu_B=\\frac{e\\hbar}{2m_ec}$ is the Bohr magneton.",
+    "(i) If the second term dominates (Paschen-Back effect), determine the first order perturbation of the energy spectrum, treating only the spin-orbit coupling as a perturbation. How big does $B_z$ have to be in order to justify this approximation? Hint: $\\langle\\frac1{r^3}\\rangle_{n\\ell}=\\frac1{a_0^3}\\frac1{n^3\\ell(\\ell+1/2)(\\ell+1)}$, where $a_0:=\\hbar^2/(m_ee^2)$ is the Bohr radius.",
+    "(ii) Next, determine the energy spectrum to first order perturbation theory, treating both terms (i.e. $\\Delta H$) as a perturbation. Hint: You need to diagonalise the $2n^2\\times2n^2$ matrix where $\\ell=0,1,\\dots,n-1$, $m=-\\ell,\\dots,\\ell$ and $m_s=\\pm\\frac12$. Since $[\\vec L^2,\\Delta H]=[L_z+S_z,\\Delta H]=0$, this matrix is block-diagonal with $2\\times2$ blocks.",
+    "(iii) For $B_z=0$, reproduce the result for the spin orbit coupling that was derived in the lectures. Show that the first order correction in $B_z$ of this result is given by $\\Delta E_{n\\ell jm_j}=g_{\\ell j}\\mu_BB_zm_j$, $m_j=-j,\\dots,j$, where $j$ and $m_j$ refer to the diagonal representation of the rotation group corresponding to $\\vec J=\\vec L+\\vec S$ and $g_{\\ell,\\ell+1/2}=\\frac{2+2\\ell}{1+2\\ell}$, $g_{\\ell,\\ell-1/2}=\\frac{2\\ell}{1+2\\ell}$."
+   ],
+   "finalAnswers": [
+    {
+     "id": "gp",
+     "prompt": "(iii) $g_{\\ell j}$ for $2p_{3/2}$ ($\\ell=1$, $j=\\frac32$).",
+     "answer": "4/3",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "gm",
+     "prompt": "(iii) $g_{\\ell j}$ for $2p_{1/2}$.",
+     "answer": "2/3",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "shift",
+     "prompt": "(iii) Zeeman shift of $2p_{3/2}$, $m_j=\\frac32$ in units of $\\mu_BB$.",
+     "answer": "2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "blocks",
+     "prompt": "(ii) Number of $2\\times2$ blocks of the $2n^2\\times2n^2$ matrix for $n=2$ (the extreme states $m_j=\\pm(\\ell+\\frac12)$ and all $\\ell=0$ states are $1\\times1$ blocks).",
+     "answer": "2",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) good states $|n,\\ell,m_l,m_s\\rangle$, $\\langle\\vec L\\cdot\\vec S\\rangle=\\hbar^2m_lm_s$: $E=\\mu_BB(m_l+2m_s)+\\frac{e^2\\hbar^2m_lm_s}{2m^2c^2a_0^3n^3\\ell(\\ell+\\frac12)(\\ell+1)}$; requires $\\mu_BB\\gg$ fine-structure splitting ($B\\gg0.8$ T for $n=2$)",
+    "(ii) the matrix is conserved in $m_j=m_l+m_s$ and $\\ell$: blocks $\\{|m_l=m_j-\\frac12,\\uparrow\\rangle,|m_l=m_j+\\frac12,\\downarrow\\rangle\\}$; $2\\times2$ diagonalisation gives the Breit-Rabi type formula; the extreme states $m_j=\\pm(\\ell+\\frac12)$ are $1\\times1$ blocks",
+    "(iii) $B=0$: $E^{SO}=\\frac{nE_n^2}{mc^2}\\frac{j(j+1)-\\ell(\\ell+1)-3/4}{\\ell(\\ell+1/2)(\\ell+1)}$; $B$ term: $L_z+2S_z=J_z+S_z$ and the projection theorem, $g=1+\\frac{j(j+1)+\\frac34-\\ell(\\ell+1)}{2j(j+1)}$",
+    "$g=\\frac43$ ($2p_{3/2}$), $\\frac23$ ($2p_{1/2}$), $2$ ($s$)"
+   ],
+   "requires": "qm-hl-c3"
+  }
+ ]
+}

@@ -1,0 +1,444 @@
+{
+ "labs": [
+  {
+   "room": "astrophysics/photometry-radiation",
+   "enc": {
+    "type": "lab",
+    "id": "lab-astro-blackbody",
+    "title": "Blackbody lab: what if $h$ shrinks?",
+    "widget": "blackbody",
+    "intro": "The Planck function $B_\\nu=\\frac{2h\\nu^3}{c^2}\\frac{1}{e^{h\\nu/k_BT}-1}$ has two limits: Rayleigh–Jeans for $h\\nu\\ll k_BT$ and Wien for $h\\nu\\gg k_BT$. Move $T$ and watch the peak; then scale $h$ down to see what the world would look like without quantisation.",
+    "tasks": [
+     "Set $T=2.725$ K (the CMB): at which frequency does $B_\\nu$ peak? Compare with the exam values (about 160 GHz, $\\lambda_{\\max}\\approx1$ mm).",
+     "Predict first: if you double $T$, how do the peak frequency and the peak height change? Then check ($\\nu_{\\max}\\propto T$, $B_{\\max}\\propto T^3$).",
+     "Switch on the CMB curve next to the Sun ($T=5800$ K): by how many orders of magnitude do they differ at $10^{11}$ Hz, and why is the Rayleigh–Jeans line a good description of the CMB there?",
+     "Slide $h$ down towards 0: the peak runs away to higher frequency. What does the curve become, and why does $\\int B_\\nu\\,d\\nu$ then diverge (ultraviolet catastrophe)?"
+    ],
+    "source": [
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+      "where": "Open question 2 (CMB, Rayleigh–Jeans limit, bolometer)"
+     },
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+      "where": "Open question 2 (CMB blackbody, RJ)"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "astrophysics/galactic-dynamics",
+   "enc": {
+    "type": "lab",
+    "id": "lab-astro-rotation",
+    "title": "Rotation curves: remove the black hole, remove the halo",
+    "widget": "rotation",
+    "intro": "A galaxy with a central black hole $M_0$ and a dark-matter halo with $\\rho\\propto r^{-2}$ has enclosed mass $M_r=kr+M_0$, hence $v_c=\\sqrt{G(k+M_0/r)}$ (Winter 2024, Q4). Switch each ingredient on and off and see which one controls which radius.",
+    "tasks": [
+     "Switch the halo off: what does $v_c(r)$ look like? (Keplerian, $v\\propto r^{-1/2}$). Then switch it on and the black hole off: what is $v_c$ at large and small $r$?",
+     "Predict: for $M_0=4\\times10^6\\,M_\\odot$ and $v=110$ km/s at 2 pc, how big must $k$ be? Compare with the value shown ($8.1\\times10^5\\,M_\\odot$/pc).",
+     "At what radius does the halo start to dominate the black hole? (Set $M_0/r=k$.)",
+     "A flat rotation curve means $M_r\\propto r$. Why does that imply $\\rho\\propto r^{-2}$?"
+    ],
+    "source": [
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "Open question 4 (galaxy with black hole and r^-2 halo)"
+     },
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+      "where": "Open question 6 (flat rotation curve, escape velocity)"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "astrophysics/expanding-universe",
+   "enc": {
+    "type": "lab",
+    "id": "lab-astro-friedmann",
+    "title": "Friedmann lab: what if $\\Lambda$ or matter disappears?",
+    "widget": "friedmann",
+    "intro": "With $H_0=1$ the Friedmann equation reads $\\dot a^2=\\Omega_m/a+\\Omega_r/a^2+\\Omega_k+\\Omega_\\Lambda a^2$ with $\\Omega_k=1-\\Omega_m-\\Omega_\\Lambda$. Change the content of the universe and watch $a(t)$, its age and its fate.",
+    "tasks": [
+     "Set $\\Omega_m=1$, $\\Omega_\\Lambda=0$ (Einstein–de Sitter): the age should be $\\frac23H_0^{-1}$ and $a\\propto t^{2/3}$. Check it.",
+     "Predict: does adding $\\Omega_\\Lambda=0.7$ make the universe older or younger than $\\frac23H_0^{-1}$? Check the age (0.96 $H_0^{-1}$).",
+     "Raise $\\Omega_m$ to 2 with no $\\Lambda$: the universe is closed. Find the time of maximum expansion and the big crunch. Compare with the exam result $t=\\pi\\Omega_m/(\\Omega_m-1)^{3/2}\\,H_0^{-1}$ ($=2\\pi$ here).",
+     "Remove the matter completely and keep only $\\Lambda$: what does $a(t)$ do (exponential growth)?"
+    ],
+    "source": [
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "Open question 7 (closed matter-dominated universe)"
+     },
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+      "where": "Open question 7 (Friedmann with equation of state w)"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "solid-state/phonon-halls",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-chain",
+    "title": "Diatomic chain: acoustic and optical branches",
+    "widget": "chain",
+    "intro": "A chain with two atoms per cell (masses $M_1$, $M_2$, spring $k$) has $\\omega^2=k\\left(\\frac1{M_1}+\\frac1{M_2}\\right)\\pm k\\sqrt{\\left(\\frac1{M_1}+\\frac1{M_2}\\right)^2-\\frac{2}{M_1M_2}(1-\\cos qa)}$. Change the mass ratio, move along the dispersion and watch how the atoms move.",
+    "tasks": [
+     "Slide $qa/\\pi$ towards 1 on the acoustic branch: what happens to the group velocity $d\\omega/dq$ at the zone edge? Why (standing wave)?",
+     "Predict: at $q=0$, how do the two atoms move on the optical branch? ($V/U=-M_1/M_2$: opposite directions, the centre of mass at rest). Check the animation.",
+     "Increase $M_2/M_1$: how do the two edge frequencies $\\sqrt{2k/M_{heavy}}$ and $\\sqrt{2k/M_{light}}$ and the gap between them change?",
+     "Press 'make the masses equal': what happens to the gap, and what is the chain now?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 2.2, pp. 41-49 (monatomic and diatomic chain)"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "solid-state/phonon-halls",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-debye",
+    "title": "Debye versus Einstein: why $T^3$?",
+    "widget": "debye",
+    "intro": "The Debye model uses the linear dispersion $\\omega=v_sq$ up to a cut-off $\\omega_D$ ($C_V\\propto T^3$ at low $T$, Dulong–Petit at high $T$); the Einstein model uses one single frequency.",
+    "tasks": [
+     "Predict first: at $T=\\Theta_D/10$ which model gives the larger heat capacity? Check, and read the $T^3$ law value.",
+     "Which model freezes out exponentially at low $T$, and why can a single frequency not produce a power law?",
+     "What is $C_V/3Nk_B$ at $T=\\Theta_D$? Is Dulong–Petit already reached there?",
+     "Change $\\Theta_D$ (stiffer or softer solid): which curve moves and how does the Debye $T^3$ coefficient depend on $\\Theta_D$?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "Task 1 MC (l) (Einstein model statements)"
+     },
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 2.4, pp. 59-65"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "solid-state/fermi-sea",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-fermi",
+    "title": "The Fermi sea: switch the Pauli principle off",
+    "widget": "fermi",
+    "intro": "Electrons fill states from the bottom up: occupation $f=1/(e^{(E-\\mu)/k_BT}+1)$ times the density of states $\\nu\\propto\\sqrt E$. Compare with a classical gas without exclusion principle at the same density and temperature.",
+    "tasks": [
+     "Copper has $n=8.5\\times10^{28}$ m$^{-3}$. Predict $E_F$ (about 7 eV) and $T_F$, then check. How does $E_F$ scale with $n$?",
+     "At 300 K, what fraction of the electrons can be thermally excited? ($\\sim T/T_F$). How wide is the smeared edge of the occupation compared with $E_F$?",
+     "Switch the Pauli principle off: what is the mean energy per electron now ($\\frac32k_BT$) compared with $\\frac35E_F$, and what would the heat capacity be?",
+     "Increase $T$ until $k_BT\\sim E_F$: what happens to the shape (degenerate to classical)?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 2a (free-electron metals: Fermi surface, DOS, specific heat)"
+     },
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 3.1, pp. 66-76"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "solid-state/lattice-gate",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-lattice",
+    "title": "2D crystal, reciprocal lattice and neutron peaks",
+    "widget": "lattice2d",
+    "intro": "This is Problem 1 of the Zheludev exam (Jan 2024, the default settings $a=6$ Å, $b=4$ Å, $\\lambda=2.36$ Å): a 2D lattice with a two-atom basis at $(0,0)$ and $(\\frac12,\\frac12)$. Here $f_1$ is the corner atom and $f_2$ the centre atom (in the exam the labels are the other way round, which does not change $|f_1-f_2|/(f_1+f_2)$). The table lists the full scattering angle $\\varphi=2\\theta$ between $\\vec k_i$ and $\\vec k_f$; the exam key quotes the Bragg angle $\\theta=\\varphi/2$. The August 2024 variant (a $4\\times5$ Å cell with basis $(0,0),(\\frac13,\\frac13)$) is not a slider setting; use $a=4$, $b=5$ to check the angles ($\\theta=39.5^\\circ$ and $22.2^\\circ$) and compute its structure factor $F=f(1+e^{2\\pi i(h+k)/3})$ by hand. The right panel shows the reciprocal lattice, the dot size is the intensity $|F|^2$, and the table lists the Bragg angles for the chosen wavelength.",
+    "tasks": [
+     "Set $a=6$ Å, $b=4$ Å, $\\gamma=90^\\circ$, $f_2=f_1$: which reflections vanish and why? (The structure factor $F=f_1+f_2e^{i\\pi(h+k)}$ cancels for $h+k$ odd: the cell is secretly centred.)",
+     "Predict the area of the first Brillouin zone before reading it off: $(2\\pi)^2/A$.",
+     "Set $f_2=2f_1$ (exam: $f_1=2f_2$ with the labels swapped): compute $I(2,1)/I(1,1)$ by hand ($=1/9$) and compare with the dot sizes. Read off the angles for $(2,1)$ and $(1,1)$ at $\\lambda=2.36$ Å: $\\theta=29.5^\\circ$ and $20.8^\\circ$ (key: 29.47 and 20.73).",
+     "Make the lattice oblique ($\\gamma=120^\\circ$, $a=b$): what shape do the Wigner–Seitz cell and the Brillouin zone take? Change $\\lambda$: which peaks disappear when $|G|>2k$?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 1 (two-dimensional crystals), January 2024"
+     },
+     {
+      "file": "materials/solid-state/old-exams/HS23 (1).pdf",
+      "where": "Problem 1 (two-dimensional crystals), August 2024"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "qm/harmonic-oscillator-elevator",
+   "enc": {
+    "type": "lab",
+    "id": "lab-qm-ho",
+    "title": "Oscillator states: when does $\\langle x\\rangle$ move?",
+    "widget": "ho",
+    "intro": "Superpose oscillator eigenstates $\\psi_n$ and watch $|\\psi(x,t)|^2$ ($\\hbar=m=\\omega=1$). Then switch to a coherent state $|\\alpha\\rangle$, the eigenstate of the lowering operator.",
+    "tasks": [
+     "Choose $n_1=0$, $n_2=1$ with weight 0.5: $\\langle x\\rangle$ oscillates. Predict what happens for $n_1=0$, $n_2=2$, then check (the matrix element $\\langle0|x|2\\rangle=0$).",
+     "Pick two states with odd difference but not neighbours (e.g. $n_1=0$, $n_2=3$): does $\\langle x\\rangle$ move? ($\\langle n|x|m\\rangle\\ne0$ only for $m=n\\pm1$: it does not.)",
+     "Switch to the coherent state: how does $\\langle x\\rangle(t)$ compare with the classical oscillator, and does the packet spread? ($\\Delta x\\,\\Delta p=\\hbar/2$ for all times.)",
+     "Set weight 0 or 1 (a single eigenstate): why is $|\\psi|^2$ independent of time?"
+    ],
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
+      "where": "Question 2 (coherent states)"
+     },
+     {
+      "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+      "where": "Question 3 (perturbation of the harmonic oscillator)"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "qm/harmonic-oscillator-elevator",
+   "enc": {
+    "type": "lab",
+    "id": "lab-qm-avoided",
+    "title": "Perturbation theory: where it works and where it fails",
+    "widget": "avoided",
+    "intro": "Two levels $\\mp\\Delta/2$ coupled by $V$: exact $E_\\pm=\\pm\\frac12\\sqrt{\\Delta^2+4V^2}$. Compare with non-degenerate second-order perturbation theory $E_1\\approx\\varepsilon_1-V^2/\\Delta$.",
+    "tasks": [
+     "Predict where second-order theory fails and check on the plot (near $\\Delta\\approx2V$, where the denominator $\\varepsilon_1-\\varepsilon_2$ is small).",
+     "At $\\Delta=0$ the levels are degenerate: what are the exact energies and what does degenerate first-order theory give? ($\\pm V$)",
+     "Switch the coupling off: what is left? Switch it on and increase $V$: how does the minimal gap grow? (avoided crossing, $2V$)",
+     "Connect: the $\\lambda(a^2+a^{\\dagger2})$ perturbation of the oscillator couples $|n\\rangle$ and $|n+2\\rangle$: which levels repel each other?"
+    ],
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+      "where": "Questions 1-2 (anharmonic oscillator, Stark effect)"
+     },
+     {
+      "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+      "where": "Question 4 (fine structure, degenerate perturbation theory)"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "astrophysics/stellar-forge",
+   "enc": {
+    "type": "lab",
+    "id": "lab-astro-stellar",
+    "title": "Uniform star: where does the burning happen?",
+    "widget": "stellar",
+    "intro": "A star of constant density in hydrostatic equilibrium has $P(r)=\\frac{2\\pi}{3}G\\rho^2(R^2-r^2)$. With the ideal gas law $T(r)=\\mu m_HP/(\\rho k_B)\\propto R^2-r^2$, and an energy generation rate $\\varepsilon\\propto T^n$ the burning is concentrated near the centre. Change $n$, switch to radiation pressure, or remove the $T$ dependence.",
+    "tasks": [
+     "Set $n=4$ and look for $\\varepsilon=0.1\\,\\varepsilon_c$: predict $r/R=\\sqrt{1-0.1^{1/4}}$ first, then check the yellow marker (about 0.66).",
+     "Predict: does the burning region get larger or smaller for $n=16$ (CNO) than for $n=4$ (pp)? Check at the same fraction 0.1.",
+     "Switch to radiation pressure: $T\\propto(R^2-r^2)^{1/4}$. Predict the new radius for $n=4$ ($r/R=\\sqrt{1-0.1}=0.95$) and explain why the core is so much broader.",
+     "Double $\\rho$ at fixed mass: how do $R$, $P_c$ and $T_c$ scale (use $R\\propto\\rho^{-1/3}$, $P_c\\propto\\rho^{4/3}$, $T_c\\propto\\rho^{1/3}$)?"
+    ],
+    "source": [
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "Open question 1 (uniform-density star, hydrostatic equilibrium, eps ~ T^4): radius where eps = 0.1 eps_c"
+     },
+     {
+      "file": "notes/astrophysics/02-stars-and-virial.md",
+      "where": "hydrostatic equilibrium and virial theorem notes"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "astrophysics/stellar-forge",
+   "enc": {
+    "type": "lab",
+    "id": "lab-astro-eddington",
+    "title": "Eddington limit versus the mass-luminosity relation",
+    "widget": "eddington",
+    "intro": "The Eddington luminosity $L_{Edd}=4\\pi cGM/\\chi$ is linear in $M$, the main-sequence luminosity grows like $M^3$ or $M^{3.5}$. They cross at the maximum stable stellar mass. Change the opacity or remove electron scattering and see what happens to the crossing point.",
+    "tasks": [
+     "Predict from $M^3=3.3\\times10^4\\,M$ (in solar units) the crossing mass (about $180\\,M_\\odot$), then check the yellow dot.",
+     "Change $\\alpha$ from 3 to 3.5: predict the new crossing mass from $M^{\\alpha-1}=3.3\\times10^4$ (about 64) before moving the slider.",
+     "Halve the opacity: by what factor do $L_{Edd}$ and the crossing mass change for $\\alpha=3$ (factor 2 and $\\sqrt2$)?",
+     "Switch off electron scattering: what happens to the limit, and what does that mean for radiation-driven winds from hot stars?"
+    ],
+    "source": [
+     {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "Eddington luminosity / maximum stellar mass (see the stellar-forge room for the exact problem)"
+     },
+     {
+      "file": "notes/astrophysics/02-stars-and-virial.md",
+      "where": "Eddington luminosity, M^2 = 3.3e4 -> about 180 Msun"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "solid-state/drift-corridor",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-drude",
+    "title": "Resistivity: Matthiessen, defects and the Hall coefficient",
+    "widget": "drude",
+    "intro": "In the Drude picture $\\rho=m/(ne^2\\tau)$. Scattering rates from defects and phonons add (Matthiessen), $\\rho(T)=\\rho_0+\\rho_{ph}(T)$, with $\\rho_{ph}\\propto T^5$ below and $\\propto T$ above the Debye temperature. The Hall coefficient $R_H=-1/(ne)$ does not care about scattering at all.",
+    "tasks": [
+     "Predict $\\rho(T\\to0)$ before switching the phonons off: what remains, and what does the residual resistivity measure?",
+     "Remove the defects: how does $\\rho(300\\,\\mathrm{K})$ change for a good (3 nΩ·m) versus a dirty (100 nΩ·m) sample? Which part of the curve moves?",
+     "Change $n$ with all else fixed: predict how $R_H$, $\\tau$ and the Hall mobility $|R_H|/\\rho$ react.",
+     "Double $\\Theta_D$ and read the slope of $\\rho(T)$ at high $T$; why is it $\\propto1/\\Theta_D$?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 2b (Hall coefficient, Drude resistivity)"
+     },
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "chapters on Drude model, Hall effect and electron-phonon scattering"
+     },
+     {
+      "file": "notes/solid-state/03-electrons-and-transport.md",
+      "where": "transport notes"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "solid-state/semiconductor-forge",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-semi1d",
+    "title": "1D cosine bands: effective mass and carrier densities",
+    "widget": "semi1d",
+    "intro": "A 1D crystal with tight-binding bands $E_c=E_G-2t_c(\\cos ka-1)$ and $E_v=2t_v(\\cos ka-1)$ has effective masses $m^*=\\hbar^2/(2ta^2)$. The electron and hole densities follow from integrating the Fermi function over the Brillouin zone; the chemical potential adjusts so that $n=p$ in the intrinsic case.",
+    "tasks": [
+     "Predict $m_c^*$ and $m_v^*$ for $t_c=1$ eV, $t_v=2$ eV, $a=0.5$ nm before reading the panel.",
+     "Where does the intrinsic $\\mu$ sit at $T\\to0$ and where at high $T$ when $m_v\\ne m_c$? Predict the sign of the shift $\\frac{k_BT}{4}\\ln(m_v^*/m_c^*)$, then raise $T$.",
+     "Switch on equal curvature: where is $\\mu$ now and why is it exactly mid-gap?",
+     "Move $\\mu$ by hand towards the conduction band: predict how $n$ and $p$ change, and which product stays fixed (mass action) while $\\mu$ is in the gap."
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 3 (effective masses, carrier densities, chemical potential)"
+     },
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 5.1-5.4 (pp. 113-135)"
+     },
+     {
+      "file": "notes/solid-state/04-semiconductors-and-magnetism.md",
+      "where": "transcription and checks"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "solid-state/magnet-vault",
+   "enc": {
+    "type": "lab",
+    "id": "lab-ss-curie",
+    "title": "Curie-Weiss: what does the exchange do to 1/chi?",
+    "widget": "curie",
+    "intro": "Above the ordering temperature, $\\chi=C/(T-T_W)$ and $1/\\chi$ is a straight line that crosses the $T$ axis at the Weiss temperature $T_W$. In mean-field theory $T_W$ is set by the exchange: positive for ferromagnets, negative for antiferromagnets. Without exchange you get the pure Curie law.",
+    "tasks": [
+     "Predict $T_W$ for $S=1/2$, $J_1=1$ meV, $z_1=6$ ($T_W=\\frac{2S(S+1)}{3k_B}z_1J_1\\approx35$ K) before reading it off.",
+     "Switch the exchange off: predict where the line crosses the axis, and how the slope $1/C$ depends on $S$.",
+     "Make $J_1$ negative: where does the line cross now, and why is the real transition (Néel) still at positive $T$?",
+     "Choose $J_1>0$ and $J_2<0$ such that $T_W=0$: what does the 1/χ line look like, and does it mean there is no magnetism?"
+    ],
+    "source": [
+     {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 4 'Honeycomb lattice' (Zheludev, Jan 2024); solution (1), Problem 4"
+     },
+     {
+      "file": "materials/solid-state/old-exams/HS23 (1).pdf",
+      "where": "Problem 4 (Aug 2024, triangular lattice); solution HS23 (Solution).pdf"
+     },
+     {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "MC (r) sign of the exchange energy J"
+     },
+     {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 6.1-6.3 (pp. 136–161): Pauli, Landau, Hubbard/Stoner, exchange, mean field, Curie-Weiss, ferro- and antiferromagnets"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "qm/angular-momentum-spin",
+   "enc": {
+    "type": "lab",
+    "id": "lab-qm-spin12",
+    "title": "Spin 1/2 in a magnetic field: Larmor precession",
+    "widget": "spin12",
+    "intro": "For $H=-\\gamma\\vec B\\cdot\\vec S$ the expectation value obeys $d\\langle\\vec S\\rangle/dt=\\gamma\\langle\\vec S\\rangle\\times\\vec B$: the Bloch vector precesses about $\\vec B$ at the Larmor frequency $\\omega=\\gamma B$. Start in different directions, tilt the field, or switch it off.",
+    "tasks": [
+     "Start along $+x$ with $\\vec B\\parallel\\hat z$: predict $\\langle S_x\\rangle(t)$, $\\langle S_y\\rangle(t)$, $\\langle S_z\\rangle(t)$ before looking at the traces.",
+     "Start along $+z$ with $\\vec B\\parallel\\hat z$: why is nothing happening? Which states are eigenstates of $H$?",
+     "Tilt $\\vec B$ by 90° (towards $x$): predict which components oscillate for a spin starting along $z$.",
+     "Switch the field off: what does the time evolution of $\\langle\\vec S\\rangle$ look like, and which energies would the two levels have?"
+    ],
+    "source": [
+     {
+      "file": "notes/quantum-mechanics",
+      "where": "spin-1/2 in a magnetic field, Larmor precession (angular-momentum-spin room sources)"
+     }
+    ],
+    "xp": 10
+   }
+  },
+  {
+   "room": "qm/perturbation-forge",
+   "enc": {
+    "type": "lab",
+    "id": "lab-qm-pf-avoided",
+    "title": "Avoided crossing: second-order theory and its breakdown",
+    "widget": "avoided",
+    "intro": "Two levels coupled by $V$: the lower exact level against second-order perturbation theory $\\varepsilon_1-V^2/\\Delta$. Use it to see where the condition $|V|\\ll|E_n-E_m|$ of the FS19/HS18 Q4 derivation holds.",
+    "tasks": [
+     "Predict the exact gap at $\\Delta=0$ for $V=0.5$ (it is $2V$), then read it off the plot.",
+     "Increase $V$ with the second-order curve on: at which $\\Delta$ does it start to deviate by more than the line width? Compare with $|\\Delta|\\approx2V$.",
+     "At $\\Delta=0$ the levels are degenerate: degenerate PT gives $\\pm V$ (the Stark effect $n=2$ is exactly this $2\\times2$ problem with $V=3|e|Ea_0$). Check that the exact curve agrees.",
+     "Which side is pushed down: the level with a neighbour above or below? (the one with a neighbour above, as the ground state in FS19 Q4)"
+    ],
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+      "where": "Aufgabe 4 (i)"
+     },
+     {
+      "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+      "where": "Question 2 (Stark effect)"
+     }
+    ],
+    "xp": 10
+   }
+  }
+ ]
+}

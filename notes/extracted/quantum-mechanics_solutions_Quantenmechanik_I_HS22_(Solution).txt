@@ -1,0 +1,463 @@
+                        Quantum Mechanics 1 HS22 - Solution
+
+
+
+A - Questions [30p]
+                                                                                2
+                                                      p
+1. [3p] In a one-dimensional quantum system with Ĥ = 2m +V (x) the wave function for an energy
+eigenstate is shown in the plot below.
+
+
+
+
+Identify which of the points x1 , ..., x6 satisfy that V (x) = E where E is the energy eigenvalue
+corresponding to ψE (x)
+Solution The point is x6 since it is the point between the classically allowed region, where
+V (x) < E and the wave function is concave towards the axis, and the classically forbidden region,
+where V (x) > E and the wave function is concave away from the axis.
+2. [6p] Consider quantum mechanics in one space and one time dimension. The commutator of
+either position x̂ and momentum p̂ and a certain operator f(x̂, p̂) are given by
+
+
+                                                      [x̂, f (x̂, p̂)] = iℏf (x̂, p̂)                                        (1)
+                                                  [p̂, f (x̂, p̂)] = −iℏf (x̂, p̂)                                           (2)
+
+Find the operator f (x̂, p̂)
+Solution Take the operator f(x̂, p̂) = ex̂+p̂ . We have
+                       ∞                              ∞                                          ∞
+                       X 1                            X n                                        X      1
+     [x̂, ex̂+p̂ ] =            [x̂, (x̂ + p̂)n ] =            (x̂ + p̂)n−1 [x̂, x̂ + p̂] = iℏ                (x̂ + p̂)n−1
+                       n=0
+                           n!                         n=0
+                                                          n!                                     n=1
+                                                                                                     (n − 1)!
+                         ∞
+                         X 1
+                 = iℏ              (x̂ + p̂)n = iℏf (x̂, p̂)
+                         n=0
+                             n!
+
+
+
+                                                                   2
+and
+                        ∞                                ∞                                             ∞
+                        X 1                              X n                                           X      1
+      [p̂, ex̂+p̂ ] =              [p̂, (x̂ + p̂)n ] =              (x̂ + p̂)n−1 [p̂, x̂ + p̂] = −iℏ                (x̂ + p̂)n−1
+                        n=0
+                              n!                         n=0
+                                                               n!                                      n=1
+                                                                                                           (n − 1)!
+                              ∞
+                              X   1
+                  = −iℏ              (x̂ + p̂)n = −iℏf (x̂, p̂)
+                              n=0
+                                  n!
+
+                                                               2
+3. [3p] The wave function ψ(x) = Axe−αx describes an energy eigenstate of the harmonic oscilla-
+tor with a potential V (x) = 12 mω 2 x2 , provided the constant α is chosen appropriately. Determine
+α and the energy of this state.
+Solution Applying the time independent Schrödinger equation
+
+
+                                                    ℏ2 ∂ 2     1
+                                                         (−  + , ω 2 x2 )ψ(x) = Eψ(x)
+                                                   2m ∂x2      2
+                                         ℏ2                   1
+                                      (−    (−6α + 4α2 x2 ) + mω 2 x2 )ψ(x) = Eψ(x)
+                                         2m                   2
+We can conclude that α = mω                               ℏω
+                         2ℏ . The energy is given by E = 3 2
+
+4. [4p] Let Â, B̂ be two hermitian operators in the Heisenberg picture. Show that [Â(0), B̂(0)] =
+c ∈ C implies [Â(t), B̂(t)] = c for any positive time t.
+Solution Let U (t, 0) ≡ Ut denote the time evolution operator from time 0 to time t. Then, simply
+                              [A(t), B(t)] = [Ut† A(0)Ut , Ut† B(0)Ut ]
+                                                = Ut† A(0)Ut Ut† B(0)Ut − Ut† B(0)Ut Ut† A(0)Ut
+                                                = Ut† [A(0), B(0)]Ut
+                                                = cUt† Ut = c
+because the time evolution operator is unitary.
+5. [3p] Consider a spin-(3/2) and a spin-(1/2) particle and let Jˆ = Ŝ1 + Ŝ2 be the total angular
+momentum operator. What are the simultaneous eigenstates of the operators Jˆ2 , Jˆz , Ŝ12 , Ŝ22 ?
+Solution The common eigenstates are of the form
+                                    |j, jz , s1 = 3/2, s2 = 1/2⟩,            j ∈ {1, 2}, −j < jz < j
+
+6. [6p] The uncertainty in the position of a particle at t0 = 0 is
+                                           (∆x)2t0 = ⟨ψ, t0 |x̂2 |ψ, t0 ⟩ − ⟨ψ, t0 |x̂|ψ, t0 ⟩2                                    (3)
+The momentum uncertainty at a later time t > t0 is:
+                                              (∆x)2t = ⟨ψ, t|p̂2 |ψ, t⟩ − ⟨ψ, t|p̂|ψ, t⟩2                                          (4)
+
+a) Is it possible to have a state |ψ, t0 ⟩ with (∆x)t0 (∆x)t = 0?
+b) For an eigenstate of the Hamiltonian Ĥ|ψ, t0 ⟩ = E|ψ, t0 ⟩, is it possible to have (∆x)t0 (∆x)t = 0?
+Solution a) Yes, since a state |ψ, t0 ⟩ may be an eigenstate of x̂ or p̂ at any specific time and then
+it will evolve away from it.
+b) No, since for an eigenstate of Ĥ time evolution amounts to an overall phase factor and averages
+remain unvaried, implying that
+                                                                                            ℏ2
+                                               (∆x)t0 (∆x)t = (∆x)t0 (∆x)t0 ≥
+                                                                                            4
+
+
+                                                                         3
+7. [5p] Consider N vector operators
+
+                             ⃗        ⃗ (m) ⃗ (m) ⃗ (m)
+                             Â(m) = (Â1 , Â2 , Â3 ),            m ∈ 1, . . . , N
+
+which satisfy the Lie algebra
+
+                             ⃗       ⃗                ⃗
+                            [Â(m) , Â(n) ] = iℏϵijk Â(m) δmn ,    i, j ∈ 1, . . . , 3
+
+In addition, we have that
+                                               3
+                                  ⃗ 2 X ⃗ (m) ⃗ (m) ⃗
+                                  Â(m) = Âi Âi ≡ Â2 ,                  ∀m
+                                             i=1
+
+
+                                                           ⃗                              ⃗ (m)
+How many degenerate states are simultaneous eigenstates of Â(m)2 with eigenvalue 15 2
+                                                                                  4 ℏ and Â3 ,
+m = 1, . . . , N ?
+Hint. The N=2 case corresponds to the hydrogen atom (algebraic solution)
+              ⃗
+Solution All Â(m)2 operators have a 2j + 1 degeneracy which can be revealed by the action of
+    ⃗ (m)
+the Â3 operators on them. An eigenstate of the hamiltonian, i.e. the whole system will have a
+(2j + 1)N degeneracy. Therefore if one operator has an eigenvalue
+                                             15 2
+                                               ℏ = ℏ2 j(j + 1)
+                                             4
+we get j = 32 , such that the degeneracy is given by
+
+                                              (2j + 1)N = 4N
+
+
+
+
+                                                       4
+B - Problems [38 points]
+B.1 - QM in finite dimensions [20 points]
+a) [1p] imagine that the space of positions is discrete, consisting of only three points. The corre-
+sponding position eigenstates, |x⟩ ∈ |0⟩, |1⟩, |2⟩, satisfy
+
+                                                             x̂|x⟩ = x|x⟩.
+
+Construct a matrix representation of the position operator x̂ in the |x⟩-basis and show that it is
+hermitian.
+Solution
+
+                                                           x̂ = diag(0, 1, 2)
+
+It is a diagonal matrix with real entries and is therefore hermitian.
+b) [3p] Show that for an invertible matrix S, one has
+
+                                                              = SeA S −1
+
+for any matrix A.
+Solution We ues the series representation for the exponential
+                                          ∞                            ∞
+                                 −1       X 1                          X 1
+                         eSAS         =               (SAS −1 )k =                SAS −1 . . . SAS −1
+                                                 k!                          k!
+                                          k=0                          k=0
+
+We now use that SS −1 = 1 so that
+
+
+                                      ∞                                ∞
+                                                                                          !
+                        SAS −1
+                                      X 1                   −1
+                                                                       X 1
+                    e            =               SA S  k
+                                                                 =S               A   k
+                                                                                              S −1 = SeA S −1
+                                            k!                               k!
+                                      k=0                              k=0
+
+
+c) [7p] Consider the operator
+
+                                                             p̂ = S x̂S −1
+
+obtained by applying the discrete fourier transform
+                                                   
+                                         1 1      1
+                                    1
+                             S = √ 1 ω ω ∗  ,                                 ω = e2πi/3
+                                     3 1 ω∗ ω
+
+
+to the position operator. Show that S is unitary and determine the matrix representation of
+
+
+                                                       T = ω p̂ = e2πip̂/3
+
+in the basis |x⟩ ∈ |0⟩, |1⟩, |2⟩. What is the action of T on a position eigenstate? Use this to deduce
+the physical meaning of p̂
+Hint. It might be useful to express everything in terms of ω
+Solution We start by verifying that S is unitary. In order to do this, we consider the hermitian
+conjugate
+
+
+                                                                   5
+                                                                          
+                                                     1            1     1
+                                                  1
+                                           S † = √ 1             ω∗    ω
+                                                   3 1            ω     ω∗
+
+and then compute S † S,
+
+
+                                                      1 + ω + ω∗                  1 + ω + ω∗
+                                                                                                 
+                                      3
+                              1
+                       S † S = 1 + ω + ω ∗            1 + 2|ω|2                1 + (ω ∗ )2 + ω 2 
+                              3
+                                 1 + ω + ω∗         1 + (ω ∗ )2 + ω 2              1 + 2|ω|2
+ω fulfils the following properties
+
+                                                                   |ω|2 = 1
+                                              ω + ω ∗ = 2Re(ω) = − 1
+                                         (ω ∗ )2 + ω 2 = 2Re(ω 2 ) = − 1
+
+In summary, we find
+                                                                       
+                                                       1          0    0
+                                              S † S = 0          1    0
+                                                       0          0    1
+
+which proves the initial statement. We can now compute T, using the result from the previous
+point. We have
+
+
+                                                            −1
+                                           ω p̂ = ω S x̂S        = Sω x̂ S −1
+
+Since x̂ is diagonal, we can easily compute its exponential
+                                                        
+                                                1 0 0
+                                        ω x̂ = 0 ω 0 
+                                                0 0 ω2
+which finally allows us to compute T using the relations above:
+
+
+                          1 + ω + ω2                                         1 + ω + ω2
+                                                                                                          
+                                                           3                                    0      1   0
+          p̂   x̂ −1 1
+         ω = Sω S =    1 + ω + ω|ω|2                 1 + ω + ω2            1 + ω 3 + |ω|2  = 0      0   1
+                     3
+                         1 + |ω|2 + ω 3               1 + ω + ω∗             1 + ω + ω2         1      0   0
+
+The matrix is the shift matrix and it transforms a position to its neighbour. This implies that p̂
+is the discrete version of the momentum operator.
+d) [6p] Calculate the uncertainty of the momentum and position of a particle that is in the state
+|0⟩. Is the relation of the ”uncertainty principle” for positions and momenta satisfied?
+Solution For p̂ we have
+
+
+                                                                                            2ω + ω ∗   ω + 2ω ∗
+                                                                                                         
+             1    1      1      0    0    0   1      1           1          3
+          1                                                          1
+     p̂ =    1    ω      ω ∗  0    1    0 1      ω∗          ω  = ω + 2ω ∗               3       2ω + ω ∗ 
+          3                                                           3
+             1    ω∗     ω      0    0    2   1      ω           ω∗      2ω + ω ∗           ω + 2ω ∗      1
+
+
+                                                            6
+                              ∗
+We compute, using z = 2ω+ω
+                        3  = ω21−1
+
+
+                                                           2
+                                                  2z + z ∗     z 2 + 2z ∗
+                                                                         
+                                         5/3
+                              p̂2 = z 2 + 2z ∗     5/3        z 2 + 2z ∗ 
+                                              2            2
+                                     2z + z ∗     2z + z ∗         5/3
+
+This allows us to calculate
+                       p            p                      p         p
+                 ∆p = ⟨p2 ⟩ − ⟨p⟩2 = ⟨0|p2 |0⟩ − ⟨0|p|0⟩2 = 5/3 − 1 = 2/3
+                                                                                ∆x = 0
+
+We check the uncertainty relation
+                                                  1
+                                     ∆p2 ∆x2 ≥      |⟨0|[x̂, p̂]|0⟩|2
+                                                  4
+
+by calculating ⟨0|[x̂, p̂]|0⟩. Since the first row and column of x̂ are 0, the uncertainty relation is
+satisfied with both sides equating to zero.
+e) [3p] Prove that [x̂, p̂] = iℏ cannot hold when x̂ and p̂ are operators on a hilbert space in finite
+dimensions.
+Hint. Recall that for a finite-dimensional Hilbert space the trace is finite.
+Solution In finite dimensions we have T r([x, p]) = T r(xp − px) = T r(xp) − T r(px) = T r(xp) −
+T r(xp) = 0
+whereas T r(iℏ) ̸= 0. Therefore the equality cannot hold.
+
+
+
+
+                                                   7
+B.2 - Semi-classical WKB approximation with infinite potential walls [18
+points]
+In this problem we set ℏ = 1 for simplicity.
+a) [6p] Applying the semi-classical WKB approximation for a slowly varying bounded potential
+V(x), we can approximate the energy eigenfunctions by
+                         C1 i Rxx p(x′ )dx′   C2 −i Rxx p(x′ )dx′
+               ψE (x) = p      e 0          +p     e   0          ,        (E ≫ V (x))
+                          p(x)                p(x)
+where E is the energy and
+                                                 p
+                                       p(x) :=       2m(E − V (x))
+
+The constants C1 , C2 and x0 can be determined from boundary conditions.
+Using the WKB approximation, show that for a general potential well
+                                         (
+                                          Ṽ (x) if x ∈ [0, a]
+                                 V (x) =
+                                          ∞       else
+
+                                                                                2
+                                                                       p̂
+and energies E ≫ Ṽ (x), the energy eigenvalues of the Hamiltonian H = 2m + V must obey the
+quantisation condition
+                                        Z a
+                                            p(x)dx = nπ
+                                            0
+
+for n ∈ Z
+Solution We solve the time-independent Schrödinger equation separately in each of the three
+regions where V (x) is piecewise defined. When x ∈
+                                                 / [0, a], the potential is infinte and ψ(x) = 0.
+When x ∈ [0, a] we use the WKB ansatz, equiped with boundary conditions ψE (0) = ψE (a) = 0.
+                                                                     Z x        
+                                                           2C1
+               ψE (0) = 0 ⇐⇒ C1 + C2 = 0 =⇒ ψE (x) = p           sin      p(x)dx
+                                                            p(x)       0
+
+From the other boundary condition it follows
+                                                       Z a         
+                                 ψE (a) = 0 ⇐⇒ sin            p(x)dx = 0
+                                                          0
+
+                    Ra
+This implies that   0
+                         p(x)dx = nπ as required.
+b) [3p] Use your result from a) to deduce quantization of energy levels in the infinite potential-well
+case, namely when
+                                             (
+                                              0 if x ∈ [0, a]
+                                     V (x) =
+                                              ∞ else
+
+Solution One simply sets Ṽ (x) = 0 and obtains
+                   Z a√                      √           n2 π 2
+                         2mEdx = nπ ⇐⇒ a 2mE = nπ ⇐⇒ E =
+                    0                                    2ma2
+
+c) [9p] The WKB approximation can also be carried out around a point x1 where V (x1 ) = E ≥ 0.
+Considering the three regions as in the figure below, one can show that the wave functions in these
+regions must have the following form:
+
+
+                                                      8
+                                                 Z x1              
+                                       2D
+                             ψI (x) = p      sin       p(y)dy + π/4
+                                        p(x)       x
+                                      r
+                                        4π
+                            ψI I(x) =      DAi(αx)
+                                         α
+                                                   Z x         
+                                         D
+                           ψI II(x) = p        exp i      dyp(y)
+                                        |p(x)|         x1
+                                                                              p
+where D is a normalisation constant, Ai(x) is the Airy function and p(x) := 2m(E − V (x)) as
+before. Use this (and the same idea you used in a)) to show that the half-harmonic oscillator with
+potential
+
+                                              (
+                                                  ∞         x<0
+                                    V (x) =       1   2 2
+                                                  2 mω x    x≥0
+
+has energy eigenvalues En = (2n − 21 )ω for n ∈ N0
+Solution
+We consider solutions of fixed positive energy E. The WKB ansatz is relevant on the right haf-
+line where the parabolic potential lies. We moreover observe that, on the left half-line, ψE (x) =
+0, ∀x < 0. Continuity of the wave-function then means that we have to glue ψI to the identically
+zero function.
+In order to do so, we first compute the inversion point (x1 in the problem) where V (x) − E crosses
+zero.
+
+                                                            r
+                                                                2E
+                                   V (x) = E ⇐⇒ x1 =
+                                                                mω 2
+having kept the solution with positive x only. Thus, explicitly
+                                                q                  
+                                                Z   2E
+                                     2D            mω 2
+                          ψI (x) = p       sin         p(y)dy + π/4
+                                      p(x)       0
+
+
+
+
+                                                    9
+amd the boundary condition reads
+                                                     q                   
+                                                      Z  2E
+                                          2D             mω 2               !
+                                ψI (0) = p      sin          p(y)dy + π/4 = 0
+                                           p(x)        0
+
+
+
+This implies
+                     q                                       q
+                Z        2E                           Z          2E
+                         mω 2                                    mω 2   p
+                                p(y)dy + π/4 =                              2mE − m2 ω 2 y 2 dy + π/4 = nπ
+                 0                                       0
+
+
+We rewrite this intregral as
+                                                 q
+                                                     2E       r
+                                   √         Z
+                                                     mω 2               mω 2 2          π
+                                       2mE                        1−        y dy = nπ −
+                                             0                          2E              4
+
+                                                     q
+                                                         2E
+This allows us to substitute y = sin(θ)                  mω 2     which leads to
+                         Z π/2                         Z π/2
+                    3E                   22E                       1                 2E π        π
+                                  cos(θ) = 2                         (cos(2θ) + 1) =      = nπ −
+                    ω2     0              ω               0        2                  ω 4        4
+
+and thus we obtain
+                                                 1
+                                        E = (2n − )ω                     n ∈ 1, 2, . . . , ∞
+                                                 2
+
+
+
+
+                                                                    10
+

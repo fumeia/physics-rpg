@@ -1,0 +1,66 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                             Exercise sheet VI
+                                 Return:   29.10.2025
+
+
+Question 1 [Dirac-delta well in momentum space ]:
+Consider the potential V (x) = −αδ(x) for some constant α > 0. We study its bound
+states in position and momentum representations. Both approaches should give the same
+results, since they simply correspond to a change of basis.
+
+  (i) For E < 0, solve the time-independent Schrödinger equation separately for the
+      regions x < 0 and x > 0, requiring the wave-function to be normalisable. By
+      imposing suitable continuity conditions at x = 0, find the allowed values of E.
+
+ (ii) We now solve for the bound states with a different method. Consider the Fourier
+      transform                              Z ∞
+                               ˜         1
+                              f (p) := √          f (x)e−ipx/ℏ dx.                (1)
+                                         2πℏ −∞
+      Show that, as a consequence, the time-independent Schrödinger equation in mo-
+      mentum representation reads
+                                        Z ∞
+                      p2             1
+                         ψ̃(p) + √          Ṽ (p − p′ )ψ̃(p′ ) dp′ = E ψ̃(p).    (2)
+                     2m             2πℏ −∞
+     Note how the product V (x)ψ(x) becomes a convolution between the Fourier trans-
+     forms of V and ψ. State the interpretation of ψ̃(p) in quantum mechanics.
+
+(iii) For V (x) = −αδ(x), calculate Ṽ (p). For that potential,
+                                                        R ∞ solve the momentum-space
+      equation (2) in terms of the free parameter C ≡ −∞ ψ̃(p) dp. How is C related to
+      the wave-function in position space?
+
+(iv) By integrating the solution found in (iii) from p = −∞ to p = ∞, find the allowed
+     values of E. Do they coincide with what you found in (i)?
+
+ (v) Show that the Fourier transform of the wave-function found in (i) is a momentum
+     space wave-function of the form found in (iii)-(iv).
+
+(vi) Suppose we had instead considered a scattering state E > 0. Would this cause
+     any difficulties in the analysis in part (iv)? What about if we still had E < 0, but
+     considered a Dirac-delta barrier instead (V (x) = α′ δ(x) with α′ > 0)?
+
+
+Question 2 [Uncertainty relation in a box ]:
+Recall from Question 3 of Exercise Sheet III that for the n-th eigenstate of the particle
+confined to the one-dimensional box we found
+                                                 a2
+                                                              
+                           a                 2              6
+                     ⟨x⟩ = ,      ⟨(x − ⟨x⟩) ⟩ =      1− 2 2 .                        (3)
+                           2                     12       nπ
+Similarly, determine the expectation value and the variance of p and confirm the Heisen-
+berg uncertainty relation ∆x · ∆p ≥ ℏ/2.
+
+Question 3 [Uncertainty relation and energy ]:
+A particle of mass m moves in one dimension subject to the potential V (x) = 12 kx2
+(k > 0). Express the expectation value of the energy E in terms of ⟨x⟩, ⟨p⟩, ∆x and ∆p.
+Then, using the uncertainty relation ∆x · ∆p ≥ ℏ/2, show that
+                                             r
+                                            ℏ k
+                                     ⟨E⟩ ≥         .                                (4)
+                                            2 m
+This implies that for this potential, there is a nonzero lower bound for the energy.
+

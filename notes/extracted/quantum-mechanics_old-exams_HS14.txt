@@ -1,0 +1,174 @@
+        Prüfung Quantenmechanik: Allgemeine Hinweise
+
+Vor der Prüfung:
+  • Lesen Sie diese Hinweise und tragen Sie Ihren Namen auf dem Deckblatt ein. Warten
+    Sie auf das Startzeichen bevor Sie die Aufgaben anschauen und die Prüfung beginnen.
+  • Bitte schalten Sie alle elektronischen Geräte aus und legen Sie Ihre Legi zur Kontrolle
+    auf den Tisch, vielen Dank.
+
+Während der Prüfung:
+  • Die Prüfung dauert 3 Stunden.
+  • Beginnen Sie jeden Aufgabenblock auf einem neuen Blatt und beschriften Sie jedes Blatt
+    oben mit Ihrem vollständigen Namen und der Aufgabennummer.
+  • Die Prüfung kann wahlweise auf D/E geschrieben werden.
+  • Hilfsmittel sind nicht erlaubt. Ausnahme: Ein (nicht elektronisches) Wörterbuch.
+  • Die Prüfung ist so ausgelegt, dass Sie nicht alle Aufgaben lösen müssen um erfolgreich
+    zu sein. Insbesondere erreichen Sie eine genügende Note, wenn Sie etwa die Hälfte der
+    maximalen Punktzahl (67) erreichen.
+  • Punkte gibt es für Wissen, Verständnis und Rechnungen. Fügen Sie Ihren Antworten
+    kurze Erklärungen bei.
+  • Besuch der Toilette in Begleitung eines/einer Prüfungsassistenten/in.
+
+Am Schluss der Prüfung:
+  • Bitte ordnen Sie Ihre Blätter nach Aufgabennummer und tragen Sie die Anzahl Lösungs-
+    blätter auf dem Deckblatt ein.
+  • Warten Sie an Ihrem Platz, bis der Assistent/die Assistentin Ihre Prüfung entgegenge-
+    nommen hat, vielen Dank.
+
+Mündliche Prüfung:
+  • Kandidaten und Kandidatinnen, die in der schriftlichen Prüfung eine ungenügende Note
+    erzielen, erhalten die Gelegenheit, eine mündliche Prüfung abzulegen (Dauer: 20 Mi-
+    nuten) um maximal eine 4 zu erreichen. Die mündlichen Prüfungen sind für Freitag,
+    30. Januar und Mittwoch, 4. Februar geplant.
+  • Über Ihren Prüfungserfolg (bestanden, nicht bestanden) werden wir Sie via Ihrer offizi-
+    ellen ETH-Mail Adresse bis Donnerstag Abend 29. Januar, 20 Uhr informieren.
+  • Sollte der Bericht ausbleiben oder der vorgeschlagene Termin aus gewichtigen Gründen
+    unpassend sein, melden Sie sich bitte sofort bei blatterj@phys.ethz.ch.
+
+                                      Viel Erfolg!
+                       Prüfung Quantenmechanik
+
+
+
+Prof. Dr. G. Blatter
+Herbstsemester 2014
+Datum: 28.01.2015
+Zeit: 09:00-12:00
+
+VORNAME:                                 NAME:
+
+MATRIKELNUMMER:
+
+
+
+
+Anzahl Lösungsblätter:
+
+
+Bitte die nachfolgende Tabelle nicht ausfüllen!
+
+
+    Aufgabe       A          B          C          D   E   ⌃
+    Punkte
+Aufgabe A:           Einteilchenphysik in 1 – 3 dim                         [13 Punkte]
+
+A.1. [1 Punkt] Wie lautet die zeitabhängige Schrödingergleichung eines massiven Teilchens
+     im Potential?
+
+A.2. [2 Punkte] Definiere die Teilchendichte ⇢ und die Teilchenstromdichte J und weise die
+     Gültigkeit der Kontinuitätsgleichung nach.
+
+A.3. [3 Punkte] Betrachte ein Teilchen in 2D, welches auf einen Streifen (d.h. x 2 R und
+     |y| < w/2) eingeschränkt ist. Welcher Hamilton-Operator beschreibt dieses System und
+     welche Symmetrien besitzt er? Finde die stationären Lösungen für das Teilchen und
+     bestimme das Energiespektrum En (k). Zeichne das Spektrum.
+
+A.4. [2 Punkte] Gib an, welcher Hamilton-Operator ein geladenes Teilchen (Ladung q) in
+     3 Dimensionen in Anwesenheit eines elektrischen (E) und magnetischen (B) Feldes
+     beschreibt. Gib die Eichtransformation an und erkläre deren Bedeutung.
+
+A.5. [2 Punkte] Bestimme die Zeitentwicklung (x, t) für einen gegebenen Anfangszustand
+       (x, 0) für den Fall eines zeitunabhängigen Hamilton-Operators (@t H = 0) mit diskre-
+     tem Spektrum.
+
+A.6. [3 Punkte] Betrachte ein Teilchen in einem unendlich tiefen Topf (in einer Dimension).
+     Bestimme die Zeit T , nach welcher sich das Teilchen für einen beliebigen Anfangszustand
+       (x, 0) wieder im gleichen Zustand befindet, d.h. (x, 0) = (x, T ). Finde explizit ein
+     Beispiel eines Anfangszustandes, für welchen die Periode kürzer ist als T .
+Aufgabe B:           Streuphysik in 1D                                     [15 Punkte]
+
+B.1. [1 Punkt] Definiere die allgemeine Streumatrix S in 1D und erkläre ihre Bedeutung.
+
+B.2. [3 Punkte] Welche Bedingung muss die Streumatrix erfüllen und welches ist ihr physika-
+     lischer Ursprung? Gib die Konsequenzen für die Matrixelemente an. Welche Symmetrien
+     stellen zusätzliche Bedingungen an S? Gib jeweils die vereinfachte Form von S an.
+
+B.3. [1 Punkte] Leite für eine allgemeine Streumatrix die zugehörige Transfermatrix her.
+
+B.4. [3 Punkte] Betrachte zwei identische (symmetrische) Streuer mit Reflektions- und Trans-
+     missionsamplituden r und t im Abstand w. Bestimme die Transmissionsamplitude des
+     gesamten Systems.
+
+B.5. [1 Punkt] Gib die asymptotische Form der Wellenfunktion einer von links einfallenden,
+     ebenen Welle eikx an, welche an einem kurzreichweitigen Potential V (x) streut.
+
+B.6. [6 Punkte] Leite die Lippmann-Schwinger-Gleichung in 1D her und berechne daraus
+     explizit (und exakt) die Streuung an einem -Potential V (x) = V0 (x).
+Aufgabe C:          Physik in 3D                                          [13 Punkte]
+
+C.1. [2 Punkte] Gib die Kommutationsrelationen der Drehimpulskomponenten Li (mit i =
+     x, y, z) an und zeige [L2 , Lz ] = 0.
+
+C.2. [2 Punkte] Gib das Spektrum des Wassersto↵atoms an und diskutiere die Entartungen
+     (inkl. Spin).
+
+C.3. [2 Punkte] Welche Symmetrie ist gebrochen, wenn das 1/r-Potential modifiziert wird
+     (aber weiterhin rotationssymmetrisch bleibt) und wie wirkt sich dies auf das Spektrum
+     und insbesondere die Entartungen aus?
+
+C.4. [1 Punkt] Betrachte ein rotationssymmetrisches Potential und reduziere die 3D-
+     Schrödingergleichung eines Teilchens auf eine e↵ektive 1D Schrödingergleichung.
+
+C.5. [2 Punkte] Bestimme die Streuphase   0 für s-Wellenstreuung an einer harten Kugel von
+     Radius r0 .
+
+C.6. [4 Punkte] Gebundene Zustände eines attraktiven Potentials entsprechen Polen der
+     Streuamplitude sl . Zeige, dass dieses Kriterium auf die Bedingung cot l = i führt
+     (Hinweis: Betrachte sl 1).
+     Betrachte nun niedrig-energetische Streuung an einem attraktiven Potential beschrieben
+     durch seine Streulänge a > 0 und bestimme die Energie eines (schwach) gebundenen
+     Zustandes.
+Aufgabe D:          Formalismus und Approximative Methoden
+                    [13 Punkte]
+
+D.1. [1 Punkt] Wie sind Zustände und Observablen im Schrödinger- und Heisenberg-Bild
+     verbunden?
+
+D.2. [3 Punkte] Betrachte ein freies Teilchen in 1D mit H = p2 /2m und bestimme xH (t) und
+     pH (t) im Heisenberg-Bild.
+
+D.3. [1 Punkt] Wie lautet Fermis Goldene Regel? Erkläre ihre Bedeutung.
+
+D.4. [3 Punkte] Betrachte ein Teilchen in einer Box mit Volumen L3 mit normierten Wel-
+                                  p
+     lenfunktionen k (r) = eik·r / L3 . Berechne die Zerfallsrate eines Zustandes | k i in
+     Anwesenheit eines Deltapotentials V (r) = V0 (r).
+
+D.5. [5 Punkte] Finde die normierte Wellenfunktion im Grundzustand des harmonischen
+     Oszillators (1D) mithilfe eines Variationsansatzes (x) = A exp[ x2 /2 2 ].
+Aufgabe E:           Spins und Dichtematrizen                                 [13 Punkte]
+
+E.1. [1 Punkt] Gib die Pauli-Matrizen an und erkläre den Zusammenhang mit dem Spin
+     eines Elektrons.
+
+E.2. [1 Punkt] Betrachte ein Elektron im magnetischen Feld. Wie lautet der Spin-Anteil des
+     Hamilton-Operators?
+
+E.3. [3 Punkte] Die Dichtematrix ⇢ eines Spin-1/2-Teilchens lässt sich im Allgemeinen in der
+     Form ⇢ = 12 (a1 + b · ) schreiben. Leite die Bedingungen an a und b für einen reinen
+     und einen gemischten Zustand her.
+
+E.4. [3 Punkte] Schreibe die Singlett- und Triplett-Zustände für zwei Spin-1/2-Teilchen in
+     der Produktbasis der beiden Spins und in der Gesamtdrehimpuls-Basis. Welche Clebsch-
+     Gordan-Koeffizienten kommen in diesem Problem vor?
+
+E.5. [3 Punkte] Bestimme die Dichtematrizen für die Zustände 12 (|#i + |"i) ⌦ (|#i + |"i) und
+     p1 (|"i ⌦ |"i + |#i ⌦ |#i) von zwei Spin-1/2-Teilchen. Ermittle die Dichtematrizen für die
+       2
+     beiden Fälle und gibt deren Form nach vollständiger Dekohärenz an.
+
+E.6. [2 Punkte] Betrachte ein Atom mit Kernspin I = 4 sowie ein Elektron im d-Orbital
+     (d.h. l = 2) (ignoriere alle anderen Elektronen, die sich in gefüllten Orbitalen befinden).
+     Bestimme die möglichen Werte des Gesamtdrehimpulses und die zugehörigen Multipli-
+     zitäten.
+

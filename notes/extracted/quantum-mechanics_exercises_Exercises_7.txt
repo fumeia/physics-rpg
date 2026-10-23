@@ -1,0 +1,111 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                             Exercise sheet VII
+                                   Return:     05.11.2025
+
+
+Question 1 [2D harmonic oscillator ]:
+Consider the Hamiltonian of a particle moving in a two-dimensional harmonic potential
+                                    ℏω
+                                       −∂x2 − ∂y2 + x2 + y 2 .
+                                                            
+                             H=                                                         (1)
+                                     2
+  (i) Introduce ladder operators a, a† , b, b† and show that the Hamiltonian can be written
+      as
+                                   H = ℏω a† a + b† b + 1 .
+                                                            
+                                                                                        (2)
+     Write down the commutation relations the ladder operators a, a† , b, b† satisfy.
+
+ (ii) Find the eigenstates of H using the ladder operators. What is the wavefunction of
+      the vacuum ψ0 (x, y) = ⟨x, y|0⟩?
+
+(iii) Show that the Hamiltonian is invariant under a transformation of the ladder oper-
+      ators,                                         
+                              a(φ)       cos φ − sin φ     a
+                                     =                        ,                     (3)
+                              b(φ)        sin φ cos φ      b
+     with the same matrix acting on a† , b† . What is the corresponding transformation of
+     the coordinates x, y, and thus what is the interpretation of this symmetry?
+
+(iv) Find the generator of this transformation. That is, find an operator J which satisfies
+
+                                    d                              d
+                        [J, a] =          a(φ) ,       [J, b] =          b(φ) .         (4)
+                                   dφ φ=0                         dφ φ=0
+
+     Hint: The generator J is constructed from bilinears of ladder operators.
+
+ (v) Show that [H, J] = 0. The two operators can thus be simultaneously diagonalised.
+     Diagonalise J on the space of states with energy E ≤ 2ℏω.
+
+
+Question 2 [Coherent states ]:
+Consider a harmonic oscillator with annihilation and creation operators a, a† such that
+[a, a† ] = 1, and let α ∈ C. A coherent state |α⟩ is a normalised eigenstate of the annihi-
+lation operator a with eigenvalue α, i.e.
+
+                              a|α⟩ = α|α⟩ ,         ⟨α|α⟩ = 1 .                         (5)
+
+  (i) Show that, up to a global phase,
+                                                   2      †
+                                        |α⟩ = e−|α| /2 eαa |0⟩,                         (6)
+
+     where |0⟩ is the ground state of the harmonic oscillator.
+ (ii) Let the initial state vector of a harmonic oscillator be |α⟩. Show that the state
+      vector at time t is
+
+                           |α⟩(t) = e−iωt/2 |α(t)⟩ ,               α(t) = αe−iωt ,      (7)
+
+     i.e. that |α⟩(t) is again a coherent state.
+
+(iii) Calculate ⟨x⟩(t) := ⟨α(t)|x|α(t)⟩ and ⟨p⟩(t). Compare to the classical case.
+
+(iv) Check that coherent states have minimal uncertainty,
+
+                                            ∆x ∆p = ℏ/2 .                               (8)
+
+ (v) Show that the coherent states are complete, i.e. that
+                                                     ∞
+                                    dα∗ dα
+                               Z                    X
+                                           |α⟩⟨α| =     |n⟩⟨n| = I,                     (9)
+                                     2πi            n=0
+
+     where dα∗ dα = 2i d(Re α)d(Im α).
+
+(vi) Show that the position-space wave-function ⟨x|α⟩ is Gaussian (though generally not
+     centred at x = 0). Referring to previous exercise sheets, could you have guessed
+     that result for α = 0?
+
+
+Question 3 [Degeneracies ]:
+Let Dnk be the number of ways of writing n as the sum of k non-negative integers
+n1 , n2 , . . . , nk . We define a generating function
+                                                   ∞
+                                                   X
+                                       k
+                                     F (s) :=             Dnk sn                       (10)
+                                                   n=0
+
+where s ∈ C and |s| < 1.
+
+  (i) Show that
+                                           ∞ X
+                                           X ∞                 ∞
+                                                               X
+                                k
+                              F (s) =                    ···           sn1 +···+nk .   (11)
+                                           n1 =0 n2 =0         nk =0
+
+
+ (ii) Deduce that F k (s) = (1 − s)−k , and hence or otherwise, show that
+                                                      
+                                         k    n+k−1
+                                       Dn =               .                            (12)
+                                                  n
+
+(iii) Deduce the formulae for the degeneracy of energy eigenstates of isotropic harmonic
+      oscillators in two and three dimensions.
+

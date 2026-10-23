@@ -1,0 +1,109 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                             Exercise sheet XIII
+                                   Return:    17.12.2025
+
+
+Question 1 [Time-energy uncertainty ]:
+
+  (i) Let |ψ(t)⟩ be a solution of the Schrödinger equation (with a time-independent Hamil-
+      tonian H), and write the normalized initial state as |ψ(0)⟩ := |ψ⟩. Show that
+
+                                                     t2
+                                                              
+                                          it                 2
+                                                                 1 + O(|t|3 ) ,
+                                                                             
+                     ⟨ψ|ψ(t)⟩ = exp − ⟨H⟩ − 2 (∆H)                                      (1)
+                                          ℏ         2ℏ
+
+     where (∆H)2 = ⟨H 2 ⟩ − ⟨H⟩2 and ⟨·⟩ denotes expectation values in the state |ψ⟩.
+
+ (ii) Show that the probability that the state |ψ⟩ does not change within a time t is
+
+                     P [no change] = exp −(∆H)2 t2 /ℏ2 1 + O(|t|3 ) .
+                                                                    
+                                                                                      (2)
+
+     This is a ‘time-energy uncertainty relation’ in the sense that the typical time needed
+     to jump from the state |ψ⟩ to some other state is inversely proportional to ∆H.
+
+(iii) What is the probability P [no change] when |ψ⟩ is an eigenstate of H? Is that
+      consistent with eq. (2)?
+
+
+Question 2 [Quantum Zeno effect ]:
+Let Ut = e−iHt/ℏ be the evolution operator associated with the Hamiltonian H, and let
+P = |ϕ⟩⟨ϕ| be the projector on some normalised state vector |ϕ⟩.
+
+  (i) Show that
+                           P Ut/n P Ut/n · · · P Ut/n P = ⟨ϕ|Ut/n |ϕ⟩n P .             (3)
+                           |         {z             }
+                                    n times
+
+ (ii) Using question 1 above, show that
+
+                             ⟨ϕ|Ut/n |ϕ⟩n = e−i⟨H⟩t/ℏ 1 + O(t2 /n)
+                                                                  
+                                                                                       (4)
+
+     where ⟨H⟩ is the expectation value of H in the state |ϕ⟩.
+
+(iii) Deduce that, for t fixed,
+
+                           lim P Ut/n P Ut/n · · · P Ut/n P = e−i⟨H⟩t/ℏ P .            (5)
+                          n→+∞ |         {z             }
+                                         n times
+
+
+Note: This exhibits the fact that abrupt changes of states caused by measurements are
+radically different from the steady evolution described by the Schrödinger equation. Here
+(eq. (3)) we repeated the measurement P = |ϕ⟩⟨ϕ|, over and over again, on an evolving
+system. This led to eq. (5), which shows that repeated measurements ‘freeze’ quantum
+states: the system never moves away from |ϕ⟩.
+
+Question 3 [Hardy’s paradox ]:
+In this exercise, we will study an entangled system in which the measurement results can-
+not be described by classical random variables. Let HA and HB be 2-dimensional Hilbert
+spaces, each with an orthonormal basis {|±⟩}. Alice and Bob perform measurements on
+a system in the state
+                      1                                     
+              |ψ⟩ = √ |+⟩ ⊗ |+⟩ + |−⟩ ⊗ |+⟩ + |−⟩ ⊗ |−⟩ ∈ HA ⊗ HB .                   (6)
+                       3
+Alice can measure two observables A0 , A1 , which are defined by their action on states
+
+        A0 |±⟩ ⊗ |ϕ⟩ = ± |±⟩ ⊗ |ϕ⟩ ,   A1 |±n̂⟩ ⊗ |ϕ⟩ = ± |±n̂⟩ ⊗ |ϕ⟩ ,     ∀ |ϕ⟩ ∈ HB      (7)
+
+where
+                                           1         
+                                 |±n̂⟩ := √ |+⟩ ± |−⟩ .                                     (8)
+                                            2
+Denote the result of measuring Ai by ai ∈ {+1, −1}.
+Subsequently, Bob measures either B0 or B1 , where
+
+  B0 |ω⟩ ⊗ |±⟩ = ± |ω⟩ ⊗ |±⟩ ,      B1 |ω⟩ ⊗ |±m̂⟩ = ± |ω⟩ ⊗ |±m̂⟩ ,       ∀ |ω⟩ ∈ HA ,     (9)
+
+with
+                          1                             1            
+                 |+m̂⟩ := √ 2 |+⟩ + |−⟩ ,       |−m̂⟩ := √ |+⟩ − 2 |−⟩ .                   (10)
+                           5                              5
+Again, denote the result of measuring Bj by bj ∈ {+1, −1}.
+
+  (i) Show that                                     
+                           |ψ⟩ ∝ |+n̂⟩ ⊗ 2 |+⟩ + |−⟩ − |−n̂⟩ ⊗ |−⟩ .                       (11)
+
+ (ii) Show that measurement probabilities satisfy the following:
+
+                 When Alice measures A0 and Bob measures B0 , P [a0 > b0 ] = 0.            (12)
+                 When Alice measures A1 and Bob measures B0 , P [b0 > a1 ] = 0.            (13)
+                 When Alice measures A1 and Bob measures B1 , P [a1 > b1 ] = 0.            (14)
+
+(iii) Argue that if a0 , a1 , b0 , b1 were classical random variables, then (12)–(14) would
+      imply P [a0 > b1 ] = 0 when Alice measures A0 and Bob measures B1 .
+
+(iv) Show that when Alice measures A0 and Bob measures B1 on the state |ψ⟩, then
+     P [a0 > b1 ] > 0, contrary to the classical reasoning! This shows we cannot simply
+     think of the quantum measurement results a0 , a1 , b0 , b1 as jointly distributed classical
+     random variables — a key point here is that e.g. a0 and a1 cannot be simultaneously
+     observed, since their measurement operators do not commute.
+

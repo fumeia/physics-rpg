@@ -1,0 +1,82 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                                Exercise sheet VIII
+                                      Return:       12.11.2025
+
+
+Question 1 [Angular momentum ]:
+The angular momentum operator is defined by
+                                              ⃗ = ⃗r ∧ p⃗ ,
+                                              L                                                  (1)
+
+thus being a vector operator with components
+
+                                             Li = εijk rj pk                                     (2)
+
+(repeated indices are summed over).
+
+  (i) Using [ri , pj ] = iℏδij , derive the commutation relations
+
+                                             [Li , Lj ] = iℏεijk Lk .                            (3)
+
+     In addition, show that
+                                                       ⃗ 2] = 0 .
+                                                 [L3 , L                                         (4)
+
+                                                                                     ⃗ 2 and
+ (ii) Evaluate [L3 , L1 L2 + L2 L1 ] and deduce that in an eigenstate |l, m⟩ of both L
+      L3 , with eigenvalues ℏ2 l(l + 1) and ℏm, respectively, the expectation values of L21
+      and L22 are given by
+                                                            1
+                       ⟨l, m|L21 |l, m⟩ = ⟨l, m|L22 |l, m⟩ = ℏ2 [l(l + 1) − m2 ] .               (5)
+                                                            2
+     Hint: If |ψ⟩ is an eigenstate of the self-adjoint operator A, show that, for any
+     operator B,
+                                     ⟨ψ|[A, B]ψ⟩ = 0 .                             (6)
+
+
+Question 2 [SO(4) ]:
+Consider the Lie algebra of SO(4),
+
+            so(4) = {γ̇(t)|t=0 : γ(t) differentiable path in SO(4), γ(0) = id} .                 (7)
+
+  (i) Describe so(4) as a space of matrices.
+
+ (ii) Find a basis {A1 , A2 , A3 , B1 , B2 , B3 } of so(4) such that
+
+                    [Ai , Aj ] = εijk Ak ,    [Bi , Bj ] = εijk Ak ,    [Ai , Bj ] = εijk Bk .   (8)
+
+(iii) Show that so(4) is isomorphic, as a Lie algebra, to su(2) ⊕ su(2). (Hint: Find
+      generators of so(4) such that they split into two commuting sets of su(2) generators.)
+Question 3 [Representations of su(2) and 2D oscillator ]:
+Let {a† , a} and {b† , b} be two commuting pairs of creation and annihilation operators.
+Define
+                             1
+                        J3 = (a† a − b† b) J+ = a† b     J − = b† a .                (9)
+                             2
+  (i) Show that these operators satisfy the commutation relations of su(2) ,
+
+                              [J3 , J± ] = ±J± ,    [J+ , J− ] = 2J3 .                   (10)
+
+ (ii) Let J⃗2 := J32 + 21 (J+ J− + J− J+ ). Show that J⃗2 = N2 ( N2 + 1), where N = Na + Nb .
+
+(iii) On the number-state basis |na , nb ⟩, show that
+                                          p
+                         J+ |na , nb ⟩ = nb (na + 1)|na + 1, nb − 1⟩
+                                          p
+                         J− |na , nb ⟩ = na (nb + 1)|na − 1, nb + 1⟩                     (11)
+                                          1
+                          J3 |na , nb ⟩ = (na − nb )|na , nb ⟩.
+                                          2
+
+(iv) Show that if we instead label the basis states as |j, m⟩J by defining j = (na + nb )/2
+     and m = (na − nb )/2, the relations in Eq. (11) take the standard form of su(2)
+     representations. Also show that
+
+                                          (a† )j+m (b† )j−m
+                               |j, m⟩J = p                  |0, 0⟩.
+                                          (j + m)!(j − m)!
+
+ (v) Show that the three operators (9) commute with a† a+b† b. Conclusion: the isotropic
+     2D harmonic oscillator has a hidden su(2) symmetry (that lifts energy degeneracies).
+

@@ -1,0 +1,901 @@
+{
+  "id": "ss-semiconductor-forge",
+  "region": "Solid State Crystal Caverns",
+  "title": "The Semiconductor Forge",
+  "course": "solid-state",
+  "topics": [
+    "band gap, direct/indirect",
+    "effective mass, cyclotron resonance",
+    "intrinsic carriers, mass-action law",
+    "donors and acceptors, hydrogenic model",
+    "p-n junction, depletion layer",
+    "LED colour and photovoltaics"
+  ],
+  "sources": [
+    {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 3 (Zheludev, Jan 2024); solution (1), Problem 3"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS23 (1).pdf",
+      "where": "Problem 3 (Aug 2024); solution: HS23 (Solution).pdf, Problem 3"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "Task 4 GaAs (12 pt), MC (a) carrier density, (c) p-type E_F, (o) 2D DOS, (t) p-n junction band diagram; solution HS20"
+    },
+    {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 5.1-5.4 (pp. 113–135): gap, effective mass, cyclotron resonance, intrinsic carriers, doping, p-n junction"
+    },
+    {
+      "file": "notes/solid-state/04-semiconductors-and-magnetism.md",
+      "where": "transcription, formulas and checks"
+    }
+  ],
+  "links": [
+    {
+      "course": "qm",
+      "room": "hydrogen-lamp",
+      "why": "Donors are hydrogen atoms with $m\\to m^*$, $\\epsilon_0\\to\\epsilon_r\\epsilon_0$: energies scale as $m^*/\\epsilon_r^2$, radii as $\\epsilon_r/m^*$.",
+      "planned": true
+    },
+    {
+      "course": "astrophysics",
+      "room": "photometry-radiation",
+      "why": "LED colour, band-gap absorption edges and Wien's law: the gap sets which photons a detector or solar cell can use.",
+      "planned": false
+    }
+  ],
+  "intro": "At the forge the band gap decides everything. Thermally excited carriers, doping with hydrogen-like donors, the depletion layer of a p-n junction and the colour of a light-emitting diode all follow from one parabola near each band edge.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "ss-sem-L1",
+      "title": "Intrinsic semiconductors: gap, effective mass, carriers",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 5.1-5.2, eqs. (5.3)-(5.19), pp. 113-122"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "A semiconductor is a band insulator with a small gap $\\Delta\\sim1$ eV ($\\approx40k_BT$ at 300 K). Only the band edges matter: parabolas with effective masses $m_e^*$, $m_h^*$. Direct gap (GaAs): CB minimum and VB maximum at the same $\\vec k$; indirect (Si, Ge): different $\\vec k$, optical transitions need a phonon."
+        },
+        {
+          "kind": "eq",
+          "tex": "n_e=n_e^{\\rm eff}e^{(\\epsilon_F-\\epsilon_c)/k_BT},\\quad n_h=n_h^{\\rm eff}e^{(\\epsilon_v-\\epsilon_F)/k_BT},\\quad n^{\\rm eff}=2\\Big(\\frac{m^*k_BT}{2\\pi\\hbar^2}\\Big)^{3/2}",
+          "label": "(5.9)-(5.13), Boltzmann tails of the Fermi function."
+        },
+        {
+          "kind": "eq",
+          "tex": "n_en_h=n_e^{\\rm eff}n_h^{\\rm eff}e^{-\\Delta/k_BT},\\qquad \\epsilon_F^{\\rm intr}=\\frac{\\epsilon_c+\\epsilon_v}{2}+\\frac34k_BT\\ln\\frac{m_h^*}{m_e^*}",
+          "label": "(5.14)-(5.16): mass-action law."
+        },
+        {
+          "kind": "eq",
+          "tex": "\\sigma=n_ee\\mu_e+n_he\\mu_h,\\qquad \\mu=\\frac{e\\tau}{m^*}",
+          "label": "(5.17)-(5.19)."
+        },
+        {
+          "kind": "intuition",
+          "html": "The heavier band has more states near its edge, so to keep $n_e=n_h$ the Fermi level moves away from it: heavy holes push $\\epsilon_F$ up. Carrier density is exponential in $T$, mobility only a power law: $\\sigma$ of an undoped semiconductor rises steeply with $T$, opposite to a metal."
+        },
+        {
+          "kind": "pitfall",
+          "html": "$\\exp(-\\Delta/2k_BT)$ in $n_i$ (half the gap), but $\\exp(-\\Delta/k_BT)$ in the product $n_en_h$ and in the 'probability to excite an electron'. Cyclotron resonance needs $\\omega_c=eB/m^*$ in the microwave range: an optical laser line would need kT fields (HS20 Task 4d)."
+        },
+        {
+          "kind": "exam",
+          "html": "HS20 Task 4 (GaAs): gap from the absorption edge, Boltzmann factor, cyclotron field, $n_i$, $\\epsilon_F$ shift, $\\sigma$, donor Bohr radius. HS23 Problem 3: 1D cosine bands, $m^*$, DOS per length, $n_e$, $n_h$, intrinsic $\\mu$."
+        }
+      ],
+      "check": [
+        {
+          "q": "If $m_h^*>m_e^*$, the intrinsic Fermi level lies",
+          "options": [
+            "in the valence band",
+            "exactly at mid-gap",
+            "above mid-gap",
+            "below mid-gap"
+          ],
+          "correct": 2,
+          "explain": "$+\\frac34k_BT\\ln(m_h^*/m_e^*)>0$."
+        },
+        {
+          "q": "Doping a semiconductor so that $n_e$ rises tenfold (same $T$) changes $n_h$ by",
+          "options": [
+            "×0.1",
+            "×0.01",
+            "×10",
+            "×1"
+          ],
+          "correct": 0,
+          "explain": "Mass-action law: $n_en_h$ fixed at fixed $T$."
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "ss-sem-L2",
+      "title": "Doping and the p–n junction",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 5.3-5.4, eqs. (5.20)-(5.52), pp. 123-135"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "eq",
+          "tex": "E_d=\\frac{e^4m^*}{2(4\\pi\\epsilon\\epsilon_0\\hbar)^2}=\\mathrm{Ry}\\frac{m^*/m_e}{\\epsilon^2},\\qquad r_d=\\frac{4\\pi\\epsilon\\epsilon_0\\hbar^2}{m^*e^2}=a_0\\frac{\\epsilon}{m^*/m_e}",
+          "label": "(5.20)-(5.21): the donor is a hydrogen atom in a dielectric."
+        },
+        {
+          "kind": "text",
+          "html": "Carrier density of an n-type sample versus $T$: freeze-out $n_e\\propto\\sqrt{N_d}e^{-E_d/2k_BT}$, exhaustion $n_e\\approx N_d$ (flat), intrinsic $n_i\\propto e^{-\\Delta/2k_BT}$. At $T=0$ the Fermi level sits between donor level and CB edge (p-type: between VB edge and acceptor level) and moves towards mid-gap as $T$ rises."
+        },
+        {
+          "kind": "eq",
+          "tex": "eV=\\Delta+k_BT\\ln\\frac{N_dN_a}{n_e^{\\rm eff}n_h^{\\rm eff}}\\approx\\Delta,\\qquad d_n+d_p=\\sqrt{\\frac{2\\epsilon\\epsilon_0V}{e}\\frac{N_a+N_d}{N_aN_d}},\\qquad N_dd_n=N_ad_p",
+          "label": "(5.36), (5.44)-(5.46)."
+        },
+        {
+          "kind": "eq",
+          "tex": "d(U)=d(0)\\sqrt{1-U/V},\\qquad I=I_{\\rm gen}\\big(e^{eU/k_BT}-1\\big)",
+          "label": "(5.48)-(5.52): forward bias U>0 (+ on p)."
+        },
+        {
+          "kind": "intuition",
+          "html": "When p and n touch, electrons diffuse to p and holes to n, leaving fixed ionised dopants: $+$ on the n side, $-$ on the p side. Their field stops the diffusion when the Fermi levels align; the bands bend by $\\approx\\Delta$. Forward bias lowers the barrier: the recombination current grows exponentially. Reverse bias only leaves the tiny generation current: rectification."
+        },
+        {
+          "kind": "pitfall",
+          "html": "The lightly doped side carries the wider depletion region. The host's $\\epsilon$ (not the donor's) enters $E_d$ because the orbit spans $\\sim$20 lattice constants. Typical $E_d$: GaAs 5.5 meV, Si 45 meV (P)."
+        }
+      ],
+      "check": [
+        {
+          "q": "A Si p–n junction with $N_a=10^{16}$ and $N_d=10^{17}$ cm$^{-3}$: where is the depletion layer wider?",
+          "options": [
+            "n side",
+            "p side",
+            "equal",
+            "it has no depletion layer"
+          ],
+          "correct": 1,
+          "explain": "$d_p/d_n=N_d/N_a=10$."
+        },
+        {
+          "q": "For a p-type semiconductor at $T=0$ the Fermi energy lies",
+          "options": [
+            "at the CB edge",
+            "at the VB edge",
+            "between VB and acceptor level",
+            "above the acceptor level"
+          ],
+          "correct": 2,
+          "explain": "HS20 MC (c).",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (c)"
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "ss-sem-Q1",
+      "title": "Semiconductor Forge multiple choice",
+      "xp": 25,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/solid-state/old-exams/HS20.pdf",
+          "where": "Task 1 MC (a),(c),(t); Task 4"
+        },
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 5"
+        }
+      ],
+      "questions": [
+        {
+          "q": "A carrier density that shows an activated rise at low $T$, a flat plateau, and a second, steeper rise at high $T$ belongs to",
+          "options": [
+            "an insulator",
+            "a doped semiconductor",
+            "an intrinsic semiconductor",
+            "a metal"
+          ],
+          "correct": 1,
+          "explain": "Freeze-out, exhaustion, intrinsic regimes (the figure of HS20 MC (a)).",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (a)"
+          }
+        },
+        {
+          "q": "Why does an absorption measurement of GaAs measure the gap at $k=0$?",
+          "options": [
+            "photons have large momentum",
+            "the photon momentum is negligible on the BZ scale",
+            "GaAs is indirect",
+            "absorption is phonon-assisted"
+          ],
+          "correct": 1,
+          "explain": "$2\\pi/\\lambda\\sim10^{-3}$ of $\\pi/a$: vertical transitions.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "Task 4 (b)"
+          }
+        },
+        {
+          "q": "In equilibrium across a p–n junction",
+          "options": [
+            "the Fermi level jumps by Δ",
+            "the Fermi level is constant; the bands bend by ≈ Δ",
+            "the bands are flat",
+            "electrons flow continuously"
+          ],
+          "correct": 1,
+          "explain": "Script 5.4.1-5.4.2; correct band diagram of HS20 MC (t).",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (t)"
+          }
+        },
+        {
+          "q": "Phonon-limited mobility in a non-degenerate semiconductor scales as",
+          "options": [
+            "$T^{-3/2}$",
+            "$T^{3/2}$",
+            "$T^{-5}$",
+            "$T$"
+          ],
+          "correct": 0,
+          "explain": "$1/\\tau\\propto$ (phonon number $\\propto T$)×(thermal speed $\\propto\\sqrt T$) (script 5.2.2)."
+        },
+        {
+          "q": "A blue LED emits at 460 nm. Its gap is about",
+          "options": [
+            "3.4 eV",
+            "2.0 eV",
+            "1.4 eV",
+            "2.7 eV"
+          ],
+          "correct": 3,
+          "explain": "$1239.8/460=2.70$ eV."
+        },
+        {
+          "q": "In the 1D cosine-band semiconductor of HS23 Aug ($E_{cb}=E_G+2t_{cb}[\\cos ka+1]$, $E_{vb}=2t_{vb}[\\cos ka-1]$) the gap is",
+          "options": [
+            "absent",
+            "indirect: CB minimum at k = π/a, VB maximum at k = 0",
+            "direct at k = π/a",
+            "direct at k = 0"
+          ],
+          "correct": 1,
+          "explain": "$\\cos ka+1=0$ at $\\pi/a$.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS23 (1).pdf",
+            "where": "Problem 3 (b)"
+          }
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "ss-sem-D1",
+      "title": "Width of the depletion layer",
+      "xp": 30,
+      "source": {
+        "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+        "where": "Ch. 5.4.2-5.4.3, eqs. (5.38)-(5.46)"
+      },
+      "goal": "Abrupt p–n junction at $x=0$, acceptors $N_a$ for $x<0$, donors $N_d$ for $x>0$, built-in potential $V$. In the depletion approximation derive $d_n$, $d_p$ and $d_n+d_p$.",
+      "given": [
+        "$\\rho=+eN_d$ for $0<x<d_n$, $-eN_a$ for $-d_p<x<0$, 0 outside",
+        "Poisson $\\phi''=-\\rho/\\epsilon\\epsilon_0$"
+      ],
+      "steps": [
+        {
+          "prompt": "Integrate Poisson on the n side with $\\phi'(d_n)=0$, $\\phi(d_n)=\\phi(\\infty)$.",
+          "reveal": "$\\phi=\\phi(\\infty)-\\frac{eN_d}{2\\epsilon\\epsilon_0}(x-d_n)^2$."
+        },
+        {
+          "prompt": "Same on the p side.",
+          "reveal": "$\\phi=\\phi(-\\infty)+\\frac{eN_a}{2\\epsilon\\epsilon_0}(x+d_p)^2$."
+        },
+        {
+          "prompt": "Continuity of $\\phi'$ and $\\phi$ at $x=0$.",
+          "reveal": "$\\phi'$: $N_dd_n=N_ad_p$ (neutrality). $\\phi$: $\\frac{e}{2\\epsilon\\epsilon_0}(N_dd_n^2+N_ad_p^2)=V$."
+        },
+        {
+          "prompt": "Solve.",
+          "reveal": "$d_n=\\sqrt{\\frac{2\\epsilon\\epsilon_0V}{e}\\frac{N_a}{N_d(N_a+N_d)}}$, $d_p=\\sqrt{\\frac{2\\epsilon\\epsilon_0V}{e}\\frac{N_d}{N_a(N_a+N_d)}}$, sum $\\sqrt{\\frac{2\\epsilon\\epsilon_0V}{e}\\frac{N_a+N_d}{N_aN_d}}$. With bias $V\\to V-U$. Si, $10^{16}/10^{17}$ cm$^{-3}$, $V=0.79$ V: $0.34\\,\\mu$m."
+        }
+      ],
+      "keyPoints": [
+        "parabolic $\\phi$ on each side",
+        "$N_dd_n=N_ad_p$",
+        "$\\frac{e}{2\\epsilon\\epsilon_0}(N_dd_n^2+N_ad_p^2)=V$",
+        "$d\\propto\\sqrt{V}$, so $d(U)=d\\sqrt{1-U/V}$"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "ss-sem-c1",
+      "title": "GaAs: gap, cyclotron resonance, intrinsic carriers",
+      "fight": "normal",
+      "problem": "Ensslin, HS20 task 4. In GaAs (direct gap) the absorption edge in the 300 K spectrum rises at $\\nu=344$ THz. Effective masses $m_e^*=0.067\\,m_e$ and $m_h^*=0.45\\,m_e$. Use $k_BT=25$ meV for the Boltzmann factor (as in the key) and $T=300$ K in the carrier-density formula. Mobilities $\\mu_e=1.6$ and $\\mu_h=0.4$ m$^2$/(V s).",
+      "vars": {
+        "h": 6.62607015e-34,
+        "e": 1.602176634e-19,
+        "kB": 1.380649e-23,
+        "c": 299792458,
+        "nu": 344000000000000.0,
+        "kT": 0.025,
+        "T": 300.0,
+        "lam": 6.71e-07,
+        "me_": 0.067,
+        "mh_": 0.45,
+        "mue": 1.6,
+        "muh": 0.4
+      },
+      "steps": [
+        {
+          "id": "Eg",
+          "prompt": "Band gap $E_g=h\\nu$ in eV.",
+          "answer": "h*nu/e",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "THz",
+            "nm"
+          ],
+          "tol": 0.01,
+          "hint": "$h=4.136$ meV/THz, so 344 THz = 1.42 eV. The key also accepts 1.435 eV: the first rise is the exciton just below the edge."
+        },
+        {
+          "id": "p",
+          "prompt": "Boltzmann factor for exciting an electron across the gap, $\\exp(-E_g/k_BT)$.",
+          "answer": "exp(-Eg/kT)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "K",
+            "m^-3"
+          ],
+          "tol": 0.15,
+          "hint": "$e^{-1.42/0.025}=2\\times10^{-25}$: the gap is $55\\,k_BT$. Compare: Si ($E_g=1.1$ eV) is not many orders better. (Key: $2\\times10^{-25}$.)",
+          "tolType": "log"
+        },
+        {
+          "id": "Be",
+          "prompt": "Cyclotron resonance: field $B=2\\pi c\\,m^*/(e\\lambda)$ so that $\\omega_c=eB/m^*$ matches the laser line $\\lambda=671$ nm, for electrons, in T.",
+          "answer": "2*pi*c*me_*me/(e*lam)",
+          "unit": "T",
+          "units": [
+            "T",
+            "kT",
+            "mT",
+            "A/m"
+          ],
+          "tol": 0.03,
+          "hint": "$\\omega_c=eB/m^*=2\\pi c/\\lambda$. The result $\\approx1.1$ kT is far beyond a 10 T magnet (key). Cyclotron resonance is run at microwave/far-IR frequencies instead (script 5.1.3)."
+        },
+        {
+          "id": "Bh",
+          "prompt": "Same for holes ($m^*=0.45m_e$), in kT.",
+          "answer": "2*pi*c*mh_*me/(e*lam)/1e3",
+          "unit": "kT",
+          "units": [
+            "kT",
+            "T",
+            "mT",
+            "A/m"
+          ],
+          "tol": 0.03,
+          "hint": "Seven times higher: $B\\propto m^*$."
+        },
+        {
+          "id": "ni",
+          "prompt": "Intrinsic carrier density $n_i=p_i=2\\big(\\frac{k_BT}{2\\pi\\hbar^2}\\big)^{3/2}(m_e^*m_h^*)^{3/4}e^{-E_g/2k_BT}$ in m$^{-3}$ (use $E_g$ from step 1, $T=300$ K).",
+          "answer": "2*(kB*T/(2*pi*hbar**2))**1.5*(me_*mh_*me*me)**0.75*exp(-Eg*eV/(2*kB*T))",
+          "unit": "m^-3",
+          "units": [
+            "m^-3",
+            "cm^-3",
+            "m^-2",
+            "J m^-3"
+          ],
+          "tol": 0.1,
+          "hint": "Mass-action law $n_ep_h=n_e^{\\rm eff}n_h^{\\rm eff}e^{-E_g/k_BT}$ (script 5.16). Key: $2.15\\times10^{12}$ m$^{-3}$ for 1.42 eV, $1.6\\times10^{12}$ for 1.435 eV: GaAs is an almost perfect insulator at room temperature when undoped."
+        },
+        {
+          "id": "mu",
+          "prompt": "Position of the Fermi level above mid-gap, $\\frac34k_BT\\ln(m_h^*/m_e^*)$ in meV.",
+          "answer": "0.75*kB*T*log(mh_/me_)/eV*1e3",
+          "unit": "meV",
+          "units": [
+            "meV",
+            "eV",
+            "K",
+            "kT"
+          ],
+          "tol": 0.03,
+          "hint": "Script eq. 5.14: $\\epsilon_F=\\frac{\\epsilon_v+\\epsilon_c}2+\\frac34k_BT\\ln(m_h^*/m_e^*)$. Heavier holes mean more valence states, so the Fermi level moves up towards the conduction band. Key: 36.9 meV."
+        },
+        {
+          "id": "sig",
+          "prompt": "Conductivity $\\sigma=n_ie(\\mu_e+\\mu_h)$ in S/m.",
+          "answer": "ni*e*(mue+muh)",
+          "unit": "S/m",
+          "units": [
+            "S/m",
+            "S m",
+            "Ohm m",
+            "m^2/(V s)"
+          ],
+          "tol": 0.12,
+          "hint": "Key: $689$ nS/m (1.42 eV) or $516$ nS/m (1.435 eV). Electrons carry 80 % of the current ($\\mu_e=4\\mu_h$)."
+        }
+      ],
+      "xp": 80
+    },
+    {
+      "type": "calc",
+      "id": "ss-sem-c2",
+      "title": "A hydrogen atom in a crystal: the donor",
+      "fight": "normal",
+      "problem": "HS20 task 4(f). GaAs doped with donors, $N_d=10\\times10^{22}$ m$^{-3}$, $\\epsilon_r=12.9$, $m_e^*=0.067\\,m_e$, lattice constant $a=565$ pm. The extra electron orbits the positive donor ion like in hydrogen, but with $m_e\\to m_e^*$ and $\\epsilon_0\\to\\epsilon_r\\epsilon_0$ (script 5.3.1). Hydrogen: Rydberg $13.606$ eV, Bohr radius $0.529$ Å.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "Ry": 13.605693122994,
+        "a0": 5.29177210903e-11,
+        "ms": 0.067,
+        "er": 12.9,
+        "Nd": 1e+23,
+        "alat": 5.65e-10
+      },
+      "steps": [
+        {
+          "id": "Ed",
+          "prompt": "Donor binding energy $E_d=\\mathrm{Ry}\\,\\frac{m^*/m_e}{\\epsilon_r^2}$ in meV.",
+          "answer": "Ry*ms/er**2*1e3",
+          "unit": "meV",
+          "units": [
+            "meV",
+            "eV",
+            "K",
+            "um"
+          ],
+          "tol": 0.02,
+          "hint": "Hydrogen energies scale with $m^*/\\epsilon_r^2$: $13.6\\,{\\rm eV}\\times0.067/166=5.5$ meV. Key: 5.5 meV."
+        },
+        {
+          "id": "rd",
+          "prompt": "Donor Bohr radius $r_d=a_0\\,\\epsilon_r\\,m_e/m^*$ in nm.",
+          "answer": "a0*er/ms*1e9",
+          "unit": "nm",
+          "units": [
+            "nm",
+            "A",
+            "um",
+            "m"
+          ],
+          "tol": 0.02,
+          "hint": "Hydrogen radii scale with $\\epsilon_r/(m^*/m_e)$: $0.0529\\,{\\rm nm}\\times193=10.2$ nm (key)."
+        },
+        {
+          "id": "ratio",
+          "prompt": "Radius in lattice constants $r_d/a$.",
+          "answer": "rd*1e-9/alat",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "nm",
+            "meV",
+            "m^-3"
+          ],
+          "tol": 0.03,
+          "hint": "$\\approx18$: the electron orbit spans thousands of host atoms, which therefore act as a continuous polarisable medium. That justifies using the **host's** $\\epsilon_r$ (key), not the donor's."
+        },
+        {
+          "id": "sp",
+          "prompt": "Mean donor spacing $N_d^{-1/3}$ in nm.",
+          "answer": "Nd**(-1/3)*1e9",
+          "unit": "nm",
+          "units": [
+            "nm",
+            "um",
+            "A",
+            "m"
+          ],
+          "tol": 0.02,
+          "hint": "$(10^{23})^{-1/3}$ m = 21.5 nm, about $2r_d$: the donor orbits just touch. At this concentration the donor states overlap and an impurity band forms (script remark after 5.21)."
+        },
+        {
+          "id": "Tf",
+          "prompt": "Freeze-out temperature scale $E_d/k_B$ in K.",
+          "answer": "Ed*1e-3*eV/kB",
+          "unit": "K",
+          "units": [
+            "K",
+            "meV",
+            "eV",
+            "mK"
+          ],
+          "tol": 0.03,
+          "hint": "Below $\\sim E_d/k_B\\approx64$ K the electrons freeze back onto donors ($n_e\\propto e^{-E_d/2k_BT}$, script 5.27); between roughly 100 K and room temperature all donors are ionised (exhaustion) and $n_e=N_d$ flat."
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-sem-c3",
+      "title": "The 1D semiconductor with cosine bands",
+      "fight": "normal",
+      "problem": "Zheludev, Jan 2024, Problem 3 (script 5.2), with numbers. Valence band $E_{vb}=2t_{vb}[\\cos(ka)-1]$, conduction band $E_{cb}=E_G-2t_{cb}[\\cos(ka)-1]$ with $t_{cb}=2t_{vb}=t$, so $t_{vb}=t/2$. Both extrema are at $k=0$ (direct gap). Take $t=0.50$ eV, $a=4.0$ Å, $E_G=0.30$ eV, $T=300$ K and $\\mu$ at mid-gap, $k_BT\\ll\\mu,E_G-\\mu$ (Boltzmann limit). 1D density of states per length (both $\\pm k$ points and the spin factor 2 included): $\\nu_{cb}=1/[\\pi a\\sqrt{t_{cb}(E-E_G)}]$, $\\nu_{vb}=1/[\\pi a\\sqrt{t_{vb}(-E)}]$.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "t": 0.5,
+        "a": 4e-10,
+        "EG": 0.3,
+        "T": 300.0
+      },
+      "steps": [
+        {
+          "id": "mcb",
+          "prompt": "Electron effective mass $m_{cb}^*=\\hbar^2/(2t_{cb}a^2)$ in units of $m_e$.",
+          "answer": "hbar**2/(2*t*eV*a**2)/me",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "kg",
+            "eV",
+            "A^-1"
+          ],
+          "tol": 0.02,
+          "hint": "Expand: $E_{cb}\\approx E_G+t_{cb}a^2k^2$, so $\\partial^2E/\\partial k^2=2t_{cb}a^2$ and $m^*=\\hbar^2/(2t_{cb}a^2)$. Here $3.81/(0.5\\times16)=0.48$."
+        },
+        {
+          "id": "mvb",
+          "prompt": "Hole effective mass $m_h^*=\\hbar^2/(2t_{vb}a^2)$ in $m_e$ ($t_{vb}=t/2$).",
+          "answer": "hbar**2/(2*(t/2)*eV*a**2)/me",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "kg",
+            "eV",
+            "A^-1"
+          ],
+          "tol": 0.02,
+          "hint": "$E_{vb}\\approx-t_{vb}a^2k^2$ (negative curvature) gives a positive hole mass $m_h^*=-\\hbar^2/(\\partial^2E/\\partial k^2)=\\hbar^2/(2t_{vb}a^2)$. The flatter band is the heavier one: $m_h^*/m_e^*=2$."
+        },
+        {
+          "id": "ne",
+          "prompt": "Electron density per length at $\\mu=E_G/2$: $n_e=\\frac{\\sqrt{k_BT}}{a\\sqrt{\\pi t_{cb}}}\\,e^{(\\mu-E_G)/k_BT}$ in m$^{-1}$.",
+          "answer": "sqrt(kB*T/(pi*t*eV))/a*exp(-(EG/2)*eV/(kB*T))",
+          "unit": "m^-1",
+          "units": [
+            "m^-1",
+            "m^-3",
+            "m^-2",
+            "m"
+          ],
+          "tol": 0.03,
+          "hint": "Use $f\\approx e^{(\\mu-E)/k_BT}$ and $\\int_0^\\infty x^{-1/2}e^{-x}dx=\\sqrt\\pi$. Divide by $a$ for density per length. Note the unusual 1D power: $n\\propto\\sqrt T$ (3D: $T^{3/2}$)."
+        },
+        {
+          "id": "nh",
+          "prompt": "Hole density per length at $\\mu=E_G/2$, $n_h=\\frac{\\sqrt{k_BT}}{a\\sqrt{\\pi t_{vb}}}\\,e^{-\\mu/k_BT}$ in m$^{-1}$.",
+          "answer": "sqrt(kB*T/(pi*(t/2)*eV))/a*exp(-(EG/2)*eV/(kB*T))",
+          "unit": "m^-1",
+          "units": [
+            "m^-1",
+            "m^-3",
+            "m^-2",
+            "m"
+          ],
+          "tol": 0.03,
+          "hint": "Same integral with the lighter hopping $t_{vb}=t/2$: $n_h/n_e=\\sqrt{t_{cb}/t_{vb}}=\\sqrt2$ at mid-gap."
+        },
+        {
+          "id": "dmu",
+          "prompt": "Intrinsic chemical potential: $n_e=n_h$ gives $e^{(2\\mu-E_G)/k_BT}=\\sqrt{t_{cb}/t_{vb}}$. Shift $\\mu-E_G/2$ in meV.",
+          "answer": "kB*T/eV*log(2)/4*1e3",
+          "unit": "meV",
+          "units": [
+            "meV",
+            "eV",
+            "K",
+            "kT"
+          ],
+          "tol": 0.03,
+          "hint": "$\\mu=\\frac{E_G}2+\\frac{k_BT}{4}\\ln2=E_G/2+4.5$ meV. (The printed Jan-2024 key states $\\frac{k_BT}2\\ln2$. Solving $e^{(2\\mu-E_G)/k_BT}=\\sqrt2$ gives $\\frac14$, and the content check confirms it by numerical integration of the Fermi–Dirac occupation. Cross-check with 3D, script 5.14: $\\frac34k_BT\\ln(m_h^*/m_e^*)$ from $n\\propto m^{3/2}$; in 1D $n\\propto m^{1/2}$ gives $\\frac14k_BT\\ln(m_h^*/m_e^*)$.)"
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-sem-c4",
+      "title": "The p-n junction: how wide is the depletion layer?",
+      "fight": "normal",
+      "problem": "Script 5.4. Silicon p–n junction at 300 K: acceptors $N_a=10^{16}$ cm$^{-3}$, donors $N_d=10^{17}$ cm$^{-3}$, $E_g=1.12$ eV, density-of-states masses $m_e^*=1.08\\,m_e$, $m_h^*=0.56\\,m_e$, $\\epsilon_r=11.7$. The contact potential is $eV=\\Delta+k_BT\\ln\\frac{N_dN_a}{n_e^{\\rm eff}n_h^{\\rm eff}}$ (eq. 5.36) and the total depletion width $d_n+d_p=\\sqrt{\\frac{2\\epsilon\\epsilon_0V}{e}\\,\\frac{N_a+N_d}{N_aN_d}}$ (eq. 5.46).",
+      "vars": {
+        "kB": 1.380649e-23,
+        "e": 1.602176634e-19,
+        "eps0": 8.8541878128e-12,
+        "Na": 1e+22,
+        "Nd": 1e+23,
+        "er": 11.7,
+        "Eg": 1.12,
+        "T": 300.0,
+        "mc": 1.08,
+        "mv": 0.56,
+        "U": 0.3
+      },
+      "steps": [
+        {
+          "id": "Nc",
+          "prompt": "Effective density of states of the conduction band $n_e^{\\rm eff}=2(m_e^*k_BT/2\\pi\\hbar^2)^{3/2}$ in m$^{-3}$.",
+          "answer": "2*(mc*me*kB*T/(2*pi*hbar**2))**1.5",
+          "unit": "m^-3",
+          "units": [
+            "m^-3",
+            "cm^-3",
+            "m^-2",
+            "J m^-3"
+          ],
+          "tol": 0.03,
+          "hint": "Eq. 5.11. $\\approx2.8\\times10^{19}$ cm$^{-3}$ for Si."
+        },
+        {
+          "id": "Nv",
+          "prompt": "Same for the valence band ($m_h^*=0.56\\,m_e$) in m$^{-3}$.",
+          "answer": "2*(mv*me*kB*T/(2*pi*hbar**2))**1.5",
+          "unit": "m^-3",
+          "units": [
+            "m^-3",
+            "cm^-3",
+            "m^-2",
+            "J m^-3"
+          ],
+          "tol": 0.03,
+          "hint": "$\\approx1.0\\times10^{19}$ cm$^{-3}$."
+        },
+        {
+          "id": "V0",
+          "prompt": "Contact potential $V$ in volts.",
+          "answer": "Eg+kB*T/e*log(Nd*Na/(Nc*Nv))",
+          "unit": "V",
+          "units": [
+            "V",
+            "mV",
+            "eV/K",
+            "V/m"
+          ],
+          "tol": 0.02,
+          "hint": "The log is negative here ($N_aN_d\\ll n^{\\rm eff}n^{\\rm eff}$) and small compared with $\\Delta$: $eV\\approx E_g-0.33$ eV $\\approx0.80$ eV. (Script 5.37: $eV\\sim\\Delta$.)"
+        },
+        {
+          "id": "d",
+          "prompt": "Total depletion width $d_n+d_p$ in micrometres.",
+          "answer": "sqrt(2*er*eps0*V0/e*(Na+Nd)/(Na*Nd))*1e6",
+          "unit": "um",
+          "units": [
+            "um",
+            "nm",
+            "mm",
+            "A"
+          ],
+          "tol": 0.03,
+          "hint": "$d_n=\\sqrt{\\frac{2\\epsilon\\epsilon_0V}{e}\\frac{N_a}{N_d(N_d+N_a)}}$, $d_p=\\sqrt{\\frac{2\\epsilon\\epsilon_0V}{e}\\frac{N_d}{N_a(N_a+N_d)}}$ from Poisson's equation with $N_dd_n=N_ad_p$. About $0.3\\,\\mu$m. Script quotes $10^2$–$10^4$ Å."
+        },
+        {
+          "id": "dpdn",
+          "prompt": "How much wider is the depletion layer on the p side, $d_p/d_n$?",
+          "answer": "Nd/Na",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "um",
+            "V",
+            "eV"
+          ],
+          "tol": 0.02,
+          "hint": "Charge neutrality $N_dd_n=N_ad_p$: the lightly doped side is depleted more deeply."
+        },
+        {
+          "id": "fwd",
+          "prompt": "Forward bias $U=0.3$ V: new width as a fraction of the zero-bias width, $\\sqrt{1-U/V}$.",
+          "answer": "sqrt(1-U/V0)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "V",
+            "um",
+            "eV"
+          ],
+          "tol": 0.03,
+          "hint": "Eq. 5.48: $d(U)=d(0)\\sqrt{1-U/V}$. Forward bias narrows the layer and lowers the barrier $V-U$, so the recombination current $\\propto e^{-e(V-U)/k_BT}$ rises exponentially; reverse bias does the opposite (rectification)."
+        }
+      ],
+      "xp": 80
+    },
+    {
+      "type": "calc",
+      "id": "ss-sem-c5",
+      "title": "The LED forge: gap to colour",
+      "fight": "fermi",
+      "problem": "Quick fight. A light-emitting diode emits photons of energy $\\approx E_g$ when electrons and holes recombine across the gap (script 5.1): $\\lambda[{\\rm nm}]=1239.84/E_g[{\\rm eV}]$. Wien's law $\\lambda_{\\max}T=b=2.898\\times10^{-3}$ m K connects colour to temperature in astrophysics. (A blue InGaN LED has $E_g\\approx2.70$ eV.)",
+      "vars": {
+        "h": 6.62607015e-34,
+        "c": 299792458,
+        "e": 1.602176634e-19,
+        "b": 0.002897771955,
+        "EgLED": 2.7,
+        "EgGaAs": 1.42,
+        "TSun": 5772.0
+      },
+      "steps": [
+        {
+          "id": "lam",
+          "prompt": "Wavelength of the blue LED in nm.",
+          "answer": "h*c/(EgLED*e)*1e9",
+          "unit": "nm",
+          "units": [
+            "nm",
+            "um",
+            "eV",
+            "THz"
+          ],
+          "tol": 0.02,
+          "hint": "$E=hc/\\lambda$: $\\lambda=459$ nm."
+        },
+        {
+          "id": "lamGaAs",
+          "prompt": "Wavelength emitted by GaAs ($E_g=1.42$ eV) in nm: is it visible?",
+          "answer": "h*c/(EgGaAs*e)*1e9",
+          "unit": "nm",
+          "units": [
+            "nm",
+            "um",
+            "eV",
+            "THz"
+          ],
+          "tol": 0.02,
+          "hint": "874 nm: near infrared, invisible. GaAs lasers/LEDs are used in remote controls and fibre links; visible LEDs need wider gaps (GaP, GaN, InGaN)."
+        },
+        {
+          "id": "TW",
+          "prompt": "A blackbody whose Wien peak sits at the LED wavelength has temperature $b/\\lambda$ in K.",
+          "answer": "b/(lam*1e-9)",
+          "unit": "K",
+          "units": [
+            "K",
+            "eV",
+            "nm",
+            "J"
+          ],
+          "tol": 0.03,
+          "hint": "$\\approx6300$ K: a hot F-type star is as blue-white as this peak, but its spectrum is a broad blackbody, the LED's is a narrow line of width $\\sim k_BT$ (efficiency!)."
+        },
+        {
+          "id": "EgSun",
+          "prompt": "Gap whose photons match the Sun's Wien peak ($T_\\odot=5772$ K) in eV.",
+          "answer": "h*c/(b/TSun)/e",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "K",
+            "nm"
+          ],
+          "tol": 0.03,
+          "hint": "The Sun peaks at $b/T=502$ nm (matches the astro room *Light Deck*: 502 nm), i.e. $E=2.47$ eV. Photovoltaics balance two losses: gap too large wastes the red/IR light, too small wastes the excess energy as heat (Shockley–Queisser optimum $\\sim1.3$ eV)."
+        }
+      ],
+      "xp": 30
+    },
+    {
+      "type": "boss",
+      "id": "ss-sem-b1",
+      "title": "Boss: an indirect 1D semiconductor (exam problem)",
+      "source": {
+        "file": "materials/solid-state/old-exams/HS23 (1).pdf",
+        "where": "Problem 3 '1D Semiconductors' (Zheludev, 16 Aug 2024); solution: solutions/Einführung in die Festkörperphysik HS23 (Solution).pdf, Problem 3"
+      },
+      "minutes": 30,
+      "instructions": "Solve on paper under the timer, then enter the numbers for the game parameters. Parts (a), (b), (c), (d) and (e) are self-graded.",
+      "statement": [
+        "Suppose we have a 1D semiconductor with a conduction band $E_{cb}=E_G+2t_{cb}[\\cos(ka)+1]$ and a valence band $E_{vb}=2t_{vb}[\\cos(ka)-1]$, where $t_{cb}=\\frac12t_{vb}=t$. The chemical potential satisfies $0<\\mu<E_G$.",
+        "(a) [0.5 pt] Sketch the band structure to scale, with labels.  (b) [0.25 pt] Direct or indirect gap?",
+        "(c) [0.5 pt] Assume the Fermi level is far from both bands: $|E_G-\\mu|\\gg k_BT$ and $\\mu\\gg k_BT$. Write the dispersions near the extrema to second order.",
+        "(d) [0.5 pt] Effective masses of electrons and holes.  (e) [0.5 pt] Density of states per unit length of both bands.",
+        "(f) [0.5 pt] Electron density per length in the conduction band and hole density in the valence band.",
+        "(g) [0.25 pt] The conductivities of holes and electrons at high temperature are equal, $\\sigma_e=\\sigma_h$. What is the ratio of the relaxation times $\\tau_e/\\tau_h$?",
+        "Game numbers: $t=0.40$ eV (so $t_{vb}=0.80$ eV), $a=5.0$ Å, $E_G=0.50$ eV, $T=300$ K, $\\mu=E_G/2$ for (f) and (g)."
+      ],
+      "finalAnswers": [
+        {
+          "id": "mcb",
+          "prompt": "(d) $m_e^*/m_e$ of the conduction band ($t_{cb}=t$).",
+          "answer": "hbar**2/(2*t*eV*a**2)/me",
+          "vars": {
+            "t": 0.4,
+            "a": 5e-10
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "mvb",
+          "prompt": "(d) $m_h^*/m_e$ of the valence band ($t_{vb}=2t$).",
+          "answer": "hbar**2/(2*2*t*eV*a**2)/me",
+          "vars": {
+            "t": 0.4,
+            "a": 5e-10
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "ne",
+          "prompt": "(f) $n_e$ per length at $\\mu=E_G/2$ in m$^{-1}$.",
+          "answer": "sqrt(kB*T/(pi*t*eV))/a*exp(-(EG/2)*eV/(kB*T))",
+          "vars": {
+            "kB": 1.380649e-23,
+            "t": 0.4,
+            "a": 5e-10,
+            "EG": 0.5,
+            "T": 300.0
+          },
+          "tol": 0.03
+        },
+        {
+          "id": "nh",
+          "prompt": "(f) $n_h$ per length at $\\mu=E_G/2$ in m$^{-1}$.",
+          "answer": "sqrt(kB*T/(pi*2*t*eV))/a*exp(-(EG/2)*eV/(kB*T))",
+          "vars": {
+            "kB": 1.380649e-23,
+            "t": 0.4,
+            "a": 5e-10,
+            "EG": 0.5,
+            "T": 300.0
+          },
+          "tol": 0.03
+        },
+        {
+          "id": "tau",
+          "prompt": "(g) $\\tau_e/\\tau_h=\\dfrac{m_e^*}{m_h^*}\\dfrac{n_h}{n_e}$ at $\\mu=E_G/2$.",
+          "answer": "sqrt(2)",
+          "vars": {},
+          "tol": 0.01
+        }
+      ],
+      "keyPoints": [
+        "(a),(b) $E_{vb}$ has its maximum 0 at $k=0$; $E_{cb}$ has its minimum $E_G$ at $k=\\pm\\pi/a$ and its maximum $E_G+4t_{cb}$ at $k=0$: **indirect** gap (valence-band maximum and conduction-band minimum at different $k$). Draw with scales $4t_{cb}=4t$ and $4t_{vb}=8t$, zone edges $\\pm\\pi/a$.",
+        "(c) $E_{cb}\\approx E_G+t\\,a^2(k-\\pi/a)^2$, $E_{vb}\\approx-2t\\,a^2k^2$.",
+        "(d) $m^*=\\hbar^2(\\partial^2E/\\partial k^2)^{-1}$: $m_{cb}^*=\\hbar^2/(2ta^2)$ and $m_{vb}^*=\\hbar^2/(4ta^2)$. The holes are lighter here ($m_e^*/m_h^*=2$).",
+        "(e) $\\nu(E)=\\frac{2\\cdot2}{2\\pi}\\frac{dk}{dE}$ (factor 2 for the two points $\\pm k$ at each energy, factor 2 for spin): $\\nu_{cb}=\\frac{1}{\\pi a\\sqrt{t(E-E_G)}}$ for $E\\ge E_G$, $\\nu_{vb}=\\frac1{\\pi a\\sqrt{2t(-E)}}$ for $E\\le0$.",
+        "(f) With $f\\approx e^{(\\mu-E)/k_BT}$ and $\\int_0^\\infty x^{-1/2}e^{-x}dx=\\sqrt\\pi$: $n_e=\\frac1a\\sqrt{\\frac{k_BT}{\\pi t_{cb}}}\\,e^{(\\mu-E_G)/k_BT}$ and, with $t_{vb}=2t$, $n_h=\\frac1a\\sqrt{\\frac{k_BT}{2\\pi t}}\\,e^{-\\mu/k_BT}$.",
+        "(g) $\\sigma=ne^2\\tau/m^*$. $\\sigma_e=\\sigma_h$ gives $\\frac{\\tau_e}{\\tau_h}=\\frac{m_e^*}{m_h^*}\\frac{n_h}{n_e}=2\\cdot\\frac1{\\sqrt2}e^{(E_G-2\\mu)/k_BT}=\\sqrt2\\,e^{(E_G-2\\mu)/k_BT}$, which is $\\sqrt2$ at mid-gap.",
+        "Remark (Jan 2024 variant, direct gap): the intrinsic $\\mu$ is $E_G/2+\\frac{k_BT}4\\ln\\frac{t_{cb}}{t_{vb}}$ (script-consistent; the key prints a factor 2 more)."
+      ],
+      "xp": 90
+    }
+  ]
+}

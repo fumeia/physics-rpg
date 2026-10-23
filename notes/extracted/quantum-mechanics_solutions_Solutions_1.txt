@@ -1,0 +1,240 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                       Solution to exercise sheet I
+
+Question 1 [Compton effect ]:
+    In this exercise we will compare Thomson and Compton scattering, which describe
+the scattering of light off an electron. In Thomson scattering, light is treated classically,
+i.e. as a field (exc. (i)). In experiments using high frequency light, deviations from the
+Thomson scattering are observed: this is the Compton effect. It can be explained if light
+is interpreted as a collection of quanta called photons (exc. (ii)). The classical Thomson
+scattering is a certain limit of the quantum Compton effect (exc. (iii)).
+  (i) For Thomson scattering, we consider an electron interacting with a classical elec-
+      tromagnetic plane wave
+
+                                  E(x, t) = ε E0 cos (kx − ωt) ,                          (1)
+
+      where ε is the polarisation vector, which is perpendicular to k. In the non-relativistic
+      setting, when the velocity of the electron is small with respect to c, the electron only
+      experiences a Lorentz force due to the electric field and the magnetic field can be
+      neglected. The equation of motion for the electron is then
+
+                                        m ẍ = −e E(x, t) .                               (2)
+
+      The electron is accelerated and thus emits an electromagnetic wave. Assume that the
+      electron is initially at rest and solve the equations of motion. What is the frequency
+      of the emitted light?
+      Solution: We can choose the coordinate system such that x(0) = 0 and
+                                                  
+                                     0               ε1
+                            k=k 0 ,          ε = ε2  .
+                                                                                       (S.1)
+                                     1               0
+      The equation of motion for the third component of x is then
+
+                                              ẍ3 = 0 ,                                 (S.2)
+
+      which implies x3 (t) = 0 by using the initial conditions. The solution of the differ-
+      ential equation can then be found straight-forwardly by integrating,
+                                                   eE0
+                                x(t) = a + b t +        ε cos(ωt) .                     (S.3)
+                                                   mω 2
+      Using again the initial conditions, one finds
+                                            eE0               
+                                 x(t) = −      2
+                                                 ε 1 − cos(ωt) .                        (S.4)
+                                            mω
+      The electron thus oscillates with frequency ω, radiating light like a dipole. The
+      frequency of the emitted light is thus ω as well, the same frequency as that of the
+      incoming light.
+(ii) In experiments, it was observed that the relation between the frequencies of the in-
+     coming and scattered light can deviate strongly from the one found for Thomson
+     scattering. This was explained by Compton, using the particle interpretation of light.
+     The scattering process above can now be described as an elastic collision between a
+     photon and an electron, as shown below.
+
+
+                                                            (cp2 , p2 )
+
+                                   (cp1 , p1 )
+                                                           (mc2 , 0)
+
+                                        !
+                                      (c m2 c2 + p2 , p)
+
+
+
+
+    The electron is initially at rest and interacts with a photon with 4-momentum
+    (c p1 , p1 ) and wavelength λ1 = h/p1 . The particles scatter elastically, and the photon
+    is deflected by an angle θ. Using the conservation of 4-momentum, show that the
+    outgoing photon has wavelength λ2 given by
+                                                 h           
+                                   λ2 = λ1 +        1 − cos θ .                             (3)
+                                                 mc
+
+    Solution: The momenta can be chosen to lie in a plane, and the conservation of
+    4-momentum can be written as
+                                                                 p                          
+                         2
+                                
+                                                                    2 2   2
+    (c p1 , p1 , 0) + m c , 0, 0 = (c p2 , p2 cos θ, p2 sin θ) + c m c + p , p cos φ, p sin φ .
+                                                                                           (S.5)
+    The unknowns φ and p can be eliminated from these equations by squaring them.
+    In particular, from the third component in eq. (S.5), one finds
+
+                                        p2 sin2 φ = p22 sin2 θ                            (S.6)
+
+    and therefore the equation from the second component simplifies to
+                                     2
+                        p1 − p2 cos θ = p2 cos2 φ = p2 − p22 sin2 θ ,                     (S.7)
+
+    and therefore
+                                   p2 = p21 − 2p1 p2 cos θ + p22 .                        (S.8)
+    By plugging this into the equation             1
+
+                                               2
+                                   p1 − p2 + mc = m2 c2 + p2                              (S.9)
+
+    from the first component in eq. (S.5), one obtains
+                                           
+                          2p1 p2 1 − cos θ = 2mc p1 − 2mc p2 .                           (S.10)
+
+    Dividing by p1 p2 and using λi = h/pi one finally arrives at eq. (3).
+(iii) In which limit does one recover Thomson scattering from Compton scattering? For
+      which frequencies of light is the Compton effect observable?
+     Solution: If the wavelengths λ, λ′ are large on the scale mch
+                                                                   , they differ by a very
+     small relative factor,
+                                         |λ′ − λ|
+                                                  ≪1.                               (S.11)
+                                             λ
+     One thus recovers the classical case where the wavelength is unchanged in the scat-
+     tering process in the low energy limit.
+     For a quantitative estimate, we can plug in the natural constants and mass of the
+     electron to find that the Compton effect becomes strong for wavelengths of the order
+                                           h
+                              λCompton =      ≈ 2.42 × 10−12 m .                    (S.12)
+                                           mc
+     Visible light has a wavelength of the order 10−7 m, and the Compton effect can thus
+     only be observed for hard X-rays and γ-rays.
+
+
+Question 2 [Bohr atom ]:
+    Inspired by Rutherford’s experiments (1911), in which he showed that the atom con-
+sisted of a small, positively charged core surrounded by the negatively charged electrons,
+Niels Bohr in 1913 introduced his model of the atom, in which the electrons orbit the
+proton on circular paths at a radius r. The values of the orbital kinetic moment and of
+the allowed radii are quantized according to
+
+                                    mvn rn = nℏ,                                       (4)
+                                             n2 ℏ2
+                                        rn =       .                                   (5)
+                                             me2
+  (i) Use the De Broglie relation, λ = hp , where p = mv is the momentum of the electron,
+      to show that
+                                             λ     2π
+                                                =     ,                               (6)
+                                             rn     n
+      thus that the waves of the electron “fit around the orbit”.
+
+ (ii) Show that the speed of an electron in a Bohr orbit is much less than the speed of
+      light (thus demonstrating that it is reasonable to neglect relativistic effects).
+
+(iii) Show that the wavelength of light emitted from a Bohr atom (taking, for example,
+      the transition from the orbit with n = ∞ to the orbit with n = 1) is much greater
+      than the size of the Bohr atom (which you can take to be the radius of the first Bohr
+      orbit, the “Bohr radius”).
+
+Solution:
+  (i) Using the De Broglie relation and (4), and noting that h = 2πℏ and p = mvn , we
+      directly get the desired relation:
+                                  λ     h     2πℏ     2π
+                                     =     =        =    .                          (S.13)
+                                  rn   prn   mvn rn    n
+ (ii) Using (4) and (5), we get for the speed of an electron
+
+                                                nℏ    e2
+                                         vn =       =    .                            (S.14)
+                                                mrn   nℏ
+     Note, that these formulas hold for Gaussian units, i.e., we need to express the con-
+     stants in these units. The elementary charge is given by e = 4.803·10−10 g1/2 cm3/2 s−1
+     and the reduced Planck constant by ℏ = 1.055 · 10−27 g cm2 s−1 . Inserting these con-
+     stants into (S.14), we get
+
+             vn ≤ v1 = 2.19 · 108 cm/s = 2.19 · 106 m/s ≪ c ≈ 3.00 · 108 m/s.         (S.15)
+
+(iii) The frequency of the emitted light during the transition from n to m is given by
+
+                                                 En − Em
+                                         ωnm =           ,                            (S.16)
+                                                    ℏ
+     with
+                                              Ry   −13.6 eV
+                                     En = −    2
+                                                 =          .                         (S.17)
+                                              n       n2
+     Thus, we get for the wavelength
+                                 c 2πc      hc            hc
+                      λnm =          = =         =                                    (S.18)
+                             fnm   ωnm   En − Em    Ry ( m2 − n12 )
+                                                         1
+
+                                   hc
+                           ≥ λ∞1 =    ≈ 91 nm ≫ a0 ≈ 5.29 · 10−11 m.                  (S.19)
+                                   Ry
+
+
+Question 3 [Galileo invariance of Schrödinger equation ]: Suppose that Ψ(x, t) is a
+solution of the time-dependent Schrödinger equation for a free particle, i.e.,
+
+                                                 ℏ2 2
+                              iℏ∂t Ψ(x, t) = −     ∂ Ψ(x, t) .                           (7)
+                                                 2m x
+Show that, for any constant u,
+                                                               
+                                                   im      im 2
+                      Ψu (x, t) = Ψ(x − ut, t) exp    ux −    ut                         (8)
+                                                    ℏ      2ℏ
+
+is also a solution of the time-dependent Schrödinger equation.
+Solution: Let us start from the left side:
+
+  iℏ∂t Ψu (x, t) =                                                                    (S.20)
+                                               
+           d                             im 2 imu(x− ut )/ℏ
+   = iℏ Ψ(x − ut, t) − iℏΨ(x − ut, t) u e                2                            (S.21)
+          dt                              2ℏ
+                                                          m         ut
+   = iℏ∂t Ψ(x − ut, t) − iℏu∂x Ψ(x − ut, t) + Ψ(x − ut, t) u2 eimu(x− 2 )/ℏ           (S.22)
+                                                           2
+           ℏ2 2
+                                                                  
+  (7)                                                           m 2 imu(x− ut )/ℏ
+   = −        ∂ Ψ(x − ut, t) − iℏu∂x Ψ(x − ut, t) + Ψ(x − ut, t) u e        2     .   (S.23)
+          2m x                                                  2
+On the other side we get:
+
+    ℏ2 2
+   −   ∂ Ψu (x, t) =                                                              (S.24)
+    2m x 
+      ℏ2
+                                                                      
+                                             im          im       im 2
+   =−    ∂x ∂x Ψ(x − ut, t) + Ψ(x − ut, t) u exp             ux −     ut          (S.25)
+      2m                                      ℏ           ℏ        2ℏ
+      ℏ2                                                         m2 2 imu(x− ut )/ℏ
+                                                                     
+             2                               im
+   =−      ∂x Ψ(x − ut, t) + 2∂x Ψ(x − ut, t) u − Ψ(x − ut, t) 2 u e           2
+      2m                                      ℏ                  ℏ
+                                                                                  (S.26)
+         2
+                                                                  
+        ℏ 2                                                   m            ut
+   = −     ∂x Ψ(x − ut, t) − iℏu∂x Ψ(x − ut, t) + Ψ(x − ut, t) u2 eimu(x− 2 )/ℏ (S.27)
+       2m                                                     2
+
+which equals (S.23).
+

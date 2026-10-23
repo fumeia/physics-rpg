@@ -1,0 +1,725 @@
+{
+ "course": "qm",
+ "questions": [
+  {
+   "id": "blitz-qm-01",
+   "room": "general",
+   "kind": "concept",
+   "q": "Two observables $A$ and $B$ commute. This implies that",
+   "options": [
+    "they have the same eigenvalues",
+    "they possess a common complete set of eigenstates",
+    "they can never be measured exactly",
+    "they must both be conserved"
+   ],
+   "correct": 1,
+   "explain": "If $[A,B]=0$ they can be diagonalised simultaneously, so a state can be a joint eigenstate with sharp values of both. Conservation requires $[H,A]=0$, which is a different condition.",
+   "source": "QM script (observables); HS22 A"
+  },
+  {
+   "id": "blitz-qm-02",
+   "room": "general",
+   "kind": "concept",
+   "q": "The generalised uncertainty relation $\\Delta A\\,\\Delta B\\ge\\tfrac12|\\langle[A,B]\\rangle|$ is state dependent because",
+   "options": [
+    "the commutator's expectation value $\\langle[A,B]\\rangle$ is evaluated in the state $|\\psi\\rangle$",
+    "$\\Delta A$ depends on the measurement apparatus",
+    "it follows from the Hamiltonian",
+    "it is only valid for Gaussian states"
+   ],
+   "correct": 0,
+   "explain": "It follows from the Cauchy–Schwarz inequality for $|\\psi\\rangle$. For $[x,p]=i\\hbar$ the right side is state independent, $\\hbar/2$, but e.g. for $[L_x,L_y]=i\\hbar L_z$ it equals $\\tfrac\\hbar2|\\langle L_z\\rangle|$.",
+   "source": "QM script (uncertainty); HS16 short"
+  },
+  {
+   "id": "blitz-qm-03",
+   "room": "general",
+   "kind": "concept",
+   "q": "Physical observables are represented by Hermitian operators because",
+   "options": [
+    "they are always unitary",
+    "they commute with the Hamiltonian",
+    "they have a discrete spectrum",
+    "Hermitian operators have real eigenvalues and orthogonal eigenvectors"
+   ],
+   "correct": 3,
+   "explain": "$A=A^\\dagger$ gives $\\langle\\psi|A|\\psi\\rangle\\in\\mathbb R$, real eigenvalues (the measurement results), and orthogonality of eigenvectors with different eigenvalues, which is needed for the Born rule. Without Hermiticity the measured values could be complex and the probabilities $|\\langle a_i|\\psi\\rangle|^2$ would not sum to one.",
+   "source": "QM script (postulates)"
+  },
+  {
+   "id": "blitz-qm-04",
+   "room": "tunneling-bridge",
+   "kind": "concept",
+   "q": "Inside a classically forbidden barrier the wave function decays exponentially because",
+   "options": [
+    "the particle loses energy to the barrier",
+    "the probability current is negative inside",
+    "for $E<V_0$ the wave number is imaginary, $k=i\\kappa$ with $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$",
+    "the barrier absorbs particles"
+   ],
+   "correct": 2,
+   "explain": "The Schrödinger equation $\\psi''=\\kappa^2\\psi$ has real exponential solutions $e^{\\pm\\kappa x}$. For a wide barrier the transmission is $T\\approx e^{-2\\kappa a}$, with $a$ the width.",
+   "source": "Tunneling script; tunneling-bridge"
+  },
+  {
+   "id": "blitz-qm-05",
+   "room": "general",
+   "kind": "concept",
+   "q": "The energies of the infinite square well scale as $E_n\\propto n^2$ because",
+   "options": [
+    "the boundary conditions require $k_n=n\\pi/L$ and $E=\\hbar^2k^2/2m$",
+    "the potential is quadratic",
+    "the particle has spin $n$",
+    "the energy levels are equally spaced"
+   ],
+   "correct": 0,
+   "explain": "$\\psi(0)=\\psi(L)=0$ gives standing waves $\\sin(n\\pi x/L)$, so $E_n=\\frac{\\hbar^2\\pi^2n^2}{2mL^2}$. The harmonic oscillator, by contrast, has equal spacing.",
+   "source": "QM script (1D potentials)"
+  },
+  {
+   "id": "blitz-qm-06",
+   "room": "harmonic-oscillator-elevator",
+   "kind": "concept",
+   "q": "The zero-point energy $\\hbar\\omega/2$ of the harmonic oscillator arises because",
+   "options": [
+    "the ground state has a node",
+    "the potential has a minimum at $x=0$",
+    "the particle is relativistic",
+    "localising the particle costs momentum spread ($[x,p]=i\\hbar$), so $\\langle H\\rangle$ cannot vanish"
+   ],
+   "correct": 3,
+   "explain": "With $\\Delta x\\Delta p\\ge\\hbar/2$ the energy $\\langle H\\rangle\\ge\\frac{\\hbar^2}{8m\\Delta x^2}+\\tfrac12m\\omega^2\\Delta x^2$ has the minimum $\\hbar\\omega/2$ at $\\Delta x^2=\\hbar/2m\\omega$. Without the uncertainty relation the particle could sit at $x=0$ with $p=0$ and $E=0$, so $E_0>0$ is a purely quantum effect.",
+   "source": "HO script; Exercises 6 Q3"
+  },
+  {
+   "id": "blitz-qm-07",
+   "room": "harmonic-oscillator-elevator",
+   "kind": "concept",
+   "q": "The spectrum of $N=a^\\dagger a$ is bounded below by 0 because",
+   "options": [
+    "$a$ is Hermitian",
+    "$\\langle\\psi|a^\\dagger a|\\psi\\rangle=\\|a|\\psi\\rangle\\|^2\\ge0$",
+    "$[a,a^\\dagger]=0$",
+    "$a^\\dagger$ annihilates the ground state"
+   ],
+   "correct": 1,
+   "explain": "The norm of $a|\\psi\\rangle$ is non-negative, so $n\\ge0$. Since $a$ lowers $n$ by one, the chain must end at a state with $a|0\\rangle=0$, which makes $n$ a non-negative integer.",
+   "source": "HO script; ladder operators"
+  },
+  {
+   "id": "blitz-qm-08",
+   "room": "general",
+   "kind": "concept",
+   "q": "The first-order energy shift in non-degenerate perturbation theory is",
+   "options": [
+    "$E_n^{(1)}=\\sum_{m\\ne n}|\\langle m|H'|n\\rangle|^2/(E_n-E_m)$",
+    "$E_n^{(1)}=\\langle n|H'|m\\rangle$",
+    "$E_n^{(1)}=\\langle n|H'|n\\rangle$",
+    "$E_n^{(1)}=0$ always"
+   ],
+   "correct": 2,
+   "explain": "To first order in $H'$ the energy shift is the expectation value of $H'$ in the unperturbed state. The sum with energy denominators is the second-order shift $E_n^{(2)}$.",
+   "source": "QM script (perturbation theory)"
+  },
+  {
+   "id": "blitz-qm-09",
+   "room": "general",
+   "kind": "concept",
+   "q": "For a degenerate level one must diagonalise $H'$ within the degenerate subspace because",
+   "options": [
+    "$H'$ is always diagonal",
+    "the energy denominators $E_n-E_m$ vanish, so the correct zeroth-order states are eigenstates of $H'$ in the subspace",
+    "degenerate states are orthogonal to $H'$",
+    "the perturbation removes the Pauli principle"
+   ],
+   "correct": 1,
+   "explain": "Ordinary second-order formulas diverge for $E_m=E_n$. Choosing the basis in which $H'$ is diagonal in the subspace makes off-diagonal terms vanish and the first-order shifts are the eigenvalues of $H'$.",
+   "source": "QM script (degenerate PT)"
+  },
+  {
+   "id": "blitz-qm-10",
+   "room": "general",
+   "kind": "concept",
+   "q": "The eigenvalue of $\\mathbf L^2$ is $\\hbar^2l(l+1)$ rather than $\\hbar^2l^2$ because",
+   "options": [
+    "$L_z$ takes the values $\\hbar l(l+1)$",
+    "$l$ is half-integer",
+    "$L$ is not Hermitian",
+    "$\\langle L_x^2+L_y^2\\rangle>0$ even for $m=l$, so $L^2>L_z^2$ (uncertainty relations)"
+   ],
+   "correct": 3,
+   "explain": "$\\mathbf L^2=L_x^2+L_y^2+L_z^2$ and for $m=l$ the transverse part has the eigenvalue $\\hbar^2l$ because $[L_x,L_y]\\ne0$ forbids all three components from being sharp: $l(l+1)=l^2+l$. Check with $l=1$: $\\mathbf L^2=2\\hbar^2$ while $L_z^2\\le\\hbar^2$, so the angular momentum vector never points exactly along $z$.",
+   "source": "QM script (angular momentum)"
+  },
+  {
+   "id": "blitz-qm-11",
+   "room": "general",
+   "kind": "concept",
+   "q": "A spin-up-$z$ beam passes through an $x$-filter and then a $z$-analyser. Half of it ends up spin-down because",
+   "options": [
+    "$[S_z,S_x]\\ne0$: the $x$-measurement destroys the information on $S_z$",
+    "the $x$-filter flips half the spins magnetically",
+    "the beam is not polarised",
+    "$S_x$ and $S_z$ have the same eigenstates"
+   ],
+   "correct": 0,
+   "explain": "$|{+x}\\rangle=(|{\\uparrow}\\rangle+|{\\downarrow}\\rangle)/\\sqrt2$, so after the $x$-filter the $z$-probabilities are $1/2$ each. This is the sequential Stern–Gerlach experiment.",
+   "source": "Stern–Gerlach chain"
+  },
+  {
+   "id": "blitz-qm-12",
+   "room": "general",
+   "kind": "concept",
+   "q": "Two identical spin-1/2 fermions in the same spatial orbital must be in the",
+   "options": [
+    "spin triplet with $m=0$",
+    "spin triplet with $m=1$",
+    "spin singlet, $(|{\\uparrow\\downarrow}\\rangle-|{\\downarrow\\uparrow}\\rangle)/\\sqrt2$",
+    "any spin state"
+   ],
+   "correct": 2,
+   "explain": "The total wave function must be antisymmetric under exchange. A symmetric spatial part therefore needs an antisymmetric spin part, which is the singlet. This is the Pauli principle.",
+   "source": "QM script (identical particles)"
+  },
+  {
+   "id": "blitz-qm-13",
+   "room": "general",
+   "kind": "concept",
+   "q": "An observable $A$ without explicit time dependence is conserved if and only if",
+   "options": [
+    "$\\{H,A\\}=0$",
+    "$A$ is Hermitian",
+    "$[H,A]=0$",
+    "$A|\\psi\\rangle=a|\\psi\\rangle$ for the initial state only"
+   ],
+   "correct": 2,
+   "explain": "From $\\frac{\\mathrm d}{\\mathrm dt}\\langle A\\rangle=\\frac{i}{\\hbar}\\langle[H,A]\\rangle$ (Ehrenfest) the expectation value is constant for all states exactly when $[H,A]=0$. Example: for a free particle $[H,p]=0$ so $p$ is conserved, but $[H,x]\\ne0$ so $\\langle x\\rangle$ moves.",
+   "source": "QM script (time evolution)"
+  },
+  {
+   "id": "blitz-qm-14",
+   "room": "tunneling-bridge",
+   "kind": "whatif",
+   "q": "The width $a$ of a wide barrier is increased by 50 %. The transmission $T\\approx e^{-2\\kappa a}$ becomes about",
+   "options": [
+    "$1.5\\,T$",
+    "$T^{3/2}$",
+    "$T^2$",
+    "$T/1.5$"
+   ],
+   "correct": 1,
+   "explain": "The exponent is linear in $a$, so $e^{-2\\kappa(1.5a)}=(e^{-2\\kappa a})^{1.5}=T^{3/2}$. The transmission drops much faster than linearly.",
+   "source": "Tunneling script"
+  },
+  {
+   "id": "blitz-qm-15",
+   "room": "tunneling-bridge",
+   "kind": "whatif",
+   "q": "The mass of the tunnelling particle is quadrupled (same $E$, $V_0$, $a$). The transmission $T\\approx e^{-2\\kappa a}$ becomes",
+   "options": [
+    "$T^2$",
+    "$T/4$",
+    "$T^{1/2}$",
+    "$T^4$"
+   ],
+   "correct": 0,
+   "explain": "$\\kappa=\\sqrt{2m(V_0-E)}/\\hbar\\propto\\sqrt m$, so $\\kappa\\to2\\kappa$ and the exponent doubles, $T\\to T^2$. That is why proton tunnelling is far less likely than electron tunnelling.",
+   "source": "Tunneling script; STM side quest"
+  },
+  {
+   "id": "blitz-qm-16",
+   "room": "tunneling-bridge",
+   "kind": "whatif",
+   "q": "The STM tip is retracted by $0.1$ nm (work function $\\phi=4.5$ eV, $I\\propto e^{-2\\kappa d}$). The current falls by a factor of about",
+   "options": [
+    "$1.1$",
+    "$2$",
+    "$100$",
+    "$9$"
+   ],
+   "correct": 3,
+   "explain": "$\\kappa=\\sqrt{2m\\phi}/\\hbar=1.09\\times10^{10}$ m$^{-1}$, so $e^{-2\\kappa\\cdot0.1\\,\\mathrm{nm}}=e^{-2.18}=0.113$, a factor 9. This extreme sensitivity gives the STM atomic resolution.",
+   "source": "Tunneling script; STM"
+  },
+  {
+   "id": "blitz-qm-17",
+   "room": "harmonic-oscillator-elevator",
+   "kind": "whatif",
+   "q": "The mass of a harmonic oscillator is quadrupled while the spring constant is kept. The level spacing $\\hbar\\omega$ becomes",
+   "options": [
+    "twice as large",
+    "a quarter as large",
+    "half as large",
+    "unchanged"
+   ],
+   "correct": 2,
+   "explain": "$\\omega=\\sqrt{k/m}$, so $m\\to4m$ gives $\\omega\\to\\omega/2$. The spacing $\\hbar\\omega=\\hbar\\sqrt{k/m}$ scales as $m^{-1/2}$, so quadrupling $m$ halves it.",
+   "source": "HO script"
+  },
+  {
+   "id": "blitz-qm-18",
+   "room": "harmonic-oscillator-elevator",
+   "kind": "whatif",
+   "q": "A constant force is added: $H=H_0-Fx$. The exact spectrum is",
+   "options": [
+    "$E_n=(n+\\tfrac12)\\hbar\\omega-F^2/2m\\omega^2$: all levels shift equally",
+    "$E_n=(n+\\tfrac12)\\hbar\\omega-F\\sqrt{\\hbar/2m\\omega}$ (first order)",
+    "the spacing grows with $n$",
+    "the ground-state energy stays $\\hbar\\omega/2$"
+   ],
+   "correct": 0,
+   "explain": "Completing the square, $\\tfrac12m\\omega^2(x-x_0)^2-F^2/2m\\omega^2$ with $x_0=F/m\\omega^2$. The first-order shift $-F\\langle x\\rangle$ vanishes by parity, and the second-order shift gives the exact result.",
+   "source": "HO script; perturbation"
+  },
+  {
+   "id": "blitz-qm-19",
+   "room": "general",
+   "kind": "whatif",
+   "q": "The width $L$ of an infinite square well is doubled. The ground-state energy changes by a factor",
+   "options": [
+    "$1/2$",
+    "$1/4$",
+    "2",
+    "$1/\\sqrt2$"
+   ],
+   "correct": 1,
+   "explain": "$E_1=\\pi^2\\hbar^2/2mL^2\\propto L^{-2}$. Doubling $L$ therefore gives $E_1\\to E_1/2^2=E_1/4$.",
+   "source": "QM script (1D potentials)"
+  },
+  {
+   "id": "blitz-qm-20",
+   "room": "general",
+   "kind": "whatif",
+   "q": "A spin-1/2 particle's magnetic field is doubled. The Larmor frequency $\\omega_L=\\gamma B$ and the Zeeman splitting",
+   "options": [
+    "both halve",
+    "$\\omega_L$ doubles and the splitting is unchanged",
+    "both quadruple",
+    "both double"
+   ],
+   "correct": 3,
+   "explain": "The Zeeman Hamiltonian $H=-\\gamma BS_z$ has levels $\\mp\\hbar\\gamma B/2$, giving a splitting $\\hbar\\omega_L$ that is linear in $B$. The spin precesses at $\\omega_L$.",
+   "source": "Zeeman; spin in B field"
+  },
+  {
+   "id": "blitz-qm-21",
+   "room": "general",
+   "kind": "whatif",
+   "q": "The electron mass in hydrogen is hypothetically doubled. The binding energy and the Bohr radius change as",
+   "options": [
+    "$E$ halves and $a_0$ doubles",
+    "both double",
+    "$E$ quadruples and $a_0$ is unchanged",
+    "$E$ doubles and $a_0$ halves"
+   ],
+   "correct": 3,
+   "explain": "$E_n=-\\frac{m e^4}{2(4\\pi\\epsilon_0)^2\\hbar^2n^2}\\propto m$ and $a_0=\\frac{4\\pi\\epsilon_0\\hbar^2}{me^2}\\propto1/m$ (with the reduced mass in practice). Hence doubling $m$ doubles $|E_n|$ and halves $a_0$.",
+   "source": "Hydrogen atom"
+  },
+  {
+   "id": "blitz-qm-22",
+   "room": "general",
+   "kind": "whatif",
+   "q": "A perturbation $\\lambda H'$ is doubled ($\\lambda\\to2\\lambda$). The first- and second-order energy shifts change by factors",
+   "options": [
+    "2 and 4",
+    "2 and 2",
+    "4 and 8",
+    "1 and 2"
+   ],
+   "correct": 0,
+   "explain": "$E^{(1)}\\propto\\lambda$ and $E^{(2)}\\propto\\lambda^2$, since $E_n=E_n^{(0)}+\\lambda E^{(1)}+\\lambda^2E^{(2)}+\\dots$. So the factors are $2^1=2$ and $2^2=4$.",
+   "source": "QM script (perturbation theory)"
+  },
+  {
+   "id": "blitz-qm-23",
+   "room": "general",
+   "kind": "whatif",
+   "q": "Two non-interacting identical spinless particles occupy an infinite well. The ground-state energy in units of $E_1$ is, for bosons and fermions respectively,",
+   "options": [
+    "2 and 4",
+    "2 and 5",
+    "2 and 10",
+    "5 and 2"
+   ],
+   "correct": 1,
+   "explain": "Bosons both occupy $n=1$: $2E_1$. Fermions need different orbitals, $n=1$ and $2$ with $E_n=n^2E_1$, so $E_1+4E_1=5E_1$.",
+   "source": "QM script (identical particles)"
+  },
+  {
+   "id": "blitz-qm-24",
+   "room": "general",
+   "kind": "whatif",
+   "q": "$S_z$ is measured and gives $+\\hbar/2$. If it is measured again immediately, the outcome is",
+   "options": [
+    "$+\\hbar/2$ or $-\\hbar/2$ with equal probability",
+    "$-\\hbar/2$ with certainty",
+    "$+\\hbar/2$ with certainty",
+    "undefined"
+   ],
+   "correct": 2,
+   "explain": "The measurement projects the state onto the eigenstate $|{\\uparrow}\\rangle$. A second, identical measurement has probability $|\\langle\\uparrow|\\uparrow\\rangle|^2=1$.",
+   "source": "Projection postulate"
+  },
+  {
+   "id": "blitz-qm-25",
+   "room": "general",
+   "kind": "whatif",
+   "q": "The Hamiltonian commutes with the parity operator and the initial state is even. At later times the state is",
+   "options": [
+    "odd",
+    "still even",
+    "a superposition of even and odd",
+    "undefined"
+   ],
+   "correct": 1,
+   "explain": "$[H,\\Pi]=0$ gives $\\Pi U(t)=U(t)\\Pi$, so $\\Pi|\\psi(t)\\rangle=U(t)\\Pi|\\psi(0)\\rangle=+|\\psi(t)\\rangle$. Parity is a conserved quantity.",
+   "source": "QM script (symmetries)"
+  },
+  {
+   "id": "blitz-qm-26",
+   "room": "general",
+   "kind": "whatif",
+   "q": "The mass of a free Gaussian wave packet is increased. Its spreading $\\Delta x(t)^2=\\Delta x_0^2+(\\hbar t/2m\\Delta x_0)^2$ becomes",
+   "options": [
+    "slower",
+    "faster",
+    "unchanged",
+    "oscillating"
+   ],
+   "correct": 0,
+   "explain": "The spreading term is inversely proportional to $m$: heavy particles have a smaller velocity spread $\\Delta v=\\hbar/2m\\Delta x_0$. At fixed $t$ the extra width $\\hbar t/(2m\\Delta x_0)$ shrinks as $1/m$, so the packet spreads more slowly.",
+   "source": "QM script (free particle)"
+  },
+  {
+   "id": "blitz-qm-27",
+   "room": "general",
+   "kind": "estimate",
+   "q": "An electron has kinetic energy $100$ eV. Its de Broglie wavelength $\\lambda=h/\\sqrt{2mE}$ is about",
+   "options": [
+    "$1.2$ nm",
+    "$0.012$ nm",
+    "$0.12$ nm",
+    "$12$ nm"
+   ],
+   "correct": 2,
+   "explain": "$\\lambda=1.226\\,\\mathrm{nm}/\\sqrt{E/\\mathrm{eV}}=0.123$ nm, which is of the order of atomic spacings. This is why low-energy electrons diffract from crystals.",
+   "source": "QM script (de Broglie)"
+  },
+  {
+   "id": "blitz-qm-28",
+   "room": "general",
+   "kind": "estimate",
+   "q": "The H$\\alpha$ line ($n=3\\to2$) of hydrogen has the wavelength of about",
+   "options": [
+    "$122$ nm",
+    "$1875$ nm",
+    "$91$ nm",
+    "$656$ nm"
+   ],
+   "correct": 3,
+   "explain": "$1/\\lambda=R_\\infty(1/4-1/9)$ with $R_\\infty=1.0974\\times10^7$ m$^{-1}$ gives $\\lambda=656$ nm. The Lyman $\\alpha$ (122 nm) is $n=2\\to1$ and the Paschen $\\alpha$ (1875 nm) is $n=4\\to3$.",
+   "source": "Hydrogen; Rydberg"
+  },
+  {
+   "id": "blitz-qm-29",
+   "room": "tunneling-bridge",
+   "kind": "estimate",
+   "q": "An electron with $E=1$ eV hits a barrier $V_0=2$ eV of width $0.5$ nm. The estimate $T\\approx e^{-2\\kappa a}$ gives about",
+   "options": [
+    "$6\\times10^{-2}$",
+    "$6\\times10^{-3}$",
+    "$6\\times10^{-5}$",
+    "$0.6$"
+   ],
+   "correct": 1,
+   "explain": "$\\kappa=\\sqrt{2m(V_0-E)}/\\hbar=5.12\\times10^9$ m$^{-1}$ and $2\\kappa a=5.12$, so $T\\approx e^{-5.12}=5.9\\times10^{-3}$. Because $T$ depends exponentially on $a$, an extra 0.1 nm of width lowers $T$ by $e^{-1.0}$, which is the principle of the STM.",
+   "source": "Tunneling script"
+  },
+  {
+   "id": "blitz-qm-30",
+   "room": "harmonic-oscillator-elevator",
+   "kind": "estimate",
+   "q": "The CO molecule has $k=1860$ N m$^{-1}$ and reduced mass $\\mu=1.14\\times10^{-26}$ kg. The vibrational spacing $\\hbar\\omega$ is about",
+   "options": [
+    "$0.27$ eV",
+    "$2.7$ eV",
+    "$0.027$ eV",
+    "$27$ eV"
+   ],
+   "correct": 0,
+   "explain": "$\\omega=\\sqrt{k/\\mu}=4.04\\times10^{14}$ s$^{-1}$ and $\\hbar\\omega=0.266$ eV, which is in the infrared ($4.6$ $\\mu$m). Since $\\hbar\\omega\\gg k_BT=0.026$ eV at 300 K, CO sits in its vibrational ground state at room temperature.",
+   "source": "HO script"
+  },
+  {
+   "id": "blitz-qm-31",
+   "room": "general",
+   "kind": "estimate",
+   "q": "An electron is confined to $\\Delta x=0.1$ nm. With $\\Delta p=\\hbar/2\\Delta x$, the kinetic energy estimate $\\Delta p^2/2m$ is about",
+   "options": [
+    "$0.095$ eV",
+    "$95$ eV",
+    "$0.95$ eV",
+    "$9.5$ keV"
+   ],
+   "correct": 2,
+   "explain": "$E=\\hbar^2/(8m\\Delta x^2)=1.5\\times10^{-19}$ J $=0.95$ eV, comparable to the binding energies in atoms. This is the confinement (zero-point) energy scale, which is why atomic binding energies of a few eV are natural.",
+   "source": "Uncertainty principle"
+  },
+  {
+   "id": "blitz-qm-32",
+   "room": "general",
+   "kind": "estimate",
+   "q": "An electron in an infinite well of width $L=1$ nm has a ground-state energy $\\pi^2\\hbar^2/2mL^2$ of about",
+   "options": [
+    "$3.8$ eV",
+    "$0.038$ eV",
+    "$38$ eV",
+    "$0.38$ eV"
+   ],
+   "correct": 3,
+   "explain": "$E_1=\\pi^2\\hbar^2/(2mL^2)=0.376$ eV. The levels scale as $E_n=n^2E_1$.",
+   "source": "1D potentials"
+  },
+  {
+   "id": "blitz-qm-33",
+   "room": "general",
+   "kind": "estimate",
+   "q": "The electron-spin resonance frequency $\\nu=2\\mu_BB/h$ at $B=1$ T is about",
+   "options": [
+    "$0.28$ GHz",
+    "$2.8$ GHz",
+    "$280$ GHz",
+    "$28$ GHz"
+   ],
+   "correct": 3,
+   "explain": "$\\nu=g\\mu_BB/h=2\\cdot9.274\\times10^{-24}/6.626\\times10^{-34}=2.80\\times10^{10}$ Hz, in the microwave regime (X band: 9 GHz at 0.33 T). For comparison $\\nu/B=28$ GHz/T, the electron analogue of the NMR Larmor frequency.",
+   "source": "Zeeman; spin"
+  },
+  {
+   "id": "blitz-qm-34",
+   "room": "general",
+   "kind": "estimate",
+   "q": "The fine-structure splitting of the $2P$ level in hydrogen, $\\alpha^2\\cdot13.6\\,\\mathrm{eV}/16$, is about",
+   "options": [
+    "$4.5\\times10^{-3}$ eV",
+    "$4.5\\times10^{-1}$ eV",
+    "$4.5\\times10^{-5}$ eV",
+    "$4.5\\times10^{-8}$ eV"
+   ],
+   "correct": 2,
+   "explain": "With $\\alpha=1/137.036$, $\\alpha^2=5.33\\times10^{-5}$ and $\\alpha^2\\cdot13.606/16=4.5\\times10^{-5}$ eV, the splitting between $2P_{3/2}$ and $2P_{1/2}$ (10.9 GHz). It is smaller than the Bohr energy $E_2=3.4$ eV by $\\sim\\alpha^2/4\\sim10^{-5}$, so it is a small perturbation.",
+   "source": "Hydrogen fine structure"
+  },
+  {
+   "id": "blitz-qm-35",
+   "room": "general",
+   "kind": "estimate",
+   "q": "The reduced Compton wavelength of the electron, $\\hbar/m_ec$, is about",
+   "options": [
+    "$5.3\\times10^{-11}$ m",
+    "$3.9\\times10^{-13}$ m",
+    "$3.9\\times10^{-10}$ m",
+    "$3.9\\times10^{-16}$ m"
+   ],
+   "correct": 1,
+   "explain": "$\\hbar/(m_ec)=1.0546\\times10^{-34}/(9.109\\times10^{-31}\\cdot2.998\\times10^8)=3.86\\times10^{-13}$ m. It is $\\alpha a_0$, smaller than the Bohr radius ($5.3\\times10^{-11}$ m) by a factor 137.",
+   "source": "Hydrogen; scales"
+  },
+  {
+   "id": "blitz-qm-36",
+   "room": "general",
+   "kind": "estimate",
+   "q": "A thermal neutron ($T=300$ K, $E=\\tfrac32k_BT$) has a de Broglie wavelength of about",
+   "options": [
+    "$0.15$ nm",
+    "$0.0015$ nm",
+    "$15$ nm",
+    "$1.5\\times10^{-5}$ nm"
+   ],
+   "correct": 0,
+   "explain": "$p=\\sqrt{3m_nk_BT}=4.6\\times10^{-24}$ kg m s$^{-1}$ and $\\lambda=h/p=1.45\\times10^{-10}$ m. This is the lattice spacing, which makes neutron diffraction possible.",
+   "source": "QM script (de Broglie)"
+  },
+  {
+   "id": "blitz-qm-37",
+   "room": "general",
+   "kind": "exam",
+   "q": "Which operator is Hermitian?",
+   "options": [
+    "$i\\,\\mathrm d/\\mathrm dx$",
+    "$\\mathrm d/\\mathrm dx$",
+    "$x\\,\\mathrm d/\\mathrm dx$",
+    "$\\hat x\\hat p$"
+   ],
+   "correct": 0,
+   "explain": "The momentum $\\hat p=-i\\hbar\\,\\mathrm d/\\mathrm dx$ is Hermitian, so $i\\,\\mathrm d/\\mathrm dx=-\\hat p/\\hbar$ is as well. $\\mathrm d/\\mathrm dx$ is anti-Hermitian, and $\\hat x\\hat p$ is not Hermitian since $[\\hat x,\\hat p]\\ne0$.",
+   "source": "HS22 A style"
+  },
+  {
+   "id": "blitz-qm-38",
+   "room": "general",
+   "kind": "exam",
+   "q": "The commutator $[\\hat x,\\hat p^2]$ equals",
+   "options": [
+    "$i\\hbar\\hat p$",
+    "$2i\\hbar\\hat x$",
+    "$2i\\hbar\\hat p$",
+    "$0$"
+   ],
+   "correct": 2,
+   "explain": "$[x,p^2]=[x,p]p+p[x,p]=2i\\hbar p$ by the Leibniz rule.",
+   "source": "HS22 A style"
+  },
+  {
+   "id": "blitz-qm-39",
+   "room": "general",
+   "kind": "exam",
+   "q": "The commutator $[L_z,L_x]$ equals",
+   "options": [
+    "$-i\\hbar L_y$",
+    "$i\\hbar L_y$",
+    "$i\\hbar L_x$",
+    "$0$"
+   ],
+   "correct": 1,
+   "explain": "The algebra is cyclic, $[L_i,L_j]=i\\hbar\\epsilon_{ijk}L_k$, and $(z,x,y)$ is a cyclic permutation of $(x,y,z)$, so the sign is $+$.",
+   "source": "HS16 short"
+  },
+  {
+   "id": "blitz-qm-40",
+   "room": "general",
+   "kind": "exam",
+   "q": "The spin-1/2 state $(|{\\uparrow}\\rangle+|{\\downarrow}\\rangle)/\\sqrt2$ is an eigenstate of $S_x$ with the eigenvalue",
+   "options": [
+    "$-\\hbar/2$",
+    "$0$",
+    "$\\hbar/\\sqrt2$",
+    "$+\\hbar/2$"
+   ],
+   "correct": 3,
+   "explain": "$S_x=\\frac\\hbar2\\sigma_x$ and $\\sigma_x(1,1)^T=(1,1)^T$, so the eigenvalue is $+\\hbar/2$. In contrast, $\\langle S_z\\rangle=0$ in this state.",
+   "source": "HS22 A style"
+  },
+  {
+   "id": "blitz-qm-41",
+   "room": "general",
+   "kind": "exam",
+   "q": "A particle in an infinite well is in the state $(\\psi_1+\\psi_2)/\\sqrt2$. The expectation value of the energy is",
+   "options": [
+    "$2E_1$",
+    "$\\tfrac52E_1$",
+    "$5E_1$",
+    "$\\tfrac32E_1$"
+   ],
+   "correct": 1,
+   "explain": "$\\langle H\\rangle=\\tfrac12(E_1+E_2)$ with $E_2=4E_1$. It is not the geometric mean, and the energy is never found to be $5E_1/2$ in a measurement.",
+   "source": "HS22 A style"
+  },
+  {
+   "id": "blitz-qm-42",
+   "room": "general",
+   "kind": "exam",
+   "q": "The degeneracy of the hydrogen level $n=3$ (ignoring spin) is",
+   "options": [
+    "18",
+    "3",
+    "6",
+    "9"
+   ],
+   "correct": 3,
+   "explain": "$\\sum_{l=0}^{n-1}(2l+1)=n^2=9$. Including spin it would be $2n^2=18$.",
+   "source": "Hydrogen atom; HS16 short"
+  },
+  {
+   "id": "blitz-qm-43",
+   "room": "harmonic-oscillator-elevator",
+   "kind": "exam",
+   "q": "In the oscillator ground state, $\\langle x^2\\rangle$ equals",
+   "options": [
+    "$\\hbar/(m\\omega)$",
+    "$\\hbar\\omega/2$",
+    "$\\hbar/(2m\\omega)$",
+    "$m\\omega/(2\\hbar)$"
+   ],
+   "correct": 2,
+   "explain": "With $x=\\sqrt{\\hbar/2m\\omega}\\,(a+a^\\dagger)$, $\\langle0|x^2|0\\rangle=\\frac{\\hbar}{2m\\omega}\\langle0|aa^\\dagger|0\\rangle=\\frac{\\hbar}{2m\\omega}$. Check: $\\langle V\\rangle=\\frac12m\\omega^2\\langle x^2\\rangle=\\hbar\\omega/4=E_0/2$, as the virial theorem requires.",
+   "source": "HO script; ladder operators"
+  },
+  {
+   "id": "blitz-qm-44",
+   "room": "general",
+   "kind": "exam",
+   "q": "Which transition in hydrogen is electric-dipole allowed?",
+   "options": [
+    "$3d\\to2p$",
+    "$3s\\to2s$",
+    "$3p\\to2p$",
+    "$3d\\to1s$"
+   ],
+   "correct": 0,
+   "explain": "The dipole selection rules are $\\Delta l=\\pm1$ and $\\Delta m=0,\\pm1$. Only $3d\\to2p$ obeys $\\Delta l=\\pm1$ of the choices listed.",
+   "source": "Hydrogen; selection rules"
+  },
+  {
+   "id": "blitz-qm-45",
+   "room": "general",
+   "kind": "exam",
+   "q": "The parity of the state $|n,l,m\\rangle$ of hydrogen with $l=2$ is",
+   "options": [
+    "$-1$",
+    "$0$",
+    "$\\pm i$",
+    "$+1$"
+   ],
+   "correct": 3,
+   "explain": "Under $\\mathbf r\\to-\\mathbf r$ the spherical harmonics transform as $Y_{lm}\\to(-1)^lY_{lm}$, so $l=2$ is even. In general the parity of $|n,l,m\\rangle$ is $(-1)^l$: s and d states are even, p and f states odd.",
+   "source": "Hydrogen atom"
+  },
+  {
+   "id": "blitz-qm-46",
+   "room": "general",
+   "kind": "exam",
+   "q": "In a stationary state, the expectation value of any observable $A$ without explicit time dependence is",
+   "options": [
+    "oscillating with $\\omega=E/\\hbar$",
+    "decaying exponentially",
+    "independent of time",
+    "always zero"
+   ],
+   "correct": 2,
+   "explain": "$|\\psi(t)\\rangle=e^{-iEt/\\hbar}|\\psi_E\\rangle$, so the global phase cancels in $\\langle\\psi|A|\\psi\\rangle$. Time dependence needs superpositions of different energies.",
+   "source": "QM script (time evolution)"
+  },
+  {
+   "id": "blitz-qm-47",
+   "room": "general",
+   "kind": "exam",
+   "q": "The variational principle states that for any normalised trial state $|\\phi\\rangle$",
+   "options": [
+    "$\\langle\\phi|H|\\phi\\rangle\\le E_0$",
+    "$\\langle\\phi|H|\\phi\\rangle\\ge E_0$",
+    "$\\langle\\phi|H|\\phi\\rangle=E_0$ for some $|\\phi\\rangle$ only if degenerate",
+    "$\\langle\\phi|H|\\phi\\rangle\\ge E_1$"
+   ],
+   "correct": 1,
+   "explain": "Expanding $|\\phi\\rangle=\\sum c_n|n\\rangle$ gives $\\sum|c_n|^2E_n\\ge E_0\\sum|c_n|^2=E_0$. The estimate is an upper bound on the ground-state energy.",
+   "source": "QM script (variational method)"
+  },
+  {
+   "id": "blitz-qm-48",
+   "room": "general",
+   "kind": "exam",
+   "q": "In degenerate perturbation theory with $H'=\\begin{pmatrix}0&V\\\\V&0\\end{pmatrix}$ in a two-fold degenerate level $E_0$, the first-order energies are",
+   "options": [
+    "$E_0\\pm|V|$",
+    "$E_0\\pm V^2$",
+    "$E_0$ (no shift to first order)",
+    "$E_0+V$ (twice)"
+   ],
+   "correct": 0,
+   "explain": "The eigenvalues of $H'$ in the subspace are $\\pm|V|$ with eigenvectors $(1,\\pm1)/\\sqrt2$, so the degeneracy is lifted linearly in $V$. The correct zeroth-order states are therefore the symmetric and antisymmetric combinations, not the original basis states.",
+   "source": "QM script (degenerate PT)"
+  }
+ ]
+}

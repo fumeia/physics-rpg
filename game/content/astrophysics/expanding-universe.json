@@ -1,0 +1,1079 @@
+{
+  "id": "astro-expanding-universe",
+  "region": "Astro Observatory Ship",
+  "title": "The Expansion Engine",
+  "course": "astrophysics",
+  "topics": [
+    "Friedmann equation",
+    "radiation era",
+    "BBN",
+    "Hubble law",
+    "redshift",
+    "black hole growth",
+    "Salpeter time"
+  ],
+  "sources": [
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+      "where": "Open Q6 (BH accretion, Salpeter time), Q7 (radiation-dominated universe, BBN), MC 13-15"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+      "where": "Open Q7 (Friedmann equation with equation of state w), MC 14-15"
+    },
+    {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Ch. 10.3-10.7 (FRW, Friedmann, eras), Ch. 11.2-11.3 (BBN), Ch. 9.4 (accretion)"
+    },
+    {
+      "file": "notes/astrophysics/04-cosmos-and-accretion.md",
+      "where": "transcription, formulas and checks"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "HS24 winter: open Q7, MC 14-15"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+      "where": "HS25 practice: open Q7"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+      "where": "HS24 summer: MC 14"
+    },
+    {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Choudhuri Ch. 9.3 (Hubble law), 10.3-10.7 (FRW metric, Friedmann, contents, matter and radiation eras)"
+    }
+  ],
+  "intro": "Every recent Refregier exam closes with a Friedmann-equation problem. In the Expansion Engine you derive how a(t) depends on what fills the universe, date nucleosynthesis, and let a black hole feed at the Eddington rate.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "astro-cosmo-L1",
+      "title": "Hubble's law and redshift",
+      "tier": "intuition",
+      "minutes": 10,
+      "xp": 15,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §9.3 (expansion), §10.3 eqs. (10.22)-(10.24)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC 13, 14"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "eq",
+          "tex": "v=H_0d,\\qquad 1+z=\\frac{\\lambda_{\\rm obs}}{\\lambda_{\\rm em}}=\\frac{a_0}{a(t_{\\rm em})},\\qquad v\\approx cz\\ (z\\ll1)",
+          "label": "Hubble law and cosmological redshift."
+        },
+        {
+          "kind": "text",
+          "html": "$H_0\\approx70$ km s$^{-1}$Mpc$^{-1}$ (often written $100h$ with $h\\approx0.7$). Its inverse, the <b>Hubble time</b> $1/H_0=977.8/H_0[\\mathrm{km/s/Mpc}]$ Gyr $\\approx14$ Gyr, sets the age scale of the Universe."
+        },
+        {
+          "kind": "intuition",
+          "html": "Redshift is not a Doppler shift through space: the wavelength of light is stretched together with space, $\\lambda\\propto a$. That is why $1+z$ is exactly the factor by which the Universe has grown since the light left. Every observer sees the same Hubble law (no centre): stretch a rubber sheet with dots on it and every dot sees the others recede with $v\\propto d$."
+        },
+        {
+          "kind": "text",
+          "html": "<b>Cosmological principle:</b> on large scales ($\\gtrsim100\\,h^{-1}$ Mpc) the Universe is homogeneous and isotropic. Then the only freedom is a single scale factor $a(t)$ and a constant spatial curvature $k\\in\\{-1,0,+1\\}$: the Robertson–Walker metric."
+        },
+        {
+          "kind": "pitfall",
+          "html": "$v=cz$ only for $z\\ll1$. For $z\\sim1$ use $1+z=a_0/a$ and do not quote a velocity. Frequencies: $1+z=\\nu_{\\rm em}/\\nu_{\\rm obs}$ (HS25 winter MC14: 1420 MHz seen at 700 MHz is $z\\approx1$)."
+        }
+      ],
+      "check": [
+        {
+          "q": "A galaxy has $z=0.024$; $H_0=72$ km/s/Mpc. Its distance is about",
+          "options": [
+            "10 Mpc",
+            "100 Mpc",
+            "300 Mpc",
+            "720 Mpc"
+          ],
+          "correct": 1,
+          "explain": "$cz/H_0=7195/72$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 13"
+          }
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-cosmo-L2",
+      "title": "Curvature: closed, flat, open",
+      "tier": "intuition",
+      "minutes": 8,
+      "xp": 10,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §10.3 (metric, eq. 10.19), §10.4 (10.30)-(10.31)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: MC 14"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC 15"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "A 2D picture: a sphere (positive curvature, $k=+1$: triangle angles sum to more than 180°, parallel lines meet, finite area), a plane ($k=0$: 180°), a saddle (negative curvature, $k=-1$: less than 180°, infinite)."
+        },
+        {
+          "kind": "eq",
+          "tex": "\\frac{kc^2}{a^2H^2}=\\Omega-1,\\qquad\\Omega=\\frac{\\rho}{\\rho_c},\\quad\\rho_c=\\frac{3H^2}{8\\pi G}",
+          "label": "(10.30)-(10.31): the density decides the geometry."
+        },
+        {
+          "kind": "intuition",
+          "html": "$\\Omega>1$: more than enough mass, space closes on itself like a sphere and (without $\\Lambda$) the expansion eventually reverses. $\\Omega=1$: flat, the \"escape velocity\" case. $\\Omega<1$: open, expands forever. Observations (CMB) say our Universe is very nearly flat: $\\Omega_{\\rm tot}=1$ to within ~0.5 %."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Triangle angle sum $>180^\\circ$ means <b>positive</b> curvature (HS24 summer MC14), and $\\Omega_{\\rm tot}>1$ means <b>closed</b>, $k=+1$ (HS25 winter MC15). Never \"cylindrical\": a cylinder has zero intrinsic curvature."
+        }
+      ],
+      "check": [
+        {
+          "q": "If $\\Omega_{\\rm tot}>1$ the spatial geometry is",
+          "options": [
+            "flat",
+            "open/hyperbolic",
+            "closed/spherical",
+            "cylindrical"
+          ],
+          "correct": 2,
+          "explain": "$k=+1$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 15"
+          }
+        },
+        {
+          "q": "If the angles of every small triangle on a 2D surface sum to more than 180°, the surface has",
+          "options": [
+            "curvature −1",
+            "negative curvature",
+            "zero curvature",
+            "positive curvature"
+          ],
+          "correct": 3,
+          "explain": "Like a sphere.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 14"
+          }
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-cosmo-L3",
+      "title": "The Friedmann equation from a Newtonian shell",
+      "tier": "theory",
+      "minutes": 12,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §10.4, eqs. (10.25)-(10.29); §10.5 eqs. (10.36)-(10.40)"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "Take a sphere of radius $a$ in a uniform universe of density $\\rho$. A test mass on its surface feels only the mass inside, $M=\\frac43\\pi a^3\\rho$ (shell theorem). Energy conservation: $\\frac12\\dot a^2-\\frac{GM}{a}=E$, i.e. $\\dot a^2-\\frac{8\\pi G}{3}\\rho a^2=2E$. General relativity gives the same equation with $2E=-kc^2$ (Choudhuri (10.25)-(10.27)):"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\left(\\frac{\\dot a}{a}\\right)^2=\\frac{8\\pi G}{3}\\rho-\\frac{kc^2}{a^2},\\qquad H=\\frac{\\dot a}{a}",
+          "label": "Friedmann equation."
+        },
+        {
+          "kind": "text",
+          "html": "How $\\rho$ depends on $a$ follows from the first law for an expanding volume $a^3$ with pressure $P=w\\rho c^2$: $d(\\rho c^2a^3)+P\\,d(a^3)=0$:"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\rho\\propto a^{-3(1+w)}:\\quad\\text{matter }(w=0)\\ \\rho\\propto a^{-3};\\quad\\text{radiation }(w=\\tfrac13)\\ \\rho\\propto a^{-4};\\quad\\Lambda\\ (w=-1)\\ \\rho=\\text{const}",
+          "label": "(10.37)-(10.40)."
+        },
+        {
+          "kind": "intuition",
+          "html": "Matter is diluted ($n\\propto a^{-3}$). Radiation is diluted AND each photon is redshifted ($E\\propto a^{-1}$): $a^{-4}$. Vacuum energy is a property of space, so it does not dilute. Hence the history: radiation dominated early, matter later (after $z_{eq}\\approx3400$), and dark energy today."
+        },
+        {
+          "kind": "text",
+          "html": "Numbers: $\\rho_{c,0}=\\frac{3H_0^2}{8\\pi G}=1.88\\times10^{-26}h^2$ kg m$^{-3}$ (10.29), about 5 protons per cubic metre. Today $\\Omega_M\\approx0.3$, $\\Omega_\\Lambda\\approx0.7$, $\\Omega_R\\approx9\\times10^{-5}$."
+        },
+        {
+          "kind": "pitfall",
+          "html": "$k$ is only a sign ($-1,0,1$); the radius of curvature is in $a$. For $k=0$ the Friedmann equation is just $\\dot a/a=\\sqrt{8\\pi G\\rho/3}$: separate variables (exam hint: $a$-terms with $da$ on the left)."
+        }
+      ],
+      "check": [
+        {
+          "q": "The energy density of radiation scales as",
+          "options": [
+            "$a^{-3}$",
+            "$a^{-2}$",
+            "$a^{-4}$",
+            "constant"
+          ],
+          "correct": 2,
+          "explain": "Dilution and redshift.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 15"
+          }
+        },
+        {
+          "q": "In our Universe",
+          "options": [
+            "radiation dominates early, matter later",
+            "matter dominates early, radiation later",
+            "radiation always dominates",
+            "matter always dominates"
+          ],
+          "correct": 0,
+          "explain": "$\\rho_R/\\rho_M\\propto1/a$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 14"
+          }
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-cosmo-L4",
+      "title": "Solutions: how the Universe grows",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §10.6 (matter-dominated, 10.53-10.64, Fig. 10.5), §10.7 (radiation, 10.65)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: open Q7"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: open Q7"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: open Q7"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: open Q7"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "eq",
+          "tex": "k=0:\\quad a\\propto t^{\\frac{2}{3(1+w)}}\\ \\Rightarrow\\ \\text{matter }a\\propto t^{2/3},\\ \\text{radiation }a\\propto t^{1/2};\\qquad\\Lambda:\\ a\\propto e^{Ht},\\ H=\\sqrt{8\\pi G\\rho_\\Lambda/3}"
+        },
+        {
+          "kind": "eq",
+          "tex": "k=+1,\\ \\text{matter}:\\ \\frac{a}{a_0}=\\frac{\\Omega_0}{2(\\Omega_0-1)}(1-\\cos\\eta),\\quad H_0t=\\frac{\\Omega_0}{2(\\Omega_0-1)^{3/2}}(\\eta-\\sin\\eta)",
+          "label": "Closed universe (cycloid): Big Bang at η = 0, turnaround at η = π, Big Crunch at η = 2π."
+        },
+        {
+          "kind": "figure",
+          "html": "Choudhuri Fig. 10.5: $a(t)$ for $k=+1$ rises from zero, bends over and falls back (a cycloid arch); $k=0$ grows as $t^{2/3}$ forever; $k=-1$ grows faster and approaches $a\\propto t$ (coasting). All three curves start together at the Big Bang with infinite slope; near $t=0$ curvature does not matter."
+        },
+        {
+          "kind": "intuition",
+          "html": "Age: for a flat matter universe $H=\\frac{2}{3t}$, so $t_0=\\frac23H_0^{-1}\\approx9.3$ Gyr, younger than the oldest stars (12–13 Gyr): one of the hints that dark energy exists. With $\\Lambda$ the expansion accelerates (SN Ia distances, 1998) and the age becomes 13.8 Gyr."
+        },
+        {
+          "kind": "pitfall",
+          "html": "For $H=\\alpha/t$ (power law) the age is $\\alpha/H$, not $1/H$. In a closed universe the present time must be before turnaround if we see expansion: $t_\\odot<t_{\\rm ta}$ gives an upper limit on $H_0$ (HS24 winter Q7c)."
+        },
+        {
+          "kind": "exam",
+          "html": "Every exam ends with Friedmann: radiation era and BBN (HS25 winter Q7), general $w$ (HS24 summer Q7), cosmological constant (HS25 practice Q7), closed universe lifetime (HS24 winter Q7)."
+        }
+      ],
+      "check": [
+        {
+          "q": "A flat universe with $w=0$ expands as",
+          "options": [
+            "$t^{1/2}$",
+            "$t^{2/3}$",
+            "$t$",
+            "$e^{Ht}$"
+          ],
+          "correct": 1,
+          "explain": "$\\alpha=2/(3(1+w))$."
+        },
+        {
+          "q": "A flat $\\Lambda$-dominated universe has a Hubble parameter that",
+          "options": [
+            "grows",
+            "decreases as 1/t",
+            "is constant",
+            "oscillates"
+          ],
+          "correct": 2,
+          "explain": "$H^2=8\\pi G\\rho_\\Lambda/3$ = const.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: open Q7b"
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "astro-cosmo-Q1",
+      "title": "Expansion Engine multiple choice",
+      "xp": 30,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: MC"
+        }
+      ],
+      "questions": [
+        {
+          "q": "$z=0.024$, $H_0=72$ km/s/Mpc: distance",
+          "options": [
+            "10 Mpc",
+            "100 Mpc",
+            "300 Mpc",
+            "720 Mpc"
+          ],
+          "correct": 1,
+          "explain": "$cz/H_0$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 13"
+          }
+        },
+        {
+          "q": "21 cm line observed at 700 MHz: $z\\approx$",
+          "options": [
+            "0.3",
+            "0.5",
+            "1",
+            "2"
+          ],
+          "correct": 2,
+          "explain": "$1420/700-1$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 14"
+          }
+        },
+        {
+          "q": "$\\Omega_{\\rm tot}>1$:",
+          "options": [
+            "flat",
+            "open",
+            "closed",
+            "cylindrical"
+          ],
+          "correct": 2,
+          "explain": "$k=+1$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 15"
+          }
+        },
+        {
+          "q": "Triangles with angle sum > 180°:",
+          "options": [
+            "curvature −1",
+            "negative",
+            "zero",
+            "positive"
+          ],
+          "correct": 3,
+          "explain": "Sphere-like.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 14"
+          }
+        },
+        {
+          "q": "Epochs in our Universe:",
+          "options": [
+            "radiation then matter",
+            "matter then radiation",
+            "always radiation",
+            "always matter"
+          ],
+          "correct": 0,
+          "explain": "$\\rho_R\\propto a^{-4}$, $\\rho_M\\propto a^{-3}$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 14"
+          }
+        },
+        {
+          "q": "$\\rho_R\\propto$",
+          "options": [
+            "$a^{-3}$",
+            "$a^{-2}$",
+            "$a^{-4}$",
+            "const"
+          ],
+          "correct": 2,
+          "explain": "Number dilution × redshift.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 15"
+          }
+        },
+        {
+          "q": "The critical density today is about",
+          "options": [
+            "5 protons per m³",
+            "5 protons per cm³",
+            "1 g per cm³",
+            "$10^{-3}$ kg m$^{-3}$"
+          ],
+          "correct": 0,
+          "explain": "$\\rho_c=9.2\\times10^{-27}$ kg m$^{-3}$ for $h=0.7$."
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "astro-cosmo-D1",
+      "title": "Power-law expansion for a fluid with equation of state w",
+      "xp": 35,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+        "where": "HS24 summer: open Q7 [11 pt]"
+      },
+      "goal": "Flat universe, $\\rho=\\rho_0(a_0/a)^{3(1+w)}$, $w>-1$. From $(\\dot a/a)^2=\\frac{8\\pi G}{3}\\rho-\\frac{kc^2}{a^2}$ show $a\\propto t^\\alpha$ with $\\alpha=\\frac{2}{3(1+w)}$, and give the matter and radiation cases.",
+      "given": [
+        "$k=0$, $a(0)=0$"
+      ],
+      "steps": [
+        {
+          "prompt": "(a) Differential equation.",
+          "reveal": "$\\frac{da}{dt}=\\sqrt{\\frac{8\\pi G\\rho_0a_0^{3(1+w)}}{3}}\\,a^{-\\frac12(1+3w)}$."
+        },
+        {
+          "prompt": "(b) Separate and integrate from 0.",
+          "reveal": "$\\int_0^aa'^{\\frac12(1+3w)}da'=\\frac{a^{\\frac32(1+w)}}{\\frac32(1+w)}=\\sqrt{\\frac{8\\pi G\\rho_0a_0^{3(1+w)}}{3}}\\,t$, so $a\\propto t^{\\frac{2}{3(1+w)}}$."
+        },
+        {
+          "prompt": "(c) Special cases.",
+          "reveal": "Matter $w=0$: $a\\propto t^{2/3}$. Radiation $w=1/3$: $a\\propto t^{1/2}$."
+        }
+      ],
+      "keyPoints": [
+        "correct exponent of $a$ in $\\dot a$",
+        "separation and integration with $a(0)=0$",
+        "$\\alpha=2/(3(1+w))$",
+        "both special cases"
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "astro-cosmo-D2",
+      "title": "A universe dominated by a cosmological constant",
+      "xp": 30,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+        "where": "HS25 practice: open Q7 [12 pt]"
+      },
+      "goal": "Flat universe with only dark energy of constant density $\\rho_\\Lambda$. Show that $H$ is constant and $a\\propto e^{Ht}$.",
+      "given": [
+        "$\\dot a^2/a^2=\\frac{8\\pi G}{3}\\rho-\\frac{kc^2}{a^2}$"
+      ],
+      "steps": [
+        {
+          "prompt": "(a) Friedmann equation.",
+          "reveal": "$\\frac{\\dot a^2}{a^2}=\\frac{8\\pi G}{3}\\rho_\\Lambda$."
+        },
+        {
+          "prompt": "(b) In terms of H.",
+          "reveal": "$H^2=\\frac{8\\pi G}{3}\\rho_\\Lambda$: constant in time since $\\rho_\\Lambda$ is."
+        },
+        {
+          "prompt": "(c)-(d) Solve.",
+          "reveal": "$\\frac{da}{dt}=aH\\Rightarrow d\\ln a=H\\,dt\\Rightarrow a\\propto e^{Ht}$, with $H=\\sqrt{8\\pi G\\rho_\\Lambda/3}$ in the exponent."
+        }
+      ],
+      "keyPoints": [
+        "Friedmann with ρ_Λ only",
+        "H constant",
+        "exponential solution with coefficient H"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c1",
+      "title": "Light from the last scattering",
+      "fight": "normal",
+      "problem": "The CMB temperature today is $T_0=2.725$ K and scales as $T\\propto a^{-1}\\propto1+z$. Recombination happens at $T_{\\rm rec}\\approx3000$ K. Wien's constant is $b=2.898\\times10^{-3}$ m K.",
+      "vars": {
+        "T0": 2.725,
+        "Trec": 3000,
+        "b": 0.002898
+      },
+      "steps": [
+        {
+          "id": "z",
+          "prompt": "Redshift of recombination $z_{\\rm rec}=T_{\\rm rec}/T_0-1$.",
+          "answer": "Trec/T0-1",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "K",
+            "eV",
+            "Gyr"
+          ],
+          "tol": 0.02,
+          "hint": "$1+z=a_0/a=T/T_0$."
+        },
+        {
+          "id": "lrec",
+          "prompt": "Peak wavelength of the radiation at recombination in nm.",
+          "answer": "b/Trec*1e9",
+          "unit": "nm",
+          "units": [
+            "nm",
+            "mm",
+            "m",
+            "µm"
+          ],
+          "tol": 0.02,
+          "hint": "Wien: $\\lambda_{\\max}=b/T$. Near-infrared."
+        },
+        {
+          "id": "l0",
+          "prompt": "Peak wavelength today in mm. (It is stretched by $1+z$.)",
+          "answer": "b/T0*1e3",
+          "unit": "mm",
+          "units": [
+            "mm",
+            "nm",
+            "µm",
+            "m"
+          ],
+          "tol": 0.02,
+          "hint": "Same Wien law at $T_0$, equal to $\\lambda_{\\rm rec}(1+z)$."
+        }
+      ],
+      "xp": 30
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c2",
+      "title": "Growing a quasar: the Salpeter time",
+      "fight": "normal",
+      "problem": "A black hole accretes at the Eddington rate with radiative efficiency $\\eta=0.1$: $L=\\eta\\dot M_{\\rm acc}c^2$, $\\dot M_{BH}=(1-\\eta)\\dot M_{\\rm acc}$, $L_{\\rm Edd}=4\\pi GM_{BH}m_pc/\\sigma_T$. Then $M_{BH}(t)=M_{BH}(0)e^{t/t_S}$ with $t_S=\\frac{\\eta}{1-\\eta}\\frac{c\\sigma_T}{4\\pi Gm_p}$.",
+      "vars": {
+        "G": 6.6743e-11,
+        "c": 299792458,
+        "mp": 1.67262192369e-27,
+        "sigT": 6.652458e-29,
+        "yr": 31557600,
+        "eta": 0.1,
+        "ratio": 100000000
+      },
+      "steps": [
+        {
+          "id": "tS",
+          "prompt": "Salpeter time in units of $10^7$ yr.",
+          "answer": "eta/(1-eta)*c*sigT/(4*pi*G*mp)/yr/1e7",
+          "unit": "10^7 yr",
+          "units": [
+            "10^7 yr",
+            "s",
+            "10^9 yr",
+            "Gyr^-1"
+          ],
+          "tol": 0.02,
+          "hint": "Insert $G,\\,m_p,\\,\\sigma_T,\\,c$ in SI. The result is $5.0\\times10^7$ yr."
+        },
+        {
+          "id": "tdbl",
+          "prompt": "Doubling time $t_S\\ln2$ in $10^7$ yr.",
+          "answer": "tS*log(2)",
+          "unit": "10^7 yr",
+          "units": [
+            "10^7 yr",
+            "s",
+            "10^9 yr",
+            "Gyr^-1"
+          ],
+          "tol": 0.02,
+          "hint": "$2=e^{t/t_S}\\Rightarrow t=t_S\\ln2\\approx3.5\\times10^7$ yr."
+        },
+        {
+          "id": "tgrow",
+          "prompt": "Time to grow by a factor $10^8$ (a $10\\,M_\\odot$ seed to $10^9\\,M_\\odot$) in Gyr.",
+          "answer": "tS*log(ratio)*1e7/1e9",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "10^7 yr",
+            "Myr",
+            "s"
+          ],
+          "tol": 0.03,
+          "hint": "$t=t_S\\ln(10^8)=18.4\\,t_S\\approx0.9$ Gyr. This is why $z>7$ quasars are a puzzle."
+        }
+      ],
+      "xp": 50
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c3",
+      "title": "Friedmann universe with equation of state $w$",
+      "fight": "normal",
+      "problem": "Flat universe with $\\rho\\propto a^{-3(1+w)}$: $\\dot a/a=\\sqrt{8\\pi G\\rho/3}$ gives $a\\propto t^{\\alpha}$ with $\\alpha=\\frac{2}{3(1+w)}$. Then $H=\\dot a/a=\\alpha/t$, so the age is $t_0=\\alpha/H_0$. Take $H_0=70$ km/s/Mpc, $1/H_0=13.97$ Gyr.",
+      "vars": {
+        "H0inv": 13.968571428571428,
+        "w1": 0,
+        "w2": 0.5
+      },
+      "steps": [
+        {
+          "id": "a0",
+          "prompt": "Exponent $\\alpha$ for non-relativistic matter ($w=0$).",
+          "answer": "2/(3*(1+w1))",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "Gyr",
+            "km/s/Mpc",
+            "K"
+          ],
+          "tol": 0.01,
+          "hint": "$\\rho\\propto a^{-3}$: $a\\propto t^{2/3}$."
+        },
+        {
+          "id": "age",
+          "prompt": "Age of a flat matter-only universe $t_0=\\alpha/H_0$ in Gyr.",
+          "answer": "a0*H0inv",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "Myr",
+            "km/s/Mpc",
+            "dimensionless"
+          ],
+          "tol": 0.02,
+          "hint": "$t_0=\\frac23\\cdot13.97\\,\\text{Gyr}\\approx9.3$ Gyr (younger than the oldest stars: one reason for $\\Lambda$)."
+        },
+        {
+          "id": "a2",
+          "prompt": "Exponent for a fluid with $w=0.5$.",
+          "answer": "2/(3*(1+w2))",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "Gyr",
+            "km/s/Mpc",
+            "K"
+          ],
+          "tol": 0.01,
+          "hint": "$\\alpha=2/(3\\times1.5)=0.444$."
+        }
+      ],
+      "xp": 40
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c4",
+      "title": "Quick fire: Hubble law and the 21 cm line",
+      "fight": "fermi",
+      "problem": "A galaxy at redshift $z=0.024$, $H_0=72$ km/s/Mpc, and $v\\approx cz$. Separately, the $21$ cm line (rest frequency $1420.4$ MHz) is received at $700$ MHz. Estimate each within about 25 %.",
+      "vars": {
+        "z": 0.024,
+        "H0": 72,
+        "cc": 299792.458,
+        "nu0": 1420.4,
+        "nuo": 700
+      },
+      "steps": [
+        {
+          "id": "d",
+          "prompt": "Distance $d=cz/H_0$ in Mpc.",
+          "answer": "cc*z/H0",
+          "unit": "Mpc",
+          "units": [
+            "Mpc",
+            "kpc",
+            "Gpc",
+            "km/s"
+          ],
+          "tol": 0.1,
+          "hint": "$cz=7195$ km/s, divide by $72$ km/s/Mpc.",
+          "tolType": "log"
+        },
+        {
+          "id": "zline",
+          "prompt": "Redshift of emission of the 21 cm line seen at 700 MHz: $1+z=\\nu_{\\rm em}/\\nu_{\\rm obs}$.",
+          "answer": "nu0/nuo-1",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "Mpc",
+            "MHz",
+            "km/s"
+          ],
+          "tol": 0.1,
+          "hint": "Frequencies scale inversely to wavelengths: $1+z=\\lambda_{\\rm obs}/\\lambda_{\\rm em}=\\nu_{\\rm em}/\\nu_{\\rm obs}\\approx2$.",
+          "tolType": "log"
+        }
+      ],
+      "xp": 20
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c5",
+      "title": "Critical density and Hubble time",
+      "fight": "normal",
+      "xp": 25,
+      "problem": "$H_0=70$ km s$^{-1}$ Mpc$^{-1}$, $1$ Mpc $=3.0857\\times10^{19}$ km.",
+      "vars": {
+        "G": 6.6743e-11,
+        "mp": 1.67262192369e-27,
+        "yr": 31557600,
+        "H0": 70,
+        "Mpckm": 30856775810000000000
+      },
+      "steps": [
+        {
+          "id": "H",
+          "prompt": "$H_0$ in s$^{-1}$ (enter e.g. 2.3e-18).",
+          "answer": "H0/Mpckm",
+          "unit": "s^-1",
+          "units": [
+            "s^-1",
+            "km/s/Mpc",
+            "Gyr",
+            "m/s"
+          ],
+          "tol": 0.02,
+          "hint": "Divide km/s/Mpc by km per Mpc."
+        },
+        {
+          "id": "tH",
+          "prompt": "Hubble time $1/H_0$ in Gyr.",
+          "answer": "1/H/yr/1e9",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "s",
+            "Myr",
+            "s^-1"
+          ],
+          "tol": 0.02,
+          "hint": "$\\approx14$ Gyr."
+        },
+        {
+          "id": "rhoc",
+          "prompt": "Critical density $3H_0^2/(8\\pi G)$ in $10^{-27}$ kg m$^{-3}$.",
+          "answer": "3*H**2/(8*pi*G)/1e-27",
+          "unit": "10^-27 kg m^-3",
+          "units": [
+            "10^-27 kg m^-3",
+            "kg",
+            "m^-3",
+            "g cm^-3"
+          ],
+          "tol": 0.02,
+          "hint": "$1.88\\times10^{-26}h^2$ with $h=0.7$."
+        },
+        {
+          "id": "np",
+          "prompt": "Equivalent number of protons per m$^3$.",
+          "answer": "rhoc*1e-27/mp",
+          "unit": "m^-3",
+          "units": [
+            "m^-3",
+            "cm^-3",
+            "kg m^-3",
+            "dimensionless"
+          ],
+          "tol": 0.02,
+          "hint": "About 5.5: the Universe is very empty."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c6",
+      "title": "Life and death of a closed universe",
+      "fight": "normal",
+      "xp": 30,
+      "problem": "Matter-only closed universe with $\\Omega_{M,0}=2$ and $H_0=70$ km/s/Mpc ($1/H_0=13.97$ Gyr). Use $H_0t=\\frac{\\Omega_0}{2(\\Omega_0-1)^{3/2}}(\\eta-\\sin\\eta)$ (HS24 winter Q7).",
+      "vars": {
+        "Om": 2,
+        "H0inv": 13.968571428571428
+      },
+      "steps": [
+        {
+          "id": "tta",
+          "prompt": "Turnaround time ($\\eta=\\pi$) in Gyr.",
+          "answer": "H0inv*Om/(2*(Om-1)**1.5)*pi",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "Myr",
+            "yr",
+            "km/s/Mpc"
+          ],
+          "tol": 0.02,
+          "hint": "$\\frac{\\pi}{H_0}\\frac{\\Omega}{2(\\Omega-1)^{3/2}}$."
+        },
+        {
+          "id": "tlife",
+          "prompt": "Total lifetime Big Bang to Big Crunch ($\\eta=2\\pi$) in Gyr.",
+          "answer": "2*tta",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "Myr",
+            "yr",
+            "km/s/Mpc"
+          ],
+          "tol": 0.02,
+          "hint": "Symmetric cycloid: twice the turnaround time."
+        },
+        {
+          "id": "t0",
+          "prompt": "Age today: today $a=a_0$, so $1-\\cos\\eta_0=2(\\Omega-1)/\\Omega=1$, $\\eta_0=\\pi/2$. Age in Gyr.",
+          "answer": "H0inv*Om/(2*(Om-1)**1.5)*(pi/2-1)",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "Myr",
+            "yr",
+            "km/s/Mpc"
+          ],
+          "tol": 0.02,
+          "hint": "$H_0t_0=\\frac{2}{2}(\\frac\\pi2-1)=0.571$: only 8 Gyr, younger than the flat case."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c7",
+      "title": "When did matter take over from radiation?",
+      "fight": "normal",
+      "xp": 30,
+      "problem": "Use $\\rho_\\gamma=a_BT_0^4/c^2$ with $T_0=2.725$ K, $a_B=7.566\\times10^{-16}$ J m$^{-3}$K$^{-4}$, total radiation $\\rho_R=1.68\\rho_\\gamma$ (photons + neutrinos, Choudhuri (10.47)), and $\\rho_M=\\Omega_M\\rho_c$ with $\\Omega_M=0.3$, $\\rho_c=9.20\\times10^{-27}$ kg m$^{-3}$.",
+      "vars": {
+        "aB": 7.565733e-16,
+        "c": 299792458,
+        "T0": 2.725,
+        "Om": 0.3,
+        "rhoc": 9.204e-27
+      },
+      "steps": [
+        {
+          "id": "rg",
+          "prompt": "Photon mass density today in $10^{-31}$ kg m$^{-3}$.",
+          "answer": "aB*T0**4/c**2/1e-31",
+          "unit": "10^-31 kg m^-3",
+          "units": [
+            "10^-31 kg m^-3",
+            "J m^-3",
+            "kg",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$\\Omega_\\gamma\\approx5\\times10^{-5}$."
+        },
+        {
+          "id": "zeq",
+          "prompt": "Redshift of equality $1+z_{eq}=\\rho_{M,0}/\\rho_{R,0}$; enter $z_{eq}$.",
+          "answer": "Om*rhoc/(1.68*rg*1e-31)-1",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "K",
+            "yr",
+            "Mpc"
+          ],
+          "tol": 0.03,
+          "hint": "$\\rho_M/\\rho_R\\propto a$; Choudhuri (10.52): $2.3\\times10^4\\Omega_Mh^2$."
+        },
+        {
+          "id": "Teq",
+          "prompt": "CMB temperature at equality in K.",
+          "answer": "T0*(1+zeq)",
+          "unit": "K",
+          "units": [
+            "K",
+            "eV",
+            "MeV",
+            "dimensionless"
+          ],
+          "tol": 0.03,
+          "hint": "$T\\propto1+z$: about $10^4$ K ($\\approx0.8$ eV)."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-cosmo-c8",
+      "title": "The far future: a Λ-dominated universe",
+      "fight": "normal",
+      "xp": 20,
+      "problem": "When matter has thinned out, only $\\rho_\\Lambda=0.7\\rho_{c,0}$ is left. Then $H_\\Lambda=\\sqrt{8\\pi G\\rho_\\Lambda/3}=\\sqrt{0.7}\\,H_0$. Take $H_0=70$ km/s/Mpc.",
+      "vars": {
+        "H0": 70,
+        "fL": 0.7
+      },
+      "steps": [
+        {
+          "id": "HL",
+          "prompt": "$H_\\Lambda$ in km/s/Mpc.",
+          "answer": "sqrt(fL)*H0",
+          "unit": "km/s/Mpc",
+          "units": [
+            "km/s/Mpc",
+            "Gyr",
+            "s^-1",
+            "Mpc"
+          ],
+          "tol": 0.02,
+          "hint": "$\\sqrt{0.7}\\times70$."
+        },
+        {
+          "id": "td",
+          "prompt": "Doubling time of the scale factor, $\\ln2/H_\\Lambda$, in Gyr.",
+          "answer": "log(2)*977.8/HL",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "km/s/Mpc",
+            "Myr",
+            "s"
+          ],
+          "tol": 0.02,
+          "hint": "$1/H$ in Gyr is $977.8/H[\\mathrm{km/s/Mpc}]$."
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-cosmo-b1",
+      "title": "Boss: the radiation-dominated universe (exam problem)",
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+        "where": "Open Question 7 [Radiation era and BBN, 12 pt], HS25 winter session"
+      },
+      "minutes": 20,
+      "instructions": "Solve on paper under the timer, then enter the final numbers. Parts (a) and (b) are graded by you against the key points.",
+      "statement": [
+        "The early universe was hot, dense and dominated by radiation. Consider a spatially flat ($k=0$) universe containing only radiation.",
+        "(a) [4 pt] The energy density of radiation scales as $\\rho\\propto a^{-4}$. Starting from the Friedmann equation $(\\dot a/a)^2=\\frac{8\\pi G}{3}\\rho$, show that $a(t)\\propto t^{1/2}$. Assume $a(0)=0$ at $t=0$.",
+        "(b) [4 pt] The energy density of blackbody radiation is related to the temperature by $\\rho\\propto T^4$. Using (a), show that $T(t)\\propto t^{-1/2}$.",
+        "(c) [4 pt] Big Bang Nucleosynthesis took place when the universe had cooled to $T_{BBN}\\approx10^9$ K. Assuming radiation domination throughout, and given $T\\approx1.5\\times10^{10}$ K at $t=1$ s, estimate the age $t_{BBN}$."
+      ],
+      "finalAnswers": [
+        {
+          "id": "tbbn",
+          "prompt": "Part (c): $t_{BBN}$ in seconds.",
+          "answer": "(T1/Tb)**2",
+          "vars": {
+            "T1": 15000000000,
+            "Tb": 1000000000
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "tmin",
+          "prompt": "Extension: age in minutes when $T=3\\times10^8$ K.",
+          "answer": "(T1/Tn)**2/60",
+          "vars": {
+            "T1": 15000000000,
+            "Tn": 300000000
+          },
+          "tol": 0.02
+        }
+      ],
+      "keyPoints": [
+        "(a) $\\rho=\\rho_0(a_0/a)^4\\Rightarrow\\dot a/a=C/a^2\\Rightarrow a\\,\\dot a=C\\Rightarrow a\\,da=C\\,dt\\Rightarrow a^2=2Ct$ with $a(0)=0$; so $a\\propto t^{1/2}$.",
+        "(b) $T^4\\propto\\rho\\propto a^{-4}\\Rightarrow T\\propto a^{-1}\\propto t^{-1/2}$.",
+        "(c) $T_{BBN}/T_{1s}=(t_{BBN}/1\\,\\text{s})^{-1/2}\\Rightarrow t_{BBN}=1\\,\\text{s}\\cdot(1.5\\times10^{10}/10^9)^2=225$ s, about 4 minutes."
+      ],
+      "xp": 120
+    },
+    {
+      "type": "boss",
+      "id": "astro-cosmo-b2",
+      "title": "Boss: the closed universe (exam problem)",
+      "xp": 130,
+      "minutes": 25,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+        "where": "HS24 winter: Open Question 7 [12 pt]"
+      },
+      "instructions": "Solve on paper under the timer (sketch included), then enter the final numbers.",
+      "statement": [
+        "For a matter-dominated closed universe, the solution of the Friedmann equation is $\\frac{a}{a_0}=\\frac{\\Omega_{M,0}}{2(\\Omega_{M,0}-1)}(1-\\cos\\eta)$, $H_0t=\\frac{\\Omega_{M,0}}{2(\\Omega_{M,0}-1)^{3/2}}(\\eta-\\sin\\eta)$, where $a_0$, $\\Omega_{M,0}$ and $H_0$ are the scale factor, matter density parameter and Hubble parameter today, and $\\eta$ is the conformal time.",
+        "(a) [4 pt] Describe in words the evolution of the closed universe. Sketch $a$ vs $t$. Mark the Big Bang, turnaround and Big Crunch, and give the corresponding values of $\\eta$.",
+        "(b) [4 pt] Derive an expression for the total lifetime $t_{\\rm univ}$ (Big Bang to Big Crunch) in terms of $H_0$ and $\\Omega_{M,0}$.",
+        "(c) [4 pt] Assume that the universe is closed and expanding today. Derive an upper limit for $H_0$ using the fact that the current age of the Sun is $t_\\odot$. Write this limit in terms of $\\Omega_{M,0}$ and $t_\\odot$."
+      ],
+      "finalAnswers": [
+        {
+          "id": "tu",
+          "prompt": "(b) with numbers: $\\Omega_{M,0}=1.5$, $1/H_0=13.97$ Gyr. Lifetime in Gyr.",
+          "answer": "pi*H0inv*Om/(Om-1)**1.5",
+          "vars": {
+            "Om": 1.5,
+            "H0inv": 13.968571428571428
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "Hmax",
+          "prompt": "(c) with numbers: $\\Omega_{M,0}=1.5$, $t_\\odot=4.6$ Gyr. Upper limit on $H_0$ in km/s/Mpc.",
+          "answer": "pi/tsun*Om/(2*(Om-1)**1.5)*977.8",
+          "vars": {
+            "Om": 1.5,
+            "tsun": 4.6
+          },
+          "tol": 0.02
+        }
+      ],
+      "keyPoints": [
+        "(a) Big Bang $a=0$ at $\\eta=0$; expansion slows; maximum (turnaround) at $\\eta=\\pi$; contraction to the Big Crunch $a=0$ at $\\eta=2\\pi$. Sketch: symmetric arch (cycloid), labelled points.",
+        "(b) $t_{\\rm univ}=H_0^{-1}\\frac{\\Omega}{2(\\Omega-1)^{3/2}}(2\\pi-\\sin2\\pi)=\\frac{\\pi}{H_0}\\frac{\\Omega}{(\\Omega-1)^{3/2}}$.",
+        "(c) $t_{\\rm ta}=\\frac{\\pi}{H_0}\\frac{\\Omega}{2(\\Omega-1)^{3/2}}$; expanding today needs $t_\\odot<t_0<t_{\\rm ta}$, so $H_0<\\frac{\\pi}{t_\\odot}\\frac{\\Omega}{2(\\Omega-1)^{3/2}}$."
+      ]
+    }
+  ]
+}

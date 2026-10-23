@@ -1,0 +1,116 @@
+{
+ "route": [
+  {
+   "key": "qm/wave-mechanics-basics",
+   "why": "START HERE for quantum mechanics: why waves, the Schrödinger equation, probability and the box. Everything else builds on this"
+  },
+  {
+   "key": "solid-state/lattice-gate",
+   "why": "START HERE for solid state: what a crystal is (lattice and basis), the reciprocal lattice and how diffraction measures it"
+  },
+  {
+   "key": "astrophysics/photometry-radiation",
+   "why": "START HERE for astrophysics: how we measure stars (magnitudes, flux, distance) and what blackbody radiation is"
+  },
+  {
+   "key": "qm/tunneling-bridge",
+   "why": "First real quantum effect: a wave meets a barrier or a step (needs the wave-mechanics room)"
+  },
+  {
+   "key": "solid-state/bonding-grotto",
+   "why": "Why atoms form crystals at all: bonding types and the energy between atoms"
+  },
+  {
+   "key": "astrophysics/radiative-transfer",
+   "why": "How light travels through gas: intensity, optical depth, the source function"
+  },
+  {
+   "key": "qm/formalism-and-uncertainty",
+   "why": "The language of QM: states, operators, commutators, measurement, uncertainty"
+  },
+  {
+   "key": "solid-state/phonon-halls",
+   "why": "Atoms in a crystal vibrate: phonons, Einstein and Debye heat capacity"
+  },
+  {
+   "key": "astrophysics/stellar-forge",
+   "why": "What holds a star up: hydrostatic equilibrium, virial theorem, Eddington limit"
+  },
+  {
+   "key": "qm/harmonic-oscillator-elevator",
+   "why": "The most important exactly solvable system: ladder operators"
+  },
+  {
+   "key": "solid-state/drift-corridor",
+   "why": "Electrons as a classical gas: Drude model, conductivity, Hall effect"
+  },
+  {
+   "key": "astrophysics/nuclear-furnace",
+   "why": "What powers stars: fusion, tunnelling and the Gamow peak"
+  },
+  {
+   "key": "qm/angular-momentum-spin",
+   "why": "Rotation in QM: angular momentum and spin"
+  },
+  {
+   "key": "solid-state/fermi-sea",
+   "why": "Electrons are fermions: the Fermi sea (Sommerfeld) fixes what Drude got wrong"
+  },
+  {
+   "key": "astrophysics/degenerate-matter",
+   "why": "When stars die: degeneracy pressure, white dwarfs, neutron stars"
+  },
+  {
+   "key": "qm/spin-addition-stern-gerlach",
+   "why": "Combining two spins: Clebsch-Gordan and Stern-Gerlach chains"
+  },
+  {
+   "key": "solid-state/degenerate-core",
+   "why": "The Fermi gas across courses: metals, white dwarfs and neutron stars side by side"
+  },
+  {
+   "key": "astrophysics/interstellar-medium",
+   "why": "The gas between the stars: phases, 21 cm line, Strömgren sphere"
+  },
+  {
+   "key": "qm/hydrogen-lamp",
+   "why": "The hydrogen atom: levels, spectra, selection rules"
+  },
+  {
+   "key": "solid-state/semiconductor-forge",
+   "why": "Bands, gaps and effective mass: how semiconductors work"
+  },
+  {
+   "key": "astrophysics/galactic-dynamics",
+   "why": "Rotation curves and dark matter"
+  },
+  {
+   "key": "qm/perturbation-forge",
+   "why": "When exact solutions stop: perturbation theory, fine structure, Zeeman, Stark"
+  },
+  {
+   "key": "solid-state/magnet-vault",
+   "why": "Magnetism: Curie, Weiss, Heisenberg model"
+  },
+  {
+   "key": "astrophysics/active-galaxies",
+   "why": "Supermassive black holes and quasars"
+  },
+  {
+   "key": "qm/entanglement-lab",
+   "why": "Two particles, one state: EPR, Bell, CHSH"
+  },
+  {
+   "key": "astrophysics/expanding-universe",
+   "why": "The Friedmann equations and cosmic expansion"
+  },
+  {
+   "key": "astrophysics/early-universe",
+   "why": "BBN, recombination, the CMB"
+  },
+  {
+   "key": "astrophysics/exam-hall",
+   "why": "Mixed astrophysics exam practice"
+  }
+ ]
+}

@@ -1,0 +1,834 @@
+                 Lösung zur Prüfung Quantenmechanik
+
+
+
+Prof. Dr. G. Blatter
+Herbstsemester 2014
+
+
+
+
+Kommentare:
+
+
+   • Zwei unwichtige Minuszeichenfehler in einem Aufgabenbereich resultieren in einem Ab-
+     zug von -0.25 Punkten. Minuszeichenfehler in einem Resultat, die die Physik verändern,
+     führen zu grösserem (bis kompletten) Abzug der Punkte.
+
+   • Resultate, die einer Erklärung bedürfen und nicht erklärt sind, führen zu einem Abzug
+     von -0.25 Punkten.
+Aufgabe A:           Einteilchenphysik in 1 – 3 dim                             [13 Punkte]
+
+A.1. Die Schrödinger-Gleichung ist die Bewegungsgleichung für eine Wellenfunktion ψ. Die
+     Dynamik wird bestimmt durch einen Hamilton-Operator H, der Form H = p2 /2m + V ,
+     wobei p = −i~∇ der kanonische Impuls ist.
+
+                                 ~2 2
+                        i~∂t ψ = − ∇ ψ + V (r, t)ψ                    [1 Pkt]                (1)
+                                2m
+                                 ~2 2
+                             =−    ∂ ψ + V (x, t)ψ                    (1 Pkt)                (2)
+                                2m x
+                               p2
+                             =    ψ + V (r, t)ψ                       (1 Pkt)                (3)
+                               2m
+                             = Hψ                                     (0.5 Pkt)              (4)
+
+
+A.2. Die Teilchendichte und Teilchenstromdichte sind definiert als
+                                                    ~ ∗
+             ρ = |ψ|2         und         J = −i      [ψ (∇ψ) − (∇ψ ∗ )ψ]         [1 Pkt]    (5)
+                                                   2m
+
+      Wir verifizieren nun, dass die Kontinuitätsgleichung ∂t ρ = −∇J erfüllt ist.
+
+                    ∂t ρ = (∂t ψ ∗ )ψ + ψ ∗ (∂t ψ)                                           (6)
+                            i
+                         = [(Hψ ∗ )ψ − ψ ∗ (Hψ)]                                             (7)
+                           ~
+                                ~
+                         = −i       [(∇2 ψ ∗ )ψ − ψ ∗ (∇2 ψ)]                                (8)
+                               2m
+                                ~
+                         = −i       ∇[(∇ψ ∗ )ψ − ψ ∗ (∇ψ)]                  [1 Pkt]          (9)
+                               2m
+                                 ~
+                         = −∇ i        [(∇ψ ∗ )ψ − ψ ∗ (∇ψ)]                                (10)
+                                    2m
+                         = −∇J                                                              (11)
+
+A.3. Der Hamilton-Operator ist von der Form
+
+                            p2x + p2y
+                        H=            + V (y)                         [0.5 Pkt]             (12)
+                               2m
+                               ~2 2
+                           =−     (∂ + ∂y2 ) + V (y)                                        (13)
+                               2m x
+      mit V (y) = 0 für |y| < w/2 und V (y) = ∞ sonst.
+      Der Hamilton-Operator besitzt eine kontinuierliche Translations-Symmetrie Tx entlang
+      x, ist inversionssymmetrisch P und invariant unter Zeitumkehr T und es existiert eine
+      Translationsinvarianz Tt in der Zeit ( [0.5 Pkt] für 2 Symmetrien).
+Die stationären Lösungen ψn,k (x, y) erfüllen die zeitunabhängige Schrödingergleichung
+
+                                    Hψn,k = En (k)ψn,k                                    (14)
+
+Da die beiden Variablen separieren, schreiben wir ψn,k (x, y) = χk (x)φn (y), wobei
+
+         χk (x) = eikx     (Freies Teilchen entlang x)                                    (15)
+                  (
+                     sin(πny/w) für n ≥ 2 gerade
+         φn (y) =                                                          [1 Pkt]        (16)
+                     cos(πny/w) für n ≥ 1 ungerade
+                    (Teilchen im unendlichen Topf entlang y)
+
+mit k ∈ R und n ∈ N \ {0}.
+
+Die Energie ist dann gegeben durch
+
+                             ~2 k 2 ~2 π 2 n2
+                  En (k) =         +                           [0.5 Pkt]                  (17)
+                              2m     2mw2
+
+
+
+
+                                                                              [0.5 Pkt]
+
+Keine Achsenbeschriftung und/oder kein Gap [-0.25 Pkt].
+A.4. Der Hamilton-Operator hat die Form
+                               1    q 2
+                        H=       p − A + qϕ                            [0.5 Pkt]               (18)
+                              2m    c
+                                                                                               (19)
+
+      Wobei die Verknüpfung zwischen den Feldern E und B und den Potentialen A und ϕ
+      gegeben ist durch
+                                      1
+                           E = −∇φ − ∂t A
+                                      c                             [0.5 Pkt]                  (20)
+                           B = ∇ × A.
+
+      Die Eichtransformation
+
+                        A → Ã = A + ∇χ                                                        (21)
+                                     1
+                        ϕ → ϕ̃ = ϕ − ∂t χ                             [0.5 Pkt]                (22)
+                                     c
+                        ψ → ψ̃ = ψ exp[iqχ/~c],                                                (23)
+
+      für eine beliebige (differenzierbare) Eichfunktion χ(r, t), lässt die Schrödinger Gleichung
+      invariant. Daraus folgt, dass wenn ψ eine Lösung der zeitabhängigen Schrödingerglei-
+      chung i~∂t ψ = Hψ [mit H aus Gl. (18)], sofort auch ψ̃ eine Lösung der Gleichung
+      i~∂t ψ̃ = H̃ ψ̃. Somit ist die Eichtransformation eine Symmetrie des Systems und lässt
+      alle physikalischen Grössen invariant ( [0.5 Pkt] für Erklärung).
+
+
+A.5. Da der Hamilton-Operator Zeit-unabhängig ist, zerfällt die Schrödingergleichung durch
+     den Separationsansatz ψ(x, t) = φ(x)χ(t) zu
+
+                Hφ = Eφ               und            i~∂t χ = Eχ.               [0.5 Pkt]      (24)
+
+      Wegen H Hermitesch, kann der Hilbertraum in eine Basis {φn } aus Eigenfunktionen
+      von H (Hφn = En φn ) zerlegt werden, d.h.
+                                 X
+                     ψ(x, 0) =      cn φn (x),              [0.5 Pkt]              (25)
+                                     n
+      Für einen gegebenen Zustand ψ(x, 0) finden wir die Koeffizienten cn mit
+                            Z
+                        cn = dxφ∗n (x)ψ(x, 0)                    [0.5 Pkt]                (26)
+
+      Aus der Zeitentwicklung der Eigenzustände χn (t) = e−iEn t/~ finden wir schliesslich die
+      Zeitabhängigkeit von ψ(x, t),
+                                X
+                      ψ(x, t) =     cn φn (x)e−iEn t/~ .            [0.5 Pkt]              (27)
+                                   n
+
+
+A.6. Die Eigenzustände von H im Topf der Breite w sind von der Form φn (x) [siehe Gl. (16)]
+     mit Energien En = ~2 π 2 n2 /2mw2 . Mit Gl. (26) gilt somit
+                                                2 2     2
+                             X
+                   ψ(x, t) =      cn φn (x)e−i~π n t/2mw .          [1 Pkt]             (28)
+                               n
+
+      Die Periode ist somit gegeben durch den langsamsten Term n = 1, d.h.
+
+                           T = 4mw2 /~π                          [1 Pkt]                  (29)
+
+      Für einen Anfangszustand ψ(x, 0) mit c2m+1 = 0 für alle m ∈ N wird die Periode
+      geviertelt und es gilt ψ(x, T /4) = ψ(x, 0). Falls c3m+1 = c3m+2 = 0 für alle m ∈ N, so
+      wird die Periode neunmal kleiner, ψ(x, T /9) = ψ(x, 0) ( [1 Pkt] für Beispiel).
+Aufgabe B:           Streuphysik in 1D                                                [15 Punkte]
+
+B.1. The scattering matrix S relates amplitudes of the incoming ψin and the outgoing ψout
+     wavefunctions, via
+                                            !                       !
+                                          b                       a
+       ψout = Sψin ,    with     ψout =           and      ψin =      , [0.5 Pkt] (30)
+                                          A                       B
+
+      where a(b) and B(A) are the amplitudes of the incoming (outgoing) waves from the
+      left and from the right side of the scattering potential respectively (-0.25 Pkt for not
+      defining a, b, A, B). The scattering matrix takes the form
+                                        !
+                                   r t0
+                             S=           ,                     [0.5 Pkt]                 (31)
+                                   t r0
+
+      where the matrix element r (r0 ) of the scattering matrix S gives the reflection amplitude
+      for a wave incoming from the left (right). The element t (t0 ) gives the transmission
+      amplitude for a wave incoming from the left (right) and transmitted to the right (left).
+      (-0.25 Pkt for missing explanation)
+
+
+B.2. In the scattering process, the number of particles is a conserved quantity [0.5 Pkt] . In
+     order to respect this conservation the scattering matrix has to be unitary
+
+                       S † = S −1     ⇔     S † S = 1.                         [0.5 Pkt]         (32)
+
+      This puts the following constraints on the the matrix elements:
+
+               |r|2 + |t|2 = |r0 |2 + |t0 |2 = 1         r ∗ t0 + t∗ r 0 = 0           [1 Pkt]   (33)
+
+      If the scattering potential is time reversal invariant (T -invariant) we have
+                                              !
+                                         r  t
+            S = ST        ⇔       S=            .      [0.5 Pkt] for the last equation           (34)
+                                         t r0
+
+      If the scattering potential is spacially symmetric (P -invariant), then
+                                                !
+                                           r t
+           S = σx Sσx       ⇔       S=            .    [0.5 Pkt] for the last equation           (35)
+                                           t r
+B.3. Die Transfermatrix M verbindet die Amplituden der Welle ψL links vom Streuer mit
+     der Amplitude ψR rechts davon, via
+                                              !                          !
+                                            a                          A
+           ψL = M ψR ,       mit       ψL =          und       ψR =        ,     (36)
+                                            b                          B
+
+     wobei a, b, A, B die Wellenanteile gemäss B.1 definiert sind. Ausgehend von Gln. (30)
+     und (31) gilt
+
+                                           b = ra + t0 B
+                                         (
+                                                                                       (37)
+                                           A = ta + r0 B
+
+     und aufgelöst nach a und b gilt
+
+                                        a = (1/t)A − (r0 /t)B
+                                  (
+                                                                                             (38)
+                                        b = (r/t)A + (t0 − rr0 /t)B
+
+     und die Transfermatrix lässt sich schreiben als
+                                       !                  !
+                      1 1        −r0          1/t r∗ /t0∗
+                 M=                       =                 ,                 [1 Pkt]        (39)
+                      t r tt0 − rr0           r/t 1/t0∗
+
+     Solution with r = r0 and t = t0 is ok.
+
+B.4. The transfer matrix of one scatterer has been calculated in B.3. The overall transfer
+     matrix Mtot is composed of a product
+
+                          Mtot = M DM                             [0.5 Pkt]                  (40)
+
+     where the propagation between the two scatterers is described by the diagonal matrix
+                                         !
+                             e−ikw    0
+                      D=                   ,                   [0.5 Pkt]             (41)
+                               0    eikw
+
+     where the particle’s energy is E = ~2 k 2 /2m.
+
+     Evaluation of Eq. (40) yields
+                               !              !               !
+                 1/t    −r/t       e−ikw   0    1/t   −r/t
+       Mtot =                                                                                (42)
+                 r/t t − r2 /t       0   eikw   r/t t − r2 /t
+                                                                              !
+               1         e−ikw − r2 eikw      −re−ikw − r(t2 − r2 )eikw
+             = 2                                                                   [1 Pkt]   (43)
+               t     re−ikw + r(t2 − r2 )eikw −r2 e−ikw + (t2 − r2 )2 eikw
+      Since (Mtot )11 = 1/ttot [see Eq. (39)] we find the total transmission amplitude
+
+                                        t2 eikw
+                            ttot =                .                        [1 Pkt]                     (44)
+                                     1 − r2 e2ikw
+
+      Alternative solution:
+      The transmission amplitude is equal to the following sum:
+
+          ttot = teikw t + teikw reikw reikw t + teikw (reikw reikw )2 t + teikw (reikw reikw )3 t + ...
+                                                                                  t2 eikw
+              = t2 eikw [1 + r2 e2ikw + (r2 e2ikw )2 + (r2 e2ikw )3 + ...] =                           (45)
+                                                                               1 − r2 e2ikw
+      The above sums contains all possible amplitudes due to multiple reflections inside the
+      scatterers [ (1 Pkt) + (1 Pkt) + (1 Pkt) for the alternative solution].
+
+
+B.5. If the scattering potential is in the region of the origin (e.g. V (x) = 0 for |x| > x0 ) and
+     there is a particle incident from left, then the asymptotic wavefunction is given as:
+
+                                   e + re−ikx , x → −∞
+                                ( ikx
+                   Ψ(x) ∼                                                   [1 Pkt]           (46)
+                                   teikx ,          x→∞
+
+      The reflection probability is |r|2 and the transmission probability is |t|2 .
+
+B.6. The stationary Schrödinger equation can be written as
+                        ~2 d2      
+                               + Ek   Ψk = V (x)Ψk ,                           [0.5 Pkt]               (47)
+                        2m dx2
+      with Ek = ~2 k 2 /2m. We define a Greens function through the differential equation
+                     2 2          
+                        ~ d
+                               + Ek G(x, Ek ) = δ(x).               [0.5 Pkt]            (48)
+                        2m dx2
+
+      The retarded Greens function Gr (x, Ek ) (one solution of the above equation) is obtained
+      by requesting the solution to describe outgoing waves.
+
+      For an incoming plane wave eikx with k > 0, the formal solution of Eq. (47) takes the
+      form
+                               Z ∞
+               Ψk (x) = eikx +     dx0 Gr (x − x0 , Ek )V (x0 )Ψk (x0 ).  [1 Pkt]      (49)
+                                     −∞
+
+      This is the so-called Lippmann-Schwinger equation.
+By means of Fourier transformation one can find the solution of the above equation as
+                                 Z ∞
+                           2m 1           eiqx
+            Gr (x, Ek ) = − 2        dq 2       ,              [0.5 Pkt]         (50)
+                           ~ 2π −∞ q − k 2
+
+where k 2 = 2mEk /~. This integral can be formally evaluated with the help of residue
+theorem
+                                          2mi X         eiqx 
+                        Gr (x, Ek ) = −         Res qi          ,                      (51)
+                                           ~2           q2 − k2
+                                               Pole qi
+
+similar to the script. For the case of x > 0, the contour has to be closed on the upper
+half plane and for x < 0 on the lower half plane [0.5 Pkt] . Also we have to choose
+the pole which gives the solution describing particles which leave the scattering region
+ [0.5 Pkt] (e±ikx for x ≷ 0). The final result is:
+
+                               im
+                  G(x, Ek ) = − 2 eik|x| .                       [0.5 Pkt]             (52)
+                               ~ k
+For the potential V (x) = V0 δ(x) Eq. (49) reads:
+
+                          imV0 ∞ 0 ik|x−x0 | 0
+                                Z
+                    ikx
+         Ψk (x) = e − 2              dx e       δ(x )Ψk (x0 )                          (53)
+                           ~ k −∞
+                          imV0
+                = eikx − 2 eik|x| Ψk (0),                                    [1 Pkt]   (54)
+                           ~ k
+Taking x = 0 in the above equation, we find
+                                                    1
+                                    Ψk (0) =                 .                         (55)
+                                                1 + imV
+                                                     ~2 k
+                                                         0
+
+
+
+Hence the scattering state is
+
+                                    ikV0 /2
+               Ψk (x) = eikx − ~2 k2         eik|x| .                 [1 Pkt]          (56)
+                                2m + ikV0 /2
+Aufgabe C:             Physik in 3D                                                    [13 Punkte]
+
+C.1. Der Drehimpulsoperator erfüllt die Kommutationsrelation
+
+                             [Li , Lj ] = i~ijk Lk .                        [1 Pkt]               (57)
+
+     [L2 , Lz ] = 0 folgt einerseits direkt mit dem Argument, dass L2 ein Drehskalar ist
+      (1 Pkt) . Andererseits kann man dies auch explizit berechnen:
+
+        [L2 , Lz ] = [L2k , Lz ] = L2k Lz − Lz L2k = Lk [Lk , Lz ] + [Lk , Lz ]Lk
+                 = i~kzj Lk Lj + i~kzj Lj Lk = i~kzj Lk Lj + i~jzk Lk Lj = 0,        [1 Pkt]   (58)
+
+                                                   [= −(i~)2 Lz + (i~)2 Lz = 0]                    (59)
+
+     (Achtung bei Korrektur!)
+     wobei wir Einstein’sche Summenkonvention benutzt haben, sowie im zweitletzten Schritt
+     im zweiten Term die Umbennung k ↔ j gemacht haben und benutzt haben, dass ijk
+     antisymmetrisch ist [oder alternativ unter Benutzung L × L = i~L].
+
+C.2. Das Spektrum des Wasserstoffatoms lautet
+                                         ER
+                               En = −                                   [0.5 Pkt]                  (60)
+                                         n2
+
+     mit der Rydbergenergie           (0.25 Pkt) ER = ~2 /(2me a2B ) = me e4 /2~2 = 13.6eV
+      [0.5 Pkt] .
+
+
+     Die Entartung Dn = 2n2 [0.5 Pkt] des Energielevels En folgt aus der Spinentartung
+     (Faktor 2), der Bahndrehimpulsentartung l ∈ {0, . . . , n − 1}, sowie der Entartung in der
+     z-Komponente des Bahndrehimpulses m ∈ {−l, . . . , l} [0.5 Pkt] , sodass folgt
+
+                                   n−1
+                                   X     l
+                                         X
+                         Dn = 2               1 = 2n2 .                      (0.5 Pkt)             (61)
+                                   l=0 m=−l
+
+
+C.3. SO(4) erzeugt aus der dynamischen Symmetrie des Coulombpotentials, also eine Eigen-
+     heit des 1/r Potentials. Die Entartung in l ist eine Konsequenz der SO(4)-Symmetrie.
+     Diese ist für ein modifiziertes Potential gebrochen. [1 Pkt]
+
+     Für ein modifiziertes Potential ergibt sich mit dem Ansatz ψ(r) = Rl (r)Ylm (θ, ϕ) das
+     Spektrum En,l [0.5 Pkt] . Die Energieeigenwerte En,l sind in Spin und z-Drehimpuls
+     (SO(3) Symmetrie) entartet, sodass die Entartung Dn,l = 2(2l + 1) [0.5 Pkt] der Ener-
+     gieeigenwerte En,l folgt.
+C.4. Für ein rotationssymmetrisches Potential lässt sich die Schrödingergleichung in 3D mit
+     dem Ansatz ψ(r) = Rl (r)Ylm (θ, ϕ) auf die 1D-Gleichung
+            h       ~2 2 2  ~2 l(l + 1)         i
+                −      ∂r + ∂r +         + V (r)  Rl (r) = ERl (r)                      [0.5 Pkt]      (62)
+                    2m     r     2mr2
+      reduzieren. Mit dem Ansatz Rl (r) = ul (r)/r finden wir
+                     h ~2        ~2 l(l + 1)        i
+                      −    ∂r2 +             + V (r)  ul (r) = Eul (r).                 [0.5 Pkt]      (63)
+                        2m         2mr2
+
+       (0.25 Pkt) für zwei Ansätze.
+
+
+C.5. Für s-Wellenstreuung betrachten wir Gleichung (63) für l = 0 mit
+                                             
+                                             ∞ r < r
+                                                        0
+                                     V (r) =                                                           (64)
+                                             0 r > r0
+
+      und finden die Differentialgleichung
+
+                             ~2 2
+                         −     ∂ u(r) = Eu(r)      für r > r0 .                   [1 Pkt]             (65)
+                             2m r
+      mit Randbedingung u(r0 ) = 0.
+                                                                                   √
+      Die Lösung u(r) = C sin k(r − r0 ) mit einer Konstante C und k =                 2mE/~ lässt sich in
+      eine einfallende und eine auslaufende Welle zerlegen,
+
+                                   ieikr0  −ikr               
+                        u(r) = C           e     − e−2ikr0 eikr ,                [0.5 Pkt]             (66)
+                                     2
+
+      woraus wir die Streuphase δ0 = −kr0 erhalten. [0.5 Pkt] (Minus-Zeichen in (66) und
+      Folgefehler werden nicht korrigiert.)
+
+
+C.6. Die Streuamplitude sl lässt sich durch die Phase δl ausdrücken als sl = e2iδl . [1 Pkt]
+
+      Somit folgt
+                                                          sin δl             2i
+          sl − 1 = e2iδl − 1 = 2ieiδl sin δl = 2i                      =            .       [1 Pkt]    (67)
+                                                     cos δl − i sin δl   cot δl − i
+      Somit entsprechen Pole der Streuamplitude sl genau der Bedingung cot δl = i.
+Die Streulänge ist definiert als
+                                      1
+                       k cot δ0 = −                      [1 Pkt]                  (68)
+                                      a
+im Grenzwert kleiner k. Andererseits sind Pole der Streumatrix bestimmt durch
+cot δ0 = i, sodass wir die Gleichung −1/(ak) = i als Bestimmungsgleichung für ge-
+bundene Zustände finden. Diese Gleichung führt auf negative Energien, für welche wir
+                           √
+ik → −κ ersetzen, mit κ = −2mEB /~. Dies liefert
+
+                                 ~2
+                       EB = −        .                   [1 Pkt]                  (69)
+                                2ma2
+Aufgabe D:             Formalismus und Approximative Methoden [13
+                       Punkte]
+
+D.1. Einen Zustand im Schrödinger-Bild |ψS (t)i schreibt man im Heisenberg-Bild als
+
+                           |ψH i = |ψS (t = t0 )i .                       [0.5 Pkt]             (70)
+
+      Eine Observable AS (t) im Schrödingerbild (evtl. mit intrinsischer Zeitabhängigkeit)
+      schreibt man im Heisenberg-Bild als
+
+                      AH (t) = U † (t, t0 ) AS (t) U (t, t0 ) ,               [0.5 Pkt]         (71)
+
+                              = eiH·(t−t0 )/~ AS e−iH·(t−t0 )/~               (0.5 Pkt)         (72)
+
+      wobei U (t, t0 ) die unitäre Evolution laut Schrödingergleichung von der Zeit t0 zur Zeit
+      t entspricht.
+
+D.2. Im Heisenberg-Bild mit einem zeitunabhängigen Hamiltonian ist die Observable pH (t)
+     definiert als (mit t0 = 0)
+
+                                            pH (t) = eiHt/~ p e−iHt/~ .                         (73)
+
+      Da p mit H = p2 /(2m) kommutiert, gilt dann [eiHt/~ , p] = 0, und somit ist pH (t) = p
+      zeitunabhängig und gleich wie im Schrödinger-Bild. [1 Pkt]
+
+      Für xH (t) betrachten wir die Zeitenwicklungsgleichung für Operatoren im Heisenberg-
+      Bild,
+                    d
+               i~      xH (t) = [xH , HH ] + (i~ ∂t x)H = ([x, H])H + 0 .             [1 Pkt]   (74)
+                    dt
+      Wir rechnen
+                                        p2
+                                          
+                                                       p   p          i~
+                            [x, H] = x,      = [x, p]    +   [x, p] =    p.                     (75)
+                                        2m            2m 2m           m
+
+      Gleichung (74) mit pH = p ist dann gelöst durch
+                                     pt
+                      xH (t) = x +      .                 [1 Pkt] (0.5 Pkt falls x fehlt)       (76)
+                                     m
+      Die Lösung kann auch mithilfe der Baker-Campbell-Haussdorff-Formel mit der Defini-
+      tion xH (t) = eiHt/~ x e−iHt/~ = x + it[H, x]/~ = x + pt/m gefunden werden, wobei
+      höhere Terme verschwinden, da [. . . , [H, [H, x]]] = [. . . , [H, p]] = 0.
+D.3. Die Fermi Goldene Regel beschreibt die Übergangsrate eines Anfangszustandes |ii in
+     einen Endzustand |f i im Kontinuum {|f i}
+                  2π
+        Γi→{f } =    |hf |V |ii|2 ρ (f ) |f =i      [1 Pkt] (0.75 Pkt falls Def. fehlen)   (77)
+                   ~
+                   X 2π
+        Γi→{f } =          |hf |V |ii|2 δ (f − i )   (1 Pkt)                                (78)
+                        ~
+                    f ∈{f }
+                    2π
+          Γi→f =       |hf |V |ii|2 δ (f − i )       (1 Pkt)                                (79)
+                     ~
+         • Γi→{f } ist die Übergangswahrscheinlichkeit pro Zeit (dP/dt), vom Zustand |ii zu
+           einem der Zustände {|f i}.
+
+         • V ist die Störung im Hamiltonian, die man einschaltet (z.B. abrupt: H 0 = V Θ(t))
+
+         • ρ (f ) ist die Zustandsdichte der Endzustände.
+
+         • f ist die Endenergie, die gleich der Anfangsenergie f = i sein muss (Energie-
+           erhaltung).
+
+D.4. Wir berechnen zuerst das Matrixelement für einen Übergang zwischen den Zuständen
+     |ψk i und |ψk0 i,
+
+                                Z
+              hψk0 |V |ψk i =     d3 x ψk∗ 0 (x) V (x) ψk (x)                                 (80)
+                                   Z
+                                1                0            V0
+                              = 3 d3 x e−ik x V0 δ (x) eikx = 3 .               [1 Pkt]       (81)
+                               L                              L
+     Dann rechnen wir die Zustandsdichte für eine gegebene Energie i :
+
+                                        d3 k
+                                     Z                          Z      Z
+                 X                                                 dΩ    dk 2
+       ρ (i ) =   δ (k − i ) = L3        3 δ (k − i ) = L3
+                                                                            2
+                                                                              k δ (k − i ) .
+                                       (2π)                        4π    2π
+                 k                                              | {z }
+                                                                      =1
+                                                                                               (82)
+                                     √
+     Mit k = ~2 k 2 /(2m) und k =    2mk /~ folgt
+                                      √
+                                        2m     1        m
+                                 dk =       · √ · d = √    d                                 (83)
+                                        ~    2       ~ 2m
+     und somit folgt für (82):
+                    Z
+                        d    m 2m                L3 m
+                                                         Z   √
+       ρ (i ) = L3        2
+                             √    2
+                                    δ ( − i ) =   3  2
+                                                           d 2m δ ( − i )                  (84)
+                       2π ~ 2m ~                 2~ π
+                  3
+                       √
+                 L m 2mi
+               =              .                                                          [1 Pkt]
+                    2 ~3 π 2
+                                                                                               (85)
+
+     Jetzt können wir Fermis Goldene Regel anwenden:
+                                 √
+                                          m V02 2mf
+                                                p
+                   2π V02 L3 m 2mi
+               Γ=      ·   ·            =                              ,           [1 Pkt]     (86)
+                    ~ L6       2 ~3 π 2      ~4 π L3
+                                                             f =i
+
+     was uns die gewünschte Zerfallsrate ergibt.
+     Kommentar: Faktoren L3 werden nicht korrigiert.
+
+D.5. Der Hamiltonoperator lautet
+
+                              p2  1
+                        H=       + mω 2 x2 .                           [0.5 Pkt]               (87)
+                              2m 2
+     Der Ansatz ist:
+                                                      x2
+                                                        
+                                     ψλ (x) = A exp − 2 .                                      (88)
+                                                     2λ
+
+     Wir untersuchen die Normierung des Ansatzes:
+                                                         2
+                                                                   √
+                        Z                      Z
+                              ∗              2            x
+               hψ |ψi = dx ψ (x) ψ (x) = |A|      dx exp − 2 = |A|2 π λ ,                      (89)
+                                                          λ
+
+     dann muss |A|2 = π −1/2 λ−1 , sodass der Ansatz normiert ist [0.5 Pkt] .
+Der Energieerwartungswert für den (normierten) Zustand |ψλ i ist,
+                             Z          2
+                                           2              
+                                             p    1            x2
+                                    − x2
+         hψλ |H |ψλ i = |A|2
+                                dx e  2λ        + mω x e− 2λ2
+                                                       2 2
+                                                                                                  (90)
+                                            2m 2
+                                              −~2 ∂ 2 − x22
+                               Z          2
+                                                                            
+                          1               x                   1          x2
+                      =√         dx e− 2λ2            e  2λ +   mω 2 2 − λ2
+                                                                    x e                           (91)
+                          πλ                   2m ∂x2         2
+
+Einerseits rechnen wir
+     ∂ 2 − x22
+                                            
+                  ∂     2x − x22     1  x  x  − x22
+         e 2λ =        − 2 e 2λ = − 2 − 2 − 2    e 2λ                                             (92)
+    ∂x2           ∂x    2λ           λ λ    λ
+                           x2
+                             
+                      1          x2
+               = − 2 + 4 e− 2λ2 .                                                      [1 Pkt]    (93)
+                     λ     λ
+
+Anderseits gilt (mit α := λ−2 ),
+   Z               2
+                           Z                        Z                        r
+                  x
+              2 − λ2              2 −αx2                    ∂ −αx2     ∂         π
+       dx x e          =       dx x e      =−           dx    e    =−                             (94)
+                                                           ∂α         ∂α         α
+                           √ 1 −3/2 1 √ 3
+                       =    π α    =   πλ .                                            [1 Pkt]    (95)
+                             2       2
+
+Dann haben wir aus (91),
+                                         2 
+                                                           x2
+                                                                                      
+                                         −~
+                                  Z                                 2
+                             1                     1                    1           x2
+                                                                − x2         2 2 − λ2
+            hψλ |H |ψλ i = √        dx          − 2+ 4 e           λ  + mω x e                    (96)
+                            πλ           2m        λ       λ            2
+                                         2
+                                                                       ~2
+                                  Z                 2
+                                                                                    
+                             1            ~       x         1                      x2
+                                                 − 2             2             2 − λ2
+                         =√         dx         e  λ +         mω   −         x  e                 (97)
+                            πλ           2mλ2               2         2mλ4
+                              2                   2
+                                                       
+                            ~         1          ~        1 2
+                         =      2
+                                  +     mω 2 −        4
+                                                            λ                                     (98)
+                           2mλ        2        2mλ        2
+                            ~2      1
+                         =      2
+                                  + mω 2 λ2              [0.5 Pkt]    +    [0.5 Pkt]              (99)
+                           4mλ      4
+
+Wir optimieren jetzt diesen Ausdruck bzgl. λ:
+
+        !    ~2            1                           2~2 −3 1
+       0=       (−2) λ−3 + mω 2 λ               ⇒          λ = mω 2 λ                            (100)
+             4m            2                           4m
+                                                       r      2
+                     ~2                                   ~
+              ⇒           = λ4    ⇒                 λ=      .                        [1 Pkt]     (101)
+                   m2 ω 2                                mω
+Unserere Abschätzung des Grundzustandswellenfunktions ist dann (die Phase wird kon-
+ventionell durch A > 0 festgelegt)
+                                                    −1/4
+                                                                  mωx2
+                                                                     
+                                               ~π
+                                 ψ (x) =                    exp −        .                       (102)
+                                               mω                  2~
+Aufgabe E:           Spins und Dichtematrizen                                 [13 Punkte]
+
+E.1. Die Darstellung der Pauli-Matrizen in einer Basis in der σz diagonal ist, sieht wie folgt
+     aus:
+                      !                  !                  !
+                  0 1             0 −i                1 0
+          σx =           , σy =            , σz =              .      [0.5 Pkt]         (103)
+                  1 0              i 0                0 −1
+
+      Ein eventuelles Minuszeichen in σy ist ok (Konvention, wird weiter in dieser Übung
+      nicht für Probleme sorgen).
+      Der Spin eines Elektrons wird durch den Operator S = ~2 σ beschrieben [0.5 Pkt] . Der
+      Faktor ~2 sorgt dafür, dass die Eigenwerte von Sz (wie auch von Sx und Sy ) gleich ± ~2
+      sind.
+
+E.2. Das intrinsische magnetische Moment eines Elektrons ist gegeben durch
+                                      e
+                           µe = −g         S,                   [0.5 Pkt]                (104)
+                                     2me c
+      mit dem Landé-Faktor g = 2+α/π+. . ., und e > 0. Beachte, dass µe und S anti-parallel
+      sind. Der Hamilton-Operator eines magnetischen Momentes in einem Magnetfeld B ist
+
+              HB = −µe · B                                             [0.5 Pkt]         (105)
+                           e               S
+                   = +g         S · B = gµB · B ≈ µB σ · B.                              (106)
+                          2me c            ~
+      Das Bohr’sche Magneton ist µB = e~/2me c.
+
+E.3. Definitionsgemäss gilt Trρ = 1 sowohl für einen reinen als auch für einen gemischten
+     Zustand. Die Pauli-Matrizen sind spurlos, d.h. Trσi = 0 für i ∈ x, y, z. Wir finden damit
+                       1      1h                           i
+              Trρ = 1 = aTr1 + bx Trσx + by Trσy + bz Trσz                               (107)
+                       2      2
+                  = a,                                                      [1 Pkt]      (108)
+
+      und deswegen a = 1.
+     Für b berechnen wir Trρ2 ,
+                               1 
+                        Trρ2 = Tr 1 + 2b · σ + (b · σ)2
+                                                            
+                                                                                            (109)
+                               4
+                               1
+                                 2 + 0 + Tr(b2x σx2 + . . . + bx by σx σy + . . .) .
+                                                                                  
+                             =                                                              (110)
+                               4
+     Die Produkte zweier Pauli-Matrizen sind
+
+                                             σi σj = δij 1 + iijk σk ,                     (111)
+
+     sodass nur quadratische Terme einen Beitrag zur Spur liefern, Tr(σi σj ) = 2δij . Schlies-
+     slich finden wir
+                            1
+                      Trρ2 =  2 + 2b2x + 2b2y + 2b2z
+                                                     
+                                                                                            (112)
+                            4
+                            1
+                           = (1 + |b|2 ).                                         [1 Pkt]   (113)
+                            2
+
+     Für einen reinen Zustand mit Trρ2 = 1 gilt also |b|2 = 1 [0.5 Pkt] . Für einen gemisch-
+     ten Zustand gilt Trρ2 < 1 und somit |b|2 < 1 [0.5 Pkt] .
+
+
+E.4. Die Gesamtdrehimpuls-Basis {|j, mi} wird definiert durch
+
+                      J 2 |j, mi = j(j + 1)~2 |j, mi,                                       (114)
+                       Jz |j, mi = m~|j, mi,                                    [0.5 Pkt]   (115)
+
+     mit J 2 und Jz , die Operatoren zum Gesamtdrehimpuls respektive dessen z-Komponente.
+     Die möglichen Gesamtdrehimpulse ergeben sich aus der Spinaddition zweier Spin- 21 -
+     Teilchen: H 1 ⊗H 1 = H0 ⊕H1 . Der Singlett-Zustand |0, 0i gehört zu H0 und die Triplett-
+                 2     2
+
+     Zustände {|1, −1i, |1, 0i, |0, 1i} gehören zu H1 [0.5 Pkt] .
+
+     In der Produktbasis {| ↑↑i, | ↑↓i, | ↓↑i, | ↓↓i} (mit ↑ ⇔ m = +1/2, ↓ ⇔= −1/2) nehmen
+     die Singlett- und Triplett-Zustände folgende Form an [1 Pkt]
+                                               P
+                                   |j, mi         m1 ,m2 cjm,m1 m2 |m1 , m2 i
+                                                     √1 | ↑↓i − | ↓↑i
+                                                                    
+                                    |0, 0i             2
+                                   |1, 1i                      | ↑↑i
+                                                     √1
+                                                                        
+                                   |1, 0i              2
+                                                            | ↑↓i + | ↓↑i
+                                 |1, −1i                      | ↓↓i
+      In der obigen Tabelle sind die Amplituden cjm,m1 m2 gerade die Clebsch-Gordon-
+      Koeffizienten. Diese geben die Basistransformation von der Produkt-Basis in die
+      Gesamtdrehimpuls-Basis an,
+                              √                     
+                  |1, 1i           2 0 0      0     | ↑↑i
+                |1, 0i     1  0 1 1       0  | ↑↓i
+                                                        
+                         = √                                    [1 Pkt]        (116)
+                        
+                |0, 0i      2  0 1 −1 0  | ↓↑i
+                                                     
+                                             √
+                 |1, −1i          0 0 0        2    | ↓↓i
+
+      und nehmen Werte 0, 1, ± √12 an.
+
+
+E.5. Für die Basis {| ↑↑i, | ↑↓i, | ↓↑i, | ↓↓i} definieren wir
+
+                             (a b c d)T = a| ↑↑i + b| ↑↓i + c| ↓↑i + d| ↓↓i                   (117)
+
+      Dann ist
+                     1                                1
+             |ψi =     (| ↑i + | ↓i) ⊗ (| ↑i + | ↓i) = (1 1 1 1)T            [0.5 Pkt]        (118)
+                     2                                2
+      und
+                                                     
+                                      1      1   1   1
+                                   11      1   1   1
+                       ρ = |ψihψ| =                  .                 [0.5 Pkt]            (119)
+                                                      
+                                   4 1      1   1   1
+                                      1      1   1   1
+
+      Für
+                           1                   1
+                     |ψi = √ (| ↑↑i + | ↓↓i) = √ (1 0 0 1)T ,               [0.5 Pkt]         (120)
+                            2                   2
+      finden wir
+                                                     
+                                      1      0   0   1
+                                   1 0
+                                            0   0   0
+                       ρ = |ψihψ| =                  .                 [0.5 Pkt]            (121)
+                                                      
+                                   2 0      0   0   0
+                                      1      0   0   1
+
+      Dekohärenz sorgt dafür, dass alle nicht-diagonalen Elemente verschwinden. Wir erhalten
+      damit im ersten Fall ρ → 14 1, einen komplett gemischten Zustand. [0.5 Pkt] Im zweiten
+      Fall gilt ρ = diag( 21 0 0 12 ) und beschreibt eine statistische Mischung aus | ↑↑i und | ↓↓i.
+       [0.5 Pkt]
+E.6. Das Elektron befindet sich in einem Orbital mit Drehimpulsmoment d (l = 2), und hat
+     selber einen Spin S = 12 . Wir addieren also
+
+         (H4 ⊗ H2 ) ⊗ H 1 = (H2 ⊕ H3 ⊕ H4 ⊕ H5 ⊕ H6 ) ⊗ H 1               [1 Pkt]   (122)
+                        2                                        2
+
+                            = H 3 ⊕ 2H 5 ⊕ 2H 7 ⊕ 2H 9 ⊕ 2H 11 ⊕ H 13 .   [1 Pkt]   (123)
+                                2      2       2      2      2       2
+

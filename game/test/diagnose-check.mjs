@@ -1,0 +1,10 @@
+import { diagnose } from '../src/diagnose.js';
+let f = 0; const ok = (n, c) => { console.log(`${c ? 'PASS' : 'FAIL'} ${n}`); if (!c) f++; };
+const has = (x, e, w) => (diagnose(x, e) || '').includes(w);
+ok('2pi', has(7.8 * 2 * Math.PI, 7.8, '2\\pi')); ok('1/2pi', has(7.8 / (2 * Math.PI), 7.8, 'too small'));
+ok('factor 2', has(15.6, 7.8, 'factor 2 too large')); ok('half', has(3.9, 7.8, 'factor 2 too small'));
+ok('sign', has(-7.8, 7.8, 'sign')); ok('reciprocal', has(1 / 7.8, 7.8, 'reciprocal'));
+ok('milli', has(7.8e-3, 7.8, 'milli')); ok('10^2', has(780, 7.8, 'cm vs m'));
+ok('eV->J', has(7.8 * 1.602e-19, 7.8, 'eV')); ok('square', has(7.8 ** 2, 7.8, 'square'));
+ok('no false alarm', diagnose(8.5, 7.8) === null); ok('zero safe', diagnose(0, 3) === null && diagnose(3, 0) === null);
+console.log(f ? `${f} FAILED` : 'ALL PASS'); process.exit(f ? 1 : 0);

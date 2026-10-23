@@ -1,0 +1,273 @@
+      Prüfung zur Quantenmechanik I: Allgemeine Hinweise
+
+
+Vor der Prüfung:
+  • Lesen Sie diese Hinweise und tragen Sie Ihren Namen auf dem Deckblatt ein. Warten Sie
+    auf das Startzeichen, bevor Sie die Aufgaben anschauen und die Prüfung beginnen.
+  • Bitte legen Sie Ihre Legi zur Kontrolle auf den Tisch.
+  • Stellen Sie sicher, dass alle elektronischen Geräte ausgeschaltet sind.
+
+Während der Prüfung:
+  • Die Prüfung dauert 3 Stunden.
+  • Fügen Sie Ihren Antworten Begründungen bei, so dass diese nachvollziehbar sind.
+  • Die Aufgaben sind nicht nach steigendem Schwierigkeitsgrad geordnet.
+  • Beginnen Sie jede Aufgabe mit einem neuen Blatt und beschriften Sie jedes Blatt oben
+    mit Ihrem vollständigen Namen und der Aufgabennummer. Lösungen/Informationen auf
+    den Aufgabenblättern werden nicht berücksichtigt — bitte schreiben Sie Ihre Lösungen
+    auf Ihre eigenen Blätter.
+  • Bitte schwarze oder blaue Kugelschreiber benutzen. Bitte halten Sie auf der rechten Seite
+    3 cm Platz frei für die Korrektur.
+  • Die Prüfung kann wahlweise auf Deutsch/Englisch geschrieben werden.
+  • Als Hilfsmittel ist ein doppelseitig beschriebenes A4-Blatt sowie, für fremdsprachige Stu-
+    dierende, ein fachneutrales Wörterbuch erlaubt. Während der Prüfung bitte keine Rechner,
+    Smartphones, etc. benutzen.
+  • Der Besuch der Toilette ist nur in Begleitung eines/einer Prüfungsassistenten/in erlaubt.
+
+Am Schluss der Prüfung:
+  • Bitte ordnen Sie Ihre Blätter nach Aufgabennummer und tragen Sie die Anzahl Lösungs-
+    blätter auf dem Deckblatt ein. Die Aufgabenblätter sind alle mitabzugeben.
+  • Am Ende der Prüfung warten Sie bitte an Ihrem Platz, bis die Prüfung eingesammelt wird.
+
+
+                                        Viel Erfolg!
+                          Quantenmechanik I                     HS 2023
+                         Sommerprüfung 2024         Prof. Renato Renner
+
+
+
+Datum: 14.08.2024
+Zeit: 9:00–12:00
+
+VORNAME:                         NAME:
+MATRIKELNUMMER:
+Anzahl Lösungsblätter:
+
+
+
+
+    — Diese Seite nicht vor dem Startzeichen umblättern! —
+
+
+
+
+      Aufgabe                         1   2    3    4    Summe
+      Punkte                         20   25   25   30     100
+      Erreichte Punkte
+Aufgabe 1.     Grundlagen der Quantenmechanik [20 Punkte]
+
+
+ (a) Sei H ∼
+           = C3 ein Hilbertraum mit Orthonormalbasis {|a⟩, |b⟩, |c⟩}. Wir betrachten ein Sy-
+     stem in einem beliebigen Zustand |ϕ⟩ ∈ H und messen den Operator                    [8]
+
+                                      F̂ := 2|a⟩⟨a| + 2|b⟩⟨b| + 3|c⟩⟨c|.                     (1)
+
+      (i) Finde einen Operator Ĝ so dass Pr[F = 2] = ⟨ϕ| Ĝ|ϕ⟩.
+     (ii) Finde ein Polynom p : R → R so dass Ĝ = p(F̂ ).
+
+
+ (b) In der Vorlesung haben wir ein System durch die Menge der reversiblen Aktionen auf die-
+     sem System charakterisiert. Welche der folgenden Mengen sind valide Charakterisierungen
+     eines Systems? (Begründung nicht vergessen!)                                        [4]
+
+       • Die Gruppe der Pauli-Matrizen {±σx , ±σy , ±σz , ±id, ±iσx , ±iσy , ±iσz , ±iid}, wobei
+         das Nacheinanderausführen von Aktionen der Multiplikation entspricht.
+       • Die Rotationsgruppe SO(3), wobei das Nacheinanderausführen von Aktionen der
+         Multiplikation in der Gruppe entspricht.
+
+
+ (c) Betrachte ein quantenmechanisches Teilchen in einer eindimensionalen Box. Der (zeitunab-
+     hängige) Hamilton-Operator Ĥ, der die Zeitevolution des Teilchens bestimmt, sei bekannt.
+     Zunächst sei jedoch nichts über den Ort des Teilchens innerhalb der Box bekannt.      [8]
+
+      (i) Nimm an, Du hast den Auftrag, den Ort des Teilchens um 08:00 zu messen, bist jedoch
+          erst um 09:00 ins Labor gekommen. Welchen Messoperator kannst Du verwenden,
+          um jetzt (also um 09:00) Deinen Auftrag nachzuholen (also den Aufenthaltsort des
+          Teilchens um 08:00 zu messen)?
+     (ii) Sei nun |ψ⟩ der Zustand des Teilchens um t = 08:00 und sei t + ∆t = 09:00. Erkläre
+          die operationelle Interpretation folgender beiden Grössen.
+          (1) ⟨ψ|Π̂X̂(t)=x1 Π̂X̂(t+∆t)=x2 Π̂X̂(t)=x1 |ψ⟩
+          (2) ⟨ψ|Π̂X̂(t+∆t)=x2 Π̂X̂(t)=x1 Π̂X̂(t+∆t)=x2 |ψ⟩
+         Hier bezeichnet X̂(T ) den Orts-Operator im Heisenberg-Bild zur Zeit T . Für einen
+         beliebigen Operator Â sei zudem Π̂Â=a der Projektor auf den Eigenraum zum Eigen-
+         wert a.
+         Hinweis: Wie unterscheiden sich die beiden Grössen (1) und (2)?
+     (iii) Unter welchen Bedingungen nehmen die Grössen (1) und (2) denselben Wert an?
+
+
+
+
+                                                   1
+Aufgabe 2.      Punktteilchen im symmetrischen Potenzialtopf [25 Punkte]
+
+Betrachte ein Punktteilchen mit Masse m in einem eindimensionalen symmetrischen Potenzial-
+topf
+                                              (
+                                                  −V0      falls − a < x < a,
+                                  V (x) =                                                        (2)
+                                                  0        sonst,
+
+
+wobei 0 < V0 < ∞ gilt. Wir sind an den zeitunabhängigen Lösungen der Schrödinger-Gleichung
+interessiert, welche gebundenen Zuständen entsprechen, also negative Energie E < 0 besitzen.
+
+Allgemein kann eine solche Lösung ψ(x) ∈ L2 (R) geschrieben werden als
+
+                               η
+                                   x
+                              Ae 
+                              
+                                a
+                                                                    
+                                                                          falls x < −a,
+                                             ξ                      ξ
+                     ψ(x) =       B sin      ax       + C cos       ax    falls   − a ≤ x ≤ a,   (3)
+                                    − ηa x
+                              
+                              
+                              
+                                  De                                      falls a < x,
+
+mit A, B, C, D ∈ C und ξ, η ∈ R>0 .
+
+
+ (a) Drücke η und ξ durch E, V0 und a aus.                                                       [3]
+
+ (b) Zeige, dass                                                                                 [2]
+
+                                                                     2mV0 a2
+                                                      ξ2 + η2 =              .                   (4)
+                                                                       ℏ2
+
+Damit ψ(x) eine gebundene Lösung ist, müssen die beiden Parameter ξ und η sowohl Glei-
+chung (4) als auch die transzendente Gleichung
+
+                                                        B cos ξ − C sin ξ
+                                          η = −ξ                                                 (5)
+                                                        B sin ξ + C cos ξ
+
+erfüllen. Dies folgt aus Stetigkeitsbedingungen an ψ(x) und darf im folgenden verwendet werden.
+
+
+ (c) Zeige anhand der Schrödinger-Gleichung, dass ψ(x) notwendigerweise entweder eine gerade
+     oder ungerade Funktion in x ist.                                                    [8]
+     Hinweis: Nutze, dass V (−x) = V (x) gilt, sowie die bekannte Tatsache, dass jeder gebun-
+     dene Zustand dieses Systems nicht-entartet ist.
+
+ (d) Zeige graphisch, dass immer mindestens ein gebundener Zustand existiert.                    [8]
+     Hinweis:      Nutze (c), um eine Beziehung zwischen B und C in Gleichung (3) herzustellen.
+
+ (e) Finde die Bedingung an V0 , unter der genau nur ein gebundener Zustand existiert. Welche
+     Parität (gerade oder ungerade) hat dieser gebundene Zustand?                         [4]
+
+
+
+
+                                                            2
+Aufgabe 3.       Spin-Systeme [25 Punkte]
+
+Erst betrachten wir ein Spin-1/2 Teilchen, dessen Spin-Freiheitsgrad durch den Zustand
+                                                   1
+                                            |ψ⟩ = √ (|↑⟩ + |↓⟩)                              (6)
+                                                    2
+beschrieben sei, wobei |↑⟩ der Eigenzustand von Ŝz mit Eigenwert ℏ2 und |↓⟩ der Eigenzustand
+von Ŝz mit Eigenwert − ℏ2 bezeichnen.
+
+ (a) Welches sind die möglichen Messergebnisse, wenn der Drehimpuls dieses Teilchens bezüg-
+     lich der z-Richtung ⃗ez gemessen wird? Mit welcher Wahrscheinlichkeit treten diese auf und
+     wie gross ist der Erwartungswert?                                                       [2]
+
+Im folgenden bezeichnen wir mit O(⃗n, θ) ∈ SO(3) eine Drehung um einen Winkel θ um eine
+Achse in Richtung ⃗n (wobei |⃗n|2 = 1). Es darf verwendet werden, dass
+                                                    θ            θ
+                                                                   
+                                  n·⃗
+                                  ⃗ σ
+                              e−i 2 θ = cos           id − i sin   ⃗n · ⃗σ ,                 (7)
+                                                    2            2
+wobei ⃗n · ⃗σ = nx σx + ny σy + nz σz und
+                                    !                       !                     !
+                              0 1                     0 −i                 1 0
+                       σx =             ,    σy =               ,   σz =
+                              1 0                     i 0                  0 −1
+die Pauli-Matrizen sind.
+
+Eine Experimentatorin Alice wendet zuerst eine durch O(⃗n, θ) gegebene Drehung auf das Teil-
+chen an und misst anschliessend den Spin mit einem Messgerät bezüglich der Achse ⃗ez . Ein
+anderer Experimentator Bob misst den Spin des nicht gedrehten Teilchens direkt mit dem in die
+Gegenrichtung gedrehten Messgerät, also bezüglich O(⃗n, −θ)⃗ez .
+
+ (b) Zeige, dass unabhängig vom anfänglichen Zustand des Spin-Teilchens die Wahrscheinlich-
+     keiten der möglichen Messergebnisse von Alice und Bob gleich sind.                 [6]
+
+Wir betrachten nun nur noch das Experiment von Bob, der den Spin des Teilchen beschrieben
+durch den Zustand |ψ⟩ in Gleichung (6) bezüglich der Messachse O(⃗n, −θ)⃗ez misst.
+
+ (c) Mit welcher Wahrscheinlichkeit treten die möglichen Messergebnisse auf?                [4]
+
+ (d) Wie muss die Messachse gewählt sein, damit der Erwartungswert ℏ2 ist?                  [1]
+
+Nun betrachten wir anstatt eines einzelnen Spin-1/2-Teilchens zwei Spin-1-Teilchen A und B.
+
+                                             ⃗A + S
+ (e) Welche Werte kann der Gesamtdrehimpuls (S    ⃗B )2 annehmen?                           [2]
+
+  (f) Der Zustand des Gesamtsystems AB sei nun
+                                   |j = 1, m = 1⟩A ⊗ |j = 1, m = 1⟩B .                       (8)
+                                        ⃗A + S
+      Zeige, dass der Gesamtdrehimpuls (S    ⃗B )2 jetzt den Wert 2(2 + 1)ℏ2 hat.           [4]
+
+ (g) Finde alle Zustände, für welche der Gesamtdrehimpuls null ist. Gib diese Zustände in einer
+     Basis an, in der ŜA,z und ŜB,z diagonal sind.                                        [6]
+
+
+                                                       3
+Aufgabe 4.      Harmonischer Oszillator [30 Punkte]
+
+Sei zunächst Ĥ der Hamilton-Operator eines zweidimensionalen harmonischen Oszillators,
+
+                                      P̂x2 + P̂y2 m 2 2
+                                 Ĥ =            + ω (X̂ + Ŷ 2 ) .                                  (9)
+                                          2m      2
+
+ (a) Drücke Ĥ durch Auf- und Absteigeoperatoren (â∗x , âx , â∗y , ây ) aus. (Hier ist keine Rechnung
+     erforderlich; die Lösung kann direkt hingeschrieben werden.)                                    [2]
+
+ (b) Gib die sechs niedrigsten Energie-Eigenzustände in der Fock-Basis |n⟩x |m⟩y an. Liegt eine
+     Entartung vor?                                                                         [3]
+
+
+Wir beschränken uns im folgenden auf einen gestörten harmonischen Oszillator in einer Raum-
+dimension. Dieser wird in 0-ter Ordnung durch den Hamilton-Operator
+
+                                                P̂ 2  1
+                                        Ĥ0 =        + mω 2 X̂ 2                                    (10)
+                                                2m 2
+beschrieben und durch ein kubisches Potenzial
+                                                  s
+                                                      m3 w5 3
+                                         Ĥ1 = λ           X̂                                       (11)
+                                                       ℏ
+
+gestört, wobei λ ein reeller, dimensionsloser Parameter mit Betrag sehr viel kleiner als 1 ist.
+
+                                                                   (1)
+ (c) Zeige, dass die Energiekorrektur in erster Ordnung, En , verschwindet.                          [4]
+
+ (d) Drücke den Störterm Ĥ1 durch Auf- und Absteigeoperatoren (â∗ , â) aus. Zeige, dass
+
+                                       ℏω                                 
+                               Ĥ1 = λ √ â∗3 + â3 + 3N̂ â∗ + 3(N̂ + 1)â                         (12)
+                                        8
+
+     gilt, wobei N̂ = â∗ â den Besetzungszahl-Operator bezeichnet.                                [10]
+
+ (e) Berechne die Matrixelemente ⟨m|Ĥ1 |n⟩. Hierbei sind |m⟩, |n⟩ Eigenzustände von Ĥ0 . [6]
+
+  (f) Gib den Eigenzustand |ñ⟩ des gestörten Systems in erster Ordnung an.                          [5]
+
+
+
+
+                                                    4
+

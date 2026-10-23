@@ -1,0 +1,1035 @@
+{
+  "id": "astro-stellar-forge",
+  "region": "Astro Observatory Ship",
+  "title": "The Stellar Forge",
+  "course": "astrophysics",
+  "topics": [
+    "hydrostatic equilibrium",
+    "Eddington luminosity",
+    "main-sequence scaling",
+    "virial theorem",
+    "tidal disruption"
+  ],
+  "sources": [
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+      "where": "Open Q3 (hydrostatic equilibrium, Eddington), Q5 (virial theorem), Q6 (tidal disruption)"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+      "where": "MC 5, 6, 10 (lifetime scaling, upper mass limit, virial)"
+    },
+    {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Ch. 3.2 (hydrostatic equilibrium, virial theorem), Ch. 3.6.1 (Eddington), Ch. 7.2"
+    },
+    {
+      "file": "notes/astrophysics/02-stars-and-virial.md",
+      "where": "transcription, formulas and checks"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "HS24 winter: open Q1, MC 5, 10"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+      "where": "HS25 practice: open Q2, Q3, Q5; MC 4-5"
+    },
+    {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Choudhuri Ch. 3.2-3.6"
+    }
+  ],
+  "intro": "Gravity pulls in, pressure pushes out. In the forge you balance the two, find out why stars cannot grow beyond a few hundred solar masses, and use the virial theorem on everything from clusters to galaxies.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "astro-forge-L1",
+      "title": "Hydrostatic equilibrium: weighing the inside of the Sun",
+      "tier": "theory",
+      "minutes": 12,
+      "xp": 15,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §3.2.1, eqs. (3.1)-(3.6)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: open Q3(a)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: open Q1"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "A star is a self-gravitating ball of gas. Take a thin shell of area $dA$ and thickness $dr$ at radius $r$. The pressure below pushes up with $P(r)dA$, the pressure above pushes down with $P(r+dr)dA$, and gravity pulls the shell's mass $\\rho\\,dA\\,dr$ inwards with $GM_r/r^2$. Balance gives the first two structure equations:"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\frac{dM_r}{dr}=4\\pi r^2\\rho,\\qquad\\frac{dP}{dr}=-\\frac{GM_r\\rho}{r^2}",
+          "label": "Mass continuity (3.1) and hydrostatic equilibrium (3.2). Boundary conditions: M_r(0) = 0, P(R) = 0."
+        },
+        {
+          "kind": "text",
+          "html": "Order-of-magnitude use (Choudhuri's favourite tool): replace $dP/dr$ by $-P_c/R$ and $M_r$, $r$ by $M/2$, $R/2$. Then $P_c\\approx GM^2/(R^4)\\times\\frac{3}{2\\pi}\\approx6\\times10^{14}$ Pa for the Sun. With the ideal gas $P=\\frac{\\rho k_BT}{\\mu m_H}$ ($\\mu=1/2$ for ionised hydrogen: one proton plus one electron per $m_H$) you get $T_c\\approx10^7$ K."
+        },
+        {
+          "kind": "eq",
+          "tex": "P=\\frac{k_B}{\\mu m_H}\\rho T,\\qquad\\mu=\\left(2X+\\tfrac34Y+\\tfrac12Z\\right)^{-1}",
+          "label": "Ideal gas with mean molecular weight (3.23)-(3.24). X, Y, Z: mass fractions of H, He, metals."
+        },
+        {
+          "kind": "intuition",
+          "html": "Every layer must carry the weight of everything above it. That is why pressure (and with an ideal gas, temperature) must rise steeply towards the centre, and why the centre of the Sun is hot enough for fusion: gravity, not fusion, sets the central temperature. Fusion only keeps it there."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Sign: $dP/dr<0$. When you integrate \"from $r$ to $R$\" (HS24 winter Q1), $P(R)-P(r)=-\\int_r^R\\frac{GM_{r'}\\rho}{r'^2}dr'$ and $P(R)=0$, so $P(r)$ comes out positive. Write the boundary condition explicitly: it is a grading point."
+        },
+        {
+          "kind": "exam",
+          "html": "HS24 summer Q3a (derive the equation from a volume element, 4 pt), HS24 winter Q1 (constant-density star: $P(r)$, $T(r)$), HS25 practice Q2 (scaling $P\\propto M^2/R^4$)."
+        }
+      ],
+      "check": [
+        {
+          "q": "For fully ionised hydrogen the mean molecular weight $\\mu$ is",
+          "options": [
+            "1",
+            "1/2",
+            "2",
+            "4/3"
+          ],
+          "correct": 1,
+          "explain": "$X=1$: $\\mu=1/2$, two particles per $m_H$."
+        },
+        {
+          "q": "Replacing $dP/dr\\to-P_c/R$, $M_r\\to M$, $r\\to R$, $\\rho\\to M/R^3$ gives",
+          "options": [
+            "$P_c\\propto M^2/R^4$",
+            "$P_c\\propto M/R^2$",
+            "$P_c\\propto M^2/R^2$",
+            "$P_c\\propto M/R^4$"
+          ],
+          "correct": 0,
+          "explain": "$P/R\\sim(M/R^2)(M/R^3)$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: open Q2a"
+          }
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-forge-L2",
+      "title": "The virial theorem: stars have negative heat capacity",
+      "tier": "intuition",
+      "minutes": 10,
+      "xp": 15,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §3.2.2, eqs. (3.7)-(3.14)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: MC 10"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: open Q3"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "Multiply hydrostatic equilibrium by $4\\pi r^3$ and integrate over the star (by parts). The left side becomes $-3\\int P\\,dV$, which for an ideal monatomic gas is $-2E_T$ (thermal energy); the right side is the gravitational energy $E_G$:"
+        },
+        {
+          "kind": "eq",
+          "tex": "2E_T+E_G=0,\\qquad E=E_T+E_G=\\tfrac12E_G=-E_T<0",
+          "label": "Virial theorem for a star in equilibrium (3.10)-(3.12). Same form 2K + V = 0 for stellar systems."
+        },
+        {
+          "kind": "intuition",
+          "html": "A star that radiates energy away (E decreases) must <b>contract and heat up</b>: $E_T=-E$ grows. Half of the released gravitational energy heats the gas, the other half is radiated. This is the engine that heats a protostar until fusion ignites, and that re-heats a core when it runs out of fuel. Stars act like a thermostat: if fusion runs too fast, the core expands and cools, slowing it."
+        },
+        {
+          "kind": "eq",
+          "tex": "|E_G|\\approx\\frac{GM^2}{R}\\approx4\\times10^{41}\\,\\mathrm J,\\qquad\\tau_{KH}\\approx\\frac{|E_G|}{2L}\\approx10^7\\,\\mathrm{yr}",
+          "label": "Kelvin–Helmholtz time (3.13)-(3.14): how long the Sun could shine by contraction alone. Too short for geology: hence nuclear energy."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Total energy in virial equilibrium is $E=\\frac12\\bar V$ (negative), or equivalently $E=-\\bar K$. Not $2K$, not $K/2$ (HS24 winter MC10). For a uniform sphere $E_G=-\\frac35GM^2/R$; order-of-magnitude estimates may drop the 3/5 (HS25 practice Q3 uses $GM^2/2R$)."
+        },
+        {
+          "kind": "exam",
+          "html": "HS25 practice Q3: thermal energy of the Sun ($\\frac32Nk_BT$ with $N=2M/m_p$, $T=10^7$ K) is of the same order as $GM^2/2R$: both $\\sim10^{41}$ J."
+        }
+      ],
+      "check": [
+        {
+          "q": "For a self-gravitating system in steady state, the total energy is",
+          "options": [
+            "$\\bar E=2\\bar K$",
+            "$\\bar E=\\frac12\\bar K$",
+            "$\\bar E=2\\bar V$",
+            "$\\bar E=\\frac12\\bar V$"
+          ],
+          "correct": 3,
+          "explain": "$2\\bar K+\\bar V=0\\Rightarrow\\bar E=\\bar K+\\bar V=\\frac12\\bar V$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 10"
+          }
+        },
+        {
+          "q": "A star without nuclear burning loses energy by radiation. Its interior",
+          "options": [
+            "cools and expands",
+            "heats up and contracts",
+            "stays at the same temperature",
+            "cools and contracts"
+          ],
+          "correct": 1,
+          "explain": "$E_T=-E$ increases as $E$ decreases."
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-forge-L3",
+      "title": "Four equations, and the scaling laws that follow",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §3.3 eqs. (3.25)-(3.28), §3.4 eqs. (3.33)-(3.41)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: open Q2"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC 5, open Q3"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "eq",
+          "tex": "\\frac{dM_r}{dr}=4\\pi r^2\\rho,\\quad\\frac{dP}{dr}=-\\frac{GM_r\\rho}{r^2},\\quad\\frac{dL_r}{dr}=4\\pi r^2\\rho\\varepsilon,\\quad\\frac{dT}{dr}=-\\frac{3\\chi\\rho}{4a_BcT^3}\\frac{L_r}{4\\pi r^2}",
+          "label": "The four stellar structure equations (3.25)-(3.28), with ε the nuclear energy release per mass and time. In convective zones the last one is replaced by the adiabatic gradient."
+        },
+        {
+          "kind": "text",
+          "html": "Choudhuri's \"drastic\" scaling (§3.4): replace every derivative $d/dr$ by $1/R$, $M_r$ by $M$, $\\rho$ by $M/R^3$, assume constant opacity."
+        },
+        {
+          "kind": "eq",
+          "tex": "P\\propto\\frac{M^2}{R^4},\\quad P\\propto\\rho T\\Rightarrow T\\propto\\frac MR,\\quad\\frac TR\\propto\\frac{\\rho L}{T^3R^2}\\Rightarrow L\\propto\\frac{(TR)^4}{M}\\propto M^3",
+          "label": "Mass–luminosity relation (3.37)."
+        },
+        {
+          "kind": "eq",
+          "tex": "L=4\\pi R^2\\sigma T_{\\rm eff}^4\\ \\Rightarrow\\ M\\propto T^2,\\quad L\\propto T_{\\rm eff}^6,\\quad R\\propto M^{1/2},\\quad\\tau_{MS}\\propto\\frac ML\\propto M^{-2}",
+          "label": "Main-sequence scalings used in Refregier's exams."
+        },
+        {
+          "kind": "intuition",
+          "html": "Notice that the luminosity of a star does <b>not</b> depend on how fusion works: it is set by how fast radiation can leak out ($L\\propto M^3/\\chi$). Fusion adjusts itself (via the virial thermostat) to supply exactly that. Massive stars are hugely more luminous and burn through their fuel much faster: a $10M_\\odot$ star lives ~100 times shorter than the Sun."
+        },
+        {
+          "kind": "pitfall",
+          "html": "These are scalings, not equations: never put numbers into $L\\propto M^3$ without a reference star ($L/L_\\odot=(M/M_\\odot)^3$). Real stars have $L\\propto M^{3-4}$; the exam uses 3. Lifetime ratio for masses differing by 4: $4^2=16$ (HS25 winter MC5), not 4 or 64."
+        }
+      ],
+      "check": [
+        {
+          "q": "Two main-sequence stars differ in mass by a factor of 4. The lower-mass star lives longer by about",
+          "options": [
+            "4",
+            "8",
+            "16",
+            "64"
+          ],
+          "correct": 2,
+          "explain": "$\\tau\\propto M^{-2}$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 5"
+          }
+        },
+        {
+          "q": "A star more massive than the Sun is, on the main sequence,",
+          "options": [
+            "less luminous, hotter, shorter-lived",
+            "more luminous, hotter, shorter-lived",
+            "more luminous, cooler, shorter-lived",
+            "more luminous, hotter, longer-lived"
+          ],
+          "correct": 1,
+          "explain": "$L\\propto M^3$, $T\\propto M^{1/2}$, $\\tau\\propto M^{-2}$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "astro-forge-L4",
+      "title": "Reading the HR diagram",
+      "tier": "intuition",
+      "minutes": 10,
+      "xp": 15,
+      "source": [
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Choudhuri §3.5 (stellar data, spectral classes), §3.6 (main sequence, red giants, white dwarfs), §4.5 (evolution)"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: MC 5"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: MC 5"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "figure",
+          "html": "The HR diagram plots luminosity (up) against effective temperature, which increases to the <b>left</b> (historical: spectral type O B A F G K M runs left to right). About 90 % of stars sit on the <b>main sequence</b>, a diagonal band from hot luminous O stars (top left, $\\sim40\\,000$ K, $10^5L_\\odot$) to cool faint M dwarfs (bottom right, $\\sim3000$ K, $10^{-3}L_\\odot$). Red giants and supergiants lie top right (cool but huge), white dwarfs bottom left (hot but tiny). Lines of constant radius run diagonally, because $L\\propto R^2T^4$."
+        },
+        {
+          "kind": "text",
+          "html": "Spectral classes are a temperature sequence read from absorption lines: O (ionised He), B (neutral He), A (strongest Balmer lines, ~10 000 K), F, G (Sun, 5800 K, Ca II), K, M (molecular TiO bands). The Balmer lines peak at A because hydrogen must be excited to $n=2$ (needs hot) but not ionised (Saha). Mnemonic: \"Oh Be A Fine Girl/Guy, Kiss Me\"."
+        },
+        {
+          "kind": "intuition",
+          "html": "The main sequence is not an evolutionary track: it is a <b>mass sequence</b>. Stars sit there for most of their life burning hydrogen in the core; where they sit is fixed by mass. When the core hydrogen runs out the core contracts and heats, the envelope expands enormously: the star moves up and right to become a red giant (cooler surface, larger, more luminous)."
+        },
+        {
+          "kind": "text",
+          "html": "Star clusters: all stars have the same age and distance. The most massive stars leave the main sequence first, so the <b>turn-off point</b> moves down the main sequence with time: its mass tells the cluster's age ($\\tau\\propto M^{-2}$). Globular clusters have turn-offs below $1M_\\odot$: ages above 10 Gyr."
+        },
+        {
+          "kind": "pitfall",
+          "html": "\"Red giant\" means lower $T_{\\rm eff}$ AND higher $L$ (HS24 winter MC5): the radius grows by a factor ~100. Mass is (nearly) unchanged."
+        }
+      ],
+      "check": [
+        {
+          "q": "When a star leaves the main sequence to become a red giant it becomes",
+          "options": [
+            "less massive and hotter",
+            "cooler and less luminous",
+            "cooler and more luminous",
+            "cooler and smaller"
+          ],
+          "correct": 2,
+          "explain": "Up and to the right in the HR diagram.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 5"
+          }
+        },
+        {
+          "q": "The upper mass limit of main-sequence stars is due to",
+          "options": [
+            "the small optical depth of the interior",
+            "hydrogen depletion in the core",
+            "cosmic rays",
+            "radiation pressure overcoming gravity"
+          ],
+          "correct": 3,
+          "explain": "Eddington limit: $L\\propto M^3$ grows faster than $L_{Edd}\\propto M$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 6"
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "astro-forge-Q1",
+      "title": "Stellar Forge multiple choice",
+      "xp": 30,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: MC"
+        },
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: MC"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Two main-sequence stars differ in mass by a factor 4. Lifetime ratio?",
+          "options": [
+            "4",
+            "8",
+            "16",
+            "64"
+          ],
+          "correct": 2,
+          "explain": "$\\tau\\propto M^{-2}$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 5"
+          }
+        },
+        {
+          "q": "The upper mass limit of main-sequence stars comes from",
+          "options": [
+            "small optical depth",
+            "hydrogen depletion",
+            "cosmic rays",
+            "radiation pressure beating gravity"
+          ],
+          "correct": 3,
+          "explain": "Eddington luminosity.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 6"
+          }
+        },
+        {
+          "q": "A main-sequence star more massive than the Sun is",
+          "options": [
+            "less luminous, hotter, shorter-lived",
+            "more luminous, hotter, shorter-lived",
+            "more luminous, cooler, shorter-lived",
+            "more luminous, hotter, longer-lived"
+          ],
+          "correct": 1,
+          "explain": "$L\\propto M^3$, $M\\propto T^2$, $\\tau\\propto M^{-2}$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 5"
+          }
+        },
+        {
+          "q": "Leaving the main sequence for the red-giant branch, a star becomes",
+          "options": [
+            "less massive, hotter",
+            "cooler, less luminous",
+            "cooler, more luminous",
+            "cooler, smaller"
+          ],
+          "correct": 2,
+          "explain": "Envelope expands.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 5"
+          }
+        },
+        {
+          "q": "For a virialised self-gravitating system the total energy is",
+          "options": [
+            "$2\\bar K$",
+            "$\\bar K/2$",
+            "$2\\bar V$",
+            "$\\bar V/2$"
+          ],
+          "correct": 3,
+          "explain": "$2\\bar K+\\bar V=0$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 10"
+          }
+        },
+        {
+          "q": "The Sun's spectral class is",
+          "options": [
+            "O",
+            "B",
+            "G",
+            "M"
+          ],
+          "correct": 2,
+          "explain": "G2V.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 5"
+          }
+        },
+        {
+          "q": "The Kelvin–Helmholtz timescale of the Sun is about",
+          "options": [
+            "$10^3$ yr",
+            "$10^7$ yr",
+            "$10^{10}$ yr",
+            "$10^{13}$ yr"
+          ],
+          "correct": 1,
+          "explain": "$|E_G|/2L\\approx4\\times10^{41}/(8\\times10^{26})$ s $\\approx10^7$ yr (Choudhuri (3.13))."
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "astro-forge-D1",
+      "title": "Mass–luminosity relation from three equations",
+      "xp": 35,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+        "where": "HS25 practice: open Q2 [10 pt]"
+      },
+      "goal": "For a star in hydrostatic equilibrium with radiative transport and constant opacity, derive $L\\propto M^3$ by scaling arguments.",
+      "given": [
+        "$\\frac{dP}{dr}=-\\frac{GM_r\\rho}{r^2}$",
+        "$P\\propto\\rho T$",
+        "$\\frac{dT}{dr}=-\\frac{3}{4a_Bc}\\frac{\\chi\\rho L_r}{T^3 4\\pi r^2}$"
+      ],
+      "steps": [
+        {
+          "prompt": "(a) Hydrostatic equilibrium as a scaling relation for P.",
+          "reveal": "$\\frac PR\\propto\\frac{M}{R^2}\\frac{M}{R^3}\\Rightarrow P\\propto\\frac{M^2}{R^4}$."
+        },
+        {
+          "prompt": "(b) Ideal gas: temperature.",
+          "reveal": "$P\\propto\\rho T\\propto\\frac{M}{R^3}T\\Rightarrow T\\propto\\frac{PR^3}{M}\\propto\\frac MR$."
+        },
+        {
+          "prompt": "(c) Radiative transport: luminosity.",
+          "reveal": "$\\frac TR\\propto\\frac{\\rho L}{T^3R^2}\\propto\\frac{ML}{R^5T^3}\\Rightarrow L\\propto\\frac{(TR)^4}{M}$."
+        },
+        {
+          "prompt": "Combine.",
+          "reveal": "$TR\\propto M\\Rightarrow L\\propto M^4/M=M^3$. The radius drops out."
+        }
+      ],
+      "keyPoints": [
+        "$P\\propto M^2/R^4$",
+        "$T\\propto M/R$",
+        "$L\\propto(TR)^4/M$",
+        "$L\\propto M^3$"
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "astro-forge-D2",
+      "title": "Virial theorem for N stars and the velocity dispersion",
+      "xp": 30,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+        "where": "HS25 practice: open Q5 [7 pt]; HS24 summer Q5 (harmonic radius version)"
+      },
+      "goal": "For $N$ stars of mass $m$ (total $M$) with mean separation $\\langle R\\rangle$ in virial equilibrium, show $\\langle v^2\\rangle=GM/(2\\langle R\\rangle)$.",
+      "given": [
+        "$2\\bar K+\\bar V=0$"
+      ],
+      "steps": [
+        {
+          "prompt": "Kinetic energy.",
+          "reveal": "$\\bar K=\\frac12mN\\langle v^2\\rangle=\\frac12M\\langle v^2\\rangle$."
+        },
+        {
+          "prompt": "Potential energy: count the pairs.",
+          "reveal": "$N(N-1)/2$ pairs, each $-Gm^2/\\langle R\\rangle$: $\\bar V\\simeq-\\frac{N^2}{2}\\frac{Gm^2}{\\langle R\\rangle}=-\\frac{GM^2}{2\\langle R\\rangle}$ for large $N$."
+        },
+        {
+          "prompt": "Apply the virial theorem.",
+          "reveal": "$M\\langle v^2\\rangle=\\frac{GM^2}{2\\langle R\\rangle}\\Rightarrow\\langle v^2\\rangle=\\frac{GM}{2\\langle R\\rangle}\\propto\\frac{Nm}{\\langle R\\rangle}$."
+        }
+      ],
+      "keyPoints": [
+        "$\\bar K=\\frac12M\\langle v^2\\rangle$",
+        "pair counting $N(N-1)/2$",
+        "large-N limit",
+        "final result"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-forge-c1",
+      "title": "The Eddington limit and the upper mass of stars",
+      "fight": "normal",
+      "problem": "Radiation pressure balances gravity at the surface when $L_{\\rm Edd}=4\\pi cGM/\\chi$ (Refregier's result, hydrostatic equilibrium plus $F=-\\frac{c}{\\alpha}\\frac{dP}{dr}$, $\\alpha=\\chi\\rho$). For electron scattering $\\chi=\\sigma_T/m_p$. Use $L_\\odot=3.828\\times10^{26}$ W and a $10\\,M_\\odot$ star.",
+      "vars": {
+        "G": 6.6743e-11,
+        "c": 299792458,
+        "mp": 1.67262192369e-27,
+        "sigT": 6.652458e-29,
+        "Msun": 1.9884e+30,
+        "M": 10,
+        "Lsun": 3.828e+26
+      },
+      "steps": [
+        {
+          "id": "chi",
+          "prompt": "Electron-scattering opacity $\\chi=\\sigma_T/m_p$ in m$^2$/kg.",
+          "answer": "sigT/mp",
+          "unit": "m^2/kg",
+          "units": [
+            "m^2/kg",
+            "m^2",
+            "kg/m^3",
+            "m^-1"
+          ],
+          "tol": 0.02,
+          "hint": "Thomson cross-section per proton mass (fully ionised hydrogen). Roughly $0.04$ m$^2$/kg."
+        },
+        {
+          "id": "LEdd",
+          "prompt": "Eddington luminosity of the $10\\,M_\\odot$ star, in $L_\\odot$.",
+          "answer": "4*pi*c*G*M*Msun/chi/Lsun",
+          "unit": "L_sun",
+          "units": [
+            "L_sun",
+            "W",
+            "M_sun",
+            "W m^-2"
+          ],
+          "tol": 0.03,
+          "hint": "$L_{\\rm Edd}=4\\pi cGM/\\chi$. Divide by $L_\\odot$ at the end. Rule of thumb: $3.3\\times10^4\\,L_\\odot(M/M_\\odot)$."
+        },
+        {
+          "id": "Mup",
+          "prompt": "Using $L=L_\\odot(M/M_\\odot)^3$, the mass at which $L=L_{\\rm Edd}$: give $M$ in $M_\\odot$.",
+          "answer": "sqrt(4*pi*c*G*Msun/chi/Lsun)",
+          "unit": "M_sun",
+          "units": [
+            "M_sun",
+            "L_sun",
+            "kg",
+            "dimensionless"
+          ],
+          "tol": 0.03,
+          "hint": "$(M/M_\\odot)^3=33000\\,(M/M_\\odot)\\Rightarrow M^2=3.3\\times10^4$. A crude upper mass limit of main-sequence stars."
+        }
+      ],
+      "xp": 60
+    },
+    {
+      "type": "calc",
+      "id": "astro-forge-c2",
+      "title": "Burning bright, dying young",
+      "fight": "fermi",
+      "problem": "The Sun lives $\\tau_\\odot\\approx10^{10}$ yr on the main sequence. With $\\tau\\propto M^{-2}$ (from $\\tau\\propto M/L$ and $L\\propto M^3$), estimate the main-sequence lifetime of a $10\\,M_\\odot$ star in Myr (within a factor of 1.3).",
+      "vars": {
+        "tsun": 10000000000,
+        "M": 10
+      },
+      "steps": [
+        {
+          "id": "tau",
+          "prompt": "Lifetime in Myr.",
+          "answer": "tsun*M**(-2)/1e6",
+          "unit": "Myr",
+          "units": [
+            "Myr",
+            "Gyr",
+            "yr",
+            "kyr"
+          ],
+          "tol": 0.1,
+          "hint": "Fuel $\\propto M$, burn rate $\\propto L\\propto M^3$, so $\\tau\\propto M^{-2}$: a factor 100 shorter for $M=10$.",
+          "tolType": "log"
+        }
+      ],
+      "xp": 20
+    },
+    {
+      "type": "calc",
+      "id": "astro-forge-c3",
+      "title": "Virial velocity of a globular cluster",
+      "fight": "normal",
+      "problem": "A virialised system of $N\\gg1$ equal-mass particles has $K=\\frac12M\\sigma_v^2$ and $V\\simeq-GM^2/(2r_H)$ with the harmonic radius $r_H^{-1}=\\frac{2}{N(N-1)}\\sum_{i>j}r_{ij}^{-1}$. The virial theorem is $2K+V=0$. Take a globular cluster with $M=10^5\\,M_\\odot$, $r_H=5$ pc.",
+      "vars": {
+        "G": 6.6743e-11,
+        "Msun": 1.9884e+30,
+        "pc": 30856775810000000,
+        "yr": 31557600,
+        "M": 100000,
+        "rH": 5
+      },
+      "steps": [
+        {
+          "id": "sig2",
+          "prompt": "From $2K+V=0$ the squared dispersion $\\sigma_v^2=GM/(2r_H)$, in (m/s)$^2$.",
+          "answer": "G*M*Msun/(2*rH*pc)",
+          "unit": "m^2/s^2",
+          "units": [
+            "m^2/s^2",
+            "m/s",
+            "J",
+            "m^2/s"
+          ],
+          "tol": 0.02,
+          "hint": "$2\\cdot\\frac12M\\sigma^2=GM^2/(2r_H)\\Rightarrow\\sigma^2=GM/(2r_H)$. Convert $M_\\odot$ and pc to SI."
+        },
+        {
+          "id": "sig",
+          "prompt": "Velocity dispersion $\\sigma_v$ in km/s.",
+          "answer": "sqrt(sig2)/1000",
+          "unit": "km/s",
+          "units": [
+            "km/s",
+            "m/s",
+            "km^2/s^2",
+            "c"
+          ],
+          "tol": 0.02,
+          "hint": "Square root, then divide by 1000."
+        },
+        {
+          "id": "tcross",
+          "prompt": "Crossing time $t=r_H/\\sigma_v$ in Myr.",
+          "answer": "rH*pc/sqrt(sig2)/yr/1e6",
+          "unit": "Myr",
+          "units": [
+            "Myr",
+            "yr",
+            "Gyr",
+            "kyr"
+          ],
+          "tol": 0.03,
+          "hint": "About $0.75$ Myr; compare the age of $\\sim10$ Gyr: the cluster has crossed itself thousands of times, hence virialised."
+        }
+      ],
+      "xp": 40
+    },
+    {
+      "type": "calc",
+      "id": "astro-forge-c4",
+      "title": "How close can the Milky Way get to a cD galaxy?",
+      "fight": "normal",
+      "problem": "Tidal acceleration $a_{\\rm tidal}\\simeq2GMr/d^3$ (Taylor expansion of $GM/d^2-GM/(d+r)^2$). A small galaxy of mass $m$, radius $r$ is disrupted when $a_{\\rm tidal}>Gm/r^2$. Milky Way: $m=10^{12}M_\\odot$, $r=10$ kpc; cD galaxy $M=10^{14}M_\\odot$.",
+      "vars": {
+        "m": 1000000000000,
+        "M": 100000000000000,
+        "r": 10
+      },
+      "steps": [
+        {
+          "id": "ratio",
+          "prompt": "Mass ratio factor $2M/m$.",
+          "answer": "2*M/m",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "M_sun",
+            "kpc",
+            "kg"
+          ],
+          "tol": 0.01,
+          "hint": "Both masses in $M_\\odot$, so the ratio is just $200$."
+        },
+        {
+          "id": "d",
+          "prompt": "Disruption distance $d_{\\rm limit}=(2M/m)^{1/3}r$ in kpc.",
+          "answer": "ratio**(1/3)*r",
+          "unit": "kpc",
+          "units": [
+            "kpc",
+            "Mpc",
+            "pc",
+            "dimensionless"
+          ],
+          "tol": 0.02,
+          "hint": "Set $2GMr/d^3=Gm/r^2$, so $d^3=2Mr^3/m$."
+        }
+      ],
+      "xp": 35
+    },
+    {
+      "type": "calc",
+      "id": "astro-forge-c5",
+      "title": "Thermal versus gravitational energy of the Sun",
+      "fight": "normal",
+      "xp": 30,
+      "problem": "Model the Sun as fully ionised hydrogen at $T\\sim10^7$ K with thermal energy $\\frac32k_BT$ per particle (HS25 practice Q3). Compare with $|U_V|\\simeq GM_\\odot^2/(2R_\\odot)$ and $L_\\odot=3.828\\times10^{26}$ W.",
+      "vars": {
+        "G": 6.6743e-11,
+        "kB": 1.380649e-23,
+        "mp": 1.67262192369e-27,
+        "Msun": 1.9884e+30,
+        "Rsun": 695700000,
+        "Lsun": 3.828e+26,
+        "yr": 31557600,
+        "T": 10000000
+      },
+      "steps": [
+        {
+          "id": "N",
+          "prompt": "Number of particles $N=2M_\\odot/m_p$ (protons plus electrons). Enter e.g. 2.4e57.",
+          "answer": "2*Msun/mp",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "kg",
+            "mol",
+            "m^-3"
+          ],
+          "tol": 0.02,
+          "hint": "Each hydrogen atom gives two particles."
+        },
+        {
+          "id": "UT",
+          "prompt": "Thermal energy in units of $10^{41}$ J.",
+          "answer": "1.5*N*kB*T/1e41",
+          "unit": "10^41 J",
+          "units": [
+            "10^41 J",
+            "W",
+            "J/kg",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$\\frac32Nk_BT\\approx4.9\\times10^{41}$ J."
+        },
+        {
+          "id": "UV",
+          "prompt": "$GM_\\odot^2/(2R_\\odot)$ in units of $10^{41}$ J.",
+          "answer": "G*Msun**2/(2*Rsun)/1e41",
+          "unit": "10^41 J",
+          "units": [
+            "10^41 J",
+            "W",
+            "J/kg",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$\\approx1.9\\times10^{41}$ J: same order, as the virial theorem demands."
+        },
+        {
+          "id": "tKH",
+          "prompt": "Kelvin–Helmholtz time $|U_V|/L_\\odot$ in Myr.",
+          "answer": "UV*1e41/Lsun/yr/1e6",
+          "unit": "Myr",
+          "units": [
+            "Myr",
+            "Gyr",
+            "yr",
+            "s"
+          ],
+          "tol": 0.03,
+          "hint": "About 16 Myr: the Sun cannot be powered by contraction for 4.6 Gyr."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-forge-c6",
+      "title": "The nuclear timescale of the Sun",
+      "fight": "normal",
+      "xp": 25,
+      "problem": "Hydrogen burning releases 0.7 % of the rest mass ($4m_p\\to$ He). Only the inner ~10 % of the Sun's mass is hot enough to burn. Estimate the main-sequence lifetime $\\tau=0.007\\times0.1\\,M_\\odot c^2/L_\\odot$.",
+      "vars": {
+        "c": 299792458,
+        "Msun": 1.9884e+30,
+        "Lsun": 3.828e+26,
+        "yr": 31557600,
+        "eff": 0.007,
+        "fcore": 0.1
+      },
+      "steps": [
+        {
+          "id": "E",
+          "prompt": "Available nuclear energy in units of $10^{44}$ J.",
+          "answer": "eff*fcore*Msun*c**2/1e44",
+          "unit": "10^44 J",
+          "units": [
+            "10^44 J",
+            "W",
+            "kg",
+            "J/kg"
+          ],
+          "tol": 0.02,
+          "hint": "$0.0007\\times1.99\\times10^{30}\\times(3\\times10^8)^2$."
+        },
+        {
+          "id": "tau",
+          "prompt": "Lifetime in Gyr.",
+          "answer": "E*1e44/Lsun/yr/1e9",
+          "unit": "Gyr",
+          "units": [
+            "Gyr",
+            "Myr",
+            "yr",
+            "s"
+          ],
+          "tol": 0.03,
+          "hint": "About 10 Gyr: the Sun is middle-aged (4.6 Gyr)."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "astro-forge-c7",
+      "title": "Constant-density Sun: central temperature",
+      "fight": "normal",
+      "xp": 25,
+      "problem": "For a constant-density star of fully ionised hydrogen, HS24 winter Q1 gives $T(r)=\\frac{\\pi}{3}\\frac{m_HG\\rho}{k_B}(R^2-r^2)$. Apply it to the Sun ($\\rho=\\bar\\rho_\\odot$, take $m_H=m_p$).",
+      "vars": {
+        "G": 6.6743e-11,
+        "kB": 1.380649e-23,
+        "mp": 1.67262192369e-27,
+        "Msun": 1.9884e+30,
+        "Rsun": 695700000
+      },
+      "steps": [
+        {
+          "id": "rho",
+          "prompt": "Mean density of the Sun in kg m$^{-3}$.",
+          "answer": "Msun/(4/3*pi*Rsun**3)",
+          "unit": "kg m^-3",
+          "units": [
+            "kg m^-3",
+            "g cm^-3",
+            "kg",
+            "m^-3"
+          ],
+          "tol": 0.02,
+          "hint": "$M/(\\frac43\\pi R^3)\\approx1410$ kg m$^{-3}$, like water."
+        },
+        {
+          "id": "Tc",
+          "prompt": "Central temperature in units of $10^7$ K.",
+          "answer": "pi/3*mp*G*rho/kB*Rsun**2/1e7",
+          "unit": "10^7 K",
+          "units": [
+            "10^7 K",
+            "K",
+            "eV",
+            "MK"
+          ],
+          "tol": 0.02,
+          "hint": "$\\approx5.8\\times10^6$ K. The real centre is $1.57\\times10^7$ K: a real star is centrally concentrated ($\\rho_c\\approx100\\bar\\rho$), so a uniform model underestimates $T_c$ by a factor ~3, but gets the order of magnitude right."
+        },
+        {
+          "id": "r01",
+          "prompt": "Radius (in units of $R$) where $\\varepsilon\\propto T^4$ drops to 10 % of its central value.",
+          "answer": "(1-0.1**0.25)**0.5",
+          "unit": "R",
+          "units": [
+            "R",
+            "m",
+            "K",
+            "pc"
+          ],
+          "tol": 0.02,
+          "hint": "$\\varepsilon/\\varepsilon_c=(1-r^2/R^2)^4=0.1\\Rightarrow r/R=\\sqrt{1-0.1^{1/4}}=0.66$."
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-forge-b1",
+      "title": "Boss: hydrostatic equilibrium to the Eddington limit (exam problem)",
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+        "where": "Open Question 3 [Stability of a star, 10 pt], HS24 summer session"
+      },
+      "minutes": 20,
+      "instructions": "Solve on paper under the timer, then enter the final numbers. The derivations (a), (b) are graded by you against the key points.",
+      "statement": [
+        "The stability of a star relies on the balance between gravity and pressure within its material.",
+        "(a) [4 pt] By considering a differential volume element at radius $r$ in a spherical star, derive the condition for hydrostatic equilibrium, $\\frac{dP}{dr}=-\\frac{GM_r\\rho}{r^2}$, where $P$ and $\\rho$ are pressure and density at radius $r$ and $M_r$ is the enclosed mass.",
+        "(b) [4 pt] Using this and assuming the pressure is dominated by radiation pressure with absorption coefficient $\\alpha=\\chi\\rho$ for some opacity $\\chi$, derive the radiative luminosity required to perfectly balance gravitation at the surface $r=R$. Express the answer in terms of the opacity $\\chi$. Hint: use $F=-\\frac{c}{\\alpha}\\frac{dP}{dr}$.",
+        "(c) [2 pt] What is the name of this luminosity limit?"
+      ],
+      "finalAnswers": [
+        {
+          "id": "LEdd",
+          "prompt": "Evaluate (b) for $M=20\\,M_\\odot$, $\\chi=0.04$ m$^2$/kg: $L$ in watts (enter as e.g. 1.2e31).",
+          "answer": "4*pi*c*G*M*Msun/chi",
+          "vars": {
+            "G": 6.6743e-11,
+            "c": 299792458,
+            "Msun": 1.9884e+30,
+            "M": 20,
+            "chi": 0.04
+          },
+          "tol": 0.03
+        },
+        {
+          "id": "Lsol",
+          "prompt": "The same $L$ in units of $L_\\odot=3.828\\times10^{26}$ W.",
+          "answer": "4*pi*c*G*M*Msun/chi/3.828e26",
+          "vars": {
+            "G": 6.6743e-11,
+            "c": 299792458,
+            "Msun": 1.9884e+30,
+            "M": 20,
+            "chi": 0.04
+          },
+          "tol": 0.03
+        }
+      ],
+      "keyPoints": [
+        "(a) Slab of area $dA$, thickness $dr$: pressure force $-dP\\,dA$, gravity $-\\frac{GM_r\\rho}{r^2}dA\\,dr$; set the sum to zero.",
+        "(b) $F=L/4\\pi R^2=-\\frac{c}{\\chi\\rho}\\frac{dP}{dr}$ and $\\frac{dP}{dr}|_R=-\\frac{GM\\rho}{R^2}$, so $\\frac{\\chi\\rho}{c}\\frac{L}{4\\pi R^2}=\\frac{GM\\rho}{R^2}\\Rightarrow L=\\frac{4\\pi cGM}{\\chi}$. Density and radius cancel.",
+        "(c) Eddington luminosity (limit): above it radiation pressure expels the envelope."
+      ],
+      "xp": 120
+    },
+    {
+      "type": "boss",
+      "id": "astro-forge-b2",
+      "title": "Boss: the constant-density star (exam problem)",
+      "xp": 120,
+      "minutes": 25,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+        "where": "HS24 winter: Open Question 1 [constant-density star, 12 pt]"
+      },
+      "instructions": "Solve on paper under the timer, then enter the final numbers. Derivations are graded by you against the key points.",
+      "statement": [
+        "Consider a hypothetical star of radius $R$ with density $\\rho$ that is constant, independent of the radial distance $r$ from the centre. The star is composed of a classical, non-relativistic, ideal gas of fully ionised hydrogen.",
+        "(a) [4 pt] Using the hydrostatic equilibrium equation with the boundary condition $P(R)=0$, show that the pressure profile is $P(r)=\\frac{2\\pi}{3}G\\rho^2(R^2-r^2)$. Hint: integrate from $r$ to $R$.",
+        "(b) [4 pt] Using the equation of state, find the temperature profile $T(r)$.",
+        "(c) [4 pt] Assume that the nuclear energy production rate depends on temperature as $\\epsilon\\propto T^4$. At what radius does $\\epsilon$ decrease to 0.1 of its central value?"
+      ],
+      "finalAnswers": [
+        {
+          "id": "r",
+          "prompt": "(c): $r/R$ where $\\epsilon=0.1\\epsilon_c$.",
+          "answer": "(1-0.1**0.25)**0.5",
+          "vars": {},
+          "tol": 0.02
+        },
+        {
+          "id": "Pc",
+          "prompt": "(a) with numbers: central pressure for $R=R_\\odot$, $\\rho=1410$ kg m$^{-3}$, in units of $10^{14}$ Pa.",
+          "answer": "2*pi/3*G*rho**2*R**2/1e14",
+          "vars": {
+            "G": 6.6743e-11,
+            "rho": 1410,
+            "R": 695700000
+          },
+          "tol": 0.03
+        }
+      ],
+      "keyPoints": [
+        "(a) $M_r=\\frac43\\pi r^3\\rho$; $\\int_{P(r)}^{P(R)}dP=-\\frac{4\\pi}{3}G\\rho^2\\int_r^Rr'dr'$; $P(R)=0$ gives $P=\\frac{2\\pi}{3}G\\rho^2(R^2-r^2)$.",
+        "(b) $P=\\frac{2\\rho}{m_H}k_BT$ (two particles per $m_H$), so $T=\\frac{\\pi}{3}\\frac{m_HG\\rho}{k_B}(R^2-r^2)$.",
+        "(c) $\\epsilon/\\epsilon_c=(1-r^2/R^2)^4=\\alpha\\Rightarrow r/R=(1-\\alpha^{1/4})^{1/2}=0.66$ for $\\alpha=0.1$."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1511 @@
+{
+ "region": "QM Interference Labs",
+ "course": "quantum-mechanics",
+ "exhibit": "set",
+ "id": "qm-angular-momentum-spin",
+ "title": "The Angular Momentum Spiral",
+ "topics": [
+  "so(3)/su(2) algebra [L_i,L_j]=i hbar eps L_k",
+  "ladder operators and the spectrum j(j+1)",
+  "spin 1/2, Pauli matrices, finite rotations",
+  "spin 1: measurement and uncertainties",
+  "vector operators and rotational symmetry [H,L]=0"
+ ],
+ "sources": [
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 7 (pp. 66-81): Drehimpuls, so(3), su(2), Spin"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 8.pdf",
+   "where": "Q1 angular momentum and uncertainty, Q2 so(4)"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 9.pdf",
+   "where": "Q3 SU(2) and SO(3)"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 10.pdf",
+   "where": "Q2 projective representations"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+   "where": "Q2 spin-1/2 state with given <sigma>"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+   "where": "Q2 vector and tensor operators"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+   "where": "Question 1 (20 pt) and Question 3 (19 pt)"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+   "where": "Question 2 (15 pt)"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+   "where": "Question 3 (j=1 part)"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+   "where": "Question 3(b)"
+  },
+  {
+   "file": "notes/quantum-mechanics/ch07-angular-momentum.md",
+   "where": "transcription and worked solutions"
+  }
+ ],
+ "intro": "Rotations are the first symmetry the course takes seriously. Everything in this room follows from one line, $[L_i,L_j]=i\\hbar\\varepsilon_{ijk}L_k$: it fixes the spectrum $j(j+1)$, the ladder matrix elements, the Pauli matrices, the uncertainty relations and, through $[H,\\vec L]=0$, the degeneracy of every central-force problem. Three recent exam problems (FS26 Q1, FS22 Q2, FS26 Q3) are exactly these moves.",
+ "tutorial": [
+  {
+   "title": "The cones",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>For $\\ell=2$ the vector $\\vec L$ has length $\\hbar\\sqrt{\\ell(\\ell+1)}=\\hbar\\sqrt6$ and $L_z\\in\\{-2,-1,0,1,2\\}\\hbar$. Each glowing arrow sits on a cone of fixed $L_z$ and precesses: $L_x,L_y$ are completely undetermined, only $L_z$ and $\\vec L^2$ are sharp.</p>"
+  },
+  {
+   "title": "The ring of rungs",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The horizontal rungs are the five values of $L_z$. The ladder operators $L_\\pm$ move the state one rung up or down; the top rung $m=\\ell$ is the only one where $\\Delta L_x\\Delta L_y$ saturates the Heisenberg bound.</p>"
+  },
+  {
+   "title": "Consoles",
+   "look": {
+    "x": 0,
+    "z": 0
+   },
+   "focus": null,
+   "html": "<p>Library: algebra, spin-1/2, spin-1 measurements, vector operators. Quiz: exam-style multiple choice. Derivation desk: proofs from the sheets and exams. Fights: step-by-step calculations. Boss gate: FS26 Q1, FS22 Q2, FS26 Q3.</p>"
+  }
+ ],
+ "encounters": [
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-am-L1",
+   "title": "The su(2) algebra, ladder operators and the spectrum j(j+1)",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 7.1-7.4, eqs. (7.24)-(7.51)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 1 (i)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+     "where": "Question 2 (i)-(ii)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch07-angular-momentum.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "With $L_j=\\varepsilon_{jkl}x_kp_l$ and $[x_k,p_l]=i\\hbar\\delta_{kl}$ one finds $[L_1,L_2]=[x_2p_3-x_3p_2,\\,x_3p_1-x_1p_3]=i\\hbar(x_1p_2-x_2p_1)=i\\hbar L_3$, and cyclicity of the indices gives the rest. The script uses dimensionless generators $M_i=L_i/\\hbar$ ($[M_1,M_2]=iM_3$); exams use $L_i$ with $\\hbar$."
+    },
+    {
+     "kind": "eq",
+     "tex": "[L_j,L_k]=i\\hbar\\,\\varepsilon_{jkl}L_l,\\qquad [L_3,\\vec L^{\\,2}]=0,\\qquad \\vec L^{\\,2}=L_1^2+L_2^2+L_3^2",
+     "label": "script (7.25); FS26 Q1(i); FS22 Q2(i)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Ladder operators.</b> $L_\\pm=L_1\\pm iL_2$ satisfy"
+    },
+    {
+     "kind": "eq",
+     "tex": "[L_3,L_\\pm]=\\pm\\hbar L_\\pm,\\qquad [L_+,L_-]=2\\hbar L_3,\\qquad \\vec L^{\\,2}=L_-L_++L_3^2+\\hbar L_3",
+     "label": "FS22 Q2(ii)"
+    },
+    {
+     "kind": "text",
+     "html": "If $L_3|m\\rangle=\\hbar m|m\\rangle$, then $L_\\pm|m\\rangle$ has eigenvalue $\\hbar(m\\pm1)$: the operators climb the ladder. A <em>finite</em> representation needs a top state $L_+|j,j\\rangle=0$. Then $\\vec L^2=\\hbar^2j(j+1)$ on the whole multiplet, and the norms $\\|L_\\pm|j,m\\rangle\\|^2=\\langle L_\\mp L_\\pm\\rangle=\\hbar^2[j(j+1)-m(m\\pm1)]$ must be non-negative, so the chain must also end at the bottom, $m=-j$. Going from $j$ down to $-j$ takes an integer number $2j$ of steps:"
+    },
+    {
+     "kind": "eq",
+     "tex": "j\\in\\{0,\\tfrac12,1,\\tfrac32,\\dots\\},\\quad m\\in\\{-j,\\dots,j\\},\\quad L_\\pm|j,m\\rangle=\\hbar\\sqrt{j(j+1)-m(m\\pm1)}\\;|j,m\\pm1\\rangle",
+     "label": "script (7.37)-(7.51); the exam hint prints exactly this"
+    },
+    {
+     "kind": "text",
+     "html": "For $j=1$ in the basis $|1,1\\rangle,|1,0\\rangle,|1,-1\\rangle$: $L_3=\\hbar\\,\\mathrm{diag}(1,0,-1)$, $L_1=\\frac{L_++L_-}2=\\frac{\\hbar}{\\sqrt2}\\begin{pmatrix}0&1&0\\\\1&0&1\\\\0&1&0\\end{pmatrix}$, $L_2=\\frac{L_+-L_-}{2i}=\\frac{\\hbar}{\\sqrt2}\\begin{pmatrix}0&-i&0\\\\i&0&-i\\\\0&i&0\\end{pmatrix}$."
+    },
+    {
+     "kind": "intuition",
+     "html": "Orbital angular momentum only realises integer $j=\\ell$ (single-valued wave functions $Y_{\\ell m}$). Half-integer $j$ are genuine representations of the covering group $SU(2)$: that is spin."
+    },
+    {
+     "kind": "pitfall",
+     "html": "$\\vec L^{\\,2}=\\hbar^2j(j+1)$, not $\\hbar^2j^2$: the vector never points exactly along $z$ because $L_x,L_y$ cannot vanish simultaneously with $L_z$. Also $L_\\pm$ are not Hermitian, so $L_\\pm|m\\rangle$ is not normalised without the square root."
+    },
+    {
+     "kind": "exam",
+     "html": "FS26 Q1(i) (5 pt) and FS22 Q2(i)-(ii) (4 pt): derive $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$ via $[L_1,L_2]$ and cyclicity, and compute $[L_3,L_\\pm]$, $[L_+,L_-]$."
+    }
+   ],
+   "check": [
+    {
+     "q": "$L_+|1,-1\\rangle=$",
+     "options": [
+      "$\\hbar\\,|1,0\\rangle$",
+      "$\\hbar\\sqrt2\\,|1,0\\rangle$",
+      "$2\\hbar\\,|1,0\\rangle$",
+      "$0$"
+     ],
+     "correct": 1,
+     "explain": "$\\hbar\\sqrt{j(j+1)-m(m+1)}$ with $j=1$, $m=-1$."
+    },
+    {
+     "q": "$[L_+,L_-]=$",
+     "options": [
+      "$-2\\hbar L_3$",
+      "$\\hbar L_3$",
+      "$2\\hbar L_3$",
+      "$0$"
+     ],
+     "correct": 2,
+     "explain": "$-i[L_1,L_2]+i[L_2,L_1]=-2i\\cdot i\\hbar L_3$."
+    },
+    {
+     "q": "A representation of dimension $4$ has $j=$",
+     "options": [
+      "$2$",
+      "$1$",
+      "$4$",
+      "$\\tfrac32$"
+     ],
+     "correct": 3,
+     "explain": "$2j+1=4$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 14,
+   "xp": 20,
+   "id": "qm-am-L2",
+   "title": "Spin 1/2: Pauli matrices and finite rotations",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 7.5-7.7"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 9.pdf",
+     "where": "Q3"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+     "where": "Q2"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS24.pdf",
+     "where": "Question 3(b)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch07-angular-momentum.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "For $j=\\frac12$ the generators are $S_i=\\frac\\hbar2\\sigma_i$ with the Pauli matrices"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\sigma_1=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\ \\sigma_2=\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix},\\ \\sigma_3=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix},\\quad \\sigma_j\\sigma_k=\\delta_{jk}+i\\varepsilon_{jkl}\\sigma_l",
+     "label": "script Ch. 7.5"
+    },
+    {
+     "kind": "eq",
+     "tex": "(\\vec\\sigma\\cdot\\vec a)(\\vec\\sigma\\cdot\\vec b)=\\vec a\\cdot\\vec b+i\\,\\vec\\sigma\\cdot(\\vec a\\wedge\\vec b),\\qquad (\\vec n\\cdot\\vec\\sigma)^2=1\\ \\text{for}\\ |\\vec n|=1",
+     "label": "follows from the product rule"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Finite rotations.</b> Because $(\\vec n\\cdot\\vec\\sigma)^2=1$ the exponential series splits into even and odd parts, exactly like $e^{i\\omega}$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "U(\\omega\\vec n)=e^{-i\\omega\\,\\vec n\\cdot\\vec\\sigma/2}=\\cos\\tfrac\\omega2-i\\sin\\tfrac\\omega2\\;\\vec n\\cdot\\vec\\sigma",
+     "label": "script (7.60); at omega = 2 pi this is -1"
+    },
+    {
+     "kind": "text",
+     "html": "A rotation by $2\\pi$ gives $U=-1$: a spinor changes sign. $\\tilde x=\\vec x\\cdot\\vec\\sigma\\mapsto U\\tilde xU^\\dagger$ is a rotation of $\\vec x$ ($\\det\\tilde x=-\\vec x^2$ is preserved), and $U$ and $-U$ give the same rotation: $SU(2)\\to SO(3)$ is 2-to-1 with kernel $\\{\\pm1\\}$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>State from a direction.</b> If $\\langle\\vec\\sigma\\rangle=\\vec e$ with polar angles $\\theta,\\varphi$ then $\\chi$ is the $+1$ eigenvector of $\\vec e\\cdot\\vec\\sigma$ (sheet 11 Q2):"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\chi=\\begin{pmatrix}\\cos\\frac\\theta2\\\\ e^{i\\varphi}\\sin\\frac\\theta2\\end{pmatrix},\\quad P(S_z=+\\tfrac\\hbar2)=\\cos^2\\tfrac\\theta2=\\tfrac{1+e_3}2",
+     "label": "sheet 11 Q2"
+    },
+    {
+     "kind": "intuition",
+     "html": "The half angle is the whole story: the spinor rotates at half the speed of the vector, which is why $\\theta=\\pi$ (a flip) sends $\\cos\\frac\\theta2$ to $0$ and why a $2\\pi$ rotation is only $-1$."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Do not write $e^{-i\\omega\\sigma_3}$; with $S=\\frac\\hbar2\\sigma$ the angle is divided by two. Do not conclude that $-1$ is unobservable in general: it is a global phase for one state but a relative phase between a spinor and a spin-0 partner."
+    },
+    {
+     "kind": "exam",
+     "html": "FS24 Q3(b): \"rotate the spin, then measure $z$\" equals \"measure the unrotated spin along the rotated axis\". Sheet 11 Q2 asks for exactly the spinor above."
+    }
+   ],
+   "check": [
+    {
+     "q": "$\\sigma_1\\sigma_2=$",
+     "options": [
+      "$-i\\sigma_3$",
+      "$i\\sigma_3$",
+      "$\\sigma_3$",
+      "$1$"
+     ],
+     "correct": 1,
+     "explain": "Check with matrices: $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix}=\\mathrm{diag}(i,-i)$."
+    },
+    {
+     "q": "$U(2\\pi\\vec n)$ on a spin-1/2 equals",
+     "options": [
+      "$+1$",
+      "$-i\\,\\vec n\\cdot\\vec\\sigma$",
+      "$e^{i\\pi/2}$",
+      "$-1$"
+     ],
+     "correct": 3,
+     "explain": "Half-angle formula at $\\omega=2\\pi$."
+    },
+    {
+     "q": "A spin-1/2 has $\\langle\\vec\\sigma\\rangle=\\vec e_x$. Then $P(S_z=+\\hbar/2)=$",
+     "options": [
+      "$1$",
+      "$0$",
+      "$\\tfrac1{\\sqrt2}$",
+      "$\\tfrac12$"
+     ],
+     "correct": 3,
+     "explain": "$\\cos^2\\frac\\pi4=\\frac12$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-am-L3",
+   "title": "Spin 1: measurement, expectation values and uncertainties",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 1 (ii)-(v)"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+     "where": "Question 2 (iii)-(v)"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 8.pdf",
+     "where": "Q1"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+     "where": "Question 3"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch07-angular-momentum.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "This is the FS26 Q1 recipe. A measurement of an observable with result $\\lambda$ projects onto the eigenspace of $\\lambda$, so the post-measurement state is the eigenvector. For $L_1=\\frac{\\hbar}{\\sqrt2}\\begin{pmatrix}0&1&0\\\\1&0&1\\\\0&1&0\\end{pmatrix}$ the eigenvalue $\\hbar$ gives (solve $\\frac1{\\sqrt2}(b)=a$, $\\frac1{\\sqrt2}(a+c)=b$):"
+    },
+    {
+     "kind": "eq",
+     "tex": "|\\psi\\rangle=\\tfrac12\\big(|1,1\\rangle+\\sqrt2\\,|1,0\\rangle+|1,-1\\rangle\\big),\\quad P(L_3=\\hbar,0,-\\hbar)=\\big(\\tfrac14,\\tfrac12,\\tfrac14\\big),\\quad\\langle L_3\\rangle=0",
+     "label": "FS26 Q1(ii)-(iii)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Trick (iv).</b> For an eigenvector $L_1|\\psi\\rangle=\\hbar|\\psi\\rangle$: $\\langle\\psi|[L_1,O]|\\psi\\rangle=\\hbar\\langle O\\rangle-\\hbar\\langle O\\rangle=0$ for any $O$. With $O=L_3$: $\\hbar\\langle[L_1,L_3]\\rangle=-i\\hbar\\,\\hbar\\langle L_2\\rangle=0$. With $O=L_2L_3+L_3L_2$ one gets $\\langle L_2^2\\rangle=\\langle L_3^2\\rangle$. Since $\\vec L^2=2\\hbar^2$ and $\\langle L_1^2\\rangle=\\hbar^2$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle L_2^2\\rangle=\\langle L_3^2\\rangle=\\tfrac{\\hbar^2}2,\\quad \\Delta L_1=0,\\ \\ \\Delta L_2=\\Delta L_3=\\tfrac\\hbar{\\sqrt2},\\quad \\Delta L_2\\Delta L_3=\\tfrac{\\hbar^2}2=\\tfrac\\hbar2|\\langle L_1\\rangle|",
+     "label": "FS26 Q1(iv)-(v): the bound is saturated"
+    },
+    {
+     "kind": "text",
+     "html": "<b>General $|l,m\\rangle$ (FS22 Q2).</b> $\\langle L_1\\rangle=\\langle L_2\\rangle=0$ because $L_1,L_2$ are combinations of $L_\\pm$ which change $m$. Since $|l,m\\rangle$ is an eigenstate of $L_3$, $\\langle[L_3,A]\\rangle=0$ for all $A$; choosing $A=L_1L_2+L_2L_1$ and using $[L_3,A]=2i\\hbar(L_2^2-L_1^2)$ gives $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$, and with $\\langle\\vec L^2\\rangle=\\hbar^2l(l+1)$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\langle L_1^2\\rangle=\\langle L_2^2\\rangle=\\tfrac{\\hbar^2}2\\big[l(l+1)-m^2\\big],\\quad \\Delta L_1\\Delta L_2=\\tfrac{\\hbar^2}2\\big[l(l+1)-m^2\\big]\\ \\ge\\ \\tfrac\\hbar2|\\langle L_3\\rangle|=\\tfrac{\\hbar^2|m|}2",
+     "label": "FS22 Q2(iv)-(v), (7)"
+    },
+    {
+     "kind": "text",
+     "html": "The inequality holds because $l(l+1)-m^2\\ge l(l+1)-l^2=l\\ge|m|$, with equality only for $|m|=l$ (and $l\\ge1$ to be non-trivial)."
+    },
+    {
+     "kind": "intuition",
+     "html": "In $|l,m\\rangle$ the vector sits on a cone around $z$: $L_z=\\hbar m$ is sharp, $L_x^2+L_y^2=\\hbar^2[l(l+1)-m^2]$ is sharp, but the azimuth is completely unknown. The uncertainty is large because $L_x,L_y$ cannot be sharp when $L_z$ is."
+    },
+    {
+     "kind": "pitfall",
+     "html": "$\\Delta L_2\\Delta L_3\\ge\\frac\\hbar2|\\langle L_1\\rangle|$ is the relevant bound for that pair; the other combinations in FS26 Q1(v) give $0\\ge\\frac\\hbar2|\\langle L_2\\rangle|=0$ and are trivially satisfied because $\\Delta L_1=0$. Do not claim $0\\ge\\hbar^2/2$."
+    },
+    {
+     "kind": "exam",
+     "html": "FS26 Q1 (20 pt) and FS22 Q2 (15 pt) are the same computation twice: expectation values by selection rule, variances by symmetry, bound by one line."
+    }
+   ],
+   "check": [
+    {
+     "q": "For $|1,0\\rangle$: $\\Delta L_1\\Delta L_2=$",
+     "options": [
+      "$\\frac{\\hbar^2}2$",
+      "$0$",
+      "$2\\hbar^2$",
+      "$\\hbar^2$"
+     ],
+     "correct": 3,
+     "explain": "Both $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle=\\hbar^2$."
+    },
+    {
+     "q": "In $|\\psi\\rangle$ (eigenvector of $L_1$ with eigenvalue $\\hbar$), $P(L_3=0)=$",
+     "options": [
+      "$\\tfrac13$",
+      "$\\tfrac14$",
+      "$0$",
+      "$\\tfrac12$"
+     ],
+     "correct": 3,
+     "explain": "$|{\\sqrt2}/2|^2=\\frac12$."
+    },
+    {
+     "q": "The Heisenberg bound $\\Delta L_1\\Delta L_2\\ge\\frac\\hbar2|\\langle L_3\\rangle|$ is saturated in $|l,m\\rangle$ for",
+     "options": [
+      "$|m|=l$ only",
+      "every $m$",
+      "$m=0$ only",
+      "never"
+     ],
+     "correct": 0,
+     "explain": "$l(l+1)-m^2=|m|$ iff $|m|=l$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 14,
+   "xp": 20,
+   "id": "qm-am-L4",
+   "title": "Vector operators and rotational symmetry",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 3 (i)-(iv)"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+     "where": "Q2"
+    },
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 7.1, 7.4"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch07-angular-momentum.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "The generators act on operators by commutation: an operator triple $\\vec J$ is a <b>vector operator</b> iff"
+    },
+    {
+     "kind": "eq",
+     "tex": "[L_i,J_j]=i\\hbar\\,\\varepsilon_{ijk}J_k",
+     "label": "sheet 12 Q2; holds for x, p, L"
+    },
+    {
+     "kind": "text",
+     "html": "This is the adjoint action, the representation $D^1$, so $\\vec J\\cdot\\vec K$ is a scalar ($[L_i,\\vec J\\cdot\\vec K]=0$) and the symmetric traceless products form a $D^2$ (five components); $D^1\\otimes D^1=D^0\\oplus D^1\\oplus D^2$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Rotational symmetry (FS26 Q3).</b> With $H=-\\frac{\\hbar^2}{2m}\\nabla^2+V$ and $L_j=-i\\hbar\\varepsilon_{jkl}x_k\\partial_l$: the kinetic term commutes since $[\\nabla^2,x_k\\partial_l]=2\\partial_k\\partial_l$, which is symmetric and vanishes against $\\varepsilon_{jkl}$. The potential term gives"
+    },
+    {
+     "kind": "eq",
+     "tex": "[H,L_j]\\psi=i\\hbar\\,\\varepsilon_{jkl}\\,x_k\\,(\\partial_lV)\\,\\psi=0\\ \\ \\forall\\psi\\iff \\vec x\\wedge\\nabla V=0\\iff V=V(r)",
+     "label": "FS26 Q3 (i)-(ii)"
+    },
+    {
+     "kind": "text",
+     "html": "Consequences: $H,\\vec L^2,L_3$ commute, so eigenstates can be chosen as $\\psi=R(r)Y_{\\ell m}$ and each level is at least $(2\\ell+1)$-fold degenerate: $L_\\pm$ commute with $H$ and move within the multiplet."
+    },
+    {
+     "kind": "text",
+     "html": "<b>The oscillator triplet.</b> For $V=\\frac12m\\omega^2\\vec x^2$ the functions $\\psi_i=x_ie^{-m\\omega\\vec x^2/2\\hbar}$ are eigenfunctions with $E=\\frac52\\hbar\\omega$, and $L_j\\psi_k=-i\\hbar\\varepsilon_{jak}\\psi_a$ (the Gaussian is rotation invariant, so only $x_k$ is rotated). Hence $L_3\\psi_1=i\\hbar\\psi_2$, $L_3\\psi_2=-i\\hbar\\psi_1$, $L_3\\psi_3=0$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "L_3(\\psi_1\\pm i\\psi_2)=\\pm\\hbar(\\psi_1\\pm i\\psi_2),\\qquad L_3\\psi_3=0\\quad\\Rightarrow\\quad \\ell=1\\ \\text{triplet}",
+     "label": "FS26 Q3(iv)"
+    },
+    {
+     "kind": "intuition",
+     "html": "The Cartesian functions $x_i$ and the spherical $Y_{1m}\\propto x\\pm iy,\\ z$ are two bases of the same three-dimensional $D^1$: that is what \"$\\vec x$ is a vector\" means."
+    },
+    {
+     "kind": "pitfall",
+     "html": "$[H,L_j]=0$ does not mean \"$V$ is spherical\" only: it means $V$ depends on $r$ <em>alone</em>. A potential like $V=V(r)+\\vec c\\cdot\\vec x$ breaks the symmetry; FS22 Q3(iii) conserves only $L\\cdot k$ and $p_z$ in a similar way."
+    },
+    {
+     "kind": "exam",
+     "html": "FS26 Q3 (19 pt): the proof of $[H,L_j]=0\\iff V=V(r)$ (5 pt), the consequences (4 pt), the oscillator eigenfunctions and energy (5 pt), $L_3$ in the span (5 pt)."
+    }
+   ],
+   "check": [
+    {
+     "q": "$[L_3,x_1]=$",
+     "options": [
+      "$-i\\hbar\\,x_2$",
+      "$i\\hbar\\,x_3$",
+      "$i\\hbar\\,x_2$",
+      "$0$"
+     ],
+     "correct": 2,
+     "explain": "Vector operator relation with $\\varepsilon_{312}=1$."
+    },
+    {
+     "q": "For $V=V(r)$ the energy levels are in general",
+     "options": [
+      "$(2\\ell+1)$-fold degenerate",
+      "non-degenerate",
+      "$2\\ell$-fold degenerate",
+      "$\\ell(\\ell+1)$-fold degenerate"
+     ],
+     "correct": 0,
+     "explain": "Rotational symmetry gives irreps of dimension $2\\ell+1$."
+    },
+    {
+     "q": "Which condition makes $[H,L_j]=0$ for all $j$?",
+     "options": [
+      "$\\nabla V=0$",
+      "$\\nabla^2V=0$",
+      "$\\vec x\\wedge\\nabla V=0$, i.e. $V=V(r)$",
+      "$V$ even under $\\vec x\\to-\\vec x$"
+     ],
+     "correct": 2,
+     "explain": "FS26 Q3 (i): the commutator is $i\\hbar\\varepsilon_{jkl}x_k\\partial_lV$."
+    }
+   ]
+  },
+  {
+   "type": "quiz",
+   "xp": 30,
+   "passMark": 0.75,
+   "id": "qm-am-Q1",
+   "title": "Angular momentum and spin: exam-style multiple choice",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 7"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 1, Question 3"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+     "where": "Question 2"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+     "where": "Q2"
+    }
+   ],
+   "questions": [
+    {
+     "q": "$[L_3,L_\\pm]=$",
+     "options": [
+      "$\\pm L_\\pm$",
+      "$\\pm\\hbar L_\\pm$",
+      "$\\pm\\hbar L_3$",
+      "$0$"
+     ],
+     "correct": 1,
+     "explain": "$[L_3,L_1\\pm iL_2]=i\\hbar L_2\\pm i(-i\\hbar L_1)=\\pm\\hbar(L_1\\pm iL_2)$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+      "where": "Q2(ii)"
+     }
+    },
+    {
+     "q": "$j=\\frac32$ has how many states and which $m$?",
+     "options": [
+      "$4$: $m=\\pm\\frac32,\\pm\\frac12$",
+      "$3$: $m=\\pm\\frac32,0$",
+      "$5$: $m=0,\\pm1,\\pm2$",
+      "$4$: $m=\\pm1,\\pm2$"
+     ],
+     "correct": 0,
+     "explain": "$2j+1=4$ states."
+    },
+    {
+     "q": "$L_+|1,-1\\rangle=$",
+     "options": [
+      "$\\hbar|1,0\\rangle$",
+      "$\\hbar\\sqrt2\\,|1,-2\\rangle$",
+      "$0$",
+      "$\\hbar\\sqrt2\\,|1,0\\rangle$"
+     ],
+     "correct": 3,
+     "explain": "Formula in the exam statement.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+      "where": "Q1"
+     }
+    },
+    {
+     "q": "$\\sigma_1\\sigma_2=$",
+     "options": [
+      "$-i\\sigma_3$",
+      "$i\\sigma_3$",
+      "$\\sigma_3$",
+      "$0$"
+     ],
+     "correct": 1,
+     "explain": "$\\sigma_j\\sigma_k=\\delta_{jk}+i\\varepsilon_{jkl}\\sigma_l$.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "Ch. 7.5"
+     }
+    },
+    {
+     "q": "Rotating a spin-1/2 by $2\\pi$ about any axis gives",
+     "options": [
+      "$+1$, the identity",
+      "$-1$, a sign change of the spinor",
+      "a rotation by $\\pi$",
+      "$i$"
+     ],
+     "correct": 1,
+     "explain": "$e^{-2\\pi iM_3}|j,m\\rangle=(-1)^{2j}|j,m\\rangle$; $SU(2)\\to SO(3)$ is 2-to-1.",
+     "source": {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "Ch. 7.6"
+     }
+    },
+    {
+     "q": "In $|l,m\\rangle$: $\\langle L_1^2\\rangle=$",
+     "options": [
+      "$\\hbar^2[l(l+1)-m^2]$",
+      "$\\frac{\\hbar^2}2[l(l+1)-m^2]$",
+      "$\\frac{\\hbar^2}2l(l+1)$",
+      "$0$"
+     ],
+     "correct": 1,
+     "explain": "$\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$ and $\\langle L_1^2+L_2^2\\rangle=\\hbar^2[l(l+1)-m^2]$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+      "where": "Q2(iv)"
+     }
+    },
+    {
+     "q": "A spin-1/2 has $\\langle\\vec\\sigma\\rangle=\\vec e$ at polar angle $\\theta$. Then $P(S_z=+\\hbar/2)=$",
+     "options": [
+      "$\\cos^2\\frac\\theta2$",
+      "$\\cos^2\\theta$",
+      "$\\cos\\frac\\theta2$",
+      "$\\sin^2\\frac\\theta2$"
+     ],
+     "correct": 0,
+     "explain": "Equivalent to $\\frac{1+e_3}2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+      "where": "Q2"
+     }
+    },
+    {
+     "q": "Which condition gives $[H,L_j]=0$ for $H=-\\frac{\\hbar^2}{2m}\\nabla^2+V(\\vec x)$?",
+     "options": [
+      "$V=V(r)$",
+      "$V$ even in $\\vec x$",
+      "$V=V(x_1,x_2)$ only",
+      "$\\nabla^2V=0$"
+     ],
+     "correct": 0,
+     "explain": "$[H,L_j]\\psi=i\\hbar\\varepsilon_{jkl}x_k(\\partial_lV)\\psi$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+      "where": "Q3(i)-(ii)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-am-D1",
+   "title": "$[L_i,L_j]=i\\hbar\\varepsilon_{ijk}L_k$ and $[L_3,\\vec L^2]=0$",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+    "where": "Question 1 (i), 5 pt; also FS22 Q2(i) and sheet 8 Q1(i)"
+   },
+   "goal": "Show $[L_1,L_2]=i\\hbar L_3$ for $L_j=\\varepsilon_{jkl}x_kp_l$, extend to all indices and prove $[L_3,\\vec L^{\\,2}]=0$.",
+   "given": [
+    "$[x_k,p_l]=i\\hbar\\delta_{kl}$, $[x_k,x_l]=[p_k,p_l]=0$",
+    "$L_1=x_2p_3-x_3p_2$, $L_2=x_3p_1-x_1p_3$, $L_3=x_1p_2-x_2p_1$"
+   ],
+   "steps": [
+    {
+     "prompt": "Expand $[L_1,L_2]$ into four commutators and say which are non-zero.",
+     "reveal": "$[x_2p_3-x_3p_2,\\ x_3p_1-x_1p_3]=[x_2p_3,x_3p_1]-[x_2p_3,x_1p_3]-[x_3p_2,x_3p_1]+[x_3p_2,x_1p_3]$. Terms 2 and 3 vanish: $x_2p_3$ and $x_1p_3$ have no conjugate pair."
+    },
+    {
+     "prompt": "Evaluate the two surviving terms with $[AB,C]=A[B,C]+[A,C]B$.",
+     "reveal": "$[x_2p_3,x_3p_1]=x_2[p_3,x_3]p_1=-i\\hbar x_2p_1$ and $[x_3p_2,x_1p_3]=p_2[x_3,p_3]x_1=i\\hbar x_1p_2$ (everything else commutes)."
+    },
+    {
+     "prompt": "Add and recognise $L_3$; then argue for the other pairs.",
+     "reveal": "$[L_1,L_2]=i\\hbar(x_1p_2-x_2p_1)=i\\hbar L_3$. The definition $L_j=\\varepsilon_{jkl}x_kp_l$ is invariant under cyclic permutations $1\\to2\\to3\\to1$, so $[L_2,L_3]=i\\hbar L_1$, $[L_3,L_1]=i\\hbar L_2$; antisymmetry gives the rest: $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$."
+    },
+    {
+     "prompt": "Show $[L_3,L_1^2+L_2^2]=0$.",
+     "reveal": "$[L_3,L_1^2]=[L_3,L_1]L_1+L_1[L_3,L_1]=i\\hbar(L_2L_1+L_1L_2)$ and $[L_3,L_2^2]=[L_3,L_2]L_2+L_2[L_3,L_2]=-i\\hbar(L_1L_2+L_2L_1)$. The sum is $0$, and $[L_3,L_3^2]=0$, so $[L_3,\\vec L^2]=0$; by cyclicity all $L_j$ commute with $\\vec L^2$."
+    }
+   ],
+   "keyPoints": [
+    "only conjugate pairs $x_3,p_3$ contribute to $[L_1,L_2]$",
+    "$[L_1,L_2]=i\\hbar(x_1p_2-x_2p_1)=i\\hbar L_3$",
+    "cyclic permutation of indices gives all other commutators",
+    "$[L_3,L_1^2+L_2^2]=0$ because the two terms cancel, hence $\\vec L^2$ is a Casimir"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-am-D2",
+   "title": "Ladder spectrum: $\\vec L^2=\\hbar^2j(j+1)$ and $L_\\pm|j,m\\rangle$",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "Ch. 7.4, eqs. (7.37)-(7.51); FS22 Q2(ii)-(iii) and FS26 Q1 hint"
+   },
+   "goal": "From $[L_3,L_\\pm]=\\pm\\hbar L_\\pm$ and $[L_+,L_-]=2\\hbar L_3$ derive $\\vec L^2=\\hbar^2j(j+1)$, $j\\in\\frac12\\mathbb N_0$, and $L_\\pm|j,m\\rangle=\\hbar\\sqrt{j(j+1)-m(m\\pm1)}|j,m\\pm1\\rangle$.",
+   "given": [
+    "$L_\\pm=L_1\\pm iL_2$, $L_\\pm^\\dagger=L_\\mp$, $L_3|j,m\\rangle=\\hbar m|j,m\\rangle$",
+    "finite-dimensional unitary representation"
+   ],
+   "steps": [
+    {
+     "prompt": "Express $\\vec L^2$ through $L_\\pm$ and $L_3$.",
+     "reveal": "$L_-L_+=L_1^2+L_2^2+i[L_1,L_2]=\\vec L^2-L_3^2-\\hbar L_3$, so $\\vec L^2=L_-L_++L_3^2+\\hbar L_3=L_+L_-+L_3^2-\\hbar L_3$."
+    },
+    {
+     "prompt": "Show that $L_\\pm$ shift $m$ by $\\pm1$ and commute with $\\vec L^2$.",
+     "reveal": "$L_3L_\\pm|m\\rangle=(L_\\pm L_3\\pm\\hbar L_\\pm)|m\\rangle=\\hbar(m\\pm1)L_\\pm|m\\rangle$. $[\\vec L^2,L_\\pm]=0$ because $\\vec L^2$ commutes with every $L_j$ (previous derivation)."
+    },
+    {
+     "prompt": "The top state obeys $L_+|j,j\\rangle=0$. Find the eigenvalue of $\\vec L^2$.",
+     "reveal": "$\\vec L^2|j,j\\rangle=(L_-L_++L_3^2+\\hbar L_3)|j,j\\rangle=\\hbar^2(j^2+j)|j,j\\rangle$; since $\\vec L^2$ is the same on the whole multiplet, $\\vec L^2=\\hbar^2j(j+1)$."
+    },
+    {
+     "prompt": "Compute the norm of $L_\\pm|j,m\\rangle$, giving the matrix elements.",
+     "reveal": "$\\|L_+|m\\rangle\\|^2=\\langle L_-L_+\\rangle=\\hbar^2[j(j+1)-m^2-m]=\\hbar^2[j(j+1)-m(m+1)]$, similarly $\\|L_-|m\\rangle\\|^2=\\hbar^2[j(j+1)-m(m-1)]$; fixing the phase to be real gives the formula."
+    },
+    {
+     "prompt": "Why is $2j$ an integer?",
+     "reveal": "Lowering from $m=j$ must stop: $L_-|j,-j'\\rangle=0$ needs $j(j+1)=(-j')(-j'-1)=j'(j'+1)$, so $j'=j$. The chain $j,j-1,\\dots,-j$ has $2j$ steps, hence $2j\\in\\mathbb N_0$ and $\\dim=2j+1$."
+    }
+   ],
+   "keyPoints": [
+    "$\\vec L^2=L_-L_++L_3^2+\\hbar L_3$",
+    "$L_\\pm$ shift $m$ by $\\pm1$ and preserve $\\vec L^2$",
+    "highest weight $L_+|j,j\\rangle=0$ gives $\\hbar^2j(j+1)$",
+    "positive norms give the $\\sqrt{j(j+1)-m(m\\pm1)}$ and force the chain to end at $-j$, so $2j\\in\\mathbb N_0$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-am-D3",
+   "title": "Spin-1/2 rotation formula $e^{-i\\omega\\vec n\\cdot\\vec\\sigma/2}$ and the $2\\pi$ sign",
+   "source": {
+    "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+    "where": "Ch. 7.5-7.6, eq. (7.60); sheet 9 Q3; sheet 11 Q2"
+   },
+   "goal": "Show $\\sigma_j\\sigma_k=\\delta_{jk}+i\\varepsilon_{jkl}\\sigma_l$, derive $U(\\omega\\vec n)=\\cos\\frac\\omega2-i\\sin\\frac\\omega2\\,\\vec n\\cdot\\vec\\sigma$ and the kernel $\\{\\pm1\\}$ of $SU(2)\\to SO(3)$.",
+   "given": [
+    "$\\sigma_1,\\sigma_2,\\sigma_3$ explicit Pauli matrices",
+    "$S_j=\\frac\\hbar2\\sigma_j$ satisfy $[S_j,S_k]=i\\hbar\\varepsilon_{jkl}S_l$"
+   ],
+   "steps": [
+    {
+     "prompt": "Multiply $\\sigma_1\\sigma_2$ and $\\sigma_2\\sigma_1$ and generalise.",
+     "reveal": "$\\sigma_1\\sigma_2=i\\sigma_3=-\\sigma_2\\sigma_1$; with $\\sigma_j^2=1$: $\\sigma_j\\sigma_k=\\delta_{jk}+i\\varepsilon_{jkl}\\sigma_l$. Hence $(\\vec\\sigma\\cdot\\vec a)(\\vec\\sigma\\cdot\\vec b)=\\vec a\\cdot\\vec b+i\\vec\\sigma\\cdot(\\vec a\\wedge\\vec b)$."
+    },
+    {
+     "prompt": "Compute $(\\vec n\\cdot\\vec\\sigma)^2$ for a unit vector.",
+     "reveal": "$\\vec n\\cdot\\vec n+i\\vec\\sigma\\cdot(\\vec n\\wedge\\vec n)=1$."
+    },
+    {
+     "prompt": "Sum the exponential series of $e^{-i(\\omega/2)\\vec n\\cdot\\vec\\sigma}$.",
+     "reveal": "Even powers give $(\\vec n\\cdot\\vec\\sigma)^{2k}=1$: $\\sum\\frac{(-1)^k(\\omega/2)^{2k}}{(2k)!}=\\cos\\frac\\omega2$. Odd powers give $\\vec n\\cdot\\vec\\sigma$ times $-i\\sum\\frac{(-1)^k(\\omega/2)^{2k+1}}{(2k+1)!}=-i\\sin\\frac\\omega2$. So $U=\\cos\\frac\\omega2-i\\sin\\frac\\omega2\\,\\vec n\\cdot\\vec\\sigma$."
+    },
+    {
+     "prompt": "Set $\\omega=2\\pi$ and conclude about $SU(2)\\to SO(3)$.",
+     "reveal": "$U(2\\pi\\vec n)=-1$ for every axis. The rotation $\\tilde x\\mapsto U\\tilde xU^\\dagger$ is unchanged by $U\\to-U$, so $\\pm U$ give the same $R\\in SO(3)$: the map is 2-to-1 with kernel $\\{\\pm1\\}$ and $SU(2)/\\{\\pm1\\}\\cong SO(3)$."
+    }
+   ],
+   "keyPoints": [
+    "$\\sigma_j\\sigma_k=\\delta_{jk}+i\\varepsilon_{jkl}\\sigma_l$",
+    "$(\\vec n\\cdot\\vec\\sigma)^2=1$ splits the series",
+    "$U=\\cos\\frac\\omega2-i\\sin\\frac\\omega2\\,\\vec n\\cdot\\vec\\sigma$, half-angles",
+    "$U(2\\pi)=-1$ and kernel $\\{\\pm1\\}$: 2-to-1 cover"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-am-D4",
+   "title": "$\\Delta L_1\\Delta L_2=\\frac{\\hbar^2}2[l(l+1)-m^2]$ and the Heisenberg bound",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+    "where": "Question 2 (iii)-(v), 11 pt; sheet 8 Q1(ii)"
+   },
+   "goal": "In $|l,m\\rangle$ show $\\langle L_1\\rangle=\\langle L_2\\rangle=0$, $\\Delta L_1\\Delta L_2=\\frac{\\hbar^2}2[l(l+1)-m^2]$, and that this respects $\\Delta L_1\\Delta L_2\\ge\\frac\\hbar2|\\langle L_3\\rangle|$.",
+   "given": [
+    "$L_3|l,m\\rangle=\\hbar m|l,m\\rangle$, $L_\\pm|l,m\\rangle=\\hbar\\sqrt{l(l+1)-m(m\\pm1)}|l,m\\pm1\\rangle$",
+    "$\\vec L^2=\\hbar^2l(l+1)$, $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$"
+   ],
+   "steps": [
+    {
+     "prompt": "Show $\\langle L_1\\rangle=\\langle L_2\\rangle=0$.",
+     "reveal": "$L_1=\\frac12(L_++L_-)$ and $L_2=\\frac1{2i}(L_+-L_-)$ map $|l,m\\rangle$ to $|l,m\\pm1\\rangle\\perp|l,m\\rangle$, so both expectation values vanish."
+    },
+    {
+     "prompt": "Use $\\langle[L_3,A]\\rangle=0$ with $A=L_1L_2+L_2L_1$.",
+     "reveal": "$[L_3,L_1L_2+L_2L_1]=i\\hbar(L_2L_2-L_1L_1)+i\\hbar(L_2L_2-L_1L_1)=2i\\hbar(L_2^2-L_1^2)$ and $\\langle[L_3,A]\\rangle=\\hbar m\\langle A\\rangle-\\hbar m\\langle A\\rangle=0$, hence $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$."
+    },
+    {
+     "prompt": "Compute the common value.",
+     "reveal": "$\\langle L_1^2+L_2^2\\rangle=\\hbar^2[l(l+1)-m^2]$, so $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle=\\frac{\\hbar^2}2[l(l+1)-m^2]$. With vanishing means, $\\Delta L_1=\\Delta L_2=\\hbar\\sqrt{\\tfrac12[l(l+1)-m^2]}$ and $\\Delta L_1\\Delta L_2=\\frac{\\hbar^2}2[l(l+1)-m^2]$."
+    },
+    {
+     "prompt": "State the uncertainty relation and compare.",
+     "reveal": "$\\Delta A\\Delta B\\ge\\frac12|\\langle[A,B]\\rangle|$ gives $\\Delta L_1\\Delta L_2\\ge\\frac12|\\langle i\\hbar L_3\\rangle|=\\frac{\\hbar^2|m|}2$. Since $l(l+1)-m^2\\ge l(l+1)-l^2=l\\ge|m|$, (7) is compatible, with equality iff $|m|=l$."
+    }
+   ],
+   "keyPoints": [
+    "$\\langle L_{1,2}\\rangle=0$ since $L_\\pm$ change $m$",
+    "$\\langle[L_3,L_1L_2+L_2L_1]\\rangle=0\\Rightarrow\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$",
+    "sum rule $\\langle L_1^2+L_2^2\\rangle=\\hbar^2[l(l+1)-m^2]$",
+    "bound $\\frac{\\hbar^2|m|}2$ saturated for $|m|=l$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-am-D5",
+   "title": "Spinor from $\\langle\\vec\\sigma\\rangle=\\vec e$ (sheet 11 Q2)",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+    "where": "Question 2; solution in notes/quantum-mechanics/ch07-angular-momentum.md section 2"
+   },
+   "goal": "Show that a spin-1/2 state with $\\langle\\vec\\sigma\\rangle=\\vec e=(\\sin\\theta\\cos\\varphi,\\sin\\theta\\sin\\varphi,\\cos\\theta)$ is $\\chi=(\\cos\\frac\\theta2,e^{i\\varphi}\\sin\\frac\\theta2)^T$ and compute $P(S_z=+\\hbar/2)$.",
+   "given": [
+    "$\\vec e\\cdot\\vec\\sigma=\\begin{pmatrix}\\cos\\theta&\\sin\\theta e^{-i\\varphi}\\\\ \\sin\\theta e^{i\\varphi}&-\\cos\\theta\\end{pmatrix}$",
+    "$|\\vec e|=1$ and $\\chi$ normalised"
+   ],
+   "steps": [
+    {
+     "prompt": "Argue that $\\langle\\vec\\sigma\\rangle=\\vec e$ with $|\\vec e|=1$ means $\\chi$ is an eigenvector of $\\vec e\\cdot\\vec\\sigma$.",
+     "reveal": "$\\langle\\vec e\\cdot\\vec\\sigma\\rangle=|\\vec e|^2=1$ and the eigenvalues of $\\vec e\\cdot\\vec\\sigma$ are $\\pm1$ (it squares to $1$), so $\\chi$ must lie in the $+1$ eigenspace."
+    },
+    {
+     "prompt": "Solve $(\\vec e\\cdot\\vec\\sigma)\\chi=\\chi$ with $\\chi=(a,b)^T$.",
+     "reveal": "First row: $a\\cos\\theta+b\\sin\\theta e^{-i\\varphi}=a\\Rightarrow b=a\\,e^{i\\varphi}\\frac{1-\\cos\\theta}{\\sin\\theta}=a\\,e^{i\\varphi}\\tan\\frac\\theta2$."
+    },
+    {
+     "prompt": "Normalise and read off the probability.",
+     "reveal": "$|a|^2(1+\\tan^2\\frac\\theta2)=1\\Rightarrow a=\\cos\\frac\\theta2$, $b=e^{i\\varphi}\\sin\\frac\\theta2$ (global phase free). $P(S_z=+\\hbar/2)=|a|^2=\\cos^2\\frac\\theta2=\\frac{1+e_3}2$."
+    }
+   ],
+   "keyPoints": [
+    "unit $\\langle\\vec\\sigma\\rangle$ forces an eigenvector of $\\vec e\\cdot\\vec\\sigma$ with eigenvalue $+1$",
+    "$b/a=e^{i\\varphi}\\tan\\frac\\theta2$",
+    "half-angle spinor and $P=\\cos^2\\frac\\theta2=(1+e_3)/2$"
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 50,
+   "id": "qm-am-c1",
+   "title": "Spin-1/2 prepared along $\\vec n$, measured along $z$ (sheet 11 Q2, FS24 Q3(b))",
+   "problem": "A spin-1/2 is in the state with $\\langle\\vec\\sigma\\rangle=\\vec n=(\\sin\\theta,0,\\cos\\theta)$. $S_z$ is measured. Find $P(S_z=+\\hbar/2)$, $\\langle S_z\\rangle$ and $\\Delta S_z$. Source: sheet 11 Q2; FS24 Q3(b).",
+   "symbols": [
+    [
+     "$\\theta$",
+     "polar angle of $\\vec n$ from the $z$ axis"
+    ],
+    [
+     "$\\chi$",
+     "spinor $(\\cos\\frac\\theta2,\\sin\\frac\\theta2)^T$"
+    ],
+    [
+     "$S_z$",
+     "$\\frac\\hbar2\\sigma_3$, eigenvalues $\\pm\\hbar/2$"
+    ],
+    [
+     "$\\hbar$",
+     "reduced Planck constant"
+    ]
+   ],
+   "vars": {
+    "hbar": 1,
+    "theta": 1.0471975511965976
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>The state is the $+1$ eigenvector of $\\vec n\\cdot\\vec\\sigma$; its components in the $S_z$ basis give the probabilities; $\\langle S_z\\rangle=\\frac\\hbar2(P_+-P_-)$ and $\\Delta S_z^2=\\frac{\\hbar^2}4-\\langle S_z\\rangle^2$ because $S_z^2=\\hbar^2/4$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which spinor describes $\\langle\\vec\\sigma\\rangle=\\vec n$?",
+     "options": [
+      "$\\chi=(\\cos\\theta,\\ \\sin\\theta)^T$",
+      "$\\chi=(\\cos\\frac\\theta2,\\ \\sin\\frac\\theta2)^T$, the $+1$ eigenvector of $\\vec n\\cdot\\vec\\sigma$",
+      "$\\chi=(\\sin\\frac\\theta2,\\ \\cos\\frac\\theta2)^T$",
+      "$\\chi=(1,0)^T$ rotated by $\\theta$ about $z$"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "Spinors carry half angles; $(\\cos\\theta,\\sin\\theta)$ would give $\\langle\\sigma_3\\rangle=\\cos2\\theta$.",
+      "2": "This has $\\langle\\sigma_3\\rangle=-\\cos\\theta$: spin along $-\\vec n$ reflected.",
+      "3": "Rotation about $z$ only changes the phase of the spinor; $\\vec n$ has to come from a rotation about $y$."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type $P(S_z=+\\hbar/2)$ (symbol <code>theta</code>).",
+     "answer": "(1+cos(theta))/2",
+     "symbols": {
+      "theta": [
+       0.2,
+       2.8
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "action",
+      "energy",
+      "momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "P_+=\\cos^2\\tfrac\\theta2=\\tfrac{1+\\cos\\theta}2",
+     "hint": "$P_+=|\\chi_1|^2=\\cos^2\\frac\\theta2$; use $\\cos^2\\frac\\theta2=\\frac{1+\\cos\\theta}2$.",
+     "wrong": [
+      "cos(theta)**2",
+      "sin(theta/2)**2"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle S_z\\rangle$ (symbols <code>hbar</code>, <code>theta</code>).",
+     "answer": "(hbar/2)*cos(theta)",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "theta": [
+       0.2,
+       2.8
+      ]
+     },
+     "units": [
+      "action",
+      "dimensionless",
+      "energy",
+      "momentum"
+     ],
+     "unit": "action",
+     "latex": "\\langle S_z\\rangle=\\tfrac\\hbar2\\cos\\theta",
+     "hint": "$\\langle S_z\\rangle=\\frac\\hbar2(P_+-P_-)=\\frac\\hbar2(2P_+-1)$.",
+     "wrong": [
+      "(hbar/2)*sin(theta)",
+      "hbar*cos(theta)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type $\\Delta S_z$ (symbols <code>hbar</code>, <code>theta</code>).",
+     "answer": "(hbar/2)*sin(theta)",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "theta": [
+       0.2,
+       2.8
+      ]
+     },
+     "units": [
+      "action",
+      "dimensionless",
+      "energy",
+      "momentum"
+     ],
+     "unit": "action",
+     "latex": "\\Delta S_z=\\tfrac\\hbar2\\sin\\theta",
+     "hint": "$S_z^2=\\frac{\\hbar^2}4$, so $\\Delta S_z^2=\\frac{\\hbar^2}4(1-\\cos^2\\theta)$.",
+     "wrong": [
+      "(hbar/2)*cos(theta)",
+      "(hbar/2)*sin(theta)**2"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $\\Delta S_z$ for $\\theta=60^\\circ$ in units of $\\hbar$.",
+     "answer": "(hbar/2)*sin(theta)",
+     "unit": "ħ",
+     "units": [
+      "ħ",
+      "dimensionless",
+      "ħ²"
+     ],
+     "tol": 0.02,
+     "hint": "$\\frac12\\sin60^\\circ=0.433$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 55,
+   "id": "qm-am-c2",
+   "title": "Uncertainties in $|l,m\\rangle$ (FS22 Q2, sheet 8 Q1)",
+   "problem": "For the state $|l,m\\rangle$ find $\\langle L_1^2\\rangle$, the product $\\Delta L_1\\Delta L_2$ and the lower bound in the uncertainty relation. Source: FS22 Q2(iii)-(v); sheet 8 Q1(ii).",
+   "symbols": [
+    [
+     "$l,m$",
+     "angular momentum quantum numbers"
+    ],
+    [
+     "$L_\\pm$",
+     "$L_1\\pm iL_2$"
+    ],
+    [
+     "$\\Delta L_i$",
+     "standard deviation of $L_i$"
+    ],
+    [
+     "$\\hbar$",
+     "reduced Planck constant"
+    ]
+   ],
+   "vars": {
+    "hbar": 1,
+    "l": 2,
+    "m": 1
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Selection rule for the means, the commutator trick for $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$, the Casimir for the sum.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Why is $\\langle l,m|L_1|l,m\\rangle=0$?",
+     "options": [
+      "$L_1=\\frac12(L_++L_-)$ maps $|l,m\\rangle$ to $|l,m\\pm1\\rangle$, orthogonal to $|l,m\\rangle$",
+      "Because $[L_1,L_3]=0$",
+      "Because $|l,m\\rangle$ is an eigenstate of $L_1$ with eigenvalue $0$",
+      "Only for $m=0$"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "$[L_1,L_3]=-i\\hbar L_2\\neq0$; $L_1$ and $L_3$ have no common eigenstates.",
+      "2": "It is an eigenstate of $L_3$; $L_1$ has three different eigenvalues in $j=1$.",
+      "3": "It holds for every $m$ by the ladder argument."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "order",
+     "prompt": "Order the steps that give $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$ and the value.",
+     "items": [
+      {
+       "text": "Note $\\langle[L_3,A]\\rangle=0$ for any $A$ since $|l,m\\rangle$ is an $L_3$ eigenstate",
+       "why": "This is the key fact; everything else only chooses $A$."
+      },
+      {
+       "text": "Choose $A=L_1L_2+L_2L_1$ and compute $[L_3,A]=2i\\hbar(L_2^2-L_1^2)$",
+       "why": "Needs the fact from step 1 and the algebra."
+      },
+      {
+       "text": "Conclude $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$",
+       "why": "Follows from the previous line being zero."
+      },
+      {
+       "text": "Use $\\langle L_1^2+L_2^2\\rangle=\\hbar^2[l(l+1)-m^2]$ to find each value",
+       "why": "Needs the equality of the two expectation values first."
+      }
+     ],
+     "hint": "Fact first, then the commutator, then the sum rule."
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle L_1^2\\rangle$ (symbols <code>hbar</code>, <code>l</code>, <code>m</code>).",
+     "answer": "hbar**2*(l*(l+1)-m**2)/2",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "l": [
+       1,
+       5
+      ],
+      "m": [
+       0,
+       1
+      ]
+     },
+     "units": [
+      "action",
+      "dimensionless",
+      "energy",
+      "momentum"
+     ],
+     "unit": "action",
+     "latex": "\\langle L_1^2\\rangle=\\tfrac{\\hbar^2}{2}\\big[l(l+1)-m^2\\big]",
+     "hint": "Sum rule $\\vec L^2-L_3^2=\\hbar^2[l(l+1)-m^2]$, split equally between $L_1^2$ and $L_2^2$.",
+     "wrong": [
+      "hbar**2*(l*(l+1)-m**2)",
+      "hbar**2*l*(l+1)/2"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type the lower bound $\\frac12|\\langle[L_1,L_2]\\rangle|$ (symbols <code>hbar</code>, <code>m</code>).",
+     "answer": "hbar**2*abs(m)/2",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "m": [
+       -2,
+       -0.5
+      ]
+     },
+     "units": [
+      "action",
+      "dimensionless",
+      "energy",
+      "momentum"
+     ],
+     "unit": "action",
+     "latex": "\\tfrac12|\\langle[L_1,L_2]\\rangle|=\\tfrac{\\hbar^2|m|}2",
+     "hint": "$[L_1,L_2]=i\\hbar L_3$ and $\\langle L_3\\rangle=\\hbar m$.",
+     "wrong": [
+      "hbar*abs(m)/2",
+      "hbar**2*m/2"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $\\Delta L_1\\Delta L_2$ for $l=2$, $m=1$ in units of $\\hbar^2$.",
+     "answer": "hbar**2*(l*(l+1)-m**2)/2",
+     "unit": "ħ²",
+     "units": [
+      "ħ²",
+      "ħ",
+      "dimensionless"
+     ],
+     "tol": 0.02,
+     "hint": "$\\frac12(6-1)=2.5$ compared with the bound $0.5$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 55,
+   "id": "qm-am-c3",
+   "title": "Rotational symmetry and the oscillator triplet (FS26 Q3)",
+   "problem": "The 3D oscillator $V=\\frac12m\\omega^2\\vec x^2$ has the eigenfunctions $\\psi_i=x_ie^{-m\\omega\\vec x^2/2\\hbar}$. Show that $[H,L_j]=0$, find the energy of the $\\psi_i$ and the eigenvectors of $L_3$ in their span. Source: FS26 Q3.",
+   "symbols": [
+    [
+     "$\\psi_i$",
+     "$x_ie^{-m\\omega x^2/2\\hbar}$, $i=1,2,3$"
+    ],
+    [
+     "$L_3$",
+     "$-i\\hbar(x_1\\partial_2-x_2\\partial_1)$"
+    ],
+    [
+     "$\\omega$",
+     "oscillator frequency"
+    ],
+    [
+     "$\\hbar$",
+     "reduced Planck constant"
+    ]
+   ],
+   "vars": {
+    "hbar": 1,
+    "omega": 1
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Symmetry from $\\vec x\\wedge\\nabla V=0$; energy from the $N=1$ level; $L_3\\psi_k=-i\\hbar\\varepsilon_{3ak}\\psi_a$, a $3\\times3$ matrix with eigenvectors $\\psi_1\\pm i\\psi_2$, $\\psi_3$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Why is $[H,L_j]=0$ for this $V$?",
+     "options": [
+      "Because the potential is harmonic and $[H,x_j]=0$",
+      "Because $\\nabla^2V\\neq0$",
+      "Because $V$ is even",
+      "$\\nabla V=m\\omega^2\\vec x$ is parallel to $\\vec x$, so $\\varepsilon_{jkl}x_k\\partial_lV=m\\omega^2\\varepsilon_{jkl}x_kx_l=0$"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "$x_j$ does not commute with the kinetic term; the symmetry is rotational, not translational.",
+      "1": "This is irrelevant; the antisymmetry of $\\varepsilon$ does the work.",
+      "2": "Even potentials need not be rotation invariant."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type the energy of $\\psi_i$ (symbols <code>hbar</code>, <code>omega</code>).",
+     "answer": "(5/2)*hbar*omega",
+     "symbols": {
+      "hbar": [
+       0.5,
+       2
+      ],
+      "omega": [
+       0.5,
+       3
+      ]
+     },
+     "units": [
+      "energy",
+      "action",
+      "dimensionless",
+      "momentum"
+     ],
+     "unit": "energy",
+     "latex": "E=\\tfrac52\\hbar\\omega",
+     "hint": "$\\psi_i$ is the first excited level of the 3D oscillator, $E=\\hbar\\omega(N+\\frac32)$ with $N=1$.",
+     "wrong": [
+      "(3/2)*hbar*omega",
+      "(7/2)*hbar*omega"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "choice",
+     "prompt": "Eigenvectors of $L_3$ in the span of $\\psi_1,\\psi_2,\\psi_3$ ($L_3\\psi_1=i\\hbar\\psi_2$, $L_3\\psi_2=-i\\hbar\\psi_1$, $L_3\\psi_3=0$):",
+     "options": [
+      "$\\psi_1,\\psi_2,\\psi_3$ with eigenvalue $0$",
+      "$\\psi_1\\pm\\psi_2$ with eigenvalues $\\pm\\hbar$",
+      "$\\psi_1+i\\psi_2\\ (+\\hbar)$, $\\psi_1-i\\psi_2\\ (-\\hbar)$, $\\psi_3\\ (0)$",
+      "$\\psi_1+i\\psi_2$ with $-\\hbar$"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "$L_3$ rotates $\\psi_1$ into $\\psi_2$; $\\psi_{1,2}$ are not eigenfunctions.",
+      "1": "The relative factor $i$ is needed: $L_3(\\psi_1+\\psi_2)=i\\hbar(\\psi_2-\\psi_1)$.",
+      "3": "$L_3(\\psi_1+i\\psi_2)=i\\hbar\\psi_2+\\hbar\\psi_1$, eigenvalue $+\\hbar$."
+     }
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type the degeneracy of the level $E=\\frac52\\hbar\\omega$ (symbol <code>l</code>, the angular momentum $l=1$).",
+     "answer": "2*l+1",
+     "symbols": {
+      "l": [
+       1,
+       4
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "action",
+      "momentum"
+     ],
+     "unit": "dimensionless",
+     "latex": "g=2\\ell+1=3",
+     "hint": "Rotational symmetry: $(2\\ell+1)$ states with the same $R(r)$ and different $m$.",
+     "wrong": [
+      "2*l",
+      "l*(l+1)"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: $\\langle L_3\\rangle$ in units of $\\hbar$ in the normalised state $\\frac12(\\psi_1+i\\psi_2)+\\frac1{\\sqrt2}\\psi_3$ (the $\\psi_i$ orthonormalised).",
+     "answer": "0.5*hbar",
+     "unit": "ħ",
+     "units": [
+      "ħ",
+      "dimensionless",
+      "ħ²"
+     ],
+     "tol": 0.02,
+     "hint": "Weight of the $+\\hbar$ eigenvector: $|\\frac12|^2\\cdot2=\\frac12$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-am-b1",
+   "title": "Angular momentum, measurements, and uncertainty (FS26 Q1)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+    "where": "Question 1 [Angular momentum, measurements, and uncertainty, 20 points]"
+   },
+   "minutes": 40,
+   "instructions": "Solve all parts on paper under the timer (2 min per point). Then enter the final numbers; the derivations are graded by you against the key points.",
+   "statement": [
+    "(i) With $L_j=\\varepsilon_{jkl}x_kp_l$ show $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$ (hint: $[L_1,L_2]=i\\hbar L_3$ and cyclicity). [5 pt]",
+    "The spin-$j$ representation is spanned by $|j,m\\rangle$ with $L_3|j,m\\rangle=\\hbar m|j,m\\rangle$ and $L_\\pm|j,m\\rangle=\\hbar\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$.",
+    "(ii) $j=1$, unknown state, $L_1$ measured with result $\\hbar$. Show that afterwards $|\\psi\\rangle=\\frac12(|1,1\\rangle+\\sqrt2|1,0\\rangle+|1,-1\\rangle)$. [3 pt]",
+    "(iii) Measure $L_3$ in $|\\psi\\rangle$: outcomes, probabilities and $\\langle L_3\\rangle$. [3 pt]",
+    "(iv) Show $0=\\langle\\psi|[L_1,O]|\\psi\\rangle$ for any $O$ and use it to show $\\langle L_2\\rangle=0$ and $\\langle L_2^2\\rangle=\\langle L_3^2\\rangle$. [4 pt]",
+    "(v) Compute the uncertainties $\\Delta L_j$ and show that the Heisenberg uncertainty principle holds for all $\\Delta L_j\\Delta L_k$ (hint: $\\Delta L_2=\\Delta L_3$). [5 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "p0",
+     "prompt": "$P(L_3=0)$ in $|\\psi\\rangle$.",
+     "answer": "0.5",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "l2sq",
+     "prompt": "$\\langle\\psi|L_2^2|\\psi\\rangle$ in units of $\\hbar^2$.",
+     "answer": "(2*hbar**2-hbar**2)/2",
+     "vars": {
+      "hbar": 1
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "dl2",
+     "prompt": "$\\Delta L_2$ in units of $\\hbar$.",
+     "answer": "hbar/sqrt(2)",
+     "vars": {
+      "hbar": 1
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "prod",
+     "prompt": "$\\Delta L_2\\Delta L_3$ in units of $\\hbar^2$.",
+     "answer": "hbar**2/2",
+     "vars": {
+      "hbar": 1
+     },
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $[L_1,L_2]=[x_2p_3,x_3p_1]+[x_3p_2,x_1p_3]=-i\\hbar x_2p_1+i\\hbar x_1p_2=i\\hbar L_3$; cyclicity",
+    "(ii) eigenvector of $L_1=\\frac\\hbar{\\sqrt2}(\\ldots)$ with eigenvalue $\\hbar$: $b=\\sqrt2a$, $a=c$; normalisation gives $\\frac12(1,\\sqrt2,1)$",
+    "(iii) $P(\\hbar,0,-\\hbar)=(\\frac14,\\frac12,\\frac14)$, $\\langle L_3\\rangle=0$",
+    "(iv) $\\langle L_1O-OL_1\\rangle=\\hbar\\langle O\\rangle-\\hbar\\langle O\\rangle=0$; $O=L_3$ gives $\\langle L_2\\rangle=0$; $O=L_2L_3+L_3L_2$ gives $\\langle L_2^2\\rangle=\\langle L_3^2\\rangle$",
+    "(v) $\\langle L_1^2\\rangle=\\hbar^2$, $\\vec L^2=2\\hbar^2$ so $\\langle L_2^2\\rangle=\\langle L_3^2\\rangle=\\frac{\\hbar^2}2$; $\\Delta L_1=0$, $\\Delta L_{2,3}=\\hbar/\\sqrt2$",
+    "(v) bound: $\\Delta L_2\\Delta L_3=\\frac{\\hbar^2}2=\\frac\\hbar2|\\langle L_1\\rangle|$ saturated; the other products are $0\\ge0$"
+   ],
+   "requires": "qm-am-c2"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-am-b2",
+   "title": "Angular momentum (FS22 Q2)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+    "where": "Question 2 [Angular momentum, 15 points]"
+   },
+   "minutes": 30,
+   "instructions": "Solve on paper under the timer (2 min per point), then enter the numbers for $l=3$, $m=2$.",
+   "statement": [
+    "The angular momentum operator is defined by $L_j=-i\\hbar\\varepsilon_{jkl}x_k\\partial_{x_l}$, $j=1,2,3$.",
+    "(i) Show $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$ (hint: work out $[L_1,L_2]$ and argue by symmetry). [2 pt]",
+    "(ii) With $L_\\pm=L_1\\pm iL_2$ compute $[L_3,L_\\pm]$ and $[L_+,L_-]$ in terms of these generators. [2 pt]",
+    "(iii) In an irreducible representation $L_3|l,m\\rangle=\\hbar m|l,m\\rangle$, $L_\\pm|l,m\\rangle=\\hbar\\sqrt{l(l+1)-m(m\\pm1)}|l,m\\pm1\\rangle$. Show $\\langle L_1\\rangle=\\langle L_2\\rangle=0$. [3 pt]",
+    "(iv) Determine $\\Delta L_1$, $\\Delta L_2$ and show $\\Delta L_1\\Delta L_2=\\frac12\\hbar^2[l(l+1)-m^2]$. [5 pt]",
+    "(v) State the Heisenberg relation for $L_1,L_2$, compute the lower bound and show that (7) is compatible. [3 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "comm",
+     "prompt": "$[L_+,L_-]=c\\,\\hbar L_3$: give $c$.",
+     "answer": "2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "prod",
+     "prompt": "$\\Delta L_1\\Delta L_2$ for $l=3$, $m=2$ in units of $\\hbar^2$.",
+     "answer": "(l*(l+1)-m**2)/2",
+     "vars": {
+      "l": 3,
+      "m": 2
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "bound",
+     "prompt": "The lower bound $\\frac12|\\langle[L_1,L_2]\\rangle|$ for $l=3$, $m=2$ in units of $\\hbar^2$.",
+     "answer": "abs(m)/2",
+     "vars": {
+      "m": 2
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "sat",
+     "prompt": "The product $\\Delta L_1\\Delta L_2$ for $l=m=2$ in units of $\\hbar^2$ (equality case).",
+     "answer": "(l*(l+1)-m**2)/2",
+     "vars": {
+      "l": 2,
+      "m": 2
+     },
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $[L_1,L_2]=i\\hbar L_3$ from conjugate pairs; cyclicity/antisymmetry for the rest",
+    "(ii) $[L_3,L_\\pm]=\\pm\\hbar L_\\pm$, $[L_+,L_-]=2\\hbar L_3$",
+    "(iii) $L_{1,2}$ are combinations of $L_\\pm$, which map to $m\\pm1\\perp m$",
+    "(iv) $\\langle[L_3,L_1L_2+L_2L_1]\\rangle=0\\Rightarrow\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$; sum $\\hbar^2[l(l+1)-m^2]$; product $\\frac{\\hbar^2}2[l(l+1)-m^2]$",
+    "(v) $\\Delta L_1\\Delta L_2\\ge\\frac\\hbar2|\\langle L_3\\rangle|=\\frac{\\hbar^2|m|}2$; $l(l+1)-m^2\\ge l\\ge|m|$, equality for $|m|=l$"
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-am-b3",
+   "title": "Rotational symmetry (FS26 Q3)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+    "where": "Question 3 [Rotational symmetry, 19 points]"
+   },
+   "minutes": 38,
+   "instructions": "Solve on paper under the timer (2 min per point), then enter the numbers.",
+   "statement": [
+    "Consider $H=-\\frac{\\hbar^2}{2m}\\nabla^2+V(\\vec x)$ and $L_j=-i\\hbar\\varepsilon_{jkl}x_k\\frac{\\partial}{\\partial x_l}$.",
+    "(i) Show $[H,L_j]\\psi=0$ for any $\\psi$ iff $\\varepsilon_{jkl}x_k\\frac{\\partial V}{\\partial x_l}=0$ (hint: first show $[\\nabla^2,x_k\\partial_l]\\psi=2\\partial_k\\partial_l\\psi$). [5 pt]",
+    "(ii) Show that for $V=V(r)$ the Hamiltonian is rotationally symmetric. What does this imply for the eigenstates and the degeneracies? [4 pt]",
+    "Now $V=\\frac12m\\omega^2\\vec x^2$.",
+    "(iii) Show that $\\psi_i=x_ie^{-m\\omega\\vec x^2/2\\hbar}$ are eigenfunctions of $H$. What are the energies? [5 pt]",
+    "(iv) Show that $L_j\\psi_k\\in\\mathrm{span}\\{\\psi_1,\\psi_2,\\psi_3\\}$ and find the eigenvectors and eigenvalues of $L_3$ in this space. [5 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "E",
+     "prompt": "Energy of the $\\psi_i$ in units of $\\hbar\\omega$.",
+     "answer": "5/2",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "deg",
+     "prompt": "Degeneracy of this level from rotational symmetry ($\\ell=1$).",
+     "answer": "2*l+1",
+     "vars": {
+      "l": 1
+     },
+     "tol": 0.01
+    },
+    {
+     "id": "m1",
+     "prompt": "Eigenvalue of $L_3$ on $\\psi_1+i\\psi_2$ in units of $\\hbar$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "m3",
+     "prompt": "Eigenvalue of $L_3$ on $\\psi_3$ in units of $\\hbar$.",
+     "answer": "0",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $[\\nabla^2,x_k\\partial_l]=2\\partial_k\\partial_l$ is symmetric in $k,l$ and vanishes against $\\varepsilon_{jkl}$; $[V,L_j]\\psi=i\\hbar\\varepsilon_{jkl}x_k(\\partial_lV)\\psi$",
+    "(ii) $V(r)$: $\\partial_lV=V'x_l/r$, so $\\varepsilon_{jkl}x_kx_l=0$; eigenstates $R(r)Y_{lm}$, degeneracy $(2l+1)$",
+    "(iii) $H\\psi_i=\\frac52\\hbar\\omega\\psi_i$ from $\\nabla^2(x_ie^{-ax^2})$ with $a=m\\omega/2\\hbar$",
+    "(iv) $L_j\\psi_k=-i\\hbar\\varepsilon_{jak}\\psi_a$; $L_3\\psi_1=i\\hbar\\psi_2$, $L_3\\psi_2=-i\\hbar\\psi_1$, $L_3\\psi_3=0$",
+    "(iv) eigenvectors $\\psi_1\\pm i\\psi_2$ ($\\pm\\hbar$), $\\psi_3$ ($0$): the $\\ell=1$ triplet"
+   ],
+   "requires": "qm-am-c3"
+  }
+ ]
+}

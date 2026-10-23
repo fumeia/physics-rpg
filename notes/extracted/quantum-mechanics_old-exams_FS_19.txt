@@ -1,0 +1,334 @@
+        Wiederholungsprüfung, 9. August 2019
+
+                     9:00 – 12:00
+
+
+
+
+Name:
+
+
+Matrikel-Nummer:
+
+
+
+
+Für die Korrektur — bitte leer lassen
+
+
+Aufgabe 1:
+
+
+Aufgabe 2:
+
+
+Aufgabe 3:
+
+
+Aufgabe 4:
+Aufgabe 1 [Teilchen in der 2d Box ]: [21 pt]
+   Wir betrachten ein Teilchen der Masse m, das sich in einer 2-dimensionalen Box der
+Grösse a mit Koordinaten 0 ≤ x ≤ a und 0 ≤ y ≤ a bewegt. Das Potential verschwindet
+im Innern der Box, und wir fordern als Randbedingung, dass die Wellenfunktion an den
+Rändern der Box verschwindet.
+
+  (i) Bestimme die normalisierten Eigenfunktionen des Hamilton-Operators und die zu-
+      gehörigen Energien. [6 pt]
+
+ (ii) Zur Zeit t = 0 wird das System durch die Wellenfunktion
+
+               2A      2πx   πy  2B      πx   2πy  2C       πx   πy 
+     Ψ(x, y) =     sin       sin    +    sin      sin       +   sin      sin
+                a        a       a    a        a        a     a       a      a
+                                                                             (1)
+     beschrieben, wobei A, B und C komplexe Zahlen sind und
+
+                                   |A|2 + |B|2 + |C|2 = 1 .                           (2)
+
+     Bestimme die Wellenfunktion für t > 0. [2 pt]
+
+(iii) Zur Zeit t = t1 > 0 wird die Energie dieses Systems gemessen. Was sind die
+      möglichen Messergebnisse und was die zugehörigen Wahrscheinlichkeiten? Für jeden
+      dieser Fälle beschreibe die Wellenfunktion des Systems, direkt nachdem die Energie
+      gemessen wurde. [4 pt]
+
+(iv) Der Hamilton-Operator H des Systems vertauscht mit dem Operator R, der x und
+     y miteinander vertauscht
+                                 R Ψ(x, y) = Ψ(y, x) .                         (3)
+     Zeige, dass R einen hermiteschen Operator definiert und bestimme seine Eigenwerte.
+     Finde eine Basis von gemeinsamen (normalisierten) Eigenfunktionen von H und R.
+     [4 pt]
+
+ (v) Zur Zeit t = t1 > 0, wird R für die Wellenfunktion in (ii) gemessen. [Das System
+     wurde während der Zeit 0 ≤ t ≤ t1 nicht beeinflusst.] Welche Werte von R können
+     gemessen werden, und was sind die zugehörigen Wahrscheinlichkeiten? In jedem der
+     Fälle bestimme die Wellenfunktion des Systems direkt nachdem R gemessen wurde.
+     [5 pt]
+Question 1 [Particle in a 2d box ]: [21 pt]
+   We consider a particle of mass m moving in a 2-dimensional box of size a with coor-
+dinates 0 ≤ x ≤ a and 0 ≤ y ≤ a. The potential vanishes inside the box, and we impose
+the boundary condition that the wave function vanishes at the edges of the box.
+
+  (i) Find the normalised eigenfunctions of the Hamilton operator and the associated
+      energies. [6 pt]
+
+ (ii) Suppose that at time t = 0 the system is described by the wave function
+
+              2A      2πx   πy  2B      πx   2πy  2C      πx   πy 
+     Ψ(x, y) =    sin       sin    +   sin        sin    +   sin       sin     ,
+               a        a       a    a        a       a    a        a      a
+                                                                             (4)
+     where A, B and C are complex numbers satisfying
+
+                                  |A|2 + |B|2 + |C|2 = 1 .                          (5)
+
+     Give a formula for the wave function for t > 0. [2 pt]
+
+(iii) At time t = t1 > 0 the energy of the system is measured. What are the possible
+      outcomes of the energy measurement, and what are the associated probabilities?
+      In each case describe the wave function immediately after the energy has been
+      measured. [4 pt]
+
+(iv) The Hamiltonian H of the system commutes with the operator R that exchanges x
+     and y,
+                                  R Ψ(x, y) = Ψ(y, x) .                        (6)
+     Show that R defines a hermitian operator and determine its eigenvalues. Find a
+     basis of simultaneous (normalised) eigenfunctions of H and R. [4 pt]
+
+ (v) Suppose that at time t = t1 > 0, R is measured for the state given in (ii). [You
+     should assume that the system is left undisturbed for 0 ≤ t ≤ t1 .] What values of
+     R can be found, and what are the associated probabilities? In each case describe
+     the wave function immediately after R has been measured. [5 pt]
+Aufgabe 2 [Ehrenfest’sches Theorem und der harmonische Oszillator ]: [24 pt]
+   Wir betrachten ein Teilchen der Masse m, das sich in einer Dimension unter dem
+Einfluss eines Potentials V (x) bewegt.
+
+ (i) Gib die zeit-abhängige Schrödinger Gleichung an, und leite aus ihr das Ehren-
+     fest’sche Theorem her
+                                 d        1
+                                    hxi = hpi .     [5 pt]                       (7)
+                                 dt       m
+ (ii) Wir betrachten nun den Fall, in dem V (x) = 12 mω 2 x2 . Führe Erzeugungs- und
+      Vernichtungsoperatoren durch
+                          r                         r
+                              ~                       ~mω
+                      x=         (a + a† ) ,  p=−             i (a − a† )          (8)
+                            2mω                          2
+     ein. Bestimme unter Benutzung der kanonischen Vertauschungsrelation [x, p] = i~
+     den Kommutator [a, a† ]. [2 pt]
+
+(iii) Der Hamilton-Operator des harmonischen Oszillators lässt sich als
+
+                                           ~ω
+                                              aa† + a† a
+                                                         
+                                      H=                                                (9)
+                                            2
+     schreiben. Finde mit Hilfe dieser Formel die normalisierte Grundzustandswellen-
+     funktion ψ0 (x), und bestimme ihren Energieeigenwert. Bestimme auch explizit die
+     ersten zwei angeregten normalisierten Eigenfunktionen ψ1 (x) and ψ2 (x), sowie ihre
+     Energieeigenwerte. [9 pt]
+
+(iv) Wir bezeichnen mit Ψn (x, t) die Lösung der zeitabhängigen Schrödinger Gleichung
+     mit Anfangsbedingung Ψn (x, t = 0) = ψn (x). [ψn (x) bezeichnet die n’te Ener-
+     gieeigenfunktion.] Wir nehmen an, dass der Zustand des Systems durch Ψn (x, t)
+     beschrieben wird. Bestimme die Zeitabhängigkeit des Erwartungswertes hxi. Was
+     kannst Du daraus für hpi ableiten? Bestätige dieses Resultat für hpi explizit für
+     n = 0 und n = 1. [3 pt]
+
+ (v) Betrachte nun die Wellenfunktion
+
+                               Ψ(x, t) = AΨ0 (x, t) + BΨ1 (x, t) ,                     (10)
+
+     wobei A und B reelle Konstanten sind. Berechne dtd hxi und hpi, wobei der Er-
+     wartungswert im Zustand (10) genommen wird. Kommentiere Dein Resultat. Wie
+     würde sich die Analyse verändern, falls Du in (10) anstelle von Ψ1 (x, t) die Wellen-
+     funktion Ψ2 (x, t) benutzen würdest? [5 pt]
+Question 2 [Ehrenfest’s Theorem and Harmonic Oscillator ]: [24 pt]
+  Consider a particle of mass m moving in one dimension subject to a potential V (x).
+
+  (i) State the time-dependent Schrödinger equation, and deduce from it Ehrenfest’s
+      Theorem
+                                d         1
+                                   hxi = hpi .      [5 pt]                     (11)
+                                dt       m
+ (ii) Consider now the case where V (x) = 21 mω 2 x2 , for which we introduce the creation
+      and annihilation operators via
+                          r                              r
+                              ~         †                  ~mω
+                      x=          (a + a ) ,   p=−              i (a − a† ) .         (12)
+                             2mω                            2
+     Using the canonical commutation relation [x, p] = i~, deduce the commutation
+     relation of [a, a† ]. [2 pt]
+
+(iii) Using that the Hamiltonian of the harmonic oscillator problem can be written as
+
+                                           ~ω
+                                              aa† + a† a
+                                                         
+                                     H=                                               (13)
+                                            2
+     find the normalised ground state wave function ψ0 (x), and determine its energy
+     eigenvalue. Calculate also explicitly the first two excited normalised eigenfunctions
+     ψ1 (x) and ψ2 (x), as well as their eigenvalues. [9 pt]
+
+(iv) Let Ψn (x, t) be the solution of the time-dependent Schrödinger equation with initial
+     condition Ψn (x, t = 0) = ψn (x). [ψn (x) denotes the n’th energy eigenfunction.]
+     Suppose that the state of the system is described by Ψn (x, t). Determine the time-
+     dependence of the expectation value hxi. What can you deduce from this about
+     hpi? Confirm this expectation explicitly for n = 0 and n = 1. [3 pt]
+
+ (v) Now consider the wave function
+
+                              Ψ(x, t) = AΨ0 (x, t) + BΨ1 (x, t) ,                     (14)
+
+     where A and B are real constants. Calculate dtd hxi and hpi, where the expectation
+     value is taken in the state (14). Comment on your result. How would the analysis
+     change if instead of Ψ1 (x, t) you consider Ψ2 (x, t) in (14)? [5 pt]
+Aufgabe 3 [SO(3) Darstellungen und ein Spin 1 EPR Paar ]: [18 pt]
+
+ (i) Wir betrachten zunächst ein einzelnes Teilchen, das sich in der D1 Darstellung von
+     SO(3) transformiert. Wir wählen als orthonormale Basis von D1 die Vektoren |1, mi,
+     die die Eigenzustände von Jz mit Eigenwert m beschreiben, wobei m = 0, ±1. In
+     dieser Basis wirken die J ± = Jx ± iJy Operatoren von su(2) vermöge
+                                    p
+                        J ± |j, mi = j(j + 1) − m(m ± 1) |j, m ± 1i ,               (15)
+
+     wobei j = 1. Was ist der Erwartungswert für die Messung von Jx , Jy und Jz für
+     ein Teilchen im Zustand |1, 1i? Was sind die entsprechenden Antworten falls das
+     Teilchen im Zustand |1, 0i ist? [4 pt]
+
+ (ii) Wir betrachten nun zwei Teilchen, die sich beide in dieser D1 Darstellung von SO(3)
+      transformieren. Bestimme durch Betrachten der Eigenwerte von Jz auf dem Ten-
+      sorprodukt die Darstellungen bezüglich der diagonalen Rotationsgruppe SO(3), in
+      denen sich das 2-Teilchen System transformiert. (Du musst die expliziten Basisvek-
+      toren nicht für alle Fälle konstruieren, aber Du musst erklären, wie Du folgern
+      kannst, dass diese und nur diese Darstellungen auftreten.) [6 pt]
+
+(iii) Bestimme den normalisierten Singlet-Zustand dieses 2-Teilchen Systems explizit.
+      (Dieser Zustand beschreibt das EPR-artige Paar.) [3 pt]
+
+(iv) Betrachte nun den Fall, dass Alice nur Zugang zum ersten Teilchen dieses EPR-
+     artigen Paars hat, während Bob nur Zugang zum zweiten Teilchen hat (und Alice
+     und Bob weit voneinander entfernt sind). Was ist die Wahrscheinlichkeit, dass Alice
+     m = +1 für Jz ihres Teilchens misst? Was ist die Situation für Bob? [2 pt]
+
+ (v) Wir nehmen nun an, dass Alice m = +1 für ihr Teilchen gemessen hat. Was ist
+     die Wahrscheinlichkeit, dass Bob daraufhin m = +1, m = 0 oder m = −1 für sein
+     Teilchen misst? [3 pt]
+Question 3 [Representations of SO(3) and Spin 1 EPR pair ]: [18 pt]
+
+  (i) Consider first a single particle transforming in the D1 representation of SO(3). We
+      choose an orthonormal basis of D1 to consist of the vectors |1, mi that are Jz eigen-
+      states with eigenvalue m, where m = 0, ±1. The J ± = Jx ± iJy operators of su(2)
+      act on these states as
+                                      p
+                          J ± |j, mi = j(j + 1) − m(m ± 1) |j, m ± 1i ,                (16)
+
+     where j = 1. For a particle in the state |1, 1i what is the expectation value for the
+     measurement of Jx , Jy and Jz ? What are the corresponding results for the state
+     |1, 0i? [4 pt]
+
+ (ii) Consider now two particles, each transforming in the D1 representation of SO(3).
+      By considering the eigenvalues of Jz on the tensor product, determine the represen-
+      tations with respect to the diagonal rotation group SO(3) in which the two-particle
+      system transforms. (You need not identify the explicit basis vectors for all cases,
+      but you must explain how you conclude that these and only these representations
+      appear.) [6 pt]
+
+(iii) Find an explicit expression for the normalised singlet state in the two-particle sys-
+      tem. (This state describes the EPR-like pair.) [3 pt]
+
+(iv) Now suppose that Alice has only access to the first particle of this EPR-like pair,
+     while Bob only has access to the second particle (and Alice and Bob are far separated
+     from one another). What is the probability that Alice measures m = +1 when she
+     measures Jz of her particle? What is the situation for Bob? [2 pt]
+
+ (v) Now suppose Alice has measured m = +1 for her particle. What is the probability
+     that Bob measures subsequently m = +1, m = 0 or m = −1 for his particle? [3 pt]
+Aufgabe 4 [Zeit-unabhängige Störungstheorie ]: [21 pt]
+  In dieser Aufgabe studieren wir zeit-unabhängige nicht-degenerierte Störungstheorie.
+
+  (i) Sei H0 ein Hamilton-Operator mit einem vollständigen Satz von Eigenfunktionen
+
+                             H0 ψn = En ψn ,       n = 0, 1, 2, . . . ,             (17)
+
+     wobei En 6= Em falls n 6= m. Wir wollen die Eigenfunktionen des gestörten Hamilton-
+     Operators
+                                       H = H0 + λH 0                                 (18)
+     finden. Mache einen Ansatz für ψ und E als Potenzreihe in λ, und bestimme die
+     Gleichungen Ordnung für Ordnung in λ (bis einschliesslich Ordnung λ2 ). Erkläre
+     wie Du die gestörte Eigenfunktion ψ zu erster Ordnung in λ, sowie den zugehörgen
+     Eigenwert zu zweiter Ordnung in λ bestimmen kannst. (Du solltest mit der Kon-
+     vention arbeiten, dass die höheren Korrekturen zur Eigenfunktion orthogonal zur
+     Eigenfunktion zu führender Ordnung ist.) [10 pt]
+
+ (ii) Betrachte nun den Fall, dass H0 der Hamiltonian-Operator des harmonischen Os-
+      zillators ist
+                                 p2   1         ~ω
+                                    + mω 2 x2 =     aa† + a† a ,
+                                                              
+                          H=                                                   (19)
+                                 2m 2            2
+      wobei die Erzeugungs- und Vernichtungsoperatoren durch
+                          r                         r
+                               ~                       ~mω
+                      x=          (a + a† ) , p=−           i (a − a† )        (20)
+                             2mω                        2
+     definiert sind. Bestimme die gestörten Eigenwerte (zu zweiter Ordnung) für die
+     ungestörte Energie E0 = 12 ~ω, wobei die Störung durch den ersten relativistischen
+     Korrekturterm
+                            H 0 = α p4 ,    mit α = −(8m3 c2 )−1                     (21)
+     gegeben ist. [7 pt]
+                                                            ~ω 2
+                                                                
+(iii) Um die gesamte relativistische Korrektur zur Ordnung mc 2   zu bestimmen, müssen
+      wir auch den zweiten Ordnung relativistischen Korrekturterm des Hamilton-Opera-
+      tors berücksichtigen
+
+                            H 00 = β p6 ,      mit β = (16m5 c4 )−1 .               (22)
+
+     Wie beeinflusst dieser Korrekturterm das Resultat aus (ii)? [4 pt]
+Question 4 [Time-independent perturbation theory ]: [21 pt]
+  In this question we study time-independent non-degenerate perturbation theory.
+
+  (i) Let H0 be a Hamiltonian whose complete set of eigenfunctions is described by
+
+                              H0 ψn = En ψn ,       n = 0, 1, 2, . . . ,                 (23)
+
+     where En 6= Em for n 6= m. We want to find the eigenfunctions of the perturbed
+     Hamiltonian
+                                   H = H0 + λH 0 .                             (24)
+     Make an ansatz for ψ and E as a power series in λ, and determine the equations
+     order by order in λ (up to λ2 ). Explain how to find the perturbed eigenfunction ψ to
+     first order in λ, and the corresponding eigenvalue to second order in λ. (You should
+     work with the convention that the higher order corrections to the eigenfunction are
+     orthogonal to the leading term.) [10 pt]
+
+ (ii) Now consider the case where H0 is the Hamiltonian of the harmonic oscillator
+
+                                  p2  1          ~ω
+                                     + mω 2 x2 =    aa† + a† a ,
+                                                              
+                            H=                                                           (25)
+                                  2m 2            2
+     where the creation and annihilation operators are defined via
+                         r                           r
+                             ~                          ~mω
+                     x=         (a + a† ) ,    p=−           i (a − a† ) .               (26)
+                           2mω                            2
+     Work out the perturbed eigenvalues (up to second order) for the perturbation de-
+     scribed by the first relativistic correction term
+
+                           H 0 = α p4 ,      where α = −(8m3 c2 )−1 ,                    (27)
+
+     for the case where the unperturbed energy is E0 = 21 ~ω. [7 pt]
+                                                                      ~ω 2
+                                                                           
+(iii) In order to calculate the full relativistic correction to order mc 2   , we also need to
+      include the second order relativistic correction term to the Hamiltonian, namely
+
+                            H 00 = β p6 ,    where β = (16m5 c4 )−1 .                    (28)
+
+     How does this correction affect the result you obtained in (ii)? [4 pt]
+

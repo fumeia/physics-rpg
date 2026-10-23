@@ -1,0 +1,648 @@
+{
+  "id": "ss-fermi-sea",
+  "region": "Solid State Crystal Caverns",
+  "title": "The Fermi Sea",
+  "course": "solid-state",
+  "topics": [
+    "free-electron gas: k_F, E_F, S_F, DOS, C_V",
+    "Pauli exclusion and degeneracy",
+    "Bloch theorem",
+    "nearly free electrons, band gap 2|U_G|",
+    "tight binding, effective mass"
+  ],
+  "sources": [
+    {
+      "file": "materials/solid-state/old-exams/HS23.pdf",
+      "where": "Problem 2a (a)-(c) (Zheludev, Jan 2024); solution (1)"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "MC (m) Fermi energy of 5.00e22 cm^-3, MC (n) tight-binding mass, MC (o) 2D DOS, MC (p) Bloch theorem, Task 5 (13 pt, M-point gap)"
+    },
+    {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 3.1 (pp. 66–76 free electrons, Fermi–Dirac, C_V), 3.2 (pp. 77–87 Bloch, NFE, tight-binding)"
+    },
+    {
+      "file": "notes/solid-state/03-electrons-and-transport.md",
+      "where": "transcription, formulas and checks"
+    }
+  ],
+  "links": [
+    {
+      "course": "qm",
+      "room": "tunneling-bridge",
+      "why": "Free electrons are the QM particle in a box with $N\\to\\infty$: counting states with $(2\\pi)^3/V$ per $\\vec k$ and the Pauli principle. Nearly-free electrons are degenerate perturbation theory (sheet 14).",
+      "planned": false
+    },
+    {
+      "course": "astrophysics",
+      "room": "stellar-forge",
+      "why": "The same Fermi gas holds up white dwarfs: see the Degenerate Core room (Choudhuri §5.2-5.3).",
+      "planned": false
+    }
+  ],
+  "intro": "Inside the caverns a sea of electrons fills every state up to the Fermi energy. Count the states, find the Fermi surface and the density of states, then switch on the lattice and watch gaps open where Bragg reflection mixes plane waves.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "ss-fer-L1",
+      "title": "The free-electron gas",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 3.1, eqs. (3.1)-(3.33), pp. 66-76"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "Electrons in a box of volume $V$ with periodic boundary conditions: plane waves, one $\\vec k$ per $(2\\pi)^3/V$, two spins. At $T=0$ they fill a sphere of radius $k_F$ (the Fermi sea)."
+        },
+        {
+          "kind": "eq",
+          "tex": "n=\\frac{k_F^3}{3\\pi^2},\\qquad \\epsilon_F=\\frac{\\hbar^2k_F^2}{2m},\\qquad \\nu(\\epsilon)=\\frac{m^{3/2}}{\\pi^2\\hbar^3}\\sqrt{2\\epsilon},\\qquad \\nu(\\epsilon_F)=\\frac{3n}{2\\epsilon_F}",
+          "label": "ν per volume, both spins."
+        },
+        {
+          "kind": "eq",
+          "tex": "c_V=\\frac{\\pi^2}{3}\\,\\nu(\\epsilon_F)\\,k_B^2\\,T=\\frac{\\pi^2}{2}\\,nk_B\\,\\frac{k_BT}{\\epsilon_F}",
+          "label": "(3.33): only electrons within ~k_BT of ε_F can be excited."
+        },
+        {
+          "kind": "intuition",
+          "html": "Typical metal: $\\epsilon_F\\sim5$ eV, $T_F\\sim6\\times10^4$ K. At room temperature the Fermi–Dirac step is smeared over only $k_BT/\\epsilon_F\\sim0.5\\%$ of the sea. Everything thermal or magnetic in a metal (heat capacity, Pauli susceptibility, conduction) is done by the electrons near the Fermi surface."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Units: $n$ in m$^{-3}$ (HS20 gives cm$^{-3}$: multiply by $10^6$). Use $\\hbar^2/2m_e=3.81$ eV Å$^2$ to stay in Å and eV. For ratios: $\\epsilon_F\\propto n^{2/3}$, $S_F\\propto n^{2/3}$, $\\nu(\\epsilon_F)\\propto n^{1/3}$; constants cancel."
+        },
+        {
+          "kind": "exam",
+          "html": "HS23 Jan/Aug Problem 2a: compare two metals (density doubled, or lattice constant $a\\to0.9a$): $S_F$, $\\nu(\\epsilon_F)$, $c_V$ ratios. HS20 MC (m): $\\epsilon_F$ for $5\\times10^{22}$ cm$^{-3}$ = 4.95 eV."
+        }
+      ],
+      "check": [
+        {
+          "q": "Doubling the electron density changes $\\nu(\\epsilon_F)$ by a factor",
+          "options": [
+            "$2^{2/3}$",
+            "$1$",
+            "$2$",
+            "$2^{1/3}$"
+          ],
+          "correct": 3,
+          "explain": "$\\nu(\\epsilon_F)=3n/2\\epsilon_F\\propto n/n^{2/3}=n^{1/3}$."
+        },
+        {
+          "q": "Why is the electronic $c_V$ of a metal so much smaller than $\\frac32nk_B$?",
+          "options": [
+            "Pauli blocking: only a fraction k_BT/ε_F can change state",
+            "the lattice absorbs all heat",
+            "electrons are bosons",
+            "electrons are too heavy"
+          ],
+          "correct": 0,
+          "explain": "Electrons deep in the sea have no empty states within $k_BT$."
+        }
+      ]
+    },
+    {
+      "type": "lesson",
+      "id": "ss-fer-L2",
+      "title": "Electrons in a periodic potential: Bloch, gaps, tight binding",
+      "tier": "theory",
+      "minutes": 15,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 3.2, eqs. (3.37)-(3.60), pp. 77-87"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "eq",
+          "tex": "\\psi_{n\\vec k}(\\vec r)=u_{n\\vec k}(\\vec r)\\,e^{i\\vec k\\cdot\\vec r},\\qquad u_{n\\vec k}(\\vec r+\\vec R)=u_{n\\vec k}(\\vec r)",
+          "label": "(3.38) Bloch's theorem: k in the first BZ, band index n."
+        },
+        {
+          "kind": "text",
+          "html": "<b>Nearly free electrons</b>: the potential $U=\\sum_{\\vec G}U_{\\vec G}e^{i\\vec G\\cdot\\vec r}$ couples $\\vec k$ to $\\vec k-\\vec G$. Where $\\epsilon_{\\vec k}=\\epsilon_{\\vec k-\\vec G}$ (zone boundary) the $2\\times2$ problem splits the levels:"
+        },
+        {
+          "kind": "eq",
+          "tex": "\\begin{vmatrix}\\epsilon_{\\vec k}-E & U_{\\vec G}\\\\ U_{\\vec G}^* & \\epsilon_{\\vec k-\\vec G}-E\\end{vmatrix}=0\\ \\Rightarrow\\ E_\\pm=\\epsilon\\pm|U_{\\vec G}|,\\qquad E_g=2|U_{\\vec G}|",
+          "label": "Gap at the zone boundary."
+        },
+        {
+          "kind": "text",
+          "html": "<b>Tight binding</b>: start from atomic orbitals, let electrons hop between neighbours with amplitude $B$: $E(k)=E_i-A_i-2B_i\\cos ka$ in 1D. Bandwidth $4B_i$, effective mass at the bottom $m^*=\\hbar^2/(2B_ia^2)$. Each atomic level becomes a band."
+        },
+        {
+          "kind": "intuition",
+          "html": "Two views of one band structure. NFE: free parabola with small gaps opened by Bragg reflection (standing waves $\\cos$, $\\sin$ pile charge on or between the ions). Tight binding: sharp atomic levels broadened by overlap. Small overlap = narrow band = heavy electron."
+        },
+        {
+          "kind": "pitfall",
+          "html": "$\\hbar\\vec k$ is crystal momentum, not momentum. $\\epsilon(\\vec k)$ is periodic in $\\vec G$; $\\vec v=\\frac1\\hbar\\nabla_{\\vec k}\\epsilon$, zero at band extrema and at the zone boundary of a symmetric band. Full bands carry no current: insulators."
+        },
+        {
+          "kind": "exam",
+          "html": "HS20 Task 5 (M point of a 2D square lattice, 13 pt) is exactly the $2\\times2$ NFE problem; MC (n) asks the tight-binding mass, MC (p) the Bloch theorem."
+        }
+      ],
+      "check": [
+        {
+          "q": "For $E=E_i-A_i-2B\\cos ka$, the effective mass at the band top $k=\\pi/a$ is",
+          "options": [
+            "$\\hbar^2/(Ba^2)$",
+            "$-\\hbar^2/(2Ba^2)$",
+            "infinite",
+            "$+\\hbar^2/(2Ba^2)$"
+          ],
+          "correct": 1,
+          "explain": "$E''(\\pi/a)=-2Ba^2$: negative mass; an empty state there behaves as a positive-mass hole."
+        },
+        {
+          "q": "In the NFE model the gap at the zone boundary equals",
+          "options": [
+            "$2|U_{\\vec G}|$",
+            "$\\hbar^2G^2/2m$",
+            "$|U_{\\vec G}|$",
+            "$U_0$ of the full potential"
+          ],
+          "correct": 0,
+          "explain": "Splitting of the $2\\times2$ degenerate problem."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "ss-fer-Q1",
+      "title": "Fermi Sea multiple choice",
+      "xp": 25,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/solid-state/old-exams/HS20.pdf",
+          "where": "Task 1 MC (m),(n),(o),(p)"
+        },
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 3"
+        }
+      ],
+      "questions": [
+        {
+          "q": "A metal has an electron density $5.00\\times10^{22}$ cm$^{-3}$. Free-electron Fermi energy at $T=0$:",
+          "options": [
+            "310 eV",
+            "0.786 meV",
+            "3.118 eV",
+            "4.95 eV"
+          ],
+          "correct": 3,
+          "explain": "$k_F=(3\\pi^2\\cdot5\\times10^{28})^{1/3}=1.14$ Å$^{-1}$, $\\epsilon_F=3.81\\times1.30$ eV.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (m)"
+          }
+        },
+        {
+          "q": "Tight binding $E(k)=E_i-A_i-2B_i\\cos(ka)$: effective mass at the minimum",
+          "options": [
+            "$\\hbar^2/(2B_ia^2)$",
+            "$\\hbar^2/(2B_i^2a)$",
+            "$B_ia^2$",
+            "$2B_i$"
+          ],
+          "correct": 0,
+          "explain": "$m^*=\\hbar^2/E''(0)$, $E''(0)=2B_ia^2$.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (n)"
+          }
+        },
+        {
+          "q": "Isotropic parabolic bands in 2D: the density of states near the band edge is",
+          "options": [
+            "$\\propto\\sqrt{E-E_c}$",
+            "constant (a step at the band edge)",
+            "$\\propto1/\\sqrt{E-E_c}$",
+            "$\\propto(E-E_c)^2$"
+          ],
+          "correct": 1,
+          "explain": "In 2D $\\nu=m^*/\\pi\\hbar^2$ (both spins), independent of $E$. 1D: $1/\\sqrt{E}$, 3D: $\\sqrt E$.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (o)"
+          }
+        },
+        {
+          "q": "Bloch's theorem",
+          "options": [
+            "describes a plane wave times a lattice-periodic function",
+            "describes the electronic specific heat",
+            "is not used in tight binding",
+            "holds only in 3D with spin degeneracy"
+          ],
+          "correct": 0,
+          "explain": "$\\psi=u_{\\vec k}e^{i\\vec k\\cdot\\vec r}$; tight-binding states are Bloch states.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS20.pdf",
+            "where": "MC (p)"
+          }
+        },
+        {
+          "q": "Compressing a free-electron metal so that $a\\to0.9a$ multiplies $\\epsilon_F$ by",
+          "options": [
+            "0.9",
+            "1.11",
+            "0.81",
+            "1.23"
+          ],
+          "correct": 3,
+          "explain": "$k_F\\propto1/a$, $\\epsilon_F\\propto1/a^2=1/0.81$.",
+          "source": {
+            "file": "materials/solid-state/old-exams/HS23 (1).pdf",
+            "where": "Problem 2a (a)"
+          }
+        },
+        {
+          "q": "The Fermi surface of a metal is",
+          "options": [
+            "the surface in k-space separating occupied from empty states at T=0",
+            "the surface of the Brillouin zone",
+            "the surface of the crystal",
+            "an equipotential surface in real space"
+          ],
+          "correct": 0,
+          "explain": "For free electrons a sphere of radius $k_F$; area $4\\pi k_F^2$."
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "ss-fer-D1",
+      "title": "Count the Fermi sea",
+      "xp": 30,
+      "source": {
+        "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+        "where": "Ch. 3.1.1-3.1.3, eqs. (3.4)-(3.10)"
+      },
+      "goal": "From periodic boundary conditions in a cube $L^3$, derive $k_F=(3\\pi^2n)^{1/3}$, the density of states $\\nu(\\epsilon)$ per volume and $\\nu(\\epsilon_F)=3n/2\\epsilon_F$, and the total energy $\\frac35N\\epsilon_F$.",
+      "given": [
+        "$\\psi\\propto e^{i\\vec k\\cdot\\vec r}$ with $\\psi(\\vec r+L\\hat x_i)=\\psi(\\vec r)$",
+        "two spin states per $\\vec k$"
+      ],
+      "steps": [
+        {
+          "prompt": "Allowed $\\vec k$ and the volume per state.",
+          "reveal": "$k_i=2\\pi n_i/L$, so each $\\vec k$ occupies $(2\\pi/L)^3=(2\\pi)^3/V$."
+        },
+        {
+          "prompt": "Number of electrons in the sphere of radius $k_F$.",
+          "reveal": "$N=2\\cdot\\frac{4\\pi k_F^3/3}{(2\\pi)^3/V}=\\frac{Vk_F^3}{3\\pi^2}\\Rightarrow k_F=(3\\pi^2n)^{1/3}$."
+        },
+        {
+          "prompt": "$N(\\epsilon)$ and $\\nu(\\epsilon)=\\frac1V\\frac{dN}{d\\epsilon}$.",
+          "reveal": "$N(\\epsilon)=\\frac{V}{3\\pi^2}\\big(\\frac{2m\\epsilon}{\\hbar^2}\\big)^{3/2}$, $\\nu=\\frac{1}{2\\pi^2}\\big(\\frac{2m}{\\hbar^2}\\big)^{3/2}\\sqrt\\epsilon=\\frac{3}{2}\\frac{N/V}{\\epsilon}$ at $\\epsilon_F$."
+        },
+        {
+          "prompt": "Total energy.",
+          "reveal": "$E=V\\int_0^{\\epsilon_F}\\epsilon\\,\\nu\\,d\\epsilon\\propto\\epsilon_F^{5/2}$, $N\\propto\\epsilon_F^{3/2}$, so $E/N=\\frac35\\epsilon_F$; pressure $P=-\\partial E/\\partial V=\\frac25n\\epsilon_F$ (the white-dwarf link)."
+        }
+      ],
+      "keyPoints": [
+        "one state per $(2\\pi)^3/V$, factor 2 for spin",
+        "$k_F=(3\\pi^2n)^{1/3}$",
+        "$\\nu(\\epsilon_F)=3n/2\\epsilon_F$",
+        "$E=\\frac35N\\epsilon_F$, $P=\\frac25n\\epsilon_F$"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "ss-fer-c1",
+      "title": "Two metals, one doubled density",
+      "fight": "normal",
+      "problem": "Zheludev, Jan 2024, Problem 2a, with numbers. Metals A and B are simple cubic with one atom per cell and the **same** cell volume, free-electron dispersion $E=\\hbar^2k^2/2m$. Metal A has conduction-electron density $n_A=8.47\\times10^{28}$ m$^{-3}$ (copper-like), metal B has $n_B=2n_A$. Fermi surface area $S=4\\pi k_F^2$, density of states $\\nu(\\epsilon_F)=3n/2\\epsilon_F$, $c_V=\\frac{\\pi^2}{3}\\nu(\\epsilon_F)k_B^2T$.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "nA": 8.47e+28
+      },
+      "steps": [
+        {
+          "id": "kFA",
+          "prompt": "Fermi wavevector of A, $k_F=(3\\pi^2n)^{1/3}$, in Å$^{-1}$.",
+          "answer": "(3*pi**2*nA)**(1/3)*1e-10",
+          "unit": "A^-1",
+          "units": [
+            "A^-1",
+            "m^-1",
+            "A^-2",
+            "eV"
+          ],
+          "tol": 0.02,
+          "hint": "Each $\\vec k$ state occupies $(2\\pi)^3/V$ and holds 2 electrons: $n=\\frac{2}{(2\\pi)^3}\\frac{4\\pi}{3}k_F^3=k_F^3/3\\pi^2$."
+        },
+        {
+          "id": "EFA",
+          "prompt": "Fermi energy of A in eV.",
+          "answer": "hbar**2*(3*pi**2*nA)**(2/3)/(2*me)/eV",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "K",
+            "A^-1"
+          ],
+          "tol": 0.02,
+          "hint": "$\\epsilon_F=\\hbar^2k_F^2/2m=3.81\\,\\text{eV\\,Å}^2\\times k_F^2$."
+        },
+        {
+          "id": "EFB",
+          "prompt": "Fermi energy of B ($n_B=2n_A$) in eV.",
+          "answer": "EFA*2**(2/3)",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "K",
+            "A^-1"
+          ],
+          "tol": 0.02,
+          "hint": "$\\epsilon_F\\propto n^{2/3}$, so a factor $2^{2/3}=1.59$."
+        },
+        {
+          "id": "SAB",
+          "prompt": "Ratio of the Fermi surface areas $S_A/S_B$.",
+          "answer": "(nA/(2*nA))**(2/3)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "A^-2",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$S\\propto k_F^2\\propto n^{2/3}$: $S_A/S_B=2^{-2/3}=0.63$ (key)."
+        },
+        {
+          "id": "nuAB",
+          "prompt": "Ratio of the densities of states at the Fermi energy $\\nu_A(\\epsilon_F)/\\nu_B(\\epsilon_F)$.",
+          "answer": "(3*nA/(2*EFA))/(3*(2*nA)/(2*EFB))",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "A^-2",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$\\nu(\\epsilon_F)=3n/2\\epsilon_F\\propto n^{1/3}$ (equivalently $\\propto m k_F$): $2^{-1/3}=0.79$."
+        },
+        {
+          "id": "cvAB",
+          "prompt": "Ratio of the electronic specific heats per volume at 10 K, $c_{V,A}/c_{V,B}$.",
+          "answer": "nuAB",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "eV",
+            "A^-2",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "$c_V=\\frac{\\pi^2}{3}\\nu(\\epsilon_F)k_B^2T$: the ratio is just the ratio of $\\nu(\\epsilon_F)$. Measuring $\\gamma$ measures the density of states."
+        },
+        {
+          "id": "cvA",
+          "prompt": "(Bonus) $c_{V,A}$ at 10 K in J m$^{-3}$ K$^{-1}$.",
+          "answer": "pi**2/3*(3*nA/(2*EFA*eV))*kB**2*10",
+          "unit": "J/(m^3 K)",
+          "units": [
+            "J/(m^3 K)",
+            "J/(m^3 K^2)",
+            "J/K",
+            "J/(m^3 K^4)"
+          ],
+          "tol": 0.03,
+          "hint": "$\\nu=1.13\\times10^{47}\\,{\\rm J^{-1}m^{-3}}$, $\\frac{\\pi^2}{3}\\nu k_B^2\\cdot10\\,{\\rm K}=7.1\\times10^2$ J m$^{-3}$K$^{-1}$, tiny compared with the Dulong–Petit $3.5\\times10^6$.",
+          "bonus": true
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-fer-c2",
+      "title": "Is that electron gas degenerate?",
+      "fight": "fermi",
+      "problem": "Quick fight, in the spirit of the HS20 multiple-choice question (m): a metal has an electron density of $5.00\\times10^{22}$ cm$^{-3}$. In the free-electron model at $T=0$, find the Fermi energy (the offered answers were 310 eV, 0.786 meV, 3.118 eV and 4.95 eV; derive, do not guess), then the Fermi temperature and the fraction of electrons that can be thermally excited at room temperature.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "n": 5e+28,
+        "T": 300.0
+      },
+      "steps": [
+        {
+          "id": "EF",
+          "prompt": "Fermi energy in eV.",
+          "answer": "hbar**2*(3*pi**2*n)**(2/3)/(2*me)/eV",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "keV",
+            "K"
+          ],
+          "tol": 0.05,
+          "hint": "Convert to SI first: $n=5.00\\times10^{28}$ m$^{-3}$. $k_F=1.14$ Å$^{-1}$, $\\epsilon_F=3.81\\times1.30=4.95$ eV. Always check units: densities in cm$^{-3}$ are a classic trap."
+        },
+        {
+          "id": "TF",
+          "prompt": "Fermi temperature $T_F=\\epsilon_F/k_B$ in K.",
+          "answer": "EF*eV/kB",
+          "unit": "K",
+          "units": [
+            "K",
+            "eV",
+            "meV",
+            "J"
+          ],
+          "tol": 0.05,
+          "hint": "$1\\,{\\rm eV}=11\\,604$ K. Metals have $T_F\\sim10^4$–$10^5$ K, far above room temperature."
+        },
+        {
+          "id": "frac",
+          "prompt": "Fraction of electrons that can be excited thermally at $T=300$ K, $\\approx k_BT/\\epsilon_F$.",
+          "answer": "kB*T/(EF*eV)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "K",
+            "eV",
+            "J"
+          ],
+          "tol": 0.2,
+          "hint": "Only electrons within $\\sim k_BT$ of $\\epsilon_F$ have empty states to go to: $\\sim0.5\\%$. This is why $c_V$ is far below Dulong–Petit and why $\\chi_{\\rm Pauli}$ is $T$-independent.",
+          "tolType": "log"
+        }
+      ],
+      "xp": 30
+    },
+    {
+      "type": "calc",
+      "id": "ss-fer-c3",
+      "title": "From free electrons to bands: gaps and a tight-binding mass",
+      "fight": "normal",
+      "problem": "A 1D crystal with lattice constant $a=3.0$ Å. (i) Nearly free electrons: a periodic potential with Fourier component $U_G=0.5$ eV at the zone boundary. Near $k=\\pi/a$ the plane waves $k$ and $k-G$ ($G=2\\pi/a$) are degenerate and mix. (ii) Tight binding: $E(k)=E_i-A_i-2B_i\\cos(ka)$ with $B_i=1.0$ eV (HS20 MC (n)).",
+      "vars": {
+        "a": 3e-10,
+        "B": 1.0,
+        "UG": 0.5
+      },
+      "steps": [
+        {
+          "id": "Ezb",
+          "prompt": "Free-electron energy at the zone boundary $k=\\pi/a$ in eV, $\\hbar^2(\\pi/a)^2/2m_e$.",
+          "answer": "hbar**2*(pi/a)**2/(2*me)/eV",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "A^-1",
+            "J"
+          ],
+          "tol": 0.02,
+          "hint": "$\\hbar^2/2m_e=3.81$ eV Å$^2$ and $(\\pi/a)^2=1.10$ Å$^{-2}$."
+        },
+        {
+          "id": "Eg",
+          "prompt": "Gap at the zone boundary: solve the $2\\times2$ problem $\\begin{vmatrix}\\epsilon_k-E&U_G\\\\U_G&\\epsilon_{k-G}-E\\end{vmatrix}=0$ at $k=\\pi/a$ (where $\\epsilon_k=\\epsilon_{k-G}$): $E_\\pm=\\epsilon\\pm|U_G|$. Give $E_g=E_+-E_-$ in eV.",
+          "answer": "2*UG",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "A^-1",
+            "J"
+          ],
+          "tol": 0.02,
+          "hint": "Degenerate perturbation theory with the matrix element $U_G=\\frac1a\\int U(x)e^{-iGx}dx$. The standing waves $\\cos(\\pi x/a)$ and $\\sin(\\pi x/a)$ pile up on / between the ions, hence the splitting $2|U_G|$ (script 3.2.2)."
+        },
+        {
+          "id": "W",
+          "prompt": "Tight-binding bandwidth $E_{\\max}-E_{\\min}$ for $E=E_i-A_i-2B\\cos ka$, in eV.",
+          "answer": "4*B",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "meV",
+            "A^-1",
+            "J"
+          ],
+          "tol": 0.02,
+          "hint": "$\\cos$ runs from $-1$ to $1$: width $4B$. Larger hopping $B$ (more orbital overlap) gives wider bands."
+        },
+        {
+          "id": "mstar",
+          "prompt": "Effective mass at the band minimum $k=0$, $m^*=\\hbar^2\\big/\\big(\\partial^2E/\\partial k^2\\big)=\\hbar^2/(2Ba^2)$, in units of $m_e$.",
+          "answer": "hbar**2/(2*B*eV*a**2)/me",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "kg",
+            "eV",
+            "A^-1"
+          ],
+          "tol": 0.02,
+          "hint": "$\\partial^2E/\\partial k^2|_0=2Ba^2$. So $m^*/m_e=3.81/(B[{\\rm eV}]\\,a^2[\\text{Å}^2])=0.42$: narrow bands (small $B$) mean heavy electrons. The key to the HS20 MC answer $\\hbar^2/(2B_ia^2)$."
+        }
+      ],
+      "xp": 60
+    },
+    {
+      "type": "boss",
+      "id": "ss-fer-b1",
+      "title": "Boss: the band gap at the M point of a 2D lattice (exam problem)",
+      "source": {
+        "file": "materials/solid-state/old-exams/HS20.pdf",
+        "where": "Task 5 'Bandlücke am M-Punkt in einem 2D-Gitter' (13 pt, Ensslin practice exam HS20); solution: solutions/Einführung in die Festkörperphysik HS20 (Solution).pdf"
+      },
+      "minutes": 30,
+      "instructions": "Translated from the German exam. Do the whole derivation on paper, then enter the numbers for the game values.",
+      "statement": [
+        "We consider electrons in a square lattice in two dimensions. The periodic potential is $U(x,y)=4U_0\\cos\\!\\big(\\tfrac{2\\pi x}{a}\\big)\\cos\\!\\big(\\tfrac{2\\pi y}{a}\\big)$ with lattice constant $a$. You compute the band gap at the $M$ point $\\vec k_M=\\frac\\pi a(\\hat e_x+\\hat e_y)$.",
+        "(a) [3 pt] Start from $H\\psi=\\big(-\\frac{\\hbar^2}{2m}\\nabla^2+U\\big)\\psi=E\\psi$ with $U=\\sum_{\\vec G}U_{\\vec G}e^{i\\vec G\\cdot\\vec r}$ and $\\psi=\\sum_{\\vec k}C_{\\vec k}e^{i\\vec k\\cdot\\vec r}$. Show that $\\big(\\frac{\\hbar^2k^2}{2m}-E\\big)C_{\\vec k}+\\sum_{\\vec G}U_{\\vec G}C_{\\vec k-\\vec G}=0$.",
+        "(b) [3 pt] Determine the Fourier components $U_{\\vec G}$ (hint: write the cosines as exponentials).",
+        "(c) [2 pt] Give the four reciprocal lattice points nearest to $\\vec k_M$.",
+        "(d) [4 pt] Take $\\vec G_1=0$ and $\\vec G_2=\\frac{2\\pi}{a}(\\hat e_x+\\hat e_y)$, the only two coupled by $U$ here, set up the $2\\times2$ determinant and solve for $E_\\pm$ at $\\vec k_M$.",
+        "(e) [1 pt] What is the band gap $E_g^{(M)}$?",
+        "Game numbers: $a=4.0$ Å, $U_0=0.50$ eV."
+      ],
+      "finalAnswers": [
+        {
+          "id": "E0",
+          "prompt": "(d) Free-electron energy at $M$, $\\hbar^2k_M^2/2m=\\hbar^2\\pi^2/(ma^2)$, in eV.",
+          "answer": "hbar**2*pi**2/(me*a**2)/eV",
+          "vars": {
+            "a": 4e-10
+          },
+          "tol": 0.01
+        },
+        {
+          "id": "Ep",
+          "prompt": "(d) $E_+$ at $M$ in eV.",
+          "answer": "hbar**2*pi**2/(me*a**2)/eV+U0",
+          "vars": {
+            "a": 4e-10,
+            "U0": 0.5
+          },
+          "tol": 0.01
+        },
+        {
+          "id": "Em",
+          "prompt": "(d) $E_-$ at $M$ in eV.",
+          "answer": "hbar**2*pi**2/(me*a**2)/eV-U0",
+          "vars": {
+            "a": 4e-10,
+            "U0": 0.5
+          },
+          "tol": 0.01
+        },
+        {
+          "id": "Eg",
+          "prompt": "(e) Gap $E_g^{(M)}=E_+-E_-$ in eV.",
+          "answer": "2*U0",
+          "vars": {
+            "U0": 0.5
+          },
+          "tol": 0.01
+        },
+        {
+          "id": "kM",
+          "prompt": "$|\\vec k_M|=\\sqrt2\\pi/a$ in Å$^{-1}$.",
+          "answer": "sqrt(2)*pi/a*1e-10",
+          "vars": {
+            "a": 4e-10
+          },
+          "tol": 0.01
+        }
+      ],
+      "keyPoints": [
+        "(a) Insert both expansions: $\\sum_{\\vec k}\\frac{\\hbar^2k^2}{2m}C_{\\vec k}e^{i\\vec k\\cdot\\vec r}+\\sum_{\\vec k',\\vec G}U_{\\vec G}C_{\\vec k'}e^{i(\\vec k'+\\vec G)\\cdot\\vec r}=E\\sum_{\\vec k}C_{\\vec k}e^{i\\vec k\\cdot\\vec r}$; relabel $\\vec k'=\\vec k-\\vec G$ in the second sum; plane waves are linearly independent, so each coefficient of $e^{i\\vec k\\cdot\\vec r}$ vanishes.",
+        "(b) $U=U_0\\big(e^{2\\pi ix/a}+e^{-2\\pi ix/a}\\big)\\big(e^{2\\pi iy/a}+e^{-2\\pi iy/a}\\big)$: four terms, so $U_{\\vec G}=U_0$ for $\\vec G=\\pm\\frac{2\\pi}a(1,1),\\ \\pm\\frac{2\\pi}a(1,-1)$, zero otherwise.",
+        "(c) Nearest reciprocal lattice points: $0,\\ \\frac{2\\pi}a\\hat e_x,\\ \\frac{2\\pi}a\\hat e_y,\\ \\frac{2\\pi}a(\\hat e_x+\\hat e_y)$. The four are equidistant from $\\vec k_M$, $|\\vec k_M-\\vec G|=\\sqrt2\\pi/a$: four degenerate plane waves. $U$ only couples $0$ and $\\frac{2\\pi}a(1,1)$ (difference $\\vec G$ with $U_G=U_0$); $\\frac{2\\pi}a\\hat e_x$ and $\\frac{2\\pi}a\\hat e_y$ differ by $(1,-1)$, also coupled.",
+        "(d) $\\det\\begin{pmatrix}\\hbar^2k_M^2/2m-E&U_0\\\\U_0&\\hbar^2k_M^2/2m-E\\end{pmatrix}=0\\Rightarrow E_\\pm=\\frac{\\hbar^2\\pi^2}{ma^2}\\pm U_0$.",
+        "(e) $E_g^{(M)}=E_+-E_-=2U_0$.",
+        "Connection: this is degenerate perturbation theory in a 2-dimensional degenerate subspace (QM sheet 14, Stark effect): the gap is twice the off-diagonal matrix element."
+      ],
+      "xp": 80
+    }
+  ]
+}

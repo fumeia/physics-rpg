@@ -1,0 +1,352 @@
+             Prüfung, 24. Januar 2019
+
+                    9:00 – 12:00
+
+
+
+
+Name:
+
+
+Matrikel-Nummer:
+
+
+
+
+Für die Korrektur — bitte leer lassen
+
+
+Aufgabe 1:
+
+
+Aufgabe 2:
+
+
+Aufgabe 3:
+
+
+Aufgabe 4:
+Aufgabe 1 [Teilchen in der Halbbox ]: [19 pt]
+    In dieser Aufgabe studieren wir ein quantenmechanisches Teilchen der Masse m, das
+sich nur auf der Halblinie x ≥ 0 unter dem Einfluss des Potentials V (x) bewegen kann,
+wobei                                
+                                       0 für 0 ≤ x ≤ a ,
+                             V (x) =                                               (1)
+                                       V0 für x > a ,
+und die Wellenfunktion die Randbedingung ψ(0) = 0 erfüllt.
+
+  (i) Nehmen Sie zunächst an, dass V0 = ∞, so dass das Teilchen in der Box der Länge a
+      eingeschlossen ist. Postulieren Sie geeignete Randbedingungen bei x = a und bestim-
+      men Sie die normalisierten Lösungen der zeit-unabhängigen Schrödinger Gleichung,
+      sowie die zugehörigen Energien. [6 pt]
+
+ (ii) Nun betrachten wir den Fall, dass V0 > 0 endlich ist. Lösen Sie die zeit-unabhängi-
+      ge Schrödinger Gleichung zur Energie E > 0; diskutieren Sie dabei sorgfältig die
+      Klebebedingungen bei x = a. Welche Lösungen sind für 0 < E < V0 physikalisch
+      sinnvoll? Erklären Sie auch, wie man die Randbedingung an ψ(x) für x = a aus Teil
+      (i) im Limes V0 → ∞ erhält. [6 pt]
+
+(iii) Im allgemeinen Fall (d.h. falls V0 nicht notwendigerweise unendlich ist), zeigen Sie,
+      dass eine gebundene Lösung nur dann existiert, falls die Energie die transzendentale
+      Gleichung                                 r
+                                        √         2mV0 a2
+                                  cot( ε) = −              −1                           (2)
+                                                    ~2 ε
+      erfüllt, wobei ε = 2mEa2 /~2 . [2 pt]
+
+(iv) Bestimmen Sie den kritischen Wert Vkrit des Potentials V0 , unterhalb dessen keine
+     gebundene Lösung existiert. [3 pt]
+
+ (v) Zeigen Sie, dass im Limes V0 → ∞ die Energien, die durch Gleichung (2) beschrieben
+     sind, sich zu jenen aus Teil (i) vereinfachen. [2 pt]
+Question 1 [Particle in a half-box ]: [19 pt]
+  In this problem we study a quantum mechanical system describing a particle with
+mass m on the half-line x ≥ 0, subject to a potential V (x), where
+                                    
+                                       0 for 0 ≤ x ≤ a ,
+                            V (x) =                                           (3)
+                                       V0 for x > a .
+
+We furthermore impose the boundary condition that ψ(0) = 0.
+
+  (i) First assume that V0 = ∞, so that the particle is confined to a box of size a.
+      Imposing the appropriate boundary condition at x = a, what are the normalised
+      solutions of the time-independent Schrödinger equation, as well as their associated
+      energies? [6 pt]
+
+ (ii) Next we take V0 > 0 to be finite. Solve the corresponding time-independent Schrödin-
+      ger equation with energy E > 0, discussing carefully the matching conditions at
+      x = a. For 0 < E < V0 , which solutions are physically acceptable? Explain also
+      how one can recover the boundary condition on ψ(x) at x = a from (i) in the limit
+      V0 → ∞. [6 pt]
+
+(iii) In the general case (V0 not necessarily infinite), show that a bound state solution
+      only exists provided that the energy satisfies the transcendental equation
+                                              r
+                                     √            2mV0 a2
+                                 cot( ε) = −               −1 ,                       (4)
+                                                    ~2 ε
+     where ε = 2mEa2 /~2 . [2 pt]
+
+(iv) Determine the critical value Vcrit of V0 below which no bound state solutions exist.
+     [3 pt]
+
+ (v) Show that, in the limit V0 → ∞, the energies given by eq. (4) reduce to those found
+     in part (i). [2 pt]
+Aufgabe 2 [Heisenberg’sche Unschärferelation ]: [18 pt]
+    Seien A und B zwei selbst-adjungierte Operatoren auf einem Hilbertraum. Wir defi-
+nieren die Varianz von A durch
+                                     rD            E  2
+                            (∆A)ψ ≡         A − hAiψ            ,                      (5)
+                                                            ψ
+
+wobei der Erwartungswert bzgl. des Zustandes ψ im Hilbertraum genommen wird.
+
+  (i) Zeigen Sie, dass i[A, B] und {A, B} ≡ AB + BA hermitische Operatoren sind.
+      [2 pt]
+
+ (ii) Beweisen Sie die Heisenberg’sche Unschärferelation
+                                           1
+                         (∆A)ψ (∆B)ψ ≥       |hi[A, B]iψ | .        [4 pt]             (6)
+                                           2
+
+(iii) Betrachten Sie den ein-dimensionalen harmonischen Oszillator mit Masse m im Ei-
+      genzustand ψn mit Energie E = ~ω(n + 12 ). Zeigen Sie, dass für alle n
+
+                                (∆x)ψn (∆p)ψn = n + 12 ~ .
+                                                        
+                                                                                  (7)
+
+     Was ist besonders am Fall n = 0? [5 pt]
+     [Hinweis: die Orts- und Impulsoperatoren des harmonischen Oszillators lassen sich
+     durch die üblichen Erzeugungs- und Vernichtungsoperatoren a und a† wie folgt
+     ausdrücken:
+                          r                        r
+                             ~                        ~mω
+                     x=         (a + a† ) ,   p=−         i (a − a† ) .]           (8)
+                            2mω                        2
+
+(iv) Es gibt eine marginal stärkere Version der Unschärferelation, nämlich
+                                        1           2 1           2
+                      (∆A)2ψ (∆B)2ψ ≥     hi[A, B]iψ + h{Â, B̂}iψ ,                   (9)
+                                        4             4
+
+     wobei Â = A − hAiψ und B̂ = B − hBiψ . Beweisen Sie diese Ungleichung indem
+     Sie die Cauchy-Schwarz Ungleichung für die Vektoren
+                                                                
+      |ψA i = Â |ψi = A−hAi |ψi , und |ψB i = B̂ |ψi = B−hBi |ψi [4 pt] (10)
+
+     betrachten. [Hinweis: Drücken Sie |hψA |ψB i|2 durch den Real- und Imaginärteil von
+     hψA |ψB i aus.]
+
+ (v) Überprüfen Sie die stärkere Ungleichung (9) für den Orts- und Impulsoperator in
+     den Eigenzuständen ψn des harmonischen Oszillators. [3 pt]
+Question 2 [Heisenberg Uncertainty Relation ]: [18 pt]
+   Suppose A and B are two self-adjoint operators acting on a Hilbert space. We define
+the variance of A via               rD            E   2
+                            (∆A)ψ ≡         A − hAiψ            ,                     (11)
+                                                            ψ
+
+where the expectation value is taken with respect to some state ψ in the Hilbert space.
+
+  (i) Prove that i[A, B] and {A, B} ≡ AB + BA are hermitian operators. [2 pt]
+
+ (ii) Prove the Heisenberg uncertainty relation
+                                           1
+                         (∆A)ψ (∆B)ψ ≥       |hi[A, B]iψ | .        [4 pt]            (12)
+                                           2
+
+(iii) Consider now the case of the one-dimensional harmonic oscillator with mass m in
+      the eigenstate ψn of energy E = ~ω(n + 12 ). Show that for all n
+
+                                 (∆x)ψn (∆p)ψn = n + 12 ~ .
+                                                         
+                                                                                 (13)
+
+     What is special about the case n = 0? [5 pt]
+     [Hint: recall that the position and momentum operators for the harmonic oscillator
+     can be expressed as
+                           r                        r
+                               ~                      ~mω
+                      x=           (a + a† ) , p=−          i (a − a† ) ,          (14)
+                             2mω                        2
+     where a and a† are the usual annihilation and creation operators, respectively.]
+
+(iv) There exists actually a slightly stronger version of the uncertainty relation of the
+     form
+                                        1            2   1            2
+                     (∆A)2ψ (∆B)2ψ ≥ hi[A, B]iψ + h{Â, B̂}iψ ,                      (15)
+                                        4                4
+     where Â = A − hAiψ and B̂ = B − hBiψ . Prove this inequality by considering the
+     Cauchy-Schwarz inequality for the vectors
+                                                                         
+       |ψA i = Â |ψi = A − hAi |ψi , and |ψB i = B̂ |ψi = B − hBi |ψi . [4 pt]
+                                                                                       (16)
+     [Hint: Write |hψA |ψB i|2 in terms of the real and imaginary parts of hψA |ψB i.]
+
+ (v) Confirm the stronger inequality (15) for the position and momentum operators in
+     the above eigenstates ψn of the harmonic oscillator. [3 pt]
+Aufgabe 3 [Heisenbergbild und Erhaltungsgrössen ]: [22 pt]
+
+  (i) Geben Sie die zeit-abhängige Schrödingergleichung an, und bestimmen Sie die Lösung
+      der zeit-abhängigen Schrödingergleichung zum Anfangszustand Ψ(t0 ) durch
+
+                                       Ψ(t) = U (t, t0 ) Ψ(t0 ) .                         (17)
+
+     Welche Differentialgleichung erfüllt der Propagator U (t, t0 )? Finden Sie eine explizite
+     (formale) Formel für den Propagator. [5 pt]
+
+ (ii) Erklären Sie, wie das Heisenbergbild definiert wird, und bestimmen Sie die Bewe-
+      gungsgleichungen eines Operators im Heisenbergbild. [3 pt]
+
+(iii) Unter welcher Bedingung ist eine Observable, die nicht explizit von der Zeit abhängt,
+      erhalten? [2 pt]
+
+(iv) Wir betrachten einen Hamiltonoperator der Form H0 ≡ H0 (r, L~ 2, S
+                                                                      ~ 2 ), wobei r die
+                                    ~ den Bahndrehimpuls und S
+     Radialkoordinate ist, während L                        ~ den Spinoperator be-
+     zeichnen. Drücken Sie die Komponenten des Drehimpulsoperators L~ durch Differen-
+                                            ~ r].
+     tialoperatoren aus, und berechnen Sie [L,
+     Unter Benutzung der Relationen [Lx , Ly ] = i~Lz , [Ly , Lz ] = i~Lx , [Lz , Lx ] = i~Ly ,
+     zeigen Sie weiterhin, dass
+                                       ~ L
+                                      [L,  ~ 2] = 0 .                                     (18)
+     Schliessen Sie daraus, dass falls H0 den Hamiltonoperator des Systems beschreibt,
+     ~ erhalten ist. [5 pt]
+     L
+
+ (v) Wir bezeichnen die Eigenzustände von H0 durch
+
+                      H0 |n, l, m, s, ms i = E(n, l, m, s, ms ) |n, l, m, s, ms i ,       (19)
+
+     wobei m die verschiedenen Zustände in der Dl Darstellung beschreibt, die die Wir-
+     kung von L~ charakterisiert, während ms die verschiedenen Zustände in der Ds Dar-
+                                              ~ charakterisiert. Von welchen dieser Quan-
+     stellung beschreibt, die die Wirkung von S
+     tenzahlen können die Eigenwerte von H0 tatsächlich nicht abhängen? Rechtfertigen
+     Sie Ihre Antwort. [2 pt]
+
+(vi) Nun betrachten wir den modifizierten Hamiltonoperator
+
+                                                    ~ ·S
+                                        H1 = H0 + κ L  ~ ,                                (20)
+
+     wobei κ eine Konstante ist. Was sind die Eigenwerte von H1 auf dem Vektorraum,
+     der von den Zuständen |n, l, m, s, ms i aufgespannt wird? Von welchen Kombinatio-
+     nen von Quantenzahlen können die Eigenwerte von H1 nicht abhängen? [5 pt]
+Question 3 [Heisenberg picture and conservation laws ]: [22 pt]
+
+  (i) State the time-dependent Schrödinger equation, and write down the solution to the
+      (time-dependent) Schrödinger equation with initial state Ψ(t0 ) as
+
+                                       Ψ(t) = U (t, t0 ) Ψ(t0 ) .                          (21)
+
+     Deduce the differential equation the propagator U (t, t0 ) has to solve, and construct
+     its (formal) solution. [5 pt]
+
+ (ii) Explain how to define the Heisenberg picture, and deduce the equations of motion
+      of an operator in the Heisenberg picture. [3 pt]
+
+(iii) Determine the condition for an observable A that does not depend explicitly on
+      time, to be conserved. [2 pt]
+
+(iv) Consider a Hamiltonian of the form H0 ≡ H0 (r, L~ 2, S
+                                                          ~ 2 ), where r is the radial coor-
+                   ~ and S
+     dinate, while L      ~ describe the orbital angular momentum and spin operators,
+     respectively. Write the components of L~ in terms of differential operators, and cal-
+             ~ r].
+     culate [L,
+     Using that [Lx , Ly ] = i~Lz , [Ly , Lz ] = i~Lx and [Lz , Lx ] = i~Ly , show also that
+
+                                              ~ L
+                                             [L, ~ 2] = 0 .                                (22)
+
+                                                                ~ is conserved. [5 pt]
+     Deduce that if H0 describes the Hamiltonian of the system, L
+
+ (v) Suppose the eigenstates of H0 are described by
+
+                      H0 |n, l, m, s, ms i = E(n, l, m, s, ms ) |n, l, m, s, ms i ,        (23)
+
+     where m describes the different states in the Dl representation that characterises
+                   ~ while ms describes the different states in the Ds representation that
+     the action of L,
+                                 ~ On which of these quantum numbers do the eigenvalues
+     characterises the action of S.
+     of H0 actually not depend? Justify your answer. [2 pt]
+
+(vi) Now consider the modified Hamiltonian
+
+                                                    ~ ·S
+                                        H1 = H0 + κ L  ~ ,                                 (24)
+
+     where κ is a constant. What are the eigenvalues of H1 on the space spanned by the
+     states |n, l, m, s, ms i? On which combination of quantum numbers do the eigenvalues
+     of H1 not depend? [5 pt]
+Aufgabe 4 [Zeit-unabhängige Störungstheorie ]: [20 pt]
+
+  (i) Sei H0 ein Hamiltonoperator, dessen vollständiger Satz von Eigenfunktionen durch
+
+                               H0 ψn = En ψn ,      n = 0, 1, 2, . . .                 (25)
+
+     gegeben ist. Wir wollen die Eigenfunktionen des gestörten Hamiltonoperators
+
+                                        H = H0 + λH 0                                  (26)
+
+     bestimmen. Machen Sie einen Ansatz für ψ and E als Potenzreihe in λ, und be-
+     stimmen Sie die Gleichungen Ordnung für Ordnung in λ (bis zu und inklusive λ2 ).
+     [4 pt]
+
+ (ii) Wir nehmen an, dass die ungestörte Energie Em der Lösung, deren gestörte Energie
+      wir bestimmen wollen, zweifach entartet ist, und wir bezeichnen die entsprechenden
+      orthonormalen Eigenzustände durch |mi und |ni. Bestimmen Sie die Eigenwerte von
+      H zu erster Ordnung in λ, und identifizieren Sie die zugehörigen Eigenzustände (zu
+      nullter Ordnung in λ). [Die relevanten Identitäten sollen aus (i) abgeleitet werden.]
+      [6 pt]
+
+(iii) Wir betrachten ein Teilchen der Masse M , das sich in dem zwei-dimensionalen
+      Potential                 
+                                  0    0 ≤ x ≤ a und 0 ≤ y ≤ a
+                     V (x, y) =                                               (27)
+                                  ∞    sonst
+     bewegt. Zeigen Sie, dass die Degeneriertheit des ersten angeregten Zustandes durch
+     die Störung
+                                          H 0 = x2                                 (28)
+     zu erster Ordnung in Störungstheorie aufgehoben wird, und bestimmen Sie die zu-
+     gehörigen Energieeigenwerte (zu erster Ordnung). Wie sehen die entsprechenden
+     Eigenfunktionen (zu nullter Ordnung) aus? [10 pt]
+Question 4 [Time-independent perturbation theory ]: [20 pt]
+
+  (i) Let H0 be a Hamiltonian whose complete set of eigenfunctions is described by
+
+                             H0 ψn = En ψn ,      n = 0, 1, 2, . . . .               (29)
+
+     We want to find the eigenfunctions of the perturbed Hamiltonian
+
+                                       H = H0 + λH 0 .                               (30)
+
+     Make an ansatz for ψ and E as a power series in λ, and determine the equations
+     order by order in λ (up to and including order λ2 ). [4 pt]
+
+ (ii) Let us assume that the unperturbed energy Em of the solution whose perturbed
+      energy we want to determine is two-fold degenerate, and denote the corresponding
+      orthonormal states by |mi and |ni. Determine the eigenvalues of H to first order
+      in λ, and identify the corresponding eigenstates (to zeroth order in λ). [You should
+      derive the relevant identities from (i).] [6 pt]
+
+(iii) Consider a particle with mass M moving in the two-dimensional potential
+                                 
+                                   0    0 ≤ x ≤ a and 0 ≤ y ≤ a
+                      V (x, y) =                                                     (31)
+                                   ∞    otherwise.
+
+     Show that the degeneracy of the first excited state is lifted by the perturbation
+
+                                           H 0 = x2                                  (32)
+
+     to first order in perturbation theory, and determine the relevant energy eigenvalues
+     (to first order). What are the corresponding zeroth order eigenfunctions? [10 pt]
+

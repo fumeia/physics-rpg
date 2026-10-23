@@ -1,0 +1,817 @@
+{
+  "id": "ss-degenerate-core",
+  "region": "Cross-region: Degenerate Matter",
+  "title": "The Degenerate Core",
+  "course": "solid-state",
+  "topics": [
+    "Fermi gas in metals and white dwarfs",
+    "degeneracy pressure, bulk modulus",
+    "mass-radius relation of white dwarfs",
+    "Chandrasekhar mass",
+    "photon gas and phonon gas (T^4, T^3)"
+  ],
+  "sources": [
+    {
+      "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+      "where": "Ch. 3.1 (pp. 66–76 free-electron gas, Fermi energy, C_V) and 2.4 (pp. 59–65 phonon gas, Debye)"
+    },
+    {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Ch. 5.2-5.3 (pp. 129–137): degeneracy pressure (5.2)-(5.11), white-dwarf structure, Chandrasekhar mass (5.27)-(5.28), Fig. 5.1"
+    },
+    {
+      "file": "materials/quantum-mechanics/exercises/Exercises 3.pdf",
+      "where": "particle in a box (sheet 3): counting of states with sin-modes, basis of the Fermi sea"
+    },
+    {
+      "file": "materials/solid-state/old-exams/HS20.pdf",
+      "where": "MC (m): Fermi energy for a given electron density"
+    },
+    {
+      "file": "notes/solid-state/05-cross-course-links.md",
+      "where": "how the three courses connect, formulas and checks"
+    }
+  ],
+  "links": [
+    {
+      "course": "qm",
+      "room": "tunneling-bridge",
+      "why": "Box states and the Pauli principle: the Fermi sea is $N$ particles in a box; the QM tunnelling room's $\\kappa=\\sqrt{2m(V-E)}/\\hbar$ uses the same $\\hbar^2/2m$ scale.",
+      "planned": false
+    },
+    {
+      "course": "astrophysics",
+      "room": "stellar-forge",
+      "why": "Hydrostatic equilibrium and the virial theorem: here the pressure is Pauli pressure instead of gas or radiation pressure. Eddington's $L_{\\rm Edd}$ and $M_{\\rm Ch}$ both come from simple constants.",
+      "planned": false
+    },
+    {
+      "course": "astrophysics",
+      "room": "photometry-radiation",
+      "why": "The CMB photon gas ($u=aT^4$) next to the phonon gas ($u\\propto T^4/v^3$) of a crystal.",
+      "planned": false
+    },
+    {
+      "course": "astrophysics",
+      "room": "degenerate-matter",
+      "why": "The astro Degenerate Vault: lessons and fights on white dwarfs, neutron stars and accretion (Choudhuri Ch. 5).",
+      "planned": false
+    }
+  ],
+  "intro": "One equation, three courses. Fill a box with fermions and you get a Fermi sea; in copper it sets the heat capacity and bulk modulus, in a white dwarf it holds up a star against gravity, and when the electrons turn relativistic it fixes the Chandrasekhar mass. The final boss of the Crystal Caverns ties QM, solid state and astro together.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "ss-deg-L1",
+      "title": "One Fermi gas, three courses",
+      "tier": "intuition",
+      "minutes": 12,
+      "xp": 20,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 3.1"
+        },
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Ch. 5.2-5.3, eqs. (5.2)-(5.28), pp. 129-137"
+        },
+        {
+          "file": "materials/quantum-mechanics/exercises/Exercises 3.pdf",
+          "where": "particle in a box"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "QM: a particle in a box has $E\\propto n^2/L^2$. Put $N$ fermions in: they stack up to the Fermi energy because each state holds two. Solid state: the conduction electrons of copper are exactly this with $n=8.5\\times10^{28}$ m$^{-3}$, $\\epsilon_F=7$ eV. Astro: a white dwarf core is the same with $n\\sim3\\times10^{35}$ m$^{-3}$, $\\epsilon_F\\sim160$ keV."
+        },
+        {
+          "kind": "eq",
+          "tex": "\\epsilon_F=\\frac{\\hbar^2}{2m}(3\\pi^2n)^{2/3},\\qquad P=\\frac25n\\epsilon_F\\propto n^{5/3}\\ (\\text{non-rel.}),\\qquad P\\propto n^{4/3}\\ (\\text{ultra-rel.})",
+          "label": "Same formula in metals and white dwarfs (Choudhuri 5.9, 5.11)."
+        },
+        {
+          "kind": "eq",
+          "tex": "E(R)=\\frac{A}{R^2}-\\frac{B}{R}\\Rightarrow R=\\frac{2A}{B}\\propto M^{-1/3};\\qquad \\text{rel.: }E=\\frac{A'-B}{R}\\Rightarrow M_{\\rm Ch}\\simeq1.4\\Big(\\frac{2}{\\mu_e}\\Big)^2M_\\odot",
+          "label": "Energy-balance estimate of the mass–radius relation and the limiting mass."
+        },
+        {
+          "kind": "intuition",
+          "html": "Why electrons and not nuclei? At equal number density electrons and nuclei have the same $p_F$, but pressure is a momentum flux $\\sim p_Fv_F=p_F^2/m$, so the light electrons dominate by $m_p/m_e\\approx2000$. Nuclei supply the mass (hence $\\mu_e$), electrons the pressure."
+        },
+        {
+          "kind": "intuition",
+          "html": "Bosons with $\\omega=vq$: photons ($v=c$, 2 polarisations) give $u=aT^4$ (CMB, stellar interiors); phonons ($v\\sim3$ km/s, 3 polarisations) give Debye's $C\\propto T^3$. Same integral, the speed enters as $1/v^3$."
+        },
+        {
+          "kind": "pitfall",
+          "html": "Do not use the non-relativistic $\\epsilon_F$ when $p_F\\gtrsim m_ec$ (white dwarfs above $\\sim10^9$ kg/m$^3$). In a metal $\\epsilon_F\\ll m_ec^2$ always."
+        },
+        {
+          "kind": "exam",
+          "html": "Astro (Refregier/Choudhuri): degeneracy pressure, $R\\propto M^{-1/3}$, $M_{\\rm Ch}$. Solid state (HS23, HS20): $\\epsilon_F$, $\\nu(\\epsilon_F)$, $c_V$ ratios. QM: box states, counting, Pauli. The Degenerate Core boss asks all three in one problem."
+        }
+      ],
+      "check": [
+        {
+          "q": "The Fermi energy of electrons in a white dwarf core is larger than in copper by about",
+          "options": [
+            "2×10⁴",
+            "10¹¹",
+            "10³",
+            "10"
+          ],
+          "correct": 0,
+          "explain": "$(n_{WD}/n_{Cu})^{2/3}=(3.5\\times10^6)^{2/3}\\approx2.3\\times10^4$: 7 eV to 160 keV."
+        },
+        {
+          "q": "A more massive white dwarf is",
+          "options": [
+            "hotter but the same size",
+            "smaller",
+            "the same size",
+            "larger"
+          ],
+          "correct": 1,
+          "explain": "$R\\propto M^{-1/3}$."
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "ss-deg-Q1",
+      "title": "Cross-course quiz: Fermi gases, bosons and scaling",
+      "xp": 25,
+      "passMark": 0.75,
+      "source": [
+        {
+          "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+          "where": "Ch. 2.4, 3.1"
+        },
+        {
+          "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+          "where": "Ch. 5.2-5.3"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Degeneracy pressure of a non-relativistic Fermi gas scales as",
+          "options": [
+            "$n^2$",
+            "$n^{5/3}$",
+            "$n$",
+            "$n^{4/3}$"
+          ],
+          "correct": 1,
+          "explain": "$P=\\frac25n\\epsilon_F$, $\\epsilon_F\\propto n^{2/3}$."
+        },
+        {
+          "q": "The free-electron bulk modulus of copper, $\\frac23n\\epsilon_F$, is about",
+          "options": [
+            "6 GPa",
+            "0.06 GPa",
+            "6400 GPa",
+            "64 GPa"
+          ],
+          "correct": 3,
+          "explain": "Measured 140 GPa: Pauli pressure is the right order of magnitude."
+        },
+        {
+          "q": "In the ultra-relativistic limit the kinetic and gravitational energies of a white dwarf both scale as",
+          "options": [
+            "$1/R^2$",
+            "$1/R$",
+            "$\\ln R$",
+            "$R$"
+          ],
+          "correct": 1,
+          "explain": "So the radius drops out and only the mass decides: Chandrasekhar."
+        },
+        {
+          "q": "At the same temperature, the heat capacity of the phonon gas in a crystal compared with the photon gas in the same volume is",
+          "options": [
+            "larger by ~(c/v)³ ≈ 10¹⁵",
+            "smaller by 10¹⁵",
+            "larger by c/v",
+            "about equal"
+          ],
+          "correct": 0,
+          "explain": "$\\frac32(c/v)^3$ for $v\\approx2.6$ km/s."
+        },
+        {
+          "q": "Which particles are degenerate in a white dwarf?",
+          "options": [
+            "neither",
+            "the nuclei only",
+            "both",
+            "the electrons only"
+          ],
+          "correct": 3,
+          "explain": "Choudhuri §5.2."
+        },
+        {
+          "q": "A hydrogenic donor in GaAs ($m^*=0.067m_e$, $\\epsilon=12.9$) has a binding energy of about",
+          "options": [
+            "0.05 meV",
+            "0.5 eV",
+            "13.6 eV",
+            "5.5 meV"
+          ],
+          "correct": 3,
+          "explain": "$13.6\\times0.067/12.9^2$ eV: the hydrogen atom of QM, rescaled."
+        }
+      ]
+    },
+    {
+      "type": "derive",
+      "id": "ss-deg-D1",
+      "title": "Photon gas and phonon gas from one integral",
+      "xp": 30,
+      "source": {
+        "file": "materials/solid-state/scripts/Script-2026_2026-09-01.pdf",
+        "where": "Ch. 2.4, eqs. (2.62)-(2.79)"
+      },
+      "goal": "For a gas of bosons with dispersion $\\omega=vq$, $g$ polarisations and no cutoff, show $u=g\\frac{\\pi^2(k_BT)^4}{30(\\hbar v)^3}$. Recover the Stefan–Boltzmann constant ($g=2$, $v=c$) and Debye's low-$T$ law ($g=3$).",
+      "given": [
+        "$\\int_0^\\infty\\frac{x^3}{e^x-1}dx=\\frac{\\pi^4}{15}$",
+        "$\\omega_D=v(6\\pi^2n)^{1/3}$ (Debye sphere with $N$ modes per polarisation)"
+      ],
+      "steps": [
+        {
+          "prompt": "Density of modes per volume.",
+          "reveal": "$g\\frac{4\\pi q^2dq}{(2\\pi)^3}=g\\frac{\\omega^2d\\omega}{2\\pi^2v^3}$."
+        },
+        {
+          "prompt": "Energy density.",
+          "reveal": "$u=\\int g\\frac{\\omega^2}{2\\pi^2v^3}\\frac{\\hbar\\omega}{e^{\\hbar\\omega/k_BT}-1}d\\omega=\\frac{g(k_BT)^4}{2\\pi^2(\\hbar v)^3}\\frac{\\pi^4}{15}=g\\frac{\\pi^2(k_BT)^4}{30(\\hbar v)^3}$."
+        },
+        {
+          "prompt": "Photons.",
+          "reveal": "$g=2$, $v=c$: $u=aT^4$, $a=\\frac{\\pi^2k_B^4}{15\\hbar^3c^3}=7.57\\times10^{-16}$ J m$^{-3}$K$^{-4}$, $\\sigma=ac/4$."
+        },
+        {
+          "prompt": "Phonons: $c_V=4u/T$ with $g=3$, then eliminate $v$ via $\\omega_D$.",
+          "reveal": "$c_V=\\frac{2\\pi^2}{5}k_B\\big(\\frac{k_BT}{\\hbar v}\\big)^3=\\frac{2\\pi^2}5k_B\\frac{6\\pi^2n}{(k_BT_D)^3}(k_BT)^3=\\frac{12\\pi^4}{5}nk_B\\big(\\frac T{T_D}\\big)^3$: script (2.79)."
+        }
+      ],
+      "keyPoints": [
+        "mode density $g\\omega^2/2\\pi^2v^3$",
+        "$u\\propto T^4/v^3$",
+        "photons: Stefan–Boltzmann",
+        "phonons: Debye $\\frac{12\\pi^4}5nk_B(T/T_D)^3$"
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "ss-deg-c1",
+      "title": "From copper to a white dwarf: how degenerate is it?",
+      "fight": "normal",
+      "problem": "Cross-course (Solid State script 3.1, Astro Choudhuri §5.2). Electrons in a white dwarf core: density $\\rho=10^{9}$ kg/m$^3$ (the typical value quoted by Choudhuri), carbon/oxygen so $\\mu_e=2$ (one electron per two nucleons), $n_e=\\rho/(\\mu_em_H)$. The core temperature is $10^7$ K. Use exactly the same free-electron formulas as for copper.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "c": 299792458,
+        "mH": 1.6735575e-27,
+        "rho": 1000000000.0,
+        "mue": 2.0,
+        "T": 10000000.0,
+        "nCu": 8.47e+28
+      },
+      "steps": [
+        {
+          "id": "ne",
+          "prompt": "Electron density $n_e=\\rho/(\\mu_em_H)$ in m$^{-3}$.",
+          "answer": "rho/(mue*mH)",
+          "unit": "m^-3",
+          "units": [
+            "m^-3",
+            "cm^-3",
+            "m^-2",
+            "kg m^-3"
+          ],
+          "tol": 0.02,
+          "hint": "Choudhuri eq. 5.6 with $\\mu_e=2/(1+X)=2$ for $X=0$ (helium and heavier: half as many electrons as nucleons)."
+        },
+        {
+          "id": "EF",
+          "prompt": "Fermi energy $\\epsilon_F=\\hbar^2(3\\pi^2n_e)^{2/3}/2m_e$ in keV (non-relativistic formula).",
+          "answer": "hbar**2*(3*pi**2*ne)**(2/3)/(2*me)/eV/1e3",
+          "unit": "keV",
+          "units": [
+            "keV",
+            "eV",
+            "MeV",
+            "meV"
+          ],
+          "tol": 0.03,
+          "hint": "Same formula as copper (7 eV) with $n$ larger by $3.5\\times10^6$: $\\epsilon_F$ larger by $(3.5\\times10^6)^{2/3}=2.3\\times10^4$, i.e. $\\approx160$ keV."
+        },
+        {
+          "id": "deg",
+          "prompt": "Degeneracy parameter $T_F/T=\\epsilon_F/(k_BT)$.",
+          "answer": "EF*1e3*eV/(kB*T)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "K",
+            "keV",
+            "m^-3"
+          ],
+          "tol": 0.03,
+          "hint": "$k_BT=0.86$ keV for $10^7$ K, so $\\epsilon_F/k_BT\\approx190\\gg1$: the electron gas is deeply degenerate, the protons/ions ($\\epsilon_F\\propto1/m$) are not (Choudhuri §5.2)."
+        },
+        {
+          "id": "x",
+          "prompt": "Relativity parameter $p_F/(m_ec)=\\hbar k_F/(m_ec)$ with $k_F=(3\\pi^2n_e)^{1/3}$.",
+          "answer": "hbar*(3*pi**2*ne)**(1/3)/(me*c)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "keV",
+            "m/s",
+            "K"
+          ],
+          "tol": 0.03,
+          "hint": "$x\\approx0.8$: neither $\\ll1$ nor $\\gg1$, so at $10^9$ kg/m$^3$ the electrons are mildly relativistic (Choudhuri Fig. 5.1: relativistic effects start near $10^9$ kg/m$^3$). The two limits (5.9) and (5.11) bracket the real equation of state."
+        }
+      ],
+      "xp": 70
+    },
+    {
+      "type": "calc",
+      "id": "ss-deg-c2",
+      "title": "Degeneracy pressure: a coin of copper and a star",
+      "fight": "normal",
+      "problem": "The pressure of a degenerate non-relativistic Fermi gas is $P=\\frac25n\\epsilon_F$; the bulk modulus is $B=-V\\,dP/dV=\\frac53P$. In terms of density, Choudhuri (5.9)-(5.10): $P=K_1\\rho^{5/3}$ with $K_1=\\dfrac{3^{2/3}}{20\\pi^{2/3}}\\dfrac{h^2}{m_e\\,m_H^{5/3}\\mu_e^{5/3}}$. (a) Copper, $n=8.47\\times10^{28}$ m$^{-3}$. (b) White dwarf core, $\\rho=10^9$ kg/m$^3$, $\\mu_e=2$.",
+      "vars": {
+        "h": 6.62607015e-34,
+        "mH": 1.6735575e-27,
+        "nCu": 8.47e+28,
+        "rho": 1000000000.0,
+        "mue": 2.0
+      },
+      "steps": [
+        {
+          "id": "EFCu",
+          "prompt": "Copper Fermi energy in eV.",
+          "answer": "hbar**2*(3*pi**2*nCu)**(2/3)/(2*me)/eV",
+          "unit": "eV",
+          "units": [
+            "eV",
+            "keV",
+            "meV",
+            "K"
+          ],
+          "tol": 0.02,
+          "hint": "Free-electron value $7.03$ eV."
+        },
+        {
+          "id": "PCu",
+          "prompt": "Degeneracy pressure of copper's electrons $P=\\frac25n\\epsilon_F$ in GPa.",
+          "answer": "0.4*nCu*EFCu*eV/1e9",
+          "unit": "GPa",
+          "units": [
+            "GPa",
+            "Pa",
+            "MPa",
+            "atm"
+          ],
+          "tol": 0.03,
+          "hint": "$\\approx38$ GPa $=3.8\\times10^5$ atm. This is the repulsive pressure balanced by the ionic attraction (cohesion)."
+        },
+        {
+          "id": "BCu",
+          "prompt": "Bulk modulus of the free-electron gas $B=\\frac53P=\\frac23n\\epsilon_F$ in GPa.",
+          "answer": "5/3*PCu",
+          "unit": "GPa",
+          "units": [
+            "GPa",
+            "Pa",
+            "MPa",
+            "K"
+          ],
+          "tol": 0.03,
+          "hint": "$64$ GPa versus the measured $140$ GPa: the right order of magnitude from Pauli exclusion alone. A classical gas would give $B=nk_BT\\sim10^{-4}$ GPa."
+        },
+        {
+          "id": "K1",
+          "prompt": "The Choudhuri constant $K_1$ in SI units ($P=K_1\\rho^{5/3}$), in Pa m$^5$ kg$^{-5/3}$ for $\\mu_e=2$.",
+          "answer": "3**(2/3)/(20*pi**(2/3))*h**2/(me*mH**(5/3)*mue**(5/3))",
+          "unit": "Pa m^5 kg^-5/3",
+          "units": [
+            "Pa m^5 kg^-5/3",
+            "Pa m^3 kg^-1",
+            "J m^-3",
+            "m^5 kg^-5/3"
+          ],
+          "tol": 0.03,
+          "hint": "Choudhuri (5.10): $K_1=1.00\\times10^7/\\mu_e^{5/3}$ in SI, i.e. $\\approx3.1\\times10^6$ for $\\mu_e=2$ (the constant evaluates to $3.12\\times10^6$). It follows from $P=\\frac{8\\pi}{15h^3m_e}p_F^5$ with $p_F=(3h^3\\rho/8\\pi\\mu_em_H)^{1/3}$."
+        },
+        {
+          "id": "PWD",
+          "prompt": "Pressure of the white-dwarf core, $P=K_1\\rho^{5/3}$ with $\\rho=10^9$ kg/m$^3$, in Pa.",
+          "answer": "K1*rho**(5/3)",
+          "unit": "Pa",
+          "units": [
+            "Pa",
+            "GPa",
+            "bar",
+            "Pa/m^3"
+          ],
+          "tol": 0.03,
+          "hint": "$\\approx3\\times10^{21}$ Pa. Cross-check with $\\frac25n_e\\epsilon_F=\\frac25\\times3\\times10^{35}\\times160$ keV: same number. (Compare the Sun's centre, $\\sim2.5\\times10^{16}$ Pa.)"
+        },
+        {
+          "id": "ratio",
+          "prompt": "How many times larger is $P_{\\rm WD}$ than $P_{\\rm Cu}$ (quick estimate within 25 %)?",
+          "answer": "PWD/(PCu*1e9)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "Pa",
+            "GPa",
+            "K"
+          ],
+          "tol": 0.1,
+          "hint": "$P\\propto n^{5/3}$: $(3.5\\times10^6)^{5/3}\\approx8\\times10^{10}$. Same physics, 11 decades of density.",
+          "tolType": "log"
+        }
+      ],
+      "xp": 80
+    },
+    {
+      "type": "calc",
+      "id": "ss-deg-c3",
+      "title": "How big is a white dwarf? Balance Pauli against gravity",
+      "fight": "normal",
+      "problem": "Estimate from energy balance (uniform sphere). $N$ electrons in a sphere of radius $R$ have kinetic energy $E_K=\\frac35N\\epsilon_F=A/R^2$ with $A=\\frac35N\\frac{\\hbar^2}{2m_e}\\big(\\frac{9\\pi N}{4}\\big)^{2/3}$ (since $n=3N/4\\pi R^3$). Gravity gives $E_G=-B/R$ with $B=\\frac35GM^2$ and $M=N\\mu_em_H$. Equilibrium $dE/dR=0$ gives $R=2A/B$. White dwarf of $M=0.6\\,M_\\odot$, $\\mu_e=2$. (Earth radius 6371 km.)",
+      "vars": {
+        "G": 6.6743e-11,
+        "mH": 1.6735575e-27,
+        "Msun": 1.9884e+30,
+        "M": 0.6,
+        "mue": 2.0,
+        "RE": 6371000.0
+      },
+      "steps": [
+        {
+          "id": "N",
+          "prompt": "Number of electrons $N=M/(\\mu_em_H)$.",
+          "answer": "M*Msun/(mue*mH)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "kg",
+            "m^-3",
+            "J"
+          ],
+          "tol": 0.02,
+          "hint": "$0.6\\times1.99\\times10^{30}/(2\\times1.67\\times10^{-27})=3.6\\times10^{56}$."
+        },
+        {
+          "id": "A",
+          "prompt": "Coefficient $A=\\frac35N\\frac{\\hbar^2}{2m_e}(9\\pi N/4)^{2/3}$ in J m$^2$.",
+          "answer": "0.6*N*hbar**2/(2*me)*(9*pi*N/4)**(2/3)",
+          "unit": "J m^2",
+          "units": [
+            "J m^2",
+            "J m",
+            "J",
+            "m^2"
+          ],
+          "tol": 0.03,
+          "hint": "The Fermi kinetic energy scales as $1/R^2$ ($\\epsilon_F\\propto n^{2/3}\\propto R^{-2}$): squeezing costs more and more."
+        },
+        {
+          "id": "B",
+          "prompt": "Coefficient $B=\\frac35G(M_\\odot M)^2$ in J m.",
+          "answer": "0.6*G*(M*Msun)**2",
+          "unit": "J m",
+          "units": [
+            "J m",
+            "J m^2",
+            "J",
+            "m"
+          ],
+          "tol": 0.03,
+          "hint": "Gravitational binding of a uniform sphere $\\frac35GM^2/R$ scales as $1/R$ (weaker at small $R$ than the Pauli cost): that is why an equilibrium exists."
+        },
+        {
+          "id": "R",
+          "prompt": "Equilibrium radius $R=2A/B$ in km.",
+          "answer": "2*A/B/1e3",
+          "unit": "km",
+          "units": [
+            "km",
+            "m",
+            "R_sun",
+            "pc"
+          ],
+          "tol": 0.05,
+          "hint": "$R\\approx8.5\\times10^3$ km $\\approx1.3$ Earth radii $\\approx0.012R_\\odot$: a white dwarf is Earth-sized with the mass of a star. Real $0.6M_\\odot$ white dwarfs have $\\approx8700$ km."
+        },
+        {
+          "id": "rhoWD",
+          "prompt": "Mean density $3M/(4\\pi R^3)$ in kg/m$^3$.",
+          "answer": "3*M*Msun/(4*pi*(R*1e3)**3)",
+          "unit": "kg/m^3",
+          "units": [
+            "kg/m^3",
+            "g/cm^3",
+            "kg/m^2",
+            "m^-3"
+          ],
+          "tol": 0.1,
+          "hint": "$\\sim5\\times10^8$ kg/m$^3$ $\\approx5\\times10^5$ g/cm$^3$: a teaspoon weighs a ton or more. The same order as the $10^9$ kg/m$^3$ assumed in the first quest (the core is denser than the mean)."
+        },
+        {
+          "id": "R12",
+          "prompt": "Mass–radius relation $R\\propto M^{-1/3}$ (Choudhuri 5.25): radius of a $1.2\\,M_\\odot$ white dwarf in km.",
+          "answer": "R*2**(-1/3)",
+          "unit": "km",
+          "units": [
+            "km",
+            "m",
+            "R_sun",
+            "pc"
+          ],
+          "tol": 0.05,
+          "hint": "Doubling the mass **shrinks** the star by $2^{-1/3}$: more massive white dwarfs are smaller. Minimising $A/R^2-B/R$ with $A\\propto N^{5/3}$, $B\\propto N^2$ gives $R\\propto N^{-1/3}$."
+        }
+      ],
+      "xp": 90
+    },
+    {
+      "type": "calc",
+      "id": "ss-deg-c4",
+      "title": "The Chandrasekhar mass from the ultra-relativistic limit",
+      "fight": "normal",
+      "problem": "Now let the electrons be ultra-relativistic, $E=pc$: the mean energy per electron is $\\frac34p_Fc$, so $E_K=\\frac34\\hbar c\\,(9\\pi/4)^{1/3}N^{4/3}/R=A'/R$. Both terms now scale as $1/R$, so there is a critical $N$ where $A'=B$ with $B=\\frac35G(\\mu_em_HN)^2$: for larger $N$ gravity wins at every radius and the star collapses. Setting $\\frac34\\hbar c(9\\pi/4)^{1/3}N^{4/3}=\\frac35G(\\mu_em_HN)^2$ gives $N_{\\rm Ch}^{2/3}=\\dfrac{5}{4}\\Big(\\dfrac{9\\pi}{4}\\Big)^{1/3}\\dfrac{\\hbar c}{G\\mu_e^2m_H^2}$. $\\mu_e=2$.",
+      "vars": {
+        "G": 6.6743e-11,
+        "mH": 1.6735575e-27,
+        "c": 299792458,
+        "h": 6.62607015e-34,
+        "Msun": 1.9884e+30,
+        "mue": 2.0
+      },
+      "steps": [
+        {
+          "id": "N23",
+          "prompt": "$N_{\\rm Ch}^{2/3}=\\frac54(9\\pi/4)^{1/3}\\hbar c/(G\\mu_e^2m_H^2)$.",
+          "answer": "1.25*(9*pi/4)**(1/3)*hbar*c/(G*mue**2*mH**2)",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "kg",
+            "J",
+            "m"
+          ],
+          "tol": 0.03,
+          "hint": "$\\hbar c/(Gm_H^2)=1.7\\times10^{38}$ is the (squared) ratio of the electromagnetic-quantum to gravitational strength: $N_{\\rm Ch}\\sim(\\hbar c/Gm_H^2)^{3/2}$. Only fundamental constants enter."
+        },
+        {
+          "id": "NCh",
+          "prompt": "$N_{\\rm Ch}=(N_{\\rm Ch}^{2/3})^{3/2}$.",
+          "answer": "N23**1.5",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "kg",
+            "J",
+            "m"
+          ],
+          "tol": 0.05,
+          "hint": "$\\sim10^{57}$ electrons: $\\sim2\\times10^{57}$ nucleons, i.e. $\\sim1.7\\,M_\\odot$."
+        },
+        {
+          "id": "MCh",
+          "prompt": "Estimate $M_{\\rm Ch}=\\mu_em_HN_{\\rm Ch}$ in $M_\\odot$.",
+          "answer": "mue*mH*NCh/Msun",
+          "unit": "M_sun",
+          "units": [
+            "M_sun",
+            "kg",
+            "L_sun",
+            "R_sun"
+          ],
+          "tol": 0.05,
+          "hint": "$\\approx1.7\\,M_\\odot$ from the uniform-sphere estimate, within 20 % of the exact value."
+        },
+        {
+          "id": "MChex",
+          "prompt": "The exact polytrope result (Choudhuri 5.27, $n=3$, $\\xi_1^2|\\theta'(\\xi_1)|=2.018$): $M_{\\rm Ch}=\\frac{\\sqrt6}{32\\pi}\\big(\\frac{hc}{G}\\big)^{3/2}\\big(\\frac2{\\mu_e}\\big)^2\\frac{2.018}{m_H^2}$ in $M_\\odot$.",
+          "answer": "sqrt(6)/(32*pi)*(h*c/G)**1.5*(2/mue)**2*2.018/mH**2/Msun",
+          "unit": "M_sun",
+          "units": [
+            "M_sun",
+            "kg",
+            "L_sun",
+            "R_sun"
+          ],
+          "tol": 0.02,
+          "hint": "Evaluates to $1.43\\,(2/\\mu_e)^2M_\\odot$ with these constants; Choudhuri quotes $1.46$ (5.28, rounded constants), the modern value is $1.44$. Neither mass depends on the star's radius: below it the star can sit anywhere on the $R\\propto M^{-1/3}$ curve, at $M_{\\rm Ch}$ it has $R\\to0$ in this idealisation."
+        }
+      ],
+      "xp": 90
+    },
+    {
+      "type": "calc",
+      "id": "ss-deg-c5",
+      "title": "Photons and phonons: one derivation, two $T^3$ laws",
+      "fight": "normal",
+      "problem": "Cross-course (Solid State script 2.4, Astro photometry). A gas of bosons with $\\omega=vq$ and $g$ polarisations has energy density $u=g\\,\\frac{\\pi^2(k_BT)^4}{30(\\hbar v)^3}$ and heat capacity per volume $c=4u/T$. Photons: $g=2$, $v=c$ (Planck). Phonons: $g=3$ with the mean sound speed $v$ (Debye). Use copper, $n=8.47\\times10^{28}$ m$^{-3}$ and $T_D=343$ K, where $\\omega_D=v(6\\pi^2n)^{1/3}$ defines $v$; and the CMB, $T=2.725$ K.",
+      "vars": {
+        "kB": 1.380649e-23,
+        "c": 299792458,
+        "n": 8.47e+28,
+        "TD": 343.0,
+        "Tcmb": 2.725,
+        "Tlow": 10.0
+      },
+      "steps": [
+        {
+          "id": "arad",
+          "prompt": "Radiation constant $a=\\pi^2k_B^4/(15\\hbar^3c^3)$ in J m$^{-3}$K$^{-4}$.",
+          "answer": "pi**2*kB**4/(15*hbar**3*c**3)",
+          "unit": "J/(m^3 K^4)",
+          "units": [
+            "J/(m^3 K^4)",
+            "W/(m^2 K^4)",
+            "J/(m^3 K^3)",
+            "J/(m^3 K)"
+          ],
+          "tol": 0.02,
+          "hint": "Photon gas: $g=2$, $v=c$ in the formula above. $a=7.566\\times10^{-16}$ J m$^{-3}$K$^{-4}$; Stefan–Boltzmann $\\sigma=ac/4$."
+        },
+        {
+          "id": "ucmb",
+          "prompt": "Energy density of the cosmic microwave background $u=aT^4$ at $T=2.725$ K in J/m$^3$.",
+          "answer": "arad*Tcmb**4",
+          "unit": "J/m^3",
+          "units": [
+            "J/m^3",
+            "J/m^2",
+            "W/m^2",
+            "eV"
+          ],
+          "tol": 0.03,
+          "hint": "$4.2\\times10^{-14}$ J/m$^3$ $=0.26$ eV/cm$^3$: the same CMB as in the astro room *Light Deck*."
+        },
+        {
+          "id": "vs",
+          "prompt": "Mean sound velocity of copper from the Debye frequency, $v=k_BT_D/[\\hbar(6\\pi^2n)^{1/3}]$ in m/s.",
+          "answer": "kB*TD/(hbar*(6*pi**2*n)**(1/3))",
+          "unit": "m/s",
+          "units": [
+            "m/s",
+            "km/s",
+            "c",
+            "cm/s"
+          ],
+          "tol": 0.03,
+          "hint": "$k_BT_D=\\hbar\\omega_D$ and $\\omega_D=v\\,q_D$ with $q_D=(6\\pi^2n)^{1/3}$ the radius of the Debye sphere that holds $N$ states. $\\approx2.6$ km/s (measured Cu: 3.8 km/s longitudinal, 2.3 km/s transverse)."
+        },
+        {
+          "id": "cph",
+          "prompt": "Phonon heat capacity per volume $c=4u/T=\\frac{4}{T}\\,3\\frac{\\pi^2(k_BT)^4}{30(\\hbar v)^3}$ at $T=10$ K, in J m$^{-3}$K$^{-1}$.",
+          "answer": "4*3*pi**2*kB**4*Tlow**3/(30*(hbar*vs)**3)",
+          "unit": "J/(m^3 K)",
+          "units": [
+            "J/(m^3 K)",
+            "J/(m^3 K^4)",
+            "J/m^3",
+            "W/(m^2 K^4)"
+          ],
+          "tol": 0.03,
+          "hint": "Equals $\\beta T^3$ with Debye's $\\beta=\\frac{12\\pi^4}5nk_B/T_D^3=6.77$ J m$^{-3}$K$^{-4}$ (Phonon Halls): $6.8\\times10^3$ J m$^{-3}$K$^{-1}$ at 10 K. The $6\\pi^2n$ inside $\\omega_D^3$ turns Debye's $\\frac{12\\pi^4}5$ into $\\frac{2\\pi^2}{5}$: the two derivations are the same."
+        },
+        {
+          "id": "cphot",
+          "prompt": "Photon heat capacity per volume at $T=10$ K, $c=4aT^3$, in J m$^{-3}$K$^{-1}$.",
+          "answer": "4*arad*Tlow**3",
+          "unit": "J/(m^3 K)",
+          "units": [
+            "J/(m^3 K)",
+            "J/(m^3 K^4)",
+            "J/m^3",
+            "W/(m^2 K^4)"
+          ],
+          "tol": 0.03,
+          "hint": "$3\\times10^{-12}$ J m$^{-3}$K$^{-1}$."
+        },
+        {
+          "id": "R",
+          "prompt": "How many times larger is the phonon than the photon heat capacity at the same $T$ (quick estimate within a factor of 1.5)?",
+          "answer": "cph/cphot",
+          "unit": "dimensionless",
+          "units": [
+            "dimensionless",
+            "J/(m^3 K)",
+            "K",
+            "m/s"
+          ],
+          "tol": 0.18,
+          "hint": "$\\frac32(c/v)^3\\approx2\\times10^{15}$: low-energy excitations of matter are slow, and the cube of the velocity ratio is huge. Slow bosons mean many more states per energy.",
+          "tolType": "log"
+        }
+      ],
+      "xp": 80
+    },
+    {
+      "type": "boss",
+      "id": "ss-deg-b1",
+      "title": "Boss: Degenerate Matter (cross-course, constructed in exam style)",
+      "source": {
+        "file": "notes/solid-state/05-cross-course-links.md",
+        "where": "constructed from Solid State script 3.1 (Fermi gas), QM sheet 3 (box, counting of states) and Choudhuri §5.2-5.3 (pp. 129-137); no verbatim exam: the CLAUDE.md design calls for this cross-region boss"
+      },
+      "minutes": 40,
+      "instructions": "The same Fermi gas appears in three courses. Do it on paper, then enter the numbers.",
+      "statement": [
+        "(a) [QM, 4 pt] A particle in a cubic box of side $L$ has states $\\psi\\propto\\sin\\frac{n_x\\pi x}L\\sin\\frac{n_y\\pi y}L\\sin\\frac{n_z\\pi z}L$ with $E=\\frac{\\hbar^2\\pi^2}{2mL^2}(n_x^2+n_y^2+n_z^2)$. Show that $N$ spin-$\\frac12$ fermions fill all states up to $k_F=(3\\pi^2n)^{1/3}$, $n=N/L^3$, and that $\\epsilon_F=\\frac{\\hbar^2}{2m}(3\\pi^2n)^{2/3}$ and $E_{\\rm tot}=\\frac35N\\epsilon_F$.",
+        "(b) [Solid State, 4 pt] Evaluate $\\epsilon_F$, $T_F$ and $P=\\frac25n\\epsilon_F$ for copper ($n=8.47\\times10^{28}$ m$^{-3}$). Why is $c_V\\propto T$ and not $\\frac32k_B$ per electron?",
+        "(c) [Astro, 6 pt] A white dwarf of mass $0.6M_\\odot$ with $\\mu_e=2$ is supported by non-relativistic electron degeneracy. Estimate its radius from $E=A/R^2-B/R$ and give the mean density. Which way does the radius change with mass?",
+        "(d) [Astro, 4 pt] For ultra-relativistic electrons both terms scale as $1/R$. Estimate the limiting mass $M_{\\rm Ch}$ and comment on the exact value $\\approx1.44\\,(2/\\mu_e)^2M_\\odot$ (Choudhuri 5.28 quotes 1.46).",
+        "(e) [All, 2 pt] Why are electrons (not the nuclei) degenerate in a white dwarf, although the nuclei carry almost all the mass?",
+        "Game numbers: density of the core $\\rho=10^{9}$ kg/m$^3$ for the Fermi energy; $M=0.6\\,M_\\odot$ for the radius."
+      ],
+      "finalAnswers": [
+        {
+          "id": "EFCu",
+          "prompt": "(b) $\\epsilon_F$ of copper in eV.",
+          "answer": "hbar**2*(3*pi**2*nCu)**(2/3)/(2*me)/eV",
+          "vars": {
+            "nCu": 8.47e+28
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "TF",
+          "prompt": "(b) Fermi temperature of copper in K.",
+          "answer": "hbar**2*(3*pi**2*nCu)**(2/3)/(2*me)/kB",
+          "vars": {
+            "nCu": 8.47e+28,
+            "kB": 1.380649e-23
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "PCu",
+          "prompt": "(b) Degeneracy pressure of copper $\\frac25n\\epsilon_F$ in GPa.",
+          "answer": "0.4*nCu*hbar**2*(3*pi**2*nCu)**(2/3)/(2*me)/1e9",
+          "vars": {
+            "nCu": 8.47e+28
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "EFWD",
+          "prompt": "(c) Fermi energy of the core ($\\rho=10^9$ kg/m$^3$, $\\mu_e=2$) in keV.",
+          "answer": "hbar**2*(3*pi**2*(rho/(mue*mH)))**(2/3)/(2*me)/eV/1e3",
+          "vars": {
+            "rho": 1000000000.0,
+            "mue": 2.0,
+            "mH": 1.6735575e-27
+          },
+          "tol": 0.03
+        },
+        {
+          "id": "R",
+          "prompt": "(c) Radius of the $0.6M_\\odot$ white dwarf in km (energy balance).",
+          "answer": "2*(0.6*(M*Msun/(mue*mH))*hbar**2/(2*me)*(9*pi*(M*Msun/(mue*mH))/4)**(2/3))/(0.6*G*(M*Msun)**2)/1e3",
+          "vars": {
+            "M": 0.6,
+            "Msun": 1.9884e+30,
+            "mue": 2.0,
+            "mH": 1.6735575e-27,
+            "G": 6.6743e-11
+          },
+          "tol": 0.05
+        },
+        {
+          "id": "MCh",
+          "prompt": "(d) Estimated Chandrasekhar mass in $M_\\odot$ (uniform-sphere, ultra-relativistic).",
+          "answer": "mue*mH*(1.25*(9*pi/4)**(1/3)*hbar*c/(G*mue**2*mH**2))**1.5/Msun",
+          "vars": {
+            "mue": 2.0,
+            "mH": 1.6735575e-27,
+            "c": 299792458,
+            "G": 6.6743e-11,
+            "Msun": 1.9884e+30
+          },
+          "tol": 0.05
+        }
+      ],
+      "keyPoints": [
+        "(a) Each state is a point $(n_x,n_y,n_z)$ with $n_i>0$: one state per unit volume in $n$-space. The octant of a sphere of radius $n_F$ holds $\\frac18\\frac{4\\pi}3n_F^3$ states, times 2 for spin: $N=\\frac{\\pi}3n_F^3$, $k_F=\\pi n_F/L$, so $N=\\frac{V}{3\\pi^2}k_F^3$. $\\epsilon_F=\\hbar^2k_F^2/2m$; $E_{\\rm tot}=\\int^{\\epsilon_F}\\epsilon\\,\\nu(\\epsilon)d\\epsilon=\\frac35N\\epsilon_F$.",
+        "(b) $\\epsilon_F=7.03$ eV, $T_F=8.2\\times10^4$ K, $P=\\frac25n\\epsilon_F=38$ GPa. Only a fraction $T/T_F$ of the electrons (those within $k_BT$ of $\\epsilon_F$, which have empty states available) can absorb heat: $c_V=\\frac{\\pi^2}3\\nu(\\epsilon_F)k_B^2T\\propto T$.",
+        "(c) $N=M/\\mu_em_H=3.6\\times10^{56}$; $A=\\frac35N\\frac{\\hbar^2}{2m_e}(9\\pi N/4)^{2/3}$, $B=\\frac35GM^2$; $dE/dR=0\\Rightarrow R=2A/B\\approx8.5\\times10^3$ km (Earth-sized), $\\bar\\rho\\sim5\\times10^8$ kg/m$^3$. $R\\propto M^{-1/3}$: heavier white dwarfs are smaller.",
+        "(d) Ultra-relativistic: $E_K=\\frac34\\hbar c(9\\pi/4)^{1/3}N^{4/3}/R$ and gravity $-\\frac35GM^2/R$: the two have the same $R$-dependence, so only the **mass** decides: for $N<N_{\\rm Ch}$ the kinetic term wins and the star is stable, for $N>N_{\\rm Ch}$ it collapses. $M_{\\rm Ch}\\approx1.7M_\\odot$; solving Lane–Emden ($n=3$) gives $\\approx1.43$-$1.46\\,(2/\\mu_e)^2M_\\odot$ (Choudhuri 5.28).",
+        "(e) Equal kinetic energy $p^2/2m$ at the same $T$ gives light particles small momenta and thus a small phase-space volume; the electron number density in phase space is largest for electrons and reaches the Pauli limit $2/h^3$ first (Choudhuri §5.2). Nuclei remain non-degenerate and only supply the mass.",
+        "Connection to remember: the same $\\frac35N\\epsilon_F$ and $P=\\frac25n\\epsilon_F$ describe an electron in a metal, a neutron in a neutron star ($m\\to m_n$) and electrons in a white dwarf. In QM it is a counting problem; in solids it explains $c_V\\propto T$, $\\chi_P$ and the bulk modulus; in astro it fixes $R(M)$ and $M_{\\rm Ch}$."
+      ],
+      "xp": 120
+    }
+  ]
+}

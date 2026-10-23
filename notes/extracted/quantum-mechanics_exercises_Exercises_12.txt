@@ -1,0 +1,106 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                              Exercise sheet XII
+                                  Return:    10.12.2025
+
+
+Question 1 [Stern–Gerlach experiment ]:
+In the Stern–Gerlach experiment, (electrically neutral) particles are shot through an in-
+homogeneous magnetic field. A particle is deflected up- or downwards depending on its
+intrinsic angular momentum, its spin. Finally, the path the particle has taken is measured
+by recording its incidence on a screen.
+    Sketch the expected measurement results of Stern–Gerlach experiments carried out
+with molecules composed of
+  (i) two spin- 12 atoms.
+ (ii) three spin- 21 atoms.
+
+
+Question 2 [Vectors and tensors ]:
+In this exercise, we will define what it means for an observable to “transform as a vector”
+and as a “tensor” and work out some examples.
+     The nomenclature of a quantity transforming as a vector is usually meant in the
+context of rotations. The vector representation of SO(3) is given by its defining action,
+i.e. it is R3 where the rotations Rj (φ) around axis ej act as
+                                                                            
+          1   0      0                 cos φ 0 sin φ             cos φ − sin φ 0
+R1 (φ) = 0 cos φ − sin φ, R2 (φ) =  0      1   0 , R3 (φ) =  sin φ cos φ 0.
+          0 sin φ cos φ               − sin φ 0 cos φ               0     0    1
+                                                                                (1)
+  (i) Show that the so(3) ∼= su(2) representation corresponding to the vector representa-
+      tion of SO(3) is the spin 1 representation.
+                                                  d
+      Hint: The generators of so(3) are Mj = i dφ       R (φ). The ladder operators are
+                                                    φ=0 j
+      M± = M1 ± iM2 .
+A quantity is called a vector if it transforms in the spin 1 representation D1 under rota-
+tions. In particular, rotations act on operators O via the adjoint action of the angular
+momentum operator L,
+                                      O 7→ ℏ−1 [Lj , O] .                              (2)
+Three operators J1 , J2 , J3 transform as a vector if they sit in an irreducible D1 subrepre-
+sentation of this su(2) representation. They can be combined into (see (ii) below)
+                                              
+                                               J1
+                                        J = J2  .
+                                                                                         (3)
+                                               J3
+ (ii) Show again that both the position operators x1 , x2 , x3 and momentum operators
+      p1 , p2 , p3 transform as vectors. (Other examples include angular momentum and
+      the Pauli–Lenz vector.)
+      How does ℏ−1 [Lj , ·] act on x, p?
+(iii) For an arbitrary vector J1 , J2 , J3 , what are the highest and lowest weight states of
+      the corresponding spin 1 representation? This is called the spherical basis for the
+      vector. Express J in these components.
+
+There are generalisations of these transformations. For example, an operator is a scalar,
+if it transforms in the D0 representation. It is a tensor if it transforms in Dj for j ≥ 2
+an integer. Scalar and tensor operators can for example be obtained by taking tensor
+products of vectors, as we will now see.
+
+(iv) For D1 = span{e+1 , e0 , e−1 } the spin 1 representation (em is the vector with M3
+     eigenvalue m), we define its symmetric tensor product as
+                                     nX                            o
+                           S 2 D1 =        ci,j ei ⊗ ej ci,j = cj,i .                (4)
+                                          i,j
+
+     Decompose S 2 D1 into irreducible su(2) representations and show that it contains a
+     scalar and a tensor.
+
+ (v) Use the previous result to show that two vectors J and K can be symmetrically
+     combined to give a tensor T and a scalar S, and find expressions for these operators
+     in terms of the components Jj , Kj .
+     Hint: The components of the T 2-tensor in the spherical basis are
+
+                       T = T+2 ẽ−2 − T+1 ẽ−1 + T0 ẽ0 − T−1 ẽ+1 + T−2 ẽ+2 ,           (5)
+
+     where ẽm is the state in D2 with charge m. The components can also be arranged
+     in a matrix                                     
+                                          T11 T12 T13
+                                   T = T21 T22 T23  ,                          (6)
+                                          T31 T23 T33
+     similarly as for the vector in (iii). What are the Tij ?
+
+
+Question 3 [Clebsch-Gordan coefficients ]:
+  (i) Prove that the Clebsch-Gordan coefficients (in the notation ⟨j1 j2 m1 m2 |j1 j2 jm⟩) for
+      the decomposition of the tensor product of spin l and spin 1/2 to spin l + 1/2 are
+                                                                     s
+                        D                                         E    l ± m + 12
+                          l, 12 , m ∓ 12 , ± 21 l, 12 , l + 12 , m =              .        (7)
+                                                                         2l + 1
+
+     Hint: First focus on the m2 = 1/2 coefficients. Using one of the recursion relations
+     from the lecture show that
+                                         s
+       D 1           1  1     1       E     l + m − 12 D 1         1 1 1       1 E
+        l, , m − 32 , l, , l + , m − 1 =                l,   , m −  , l, , l +   , m . (8)
+          2          2 2      2             l + m + 12     2       2 2 2       2
+
+     Identify the state of highest spin, then use this relation to find all the m2 = 1/2
+     coefficients. To find the m2 = −1/2 coefficients, consider the other recursion relation
+     from the lecture.
+(ii) An electron in the hydrogen atom is in an orbital angular momentum state with
+     l = 1. Find the eigenstates of the total (orbital and spin) angular momentum |j, jz ⟩
+     in D 3 in terms of those labelled by |m, s⟩, where m and s are the z-components of
+          2
+     the orbital and spin angular momentum operators, respectively.
+

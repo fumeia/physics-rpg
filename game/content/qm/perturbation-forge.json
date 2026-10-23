@@ -1,0 +1,1461 @@
+{
+ "region": "QM Interference Labs",
+ "course": "quantum-mechanics",
+ "exhibit": "set",
+ "id": "qm-perturbation-forge",
+ "title": "The Perturbation Forge",
+ "topics": [
+  "non-degenerate perturbation theory (E1, E2, |psi1>)",
+  "degenerate perturbation theory and good quantum numbers",
+  "Stark effect n=2",
+  "relativistic fine-structure correction of hydrogen",
+  "p^4 and p^6 corrections of the oscillator",
+  "time-dependent perturbation theory (first order)"
+ ],
+ "sources": [
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 11.1-11.2 (pp. 114-123): time-independent perturbation theory, Stark effect"
+  },
+  {
+   "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+   "where": "Ch. 11.3 (pp. 124-130): time-dependent perturbation theory"
+  },
+  {
+   "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+   "where": "Q1 anharmonic oscillator, Q2 Stark effect"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+   "where": "Question 4 [Fine structure corrections, 21 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+   "where": "Aufgabe 4 [Zeit-unabhaengige Stoerungstheorie, 21 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+   "where": "Question 4 (same problem as FS19 Q4)"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+   "where": "Question 4 [Degenerate perturbation theory, 15 pt]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+   "where": "Question 3 [Perturbation of the harmonic oscillator]"
+  },
+  {
+   "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+   "where": "Question 4 [Time-dependent perturbation theory, 18 pt]"
+  },
+  {
+   "file": "notes/quantum-mechanics/ch11-perturbation-theory.md",
+   "where": "transcription and worked solutions"
+  }
+ ],
+ "intro": "The forge heats a level and bends it: $H=H_0+\\lambda H'$. Perturbation theory is a recurring exam topic (FS19, HS18, FS22, FS26, HS25, HS21), always in the same three flavours: non-degenerate (energies and states order by order), degenerate (diagonalise $H'$ inside the degenerate subspace, use symmetries), and the hydrogen corrections where the trick is to eliminate $p^2$ with the Schroedinger equation. The shortcut for everything: find which matrix elements $\\langle m|H'|n\\rangle$ vanish.",
+ "tutorial": [
+  {
+   "title": "The anvil",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The two dashed lines are the unperturbed levels $\\varepsilon_{1,2}=\\mp\\Delta/2$ crossing at $\\Delta=0$. The solid curves are the exact eigenvalues once a coupling $V$ is switched on: the levels <b>repel</b> and never cross (avoided crossing).</p>"
+  },
+  {
+   "title": "The glowing markers",
+   "look": {
+    "x": 0,
+    "z": -3
+   },
+   "focus": null,
+   "html": "<p>The orange marker is the exact lower level, the green marker is second-order perturbation theory $\\varepsilon_1-V^2/\\Delta$. They agree for $|\\Delta|\\gg V$ and separate when $|\\Delta|\\lesssim 2V$: this is exactly where the condition $|H'_{mn}|\\ll|E_n-E_m|$ fails and you must switch to degenerate theory.</p>"
+  },
+  {
+   "title": "Consoles",
+   "look": {
+    "x": 0,
+    "z": 0
+   },
+   "focus": null,
+   "html": "<p>Library: the four exam recipes. Quiz: multiple choice. Derivation desk: the proofs the exams ask for (FS19 Q4(i) is 10 points of pure derivation). Fights: Stark effect, linear perturbation, time-dependent transition probability. Boss gate: FS19/HS18 Q4, FS26 Q4, FS22 Q4.</p>"
+  }
+ ],
+ "encounters": [
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-pf-L1",
+   "title": "Non-degenerate perturbation theory: E1, E2 and the corrected state",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 11.1, pp. 114-117"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+     "where": "Aufgabe 4 (i), 10 pt"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS25.pdf",
+     "where": "Question 3, given formulas"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch11-perturbation-theory.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Write $H=H_0+\\lambda H'$ with $H_0\\psi_n=E_n\\psi_n$ solved and non-degenerate. Make the power-series ansatz $\\psi=\\psi_n+\\lambda\\psi^{(1)}+\\lambda^2\\psi^{(2)}+\\dots$, $E=E_n+\\lambda E^{(1)}+\\lambda^2E^{(2)}+\\dots$ and fix the normalisation convention <b>$\\langle\\psi_n|\\psi^{(s)}\\rangle=0$ for $s\\ge1$</b> (the exam asks you to state it). Insert into $H\\psi=E\\psi$ and compare powers of $\\lambda$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\lambda^0:\\ (H_0-E_n)\\psi_n=0,\\qquad \\lambda^1:\\ (H_0-E_n)\\psi^{(1)}=(E^{(1)}-H')\\psi_n,\\qquad \\lambda^2:\\ (H_0-E_n)\\psi^{(2)}=(E^{(1)}-H')\\psi^{(1)}+E^{(2)}\\psi_n",
+     "label": "every order has the same operator H_0 - E_n on the left"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Project on $\\langle\\psi_n|$</b>: the left-hand side vanishes because $H_0$ is hermitian ($\\langle\\psi_n|(H_0-E_n)=0$). This leaves the energies. <b>Project on $\\langle\\psi_m|$, $m\\ne n$</b>: $(E_m-E_n)\\langle\\psi_m|\\psi^{(1)}\\rangle=-\\langle\\psi_m|H'|\\psi_n\\rangle$ gives the state. Here is where non-degeneracy is needed: you divide by $E_m-E_n$."
+    },
+    {
+     "kind": "eq",
+     "tex": "E^{(1)}_n=\\langle n|H'|n\\rangle,\\qquad E^{(2)}_n=\\sum_{m\\neq n}\\frac{|\\langle m|H'|n\\rangle|^2}{E_n-E_m},\\qquad \\psi^{(1)}_n=\\sum_{m\\neq n}\\frac{\\langle m|H'|n\\rangle}{E_n-E_m}\\,\\psi_m",
+     "label": "script Ch. 11.1; given on the HS25 Q3 sheet"
+    },
+    {
+     "kind": "intuition",
+     "html": "<b>Level repulsion.</b> A state with a neighbour $m$ above ($E_m>E_n$) is pushed down, a neighbour below pushes it up. For the ground state $E^{(2)}_0\\le0$ always, since every denominator is negative. The two-level case $H=\\begin{pmatrix}\\varepsilon_1&V\\\\V&\\varepsilon_2\\end{pmatrix}$ has exact levels $\\frac{\\varepsilon_1+\\varepsilon_2}2\\pm\\frac12\\sqrt{\\Delta^2+4V^2}$, $\\Delta=\\varepsilon_2-\\varepsilon_1$, and for $|\\Delta|\\gg V$ the lower one is $\\varepsilon_1-V^2/\\Delta$: exactly the second-order formula."
+    },
+    {
+     "kind": "pitfall",
+     "html": "(1) The sum excludes $m=n$. (2) The denominator is $E_n-E_m$, not $E_m-E_n$: sign errors here flip the sign of $E^{(2)}$. (3) $E^{(2)}$ needs <b>all</b> couplings: in the oscillator, $x^4$ couples $n$ to $n\\pm2$ and $n\\pm4$, and you must list both directions ($n-2$ exists only for $n\\ge2$). (4) The expansion is valid only if $|\\langle m|\\lambda H'|n\\rangle|\\ll|E_n-E_m|$. If two levels become close, use the degenerate method."
+    },
+    {
+     "kind": "eq",
+     "tex": "H'=\\alpha p^4:\\quad p=i\\sqrt{\\tfrac{m\\hbar\\omega}{2}}(a^\\dagger-a)\\ \\Rightarrow\\ (a^\\dagger-a)^4|0\\rangle=3|0\\rangle-6\\sqrt2\\,|2\\rangle+\\sqrt{24}\\,|4\\rangle",
+     "label": "FS19 Q4(ii): only three states are coupled to the ground state"
+    },
+    {
+     "kind": "exam",
+     "html": "FS19 Q4 / HS18 Q4 (21 pt): (i) set up the series, state the convention, explain $\\psi^{(1)}$ and $E^{(2)}$ (10 pt); (ii) work out the $p^4$ correction of the oscillator ground state to second order (7 pt); (iii) say how the $p^6$ term changes it (4 pt). HS25 Q3 gives the three formulas above and asks for the $a^2+a^{\\dagger2}$ perturbation; FS22 Q4(i) is the same derivation with the degenerate twist."
+    }
+   ],
+   "check": [
+    {
+     "q": "Why is $\\langle\\psi_n|(H_0-E_n)\\psi^{(s)}\\rangle=0$?",
+     "options": [
+      "Because $\\psi^{(s)}$ is orthogonal to $\\psi_n$",
+      "Because $E^{(s)}=0$ for $s\\ge1$",
+      "Because $H'$ is small",
+      "Because $H_0$ is hermitian and $\\langle\\psi_n|H_0=E_n\\langle\\psi_n|$"
+     ],
+     "correct": 3,
+     "explain": "$\\langle\\psi_n|H_0=E_n\\langle\\psi_n|$, so the left-hand side of every order is $0$ and the right-hand side gives the energy."
+    },
+    {
+     "q": "A ground state is coupled by $H'$ to excited states only. The sign of $E^{(2)}_0$ is",
+     "options": [
+      "always positive",
+      "it depends on the sign of $\\lambda$",
+      "always negative",
+      "zero, because $E^{(1)}=0$"
+     ],
+     "correct": 2,
+     "explain": "Level repulsion from above."
+    },
+    {
+     "q": "Two levels $\\varepsilon_1<\\varepsilon_2$ coupled by $V$. Second-order PT for the lower level gives",
+     "options": [
+      "$\\varepsilon_1+\\dfrac{V^2}{\\varepsilon_2-\\varepsilon_1}$",
+      "$\\varepsilon_1\\pm V$",
+      "$\\varepsilon_1-\\dfrac{V}{\\varepsilon_2-\\varepsilon_1}$",
+      "$\\varepsilon_1-\\dfrac{V^2}{\\varepsilon_2-\\varepsilon_1}$"
+     ],
+     "correct": 3,
+     "explain": "Expand $\\frac12\\sqrt{\\Delta^2+4V^2}\\approx\\frac\\Delta2+\\frac{V^2}{\\Delta}$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-pf-L2",
+   "title": "Degenerate perturbation theory, symmetries and the Stark effect",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 11.2, pp. 118-123 (Stark effect 11.2.4)"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+     "where": "Q2 Stark effect"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+     "where": "Question 4 (ii)-(iv)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch11-perturbation-theory.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "If $E_m$ is $g$-fold degenerate the non-degenerate formula divides by zero: the unperturbed states $|i\\rangle$ are not determined, $H'$ decides which combinations are the right zeroth-order states. In the project on the degenerate subspace the order-$\\lambda$ equation becomes an eigenvalue problem (FS22 Q4(ii), 4 pt):"
+    },
+    {
+     "kind": "eq",
+     "tex": "\\sum_{j}\\langle i|H'|j\\rangle\\,c_j=E^{(1)}c_i\\quad\\Longleftrightarrow\\quad\\det\\big(W-E^{(1)}\\mathbb 1\\big)=0,\\qquad W_{ij}=\\langle i|H'|j\\rangle,\\ \\ i,j\\in\\text{degenerate subspace}",
+     "label": "script (11.2.2)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Do not diagonalise blindly: use symmetry.</b> If an operator $A$ commutes with $H_0$ and $H'$ and the degenerate states have different $A$-eigenvalues, then $\\langle i|H'|j\\rangle=0$ for them (since $[A,H']=0$) and $W$ is already diagonal. For hydrogen with a central perturbation, $A=L^2,L_z$ makes the first-order shift simply $\\langle nlm|H'|nlm\\rangle$ (FS26 Q4(ii))."
+    },
+    {
+     "kind": "eq",
+     "tex": "H_0=\\hbar\\omega\\big(a^\\dagger a+b^\\dagger b+c^\\dagger c+\\tfrac32\\big),\\ \\ H'=\\omega L_z,\\ \\ L_z=i\\hbar\\,(ab^\\dagger-a^\\dagger b)\\ \\Rightarrow\\ E^{(1)}\\in\\{+\\hbar\\omega,\\,0,\\,-\\hbar\\omega\\}\\ \\text{on }E=\\tfrac52\\hbar\\omega",
+     "label": "FS22 Q4(iii): basis |100>, |010>, |001>"
+    },
+    {
+     "kind": "intuition",
+     "html": "The three-fold level $\\frac52\\hbar\\omega$ is the $l=1$ multiplet (vectors $x,y,z$): any rotation-invariant perturbation leaves it degenerate, and $L_z$ splits it into $m=+1,0,-1$. That is the SO(3) comment asked in FS22 Q4(iv)."
+    },
+    {
+     "kind": "text",
+     "html": "<b>Stark effect, $n=2$.</b> $\\Delta H=-e\\vec E\\cdot\\vec x=-eEz$ with $e<0$. Four degenerate states $|2,l,m\\rangle$. The operator $z$ commutes with $L_z$ ($\\Delta m=0$) and is odd under parity ($\\Delta l=\\pm1$). Only $\\langle200|z|210\\rangle=-3a_0$ survives:"
+    },
+    {
+     "kind": "eq",
+     "tex": "W=\\begin{pmatrix}0&-\\varepsilon\\\\-\\varepsilon&0\\end{pmatrix}\\ \\text{in }\\{|200\\rangle,|210\\rangle\\},\\quad \\varepsilon=3|e|Ea_0:\\qquad E^{(1)}=\\pm3|e|Ea_0,\\ \\ |\\pm\\rangle=\\tfrac1{\\sqrt2}(|200\\rangle\\mp|210\\rangle),\\quad |21,\\pm1\\rangle:\\ E^{(1)}=0",
+     "label": "sheet 14 Q2"
+    },
+    {
+     "kind": "pitfall",
+     "html": "The Stark shift of $n=2$ is <b>linear</b> in $E$ because the states $2s$ and $2p$ are degenerate and have opposite parity (a permanent dipole $3ea_0$). For $n=1$ (non-degenerate, $\\langle z\\rangle=0$) the shift is quadratic. Do not diagonalise the $4\\times4$ matrix with 16 entries when 14 of them are zero by selection rules."
+    }
+   ],
+   "check": [
+    {
+     "q": "In degenerate PT, the first-order energies are",
+     "options": [
+      "$\\langle i|H'|i\\rangle$ for each state, always",
+      "$\\sum_m|H'_{mi}|^2/(E_i-E_m)$",
+      "the eigenvalues of $\\langle i|H'|j\\rangle$ restricted to the degenerate subspace",
+      "the eigenvalues of $H_0+H'$ in the full space"
+     ],
+     "correct": 2,
+     "explain": "Script (11.2.2): the order-$\\lambda$ equation projected on the subspace is a $g\\times g$ eigenvalue equation."
+    },
+    {
+     "q": "Why do $|2,1,\\pm1\\rangle$ show no linear Stark shift?",
+     "options": [
+      "Because their energy is lower",
+      "Because $\\vec E$ is parallel to $z$, not to $x$ and $y$",
+      "$\\langle 2,l',m'|z|2,1,\\pm1\\rangle=0$ for all $l',m'$ in the subspace: $z$ keeps $m$, and the only $m=\\pm1$ states are the $2p$ states themselves with equal parity",
+      "Because spin is neglected"
+     ],
+     "correct": 2,
+     "explain": "$z$ is odd and $\\Delta m=0$: the only non-zero element in the $n=2$ subspace is $\\langle200|z|210\\rangle$."
+    },
+    {
+     "q": "For $H'=\\omega L_z$ on the $E=\\frac52\\hbar\\omega$ level of the 3D oscillator, the number of distinct first-order levels is",
+     "options": [
+      "$3$ ($m=+1,0,-1$)",
+      "$1$",
+      "$2$",
+      "$6$"
+     ],
+     "correct": 0,
+     "explain": "$L_z=i\\hbar(ab^\\dagger-a^\\dagger b)$ has eigenvalues $\\hbar\\{1,0,-1\\}$ in the space $\\{|100\\rangle,|010\\rangle,|001\\rangle\\}$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 15,
+   "xp": 20,
+   "id": "qm-pf-L3",
+   "title": "Hydrogen fine structure: the relativistic kinetic correction",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 4 (i)-(v), 21 pt"
+    },
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 8.2-8.3 (hydrogen) and 11.2 (degenerate PT)"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch11-perturbation-theory.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "Typical electron speed in hydrogen is $v/c\\approx0.007$, so relativity is a small correction. Expand the relativistic kinetic energy:"
+    },
+    {
+     "kind": "eq",
+     "tex": "T=\\sqrt{p^2c^2+m^2c^4}-mc^2=\\frac{p^2}{2m}-\\frac{p^4}{8m^3c^2}+\\frac{p^6}{16m^5c^4}-\\dots\\qquad H=H_0-\\frac{p^4}{8m^3c^2},\\ \\ H'=-\\frac{p^4}{8m^3c^2}",
+     "label": "FS26 Q4(i); the p^6 term is HS18/FS19 Q4(iii)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Symmetries.</b> $p^4$ is a scalar: $H'$ commutes with $\\vec L$ and with parity, so the rotation symmetry and parity survive, $l$ and $m$ stay good quantum numbers. The hidden SO(4) symmetry (the Runge-Lenz vector, script 8.3) does <b>not</b> commute with $p^4$: expect the $l$-degeneracy at fixed $n$ to be lifted, while the $(2l+1)$-fold degeneracy in $m$ remains. The degenerate matrix is diagonal in $|n,l,m\\rangle$ (see lesson 2), so $E^{(1)}_{nlm}=\\langle nlm|H'|nlm\\rangle$."
+    },
+    {
+     "kind": "text",
+     "html": "<b>The trick (FS26 Q4(iii)).</b> Do not compute $\\langle p^4\\rangle$ with derivatives. From $H_0|nlm\\rangle=E_n|nlm\\rangle$: $p^2|nlm\\rangle=2m(E_n-V)|nlm\\rangle=2m(E_n+e^2/r)|nlm\\rangle$. Since $p^2$ is hermitian, $\\langle p^4\\rangle=\\|p^2|nlm\\rangle\\|^2=4m^2\\langle(E_n+e^2/r)^2\\rangle$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "E^{(1)}_{nlm}=-\\frac1{2mc^2}\\Big(E_n^2+2e^2E_n\\Big\\langle\\frac1r\\Big\\rangle+e^4\\Big\\langle\\frac1{r^2}\\Big\\rangle\\Big),\\qquad \\Big\\langle\\frac1r\\Big\\rangle=\\frac1{n^2a},\\quad\\Big\\langle\\frac1{r^2}\\Big\\rangle=\\frac1{n^3(l+\\frac12)a^2}",
+     "label": "script (9.7.29) quotes the r^-3 analogue; a is the Bohr radius"
+    },
+    {
+     "kind": "eq",
+     "tex": "E^{(1)}_{nl}=-\\frac{E_n^2}{2mc^2}\\Big(\\frac{4n}{l+1/2}-3\\Big),\\qquad n=2:\\ E^{(1)}_{2,0}=-\\tfrac{13}{128}\\,mc^2\\alpha^4,\\quad E^{(1)}_{2,1}=-\\tfrac7{384}\\,mc^2\\alpha^4",
+     "label": "with E_n = -mc^2 alpha^2/(2n^2), alpha = e^2/(hbar c)"
+    },
+    {
+     "kind": "text",
+     "html": "<b>Expectation values for $n=2$ from the given radial functions</b> $R_{20}=\\frac1{\\sqrt{8a^3}}(2-\\frac ra)e^{-r/2a}$, $R_{21}=\\frac1{\\sqrt{24a^3}}\\frac rae^{-r/2a}$ with $\\int_0^\\infty r^ne^{-r/a}dr=a^{n+1}n!$: $\\langle1/r\\rangle=\\frac1{4a}$ for both; $\\langle1/r^2\\rangle_{2,0}=\\frac1{4a^2}$, $\\langle1/r^2\\rangle_{2,1}=\\frac1{12a^2}$."
+    },
+    {
+     "kind": "intuition",
+     "html": "The shift is always <b>negative</b> (relativistic mass increase lowers the kinetic energy) and larger for small $l$: s-electrons come close to the nucleus, where $p^2$ is large. Sketch for (v): one $n$ level splits into $n$ sublevels labelled by $l$, $l=0$ lowest, each $(2l+1)$-fold degenerate, total shift negative with size $\\sim\\alpha^2|E_n|$."
+    },
+    {
+     "kind": "pitfall",
+     "html": "Do not forget $E_n^2$ and the sign of $2e^2E_n\\langle1/r\\rangle$ ($E_n<0$). Another common error is using $\\langle1/r^2\\rangle=\\langle1/r\\rangle^2$. Also $\\hbar^2/(ma)=e^2$, so convert $e^4/(a^2mc^2)=mc^2\\alpha^4$ carefully."
+    }
+   ],
+   "check": [
+    {
+     "q": "Which symmetry is broken by $H'=-p^4/8m^3c^2$ in hydrogen?",
+     "options": [
+      "rotation invariance",
+      "parity",
+      "time reversal",
+      "the hidden SO(4) (Runge-Lenz): the $l$-degeneracy of fixed $n$ is lifted"
+     ],
+     "correct": 3,
+     "explain": "FS26 Q4(i): $l,m$ stay good, the accidental degeneracy is lost."
+    },
+    {
+     "q": "The identity used to evaluate $\\langle p^4\\rangle$ in $|nlm\\rangle$ is",
+     "options": [
+      "$p^2|nlm\\rangle=2mE_n|nlm\\rangle$",
+      "$p^2|nlm\\rangle=2m(E_n-e^2/r)|nlm\\rangle$",
+      "$p^2|nlm\\rangle=2m(E_n+e^2/r)|nlm\\rangle$",
+      "$p^4|nlm\\rangle=4m^2E_n^2|nlm\\rangle$"
+     ],
+     "correct": 2,
+     "explain": "Solve $H_0=\\frac{p^2}{2m}-\\frac{e^2}{r}$ for $p^2$."
+    },
+    {
+     "q": "The relativistic correction of the $n=2$ levels is",
+     "options": [
+      "positive for $l=0$, negative for $l=1$",
+      "negative for both $l=0$ and $l=1$, with $2s$ shifted more than $2p$ ($13/128$ versus $7/384$ in units of $mc^2\\alpha^4$)",
+      "the same for $l=0$ and $l=1$",
+      "zero, because $H'$ is a scalar"
+     ],
+     "correct": 1,
+     "explain": "$-\\frac{E_2^2}{2mc^2}(\\frac{8}{l+1/2}-3)$: $13$ for $l=0$, $7/3$ for $l=1$."
+    }
+   ]
+  },
+  {
+   "type": "lesson",
+   "tier": "theory",
+   "minutes": 10,
+   "xp": 20,
+   "id": "qm-pf-L4",
+   "title": "Time-dependent perturbation theory in one page",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 11.3.1-11.3.4, pp. 124-130"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+     "where": "Question 4 (i)-(iii), 18 pt"
+    },
+    {
+     "file": "notes/quantum-mechanics/ch11-perturbation-theory.md",
+     "where": "transcription and worked solutions"
+    }
+   ],
+   "blocks": [
+    {
+     "kind": "text",
+     "html": "For $H=H_0+\\lambda H'(t)$ the unperturbed propagator is $U_0(t,t_0)=e^{-iH_0(t-t_0)/\\hbar}$, from $i\\hbar\\partial_tU_0=H_0U_0$ (HS21 Q4(i)). The perturbation is best treated in the Dirac (interaction) picture, $\\Psi_D(t)=U_0^\\dagger(t,t_0)\\Psi(t)$, $U_D=U_0^\\dagger U$:"
+    },
+    {
+     "kind": "eq",
+     "tex": "i\\hbar\\,\\partial_tU_D=\\lambda H'_D(t)\\,U_D,\\quad H'_D(t)=U_0^\\dagger H'(t)U_0,\\qquad U_D=\\mathcal T\\exp\\Big(-\\tfrac{i\\lambda}\\hbar\\!\\int_{t_0}^t\\!H'_D(t')dt'\\Big)",
+     "label": "script 11.3.3; the time-ordered exponential"
+    },
+    {
+     "kind": "text",
+     "html": "First order: $U_D\\approx1-\\frac{i\\lambda}\\hbar\\int_{t_0}^tH'_D$. Starting in $|i\\rangle$ the amplitude for $|f\\rangle\\ne|i\\rangle$ is $c_f=-\\frac{i}{\\hbar}\\int dt'\\,e^{i(E_f-E_i)t'/\\hbar}\\langle f|H'(t')|i\\rangle$ and"
+    },
+    {
+     "kind": "eq",
+     "tex": "P_{i\\to f}=\\frac1{\\hbar^2}\\Big|\\int_{t_0}^tdt'\\,e^{i(E_f-E_i)t'/\\hbar}\\,\\langle f|H'(t')|i\\rangle\\Big|^2",
+     "label": "HS21 Q4(iii), eq. (20)"
+    },
+    {
+     "kind": "intuition",
+     "html": "The integral is a Fourier transform of the perturbation at the Bohr frequency $\\omega_{fi}=(E_f-E_i)/\\hbar$: a transition is only likely if $H'(t)$ contains that frequency. A constant $V$ switched on at $t_0=0$ gives $P=\\frac{4|V|^2}{\\Delta^2}\\sin^2\\frac{\\Delta t}{2\\hbar}$, $\\Delta=E_f-E_i$: it oscillates with maximum $4|V|^2/\\Delta^2$ for $\\Delta\\ne0$ (an off-resonant constant perturbation can only mix a little), and grows like $|V|^2t^2/\\hbar^2$ for $\\Delta\\to0$."
+    },
+    {
+     "kind": "pitfall",
+     "html": "The formula is first order: it needs $P\\ll1$. For resonance ($\\Delta\\approx0$) it fails after $t\\sim\\hbar/|V|$; then Rabi oscillation between the two states, exactly like the exact two-level solution. The factor is $1/\\hbar^2$ and the matrix element is $\\langle f|H'|i\\rangle$ in the <b>Schroedinger</b> picture."
+    }
+   ],
+   "check": [
+    {
+     "q": "The Dirac-picture perturbation is",
+     "options": [
+      "$H'_D=H'(t)$",
+      "$H'_D(t)=U_0^\\dagger H'(t)\\,U_0$, with $U_0=e^{-iH_0(t-t_0)/\\hbar}$",
+      "$H'_D=U_0H'U_0^\\dagger$",
+      "$H'_D=H_0+H'$"
+     ],
+     "correct": 1,
+     "explain": "Matrix elements pick up the phase $e^{i(E_f-E_i)t/\\hbar}$."
+    },
+    {
+     "q": "A constant perturbation $V$ switched on at $t_0=0$ drives $|i\\rangle\\to|f\\rangle$ with $\\Delta=E_f-E_i\\neq0$. The first-order probability is",
+     "options": [
+      "$\\dfrac{|V|^2t^2}{\\hbar^2}$ for all $t$",
+      "$\\dfrac{4|V|^2}{\\Delta^2}\\sin^2\\dfrac{\\Delta t}{2\\hbar}$",
+      "$\\dfrac{|V|^2}{\\Delta^2}\\sin^2\\dfrac{\\Delta t}{\\hbar}$",
+      "$\\dfrac{4|V|^2}{\\Delta^2}\\cos^2\\dfrac{\\Delta t}{2\\hbar}$"
+     ],
+     "correct": 1,
+     "explain": "$c_f=-\\frac V{\\Delta}(e^{i\\Delta t/\\hbar}-1)$."
+    },
+    {
+     "q": "Why is $\\langle f|H'|i\\rangle=0$ an important selection rule in time-dependent PT?",
+     "options": [
+      "It only matters for the energy shift, not for transitions",
+      "It means the states are degenerate",
+      "In first order the transition cannot happen at all, whatever the time dependence of $H'$",
+      "It means $P_{i\\to f}=1$"
+     ],
+     "correct": 2,
+     "explain": "The transition then appears only at second order via intermediate states."
+    }
+   ]
+  },
+  {
+   "type": "quiz",
+   "xp": 30,
+   "passMark": 0.75,
+   "id": "qm-pf-Q1",
+   "title": "Perturbation theory: exam-style multiple choice",
+   "source": [
+    {
+     "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+     "where": "Ch. 11"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+     "where": "Aufgabe 4"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+     "where": "Question 4"
+    },
+    {
+     "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+     "where": "Question 4"
+    },
+    {
+     "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+     "where": "Q2"
+    }
+   ],
+   "questions": [
+    {
+     "q": "For $H'=\\alpha p^4$ on the oscillator ground state, the states coupled to $|0\\rangle$ are",
+     "options": [
+      "$|0\\rangle,|1\\rangle,|2\\rangle$",
+      "only $|0\\rangle$",
+      "$|0\\rangle,|2\\rangle,|4\\rangle$",
+      "$|1\\rangle,|3\\rangle$"
+     ],
+     "correct": 2,
+     "explain": "$(a^\\dagger-a)^4|0\\rangle=3|0\\rangle-6\\sqrt2|2\\rangle+\\sqrt{24}|4\\rangle$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+      "where": "Aufgabe 4 (ii)"
+     }
+    },
+    {
+     "q": "$E^{(1)}$ of the oscillator ground state for $H'=-p^4/(8m^3c^2)$ is",
+     "options": [
+      "$+\\dfrac{3}{32}\\dfrac{(\\hbar\\omega)^2}{mc^2}$",
+      "$-\\dfrac{3}{8}\\dfrac{(\\hbar\\omega)^2}{mc^2}$",
+      "$-\\dfrac{3}{32}\\hbar\\omega$",
+      "$-\\dfrac{3}{32}\\dfrac{(\\hbar\\omega)^2}{mc^2}$"
+     ],
+     "correct": 3,
+     "explain": "$\\alpha\\langle p^4\\rangle=-\\frac1{8m^3c^2}\\cdot3\\frac{m^2\\hbar^2\\omega^2}{4}$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+      "where": "Aufgabe 4 (ii)"
+     }
+    },
+    {
+     "q": "The $p^6$ term $\\beta p^6$ ($\\beta=1/16m^5c^4$) in the oscillator ground state contributes at first order",
+     "options": [
+      "at the same order $(\\hbar\\omega/mc^2)^2\\hbar\\omega$ as the second-order $p^4$ term, so it is needed for consistency",
+      "not at all, since it is higher order",
+      "at order $\\epsilon$, changing $E^{(1)}$",
+      "only for excited states"
+     ],
+     "correct": 0,
+     "explain": "Total $\\epsilon^2$ coefficient: $\\frac{15}{128}-\\frac{21}{512}=\\frac{39}{512}$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+      "where": "Aufgabe 4 (iii)"
+     }
+    },
+    {
+     "q": "For the $n=2$ hydrogen levels, the Stark matrix in the basis $\\{|200\\rangle,|210\\rangle,|211\\rangle,|21{-}1\\rangle\\}$ has non-zero entries",
+     "options": [
+      "all 16 entries",
+      "the diagonal",
+      "only $\\langle200|z|210\\rangle$ and its conjugate",
+      "$\\langle200|z|211\\rangle$ as well"
+     ],
+     "correct": 2,
+     "explain": "$\\langle200|z|210\\rangle=-3a_0$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+      "where": "Q2"
+     }
+    },
+    {
+     "q": "$\\langle1/r^2\\rangle_{n,l}$ in hydrogen with Bohr radius $a$ is",
+     "options": [
+      "$\\dfrac{1}{n^3(l+\\frac12)a^2}$",
+      "$\\dfrac1{n^4a^2}$",
+      "$\\dfrac1{n^2a^2}$",
+      "$\\dfrac{1}{n^3l(l+1)a^2}$"
+     ],
+     "correct": 0,
+     "explain": "For $n=2$: $\\frac1{4a^2}$ ($l=0$) and $\\frac1{12a^2}$ ($l=1$).",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+      "where": "Question 4 (iv)"
+     }
+    },
+    {
+     "q": "Energies of $H_0+\\lambda\\omega L_z$ at first order on the level $\\frac52\\hbar\\omega$ of the 3D oscillator",
+     "options": [
+      "$\\frac52\\hbar\\omega+\\lambda\\omega\\{1,0,-1\\}$",
+      "$\\frac52\\hbar\\omega+\\lambda\\hbar\\omega\\{1,0,-1\\}$",
+      "$\\frac52\\hbar\\omega$ unchanged",
+      "$\\frac52\\hbar\\omega\\pm\\lambda\\hbar\\omega$ only"
+     ],
+     "correct": 1,
+     "explain": "$l=1$ multiplet.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+      "where": "Question 4 (iii)"
+     }
+    },
+    {
+     "q": "In time-dependent PT with $H'(t)=V\\cos(\\omega t)$ and $E_f-E_i=\\hbar\\omega_{fi}$, the transition is strongest when",
+     "options": [
+      "$\\omega\\to0$",
+      "$\\omega\\to\\infty$",
+      "$E_f=E_i$ is required",
+      "$\\omega\\approx\\omega_{fi}$ (resonance)"
+     ],
+     "correct": 3,
+     "explain": "$\\int e^{i(\\omega_{fi}\\mp\\omega)t'}dt'$ grows linearly for $\\omega=\\pm\\omega_{fi}$.",
+     "source": {
+      "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+      "where": "Question 4 (iii)"
+     }
+    },
+    {
+     "q": "The second-order energy of $H=\\frac{p^2}{2m}+\\frac12m\\omega^2x^2+Fx$ for state $n$ is",
+     "options": [
+      "$-\\dfrac{F^2}{2m\\omega^2}(n+\\frac12)$",
+      "$0$, because $\\langle n|x|n\\rangle=0$",
+      "$+\\dfrac{F^2}{2m\\omega^2}$",
+      "$-\\dfrac{F^2}{2m\\omega^2}$, independent of $n$"
+     ],
+     "correct": 3,
+     "explain": "Exact: complete the square, $E_n=\\hbar\\omega(n+\\frac12)-F^2/2m\\omega^2$.",
+     "source": {
+      "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+      "where": "Q1 (method)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-pf-D1",
+   "title": "Non-degenerate perturbation theory to second order (FS19 Q4 (i))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS 19.pdf",
+    "where": "Aufgabe 4 (i), 10 pt; also HS18 (EN) Question 4 (i)"
+   },
+   "goal": "Derive $E^{(1)}_n$, $\\psi^{(1)}_n$ and $E^{(2)}_n$ for $H=H_0+\\lambda H'$ with non-degenerate $H_0$, using $\\langle\\psi_n|\\psi^{(s)}\\rangle=0$.",
+   "given": [
+    "$H_0\\psi_n=E_n\\psi_n$, $E_n\\ne E_m$ for $n\\neq m$, $\\{\\psi_m\\}$ orthonormal and complete",
+    "$H\\psi=E\\psi$ with $\\psi=\\psi_n+\\lambda\\psi^{(1)}+\\lambda^2\\psi^{(2)}$, $E=E_n+\\lambda E^{(1)}+\\lambda^2E^{(2)}$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Insert the ansatz and collect orders $\\lambda^0,\\lambda^1,\\lambda^2$.",
+     "reveal": "$\\lambda^0$: $H_0\\psi_n=E_n\\psi_n$. $\\lambda^1$: $H_0\\psi^{(1)}+H'\\psi_n=E_n\\psi^{(1)}+E^{(1)}\\psi_n$. $\\lambda^2$: $H_0\\psi^{(2)}+H'\\psi^{(1)}=E_n\\psi^{(2)}+E^{(1)}\\psi^{(1)}+E^{(2)}\\psi_n$."
+    },
+    {
+     "prompt": "(b) Project the first-order equation on $\\langle\\psi_n|$.",
+     "reveal": "$\\langle\\psi_n|H_0=E_n\\langle\\psi_n|$ cancels $H_0\\psi^{(1)}$ against $E_n\\psi^{(1)}$. Left: $\\langle n|H'|n\\rangle=E^{(1)}\\langle n|n\\rangle$, so $E^{(1)}=\\langle n|H'|n\\rangle$."
+    },
+    {
+     "prompt": "(c) Project the first-order equation on $\\langle\\psi_m|$, $m\\ne n$, to get $\\psi^{(1)}$.",
+     "reveal": "$(E_m-E_n)\\langle m|\\psi^{(1)}\\rangle+\\langle m|H'|n\\rangle=0$ (using $\\langle m|n\\rangle=0$). Hence $\\langle m|\\psi^{(1)}\\rangle=\\frac{\\langle m|H'|n\\rangle}{E_n-E_m}$ and, with the convention $\\langle n|\\psi^{(1)}\\rangle=0$, $\\psi^{(1)}=\\sum_{m\\ne n}\\frac{\\langle m|H'|n\\rangle}{E_n-E_m}\\psi_m$."
+    },
+    {
+     "prompt": "(d) Project the second-order equation on $\\langle\\psi_n|$.",
+     "reveal": "$\\langle n|H'|\\psi^{(1)}\\rangle=E^{(1)}\\langle n|\\psi^{(1)}\\rangle+E^{(2)}=E^{(2)}$ (convention). Insert $\\psi^{(1)}$: $E^{(2)}=\\sum_{m\\ne n}\\frac{\\langle n|H'|m\\rangle\\langle m|H'|n\\rangle}{E_n-E_m}=\\sum_{m\\neq n}\\frac{|\\langle m|H'|n\\rangle|^2}{E_n-E_m}$."
+    },
+    {
+     "prompt": "(e) When does the series make sense and what fails for degenerate levels?",
+     "reveal": "The coefficients $\\frac{\\langle m|\\lambda H'|n\\rangle}{E_n-E_m}$ must be small. If $E_m\\to E_n$ the denominator vanishes: either $\\langle m|H'|n\\rangle=0$ (symmetry) or one must diagonalise $H'$ inside the degenerate subspace."
+    }
+   ],
+   "keyPoints": [
+    "order-by-order equations with the same operator $H_0-E_n$",
+    "projection on $\\langle\\psi_n|$ kills the left side (hermiticity): gives $E^{(s)}$",
+    "projection on $\\langle\\psi_m|$ divides by $E_n-E_m$: gives the state",
+    "convention $\\langle\\psi_n|\\psi^{(s)}\\rangle=0$ makes $E^{(2)}=\\langle n|H'|\\psi^{(1)}\\rangle$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-pf-D2",
+   "title": "Degenerate first-order theory (FS22 Q4 (ii))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+    "where": "Question 4 (ii), 4 pt"
+   },
+   "goal": "For a three-fold degenerate level $E_m$ with orthonormal states $|\\ell\\rangle,|n\\rangle,|k\\rangle$ derive the equation for the first-order energy shifts.",
+   "given": [
+    "$H=H_0+\\lambda H'$, $H_0|\\ell\\rangle=E_m|\\ell\\rangle$ (same for $n,k$)",
+    "order-$\\lambda$ equation $(H_0-E_m)\\psi^{(1)}=(E^{(1)}-H')\\psi^{(0)}$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Why must the zeroth-order state be written $\\psi^{(0)}=c_\\ell|\\ell\\rangle+c_n|n\\rangle+c_k|k\\rangle$ with unknown $c$?",
+     "reveal": "Every combination is an eigenstate of $H_0$ with energy $E_m$; the perturbation selects the right combination. The $\\lambda^0$ equation does not fix the $c$'s."
+    },
+    {
+     "prompt": "(b) Project the order-$\\lambda$ equation on each degenerate state $\\langle i|$.",
+     "reveal": "$\\langle i|(H_0-E_m)=0$, so $0=\\langle i|(E^{(1)}-H')|\\psi^{(0)}\\rangle$ for $i\\in\\{\\ell,n,k\\}$: $\\sum_jH'_{ij}c_j=E^{(1)}c_i$."
+    },
+    {
+     "prompt": "(c) State the resulting eigenvalue problem and its solution condition.",
+     "reveal": "$W c=E^{(1)}c$ with $W_{ij}=\\langle i|H'|j\\rangle$ a $3\\times3$ hermitian matrix, solved by $\\det(W-E^{(1)}\\mathbb 1)=0$. The three eigenvalues are the first-order shifts, the eigenvectors the correct zeroth-order states."
+    },
+    {
+     "prompt": "(d) Projection on states $\\langle m'|$ outside the subspace.",
+     "reveal": "gives $\\psi^{(1)}$ outside the subspace, as in the non-degenerate case, with $E_{m'}\\neq E_m$ in the denominator. The components inside the subspace are fixed only at second order."
+    }
+   ],
+   "keyPoints": [
+    "$\\psi^{(0)}$ is a combination of all degenerate states",
+    "projection on the degenerate subspace gives $Wc=E^{(1)}c$",
+    "$W_{ij}=\\langle i|H'|j\\rangle$ is hermitian",
+    "symmetries make $W$ block-diagonal"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-pf-D3",
+   "title": "Relativistic correction $\\langle p^4\\rangle$ without derivatives (FS26 Q4 (iii))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+    "where": "Question 4 (iii), 4 pt"
+   },
+   "goal": "Show $E^{(1)}_{nlm}=-\\frac1{2mc^2}\\big(E_n^2+2e^2E_n\\langle\\frac1r\\rangle+e^4\\langle\\frac1{r^2}\\rangle\\big)$ for $H'=-p^4/(8m^3c^2)$.",
+   "given": [
+    "$H_0=\\frac{p^2}{2m}-\\frac{e^2}{r}$, $H_0|nlm\\rangle=E_n|nlm\\rangle$",
+    "$p^2$ hermitian"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Express $p^2|nlm\\rangle$ through $E_n$ and $r$.",
+     "reveal": "$p^2=2m(H_0+e^2/r)$, so $p^2|nlm\\rangle=2m(E_n+\\frac{e^2}r)|nlm\\rangle$."
+    },
+    {
+     "prompt": "(b) Write $\\langle p^4\\rangle$ as a norm and insert (a).",
+     "reveal": "$\\langle nlm|p^4|nlm\\rangle=\\langle p^2\\psi|p^2\\psi\\rangle=4m^2\\langle(E_n+e^2/r)^2\\rangle$."
+    },
+    {
+     "prompt": "(c) Expand the square and multiply with $-\\frac1{8m^3c^2}$.",
+     "reveal": "$\\langle p^4\\rangle=4m^2(E_n^2+2e^2E_n\\langle\\frac1r\\rangle+e^4\\langle\\frac1{r^2}\\rangle)$, hence $E^{(1)}=-\\frac{4m^2}{8m^3c^2}(\\dots)=-\\frac1{2mc^2}(\\dots)$."
+    },
+    {
+     "prompt": "(d) Insert $E_2=-\\frac{e^2}{8a}$ and the $n=2$ expectation values.",
+     "reveal": "$l=0$: $E_2^2+2e^2E_2\\frac1{4a}+\\frac{e^4}{4a^2}=\\frac{e^4}{a^2}(\\frac1{64}-\\frac1{16}+\\frac14)=\\frac{13}{64}\\frac{e^4}{a^2}$; $l=1$: $\\frac{e^4}{a^2}(\\frac1{64}-\\frac1{16}+\\frac1{12})=\\frac7{192}\\frac{e^4}{a^2}$. With $e^2/a=mc^2\\alpha^2$: $E^{(1)}=-\\frac{13}{128}mc^2\\alpha^4$ and $-\\frac7{384}mc^2\\alpha^4$."
+    }
+   ],
+   "keyPoints": [
+    "solve $H_0\\psi=E\\psi$ for $p^2\\psi$",
+    "$p^4$ expectation = norm of $p^2\\psi$ (hermiticity)",
+    "radial integrals $\\int r^ne^{-r/a}dr=a^{n+1}n!$",
+    "result negative, depends on $l$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-pf-D4",
+   "title": "Stark matrix element $\\langle200|z|210\\rangle=-3a_0$ (sheet 14 Q2)",
+   "source": {
+    "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+    "where": "Question 2 (hint with the n=2 wave functions)"
+   },
+   "goal": "Compute the only non-zero element of $z$ in the $n=2$ subspace and the first-order energies in the field $\\vec E=E\\hat z$.",
+   "given": [
+    "$\\Psi_{200}=\\frac1{\\sqrt{8\\pi a_0^3}}(1-\\frac r{2a_0})e^{-r/2a_0}$, $\\Psi_{21m}=\\frac{1}{(2a_0)^{3/2}\\sqrt{3}}\\frac r{a_0}e^{-r/2a_0}Y_{1m}$",
+    "$Y_{00}=\\frac1{\\sqrt{4\\pi}}$, $Y_{10}=\\sqrt{\\frac3{4\\pi}}\\cos\\theta$, $z=r\\cos\\theta$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Which matrix elements of $z=r\\cos\\theta$ vanish by symmetry?",
+     "reveal": "$z$ is odd under parity, so only $l=0\\leftrightarrow1$ couples, and $[L_z,z]=0$ forces $\\Delta m=0$. In the $n=2$ subspace only $\\langle200|z|210\\rangle$ remains."
+    },
+    {
+     "prompt": "(b) Separate the angular integral.",
+     "reveal": "$\\int Y_{00}^*\\cos\\theta\\,Y_{10}\\,d\\Omega=\\frac{1}{\\sqrt{4\\pi}}\\sqrt{\\frac3{4\\pi}}\\,2\\pi\\int_{-1}^1u^2du=\\frac1{\\sqrt3}$."
+    },
+    {
+     "prompt": "(c) Radial integral.",
+     "reveal": "With $R_{20}=\\frac1{\\sqrt2}a_0^{-3/2}(1-\\frac r{2a_0})e^{-r/2a_0}$ and $R_{21}=\\frac1{2\\sqrt6}a_0^{-3/2}\\frac r{a_0}e^{-r/2a_0}$: $\\int_0^\\infty R_{20}R_{21}r^3dr=\\frac1{2\\sqrt{12}}a_0^{-4}\\int_0^\\infty\\big(1-\\frac r{2a_0}\\big)r^4e^{-r/a_0}dr$. Use $\\int r^4e^{-r/a_0}=24a_0^5$ and $\\frac1{2a_0}\\int r^5e^{-r/a_0}=\\frac{120a_0^6}{2a_0}=60a_0^5$: the bracket is $(24-60)a_0^5=-36a_0^5$, so the radial integral is $\\frac{-36}{4\\sqrt3}a_0=-3\\sqrt3\\,a_0$."
+    },
+    {
+     "prompt": "(d) Combine and diagonalise.",
+     "reveal": "$\\langle200|z|210\\rangle=\\frac1{\\sqrt3}\\cdot(-3\\sqrt3\\,a_0)=-3a_0$. $W=\\begin{pmatrix}0&-\\varepsilon\\\\-\\varepsilon&0\\end{pmatrix}$ with $\\varepsilon=3|e|Ea_0$; eigenvalues $\\pm3|e|Ea_0$ for $(|200\\rangle\\mp|210\\rangle)/\\sqrt2$; $|21\\pm1\\rangle$ stay at $E_2$."
+    }
+   ],
+   "keyPoints": [
+    "selection rules reduce the $4\\times4$ to $2\\times2$",
+    "angular factor $1/\\sqrt3$",
+    "radial integral $-3\\sqrt3a_0$ with the $(24-60)$ cancellation",
+    "linear Stark effect $\\pm3|e|Ea_0$"
+   ]
+  },
+  {
+   "type": "derive",
+   "xp": 30,
+   "id": "qm-pf-D5",
+   "title": "First-order transition probability in the Dirac picture (HS21 Q4 (ii)-(iii))",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS21.pdf",
+    "where": "Question 4 (ii)-(iii), 8 pt"
+   },
+   "goal": "Show $i\\hbar\\,\\partial_tU_D=\\lambda H'_D(t)U_D$ and $P_{i\\to f}=\\hbar^{-2}\\big|\\int_{t_0}^tdt'e^{i(E_f-E_i)t'/\\hbar}\\langle f|H'(t')|i\\rangle\\big|^2$.",
+   "given": [
+    "$U_0=e^{-iH_0(t-t_0)/\\hbar}$ for $H_0$, $U$ for $H=H_0+\\lambda H'(t)$",
+    "$i\\hbar\\partial_t\\Psi=H\\Psi$"
+   ],
+   "steps": [
+    {
+     "prompt": "(a) Define $\\Psi_D$ and $U_D$.",
+     "reveal": "$\\Psi_D(t)=U_0^\\dagger(t,t_0)\\Psi(t)$, hence $U_D(t,t_0)=U_0^\\dagger(t,t_0)\\,U(t,t_0)$."
+    },
+    {
+     "prompt": "(b) Differentiate $U_D$.",
+     "reveal": "$i\\hbar\\partial_tU_D=-U_0^\\dagger H_0U+U_0^\\dagger HU=U_0^\\dagger\\lambda H'U=\\lambda H'_DU_D$ with $H'_D=U_0^\\dagger H'U_0$ (use $i\\hbar\\partial_tU_0^\\dagger=-U_0^\\dagger H_0$)."
+    },
+    {
+     "prompt": "(c) Solve iteratively to first order.",
+     "reveal": "$U_D=1-\\frac{i\\lambda}\\hbar\\int_{t_0}^tH'_D(t')dt'+O(\\lambda^2)$; the full solution is the time-ordered exponential."
+    },
+    {
+     "prompt": "(d) Take the matrix element $\\langle f|U_D|i\\rangle$ for $f\\ne i$ and square it.",
+     "reveal": "$\\langle f|H'_D(t')|i\\rangle=e^{i(E_f-E_i)t'/\\hbar}\\langle f|H'(t')|i\\rangle$, so $c_f=-\\frac{i}\\hbar\\int dt'e^{i\\omega_{fi}t'}H'_{fi}(t')$ and $P_{i\\to f}=|c_f|^2$."
+    }
+   ],
+   "keyPoints": [
+    "$U_D=U_0^\\dagger U$ obeys $i\\hbar\\dot U_D=\\lambda H'_DU_D$",
+    "$H'_D$ carries the phase $e^{i\\omega_{fi}t}$",
+    "first-order truncation of the Dyson series",
+    "$P=|c_f|^2$"
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 70,
+   "id": "qm-pf-c1",
+   "title": "Stark effect of the $n=2$ level (sheet 14 Q2)",
+   "problem": "A hydrogen atom in the state manifold $n=2$ sits in a uniform field $\\vec E=E\\hat z$, $\\Delta H=-eEz$ ($e<0$). Find the first-order energy shifts and the states, and the size of the shift for $E=10^6$ V/m. Source: sheet 14, Q2.",
+   "symbols": [
+    [
+     "$a_0$",
+     "Bohr radius"
+    ],
+    [
+     "$E$",
+     "field strength"
+    ],
+    [
+     "$|e|$",
+     "magnitude of the electron charge"
+    ],
+    [
+     "$W$",
+     "matrix of $\\Delta H$ in the degenerate subspace"
+    ],
+    [
+     "$|2,l,m\\rangle$",
+     "$n=2$ states"
+    ]
+   ],
+   "vars": {
+    "a0": 5.29177e-11,
+    "Ef": 1000000
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Four states with the same $E_2$: degenerate PT. Selection rules ($z$ odd, $\\Delta m=0$) leave one off-diagonal element $\\langle200|z|210\\rangle=-3a_0$. Diagonalise the $2\\times2$ block.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which states are coupled by $\\Delta H=-eEz$ inside $n=2$?",
+     "options": [
+      "all four states",
+      "only $|200\\rangle\\leftrightarrow|210\\rangle$: opposite parity and the same $m=0$",
+      "$|210\\rangle\\leftrightarrow|21{\\pm}1\\rangle$",
+      "none: $\\langle z\\rangle=0$ for every state"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "$\\Delta m=\\pm1$ is excluded: $[L_z,z]=0$.",
+      "2": "Same parity: $\\langle 21m|z|21m'\\rangle=0$ for odd $z$.",
+      "3": "$\\langle z\\rangle$ in a definite-parity state vanishes, but not between different states in the degenerate subspace."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "choice",
+     "prompt": "Why can you use degenerate PT with the $2\\times2$ block instead of the sum over $m\\neq n$?",
+     "options": [
+      "the denominators $E_2-E_2$ vanish; the first-order shifts are the eigenvalues of $W$ on the subspace",
+      "because $E$ is small",
+      "because $\\Delta H$ is odd",
+      "because the field is along $z$"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "Smallness is not the issue; zero denominators are.",
+      "2": "Odd parity explains the zero diagonal, not the use of degenerate theory.",
+      "3": "The direction fixes $\\Delta m=0$ only."
+     }
+    },
+    {
+     "id": "s3",
+     "kind": "order",
+     "prompt": "Order the steps.",
+     "items": [
+      {
+       "text": "Pick the degenerate subspace $n=2$ (4 states) and the perturbation $-eEz$",
+       "note": "unperturbed $E_2=-e^2/8a_0$",
+       "why": "Nothing to compute before the subspace is chosen."
+      },
+      {
+       "text": "Use $[L_z,\\Delta H]=0$ and parity to find the non-zero elements of $W$",
+       "note": "only $W_{12}$",
+       "why": "Selection rules reduce the labour before any integral."
+      },
+      {
+       "text": "Compute $\\langle200|z|210\\rangle=\\frac1{\\sqrt3}\\cdot(-3\\sqrt3a_0)=-3a_0$",
+       "note": "angular times radial",
+       "why": "Needs the matrix structure from above."
+      },
+      {
+       "text": "Diagonalise $W$: $E^{(1)}=\\pm3|e|Ea_0$, eigenvectors $(|200\\rangle\\mp|210\\rangle)/\\sqrt2$",
+       "note": "$|21,\\pm1\\rangle$ unshifted",
+       "why": "Last: uses the matrix element."
+      }
+     ],
+     "hint": "subspace, selection rules, integral, diagonalise."
+    },
+    {
+     "id": "s4",
+     "kind": "symbolic",
+     "prompt": "Type $\\langle200|z|210\\rangle$ (symbol <code>a0</code>).",
+     "answer": "-3*a0",
+     "symbols": {
+      "a0": [
+       0.5,
+       2
+      ]
+     },
+     "units": [
+      "length",
+      "energy",
+      "dimensionless",
+      "length^2"
+     ],
+     "unit": "length",
+     "latex": "\\langle200|z|210\\rangle=-3a_0",
+     "hint": "Angular factor $1/\\sqrt3$ times radial integral $-3\\sqrt3\\,a_0$; compare the derivation desk problem on this.",
+     "wrong": [
+      "3*a0**2",
+      "-3*a0/sqrt(3)",
+      "-a0"
+     ]
+    },
+    {
+     "id": "s5",
+     "kind": "symbolic",
+     "prompt": "Type the positive first-order shift (symbols <code>eabs</code> for $|e|$, <code>Ef</code>, <code>a0</code>).",
+     "answer": "3*eabs*Ef*a0",
+     "symbols": {
+      "eabs": [
+       0.5,
+       2
+      ],
+      "Ef": [
+       0.5,
+       2
+      ],
+      "a0": [
+       0.5,
+       2
+      ]
+     },
+     "units": [
+      "energy",
+      "length",
+      "dimensionless",
+      "energy*length"
+     ],
+     "unit": "energy",
+     "latex": "E^{(1)}=\\pm3|e|Ea_0",
+     "hint": "$W=\\begin{pmatrix}0&|e|E\\cdot(-3a_0)\\\\|e|E\\cdot(-3a_0)&0\\end{pmatrix}$ has eigenvalues $\\pm3|e|Ea_0$ (since $-eE=|e|E$ for $e<0$).",
+     "wrong": [
+      "3*eabs*Ef",
+      "3*eabs*Ef*a0**2",
+      "9*eabs*Ef*a0"
+     ]
+    },
+    {
+     "id": "s6",
+     "kind": "numeric",
+     "prompt": "Bonus: the shift in eV for $E=10^6$ V/m (<code>Ef</code>, <code>a0</code> in SI).",
+     "answer": "3*Ef*a0",
+     "unit": "eV",
+     "units": [
+      "eV",
+      "J",
+      "meV"
+     ],
+     "tol": 0.02,
+     "hint": "$3|e|Ea_0=3\\cdot10^6\\,\\mathrm{V/m}\\cdot0.529\\times10^{-10}\\mathrm m\\cdot|e|=1.59\\times10^{-4}$ eV.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 60,
+   "id": "qm-pf-c2",
+   "title": "A linear perturbation of the oscillator: exact vs perturbation theory",
+   "problem": "$H=\\frac{p^2}{2m}+\\frac12m\\omega^2x^2+Fx$. Compute the energy shifts to second order in $F$ using $x=x_0(a+a^\\dagger)/\\sqrt2$, $x_0=\\sqrt{\\hbar/m\\omega}$, and compare with the exact result. Source: method of sheet 14 Q1 and HS25 Q3 (given formulas).",
+   "symbols": [
+    [
+     "$F$",
+     "force constant of the perturbation $Fx$"
+    ],
+    [
+     "$x_0$",
+     "oscillator length $\\sqrt{\\hbar/m\\omega}$"
+    ],
+    [
+     "$g$",
+     "dimensionless strength $Fx_0/\\hbar\\omega$"
+    ],
+    [
+     "$|n\\rangle$",
+     "oscillator states"
+    ]
+   ],
+   "vars": {
+    "g": 0.3,
+    "n": 3
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>$H'=Fx=\\frac{Fx_0}{\\sqrt2}(a+a^\\dagger)$ couples only $n\\to n\\pm1$, so $E^{(1)}=0$ and the sum in $E^{(2)}$ has two terms.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which matrix elements of $H'$ appear in $E^{(2)}_n$?",
+     "options": [
+      "$\\langle n\\pm2|H'|n\\rangle$",
+      "only $\\langle n|H'|n\\rangle$",
+      "all $\\langle m|H'|n\\rangle$",
+      "$\\langle n\\pm1|H'|n\\rangle$ only; $E^{(1)}_n=0$"
+     ],
+     "correct": 3,
+     "why": {
+      "0": "That would be $x^2$; $x$ changes $n$ by one.",
+      "1": "That is first order and vanishes for $x$ by parity.",
+      "2": "$a+a^\\dagger$ connects only neighbours."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type $|\\langle n+1|H'|n\\rangle|$ (symbols <code>F</code>, <code>x0</code>, <code>n</code>).",
+     "answer": "F*x0*sqrt((n+1)/2)",
+     "symbols": {
+      "F": [
+       0.2,
+       2
+      ],
+      "x0": [
+       0.5,
+       2
+      ],
+      "n": [
+       0,
+       8
+      ]
+     },
+     "units": [
+      "energy",
+      "length",
+      "dimensionless",
+      "force"
+     ],
+     "unit": "energy",
+     "latex": "\\langle n+1|H'|n\\rangle=Fx_0\\sqrt{\\tfrac{n+1}{2}}",
+     "hint": "$a^\\dagger|n\\rangle=\\sqrt{n+1}|n+1\\rangle$ and the factor $Fx_0/\\sqrt2$ in front.",
+     "wrong": [
+      "F*x0*sqrt(n+1)",
+      "F*x0*(n+1)/2",
+      "F*x0*sqrt(n/2)"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "symbolic",
+     "prompt": "Type $E^{(2)}_n$ (symbols <code>F</code>, <code>x0</code>, <code>hbar</code>, <code>omega</code>).",
+     "answer": "-(F**2)*x0**2/(2*hbar*omega)",
+     "symbols": {
+      "F": [
+       0.2,
+       2
+      ],
+      "x0": [
+       0.5,
+       2
+      ],
+      "hbar": [
+       0.5,
+       2
+      ],
+      "omega": [
+       0.5,
+       2
+      ]
+     },
+     "units": [
+      "energy",
+      "energy^2",
+      "dimensionless",
+      "energy*time"
+     ],
+     "unit": "energy",
+     "latex": "E^{(2)}_n=-\\frac{F^2x_0^2}{2\\hbar\\omega}=-\\frac{F^2}{2m\\omega^2}",
+     "hint": "$E^{(2)}=\\frac{F^2x_0^2}2\\Big[\\frac{n+1}{-\\hbar\\omega}+\\frac{n}{+\\hbar\\omega}\\Big]$: the $n$-dependence cancels.",
+     "wrong": [
+      "-(F**2)*x0**2*(2*n+1)/(2*hbar*omega)",
+      "F**2*x0**2/(2*hbar*omega)",
+      "-(F**2)*x0**2/(hbar*omega)"
+     ]
+    },
+    {
+     "id": "s4",
+     "kind": "choice",
+     "prompt": "Compare with the exact solution (complete the square).",
+     "options": [
+      "the exact result has all orders in $F$",
+      "the exact shift is $+\\frac{F^2}{2m\\omega^2}$",
+      "exact $E_n=\\hbar\\omega(n+\\frac12)-\\frac{F^2}{2m\\omega^2}$: the series terminates at second order and the states are shifted Gaussians",
+      "the exact energy depends on $n$ through the shift"
+     ],
+     "correct": 2,
+     "why": {
+      "0": "$\\frac12m\\omega^2(x+F/m\\omega^2)^2-F^2/2m\\omega^2$: only an $F^2$ term appears.",
+      "1": "Completing the square subtracts a constant, so the level goes down.",
+      "3": "The shift is a constant for all $n$."
+     }
+    },
+    {
+     "id": "s5",
+     "kind": "numeric",
+     "prompt": "Bonus: with $g=Fx_0/\\hbar\\omega=0.3$, $E^{(2)}_n$ in units of $\\hbar\\omega$.",
+     "answer": "-(g**2)/2",
+     "unit": "ħω",
+     "units": [
+      "ħω",
+      "eV",
+      "J"
+     ],
+     "tol": 0.01,
+     "hint": "$E^{(2)}=-\\frac{F^2x_0^2}{2\\hbar\\omega}=-\\frac{g^2}{2}\\hbar\\omega=-0.045\\hbar\\omega$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "calc",
+   "fight": "normal",
+   "xp": 60,
+   "id": "qm-pf-c3",
+   "title": "Time-dependent PT: a constant kick (HS21 Q4 (iii))",
+   "problem": "At $t=0$ a constant coupling $V=\\langle f|H'|i\\rangle$ is switched on between two states with $E_f-E_i=\\Delta\\ne0$. Find the first-order probability $P_{i\\to f}(t)$. Source: HS21 Q4, formula (20).",
+   "symbols": [
+    [
+     "$V$",
+     "matrix element $\\langle f|H'|i\\rangle$ (an energy)"
+    ],
+    [
+     "$\\Delta$",
+     "$E_f-E_i$"
+    ],
+    [
+     "$t$",
+     "time since switching on"
+    ],
+    [
+     "$c_f$",
+     "amplitude of $|f\\rangle$ in the Dirac picture"
+    ]
+   ],
+   "vars": {
+    "V": 0.01,
+    "D": 0.5,
+    "t": 3.14159265,
+    "hbar": 1
+   },
+   "derivation": [
+    {
+     "title": "Method",
+     "html": "<p>Insert the constant matrix element in the first-order formula and integrate the phase $e^{i\\Delta t'/\\hbar}$.</p>"
+    }
+   ],
+   "steps": [
+    {
+     "id": "s1",
+     "kind": "choice",
+     "prompt": "Which expression is the first-order amplitude?",
+     "options": [
+      "$c_f=-\\frac i\\hbar\\int_0^tdt'\\,V$",
+      "$c_f=-\\frac{i}{\\hbar}\\int_0^tdt'\\,e^{i\\Delta t'/\\hbar}\\,V$",
+      "$c_f=\\frac{V}{\\Delta}$",
+      "$c_f=-\\frac i\\hbar V\\,e^{i\\Delta t/\\hbar}$"
+     ],
+     "correct": 1,
+     "why": {
+      "0": "The Dirac-picture matrix element carries the phase $e^{i\\Delta t'/\\hbar}$.",
+      "2": "That is the static (adiabatic) admixture, not the amplitude after a sudden switch-on.",
+      "3": "The integration over $t'$ is missing."
+     }
+    },
+    {
+     "id": "s2",
+     "kind": "symbolic",
+     "prompt": "Type $|c_f|^2$ (symbols <code>V</code>, <code>D</code>, <code>t</code>, <code>hbar</code>).",
+     "answer": "4*V**2*sin(D*t/(2*hbar))**2/D**2",
+     "symbols": {
+      "V": [
+       0.1,
+       1
+      ],
+      "D": [
+       0.5,
+       2
+      ],
+      "t": [
+       0.5,
+       5
+      ],
+      "hbar": [
+       0.5,
+       2
+      ]
+     },
+     "units": [
+      "dimensionless",
+      "energy",
+      "time",
+      "energy^2"
+     ],
+     "unit": "dimensionless",
+     "latex": "P_{i\\to f}=\\frac{4V^2}{\\Delta^2}\\sin^2\\frac{\\Delta t}{2\\hbar}",
+     "hint": "$\\int_0^te^{i\\Delta t'/\\hbar}dt'=\\frac{\\hbar}{i\\Delta}(e^{i\\Delta t/\\hbar}-1)$ and $|e^{i\\phi}-1|^2=4\\sin^2(\\phi/2)$.",
+     "wrong": [
+      "V**2*sin(D*t/hbar)**2/D**2",
+      "4*V**2*cos(D*t/(2*hbar))**2/D**2",
+      "4*V**2*sin(D*t/(2*hbar))**2/(hbar*D)**2"
+     ]
+    },
+    {
+     "id": "s3",
+     "kind": "choice",
+     "prompt": "What happens for $\\Delta\\to0$?",
+     "options": [
+      "$P\\to V^2t^2/\\hbar^2$ grows quadratically until first-order theory breaks down at $t\\sim\\hbar/V$",
+      "$P\\to0$",
+      "$P$ stays bounded by $4V^2/\\Delta^2$ which tends to infinity, so nothing special",
+      "$P\\to1$ immediately"
+     ],
+     "correct": 0,
+     "why": {
+      "1": "$\\sin x\\approx x$ gives $4V^2\\frac{t^2}{4\\hbar^2}$.",
+      "2": "The bound diverges but the limit is the quadratic growth; the expansion needs $P\\ll1$.",
+      "3": "The growth is quadratic, not instantaneous."
+     }
+    },
+    {
+     "id": "s4",
+     "kind": "numeric",
+     "prompt": "Bonus: $V=0.01$, $\\Delta=0.5$, $t=\\pi$, $\\hbar=1$ (energies in the same unit). Compute $P$.",
+     "answer": "4*V**2*sin(D*t/(2*hbar))**2/D**2",
+     "unit": "dimensionless",
+     "units": [
+      "dimensionless",
+      "ħ",
+      "eV"
+     ],
+     "tol": 0.02,
+     "hint": "$\\Delta t/2\\hbar=\\pi/4$, $\\sin^2=\\frac12$, so $P=4\\cdot10^{-4}\\cdot\\frac12/0.25=8\\times10^{-4}$.",
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-pf-b1",
+   "title": "Relativistic corrections of the oscillator (FS19 Q4 = HS18 Q4)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/HS18 (EN).pdf",
+    "where": "Question 4 [Time-independent perturbation theory, 21 pt] (German original: FS 19 Aufgabe 4)"
+   },
+   "minutes": 42,
+   "instructions": "Solve on paper under the timer (2 min per point). Enter the final numbers as coefficients of the expansion in $\\epsilon=\\hbar\\omega/mc^2$.",
+   "statement": [
+    "In this question we study time-independent non-degenerate perturbation theory.",
+    "(i) Let $H_0$ be a Hamiltonian whose complete set of eigenfunctions is described by $H_0\\psi_n=E_n\\psi_n$, $n=0,1,2,\\dots$, where $E_n\\neq E_m$ for $n\\ne m$. We want to find the eigenfunctions of the perturbed Hamiltonian $H=H_0+\\lambda H'$. Make an ansatz for $\\psi$ and $E$ as a power series in $\\lambda$ and determine the equations order by order in $\\lambda$ (up to $\\lambda^2$). Explain how to find the perturbed eigenfunction $\\psi$ to first order in $\\lambda$ and the corresponding eigenvalue to second order in $\\lambda$. (You should work with the convention that the higher order corrections to the eigenfunction are orthogonal to the leading term.) [10 pt]",
+    "(ii) Now consider the case where $H_0$ is the Hamiltonian of the harmonic oscillator $H=\\frac{p^2}{2m}+\\frac12m\\omega^2x^2=\\frac{\\hbar\\omega}{2}(aa^\\dagger+a^\\dagger a)$, where $x=\\sqrt{\\frac\\hbar{2m\\omega}}(a+a^\\dagger)$, $p=-\\sqrt{\\frac{\\hbar m\\omega}2}\\,i(a-a^\\dagger)$. Work out the perturbed eigenvalues (up to second order) for the perturbation described by the first relativistic correction term $H'=\\alpha p^4$, where $\\alpha=-(8m^3c^2)^{-1}$, for the case where the unperturbed energy is $E_0=\\frac12\\hbar\\omega$. [7 pt]",
+    "(iii) In order to calculate the full relativistic correction to order $mc^2(\\hbar\\omega/mc^2)^2$ we also need to include the second order relativistic correction term to the Hamiltonian, namely $H''=\\beta p^6$, where $\\beta=(16m^5c^4)^{-1}$. How does this correction affect the result you obtained in (ii)? [4 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "e1",
+     "prompt": "(ii) First-order coefficient of $\\epsilon\\hbar\\omega$ in $E_0$ ($\\epsilon=\\hbar\\omega/mc^2$). Enter the absolute value.",
+     "answer": "3/32",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "e2",
+     "prompt": "(ii) Second-order coefficient of $\\epsilon^2\\hbar\\omega$ (absolute value).",
+     "answer": "21/512",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "e3",
+     "prompt": "(iii) Coefficient of $\\epsilon^2\\hbar\\omega$ added by $\\beta p^6$ at first order (sign: positive).",
+     "answer": "15/128",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "etot",
+     "prompt": "Total coefficient of $\\epsilon^2\\hbar\\omega$ in $E_0$ after (iii).",
+     "answer": "39/512",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) ansatz, three order equations; $E^{(1)}=\\langle n|H'|n\\rangle$, $\\psi^{(1)}=\\sum\\frac{H'_{mn}}{E_n-E_m}\\psi_m$, $E^{(2)}=\\sum\\frac{|H'_{mn}|^2}{E_n-E_m}$ with the convention $\\langle\\psi_n|\\psi^{(s)}\\rangle=0$",
+    "(ii) $H'=-\\frac{\\epsilon\\hbar\\omega}{32}(a^\\dagger-a)^4$ and $(a^\\dagger-a)^4|0\\rangle=3|0\\rangle-6\\sqrt2|2\\rangle+\\sqrt{24}|4\\rangle$",
+    "$E^{(1)}=-\\frac3{32}\\epsilon\\hbar\\omega$ and $E^{(2)}=-\\frac{\\epsilon^2\\hbar\\omega}{1024}\\big(\\frac{72}2+\\frac{24}4\\big)=-\\frac{21}{512}\\epsilon^2\\hbar\\omega$",
+    "(iii) $\\langle0|p^6|0\\rangle=15(m\\hbar\\omega/2)^3$ shifts the energy by $+\\frac{15}{128}\\epsilon^2\\hbar\\omega$: same order as $E^{(2)}$ of $H'$, so total $\\frac{39}{512}\\epsilon^2\\hbar\\omega$",
+    "Check: expanding the exact $\\sqrt{p^2c^2+m^2c^4}$ to this order; the $p^6$ term is needed for consistency"
+   ],
+   "requires": "qm-pf-c2"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-pf-b2",
+   "title": "Fine structure corrections of hydrogen (FS26 Q4)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS26.pdf",
+    "where": "Question 4 [Fine structure corrections, 21 points]"
+   },
+   "minutes": 42,
+   "instructions": "Solve on paper under the timer. Enter the final numbers: expectation values in units of powers of $a$ and the energy shifts in units of $mc^2\\alpha^4$ (absolute values).",
+   "statement": [
+    "Typical speeds of the electron in the hydrogen atom are $v/c\\approx0.007$, and thus relativistic corrections play a role. The relativistic kinetic energy is $T=\\sqrt{p^2c^2+m^2c^4}-mc^2$.",
+    "(i) Expand $T$ to show that the first order relativistically corrected Hamiltonian of the hydrogen atom is $H=\\frac{p^2}{2m}-\\frac{p^4}{8m^3c^2}-\\frac{e^2}{r}=H_0-\\frac{p^4}{8m^3c^2}$. Which symmetries of the hydrogen atom are preserved and which do you expect to be broken when this correction is added? [4 points]",
+    "We want to find the energy corrections using perturbation theory. The bound eigenstates of $H_0$ are $|n,l,m\\rangle$, $n=1,2,3,\\dots$, $l=0,\\dots,n-1$, $m=-l,\\dots,l$. States with the same quantum number $n$ are degenerate, $H_0|n,l,m\\rangle=E_n|n,l,m\\rangle$.",
+    "(ii) In degenerate perturbation theory the first order energy corrections to $E_n$ are the eigenvalues of the matrix $(\\langle n,l',m'|H'|n,l,m\\rangle)_{l,m;l',m'}$, where $H'$ is the perturbation. Use the symmetries of the Hamiltonian from (i) to show that the first order correction $E^{(1)}_{n,l,m}$ of the state $|n,l,m\\rangle$ is simply given by $E^{(1)}_{n,l,m}=\\langle n,l,m|H'|n,l,m\\rangle$, where $H'=-\\frac{p^4}{8m^3c^2}$. [4 points]",
+    "(iii) Show that $E^{(1)}_{n,l,m}=-\\frac1{2mc^2}\\Big(E_n^2+2e^2E_n\\big\\langle\\frac1r\\big\\rangle_{n,l,m}+e^4\\big\\langle\\frac1{r^2}\\big\\rangle_{n,l,m}\\Big)$ where $\\langle O\\rangle_{n,l,m}:=\\langle n,l,m|O|n,l,m\\rangle$. Hint: Find an expression for $p^2|n,l,m\\rangle$ in terms of $E_n$ and $V$, and use this to find an expression for the expectation value of $p^4$. [4 points]",
+    "(iv) For the $n=2$ wavefunctions $\\psi_{2,l,m}(r,\\theta,\\phi)=R_{2,l}(r)Y_{l,m}(\\theta,\\phi)$, calculate $\\langle\\frac1r\\rangle_{2,l,m}$ and $\\langle\\frac1{r^2}\\rangle_{2,l,m}$ using $\\langle r^\\alpha\\rangle_{2,l,m}=\\int_0^\\infty dr\\,r^2\\,r^\\alpha(R_{2,l}(r))^2$. Hints: $R_{2,0}(r)=\\frac1{\\sqrt{8a^3}}\\big(2-\\frac ra\\big)e^{-r/2a}$, $R_{2,1}(r)=\\frac1{\\sqrt{24a^3}}\\frac rae^{-r/2a}$, where $a$ is the Bohr radius; and $\\int_0^\\infty dr\\,r^ne^{-r/a}=a^{n+1}n!$. [6 points]",
+    "(v) Sketch the splitting of the $n$-th energy level due to the relativistic correction to the kinetic energy, depending on the quantum numbers $l,m$. Hint: What can you say about the sign of the energy correction? Furthermore, what is the qualitative $l$ dependence of $\\langle\\frac1r\\rangle$ and $\\langle\\frac1{r^2}\\rangle$ (using (iv))? Note that the wavefunction of $|n,l,m\\rangle$ scales as $r^l$ for $r\\to0$. [3 points]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "r1",
+     "prompt": "(iv) $a\\,\\langle1/r\\rangle_{2,l,m}$ (same for $l=0,1$).",
+     "answer": "1/4",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "rr0",
+     "prompt": "(iv) $a^2\\langle1/r^2\\rangle_{2,0,0}$.",
+     "answer": "1/4",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "rr1",
+     "prompt": "(iv) $a^2\\langle1/r^2\\rangle_{2,1,m}$.",
+     "answer": "1/12",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "E20",
+     "prompt": "$|E^{(1)}_{2,0,0}|$ in units of $mc^2\\alpha^4$ (the shift is negative).",
+     "answer": "13/128",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "E21",
+     "prompt": "$|E^{(1)}_{2,1,m}|$ in units of $mc^2\\alpha^4$.",
+     "answer": "7/384",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) $T=\\frac{p^2}{2m}-\\frac{p^4}{8m^3c^2}+\\dots$; rotation (all $\\vec L$) and parity preserved, the hidden SO(4) (Runge-Lenz) broken, so $l$-degeneracy lifted",
+    "(ii) $H'$ commutes with $L^2,L_z$, so it does not connect different $(l,m)$: matrix diagonal",
+    "(iii) $p^2|nlm\\rangle=2m(E_n+e^2/r)|nlm\\rangle$, $\\langle p^4\\rangle=4m^2\\langle(E_n+e^2/r)^2\\rangle$",
+    "(iv) $\\langle1/r\\rangle=\\frac1{4a}$; $\\langle1/r^2\\rangle_{2,0}=\\frac1{4a^2}$, $\\langle1/r^2\\rangle_{2,1}=\\frac1{12a^2}$ via $\\int r^ne^{-r/a}=a^{n+1}n!$",
+    "(v) all shifts negative; $E^{(1)}_{2,0}=-\\frac{13}{128}mc^2\\alpha^4$ below $E^{(1)}_{2,1}=-\\frac7{384}mc^2\\alpha^4$; $m$-degenerate, $l=0$ lowest"
+   ],
+   "requires": "qm-pf-c1"
+  },
+  {
+   "type": "boss",
+   "xp": 120,
+   "id": "qm-pf-b3",
+   "title": "Degenerate perturbation theory with a rotation term (FS22 Q4)",
+   "source": {
+    "file": "materials/quantum-mechanics/old-exams/FS22.pdf",
+    "where": "Question 4 [Degenerate perturbation theory, 15 pt]"
+   },
+   "minutes": 30,
+   "instructions": "Solve on paper under the timer. Enter the coefficients of $\\lambda\\hbar\\omega$ and the degeneracy.",
+   "statement": [
+    "Let $H_0$ be a Hamiltonian whose complete set of eigenfunctions is described by $H_0\\psi_n=E_n\\psi_n$, $n=0,1,2,\\dots$. We want to find the eigenfunctions of the perturbed Hamiltonian $H=H_0+\\lambda H'$.",
+    "(i) Let $\\psi$ be an eigenstate of the perturbed system with energy $E$. Make an ansatz for $\\psi$ and $E$ as a power series in $\\lambda$, and derive the equations for the perturbation at any order $\\lambda^s$. [5 pt] [Hint: Derive a general equation that holds for $s\\ge2$, and then treat the cases $s=0$ and $s=1$ separately.]",
+    "(ii) Let us assume that the unperturbed energy $E_m$ of the solution whose perturbed energy we want to determine is 3-fold degenerate, and denote the corresponding orthonormal eigenstates of $H_0$ by $|\\ell\\rangle$, $|n\\rangle$ and $|k\\rangle$. Using the relevant relation from (i), derive an eigenvalue equation that determines the values of the perturbed energy $E$ of $H$ to first order in $\\lambda$. (You do not need to solve this eigenvalue equation.) [4 pt]",
+    "(iii) Consider the three-dimensional harmonic oscillator $H_0=\\hbar\\omega\\big(a^\\dagger a+b^\\dagger b+c^\\dagger c+\\frac32\\big)$, where $(a,a^\\dagger)$, $(b,b^\\dagger)$ and $(c,c^\\dagger)$ are the annihilation and creation operators associated to the three coordinate axes $x,y,z$, i.e. $x=\\sqrt{\\frac\\hbar{2m\\omega}}(a+a^\\dagger)$, $p_x=-\\sqrt{\\frac{\\hbar m\\omega}2}\\,i(a-a^\\dagger)$, and similarly for $(y,p_y)$ and $(z,p_z)$. We take $H'$ to be the operator $H'=\\omega L_z=\\omega(xp_y-yp_x)$. Consider the three-fold degenerate eigenstates of $H_0$ with eigenvalue $E_m=\\frac52\\hbar\\omega$, and determine the eigenvalues of the perturbed problem to first order in perturbation theory. [5 pt] [Hint: label the states $|n_a,n_b,n_c\\rangle$; $a|1,n_b,n_c\\rangle=|0,n_b,n_c\\rangle$, $a|0,n_b,n_c\\rangle=0$, $a^\\dagger|0,n_b,n_c\\rangle=|1,n_b,n_c\\rangle$ and similarly for the other generators.]",
+    "(iv) Comment briefly on why you could have expected this result based on the representation theory of SO(3). [1 pt]"
+   ],
+   "finalAnswers": [
+    {
+     "id": "plus",
+     "prompt": "(iii) The largest first-order shift in units of $\\lambda\\hbar\\omega$.",
+     "answer": "1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "minus",
+     "prompt": "(iii) The most negative first-order shift in units of $\\lambda\\hbar\\omega$ (enter the signed value).",
+     "answer": "-1",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "deg",
+     "prompt": "(iii) Degeneracy of the unperturbed level $E=\\frac52\\hbar\\omega$.",
+     "answer": "3",
+     "vars": {},
+     "tol": 0.01
+    },
+    {
+     "id": "Em",
+     "prompt": "Unperturbed energy of the level in units of $\\hbar\\omega$.",
+     "answer": "5/2",
+     "vars": {},
+     "tol": 0.01
+    }
+   ],
+   "keyPoints": [
+    "(i) order $\\lambda^s$ ($s\\ge2$): $(H_0-E_m)\\psi^{(s)}=\\sum_{k\\ge1}(E^{(k)}-\\delta_{k1}H')\\psi^{(s-k)}$ with $\\psi^{(0)}$ in the degenerate subspace",
+    "(ii) project on $\\langle\\ell|,\\langle n|,\\langle k|$: $\\det\\big(\\langle i|H'|j\\rangle-E^{(1)}\\delta_{ij}\\big)=0$, $3\\times3$ matrix",
+    "(iii) $L_z=i\\hbar(ab^\\dagger-a^\\dagger b)$: $L_z|100\\rangle=i\\hbar|010\\rangle$, $L_z|010\\rangle=-i\\hbar|100\\rangle$, $L_z|001\\rangle=0$; eigenvalues $\\pm\\hbar,0$, so $E=\\frac52\\hbar\\omega+\\lambda\\hbar\\omega\\{1,0,-1\\}$",
+    "(iv) the level $\\frac52\\hbar\\omega$ is the $l=1$ representation of SO(3) (vector $x,y,z$): $H'\\propto L_z$ splits it into $m=1,0,-1$"
+   ],
+   "requires": "qm-pf-c2"
+  }
+ ]
+}

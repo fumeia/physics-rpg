@@ -1,0 +1,1287 @@
+{
+  "id": "astro-exam-hall",
+  "region": "Astro Observatory Ship",
+  "title": "The Examination Hall",
+  "course": "astrophysics",
+  "topics": [
+    "full multiple-choice sets of HS24-HS25",
+    "remaining open exam questions",
+    "mock exams"
+  ],
+  "sources": [
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+      "where": "HS25 winter: complete MC and open Q5, Q6"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+      "where": "HS24 summer: complete MC and open Q4-Q6"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+      "where": "HS24 winter: complete MC"
+    },
+    {
+      "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+      "where": "HS25 practice: complete MC and open Q6"
+    }
+  ],
+  "intro": "The final deck before the exam. Every multiple-choice question Refregier has set (60 of them, in exam order) and the open questions not fought elsewhere. Come here once the theory rooms are done, and run full mock exams under time pressure.",
+  "encounters": [
+    {
+      "type": "lesson",
+      "id": "astro-exam-L1",
+      "title": "How the Refregier exam works (and how to use this hall)",
+      "tier": "intuition",
+      "minutes": 4,
+      "xp": 5,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: cover page and instructions"
+        },
+        {
+          "file": "notes/syllabus.md",
+          "where": "§3 Astrophysics I: format and topic weights"
+        }
+      ],
+      "blocks": [
+        {
+          "kind": "text",
+          "html": "Format (identical in all four recent exams): <b>15 multiple-choice questions × 3 pt = 45 pt</b> and <b>7 open questions ≈ 64–68 pt</b>, total ≈ 110 pt. Allowed: 4 A4 pages of notes (your formula codex), a non-programmable calculator, the constants table (G, k_B, h, c, m_p, M☉, R☉, pc, Jy, σ_T). Write down intermediate steps."
+        },
+        {
+          "kind": "text",
+          "html": "The open questions are always: one photometry/angles question, one radiation (blackbody/CMB) question, one stellar-structure or Eddington question, one or two galaxy dynamics questions (virial, rotation curves, tidal, Plummer), one AGN/cluster question, and a Friedmann question at the end."
+        },
+        {
+          "kind": "exam",
+          "html": "Mock-exam routine: do one MC set in 30 minutes without hints, then 2-3 open questions (bosses) under their timers. Two official keys contain arithmetic errors (HS24 summer Q2b: 1.77 pW, not 2.5 pW; HS25 practice Q6c: $2.2\\times10^{11}M_\\odot$, not $9.8\\times10^{11}$): trust your own calculation."
+        }
+      ],
+      "check": []
+    },
+    {
+      "type": "quiz",
+      "id": "astro-exam-MC-W25",
+      "title": "Mock exam: HS25 winter (4 Feb 2026), multiple choice",
+      "xp": 60,
+      "passMark": 0.6,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+          "where": "HS25 winter: Multiple Choice, questions 1-15 (45 pt)"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Two stars have $m_1=9.0$ and $m_2=13.0$. $F_1/F_2\\approx$",
+          "options": [
+            "5",
+            "15",
+            "20",
+            "40"
+          ],
+          "correct": 3,
+          "explain": "$10^{0.4\\cdot4}=39.8$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 1"
+          }
+        },
+        {
+          "q": "Barnard's Star has a parallax of 547 mas. How far away is it?",
+          "options": [
+            "1.8 pc",
+            "18 pc",
+            "180 pc",
+            "1800 pc"
+          ],
+          "correct": 0,
+          "explain": "$d=1/p$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 2"
+          }
+        },
+        {
+          "q": "In empty space, $I_\\nu$ along a ray remains constant because",
+          "options": [
+            "the radiation energy density is conserved along the ray",
+            "both the received flux and the solid angle of the source decrease as the inverse square of distance",
+            "the radiation field is isotropic in empty space",
+            "the flux is zero averaged over all directions"
+          ],
+          "correct": 1,
+          "explain": "Surface brightness is conserved.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 3"
+          }
+        },
+        {
+          "q": "According to Stefan–Boltzmann, the energy density $U$ of blackbody radiation scales as",
+          "options": [
+            "$T$",
+            "$T^2$",
+            "$T^{-1}$",
+            "$T^4$"
+          ],
+          "correct": 3,
+          "explain": "$U=a_BT^4$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 4"
+          }
+        },
+        {
+          "q": "Two main-sequence stars differ in mass by a factor 4. How much longer does the lower-mass star live?",
+          "options": [
+            "4",
+            "8",
+            "16",
+            "64"
+          ],
+          "correct": 2,
+          "explain": "$\\tau\\propto M^{-2}$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 5"
+          }
+        },
+        {
+          "q": "The upper mass limit of main-sequence stars is due to",
+          "options": [
+            "small optical depth in the interior",
+            "depletion of hydrogen in the core",
+            "cosmic rays",
+            "outward radiation pressure overcoming gravity"
+          ],
+          "correct": 3,
+          "explain": "Eddington limit.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 6"
+          }
+        },
+        {
+          "q": "The physical origin of the 21 cm line is",
+          "options": [
+            "recombination in ionised hydrogen",
+            "rotational transitions of CO",
+            "hyperfine splitting of the ground state of neutral hydrogen",
+            "synchrotron radiation of cosmic rays"
+          ],
+          "correct": 2,
+          "explain": "Spin flip.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 7"
+          }
+        },
+        {
+          "q": "Population II stars are",
+          "options": [
+            "young, metal-rich, in the disk",
+            "old, metal-poor, in the halo and bulge",
+            "forming in molecular clouds in spiral arms",
+            "exclusively white dwarfs"
+          ],
+          "correct": 1,
+          "explain": "Formed before enrichment.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 8"
+          }
+        },
+        {
+          "q": "Galaxies ($N\\approx10^{11}$) are collisionless because",
+          "options": [
+            "stellar radii are large compared with separations",
+            "the time for encounters to change velocities is much longer than the age of the Universe",
+            "the dark-matter halo suppresses random motions",
+            "stars have coherent circular velocities"
+          ],
+          "correct": 1,
+          "explain": "$T_{\\rm rel}\\sim10^{15}$ yr.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 9"
+          }
+        },
+        {
+          "q": "For a virialised cluster of $N$ stars of mass $m$ and radius $\\langle R\\rangle$, $\\langle v^2\\rangle\\propto$",
+          "options": [
+            "$Nm/\\langle R\\rangle$",
+            "$N\\langle R\\rangle/m$",
+            "$m/(N\\langle R\\rangle)$",
+            "$m/\\langle R\\rangle^2$"
+          ],
+          "correct": 0,
+          "explain": "$\\langle v^2\\rangle=GNm/2\\langle R\\rangle$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 10"
+          }
+        },
+        {
+          "q": "Electrons with $N(E)\\propto E^{-2}$ emit synchrotron with spectrum",
+          "options": [
+            "$\\nu^{-1/2}$",
+            "$\\nu^{-1}$",
+            "$\\nu^{-3/2}$",
+            "$\\nu^{-2}$"
+          ],
+          "correct": 0,
+          "explain": "$s=(p-1)/2$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 11"
+          }
+        },
+        {
+          "q": "A flat rotation curve implies the enclosed mass scales as",
+          "options": [
+            "const",
+            "$\\sqrt r$",
+            "$r$",
+            "$r^2$"
+          ],
+          "correct": 2,
+          "explain": "$M_r=v_c^2r/G$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 12"
+          }
+        },
+        {
+          "q": "$z=0.024$, $H_0=72$ km s$^{-1}$Mpc$^{-1}$: distance?",
+          "options": [
+            "10 Mpc",
+            "100 Mpc",
+            "300 Mpc",
+            "720 Mpc"
+          ],
+          "correct": 1,
+          "explain": "$cz/H_0$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 13"
+          }
+        },
+        {
+          "q": "The 21 cm line is observed at 700 MHz. Emission redshift?",
+          "options": [
+            "0.3",
+            "0.5",
+            "1",
+            "2"
+          ],
+          "correct": 2,
+          "explain": "$1420/700-1\\approx1$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 14"
+          }
+        },
+        {
+          "q": "If $\\Omega_{\\rm tot}>1$, the spatial geometry is",
+          "options": [
+            "flat",
+            "open/hyperbolic",
+            "closed/spherical",
+            "cylindrical"
+          ],
+          "correct": 2,
+          "explain": "$k=+1$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+            "where": "HS25 winter: MC 15"
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "astro-exam-MC-S24",
+      "title": "Mock exam: HS24 summer (21 Aug 2025), multiple choice",
+      "xp": 60,
+      "passMark": 0.6,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+          "where": "HS24 summer: Multiple Choice, questions 1-15 (45 pt)"
+        }
+      ],
+      "questions": [
+        {
+          "q": "S1 has parallax $0.25''$; S2 is four times further. Parallax of S2?",
+          "options": [
+            "$1.00''$",
+            "$0.50''$",
+            "$0.0625''$",
+            "$0.125''$"
+          ],
+          "correct": 2,
+          "explain": "$p\\propto1/d$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 1"
+          }
+        },
+        {
+          "q": "The Sun is 8 kpc from the Galactic centre. A star 10 kpc away at $l=180^\\circ$, $b=0^\\circ$ is how far from the centre?",
+          "options": [
+            "2 kpc",
+            "8 kpc",
+            "10 kpc",
+            "18 kpc"
+          ],
+          "correct": 3,
+          "explain": "Anticentre: distances add.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 2"
+          }
+        },
+        {
+          "q": "Cloud C1: $\\rho_0$, diameter $D$; C2: $2\\rho_0$, $D/2$; same opacity. Through the centres,",
+          "options": [
+            "$\\tau_1=\\tau_2$",
+            "$\\tau_1=\\frac12\\tau_2$",
+            "$\\tau_1=2\\tau_2$",
+            "$\\tau_1=4\\tau_2$"
+          ],
+          "correct": 0,
+          "explain": "$\\tau=\\chi\\rho L$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 3"
+          }
+        },
+        {
+          "q": "Which pairs a radiative quantity with an incorrect SI unit?",
+          "options": [
+            "$I_\\nu$: W m$^{-2}$sr$^{-1}$Hz$^{-1}$",
+            "$F_\\nu$: W m$^{-2}$",
+            "$j_\\nu$: W m$^{-3}$sr$^{-1}$Hz$^{-1}$",
+            "none of the above"
+          ],
+          "correct": 1,
+          "explain": "$F_\\nu$ is per Hz.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 4"
+          }
+        },
+        {
+          "q": "A main-sequence star more massive than the Sun is relatively",
+          "options": [
+            "less luminous, hotter, shorter-lived",
+            "more luminous, hotter, shorter-lived",
+            "more luminous, cooler, shorter-lived",
+            "more luminous, hotter, longer-lived"
+          ],
+          "correct": 1,
+          "explain": "$L\\propto M^3$, $M\\propto T^2$, $\\tau\\propto M^{-2}$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 5"
+          }
+        },
+        {
+          "q": "Relationship between colour and $T_{\\rm eff}$:",
+          "options": [
+            "hotter stars peak at higher $\\nu_{\\max}$ and are bluer",
+            "cooler stars peak at lower $\\nu_{\\max}$ and are bluer",
+            "cooler stars peak at higher $\\nu_{\\max}$ and are redder",
+            "hotter stars peak at lower $\\nu_{\\max}$ and are bluer"
+          ],
+          "correct": 0,
+          "explain": "$\\nu_{\\max}\\propto T$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 6"
+          }
+        },
+        {
+          "q": "Relative to disk stars, halo and bulge stars are predominantly",
+          "options": [
+            "younger Pop I, more metals",
+            "older Pop I, fewer metals",
+            "younger Pop II, fewer metals",
+            "older Pop II, fewer metals"
+          ],
+          "correct": 3,
+          "explain": "Formed before enrichment.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 7"
+          }
+        },
+        {
+          "q": "Molecular clouds are the birthplace of stars because",
+          "options": [
+            "they are dense and cold",
+            "they are hot enough for spontaneous fusion",
+            "they are hot enough for fission",
+            "they are the only places with ionised hydrogen"
+          ],
+          "correct": 0,
+          "explain": "Small Jeans mass.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 8"
+          }
+        },
+        {
+          "q": "Dynamical friction on a massive particle is directed",
+          "options": [
+            "backwards, from enhanced density in its wake",
+            "forwards, from enhanced density in its wake",
+            "backwards, from reduced density in its wake",
+            "forwards, from reduced density in its wake"
+          ],
+          "correct": 0,
+          "explain": "The wake pulls it back.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 9"
+          }
+        },
+        {
+          "q": "In the Jeans analysis (non-expanding fluid) a mode with $\\lambda<\\lambda_J$ will",
+          "options": [
+            "grow or decay exponentially",
+            "grow or decay logarithmically",
+            "oscillate",
+            "remain constant"
+          ],
+          "correct": 2,
+          "explain": "Pressure wins.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 10"
+          }
+        },
+        {
+          "q": "Synchrotron radiation is produced by",
+          "options": [
+            "neutrinos changing flavour",
+            "self-gravitating particles",
+            "dark matter during virialisation",
+            "free electrons spiralling about magnetic field lines"
+          ],
+          "correct": 3,
+          "explain": "Relativistic electrons.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 11"
+          }
+        },
+        {
+          "q": "Seyfert galaxies are",
+          "options": [
+            "spirals with a bright nucleus and strong emission lines",
+            "spirals with a bright nucleus, no strong lines",
+            "ellipticals with a bright nucleus and strong lines",
+            "ellipticals with a bright nucleus, no strong lines"
+          ],
+          "correct": 0,
+          "explain": "Definition.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 12"
+          }
+        },
+        {
+          "q": "In the flat part of a rotation curve the density scales as",
+          "options": [
+            "$r^2$",
+            "$r$",
+            "$r^{-1}$",
+            "$r^{-2}$"
+          ],
+          "correct": 3,
+          "explain": "$dM/dr\\propto$ const.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 13"
+          }
+        },
+        {
+          "q": "If small triangles on a 2D surface have angle sums $>180^\\circ$, the surface has",
+          "options": [
+            "curvature −1",
+            "negative curvature",
+            "zero curvature",
+            "positive curvature"
+          ],
+          "correct": 3,
+          "explain": "Sphere-like.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 14"
+          }
+        },
+        {
+          "q": "Recombination occurred at an energy scale of",
+          "options": [
+            "about 1 GeV",
+            "about 1 MeV",
+            "about 1 eV",
+            "about 0.01 eV"
+          ],
+          "correct": 2,
+          "explain": "Many photons per baryon.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+            "where": "HS24 summer: MC 15"
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "astro-exam-MC-W24",
+      "title": "Mock exam: HS24 winter (29 Jan 2025), multiple choice",
+      "xp": 60,
+      "passMark": 0.6,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+          "where": "HS24 winter: Multiple Choice, questions 1-15 (45 pt)"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Naked-eye limit $m<6.5$. Out to what distance is a star with $M=4$ visible?",
+          "options": [
+            "~10 pc",
+            "~30 pc",
+            "~50 pc",
+            "~100 pc"
+          ],
+          "correct": 1,
+          "explain": "$d<10^{1.5}$ pc.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 1"
+          }
+        },
+        {
+          "q": "S1 has $B-V=0.5$, S2 has $B-V=1.0$. Which must be true?",
+          "options": [
+            "S1 emits more short-wavelength light than S2",
+            "S2 emits more short-wavelength light than S1",
+            "S1 must be brighter than S2",
+            "S2 must be more distant"
+          ],
+          "correct": 0,
+          "explain": "Smaller B−V is bluer.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 2"
+          }
+        },
+        {
+          "q": "Local but not global thermal equilibrium (size $L$, mean free path $l$) if $T$, $P$",
+          "options": [
+            "are constant and $l\\gg L$",
+            "are constant and $l\\ll L$",
+            "depend on time/location and $l\\gg L$",
+            "depend on time/location and $l\\ll L$"
+          ],
+          "correct": 3,
+          "explain": "Collisions frequent, gradients present.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 3"
+          }
+        },
+        {
+          "q": "Constant-property medium, optical depth $\\tau_\\nu$:",
+          "options": [
+            "$I\\simeq S$ thick, $I\\simeq S\\tau$ thin",
+            "$I\\simeq S$ thin, $I\\simeq S\\tau$ thick",
+            "$I\\simeq S$ always",
+            "$I\\simeq Se^{-\\tau}$ always"
+          ],
+          "correct": 0,
+          "explain": "$I=S(1-e^{-\\tau})$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 4"
+          }
+        },
+        {
+          "q": "Leaving the main sequence to become a red giant, a star becomes",
+          "options": [
+            "less massive, hotter",
+            "cooler, less luminous",
+            "cooler, more luminous",
+            "cooler, smaller"
+          ],
+          "correct": 2,
+          "explain": "Up and to the right.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 5"
+          }
+        },
+        {
+          "q": "Neutrino oscillations are indicated because we detect",
+          "options": [
+            "no neutrinos",
+            "one third of the predicted $\\nu_e$",
+            "three times the predicted $\\nu_e$",
+            "only $\\nu_\\mu$ and $\\nu_\\tau$"
+          ],
+          "correct": 1,
+          "explain": "Flavour change.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 6"
+          }
+        },
+        {
+          "q": "As a main-sequence star the Sun generates energy primarily through",
+          "options": [
+            "fusion of He into C",
+            "fission of heavy elements",
+            "fusion of H into He",
+            "gravitational contraction"
+          ],
+          "correct": 2,
+          "explain": "pp chain.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 7"
+          }
+        },
+        {
+          "q": "Molecular clouds are",
+          "options": [
+            "regions of ionised hydrogen",
+            "hot diffuse regions where stars are born",
+            "cool dense regions where stars are born",
+            "regions where stars cannot form"
+          ],
+          "correct": 2,
+          "explain": "Cold and dense.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 8"
+          }
+        },
+        {
+          "q": "The \"curve of growth\" relates",
+          "options": [
+            "equivalent width of a line and column density",
+            "perturbation amplitude and time",
+            "Einstein coefficients and level spacing",
+            "AGN luminosity and black-hole mass"
+          ],
+          "correct": 0,
+          "explain": "Abundance analysis.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 9"
+          }
+        },
+        {
+          "q": "For a self-gravitating system in steady state, $\\bar E=$",
+          "options": [
+            "$2\\bar K$",
+            "$\\frac12\\bar K$",
+            "$2\\bar V$",
+            "$\\frac12\\bar V$"
+          ],
+          "correct": 3,
+          "explain": "$2\\bar K+\\bar V=0$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 10"
+          }
+        },
+        {
+          "q": "Self-gravitating stellar systems",
+          "options": [
+            "relax via collisions to thermal equilibrium",
+            "relax via collisions, not to thermal equilibrium",
+            "relax via other processes to thermal equilibrium",
+            "relax via other processes, not to thermal equilibrium"
+          ],
+          "correct": 3,
+          "explain": "Violent relaxation.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 11"
+          }
+        },
+        {
+          "q": "X-ray bremsstrahlung from an ICM with constant $T$",
+          "options": [
+            "is concentrated in high-density regions ($\\rho^2$)",
+            "is linear in density",
+            "is concentrated in low-density regions ($\\rho^{-2}$)",
+            "depends only on T"
+          ],
+          "correct": 0,
+          "explain": "$\\propto n_en_p$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 12"
+          }
+        },
+        {
+          "q": "A galaxy cluster typically consists of",
+          "options": [
+            "2 galaxies",
+            "≳100 galaxies",
+            "5-10 galaxies",
+            "only galaxies above 10¹³ M☉"
+          ],
+          "correct": 1,
+          "explain": "Up to ~1000.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 13"
+          }
+        },
+        {
+          "q": "In our Universe",
+          "options": [
+            "radiation dominates early, matter later",
+            "matter dominates early, radiation later",
+            "radiation always dominates",
+            "matter always dominates"
+          ],
+          "correct": 0,
+          "explain": "$\\rho_R/\\rho_M\\propto1/a$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 14"
+          }
+        },
+        {
+          "q": "The energy density of radiation scales as",
+          "options": [
+            "$a^{-3}$",
+            "$a^{-2}$",
+            "$a^{-4}$",
+            "constant"
+          ],
+          "correct": 2,
+          "explain": "Dilution and redshift.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2024_Winter_Session_with_Solutions.pdf",
+            "where": "HS24 winter: MC 15"
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "astro-exam-MC-P25",
+      "title": "Mock exam: HS25 practice exam, multiple choice",
+      "xp": 60,
+      "passMark": 0.6,
+      "source": [
+        {
+          "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+          "where": "HS25 practice: Multiple Choice, questions 1-15 (45 pt)"
+        }
+      ],
+      "questions": [
+        {
+          "q": "$M=1.0$, $d=100$ pc, extinction $A_\\lambda=0.2$. Apparent magnitude?",
+          "options": [
+            "5.2",
+            "6.2",
+            "6.7",
+            "7.2"
+          ],
+          "correct": 1,
+          "explain": "$1+5+0.2$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 1"
+          }
+        },
+        {
+          "q": "$I_\\nu$ of a source seen from a large distance $R$ (vacuum)",
+          "options": [
+            "is independent of $R$",
+            "decreases linearly with $R$",
+            "increases linearly with $R$",
+            "decreases as $1/R^2$"
+          ],
+          "correct": 0,
+          "explain": "Conserved along rays.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 2"
+          }
+        },
+        {
+          "q": "Observing a dust cloud of high optical depth, direct studies are",
+          "options": [
+            "impossible",
+            "limited to its core",
+            "unaffected by τ",
+            "limited to its surface"
+          ],
+          "correct": 3,
+          "explain": "We see to $\\tau\\sim1$.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 3"
+          }
+        },
+        {
+          "q": "When the Schwarzschild criterion holds, the material is",
+          "options": [
+            "stable to convection",
+            "unable to transport energy radiatively",
+            "stable to conduction",
+            "efficiently convective"
+          ],
+          "correct": 0,
+          "explain": "Stability criterion.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 4"
+          }
+        },
+        {
+          "q": "The Sun is a",
+          "options": [
+            "class O main-sequence star",
+            "class G main-sequence star",
+            "white dwarf",
+            "class M red giant"
+          ],
+          "correct": 1,
+          "explain": "G2V.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 5"
+          }
+        },
+        {
+          "q": "For the Sun ($T\\sim10^7$ K)",
+          "options": [
+            "pp and CNO contribute equally",
+            "CNO dominates",
+            "neither contributes significantly",
+            "pp chains dominate"
+          ],
+          "correct": 3,
+          "explain": "CNO above ~1.3 M☉.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 6"
+          }
+        },
+        {
+          "q": "BBN occurred at an energy scale of",
+          "options": [
+            "about 10 GeV",
+            "about 1 GeV",
+            "about 1 MeV",
+            "about 1 eV"
+          ],
+          "correct": 2,
+          "explain": "Nuclear binding energies.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 7"
+          }
+        },
+        {
+          "q": "Milky Way components are supported by",
+          "options": [
+            "disk and bulge random motions, halo rotation",
+            "halo and disk rotation, bulge random motion",
+            "halo and bulge random motions, disk rotation",
+            "halo and bulge rotation, disk random motion"
+          ],
+          "correct": 2,
+          "explain": "Only the disk rotates.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 8"
+          }
+        },
+        {
+          "q": "Compared with ellipticals, the disks of spirals are",
+          "options": [
+            "redder, older",
+            "redder, younger",
+            "bluer, older",
+            "bluer, younger"
+          ],
+          "correct": 3,
+          "explain": "Star formation.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 9"
+          }
+        },
+        {
+          "q": "In contrast to an HI cloud, an HII region is",
+          "options": [
+            "ionised and ~100× hotter",
+            "neutral and ~100× hotter",
+            "ionised and ~100× cooler",
+            "similar T but ionised"
+          ],
+          "correct": 0,
+          "explain": "80 K vs ≳6000 K.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 10"
+          }
+        },
+        {
+          "q": "Comparing violent relaxation, collisional relaxation and crossing times:",
+          "options": [
+            "$T_{rel}\\simeq T_{VR}\\simeq T_{cr}$",
+            "$T_{rel}\\simeq T_{VR}\\gg T_{cr}$",
+            "$T_{cr}\\gg T_{rel}\\simeq T_{VR}$",
+            "$T_{rel}\\gg T_{VR}\\gtrsim T_{cr}$"
+          ],
+          "correct": 3,
+          "explain": "Violent relaxation is fast.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 11"
+          }
+        },
+        {
+          "q": "The singular isothermal sphere ($\\rho\\propto r^{-2}$) has $\\langle v^2\\rangle$",
+          "options": [
+            "independent of r",
+            "$\\propto r$",
+            "$\\propto1/r$",
+            "$\\propto1/r^2$"
+          ],
+          "correct": 0,
+          "explain": "Isothermal.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 12"
+          }
+        },
+        {
+          "q": "Pressure dominates over gravity, preventing collapse, where",
+          "options": [
+            "$|k|<k_J$, $M<M_J$",
+            "$|k|>k_J$, $M<M_J$",
+            "$|k|<k_J$, $M>M_J$",
+            "$|k|\\simeq k_J$, $M\\simeq M_J$"
+          ],
+          "correct": 1,
+          "explain": "Small scales oscillate.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 13"
+          }
+        },
+        {
+          "q": "Typical temperature of the ICM in clusters:",
+          "options": [
+            "10⁴ K",
+            "100 K",
+            "10¹² K",
+            "10⁸ K"
+          ],
+          "correct": 3,
+          "explain": "Virial temperature.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 14"
+          }
+        },
+        {
+          "q": "Matter is statistically homogeneous and isotropic",
+          "options": [
+            "below ~10 h⁻¹ Mpc",
+            "above ~100 h⁻¹ Mpc",
+            "within 1 h⁻¹ Mpc of the Local Group",
+            "only on the scale of the observable Universe"
+          ],
+          "correct": 1,
+          "explain": "Cosmological principle.",
+          "source": {
+            "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+            "where": "HS25 practice: MC 15"
+          }
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-exam-b1",
+      "title": "Exam boss: thermal bremsstrahlung and the cluster L_X–M relation",
+      "xp": 110,
+      "minutes": 20,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+        "where": "HS25 winter: Open Question 5 [11 pt]"
+      },
+      "instructions": "Derivation problem: solve on paper, then compare with the key points and enter the two exponents.",
+      "statement": [
+        "Consider the total X-ray luminosity due to thermal bremsstrahlung from the ionised intracluster plasma at temperature $T$. We derive an approximate scaling relation between this luminosity and the total cluster mass.",
+        "(a) [3 pt] Given $\\epsilon_\\nu\\propto n_en_pT^{-1/2}e^{-h\\nu/k_BT}$ (Gaunt factor constant), show $L_X=\\int dV\\int_0^\\infty\\epsilon_\\nu d\\nu\\propto\\int\\rho_g^2T^{1/2}dV$. Use $n_e=n_p$ and $\\rho_g=\\mu_en_em_p$ with constant $\\mu_e$.",
+        "(b) [3 pt] Assuming virial equilibrium with thermal support, derive a scaling relation for $T$ in terms of $M$ and $\\langle R\\rangle$. Take $\\bar V\\propto-GM^2/\\langle R\\rangle$, kinetic energy per particle $\\propto k_BT$, $N$ particles of mass $\\mu_em_p$ making up $M_g=f_gM$.",
+        "(c) [2 pt] Show that with $M\\propto\\langle R\\rangle^3$, $T\\propto M^{2/3}$.",
+        "(d) [3 pt] Approximating $L_X\\propto\\rho_g^2T^{1/2}\\langle R\\rangle^3$, derive $L_X\\propto M^{4/3}$."
+      ],
+      "finalAnswers": [
+        {
+          "id": "aT",
+          "prompt": "Exponent of $M$ in $T\\propto M^a$.",
+          "answer": "2/3",
+          "vars": {},
+          "tol": 0.01
+        },
+        {
+          "id": "aL",
+          "prompt": "Exponent of $M$ in $L_X\\propto M^b$.",
+          "answer": "4/3",
+          "vars": {},
+          "tol": 0.01
+        }
+      ],
+      "keyPoints": [
+        "(a) $\\int_0^\\infty e^{-h\\nu/k_BT}d\\nu=k_BT/h$, so $\\int\\epsilon_\\nu d\\nu\\propto n_e^2T^{1/2}\\propto\\rho_g^2T^{1/2}$.",
+        "(b) $\\bar K\\propto Nk_BT=\\frac{f_gM}{\\mu_em_p}k_BT\\propto MT$; $\\bar K\\propto-\\bar V$ gives $T\\propto M/\\langle R\\rangle$.",
+        "(c)-(d) $\\langle R\\rangle\\propto M^{1/3}\\Rightarrow T\\propto M^{2/3}$; $\\rho_g\\propto M/\\langle R\\rangle^3$ = const, so $L_X\\propto M^{1/3}\\cdot M=M^{4/3}$."
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-exam-b2",
+      "title": "Exam boss: black-hole growth at the Eddington limit",
+      "xp": 90,
+      "minutes": 15,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Winter_Session_with_Solutions.pdf",
+        "where": "HS25 winter: Open Question 6 [8 pt]"
+      },
+      "instructions": "Solve on paper, then enter the numbers.",
+      "statement": [
+        "A black hole of mass $M_{BH}(t)$ accretes at rate $\\dot M_{\\rm acc}$. A fraction $\\eta=0.1$ of the rest-mass energy is radiated, $L=\\eta\\dot M_{\\rm acc}c^2$; the rest is added to the black hole. Assume it radiates at the Eddington luminosity $L_{Edd}=4\\pi GM_{BH}m_pc/\\sigma_T$.",
+        "(a) [6 pt] Write a differential equation for $M_{BH}(t)$ in terms of $\\eta$, $L_{Edd}$ and constants. Substitute $L_{Edd}$ and show $M_{BH}(t)=M_{BH}(0)e^{t/t_S}$. Give the Salpeter time $t_S$ and show $t_S\\simeq5.0\\times10^7$ yr.",
+        "(b) [2 pt] Estimate the time for the black hole to double its mass."
+      ],
+      "finalAnswers": [
+        {
+          "id": "tS",
+          "prompt": "$t_S$ in $10^7$ yr.",
+          "answer": "eta/(1-eta)*c*sigT/(4*pi*G*mp)/yr/1e7",
+          "vars": {
+            "G": 6.6743e-11,
+            "c": 299792458,
+            "mp": 1.67262192369e-27,
+            "sigT": 6.652458e-29,
+            "yr": 31557600,
+            "eta": 0.1
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "td",
+          "prompt": "Doubling time in $10^7$ yr.",
+          "answer": "log(2)*eta/(1-eta)*c*sigT/(4*pi*G*mp)/yr/1e7",
+          "vars": {
+            "G": 6.6743e-11,
+            "c": 299792458,
+            "mp": 1.67262192369e-27,
+            "sigT": 6.652458e-29,
+            "yr": 31557600,
+            "eta": 0.1
+          },
+          "tol": 0.02
+        }
+      ],
+      "keyPoints": [
+        "$\\dot M_{\\rm acc}=L_{Edd}/\\eta c^2$, $\\dot M_{BH}=(1-\\eta)\\dot M_{\\rm acc}=\\frac{1-\\eta}{\\eta}\\frac{4\\pi Gm_p}{\\sigma_Tc}M_{BH}$.",
+        "Exponential solution with $t_S=\\frac{\\eta}{1-\\eta}\\frac{c\\sigma_T}{4\\pi Gm_p}=5.0\\times10^7$ yr.",
+        "$t_{dbl}=t_S\\ln2=3.5\\times10^7$ yr."
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-exam-b3",
+      "title": "Exam boss: tidal disruption of galaxies",
+      "xp": 100,
+      "minutes": 15,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+        "where": "HS24 summer: Open Question 6 [10 pt]"
+      },
+      "instructions": "Solve on paper, then enter the number for (c).",
+      "statement": [
+        "Consider a galaxy of mass $m$ and radius $r$ at distance $d$ from a more massive galaxy of mass $M$.",
+        "(a) [4 pt] The tidal acceleration is $a_{\\rm tidal}=a_{\\rm grav}(d)-a_{\\rm grav}(d+r)$. Show $a_{\\rm tidal}\\simeq2GMr/d^3$ for $r\\ll d$.",
+        "(b) [3 pt] The small galaxy is disrupted if its surface acceleration $a_g\\simeq Gm/r^2$ is smaller than the tidal acceleration. Show that they are equal at $d_{\\rm limit}=(2M/m)^{1/3}r$.",
+        "(c) [3 pt] How close can a Milky-Way-like spiral ($m\\approx10^{12}M_\\odot$, $r\\approx10$ kpc) come to a cD galaxy ($M\\approx10^{14}M_\\odot$) without being disrupted? Answer in kpc."
+      ],
+      "finalAnswers": [
+        {
+          "id": "d",
+          "prompt": "$d_{\\rm limit}$ in kpc.",
+          "answer": "(2*M/m)**(1/3)*r",
+          "vars": {
+            "M": 100000000000000,
+            "m": 1000000000000,
+            "r": 10
+          },
+          "tol": 0.02
+        }
+      ],
+      "keyPoints": [
+        "(a) $GM[d^{-2}-(d+r)^{-2}]=\\frac{GM}{d^2}[1-(1+r/d)^{-2}]\\simeq\\frac{GM}{d^2}\\frac{2r}{d}$.",
+        "(b) $2GMr/d^3=Gm/r^2\\Rightarrow d=(2M/m)^{1/3}r$.",
+        "(c) $200^{1/3}\\times10$ kpc $=58.5$ kpc."
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-exam-b4",
+      "title": "Exam boss: extinction towards the Galactic centre",
+      "xp": 120,
+      "minutes": 25,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+        "where": "HS24 summer: Open Question 4 [12 pt]"
+      },
+      "instructions": "Solve on paper (draw the geometry), then enter the numbers for (b).",
+      "statement": [
+        "Visual extinction is taken proportional to the hydrogen column, $A_V\\propto N_H=\\int_0^\\infty n_H\\,ds$, along the line of sight to an extragalactic object at infinity. The Sun is at $d=8$ kpc from the Galactic centre; the line of sight has latitude $b$ at $l=0^\\circ$.",
+        "(a) [8 pt] Using the cosine rule, find the distance $r(s)$ from the Galactic centre of a point at distance $s$ along the line of sight. For $n_H\\propto\\exp(-(r/r_0)^2)$ and $A_V(b=0)\\approx30$, show $A_V(b)=30\\exp\\left[\\frac{d^2}{r_0^2}(\\cos^2b-1)\\right]$ (use $\\int e^{-(ax^2+bx+c)}dx\\approx\\sqrt{\\pi/a}\\,e^{b^2/4a-c}$).",
+        "(b) [4 pt] Compute $A_V$ and the flux ratio with/without extinction for $l=0^\\circ$, $b=15^\\circ$, $r_0=1.2$ kpc."
+      ],
+      "finalAnswers": [
+        {
+          "id": "AV",
+          "prompt": "$A_V(15^\\circ)$.",
+          "answer": "30*exp(d**2/r0**2*(cos(b*pi/180)**2-1))",
+          "vars": {
+            "d": 8,
+            "r0": 1.2,
+            "b": 15
+          },
+          "tol": 0.03
+        },
+        {
+          "id": "F",
+          "prompt": "$F_{\\rm ext}/F_0$.",
+          "answer": "10**(-30*exp(d**2/r0**2*(cos(b*pi/180)**2-1))/2.5)",
+          "vars": {
+            "d": 8,
+            "r0": 1.2,
+            "b": 15
+          },
+          "tol": 0.04
+        }
+      ],
+      "keyPoints": [
+        "$r(s)=\\sqrt{d^2+s^2-2ds\\cos b}$.",
+        "Exponent $-\\frac{1}{r_0^2}(s^2-2ds\\cos b+d^2)$; Gaussian integral gives $N_H\\propto r_0\\sqrt\\pi\\exp[\\frac{d^2}{r_0^2}(\\cos^2b-1)]$; ratio to $b=0$ gives the formula.",
+        "$A_V=1.53$, $F_{\\rm ext}/F_0=10^{-0.61}=0.24$."
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-exam-b5",
+      "title": "Exam boss: virial theorem with the harmonic radius",
+      "xp": 90,
+      "minutes": 15,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2024_Summer_Session_with_Solutions.pdf",
+        "where": "HS24 summer: Open Question 5 [9 pt]"
+      },
+      "instructions": "Derivation: solve on paper, compare with the key points, enter the number.",
+      "statement": [
+        "A collisionless self-gravitating system of total mass $M$ and $N$ particles of identical mass $m$ is in virial equilibrium.",
+        "(a) [3 pt] Show the total kinetic energy is $K=\\frac12M\\sigma_v^2$ with $\\sigma_v^2=\\frac1N\\sum v_i^2$.",
+        "(b) [3 pt] Show that for large $N$, $V\\simeq-GM^2/(2r_H)$, where $r_H^{-1}=\\frac{2}{N(N-1)}\\sum_{i>j}r_{ij}^{-1}$.",
+        "(c) [3 pt] Show $\\sigma_v^2=GM/(2r_H)$."
+      ],
+      "finalAnswers": [
+        {
+          "id": "sig",
+          "prompt": "Numbers: $M=10^{12}M_\\odot$, $r_H=100$ kpc. $\\sigma_v$ in km/s.",
+          "answer": "sqrt(G*M*Msun/(2*rH*1e3*pc))/1e3",
+          "vars": {
+            "G": 6.6743e-11,
+            "Msun": 1.9884e+30,
+            "pc": 30856775810000000,
+            "M": 1000000000000,
+            "rH": 100
+          },
+          "tol": 0.02
+        }
+      ],
+      "keyPoints": [
+        "(a) $K=\\sum\\frac12mv_i^2=\\frac12mN\\sigma_v^2=\\frac12M\\sigma_v^2$.",
+        "(b) $V=-\\sum_{i>j}\\frac{Gm^2}{r_{ij}}=-Gm^2\\frac{N(N-1)}{2}r_H^{-1}\\simeq-\\frac{GM^2}{2r_H}$.",
+        "(c) $2K+V=0\\Rightarrow\\sigma_v^2=GM/(2r_H)$."
+      ]
+    },
+    {
+      "type": "boss",
+      "id": "astro-exam-b6",
+      "title": "Exam boss: the Milky Way's escape velocity and mass",
+      "xp": 140,
+      "minutes": 25,
+      "source": {
+        "file": "materials/astrophysics/old-exams/Astro_I_2025_Practice_Exam_with_Solutions.pdf",
+        "where": "HS25 practice: Open Question 6 [15 pt]"
+      },
+      "instructions": "Solve on paper, then enter the numbers for (c). Note: the official key misprints the mass (see hint in the Dynamics Bay).",
+      "statement": [
+        "In the solar neighbourhood the Milky Way has a flat rotation curve $v(r)=v_c$, implying $\\rho\\propto r^{-2}$.",
+        "(a) [3 pt] For a flat rotation curve with a cut-off radius $R$ beyond which the density is zero, derive $M_r$.",
+        "(b) [6 pt] Show that the escape velocity from any $r<R$ is $v_{esc}^2=2v_c^2(1+\\ln(R/r))$, starting from $\\frac12mv_{esc}^2\\equiv-\\int_\\infty^r\\frac{GM_{r'}m}{r'^2}dr'$.",
+        "(c) [6 pt] The largest velocity of any star near $r\\approx8$ kpc is 440 km/s. Assuming it is bound, find lower limits on $R$ (kpc) and on the mass of the galaxy ($M_\\odot$). Take $v_c=230$ km/s."
+      ],
+      "finalAnswers": [
+        {
+          "id": "R",
+          "prompt": "Lower limit on $R$ in kpc.",
+          "answer": "r*exp(v**2/(2*vc**2)-1)",
+          "vars": {
+            "r": 8,
+            "v": 440,
+            "vc": 230
+          },
+          "tol": 0.02
+        },
+        {
+          "id": "M",
+          "prompt": "Lower limit on the total mass in $10^{11}M_\\odot$.",
+          "answer": "(vc*1e3)**2*r*exp(v**2/(2*vc**2)-1)*1e3*pc/G/Msun/1e11",
+          "vars": {
+            "G": 6.6743e-11,
+            "Msun": 1.9884e+30,
+            "pc": 30856775810000000,
+            "r": 8,
+            "v": 440,
+            "vc": 230
+          },
+          "tol": 0.02
+        }
+      ],
+      "keyPoints": [
+        "(a) $M_r=Mr/R$ ($r<R$), $M$ ($r\\ge R$).",
+        "(b) Split the integral at $R$: $\\frac{GM}{R}(1+\\ln\\frac Rr)$, and $v_c^2=GM/R$.",
+        "(c) $R>8e^{(440/230)^2/2-1}=18.3$ kpc; $M=v_c^2R/G>2.2\\times10^{11}M_\\odot$ (the key's $9.8\\times10^{11}$ is an arithmetic slip)."
+      ]
+    }
+  ]
+}

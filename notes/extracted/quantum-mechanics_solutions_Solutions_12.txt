@@ -1,0 +1,428 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                     Solution to exercise sheet XII
+
+Question 1 [Stern–Gerlach experiment ]:
+In the Stern–Gerlach experiment, (electrically neutral) particles are shot through an in-
+homogeneous magnetic field. A particle is deflected up- or downwards depending on its
+intrinsic angular momentum, its spin. Finally, the path the particle has taken is measured
+by recording its incidence on a screen.
+    Sketch the expected measurement results of Stern–Gerlach experiments carried out with
+molecules composed of
+  (i) two spin- 12 atoms.
+
+ (ii) three spin- 21 atoms.
+Solution: The possible total spin of the molecule can be found using addition of angular
+momenta. Each atom transforms in the D 1 representation of the spin operator. The
+                                           2
+molecule composed of two such atoms thus transforms in
+
+                                      D1 ⊗ D1 ∼
+                                              = D1 ⊕ D0 ,                             (S.1)
+                                       2       2
+
+
+implying that the values Sz can take are 1, 0, −1. The spin representation of the molecule
+with three atoms is
+                            D1 ⊗ D1 ⊗ D1 ∼
+                                              
+                                  2        2
+                                                = D3 ⊕ 2 D1 ,
+                                                   2   2    2
+                                                                                     (S.2)
+so that the eigenvalues of Sz are 3/2, 1/2, −1/2, −3/2.
+    The expected results of the Stern–Gerlach experiment are sketched below (red: two
+atoms, blue: three atoms).
+
+
+
+
+                              B
+
+
+
+
+Note: the deflection would also depend on other properties of the particle, such as its
+mass and magnetic moment, so that the blue ellipses would not be so evenly spaced with
+respect to the red ones. We have ignored this in the sketch.
+
+Question 2 [Vectors and tensors ]:
+In this exercise, we will define what it means for an observable to “transform as a vector”
+and as a “tensor” and work out some examples.
+    The nomenclature of a quantity transforming as a vector is usually meant in the context
+of rotations. The vector representation of SO(3) is given by its defining action, i.e. it is
+R3 where the rotations Rj (φ) around axis ej act as
+                                                                             
+          1   0      0                 cos φ 0 sin φ              cos φ − sin φ 0
+R1 (φ) = 0 cos φ − sin φ, R2 (φ) =  0      1   0 , R3 (φ) =  sin φ cos φ 0.
+          0 sin φ cos φ               − sin φ 0 cos φ               0      0    1
+                                                                                 (1)
+
+  (i) Show that the so(3) ∼= su(2) representation corresponding to the vector representa-
+      tion of SO(3) is the spin 1 representation.
+                                                  d
+      Hint: The generators of so(3) are Mj = i dφ       R (φ). The ladder operators are
+                                                    φ=0 j
+      M± = M1 ± iM2 .
+
+A quantity is called a vector if it transforms in the spin 1 representation D1 under rota-
+tions. In particular, rotations act on operators O via the adjoint action of the angular
+momentum operator L,
+                                      O 7→ ℏ−1 [Lj , O] .                              (2)
+Three operators J1 , J2 , J3 transform as a vector if they sit in an irreducible D1 subrepre-
+sentation of this su(2) representation. They can be combined into (see (ii) below)
+                                              
+                                               J1
+                                        J = J2  .
+                                                                                         (3)
+                                               J3
+
+ (ii) Show again that both the position operators x1 , x2 , x3 and momentum operators
+      p1 , p2 , p3 transform as vectors. (Other examples include angular momentum and
+      the Pauli–Lenz vector.)
+      How does ℏ−1 [Lj , ·] act on x, p?
+
+(iii) For an arbitrary vector J1 , J2 , J3 , what are the highest and lowest weight states of
+      the corresponding spin 1 representation? This is called the spherical basis for the
+      vector. Express J in these components.
+
+There are generalisations of these transformations. For example, an operator is a scalar,
+if it transforms in the D0 representation. It is a tensor if it transforms in Dj for j ≥ 2 an
+integer. Scalar and tensor operators can for example be obtained by taking tensor products
+of vectors, as we will now see.
+
+ (iv) For D1 = span{e+1 , e0 , e−1 } the spin 1 representation (em is the vector with M3
+      eigenvalue m), we define its symmetric tensor product as
+                                      nX                            o
+                            S 2 D1 =        ci,j ei ⊗ ej ci,j = cj,i .                (4)
+                                           i,j
+
+
+      Decompose S 2 D1 into irreducible su(2) representations and show that it contains a
+      scalar and a tensor.
+ (v) Use the previous result to show that two vectors J and K can be symmetrically
+     combined to give a tensor T and a scalar S, and find expressions for these operators
+     in terms of the components Jj , Kj .
+     Hint: The components of the T 2-tensor in the spherical basis are
+                       T = T+2 ẽ−2 − T+1 ẽ−1 + T0 ẽ0 − T−1 ẽ+1 + T−2 ẽ+2 ,          (5)
+     where ẽm is the state in D2 with charge m. The components can also be arranged
+     in a matrix                                    
+                                         T11 T12 T13
+                                  T = T21 T22 T23  ,                           (6)
+                                         T31 T23 T33
+     similarly as for the vector in (iii). What are the Tij ?
+Solution:
+ (i) The Mj matrices act on the basis (e1 , e2 , e3 ) as
+                                                         
+                        0 0 0           0 0 i          0 −i 0
+                  M1 = 0 0 −i, M2 =  0 0 0, M3 =  i 0 0.                          (S.3)
+                        0 i 0           −i 0 0         0 0 0
+      This can also be written as
+                                         Mi ej = i εijk ek .                           (S.4)
+     It is then easy to check that
+                                          
+                                          1
+                                       1          1           
+                              e+1 = − √  i  = − √ e1 + i e2                          (S.5)
+                                        2 0        2
+
+     is a highest weight state with weight 1. By applying the lowering operator M− , one
+     finds the eigenbasis of M3 ,
+                                                 
+                          0                          1
+                                                1          1           
+                   e0 = 0 = e3 ,
+                                      e−1 =  √    −i = √ e1 − i e2 .            (S.6)
+                          1                      2 0           2
+
+     (The reason for the sign of e+1 is that then e0 = e3 , see also (iii) below.)
+     The (3-dimensional) representation is therefore the irreducible D1 representation of
+     su(2).
+ (ii) We have Li = εijk xj pk , and the canonical commutation relations [xj , pk ] = iℏ δjk .
+      One therefore has
+                     [Li , xj ] = εimn xm [pn , xj ] = −iℏ εimj xm = iℏ εijk xk ,
+                     [Li , pj ] = εimn [xm , pj ]pn = iℏ εijn pn = iℏ εijk pk .        (S.7)
+     Under ℏ−1 [Lj , ·], the components of x and p thus transform in the D1 representa-
+     tions, as in eq. (S.4) above. Calculating ℏ−1 [Lj , ·] on x (componentwise) gives minus
+     the matrices from (i), for example
+                                                              
+                                  x1          x2             0 i 0      x1
+                       −1 
+                     ℏ     L 3 , x2
+                                      = i −x1 = −i 0 0
+                                                                   x2  ,          (S.8)
+                                  x3           0             0 0 0      x3
+    and similarly for the other components. This implies that expectation values of
+    vector operators ⟨ϕ| J |ϕ⟩ are rotated like vectors. This can be seen as follows: for
+    an infinitesimal rotation ω, a state |ϕ⟩ is rotated by (see eq. (8.23) in the script)
+
+                                    |ϕ̃⟩ = |ϕ⟩ − iℏ−1 ωj Lj |ϕ⟩ .                         (S.9)
+
+    Therefore,
+
+                           ⟨ϕ̃| J |ϕ̃⟩ = ⟨ϕ| J |ϕ⟩ + iℏ−1 ωj ⟨ϕ| [Lj , J] |ϕ⟩
+                                       = ⟨ϕ| J |ϕ⟩ − iωj Mj ⟨ϕ| J |ϕ⟩ .                  (S.10)
+                   d
+    Using iMj = − dφ    R (φ) from (i), this means
+                     φ=0 j
+
+                                                      d
+                         ⟨ϕ̃| J |ϕ̃⟩ − ⟨ϕ| J |ϕ⟩ =          R(φ) ⟨ϕ| J |ϕ⟩ ,             (S.11)
+                                                     dφ φ=0
+
+    where R(φ) is a rotation around axis ω. Thus, the expectation value ⟨ϕ| J |ϕ⟩
+    rotates like a vector. (Another way to say this is that the commutation relation
+    ℏ−1 [Lj , J] = −Mj J is the infinitesimal version of U † (R)JU (R) = R J.)
+
+(iii) In components, J transforming as a vector means, as above
+
+                                        [Li , Jj ] = iℏ εijk Jk .                        (S.12)
+
+    Comparing to eq. (S.5) in (i) above, one thus sees that the (normalised) highest
+    weight state is
+                                           1            
+                                J+1 := − √ J1 + i J2 .                           (S.13)
+                                            2
+    By applying lowering operators, we can also find the other components in the spher-
+    ical basis. They are
+                                                       1         
+                             J0 := J3 ,        J−1 := √ J1 − i J2 ,                      (S.14)
+                                                        2
+    where the subscript denotes the m quantum number of the combination. (The sign
+    for J+1 is by convention chosen so that J0 = J3 .) The vector J can be written using
+    the spherical basis operators J±1 , J0 as
+
+                     J = J1 e1 + J2 e2 + J3 e3 = −J+1 e−1 + J0 e0 − J−1 e+1 ,            (S.15)
+
+    where e±1 , e0 are the M3 eigenbasis of the R3 representation in (i). This can be
+    checked by expanding everything in the Cartesian basis.
+    This is just a change of basis (which will be helpful for understanding the tensorial
+    case in (v)): changing from (e1 , e2 , e3 ) to (e+1 , e0 , e−1 ) is accomplished by a matrix
+    Λ = (e+1 , e0 , e−1 ). The coefficients in the new basis are then found by multiplying
+    by ΛT . As a consequence, one can write J = Jm g mn en , m, n ∈ {+1, 0, −1}, where
+                                                                     
+                                             mn       0      0   −1
+                               g mn = ΛT Λ       = 0 1 0  .                             (S.16)
+                                                      −1 0 0
+(iv) Firstly, the dimension
+                           of S 2 D1 is given by the number of possible orderings 1 ≤ i ≤
+     j ≤ 3 = dim D1 , which is
+                                                        
+                                       2
+                                                3+2−1
+                               dim S D1 =                  =6.                       (S.17)
+                                                     2
+    Furthermore,
+                                         e+1 ⊗ e+1 ∈ S 2 D1                          (S.18)
+    is a highest weight state with charge 2 under M3 . (On the tensor product, the su(2)
+    action is Mj ⊗ I + I ⊗ Mj , as always.) The irrep generated from this highest weight
+    state is D2 with dimension 2 · 2 + 1 = 5. It thus follows that in the decomposition
+    of S 2 D1 into irreps, there is also a D0 summand,
+
+                                      S 2 D1 ∼
+                                             = D2 ⊕ D0 .                             (S.19)
+
+    We can find D2 in the tensor product basis by applying the lowering operators. We
+    find that D2 is spanned by
+                                              1                   
+                    ẽ±2 = e±1 ⊗ e±1 ,ẽ±1 = √ e±1 ⊗ e0 + e0 ⊗ e±1 ,
+                                               2
+                            1                                 
+                      ẽ0 = √ e+1 ⊗ e−1 + 2e0 ⊗ e0 + e−1 ⊗ e+1 ,                     (S.20)
+                             6
+    where ẽm is the state in D2 with M3 eigenvalue m. The singlet D0 must then be
+    spanned by a state with M3 eigenvalue 0 orthogonal to all the states above. The
+    most general state with m = 0 in S 2 D1 is
+
+                            a e+1 ⊗ e−1 + b e0 ⊗ e0 + a e−1 ⊗ e+1 ,                  (S.21)
+
+    and taking the overlap with the weight 0 state in D2 , one finds
+                                               !
+                                            0=a+b .                                  (S.22)
+
+    The singlet is therefore spanned by
+                            1                                
+                            √ e+1 ⊗ e−1 − e0 ⊗ e0 + e−1 ⊗ e+1 .                      (S.23)
+                             3
+
+(v) The above result can be directly translated into expressions in the spherical bases
+    of J, K. One finds that the scalar (i.e. the singlet) is given by
+                                1                          
+                            S = √ J+1 K−1 − J0 K0 + J−1 K+1 .                        (S.24)
+                                 3
+    Similarly, the spin 2 tensor in the spherical basis is given by 5 components T+2 , T+1 ,
+    T0 , T−1 , T−2 , with T+2 = J+1 K+1 and the other components obtained by acting with
+    ℏ−1 [L− , ·],
+                                              1              
+                      T±2 = J±1 K±1 ,T±1 = √ J±1 K0 + J0 K±1 ,
+                                               2
+                             1                            
+                        T0 = √ J+1 K−1 + 2 J0 K0 + J−1 K+1 .                         (S.25)
+                              6
+       We can also express these objects in Jj , Kj . For the scalar, one finds
+                                1                          1
+                           S = √ −J1 K1 − J2 K2 − J3 K3 = − √ J · K .                             (S.26)
+                                 3                           3
+       The scalar is thus just the dot product of the two vectors, which is of course invariant
+       under rotations.
+       Similarly as for the vector in (iii), the components of the 2-tensor can be combined
+       into a single object
+                          T = T+2 ẽ−2 − T+1 ẽ−1 + T0 ẽ0 − T−1 ẽ+1 + T−2 ẽ+2 ,                (S.27)
+       where the ẽm are the matrices obtained by tensoring the fundamental representation
+       from (i). That this is the correct way to contract Tm with ẽn follows similarly as for
+       the vector in (iii).
+       The ẽm can be written in the Cartesian basis ei ⊗ ej with the standard vectors
+       e1 , e2 , e3 , for example
+                                  1                                         
+           ẽ+2 = e+1 ⊗ e+1 =       e1 ⊗ e1 + i e1 ⊗ e2 + ie2 ⊗ e1 − e2 ⊗ e2 ,          etc. .    (S.28)
+                                  2
+       The tensor in the Cartesian basis is
+                                              T = Tij ei ⊗ ej .                                   (S.29)
+
+       Calculating the Tij is straight-forward but tedious.1 In the end, one finds
+                                  1                   1
+                                    (Ji Kj + Jj Ki ) − J · K δjk .
+                                  Tij =                                                           (S.30)
+                                  2                   3
+                                                      P
+       The tensor T is thus symmetric and traceless ( i Tii = 0).
+       Cryptic remark: This spin-2 representation is physically interesting; in the context of
+       quantum field theory or string theory, it is associated with the graviton (a quantum
+       of the metric in general relativity).
+
+
+Question 3 [Clebsch-Gordan coefficients ]:
+  (i) Prove that the Clebsch-Gordan coefficients (in the notation ⟨j1 j2 m1 m2 |j1 j2 jm⟩) for
+      the decomposition of the tensor product of spin l and spin 1/2 to spin l + 1/2 are
+                                                                     s
+                        D                                         E    l ± m + 12
+                          l, 21 , m ∓ 12 , ± 12 l, 21 , l + 12 , m =              .        (7)
+                                                                         2l + 1
+       Hint: First focus on the m2 = 1/2 coefficients. Using one of the recursion relations
+       from the lecture show that
+                                           s
+         D 1           1  1     1       E     l + m − 12 D 1         1 1 1       1 E
+          l, , m − 32 , l, , l + , m − 1 =                l,   , m −  , l, , l +   , m . (8)
+            2          2 2      2             l + m + 12     2       2 2 2       2
+   1
+    Either explicitly write ẽm as a matrix and find T in matrix form, or use the change of basis matrix.
+For the second method: if Λ is the matrix whose columns are the coefficients of ẽm in the basis ei ⊗ ej ,
+then (Tij )ij = (T+2 , . . . , T−2 ) · Λ† .
+     Identify the state of highest spin, then use this relation to find all the m2 = 1/2 co-
+     efficients. To find the m2 = −1/2 coefficients, consider the other recursion relation
+     from the lecture.
+ (ii) An electron in the hydrogen atom is in an orbital angular momentum state with
+      l = 1. Find the eigenstates of the total (orbital and spin) angular momentum |j, jz ⟩
+      in D 3 in terms of those labelled by |m, s⟩, where m and s are the z-components of
+           2
+      the orbital and spin angular momentum operators, respectively.
+Solution:
+ (i) Since we have fixed j1 , j2 , j, we omit them from the notation. Then a state with
+     two indices |a, b⟩ is the individual-spin labelling with m1 = a, m2 = b, while a state
+     with one index |c⟩ is the joint-spin labelling with m = c. Now note that
+          (j ∓ m)((j ± m) + 1) = (j 2 − m2 ) + j ∓ m = j(j + 1) − m(m ± 1),     (S.31)
+                     p
+     so we can write (j ∓ m)(j ± m + 1) |m ± 1⟩ = M± |m⟩. For j = l + 12 , this is
+                       r
+                                   1
+                         (l + m + )(l − m + 23 ) |m − 1⟩ = M− |m⟩ .             (S.32)
+                                   2
+     Now focus on m2 = 21 . The only nonzero coefficients ⟨a, b|c⟩ are those with a+b = c,
+     so the only useful m2 = 21 state to multiply on Eq. (S.32) is ⟨m − 23 , 12 |. Since
+     M± = (M∓ )† , we evaluate the RHS ⟨m − 32 , 12 | M− |m⟩ by acting with M− to the
+     left:
+                                r
+                3 1                                     1         1 1
+           ⟨m − 2 , | M− |m⟩ = (l − m + 23 )(l + m − )⟨m − , |m⟩ + 0.               (S.33)
+                   2                                    2         2 2
+     Equating this to the LHS and cancelling the l − m + 23 factor, we get
+                                             s
+                              3 1
+                                               l + m − 12       1 1
+                         ⟨m − 2 , |m − 1⟩ =             1 ⟨m − , |m⟩                    (S.34)
+                                 2             l+m+ 2           2 2
+                                        s
+                              1 1
+                                           l + m + 12       1 1
+                     =⇒ ⟨m − 2 , |m⟩ =              3 ⟨m + , |m + 1⟩.                   (S.35)
+                                 2         l+m+ 2           2 2
+     The highest-spin state is |l, 12 ⟩, which we hence identify with |l + 12 ⟩, and the stan-
+     dard phase convention is ⟨l, 12 |l + 21 ⟩ = 1. This gives all coefficients with m2 = 21 :
+                              s
+                 1 1
+                                l + m + 12          1 1
+           ⟨m − 2 , |m⟩ =                  3 ⟨m + , |m + 1⟩                              (S.36)
+                   2            l+m+ 2              2 2
+                              s              s
+                                l + m + 12 l + (m + 1) + 21            3 1
+                         =                 3                  3 ⟨m + 2 , |m + 2⟩         (S.37)
+                                l + m + 2 l + (m + 1) + 2                 2
+                           ..
+                            .
+                              s
+                                   l + m + 12        1     1
+                         =                1     3 ⟨l, |l + ⟩                             (S.38)
+                                l + (l − 2 ) + 2 2         2
+                              s
+                                l + m + 12
+                         =                   .                                           (S.39)
+                                  2l + 1
+    To get the m2 = − 12 coefficients, we consider
+                     r
+                                    1
+                         (l − m + )(l + m + 23 ) |m + 1⟩ = M+ |m⟩ .                  (S.40)
+                                    2
+    Multiplying ⟨m + 21 , 12 | on both sides and acting with M+ to the left gives
+         r
+                    1                        1 1
+            (l − m + )(l + m + 32 )⟨m + , |m + 1⟩
+                    2                        2 2
+                 r
+                                 1           1       1 1            1 1
+               = (l + m + )(l − m + )⟨m − , |m⟩ + ⟨m + , − |m⟩                       (S.41)
+                                 2           2       2 2            2 2
+                                     r                          s
+                  1 1                           1                  l + m + 32
+           =⇒ ⟨m + , − |m⟩ =         (l − m + )(l + m + 23 )
+                  2 2                           2                    2l + 1
+                                     r                            s
+                                                   1            1     l + m + 12
+                                    − (l + m + )(l − m + )                           (S.42)
+                                                   2            2       2l + 1
+                                    s
+                                      l − m + 12                             1
+                                  =              ((l + m + 23 ) − (l + m + ))        (S.43)
+                                        2l + 1                               2
+                                    s
+                                      l − m + 12
+                                  =              .                                   (S.44)
+                                        2l + 1
+    Alternative approach for m2 = − 12 : Since m2 has only two possible values here,
+    there are only two nonzero coefficients ⟨m1 , m2 |m⟩ for fixed m. By normalisation,
+                                          2                     2
+    they must satisfy ⟨m − 21 , 21 |m⟩ + ⟨m + 12 , − 21 |m⟩ = 1, and since we already
+                               2
+    found ⟨m − 21 , 12 |m⟩ , this determines ⟨m + 12 , − 21 |m⟩ up to phase. To get the
+    phase, we argue that the |m⟩ states could be produced by iteratively applying M−
+    to |l + 21 ⟩ = |l, 12 ⟩, and at each step the coefficients produced by M− are real and
+    positive, so ⟨m + 12 , − 12 |m⟩ are also real and positive. (This trick for the phase is
+    less applicable for the lower-spin representations Dj with j < j1 + j2 , where the
+    highest-spin vector in that representation can have some negative coefficients.)
+(ii) Following the notation in (i), we write
+                                        X
+                              |m⟩ =          |m1 m2 ⟩⟨m1 m2 |m⟩                      (S.45)
+                                       m1 +m2 =m
+
+    and substitute l = 1 in (7) to get
+                               | 23 ⟩ = |1, 21 ⟩,                                    (S.46)
+                                        r                  r
+                                           2                 1
+                               | 12 ⟩ =         |0, 21 ⟩ +     |1, − 21 ⟩,           (S.47)
+                                           3                 3
+                                        r                    r
+                                 1         1             1      2
+                            | − 2⟩ =            | − 1, 2 ⟩ +       |0, − 21 ⟩,       (S.48)
+                                           3                    3
+                            | − 32 ⟩ = | − 1, − 21 ⟩.                                (S.49)
+    (At fixed m2 , the numerator in the square root changes by 1 at each step.)
+

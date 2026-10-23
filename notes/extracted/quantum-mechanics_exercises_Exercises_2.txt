@@ -1,0 +1,35 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                                Exercise sheet II
+                                  Return:       01.10.2025
+
+
+Question 1 [Ehrenfest’s Theorem ]:
+Prove Ehrenfest’s Theorem
+                                        d2
+                                    m       ⟨x⟩ = −⟨V ′ (x)⟩
+                                        dt2
+for movement in a potential V .
+                                                               ↔
+Hint: bring dtd ⟨x⟩ into a form, where it is proportional to Ψ∂x Ψ∗ .
+
+Question 2 [Reality of energy ]:
+Show that the expectation value of the Hamilton operator for a non-relativistic particle
+is real,
+                                    ⟨H⟩ = ⟨H⟩∗ .
+
+
+Question 3 [Probability current ]:
+Using the superposition principle or otherwise show that the wave-function
+                                      ikx         ikx
+                                                        iEk
+                          Ψk (x, t) = Ae ℏ + Be− ℏ e− ℏ t ,
+
+                                               k     2
+where A, B and k are constants and Ek = 2m       , is a solution of the time-dependent
+Schrödinger equation with V (x) = 0. Show that the probability current corresponding to
+Ψk (x, t) equals
+                                                      k
+                               j(x, t) = |A|2 − |B|2     .
+                                                       m
+

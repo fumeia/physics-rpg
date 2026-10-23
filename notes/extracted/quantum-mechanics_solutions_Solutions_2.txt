@@ -1,0 +1,180 @@
+                Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                         Solution to exercise sheet II
+
+Question 1 [Ehrenfest’s Theorem ]:
+Prove Ehrenfest’s Theorem
+                                 d2
+                                m 2 ⟨x⟩ = −⟨V ′ (x)⟩
+                                 dt
+for movement in a potential V .
+                                                                     ↔
+Hint: bring dtd ⟨x⟩ into a form, where it is proportional to Ψ∂x Ψ∗ .
+Solution:
+The expectation value of x is given by,
+                                      Z
+                                ⟨x⟩ = x Ψ∗ (x, t)Ψ(x, t) dx                              (S.1)
+
+Taking the time derivative on both sides,
+                                   Z
+                           d            ∂
+                              ⟨x⟩ = x (Ψ∗ (x, t)Ψ(x, t)) dx                              (S.2)
+                           dt          ∂t
+                                   Z
+                                  = x ((∂t Ψ∗ )Ψ + Ψ∗ ∂t Ψ) dx                           (S.3)
+
+Using Schrödinger’s equation,
+                                       iℏ∂t Ψ(x, t) = HΨ(x, t)                           (S.4)
+where
+                                                  ℏ2 2
+                                        H=−         ∂ + V (x)                            (S.5)
+                                                  2m x
+with ∂x = ∂/∂x .
+                                         Z
+                             d        iℏ
+                                ⟨x⟩ =      x (Ψ∗ ∂x2 Ψ − Ψ∂x2 Ψ∗ ) dx                    (S.6)
+                             dt       2m
+                                         Z
+                                      iℏ
+                                    =      x ∂x (Ψ∗ ∂x Ψ − Ψ∂x Ψ∗ ) dx                   (S.7)
+                                      2m
+Integrating by parts,1 we get
+                                              Z
+                              d          iℏ
+                                 ⟨x⟩ = −           (Ψ∗ ∂x Ψ − Ψ∂x Ψ∗ ) dx                (S.8)
+                              dt         2m
+Then,
+                d2
+                                 Z
+                             iℏ
+                    ⟨x⟩ = −         ∂t Ψ∗ ∂x Ψ + Ψ∗ ∂x ∂t Ψ − ∂t Ψ ∂x Ψ∗ − Ψ ∂x ∂t Ψ∗    (S.9)
+                dt2         2m
+                                Z
+                            iℏ
+                        =−        (∂t Ψ∗ )∂x Ψ + Ψ∗ (∂x ∂t Ψ) dx                        (S.10)
+                            m
+                                Z
+                            iℏ
+                        =−         ∂t Ψ∗ ∂x Ψ − ∂x Ψ∗ ∂t Ψ dx .                         (S.11)
+                            m
+  1
+      Here, we assume that we can drop the boundary terms as in class.
+                                                                2
+To go from the first to the second line, we have used that dtd 2 ⟨x⟩ is real, as follows from
+eq. (S.8). Then, one can recognise that the last two terms in the first line are the complex
+conjugate of the first two. To go from the second to the third line, we have partially
+integrated. Using again Schrödinger’s equation, one finds
+
+    d2
+                 Z
+              1
+      2
+        ⟨x⟩ =       (HΨ)∗ ∂x Ψ + ∂x Ψ∗ (HΨ) dx                                         (S.12)
+    dt        m
+                        ℏ2 2 ∗                            ℏ2 2
+                 Z                                                     
+              1
+            =         −    ∂x Ψ + V Ψ∗ ∂x Ψ + ∂x Ψ∗ −        ∂ Ψ + V Ψ dx              (S.13)
+              m         2m                               2m x
+                 ℏ2
+                     Z                                Z
+                         2 ∗            ∗ 2        1
+            = − 2 ∂x Ψ ∂x Ψ + ∂x Ψ ∂x Ψ dx +            Ψ∗ V ∂x Ψ + ∂x Ψ∗ V Ψ dx (S.14)
+                2m                                 m
+The first integral vanishes by integration by parts, and for the second integral we obtain
+  Z                               Z
+     Ψ V ∂x Ψ + ∂x Ψ V Ψ dx = Ψ∗ V ∂x Ψ + ∂x (Ψ∗ V Ψ) − Ψ∗ ∂x V Ψ − Ψ∗ V ∂x Ψ dx
+       ∗              ∗
+
+
+                                                                                      (S.15)
+                                      Z
+                                IBP
+                                = −       Ψ∗ ∂x V Ψ dx = − ⟨∂x V ⟩ .                  (S.16)
+
+Together, one thus arrives at
+
+                                      d2
+                                  m       ⟨x⟩ = − ⟨∂x V (x)⟩                          (S.17)
+                                      dt2
+
+
+Question 2 [Reality of energy ]:
+Show that the expectation value of the Hamilton operator for a non-relativistic particle is
+real,
+                                      ⟨H⟩ = ⟨H⟩∗ .
+Solution:
+                                         ℏ2
+                                            Z
+                                 ⟨H⟩ = −      Ψ∗ Ψ′′ + ⟨V ⟩                           (S.18)
+                                         2m
+                                         ℏ2
+                                            Z
+                                   ∗
+                                ⟨H⟩ = −       Ψ∗ ′′ Ψ + ⟨V ⟩                          (S.19)
+                                         2m
+After two partial integration we get for the difference,
+                              Z                     Z
+              ⟨H⟩ − ⟨H⟩ = (Ψ Ψ − Ψ Ψ) = (−Ψ∗ ′ Ψ′ + Ψ∗ ′ Ψ′ ) = 0
+                          ∗       ∗ ′′     ∗ ′′
+                                                                                      (S.20)
+
+
+
+Question 3 [Probability current ]:
+Using the superposition principle or otherwise show that the wave-function
+                                       ikx        ikx
+                                                        iEk
+                          Ψk (x, t) = Ae ℏ + Be− ℏ e− ℏ t ,
+                                               k   2
+where A, B and k are constants and Ek = 2m       , is a solution of the time-dependent
+Schrödinger equation with V (x) = 0. Show that the probability current corresponding
+to Ψk (x, t) equals
+                                                      k
+                               j(x, t) = |A|2 − |B|2     .
+                                                       m
+                                           2
+Solution: Using χ = exp( ikx
+                          ℏ
+                                         ik
+                             ) · exp(− 2mℏ  t),
+The SE becomes,
+
+                                   ik 2         ℏ2
+                                                  2
+                                                     k
+                        iℏ −              χ=−       − 2 χ,                           (S.21)
+                                  2mℏ           2m   ℏ
+
+which is satisfied. χ is a solution for any k. The time-dependent part is symmetric
+                                            ik2
+under k → −k, so that exp(− ikxℏ
+                                 ) · exp(− 2mℏ  t) is also a solution. The result follows by
+superposition.
+   The probability current is
+                                           iℏ ↔ ∗
+                                      j=      Ψ∂ x Ψ .                               (S.22)
+                                           2m
+
+
+                                ′ ik  ikx    − ikx
+                                                    
+                              Ψ =     Ae − Be
+                                        ℏ        ℏ    Θ,                             (S.23)
+                                   ℏ
+where Θ denotes the global time-dependent part of Ψ. Then
+                           ik h ∗            2ikx       2ikx
+                                                                i
+                ΨΨ∗ ′ = −      AA + A∗ Be− ℏ − AB ∗ e ℏ − BB ∗ ΘΘ∗                   (S.24)
+                            ℏ
+                        ik  h             2ikx       2ikx
+                                                              i
+                Ψ′ Ψ∗ =       AA∗ − A∗ Be− ℏ + AB ∗ e ℏ − BB ∗ ΘΘ∗                   (S.25)
+                         ℏ
+Thus
+                                ↔            2ik
+                               Ψ∂ x Ψ∗ = −       |A|2 − |B|2
+                                                             
+                                                                                     (S.26)
+                                              ℏ
+

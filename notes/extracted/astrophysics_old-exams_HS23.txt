@@ -1,0 +1,171 @@
+                                     Astrophysics 11
+                                       Prof. Schmid, HS 2023
+                                       5.2.24, 9.00, Daniel G
+
+
+Summary In HIT J52 a double table. Prof and assistant on one side, me on the other. I get paper to
+sketch things or write formulas. They constantly take notes.
+Description of the content: stellar evolution, HR Diagram, AGNs, Eddington limit, Friedmann equation
+
+
+Ablauf Beginning formality*
+Topic 1: stellar evolution
+Prof: So a topic we discussed is stellar evolution. What can you tell me about stellar evolution in the
+Hertzsprung-Russel diagram?
+Me: *draws HR-Diagram see 1* So we plot magnitude against B-V, or Luminosity against Temperature.
+If we plot all the stars we see they are all in certain areas. We have the main sequence, red giants and
+white dwarfs. Also we have stellar classes O-M. *Prof thinks I am adding to much*
+Prof: Ok, ok. Now what can you tell me about the stellar evolution and also the nuclear processes
+during different stages.
+Me: So main sequence stars start by burning H to He. They use the pp-chain and the CNO cycle
+if they have high enough temperatures. Once a He core has formed they leave the MS and become
+giants. If they have enough mass they will continue by Burning He in the triple-alpha burning. If the
+temperature isn’t high enough to burn He, the star sheds layers and becomes a white dwarf. The core
+becomes degenerate.
+Prof: What does this mean?
+Me: the material becomes so dense, that the electrons have to be considered from a quantum mechanical
+perspective. They only have certain states they can be in and they can’t be compressed further.
+Prof: Ok. So what about heavier stars?
+Me: For heavier stars We continue with burning 3He -> C12 and even higher burning stages.
+Prof: What are the higher burning stages?
+Me: There is Carbon Burning and I think silicone burning. We go on until there is Iron.
+Prof: Why do we go until iron?
+Me: Iron has the highest binding energy per nucleon. *sketches graph, see 2*
+ 1
+     BSc Physics, Core Subjects
+
+
+
+
+                                                   1
+Prof: Ok so we have a massive star with an Iron core. What will happen next?
+Me: The core is degenerate and once we reach the Chandreksar limit it collapses and there is a
+supernova. This is when the degeneracy pressure can no longer withstand the gravitational pressure.
+Prof: So what happens with the core?
+Me: (I think he wanted to hear neutron stars, but somehow I didn’t think of that) The core collapses
+and explodes. Protons and electrons react to neutrons and neutrinos. This is also why there are big
+neutrino fluxes for Supernovae.
+Prof: Do you know what this process is called? P + e− → N + ν
+Me: no.
+Prof: Ok, lets move on to the next topic.
+Topic 2: AGNs
+Prof: So we talked about active galactic nuclei during the course. What is important is how much
+energy they can radiate. What can you tell me about the limit of this radiation?
+Me: (I panic a little, because I didn’t revise AGNs very well) Uhm, I’m not sure. I know it is called
+the Eddington limit.
+Prof: So where does this energy come from?
+Me: From the accretion disk around the black hole.
+(this goes back and forth a bit. He tries to help me find that the energy comes from the potential
+energy released by mass falling in to the black hole.) At some point I mention Hawking radiation, he
+laughs a little and says this is a very small effect.
+Prof: Do you know how high the Eddington limit is? Or maybe you can give an estimate? Like in
+energy per particle.
+Me: I don’t know. I know it is high, as AGNs are bright.
+Prof: Ok. Maybe tell me about the different types of AGNs
+Me: So depending on where we are viewing from we will see different spectra for the AGNs. *sketches
+AGN, see 3* So from the side we don’t see the accretion disk directly. This results in the spectral lines
+being wider, because of the relativistic dopplershifts.
+Prof: So what other types of AGNs are there?
+Me: Uhh..
+Prof: What are the brightest AGNs we see?
+Me: Blazars. (I don’t know if this is right, but it sounds bright and it is a word I remembered.) This
+is when we see directly into the radiation prependicular to the disk. Ah, we also have radio galaxies.
+(he is happy to hear this. I also forgot to mention quasars)
+
+
+
+                                                   2
+Prof: Ok, let’s move on to the last topic
+Topic 3: Friedmann equation
+Prof: So we looked at the history of the universe, what can you tell me about the Friedmann equation.
+                                                                   2
+Me: I’m not sure I can write the formula let me try. so we have ȧa2 . This describes the expansion rate
+of the universe. And it is equal to akr and some constant. (*prof tells me it is c2). And the last term I
+am not sure. k is a factor that describes the curvature of the universe. It can be -1, 0, +1 because we
+assume the universe to be homogeneous and isotropic.
+Prof: Can you tell us what the universe would look like for the different k? Maybe make a sketch.
+Me: *makes sketch, see 4* So for positive curvature the universe has a finite size and lifetime. For
+negative curvature the universe expands indefinitely and k=0 is the limit between the two. And actually
+when we estimate the density of our universe we see we are probably in the k=0 case. *remembers
+this is done by setting k=0 in the equation and solving for rho* Ah, so the last term in the equation
+depends on rho. And we can solve for rho and set k to zero. Then we get an estimate of what the
+density would have to be to be in this case. (I don’t formulate this very well, but I think he understood
+what I meant) And aȧ is actually the Hubble constant, which we can measure.
+Prof: How big is the Hubble constant
+Me: 70 s km
+          M pc
+
+Prof: How can we estimate the age of the universe?
+Me: We take the Hubble constant and how fast the universe is expanding and look how far we would
+have to go back until everything is in one point.
+Prof: And how do we calculate this?
+Me: Uhm, I am not sure, I know the age is about 14 billion years.(They note this and seem happy I
+know at least this)(I stumble a little and he helps me find that the Hubble constant is actually 1 over
+the age of the universe and that the units are of 1/time)
+Prof: What does the Hubble constant describe in your diagram?
+Me: That would be the derivative I guess... (He helps me find that we trace the derivative back to to
+the zero point we actually overestimate the age, see 4)
+Prof: So how do we explain this difference?
+Me: In the beginning there was rapid expansion. *new sketch, see bottom of 4*
+Prof: What do we call this?
+Me: Uh, the big bang.? No exponential expansion.
+Prof: That is not the term we used, but also correct. Inflation is what I was looking for. So I like this
+diagram better. What happens here?
+
+
+
+
+                                                   3
+Me: We actually observe, that the universe seems to be expanding again.
+Prof: So we come back to the density you mentioned before. What makes up the density of our
+universe?
+Me: so photons are negligible/almost zero. Baryonic mass makes up a few percent, and dark matter
+makes up 20-25 percent I believe. (I heard he likes dark matter). And the other 70 percent are what we
+call dark energy. It is used to explain the current expansion of the universe. So normal matter makes
+up only a small fraction of the actual universe.
+Prof: So how do we observe dark matter most easily?
+Me: I am not sure what is the easiest method, but I know it was first discovered by looking at the
+rotation curves of galaxies.
+Prof: Ok. How else?
+Me: When we look at at the motion of galaxies in clusters, their velocities also don’t match with the
+expected values.
+Prof: How can we observe dark matter without relying on the gravitational force and expected
+velocities?
+(small back and forth and then assistant says this is unfair, because it still uses gravity, so the question
+would not be taken in to account. The answer he was looking for is gravitational lensing.)
+Prof: Ok we are done. That was ok. (He doesn’t seem super happy, but I guess I passed.)
+
+
+Final Remarks The environment is friendly and pleasant. The prof will let you stumble a little to
+see if you know it and then help you. The prof always tries to find limit of what you know and don’t know.
+
+Expected mark: 4-4.5
+Received mark unknown
+
+
+
+
+                                                     4
+                       5
+
+
+
+Figure 1: HR diagram (hope you know this by now)
+Figure 2: Binding energy per nucleon for different atomic numbers
+
+
+
+
+                               6
+Figure 3: Active galactive nuclei
+
+
+
+
+               7
+                                                 8
+
+Figure 4: Top: curvature for different k and tangential lines used to estimate age of universe using
+          Hubble constant, bottom: current model of universe expansion showing exponential expansion
+          and current acceleration
+

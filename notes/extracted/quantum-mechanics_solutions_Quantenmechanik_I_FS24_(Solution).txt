@@ -1,0 +1,639 @@
+      Prüfung zur Quantenmechanik I: Allgemeine Hinweise
+
+
+Vor der Prüfung:
+  • Lesen Sie diese Hinweise und tragen Sie Ihren Namen auf dem Deckblatt ein. Warten Sie
+    auf das Startzeichen, bevor Sie die Aufgaben anschauen und die Prüfung beginnen.
+  • Bitte legen Sie Ihre Legi zur Kontrolle auf den Tisch.
+  • Stellen Sie sicher, dass alle elektronischen Geräte ausgeschaltet sind.
+
+Während der Prüfung:
+  • Die Prüfung dauert 3 Stunden.
+  • Fügen Sie Ihren Antworten Begründungen bei, so dass diese nachvollziehbar sind.
+  • Die Aufgaben sind nicht nach steigendem Schwierigkeitsgrad geordnet.
+  • Beginnen Sie jede Aufgabe mit einem neuen Blatt und beschriften Sie jedes Blatt oben
+    mit Ihrem vollständigen Namen und der Aufgabennummer. Lösungen/Informationen auf
+    den Aufgabenblättern werden nicht berücksichtigt — bitte schreiben Sie Ihre Lösungen
+    auf Ihre eigenen Blätter.
+  • Bitte schwarze oder blaue Kugelschreiber benutzen. Bitte halten Sie auf der rechten Seite
+    3 cm Platz frei für die Korrektur.
+  • Die Prüfung kann wahlweise auf Deutsch/Englisch geschrieben werden.
+  • Als Hilfsmittel ist ein doppelseitig beschriebenes A4-Blatt sowie, für fremdsprachige Stu-
+    dierende, ein fachneutrales Wörterbuch erlaubt. Während der Prüfung bitte keine Rechner,
+    Smartphones, etc. benutzen.
+  • Der Besuch der Toilette ist nur in Begleitung eines/einer Prüfungsassistenten/in erlaubt.
+
+Am Schluss der Prüfung:
+  • Bitte ordnen Sie Ihre Blätter nach Aufgabennummer und tragen Sie die Anzahl Lösungs-
+    blätter auf dem Deckblatt ein. Die Aufgabenblätter sind alle mitabzugeben.
+  • Am Ende der Prüfung warten Sie bitte an Ihrem Platz, bis die Prüfung eingesammelt wird.
+
+
+                                        Viel Erfolg!
+                             Quantenmechanik I                         HS 2023
+                          Sommer Prüfung - Lösungen        Prof. Renato Renner
+
+
+Datum: 14.08.2024
+Zeit: 9:00–12:00
+
+VORNAME:                            NAME:
+MATRIKELNUMMER:
+Anzahl Lösungsblätter:
+
+
+
+
+   — Diese Seite nicht vor dem Startzeichen umblättern! —
+
+
+
+
+       Aufgabe                               1    2    3    4    Summe
+       Punkte                               20   25   25   30      100
+       Erreichte Punkte
+Aufgabe 1.     Grundlagen der Quantenmechanik [20 Punkte]
+
+
+ (a) Sei H ∼
+           = C3 ein Hilbertraum mit Orthonormalbasis {|a⟩, |b⟩, |c⟩}. Wir betrachten ein Sy-
+     stem in einem beliebigen Zustand |ϕ⟩ ∈ H und messen den Operator                    [8]
+
+                                      F̂ := 2|a⟩⟨a| + 2|b⟩⟨b| + 3|c⟩⟨c|.                     (1)
+
+      (i) Finde einen Operator Ĝ so dass Pr[F = 2] = ⟨ϕ| Ĝ|ϕ⟩.
+     (ii) Finde ein Polynom p : R → R so dass Ĝ = p(F̂ ).
+
+
+ (b) In der Vorlesung haben wir ein System durch die Menge der reversiblen Aktionen auf die-
+     sem System charakterisiert. Welche der folgenden Mengen sind valide Charakterisierungen
+     eines Systems? (Begründung nicht vergessen!)                                        [4]
+
+       • Die Gruppe der Pauli-Matrizen {±σx , ±σy , ±σz , ±id, ±iσx , ±iσy , ±iσz , ±iid}, wobei
+         das Nacheinanderausführen von Aktionen der Multiplikation entspricht.
+       • Die Rotationsgruppe SO(3), wobei das Nacheinanderausführen von Aktionen der
+         Multiplikation in der Gruppe entspricht.
+
+
+ (c) Betrachte ein quantenmechanisches Teilchen in einer eindimensionalen Box. Der (zeitunab-
+     hängige) Hamilton-Operator Ĥ, der die Zeitevolution des Teilchens bestimmt, sei bekannt.
+     Zunächst sei jedoch nichts über den Ort des Teilchens innerhalb der Box bekannt.      [8]
+
+      (i) Nimm an, Du hast den Auftrag, den Ort des Teilchens um 08:00 zu messen, bist jedoch
+          erst um 09:00 ins Labor gekommen. Welchen Messoperator kannst Du verwenden,
+          um jetzt (also um 09:00) Deinen Auftrag nachzuholen (also den Aufenthaltsort des
+          Teilchens um 08:00 zu messen)?
+     (ii) Sei nun |ψ⟩ der Zustand des Teilchens um t = 08:00 und sei t + ∆t = 09:00. Erkläre
+          die operationelle Interpretation folgender beiden Grössen.
+          (1) ⟨ψ|Π̂X̂(t)=x1 Π̂X̂(t+∆t)=x2 Π̂X̂(t)=x1 |ψ⟩
+          (2) ⟨ψ|Π̂X̂(t+∆t)=x2 Π̂X̂(t)=x1 Π̂X̂(t+∆t)=x2 |ψ⟩
+         Hier bezeichnet X̂(T ) den Orts-Operator im Heisenberg-Bild zur Zeit T . Für einen
+         beliebigen Operator Â sei zudem Π̂Â=a der Projektor auf den Eigenraum zum Eigen-
+         wert a.
+         Hinweis: Wie unterscheiden sich die beiden Grössen (1) und (2)?
+     (iii) Unter welchen Bedingungen nehmen die Grössen (1) und (2) denselben Wert an?
+
+
+
+
+                                                   1
+Lösung.
+
+
+
+ (a)    (i) Ein solcher Operator ist gegeben durch |a⟩⟨a| + |b⟩⟨b|.
+       (ii) Da F̂ diagonal ist, agiert ein Polynom auf die Eigenwerte
+
+                                   p(F ) = p(2)|a⟩⟨a| + p(2)|b⟩⟨b| + p(3)|c⟩⟨c|.                (L.1)
+
+            Ein Polynom welches eine Nullstelle bei 3 hat und p(2) = 1, ein Beispiel ist p(x) =
+            (3 − x), erfüllt die gewünschte Eigenschaft.
+
+ (b) Wir haben folgende Eigenschaften Postuliert:
+
+         1. Es gibt eine Identitätsaktion, da es möglich sein muss nichts auf dem System zu tun.
+         2. Es ist möglich Aktionen nacheinander auszuführen und diese Aktion ist immer noch
+            reversibel.
+         3. Wir betrachten die Menge der reversiblen Aktionen, also sind diese invertierbar.
+         4. Eine Aktionen sind stetig parametrisierbar.
+
+       Die Pauli-Gruppe erfüllt die letzte Eigenschaft nicht, es ist eine diskrete Gruppe. Die
+       Rotationsgruppe, erfüllt alle Eigenschaften, da sie eine Lie-Gruppe ist.
+                                                      i
+ (c)    (i) Da sich das Teilchen in der Zeit mit e− ℏ Ĥ∆t entwickelt, kann man die Zeitevolution
+                                                                                   i
+            des Teilchens in der verstrichenen Stunde rückgängig machen mit e ℏ Ĥ∆t , statt X̂
+                         i          i
+            misst man e− ℏ Ĥ∆t X̂e ℏ Ĥ∆t .
+       (ii) Wichtig zu erkennen ist, dass über wann etwas gemessen wird nicht gekoppelt ist
+            wann etwas gemessen wird.
+            (1) Dies ist die Wahrscheinlichkeit, dass man bei erst der Messung des Ortes um
+                08:00 x1 erhält und dann bei einer Messung des Ortes um 09:00 x2 erhält wenn
+                der Zustand des Teilchens durch |ψ⟩ beschreiben wird.
+            (2) Hier ist die Messordung und über wann gemessen wird nicht mehr gleich. Man
+                                                                                      i
+                misst also zuerst den Ort des Teilchens um 09:00, dann wendet mann e ℏ Ĥ∆t an
+                und misst wieder den Ort des Teilchens. Der Ausdruck ist nun die Wahrschein-
+                lichkeit, dass die Messergebnisse der ersten Messung x2 ist und der zweiten x1
+                wenn der Zustand des Teilchens durch |ψ⟩ beschreiben wird.
+       (iii) Die beiden Grössen sind gleich falls [ΠX̂(t+∆t)=x2 , Π̂X̂t =x1 ] = 0. Dies ist impliziert
+            durch [X̂(t), X̂(t + ∆t)] = 0, eine hinreichende Bedingung dafür ist, dass [H, X] = 0,
+            denn dann ist X̂(t) konstant in der Zeit. (Eine dieser drei Bedingungen genügt für
+            die volle Punktzahl.)
+
+
+
+
+                                                  2
+Aufgabe 2.      Punktteilchen im symmetrischen Potenzialtopf [25 Punkte]
+
+Betrachte ein Punktteilchen mit Masse m in einem eindimensionalen symmetrischen Potenzial-
+topf
+                                              (
+                                                  −V0      falls − a < x < a,
+                                  V (x) =                                                        (2)
+                                                  0        sonst,
+
+
+wobei 0 < V0 < ∞ gilt. Wir sind an den zeitunabhängigen Lösungen der Schrödinger-Gleichung
+interessiert, welche gebundenen Zuständen entsprechen, also negative Energie E < 0 besitzen.
+
+Allgemein kann eine solche Lösung ψ(x) ∈ L2 (R) geschrieben werden als
+
+                               η
+                                   x
+                              Ae 
+                              
+                                a
+                                                                    
+                                                                          falls x < −a,
+                                             ξ                      ξ
+                     ψ(x) =       B sin      ax       + C cos       ax    falls   − a ≤ x ≤ a,   (3)
+                                    − ηa x
+                              
+                              
+                              
+                                  De                                      falls a < x,
+
+mit A, B, C, D ∈ C und ξ, η ∈ R>0 .
+
+
+ (a) Drücke η und ξ durch E, V0 und a aus.                                                       [3]
+
+ (b) Zeige, dass                                                                                 [2]
+
+                                                                     2mV0 a2
+                                                      ξ2 + η2 =              .                   (4)
+                                                                       ℏ2
+
+Damit ψ(x) eine gebundene Lösung ist, müssen die beiden Parameter ξ und η sowohl Glei-
+chung (4) als auch die transzendente Gleichung
+
+                                                        B cos ξ − C sin ξ
+                                          η = −ξ                                                 (5)
+                                                        B sin ξ + C cos ξ
+
+erfüllen. Dies folgt aus Stetigkeitsbedingungen an ψ(x) und darf im folgenden verwendet werden.
+
+
+ (c) Zeige anhand der Schrödinger-Gleichung, dass ψ(x) notwendigerweise entweder eine gerade
+     oder ungerade Funktion in x ist.                                                    [8]
+     Hinweis: Nutze, dass V (−x) = V (x) gilt, sowie die bekannte Tatsache, dass jeder gebun-
+     dene Zustand dieses Systems nicht-entartet ist.
+
+ (d) Zeige graphisch, dass immer mindestens ein gebundener Zustand existiert.                    [8]
+     Hinweis:      Nutze (c), um eine Beziehung zwischen B und C in Gleichung (3) herzustellen.
+
+ (e) Finde die Bedingung an V0 , unter der genau nur ein gebundener Zustand existiert. Welche
+     Parität (gerade oder ungerade) hat dieser gebundene Zustand?                         [4]
+
+
+
+
+                                                            3
+Lösung.
+
+
+          p                                  p
+ (a) ξ = a 2m(E + V0 )/ℏ2 > 0 and η = a −2mE/ℏ2 > 0.
+
+ (b) This directly follows from (a). Compute the sum of the squares of ξ and η.
+
+ (c) Assume that ψ(x) is a solution of the Schrödinger equation
+                                                      !
+                                      ℏ2 d2
+                                    −        + V (x) ψ(x) = Eψ(x),                             (L.2)
+                                      2m dx2
+
+     where E < 0 and thus is a bound state with energy E. From V (−x) = V (x), it follows
+     under the replacement of variables from x to −x in (??) that
+                                                       !
+                                      ℏ2 d2
+                                    −        + V (−x) ψ(−x) = Eψ(−x)                           (L.3)
+                                      2m dx2
+                                                       !
+                                 ℏ2 d2
+                            =⇒ −        + V (x)            ψ(−x) = Eψ(−x).                     (L.4)
+                                 2m dx2
+
+     This implies that ψ(−x) is also a bound state with the same energy E. However, given
+     as hint, the bound state of the system in question is non-degenerate. Thus, ψ(x) and
+     ψ(−x) correspond to the same bound state. Therefore, there exists α ∈ C such that
+     ψ(−x) = αψ(x) for all x ∈ R. Applying the same change of variables once again, we get
+     ψ(x) = α2 ψ(x) for all x ∈ R, which implies α = ±1.
+     Hence, ψ(x) needs to satisfy either
+
+                                    α = +1 : ψ(−x) = ψ(x)          (even),                     (L.5)
+                               or   α = −1 : ψ(−x) = −ψ(x)         (odd).                      (L.6)
+
+ (d) First, from (c), it must hold that either B = 0 or C = 0.
+
+       • When B = 0 and C ̸= 0, ψ(x) is an even function and Eq. (5) reads
+
+                                                 η = ξ tan ξ.                                  (L.7)
+
+       • When B ̸= 0 and C = 0, ψ(x) is an odd function and Eq. (5) reads
+
+                                                 η = −ξ cot ξ.                                 (L.8)
+
+     Then, given fixed V0 and a, the permitted values of E are determine from the intersections
+     of the two graphs of η(ξ) obtained from Eq. (4) and (5). Since ξ, η > 0, only the first
+     quadrant is relevant, and one can draw a graph like the one below. Because there always
+     exists one (and only one) intersection in (0, π/2), it is ensured that at least one bound
+     state exists.
+
+     Alternatively, one can solve this analytically by invoking
+                                                          q     the intermediate value theorem
+                                                             2mV0 a2
+     of continuous functions. Observe f (ξ) := ξ tan ξ −       ℏ2
+                                                                     − ξ 2 is continuous in [0, ξ ∗ ]
+     with f (0) < 0 and f (ξ ) > 0 with some ξ ∈ (0, π/2). Such a value of ξ ∗ always exists for
+                            ∗                  ∗
+
+     a given a and V0 due to the divergence of ξ tan ξ at ξ = π/2.
+
+
+
+                                                 4
+(e) For the two graphs to have only one intersection in the first quadrant, the radius of the
+    sphere on ξ-η plane given by Eq. (4) needs to be smaller than π/2. From this, the required
+    condition is shown to be
+                                 s
+                                     2mV0 a2   π             π 2 ℏ2
+                           0<                <   =⇒ 0 < V0 <        .                   (L.9)
+                                       ℏ2      2             8ma2
+
+
+   The parity of wave function of the unique bound state is always even as we can understand
+   from the figure.
+
+
+           6 η
+                                                            η = ξ tan ξ (even)
+                                                            η = −ξ cot ξ (odd)
+                                                                               2
+                                                                              0a
+                                                              η 2 + ξ 2 = 2mV
+                                                                            ℏ2
+           4
+
+
+
+           2
+
+
+
+                                                     ξ
+                     π       π         3      2π
+                     2                 2π
+
+
+
+
+                                               5
+Aufgabe 3.       Spin-Systeme [25 Punkte]
+
+Erst betrachten wir ein Spin-1/2 Teilchen, dessen Spin-Freiheitsgrad durch den Zustand
+                                                   1
+                                            |ψ⟩ = √ (|↑⟩ + |↓⟩)                              (6)
+                                                    2
+beschrieben sei, wobei |↑⟩ der Eigenzustand von Ŝz mit Eigenwert ℏ2 und |↓⟩ der Eigenzustand
+von Ŝz mit Eigenwert − ℏ2 bezeichnen.
+
+ (a) Welches sind die möglichen Messergebnisse, wenn der Drehimpuls dieses Teilchens bezüg-
+     lich der z-Richtung ⃗ez gemessen wird? Mit welcher Wahrscheinlichkeit treten diese auf und
+     wie gross ist der Erwartungswert?                                                       [2]
+
+Im folgenden bezeichnen wir mit O(⃗n, θ) ∈ SO(3) eine Drehung um einen Winkel θ um eine
+Achse in Richtung ⃗n (wobei |⃗n|2 = 1). Es darf verwendet werden, dass
+                                                    θ            θ
+                                                                   
+                                  n·⃗
+                                  ⃗ σ
+                              e−i 2 θ = cos           id − i sin   ⃗n · ⃗σ ,                 (7)
+                                                    2            2
+wobei ⃗n · ⃗σ = nx σx + ny σy + nz σz und
+                                    !                       !                     !
+                              0 1                     0 −i                 1 0
+                       σx =             ,    σy =               ,   σz =
+                              1 0                     i 0                  0 −1
+die Pauli-Matrizen sind.
+
+Eine Experimentatorin Alice wendet zuerst eine durch O(⃗n, θ) gegebene Drehung auf das Teil-
+chen an und misst anschliessend den Spin mit einem Messgerät bezüglich der Achse ⃗ez . Ein
+anderer Experimentator Bob misst den Spin des nicht gedrehten Teilchens direkt mit dem in die
+Gegenrichtung gedrehten Messgerät, also bezüglich O(⃗n, −θ)⃗ez .
+
+ (b) Zeige, dass unabhängig vom anfänglichen Zustand des Spin-Teilchens die Wahrscheinlich-
+     keiten der möglichen Messergebnisse von Alice und Bob gleich sind.                 [6]
+
+Wir betrachten nun nur noch das Experiment von Bob, der den Spin des Teilchen beschrieben
+durch den Zustand |ψ⟩ in Gleichung (6) bezüglich der Messachse O(⃗n, −θ)⃗ez misst.
+
+ (c) Mit welcher Wahrscheinlichkeit treten die möglichen Messergebnisse auf?                [4]
+
+ (d) Wie muss die Messachse gewählt sein, damit der Erwartungswert ℏ2 ist?                  [1]
+
+Nun betrachten wir anstatt eines einzelnen Spin-1/2-Teilchens zwei Spin-1-Teilchen A und B.
+
+                                             ⃗A + S
+ (e) Welche Werte kann der Gesamtdrehimpuls (S    ⃗B )2 annehmen?                           [2]
+
+  (f) Der Zustand des Gesamtsystems AB sei nun
+                                   |j = 1, m = 1⟩A ⊗ |j = 1, m = 1⟩B .                       (8)
+                                        ⃗A + S
+      Zeige, dass der Gesamtdrehimpuls (S    ⃗B )2 jetzt den Wert 2(2 + 1)ℏ2 hat.           [4]
+
+ (g) Finde alle Zustände, für welche der Gesamtdrehimpuls null ist. Gib diese Zustände in einer
+     Basis an, in der ŜA,z und ŜB,z diagonal sind.                                        [6]
+
+
+                                                       6
+Lösung.
+
+
+
+ (a) Der Operator, welcher den Spin in die z-Richtung misst ist Sz = ℏ2 σz . Die möglichen
+     Messergebnisse sind also ± ℏ2 . Wir berechnen die Wahrscheinlichkeit, dass ein solches Mes-
+     sergebnis auftritt:
+                                                             1
+                                              
+                                           ℏ
+                                        Pr     = |⟨↑ |ψ⟩|2 =                                (L.10)
+                                           2                 2
+                                                             1
+                                            
+                                           ℏ
+                                      Pr −     = |⟨↓ |ψ⟩|2 = .                              (L.11)
+                                           2                 2
+
+ (b) Nach der Drehung wird das System durch
+
+                                               U (⃗n, θ)|ϕ⟩                                 (L.12)
+
+     beschreiben. Die Wahrscheinlichkeiten einer Messung um die z-Achse sind also gegeben
+     durch
+
+
+                                        ℏ
+                                     Pr( ) = |⟨↑ |U (⃗n, θ)|ϕ⟩|2                            (L.13)
+                                        2
+                                           = |⟨↑ |U (⃗n, −θ)† |ϕ⟩|2                         (L.14)
+
+
+
+                                        ℏ
+                                    Pr(− ) = |⟨↓ |U (⃗n, θ)|ϕ⟩|2                            (L.15)
+                                        2
+                                           = |⟨↓ |U (⃗n, −θ)† |ϕ⟩|2                         (L.16)
+
+     Wenn wir den Spin nicht um die z-Achse messen sondern um die Achse O(⃗n, −θ)⃗ez , ist der
+     Operator, welcher zu dieser Messung gehört ist gegeben durch
+
+                                        U (⃗n, −θ)Sz U (⃗n, −θ)† ,                          (L.17)
+
+     wobei U (⃗n, θ) die Darstellung der Drehung O(⃗n, θ) auf den Hilbertraum des Spin-1/2
+     Teilchens ist. Die Eigenzustände diese Operators sind U (⃗n, θ)† |↑⟩ und U (⃗n, θ)† |↓⟩, wobei
+     wir verwendet haben, dass U (⃗n, −θ) = U (⃗n, θ)† . Wir finden also
+
+                                          ℏ
+                                       Pr( ) = |⟨↑ |U (⃗n, θ)|ϕ⟩|2                          (L.18)
+                                          2
+
+
+                                          ℏ
+                                      Pr(− ) = |⟨↓ |U (⃗n, θ)|ϕ⟩|2                          (L.19)
+                                          2
+     wie gewünscht.
+
+ (c) Die Darstellung ist gegeben durch
+                                                               ⃗
+                                      U (⃗n, θ) = exp(−iℏθ⃗n · S).                          (L.20)
+
+
+
+                                                   7
+    In der Basis {|↑⟩, |↓⟩} ist der Spinoperator gegeben durch Si = ℏ2 σi . Mit dem Hinweis
+    können wir also das Matrixexponential ausrechnen
+                                                     θ                   θ
+                                                                        
+                               U (⃗n, θ) = cos         id − i⃗n · ⃗σ sin   .                           (L.21)
+                                                     2                   2
+
+    Nun können wir die Wahrscheinlichkeiten ausrechnen
+            ℏ
+         Pr( ) = |⟨↑ |U (⃗n, θ)† |ψ⟩|2                                                                 (L.22)
+            2
+                   1           θ               θ     1                   θ
+                                                                  
+               = | √ cos            + inz sin      + √ i(nx − iny ) sin      |2                        (L.23)
+                    2          2               2      2                  2
+                                               2                                   2 !
+                  1            θ               θ                     θ                θ
+                                                                 
+                =          cos     + ny sin              + nx sin         + nz sin             .       (L.24)
+                  2            2               2                     2                2
+
+
+            ℏ
+        Pr(− ) = |⟨↑ |U (⃗n, θ)† |ψ⟩|2                                                                 (L.25)
+            2
+                    1          θ               θ      1                  θ
+                                                                  
+               = | √ cos            − inz sin      + √ i(nx + iny ) sin      |2                        (L.26)
+                     2         2               2       2                 2
+                                                2                                  2 !
+                   1           θ                θ                 θ                   θ
+                                                                 
+                 =         cos      − ny sin             + nx sin         − nz sin                 .   (L.27)
+                   2           2                 2                2                    2
+
+(d) Der Erwartungswert ist maximal falls, Pr( ℏ2 ) = 1. Dies ist der Fall, wenn ny = 1 und
+    θ = π2 , wir messen also den Drehimpuls in x-Richtung.
+
+(e) Für zwei Spin-1 Systeme sind nach der Clebsch-Gordan Reihe die Darstellungen Spin 0, 1
+                                                      ⃗A + S
+    und 2 enthalten. Die möglichen Gesamtdrehimpulse (S     ⃗B )2 sind also 0, 2, 6.
+
+(f) Der Spin in z-Richtung dieses Zustandes ist ŜAB |1, 1⟩A ⊗ |1, 1⟩B = 2|1, 1⟩A ⊗ |1, 1⟩B . Dies
+    ist also ein Zustand mit Gesamtdrehimpuls JAB = 2.
+
+(g) Der Raum mit Gesamtdrehimpuls 0 hat nur eine Dimension, wie aus der Clebsch-Gordan
+    Reihe hervorgeht, tritt die Spin-0 Darstellung nur einmal auf und diese ist eindimensional.
+    Damit ein Zustand Gesamtdrehimpuls 0 hat muss er in Unterraum liegen welcher aufge-
+    spannt wird durch Zustände mit MAB = 0. Er hat also die Form
+
+                   a|1, −1⟩A ⊗ |1, 1⟩B + b|1, 1⟩A ⊗ |1, −1⟩B + c|1, 0⟩A ⊗ |1, 0⟩B ,                    (L.28)
+
+    wobei a, b, c ∈ C Koeffizienten sind, welche wir noch finden müssen.
+    Wenn die auf oder Absteigeoperatoren auf den Zustand mit Gesamtdrehimpuls 0 auf diesen
+    Zustand agieren:
+
+                 M+ (a|1, −1⟩A ⊗ |1, 1⟩B + b|1, 1⟩A ⊗ |1, −1⟩B + c|1, 0⟩A ⊗ |1, 0⟩B )                  (L.29)
+                       √
+                    = 2((a + c)|1, −1⟩A ⊗ |1, 0⟩B + (b + c)|1, 0⟩A ⊗ |1, −1⟩B ).                       (L.30)
+
+    Es muss also gelten, dass (a + c) = (b + c) = 0, es gilt also a = −c und b = −c. Die Spin-0
+    Darstellung ist also gegeben durch
+
+          D0 = span{(|1, −1⟩A ⊗ |1, 1⟩B + |1, 1⟩A ⊗ |1, −1⟩B − |1, 0⟩A ⊗ |1, 0⟩B )}.                   (L.31)
+
+
+
+                                                     8
+Aufgabe 4.      Harmonischer Oszillator [30 Punkte]
+
+Sei zunächst Ĥ der Hamilton-Operator eines zweidimensionalen harmonischen Oszillators,
+
+                                      P̂x2 + P̂y2 m 2 2
+                                 Ĥ =            + ω (X̂ + Ŷ 2 ) .                                  (9)
+                                          2m      2
+
+ (a) Drücke Ĥ durch Auf- und Absteigeoperatoren (â∗x , âx , â∗y , ây ) aus. (Hier ist keine Rechnung
+     erforderlich; die Lösung kann direkt hingeschrieben werden.)                                    [2]
+
+ (b) Gib die sechs niedrigsten Energie-Eigenzustände in der Fock-Basis |n⟩x |m⟩y an. Liegt eine
+     Entartung vor?                                                                         [3]
+
+
+Wir beschränken uns im folgenden auf einen gestörten harmonischen Oszillator in einer Raum-
+dimension. Dieser wird in 0-ter Ordnung durch den Hamilton-Operator
+
+                                                P̂ 2  1
+                                        Ĥ0 =        + mω 2 X̂ 2                                    (10)
+                                                2m 2
+beschrieben und durch ein kubisches Potenzial
+                                                  s
+                                                      m3 w5 3
+                                         Ĥ1 = λ           X̂                                       (11)
+                                                       ℏ
+
+gestört, wobei λ ein reeller, dimensionsloser Parameter mit Betrag sehr viel kleiner als 1 ist.
+
+                                                                   (1)
+ (c) Zeige, dass die Energiekorrektur in erster Ordnung, En , verschwindet.                          [4]
+
+ (d) Drücke den Störterm Ĥ1 durch Auf- und Absteigeoperatoren (â∗ , â) aus. Zeige, dass
+
+                                       ℏω                                 
+                               Ĥ1 = λ √ â∗3 + â3 + 3N̂ â∗ + 3(N̂ + 1)â                         (12)
+                                        8
+
+     gilt, wobei N̂ = â∗ â den Besetzungszahl-Operator bezeichnet.                                [10]
+
+ (e) Berechne die Matrixelemente ⟨m|Ĥ1 |n⟩. Hierbei sind |m⟩, |n⟩ Eigenzustände von Ĥ0 . [6]
+
+  (f) Gib den Eigenzustand |ñ⟩ des gestörten Systems in erster Ordnung an.                          [5]
+
+
+
+
+                                                    9
+Lösung.
+
+
+
+ (a)
+                                             Ĥ = ℏω(â∗x âx + â∗y ây + 1)                           (L.32)
+
+ (b) Siehe Tabelle ??.
+
+                                        Energie E       Eigenzustand
+                                           ℏω              |0⟩x |0⟩y
+                                          2ℏω              |1⟩x |0⟩y
+                                          2ℏω              |1⟩x |0⟩y
+                                          3ℏω              |1⟩x |1⟩y
+                                          3ℏω              |2⟩x |0⟩y
+                                          3ℏω              |0⟩x |2⟩y
+
+Tabelle 1: Tabelle mit den sechs niedrigsten Energie-Eigenzuständen. Es gibt eine doppelte und
+eine dreifache Entartung.
+
+
+ (c) Zum Beispiel kann man mit Symmetrieeigenschaften unter Parität argumentieren warum
+     der ungerade Störterm wegfällt. Oder man argumentiert mit der verschiedenen Anzahl an
+     Auf und Absteigeoperatoren. Natürlich kann auch einfach das Ergebnis von Teilaufgabe
+     (b) verwendet werden, um durch konkrete Rechnung zu zeigen, dass die Energiekorrektur
+     verschwindet. (Also zeigen, dass ⟨n(0) |Ĥ1 |n(0) ⟩ = 0 ist.)
+
+ (d) Der Störterm lässt sich schreiben als:
+                 s
+                     m3 w5 3
+       Ĥ1 = λ            X̂                                                                            (L.33)
+                      ℏ
+              s                          !3
+                     m3 w5    1
+          =λ                  √ (â∗ + â)                                                              (L.34)
+                      ℏ      µ 2
+                     s       s
+             λ     m3 w 5  ℏ3  ∗ 2             ∗           ∗     2      ∗
+                                                                                
+          =√                       (â )  +  â   â + ââ   + â  )(â   + â)                          (L.35)
+              8       ℏ   m3 ω 3
+             λ √                                                                                       
+          = √ ℏ2 ω 2 (â∗ )3 + â∗ ââ∗ + ââ∗ â∗ + âââ∗ + â∗ â∗ â + â∗ ââ + ââ∗ â + â3   (L.36)
+              8
+             λ                                                                                                
+          = √ ℏω (â∗ )3 + N̂ â∗ + (N̂ + 1)â∗ + (N̂ â + 2â) + (N̂ â∗ − â∗ ) + N̂ a + (N̂ + 1)â + â3
+              8
+                                                                                                          (L.37)
+              ℏω                                      
+          = λ √ â∗3 + â3 + 3N̂ â∗ + 3(N̂ + 1)â                                                        (L.38)
+                8
+
+ (e) Unter Anwendung der Auf- und Absteigoperatoren auf Fockzustände findet man:
+
+                                   ℏω
+            ⟨m(0) |Ĥ1 |n(0) ⟩ = λ √ ⟨m(0) |â∗3 + â3 + 3N̂ â∗ + 3(N̂ + 1)â|n(0) ⟩
+                                    8
+                                   ℏω √ √         √                   √       √       √
+                               = λ √ ( n n − 1 n − 2δm,n−3 + n + 1 n + 2 n + 3δm,n+3
+                                    8
+                                           √                      √
+                                 + 3(n + 1) n + 1δm,n+1 + 3n nδm,n−1 )
+
+
+                                                       10
+(f)
+                                            p                                     p
+           (1)            (0)        ℏω        n(n − 1)(n − 2)                   (n + 1)(n + 2)(n + 3)
+      |n         ⟩ = |n         ⟩ + λ√                          |(n − 3)(0) ⟩ +                         |(n + 3)(0) ⟩
+                                       8            3ℏω                                  −3ℏω
+                                     3                       3
+                        (n + 1) 2                  n2             
+                    +3            |(n + 1)(0) ⟩ + 3 |(n − 1)(0) ⟩
+                          −ℏω                      ℏω
+                              λ    pn(n − 1)(n − 2)                p
+                                                                     (n + 1)(n + 2)(n + 3)
+                      (0)                                     (0)
+                  = |n ⟩ + √                          |(n − 3) ⟩ −                         |(n + 3)(0) ⟩
+                               8            3                                 3
+                                     3                      3
+                                                                         
+                    − 3(n + 1) 2 |(n + 1)(0) ⟩ + 3n 2 |(n − 1)(0) ⟩
+
+
+
+
+                                                                 11
+

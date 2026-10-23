@@ -1,0 +1,967 @@
+                                      Quantenmechanik I                                 HS 2016
+                                           Klausur                        Prof. Thomas Gehrmann
+
+
+Name:                                          Matrikel-Nummer:
+
+
+
+
+              Aufgabe     max. Punkte       Punkte             Visum 1    Visum 2
+
+
+                 1              12
+
+                 2               8
+
+                 3               7
+
+                 4               7
+
+                 5              10
+
+
+             Summe              44
+
+
+
+
+Beachten Sie folgende Hinweise:
+
+   • Bearbeitunszeit: 180 Minuten.
+   • Hilfsmittel: ein beidseitig handbeschriebenes A4 Blatt als Formelsammlung.
+   • Verwenden Sie für jede Aufgabe ein separates Blatt, das mit Ihrem Namen, Ihrer Matrikel-Nummer
+     und der Nummer der Aufgabe versehen ist.
+   • Verwenden Sie keinen rot-farbigen Stift oder Bleistift.
+
+
+
+
+                                                   1
+Aufgabe 1.       [Kurzfragen]                                                               (12 Punkte)
+
+Die folgenden Fragen sollen kurz und ohne lange Herleitung beantwortet werden. Schreiben
+Sie die Lösung in den dafür vorgesehenen freien Platz nach jeder Frage.
+
+
+1.1. Symmetrien und Generatoren                                                                 (1 P)
+
+Geben Sie für folgende Hamilton Operatoren Ĥ (für Spin-0 Teilchen) alle kontinuierlichen Symmetrien
+des Systems und die dazugehörigen Symmetrie-Generatoren an:
+
+             2
+          p̂
+  a) Ĥ = 2m ,
+             2
+           p̂
+   b) Ĥ = 2m + V (|x̂|) ,
+             2
+           p̂
+   c) Ĥ = 2m + E ẑ ,
+
+wobei m und E skalare Grössen, p̂ der Impulsoperator und x̂ = (x̂, ŷ, ẑ) der Ortsoperator sind. Welche
+mathematische Eigenschaft haben Operatoren, die eine Symmetrie des Hamiltonians generieren?
+
+
+Lösung. Operatoren, die eine Symmetrie generieren, kommutieren mit dem Hamiltonian. Dar-
+aus folgt für obige Hamiltonians:
+
+  a) Die Symmetrien sind: Rotationssymmetrie (L̂x ,L̂y ,L̂z ), Translationssymmetrie p̂,
+
+  b) Die Symmetrie ist: komplette Rotationssymmetrie (L̂x ,L̂y ,L̂z ),
+
+  c) Die Symmetrie ist: Rotationssymmetrie um die z-Achse (L̂z ).
+
+
+
+1.2. Quantenzahl des Bahndrehimpulses                                                           (1 P)
+
+Argumentieren Sie, weshalb die Quantenzahl m des Bahndrehimpulses Lz nur ganze Zahlen annehmen
+kann.
+
+
+Lösung. Das kann man aus der Wohldefiniertheit der Wellenfunktion zeigen. Die Wellenfunk-
+tion der z-Komponente des Drehimpulses Lz ist Φ(φ) ∝ exp(imφ). Die Wellenfunktion muss
+2π-periodisch sein, damit sie wohldefiniert ist. Wäre m aber halbzahlig (z.B. m = 1/2), dann
+hätten wir
+                                                                
+                          iφ   i               iφ                   iφ
+        Φ(φ + 2π) ∝ exp      + 2π ∝ exp            exp(iπ) ∝ − exp       ∝ −Φ(φ),        (L.1)
+                           2   2                2                    2
+
+und die 2π-Periodizität ist nicht erfüllt. Somit darf m nur ganze Zahlen aufnehmen.
+
+Alternative Lösung: Die zugehörige Symmetriegruppe für den Bahndrehimpuls ist SO(3), de-
+ren irreduzible Darstellungen nur ganzzahlige Bahndrehimpulsquantenzahlen zulassen (ungera-
+de Dimension der Darstellungsräume). Benutzt man die Algebra (Leiteroperatoren), kann man
+schliesslich argumentieren, dass Lz nur ganzzahlige Werte annimmt. Je nach logischer Kohärenz
+und Ausführlichkeit gab es manchmal Teilpunkte oder den Punkt. Allein mit der Lie-Algebra
+zu argumentieren gab keine Punkte, weil das Argument auch auf halbzahligen Drehimpuls an-
+wendbar wäre. Allein SO(3) zu erwähnen ohne weitere Ausführung gab ebenfalls keine Punkte.
+
+
+                                                   2
+1.3. Stern-Gerlach Versuch                                                                      (2 P)
+
+Ein Strahl von Atomen, die keinen Bahndrehimpuls besitzen und die Spin-Quantenzahl s = 21 haben,
+passiert einen Versuchsaufbau von zwei Stern-Gerlach Magneten: Ursprünglich sind die Spins der Atome
+entlang der positiven z-Achse ausgerichtet und das Magnetfeld des ersten Stern-Gerlach Magneten ist
+entlang der Richtung D orientiert, die mit der z-Achse einen Winkel von 45◦ bildet. Nach der Aufspaltung
+durch den ersten Magneten wird der Teilstrahl selektiert, der in die positive D-Richtung ausgelenkt wird.
+Dieser passiert den zweiten Magneten, dessen Magnetfeld entlang der positiven z-Achse ausgerichtet ist.
+Bestimmen Sie den Anteil der Atome, die nach dem Passieren des zweiten Magneten in die negative
+z-Richtung ausgelenkt werden.
+
+
+Lösung. Zunächst müssen wir die Eigenzustände des Operators σD = cos π4 σz + sin π4 σx in
+                                                                                      
+
+der Basis |+, zi and |−, zi bestimmen. Wir wissen, dass der Zustand nach dem ersten Magneten
+durch |+, Di dargestellt wird.
+
+Um |+, Di zu bestimmen betrachten wir die Gleichung:
+                                                    σD |+, Di = |+, Di,
+         h         π       π     i
+             cos σz + sin     σx (a |+, zi + b |−, zi) = + (a |+, zi + b |−, zi) .                 (L.2)
+              4            4
+Das kann als Matrixgleichung folgendermassen geschrieben werden
+                                           !   
+                                  √1   √1      a         a
+                                    2    2          =       .                                      (L.3)
+                                     1  1
+                                 − 2
+                                   √   √
+                                         2
+                                               b         b
+
+Hieraus folgt
+                          a    b                                  b √
+                          √ + √ = a,                                = 2 − 1.                       (L.4)
+                           2    2                                 a
+
+Wenn wir nun noch die Normierung des Zustands |+, Di berücksichtigen, also |a|2 + |b|2 = 1,
+erhalten wir
+                                             1
+                                 a = p         √ ,                                     (L.5)
+                                          4−2 2
+                                          √
+                                            2−1
+                                  b = p        √ .                                     (L.6)
+                                          4−2 2
+
+Hieraus lässt sich dann unmittelbar die Amplitude für die oben gestellte Frage ablesen
+                                                                1
+                              A = hz, −|D, +ihD, +|z, +i = ab = √ .                                (L.7)
+                                                               2 2
+Der Anteil der Atome, die beide Magneten passieren, ist somit gegeben durch |A|2 = 18 .
+
+Kommentar für Prüfungseinsicht: Nur ein äusserst geringer Teil der Prüflinge ist bei der Stern-
+Gerlach-Aufgabe über den ersten Punkt bei dieser Aufgabe hinausgekommen. Die Aufgabe wur-
+de in diesem Sinn für alle in der gleichen Strenge bewertet.
+
+
+1.4. Drehimpulsaddition                                                                         (1 P)
+
+Betrachten Sie ein System von zwei Spin- 21 Teilchen (ohne Bahndrehimpuls) mit den zugehörigen Opera-
+toren S1 und S2 . Geben Sie die Eigenzustände bezüglich der Operatoren J2 und Jz an, wobei J = S1 + S2
+der Gesamtspin des Systems ist.
+
+
+                                                   3
+Lösung.    Wir schreiben
+                    | 12 , m1 i ⊗ | 12 , m2 i ≡ |m1 m2 i,                      m1,2 =↑, ↓        (L.8)
+Die vier Produkt-Zustände lauten
+                                           mj = +1 :             |↑↑i,                           (L.9)
+                                           mj =         0:       |↓↑i, |↑↓i,                    (L.10)
+                                           mj = −1 : |↓↓i.                                      (L.11)
+
+Erlaubt sind j = 0, 1 und |1, 1i = |↑↑i, |1, −1i = |↓↓i gehören offensichtlich zu j = 1. Mit
+J± = S1± + S2± erhalten wir den letzten Triplett-Zustand:
+                                                                   1
+                          |1, 0i ∼ J− |↑↑i          ⇒    |1, 0i = √ (|↓↑i + |↑↓i) .             (L.12)
+                                                                    2
+Der Singlet-Zustand ist dann der dazu orthogonale Zustand:
+                                                  1
+                                         |0, 0i = √ (|↓↑i − |↑↓i) .                             (L.13)
+                                                   2
+
+
+
+1.5. Das Schrödinger- und Heisenberg-Bild                                                    (1 P)
+
+Beschreiben Sie das Schrödinger- und Heisenberg-Bild der Quantenmechanik und geben Sie die jeweiligen
+Bewegungsgleichungen an.
+
+
+Lösung.
+
+Schrödinger-Bild Im Schrödinger-Bild sind die Zustandsvektoren |Ψ(t)iS zeitabhängig und
+     die Bewegungsgleichung ist durch die Schrödinger-Gleichung gegeben:
+                                              i~∂|Ψ(t)iS = HS |Ψ(t)iS .                         (L.14)
+      Operatoren sind dagegen (bis auf eine explizite Zeitabhängigkeit) zeitunabhängig.
+Heisenberg-Bild Im Heisenberg-Bild wird die Zeitabhängigkeit in die Operatoren absorbiert,
+     die dann der folgenden Bewegungsgleichung gehorchen:
+                                   i            i  d      i           ∂AH
+                        AH = e ~ Ht AS e− ~ Ht           ⇒
+                                                      AH = [H, AH ] +     .                     (L.15)
+                                                  dt      ~            ∂t
+      Der Zustandsvektor ist dagegen zeitunabhängig.
+                           i
+Zusatz-Info: |Ψ(t)iH = e ~ Ht |Ψ(t)iS = |Ψ(0)iS .
+
+
+
+1.6. Tunneleffekt                                                                           (1.5 P)
+
+Betrachten Sie die eindimensionale Schrödingergleichung mit dem Potential
+                                            (
+                                              V0 xa für 0 < x < a,
+                                   V (x) =
+                                              0      sonst.
+Bestimmen Sie die Transmissionswahrscheinlichkeit für eine von links einfallende Welle und der Energie
+0 < E < V0 mithilfe der WKB-Approximation.
+
+
+                                                             4
+Lösung.    Der klassisch verbotene Tunnelbereich is gegeben durch
+                                   E
+                           x1 =       a,                                  x2 = a.                (L.16)
+                                   V0
+
+
+In der WKB-Approximation ist die Transmissionswahrscheinlichkeit dann gegeben als
+                                         2 x2 p
+                                           Z                      
+                |T |2 ≈ |TWKB |2 = exp −       dx 2m[V (x) − E]                                  (L.17)
+                                         ~ x1
+                                      (                             )
+                                          2 a
+                                            Z       q
+                                 = exp −          dx 2m[V0 xa − E] .                             (L.18)
+                                          ~ Ea/V0
+
+
+Wir substituieren y = V0 xa − E und erhalten
+
+                                            2 a√
+                                                    Z V0 −E       
+                                                               √
+                           |TWKB |2 = exp −       2m         dy y                                (L.19)
+                                            ~ V0      0
+                                             4 a√
+                                                                  
+                                                               3/2
+                                    = exp −        2m (V0 − E)       .                           (L.20)
+                                            3~ V0
+
+
+
+
+1.7. Kohärente Zustände                                                                  (1.5 P)
+
+Ein kohärenter Zustand ist ein Eigenzustand zum Vernichtungsopertor des harmonischen Oszillators,
+a|αi = α|αi. Begründen Sie weshalb es keine Eigenzustände zum Erzeugungsoperator a† gibt.
+
+
+Lösung. Sei |βi ein Eigenzustand zum Erzeugungsoperator, a† |βi = β|βi, und nmin ∈ N0
+der kleinste Wert der in der Zerlegung nach Eigenzuständen des harmonischen Oszillators |ni
+auftritt:
+                                            X∞
+                                     |βi =       cn |ni.                              (L.21)
+                                                   n=nmin
+
+Die Anwendung des Erzeugungsoperators auf den Zustand |βi ergibt
+                                    ∞                      ∞
+                                    X                      X         √
+                        a† |βi =            cn a† |ni =            cn n + 1 |n + 1i.             (L.22)
+                                   n=nmin                 n=nmin
+
+ Wir sehen, dass die Zerlegung auf der rechten Seite bei (nmin + 1) beginnt. Damit die rechte
+Seite β|βi ergeben kann, muss cn = 0 gelten, im Widerspruch zur Annahme, dass nmin der kleine
+Wert n in der Zerlegung ist.
+
+
+
+1.8. Extremalprinzip                                                                         (1 P)
+
+Zeigen Sie, dass jeder Zustand |ϕi, für den der Erwartungswert eines hermiteschen Operators A
+
+                                                       hϕ|A|ϕi
+                                              hAiϕ =           ,
+                                                        hϕ|ϕi
+
+extremal wird (δ hAiϕ = 0), ein Eigenzustand von A ist.
+
+
+                                                       5
+Lösung.    Das Differential von hAiϕ ist gegeben als
+                               1                 1
+                   δ hAiϕ =        δhϕ|A|ϕi −         hϕ|A|ϕiδhϕ|ϕi                               (L.23)
+                             hϕ|ϕi             hϕ|ϕi2
+                               1 h                                            i
+                           =         hδϕ|(A − hAiϕ I)|ϕi + hϕ|(A − hAiϕ I)|δϕi                    (L.24)
+                             hϕ|ϕi
+                               2
+                           =       hδϕ|(A − hAiϕ I)|ϕi,                                           (L.25)
+                             hϕ|ϕi
+wobei im letzten Schritt die Hermitizität von A verwendet wurde. Wir erhalten somit
+
+                               δ hAiϕ = 0    ⇒     (A − hAiϕ I)|ϕi = 0.                           (L.26)
+
+
+
+
+1.9. Wigner-Theorem                                                                             (1 P)
+
+Zeigen Sie: Ist die Darstellung einer kontinuierlichen Symmetrie durch einen unitären Operator U des
+Hilbertraums gegeben, dann sind die entsprechenden Generatoren Ji der Lie-Algebra hermitesch.
+
+
+Lösung. Wir nehmen an, die Darstellung der Symmetriegruppe sei durch N Parameter φi
+parametrisiert. Die Lie-Gruppe wird aus der Lie-Algebra durch Exponentieren der Generatoren
+Ji erhalten und wir können also U (φi ) = exp(iφi Ji ) schreiben. Wenn U unitär ist, gilt U (φi )† =
+U (φi )−1 . Daraus erhalten wir wegen der Surjektivität der Exponentialfunktion
+                                                
+                     exp(iφi Ji )† = exp −iφi Ji† = exp(iφi Ji )−1 = exp(−iφi Ji )             (L.27)
+
+und es folgt Ji† = Ji , d.h. die Generatoren sind hermitesch.
+
+
+
+1.10. EPR-Paradoxon                                                                             (1 P)
+
+Erklären Sie das Einstein-Podolsky-Rosen-Paradoxon. Schildern Sie hierfür ein Messprotokoll zweier ver-
+schränkter Elektronen (S = 0 Zustand). Angenommen die Postulate der Quantenmechanik sind korrekt,
+welche Schlussfolgerung muss man aus der Messung ziehen?
+
+                                                                          √
+Lösung. Man betrachtet den Zwei-Elektronenzustand |00i = (|↑↓i − |↓↑i)/ 2 und trennt die
+verschränkten Teilchen räumlich um eine Distanz d. Alice misst den Zustand von Teilchen 1
+und Bob das Teilchen 2 in einem Zeitraum ∆t = d/c davor oder danach. Gemäss den Gesetzen
+der Quantenmechanik ist der Zustand des einen Teilchen eindeutig durch das Messergebnis des
+anderen Teilchen festgelegt.
+
+Aus der gerade geschilderten Situation folgert man, dass eine der folgenden Annahmen verletzt
+sein muss:
+
+   1. Lokalität
+   2. Informationen können maximal mit Lichtgeschwindigkeit übermittelt werden
+   3. Quantenmechanik ist vollständig (d.h. keine verdeckten Variablen)
+
+
+
+                                                   6
+Aufgabe 2.      [Spin-1 Teilchen in Magnetfeld]                                                   (8 Punkte)
+
+Wir betrachten ein Teilchen der Ladung q und Spin 1, dessen einziger Freiheitsgrad der Spin ist. Der
+Hamilton-Operator dieses Teilchens im Magnetfeld B ist
+                                                             q
+                                         H = −µ · B =          S · B.
+                                                             m
+In der Basis {|+i, |0i, |−i} der Eigenzustände zu S3 ist der Spinoperator S gegeben durch
+                                                                                      
+                    0 1 0                           0 −i 0                         1 0 0
+               ~                               ~
+        S1 = √ 1 0 1 ,                S2 = √  i 0 −i ,                S3 = ~ 0 0 0  .
+                2 0 1 0                         2 0 i        0                     0 0 −1
+
+  a) Berechnen Sie für ein homogenes, zeitlich konstantes Magnetfeld in x3 -Richtung die Zeitabhängigkeit
+     des Zustandes                                                                 
+                                                                             ψ+ (t)
+                           |ψ(t)i = ψ+ (t) |+i + ψ0 (t) |0i + ψ− (t) |−i ≡  ψ0 (t)  ,
+                                                                            ψ− (t)
+      der zum Zeitpunkt t = 0 Eigenzustand √ von S1 zum Eigenwert +~ ist.                               (3 P)
+      (Zur Kontrolle: |ψ(t = 0)i = (1/2, 1/ 2, 1/2)T bei geeigneter Phasenwahl.)
+  b) Ausgehend
+           q vom Zustand aus Teil (a), berechnen Sie die Unschärfe ∆S1 und ∆S3 zur Zeit t, wobei
+                            2
+      ∆Sk =    hSk2 i − hSk i .                                                                         (3 P)
+
+  c) Überprüfen Sie die Unschärferelation für S1 und S3 .                                           (2 P)
+
+
+
+Lösung.
+                                            
+                                     1 0 0
+  a) B k e3 ⇒ H = qB   m S3 = m
+                               ~qB 
+                                     0 0 0
+                                     0 0 −1
+     Zum Zeitpunkt t = 0: Eigenzustand zu S1 mit Eigenwert +~. Löse Eigenwertgleichung
+                                                            
+                                0 1 0      ψ+ (0)          ψ+ (0)
+                            ~
+                           √ 1 0 1  ψ0 (0)  = +~  ψ0 (0)  .
+                             2 0 1 0       ψ (0)           ψ (0)
+                                                         −                −
+
+      Wir erhalten die Relation
+                                                        1
+                                     ψ+ (0) = ψ− (0) = √ ψ0 (0).
+                                                         2
+      Normiert auf eins, erhalten wir
+                                                          
+                                                       1/2
+                                                         √
+                                       |ψ(t = 0)i = 1/ 2
+                                                       1/2
+
+      Die Zeitentwicklung is gegeben durch i~∂t |ψ(t)i = H|ψ(t)i:
+                 ∂           ~qB                                                             1 −iωt
+              i~    ψ+ (t) =     ψ+ (t)              ⇒             ψ+ (t) = ψ+ (0) e−iωt =     e    ,
+                 ∂t           m                                                              2
+                  ∂                                                                  1
+               i~ ψ0 (t) = 0                         ⇒             ψ0 (t) = ψ0 (0) = √ ,
+                 ∂t                                                                   2
+                 ∂            ~qB                                                            1 +iωt
+              i~ ψ− (t) = −       ψ− (t)             ⇒             ψ− (t) = ψ− (0) e+iωt =     e    .
+                 ∂t            m                                                             2
+      mit ω = qB
+              m.
+
+
+                                                     7
+                            q
+b) Berechne ∆S1 =               S12 − hS1 i2
+
+      ? hS1 i = hψ(t)|S1 |ψ(t)i = · · · = ~ cos(ωt)
+                                               2
+     ? S12 = hψ(t)|S12 |ψ(t)i = · · · = ~2 [1 + cos2 (ωt)]
+              p
+   ⇒ ∆S1 = √~2 1 − cos2 (ωt) = √~2 sin(ωt)
+                  q
+   Berechne ∆S3 =     S32 − hS3 i2
+
+      ? hS3 i = 0
+                    2
+      ? S32 = ~2
+
+   ⇒ ∆S3 = √~2
+                        2                      2
+c) Teil b): ∆S12 = ~2 sin2 (ωt), ∆S32 = ~2
+   Unschärferelation:
+                                                1             2
+                                     ∆S12 ∆S32 ≥ h[S1 , S3 ]i
+                                                4
+                            2
+      ? ∆S12 ∆S32 = ~4 sin2 (ωt)
+                                                                                2
+      ? h[S1 , S3 ]i = −i~ hS2 i = · · · = −i~2 sin(ωt)   ⇒      h[S1 , S3 ]i       = ~4 sin2 (ωt)
+                        2                2                       2
+   ⇒ ∆S12 ∆S32 = ~4 sin2 (ωt) ≥ ~4 sin2 (ωt) = 14 h[S1 , S3 ]i
+
+
+
+
+                                                   8
+Aufgabe 3.       [Störungstheorie]                                                               (7 Punkte)
+
+Der Hamiltonian eines starren zweiatomigen Moleküls in einem schwachen Magnetfeld in der xz-Ebene
+ist gegeben durch
+                                           L2
+                                      H=      + BLz + CLx ,                                     (1)
+                                           2I
+wobei I das Trägheitsmoment ist und C/B = tan θ mit dem Polarwinkel θ des Magnetfeldes. Bestim-
+men Sie für den Fall, dass C  B, die approximierten Energieeigenwerte von H bis zur ersten nicht-
+verschwindenden Ordnung.
+
+
+Lösung.     Wir identifizieren den ungestörten Hamiltonian (H0 ) und die Störung (H 0 ) als
+
+                                 L2
+                          H0 =      + BLz ,                               H 0 = CLx .                 (L.28)
+                                 2I
+ Da der ungestörte Hamiltonian H0 gegeben ist durch die Bahndrehimpulsoperatoren L2 und
+Lz , hat er Eigenzustände |l, mi und wegen
+                                           2              
+                                           ~ l(l + 1)
+                              H0 |l, mi =             + Bm~ |l, mi ,               (L.29)
+                                               2I
+
+die Eigenwerte                                   2              
+                                        (0)      ~ l(l + 1)
+                                       Elm =                + Bm~ ,                                   (L.30)
+                                                     2I
+welche für alle l = 0, 1, 2, . . . und m = −l, . . . , l nicht-entartet sind.
+
+Die Energieeigenwerte des kompletten Hamiltonians (inklusive Störung) bezeichnen wir mit
+                                                      (0)
+                                              Elm = Elm + δElm ,                                      (L.31)
+
+wobei die Korrektur δElm durch nicht-entartete Störungstheorie berechnet wird,
+                                 (1)      (2)
+                    δElm = δElm + δElm + . . . ,                                                      (L.32)
+                                                X               |hl0 , m0 |CLx |l, mi|2
+                         = hl, m|CLx |l, mi +                           (0)     (0)
+                                                                                        + ... .       (L.33)
+                                                   l0 ,m0 6=l,m       Elm − El0 m0
+
+Wir müssen daher die folgenden Matrixelemente berechnen,
+                      1
+hl0 , m0 |Lx |l, mi = hl0 , m0 |L+ + L− |l, mi                                                        (L.34)
+                      2
+                      ~p                                          ~p
+                    =     (l − m)(l + m + 1)hl0 , m0 |l, m + 1i +      (l + m)(l − m + 1)hl0 , m0 |l, m − 1i
+                      2                                           2
+                      ~               p                                    p                      
+                    =    δl,l0 δm0 ,m+1 (l − m)(l + m + 1) + δl,l0 δm0 ,m−1 (l + m)(l − m + 1) .
+                      2
+                                                                                                      (L.35)
+
+                                                                                   (1)
+Aus Gleichung (L.35) folgt, dass der Korrekturterm 1. Ordnung, δElm , verschwindet.
+
+
+
+
+                                                       9
+Wir berechnen nun den Korrekturterm 2. Ordnung (die erste nicht-verschwindende Ordnung),
+                                                         p                                   p                   2
+                            ~2 C 2       δl,l0 δm0 ,m+1    (l − m)(l + m + 1) + δl,l0 δm0 ,m−1 (l + m)(l − m + 1)
+   (2)
+                X
+ δElm =                                                                             (0)   (0)
+                              4                                             Elm − El0 m0
+             l0 ,m0 6=l,m
+                                                                                  !
+             ~2 C 2         (l − m)(l + m + 1)                 (l + m)(l − m + 1)
+         =                        (0)         (0)
+                                                           +       (0)        (0)
+               4              Elm − Elm+1                        Elm − Elm−1
+           ~C 2
+         =      (−(l − m)(l + m + 1) + (l + m)(l − m + 1))
+           4B
+           m~C 2
+         =        .                                                                                            (L.36)
+            2B
+Damit finden wir für die Energieeigenwerte von H in 2. Ordnung Störungstheorie,
+
+                                              (2)     ~2 l(l + 1)         m~C 2
+                                          δElm =                  + Bm~ +                                      (L.37)
+                                                           2I            2B
+                                                      ~2 l(l + 1)
+                                                                                  
+                                                                            1   2
+                                                    =             + Bm~ 1 + tan θ .                            (L.38)
+                                                           2I               2
+
+
+
+
+                                                                         10
+Aufgabe 4.             [Gebundene und Streuzustände eines eindimensionalen Potentials]   (7 Punkte)
+
+Betrachten Sie ein Teilchen im eindimensionalen Potential
+
+                                           V (x) = V1 Θ(x) − V0 δ(x),                              (2)
+
+mit V0,1 > 0. Dabei ist Θ(x) die Heaviside-Stufenfunktion:
+                                                (
+                                                  1    x > 0,
+                                        Θ(x) =                                                     (3)
+                                                  0    x < 0,
+
+und δ(x) die Delta-Distribution, die durch die Eigenschaft
+                                        Z +∞
+                                              dx δ(x)f (x) = f (0)                                 (4)
+                                            −∞
+
+definiert ist.
+
+   a) Das Potential in Gl. (2) besitzt höchstens einen gebundenen Zustand. Bestimmen Sie den gebun-
+      denen Zustand und dessen Energie und zeigen Sie, dass dieser nur existiert, wenn die Bedingung
+                                                     2mV0   V1
+                                                          >                                        (5)
+                                                      ~2    V0
+       erfüllt ist.                                                                            (4 P)
+   b) Berechnen Sie die Korrektur zur Energie in der ersten nicht-verschwindenden Ordnung für den
+      gebundenen Zustand des δ-Potentials, wobei die Heaviside-Funktion als Störung mit V1  V0 be-
+      trachtet wird.                                                                          (1 P)
+   c) Betrachten Sie nun einen von links einlaufenden Teilchenstrahl (E > 0) das am Potential aus
+      Gl. (2) streut. Bestimmen Sie die Reflexions- und Transmissionskoeffizienten der Streuzustände.
+       (2 P)
+
+
+
+Lösung.
+
+   a) Um die gebundenen Zustände zu finden, müssen wir die Schrödinger-Gleichung lösen.
+      Wegen der Geometrie des Potentials zerlegen wir den gesamten in Raum in drei Bereichen.
+      Bereich I ist x < 0, wo das Potential Null ist. Im Bereich II ist nur der Punkt x = 0
+      wo die δ-Funktion wirkt. Der Bereich III ist x > 0 und dort ist das Potential V0 . Die
+      entsprechenden Schrödinger-Gleichungen sind
+                                                 ~2 ∂ 2
+                                             −          ψ (x) = EψI (x)
+                                                       2 I
+                                                                          x<0                  (L.39)
+                                                 2m ∂x
+                                   ~2 ∂ 2
+                                                    
+                                 −        − V0 δ(x) ψII (x) = EψII (x)     x=0                 (L.40)
+                                   2m ∂x2
+                                      ~2 ∂ 2
+                                                 
+                                    −        + V1 ψIII (x) = EψIII (x)      x>0                (L.41)
+                                      2m ∂x2
+                                                                                               (L.42)
+
+       Wir führen die folgenden Wellenvektoren ein:
+                                               r
+                                                  −2mE
+                                          κI =                                                 (L.43)
+                                                     ~2
+                                               r
+                                                  2m(V1 − E)
+                                        κIII =                                                 (L.44)
+                                                        ~2
+
+                                                      11
+Wir suchen zuerst gebundene Zustände mit E < 0. Dann sind die Lösungen im ersten und
+dritten Bereich Exponentialfunktionen, da die Wellenvektoren reell sind:
+
+                          ψI (x) = A exp(−κI x) + B exp(κI x)                      (L.45)
+                        ψIII (x) = C exp(−κIII x) + D exp(κIII x)                  (L.46)
+
+.
+Wegen der Normierbarkeit der Wellenfunktion müssen aber die Konstante A und D gleich
+Null gesetzt werden, denn die entsprechenden Terme divergieren bei −∞ und +∞. Somit:
+
+                                 ψI (x) = B exp(κI x)                              (L.47)
+                                ψIII (x) = C exp(−κIII x).                         (L.48)
+
+Wir müssen jetzt die restlichen Integrationskonstanten bestimmen und die Wellenfunk-
+tionen bei x = 0 stetig verknüpfen. Die Stetigkeitsbedingung ψI (x) = ψIII (x) impliziert
+B = C.
+Die Ableitung der Wellenfunktion ist jedoch unstetig bei x = 0, da dort die δ-Funktion
+wirkt. Um den Betrag der Unstetigkeit zu berechnen integrieren wir die Schrödinger-
+Gleichung um eine -Umgebung um x = 0 und lassen dann  → 0 streben:
+                    Z +                                   Z +
+                                ~2 ∂ 2
+                                                
+                         dx −          − V0 δ(x) ψ(x) =          dxEψ(x)        (L.49)
+                     −        2m ∂x2                        −
+                                            !
+                               ~2 ∂ψ(x) +
+                                                              Z +
+                     ⇒      −                 − V0 ψ(0) = E        dxψ(x)       (L.50)
+                              2m ∂x −                          −
+
+                       ~2 ∂ψ(0+ ) ∂ψ(0− )
+                                             
+               ⇒ −                  −             − V0 B = 0                    (L.51)
+                      2m      ∂x         ∂x
+                                ~2 B
+                           ⇒         (κIII + κI ) − V0 B = 0                    (L.52)
+                                 2m
+                                                           2mV0
+                                        ⇒ κIII + κI =                           (L.53)
+                                                             ~2
+Die linke Seite ist Null, da wir wissen, dass ψII (x) dort beschränkt bleibt. Somit sind
+die Wellenvektoren links und rechts von der δ-Funktion durch die Höhe des Potentials V0
+verknüpft.
+Die Wellenvektoren erfüllen andererseits auch
+                                                   2m
+                                   κ2I = κ2III −      V1 .                         (L.54)
+                                                   ~2
+Wir können somit diese und die vorige Gleichung nach κI lösen:
+                                           mV0   V1
+                                    κI =     2
+                                               −     .                             (L.55)
+                                            ~    2V0
+Diese Lösung ist nur dann wohldefiniert, wenn κI > 0 bleibt (sonst divergiert die Wellen-
+funktion bei −∞. Das liefert die Bedingung
+                                      2mV0   V1
+                                        2
+                                           >    .                                  (L.56)
+                                       ~     V0
+.
+
+
+                                           12
+   Es gibt nur einen gebundenen Zustand mit Energie
+
+                                       ~2 mV0       V1 2
+                                                      
+                                E=−             −        .                             (L.57)
+                                      2m     ~2    2V0
+
+   Die Wellenfunktion kann als
+                               (
+                                B exp(κI x)                            x<0
+                        ψ(x) =                                                         (L.58)
+                                B exp (κI − 2mV0 /~2 )x
+                                                        
+                                                                       x≥0
+
+   geschrieben werden. Um die Konstante B zu finden normieren wir schlussendlich die Wel-
+   lenfunktion:
+                Z +∞                 Z 0                        Z +∞
+            1=       dx|ψ(x)|2 = B 2       dx exp(2κI x) + B 2       dx exp(−2κIII x) (L.59)
+                 −∞                   −∞                         0
+                                                     
+                                   2     1       1
+                             1=B             +                                        (L.60)
+                                        2κI    2κIII
+                                                                p
+                             2       κI κIII       2 κI κIII   2 E(E − V1 )
+                           B =2                =~            =                        (L.61)
+                                  κI + κIII           mV0           V0
+               s p
+                 2 E(E − V1 )
+     ⇒B=±                                                                             (L.62)
+                      V0
+   Also
+                  s p
+                                            (
+                                              exp mV
+                                                        
+                   2 E(E − V1 )       V1            2 x
+                                                     0
+                                                                             x<0
+          ψ(x) = ±              exp −     x        ~                                   (L.63)
+                                              exp − mV
+                                                            
+                       V0             2V0            ~2
+                                                        0
+                                                          x                  x ≥ 0.
+
+b) Falls die Heaviside-Funktion als Störung zu betrachten ist, können wir aus a) die Wellen-
+   funktion des δ-Potential ablesen, in dem wir V1 = 0 setzen. Dann ist κI = κIII = mV0 /~2
+   und die Wellenfunktion ist
+                                         (
+                                          exp (κI x)        x<0
+                              ψ(x) = B                                                  (L.64)
+                                          exp (−κI x)       x ≥ 0.
+              q          q
+   mit B = ± 2|E|V0  =  ±  mV0
+                            ~2
+                               . Die Korrektur zur Energie ist dann
+                                            Z +∞
+                               E (1) = V1             dx|ψ(x)|2 Θ(x)                   (L.65)
+                                            −∞
+                                                 Z ∞
+                                             2
+                                    = V1 B      dx exp(−2κI x)                         (L.66)
+                                                 0
+                                             Z ∞
+                                      mV0 V1
+                                    =             dx exp(−2κI x)                       (L.67)
+                                       ~2     0
+                                                          +∞
+                                      mV0 V1
+                                    =         exp(−2κI x)                              (L.68)
+                                      −2κI ~2             0
+                                      mV0 V1
+                                    =                                                  (L.69)
+                                      2κI ~2
+                                      V1
+                                    =                                                  (L.70)
+                                      2
+   Diese ist genau die Korrektur die wir erhalten, wenn wir die Energie (L.57) in V1 bis zu
+   erster Ordnung Taylor entwickeln.
+
+                                                 13
+c) Die Streuzustände haben Energie E > 0. Deshalb wählen wir einen Ansatz mit ebenen
+   Wellen:
+
+                 ψI (x) = A exp(iκx) + B exp(−iκx),                      x<0       (L.71)
+                ψIII (x) = C exp iκ0 x ,
+                                      
+                                                                         x>0       (L.72)
+
+  Die Stetigkeit der Wellenfunktion liefert
+
+                                          A+B =C                                   (L.73)
+
+  während die Unstetigkeit wieder wie bei a) berechnet werden kann zu
+
+                                        ~2 ∂ψ(0+ ) ∂ψ(0− )
+                                                              
+                            ψ(0)V0 = −               −                             (L.74)
+                                       2m       ∂x        ∂x
+
+  also                                                        
+                                               1          2mV0
+                               (A − B) =            iκ0 +        C.                (L.75)
+                                              iκ           ~2
+
+  Wir lösen nach A und B auf:
+                                                                 !
+                                   A          κ + κ0 − i 2mV
+                                                          ~2
+                                                             0
+                                     =                                             (L.76)
+                                   C                2κ
+                                                                 !
+                                   B          κ − κ0 + i 2mV
+                                                          ~2
+                                                             0
+                                     =                                             (L.77)
+                                   C                2κ
+
+  Die Transmissions- und Reflexionskoeffizienten lassen sich dann direkt bestimmen als
+                                   κ0 |C|2            4κκ0
+                             T =         2
+                                           =                    2                 (L.78)
+                                   κ |A|     (κ + κ0 )2 + 2mV
+                                                            2
+                                                              0
+                                                                 ~
+
+  und
+                                                             2mV0 2
+                                        (κ − κ0 )2 +
+                                                                 
+                                 |B|2                         ~2
+                              R=      =                           .               (L.79)
+                                 |A|2                        2mV0 2
+                                        (κ + κ0 )2 +          ~2
+
+
+
+
+                                              14
+Aufgabe 5.      [Zentralpotential]                                                           (10 Punkte)
+
+Gegeben sei ein rotationssymmetrisches, attraktives (V0 > 0) Potential in d Dimensionen von der Form
+                                             (
+                                                 0      für r ≥ r0 ,
+                                    V (r) =
+                                               −V0      für r < r0 .
+
+  a) Zeigen Sie, dass für d = 1 immer ein gebundener
+                                             √         Zustand (−V0 ≤ E ≤ 0) existiert, auch wenn das
+     Potential sehr schwach ist, d.h. z0 ≡ r0 2mV0 /~  1.                                      (5 P)
+     (Hinweis: Betrachten Sie getrennt die beiden Fälle von geraden und ungeraden Zuständen.)
+
+Für d = 2 existiert immer ein (marginal) gebundener Zustand. In drei Dimensionen, d = 3, gibt es
+dahingegen keinen gebundenen Zustand falls z0 < zkrit .
+
+  b) Was ist die minimale Tiefe des Potentials die nötig ist, damit zwei gebundene Zustände mit ver-
+     schwindendem Gesamtdrehimpuls (l = 0) existieren?                                          (5 P)
+
+
+
+Lösung.
+
+  a) Die Schrödingergleichung für r ≥ r0 und r < r0 ist gegeben durch
+                          00                     √
+                         ψ = α2 ψ , mit α = −2mE/~               (für r ≥ r0 )                   (L.80)
+
+      und
+                        00                       p
+                      ψ = −κ2 ψ ,     mit κ =     2m(E + V0 )/~            (für r < r0 )         (L.81)
+      Die Lösung ausserhalb des Topfs ist gegeben durch
+
+                                     ψa (r) = Ce−αr      (für r ≥ r0 ).                          (L.82)
+
+      Die geraden und ungeraden Lösungen innerhalb des Topfs haben die Form
+
+                     ψg (r) = A cos(κr)   und ψu (r) = B sin(κr)           (für r < r0 ).        (L.83)
+
+       Wir betrachten gerade und ungerade Lösungen nacheinander. Bei r = r0 , die Stetigkeits-
+                                                                        0          0
+      bedingungen für gerade Symmetrie lauten ψa (r0 ) = ψg (r0 ) und ψa (r0 ) = ψg (r0 ), oder
+      auch                                0         0
+                                        ψa (r0 )   ψg (r0 )
+                                                 =                                        (L.84)
+                                        ψa (r0 )   ψg (r0 )
+      Einsetzen von Glg. (L.82) und (L.83) in (L.84) ergibt die Bedingung
+                                                           α
+                                             tan(κr0 ) =     .                                    (L.85)
+                                                           κ
+      Diese Gleichung gibt uns die erlaubte Energien im Potentialtopf, da beide α und√κ von E
+      abhängen. Unter Einführung von dimensionslose Parametern z ≡ κr0 und z0 ≡ r0 2mV0 /~
+      (auch im Prüfungsblatt gegeben), lässt sich Glg. (L.85) wie folgt schreiben
+                                                  r 
+                                                      z0 2
+                                        tan(z) =            − 1.                        (L.86)
+                                                      z
+       Die rechte Seite von Glg. (L.86) fällt monoton von ∞ bis 0, wenn wir z von 0 bis z0
+      erhöhen. Anderseits ist die linke Seite positiv und steigt monoton von 0 bis ∞, wenn wir
+      z von 0 bis π/2 erhöhen (siehe auch Abb. 1). Daraus folgt, dass diese zwei Funktionen
+
+                                                 15
+   mindestens eine Schnittstelle haben.
+   Analog zu (L.84) und (L.85), führen die Stetigkeitsbedingungen für ungerade Symmetrie
+   zur Bedingung
+                                                                r 
+                         α                                         z0 2
+           − cot(κr0 ) = , oder dimensionslos: − cot(z) =                − 1.       (L.87)
+                         κ                                          z
+    Hier ist aber die linke Seite von Glg.(L.87) negativ für z < π/2, d.h. es ergibt sich
+   keine ungerade Lösung für schwache Potentiale. Der Grundzustand entspricht daher einer
+   geraden Wellenfunktion.
+
+b) Die radiale Schrödingergleichung für ein rotationssymmetrisches Potential lässt sich schrei-
+   ben als (erinnere: ψ(r, θ, φ) = Ylm (θ, φ)R(r))
+
+                       ~2 1 d2
+                                                        
+                                            l(l + 1)
+                    −             rR(r) −            R(r) + V (r)R(r) = ER(r) .
+                       2m r dr2                r2
+
+   Dieses radiale Eigenwertproblem vereinfacht sich (siehe Vorlesung), wenn wir R(r) =
+   u(r)/r definieren. Dann erhalten wir:
+
+                            ~2 d2    ~2 l(l + 1)
+                                                       
+                         −         +             + V (r) u(r) = Eu(r) .
+                           2m dr2        2mr2
+
+   Für l = 0 bekommen wir für r ≥ r0 und r < r0 die folgende Gleichungen
+
+                           ~2 d2
+                         −        u(r) = Eu(r)                 (für r ≥ r0 )              (L.88)
+                           2m dr2
+                           ~2 d2
+                         −        u(r) − V0 u(r) = Eu(r)       (für r < r0 )              (L.89)
+                           2m dr2
+    Hier sieht man, dass das Radialproblem für den Fall l = 0 und für die modifizierte
+   Funktion u(r) = rR(r) genau die gleiche Form hat wie das Problem bei d = 1 [siehe
+   Glg. (L.80) und (L.81)]. Allerdings soll R(r) = u(r)/r bei r → 0 endlich sein. Somit muss
+   u(r = 0) = 0 gelten und wir erlauben nun ungerade Lösungen für u(r). Solche Lösungen
+   existieren allerdings nicht wenn z0 < π/2, wie wir schon in Teil a) gesehen haben. Um die
+   gesuchte Lösungen zu finden, betrachten wir Glg. (L.87), d.h.
+                                                r 
+                                                   z0 2
+                                    − cot(z) =           − 1.
+                                                    z
+   Wie schon erklärt, fällt die rechte Seite monoton von ∞ bis 0, wenn wir z von 0 bis z0
+   erhöhen. Anderseits ist die linke Seite positiv und steigt monoton von 0 bis ∞, wenn wir
+   z von π/2 bis π erhöhen (und dieses Verhalten wiederholt sich periodisch mit Period π -
+   siehe Abb. 2). Darum finden wir zwei Lösungen, wenn die Bedingung
+                                                     3π
+                                              z0 ≥
+                                                      2
+    erfüllt ist. Durch Einsetzen von z0 erhalten wir das Endresultat
+
+                                                   9π 2 ~2
+                                            V0 ≥           .
+                                                   8mr02
+
+
+
+
+                                              16
+ 6                                                6
+ 4                                                4
+ 2                                                2
+ 0                                                0
+        1      2      3            4                   1     2    3    4      5         6
+-2                                               -2
+                          tan(z)                                           -cot(z)
+-4                                               -4
+                            (z0 / z)2 - 1                                    (z0 / z)2 - 1
+-6                                               -6
+
+Abbildung 1: Graphische Lösung der              Abbildung 2: Graphische Lösung der
+Glg. (L.86).                                     Glg. (L.87).
+
+
+
+
+                                            17
+

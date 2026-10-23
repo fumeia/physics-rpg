@@ -1,0 +1,437 @@
+                Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                         Solution to exercise sheet V
+
+Question 1 [Transfer matrix method ]:
+   In this exercise, we will study a method to solve systems with piece-wise constant
+potential.
+
+ (i) We first consider a step                      (
+                                                    VL       if x < 0 ,
+                                           V (x) =                                         (1)
+                                                    VR       else .
+        Solving the Schrödinger equation on both sides of x = 0 separately, we get:
+                                                                p
+                                                                  2m (E − VL )
+                    ψL (x) = AL eikx + BL e−ikx ,          k=                   ,          (2)
+                                                                p     ℏ
+                                                                  2m (E − VR )
+                   ψR (x) = AR eiqx + BR e−iqx ,           q=                   ,          (3)
+                                                                      ℏ
+        where k and q can be either real or imaginary, depending on the sign of E − VL/R .1
+        Assume the coefficients AR and BR to the right of the step are known. As ψ and ψ ′
+        have to be continuous at x = 0, the coefficients to the left of the step are related by
+                                                    
+                                          AL           AR
+                                               =M                                           (4)
+                                          BL           BR
+
+        where M is called the transfer matrix. Determine M in terms of k, q.
+
+                                       V
+                                                     !                 !
+                                               AL        M       AR
+                                               BL                BR
+                                     VR
+
+
+                                     VL
+
+                                                         0                    x
+
+
+
+ (ii) To describe multiple potential steps, we also need a “propagation” matrix, describing
+      how the wavefunction changes over a region of constant potential. We want to write
+      the wavefunction with coordinates relative to the left (x = x1 ) and right (x = x2 )
+      edges of this constant potential region:
+
+                                   ψ (x) = A1 eik(x−x1 ) + B1 e−ik(x−x1 )                  (5)
+                                                ik(x−x2 )             −ik(x−x2 )
+                                   ψ (x) = A2 e              + B2 e                .       (6)
+  1
+      We will however assume E ̸= VL and E ̸= VR .
+                              V
+                                               !               !
+                                          A1       N      A2
+                                          B1              B2
+
+
+
+
+                                          x1              x2         x
+
+
+     Find the propagation matrix N , defined by
+                                               
+                                      A1         A2
+                                           =N       .                                    (7)
+                                      B1         B2
+
+(iii) Now we consider a general piece-wise constant potential, shown below.
+
+
+
+
+     Suppose that you are given (AR , BR ), describing the wavefunction on the right. Find
+     an expression for (AL , BL ), describing the wavefunction on the left side, in terms of
+     transfer- and propagation matrices.
+(iv) We now consider the square well familiar from the lecture.
+           V
+           0
+                                                               (
+                                                                −V       if |x| < ℓ/2
+                                                       V (x) =
+                                                                0        else
+        −V
+                                                   x
+                    − 2l              l
+                                      2
+
+     Using the result from the previous exercise, find Mfull relating the coefficients on the
+     left and right of the potential,
+                                                   
+                                       AL            AR
+                                           = Mfull          .                             (8)
+                                       BL            BR
+     Under which conditions is the propagation matrix N for this potential the identity?
+     What situation does this correspond to physically?
+ (v) As a further application we consider the square potential barrier
+                                         (
+                                           V if |x| < ℓ/2 ,
+                                 V (x) =                                                                 (9)
+                                           0 else ,
+
+     and a particle with energy 0 < E < V . We are interested in the scattering situation
+     where BR = 0 and AL = 1. Show that |BL |2 + |AR |2 = 1 and calculate |AR |2 . How
+     do you interpret these coefficients? What do you expect them to be in the classical
+     case?
+Solution:
+ (i) The continuity equations reads
+
+                                         AL + BL = AR + BR                                             (S.1)
+                                     k (AL − BL ) = q (AR − BR ) .                                     (S.2)
+
+     This leads to
+                          1             1                                                  q
+                      AL =  (1 + η) AR + (1 − η) BR ,                      where η :=        ∈C        (S.3)
+                          2             2                                                  k
+                          1             1
+                      BL = (1 − η) AR + (1 + η) BR .                                                   (S.4)
+                          2             2
+     Therefore,                                                          
+                                          1           1+η 1−η
+                                       M=                                      .                       (S.5)
+                                          2           1−η 1+η
+
+ (ii) Since the two expressions need to be equal (for x1 ≤ x ≤ x2 ), we write
+
+                       ψ (x) = A2 eik(x−x2 ) + B2 e−ik(x−x2 )                                          (S.6)
+                                    ik(x1 −x2 ) ik(x−x1 )               −ik(x1 −x2 ) −ik(x−x1 )
+                             = A2 e               e               + B2 e               e          .    (S.7)
+                               |    {z        }                     |    {z        }
+                                     A1                                   B1
+                     −ikℓ      
+                     e      0
+     Therefore, N =               , where ℓ = x2 − x1 .
+                       0   eikℓ
+(iii) We need to chain together the two types of matrices derived in the previous ques-
+      tions,                                                       
+                     AL                                              AR
+                           = Mn+1,n Nn Mn,n−1 . . . N2 M2,1 N1 M1,0     ,         (S.8)
+                     BL                                              BR
+     where                                                    !
+                                          k               k                 −iℓ k
+                                    1 + kji       1 − kji
+                                                                                           
+                               1                                            e j j    0
+                        Mi,j =          k             k           ,   Nj =                             (S.9)
+                               2    1 − kji       1 + kji                     0    eiℓj kj
+                  √
+                      2m(E−Vj )
+     with kj :=         ℏ
+                          √            √
+                                        2m(E+V )
+(iv) We introduce k := 2mE  ℏ
+                                , q :=     ℏ
+                                                  , as well as η := k/q. By the previous
+     exercise, the matrix relating the coefficients is given by
+
+                                              Mfull = M −1 N M ,                                      (S.10)
+    where                                                     
+                                         1       1+η 1−η
+                                      M=
+                                         2       1−η 1+η
+    is the transfer matrix from the right step,
+
+                                       1 1 + η −1 1 − η −1
+                                                          
+                                 −1
+                               M =
+                                       2 1 − η −1 1 + η −1
+
+    is the transfer matrix for the left step, and
+                                            −iqℓ      
+                                             e     0
+                                     N=                  .
+                                               0  eiqℓ
+
+    We get N = I if and only if q = 2π    ℓ
+                                            n, n ∈ N . This is a resonance condition; the
+    wave function ‘fits’ perfectly into the square well. In that case, Mfull = M −1 M = I,
+    and there is perfect transmission.
+    Evaluating the matrix multiplication, one finds
+
+                   1 1 + η −1 1 − η −1
+                                            −iqℓ                            
+                                               e         0        1+η 1−η
+           Mfull =                                                                     (S.11)
+                   4 1 − η −1 1 + η −1           0      eiqℓ      1−η 1+η
+                            −1          −1       −iqℓ
+                                                      (1 + η) e−iqℓ (1 − η)
+                                                                             
+                   1 1+η           1−η         e
+                 =                                                                     (S.12)
+                   4 1 − η −1 1 + η −1          eiqℓ (1 − η) eiqℓ (1 + η)
+                                      2
+                                                                                !
+                                                          i 1−η 2
+                    cos (qℓ) − 2i 1+η
+                                    η
+                                        sin (qℓ)          2 η
+                                                                  sin (qℓ)
+                 =         i 1−η 2                                    2            .   (S.13)
+                         − 2 η sin (qℓ)           cos (qℓ) + 2i 1+η η
+                                                                        sin (qℓ)
+
+(v) The situation is similar
+                      p      to the previous question, except for the fact that q is now
+    imaginary
+    p         : q =  i  2m  (V − E)/ℏ. We define κ := q/i ∈ R+ and α := iη = k/κ =
+      E/ (V − E) ∈ R+ . Replacing q and η in the expression from before, we get:
+                                      2                         2
+                   cosh (κℓ) + 2i 1−α                  − 2i 1+α
+                                                                                
+                                   α
+                                        sinh (κℓ)            α
+                                                                  sinh (κℓ)
+          Mfull =        i 1+α2                                       2                (S.14)
+                         2 α
+                                sinh (κℓ)         cosh (κℓ) − 2i 1−αα
+                                                                        sinh (κℓ)
+
+    Therefore,
+                                                              2
+                                           cosh (κℓ) + 2i 1−α
+                                                                    
+                     1                AR                   α
+                                                                sinh (κℓ)
+                             = Mfull     =       i 1+α2                    AR          (S.15)
+                    BL                 0         2 α
+                                                        sinh (κℓ)
+
+    By taking the squared modulus of both lines, one finds
+          "                      2           #
+                        1 1 − α2
+                          
+                2
+     1 = cosh (κℓ) +                sinh (κℓ) |AR |2
+                                        2
+                                                                               (S.16)
+                        4   α
+                  "             2 #
+                       1 1 − α2
+                          
+              2
+       = |AR | + 1 +                 sinh2 (κℓ) |AR |2 (with cosh2 x = 1 + sinh2 x)
+                       4    α
+                                                                               (S.17)
+        = |AR |2 + |BL |2 .                                                            (S.18)
+     The terms in eikx and e−ikx are plane waves going in the right and left direction,
+     respectively. Therefore, the condition BR = 0 means that there is no plane wave
+     coming from the right, and AR and BL are transmission and reflection coefficients
+     for the wave coming from the left onto the barrier. The transmission amplitude is
+     given by
+                                                     2
+                                           1 1 + α2
+                                             
+                       2           2
+              T = |AR | = 1 − |BL | = 1 −               sinh2 (κℓ) |AR |2 .      (S.19)
+                                           4    α
+     Thus, also using α2 = E/ (V − E),
+                                         1                              1
+             T = |AR |2 =                2               =             2                .      (S.20)
+                            1 + 41 (1+α
+                                        2)      2
+                                             sinh (κℓ)       1 + 4E(VV −E) sinh2 (κℓ)
+                                     α2
+
+     We notice that even though the particle has a lower total energy than the barrier,
+     it has a non-zero probability to tunnel through it. Classically, the particle would be
+     fully reflected by the barrier, and thus we would have T = 0 and R = 1 as soon as
+     V > E.
+
+
+Question 2 [Rays in C2 ]:                                     
+   Consider a quantum system with Hilbert space H = C2 and let |1⟩ , |2⟩                    be an or-
+thonormal basis of H.
+ (i) Suppose we are given two non-zero state vectors |Ψ⟩ , |Ψ′ ⟩ ∈ H such that |Ψ′ ⟩ = µ |Ψ⟩
+     for some non-zero µ ∈ C. Is there any observable difference between these two state
+     vectors? For instance, what is the probability of observing a certain eigenvalue of
+     some observable without assuming that state vectors have unit norm?
+ (ii) Show that almost any state of the system can be represented by a vector of the form
+      |1⟩ + z |2⟩ for some number z ∈ C. Which states cannot be represented in that form?
+      How many of them are there? Do different values of z correspond to different states?
+(iii) Think of the number z ∈ C as a complex coordinate. What state do you think we
+      should assign to the limit |z| → +∞ of |1⟩ + z |2⟩?
+(iv) Using the previous step, can you recognize the space of distinct states of this system
+     as being (topologically) equivalent to some simple geometric object?
+     Hint: Think of the space of physically inequivalent states as an extended complex
+     plane C ∪ {point at infinity}, and imagine being able to stretch and deform the ex-
+     tended complex plane at will.
+Solution:
+  (i) The two state vectors are proportional, so there is no difference between them.
+      Indeed, if some (non-zero) vector |Φ⟩ is an eigenvector of some observable with some
+      isolated non-degenerate eigenvalue, the probability of observing that eigenvalue is
+                                                 |⟨Φ|Ψ⟩|2
+                                                          ,                                    (S.21)
+                                               ⟨Φ|Φ⟩⟨Ψ|Ψ⟩
+     which is independent of the overall normalization of both |Φ⟩ and |Ψ⟩.
+ (ii) Consider any state with a state vector of the form α |1⟩ + β |2⟩ with α ̸= 0. In that
+      case, the vector |1⟩ + (β/α) |2⟩ represents the same state (since it only differs from
+      α |1⟩ + β |2⟩ by a scalar factor), and is in the form |1⟩ + z |2⟩. Therefore, any such
+      state can be represented by a vector of the form |1⟩ + z |2⟩.
+     The only state that cannot be represented by vector of the form α |1⟩ + β |2⟩ with
+     α ̸= 0 is the the one that corresponds to vectors µ |2⟩, µ ̸= 0. Hence there is only
+     one state which cannot be represented by a vector of the form |1⟩ + z |2⟩.
+     If z ̸= z ′ , |1⟩ + z |2⟩ and |1⟩ + z ′ |2⟩ are not scalar multiples of each other, and hence
+     would not represent the same state. For example, a measurement operator with
+     |1⟩ + z |2⟩ as a non-degenerate eigenstate with eigenvalue λ would have probability
+     1 of measuring the outcome λ when applied to |1⟩+z |2⟩, but would have probability
+     < 1 of measuring the outcome λ when applied to |1⟩ + z ′ |2⟩.
+(iii) In this limit, |1⟩ + z |2⟩ becomes closer and closer to simply z |2⟩, so one can think
+      of that limit as one that brings us to the state represented by vectors proportional
+      to |2⟩.
+(iv) Parts (ii)–(iii) yield a mapping from the extended complex plane to physically in-
+     equivalent states, given by z → |1⟩ + z |2⟩ for z ∈ C and ∞ → |2⟩. This mapping is
+     bijective (noting that two states are distinct if and only if their state vectors are not
+     scalar multiples of each other), and so the set of states is in bijective correspondence
+     with the extended complex plane C ∪ {∞}. The latter is topologically equivalent
+     (‘homeomorphic’) to a two-dimensional sphere, sometimes known as a Bloch sphere.
+
+
+Question 3 [Commutators ]:
+ (i) Using the definition of the adjoint, show that (iAB)† = −iB† A† . Hence or other-
+     wise, show that i[A, B] is self-adjoint if A and B are self-adjoint operators.
+ (ii) Using the commutation relation [x, p] = iℏ, show that
+
+                                       eiap/ℏ x e−iap/ℏ = x + a.                             (10)
+
+     Hint: Since eiap/ℏ e−iap/ℏ = I (why?), first show that eiap/ℏ x = (x + a) eiap/ℏ .
+(iii) If f (x) is any function that can be expanded in a power series, deduce that
+
+                                   eiap/ℏ f (x) e−iap/ℏ = f (x + a).                         (11)
+
+     With this, obtain Weyl’s form of the commutation relations,
+
+                                   eiap/ℏ eibx/ℏ = eiba/ℏ eibx/ℏ eiap/ℏ .                    (12)
+
+Solution:
+ (i) By the definition of the adjoint, we have ⟨(iAB)† f |g⟩ = ⟨f |iABg⟩ for all f, g ∈ H.
+     Using sesquilinearity of the inner product and applying the definitions of the adjoints
+     of A and B, we further simplify this to
+
+            ⟨f |iABg⟩ = i⟨f |ABg⟩ = i⟨A† f |Bg⟩ = i⟨B† A† f |g⟩ = ⟨−iB† A† f |g⟩.          (S.22)
+     Since this holds for all f, g ∈ H, we conclude that (iAB)† = −iB† A† .
+     In turn, this implies that if A and B are self-adjoint, then
+
+         (i[A, B])† = (iAB − iBA)† = −iB† A† + iA† B† = −iBA + iAB = i[A, B].
+                                                                           (S.23)
+
+(ii) We first note that by the commutation relations, we have px = xp − iℏ and thus for
+     any positive integer n,
+
+                                 pn x = pn−1 xp − iℏpn−1                              (S.24)
+                                        = pn−2 (xp − iℏ) p − iℏpn−1                   (S.25)
+                                        = pn−2 xp2 − 2iℏpn−1                          (S.26)
+                                     ..
+                                      .                                               (S.27)
+                                        = xpn − niℏpn−1 .                             (S.28)
+
+     We therefore have
+                             ∞      n      !
+                             X 1 iap
+           eiap/ℏ x =   I+                    x                                       (S.29)
+                          n=1
+                                n!    ℏ
+                          ∞        n
+                          X    1 ia
+                                          xpn − niℏpn−1
+                                                          
+                   =x+                                                                (S.30)
+                               n! ℏ
+                     " n=1 ∞                 # "∞                            #
+                              X 1  iap n         X        1
+                                                                  n
+                                                                   ia
+                   = x+x                       −                      iℏpn−1          (S.31)
+                              n=1
+                                  n!    ℏ          n=1
+                                                        (n − 1)! ℏ
+                                  "X      ∞                 n−1 #
+                                   ia             1        iap
+                   = x eiap/ℏ −        iℏ                                             (S.32)
+                                   ℏ       n=1
+                                               (n − 1)!     ℏ
+                                  " ∞               #
+                                    X 1 iap m
+                                                
+                   = x eiap/ℏ + a                                                     (S.33)
+                                    m=0
+                                        m!    ℏ
+                   = x eiap/ℏ + a eiap/ℏ .                                            (S.34)
+
+      Therefore, we have shown that eiap/ℏ x = (x + a) eiap/ℏ . To finish, we note that since
+      iap/ℏ and −iap/ℏ commute, we have eiap/ℏ e−iap/ℏ = eiap/ℏ−iap/ℏ = I. (Alternatively:
+      working in the momentum representation, the operator p simply has the effect of
+      multiplication by a scalar and hence eiap/ℏ e−iap/ℏ = I clearly holds.) Multiplying
+      both sides of eiap/ℏ x = (x + a) eiap/ℏ from the right by e−iap/ℏ hence yields the
+      desired result.
+                                                                     n
+(iii) We note that since eiap/ℏ e−iap/ℏ = I, we have eiap/ℏ xe−iap/ℏ = eiap/ℏ xn e−iap/ℏ for
+      any nonnegative integer n. Expanding f (x) in a power series and using our result
+from (ii), we hence find
+                                                  ∞
+                                                                      !
+                                                  X f (n) (0)
+                  eiap/ℏ f (x) e−iap/ℏ = eiap/ℏ                  xn       e−iap/ℏ   (S.35)
+                                                   n=0
+                                                           n!
+                                          ∞
+                                          X f (n) (0)
+                                                          eiap/ℏ xn e−iap/ℏ
+                                                                              
+                                      =                                             (S.36)
+                                           n=0
+                                                  n!
+                                          ∞
+                                          X f (n) (0)                       n
+                                      =                   eiap/ℏ xe−iap/ℏ           (S.37)
+                                           n=0
+                                                  n!
+                                          ∞
+                                          X f (n) (0)
+                                      =                  (x + a)n                   (S.38)
+                                           n=0
+                                                  n!
+                                      = f (x + a).                                  (S.39)
+
+Therefore, by choosing f (x) = eibx/ℏ , we obtain
+
+                                 eiap/ℏ eibx/ℏ e−iap/ℏ = eib(x+a)/ℏ                 (S.40)
+                                   iap/ℏ ibx/ℏ     ib(x+a)/ℏ iap/ℏ
+                            =⇒ e       e         =e          e        .             (S.41)
+
+Since a is simply a number, it commutes with x, and therefore eib(x+a)/ℏ = eibx/ℏ eiba/ℏ .
+This gives the desired result.
+

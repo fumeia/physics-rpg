@@ -1,0 +1,514 @@
+                                Astrophysics I                                  HS 2024
+                                402-0263-00L                           Prof. A. Refregier
+                                                                        29 January 2025
+                                 Final Exam
+
+Full Name:
+Legi Number:
+
+                            Exam Instructions
+   • Write your full name and Legi number on the top of this sheet and every
+     sheet turned in.
+   • Short notes allowed: maximum 4 A4 pages (4 sheets 1-sided or 2 sheets 2-
+     sided)
+   • A non-programmable calculator is allowed, all other electronic devices are not
+     permitted and must be in a closed bag.
+   • Pens (blue or black ink) or pencils are allowed, no red or green ink is permit-
+     ted. Tipp-ex may be used.
+   • Clearly fill the box corresponding to your selection for multiple choice.
+   • Dictionaries (English, German, French, Italian) are permitted.
+   • No other books allowed.
+   • Write down intermediate steps for the non-multiple choice questions
+   • Keep page margins free for grading purposes.
+   • Clearly indicate the question number you are working on in all written work.
+   • Multiple choice questions have only one correct answer.
+ Table 1: Physical Constants and Useful Quantities in SI Units
+Quantity                Symbol Value (SI Units)
+Gravitational constant G          6.67430 × 10−11 m3 kg−1 s−2
+Boltzmann constant      kB        1.380649 × 10−23 J K−1
+Planck’s constant       h         6.62607015 × 10−34 J s
+Speed of light          c         2.99792458 × 108 m s−1
+Proton mass             mp        1.67262192369 × 10−27 kg
+Solar mass              M⊙        1.9884 × 1030 kg
+Solar radius            R⊙        6.9570 × 108 m
+Parsec                  pc        3.085677581 × 1016 m
+1   Multiple Choice (45 points)
+Mark only one correct answer for each question.
+
+1. (3 points) In good conditions, one can observe stars with the naked eye at apparent
+   magnitudes less than m = 6.5. Out to what distance from us would a star of absolute
+   magnitude M = 4 be observable unaided? Assume no absorption along the line-of-sight.
+         □ ∼10 pc
+         ■ ∼30 pc
+         □ ∼50 pc
+         □ ∼100 pc
+
+
+    Solution: Neglecting extinction, the distance modulus is:
+                                                       
+                                                    d
+                               m − M = 5 log10            .
+                                                  10 pc
+
+    Then with m < 6.5 and M = 4,
+                                             
+                                          d
+                          4 + 5 log10           < 6.5
+                                        10 pc
+                                             
+                                          d
+                                log10           < 0.5
+                                        10 pc
+                                             d < 103/2 pc ≈ 30 pc.
+
+
+
+2. (3 points) Consider two stars, S1 and S2 with B-V colors of 0.5 and 1.0 respectively.
+   Which of the following statements has to be true about these stars over the range of
+   wavelengths these bands cover? Note that the B band is bluer than the V band.
+         ■ S1 emits more short wavelength light than S2.
+         □ S2 emits more short wavelength light than S1.
+         □ S1 must be brighter than S2.
+         □ S2 must be more distant than S1.
+
+
+    Solution: S1 has a smaller B-V color, implying it is relatively brighter in the B band
+    than the V band. Since the B band is bluer than the V band, S1 emits more short
+    wavelength light than S2. Distance and brightness differences cannot be inferred by
+    difference in colors alone.
+3. (3 points) A system of size L with collisional mean free path l can be said to be in
+   local thermal equilibrium through collisions but not in global thermal equilibrium if
+   macroscopic thermodynamic variables (e.g. T and P ) are
+         □ constant and l ≫ L.
+         □ constant and l ≪ L.
+         □ depend on time and/or location and l ≫ L.
+         ■ depend on time and/or location and l ≪ L.
+
+
+    Solution: For collisional local equilibrium in a system to hold, it is sufficient for
+    the mean free path of particles l ≪ L. This can occur in the absence of global
+    equilibrium when macroscopic variables such as systems temperature and pressure
+    can vary in time and position.
+
+
+4. (3 points) For radiative transfer through matter with constant properties and optical
+   depth τν , the relationship between the intensity Iν and the source function Sν is
+         ■ Iν ≃ Sν if optically thick, Iν ≃ Sν τν if optically thin.
+         □ Iν ≃ Sν if optically thin, Iν ≃ Sν τν if optically thick.
+         □ Iν ≃ Sν in all cases.
+         □ Iν ≃ Sν e−τν in all cases.
+
+
+    Solution: In matter with constant properties,
+
+                                Iν (τν ) = Sν 1 − e−τν .
+                                                     
+
+
+    In the optically thick limit (τν ≫ 1),
+
+                                             Iν ≃ Sν .
+
+    In the optically thin limit (τν ≪ 1),
+
+                                    e−τν ≃ 1 − τν + O(τν2 )
+                                      Iν ≃ Sν τν .
+5. (3 points) In a typical trajectory along the Hertzsprung–Russell diagram, when a star
+   leaves the main sequence and transitions to a red giant it will become
+         □ less massive with higher effective surface temperature.
+         □ lower in effective surface temperature and less luminous.
+         ■ lower in effective surface temperature and more luminous.
+         □ lower in effective surface temperature and smaller in size.
+
+
+    Solution: When becoming a red giant, a star will traverse from the main sequence
+    up (higher Luminosity) and to the right (lower temperature) in the HR diagram.
+    Additionally, the stellar envelope expands significantly.
+
+
+6. (3 points) Reactions in the sun emit electron neutrinos, νe , at a rate that can be pre-
+   dicted through solar models. Observations of the Sun suggest that neutrinos oscillate
+   between flavours (indicating they have mass) because we detect
+         □ no neutrinos at all.
+         ■ one third the solar model predicted amount of νe .
+         □ three times the solar model predicted amount of νe .
+         □ only muon neutrinos, νµ , and tau neutrinos, ντ .
+
+
+    Solution: We observe 13 of the expected electron neutrino flux. Due to neutrino
+    oscillations, the νe emitted from the sun can change flavour (to νµ or ντ ) before
+    being observed on Earth.
+
+
+7. (3 points) As a main sequence star, the sun primarily generates energy through which
+   process?
+         □ Nuclear fusion of Helium into Carbon.
+         □ Nuclear fission of heavy elements.
+         ■ Nuclear fusion of Hydrogen into Helium.
+         □ Gravitational contraction.
+
+
+    Solution: Main sequence stars like the sun primarily generate energy through fusing
+    Hydrogen into Helium.
+
+
+8. (3 points) In the interstellar medium, Molecular clouds are
+         □ regions of ionized hydrogen.
+         □ hot diffuse regions which are the birth place of stars.
+         ■ cool dense regions which are the birth place of stars.
+         □ regions where stars are not able to form.
+
+
+    Solution: Molecular clouds are cool, dense regions of the interstellar medium (ISM)
+    containing molecules and which are the birth place of stars
+
+
+9. (3 points) The ‘curve of growth’ describes the relation between
+         ■ the equivalent width of a spectral line and the column density.
+         □ the amplitude of density perturbations and time.
+         □ the Einstein coefficients and the energy difference of a 2-level system.
+         □ the luminosity of an AGN and the mass of its supermassive black hole.
+
+
+    Solution: The ‘curve of growth’ describes the relation between the equivalent width
+    of a spectral absorption line and the column density of the absorbing gas.
+10. (3 points) For a self-gravitating system in steady state, the virial theorem holds, relating
+    the time averaged kinetic energy K̄ and V̄ . In this case, which expression for the total
+    energy holds?
+           □ Ē = 2K̄
+           □ Ē = 21 K̄
+           □ Ē = 2V̄
+           ■ Ē = 21 V̄
+
+
+      Solution: The virial theorem states, 2K̄ + V̄ = 0, with Ē = K̄ + V̄ , we have,
+      Ē = 12 V̄ .
+
+
+11. (3 points) Self-gravitating stellar dynamical systems such as galaxies and globular clus-
+    ters
+           □ relax via collisions to thermal equilibrium.
+           □ relax via collisions but not to thermal equilibrium.
+           □ relax via processes other than collisions to thermal equilibrium.
+           ■ relax via processes other than collisions but not to thermal equilibrium.
+
+
+      Solution: Self gravitating systems found in astrophysics such as galaxies and glob-
+      ular clusters relax to a state which is not thermal equilibrium, via processes other
+      than collisions which are inefficient in this case.
+
+
+12. (3 points) Consider a galaxy cluster whose ionized intracluster medium (ICM) has an
+    approximately constant temperature and metallicity but a spatially varying gas density,
+    ρgas . Observations of its emission in the X-ray band through thermal bremsstrahlung
+           ■ are more concentrated in high density regions due to the ρ2gas dependence of
+             this emission.
+           □ are linearly proportional to the density distribution of the ICM.
+           □ are more concentrated in low density regions due to the ρ−2
+                                                                      gas dependence of
+             this emission.
+           □ depend only on the gas temperature and are independent of density.
+
+
+      Solution: With all other variables constant, the emission from thermal bremsstrahlung
+      is ∝ ne np ∝ ρ2gas . Therefore, the X-ray emission from this process is more concen-
+      trated in high density regions of the cluster.
+13. (3 points) A galaxy cluster refers to a gravitationally bound system typically made up
+    of
+          □ 2 galaxies.
+          ■ ≳ 100 galaxies.
+          □ 5 − 10 galaxies.
+          □ only galaxies above masses of 1013 M⊙
+
+
+     Solution: Galaxy clusters typically comprise over 100 (and up to ∼1000) galaxies
+     gravitationally bound within a halo of mass ∼ 1015 M⊙ .
+14. (3 points) In the history of our universe, different contributions to the overall energy
+    density dominate the dynamics of the expansion in different epochs. In our universe:
+           ■ Radiation dominates over matter at early times, then matter dominates over
+             radiation at late times.
+           □ Matter dominates over radiation at early times, then radiation dominates over
+             matter at late times.
+           □ Radiation always dominates over matter.
+           □ Matter always dominates over radiation.
+
+
+     Solution: In the history of our universe, at early times before matter-radiation
+     equality (∼50,000 years after the big bang), radiation dominated over matter. Since
+     then, matter has dominated over radiation (and dark energy has become relevant
+     at very late times). This is due to the fact that the energy density of radiation,
+     ρR ∝ a−4 and that of matter, ρM ∝ a−3 .
+
+
+15. (3 points) In a homogeneous and isotropic universe, the energy density of radiation (or
+    other relativistic particles), ρR is related to the scale factor a by the relation,
+           □ ρR ∝ a−3 .
+           □ ρR ∝ a−2 .
+           ■ ρR ∝ a−4 .
+           □ ρR ∼ constant.
+
+
+     Solution: Relativistic particles like photons are both diluted (n ∝ a−3 ) and red-
+     shifted (ϵ ∝ a−1 ) by the universe’s expansion, so their energy density ρR ∝ nϵ ∝ a−4 .
+2    Open Questions (68 points)
+1. (12 points) Consider a hypothetical star of radius R with density ρ that is constant,
+   independent of radial distance r from the centre. The star is composed of a classical,
+   non-relativistic, ideal gas of fully ionized hydrogen.
+    (a) (4 points) Using the hydrostatic equilibrium equation with the boundary condition
+        P (R) = 0, show that the pressure profile is P (r) = 2π
+                                                              3
+                                                                Gρ2 (R2 − r2 ). Hint: integrate
+        from r to R.
+    (b) (4 points) Using the equation of state, find the temperature profile T (r).
+    (c) (4 points) Assume that the nuclear energy production rate depends on temperature
+        as ϵ ∝ T 4 . At what radius does ϵ decrease to 0.1 of its central value?
+
+     Solution:
+      (a) The hydrostatic equilibrium equation gives
+                                 dP    GMr ρ      GMr ρ
+                                    = − 2 ⇒ dP = − 2 dr
+                                 dr     r          r
+          For a constant density ρ, the enclosed mass is Mr = 4π3
+                                                                  r3 ρ so that
+                                   Z P (R)         Z R
+                                             ′         GMr′ ρ ′
+                                           dP = −            dr
+                                    P (r)           r    r′2
+                                          4π 2 R ′ ′         4π 2 R2 r2
+                                                Z                               
+                   ⇒ P (R) − P (r) = − Gρ           r dr = − Gρ            −
+                                           3     r            3          2     2
+          Using the boundary condition P (R) = 0, we get
+                                                   2π 2 2
+                                         P (r) =      Gρ (R − r2 )
+                                                    3
+     (b) The equation of state for a fully ionized ideal gas composed of hydrogen is
+                                                     2ρ
+                                              P =       kB T
+                                                     mH
+          where mH is the hydrogen mass. Using the result from (a) we get
+                                          mH          π mH Gρ 2
+                               T (r) =        P (r) =        (R − r2 )
+                                         2ρkB         3 kB
+
+      (c) Using the fact that the energy production rate ϵ(r) ∝ T 4 (r) and the results
+          from (b), we get
+                                             4       r 2 4                   12
+                           T 4 (r)
+                                      2
+                   ϵ(r)               R − r2                       r          1
+              α≡        = 4        =           = 1−             ⇒     = 1−α    4
+                   ϵ(0)    T (0)        R2              R         R
+          For α = 0.1 we get r ≃ 0.66R.
+2. (6 points) Sketch a rough diagram of the binding energy per nucleon against atomic
+   number, labelling the locations of H, He and Fe. Indicate on your diagram the general
+   types of nuclear reactions and the region that is important for nuclear energy generation
+   in stars.
+
+
+    Solution: A graph of the binding energy vs. atomic number indicating a few el-
+    ements is shown in Figure 4.1 in the textbook (Choudhuri, 2010, Astrophysics for
+    Physicists, Cambridge). Nuclear energy can be released by two types of processes:
+
+        • Fusion of 2 light nuclei into heavier one (low atomic number part of the plot,
+          less massive that 56 Fe).
+
+        • Fission of very heavy nuclei into lighter ones (high atomic number part of the
+          graph, more massive that 56 Fe).
+
+    In stars, the nuclear energy production arises from the fusion process (PP Chain and
+    CNO cycle). These occur on the left part of the plot.
+3. (12 points) Suppose that, in our region of the galaxy, the number density n(L) of stars
+   with a particular luminosity L, is independent of position.
+   (a) (6 points) Show that the number of stars with luminosity L observed to have a flux
+                                                                     −3
+       greater than some flux F0 obeys N (F > F0 ) ∝ F0 2
+       Hint: N (F > F0 ) is proportional to the volume of the sphere centered on us, with
+       a radius at which the flux from a star with luminosity L is F0 . Use the relation
+       between luminosity, flux and distance.
+   (b) (4 points) Explain why the same behavior will occur if the stars have a distribution
+       of luminosities.
+   (c) (2 points) If we observed that the number N (F > F0 ) does not grow with decreas-
+       ing F0 according to the relation in (a), what could be the reason?
+
+
+    Solution:
+                                                                                 L
+     (a) A star with luminosity L at a distance r from us has a flux F = 4πr       2 . The
+                                                                       12
+                                                                   L
+         distance at which a star has a flux F0 is therefore r0 = 4πF0
+                                                                            . The number
+         of stars with fluxes F > F0 is equal to the number of stars with luminosity L
+         within a sphere of radius r0 which is given by
+                                                                                 32
+                                        4           4                      L               −3
+                      N (F > F0 ) = n(L) πr03 = n(L) π                                  ∝ F0 2
+                                        3           3                     4πF0
+
+     (b) If there is a distribution of luminosities, the number density of stars with lu-
+         minosities between L and L + dL is dn(L)dL
+                                                     dL. The number of stars with fluxes
+         F > F0 is then
+                              Z                             23            Z
+                                     dn(L) 4          L               −3             dn(L) 3     −3
+              N (F > F0 ) =       dL         π                     ∝ F0 2       dL        L 2 ∝ F0 2
+                                      dL 3           4πF0                             dL
+
+         This could also be directly argued based on the luminosity independence without
+         being as explicit as the above derivation.
+                                            −3
+     (c) N (F > F0 ) would not scale as F0 2 if the number density n(L) were not indepen-
+         dent of position. For instance, this would be the case if we could observe stars
+         towards the edge of the galaxy. Other possibilities include extinction/absorption
+         and other observational or instrumental effects.
+4. (12 points) Let us build a simple model of a spherically symmetric galaxy. Assume that
+   a point mass (a black hole) of mass M0 = 4 × 106 M⊙ is located at the center of the
+   galaxy (r = 0) and that the remainder of the mass has a density profile that decays as
+   r−2 , where r is the radial distance from the galaxy center.
+   (a) (4 points) Show that the enclosed mass within a spherical region of radius r can be
+       expressed as
+                                        Mr = kr + M0 ,
+       where k is a constant to be determined later.
+   (b) (4 points) Assuming circular motion and Newtonian gravity, show that the orbital
+       velocity of a star at radius r is given by
+                                                   12
+                                                 M0
+                                         v= G k+
+                                                 r
+
+   (c) (4 points) If the orbital velocity is 110 km s−1 at 2 pc, determine the value of k in
+       units of M⊙ pc−1 .
+
+
+    Solution:
+     (a) The mass Mr interior to a radius r is equal to the mass M0 at r = 0 plus the
+         smooth mass Mrs within r > 0, i.e.
+
+                                             Mr = M0 + Mrs
+
+         Since the density of the smooth mass scales as ρs (r) ∝ r−2 ,
+                                       Z r               Z r
+                                                ′ ′2  ′
+                                 s
+                              Mr = 4π      ρs (r )r dr ∝     dr′ ∝ r
+                                             0               0
+
+         Letting Mrs = kr, we get Mr = kr + M0
+
+     (b) The orbital velocity for circular motion at radius r is
+                                 12                 21       12
+                         GMr              G                    M0
+                      v=                =   (kr + M0 ) = G k +
+                          r               r                    r
+
+     (c) Solving for k in the result of (b) we get
+
+             v 2 M0           (110 km s−1 )2        4 × 106 M⊙            20 kg         6 M⊙
+         k≃     −      ≃                   −1     −            ≃ 1.81 × 10      − 2 × 10
+             G      r    6.67 × 10−11 m3 kg s−2        2pc                   m            pc
+                                     M⊙             M⊙
+           ≃ (2.82 × 106 − 2 × 106 )    ≃ 8.2 × 105
+                                     pc             pc
+5. (6 points) Briefly explain three differences in the properties of spiral and elliptical galax-
+   ies, describing how each property is exhibited in both types of galaxies.
+
+
+     Solution: Differences between spiral and elliptical galaxies include (only 3 needed):
+
+        • Morphology: ellipticals have smooth elliptical shapes, spirals have disks with
+          spiral arms and a bulge and sometimes a bar
+
+        • Internal dynamics: ellipticals are supported by random motion, while the disk
+          of spirals is supported by circular motion
+
+        • Color: Elliptical are redder, while spirals are bluer
+
+        • Stellar population: ellipticals have little star formation and thus have old stel-
+          lar populations, while spirals have active star formation and a young stellar
+          populations
+
+        • Gas content: Ellipticals have little cold gas, while spirals has high quantities
+          of cold gas
+
+        • Clustering: Ellipticals are more clustered (higher bias), than spirals (lower
+          bias)
+
+        • Environment: ellipticals are more abundant in galaxy clusters, while spirals
+          are more abundant in the field (low density regions)
+
+     Other differences include surface brightness distribution, intensity profiles and lumi-
+     nosity functions.
+6. (8 points) Quasars are often observed to exhibit variability with typical timescales on
+   the order of a few days.
+   (a) (4 points) Assuming variability of a quasar is observed on a characteristic timescale
+       of 3 days, obtain an approximate limit on the length scale of the region responsible
+       for this emission. How does this length scale compare to the typical size of a galaxy
+       like the Milky Way?
+   (b) (4 points) From the result of question (a), derive an approximate upper limit for the
+       mass of the supermassive black hole which powers the AGN. Express your answer in
+       solar masses. Hint: Relate D (the solution to part (a)) to the Schwarzchild radius.
+
+
+    Solution:
+     (a) Given a typical timescale of variability on the order of 3 days, we infer a limit
+         on the length scale D of the source of emission:
+
+          D ≲ c · 3 days ≃ 299792 km s−1 · 3 · 86400 s ≃ 7.8 × 1010 km ≃ 2.5 × 10−3 pc.
+
+         This is much smaller than the scale of a typical galaxy like the Milky Way of
+         ∼ 10 kpc.
+
+     (b) Assuming a black hole of mass M with Schwarzchild radius given by
+
+                                                   2GM
+                                            rs =
+                                                    c2
+         We must have
+                        Dc2   7.8 × 1010 km · c2
+           rs ≲ D ⇒ M ≲     ≈                    ≈ 5.3 × 1040 kg ≈ 2.6 × 1010 M⊙
+                        2G           2G
+7. (12 points) For a matter-dominated closed universe, the solution of the Friedmann equa-
+   tion for the scale factor a as a function of time t is
+                                   a        ΩM,0
+                                      =              (1 − cos η)
+                                   a0   2(ΩM,0 − 1)
+                                            ΩM,0
+                                 H0 t =             3 (η − sin η)
+                                        2(ΩM,0 − 1) 2
+  where a0 , ΩM,0 and H0 is the scale factor, the matter density parameter and the Hubble
+  parameter today, respectively, and η is the conformal time.
+   (a) (4 points) Describe in words the evolution of the closed universe. Sketch a vs t
+       approximately on a graph. On the graph, mark the Big Bang, turnaround, and
+       Big Crunch (singularity after contraction), and give the corresponding values of the
+       conformal time η.
+   (b) (4 points) Derive an expression for the total lifetime tuniv of the closed universe,
+       that is the time interval between the Big Bang and the Big Crunch in terms of H0
+       and ΩM,0 .
+   (c) (4 points) Assume that the universe is closed and that the universe is expanding
+       today. Derive an upper limit for the value that the current Hubble parameter H0
+       can have using the fact that the current age of the Sun is t⊙ . Write this limit in
+       terms of ΩM,0 and t⊙ .
+
+    Solution:
+     (a) The evolution of the scale factor a(t) as a function of t for a closed universe is
+         shown in the k = +1 curve in Figure 10.5 in the textbook (Choudhuri, 2010,
+         Astrophysics for Physicists, Cambridge). The universe starts at the Big Bang
+         (a = 0 at η = 0), expands (a increases), turns around (a reaches maximum at
+         η = π), contracts (a decreases) until the Big Crunch (a = 0 at η = 2π).
+
+     (b) The lifetime of the closed universe is
+                                         ΩM,0                                             ΩM,0
+           tuniv = tBC − tBB = H0−1                  3   (2π − sin 2π) − 0 = πH0−1               3
+                                      2(ΩM,0 − 1)    2                               (ΩM,0 − 1) 2
+
+     (c) The turnaround time (η = π) is
+                                    ΩM,0                                     ΩM,0
+                    tta = H0−1                 3   (π − sin π) = πH0−1                3
+                                 2(ΩM,0 − 1)   2                         2(ΩM,0 − 1) 2
+         Since the universe is still expanding today, the age of the sun must be smaller
+         than the turnaround time, so that
+                                                          π    ΩM,0
+                                  t⊙ < tta ⇒ H0 <
+                                                         t⊙ 2(ΩM,0 − 1) 32
+

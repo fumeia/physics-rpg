@@ -1,0 +1,902 @@
+                            Astrophysics I                                      HS 2025
+                             402-0263-00L                              Prof. A. Refregier
+                                                                        February 4, 2026
+                           Winter Final Exam
+
+Full Name:
+Legi Number:
+
+                            Exam Instructions
+   • Write your full name and Legi number on the top of this sheet and every
+     sheet turned in.
+   • Short notes allowed: maximum 4 A4 pages (4 sheets 1-sided or 2 sheets 2-
+     sided)
+   • A non-programmable calculator is allowed, all other electronic devices are not
+     permitted and must be in a closed bag.
+   • Pens (blue or black ink) or pencils are allowed, no red or green ink is permit-
+     ted. Tipp-ex may be used.
+   • Clearly fill the box corresponding to your selection for multiple choice.
+   • Dictionaries (English, German, French, Italian) are permitted.
+   • No other books allowed.
+   • Multiple choice questions have only one correct answer.
+   • Write down intermediate steps for the non-multiple choice questions.
+   • Keep page margins free for grading purposes.
+   • Clearly indicate the question number you are working on in all written work.
+ Table 1: Physical Constants and Useful Quantities in SI Units
+Quantity                Symbol Value (SI Units)
+Gravitational constant G          6.67430 × 10−11 m3 kg−1 s−2
+Boltzmann constant      kB        1.380649 × 10−23 J K−1
+Planck’s constant       h         6.62607015 × 10−34 J s
+Speed of light          c         2.99792458 × 108 m s−1
+Proton mass             mp        1.67262192369 × 10−27 kg
+Solar mass              M⊙        1.9884 × 1030 kg
+Solar radius            R⊙        6.9570 × 108 m
+Parsec                  pc        3.085677581 × 1016 m
+Jansky                  Jy        1 × 10−26 W m−2 Hz−1
+Thomson cross section σT          6.652 458 × 10−29 m2
+1   Multiple Choice (45 points)
+Mark only one correct answer for each question.
+
+1. (3 points) Two stars have apparent magnitudes of m1 = 9.0 and m2 = 13.0. What is
+   the ratio of their fluxes?
+         □ F1 /F2 ≈ 5
+         □ F1 /F2 ≈ 15
+         □ F1 /F2 ≈ 20
+         ■ F1 /F2 ≈ 40
+
+
+    Solution: F1 /F2 = 100.4·(m2 −m1 ) = 100.4·4 = 39.811 ≈ 40
+
+
+2. (3 points) Barnard’s Star has a Parallax of 547 milliarcseconds. How far away is it?
+         ■ 1.8 pc
+         □ 18 pc
+         □ 180 pc
+         □ 1800 pc
+
+
+    Solution: d = 1/p if d has units of pc and p arcseconds. Realising that 1/0.5 ≈ 2
+    is enough to find the correct solution.
+
+
+3. (3 points) In empty space, the specific intensity along a ray path remains constant be-
+   cause:
+         □ The energy density of radiation is conserved along the ray.
+         ■ Both the received flux and the solid angle occupied by the source decrease as
+           the inverse square of distance.
+         □ The radiation field is isotropic in empty space.
+         □ The flux of the radiation is zero when averaged over all directions.
+
+
+    Solution: Since both the received intensity and the corresponding solid angle scale
+    in the same way with distance, their ratio (which defines the specific intensity) re-
+    mains unchanged. Therefore, along a ray path in empty space (i.e. in the absence of
+    absorption and emission), the specific intensity is conserved.
+4. (3 points) According to the Stefan-Boltzmann law, how does the total energy density U
+   of black body radiation in thermal equilibrium depend on its temperature T?
+         □ U ∝T
+         □ U ∝ T2
+         □ U ∝ T −1
+         ■ U ∝ T4
+
+
+    Solution: The spectral energy density Uν of black body radiation is given by the
+    Planck distribution. Integrating this distribution over all frequencies yields the total
+    energy density U :                  Z     ∞
+                                   U=             Uν dν = aB T 4
+                                          0
+    where aB is defined as:
+                                               8π 5 kB
+                                                     4
+                                         aB =
+                                               15c3 h3
+    Thus, the total energy density is proportional to the fourth power of the temperature
+    (U ∝ T 4 ). This result is known as the Stefan-Boltzmann law.
+
+
+5. (3 points) Two main sequence stars differ in mass by a factor of 4. Approximately how
+   much longer does the lower-mass star live compared to the higher-mass star?
+         □ 4
+         □ 8
+         ■ 16
+         □ 64
+
+
+    Solution: The lifetime of a star can be estimated as the total available nuclear
+    energy divided by the luminosity. It scales as τ ∝ M −2 . If the masses differ by a
+    factor of 4, the ratio of lifetimes is
+                                                  −2
+                                   τlow      Mlow
+                                        =              = 42 = 16.
+                                  τhigh      Mhigh
+6. (3 points) The upper mass limit of stars on the main sequence is due to
+         □ The small optical depth of the material in the stellar interior.
+         □ The depletion of hydrogen in the stellar core.
+         □ Cosmic Rays in the environment of the star.
+         ■ The outward pressure exerted by radiation overcoming the inward pull of grav-
+           ity.
+
+
+    Solution: The mass upper limit of stars in the main sequence is due to the Edding-
+    ton luminosity limit beyond which radiation pressure overcomes the inward pull of
+    gravity.
+
+
+7. (3 points) The 21 cm spectral line is one of the most important tools for mapping the
+   structure of the Milky Way. What is the physical origin of this emission line?
+         □ The recombination of an electron with a proton in ionized Hydrogen regions.
+         □ Rotational transitions of Carbon monoxide molecules in dense clouds.
+         ■ The hyperfine splitting of the ground state of neutral Hydrogen.
+         □ Synchrotron radiation emitted by cosmic rays spiralling in the Galactic mag-
+           netic field.
+
+
+    Solution: The 21 cm line originates from the hyperfine splitting of the ground state
+    of neutral hydrogen (HI). In the ground state of a hydrogen atom, the magnetic
+    moments of the proton and the electron can be either aligned (parallel) or anti-
+    aligned (anti-parallel). The energy difference between these two states is very small
+    (∆E ≈ 5.9 × 10−6 eV). When the electron flips from the higher energy state (aligned
+    spins) to the lower energy state (anti-aligned spins), a photon with a wavelength of
+    21 cm (frequency ν ≈ 1420 MHz) is emitted.
+
+
+8. (3 points) Stars in the Milky Way and similar galaxies are broadly categorized into
+   two populations based on their age, location, and chemical composition. Which of the
+   following statements best describes Population II stars?
+         □ They are young, metal-rich stars located primarily in the galactic disk.
+         ■ They are old, metal-poor stars located primarily in the galactic halo and bulge.
+         □ They are stars currently forming within dense molecular clouds in the spiral
+           arms.
+         □ They are exclusively white dwarfs.
+    Solution: Milky Way-like galaxies contain two main stellar populations:
+
+        • Population I: These are young, bright, and metal-rich stars found in the disk.
+          They are continuously formed from interstellar gas that has been enriched with
+          metals by previous generations of stars.
+
+        • Population II: These are old, metal-poor stars found in the halo and bulge.
+          They were formed early in the galaxy’s history, before the interstellar gas was
+          significantly enriched with metals.
+
+
+9. (3 points) In the context of stellar dynamics, galaxies (with N ≈ 1011 stars) are often
+   described as collisionless systems. What is the primary physical reason for this classifi-
+   cation?
+          □ The physical radius of stars is large enough compared to the distance between
+            stars that close encounters are frequent.
+          ■ The time required for gravitational encounters to significantly change the star’s
+            velocities is much longer than the age of the Universe.
+          □ The dark matter halo suppresses the random motions of stars, preventing them
+            from interacting.
+          □ The stars all have coherent circular velocities and thus remain equidistant from
+            one another.
+
+
+    Solution: In stellar dynamics, a system is said to be collisionless if the gravitational
+    force acting on a star is determined by the smooth, mean potential of the entire
+    system rather than by individual collisions from nearby stars. The timescale for
+    these individual collisions to become significant is the relaxation time trelax . For a
+    galaxy with N ≈ 1011 stars, trelax is on the order of 1015 years, which is orders of
+    magnitude longer than the age of the Universe (∼ 1.4 × 1010 years). Therefore, stars
+    in a galaxy effectively never “feel” the graininess of the potential, and the system is
+    collisionless.
+10. (3 points) For a virialized stellar cluster made up of N identical stars of mass m and with
+    a cluster radius ⟨R⟩, which expression is the square velocity dispersion ⟨v 2 ⟩ proportional
+    to?
+           ■ N⟨R⟩
+                m
+
+           □ Nm
+              ⟨R⟩
+
+           □ N⟨R⟩
+                m
+              m
+           □ ⟨R⟩ 2
+
+
+
+
+      Solution: We can apply the virial theorem 2T̄ + V̄ to this system with T̄ = 21 N m⟨v 2 ⟩
+      and V̄ = − N (N2−1) Gm
+                             2
+                          ⟨R⟩
+                               , where N (N2−1) accounts for all pairs of stars. For large N , the
+      resulting equation yields ⟨v 2 ⟩ ∝ N⟨R⟩
+                                            m
+                                              .
+
+
+11. (3 points) Free relativistic electrons with an energy distribution N (E) ∝ E −2 in a region
+    of the interstellar medium with magnetic fields emit synchrotron radiation. What is the
+    spectrum f (ν) of the radiation emitted, where ν is the photon frequency?
+                          1
+           ■ f (ν) ∝ ν − 2
+           □ f (ν) ∝ ν −1
+                          3
+           □ f (ν) ∝ ν − 2
+           □ f (ν) ∝ ν −2
+
+
+      Solution: For relativistic electrons with an energy distribution N (E) ∝ E −p , the
+                                                 1−p                               1
+      synchrotron radiation spectrum is f (ν) ∝ ν 2 . Thus, for p = 2, f (ν) ∝ ν − 2 .
+
+
+12. (3 points) Measurements find that the rotation curves of spiral galaxies become asymp-
+    totically flat (vc ≈ constant) at large radii r. For the outer regions of these galaxies,
+    what does this imply for the mass Mr enclosed within a radius r?
+           □ Mr = constant
+                  √
+           □ Mr ∝ r
+           ■ Mr ∝ r
+           □ Mr ∝ r2
+
+
+      Solution: Equating the centripetal q
+                                         and gravitational forces acting on an object of
+                                                GMr
+      mass m, we find the relation vc =          r
+                                                    .   Therefore, a constant velocity implies
+      Mr ∝ r.
+13. (3 points) An astronomer observes a distant galaxy with a redshift of z = 0.024. Assum-
+    ing that the galaxy follows Hubble’s Law and taking the Hubble constant to be H0 = 72
+    km s−1 Mpc−1 , what is the approximate distance to this galaxy?
+          □ 10 Mpc
+          ■ 100 Mpc
+          □ 300 Mpc
+          □ 720 Mpc
+
+
+     Solution: Hubble’s Law states that the recession velocity v of a galaxy is propor-
+     tional to its distance d:
+                                        v = H0 d
+     For small redshifts (z ≪ 1), the recession velocity is related to the redshift by the
+     Doppler formula:
+                                           v ≈ cz
+     Combining these equations, we can solve for the distance d:
+                                                 cz
+                                            d=
+                                                 H0
+     Substituting the given values:
+
+                                   2.998 × 105 km s−1 × 0.024
+                                d=
+                                        72 km s−1 Mpc−1
+                                         d ≈ 100 Mpc
+
+
+14. (3 points) If we observe the 21 cm line at 700 MHz at which redshift was it emitted?
+          □ z ≈ 0.3
+          □ z ≈ 0.5
+          ■ z≈1
+          □ z≈2
+
+
+     Solution: We know that 1 + z = λλobs
+                                      em
+                                          , where λem = 21 cm. We use that λ = νc to
+                        8
+                     3·10 m/s
+     find for λobs = 700·106 Hz ≈ 43cm. Now lets plug into our equation for the redshift to
+                λobs
+     find: z = λem − 1 = 43cm
+                            21cm
+                                 − 1 ≈ 1.
+15. (3 points) If measurements indicate that the total density of the universe is greater
+    than the critical density (i.e., Ωtot = ρtot /ρcrit > 1), what is the spatial geometry of the
+    universe?
+           □ Flat (k = 0)
+           □ Open / Hyperbolic (k = −1)
+           ■ Closed / Spherical (k = +1)
+           □ Cylindrical
+
+
+      Solution: The geometry of the universe depends on the total energy density relative
+      to the critical density:
+
+         • If Ωtot = 1 (ρtot = ρcrit ), the universe is Flat (k = 0).
+
+         • If Ωtot < 1 (ρtot < ρcrit ), the universe is Open (k = −1).
+
+         • If Ωtot > 1 (ρtot > ρcrit ), the universe is Closed (k = +1).
+2    Open Questions (68 points)
+1. (6 points) The Sun has a radius R⊙ = 6.9570 × 108 m and an apparent magnitude seen
+   from 1 astronomical unit (1 AU =1.495 × 1011 m) away of m⊙ = −26.8.
+    (a) (3 points) The average human eye can resolve details in objects with an angular
+        diameter of 1 arcminute or larger. How far away from the Sun would an observer
+        need to be to no longer be able to resolve it with the naked eye? Express your
+        answer in AU. Hint: You can use the small angle approximation.
+    (b) (3 points) Under optimal conditions, the human eye can detect sources with an
+        apparent magnitude as faint as m ∼ 7. Use this information to determine the
+        distance at which a human would no longer be able to see the Sun with the naked
+        eye. Express your answer in parsecs.
+    Note: For both of these questions you can ignore the effect of the expansion of the
+    universe as well as the extinction due to the ISM.
+
+     Solution:
+      (a) Using the small angle approximation we obtain,
+
+                                         2R⊙
+                                      θ≃
+                                           d
+                                         2 · 6.9570 × 108 m
+                                      d≃
+                                               1 arcmin
+                                         2 · 6.9570 × 108 m
+                                       ≃          1 π
+                                                60 180
+                                       ≃ 4.8 × 1012 m
+                                       ≃ 32 AU.
+
+      (b) Making use of the flux ratio formula for apparent magnitudes and the fact that
+          flux scales as the inverse square of distance, we obtain
+                                                                 
+                                                              F
+                                     msun − 7 = 2.5 log10
+                                                             Fsun
+                                                            2 
+                                                             dsun
+                                               = 2.5 log10
+                                                              d2
+                                                                
+                                                           1 AU
+                                               = 5 log10
+                                                             d
+                                           
+                                         d          33.8
+                                               = 10 5
+                                       1 AU
+                                            d ≃ 5.8 × 106 AU
+                                               ≃ 28 pc.
+2. (10 points) In cosmological observations of fluctuations in the cosmic microwave back-
+   ground (CMB), thermal dust emission in our galaxy can act as a systematic foreground.
+   (a) (4 points) The specific intensity, Iν , of thermal emission of an optically thick ob-
+       ject depends only on its temperature T and is given by Bν (T ). Show that for all
+       frequencies, ν, this specific intensity increases as the temperature increases. Use,
+
+                                                  2h      ν3
+                                      Bν (T ) =                .
+                                                  c2 e khν
+                                                        BT − 1
+
+
+
+   (b) (4 points) The CMB is observed as a near perfect blackbody spectrum charac-
+       terised by a temperature of TCMB = 2.73 K. A typical CMB intensity fluctuation
+       is of amplitude 10−5 Bν (TCMB ). Thermally emitting dust in our galaxy is typically
+       observed with a temperature of Td =20 K. Assuming this dust emission was also
+       optically thick everywhere, show that, at ν = 100 GHz, the thermal dust emission
+       would be ∼ 1.8 × 106 times brighter than the magnitude of this CMB fluctuation.
+   (c) (2 points) There is in fact an observational window where the CMB fluctuations
+       are brighter than thermal dust emission in some regions of the sky and at some
+       frequencies. This is due to the fact that the thermal dust is not optically thick
+       and instead emits with a modified blackbody (sometimes referred to as a greybody)
+       spectrum which can be modelled as:
+                                                                   ν    β
+                          Iν = τν Bν (Td ) where τν = τ353                  ,
+                                                                 353 GHz
+       where τ353 is the optical thickness at 353 GHz. Using typical values of Td = 20 K
+       and β = 1.6, for what values of τ353 would the CMB fluctuation of amplitude given
+       in part b) be brighter than the thermal dust at ν = 100 GHz?
+
+
+    Solution:
+     (a)
+
+                                             2h      ν3
+                                 Bν (T ) =
+                                             c2 e khν
+                                                   BT − 1
+                                                                 hν
+                                ∂Bν (T )  2hν 3 hν     e kB T
+                                         = 2                  2
+                                  ∂T       c kB T 2 khν
+                                                   
+                                                     e B T
+                                                           −1
+                                                            hν
+                                          2h2 ν 4     e kB T
+                                        = 2                  2
+                                         c kB T 2 khν
+                                                  
+                                                    e B T
+                                                          −1
+                        hν
+                                    hν       2
+    Since for all ν, e kB T > 0 and e kB T − 1 > 0,
+
+                                ∂Bν (T )
+                                         > 0 for all ν.
+                                  ∂T
+    Therefore the specific intensity of thermal emission at a higher temperature is
+    greater than that at a lower temperature across the full frequency spectrum.
+
+(b) Isolating only the temperature dependent term for the ratio:
+                                                         1
+                             B100GHz (20 K) ∝       h·100 GHz
+                                                e      −1
+                                                      kB Td
+
+
+                                                      where
+                                   −34              9
+    h · 100 GHz   6.626 070 15 × 10 J s · 100 × 10 Hz                              1
+                =                                        =0.24,      so                        = 3.7
+                      1.380 649 × 10−23 J K−1 · 20 K
+                                                                              h·100 GHz
+        kB Td                                                             e     kB T d
+                                                                                          −1
+
+
+
+                                                         1
+                           B100GHz (2.73 K) ∝       h·100 GHz
+                                                e       −1
+                                                    kB TCMB
+
+
+                                                      where
+    h · 100 GHz   6.626 070 15 × 10−34 J s · 100 × 109 Hz                          1
+                =                                         =1.76,     so                        = 0.21
+                     1.380 649 × 10−23 J K−1 · 2.73 K
+                                                                              h·100 GHz
+      kB TCMB                                                             e   kB TCMB
+                                                                                          −1
+
+
+    Therefore we find the desired ratio of:
+                      B100GHz (20 K)           3.7
+                     −5
+                                         ≃          −5
+                                                       ≃ 1.8 × 106
+                   10 · B100GHz (2.73 K)   0.21 × 10
+
+(c) We need to find the values of τ353 where
+                                                1.6
+                                        100 GHz              1
+                       τ100 GHz = τ353                <
+                                        353 GHz          1.8 × 106
+                           τ353 < (100/353)−1.6 /1.8 × 106
+                           τ353 ≲ 4.2 × 10−6
+3. (7 points) A main sequence star has a mass of 10 M⊙ .
+   (a) (3 points) Derive an expression for the surface temperature of the star, Teff⋆ , in
+       terms of the surface temperature of the Sun, Teff⊙ , and the mass of the Sun, M⊙ .
+       Given that Teff⊙ ≃ 5770 K, compute the value of Teff⋆ . Hint: Use the scaling
+       relations L ∝ M 3 and L ∝ Teff
+                                   6
+                                      for main sequence stars.
+   (b) (3 points) Compute the peak wavelength, λmax⋆ , of the radiation emitted by this
+       star and compare it the peak wavelength of the Sun, λmax⊙ . You can assume
+       that stars emit thermal black body radiation. Hint: Use Wien’s displacement law
+       λmax T = b = 2.898 × 10−3 m K.
+   (c) (1 point) Does the star appear to be more red or blue compared to the Sun?
+
+
+    Solution:
+     (a) From the given scaling relations L ∝ M 3 and L ∝ Teff
+                                                           6
+                                                               for main sequence stars,
+                            1
+         we obtain Teff ∝ M . Therefore,
+                            2
+
+
+                                                           12
+                                                      M⋆
+                                        Teff⋆ =                   Teff⊙
+                                                      M⊙
+
+         Since Teff⊙ ≃ 5770 K, we obtain
+                                              1
+                                   Teff⋆ = 10 2 × 5770 K ≃ 18246 K
+
+     (b) Using Wien’s displacement law λmax T = b = 2.898 × 10−3 m K, we obtain
+
+                                           2.898 × 10−3 m K
+                                 λmax⋆ =                    ≃ 159 nm
+                                               18246 K
+                                           2.898 × 10−3 m K
+                              λmax⊙ =                       ≃ 502 nm
+                                                5770 K
+         Thus, λmax⋆ < λmax⊙ .
+
+     (c) Since the spectrum of the star peaks at a shorter wavelength than that of the
+         sun, the star appears bluer.
+4. (14 points) A Plummer sphere is a collisionless stellar system of self-gravitating particles
+   of mass m which is spherically symmetric and has a phase-space distribution function
+   of the following form               
+                                       f0 (−E) 72 , E < 0,
+                               f (E) =
+                                       0,              E ≥ 0,
+                                       2
+   where f0 is a constant, and E = v2 + Φ(r) is the energy (per unit mass) and is a constant
+   of motion.
+   (a) (6 points) For the above distribution function, show that the mass density
+                                             ρ(Φ) ∝ (−Φ)5
+        Hints: Using the relation
+                                R vmaxbetween the density ρ and the distribution function f ,
+                                              7
+                                                2
+        show that ρ(r) = 4πm 0         f0 (−E) v dv and relate vmax to the potential Φ. Define
+                                              2
+
+               2
+                                                                                    R1 1
+        x = v /(−2Φ) and make a change of variable in the integral. Note that 0 x 2 (1 −
+           7      7π
+        x) 2 dx = 256 is a constant.
+   (b) (4 points) Using the results from part (a) and the Poisson equation, one can show
+       that the potential has the following radial dependence
+                                                      GM
+                                           Φ(r) = − √         ,
+                                                     r 2 + a2
+        where a is a parameter and M is the total mass. (Note: you do not need to derive
+        this equation.) Find an explicit expression for the circular velocity profile vc (r) of
+        the Plummer sphere. Hint: Start by equating the centripetal acceleration to the
+        gravitational acceleration dΦ/dr.
+    (c) (4 points) Using the form for Φ(r) given in part (b) and the Poisson equation,
+                                                 
+                                    1 d      2 dΦ
+                                           r        = 4πG ρ(r),
+                                    r2 dr      dr
+        derive an explicit expression for the density profile ρ(r) of the Plummer sphere.
+        What is the density at the centre of the Plummer sphere?
+
+
+    Solution:
+     (a) The mass density is obtained by integrating the distribution function over ve-
+         locity space              Z                  Z           ∞
+                                                 3
+                            ρ(r) = m       f (E) d v = m 4π           f (E) v 2 dv.
+                                                              0
+          for a spherical symmetric distribution. Since
+
+                                v2                                       √
+                             E=    +Φ<0              ⇒   v < vmax =          −2Φ
+                                2
+    and using the given form of f (E), we obtain
+                                         Z vmax
+                                                     7
+                           ρ(Φ) = 4πmf0         (−E) 2 v 2 dv.
+                                              0
+
+    We introduce the dimensionless variable x = v 2 /(−2Φ) so that
+                                                     r
+                        √                  dv           Φ 1
+                   v = −2Φx,         dv =     dx = − x− 2 dx,
+                                           dx           2
+    and the integration limits become x ∈ [0, 1] and E = Φ(1 − x).Making a change
+    of variable in the integral, we obtain
+                                  Z 1                       r
+                                                  7              Φ 1
+                  ρ(Φ) = 4πmf0        [−Φ(1 − x)] 2 (−2Φx) − x− 2 dx
+                                   0                              2
+                             √             Z 1
+                        = 4π 2mf0 (−Φ)5        x1/2 (1 − x)7/2 dx
+                                             0
+                               √
+                           7π 2 2mf0
+                        =              (−Φ)5
+                               64
+    Thus,
+                                       ρ(Φ) ∝ (−Φ)5 .
+
+(b) The gravitational potential of the Plummer sphere is given to be
+                                                GM
+                                     Φ(r) = − √         .
+                                               r 2 + a2
+    For circular motion and Newton’s second law, we can equate the centripetal and
+    gravitational accelerations and get
+                                        vc2 (r)   dΦ
+                                                =    .
+                                           r      dr
+    Differentiating the potential,
+                                     dΦ     GM r
+                                        = 2           ,
+                                     dr  (r + a2 )3/2
+    which gives
+                                                         r
+                              vc (r) = (GM )1/2                   .
+                                                  (r2 + a2 )3/4
+(c) We first compute the derivates on the left hand side of the Poisson equation:
+                                     dΦ     GM r
+                                        = 2           .
+                                     dr  (r + a2 )3/2
+                                 dΦ        GM r3
+                             r2        = 2            .
+                                  dr     (r + a2 )3/2
+                                                      r2
+                                 
+                      d      2 dΦ
+                           r          = 3GM a2 2             .
+                      dr       dr               (r + a2 )5/2
+                                               3GM a2
+                                        
+                         1 d        2 dΦ
+                                  r        =               .
+                         r2 dr        dr     (r2 + a2 )5/2
+Using the Poisson equation, we obtain
+                                                   
+                                   1 1 d       2 dΦ
+                           ρ(r) =            r
+                                  4πG r2 dr      dr
+                                              −5/2
+                                           r2
+                                        
+                                 3M
+                          ρ(r) =         1+ 2       .
+                                 4πa3      a
+The central density is therefore
+                                            3M
+                                   ρ(0) =        .
+                                            4πa3
+5. (11 points) Consider the total X-ray luminosity due to thermal bremsstrahlung emission
+   from the ionised plasma at temperature T in the intracluster medium of a galaxy cluster.
+   We will derive an approximate scaling relation between this observed luminosity and the
+   total mass of the cluster.
+   (a) (3 points) Given the emissivity of thermal bremsstrahlung due to the scattering of
+       electrons and protons (assuming the Gaunt factor is roughly constant with ν and
+       T in the relevant regime),
+                                                            −hν
+                                       ϵν ∝ ne np T −1/2 e kB T .
+
+       Show that the bolometric luminosity integrated over the cluster volume,
+                                  Z      Z ∞         Z
+                            LX = dV          ϵν dν ∝ ρ2g T 1/2 dV.
+                                              0
+
+       Use the fact that the plasma is neutral such that the number densities of electrons
+       and protons ne , np are equal, and that the mean molecular weight per electron, µe
+       is constant such that the gas density ρg = µe ne mp .
+   (b) (3 points) Assuming the intracluster gas is in virial equilibrium, supported against
+       gravity by its thermal energy, derive a scaling relation for the gas temperature in
+       terms of the total cluster mass, M , and a characteristic radius, ⟨R⟩. First, let the
+       total potential energy,
+                                                  −GM 2
+                                           V̄ ∝         .
+                                                   ⟨R⟩
+       For the kinetic term, start with a kinetic energy per particle ∝ kB T and, by relating
+       the number of gas particles N , each of mass µe mp to the total gas mass, Mg , write a
+       relationship for the total kinetic energy. For the final relationship assume the mass
+       of the gas is a constant fraction, fg of the total cluster mass so Mg = fg M .
+   (c) (2 points) Using this result, show that if we further simplify by assuming, M ∝ ⟨R⟩3
+       one finds,
+
+                                             T ∝ M 2/3
+
+   (d) (3 points) Finally, by roughly approximating the integral as,
+                                      Z
+                                LX ∝ ρ2g T 1/2 dV ∝ ρ2g T 1/2 ⟨R⟩3 ,
+
+       and using the same assumptions as above, derive the mass-luminosity scaling rela-
+       tion,
+
+                                            LX ∝ M 4/3
+Solution:
+(a)
+                                    Z        Z ∞
+                            LX =        dV         ϵν dν
+                                              0
+                                    Z        Z ∞
+                                                             −hν
+                                ∝       dV   ne np T −1/2 e kB T dν
+                                         0
+                                 Z                Z ∞
+                                                          −hν
+                                          2 −1/2
+                                ∝ dV ne T              e kB T dν
+                                                    0
+                                 Z                 h −hν i∞
+                                    2 −1/2 kB T
+                                ∝ ρg T               −e kB T      dV
+                                               h               0
+                                 Z
+                                ∝ ρ2g T 1/2 dV.
+
+      Here we used, ne = np and ρg = µe mp ne .
+
+(b) From the virial theorem, assuming the gas is thermally supported against grav-
+    ity, we have the thermal kinetic energy per particle ∝ kB T and therefore the
+    total thermal kinetic energy for N particles,
+
+                                         K̄ ∝ N kB T
+                                               Mg
+                                            =       kB T
+                                              µe mp
+                                              fg kB
+                                            =       MT
+                                              µe mp
+                                            ∝ M T.
+
+      For the total potential energy, assuming characteristic radius, ⟨R⟩ as the typical
+      separation of particles,
+
+                                                      GM 2
+                                             V̄ = −
+                                                      ⟨R⟩
+
+      Putting these together with the virial theorem, K̄ ∝ −V̄ and
+
+                                                      M2
+                                             MT ∝
+                                                      ⟨R⟩
+                                                       M
+                                                  T ∝
+                                                      ⟨R⟩
+
+(c) Given M ∝ ⟨R⟩3 and therefore, ⟨R⟩ ∝ M 1/3 , we find,
+
+                                    T ∝ M 1−1/3 = M 2/3 .
+                                        Mg      M
+(d) Assuming the scaling relation ρg ∝ ⟨R⟩ 3 ∝ ⟨R⟩3 , we obtain
+
+
+
+                           LX ∝ ρ2g T 1/2 ⟨R⟩3
+                                         2
+                                    Mg
+                              ∝         3
+                                             (M 2/3 )1/2 (M 1/3 )3
+                                   ⟨R⟩
+                                         2
+                                     M
+                              ∝              M 4/3
+                                   ⟨R⟩3
+                               ∝ M 4/3
+6. (8 points) Consider a black hole of mass MBH (t) accreting mass at a rate
+                                                 dMacc
+                                       Ṁacc ≡         .
+                                                  dt
+  A fraction η = 0.1 of the rest-mass energy of the accreted material is converted into
+  radiation, producing a luminosity
+
+                                        L = η Ṁacc c2 .
+
+  The remaining fraction of the accreted mass is added to the black hole, leading to its
+  mass increase
+                                             dMBH
+                                     ṀBH ≡        .
+                                               dt
+  Assume that the black hole radiates at the Eddington luminosity
+                                            4πGMBH mp c
+                                   LEdd =               ,
+                                               σT
+  where mp is the proton mass, σT is the Thomson scattering cross section and G is the
+  gravitational constant.
+   (a) (6 points) Write a differential equation governing the growth of MBH (t) in terms of
+       η, LEdd , and fundamental constants. Substitute the expression for LEdd and show
+       that the solution to the differential equation is
+
+                                     MBH (t) = MBH (0)et/tS .
+
+       Give an expression for the Salpeter time tS and show that it is approximately equal
+       to tS ≃ 5.0 × 107 yr.
+   (b) (2 points) Using the above results, estimate the time required for the black hole to
+       double its mass.
+
+
+    Solution:
+     (a) From the luminosity–accretion relation,
+
+                                                    LEdd
+                                          Ṁacc =        .
+                                                    ηc2
+         The rate of increase of the black hole mass is therefore
+                               dMBH                  1 − η LEdd
+                                    = (1 − η)Ṁacc =            .
+                                dt                     η    c2
+         Substituting
+                                               4πGMBH mp c
+                                      LEdd =               ,
+                                                  σT
+    we obtain
+                                dMBH   1 − η 4πGmp
+                                     =              MBH .
+                                 dt      η     σT c
+    This equation can be written as
+                                       dMBH   1
+                                            = MBH ,
+                                        dt   tS
+    where the Salpeter time tS is defined as
+                                             η     cσT
+                                    tS =
+                                           1 − η 4πGmp
+
+    Separating variables and integrating,
+                                  Z         Z
+                                     dMBH     dt
+                                          =      ,
+                                      MBH     tS
+                                                t
+                                   ln MBH =       + const.
+                                               tS
+    Thus the solution is
+                                  MBH (t) = MBH (0)et/tS ,
+    where MBH (0) is the initial black hole mass.For the numerical value,
+                       η      cσT
+                tS =
+                     1 − η 4πGmp
+                     0.1        2.9979 × 108 m s−1 · 6.6525 × 10−29 m2
+                   =
+                     0.9 4π · 6.6743 × 10−11 m3 kg−1 s−2 · 1.6726 × 10−27 kg
+                   ≈ 5.0 × 107 yr
+
+(b) The doubling time tdbl satisfies
+
+                                2MBH (0) = MBH (0)etdbl /tS .
+
+    Solving for tdbl ,
+                                        tdbl = tS ln 2.
+    For η = 0.1,
+                         tS ≃ 5.0 × 107 yr,      tdbl ≃ 3.5 × 107 yr.
+7. (12 points) The early universe was hot, dense, and dominated by radiation. Consider a
+   spatially flat (k = 0) universe containing only radiation.
+   (a) (4 points) The energy density of radiation scales with the scale factor as ρ ∝ a−4 .
+       Starting from the Friedmann equation for a flat universe
+                                         2
+                                          ȧ      8πG
+                                               =      ρ
+                                          a        3
+       show that the scale factor scales as a(t) ∝ t1/2 in this case. You may assume that,
+       at the Big Bang, t = 0 and a(0) = 0.
+   (b) (4 points) The energy density of blackbody radiation is related to its temperature
+       T by the Stefan-Boltzmann law, ρ ∝ T 4 . Using the results from part (a), show that
+       the temperature of the universe evolves with cosmic time as T (t) ∝ t−1/2 .
+   (c) (4 points) Big Bang Nucleosynthesis took place when the universe has cooled to a
+       temperature of TBBN ≈ 109 K. Assuming that the universe is radiation dominated
+       throughout this epoch, and given that the temperature at t = 1 s was approximately
+       T ≈ 1.5 × 1010 K, estimate the age of the universe tBBN when nucleosynthesis took
+       place.
+
+    Solution:
+     (a) The Friedmann equation for a flat universe (k = 0) is given by:
+                                           2
+                                           ȧ    8πG
+                                               =     ρ
+                                           a      3
+
+         For radiation, the density scales as ρ(t) = ρ0 (a0 /a)4 . Substituting this into the
+         Friedmann equation:            2
+                                         ȧ      8πGρ0 a40 1
+                                              =
+                                         a          3      a4
+         Taking the square root (choosing the positive root for expansion):
+                                     r
+                                ȧ     8πGρ0 a40 1
+                                   =                =⇒ aȧ = C
+                                a          3     a2
+         where C is a constant. Rearranging to separate variables (a da = C dt) and
+         integrating with a(0) = 0:
+                      Z a         Z t
+                           ′   ′               1
+                          a da =      C dt′ =⇒ a2 = Ct =⇒ a(t) ∝ t1/2
+                        0           0          2
+
+     (b) We are given ρ ∝ T 4 and ρ ∝ a−4 for radiation. Combining these, we get
+
+                                       T 4 ∝ a−4 ⇒ T ∝ a−1
+   Using the result from (a) where a(t) ∝ t1/2 :
+                                      1       1
+                          T (t) ∝         ∝ 1/2 ⇒ T (t) ∝ t−1/2
+                                     a(t)   t
+
+(c) Using the scaling relation T (t) = Kt−1/2 from part (c), we can relate the two
+    epochs:
+                                        −1/2         1/2
+                              TBBN     tBBN       t1s
+                                     = −1/2 =
+                               T1s     t1s       tBBN
+   Solving for tBBN :                                       2
+                                                       T1s
+                                    tBBN = t1s
+                                                      TBBN
+   Substituting the values t1s = 1 s, T1s = 1.5 × 1010 K, and TBBN = 109 K:
+                                                  2
+                                     1.5 × 1010
+                                 
+                  tBBN = 1 s ×                         = 1 s × (15)2 = 225 s
+                                         109
+
+   Thus, nucleosynthesis took place at approximately tBBN ≈ 225 seconds.
+

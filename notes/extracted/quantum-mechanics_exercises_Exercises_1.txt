@@ -1,0 +1,94 @@
+              Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                                 Exercise sheet I
+                                   Return:        24.09.2025
+
+
+Question 1 [Compton effect ]:
+     In this exercise we will compare Thomson and Compton scattering, which describe
+the scattering of light off an electron. In Thomson scattering, light is treated classically,
+i.e. as a field (exc. (i)). In experiments using high frequency light, deviations from the
+Thomson scattering are observed: this is the Compton effect. It can be explained if light
+is interpreted as a collection of quanta called photons (exc. (ii)). The classical Thomson
+scattering is a certain limit of the quantum Compton effect (exc. (iii)).
+  (i) For Thomson scattering, we consider an electron interacting with a classical elec-
+      tromagnetic plane wave
+                                  E(x, t) = ε E0 cos (kx − ωt) ,                           (1)
+      where ε is the polarisation vector, which is perpendicular to k. In the non-relativistic
+      setting, when the velocity of the electron is small with respect to c, the electron only
+      experiences a Lorentz force due to the electric field and the magnetic field can be
+      neglected. The equation of motion for the electron is then
+                                          m ẍ = −e E(x, t) .                              (2)
+      The electron is accelerated and thus emits an electromagnetic wave. Assume that
+      the electron is initially at rest and solve the equations of motion. What is the
+      frequency of the emitted light?
+ (ii) In experiments, it was observed that the relation between the frequencies of the
+      incoming and scattered light can deviate strongly from the one found for Thomson
+      scattering. This was explained by Compton, using the particle interpretation of
+      light. The scattering process above can now be described as an elastic collision
+      between a photon and an electron, as shown below.
+
+
+                                                             (cp2 , p2 )
+
+                                    (cp1 , p1 )
+                                                            (mc2 , 0)
+
+                                         !
+                                       (c m2 c2 + p2 , p)
+
+
+
+
+      The electron is initially at rest and interacts with a photon with 4-momentum
+      (c p1 , p1 ) and wavelength λ1 = h/p1 . The particles scatter elastically, and the photon
+      is deflected by an angle θ. Using the conservation of 4-momentum, show that the
+      outgoing photon has wavelength λ2 given by
+                                                h             
+                                     λ2 = λ1 +      1 − cos θ .                             (3)
+                                                mc
+(iii) In which limit does one recover Thomson scattering from Compton scattering? For
+      which frequencies of light is the Compton effect observable?
+
+
+Question 2 [Bohr atom ]:
+    Inspired by Rutherford’s experiments (1911), in which he showed that the atom con-
+sisted of a small, positively charged core surrounded by the negatively charged electrons,
+Niels Bohr in 1913 introduced his model of the atom, in which the electrons orbit the
+proton on circular paths at a radius r. The values of the orbital kinetic moment and of
+the allowed radii are quantized according to
+
+                                    mvn rn = nℏ,                                       (4)
+                                             n2 ℏ2
+                                        rn =       .                                   (5)
+                                             me2
+  (i) Use the De Broglie relation, λ = hp , where p = mv is the momentum of the electron,
+      to show that
+                                             λ     2π
+                                                =     ,                               (6)
+                                             rn     n
+      thus that the waves of the electron “fit around the orbit”.
+
+ (ii) Show that the speed of an electron in a Bohr orbit is much less than the speed of
+      light (thus demonstrating that it is reasonable to neglect relativistic effects).
+
+(iii) Show that the wavelength of light emitted from a Bohr atom (taking, for example,
+      the transition from the orbit with n = ∞ to the orbit with n = 1) is much greater
+      than the size of the Bohr atom (which you can take to be the radius of the first
+      Bohr orbit, the “Bohr radius”).
+
+
+Question 3 [Galileo invariance of Schrödinger equation ]: Suppose that Ψ(x, t) is a
+solution of the time-dependent Schrödinger equation for a free particle, i.e.,
+
+                                                 ℏ2 2
+                              iℏ∂t Ψ(x, t) = −     ∂ Ψ(x, t) .                         (7)
+                                                 2m x
+Show that, for any constant u,
+                                                               
+                                                   im      im 2
+                      Ψu (x, t) = Ψ(x − ut, t) exp    ux −    ut                       (8)
+                                                    ℏ      2ℏ
+
+is also a solution of the time-dependent Schrödinger equation.
+

@@ -1,0 +1,357 @@
+                            Astrophysics I                                      HS 2024
+                             402-0263-00L                              Prof. A. Refregier
+                                                                         21 August 2025
+                          Summer Final Exam
+
+Full Name:
+Legi Number:
+
+                            Exam Instructions
+   • Write your full name and Legi number on the top of this sheet and every
+     sheet turned in.
+   • Short notes allowed: maximum 4 A4 pages (4 sheets 1-sided or 2 sheets 2-
+     sided)
+   • A non-programmable calculator is allowed, all other electronic devices are not
+     permitted and must be in a closed bag.
+   • Pens (blue or black ink) or pencils are allowed, no red or green ink is permit-
+     ted. Tipp-ex may be used.
+   • Clearly fill the box corresponding to your selection for multiple choice.
+   • Dictionaries (English, German, French, Italian) are permitted.
+   • No other books allowed.
+   • Multiple choice questions have only one correct answer.
+   • Write down intermediate steps for the non-multiple choice questions.
+   • Keep page margins free for grading purposes.
+   • Clearly indicate the question number you are working on in all written work.
+ Table 1: Physical Constants and Useful Quantities in SI Units
+Quantity                Symbol Value (SI Units)
+Gravitational constant G          6.67430 × 10−11 m3 kg−1 s−2
+Boltzmann constant      kB        1.380649 × 10−23 J K−1
+Planck’s constant       h         6.62607015 × 10−34 J s
+Speed of light          c         2.99792458 × 108 m s−1
+Proton mass             mp        1.67262192369 × 10−27 kg
+Solar mass              M⊙        1.9884 × 1030 kg
+Solar radius            R⊙        6.9570 × 108 m
+Parsec                  pc        3.085677581 × 1016 m
+Jansky                  Jy        1 × 10−26 W m−2 Hz−1
+1   Multiple Choice (45 points)
+Mark only one correct answer for each question.
+
+1. (3 points) If star S1 is observed to have a parallax angle of 0.25 arcseconds due to the
+   rotation of the earth about the Sun, and star S2 is located four times further away from
+   Earth than star S1, what is the approximate parallax angle of star S2?
+          □ 1.00 arcseconds
+          □ 0.50 arcseconds
+          □ 0.0625 arcseconds
+          □ 0.125 arcseconds
+
+2. (3 points) Our solar system is situated approximately 8 kpc from the Galactic Centre.
+   If one were to observe a star located 10 kpc from us in the direction of Galactic longitude
+   l=180◦ and latitude b=0◦ , what is the approximate distance of this star from the Galactic
+   Centre?
+          □ 2 kpc
+          □ 8 kpc
+          □ 10 kpc
+          □ 18 kpc
+
+3. (3 points) Consider two spherical interstellar gas clouds, cloud C1 and cloud C2, with
+   the same composition. Cloud C1 has a uniform density ρ0 and a diameter, D. Cloud
+   C2 has a uniform density, 2ρ0 , and a diameter, D/2. Assume that the opacity χ, of the
+   material is constant and equal throughout both clouds. How does the optical depth of
+   cloud C1, τ1 compare to that of cloud C2, τ2 , along a line of sight that passes through
+   the centre of each cloud?
+          □ τ1 = τ2
+          □ τ1 = 21 τ2
+          □ τ1 = 2τ2
+          □ τ1 = 4τ2
+
+4. (3 points) Which of the following incorrectly pairs a physical quantity related to radia-
+   tive transfer with its standard SI unit (explicitly including solid angles)?
+          □ Specific Intensity, Iν → W · m−2 · sr−1 · Hz−1
+          □ Specific Flux, Fν → W · m−2
+          □ Emission coefficient, jν → W · m−3 · sr−1 · Hz−1
+          □ None of the above
+5. (3 points) Based on simple stellar scaling relations that approximately hold for main
+   sequence stars, a star more massive than our sun would be expected to be relatively
+         □ less luminous, higher in effective temperature and have a shorter lifetime.
+         □ more luminous, higher in effective temperature and have a shorter lifetime.
+         □ more luminous, lower in effective temperature and have a shorter lifetime.
+         □ more luminous, higher in effective temperature and have a longer lifetime.
+
+6. (3 points) Which of the following statements correctly describes the relationship between
+   a star’s observed color and its surface temperature, Teff ?
+         □ Hotter stars have a thermal spectrum peaking at higher νmax and are therefore
+           bluer.
+         □ Cooler stars have a thermal spectrum peaking at lower νmax and are therefore
+           bluer.
+         □ Cooler stars have a thermal spectrum peaking at higher νmax and are therefore
+           redder.
+         □ Hotter stars have a thermal spectrum peaking at lower νmax and are therefore
+           bluer.
+
+7. (3 points) Relative to stars in the disk of our galaxy, stars in the halo and bulge are
+   observed to be predominantly
+         □ younger population I stars formed from gas with a higher metal enrichment.
+         □ older population I stars formed from gas with a lower metal enrichment.
+         □ younger population II stars formed from gas with a lower metal enrichment.
+         □ older population II stars formed from gas with a lower metal enrichment.
+
+8. (3 points) Molecular clouds in galaxies are the birthplace of stars. This is because
+         □ they are dense and cold, readily allowing the formation of stars.
+         □ they are hot enough that fusion reactions spontaneously occur throughout
+           them.
+         □ they are hot enough that fission reactions spontaneously occur throughout
+           them.
+         □ they are the only places where ionized Hydrogen is found.
+ 9. (3 points) For a massive particle travelling through a collisionless stellar system, dy-
+    namical friction refers to a net gravitational force on that particle directed
+           □ backwards relative to its motion due to the enhancement of the particle density
+             in its wake
+           □ forwards relative to its motion due to the enhancement of the particle density
+             in its wake
+           □ backwards relative to its motion due to the reduction of the particle density
+             in its wake
+           □ forwards relative to its motion due to the reduction of the particle density in
+             its wake
+
+10. (3 points) In the Jeans instability analysis in a non-expanding fluid, a mode with wave-
+    length λ < λJ , where λJ is the Jeans wavelength will
+           □ grow or decay exponentially
+           □ grow or decay logarithmically
+           □ oscillate
+           □ remain constant
+
+11. (3 points) Synchrotron radiation is observed in astrophysics and is produced by
+           □ neutrinos changing flavours as they travel from the sun
+           □ particles self gravitating in a stellar system
+           □ dark matter particles during virialization
+           □ free electrons spiralling about magnetic field lines
+
+12. (3 points) Seyfert galaxies are
+           □ spiral galaxies with an unusually bright nucleus and with strong emission lines
+           □ spiral galaxies with an unusually bright nucleus and without strong emission
+             lines
+           □ elliptical galaxies with an unusually bright nucleus and with strong emission
+             lines
+           □ elliptical galaxies with an unusually bright nucleus and without strong emission
+             lines
+
+13. (3 points) In the flat part of the rotation curve (vc ∝ constant) of a spiral galaxy, the
+    density ρ must depend on the radius r as
+           □ ρ ∝ r2
+           □ ρ∝r
+           □ ρ ∝ r−1
+           □ ρ ∝ r−2
+14. (3 points) If the sum of the angles of any small triangle on a 2-dimensional surface is
+    greater than 180◦ , the surface has
+          □ curvature equal to -1
+          □ negative curvature
+          □ zero curvature
+          □ positive curvature
+
+15. (3 points) During the thermal history of the universe, recombination occurred when the
+    temperature of the universe corresponded to energy scale of
+          □ about 1 GeV
+          □ about 1 MeV
+          □ about 1 eV
+          □ about 0.01 eV
+2   Open Questions (68 points)
+1. (4 points) A Type Ia supernovae with peak absolute magnitude of M = −19.3 occurs
+   in our neighbouring galaxy, Andromeda, which is at a distance of 765 kpc from us.
+    (a) (2 points) Ignoring the effects of extinction, at what apparent magnitude would we
+        observe this event?
+    (b) (2 points) How bright would the supernovae appear relative to our closest star,
+        Proxima Centauri, which has an apparent magnitude m = 11? Make this compari-
+        son as a flux ratio.
+2. (12 points) The cosmic microwave background is observed as a near perfect blackbody
+   spectrum with temperature, TCMB = 2.725 K.
+   (a) (3 points) Starting from the blackbody spectrum,
+
+                                                  2h      ν3
+                                      Bν (T ) =                ,
+                                                  c2 e khν
+                                                        BT − 1
+
+
+       and by expanding the exponential term in the denominator to linear order, derive
+       the Rayleigh-Jeans (RJ) limit for hν ≪ kB T ,
+
+                                                      2kB T 2
+                                       Bν,RJ (T ) =        ν .
+                                                       c2
+       For the CMB spectrum this holds when hν ≪ hνRJ = kB TCMB . What is this upper
+       limit νRJ in GHz?
+   (b) (5 points) A CMB telescope is making a low frequency bolometric measurement
+       of the CMB in the K-band from 18–27 GHz. Calculate the power from the CMB
+       deposited on the telescope’s sensor in units of pW = 10−12 W. Assume the telescope
+       is uniformly sensitive to signals across this entire band, that the RJ limit holds and
+       that the telescope collects radiation over an area of 3 m2 from a patch of sky of
+       0.5 deg2 at normal incidence to it.
+   (c) (4 points) The CMB is not perfectly uniform across the sky and its fluctuations
+       can provide a wealth of cosmological information. It is more convenient to record
+       these fluctuations as their small inferred temperature deviations around the CMB
+       blackbody than in units of intensity. An intensity fluctuation δIν = 0.05 MJy/sr
+       around the fiducial CMB spectrum is observed at 100 GHz. Using the definition of
+       these fluctuation units,
+
+                                          dBν (T )
+                                  δIν =                    · δTCMB ,
+                                            dT     T =TCMB
+
+
+
+
+       compute the equivalent temperature fluctuation, δTCMB in units of µK. Note that
+       1 Jy = 10−26 W m−2 Hz−1 and that you may not assume the RJ limit holds here.
+3. (10 points) The stability of a star relies on the balance between the effects of gravity
+   and pressure within its comprising material.
+   (a) (4 points) By considering a differential volume element at radius r in a spherical
+       star. Derive the condition for hydrostatic equilibrium,
+                                         dP   GMr ρ
+                                            =− 2 ,
+                                         dr    r
+       where P and ρ are the pressure and density at radius r, respectively and Mr is the
+       enclosed mass within radius r.
+   (b) (4 points) Using this result and assuming the pressure within the star is dominated
+       by radiative pressure with absorption coefficient α = χρ for some opacity χ, derive
+       the radiative luminosity required to perfectly balance gravitation at the surface of
+       the star r = R. Express the answer in terms of the opacity χ rather than absorption
+       coefficient α.
+       Hint: Make use of the relationship between radiative flux and radiative pressure,
+                                                  c dP
+                                           F =−        .
+                                                  α dr
+
+   (c) (2 points) What is the name of this luminosity limit?
+4. (12 points) For the observation of extragalactic objects the presence of intervening
+   dust in our galaxy needs to be accounted for. An approximate linear relationship be-
+   tween the
+          R visual extinction AV and the integrated column density of neutral Hydrogen,
+   NH = nH ds, along a line of sight is often used to compute this. In this problem, we
+   will consider the extinction
+                           R ∞ for an extragalactic object, assumed to be at infinity, by
+   computing AV ∝ NH = 0 nH ds.
+
+                   Extragalactic Object         s→∞
+
+
+
+
+                                           H
+                                                  ds
+                                                r(s)         s
+                       Galactic Plane                         b      s=0
+                                                                    ⋆
+                                             r=0       d = 8 kpc     Sun
+
+   (a) (8 points) We will use a radial density profile for nH (r). Start by using the above
+       diagram to determine the radial distance r(s) from the galactic centre of a position
+       s along the line-of-sight to the extragalactic object.
+       Hint: Make use of the cosine rule for triangles:
+                                         p
+                                    C = A2 + B 2 − 2AB cos γ,
+
+       where A, B and C are the sides of a triangle with γ being the angle opposite C.
+
+       Now, show that for a toy model for our galaxy with nH (r(s)) ∝ exp(−(r(s)/r0 )2 )
+       and the observation that the extinction towards our galactic centre (l = 0◦ , b = 0◦ )
+       is AV ≈ 30, that the expected extinction to l = 0◦ and arbitrary (but reasonably
+       small, see hint below) b is:
+                                                         2              
+                                     NH (b)              d      2
+                                                                       
+                        AV (b) = 30            = 30 exp 2 cos b − 1
+                                    NH (b = 0)           r0
+       where d = 8 kpc is our distance from the galactic centre.
+       Hint: make use of the analytic Gaussian integral,
+                    Z ∞                      Z ∞                    r
+                           −(ax2 +bx+c)           −(ax2 +bx+c)        π b2 −c
+                         e              dx ≈     e             dx =     e 4a ,
+                      0                       −∞                      a
+       where the first equality will hold in the cases we’re considering here since the weight
+       of the integrand will come from predominantly from s > 0 as we’re considering
+       reasonably small values of b.
+   (b) (4 points) Compute the numerical value of the extinction as well as the flux ratio
+       between an observation with and without this extinction taken into account for
+       l = 0◦ , b = 15◦ . Assume r0 = 1.2 kpc.
+       Hint: the extinction represents a magnitude difference, AV = mext −m0 , where mext
+       and m0 are the apparent magnitudes with and without extinction respectively.
+5. (9 points) A collisionless self-gravitating system of total mass M and composed of N
+   particles of identical mass m is in virial equilibrium.
+   (a) (3 points) Write an expression for the total kinetic energy K of the system. Show
+       that it can be written as
+                                                1
+                                           K = M σv2
+                                                2
+                                         2   1
+                                               PN 2
+       where the velocity dispersion is σv = N i=1 vi and vi is the velocity of particle i.
+   (b) (3 points) Write an expression for the total gravitational potential energy V of the
+       system. For large N , show that it can be written as
+
+                                                    GM 2
+                                           V ≃−
+                                                    2rH
+                                                   −1
+                                                      = N (N2−1) i>j r1ij , where rij is the
+                                                                P
+       where the harmonic radius rH is defined as rH
+       separation distance between particles i and j, the sum is over the N (N − 1)/2
+       non-identical pairs i, j of particles.
+   (c) (3 points) Use these results and the virial theorem to show that
+
+                                                    GM
+                                            σv2 =
+                                                    2rH
+6. (10 points) Galaxies can be disrupted by the gravitational tidal effects of other nearby
+   galaxies. To study this effect, let us consider a galaxy of mass m and radius r at a
+   distance d from a more massive galaxy of mass M .
+   (a) (4 points) The tidal acceleration is the differential acceleration due to gravity be-
+       tween the centre and the outside of the smaller galaxy:
+
+                                   atidal = agrav (d) − agrav (d + r).
+
+       Show that the tidal acceleration produced by the larger galaxy on the smaller galaxy
+       is approximately
+                                                   2GM r
+                                          atidal ≃
+                                                     d3
+       assuming that r is much smaller than d.
+       Hint: use Newton’s second law and gravitational force to find an expression for the
+       acceleration. Then use a Taylor expansion appropriate for r ≪ d.
+   (b) (3 points) The small galaxy will be significantly tidally disrupted if its surface grav-
+       itational acceleration is smaller than the tidal acceleration from the large galaxy.
+       The surface acceleration from the self gravity of the smaller galaxy is ag ≃ Gm/r2 .
+       Show that this is equal to the tidal acceleration if the distance d between the two
+       galaxies is equal to
+                                                      1
+                                                    2M 3
+                                         dlimit =          r
+                                                     m
+   (c) (3 points) How close can a spiral galaxy like the Milky Way galaxy (m ≈ 1012 M⊙ ,
+       r ≈ 10 kpc) come to a cD galaxy (M ≈ 1014 M⊙ ) without being tidally disrupted?
+       Give your answer in units of kpc.
+7. (11 points) Let us consider a flat homogeneous and isotropic universe filled with a gen-
+   eral fluid with a density which scales as
+                                                  a 3(1+w)
+                                                   0
+                                     ρ(a) = ρ0
+                                                   a
+  where a is the scale factor, w is the equation of state parameter assumed to be constant
+  and greater than −1, and the subscripts 0 denote today’s values.
+   (a) (2 points) Starting from the general form of the Friedmann equation,
+                                        2
+                                        ȧ    8πG   kc2
+                                            =     ρ− 2 ,
+                                        a      3     a
+
+       derive a differential equation for a(t) for the case stated above.
+   (b) (6 points) By integrating the equation from part (a), show that the solution scales
+       as a power law a(t) ∝ tα and find an explicit expression for the exponent α.
+       Hint: collect the factors which depend on the scale factor a (including the differential
+       da) on the left hand side and the others (including dt) on the right hand side of
+       the equation, then integrate both sides from a′ = 0 to a, and from t′ = 0 to t
+       respectively.
+   (c) (3 points) What values of w correspond to non-relativistic matter (ρ ∝ a−3 ) and
+       radiation (ρ ∝ a−4 )? What does the scaling solution for a(t) from (b) reduce to in
+       these special cases?
+

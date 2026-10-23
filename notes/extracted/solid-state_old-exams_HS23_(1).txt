@@ -1,0 +1,270 @@
+                       Exam HS 2023
+              Introduction to solid state physics
+                           Prof. Dr. A. Zheludev
+                               August 16, 2024
+
+
+
+
+ • Please read the cover sheet, but do not begin writing until instructed to do so.
+
+ • On each sheet of paper used, please write your full name and Legi number at the top.
+
+ • Please use only black or blue ink pen.
+
+ • As you hand in your solutions at the end, please also return all problem sheets and,
+   most importantly, the cover sheet.
+
+
+
+First name:
+
+Last name:
+
+Legi Number:
+
+
+
+
+               Aufgabe   Max.Pkt.     Punkte Visum 1      Visum 2
+               1               3
+               2a              3
+               2b              3
+               3               3
+               4               3
+               Summe
+Exam HS 2023                                                                    Aug. 16, 2024
+
+
+
+
+Problem 1 (3 points): Two-dimensional crystals
+We consider the following two-dimensional crystal. Each circle represents an identical
+atom. The vectors shown have lengths of ⃗a = (0, 4) Åand ⃗b = (5, 0) Å, and ⃗d = 1/2(⃗a+⃗b).
+
+
+
+
+                             a    d
+
+                                      b
+
+
+
+
+  a) For this lattice write down two vectors that define a primitive unit cell.
+
+  b) What is the basis of this crystal? Write down the coordinates of the atomic positions
+     for each atom within the basis in the unit cell defined in part-a.
+
+  c) Sketch a Wigner-Seitz unit cell. What is the area of the Wigner-Seitz unit cell?
+
+     In two-dimensional space, one can define the reciprocal lattice vectors similarly to
+the three-dimensional space vectors. If ⃗a and ⃗b are primitive translation vectors of the
+real-space lattice, the primitive translation vectors of the reciprocal lattice ⃗a∗ and ⃗b∗ can
+be defined as follows:
+                                                2π ⃗
+                                         ⃗a∗ =     (b × ẑ)
+                                                A
+                                          ⃗b∗ = 2π (ẑ × ⃗a)
+                                                 A
+where A is the area of the primitive unit cell in real space. ẑ is the unit vector perpen-
+dicular to the two-dimensional plane spanned by ⃗a and ⃗b, which is defined by ẑ = â × b̂
+(â, b̂ are unit vectors along ⃗a and ⃗b direction).
+
+  d) Sketch the reciprocal lattice of the two-dimensional crystal above.
+
+  e) In your sketch of the reciprocal lattice, draw the first Brillouin zone.
+
+   f) What is the area of the first Brillouin zone?
+
+
+                                              2
+Exam HS 2023                                                                      Aug. 16, 2024
+
+
+    From now on consider if half of the atoms in the lattice above shift position as shown
+in the following image.
+
+
+
+
+                              a   d
+
+                                      b
+
+
+
+
+   In this new configuration, ⃗d = 1/3(⃗a + ⃗b), ⃗a and ⃗b are unchanged.
+
+  g) For this lattice write down two vectors that define a primitive unit cell.
+
+  h) What is the basis of this crystal? Write down the coordinates of the atomic positions
+     for each atom within the basis in the unit cell defined in part-g.
+
+   i) Sketch a Wigner-Seitz unit cell. What is the area of the Wigner-Seitz unit cell?
+
+   j) Sketch the reciprocal lattice of this two-dimensional crystal.
+
+  k) In the sketch of the reciprocal lattice, draw the first Brillouin zone.
+
+   l) What is the area of the first Brillouin zone?
+
+     We conduct a neutron diffraction experiment using monochromatic neutron beams
+with
+P wavelength λ = 2.36 Å. The scattering density is a sum of delta functions ρ(r) =
+   i fi δ(r − ri ), where ri is the position of the nucleus of the i-th atom in the crystal and fi
+is the amplitude of the scattering potential produced by the nucleus at position ri . The
+value of fi of the atoms is f1 .
+
+ m) Assuming elastic scattering, what is the magnitude of the wavevectors ki and kf of
+    the incident and reflected neutron beams.
+
+  n) Calculate the scattering angle between ki and kf for the two Bragg peaks with
+     q = (2, 1) and (1, 1). Here q = (h, k) is a wave vector defined by the principal
+     translation vectors of the reciprocal space: q = h⃗a∗ + k⃗b∗ .
+
+  o) Compare the intensities I of the two Bragg peaks above. Calculate I(2,1) /I(1,1) .
+
+
+
+                                                3
+Exam HS 2023                                                                  Aug. 16, 2024
+
+
+Problem 2a (3 points): Metals and Transport
+We consider the effect that pressure will have on the electronic properties of a 3D metal.
+The metal has a simple cubic cystal structure with one atom per unit cell, the length
+of each side of the unit cell is a. We call this metal A. The properties of metal A are
+compared to the same material while enough pressure is applied to reduce the length the
+unit cell to 0.9a. We call this metal B. Consider the dispersion relation of their conduction
+                                                          2 k2
+electrons to be the same as the free electron gas E = ℏ2m      . Hint: when working out the
+following solutions you can save time by not writing out any coefficients and constants
+that cancel out in a ratio.
+
+  a) If the base material has Fermi Energy EFA , what is the Fermi energy of the material
+     after applying pressure EFB . Find the ratio EFB /EFA .
+
+  b) The area of the Fermi surface for metal A is SA . As a function of SA , what is the
+     Fermi surface of the metal after applying pressure.
+
+  c) Compare the density of states ν(ε) at the Fermi energy of the conduction electrons
+     for the metal before and after applying pressure. Find the ratio νB (ϵF )/νA (ϵF ).
+
+  d) Compare electronic contribution to the specific heat capacity per unit volume cv =
+     CV /V of the metal before and after applying pressure at 10 K. Calculate cv,B /cv,A
+
+
+Problem 2b (3 points): Metals and Transport
+Continuing from Problem 2a.
+   At high temperature (T much greater than the Debye temperature ΘD of the metal),
+the dominant scattering process in the transport is the scattering from phonons. Suppose
+the scattering mechanism of the conduction electrons by phonons is similar for these two
+metals. The scattering rate τ −1 is proportional to the density of phonons present in the
+system (τ is the relaxation time). Same hint applies!
+
+  e) Assume that the Debye temperature is the same in metal A and B, does the density
+     of states of states of phonons change for the two metals. Calculate νB (ω)/νA (ω).
+
+  f) If the Debye temperature, of the metals does not change with pressure and the
+     Debye temperature is ΘD = 100 K. Compare the resistivity ρ of these two metals
+     at 300 K. Find ρB /ρA . Which metal has higher resistivity?
+
+   In a real material, we expect the increased pressure to change the energy of all phonon
+energies ω as a function of the change in volume and the Grüneisen parameter γ as such:
+                                       ∆ω      ∆V
+                                          = −γ                                           (1)
+                                       ω        V
+The metal described above has a Grüneisen parameter of γ = 2.
+
+  g) What is the change in the sound velocity in the material with the increase in pres-
+     sure. Calculate vB /vA .
+
+                                             4
+Exam HS 2023                                                                 Aug. 16, 2024
+
+
+  h) For metal A the Debye temperature ΘD = 100 K, what is the Debye temperature
+     after applying pressure?
+
+   i) Considering the change in Debye temperature, which metal has a higher resistivity?
+      Does this change the answer to part f? Explain your reasonsing.
+
+
+Problem 3 (3 points): 1D Semiconductors
+Suppose we have a 1D semiconductor with a conduction band dispersion relation
+
+                              Ecb = EG + 2tcb [cos(ka) + 1],
+
+and a valence band described by
+
+                                  Evb = 2tvb [cos(ka) − 1],
+
+where tcb = 12 tvb = t. Furthermore, the chemical potential is set at 0 < µ < EG .
+
+  a) Make a sketch of the band structure. Be sure to include labels and have the diagram
+     drawn to scale.
+
+  b) Is this a direct, or indirect bandgap material?
+
+  c) Assume that the Fermi level is far away from both bands. That is, |EG − µ| ≫ kB T
+     and µ ≫ kB T . In that case, write down approximate expressions for the dispersion
+     in these bands for small k near the respective minimum and maximum up to the
+     second order.
+
+  d) Using the approximation from part c), find the effective mass for electrons in the
+     conduction band and holes in the valence band.
+
+  e) Write down an expression for the density of states per unit length for both bands
+     using the approximated expressions from part c).
+
+  f) Calculate the electron number per unit length in the conduction band and the hole
+     density in the valence band.
+
+  g) The conductivity of holes and electrons at high temperatures (T ≫ ΘD ) is found to
+     be equal. What is the ratio of scattering rates of holes and electrons? Find τe /τh .
+
+
+Problem 4 (3 points): Magnetism
+Consider the following lattice of magnetic atoms of spin S. The magnetic atoms are
+coupled with ferromagnetic Heisenberg couplings J1 ̸= J2 and J1 , J2 < 0.
+
+
+
+
+                                             5
+Exam HS 2023                                                             Aug. 16, 2024
+
+
+
+                                    J1
+
+                               J2
+
+
+
+
+  a) Draw a ground state spin configuration.
+
+  b) Does there exist any other ground state spin configuration? If so, draw another
+     ground state.
+
+  c) Find the Weiss temperature.
+
+Consider now, for the same lattice, the case where J1 < 0, and J2 > 0.
+
+  d) Draw a ground state spin configuration.
+
+  e) Find the Weiss temperature.
+
+  f) Imagine a field is applied perpendicular (H ⊥ S) to the spin direction from your
+     answer in part d). At what magnitude of H is the moment saturated. Assume this
+     is at zero temperature.
+
+
+
+
+                                           6
+

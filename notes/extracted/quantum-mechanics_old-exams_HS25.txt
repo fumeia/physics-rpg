@@ -1,0 +1,244 @@
+              Exam, 09 February 2026
+
+                     14:30 – 17:30
+
+
+
+Surname (first 4 letters):
+
+
+
+Immatriculation-number:
+
+
+
+
+For correction — please leave empty
+
+
+
+Question 1:
+
+
+
+Question 2:
+
+
+
+Question 3:
+
+
+
+Question 4:
+Question 1 [Circular well – 18 points ]:
+We consider a particle in two dimensions. The group of rotations SO(2) acts on wave-
+functions ψ ∈ L2 (R2 ) as
+                                                                                             !
+                                                                                         x
+                                                                                           ∈ R2 .
+                                          
+                                      T
+           (U (R) ψ) (x) := ψ R x                ,            R ∈ SO(2) ,             x=                 (1)
+                                                                                         y
+  (i) The action of the angular momentum operator L on a wavefunction ψ is defined as
+                                                                                                 !
+                           d                                                cos α − sin α
+                 Lψ := iℏ        U (R(α)) ψ ,                        R(α) =                          .   (2)
+                          dα α=0                                            sin α cos α
+     Show that
+                                                         !
+                            ∂     ∂
+           (Lψ) (x) = −iℏ x    −y    ψ(x) = (x py − y px ) ψ(x) . [3 points]                             (3)
+                            ∂y    ∂x
+
+ (ii) Written in polar coordinates r, φ, the angular momentum operator acts as
+                                                                      ∂
+                                  (Lψ) (r, φ) = −iℏ                     ψ(r, φ) .                        (4)
+                                                                     ∂φ
+     Find the eigenfunctions Φ(φ) and the allowed eigenvalues ℏ ℓ of L. [3 points]
+Consider a particle in two dimensions trapped in a circular well of radius a. In polar
+coordinates, the Hamiltonian is
+                 2    2                              2
+                                                         !                                
+              ℏ      ∂      1 ∂   1 ∂                                                     0 , r<a,
+       H=−              2
+                          +     + 2 2                         + V (r) ,        V (r) =                  (5)
+              2m     ∂r     r ∂r r ∂φ                                                      ∞ , else .
+(iii) The Hamiltonian has rotational symmetry, [L, H] = 0. Explain how to use this sym-
+      metry and a separation of variables, ψ(r, φ) = χ(r) Φ(φ), to reduce the Schrödinger
+      equation to
+                       ℏ2           ℓ2
+                                                               !
+                               1
+                     −    χ′′ + χ′ − 2 χ + V χ = E χ . [3 points]                                        (6)
+                       2m      r    r
+
+(iv) Find the general regular ℓ = 0 solution in the interior of the well, i.e. solve the
+     differential equation
+                                1                       2mE
+                           χ′′ + χ′ + ε χ = 0 ,     ε=         ,                     (7)
+                                r                         ℏ2
+     by making an ansatz χ(r) = ∞           n
+                                  P
+                                    n=0 bn r . Find the bn up to an overall constant.
+     [5 points]
+ (v) The series obtained in (iv) is actually the expansion of a so-called Bessel function
+     J0 ,                                       √ 
+                                      χ(r) ∝ J0 ε r .                                 (8)
+     The behaviour of this Bessel function is sketched below. Explain how the boundary
+     conditions that χ must satisfy enforce energy quantisation. Express the allowed
+     energies E in terms of the zeros of the Bessel function. [4 points]
+                                          J0 (x)
+
+
+                                  0         x1           x2     x3   x4   x5     x6   x
+Question 2 [Ground state of a hydrogenic atom – 20 points ]:
+Consider the Hamiltonian of an electron orbiting a nucleus of charge Ze,
+
+                                ℏ2 2 Ze2                       √
+                          H=−      ∇ −   ,                r=       x2 .               (9)
+                                2m     r
+  (i) Show that the (normalised) ground state wavefunction
+                                                1
+                                       ψ(x) = √     e−r/a                           (10)
+                                               πa 3
+
+
+     is an eigenfunction of H for a certain value of a. Determine a and the eigenvalue E
+     in terms of Z. [4 points]
+     Hint: The Laplacian in spherical coordinates (r, θ, φ) is given by
+
+                          ∂2   2 ∂   1 ∂2   cot θ ∂    1      ∂2
+                   ∇2 =      +     +      +         +            .                  (11)
+                          ∂r2 r ∂r r2 ∂θ2    r2 ∂θ r2 sin2 θ ∂φ2
+
+ (ii) The Hamiltonian has a parity symmetry P, and a rotational symmetry generated
+      by Lj , j = 1, 2, 3. Define how these symmetries act on wavefunctions, and evaluate
+      them on ψ from eq. (10). [4 points]
+(iii) Show that the symmetries from (ii) imply that
+                                                          1 D 2E
+                                                  x2i =
+                                                 D   E
+                               ⟨xi ⟩ = 0 ,                   x .                    (12)
+                                                          3
+     where ⟨O⟩ := ⟨ψ| O |ψ⟩. [4 points]
+     Hint: Let Q = Q† be a self-adjoint (symmetry) generator, for which ψ is an eigen-
+     state. What can you say about ⟨[Q, O]⟩? You may also use the commutation
+     relations [Lj , xk ] = iℏ εjkl xl .
+(iv) Calculate the variation ∆xi . Use the variation
+
+                                                    ℏ
+                                             ∆pj = √                                (13)
+                                                     3a
+     to show that the Heisenberg uncertainty principle is satisfied. [4 points]
+     Hint: The following integral may be helpful,
+                                  Z ∞
+                                        dr rn e−r/b = bn+1 n! .                     (14)
+                                   0
+
+
+ (v) The system is in the state ψ in eq. (10). Then, the charge of the nucleus is sud-
+     denly changed to Z̃e, and the energy is measured immediately afterwards. What
+     is the probability that the ground state energy of the new system is measured?
+     [4 points]
+Question 3 [Perturbation of the harmonic oscillator – 19 points ]:
+The Hamiltonian of a particle in a one-dimensional harmonic potential is given by
+
+                                      p2  1
+                               H0 =      + mω 2 q 2 ,            [q, p] = iℏ .                          (15)
+                                      2m 2
+  (i) Define
+                                                     mω      i
+                                                r
+                                           a=           q+√      p.                                     (16)
+                                                     2ℏ     2mℏω
+     Show that the Hamiltonian is
+                                                           1
+                                                                  
+                                                            †
+                                            H0 = ℏ ω a a +             ,                                (17)
+                                                           2
+     and calculate the commutator [a, a† ]. [3 points]
+ (ii) Derive the energies En and eigenstates |n⟩ of this Hamiltonian using the ladder
+      operators a, a† . [6 points]
+(iii) What property does the vacuum state |0⟩ satisfy? Use this to find the corresponding
+      (normalised) wavefunction in the position basis. [4 points]
+We now consider a perturbation of this Hamiltonian. Let H0 be a Hamiltonian with
+eigenstates |φn ⟩ and non-degenerate spectrum En . Let λ H ′ be a perturbation. The
+perturbative expansion of the energies and eigenvectors of H = H0 + λ H ′ is
+
+                                E = En + λ En(1) + λ2 En(2) + . . . ,                                   (18)
+                              |Ψn ⟩ = |φn ⟩ + λ |Ψ(1)    2  (2)
+                                                  n ⟩ + λ |Ψn ⟩ + . . . ,                               (19)
+
+where
+                                                                           X | ⟨φl | H ′ |φn ⟩ |2
+               En(1) = ⟨φn | H ′ |φn ⟩ ,                        En(2) =                             ,   (20)
+                                                                           l̸=n    En − El
+                       X ⟨φl | H ′ |φn ⟩
+          |Ψ(1)
+            n ⟩ =                          |φl ⟩ .                                                      (21)
+                       l̸=n   En − El
+
+(iv) We consider the harmonic oscillator with a quadratic perturbation,
+                                                      1
+                                                      
+                                                         +λ ℏ ω a2 + (a† )2 .
+                                                                          
+                                 H = ℏ ω a† a +                                                         (22)
+                                      |         {z    2}    |     {z       }
+                                               H0                      H′
+
+
+     Find the first order correction to the n-th energy level. [2 points]
+ (v) Evaluate the action of H ′ on |n⟩. Find the first order correction to the n-th state
+     and the second order correction to the n-th energy level. [4 points]
+Question 4 [Spin-1 addition – 21 points ]:
+We consider two spin-s particles with spin operators S1 , S2 . The state space of each
+individual particle is described by a Ds representation of su(2),
+                                        n                              o
+                         Ds = span          |s, m⟩ m = −s, . . . , s       ,          (23)
+
+with ℏ m being the eigenvalue of the z-component of Si on the state |s, m⟩.
+The particles are coupled by the Hamiltonian
+                                                 ω
+                                        H=         S1 · S2 .                          (24)
+                                                 ℏ
+  (i) Let S = S1 + S2 be the total spin. What are the allowed eigenvalues of S2 and Sz ?
+      [3 points]
+ (ii) Find the eigenvalues of the Hamiltonian and their degeneracy. [3 points]
+      Hint: Write S1 · S2 in terms of S2 , S21 , S22 .
+From now on we fix the spin of the individual particle to be s = 1. The tensor product
+of two spin-1 representations decomposes into
+
+                                 D1 ⊗ D1 ∼
+                                         = D0 ⊕ D1 ⊕ D2 .                             (25)
+
+We denote the tensor product basis of D1 ⊗ D1 by |m1 ; m2 ⟩ := |1, m1 ⟩ ⊗ |1, m2 ⟩, and the
+states in Dσ , σ = 0, 1, 2, on the right-hand side by |σ, m⟩.
+(iii) Find the highest-weight states of the Dσ representations on the right-hand side of
+      eq. (25) in the tensor product basis |m1 ; m2 ⟩. [5 points]
+      Hint: On a state |σ, m⟩ in a spin-σ representation Dσ , the raising and lowering
+      operators act as
+                                        q
+                       S± |σ, m⟩ = ℏ σ(σ + 1) − m(m ± 1) |σ, m ± 1⟩ .                 (26)
+
+(iv) At time t = 0, the system is in the state
+
+                               |ψ(t = 0)⟩ = |0; 0⟩ = |1, 0⟩ ⊗ |1, 0⟩ .                (27)
+
+     Show that the state |ψ(t)⟩ at time t is given by
+
+                               e−iωt
+                                       
+                                            1 − e3iωt |1; −1⟩ + 1 − e3iωt |−1; 1⟩
+                                                                             
+                    |ψ(t)⟩ =
+                                 3                             
+                                        + 2 + e3iωt |0; 0⟩
+                                                       
+                                                                   . [7 points]       (28)
+
+
+ (v) At time t, what is the probability to measure ⟨S1,z ⟩ = 0 and ⟨S2,z ⟩ = 0? [3 points]
+

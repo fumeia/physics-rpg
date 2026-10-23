@@ -1,0 +1,1155 @@
+               Lösung zur Prüfung Quantenmechanik I
+
+
+
+Prof. Dr. G. Blatter
+Frühjahrsemester 2016
+
+
+
+
+Kommentare:
+
+
+   • Zwei unwichtige Minuszeichenfehler in einer Aufgabe resultieren in einen Abzug von
+     -0.25 Punkten. Minuszeichenfehler in einem Resultat, die die Physik verändern, führen
+     zu einem grösseren Abzug.
+Aufgabe A:          Eigenwertprobleme und Konzepte [22 Punkte]
+
+A.1. The Schroedinger equation is given by
+
+                              i~@t (x, t) = H (x, t).                   [1 Pkt]
+
+     A formal solution is: Assuming the Hamiltonian is not time dependent then we divide
+     by the wavefunction and integrate from t0 = 0 to t0 = t giving us
+                                                             Ht
+                          ln (x, t)       ln   0 (x) =   i      .          [0.5 Pkt]
+                                                             ~
+     Exponentiating and returning the boundary condition to the RHS finally gives us
+
+                               (x, t) = e iHt/~ 0 (x).                  [0.5 Pkt]
+                                 P
+     We now insert the identity n |nihn|, where |ni is an eigenstate of H with eigenvalue
+     En and wavefunction Xn thus obtaining
+                                   X
+                          (x, t) =   hx|e iHt/~ |nihn| 0 i
+                                      n
+                                      X
+                                 =         e iEn t/~ Xn hn|     0 i.         [1 Pkt]
+                                      n
+
+     Alternatively we can use separation of variables               = T (t)X(x) to obtain solutions
+
+                                           i~@t T   HX
+                                                  =    =E
+                                             T       X
+
+     leading to the time evolution T (t) = e iEn t/~ for the spatial solution which satisfies
+     HXn = En Xn . We can write any wavefunction as a function of the Xn basis giving us
+                                     X                 X
+                            hx| i =      hx|nihn| i =      Xn hn| i.
+                                          n                         n
+
+     The time evolution then becomes trivial to add in
+                                          X
+                                 (x, t) =     e iEn t/~ Xn hn| i
+                                                 n
+A.2. The normalised wavefunction for a stationary gaussian wavepacket is
+                                                1                  2        2
+                               (x, 0) =        2 ⇡)1/4
+                                                             e x /(4 0 ) .                [0.5 Pkt]
+                                          (2
+
+     We note that in k space the time evolution is trivial because the momentum eigenstates
+     are eigenstates of the Hamiltonian. It is simply given by ˜(k, t) = ˜(k, 0)e iE(k)t/~ ,
+     where E(k) = ~2 k 2 /(2m) is the energy of a free particle with momentum ~k. [0.5 Pkt]
+     We now transform to the momentum representation
+                         Z 1              2        2                   ✓          ◆1/4
+              ˜0 (k) =       dx e x /(4 0 ) ikx                            2 02                2 2
+                            p              e    =                                        e k     0   .     [0.5 Pkt]
+                          1   2⇡ 2⇡ 02 1/4                                  ⇡
+
+     The time evolution is trivially
+                                               ✓           ◆1/4
+                                                   2 02
+                                                                                 e ~ k t/(2m) .
+                                                                           2 2         2 2
+                                 ˜(k, t) =                         e k       0
+                                                    ⇡
+
+     Next we switch back to position representation
+                                    Z 1                ✓          ◆1/4
+                                            dk             2 02
+                                                                                       e ~ k t/(2m) eikx
+                                                                                 2 2         2 2
+                         (x, 0) =          p                               e k     0
+                                         1   2⇡             ⇡
+                                               1/2                            x2
+                                               0                           2 +2i~t/m
+                                =              q                   e     4 0
+                                                                                         .           [1 Pkt]
+                                                       2   i~t
+                                    (2⇡)1/4            0 + 2m
+
+     The resulting probability distribution is clearly a gaussian of width
+
+                                     2         2        ~ 2 t2
+                                         =     0 +             .                 [0.5 Pkt]
+                                                       4m2 02
+A.3. The eigenvalue problem is formulated as follows
+
+                                    ~2 @x2 + @y2
+                                                   (x, y) = E (x, y).
+                                       2m
+
+     With boundary conditions       (±x0 /2, y) = 0 and        (x, ±y0 /2) = 0. [0.5 Pkt]
+     We now perform a separation of variables [0.25 Pkt]
+     such that we have two independent one dimensional problems [0.25 Pkt]
+
+                          ~2 @x2 X(x)                           ~2 @y2 Y (y)
+                  XEx =                  and       Y Ey =                    .    [0.5 Pkt]
+                              2m                                    2m
+
+     With total energy E = Ex + Ey , [0.25 Pkt]
+     and boundary conditions X(±x0 /2) = 0 and Y (±y0 /2) = 0. [0.25 Pkt]
+     The spectrum of an infinite box of length a in 1D is
+
+                                                   ~2 ⇡ 2 n2
+                                             E=
+                                                    2ma2
+     with positive integer n and as such the spectrum for our 2D problem is
+                                             !
+                                     n2x n2y ~2 ⇡ 2
+                              E=         + 2        .     [0.5 Pkt]
+                                     x20  y0    2m
+
+     The normalised eigenfunctions are
+                   8                                8
+              2 <sin nxx⇡x    for nx odd            <sin ny ⇡y
+                                                          y0         for   ny    odd
+         =p               0
+                                                                                        .     [1 Pkt]
+             x0 y0 :cos nx ⇡x for nx even           :cos ny ⇡y       for    ny   even
+                         x0                               y0
+
+     Finally we must find degenerate states, we first write down the spectrum when 2x0 = y0
+
+                                         E = E0 (4n2x + n2y ).
+
+     To find a degenerate set of states we must thus solve the equality
+
+                                        4n02   02    2    2
+                                          x + ny = 4nx + ny .
+
+     One simple way is to set n0x = 2ny and n0y = 2nx with the condition nx 6= n0y . As an
+     example we give the state nx = 3, ny = 4 which is degenerate with nx = 2, ny = 6.
+      [0.5 Pkt]
+A.4. The Hamiltonian for a charged particle with charge q and mass m moving in an elec-
+     tromagnetic field is
+
+                               (p    qA(x, t)/c)2
+                         H=                       + q (x, t)          [1 Pkt]
+                                      2m
+     Where A(x, t) is the magnetic vector potential, and (x, t) is the scalar potential.
+     Extracting the potentials from the Hamiltonians H1 and H2 we obtain
+
+                    qA1 =    ecEt                  qA2 = 0
+                    q 1=0                          q 2=        eEx.       [1 Pkt]
+
+     For a given physical system the Hamiltonian is unique up to a gauge transformation
+
+                                          A ! A + crf
+                                              !        @t f
+
+     with an arbitrary function f (x, t). [1 Pkt]
+     Here choosing
+                                            qf = ±eEtx
+
+     allows us to go back and forward between H1 and H2 . [1 Pkt]
+     Alternatively one may show that potentials in the two Hamiltonians lead to the same
+     physical fields. (0.5 Pkt)
+     To do this one must invoke the formula to obtain the fields from the potentials
+                                              1
+                                    E=r         @t A
+                                              c
+                                    B =r⇥A                (1 Pkt)
+
+     Not mentioning gauge invariance loses 0.5 points even if the rest is correct.
+A.5. The eigenvalue problem is
+
+                                     ~@x2 (x)
+                                              =E         [0.5 Pkt]
+                                        2m
+
+     with boundary conditions      (x + 2⇡r) = (x). [0.5 Pkt]
+     This gives a spectrum
+                                           ~2 kn2
+                                      E=              [0.5 Pkt]
+                                            2m
+     where kn = n/r and n is any integer. [0.5 Pkt]
+     The particle in a 1D box is di↵erent only because of boundary conditions. Here the
+     condition becomes (0) = (2⇡r) = 0 which means we can fit a half wavelength in the
+     box n ! n/2 and that the n = 0 solution is no longer possible. Thus the spectrum is
+
+                                           ~2 n2
+                                      E=              [0.5 Pkt]
+                                           8mr2
+
+     where n > 0 is an integer. [0.5 Pkt]
+     The symmetry that has been broken is translational invariance. [1 Pkt]
+
+
+A.6. The translation operator Ta is given by
+
+                                     Ta = e iap̂/~     [0.5 Pkt]
+
+     where p̂ is the momentum operator. [0.5 Pkt]
+     We now apply this translation operator to a wavefunction and obtain a modified wave-
+     function
+                                 0
+                                   (x) = hx|Ta | i.   [0.5 Pkt]
+
+     We now insert the momentum identity
+
+                            0
+                                (x) = hx|Ta | i = hx|e iap̂/~ | i
+                                                  Z
+                                                = dphx|e iap̂/~ |pihp| i
+                                                  Z
+                                                = dphx|e iap/~ |pihp| i
+                                                  Z
+                                                = dpei(x a)p/~ hp| i
+
+                                               = hx   a| i.
+
+     Thus it is clear that we have displaced the wavefunction by a.
+Alternatively one may show that Ta† |xi is an eigenstate of the position operator x̂. First
+we show that [x̂, p̂n ] = i~np̂n 1 by creating a recurrence relation and plugging in our
+ansatz. The recurrence relation is
+                                               ⇥         ⇤
+                                [x̂, p̂n ] = p̂ x̂, p̂n 1 + i~p̂n 1 ,
+
+when we plug in the ansatz we obtain
+
+                       i~np̂n 1 = i~(n      1)p̂p̂n 2 + i~p̂n 1 = i~np̂n 1 ,
+
+thus confirming that the ansatz is a good one. [0.5 Pkt]
+We apply the hermitian conjugate of the translation operator to a position state
+
+                                          Ta† |xi = T a |xi
+
+and verify that the new state is still an eigenstate of the position operator
+
+         x̂T a |xi = T a x|xi + [x̂, T a ] |xi      [1 Pkt]
+                                ✓ ◆X     1   ✓    ◆
+                                   ia          ia n 1 1
+                   = xT a |xi +                             [x̂, p̂n ] |xi     [0.5 Pkt]
+                                    ~          ~        n!
+                                        n=1
+                                ✓ ◆X     1 ✓ ◆n 1
+                                   ia          ia       n n 1
+                   = xT a |xi +                            p̂      |xi
+                                    ~          ~        n!
+                                            n=1
+
+                     = (xT a |xi    aT a |xi
+                     = (x    a)|x   ai.        [1 Pkt]
+
+Here, we have used [x̂, pn ] = i~npn 1 .
+We are now in a position to evaluate the new wavefunction explicitly
+
+                 0
+                     (x) = hx|Ta | i = hx     a| i = (x        a),       [0.5 Pkt]
+
+and it is clearly displaced by a compared to the original wavefunction.
+Aufgabe B:           Streuprobleme [17 Punkte]
+
+
+                       V
+                                     a                                               A
+B.1.
+                                         b                                           B
+                       0
+                                                     0                  w                 x       [0.5 Pkt]
+                                             !                   !          !
+                                         b               r t            a
+                           out =                 =                              =S    in       [0.5 Pkt]
+                                         A               t r            B
+
+       The scattering matrix S is unitary, implying that
+
+                                             SS † = S † S = 1,
+                                                 |t2 | + |r2 | = 1,
+                                                       r         t
+                                                          =        .            [0.5 Pkt]
+                                                       r⇤       t⇤
+
+                                                 !                  !
+                                             a                  A
+                             left =                  =M                 =M        right       [0.5 Pkt]
+                                             b                  B
+
+       The transfer matrix M may now either be given from memory or calculated
+                                             ⇤
+                                               !
+                                                            1    r
+                                              M=            t    t⇤     .        [1 Pkt]
+                                                            r     1
+                                                            t    t⇤
+
+
+B.2. Immediately from Schrödinger’s equation we find
+
+                                   ikx
+                     l (x) = a e         + b e i k x,                              r (x) = A e
+                                                                                                  ↵x
+                                                                                                         + B e ↵x
+               p                   p
+       with k = 2mE/~ and ↵ = 2m(V E)/~. [0.5 Pkt]
+       From continuity conditions at x = 0, ( l (0) = r (0) and                                0          0
+                                                                                               l (0) =    r (0)), we get
+
+
+                                             a+b=A+B                        [0.5 Pkt]
+
+                                    i k(a            b) =       ↵ (A        B)      [0.5 Pkt]
+     We can now find the transmission t(E) by using results from the previous part. We
+     recast the continuity conditions into
+                             !                    !   !          !
+                           a       1 + i↵
+                                        k  1   i↵
+                                                k   A          A
+                               =                        =: M       .
+                           b       1 i↵ k  1 + i↵
+                                                k   B          B
+
+     and use our earlier result for M to find
+                            i↵
+                        1    k
+               r(E) =                [0.5 Pkt]
+                        1 + i↵
+                             k
+                          p
+                        1   1 V /E
+                     =    p           [0.5 Pkt]
+                       1 + 1 V /E
+                       8                    ⇣     ⌘
+                       <0 + 1 V + 1 V 2 + O V 3                          for V ⌧ E
+                            4 E
+                     =          q8 E         ⇣E     ⌘                                         [0.5 Pkt]
+                       : 1 2 i E + 2 E + O E 3/2                         for V       E
+                                  V    V        V
+
+     where only the constants are required to get full credit in the last line.
+
+B.3. The Lippmann-Schwinger equation in 1D is
+                                Z
+                   (x) = e ikx
+                               + dx0 G(x x0 , Ek )V (x0 ) (x0 ) ,                      [1 Pkt]
+
+     which (unless the student memorized it) can be computed by defining the Green’s
+     function to Schrödinger’s equation. For V (x) = V0 (x) we get
+
+                                   (x) = ei k x + V0 G(x, Ek ) (0)           [1 Pkt]
+
+
+B.4. In lowest order perturbation theory (Born approximation), i.e., when the bare energies
+     are large and the scattering potential weak (V0 ⌧ Ek ) [1 Pkt] , one can stop the
+     recursion
+
+                             ikx                                                    ikx
+               j+1 (x) = e         + V0 G(x, Ek ) j (0),                0 (x) = e         ,   [0.5 Pkt]
+
+     after the first iteration, i.e.,
+
+                                                    ikx
+                             (x) ⇡      1 (x) = e         + V0 G(x, Ek ) .    [0.5 Pkt]
+
+     Note: The recursion does not need to be explicitly stated, to get full credit only the
+     idea has to be outlined.
+B.5. We now calculate the Green’s function for a particle in 1D, which is defined by
+                               ✓ 2          ◆
+                                  ~ 2
+                                     @x + E G(x, E) = (x) .
+                                 2m
+
+      We use a Fourier transform
+                                ✓                    ◆
+                                            ~2 k 2
+                                    E                    G(k) = 1     [1 Pkt]
+                                             2m
+
+      and then revert back to real space
+                                Z
+                                   dk        eikx
+                      G(x, E) =                          [0.5 Pkt]
+                                   2⇡ E ~2 k 2 /(2m)
+                                         Z
+                                2m 1                        eikx
+                              = 2          dk p                p
+                                 ~ 2⇡         ( 2Em/~2 + k)( 2Em/~2 k)
+                                   im ikE |x|
+                              =          e     . [0.5 Pkt]
+                                  ~2 k E
+                   p
+      where kE = 2mE/~. Note that in the last line we closed the contour in the complex
+      plane and chose to include the simple pole so that we obtained the retarded Green’s
+      function, corresponding to outgoing waves.
+      Alternatively, we can stay in real space to compute the Green’s function. In the regions
+      away from x = 0 it is solved by G = A± e±ikE x with 2mE = ~2 kE 2 . (0.5 Pkt)
+
+      We consider the retarded Green’s function corresponding to outgoing waves and thus
+      have G = AeikE |x| . (1 Pkt)
+      Finally, we calculate A by integrating from ✏ to ✏ and taking the limit ✏ ! 0,
+                                              ✏
+                                       ~2            2~2 AikE
+                                     A    @x G     =          =1.
+                                       2m        ✏     2m
+
+      The prefactor then is A =     im/(~2 kE ).            (0.5 Pkt)
+
+      Going back to the problem of a particle scattering at a point-like potential as in exercise
+      (B.3), we find
+
+                                                 im V0 ik|x|
+                              (x) = ei k x             e     (0)         [0.5 Pkt]
+                                                  ~2 k
+                                                           1
+      so that we find   (0) = 1 + i m V0 /(~2 k)               and finally
+
+                                                 i V0 /2
+                             (x) = ei k x                   eik|x| .         [0.5 Pkt]
+                                               Ek + i V0 /2
+B.6. For a periodic potential V (x + a) = V (x), one can show that the solutions of the TISE
+     take the form of modulated plane-waves with lattice-periodic amplitude function, i.e.,
+
+                                                      ikx
+                                   k (x) = uk (x) e         ,           [0.5 Pkt]
+
+      where uk (x + a) = uk (x) [0.5 Pkt] and k 2 [ ⇡/a, ⇡/a] (Brillouin zone) [0.5 Pkt] .
+      This result is known as Bloch theorem and the wave functions are hence called Bloch
+      waves [0.5 Pkt] .
+
+
+B.7. It is convenient to decompose the wavefunctions into spherical waves (called partial
+     waves), because it allows to exploit the symmetry of V (r) in the asymptotic limit
+     r ! 1. The radial part Rl (r) of the partial wave l that contributes to the the resulting
+     wave function must have the asymptotic form
+                          ⇣                           ⌘
+                            (in)          (out)
+               Rl (r) ⇠ ↵l hl (k r) + sl hl     (k r)          for         r!1,
+
+      corresponding to an incoming spherical wave and an outgoing one that has picked up a
+      modulated phase due to V (r). Current-density conservation implies sl = e2i l (k) , where
+       l (k) is the scattering phase shift.
+
+      The relation between the scattering amplitude sl and the scattering phase        l is
+
+                                                    2i
+                              sl = e2i l = 1 +                      ,      [0.5 Pkt]
+                                                 cot l          i
+      where either of the two forms is enough for full credit.
+      See figure 6.5 in the QM script (p. 179) for an illustration of the physical meaning of
+      the scattering phase shift l (k):
+
+
+
+
+      An attractive potential increases the kinetic energy of an incoming state, which leads
+      to the wave function oscillating faster and hence we have a positive phase shift ( l > 0)
+       [0.5 Pkt] . A repulsive potential slows down the oscillation and hence we have a negative
+      phase shift ( l < 0). [0.5 Pkt]
+      Note: Either the figure or the text by itself is sufficient for full credit, as long as all
+      relevant information (especially the explicit signs of ) is immediately clear.
+Criteria for bound states and resonances can be found by examining the analytic struc-
+ture of sl . The student may either use the previous equation to deduce, or simply state
+from memory:
+
+   cot l (k) = i   [0.25 Pkt]     pole in sl    [0.25 Pkt]                 (bound state)
+
+  cot l (k) = 0    [0.25 Pkt]     sl =   1     [0.25 Pkt]          (scattering resonance)
+
+See figure 6.7(c,d) in the QM script (p. 186) for the discussion of the e↵ective potential
+of scattering resonances:
+
+
+
+
+                                                       [0.5 Pkt]
+
+For l = 0 (Fig. c) we have a special case, because the resonances tend to be broad or
+even undefined since there is no centrifugal potential barrier. [0.5 Pkt] On the other
+hand for l > 0 (Fig. d), we have sharp resonances, because the states decay via a barrier.
+ [0.5 Pkt]
+Aufgabe C:           Harmonischer Oszillator und Störungstheorie
+                     [28 Punkte]
+
+C.1. Wir quantisieren die Theorie, indem wir zu Operatoren q und p übergehen und den
+     Kommutator [q, p] = i~ einführen. [0.5 Pkt]
+     In Ortsdarstellung ist der Impulsoperator gegeben durch
+
+                                    p=     i~@q .     [0.25 Pkt]                     (1)
+                                                                        q
+                                                                          f
+     Die charakteristische Energieskala ist ~! mit der Eigenfrequenz ! ⌘ m  [0.25 Pkt] .
+     Ausgedrückt durch die Eigenfrequenz ! nimmt der Hamiltonian die Form
+
+                                      1 2 m! 2 2
+                               H=       p +   q           [0.25 Pkt]                 (2)
+                                     2m     2
+     an. Weiter definieren wir Auf- und Absteigeoperatoren,
+                                  ✓r                 ◆
+                                1    m!        i
+                           a⌘           q+p        p ,     [0.25 Pkt]                (3)
+                                2     ~       m~!
+                                  ✓r                 ◆
+                           †    1    m!        i
+                          a ⌘           q p        p     [0.25 Pkt] ,                (4)
+                                2     ~       m~!
+     umgekehrt ist
+                                          r
+                                           ~ ⇣ †   ⌘
+                                     q=        a +a ,                                (5)
+                                          2m!
+                                         r
+                                           m!~ ⇣ †  ⌘
+                                     p=i        a  a .                               (6)
+                                            2
+     Aus der Kommutatorrelation von q und p folgt für die Auf- und Absteigeoperatoren
+
+                                     [a, a† ] = 1 .   [0.5 Pkt]                      (7)
+
+     Wir drücken nun den Hamiltonian (2) mit Hilfe der Auf- und Absteigeoperatoren aus,
+
+                                     ~! ⇣ †         ⌘
+                                H=        a a + aa†
+                                      2
+                                     ~! ⇣ †               ⌘
+                                   =      2a a + [a, a† ]
+                                      2 ✓        ◆
+                                               1
+                                   = ~! N +        ,      [0.5 Pkt]                  (8)
+                                               2
+
+     wobei wir den Operator N ⌘ a† a definiert haben.
+     Das Spektrum ist gegeben durch
+                              ✓       ◆
+                                    1
+                     En = ~! n +        , n = 0, 1, 2, . . . .     [0.25 Pkt]        (9)
+                                    2
+Um die Wellenfunktion des Grundzustands zu bestimmen, verwenden wir, dass a|0i = 0.
+Damit finden wir
+                                p
+                          0=    2hq|a|0i [0.5 Pkt]
+                                r         r      !
+                                  m!         ~
+                            =          q+      @q hq|0i .                        (10)
+                                    ~       m!
+
+Die Wellenfunktion des Grundzustands 0 (q) ⌘ hq|0i erfüllt somit die Di↵erentialglei-
+chung
+                                           m!
+                              @q 0 (q) =       q 0 (q) ,                         (11)
+                                             ~
+mit der Lösung
+                                        m! 2
+                                          q
+                           0 (q) = N e 2~    . [0.5 Pkt]                         (12)
+
+Die Normierungskonstante N wird bestimmt durch die Bedingung
+                                  Z 1
+                                !
+                              1=      dq | 0 (q)|2 ,                             (13)
+                                       1
+
+und ist gegeben durch                      r
+                                               m!
+                                    N = 4         .                              (14)
+                                               ⇡~
+Fehlende Normierungskonstante: -0.25 Pkt
+
+Alternativ: Lösung mit dimensionslosen Variablen
+                                      r
+                                         m!
+                                  x=         q,                                  (15)
+                                          ~
+                                         p
+                                  p = i m~! @x .                                 (16)
+C.2. Für eine allgemeine Störung V sind die Korrekturen erster und zweiter Ordnung zur
+     Grundzustandsenergie gegeben durch
+                                             (1)
+                                           E0 = h0|V |0i ,                                  (17)
+                                            (2)
+                                                X |hl|V |0i|2
+                                           E0 =        (0)  (0)
+                                                                .                           (18)
+                                                l6=0 E0    El
+
+                                      3
+     Es gilt V3 = q 3 / a† + a und somit enthält kein Term dieselbe Anzahl an Auf-
+                                                            (1)
+     und Absteigeoperatoren. Daher ist für diese Störung E0 = 0 und die kleinste nicht-
+     verschwindende Korrektur ist von zweiter Ordnung.                  [0.5 Pkt]
+                         4
+     V4 =   q4 /   a† + a dagegen enthält Terme wie z.B. aaa† a† , die bereits einen nicht-
+     verschwindenden Korrekturterm erster Ordnung ergeben.                      [0.5 Pkt]
+
+     Wir führen die dimensionslose Auslenkung x ein,
+                                    r                 r
+                                      m!                 ~
+                               x=         q bzw. q =       x.                               (19)
+                                       ~                m!
+     Damit finden wir
+                               ✓          ◆3/2
+                                    ~
+                        V3 =                     x3
+                                   m!
+                               s                                    r
+                               ~!                                       f
+                          =                  ~!
+                                            |{z}      x3 ,    w⌘            [0.5 Pkt]       (20)
+                                f3                                      m
+                            | {z }         Energie
+                               Zahl
+
+     und ebenso
+                                          ◆✓
+                                        ~ 2 4
+                               V4 =         x
+                                       m!
+                                     ~!
+                                  =        ~!
+                                          |{z}               x4 .   [0.5 Pkt]               (21)
+                                     f2
+                                    |{z} Energie
+                                          Zahl
+C.3. Der kleinste nicht-verschwindende Korrekturterm zur Grundzustandsenergie des har-
+     monischen Oszillators ist für die Störung V3 = q 3 von zweiter Ordnung. Wir müssen
+     somit
+
+                                            (2)
+                                                  X hl| q 3 |0i 2
+                                          E0 =           (0)       (0)
+                                                                         [1 Pkt]                      (22)
+                                                   l6=0 E0        El
+                                                  q
+                       (0)                            ~
+     berechnen, wobei En = ~!(n + 1/2) und q = 2m!       (a† + a). Insbesondere sind in der
+     Summe nur die Terme für l = 1 und l = 3 nicht-verschwindend.
+                     ✓          ◆3 X                          2
+         (2)     2        ~                hl|(a† + a)3 |0i
+        E0 =
+                         2m!                    ( l~!)
+                                   l6=0
+                     ✓          ◆3 
+                          ~                1                         2     1                2
+             =   2
+                                             h1|a† aa† + a(a† )2 |0i          h3|(a† )3 |0i     [1 Pkt]
+                         2m!              ~!                              3~!
+                     ✓ ◆3 
+                 2   ~       1    1
+             =                 9     6
+                   2m!      ~!   3~!
+                 11 2 ~2
+             =
+                  8 m3 ! 4
+                 11 2 ~
+             =         3 5
+                             ~! . [1 Pkt]
+                            |{z}                                                                      (23)
+               | 8 {zm ! }             Energie
+                         Zahl
+C.4. Die Wellenfunktion des Grundzustands des harmonischen Oszillators ist in der Ortsdar-
+     stellung gegeben durch (dimensionslose Variable)
+
+                                            x2 /2            1
+                              0 (x) = N e           ,   N = p   .   [1 Pkt]                    (24)
+                                                            4
+                                                              ⇡
+
+     Alternativ (dimensionsbehaftete Grössen):
+                                       r
+                                       4
+                                          m! m! q2
+                               0 (q) =       e 2~ .             (1 Pkt)                        (25)
+                                          ⇡~
+     Für t 0 haben wir es mit einem freien Teilchen zu tun, dessen Zeitentwicklung gegeben
+     ist durch
+                                    Z
+                                      dk                          ~k 2
+                           (x, t) =       a(k) ei(kx !k t) , !k =      .                (26)
+                                      2⇡                          2m
+
+     Die Amplituden a(k) sind durch die Anfangsbedingung (x, 0) =                0 (x) bestimmt,
+                                         Z
+                                  a(k) = dy (y, 0)e iky .                                      (27)
+
+     Die zeitabhängige Wellenfunktion ist somit gegeben durch
+                              Z   Z
+                                     dk       2               ~k2
+                      (x, t) = dy        N e y /2 e iky ei(kx 2m t) .         [1 Pkt]          (28)
+                                     2⇡
+     Lösung 1: Zuerst y-Integral und anschliessend k-Integral.
+
+                                            Z
+                                                         2
+                                    Iy =   dy N e y /2 e iky
+                                                   Z
+                                                          1
+                                             k2 /2                 2
+                                       = Ne          dy e 2 (y+ik)
+                                              2    p
+                                       = N e k /2 2⇡ .                                         (29)
+
+
+                                  p    Z
+                                        dk k2 /2 i(kx ~k2 t)
+                       (x, t) = N 2⇡       e      e      2m
+                                        2⇡
+                                                 Z
+                                  1        x2              1
+                                                             (1+ i~t        ix
+                                                                     )(k 1+i~t/m )2
+                             = N p e 2(1+i~t/m) dk e 2            m
+                                  2⇡
+                                      1             x2
+                             =Np              e 2(1+i~t/m) . [1 Pkt]                           (30)
+                                   1 + i~t/m
+Lösung 2: Zuerst k-Integral und anschliessend y-Integral.
+
+                                  Z
+                                  dk iky i(kx ~k2 t)
+                           Ik =      e    e   2m
+                                  2⇡
+                                r
+                                   m im(x y)2
+                              =         e 2~t                                      (31)
+                                  2⇡i~t
+                              ⌘ K(x, t; y, 0)    (Propagator)
+
+
+                              r       Z
+                                  m           2    im(x y)2
+                   (x, t) = N           dy e y /2 e 2~t
+                                2⇡i~t
+                              r                 Z
+                                          x2
+                                  m 2(1+i~t/m)          1    im     imx 2
+                          =N          e            dy e 2 (1 ~t )(y+ ~t )
+                                2⇡i~t
+                                   1            x2
+                          =Np             e 2(1+i~t/m) . (1 Pkt)                   (32)
+                                1 + i~t/m
+
+Die Wahrscheinlichkeit, das Teilchen zum Zeitpunkt t1 , wenn das Potential eingeschaltet
+wird, im Grundzustand 0 zu finden, ist gegeben durch
+
+                  P (t1 ) = |h 0 | (t1 )i|2 [1 Pkt]                                (33)
+                             Z                    2
+                          =    dx ⇤0 (x) (x, t1 )
+                                             Z                               2
+                                      1                           x2
+                              2                       x2 /2
+                        = N p                    dx e  e      2(1+i~t1 /m)
+
+                                1 + i~t/m
+                              r                    2
+                            2            ⇡
+                        = N
+                                1 + i~t1 /(2m)
+                          s                    2
+                                     1
+                        =
+                             1 + i~t1 /(2m)
+                          s
+                                    1
+                        =                      . [1 Pkt]                           (34)
+                            1 + ~2 t21 /(4m2 )
+C.5. Schrödinger Bild:
+
+         • die Operatoren A sind zeitunabhängig,                      [0.25 Pkt]
+
+         • die Zustandsvektoren | (t)i sind zeitabhängig,                        [0.25 Pkt]
+
+         • die Zeitabhängigkeit der Zustände | (t)i ist durch die Schrödingergleichung gege-
+           ben,
+                         i~@t | (t)i = H| (t)i , | (t0 )i = | 0 i . [0.25 Pkt]             (35)
+
+      Heisenberg Bild:
+
+         • die Zustände sind zeitunabhängig, |              Hi = |      (t0 )i = |   0 i,    [0.25 Pkt]
+
+         • die Operatoren sind zeitabhängig,                     [0.25 Pkt]
+
+                                      AH (t) = U † (t, t0 ) A U (t, t0 ) .        [0.25 Pkt]                (36)
+
+      Der Zeitentwicklungsoperator U (t, t0 ) erfüllt die Di↵erentialgleichung
+
+                                              i~@t U (t, t0 ) = HU (t, t0 )                                 (37)
+
+      und ist explizit gegeben durch
+                                                           Z t
+                                                        i
+                               U (t, t0 ) = T exp                 dt0 H(t0 ) ,     [0.5 Pkt]                (38)
+                                                        ~    t0
+
+      bzw.
+
+                                              U (t, t0 ) = e iH(t t0 )/~ ,                                  (39)
+
+      falls @t H = 0.
+
+      Die Di↵erentialgleichung für die Zeitentwicklung der Operatoren lautet
+                             d          ⇣        ⌘
+                        i~      AH (t) = i~@t U † A U + U † (i~@t A) U + U † A (i~@t U )
+                             dt
+                                       = (HU )† AU + i~U † @t A U + U † AHU
+                                      = [AH , HH ] + i~(@t A)H .               [0.5 Pkt]                    (40)
+Ausgedrückt in Auf- und Absteigeoperatoren lautet der Hamiltonian des harmonischen
+Oszillators                             ✓         ◆
+                                          †     1
+                                H = ~! a a +        .                          (41)
+                                                2
+Es gilt @t a† = @t a = 0 und somit
+
+                                              @t H = 0                           (42)
+                                        ) [H, U ] = 0                            (43)
+                                           ) HH = H .                            (44)
+
+Die Zeitentwicklung des Absteigeoperators aH (t) ist bestimmt durch die Di↵erential-
+gleichung
+                                d
+                           i~      aH (t) = [aH , H] [0.25 Pkt]                  (45)
+                                dt
+                                          = U † [a, H]U
+                                                             1
+                                          = ~!U † [a, a† a + ]U
+                                                             2
+                                          = ~!U † [a, a† ]aU
+                                         = ~!aH .        [0.25 Pkt]              (46)
+
+Diese Di↵erentialgleichung hat die Lösung
+
+                            aH (t) = e i!(t t0 ) aH (t0 )
+                                     = e i!(t t0 ) a .    [0.5 Pkt]              (47)
+
+Für den Aufsteigeoperator a† können wir dieselbe Prozedur durchführen oder einfach
+das Ergebnis für den Absteigeoperator adjungieren,
+
+                            a†H (t) = U † a† U
+                                     = (U † aU )†
+                                     = (aH (t))†
+                                     = ei!(t t0 ) a† .   [0.5 Pkt]               (48)
+                                                q
+                                                    f
+C.6. Wir führen die Eigenfrequenz ! ⌘              m ein, mit Hilfe derer der Hamiltonian die Form
+
+                                                     1 2 m! 2 2
+                                            H=         p +   q                                                (49)
+                                                    2m     2
+     animmt. Weiter können wir den Hamiltonian in einen x und einen y Teil separieren,
+
+                                    1 2 m! 2 2       1 2 m! 2 2
+                               H=     px +     qx +    p +   q
+                                   2m        2      2m y   2 y
+                                 = Hx + Hy .                                                                  (50)
+
+     Für Hx und Hy definieren wir jeweils Auf- und Absteigeoperatoren,
+             ✓r                    ◆              ✓r                  ◆
+           1     m!         i               †   1    m!          i
+       a⌘           qx + p      px ,       a ⌘          qx    p     px ,                              [0.25 Pkt]
+           2      ~        m~!                  2     ~         m~!
+                                                                                                              (51)
+                ✓r                      ◆                       ✓r                             ◆
+            1        m!         i                           1        m!                i
+       b⌘               qy + p     py       ,        b† ⌘               qy        p       py         [0.25 Pkt] ,
+            2         ~        m~!                          2         ~               m~!
+                                                                                                              (52)
+
+     welche die folgenden Kommutationsrelationen erfüllen,
+
+                                  [a, a† ] = [b, b† ] = 1 ,      [0.25 Pkt]                                   (53)
+
+                                  [a(†) , b(†) ] = 0 .      [0.25 Pkt]                                        (54)
+
+     Umgekehrt gilt
+                         r                                                    r
+                             ~ ⇣ †  ⌘                                        m!~ ⇣ †                ⌘
+                     qx =       a +a ,                               px = i        a               a ,        (55)
+                            2m!                                                2
+                          r                                                 r
+                             ~ ⇣ †  ⌘                                         m!~ ⇣ †               ⌘
+                     qy =       b +b ,                               py = i        b               b .        (56)
+                            2m!                                                2
+
+     Ausgedrückt durch a, a† , b und b† nimmt der Hamiltonian die Form
+                                              1             1
+                                 H = ~!(a† a + ) + ~!(b† b + )
+                                              2             2
+                                     = ~!(a† a + b† b + 1)             [1 Pkt]                                (57)
+
+     an.
+Wir drücken nun den Drehimpulsoperator L = (q ⇥ p)z durch a, a† , b und b† aus,
+
+                   L = qx py qy px [0.5 Pkt]                                       (58)
+                        ~ h⇣ †    ⌘⇣     ⌘ ⇣                ⌘⇣       ⌘i
+                     =i     a + a b† b       a†         a     b† + b
+                        2⇣         ⌘
+                     = i~ b† a a† b . [0.5 Pkt]                                    (59)
+
+Wir definieren | i ⌘ p12 (|01i + i|10i) und berechnen
+                                ⇣            ⌘ 1
+                       L| i = i~ b† a    a† b p (|01i + i|10i)
+                                                2
+                                   1 ⇣ †               ⌘
+                             = i~ p b a i|10i a† b|01i
+                                    2
+                                    1
+                             = ~ p (|01i + i|10i)
+                                     2
+                             =   ~| i .   [1 Pkt]                                  (60)
+C.7. Unter der Annahme, dass En ⌧ V0 , können wir für die Bestimmung des tiefliegenden
+     Spektrums (und der zugehörigen normierten Eigenfunktionen) das System durch einen
+     unendlich tiefen Potentialtopf ersetzen,
+                                     (
+                                        0 , |x|  d/2
+                           V1 (x) =                       [0.5 Pkt]                  (61)
+                                        1 , |x| > d/2 .
+
+     Wir müssen folglich das Eigenwertproblem
+
+                                  ~2 2
+                                    @ ' n = E n 'n ,        |x|  d/2                  (62)
+                                  2m x
+     mit den Randbedingungen
+                                     'n (x) ⌘ 0 ,      |x| > d/2                       (63)
+
+     lösen. Die Lösungen sind gegen durch Exponentialfuntionen exp(±ikx), wobei die er-
+     laubten Werten von k durch die Randbedingungen fixiert werden,
+                                                   ⇡
+                                             kn = n .                                  (64)
+                                                   d
+     Man findet Lösungen zu geraden und ungeraden n,
+                         (
+                           Ncos cos n⇡x/d , n 1 , ungerade,
+                'n (x) =                                                   [0.5 Pkt]   (65)
+                           Nsin sin n⇡x/d , n 2 , gerade,
+
+     wobei die Normierungskonstanten Ncos und Nsin durch die Bedingung
+                                            Z d/2
+                                        !
+                                     1=             dx |'n (x)|2                       (66)
+                                              d/2
+                                                                   p
+     bestimmt werden und gegeben sind durch Ncos = Nsin =           2/d.
+     Fehlende Normierungskonstante: -0.25 Pkt
+     Das tiefliegende Spektrum ist
+
+                                     ~kn2   ~2 ⇡ 2 2
+                              En =        =       n .        [0.5 Pkt]                 (67)
+                                     2m     2md2
+Der führende Korrekturterm zu den Eigenenergien aufgrund der Störung durch das
+Delta-Potential H 0 = V 0 (x) ist gegeben durch
+
+                En(1) = h'n |H 0 |'n i [0.5 Pkt]                            (68)
+                        Z d/2
+                      =       dx '⇤n (x)V 0 (x)'n (x)
+                             d/2
+
+                     = V |'n (0)|2
+                         0
+                       (
+                         V 0 d2 , n    1 , ungerade,
+                     =                                  [0.5 Pkt]           (69)
+                         0,       n    2 , gerade.
+
+Wie erwartet werden durch das symmetrische Potential H 0 nur die Energien zu den
+geraden Eigenfunktionen verschoben.
+Die Übergangsrate von einem Zustand |ii mit Energie "i in einen Zustand |f i mit
+Energie "f für eine periodische Störung H̄ = V̄ (x) cos (!t) ist gegeben durch (siehe
+Skript (9.101))
+             2⇡ 1              2
+     i!f =        hf |V̄ (x)|ii [ ("f        "i     ~!) + ("f         "i + ~!)] .   [1 Pkt]   (70)
+              ~ 4
+Der Anfangszustand |ii sei der Grundzustand des betrachteten Systems,
+                             r
+                               2                         ~2 ⇡ 2
+                   '1 (x) =      cos (⇡x/d) , "i = E1 =         ,                             (71)
+                               d                        2md2
+der Endzustand |f i ein Zustand im Kontinuum,
+
+                             1 ikx                        ~2 k 2
+                    k (x) = p   e ,         "f = ✏k =            .    [0.25 Pkt]              (72)
+                              L                            2m
+
+Die totale Übergangsrate vom Grundzustand ins Kontinuum erhalten wir, indem wir
+den Ausdruck (70) mit der Zustandssdichte ⇢(✏k ) multiplizieren und das Resultat über
+alle möglichen Endzustandsenergien ✏k integrieren,
+                                    Z
+                     Grund.!Kont. =   d✏k 1!k ⇢(✏k ) . [0.5 Pkt]                  (73)
+
+Beachte, dass der zweite Term in (70), welcher Emission beschreibt, keinen Beitrag
+liefert, da "f = ✏k > E1 = "i .
+Wir berechnen zunächst die Zustandsdichte für ein freies Teichen in 1D,
+                                 X
+                          g(E) =    (E ✏k ) [0.5 Pkt]                         (74)
+                                   k
+                                        Z
+                                  L                      ~2 k 2
+                                =           dk (E               )                             (75)
+                                  2⇡                      2m
+                                        Z                       p          !
+                                  L                m                 2mE
+                                =           dk            k                                   (76)
+                                  2⇡              ~2 k                ~
+                                            r
+                                  L 1           m
+                                =                  .     [0.5 Pkt]                            (77)
+                                  2⇡ ~          2E
+
+Als nächstes berechnen wir das Matrixelement,
+                                            Z d/2
+                                                        1
+                    h k |V̄ (x)|'1 i =              dx p e ikx V̄ (x)'1 (x)                   (78)
+                                                d/2      L
+                                          1
+                                       = p V̄ '1 (0)                                          (79)
+                                           L
+                                              r
+                                          1      2
+                                       = p V̄      ,                                          (80)
+                                           L     d
+
+und sehen, dass es unabhängig vom Endzustand im Kontinuum ist (unabhängig von k).
+Jetzt berechnen wir noch die total Übergangsrate,
+                           Z
+                                 2⇡ 1                  2
+            Grund.!Kont. =   d✏k       h k |V̄ (x)|'1 i (✏k          E1   ~!)⇢(✏k )   (81)
+                                  ~ 4
+                           2⇡ 1 1 2 2
+                         =        V̄   ⇢(E1 + ~!) .                                   (82)
+                            ~ 4L d
+Mit                                             r
+                             ~2 k 0 2      0        ⇡ 2 2m!
+             E1 + ~! ⌘ ✏k0 =          ,   k =          +    ,        [0.25 Pkt]       (83)
+                              2m                    d2   ~
+finden wir
+                                           1 mV̄ 2
+                          Grund.!Kont. =             .   [0.5 Pkt]                    (84)
+                                           2 ~3 dk 0
+Aufgabe D:              Spin, Drehimpuls und Dichtematrizen [18 Punk-
+                        te]
+
+D.1. Aus der Aufgabenstellung können wir direkt ablesen dass
+
+                                   H 1 ⌦ H 1 ⌦ H 1 ⌦ H1 ⌦ H 1           [0.5 Pkt]             (85)
+                                       2      2     2              2
+
+
+      was wir umschreiben können als
+
+                                 (H0       H1 ) ⌦ (H0    H1 ) ⌦ H1 .      [0.5 Pkt]           (86)
+
+      Daraus sehen wir dass
+
+                                    3H0       6H1   4H2     H3 .       [0.5 Pkt]              (87)
+
+      Das heisst wir haben 3 + 18 + 20 + 7 = 48 Zustände.                 [0.5 Pkt]
+
+
+D.2. Wir betrachten die Basis h" | = (1, 0) and h# | = (0, 1). Mit dem Magnetfeld H = µB B z
+     ergibt sich die Zeitentwicklung unseres Zustands
+
+                                  | (t)i = eiµB Bt/(2~) |"i + ie iµB Bt/(2~) |#i .            (88)
+
+      Dadurch sehen wir dass
+
+                            h (t)| = h" |e iµB Bt/(2~)    ih# |eiµB Bt/(2~) .      [1 Pkt]    (89)
+
+      Sei S = ( x ,    y,   z ) dann möchten wir folgende Grösse berechnen
+
+
+                      h (t)|S| (t)i = (h (t)| x | (t)i, h (t)| y | (t)i, h (t)| z | (t)i) .   (90)
+
+      Eine einfache Rechnung ergibt dann dass
+
+                                  h (t)| x | (t)i =      ieiµB Bt/~ + ie iµB Bt/~             (91)
+                                  h (t)| y | (t)i = eiµB Bt/~ + e iµB Bt/~                    (92)
+                                  h (t)| z | (t)i = 0 .                                       (93)
+D.3. Wir wissen dass ein reiner Zustand | iAB verschränkt ist falls er nicht geschrieben
+     werden kann als | iAB = |'iA ⌦ | iB . Daraus sehen wir
+
+         • |11iAB = |1iA ⌦ |1iB ) nicht verschränkt.              [0.5 Pkt]
+
+         • (|10iAB   |01iAB ) ist verschränkt (sogar maximal verschränkt da es ein Bell-
+           Zustand ist). [0.5 Pkt]
+
+         • (|11iAB + |00iAB ) ist verschränkt (sogar maximal verschränkt da es ein Bell-
+           Zustand ist). [0.5 Pkt]
+
+         • (|10iAB + |11iAB ) = |1iA ⌦ (|0iB + |1iB ) ) ist nicht verschränkt.       [0.5 Pkt]
+
+
+D.4. Die Eigenwerte von ⇢AB sind {0, 0, 0, 1}. Das heisst ⇢AB hat Rang 1 und deshalb ist
+     ⇢AB rein.
+     Alternative: Wir überprüfen dass ⇢2AB = ⇢AB was impliziert dass der Zustand rein ist.
+      [1 Pkt]
+      Wir können ⇢AB schreiben als
+                                                 1
+               ⇢AB = | ih |AB     mit   | iAB = p (|00iAB + |11iAB ) .           [1 Pkt]      (94)
+                                                  2
+
+D.5. Wir wissen dass
+
+                                             Pxi = hxi |⇢|xi i .                              (95)
+
+      Per Aufgabenstellung kennen wir ⇢AB welches geschrieben werden kann als
+                               1
+                       ⇢AB =     (|00ih00| + |00ih11| + |11ih00| + |11ih11|) .                (96)
+                               2
+      Nun können wir das gewünschte Resultat einfach berechnen als
+                                         ✓               ◆
+                                        1 1 1 1 1
+                    Px1 = hx1 |⇢|x1 i =     + + +           = 1 [0.5 Pkt]                     (97)
+                                        2 2 2 2 2
+                     Px2 = hx2 |⇢|x2 i = 0      [0.5 Pkt]                                     (98)
+
+                     Px3 = hx3 |⇢|x3 i = 0      [0.5 Pkt]                                     (99)
+
+                     Px4 = hx4 |⇢|x4 i = 0      [0.5 Pkt] .                                  (100)
+D.6. Der Zustand nach der Messung ist per Postulat der QM gegeben durch ⇢¯AB = ⇢AB . Sei
+     P0 und P1 Projektoren auf |0i und |1i.  [1 Pkt]
+
+      Fall 1: unbekannte Messung auf B:
+      Der Zustand nach der unbekannten Messung auf B ist
+                 1                                1
+           ⇢˜AB = (idA ⌦ P0,B )⇢AB (idA ⌦ P0,B ) + (idA ⌦ P1,B )⇢AB (idA ⌦ P1,B )        (101)
+                 2                                2
+                 1           1
+                = |00ih00| + |11ih11| . [1 Pkt]                                          (102)
+                 2           2
+
+      Daraus sehen wir direkt dass ⇢˜A = 12 |0ih0| + 12 |1ih1|.    [0.5 Pkt]
+
+      Fall 2: Messung auf B ergibt 1:
+      Der Zustand nach der Messung auf B mit Ausgang 1 ist
+
+                     ⇢˜AB = (idA ⌦ P1,B )⇢AB (idA ⌦ P1,B ) = |11ih11| .        [1 Pkt]   (103)
+
+      Daraus sehen wir direkt dass ⇢˜A = |1ih1|.       [0.5 Pkt]
+
+
+D.7. Die Eigenwerte von ⇢ sind { 12 , 12 } und deshalb hat ⇢ Rank 2 was wiederum impliziert
+     das ⇢ gemischt ist.
+     Alternative: Wir können üperprüfen dass ⇢2 6= ⇢. Dies wiederum impliziert dass ⇢
+     gemischt ist.   [1 Pkt]
+
+      Die Bloch sphere representation besagt dass jede 2x2 Dichtematrix ⇢ geschrieben werden
+      kann als
+                                              1
+                                           ⇢ = (id + ~r · ~ ) .                          (104)
+                                              2
+
+      Für ⇢1 ergibt sich dadurch ein Blochvektor von ~r = (0, 0, 0).      [1 Pkt]
+      Für ⇢2 ergibt sich dadurch ein Blochvektor von ~r = (1, 0, 0).      [1 Pkt]
+

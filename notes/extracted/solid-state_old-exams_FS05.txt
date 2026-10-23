@@ -1,0 +1,129 @@
+Prüfungsart     Physik, Teil A
+Prüfungssession       Frühling 2005
+Fach    Festkoerper
+Dozentin    Prof. K. Ensslin
+
+Man sitzt an einem Tisch, Ensslin und sein Assistent nebendran. Das gibt
+irgendwie eine fast schon familiaere Atmosphaere - man fuehlt sich eher in
+einem Gespraech als in einer Pruefung. Auch die Tatsache, dass man auf
+ausgediente Blaetter schreibt, traegt ein wenig dazu bei.
+
+E: Haben Sie etwas vorbereitet?
+I: Erzaehle etwas ueber Bandstruktur-Naeherungs-Methoden: Fast freie Elektronen
+(quadratische Dispersion, entartete Niveaus an Brillouinzonenrand, Aufspaltung
+durch stehende Welle) Ensslin will wie immer wissen, wie gross die Aufspaltung
+ist: Fourierkomponente des Potentials.
+I: Tight Binding (Potential senkt atomare Niveaux, Nachbarwechselwirkung
+spaltet ein Niveau in ein Band auf) Ensslin fragt, ob hoehere oder tiefere
+Niveaus staerker abgesenkt werden. (Oops, habe ich mir nie ueberlegt. . . )
+Behaupte, das tiefere, weil es das Potential staerker spuert. (Das stimmt
+natuerlich nicht, das Potential der anderen Kerne senkt das Niveau!) Ensslin
+sagt etwas in der Art, was ich aber nicht ganz verstanden habe. Er fragt noch,
+ob es moeglich sei, dass die entstehenden Baender ueberlappen. Wusste ich
+auch nicht. Danach liess mich Ensslin mit meiner Einfuehrung weitermachen.
+(Im Nachhinein sagt mir meine Intuition nein, weil die Absenkung durch
+Nachbarkernpotentiale zustande kommt, die atomare Aufspaltung aber vom
+Kernpotential. Da wir stark gebundene Elektronen betrachten, sollte das
+Kernpotential viel groesser sein als das der Nachbarn.)
+I: Erwaehne noch iterative Methoden (unabhaengige Elektronen-Naeherung)
+und Optimierungsmethoden (APW, OPW). (Diese scheinen Ensslin bereits
+nicht mehr so interessiert zu haben. Ist ja auch eher etwas fuer Theoretiker.)
+E: Ionenbindungen?
+I:Elektronenaustausch; meist Alkalimetall oder Erdalkalimetall mit Halogeniden
+oder Element aus Sauerstogruppe. (Weiss nicht mehr, ob ich die Coulombanziehung
+erwaehnt habe)
+E: Sind solche Ionenkristalle Leiter oder Isolatoren?
+I: Isolatoren, die Elektronen sind nicht frei beweglich und lokalisiert (nicht
+wirklich. . . ).
+E: Wie sieht es aus mit Ueberlapp?
+I:(Sehe meinen Fehler.) Erwaehne Edelgaskonguration und gefuellte Baender,
+die keinen Strom tragen.
+E: Wieso nicht?
+I:   (Habe ein wenig Muehe, mich auszudruecken.) Symmetrie der Baender:
+
+                                      1
+Anteile links und rechts vom Zentrum der Brillouinzone heben sich gegenseitig
+auf.
+E: Ist diese Symmetrie weg, wenn das Band nur halb gefuellt ist?
+I: Jein: Ein angelegtes elektrisches Feld verschiebt die Besetzung. (Ensslin
+will die verschobene Fermikugel sehen. Ich weise darauf hin, dass die Verschiebung
+im Normalfall viel kleiner ist als der Fermivektor)
+E: Wie kommt die Fermikugel zurueck ins Gleichgewicht?
+I:   Streuung. Elektronen-Elektronen vernachlaessigbar weil kleiner Phasenraum.
+E: Wenn der Phasenraum groesser waere, wuerde die e-e Streuung bei Relaxation
+helfen?
+
+I: (Die Frage war so formuliert, dass die Antwort nein sein musste.) Der
+Gesamtelektronenimpuls bleibt erhalten, deshalb keine Verschiebung der Fermikugel.
+(nb: e-e Streuung ist aber inelastisch!)
+E: Was gibts denn noch?
+I:Phononenstreuung. T 5 fuer Bloch-Grueneisen Regime, wo Phononenmoden
+noch angeregt werden, danach linear in T . Fuer ganz kleine T spielt Stoerstellenstreuung
+eine Rolle, ist aber elastisch fuer zeitunabhaengige Stoerstellen.
+E: Wie sieht R-T-Diagramm fuer einen Supraleiter aus?
+I:   Zeichne mit Sprung auf Null bei kritischer Temperatur.
+E: Gibts sonst noch was, was den SL charakterisiert?
+I:   Meissner-Ochsenfeld: Perfekter Diamagnet, Verdraengung der Magnetfelder.
+E: Wie misst man perfekten Diamagnetismus?
+I:(Keine Ahnung, versuche auf perfekten Leiter umzusteuern, weil gewusst
+haette, wie man das misst. Erzaehle von induzierten Kreisstroemen, die
+persistent sind. Ensslin meint, das erklaere Diamangetismus allgemein, nicht
+unbedingt perfekten DM. Im Nachhinein sehe ich das allerdings etwas anders:
+persistente Stroeme machen aus Maxwell die London-Gleichung, welche die
+Verdraengung des Magnetfeldes vorhersagt.) Hoehe, mit der SL ueber inhomogenen
+Magnetfeld schwebt?
+E: (Hat wahrscheinlich homogen verstanden) Was ist die Kraft eines Magnetfeldes
+auf ein Dipolmoment?
+
+I:   Blackout, weiss ich im Moment nicht.
+E: Doch, das wissen Sie!
+                             → −
+                             − →
+I:   Im Hamiltonian kommt B · L vor. Kraft ist Gradient davon.
+E: Also keine Kraft im homogenen Feld. Wie sind E und B-Feld miteinander
+verknuepft?
+
+I: Ampere und Faraday. (Schreibe beide auf.)
+E: (Zeigt auf Faraday.) Nuetzt uns das Etwas?
+I: ∇ × E = 0, also Magnetfeld konstant.
+E: Also? (Nachdem ich ihn wohl etwas fragend angeschaut habe:) Verstehen
+Sie was ich meine? (Kopfschuetteln. Mittlerweile denke ich, ich haette die
+
+London-Gleichung erwaehnen sollen, weil die exponentiellen Abfall des Magnetfeldes
+voraussagt.) Magnetismus im Normalleiter?
+I: Diamagnetismus: Gebunden: Langevin, Kreisstroeme, Lenz'sche Regel.
+
+
+
+                                       2
+Frei: Landau, gleicher Mechanismus. Klein, χ ∼ 10−5
+E: Ist das Magnetische Moment eines Elektrons parallel zum Spin?
+I:   Ja.
+E: Antiparallel, wegen Ladungsvorzeichen im Bohrschen Magneton. Paramagnetismus
+freier Elektronen?
+
+I:Pauli. Zeemann-Splitting (Ensslin will Zeichnung sehen), auch klein, selbe
+Groessenordnung wie Diamagnetismus.
+E: (Nach knapp 25 Minuten:) Gut, das wars!
+
+
+
+    Die Pruefung bei Ensslin war sehr angenehm, die Atmosphaere ist recht
+locker, man kann durchaus auch mal lachen. Ensslin bohrt solange, bis man
+nicht mehr weiter weiss, dann wechselt er das Thema. Das nde ich fair und
+auch viel produktiver als wenn man die ganze Zeit auf dem gleichen Problem
+herumreitet. Er will keine Formeln sondern Graphiken, Exponenten und
+Groessenordnungen - Physik halt eben! Zudem scheinen mir die Fragen recht
+experimentell, Ensslin interessiert sich kaum fuer theoretische Herleitungen,
+dafuer umso mehr fuer Messungen. Leider ist es zum Teil sehr schwierig
+herauszunden, worauf er hinaus will. Anscheinend ist er sich das aber
+gewoehnt, denn er fragt schnell mal nach, ob man ihn verstanden hat!
+
+Erwartete Note: ∼ 5.5
+Erhaltene Note: 5.5
+
+
+
+
+                                     3
+

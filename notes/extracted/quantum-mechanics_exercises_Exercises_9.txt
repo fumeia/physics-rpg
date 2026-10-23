@@ -1,0 +1,164 @@
+             Quantenmechanik I – HS 2025 – Prof. M. Gaberdiel
+
+                              Exercise sheet IX
+                                   Return:      19.11.2025
+
+
+Question 1 [The sech2 potential ]:
+Consider the Hamiltonian
+                                           ℏ2 ∂ 2
+                                   H=−            + V (x) ,                            (1)
+                                           2m ∂x2
+with the potential
+                                      ℏ2               ℏ2   1
+                         V (x) = −       sech2 (x) = −             .                   (2)
+                                      m                m cosh2 (x)
+  (i) Sketch the potential and what you expect the ground state wavefunction to look
+      like.
+ (ii) Show that the Schrödinger equation can be recast as
+
+                                     A† A ψ = ϵ + 1 ψ ,
+                                                    
+                                                                                       (3)
+
+     where ϵ = 2mE
+                ℏ2
+                   and
+                                               ∂
+                                          A=      + tanh(x) .                          (4)
+                                               ∂x
+(iii) Show that the spectrum is bounded from below by ϵ0 = −1 and find the ground
+      state wavefunction ψ0 .
+      Hint: What can you say about A ψ0 ?
+
+
+Question 2 [Discreteness of spectrum ]:
+In this exercise, you will derive a bound on the partition function of a particle and apply
+it to show discretenss of the spectrum. Let
+                                            ℏ2 2
+                                   H=−         ∇ + V (q)                               (5)
+                                            2m
+be the Hamiltonian of a particle in d-dimensions. The partition function is defined as
+
+                            Z(β) = tr e−βH ,
+                                             
+                                                    β>0.                               (6)
+
+  (i) Argue that Z(β) < ∞ implies that the spectrum of H is discrete.
+ (ii) Use the Golden-Thompson inequality
+
+                       tr eA+B ≤ tr eA eB ,
+                                        
+                                                          A, B hermitian ,             (7)
+
+     to show that
+                                      Z
+                               1                        p2
+                                                                 
+                     Z(β) ≤      d       dd q dd p e−β 2m +V (q) = Zclassical (β) .   (8)
+                              2πℏ
+     Hint: ∇ is diagonal in the momentum basis, V is diagonal in the position basis.
+ (iii) Find a sufficient condition on V for the spectrum of H to be discrete. Show that
+       the spectrum of
+                                     ℏ2 2
+                             H=−        ∇ + ν ∥q∥α ,     ν, α > 0 ,                 (9)
+                                     2m
+       is discrete.
+
+
+Question 3 [Pauli matrices ]:
+In this problem, we want to show that
+                                                   ω        
+                                     U (ω⃗n) = exp −i ⃗n · ⃗σ ,                                       (10)
+                                                     2
+as an element of SU(2), corresponds to a finite rotation by the angle ω around an axis
+given by the unit vector ⃗n. The Pauli matrices ⃗σ = (σ1 , σ2 , σ3 ) are
+                                                                       
+                     0 1                  0 −i                         1 0
+            σ1 =              ,   σ2 =               ,      σ3 =              .   (11)
+                     1 0                  i 0                          0 −1
+
+  (i) Show that
+                                           σj σk = δjk I + iεjkl σl .                                 (12)
+
+ (ii) Show that
+                                 U (ω⃗n) = cos(ω/2)I − i sin(ω/2)(⃗n · ⃗σ ) .                         (13)
+
+ (iii) Show that (10) really describes the rotation by ω around ⃗n. Hint: Use the isomor-
+       phism SU(2)/{±I} ≃ SO(3) and calculate x̃′ = U x̃U † .
+
+
+Question 4 [3d harmonic oscillator and su(3) representation theory ]:
+In this exercise, you will develop some su(3) representation theory and apply it to the 3d
+harmonic oscillator with Hamiltonian
+                                                            
+                                       †      †      †     3
+                            H = ℏω a1 a1 + a2 a2 + a3 a3 +     .                      (14)
+                                                           2
+
+  (i) Show that
+                                                   Jij = a†i aj                                       (15)
+       is conserved, i.e. [H, Jij ] = 0. Show furthermore that there is an algebra isomor-
+       phism1                                            
+                    φ : u(3) = span Eij ij } −→ span Jij ij }; Eij 7−→ Jij ,          (16)
+       where Eij denotes the 3 × 3 matrix with zeros everywhere except for a one in the
+       (i, j)-th entry,                    
+                                        Eij kl = δik δjl .                         (17)
+       Hint: For the map to be a Lie algebra isomorphism means that φ is an isomorphism
+       of vector spaces and that [φ(x), φ(y)] = φ [x, y] .
+   1
+    Technically, we consider here the complexification u(3)C , which is the space of complex 3 × 3 matrices
+with Lie bracket given by the matrix commutator.
+(ii) The u(3) algebra is semi-simple, u(3) ∼
+                                           = u(1) ⊕ su(3), where the u(1) is spanned by
+     I and the (complexified) su(3) is given by
+                                  n                          o
+                          su(3) = A ∈ Mat3×3 C tr A = 0 .                          (18)
+
+       To understand the representation theory, we thus focus on su(3). Let us define the
+       following basis of su(3),
+                  h1 = E11 − E22 ,                h2 = E22 − E33 ,
+                  e1 = E12 ,                      e2 = E23 ,                      e3 = E13 ,
+                  f1 = E21 ,                      f2 = E32 ,                      f3 = E31 .   (19)
+       We now investigate some properties of this basis.
+        (a) Calculate the commutator of hi with the other elements, or in other words
+            calculate
+                                adhi (·) ,      where adx (y) = [x, y] .         (20)
+                                                        
+        (b) We define the Cartan subalgebra h = span h1 , h2 . Show that su(3) can be
+            decomposed2 as follows,                    M
+                                           su(3) = h ⊕     gα ,                  (21)
+                                                                 α
+             where α ∈ h∗ is called a root and each gα is a simultaneous eigenspace for the
+             adjoint action of h on su(3), i.e.
+                                          x ∈ gα =⇒ adhi (x) = α(hi ) x .                      (22)
+             Show that the roots α that appear can be split into positive and negative roots,
+             denoted by ∆+ and ∆− , respectively, with
+              ∆+ = (2, −1), (1, 1), (−1, 2) ,     ∆− = (−2, 1), (−1, −1), (1, −2) . (23)
+                                                        
+
+             Here, α = (m, n) denotes the element of h∗ given by
+                                           α(h1 ) = m ,          α(h2 ) = n .                  (24)
+        (c) Show that for each α ∈ ∆+ , there is a su(2) subalgebra of su(3), spanned by
+                                        e α ∈ gα ,   hα ∈ h ,        fα ∈ g−α .                (25)
+(iii) We can now describe what irreducible representations of su(3) look like. Consider
+      a finite dimensional irrep                     
+                                   ρ : su(3) −→ gl V .                             (26)
+        (a) Show that there is a highest weight vector v ∈ V which is characterised by the
+            following properties. Firstly, it is a common eigenvector of h1 and h2 ,
+                                         ρ(hi ) v = λ(hi ) v ,        λ ∈ h∗ .                 (27)
+             Furthermore, v is annihilated by all the eα for positive roots,
+                                           ρ(eα ) v = 0 ,        ∀ α ∈ ∆+ .                    (28)
+             Show that V is generated by the action of ρ(fα ) on the highest weight vector
+             v.
+ 2
+     As a vector space, not as a Lie algebra.
+     (b) Show that λ has the property
+
+                                   λ(hα ) ∈ Z ,     ∀ α ∈ ∆+ .                        (29)
+
+     (c) What is the highest weight vector of the adjoint representation from (ii)?
+
+(iv) We now come back to the 3d harmonic oscillator. What are the degenerate eigenspaces
+     of H? Show that each such eigenspace is an irrep of su(3) and find the highest weight.
+

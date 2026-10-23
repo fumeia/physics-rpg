@@ -1,0 +1,403 @@
+{
+ "qm-sa-b1": {
+  "start": [
+   "Which operator combination lets you rewrite $\\vec S_1\\cdot\\vec S_2$ in terms of quantities that are diagonal in the coupled basis, and what are the allowed quantum numbers of the total spin?",
+   "Write $\\vec S^2=\\vec S_1^2+\\vec S_2^2+2\\vec S_1\\cdot\\vec S_2$ to get $H$ as a function of $\\sigma$; for the time evolution, expand $|0;0\\rangle$ in the eigenbasis $|\\sigma,m\\rangle$ of $H$ first."
+  ],
+  "parts": {
+   "Emax": [
+    "Which total spin $\\sigma$ gives the largest value of $\\vec S_1\\cdot\\vec S_2$, and is the coupling constant positive?",
+    "Use $\\vec S_1\\cdot\\vec S_2=\\tfrac12(\\vec S^2-\\vec S_1^2-\\vec S_2^2)$ with $\\vec S^2\\to\\hbar^2\\sigma(\\sigma+1)$ and $\\vec S_i^2\\to\\hbar^2 s(s+1)$.",
+    "Set $s=1$ and insert the largest allowed $\\sigma$ into $E_\\sigma=\\tfrac{\\hbar\\omega}{2}[\\sigma(\\sigma+1)-2s(s+1)]$; then divide by $\\hbar\\omega$."
+   ],
+   "Emin": [
+    "Which total spin makes $\\vec S^2$ smallest, and what does that do to the sign of the energy?",
+    "Same formula $E_\\sigma=\\tfrac{\\hbar\\omega}{2}[\\sigma(\\sigma+1)-2s(s+1)]$; the lowest level belongs to the smallest $\\sigma$ in $D_1\\otimes D_1$.",
+    "Insert $\\sigma=0$ and $s=1$: the bracket is just $-2s(s+1)$, so the energy is minus this times $\\hbar\\omega/2$. Mind the sign."
+   ],
+   "deg2": [
+    "How many $S_z$ eigenvalues $m$ belong to a given total spin $\\sigma$?",
+    "Each level $E_\\sigma$ is a full $D_\\sigma$ multiplet, because $H$ depends only on $\\vec S^2$ and commutes with all components of $\\vec S$.",
+    "Count the values $m=-\\sigma,\\dots,\\sigma$ for the largest $\\sigma$ occurring in $D_1\\otimes D_1$; check with the dimension sum $\\sum(2\\sigma+1)=(2s+1)^2$."
+   ],
+   "P1": [
+    "Which basis diagonalises $H$, and in which basis do you want to measure? How do you get from one to the other?",
+    "Expand $|0;0\\rangle$ in $|\\sigma,m\\rangle$ (only $m=0$ appears), attach the phases $e^{-iE_\\sigma t/\\hbar}$, and project onto $\\langle 0;0|$. The CG coefficients come from the result of (iii).",
+    "Write $P=|\\langle0;0|\\psi(t)\\rangle|^2=\\big|\\,a_2^2e^{-iE_2t/\\hbar}+a_0^2e^{-iE_0t/\\hbar}+a_1^2e^{-iE_1t/\\hbar}\\big|^2$ with $a_\\sigma=\\langle0;0|\\sigma,0\\rangle$; find which $a_\\sigma$ vanish, then evaluate at the given $\\omega t$."
+   ],
+   "P2": [
+    "The same probability as before, but at a different time: which $t$-dependent quantity in your general result changes, and what stays?",
+    "Use your general $P(t)=\\tfrac19(a+b\\cos 3\\omega t)$ from part (v): only the phase difference between the $\\sigma=2$ and $\\sigma=0$ components depends on $t$.",
+    "Here $3\\omega t=2\\pi/3$, so you need the cosine of this angle in your formula; substitute and simplify the fraction."
+   ]
+  }
+ },
+ "qm-sa-b2": {
+  "start": [
+   "Which basis makes the spin-$\\tfrac12$ part simple: what is $|\\psi\\rangle$ an eigenstate of, and how does a rotation of the measurement axis enter the probabilities?",
+   "For the spin-1 pair, write $\\vec S^2=\\vec S_A^2+\\vec S_B^2+2S_{Az}S_{Bz}+S_{A+}S_{B-}+S_{A-}S_{B+}$ and use $S_+\\psi=0$ to find the singlet in the $|m_A;m_B\\rangle$ basis."
+  ],
+  "parts": {
+   "pa": [
+    "Which eigenstates of $\\hat S_z$ is $|\\psi\\rangle$ a superposition of, and with what amplitudes?",
+    "Born rule: $P(\\pm)=|\\langle\\uparrow\\!/\\!\\downarrow|\\psi\\rangle|^2$, using the amplitudes of the given state.",
+    "Both amplitudes have the same modulus $1/\\sqrt2$; square one of them for the requested outcome $+\\frac\\hbar2$."
+   ],
+   "S2max": [
+    "What are the allowed total spins $\\sigma$ when adding two spin-1 particles?",
+    "$(\\vec S_A+\\vec S_B)^2=\\hbar^2\\sigma(\\sigma+1)$ with $\\sigma=|j_A-j_B|,\\dots,j_A+j_B$.",
+    "Take the largest $\\sigma=j_A+j_B$ and insert it into $\\sigma(\\sigma+1)$; give the result in units of $\\hbar^2$."
+   ],
+   "S2f": [
+    "Expand $(\\vec S_A+\\vec S_B)^2$ into single-particle operators; which terms act trivially on $|1,1\\rangle_A|1,1\\rangle_B$?",
+    "Use $\\vec S^2=\\vec S_A^2+\\vec S_B^2+2S_{Az}S_{Bz}+S_{A+}S_{B-}+S_{A-}S_{B+}$; the raising operator kills $m=j$, so one mixed term vanishes. What about the other?",
+    "Evaluate the diagonal terms: $\\vec S_A^2$ and $\\vec S_B^2$ each give $j(j+1)\\hbar^2$, and $2S_{Az}S_{Bz}$ gives $2m_Am_B\\hbar^2$; the two ladder terms contribute zero. Add and compare with $\\sigma(\\sigma+1)$."
+   ],
+   "nzero": [
+    "For the total $\\sigma=0$ sector, which $m$ is possible, and which product states $|m_A;m_B\\rangle$ have $m_A+m_B=0$?",
+    "How many times does $D_0$ appear in $D_1\\otimes D_1=D_2\\oplus D_1\\oplus D_0$?",
+    "Count the singlets in the decomposition: states with $\\sigma=0$ form one-dimensional multiplets, so the number is the multiplicity of $D_0$."
+   ],
+   "coef": [
+    "Which product states can enter a state with $m=0$, and what condition does $\\sigma=0$ impose on it?",
+    "Write $\\psi=\\alpha|1;-1\\rangle+\\beta|0;0\\rangle+\\gamma|-1;1\\rangle$ and impose $S_+\\psi=0$ with $S_+=S_{A+}+S_{B+}$, using $S_+|1,m\\rangle=\\hbar\\sqrt{2-m(m+1)}|1,m+1\\rangle$.",
+    "The condition gives linear relations among $\\alpha,\\beta,\\gamma$ (compare coefficients of $|1;0\\rangle$ and $|0;1\\rangle$); then fix the common modulus by normalisation $|\\alpha|^2+|\\beta|^2+|\\gamma|^2=1$."
+   ]
+  }
+ },
+ "qm-sa-b3": {
+  "start": [
+   "What determines the number of beams in a Stern-Gerlach experiment with composite objects: the number of values of which quantum number, and which spin multiplets appear?",
+   "Decompose the tensor product into irreducible representations $D_j$; for the CG coefficients, start from the highest-weight state and apply the lowering operator $J_-=L_-+S_-$."
+  ],
+  "parts": {
+   "beams2": [
+    "Two spin-$\\tfrac12$ atoms: which total spins $\\sigma$ occur, and which $m$ values belong to them?",
+    "$D_{1/2}\\otimes D_{1/2}=D_1\\oplus D_0$; the beams correspond to the distinct values of $m$ (the deflection depends on $S_z$).",
+    "List the distinct $m$ values across $D_1$ and $D_0$ (the $D_0$ state has $m=0$, which coincides with one of $D_1$) and count beams, not states."
+   ],
+   "beams3": [
+    "Three spin-$\\tfrac12$ atoms: what are the possible values of the total $S_z$ in units of $\\hbar$?",
+    "Add the third spin to $D_1\\oplus D_0$: $D_{3/2}\\oplus D_{1/2}\\oplus D_{1/2}$. Beams are the distinct $m$ values.",
+    "The largest $m$ is $3/2$ and it decreases in steps of one down to its negative; count these values. The intensity ratios would follow from multiplicities of each $m$."
+   ],
+   "pup": [
+    "In the state $|\\tfrac32,\\tfrac12\\rangle$ built from $l=1$ and $s=\\tfrac12$, which product states $|m,s\\rangle$ have $m+s=\\tfrac12$?",
+    "Get it by applying $J_-=L_-+S_-$ to $|\\tfrac32,\\tfrac32\\rangle=|1,\\uparrow\\rangle$ with $L_-|1,1\\rangle=\\hbar\\sqrt2|1,0\\rangle$ and $S_-|\\uparrow\\rangle=\\hbar|\\downarrow\\rangle$, then normalise.",
+    "After lowering you get $\\propto\\sqrt2\\,|0,\\uparrow\\rangle+|1,\\downarrow\\rangle$; the probability of spin up is the squared modulus of the properly normalised $|0,\\uparrow\\rangle$ coefficient."
+   ],
+   "pdn": [
+    "How is this related to the probability of spin up in the same state?",
+    "The state is a normalised superposition of $|0,\\uparrow\\rangle$ and $|1,\\downarrow\\rangle$, so the two probabilities must add to one.",
+    "Take the squared coefficient of $|1,\\downarrow\\rangle$ in the lowered and normalised state $\\propto\\sqrt2|0,\\uparrow\\rangle+|1,\\downarrow\\rangle$."
+   ],
+   "dim": [
+    "What are the two irreducible representations in $D_{1/2}\\otimes D_1$, and what is the dimension of $D_j$ in general?",
+    "$\\dim D_j=2j+1$; the allowed $j$ run from $|j_1-j_2|$ to $j_1+j_2$ in integer steps.",
+    "Find the allowed $j$ values, compute each $2j+1$ and check that their sum equals $\\dim D_{1/2}\\cdot\\dim D_1$. The requested number is that sum."
+   ]
+  }
+ },
+ "qm-fu-b1": {
+  "start": [
+   "Which inequality applies to $\\Delta x\\,\\Delta p$, and which expectation values of $x$ and $p$ in an energy eigenstate of the oscillator are easy to see by symmetry or by ladder-operator selection rules?",
+   "Express $x$ and $p$ through $a,a^\\dagger$ with the given hint, then compute $\\langle x^2\\rangle$ and $\\langle p^2\\rangle$ in $\\psi_n$ using $a|n\\rangle=\\sqrt n|n-1\\rangle$ and $a^\\dagger|n\\rangle=\\sqrt{n+1}|n+1\\rangle$."
+  ],
+  "parts": {
+   "dxdp2": [
+    "What are $\\langle x\\rangle$ and $\\langle p\\rangle$ in $\\psi_n$, and so what do the variances reduce to?",
+    "Square $x=\\sqrt{\\hbar/2m\\omega}(a+a^\\dagger)$; only the cross terms $aa^\\dagger+a^\\dagger a$ survive in the expectation value. How does this depend on $n$?",
+    "You should find $\\langle x^2\\rangle\\propto(2n+1)$ and $\\langle p^2\\rangle\\propto(2n+1)$ with the prefactors $\\frac{\\hbar}{2m\\omega}$ and $\\frac{m\\hbar\\omega}{2}$; multiply, take the root, and set $n=2$."
+   ],
+   "lhs3": [
+    "The left-hand side is the square of the product of uncertainties; which closed form did you obtain in (iii) for general $n$?",
+    "$(\\Delta x)^2(\\Delta p)^2=\\langle x^2\\rangle\\langle p^2\\rangle$ because $\\langle x\\rangle=\\langle p\\rangle=0$ in $\\psi_n$.",
+    "Use $\\Delta x\\Delta p=(n+\\tfrac12)\\hbar$, square it and put $n=3$; express the result in units of $\\hbar^2$."
+   ],
+   "anti": [
+    "What does the operator $\\hat x\\hat p+\\hat p\\hat x$ do to $|n\\rangle$ in terms of ladder operators; by how many levels does it change $n$?",
+    "Insert $x\\propto a+a^\\dagger$, $p\\propto -i(a-a^\\dagger)$: the product contains only $a^2$ and $a^{\\dagger2}$ terms, since the mixed terms cancel in the anticommutator.",
+    "Since $a^2$ and $a^{\\dagger2}$ change $n$ by $\\pm2$, what is $\\langle n|\\,\\cdot\\,|n\\rangle$? Remember also $\\langle x\\rangle=\\langle p\\rangle=0$, so $\\hat x\\hat p+\\hat p\\hat x$ with hats equals the unhatted one."
+   ],
+   "rhs": [
+    "Which two terms appear on the right side of the stronger inequality, and which of them vanishes here?",
+    "$\\big(\\tfrac12\\langle i[x,p]\\rangle\\big)^2+\\big(\\tfrac12\\langle\\{\\hat x,\\hat p\\}\\rangle\\big)^2$ with $[x,p]=i\\hbar$.",
+    "The anticommutator term is zero by the previous part; evaluate $i[x,p]$ as a number times $\\hbar$, take half, square it, and give the result in units of $\\hbar^2$."
+   ]
+  }
+ },
+ "qm-fu-b2": {
+  "start": [
+   "Which operator combination appears in the perturbation, and how can you express it through operators with known eigenvalues on the states $|n,l,m,s,m_s\\rangle$?",
+   "Introduce $\\vec J=\\vec L+\\vec S$ and write $\\vec L\\cdot\\vec S$ via $\\vec J^2,\\vec L^2,\\vec S^2$; the eigenvalues then depend on $j$ with $j=l\\pm\\tfrac12$."
+  ],
+  "parts": {
+   "j32": [
+    "Which total angular momentum $j$ values arise for $l=1$, $s=\\tfrac12$, and which of them is the larger one?",
+    "$\\vec L\\cdot\\vec S=\\tfrac12(\\vec J^2-\\vec L^2-\\vec S^2)$, so the shift is $\\kappa\\hbar^2\\cdot\\tfrac12[j(j+1)-l(l+1)-s(s+1)]$.",
+    "Insert $j=\\tfrac32$, $l=1$, $s=\\tfrac12$ into the bracket: compute $\\tfrac{15}{4}-2-\\tfrac34$ and then halve it. Give the answer in units of $\\kappa\\hbar^2$."
+   ],
+   "j12": [
+    "Same decomposition, now the smaller $j$: does the spin-orbit term raise or lower this level relative to the unperturbed one?",
+    "Use the same formula $\\tfrac12[j(j+1)-l(l+1)-s(s+1)]$ in units of $\\kappa\\hbar^2$ with the smaller allowed $j$.",
+    "With $j=\\tfrac12$, the three numbers inside are $\\tfrac34$, $2$ and $\\tfrac34$; combine them with the correct signs and multiply by $\\tfrac12$."
+   ],
+   "dim": [
+    "How many values of $m$ and $m_s$ are there for given $l$ and $s$?",
+    "The dimension is $(2l+1)(2s+1)$; check it against $\\sum_j(2j+1)$ over the allowed $j$.",
+    "Evaluate $(2l+1)(2s+1)$ for $l=1$, $s=\\tfrac12$, and verify that it equals the sum of the dimensions of $D_{3/2}$ and $D_{1/2}$."
+   ],
+   "trace": [
+    "What is the trace of $\\vec L\\cdot\\vec S$ over the whole space, and why? Use this as a check.",
+    "The sum of all six shifts equals $\\kappa\\hbar^2$ times the sum of all eigenvalues of $\\vec L\\cdot\\vec S$ with their degeneracy $2j+1$.",
+    "Multiply each shift by its degeneracy ($2j+1$ for each $j$) and add; the result must equal zero in units of $\\kappa\\hbar^2$, which is a check of your two shifts."
+   ]
+  }
+ },
+ "qm-fu-b3": {
+  "start": [
+   "In a 3-dimensional Hilbert space, what is the matrix of $\\hat x$ and which matrix gives $\\hat p$? What does a similarity transformation do to the spectrum?",
+   "Write $\\hat p=S\\hat xS^{-1}$ explicitly using the given $S$ with $\\omega=e^{2\\pi i/3}$ and compute its action on the state $|0\\rangle$; then use $\\Delta A=\\sqrt{\\langle A^2\\rangle-\\langle A\\rangle^2}$."
+  ],
+  "parts": {
+   "p0": [
+    "How do $\\hat p$ and $\\hat x$ share their eigenvalues, and what is $\\hat p$ in the basis in which it is diagonal?",
+    "Since $\\hat p=S\\hat xS^{-1}$ with $S$ unitary, $\\langle0|\\hat p|0\\rangle=\\langle0|S\\hat xS^\\dagger|0\\rangle$; with $\\hat x=\\mathrm{diag}(0,1,2)$ this is $\\sum_x x\\,|\\langle x|S^\\dagger|0\\rangle|^2$.",
+    "The first row of $S$ has equal entries $1/\\sqrt3$, so each $x=0,1,2$ appears with the same weight; the expectation value is the arithmetic mean of $0,1,2$."
+   ],
+   "dp": [
+    "Which expectation values do you need for a variance, and how can you compute them using the eigenbasis of $\\hat p$?",
+    "The probabilities of the momentum eigenvalues $0,1,2$ in the state $|0\\rangle$ are all equal; so $\\langle p^2\\rangle=\\sum_p p^2P(p)$, then $\\Delta p^2=\\langle p^2\\rangle-\\langle p\\rangle^2$.",
+    "Compute $\\langle p^2\\rangle=\\tfrac13(0+1+4)$, subtract the square of your result for $\\langle p\\rangle$ from the previous part and take the square root."
+   ],
+   "dx": [
+    "Is $|0\\rangle$ an eigenstate of $\\hat x$? What does that imply for the variance?",
+    "For an eigenstate, $\\langle\\hat x^2\\rangle=\\langle\\hat x\\rangle^2$.",
+    "Evaluate $\\langle0|\\hat x|0\\rangle$ and $\\langle0|\\hat x^2|0\\rangle$ with $\\hat x=\\mathrm{diag}(0,1,2)$ and subtract; what do you get?"
+   ],
+   "T01": [
+    "How is $T=\\omega^{\\hat p}=e^{2\\pi i\\hat p/3}$ defined on the eigenbasis of $\\hat p$, and what is the matrix of $\\hat p$ there?",
+    "$T=S\\,\\mathrm{diag}(1,\\omega,\\omega^{*})\\,S^\\dagger$, since $\\omega^{\\hat p}$ acts as $\\omega^{p}$ on the eigenstates with eigenvalue $p=0,1,2$.",
+    "Use $T_{jk}=\\sum_p S_{jp}\\,\\omega^{p}\\,(S^\\dagger)_{pk}$ with $S_{jp}=\\omega^{jp}/\\sqrt3$; the sum over $p$ becomes $\\tfrac13\\sum_p\\omega^{p(j-k+1)}$, which is either $3$ or $0$ times $\\tfrac13$. When is the exponent a multiple of three for $j=0,k=1$?"
+   ]
+  }
+ },
+ "qm-ent-b1": {
+  "start": [
+   "What condition defines the singlet, and what does it say about the amplitudes of the basis states with $S_z\\ne0$?",
+   "Write $|\\psi_s\\rangle=\\alpha|\\uparrow\\uparrow\\rangle+\\beta|\\uparrow\\downarrow\\rangle+\\gamma|\\downarrow\\uparrow\\rangle+\\delta|\\downarrow\\downarrow\\rangle$ and impose $S_z\\psi=0$ and $S_+\\psi=0$ with $S_\\pm=S^{(1)}_\\pm+S^{(2)}_\\pm$."
+  ],
+  "parts": {
+   "cplus": [
+    "Which commutator do you know already for $S_x,S_y$, and how can you form $[S_+,S_-]$ from it?",
+    "Insert $S_\\pm=S_x\\pm iS_y$ and expand: $[S_+,S_-]=-i[S_x,S_y]+i[S_y,S_x]$, then use $[S_x,S_y]=iS_z$.",
+    "The two terms are equal; sum them as $-2i\\,[S_x,S_y]$ and substitute $[S_x,S_y]=iS_z$ to read off the number multiplying $S_z$."
+   ],
+   "coef": [
+    "Which of the four basis states survive in a state with total $S_z=0$?",
+    "$S_z\\psi=0$ kills $\\alpha$ and $\\delta$. Then $S_+\\psi=0$ relates $\\beta$ and $\\gamma$: apply $S_+$ to $|\\uparrow\\downarrow\\rangle$ and $|\\downarrow\\uparrow\\rangle$.",
+    "You get $\\gamma=-\\beta$; impose $|\\beta|^2+|\\gamma|^2=1$ to find $|\\beta|$."
+   ],
+   "p1": [
+    "Which basis states of the singlet have particle 1 spin up, and with what weights?",
+    "$P=\\sum|{\\rm amplitude}|^2$ over those components in $|\\psi_s\\rangle=\\frac{1}{\\sqrt2}(\\dots)$.",
+    "Only one of the two terms in the singlet has particle 1 up; take its squared amplitude."
+   ],
+   "p2": [
+    "After the first measurement, what is the state of the pair? (Projection postulate.)",
+    "Apply the projector onto $S_z^{(1)}=+\\tfrac12$ to $|\\psi_s\\rangle$ and renormalise; read off the spin of particle 2.",
+    "The post-measurement state is a single product state with particle 2 in the opposite $S_z$ state; then ask how large the overlap with $S_z^{(2)}=+\\tfrac12$ is."
+   ]
+  }
+ },
+ "qm-ent-b2": {
+  "start": [
+   "Which operator algebra fixes the possible $J_z$ eigenvalues of the pair, and how do you peel the representations off the multiplicities of $m_{tot}$?",
+   "In the sector $m_{tot}=0$ with basis $|1;-1\\rangle,|0;0\\rangle,|-1;1\\rangle$, impose $J_+\\psi=0$ (with $J_+=J^{(1)}_++J^{(2)}_+$) to find the singlet."
+  ],
+  "parts": {
+   "Jz11": [
+    "In the state $|1,1\\rangle$, is it an eigenstate of $J_z$? With which eigenvalue?",
+    "$J_z|1,m\\rangle=m\\hbar|1,m\\rangle$, so the expectation value in a basis state is its eigenvalue.",
+    "Read off $m$ for the state $|1,1\\rangle$ and give the result in units of $\\hbar$."
+   ],
+   "Jx11": [
+    "Write $J_x$ in terms of $J_\\pm$. What happens to $m$ when applying $J_\\pm$ to $|1,1\\rangle$?",
+    "$J_x=\\tfrac12(J_++J_-)$, and $\\langle1,1|J_\\pm|1,1\\rangle$ requires $J_\\pm|1,1\\rangle\\propto|1,1\\rangle$.",
+    "$J_+$ gives zero and $J_-$ gives $|1,0\\rangle$; use orthogonality of $|1,0\\rangle$ and $|1,1\\rangle$ to evaluate the expectation value."
+   ],
+   "dimsum": [
+    "Which values can $m_{tot}=m_1+m_2$ take, and what is the multiplicity of each?",
+    "Peel off representations from the top: the highest $m_{tot}$ belongs to $D_2$ (5 states), then the remaining multiplicities leave $D_1$ and $D_0$.",
+    "Add the dimensions $2j+1$ of the three representations; check that the total equals $3\\times3$ states."
+   ],
+   "coef": [
+    "Which product states have $m_1+m_2=0$, and what does $J_+\\psi=0$ imply for the coefficients?",
+    "With $\\psi=\\alpha|1;-1\\rangle+\\beta|0;0\\rangle+\\gamma|-1;1\\rangle$, apply $J_+$ and use $J_+|1,m\\rangle=\\hbar\\sqrt{2-m(m+1)}|1,m+1\\rangle$ to get relations between the coefficients.",
+    "Collect the coefficients of $|1;0\\rangle$ and $|0;1\\rangle$; they give $\\beta$ in terms of $\\alpha$ and $\\gamma$ in terms of $\\alpha$ with $\\sqrt2$ factors. Then normalise."
+   ],
+   "pA": [
+    "How does the singlet decompose in the $|m_1;m_2\\rangle$ basis, and which components have Alice's $m=+1$?",
+    "Marginal probability: sum $|{\\rm coefficient}|^2$ over all terms with $m_1=+1$.",
+    "Only one of the three terms has $m_1=+1$; its squared coefficient is the answer."
+   ],
+   "pB": [
+    "After Alice finds $m_1=+1$, which term of the singlet survives?",
+    "Project the singlet onto $m_1=+1$ and renormalise. Read off Bob's $m_2$ in the remaining product state.",
+    "The surviving product state has a definite $m_2$ that is fixed by total $m=0$; Bob's probability for it is the squared modulus of the renormalised coefficient."
+   ],
+   "pB0": [
+    "Total $m_{tot}$ of the singlet is zero. If Alice has $m_1=+1$, which $m_2$ values are compatible?",
+    "After Alice's projection, the state is a single product state with definite $m_2$; ask whether $m_2=0$ appears in it.",
+    "Compare $m_2=0$ with the value $m_2=-m_1$ forced by $m_{tot}=0$; the probability is the squared overlap."
+   ]
+  }
+ },
+ "qm-ent-b3": {
+  "start": [
+   "Which criterion tells you whether a state of two qubits can be written as a product? How is purity of a density matrix tested?",
+   "For the coefficient matrix $C_{ij}$ of $|\\psi\\rangle=\\sum c_{ij}|ij\\rangle$ check $\\det C$; for density matrices use $\\mathrm{tr}\\rho^2$ and partial traces $\\rho_A=\\mathrm{tr}_B\\rho$."
+  ],
+  "parts": {
+   "nent": [
+    "For which of the four states does the coefficient matrix $c_{ij}$ have rank 1 (product) and for which rank 2?",
+    "A state is a product iff $c_{00}c_{11}-c_{01}c_{10}=0$. Write $c_{ij}$ for each of the four states.",
+    "Evaluate $\\det C$ for each: $|11\\rangle$, $|10\\rangle-|01\\rangle$, $|11\\rangle+|00\\rangle$, $|10\\rangle+|11\\rangle$; count the non-zero determinants."
+   ],
+   "pur4": [
+    "How can you test whether $\\rho$ is a projector, $\\rho^2=\\rho$?",
+    "$\\mathrm{tr}\\rho^2=1$ for pure states, $<1$ for mixed. Square the given matrix.",
+    "Compute $\\rho_{AB}^2$ with the factor $\\tfrac12$ squared and the block of ones; compare with $\\rho_{AB}$, then take the trace."
+   ],
+   "Px1": [
+    "Which formula gives the probability of finding $|x_i\\rangle$ in a state described by $\\rho$?",
+    "$P_{x_i}=\\langle x_i|\\rho|x_i\\rangle$.",
+    "Compare $\\rho_{AB}$ with the projector $|x_1\\rangle\\langle x_1|$ and evaluate the quadratic form for $x_1$."
+   ],
+   "purA": [
+    "Which operation produces the state of $A$ when $B$ is ignored?",
+    "$\\rho_A=\\mathrm{tr}_B\\rho_{AB}$; sum the diagonal blocks in the $B$ indices.",
+    "Find the $2\\times2$ matrix $\\rho_A$, square it and take the trace."
+   ],
+   "purAb": [
+    "If the outcome of $B$ is known to be $|1\\rangle$, what does the pair state become?",
+    "Project onto $B=|1\\rangle$, renormalise; the post-measurement state of $A$ is then a definite pure state.",
+    "Since $\\rho_A$ is a projector in that case, $\\mathrm{tr}\\rho_A^2$ has the value of a pure state."
+   ],
+   "b1": [
+    "Write $\\rho=\\tfrac12(\\mathbb 1+\\vec b\\cdot\\vec\\sigma)$ and ask: which $\\vec b$ gives $\\rho_1$?",
+    "$\\vec b=\\mathrm{tr}(\\rho\\vec\\sigma)$ with Pauli matrices.",
+    "Compute $\\mathrm{tr}(\\rho_1\\sigma_i)$ for $i=x,y,z$ and its norm. What does that mean geometrically for the Bloch ball?"
+   ],
+   "b2": [
+    "Which Pauli matrix does $\\rho_2-\\tfrac12\\mathbb 1$ look like?",
+    "Compare $\\rho_2=\\tfrac12(\\mathbb 1+\\vec b\\cdot\\vec\\sigma)$ with the given matrix and read off the components of $\\vec b$.",
+    "Compute the Euclidean length $|\\vec b|$; pure states lie on the surface of the Bloch ball, so check consistency with $\\mathrm{tr}\\rho_2^2=\\tfrac12(1+|\\vec b|^2)$."
+   ]
+  }
+ },
+ "qm-wm-b1": {
+  "start": [
+   "Which boundary conditions follow from the infinite walls, and which symmetry of the potential under $x\\to a-x$ constrains the expansion coefficients?",
+   "Solve the free Schrodinger equation inside the box, impose $\\psi(0)=\\psi(a)=0$, then compute $c_n=\\int\\psi_n\\psi\\,dx$ and $P_n=|c_n|^2$."
+  ],
+  "parts": {
+   "p1": [
+    "Which integral gives the amplitude $c_n$ of the state in the energy basis, and what substitution simplifies it?",
+    "$c_n=\\int_0^a\\psi_n^*(x)\\psi(x)\\,dx$ with $\\psi_n=\\sqrt{2/a}\\sin(n\\pi x/a)$; substitute $y=x/a$ and use the given integrals for $y$ and $y^2$ times $\\sin$.",
+    "Write $y(1-y)\\sin(\\pi ny)$ as the difference of the two given integrals; the terms $\\propto 1/n$ cancel and an $n^{-3}$ term remains. Then $P_n=c_n^2$; evaluate it at $n=1$."
+   ],
+   "p3": [
+    "Which closed form did you find for $P_n$ at odd $n$, and how does it scale with $n$?",
+    "$P_n\\propto n^{-6}$ for odd $n$, with the same prefactor as for $n=1$.",
+    "Use $P_n=P_1/n^6$ and insert $n=3$ in your result for the prefactor."
+   ],
+   "podd": [
+    "What does normalisation of $\\psi$ say about the sum of all probabilities?",
+    "Only odd $n$ are allowed by the $P$-symmetry, so $\\sum_{n\\ {\\rm odd}}P_n=\\sum_nP_n$.",
+    "Completeness: the sum over all probabilities in an orthonormal basis must equal the squared norm of $\\psi$, which was chosen as normalised."
+   ],
+   "sum": [
+    "Insert the closed form for $P_n$ into the normalisation condition from the previous part. Which series appears?",
+    "Normalisation gives $\\sum_{n\\ \\mathrm{odd}}\\frac{960}{(\\pi n)^6}$ equal to the total probability; write odd $n$ as $2l+\\mathrm{one}$ if you like.",
+    "Solve for the series by multiplying with $\\pi^6/960$ and evaluate the number to four digits."
+   ],
+   "e2e1": [
+    "How do the energies scale with the quantum number $n$ in the box?",
+    "$E_n=\\frac{n^2\\pi^2\\hbar^2}{2ma^2}$, so the ratio does not depend on $m$ or $a$.",
+    "Take $E_2/E_1$ using the $n^2$ scaling."
+   ]
+  }
+ },
+ "qm-wm-b2": {
+  "start": [
+   "How does the 2d problem separate, and which states are degenerate? What does it mean for the measurement outcomes?",
+   "Write $\\psi_{n_xn_y}=\\frac2a\\sin\\frac{n_x\\pi x}a\\sin\\frac{n_y\\pi y}a$ with energy $E=\\epsilon(n_x^2+n_y^2)$ and $\\epsilon=\\frac{\\pi^2\\hbar^2}{2ma^2}$; read off $A,B,C$ as amplitudes of the eigenstates."
+  ],
+  "parts": {
+   "E11": [
+    "Which quantum numbers belong to the lowest state of the 2d box?",
+    "$E=\\epsilon(n_x^2+n_y^2)$ in units of $\\epsilon=\\pi^2\\hbar^2/2ma^2$.",
+    "Insert $n_x=n_y=1$ into $E=\\epsilon(n_x^2+n_y^2)$ and add."
+   ],
+   "E21": [
+    "Which pairs $(n_x,n_y)$ give the next level, and are they degenerate?",
+    "$E=\\epsilon(n_x^2+n_y^2)$, $(2,1)$ and $(1,2)$ are related by exchanging $x$ and $y$.",
+    "Insert $n_x=2$, $n_y=1$ and add the squares."
+   ],
+   "P5": [
+    "Which terms of $\\Psi$ have this energy, and how do you obtain a probability from an amplitude?",
+    "The degenerate subspace is spanned by $\\psi_{21},\\psi_{12}$; the probability is the sum of the squared moduli of their coefficients.",
+    "With the game values of $A,B,C$ ($|A|^2$, $|B|^2$ given in the problem statement) add $|A|^2+|B|^2$."
+   ],
+   "P2": [
+    "Which single term of $\\Psi$ has the lowest energy, and what is its amplitude?",
+    "The probability is $|C|^2$, given normalisation $|A|^2+|B|^2+|C|^2=1$.",
+    "Use the previous part: $1-(\\text{probability of the other level})$."
+   ],
+   "Rp": [
+    "What are the eigenvalues of $R$, and how do $\\psi_{21}$ and $\\psi_{12}$ transform under it?",
+    "$\\psi_{11}$ is symmetric; the symmetric combination of $\\psi_{21},\\psi_{12}$ is $(\\psi_{21}+\\psi_{12})/\\sqrt2$. Project $A\\psi_{21}+B\\psi_{12}$ onto it.",
+    "$P(+1)=|C|^2+\\tfrac12|A+B|^2$; insert the game values for $A,B,C$ (find them from the previous parts) and evaluate."
+   ],
+   "Rm": [
+    "Which combination of $\\psi_{21}$ and $\\psi_{12}$ has $R=-1$?",
+    "Project onto $(\\psi_{21}-\\psi_{12})/\\sqrt2$, giving amplitude $(A-B)/\\sqrt2$.",
+    "$P(-1)=\\tfrac12|A-B|^2$; insert the game values, or use $P(+1)+P(-1)=1$ as a check."
+   ]
+  }
+ },
+ "qm-wm-b3": {
+  "start": [
+   "Which quantity is conserved locally, and what do the matching conditions at the step $x=0$ require of $\\psi$ and $\\psi'$?",
+   "Write $\\psi=e^{ikx/\\hbar}+re^{-ikx/\\hbar}$ for $x<0$ and $te^{ik'x/\\hbar}$ for $x>0$ with $E=k^2/2m$, $E-V_0=k'^2/2m$; match $\\psi,\\psi'$ and compute $j=\\frac{i\\hbar}{2m}(\\psi\\psi^{*\\prime}-\\psi^*\\psi')$."
+  ],
+  "parts": {
+   "jin": [
+    "What is $j$ for a plane wave $e^{ikx/\\hbar}$ in terms of $|A|^2$, $k$ and $m$?",
+    "Insert $\\psi=e^{ikx/\\hbar}$ into $j=\\frac{i\\hbar}{2m}(\\psi\\psi^{*\\prime}-\\psi^*\\psi')$.",
+    "The derivative brings down $\\pm ik/\\hbar$; the two terms add. Express in units of $k/m$."
+   ],
+   "kr": [
+    "How are $k$ and $k'$ related to $E$ and $V_0$?",
+    "$k'/k=\\sqrt{(E-V_0)/E}$.",
+    "Insert $E=2V_0$ and simplify the fraction under the root."
+   ],
+   "r": [
+    "Which two conditions at $x=0$ fix $r$ and $t$?",
+    "Continuity of $\\psi$ gives $1+r=t$; continuity of $\\psi'$ gives $k(1-r)=k't$.",
+    "Eliminate $t$ to get $r$ as a ratio of $k-k'$ and $k+k'$ and insert $k'/k$ from the previous part."
+   ],
+   "T": [
+    "How is the transmitted current related to $|t|^2$ and $k'$?",
+    "$j_{\\rm trans}=\\frac{k'}{m}|t|^2$ with $t=\\frac{2k}{k+k'}$; alternatively $1-|r|^2$ from the continuity equation.",
+    "Insert $k'/k=\\sqrt{1/2}$ into $4(k'/k)/(1+k'/k)^2$ and simplify."
+   ],
+   "jl": [
+    "How is the current on the left related to $|r|^2$?",
+    "$j_{x<0}=\\frac km(1-|r|^2)$, because the reflected wave carries current in the opposite direction.",
+    "Compute $|r|^2$ from your result for $r$ and subtract from one; compare with the transmitted current."
+   ]
+  }
+ }
+}

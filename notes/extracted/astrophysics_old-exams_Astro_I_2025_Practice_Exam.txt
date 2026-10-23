@@ -1,0 +1,253 @@
+                               Astrophysics I
+                                                                                HS 2025
+                             402-0263-00L/10L                          Prof. A. Refregier
+                              Practice Exam
+
+Full Name:
+Legi Number:
+
+                            Exam Instructions
+   • Write your full name and Legi number on the top of this sheet and every
+     sheet turned in.
+   • Short notes allowed: maximum 4 A4 pages (4 sheets 1-sided or 2 sheets 2-
+     sided)
+   • A non-programmable calculator is allowed, all other electronic devices are not
+     permitted and must be in a closed bag.
+   • Pens (blue or black ink) or pencils are allowed, no red or green ink is permit-
+     ted. Tipp-ex may be used.
+   • Clearly fill the box corresponding to your selection for multiple choice.
+   • Dictionaries (English, German, French, Italian) are permitted.
+   • No other books allowed.
+   • Multiple choice questions have only one correct answer.
+   • Write down intermediate steps for the non-multiple choice questions.
+   • Keep page margins free for grading purposes.
+   • Clearly indicate the question number you are working on in all written work.
+ Table 1: Physical Constants and Useful Quantities in SI Units
+Quantity                Symbol Value (SI Units)
+Gravitational constant G          6.67430 × 10−11 m3 kg−1 s−2
+Boltzmann constant      kB        1.380649 × 10−23 J K−1
+Planck’s constant       h         6.62607015 × 10−34 J s
+Speed of light          c         2.99792458 × 108 m s−1
+Proton mass             mp        1.67262192369 × 10−27 kg
+Solar mass              M⊙        1.9884 × 1030 kg
+Solar radius            R⊙        6.9570 × 108 m
+Parsec                  pc        3.085677581 × 1016 m
+1    Multiple Choice (45 points)
+Mark only one correct answer for each question.
+
+1. (3 points) A star has an absolute magnitude M = 1.0. It is observed at a distance of
+   d = 100 pc, and there is an interstellar extinction of Aλ = 0.2 along the line of sight.
+   What is the apparent magnitude m of the star?
+          □ m = 5.2
+          □ m = 6.2
+          □ m = 6.7
+          □ m = 7.2
+
+2. (3 points) The specific intensity Iν of a source observed by an observer at a large distance
+   R away from it with no intervening matter
+          □ is independent of R.
+          □ decreases linearly as R increases.
+          □ increases linearly as R increases.
+          □ decreases as 1/R2 .
+
+3. (3 points) An astronomical observation is made of a cloud of dust with high optical
+   depth, τν , at the frequency of observation. Direct observational studies of this cloud will
+   be
+          □ impossible.
+          □ limited to the core of the cloud.
+          □ unaffected by the optical depth.
+          □ limited to the surface of the cloud.
+
+4. (3 points) The Schwarzschild criterion for stellar material is given by
+                                                  
+                                   dT            1 T dP
+                                        < 1−              .                                (1)
+                                   dr            γ P dr
+
+    When this condition holds, the material will be
+          □ stable to convection.
+          □ unable to transport energy radiatively.
+          □ stable to conduction.
+          □ able to efficiently transport energy through convection.
+5. (3 points) In terms of spectral classification of stellar objects, the sun is a
+          □ class O main sequence star.
+          □ class G main sequence star.
+          □ white dwarf.
+          □ class M red giant.
+
+6. (3 points) Important reaction chains for energy generation via fusion in stars include
+   proton-proton (PP) chains and the Carbon-Nitrogen-Oxygen (CNO) cycle. For the sun
+   with T ∼ 107 K,
+          □ both reaction chains are relevant in equal measure.
+          □ the CNO cycle dominates energy generation
+          □ neither PP chains nor the CNO cycle contribute significantly to energy gener-
+            ation.
+          □ PP reaction chains are dominant for energy generation.
+
+7. (3 points) During the thermal history of the universe, Big Bang nucleosynthesis occurred
+   when the temperature of the universe corresponded to energy scale of
+          □ about 10 GeV
+          □ about 1 GeV
+          □ about 1 MeV
+          □ about 1 eV
+
+8. (3 points) The different stellar components of the Milky Way, the disk, the bulge and
+   the halo objects are not all dynamically supported against gravitational collapse in the
+   same manner. Choose the correct way in which these components are supported:
+          □ Disk and bulge by random motions, halo by rotation.
+          □ Halo and disk by rotation and bulge by random motion.
+          □ Halo and bulge by random motions, disk by rotation.
+          □ Halo and bulge by rotation and disk by random motion.
+
+9. (3 points) Compared to elliptical galaxies, the disks of spiral galaxies are
+          □ redder and have an older stellar population
+          □ redder and have a younger stellar population
+          □ bluer and have an older stellar population
+          □ bluer and have a younger stellar population
+10. (3 points) In contrast to an HI cloud, an HII region is
+           □ ionized and ∼ 100 times hotter.
+           □ neutral and ∼ 100 times hotter.
+           □ ionized and ∼ 100 times cooler.
+           □ of similar temperature but ionized.
+
+11. (3 points) Systems of stars such as galaxies or globular clusters are often observed to
+    be gravitationally relaxed. Comparing the timescales for violent relaxation, TVR , and
+    collisional relaxation, Trel , with the typical crossing time of a star, Tcross , one finds
+           □ Trel ≃ TVR ≃ Tcross
+           □ Trel ≃ TVR ≫ Tcross
+           □ Tcross ≫ Trel ≃ TVR
+           □ Trel ≫ TVR ≳ Tcross
+
+12. (3 points) The singular isothermal sphere is a simple model for a relaxed self-gravitating
+    system that has a radial density profile ρ(r) ∝ r−2 . The root mean square velocity ⟨v 2 ⟩
+    of a singular isothermal sphere is
+           □ independent of r.
+           □ proportional to r.
+           □ proportional as 1/r.
+           □ proportional as 1/r2 .
+
+13. (3 points) In the Jeans analysis of gravitational instability, we can define the Jeans
+    mass MJ and the Jeans wavenumber kJ . Pressure would be dominating over gravity,
+    preventing collapse on length and mass scales where
+           □ |k| < kJ and M < MJ
+           □ |k| > kJ and M < MJ
+           □ |k| < kJ and M > MJ
+           □ |k| ≃ kJ and M ≃ MJ
+
+14. (3 points) The typical temperature of the hot, ionized gas in the intracluster medium
+    of galaxy clusters is
+           □ ∼ 104 K
+           □ ∼ 100 K
+           □ ∼ 1012 K
+           □ ∼ 108 K
+
+15. (3 points) In large scale studies of the distribution of structures in the universe we find
+    that matter is observed to be statistically homogeneous and isotropic
+□ on scales below ∼10 h−1 Mpc.
+□ on scales above ∼100 h−1 Mpc.
+□ within 1 h−1 Mpc of the local group.
+□ only on scales approximately the size of the observable universe.
+2   Open Questions (64 points)
+1. (6 points) The moon has an angular extent of 0.5◦ when observed from earth. A tele-
+   scope measuring the cosmic microwave background (CMB) could use the thermal emis-
+   sion of the moon as a calibration source. However, to do so the moon would ideally
+   be unresolved, that is it’s angular extent should be smaller than the resolution of the
+   telescope. Defining resolution by making use of the Rayleigh criterion for a diffraction-
+   limited circular aperture and assuming a CMB telescope observes at a frequency of
+   150 GHz with a mirror of diameter D = 6 m, would the moon be unresolved for this
+   telescope?
+2. (10 points) For a star in hydrostatic equilibrium undergoing primarily radiative energy
+   transport, derive the approximate stellar mass-luminosity scaling relation, L ∝ M 3 .
+   (a) (3 points) Start by using the condition of hydrostatic equilibrium,
+
+                                        dP    GMr ρ(r)
+                                           =−          ,
+                                        dr      r2
+       to find a scaling relation for the pressure P in terms of the radius, R, and mass, M ,
+       of the star.
+   (b) (3 points) Using the result from a) and the equation of state for an ideal gas to
+       write a scaling relation for the temperature T in terms of M and the star’s radius,
+       R.
+   (c) (4 points) Finally combine the results of a) and b) with the condition for radiative
+       energy transport,
+                                   dT         3 χρ(r) Lr
+                                       =−                   ,
+                                    dr      4aB c T 3 4πr2
+       assuming the opacity χ is constant, to arrive at the result, L ∝ M 3 .
+3. (8 points) Calculate the total thermal energy of the Sun from its mass and the fact
+   that its internal temperature is of order 107 K. Show that this is of the same order
+   of magnitude as a rough estimate of the Sun’s gravitational potential energy. For this
+   approximate calculation, assume that the Sun is comprised entirely of ionized Hydrogen
+   with thermal energy per particle is 32 kB T .
+4. (6 points) For an HII region in a steady state, the rate of production of ionizing photons
+   in the entire region, Nγ , balances the rate of recombinations in the ionized gas. Use this
+   fact to derive the Strömgren radius of a steady state HII region,
+                                                          1/3
+                                                3 Nγ
+                                    Rs =                          ,
+                                               4π αnp ne
+
+   where, α is the recombination rate defined such that αnp ne is the number of recombina-
+   tions per unit time per unit volume. Assume that the region is spherical.
+5. (7 points) Derive a relationship for the mean squared velocity, ⟨v 2 ⟩, of a self-gravitating
+   system of stars in virial equilibrium that has total mass M .
+   (a) (4 points) First, show that the time averaged kinetic and potential energies are
+                                                1
+                                            K̄ ≃ M ⟨v 2 ⟩,                                  (2)
+                                                2
+        and
+                                                        GM 2
+                                             V̄ ≃ −          .                              (3)
+                                                        2⟨R⟩
+        Here, you can assume all N stars have equal mass m and that the mean separation
+        between stars is ⟨R⟩.
+   (b) (3 points) Use the virial theorem and the results from a) to show that
+
+                                                        GM
+                                             ⟨v 2 ⟩ =        .                              (4)
+                                                        2⟨R⟩
+6. (15 points) In the solar neighbourhood, the Milky Way has a flat rotation curve, with
+   v(r) = vc , where the circular velocity vc is a constant, implying a density profile ρ(r) ∝
+   r−2 .
+   (a) (3 points) In the case of a flat rotation curve with a cut-off radius R, beyond which
+       the mass density is zero, derive an expression for the enclosed mass, Mr , as a
+       function of radius, r.
+   (b) (6 points) Use this expression to show that the escape velocity from the galaxy
+       from any radius r < R is                        
+                                     2       2        R
+                                    vesc = 2vc 1 + ln     .
+                                                      r
+        Proceed by calculating the escape velocity at radius r by relating the kinetic and
+        gravitational potential energies for a particle,
+                                                 Z r
+                                    1 2               GMr′ m ′
+                                      mvesc ≡ −              dr .
+                                    2              ∞     r′2
+
+   (c) (6 points) The largest velocity measured for any star in the solar neighbourhood,
+       at r ≈ 8 kpc, is 440 km s−1 . Assuming that this star is still bound to the galaxy,
+       find a lower limit, in kpc, to the cut-off radius R, and a lower limit, in M⊙ , to the
+       mass of the galaxy. Take the rotation velocity in the solar neighbourhood to be
+       vc = 230 km s−1 .
+7. (12 points) Einstein’s cosmological constant is one of the possible models for dark en-
+   ergy. Consider a spatially flat homogeneous and isotropic universe dominated by a
+   cosmological constant Λ, which can be modelled as a fluid with an energy density ρΛ c2 ,
+   independent of time.
+   (a) (3 points) The Friedmann equation is given by
+
+                                        ȧ2   8πG   kc2
+                                            =     ρ− 2
+                                        a2     3     a
+       Write down the Friedmann equation for a flat universe whose energy density is
+       dominated by dark energy. You can assume that the universe contains neither
+       matter nor radiation.
+   (b) (3 points) Rewrite this version of the Friedmann equation in terms of the Hubble
+       parameter H. What is the time dependence of H?
+   (c) (3 points) Use the result from b) and the definition of the Hubble parameter to
+       write an expression for the time derivative da
+                                                   dt
+                                                      of the scale factor a, in terms H.
+   (d) (3 points) Show that the solution of the equation from c) is that the scale fac-
+       tor grows exponentially with time and give the coefficient in the argument of the
+       exponential.
+

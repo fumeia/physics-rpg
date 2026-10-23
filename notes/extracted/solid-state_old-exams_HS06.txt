@@ -1,0 +1,595 @@
+                      Physik Schlussdiplom Teil A Herbst 06
+                        Festkörperphysik I bei B. Batlogg
+
+   B ist Batlogg, I bin ich. Gedankengänge und Beschreibungen sind in Klammern ge-
+schrieben. Die Dialoge sind wo ich mich noch gut erinnern kann wörtlich und sonst
+sinngemäss. Ich durfte Schweizerdeutsch sprechen.
+Ich werde pünktlich ins Prüfungszimmer (sein Büro HPF F9) gebeten, begrüsst und darf
+an einem Pult gegenüber B Platz nehmen. Neben mir sitzt ein Betreuer und vor mir liegt
+ein Schreibblock inkl. Kugelschreiber. Nach wenig Smalltalk fängts auch gleich an.
+
+   B: Ich nehme an Sie können mir alle Fragen auf der Liste beantworten? (B hatte
+im Vorfeld der Prüfung eine Fragenliste zusammengestellt, die uns beim lernen helfen
+sollte.)
+I: Grundsätzlich schon...
+B: Na gut, wie wärs denn mit der ersten: “Warum ist der Boden einer guten Bratpfanne
+aus Kupfer und nicht aus rostfreiem Stahl hergestellt?”.
+I: Weil Kupfer die Wärme besser leitet.
+B: Wie kann ich das sehen?
+I: Weil es eine bessere elektrische Leitfähigkeit hat.
+B: Ja aber ich koche doch nicht mit Strom?
+I: Nein, aber Elektronen tragen Wärme. Zusammenhang im Wiedemann-Franz-Gesetz
+sichtbar.
+B: Gut, aber warum leitet Kupfer besser als rostfreier Stahl? Was ist der Unterschied?
+I: Kupfer ist ziemlich rein, während Stahl eine Legierung ist.
+B: Was für eine?
+I: Eisen und Kohlenstoff.
+B: Nein! (zum Betreuer: warum weiss das keiner?) Schauen Sie (er zeigt mir einen Löffel),
+hier auf der Rückseite steht 18/10 das bedeutet 18% Cobalt und 10% Nickel. Warum
+leitet also die Legierung schlechter?
+I: Weil das kein schöner Kristall ist und die Elektronen dann mit Unregelmässigkeiten
+zu kämpfen haben.
+B: Rostfreien Stahl kann man aber im Einkristall züchten. (Er schaut mich relative lange
+fragend an und ich weiss nicht so recht was sagen.)
+I: (erstaunt)Echt?! (Ich weiss nicht was sagen, denn mir fällt gerade kein gutes Argument
+ein.)
+B: Ja! (schaut mich relativ lange fragend an) Wie schauts dann in einer Einheitszelle
+aus?
+I: Da sind dann Fe, Co und Ni Atome.
+B: Was hat das zur Folge?
+I: Es gibt nen optischen Ast bei der Dispersionsrelation da unterschiedliche Masse.
+B: Ja vielleicht, aber was hat das zur Folge für die Elektronen?
+I: Die sehen unterschiedlich geladene Kerne und dadurch gibts nicht so ein schön gleichmässiges
+Potential... (Er unterbricht und erzählt ziemlich viel, aber ich kann mich nicht daran er-
+innern etwas erfahren zu haben, was diese Frage wirklich klärt. Jedenfalls sagt er dann
+
+
+
+                                             1
+Themawechsel und nimmt ein Holzkistchen mit 6 Kristallen drin hervor. Die Zusam-
+mensetzungen sind angeschrieben und keins hat weniger als 3 Elemente :-))
+B: Sie dürfen sich eins aussuchen!
+I: (Überlege und sehe was mit CuO4 ) Den da, das ist sicher ein hochtemperatur Supra-
+leiter.
+B: Richtig. Was machen sie nun um den zu untersuchen: Struktur und sonstige Eigen-
+schaften.
+I: Für die Struktur muss ich Streuexperimente machen mit Röntgen, was an Elektronen
+Streut, oder Neutronen...
+B: Was nützen sie da aus und wie ordnen Sie das Experiment an?
+I: Bragg-Reflexion an Netzebenen, dh. konstruktive Interferenz der Streuwellen der ein-
+zelnen Atome. Drehkristallmethode: Ich schiesse mit nem ~k drauf und taste mit einem
+Detektor die möglichen ~k ′ ab.
+B: Was ist die Bedingung für einen Peak?
+I: Laue-Bedingung: die Differenz der k-Vektoren muss ein reziproker Gittervektor sein.
+Ich kann den Kristall drehen, um verschiedene Orientierungen zu untersuchen, da das
+reziproke Gitter mit dem Kristall fest verbunden ist. Das geht nur, weil wir hier einen
+Einkristall haben. Aber die Struktur ist nicht eindeutig abtastbar. Da die Streudichte
+ρ(~x) zeitunabhängig angenommen wird, also elastische Streuung, ist das Streubild In-
+versionssymmetrisch obwohl der Kristall es nicht zwingendermassen ist. Die Lage der
+Peaks sagt mir wie die Struktur aussieht, dh. wie das Gitter aufgebaut ist und die In-
+tensität ist durch die Fourierkomponente der Streudichte gegeben und gibt uns somit
+Infos über den Inhalt einer Elementarzelle. Um mehr zu erfahren, können wir auch ei-
+ne Weissenberg-Aufnahme machen... insgesamt ist das ganze Struktur-untersuchen eine
+ziemliche Arbeit.
+B: Ja, das Phasenproblem können wir nicht umgehen. (Der Betreuer meldet sich: Das
+Beste ist einfach eine Struktur zu raten, das Streubild zu berechnen und dann zu ver-
+gleichen).
+I:(mist, das wusste ich auch! es folgt noch ein wenig blabla über Methoden und ob das
+nun Routine sei oder nicht... Ich kann nicht wirklich mitreden.)
+B: Was würden Sie denn noch messen?
+I: cv und Leitfähigkeit.
+B: Wie sieht die Leitfähigkeit für diesen Kristall da aus? (zeigt auf einen und bevor ich
+in die Hose mache sagt er weiter) Das ist ein Metall.
+I: Ich zeichne lieber σ = 1/ρ. (Zeichne spezifischen Widerstand-T plot für Metalle wie
+s.249 Ibach oben, erkläre Störstellenwiderstand, Grüneisen-Regime T 5 bei ca. 10 Kelvin
+und dann ∝ T weil Streuung an Phononen... vergesse aber den Kondo-effekt)
+B: Wie gross ist σ?
+I: Für ein sehr reines Metall, zb 99.9% Cu ist σ ∼ 10−6 Ωcm.
+B: Das ist richtig. Wie sieht das Ganze denn für dieses Material hier aus? Das ist ein
+Silizium-Wafer. (Er erzählt woher er den hat, was daran so cool sei, wieviel der kostet
+usw...)
+I: (Zeichne hocherfreut den σ vs T −1 plot für einen dotierten Halbleiter inkl. Steigung
+−Eg /2k bzw. −Ed /2k und Buckel.)
+
+
+
+                                            2
+B: Ist das da (zeigt auf den Erschöpfungsbereich) nicht schön gezeichnet?
+I: Nein, da ist absichtlich ein Buckel. Der entsteht durch Überlagerung von Ladungs-
+trägerdichte und Beweglichkeit weil σ = eµn (n siehe Ibach s.398, µ s.401), da der
+Beweglichkeitsbuckel aber klein ist im vergleich zu exp. sieht man den nur dort wo n
+flach ist. µ geht wie T 3/2 bzw T −3/2 weil 1/τ ∝ vΣ und ... (siehe s.400/401 Ibach).
+B: Richtig, und was sind die drei Bereiche da?
+I: (Erkläre Dotierung, zeichne Bänderschema mit Leitungsband, Valenzband und Fer-
+mienergie, dann darunter die Donatorniveaus... )
+B: Was zeichnen Sie da?
+I: Bänderschema, soll ich das erklären oder ists ok? (schaue ihn so an, dass er garantiert
+versteht, dass ich darauf jetzt keinen Bock habe)
+B: Nö ist ok, womit dotiert man und warum?
+I: Mit Elementen der 3. oder 5. Gruppe (er sagt mir die Namen der Gruppen und wo-
+her die kommen) weil die ein Valenzelektron zuviel bzw. zu wenig haben (er fragt mich
+woran man das sieht und ich zeigs ihm auf dem Periodensystem). Da Silizium sonst via
+sp3 -Hybridisierung eine tetraederförmige Diamantstruktur eingeht braucht das hinzu-
+gefügte Atom nur 4 Valenzelektronen um sich in die Bindung einzubauen und hat somit
+eins übrig oder zuwenig. Es braucht wenig Energie das überflüssige wegzunehmen und
+es somit zur Ladung zu nutzen bzw analog für ein fehlendes... Dotieren ist cool weil man
+damit die Leitfähigkeit über mehrere Grössenordnungen je nach Bedarf einstellen kann.
+B: Wie hoch sind die Donatorniveaus und wie kann ich das abschätzen?
+I: 20-30 meV weg von der Bandkante und abschätzen via Wasserstoff-Modell, wo die
+Dielektrizitätskonstante ǫ von SI die ca 12 ist dafür sorgt, dass die anziehende Ladung
+des Kerns abgeschirmt wird und das Elektron somit leicht gelöst werden kann. (zeichne
+noch gerade Egap ∼ 1.12 eV ein).
+B: Was sorgt ausser ǫ noch dafür ...?
+I: (gleichzeitig wie er) Die effektive Masse.
+B: Und warum führt jetzt dotieren zu einer höheren Leitfähigkeit?
+I: Weil die Elektronen aus den Donatorniveaus viel leichter ins Leitungsband angeregt
+werden können als die vom Valenzband. Im Reservebereich, der bei Si unter Raum-
+temperatur liegt, werden diese Ionisiert (erkläre anhang ln(σ) plot und Bandschema)
+doch wenn sie mal alle ionisiert sind, bleibt die Ladungsträgerkonzentration recht lange
+fast konstant und durch die Dotierungskonzentration bestimmt. Erst bei hohen Tem-
+peraturen reicht die thermische Energie um Elektronen über das Gap anzuregen. Das
+Ferminiveau ist zu beginn zwischen Leitungsbandkante und Donatorniveaus, sinkt dann
+im Erschöpfungsbereich unter die Donatorniveaus und nähert sich für extrem hohe Tem-
+peraturen dem intrinsischen Niveau. Dieses liegt fast in der Mitte des Gaps und ist etwas
+zum leichteren Band hin verschoben.
+B: Warum?
+I: Weil leichters Band = mehr Krümmung = weniger Zustandsdichte. Die Lage des Fer-
+miniveaus ist durch Neutralitätsbedingung gegeben. Weil der Fermizipfel symmetrisch
+ist, muss ich das Ferminiveau näher an das leichtere Band schieben um gleich viele La-
+dungsträger wie im Valenzband zu bekommen.
+B: Genau! und jetzt packe ich da noch ein p-Stück nebendran (zeichnet) und füge sie
+
+
+
+                                             3
+zusammen: was passiert?
+I: p-n-Übergang! Zuerst einmal muss der ein konstantes Ferminiveau haben.
+B: Warum?
+I: Weil es sonst kein thermodynamischer Gleichgewichtszustand ist.
+B: Warum?
+I: Weil ich sonst ein Elektron von einer Seite auf die andere bringen könnte und dadurch
+Energie gewinnen würde. (er nickt) Also durch das gemeinsame Ferminiveau müssen die
+Bänder verbogen werden, dies geschieht durch ionisieren von Störstellen in der Nähe des
+Übergangs ⇒ Raumladungszone ⇒ Feld, dass die Bänder natürlich genau so verbiegt
+wie’s sein muss, sonst wäre das Feld anders also die Ionisierung und die Bandverbie-
+gung gehen in einen selbstkonsistenten Zustand. (Bin mir grad nicht mehr sicher wo die
+Donatorniveaus liegen und fange an laut zu überlegen) Weil die also leer sein müssen
+müssen sie über der Fermienergie sein da dort die Fermi-Verteilungsfunktion schnell
+gegen 0 geht. Weit weg vom Übergang sind sie aber noch besetzt, also unter dem Fermi-
+niveau (er nickt und zeichnet es ein weil ich noch eine Sekunde mit einzeichnen zögerte).
+Minoritätsladungsträger, die durch thermische Anregung entstanden sind, werden, falls
+sie innerhalb ihrer Diffusionslänge in die RLZ gelangen können, auf die andere Seite
+gezogen. Majoritätsladungsträger wollen aufgrund unterschiedlicher Konzentration ins
+andere Gebiet diffundieren, werden aber vom Feld daran gehindert. Im Gleichgewicht
+gleichen sich diese Ströme gerade aus.
+B: Und wenn ich ne Spannung anlege?
+I: Ändert das fast nichts an den Min.Ladungsträgern da die dann halt nur ein wenig
+schneller rüber gehen aber die Schranke wird verkleinert, was einen krassen Unterschied
+für die Maj.Ladungsträger darstellt, da die Tunnelwahrscheinlichkeit exponentiell von
+der Barrierenhöhe abhängt. Somit kann ich eine Diode bauen.
+B: I-U-Kennlinie?
+I: (zeichne Ibach s.413 oben) Da Sperrstrom, da Durchlassstrom. Direkte Halbleiter kann
+ich dann noch brauchen für Leuchtdioden oder Solarzellen. Für eine Solarzelle sieht die
+I-U-Kennlinie anders aus (zeichne wie in Übungsserie und erzähle noch ein wenig dazu).
+B: Danke das wars.
+
+
+Es folgt ein kleineres Gespräch, da wir noch ein paar Minuten Zeit haben, in dem er
+mich wissen lässt dass er mit meiner Argumentation sehr zufrieden war. Berufliche Zu-
+kunft und Interessensgebiete werden auch diskutiert. Der Betreuer nimmt am Gespräch
+teil.
+Batlogg und auch sein Betreuer sind sehr freundlich und höflich. Zwischendurch wechseln
+sie ein paar Worte und schweifen u.A. schon mal vom Thema ab (siehe beim Silizium).
+Batlogg lässt einem ziemlich Freiraum zusätzliches Wissen zu erzählen, auch wenn er
+es gar nicht gefragt hat. Seine Fragen muss man aber beantworten, sonst hakt er nach.
+Auch hat er glaubs eine ziemlich klare Vorstellung davon wie er es erklärt haben will
+und wenn man die gerade nicht trifft wirds fast ein wenig ungemütlich (siehe zu Beginn
+beim Stahl, wo ich die Antwort nicht wirklich wusste, was er schnell gemerkt hat). Er
+will keine Formeln wissen (ich musste keine einzige hinschreiben) und geht auch auf hin-
+
+
+
+                                            4
+geschriebene nicht gross ein. Er mag Bilder, Messdaten (so ungefähr, dh. abstrahiert),
+Grössenordnungen, lautes Denken und anschauliche Erklärungen. Verständniss ist ihm
+sehr wichtig! Note: 6.
+
+
+
+
+                                          5
+           FKP Prüfung bei Prof. Battlog B.
+                               François Bianco
+                              16. Oktober 2006
+
+
+Die Prüfungsstimmung ist sehr gut, Prof. Battlog ist sehr nett, er sagt immer
+“das ist sehr richtig , wenn man eine gute Antwort gibt. Er hilft auch wenn
+                     ”
+man nicht sofort alles sagt.
+
+B. An was denken Sie, wenn wir von thermische Eingenschaften von Kristal-
+len sprechen ?
+I. Ich beginne mit Phononen und wollte es im Details erklären...
+B. Geben Sie mir nur Ideen, was gibt es für Phänomäne ?
+I. Es gibt Wärmeleitung durch Phononen, Spezifische Wärme mit Debye Mo-
+dell,...
+(Er macht kleine Notizen auf eine Zettel, obwohl sein Assistent das Protokoll
+schreibt.)
+B. Sie haben von Phononen gesprochen, was ist das ?
+I. Das ist eine Quasiteilchen der Festkörper Physik, sie beschreibt eine Git-
+terschwingung. Man spricht von Quasiteilchen, weil man eine Energie und
+einen Quasiimpuls diese Schwingung zu ordnen kann. Das Impuls ist nur in
+die Erste Brillouin Zone definirt, man nimmt das Impuls modulo ein rezipro-
+kes Gittervektor. Damit kann man Wärmeleitung mit Phononen-Phononen
+Streuung beschreiben, es gibt zwei Arten von Prozesse. Falls die Summe der
+Impulse der Phononen innerhalb der erste Brillouin Zone bleibt, spricht man
+von normaler Prozess. Sonst falls die Summe ausserhalb der Brillouin Zone
+liegt, muss man ein Gittervektor addieren, um in die Zone zu bleiben. Dieser
+Prozess heisst Umklapp Prozess, weil der Impulsrichtung kehrt um. Das kann
+nur bei hohen Temperaturen passieren, wo die Phononen Impulse genügend
+hoch sind. Diese beide Prozesse erklären warum bei hohen Temperaturen die
+Wärme sich nicht mehr so gut verbreitet.
+B. Können Sie die Temperatur abhängigkeit der Wärmeleitung zeichen ?
+I. Ich schreibe zuerst die Gleichung λGitter = 13 cs ΛP hononcGitter . Dann erkläre
+ich die Temperatur abängigkeiten der Spezifische Wärme cGitter , diese geht
+mit T 3 bei Tiefen Temperaturen. Dies ist von der Debye Modell gegeben,
+
+                                         1
+dann wenn man das Debye Temperatur ΘD erreicht gibt es eine Sättigtung,
+die von der Äquipartition Gesetzt 3NkB gegeben ist.
+Dann zeichne ich die Temperatur der freie Weglänge, diese ist flach bei Tie-
+fen Temperaturen, wegen Streuung an Gitterdefekten. Dann gibt es eine ex-
+ponentielle Temperatur Abhängigkeit, wegen der Phononen Dichte, die die
+Anzahl von Phononen-Phononen Streuung gibt. Bei höhere Temperaturen
+geht diese linear mit der Temperatur.
+Mit diese beide Erklärungen konnte ich den Temperatur Verlauf der Wärme-
+leitungskoeffizient zeichnen.
+B. Warum ist Diamant ein guter Wärmeleiter ?
+I. Wegen der Struktur ist die Debye Temperatur von Diamant sehr hoch, und
+deshalb gibt es fast nur normale Prozesse bei Phononen Streuung.
+B. Was Sie gesagt haben ist richtig, aber falls die Debye Temperatur hoch ist,
+dann ist die Spezifische Wärme klein. Und es gibt andere Kristalle mit der
+selbe Struktur die schlechte Wärmeleiter sind. Es gibt ein anderen Grund.
+I. (weiss nicht, also ich probiere) Vielleicht weil die Dichte sehr hoch ist...
+B. Nein, Platine ist viel dichter... aber Sie sind auf den richtigen Weg.
+I. Wegen der Kovalente Bindung die sehr stark ist.
+B. Ja, und dann ist somit die Schallgeschwindigkeit sehr gross.
+B. Ok, sprechen wir immer noch von thermische Eigenschaften, aber von Me-
+tallen jetzt. Wie ist die Temperatur Abhägikeit der Wärmeleitung im Metall.
+I. Im Metall funktionniert es wie für Kristalle aber die Spezifische Wärme
+hat eine lineare T abhängikeit wegen Elektron-Phonon Streuung.
+B. Ja, aber lassen wir die Kristall Anteil weg. Wir möchten nur von der Elek-
+tronen Anteil sprechen.
+I. Also die Wärmeleitung geht linear mit der Temperatur, weil die einzige
+Temperatur Abhängigkeit kommt von der Spezifische Wärme, wenn wir nur
+von freien Elektronen sprechen. Damit kann man das Wiedmann-Franz Ge-
+setzt hin schreiben λσe = LT .
+B. Zeichnen Sie den Temperaturverlauf der Spezifische Widerstand eines Me-
+talls.
+I. Also bei sehr tiefen Temperaturen gibt es die sogenannte Restwiderstand.
+Diese kommt aus Abweichungen der Peridizität, zum Beispiel Gitterdefekten,
+Fremdatome, fehlende Atome und ist deshalb unabhängig von T . Dann gibt
+es füt T << ΘD ein T 5 Abhängikeit wegen Elektron-Phonon Streuung. Für
+T >> ΘD sind die Stösse gegen Phononen nur noch linear in T . ( Ich hatte
+zwei Graphen gezeichnet, ein für kleine T und ein für grosse T, B. hat es nur
+in einem Graph gezeichnet, weil es war für ihm besser so.) Ich sage noch,
+dass eigentlich das Restwiederstand nicht genau eine Gerade ist, sondern es
+gibt ein Minimum wegen der Kondo Effekt.
+B. (leuchtende Augen) Können Sie den Kondo Effekt erklären ?
+
+                                      2
+I. Nein, nicht im Detail, ich weiss nur, dass es wegen Magnetische Streuung
+passiert.
+B. Hatten wir von Kondo-Effekt in der Vorlesung gesprochen ? Wo haben
+Sie das gelesen ?
+I. Sie hatten nur den Name erwähnt. Ich habe es im Ashcroft/Mermin gele-
+sen, aber es gibt keine vollständige Erklärungen.
+B. (Er erkärt mir kurz wie es funktionniert, und erzählt mir, dass diese Ha-
+miltonian eine riesige Menge Geld der “National Fund gekostet hat.)
+                                                          ”
+B. Ist dieses Kristall ein Isolator ? (Er zeigt mir ein kleines Kristall)
+I. (Schaue) Man sieht, dass es Dursichtig ist, also man weiss, dass der Ener-
+gie Lücke grösser als die Energie des sichtbares Licht ist. Deshalb kann man
+sagen, das dieses Kristall ein Isolator ist.
+B. Wovon kommt dieser Energie Lücke ?
+I. (finde zuerst den Namen nicht mehr) Mit dem Modell der schwache ge-
+bundene Elektronen. Ich zeichnene einige Energie Parabeln, und erkläre, dass
+wegen der Periodizität wiederholen sich die mögliche Energien. Wegen der
+Periodizität wäre eine Laufende Welle eine mögliche Lösung, aber um eine
+schwache Störung zu betrachen, sind die eingene Lösungen Stehende Wel-
+len. Diese Wellen entsethen aus einer laufende und eine reflektierte Welle.
+Es gibt eine Lösung Ψ+ und eine Ψ− , die Plus Lösung hat eine Maximale
+Aufhentaltswarscheinlichkeit am Ort des Ionen (zeichene die Amplitude die-
+ser Welle), damit hat diese Lösung eine kleinere Energie als die andere mit
+verschwindende Amplitude am Ort der Ionen. Dadurch gibt es eine Energie
+Aufspaltung.
+B. Wescheln wir das Thema. Sie wissen in unser Welt gibt es so viele inter-
+essante Geräte (er zeigt mir sein Palm), Ipod, Komputern...
+I. Ja, das kann man mit Hilfe von Halbleitern. (Ich wollte es erklären)
+B. Schreiben Sie noch nicht. Erklären Sie mir lieber wie ein P-N Übergang
+funktionniert.
+I. Erkläre kurz was n und p Dotierung bedeutet, mit welchem Atome kann
+man es machen. (Es gab auf dem Tisch einen peridischen Tafel). Ich erwähne,
+dass man die Energie und Abstand der Elektron oder Loch mit eine modi-
+fizierte Waserstoffatom berchnen kann. Dann zeichne ich die verschiedene
+Energie Energiebänder, erkläre die Bandverbiegung. Ich sage, dass in der
+Übergangzone Ladungen gibt (+ in n und - in p Gebiet).
+B. Wovon kommen diese Ladungen ?
+I. Die Akzeptoren und Donatoren sind in die Veramungszone ionisiert, des-
+halb gibt es diese Lagungen.
+B. Wie sieht die Strom-Spannung Charkteristik aus und wie kommt sie zu-
+stande ?
+I. (Zeichne) Erkläre das es zwei Arten von Ströme gibt, Erzeugungsstrom und
+
+                                      3
+Rekombinationsstrom. Der erste ist von thermische Anregungen von Löcher
+in der n Zone gegeben, diese geladene Teilchen sind sofort in der Veramungs-
+zone durch den makrospopischen Potential in die p Zone geleitet, darum ist
+dieser Strom unabhängig von der Angelegte Spannung. In der andere Rich-
+tung gibt es Löcher die genügend Energie haben um die Potentialschwelle zu
+steigen, die eine Elektron-Loch Rekombination in der n Zone machen. Ich sage
+noch das es auch Elektronen Ströme gibt, in die Umgekehrte Richtung als die
+Löcher. Der Rekombinationsstrom ist von der anglegte Spannung abhängig,
+ich schreibe der Boltzamm Verteilung. Im Gleichgewicht sind diese Ströme
+gleich, damit kann man den exponentiellen Verlauf der Strom-Spannung fin-
+den. Im Sperrrichtung vergrössert man die Potentialschwelle, und im Durch-
+lassrichtung verringert die äussere Spannung der Potentialschwelle, es wird
+immer einfacher für Löcher in den n Gebiet zu gehen.
+
+Dann fragt er, wie an alle Studenten, im welchem Bücher ich gelernt ha-
+be, und was ich später in der Physik machen möchte.
+
+Note : 6
+
+
+
+
+                                     4
+Prüfungsart: Physik, Teil A
+
+Prüfungssession: Herbst 2006
+
+Fach: Festkörperphysik I
+
+Dozent: Prof. Dr. B. Batlogg
+
+B: Was unterscheidet einen Isolator von einem Leiter und von einem Halbleiter?
+I: (Zeichne Abb. 12.1 aus Ibach, Lüth): Der Unterschied zwischen Halbleiter und
+Isolator ist eigentlich nur ein gradueller, die Energielücke ist einfach zu gross, damit
+Elektronen vom Valenz- ins Leitungsband springen können, was beim Halbleiter ab
+einer gewissen Temperatur möglich ist.
+B: Gut, bleiben wir beim Metall: Wie sieht denn der Widerstand abhängig von der
+Temperatur in einem Metall aus?
+I: (Zeichne Abb. 9.6 aus Ibach, Lüth und erkläre, woher all die Streumechanismen
+kommen: Störstellenstreuung (temperaturunabhängig) und Phononenstreuung, tem-
+peraturabhängig. Dazwischen gilt das T 5 -Grüneisengesetz).
+B: Wie kann man sich die verschiedenen Bereiche erklären?
+I: Konstant kommt eben von der temperaturunabhängigen Störstellenstreuung, bei
+der Phononenstreuung kann man sagen, dass der Widerstand proportional zum Wir-
+kungsquerschnitt der Phononen ist; diesen kann man mit M ω 2 < s2 (q) >= kB T
+abschätzen.
+B: Gut. Das ist offensichtlich eine klassische Betrachtungsweise, ≪Kügeliphysik≫.
+Wie würde man es dann quantenmechanisch beschreiben?
+I: (etwas ratlos): Man würde für die Phononen wahrscheinlich ein Potential anneh-
+men....
+B: (unterbricht): Als was würde man dann das Elektron auffassen?
+I: Als Welle, ebene Welle.
+B: Wie gross ist denn so der spez. Widerstand?
+I: Ca. 10−6 Ωcm
+B: Ok, reden wir nochmals vom Widerstand bei tiefen Temperaturen. Wie sieht der
+z.B. bei Aluminium oder Blei aus?
+I: (verstehe nicht ganz...)
+B: Wie sieht jetzt der Widerstand bei tiefen Temperaturen bei Aluminium oder
+(zählt weitere Metalle auf, allerdings nicht Niob oder Quecksilber) aus?
+I: (immer noch verunsichert, da ich keinen eindeutigen Supraleiter erkenne...): Er
+fällt ab einer bestimmten Temperatur auf Null (zeichne Abb. 10.1 aus Ibach, Lüth)
+B: Und wie erklärt man sich das?
+I: Elektronen bilden im Festkörper Cooper-Paare durch Austausch von virtuellen
+Phononen (das überhört er glaub).
+
+
+
+
+                                           1
+B: Und wie ist diese Kraft?
+I: Die Elektronen ziehen sich an.
+B: Das ist ja eigentlich komisch, Elektronen stossen sich ja normalerweise stark ab.
+Wie erklärt man sich das?
+I: (nach mehreren Anläufen, bei denen er unterbricht, was mir nicht ganz klar ist...):
+Man kann sich das so vorstellen, dass ein durch das Gitter fliegendes Elektron das
+Gitter deformiert, wobei sich die positive Ladung vergrössert und ein zweites Elek-
+tron angezogen wird. Dies geschieht aber sehr langsam, darum ist die Distanz zwi-
+schen den Elektronen zu gross, dass Coulomb-Abstossung noch wirken könnte.
+B: Die Elektronen ziehen sich also an und bilden Paare. Wie heissen die schon wie-
+der?
+I: Cooper-Paare.
+B: Und was geschieht dann?
+I: (Hatte nicht so eine Ahnung, auf was er hinaus will...) Es paaren sich immer zwei
+Elektronen mit engegengesetztem k-Vektor und Spin, dh. das Paar ist ein Boson (dh.
+man kann es als Boson betrachten) im Gegensatz zu den freien Elektronen, welche
+Fermionen sind. (Etwas unschlüssig male ich Abb. 10.12 b) aus Ibach, Lüth auf und
+erkläre, dass sich die Bosonen alle in demselben Zustand befinden, der durch eine
+Lücke von den nicht Cooper-Paar-Elektronen getrennt ist. Zum Aufbrechen eines
+Paares benötigt man 2∆.
+B: Wie kommt man auf diese Energielücke?
+I: Experimentell?
+B: Ja.
+I: Durch Tunnelexperimente (erkläre kurz Tafel IX in Ibach, Lüth, aber ≪etwas ver-
+kehrt≫ wie er meint...)
+B: Nochmals zum Widerstand. Ist denn verschwindender Widerstand automatisch
+ein Supraleiter?
+I: Nein, es gibt auch noch den Meissner-Ochsenfeldeffekt, bei dem der Supralei-
+ter perfekten Diamagnetismus zeigt. (Schreibe Rechnung mit Induktionsgesetz auf
+und erkläre, dass dann die Vorgeschichte entscheidend wäre, im Widerspruch zu
+Meissner-Ochsenfeld).
+B: Supraleitung ist also klar ein Mehrteilchenphänomen, kennen Sie noch andere
+Mehrteilchenphänomene - das ist immer das, was man am Schluss der Vorlesung
+noch durchnimmt.
+I: (Mir schwant Übles, daher sehr zögerlich...) Ferromagnetismus
+B: Genau. Wie funktioniert denn das so?
+I: (Erzähle mit ca. 3 Anläufen von dem Austauschloch und der Anziehung der Elek-
+tronen mit gleichem Spin, allerdings etwas wirr, hab das noch nie verstanden...)
+B: (Beim Stichwort ≪Austauschloch≫) Ja, das war jetzt das Austauschloch... Wie
+beschreibt man es dann bei itineranten Elektronen? Was kennen Sie für Ferroma-
+gneten?
+I: (Fahre etwas auf dem Periodensystem rum) Fe, Co, Ni bei Zimmertemperatur,
+
+
+
+                                          2
+Gd und Dy bei kleineren Temperaturen...
+B: (Bei Gd und Dy): Die beschreibt man aber nicht im Bandmodell.
+I: Ja, dort sind die Momente lokalisiert.
+B: Wieso?
+I: Weil dort die inneren Schalen zum Ferromagnetismus beitragen und die sind
+stärker lokalisiert.
+B: Gut. Was gibt es denn für itinerante Elektronen für ein Kriterium. Das ist ja
+ziemlich formal...
+I: (Schreibe Stoner-Kriterium auf): I D̃(EF ) > 1. Das D̃(EF ) ist einfach eine anders
+normierte Zustandsdichte, über Anzahl statt Volumen und nur für eine Spinsorte, I
+beschreibt die Absenkung gegenüber freien Elektronen.
+B: Und was braucht man jetzt für Ferromagnetismus?
+I: Ein grosses I oder eine hohe Zustandsdichte.
+B: Gut, schauen wir auf die Zustandsdichte. Wann ist diese hoch?
+I: Z.B. für Elektronen im d-Band, für solche im s-Band ist sie klein.
+B: Wieso sind Fe, Co und Ni Ferromagneten?
+I: (Schaue auf dem Periodensystem, wo sie denn genau liegen und auf die Elek-
+tronenkonfiguration). Diese Elemente sind die letzten, welche keine volle d-Schale
+haben und diese auffüllen. Die d-Schale hat eine hohe Zustandsdichte.
+B: Wieso haben d-Elektronen genau eine hohe Zustandsdichte?
+I: (Das habe ich mir zuvor immer etwas kompliziert überlegt, erzähle etwas von
+kleinerem Überlapp dh. weniger Energiebreite, aber gleich grosser Anzahl Zustände.
+Bin mir aber nicht so sicher, am Schluss lässt ers aber gelten)
+B: Gut, jetzt haben wirs geschafft und wir wissen, wieso diese drei Elemente Ferro-
+magneten sind...
+I: (Ein Blick aufs Periodensystem verrät mir schon die nächste Frage...)
+B: Wieso sind denn Palladium und Platin keine Ferromagneten? (Nimmt einen Fer-
+romagneten und fährt ein wenig über einen Fingerring aus Platin, der dabei nicht
+angezogen wird)
+I: (murmelnd) Mit dieser Frage musste ich ja rechnen...
+B: Ja, damit mussten Sie fast rechnen...
+I: (Schaue aufs Periodensystem): Diese Elemente haben die ferromagnetischen Bei-
+träge in d-Schalen, die energetisch höher liegen, also haben sie eine kleinere Zu-
+standsdichte.
+B: Gehen wir nochmals zurück zu den Halbleitern. Was ist das spezielle an einem
+Halbleiter?
+I: Das meines Erachtens Spezielle ist, dass die Ladungsträgerkonzentration stark
+von der Temperatur abhängt (male nochmals Ausschnitt aus Abb. 12.1 aus Ibach,
+Lüth).
+B: (Zeigt auf eine Uhr an der Wand) Das ist ein Wafer der neuesten Technologie.
+Nehmen wir an, wir hätten ultra-reines Silizium. Wie sähe dann der Widerstand in
+Abhänigkeit von der Temperatur aus?
+
+
+
+                                          3
+I: Bei tiefen Temperaturen ist er unendlich...
+B: (Unterbricht) Unendlich ist nicht physikalisch.
+I: Also, bei tiefen Temperaturen ist er sehr gross, dann sinkt er exponentiell, weil
+Ladungsträger aus dem Valenz- ins Leitungsband angeregt werden. (Male Kurve der
+Leitfähigkeit, allerdings linear, darum etwas verunglückt).
+B: Ja, jetzt ist dieser Wafer ja nicht aus reinem Silizium...
+I: Er ist wahrscheinlich dotiert.
+B: Was heisst das, ≪dotieren≫?
+I: (Zeige auf dem Periodensystem rum) Man kann n- oder p-dotieren, je nachdem
+ob man bei Silizium z.B. Bor oder Phosphor rein gibt. (Zeichne Abb. 12.7 aus Ibach,
+Lüth)
+B: Was bedeutet jetzt dieser Strich (zeigt auf Donatorniveau in Skizze)?
+I: Dass sich die Donatoren energetisch dort befinden, dh. viel näher beim Leitungs-
+band als die Elektronen des Valenzbandes, daher werden sie bei kleineren Tempera-
+turen ins Leitungsband angeregt.
+B: Wie gross ist denn so die Anregungsenergie?
+I: So 30 meV
+B: Ja, so um die 10 meV rum. Wieso ist die so klein? Ein Wasserstoffatom hat ja
+13.6 eV?
+I: Hm, soll ich das Modell dafür erklären?
+B: Ja, machen Sie mal.
+I: (Erkläre die Abschätzung mit dem Wasserstoffatom wie in Ibach, Lüth), man
+muss einfach ε0 durch ε0 · ε und die freie Masse durch die effektive Masse ersetzen.
+Das ε ist dasjenige von Bor.
+B: Nein, natürlich dasjenige von Silizium.
+I: Ah ja...
+B: Wieso muss man denn das abändern?
+I: (Genau hab ich das auch noch nie begriffen...) (zögernd) Man kann es sich viel-
+leicht so vorstellen, dass das Bor um sich herum nur Silizum sieht und nicht das
+Vakuum, darum muss man es mit ε multiplizieren.
+B: Ja, ok. Und was bewirkt jetzt das. (Bevor ich wirklich etwas sagen kann). Die
+Anregungsenergie wird gesenkt, oder?
+I: Ja.
+B: Wie kann man denn die Anregungsenergie messen?
+I: Man trägt 1/T gegen log σ auf und liest aus der Steigung die Energielücke ab
+(Glücklicherweise habe ich mal so einen Versuch im Vorgerücktenpraktikum ge-
+macht...)
+B: Ja, das ist eine gute Methode. Wie sieht denn jetzt das R(T)-Diagramm aus?
+I: (Zeichne Abb. 12.10 a) aus Ibach, Lüth und erkläre ein wenig. Im Erschöpfungsbe-
+reich steigt es leicht wegen Streuung an Phononen, interessiert ihn aber glaub nicht
+so).
+B: Gut. Und wo befinden wir uns bei Zimmertemperatur?
+
+
+
+                                          4
+I: (Zeige auf den Erschöpfungsbereich). Etwa hier.
+B: Ok, gut. (Schaut auf die Uhr)
+Beisitzer: 32min
+B: Ja, das reicht.
+(Es folgt noch eine kleinere Diskussion über Zukunftspläne und Semesterarbeiten.)
+
+Die Prüfung glich mehr einer Diskussion über Festkörperphysik denn einem genauen
+Abfragen von Fakten, die Stimmung war dementsprechend angenehm. Allerdings
+war mir nicht immer ganz klar, was er denn genau hören wollte, aber mit etwas
+nachfragen gings dann meistens.
+(Note: 5.75)
+
+
+
+
+                                         5
+Prüfungsprotokoll "Festkörperphysik I" bei Prof. B.Batlogg
+Die Prüfung ndet in Prof. Batloggs Büro statt, man sitzt ihm und einem Beisitzer
+gegenüber. Beide waren sehr freundlich und die Atmosphäre angenehm. Man merkt
+schnell, dass Prof. Batlogg sehen will, was man weiÿ und nicht, was man nicht weiÿ; und
+es freut ihn, wenn man etwas verstanden hat. Er bemüht sich, die anfängliche Nervosität
+schnell abzubauen und so geht das ganze in 5 Minuten von einer Prüfung eher in ein
+Gespräch über. Allgemein stellt Prof. Batlogg wenig Fragen und lässt einen einfach alles
+erzählen, was man dazu so weiÿ.
+
+Zuerst sollte man etwas zu Einsteins Überlegungen zur spezischen Wärme sagen, und
+das Resultat skizzieren (bei kleinem T exponentiell und bei groÿem Dulong-Petit). Dabei
+sollte das Einstein-Modell und seine Voraussetzungen beschrieben werden. Auch etwas
+historisches am Rande wäre hier gut gekommen: Woher hat Einstein von dem Problem
+gewusst (Es war das Forschungsgebiet seines Professors an der ETH) und woher kannte
+er die Quantenmechanik (Von der Arbeit Plancks über die Hohlraumstrahlung).
+
+Die nächste Frage ging dann Richtung Debye-Modell: Wo liefert das Einsteinmodell
+falsche Vorhersagen (bei kleinen T exponentiell statt T 3 ) und was hat man entwickelt
+um das zu verbessern? Dazu sollte man dann das Debye-Modell und seine wichtigsten
+Voraussetzungen skizzieren (lineare Dispersion, Abschneidefrequenz) und dann die Dis-
+persion einer linearen, zweiatomigen Kette zeichnen und den Bereich des Debyemodells
+darin nden (bei kleinem T wird der Sinus linear) und etwas über optische und akkustis-
+che Zweige erzählen.
+
+Themenwechsel: elektronische Zustandsdichte in 3d skizzieren. Gibt es auch 2d-Systeme
+(z.B. Graphit). Wie sieht die spezische Wärme in 2 bzw. 3 Dimensionen aus? Danach
+sollte man erklären, wie Bandstrukturen im Festkörper zustandekommen (beide Modelle:
+Tight binding und Freie Elektronen). Wieviele Elektronen passen in ein Band? (2N in
+der freien Elektronen Näherung und im Tight Binding Modell je nach beteiligem Orbital)
+
+Und als letztes (in zwei Minuten): Magnetismus. Man sollte etwas über Stoner und
+den Magnetismus itineranter Elektronen erzählen, für welche Elemente ist das Stonerkri-
+terium erfüllt (Fe,Co,Ni). Warum ist es für Cu nicht mehr erfüllt? (d-Band ist voll,
+Ferminiveau ist schon im s-Band, daher viel kleinere Zustandsdichte am Ferminiveau
+und der Stonerparameter ist proportional dazu)
+
+Und schon war alles vorbei. Prof. Batlogg interessiert sich nur für das Verständnis der
+Ideen in der Festkörperphysik, Formeln wollte er bei niemandem auch nur eine einzige
+sehen! Die wichtigsten Zahlenwerte (kB T bei Zimmertemp. in eV etc.) und Gröÿenord-
+nugen will er aber haben. Das war mit Abstand die angenehmste Prüfung die ich bisher
+hatte.
+
+
+
+
+                                           1
+

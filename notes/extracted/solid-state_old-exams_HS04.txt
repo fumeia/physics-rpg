@@ -1,0 +1,296 @@
+Prüfungsart Schlussdiplom Physik Teil A
+
+Prüfungssession Herbst 2004
+
+Fach Festkoerperphysik
+
+DozentIn Prof. Dr. K. Ensslin
+
+     E: Haben sie etwas vorbereitet?
+I: Spezifische Wärme. (fange an zu erklären)
+E: Woher kommt die Zustandsdichte die sie aufgeschrieben?
+I: Annahmen: isotropes elastisches Medium.
+E: Wo kommt die Schallgeschwindigkeit her?
+I: Aus der Dispersionsrelation, Annahme linear.
+E: In welchem bereich der BZ sind wir da?
+I: Am Rand?
+E: Malen sie mal die Dispersion auf fuer die 2-atomige Kette.
+I: (male)
+E: Um null, wie sieht es dort aus?
+I: linear.
+E: Und am Rand?
+I: Tangente waagerecht.
+E: Wieso?
+I: (keine ahnung: richtige antwort wäre gewesen: stehende Wellen ⇒ vG = 0)
+E: Weiter mit ihrem Thema, was kommt raus nach der Mathematik?
+I: Für T > ΘD konstant, T << ΘD proportional T 3 .
+E: Was ist ΘD ?
+I: Definiert über ωD : cutoff frequenz da nur begrenzte Anzahl Zustände.
+E: Was bekommt man experimentell?
+I: T > ΘD prop. T.
+E: Wieso bekommt man in diesem Modell gerade für hohe Temperaturen
+eine konstante proportional 3rN ?
+I: (nach einigen weiteren gezielten fragen von Ensslin) Max. Anzahl Phono-
+nen.
+E: Wieso bricht dieses Modell zusammen für höhere Temperaturen?
+I: (wieder erst mit einem haufen gezielte fragen:) Näherung harmonisches
+Potential bricht zusammen.
+E: Wechseln wir das Thema. Was können sie über Magnetismus sagen?
+I: Drei arten: Ferro-, Para-, Diamagnetismus.
+E: Ferromagnetismus?
+I: (Blackout)
+E: Diamagnetismus?
+I: Kreisströme, Lenz’sche Regel.
+E: Wie muss ich mir das vorstellen?
+I: (keine Ahnung)
+
+                                    1
+E: Gibt es Diamagnetismus im H-atom.
+I: Ja.
+E: Wie sieht das aus mit dem Elektron?
+I: (keine ahnung, panik, hätte vielleicht doch den operator aufschreiben sol-
+len.)
+E: Nochmal anderes Thema. Wie sieht der Widerstand aus als fkt. der Tem-
+peratur beim Metall zB. ein Stück Kupfer?
+         2
+I: σ = e mnτ
+E: Welches Modell?
+I: (hatte nur noch in Erinnerung, dass das Drude Modell genau das bekommt
+also rate:) freies e− -Gas?
+E: Malen sie mal den Graphen.
+I: (male aber erst aus versehen für τ )
+E: Was passiert für grosse und für kleine Temperaturen?
+I: (sehe fehler) grosse Temperaturen: Widerstand gross da phononenstreu-
+ung. kleine Temperaturen: nur Störstellen geben Widerstand.
+E: Welche Abhängigkeit für grosse Temperaturen?
+I: (kann mich nur noch an diverse relationen für τ erinnern)
+E: Proportional T. Malen sie mal bitte das gleiche für Halbleiter.
+I: (ziemlich unsicher) grosse Temperaturen: wie Metall proportional zu T .
+kleine Temperaturen: nach ∞.
+E: Wie genau nach ∞ ?
+I: (keine Ahnung)
+E: Bitte das gleich für ein dotierten Halbleiter.
+I: (male fast das gleiche. bin ziemlich unsicher)
+E: Was ist die charakteristische Energieskala?
+I: (erstmal keine Ahnung was gemeint war dann) undotiert: Energielücke im
+eV-Bereich. dotiert: Ionisation der Donatoren/Akzeptoren im meV.
+E: So, die Zeit ist um.
+
+
+Die Prüfungatmosphäre war sehr angenehm. Ensslin hilft einem meist weiter
+mit gezielten Fragen, wenn man am raten ist lohnt es sich auf den Assisten-
+ten zu achten, da Ensslin einem keine Indikation gibt ob man richtig geraten
+hat oder nicht. Gefragt sind physikalisches Verständniss sowie Graphiken,
+mathematische Herleitungen scheinen ihn nicht so interessieren.
+
+
+
+
+                                     2
+                              Fachprüfung A
+
+                           Festkörperphysik I
+
+                           bei Prof. K. Ensslin
+
+                         von Christian Wasmer
+
+
+
+E: Guten Tag (Händeschütteln), beginnen Sie bitte mit dem Thema, das
+Sie vorbereitet haben.
+I: Meissner-Ochsenfeld Eﬀekt: R = 0 ; B = 0, sondern nur Ḃ = 0.
+E: Warum? R                 R ˙
+I: iR = Uª = rotEd  ~ f~ = Bd ~ f~ für beliebige Kreisströme im Supraleiter,
+⇒B  ~˙ = 0
+E: Wie misst man R = 0?
+I: Ringstrom induzieren, R 6= 0 ⇒ exp. Abfall des Stroms.
+E: Und wie misst man den Ringstrom?
+I: ?? Das war mir auch nicht so recht klar, aber vielleicht mit einer
+Hall-Sonde (Hoﬀe, das er nicht weiter fragt, da ich leider nicht viel mehr
+als den Namen davon kenne). E: Gut, weiter.
+I: Idealer Leiter: Abkühlen unter Tc , dann B einschalten... (Male Graphik
+aus Ibach, Läth, Seite 269). Dieser Vorgang wäre irreversibel, d.h. es wäre
+kein Zustand im Sinne der Thermodynamik.
+E: Wie misst man idealen Diamgnetismus?
+I: Der SL schwebt in einem Magnetfeld. (Doch nachdem ich seinen
+Gesichtsausdruck gesehen habe füge ich noch hinzu) In einem inhomogenen
+Magnetfeld.
+E: OK, aber alle Diamgagneten schweben in einem inh. Magnetfeld.
+I: ?? Man kann die stärke des Diamgnetismus’ aus der Höhe der
+schwebenden Probe bestimmen.
+E: Ja, gut. Wenn man den Gradienten des B-Feldes kennt geht es so.
+Wodurch kommt Supraleitung denn Zustande?
+I: Cooper-Paare: 2 Elektronen, Abstand ca. 1000 Å, attraktive WW durch
+Phononen ⇒ Fermisee wird instabil ⇒ Energetisch niedriger Zustand.
+E: Wie stark ist diese anziehende WW?
+I: (?? Habe ich mir noch nie so überlegt) Es genügt eine beliebig schwache
+WW.
+E: Ja, aber wie groß ist sie?
+I: ??
+E: Denken sie an Quecksilber.
+I: (noch verwirrter) Quecksilber? ... Ach ja, das sollte etwa Tc = 4K
+entsprechen.
+E: Genau! Wie kann man die Energielücke experimentell feststellen?
+
+                                      1
+I: (Zeichne Abb. IX.2 c und e, Seite 328 im Ibach, Lüth) Für T = 0 ist die
+Stromkurve eckig. Benötige Energie ∆ = eU damit die e− tunneln können.
+E: Gut, neues Thema: Zeichenen Sie ein Energieschema für einen
+p-dotierten HL bei T=0.
+I: (Zeichne Reserve-Bereich von Abb 12.10, Seite 398, I,L; Richtig, den
+n-dot. HL, aber E. sagt nichts) EF unter ED für T=0, da die Donatoren
+nicht ionisiert sind.
+E: Zeichnen Sie einen p-n- Übergang.
+I: (Zeichne Abb. 12.16 c, S. 406, I,L) Die Bänder werden verbogen, da die
+Fermienergie links und rechts gleich sein muss, falls keine Spannung anliegt.
+E: Wovon hängt die Größe der Verarmungszone ab?
+I: Temperatur, da sich EF dann ändert.
+E: Bei T=0?
+I: (keine Ahnung aber) Dotierung (was anderes kam eigentlich nicht mehr
+in Frage).
+E: Ja, wie hängt die Größe der Zone jetzt von der Dot. im n-HL ab?
+I: (Rate) Die Zone wird mit zunehmender Dotierung größer!?
+E: Wie berechnet man denn die Größe der Zone?
+I: Poisson-Gleichung.
+E: Richtig. Wie sieht die I-U-Kennlinie des Übergangs aus?
+I: (Abb 12.18)
+E: Erklären  Sie den
+        ¡ eU/kT     ¢ Verlauf oder geben Sie eine Formel an.
+I: I ∝ e         − 1 , der erste Term kommt von der Abhängigkeit des
+Feldstroms vom Potentialunterschied der Leitungsbandkanten.
+E: Und die 1?
+I: Elektronen im p-Bereich müssen immer Eg ≈ const. überwinden.
+E: Wovon hängt der Term ab?
+I: Temperatur, da El. therm. angeregt.
+E und Protokollant nicken eifrig, haben wohl auf dieses Stichwort gewartet.
+E: Wie kommt Ferromagnetismus zustande?
+I: Austauschww. blabla (hab leider vergessen, was ich genau gesagt habe).
+E: Erklären Sie die Austauschww.
+I: Für freie El. (Zeichne Abb. 8.4). Die Coulomb-Energie wir minimiert für
+parallele Spins ⇒ Austauschenergie.
+E: Ist das ausreichend für Ferromagnetismus?
+I: Nein, geht nur für best. Metalle und außerdem muss die Temperatur
+ausreichend niedrig sein.
+E: Wie richten sich denn die Spins jetzt im Ferrom. aus (oder so ähnlich).
+I: ?? Weißsche Bezirke, werden kleiner bei steigender Temp. ⇒
+makroskopisch M=0, aber in den Bezirken M6=0.
+E: Wodurch verschwindet M? Zeichnen Sie Hysterese.
+I: (Zeichne typische Hysteresekurve, nicht im I,L).
+E: Warum wird M bei B=0 nicht 0?
+I: ?? Nach längerer Zeit wird M schon 0.
+
+                                     2
+E: Warum nicht sofort?
+I: ?? blabla..., keine Ahnung.
+E: Warum wird M überhaupt wieder 0?
+I: Die Energie des makroskop. B-Feldes, das durch M entsteht wird durch
+die Bildung Weißscher Bezirke minimiert. Makr. M=0, mikr. M6=0.
+E: Gut (Schaut aber eher missmutig), neues Thema: Wie kommt die
+Bandstruktur zustande?
+I: Für quasifreie Elektronen, d.h. Pot periodisch, aber verschwindend:
+Bloch ⇒ E(k) = E(k + G) (Zeichne Abb. 7.2). Bei den Entartungen am
+Rand der BZ: Stehende Wellen, Aufenthalsw’keit für die eine zwischen den
+Kernen, für die anderen bei den Kernene größer. ⇒ Energieaufspaltung
+(Zeichne sie ein, Abb 7.6).
+E: Wie groß ist diese Aufspaltung?
+I: |2VG |, VG =Fourier-Komp. d. period. Potentials.
+E: Wie hoch ist die nächste Lücke?
+I: |2VG |, aber G ist jetzt der nächste Gittervektor.
+E: Im Vergleich zur ersten?
+I: Für ein glattes Pot.: kleiner.
+E: Ja, aber wie hoch?
+I: Ach so, (zeichne zweite Lücke bei k=0 ein). Auf jeden Fall mindestens
+doppelt so hoch wie die erste.
+E: (grinst) Klar, aber vorher hatten sie doch Parabeln erwähnt.
+I: Na dann 4 mal so hoch.
+E: Stimmt. Und wie misst man Bandstrukturen?
+I: Photonenemmissionsspektroskopie (zeichne Abb V.1. im Ibach, Lüth).
+
+
+Das ganze hat ca. 25 Minuten gedauert, und irgendwann hat er auch noch
+die Standardfrage mit den Zustandsdichten in 3D, 2D, 1D und 0D gefragt
+(Ich weiß aber nicht mehr wann genau). Herr Ensslin war immer sehr nett
+und die Prüfungsatmosphäre sehr angenehm.
+
+
+
+
+                                    3
+Prü❢✉♥❣s❛rt    P❤②s✐❦✱ ❚❡✐❧ ❆
+Prü❢✉♥❣ss❡ss✐♦♥    ❍❡r❜st ✷✵✵✹
+❋❛❝❤   ❋❡st❦ör♣❡r♣❤②s✐❦
+❉♦③❡♥t■♥   Pr♦❢✳ ❉r✳ ❑✳ ❊♥ss❧✐♥
+
+■❝❤ ❜❡❣✐♥♥❡ ♠✐t ❡✐♥❡♠ ❱♦rtr❛❣ ü❜❡r ❋❡rr♦♠❛❣♥❡t✐s♠✉s✱ ③✉❡rst ♠❛❦r♦s❦♦✲
+♣✐s❝❤ ♠✐t ❍②st❡r❡s❡s❝❤❧❡✐❢❡✱ ❞❡r ❊r❦❧är✉♥❣ ❞❡r ❡✐♥③❡❧♥❡♥ ❇❡r❡✐❝❤❡ ✭r❡✈❡rs✐❜❧❡
+❇❧♦❝❤✇❛♥❞✈❡rs❝❤✐❡❜✉♥❣✱ ✐rr❡✈❡rs✐❜❧❡ ❇❧♦❝❤✇❛♥❞✈❡rs❝❤✐❡❜✉♥❣ ✉♥❞ ❛♥s❝❤❧✐❡s✲
+s❡♥❞ ❉r❡❤✉♥❣ ❞❡r ▼❛❣♥❡t✐s✐❡r✉♥❣ ✐♥ ❞❡♥ ❉♦♠ä♥❡♥✮✳ ❆✉ss❡r❞❡♠ ❤❛❜✬ ✐❝❤ ❡r✲
+✇ä❤♥t✱ ✇✐❡ ♠❛♥ ❡✐♥❡♥ ❋❡rr♦♠❛❣♥❡t❡♥ ♠✐t ❣r♦ss❡r ❘❡♠❛♥❡♥③ ❤❡rst❡❧❧❡♥ ❦❛♥♥
+✭❱✐❡❧❡ ❋❡❤❧st❡❧❧❡♥✱ ❱❡rs♣❛♥♥✉♥❣❡♥✱ ❣❡♣r❡sst❡s P✉❧✈❡r ♠✐t ❚❡✐❧❝❤❡♥ ❦❧❡✐♥❡r ❛❧s
+10−7 m ✭✈❣❧✳ ❑✐tt❡❧✮
+❊♥ss❧✐♥✿ ❲❛s ✐st ❞❡r ●r✉♥❞ ❢ür ❞✐❡ ❆♥✐s♦tr♦♣✐❡❡♥❡r❣✐❡ r❡s♣✳ ❞✐❡ ❘✐❝❤t✉♥❣❡♥
+❧❡✐❝❤t❡r ✫ s❝❤✇❡r❡r ▼❛❣♥❡t✐s✐❡r✉♥❣❄
+■❝❤✿ ❙❝❤❧✉ss❡♥❞❧✐❝❤ ❙♣✐♥✲❇❛❤♥ ❲❡❝❤s❡❧✇✐r❦✉♥❣✳ ❊①✐st❡♥③ ✈❡rs❝❤✐❡❞❡♥❡r ❦r✐✲
+st❛❧❧♦❣r❛♣❤✐s❝❤❡r ❘✐❝❤t✉♥❣❡♥ ✐♠ ▼❛t❡r✐❛❧✳ ❇❡❡♥❞❡ ❛♥s❝❤❧✐❡ss❡♥❞ ♠❡✐♥❡♥ ❱♦r✲
+tr❛❣ ♠✐❦r♦s❦♦♣✐s❝❤✿ ❊♥❡r❣✐❡❛❜s❡♥❦✉♥❣ ✇❣✳ P❛✉❧✐✲Pr✐♥③✐♣✱ ✉♥❞ ♥♦❝❤ ❡✐♥❡ ❩❡✐❝❤✲
+♥✉♥❣ ❞❡r ❇❡t❤❡✲❙❧❛t❡r ❑✉r✈❡✳
+❊♥ss❧✐♥✿ ❑❛♥♥ ❡✐♥ ❛♠♦r♣❤❡r ❋❑ ❋❡rr♦♠❛❣♥❡t✐s♠✉s ③❡✐❣❡♥❄
+■❝❤✿ ❋❡rr♦♠❛❣♥❡t✐s♠✉s ✐st ♠✐t ❊①✐st❡♥③ ✈♦♥ ❑r✐st❛❧❧ ❡♥❣ ✈❡r❜✉♥❞❡♥✳ ◆❛❝❤
+❙t♦♥❡r ✉♥❞ ❲♦❤❧❢❛rt❤ ❣✐❜t✬s ✇♦❤❧ ❦❡✐♥❡♥ ✲ ❛❜❡r ❡✈t❧✳ ✐♠ ❇✐❧❞ ❞❡r ❧♦❦❛❧✐s✐❡rt❡♥
+❊❧❡❦tr♦♥❡♥✳
+❊♥ss❧✐♥✿ ❑❧ärt ♠✐❝❤ ❛✉❢✱ ❞❛ss ❡s ❜❡✐ ❛♠♦r♣❤❡♥ ❑ör♣❡r♥ ❦❡✐♥❡ ❇ä♥❞❡r ❣✐❜t
+✉♥❞ ❞❡s❤❛❧❜ ❋❡rr♦♠❛❣♥❡t✐s♠✉s ♥✐❝❤t ❡①✳ ✭✳✳✳♦❞❡r s♦ ä❤♥❧✐❝❤✳✳✳✮
+❚❤❡♠❡♥✇❡❝❤s❡❧✿ ❇ä♥❞❡r ✉♥❞ ✇✐❡ s✐❡ ❡♥tst❡❤❡♥✳
+■❝❤✿ ❊r❦❧är❡ ✐♠ ❇✐❧❞ q✉❛s✐❢r❡✐❡r ❊❧❡❦tr♦♥❡♥❀ ❜❡✐ k0 =
+                                                       a ✐st ▲❛✉❡✲❇❡❞✐♥❣✉♥❣
+                                                       π
+
+k − k0 = G ❡r❢ü❧❧t✳ ❉❛ ❛♥❣❡♥♦♠♠❡♥ ✇✐r❞✱ ❞❛ss H ♠✐t P ❦♦♠♠✉t✐❡rt✱ ❡①✳
+▲ös✉♥❣ Ψ+ ∝ cos2 s♦✇✐❡ Ψ− ∝ sin2 ✉♥❞ ❞❛♠✐t ❆✉❢s♣❛❧t✉♥❣ ❛♠ ❩♦♥❡♥r❛♥❞✳
+❊r✇ä❤♥❡ ❞✐❡ ●röss❡ ❞❡r ❆✉❢s♣❛❧t✉♥❣✳
+❊♥ss❧✐♥✿ ❲♦ ✐st ❞✐❡ ✷✳ ❆✉❢s♣❛❧t✉♥❣ ✐♠ r❡❞✉③✳ ❩♦♥❡♥s❝❤❡♠❛ ③✉ ✜♥❞❡♥❄
+■❝❤✿ ✭③❡✐❝❤♥❡ s✐❡ ❡✐♥ ❜❡✐ k ❂✵✮
+❊♥ss❧✐♥✿ ◆✐♠♠t ❞❡r ❲❡rt ❞❡r ❆✉❢s♣❛❧t✉♥❣ ♠♦♥♦t♦♥ ❛❜❄
+■❝❤✿ ▼✉ss ♥✐❝❤t ✲ ✇❡♥♥ ♠❛♥ ❛❜❡r ❞❛✈♦♥ ❛✉s❣❡❤t✱ ❞❛ss P♦t❡♥t✐❛❧ ✬s❝❤ö♥ ❣❧❛tt✬
+✐st✱ s♦ s✐♥❦❡♥ ❞✐❡ ❤ö❤❡r❡♥ ❋♦✉r✐❡r✲❑♦❡✛s ✐♥ ❞❡r ❘❡❣❡❧ ♠♦♥♦t♦♥✳
+❊♥ss❧✐♥✿ ❲✐❝❤t✐❣ ✐st✱ ❞❛ss ❢ür ❣r♦ss❡ G ❞✐❡ ❋♦✉r✐❡r❦♦❡✛✬s ❂ ✵ s✐♥❞✳
+❊r❦❧är❡♥ ❙✐❡ ❞❛s ❚✐❣❤t ❇✐♥❞✐♥❣ ▼♦❞❡❧❧✦
+■❝❤✿ ✭t✉✬ ❡s✳✮
+❊♥ss❧✐♥✿ ❑ö♥♥❡♥ s✐❝❤ ❞✐❡ s✐❝❤ ❛❜s❡♥❦❡♥❞❡♥ ❊♥❡r❣✐❡❜ä♥❞❡r ü❜❡r❧❛♣♣❡♥ ♦❞❡r
+s♦❣❛r ❦r❡✉③❡♥❄
+■❝❤✿ ❲❡✐ss ♥✐❝❤t✳ ❊r ❡r❦❧ärts ♠✐r ✲ ❛❜❡r ✇✐r❦❧✐❝❤ ✈❡rst❡❤❡♥ t✉✬ ✐❝❤✬s ♥✐❝❤t✳
+❊♥ss❧✐♥✿ ❚❤❡♠❡♥✇❡❝❤s❡❧✿ ❙✉♣r❛❧❡✐t❡r✳ ❲❛s ❢ür ❊✛❡❦t❡ ❦❡♥♥❡♥ ❙✐❡❄
+
+
+
+
+                                     ✶
+■❝❤✿   ❊♥❡r❣✐❡❧ü❝❦❡ ✐♠ ❆♥r❡❣✉♥❣ss♣❡❦tr✉♠✱ R❂✵ ✉♥❞ ✐❞❡❛❧❡r ❉✐❛♠❛❣♥❡t✐s✲
+♠✉s✳
+❊♥ss❧✐♥✿   ❇❡❞✐♥❣❡♥ s✐❝❤ ❞✐❡s❡ ❊✛❡❦t❡ ❛❧❧❡ ❣❡❣❡♥s❡✐t✐❣❄
+■❝❤✿  ■❞❡❛❧❡r ❉✐❛♠❛❣♥❡t✐s♠✉s✿ ❜❡♥öt✐❣t R❂✵ ✇❣✳ dB     dt = 0 = rotE = rot σ ✳
+                                                                          j
+
+❲❡♥♥ σ ❣❡❣❡♥ ✉♥❡♥❞❧✐❝❤✿ dB dt = 0✳ ❋ür B ❂✵ ❜r❛✉❝❤❡♥ ✇✐r ▼❡✐ss♥❡r✲❖❝❤s❡♥❢❡❧❞✳
+❊♥ss❧✐♥✿ ❖❤♥❡ ▼❡✐ss♥❡r ❖❝❤s❡♥❢❡❧❞ ✲ ❣ä❜❡ ❡s ❞❛ ❡✐♥ Pr♦❜❧❡♠❄
+■❝❤✿ ✭❆r❣✉♠❡♥t✐❡r❡ ❛♠ ❆♥❢❛♥❣ ♠✳♦✳✇✳ ③✐❡❧❧♦s ✐♥ ❞❡r ●❡❣❡♥❞ ❤❡r✉♠ ✲ ❜✐s
+s❝❤❧✐❡ss❧✐❝❤✮✿ ❥❛ ✲ ❞❛♥♥ ❤ätt❡♥ ✇✐r ✬✇❛s ✬✐rr❡✈❡rs✐❜❧❡s✬ ✭❣❡♥ü❣t❡✮✳
+❊♥ss❧✐♥✿ ◆✉♥ ③✉ ❞❡r ❜❡s❛❣t❡♥ ❊♥❡r❣✐❡❧ü❝❦❡ ✐♠ ❆♥r❡❣✉♥❣ss♣❡❦tr✉♠✳ ❲✐❡
+♠✐sst ♠❛♥ ❞✐❡❄
+■❝❤✿ ❆✉❢ ✈❡rs❝❤✐❡❞❡♥st❡ ❲❡✐s❡✳ ❊r✇ä❤♥❡ ❡❧♠✳ ❆❜s♦r♣t✐♦♥s❡①♣❡r✐♠❡♥t❡ ✭♠✐t
+●r❛♣❤❡♥✮✱ ❞❡♥ ❙♣r✉♥❣ ✈♦♥ cv ✉♥❞ ❞❛s ❚✉♥♥❡❧♥ ✈♦♥ ❊❧❡❦tr♦♥❡♥ ③✇✳ ❙▲ ✫
+◆▲✳
+❊♥ss❧✐♥✿ ◆♦❝❤♠❛❧s ❚❤❡♠❡♥✇❡❝❤s❡❧✿ ❑ö♥♥❡♥ ❙✐❡ ♠✐r s❛❣❡♥✱ ✇♦ ❞❛s ❋❡r♠✐♥✐✲
+✈❡❛✉ ❜❡✐ ❡✐♥❡♠ ♥✲❞♦t✳ ❍❛❧❜❧❡✐t❡r ❧✐❡❣t❄
+■❝❤✿ ❩❡✐❝❤♥❡ ❞✐❡ ●r❛✜❦ ✈♦♥ ■✫▲✳
+❊♥ss❧✐♥✿ ❑ö♥♥t❡ ❡s s❡✐♥✱ ❞❛ss ❤✐❡r ❜❡✐ ❚ ❣❡❣❡♥ ✵ EF ❤ö❤❡r ❧✐❡❣t ❛❧s ❞❛s
+▲❡✐t✉♥❣s❜❛♥❞❄
+■❝❤✿ ❊❤❡r ♥✐❝❤t✳ ✭▼✐t ❍✐❧❢❡ ✈♦♥ ✐❤♠✮✿ ❏❛ ✲ ❜❡✐ ❡♥t❛rt❡t❡r ♥✲❉♦t✐❡r✉♥❣✱ ✇❡♥♥
+s✐❝❤ ❞✐❡ ❉♦t✐❡r✉♥❣s✲❖r❜✐t❛❧❡ ü❜❡r❧❛♣♣❡♥✳ ❉❛♥♥ ❤❛❜❡♥ ✇✐r ♠✳♦✳✇✳ ❡✐♥ ▼❡t❛❧❧✳
+
+
+
+
+                                     ✷
+

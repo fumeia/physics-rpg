@@ -15,6 +15,8 @@ export class Player {
     this.enabled = false;
     this.flying = false; // free flight in the Nexus
     this.speed = 4.2;
+    // touch controls (see touch.js): analog stick (x = right, y = forward, both -1..1), fly up/down, fast toggle
+    this.touch = false; this.axis = { x: 0, y: 0 }; this.vert = 0; this.fast = false;
     // Movement keys are ignored while the player types in a field (answers, search), so the player can
     // walk around with a problem open without the answer box stealing or sending WASD.
     const typing = (t) => !!t && ['INPUT', 'SELECT', 'TEXTAREA'].includes(t.tagName);
@@ -36,7 +38,13 @@ export class Player {
     this.apply();
   }
   get locked() { return document.pointerLockElement === this.canvas; }
-  lock() { try { const p = this.canvas.requestPointerLock(); if (p && p.catch) p.catch(() => {}); } catch { /* ignore */ } }
+  lock() { if (this.touch) return; try { const p = this.canvas.requestPointerLock(); if (p && p.catch) p.catch(() => {}); } catch { /* ignore */ } }
+  // drag-to-look on a touch screen (dx, dy in pixels)
+  look(dx, dy) {
+    const k = 0.0055 * (this.sens || 1);
+    this.turn = null; this.yaw -= dx * k;
+    this.pitch = Math.max(-1.3, Math.min(1.3, this.pitch - dy * k));
+  }
   unlock() { if (document.pointerLockElement) document.exitPointerLock(); }
   // Smoothly turn towards a point on the floor plane (used to watch the experiment).
   faceTarget(x, z, pitch = 0.02) {
@@ -59,20 +67,23 @@ export class Player {
       if (k.has('ArrowRight')) this.yaw -= 1.8 * dt;
       if (k.has('ArrowUp')) this.pitch = Math.min(1.3, this.pitch + 1.2 * dt);
       if (k.has('ArrowDown')) this.pitch = Math.max(-1.3, this.pitch - 1.2 * dt);
-      const f = (k.has('KeyW') ? 1 : 0) - (k.has('KeyS') ? 1 : 0), s = (k.has('KeyD') ? 1 : 0) - (k.has('KeyA') ? 1 : 0);
+      const clamp1 = (x) => Math.max(-1, Math.min(1, x)), fast = k.has('ShiftLeft') || this.fast;
+      const f = clamp1((k.has('KeyW') ? 1 : 0) - (k.has('KeyS') ? 1 : 0) + this.axis.y), s = clamp1((k.has('KeyD') ? 1 : 0) - (k.has('KeyA') ? 1 : 0) + this.axis.x);
       if (this.flying) {
         // free flight (the Nexus): W/S along the view direction incl. pitch, A/D sideways, Space up, C down
-        const up = (k.has('Space') ? 1 : 0) - (k.has('KeyC') ? 1 : 0);
+        const up = clamp1((k.has('Space') ? 1 : 0) - (k.has('KeyC') ? 1 : 0) + this.vert);
         if (f || s || up) {
           const fw3 = new THREE.Vector3(-Math.sin(this.yaw) * Math.cos(this.pitch), Math.sin(this.pitch), -Math.cos(this.yaw) * Math.cos(this.pitch));
           const right = new THREE.Vector3(Math.cos(this.yaw), 0, -Math.sin(this.yaw));
-          const v = fw3.multiplyScalar(f).add(right.multiplyScalar(s)).add(new THREE.Vector3(0, up, 0)).normalize();
-          this.pos.addScaledVector(v, 11 * (k.has('ShiftLeft') ? 3 : 1) * dt);
+          const v = fw3.multiplyScalar(f).add(right.multiplyScalar(s)).add(new THREE.Vector3(0, up, 0));
+          if (v.lengthSq() > 1) v.normalize(); // keys give full speed, the analog stick gives partial speed
+          this.pos.addScaledVector(v, 11 * (fast ? 3 : 1) * dt);
         }
       } else if (f || s) {
         const fw = this.forward(), right = new THREE.Vector3(-fw.z, 0, fw.x); // yaw 0 faces -z, so right is +x
-        const v = fw.multiplyScalar(f).add(right.multiplyScalar(s)).normalize().multiplyScalar(this.speed * (k.has('ShiftLeft') ? 1.7 : 1) * dt);
-        this.pos.add(v);
+        const v = fw.multiplyScalar(f).add(right.multiplyScalar(s));
+        if (v.lengthSq() > 1) v.normalize();
+        this.pos.add(v.multiplyScalar(this.speed * (fast ? 1.7 : 1) * dt));
       }
     }
     if (this.flying) { const r = this.pos.length(); if (r > 90) this.pos.multiplyScalar(90 / r); } else this.collide();

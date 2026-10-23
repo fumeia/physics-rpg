@@ -54,9 +54,12 @@ Why the extra password (`basic_auth`) when there is already a token: the token p
 themselves contain content derived from your lecture scripts and exams (transcriptions, solutions), which you probably should not
 publish openly. Basic auth protects everything.
 
-Open `https://physics.example.com` on your phone. On a touch screen under 1000 px the game starts in the **phone menu** (no 3D;
-missions, study hub, exam hall, rooms and exercises). Add `?lite=0` to force the 3D view or `?lite=1` to force the menu on any device.
-Tip: "Add to Home screen" in the phone browser gives it an app icon.
+Open `https://physics.example.com` on your phone. On a touch screen the game is the full 3D game with on-screen controls: a **stick** (bottom left) to
+walk, **drag** on the 3D view to look, a **big button** (bottom right) that does what E does, and a toolbar at the top (Menu, Formulas, Map, Nexus).
+Formulas and an exercise can be open at once: side by side when the phone is held sideways, one above the other when upright; the arrow button of a panel makes it fill
+the screen. If the 3D view is too slow on an old phone, Menu > "Switch to the simple menu (no 3D)" gives the lists-only mode (`?lite=1` / `?lite=0` also work;
+`?touch=0` turns the touch controls off on a tablet with a keyboard).
+Tip: "Add to Home screen" in the phone browser gives it an app icon and full screen.
 
 ## 4. Backups
 
@@ -72,8 +75,12 @@ sudo chmod +x /etc/cron.daily/physics-rpg-backup
 
 ## 5. Updating the game later
 
-Run the `rsync` from step 1 again **without** copying `profiles/` (the `--exclude profiles` does that), then
-`sudo systemctl restart physics-rpg`. Your progress stays on the server.
+If you used `deploy/setup.sh`, one command does everything: `sudo rpg-update` (or `sudo bash /opt/physics-rpg/deploy/update.sh`). It pulls the new version
+from GitHub, restarts the game and shows what changed; then reload the page on the phone. Progress stays on the server. If the repository is private, run
+`sudo bash /opt/physics-rpg/deploy/deploy-key.sh` once: it creates a read-only key on the server and tells you where to add it on GitHub.
+
+With the manual setup above, run the `rsync` from step 1 again **without** copying `profiles/` (the `--exclude profiles` does that), then
+`sudo systemctl restart physics-rpg`.
 
 ## Moving your progress between PC and server
 

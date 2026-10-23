@@ -26,7 +26,7 @@ function textSprite(lines, { w = 440, h = 130, ppm = 100 } = {}) {
 export class World {
   constructor(canvas) {
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, matchMedia('(pointer: coarse)').matches ? 1.5 : 2)); // phones: fewer pixels, steadier frame rate
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x070a12);
     this.scene.fog = new THREE.Fog(0x070a12, 14, 48);

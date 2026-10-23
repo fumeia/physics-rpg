@@ -9,7 +9,7 @@ Names: letters, digits, _ and - (max 40). Writes are atomic and the last 5 versi
 """
 import argparse, glob, http.server, json, mimetypes, os, re, shutil, tempfile, time
 
-for ext, typ in (('.mjs', 'text/javascript'), ('.js', 'text/javascript'), ('.json', 'application/json'), ('.woff2', 'font/woff2')):
+for ext, typ in (('.mjs', 'text/javascript'), ('.js', 'text/javascript'), ('.json', 'application/json'), ('.woff2', 'font/woff2'), ('.webmanifest', 'application/manifest+json')):
     mimetypes.add_type(typ, ext)  # older Pythons serve .mjs as octet-stream, which browsers refuse for modules
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -26,6 +26,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):  # keep the console quiet for the frequent autosaves
         if '/api/' not in (args[0] if args else ''):
             super().log_message(fmt, *args)
+
+    def end_headers(self):  # static files: always revalidate, so a game update shows up on the phone right after the next load
+        if not self.path.startswith('/api/') and self.command in ('GET', 'HEAD'):
+            self.send_header('Cache-Control', 'no-cache')
+        super().end_headers()
 
     def _send(self, code, obj):
         body = json.dumps(obj).encode()

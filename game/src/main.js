@@ -11,6 +11,7 @@ import { mountExamHall } from './exam.js';
 import { buildLabHolos } from './labholo.js';
 import { mistakes, updateMistake, weakSpots } from './mistakes.js';
 import { renderDrillTab, setDrillData, drillData } from './drills.js';
+import { initTouch } from './touch.js';
 import { initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
 import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, daysToExam } from './missions.js';
@@ -18,8 +19,16 @@ import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, daysToExam } 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view');
 const params = new URLSearchParams(location.search);
-// phone / lite mode: no 3D rendering, a menu instead of walking (auto on touch screens < 1000 px, or ?lite=1 / ?lite=0)
-const lite = params.has('lite') ? params.get('lite') !== '0' : matchMedia('(pointer: coarse)').matches && innerWidth < 1000;
+// touch mode (phones, tablets): the full 3D game with an on-screen stick, drag-to-look and an action button (auto on touch screens, or ?touch=1 / ?touch=0)
+const touch = params.has('touch') ? params.get('touch') !== '0' : matchMedia('(pointer: coarse)').matches;
+// lite mode: no 3D rendering, a menu instead of walking. Opt-in for slow phones (menu button, or ?lite=1 / ?lite=0)
+const storedLite = () => { try { return localStorage.getItem('physics-rpg-lite') === '1'; } catch { return false; } };
+const lite = params.has('lite') ? params.get('lite') !== '0' : storedLite();
+function setLitePref(on) {
+  try { localStorage.setItem('physics-rpg-lite', on ? '1' : '0'); } catch { /* ignore */ }
+  const u = new URL(location.href); u.searchParams.delete('lite'); location.href = u.toString();
+}
+let touchUI = null;
 const STEPS_PER_SECOND = 144; // QM simulation steps per second at speed 1x (one run takes about 10 s)
 
 // Courses: content folder, optional 3D set piece module (null = the QM bridge exhibit of the world itself)
@@ -71,6 +80,8 @@ async function boot() {
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
   world = new World(canvas);
   player = new Player(canvas, world);
+  if (touch) document.body.classList.add('touch');
+  watchPanels();
   applySettings();
   onSyncStatus(updateProfileChip);
   $('close').onclick = () => closePanel();
@@ -78,6 +89,7 @@ async function boot() {
   const last0 = store.last, lastRoom = last0 && findRoom(last0.course, last0.room);
   if (lastRoom) { $('resume').style.display = ''; $('resume').textContent = `Resume: ${lastRoom.title}`; $('resume').onclick = async (ev) => { ev.stopPropagation(); $('start').style.display = 'none'; player.enabled = true; await loadRoom(last0.course, last0.room, { silent: false }); player.lock(); }; }
   $('start-profile').textContent = `Profile: ${store.profile}`;
+  if (touch) $('start').querySelector('.dim').textContent = 'Tap anywhere to enter the Nexus.';
   $('help').onclick = () => startTutorial(); $('btn-nexus').onclick = () => goNexus(); $('btn-profile').onclick = () => openOverlay('profile'); $('btn-help').onclick = () => openOverlay('help'); $('btn-missions').onclick = () => openOverlay('missions'); $('btn-exam').onclick = () => openOverlay('exam'); $('btn-pile').onclick = () => openOverlay('pile'); $('btn-conn').onclick = () => { if (!inNexus) openConnections(); }; $('btn-guide').onclick = () => { store.setFlag('guide-off', guideOn()); refresh(); if (inNexus) goNexus(); };
   $('btn-map').onclick = () => openOverlay('map'); $('btn-codex').onclick = () => toggleCodex(); $('side-cx').onclick = () => toggleCodex(); $('cx-close').onclick = () => closeCodex();
   $('ov-close').onclick = () => closeOverlay();
@@ -94,11 +106,18 @@ async function boot() {
   else await loadNexus({ silent: true });
   exposeTestApi();
   if (params.has('test')) { $('start').style.display = 'none'; player.enabled = true; if (params.has('tutorial')) startTutorial(); }
-  if (lite) { document.body.classList.add('lite'); $('start').style.display = 'none'; player.enabled = true; if (!inNexus) await loadNexus({ silent: true }); setTimeout(() => openOverlay('menu'), 200); $('btn-menu').onclick = () => openOverlay('menu'); }
+  $('btn-menu').onclick = () => openOverlay('menu');
+  if (lite) { document.body.classList.add('lite'); $('start').style.display = 'none'; player.enabled = true; if (!inNexus) await loadNexus({ silent: true }); setTimeout(() => openOverlay('menu'), 200); }
+  else if (touch) {
+    touchUI = initTouch({ player, canvas, act: () => { if (promptTarget && !blocking()) interact(promptTarget); }, fullscreen: toggleFullscreen });
+    $('btn-map').textContent = 'Map'; $('btn-codex').textContent = 'Formulas'; $('btn-nexus').textContent = 'Nexus';
+    $('pb-replay').textContent = 'Replay';
+  }
   let lastT = performance.now();
   const loop = (now) => {
     const dt = Math.max(0, Math.min(0.05, (now - lastT) / 1000)); lastT = now;
     stepRunner(dt, now);
+    touchUI?.update({ promptText: promptTarget && !blocking() ? $('prompt').textContent : null, flying: inNexus });
     tickStudy(dt); player.update(dt); world.update(dt); set?.update(dt, player.pos, world.camera); holos?.update(dt, player.pos); if (inNexus) updateNexusCard(); updatePrompt();
     if (!lite) world.render(player.camera);
     requestAnimationFrame(loop);
@@ -346,7 +365,9 @@ async function wireProfile() {
   host.querySelectorAll('[data-prof]').forEach((b) => (b.onclick = () => { if (b.dataset.prof !== store.profile) switchProfile(b.dataset.prof); }));
 }
 function helpHtml() {
-  return `<div class="cols"><div><h3>Moving</h3><p><b>W A S D</b> walk (in the Nexus: fly; <b>Space</b> up, <b>C</b> down, <b>Shift</b> faster). Mouse looks around; with a panel open drag with the mouse. <b>E</b> interacts with the console or star you face. <b>Esc</b> frees the mouse or closes a panel.</p>
+  const t = touch ? `<h3>On the phone</h3><p><b>Left stick</b> walks (in the Nexus it flies where you look; the ▲ ▼ » buttons fly up, down and fast). <b>Drag</b> anywhere on the 3D view to look. The big <b>button at the bottom right</b> does what <b>E</b> does: it appears when you stand at a console, a star or an experiment.</p>
+    <p><b>Menu</b> at the top has missions, study hub, exam hall and more. <b>Formulas</b> opens the formula drawer; with an exercise open too, both show side by side (phone held sideways) or one above the other (upright). The <b>⤢</b> button of a panel makes it fill the screen, tap it again to go back. Add the page to your home screen for full screen.</p>` : '';
+  return `<div class="cols"><div>${t}<h3>Moving</h3><p><b>W A S D</b> walk (in the Nexus: fly; <b>Space</b> up, <b>C</b> down, <b>Shift</b> faster). Mouse looks around; with a panel open drag with the mouse. <b>E</b> interacts with the console or star you face. <b>Esc</b> frees the mouse or closes a panel.</p>
     <h3>Keys</h3><p><b>N</b> Nexus · <b>M</b> map and route · <b>T</b> daily missions · <b>X</b> exam hall · <b>V</b> my pile (exercises you keep) · <b>B</b> formulas · <b>K</b> connections of this room · <b>P</b> profile · <b>F1</b> this help · <b>L</b> labels · QM bridge: <b>Space</b> pause, <b>R</b> replay, <b>O</b> loop, <b>[ ]</b> speed.</p></div>
     <div><h3>The consoles of a room</h3><p><b>Library</b>: theory and intuition. <b>Experiments</b>: interactive simulations, change things and see what happens. <b>Quiz hall</b>: exam-style multiple choice. <b>Derivation desk</b>: show-that problems on paper. <b>Stations</b>: predict, watch, explain. <b>Fights</b>: calculations; afterwards a "What if?" explorer opens. <b>Boss gate</b>: a real old-exam problem on paper.</p>
     <h3>How to use it</h3><p>Follow the <b>Guide</b>. Do the daily missions (T): they mix question types like the exam. Wrong answers come back as <b>respawns</b> after 1, 3, 7, 16 days. Your progress is saved in your <b>profile</b> (P).</p></div></div>`;
@@ -524,7 +545,11 @@ function menuHtml() {
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
     <button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
     <button class="bigbtn" data-m="formulas"><b>Formulas</b><span>drawer for the current course</span></button>
-    <button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button></div>`;
+    <button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
+    ${lite ? '' : '<button class="bigbtn" data-m="nexus"><b>Fly to the Nexus</b><span>the map of everything you study</span></button>'}
+    <button class="bigbtn" data-m="help"><b>Controls and help</b><span>${touch ? 'stick, look, buttons, both panels' : 'keys and tips'}</span></button>
+    ${lite ? '' : '<button class="bigbtn" data-m="tutorial"><b>Replay the tutorial</b><span>for the room you are in</span></button>'}
+    <button class="bigbtn" data-m="litetoggle"><b>${lite ? 'Switch to the 3D game' : 'Switch to the simple menu (no 3D)'}</b><span>${lite ? 'walk around, experiments, both panels side by side' : 'for slow phones: no walking, only lists'}</span></button></div>`;
 }
 function roomMenuHtml() {
   if (!room) return '';
@@ -535,7 +560,9 @@ function wireMenu() {
     const [k, arg] = b.dataset.m.split(':');
     if (k === 'missions') openOverlay('missions'); else if (k === 'study') openOverlay('pile'); else if (k === 'exam') openOverlay('exam'); else if (k === 'map') openOverlay('map'); else if (k === 'profile') openOverlay('profile'); else if (k === 'menu') openOverlay('menu');
     else if (k === 'formulas') { closeOverlay(true); openCodex(); }
-    else if (k === 'goto') { const [c, r] = arg.split('/'); await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); }
+    else if (k === 'goto') { const [c, r] = arg.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); } else { closeOverlay(true); await loadRoom(c, r, { silent: false }); player.enabled = true; } }
+    else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
+    else if (k === 'nexus') { closeOverlay(true); goNexus(); } else if (k === 'litetoggle') setLitePref(!lite);
     else if (k === 'group') { closeOverlay(true); openGroup(groups[+arg]); }
     else if (k === 'conn') { closeOverlay(true); openConnections(); }
   }));
@@ -753,7 +780,7 @@ function wirePlaybackBar() {
 }
 function updateBar() {
   const bar = $('pbar'); bar.style.display = view.variant ? '' : 'none';
-  $('pb-play').textContent = pb.paused ? 'Play (Space)' : 'Pause (Space)';
+  $('pb-play').textContent = (pb.paused ? 'Play' : 'Pause') + (touch ? '' : ' (Space)');
   $('pb-loop').textContent = `Loop: ${pb.loop ? 'on' : 'off'}`; $('pb-loop').classList.toggle('on', pb.loop);
   document.querySelectorAll('#pbar [data-sp]').forEach((b) => b.classList.toggle('on', +b.dataset.sp === pb.speed));
   $('pb-panel').style.display = current ? '' : 'none';
@@ -842,7 +869,7 @@ function startTutorial() {
 }
 function showTutorialStep() {
   const s = tut.steps[tut.i];
-  $('tut-title').textContent = s.title; $('tut-body').innerHTML = M(s.html);
+  $('tut-title').textContent = s.title; $('tut-body').innerHTML = M(s.html) + (touch ? '<p class="src">On the phone: left stick moves, drag on the view to look, the big button at the bottom right is E, the top buttons replace the keys.</p>' : '');
   $('tut-count').textContent = `${tut.i + 1} / ${tut.steps.length}`;
   $('tut-back').disabled = tut.i === 0; $('tut-next').textContent = tut.i === tut.steps.length - 1 ? 'Start playing' : 'Next';
   if (s.look) player.faceTarget(s.look.x, s.look.z, s.look.pitch ?? 0.02);
@@ -861,6 +888,24 @@ document.addEventListener('click', (e) => {
   if (e.target.id === 'tut-skip') endTutorial();
 });
 
+// ================================================================ touch layout helpers
+// Both side panels can be open at once: formulas (left / top) and the exercise (right / bottom). CSS lays them out from these body classes.
+function watchPanels() {
+  const sync = () => {
+    for (const [id, cls] of [['side', 'p-side'], ['cx', 'p-cx']]) {
+      const el = $(id), open = !el.classList.contains('hidden');
+      document.body.classList.toggle(cls, open);
+      if (!open && el.classList.contains('max')) el.classList.remove('max'); // only when set: remove() on an absent class still re-fires the observer
+    }
+  };
+  const mo = new MutationObserver(sync); for (const id of ['side', 'cx']) mo.observe($(id), { attributes: true, attributeFilter: ['class'] });
+  for (const [btn, id] of [['side-max', 'side'], ['cx-max', 'cx']]) $(btn).onclick = () => $(id).classList.toggle('max');
+  sync();
+}
+function toggleFullscreen() {
+  try { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen({ navigationUI: 'hide' }); } catch { /* ignore */ }
+}
+
 // ================================================================ test hooks (used by test/e2e.mjs)
 function exposeTestApi() {
   window.__game = {
@@ -872,7 +917,7 @@ function exposeTestApi() {
     nexusDebug: () => set.links.map((l) => ({ id: l.a.key + '>' + l.b.key, pts: l.curve.points.map((p) => p && [p.x, p.y, p.z]), pulses: l.pulses.map((p) => p.t) })),
     currentRoom: () => `${course.id}/${room.slug}`, enterNexus: () => loadNexus({ silent: true }), nexus: () => (inNexus && set ? { nodes: set.nodes.length, links: set.links.length, focus: set.focus ? (set.focus.node?.key || 'link') : null } : null), flyTo: (x, y, z, yaw = 0, pitch = 0) => player.teleport(x, z, yaw, pitch, y),
     interactNearest: () => { const t = player.target(); if (t) interact(t); return t ? t.id : null; },
-    state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
+    state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };
 }

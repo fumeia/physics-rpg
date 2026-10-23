@@ -14,6 +14,9 @@ Run (progress is saved to a JSON file per profile):
 - Nexus (start room), guide route, daily missions (T), formula drawer (B), connections (K), labs, "What if?" explorer after every fight.
 - Content is data: `content/<course>/*.json` (see `../docs/CONTENT.md`), rooms in `src/rooms/`, models in `src/labmodels.js`.
 
+Touch screens: the full 3D game with an on-screen stick, drag-to-look and an action button (E); formulas and the exercise can be open together
+(`?touch=0` off, `?lite=1` for the old lists-only phone menu). Test: `node test/touch-smoke.mjs`.
+
 Tests (node, plus headless Chromium via `test/setup-chromium.sh`):
 
     node test/labs-check.mjs && node test/missions-check.mjs && node test/explorer-check.mjs

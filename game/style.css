@@ -1,7 +1,7 @@
 :root { --bg: #070a12; --panel: #141926ee; --ink: #e8ecf5; --dim: #9aa6c0; --accent: #6cb6ff; --good: #4cc38a; --bad: #ff6b6b; --warn: #f5c451; --line: #2b3347; }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, sans-serif; overflow: hidden; }
-canvas#view { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+canvas#view { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; }
 #hud { position: fixed; inset: 0; pointer-events: none; }
 #hud .tl, #hud .tr { position: absolute; top: 12px; background: rgba(8,12,22,.6); padding: 8px 12px; border-radius: 8px; }
 #hud .tl { left: 12px; max-width: 46vw; } #hud .tr { right: 12px; display: flex; gap: 10px; align-items: center; }
@@ -137,10 +137,58 @@ ol.spot { padding-left: 0; list-style: none; display: grid; gap: 6px; } ol.spot 
 .radar { display: grid; gap: 4px; } .radrow { display: grid; grid-template-columns: 1fr 180px; gap: 10px; align-items: center; background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; color: var(--ink); font: inherit; text-align: left; cursor: pointer; } .rb { position: relative; height: 10px; background: rgba(255,255,255,.05); border-radius: 5px; } .rb i { position: absolute; left: 0; top: 0; height: 100%; border-radius: 5px; } .rf { background: rgba(255,255,255,.22); } .rm { background: var(--good); }
 .mixrooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px 12px; margin: 8px 0; }
 
-.menu-only { display: none; } body.lite .menu-only { display: inline-block; font-size: 15px; padding: 6px 14px; }
+.menu-only, .touch-only { display: none; } body.lite .menu-only, body.touch .menu-only { display: inline-block; font-size: 15px; padding: 6px 14px; } body.touch .touch-only { display: inline-block; }
 .menu { display: grid; gap: 10px; } .bigbtn { display: grid; gap: 3px; text-align: left; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; color: var(--ink); font: inherit; cursor: pointer; } .bigbtn b { font-size: 16px; } .bigbtn span { font-size: 12.5px; color: #9fb0d0; }
 body.lite #hud .tr > :not(.menu-only):not(#xp) { display: none; } body.lite #hud .tl, body.lite #hint, body.lite #pbar, body.lite #prompt, body.lite #objective { display: none; }
 body.lite #side { position: fixed; inset: 0; width: 100%; max-width: none; z-index: 20; } body.lite #overlay > div { width: 100%; max-width: 100%; min-height: 100%; border-radius: 0; margin: 0; }
 @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } .radrow { grid-template-columns: 1fr; } .row { flex-wrap: wrap; } }
 
 .limformula { text-align: center; font-size: 1.1em; background: rgba(255,255,255,.04); border-radius: 8px; padding: 8px 12px; }
+
+/* ---------------------------------------------------------------- touch mode (phones and tablets): the 3D game with on-screen controls */
+body.touch { overscroll-behavior: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+body.touch #hud, body.touch #touch { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+body.touch #hint, body.touch #crosshair { display: none; }
+body.touch #hud .tl { top: max(8px, env(safe-area-inset-top)); left: max(8px, env(safe-area-inset-left)); max-width: 44vw; padding: 5px 9px; font-size: 12px; }
+body.touch #hud .tl #objective { font-size: 11.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+body.touch #hud .tr { top: max(8px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right)); max-width: 56vw; gap: 6px; }
+body.touch #hud .tr > :not(#btn-menu):not(#btn-codex):not(#btn-map):not(#btn-nexus):not(#btn-fs):not(#xp) { display: none; }
+body.touch #hud .tr .btn { font-size: 14px; padding: 7px 12px; min-height: 38px; background: rgba(20,28,46,.85); border-radius: 19px; }
+body.touch #hud .tr #xp { font-size: 12px; color: var(--dim); }
+body.touch #prompt.t-hide { display: none !important; }
+body.touch #prompt { bottom: 22%; font-size: 14px; max-width: 70vw; text-align: center; }
+body.touch #pbar { bottom: auto; left: 8px; right: 8px; transform: none; top: calc(max(8px, env(safe-area-inset-top)) + 92px); max-width: none; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; white-space: nowrap; font-size: 13px; -webkit-overflow-scrolling: touch; }
+@media (orientation: landscape) { body.touch #pbar { top: calc(max(8px, env(safe-area-inset-top)) + 62px); } body.touch.p-side #pbar { right: calc(54vw + 8px); } }
+body.touch #pbar button { padding: 7px 11px; min-height: 36px; }
+body.touch #tut { left: 50%; transform: translateX(-50%); bottom: 12px; width: min(560px, 94vw); max-height: 52dvh; overflow-y: auto; z-index: 6; }
+body.touch #tut .tut-nav button { min-height: 40px; padding: 8px 14px; }
+body.touch #start { font-size: 17px; }
+body.touch .opt, body.touch .listrow, body.touch button.go, body.touch .bigbtn { min-height: 44px; }
+
+#touch { position: fixed; inset: 0; z-index: 1; pointer-events: none; } body.touch #hud { z-index: 2; } /* HUD cards (tutorial, toolbar) above the stick and buttons */
+#joy { position: absolute; left: max(22px, env(safe-area-inset-left)); bottom: max(22px, env(safe-area-inset-bottom)); width: 132px; height: 132px; border-radius: 50%; background: rgba(120,160,220,.14); border: 2px solid rgba(160,200,255,.35); pointer-events: auto; touch-action: none; }
+#joy-knob { position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: rgba(160,200,255,.55); border: 2px solid rgba(220,235,255,.7); }
+#t-right { position: absolute; right: max(18px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+#t-right .fly { display: flex; gap: 10px; } #t-right [hidden] { display: none; }
+.tb { pointer-events: auto; touch-action: none; min-width: 56px; height: 56px; border-radius: 28px; border: 2px solid rgba(160,200,255,.5); background: rgba(20,28,46,.8); color: var(--ink); font-size: 20px; padding: 0 14px; }
+.tb.on { background: rgba(108,182,255,.45); border-color: var(--accent); }
+.tb.act { max-width: 46vw; height: auto; min-height: 62px; padding: 8px 18px; font-size: 15px; line-height: 1.25; border-color: var(--accent); background: rgba(24,50,88,.92); text-align: center; touch-action: manipulation; }
+body.lite #touch { display: none; }
+
+/* panels: formulas (left or top) and the exercise (right or bottom) may both be open */
+body.touch #side, body.touch #cx { z-index: 4; padding-top: 52px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
+body.touch #side-max, body.touch #cx-max { position: absolute; top: 8px; right: 54px; font-size: 16px; padding: 4px 10px; min-height: 34px; }
+body.touch #side-cx { right: 104px; top: 8px; font-size: 13px; padding: 4px 10px; min-height: 34px; }
+body.touch #cx .cx-head { position: absolute; top: 8px; left: 14px; right: 8px; margin: 0; }
+body.touch #cx-max { right: 48px; }
+body.touch #close, body.touch #cx-close { top: 2px; font-size: 30px; width: 44px; height: 44px; }
+@media (orientation: landscape) {
+  body.touch #side { width: 54vw; height: 100dvh; top: 0; bottom: 0; right: 0; left: auto; }
+  body.touch #cx { width: 46vw; height: 100dvh; top: 0; bottom: 0; left: 0; right: auto; }
+}
+@media (orientation: portrait) {
+  body.touch #side { left: 0; right: 0; bottom: 0; top: auto; width: 100%; height: 62dvh; border-left: 0; border-top: 1px solid var(--line); border-radius: 14px 14px 0 0; }
+  body.touch #cx { left: 0; right: 0; top: 0; bottom: auto; width: 100%; height: 50dvh; border-right: 0; border-bottom: 1px solid var(--line); border-radius: 0 0 14px 14px; }
+  body.touch.p-side.p-cx #cx { height: 36dvh; } body.touch.p-side.p-cx #side { height: 64dvh; }
+}
+body.touch #side.max, body.touch #cx.max { top: 0 !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 100dvh !important; border-radius: 0; border: 0; z-index: 7; }

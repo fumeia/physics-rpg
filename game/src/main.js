@@ -1,3 +1,4 @@
+import { controlsChoice, setControlsChoice, themeChoice, setThemeChoice, isLight, landscapePref, setLandscapePref } from './theme.js'; // first: applies the theme before anything is drawn
 import { World, SCALE } from './world.js';
 import { Player } from './player.js';
 import { TunnelSim } from './sim.js';
@@ -20,13 +21,14 @@ const $ = (id) => document.getElementById(id);
 const canvas = $('view');
 const params = new URLSearchParams(location.search);
 // touch mode (phones, tablets): the full 3D game with an on-screen stick, drag-to-look and an action button (auto on touch screens, or ?touch=1 / ?touch=0)
-const touch = params.has('touch') ? params.get('touch') !== '0' : matchMedia('(pointer: coarse)').matches;
+const touch = params.has('touch') ? params.get('touch') !== '0' : controlsChoice() === 'touch' ? true : controlsChoice() === 'desktop' ? false : matchMedia('(pointer: coarse)').matches;
+function reloadWithout(...names) { const u = new URL(location.href); for (const n of names) u.searchParams.delete(n); location.href = u.toString(); }
 // lite mode: no 3D rendering, a menu instead of walking. Opt-in for slow phones (menu button, or ?lite=1 / ?lite=0)
 const storedLite = () => { try { return localStorage.getItem('physics-rpg-lite') === '1'; } catch { return false; } };
 const lite = params.has('lite') ? params.get('lite') !== '0' : storedLite();
 function setLitePref(on) {
   try { localStorage.setItem('physics-rpg-lite', on ? '1' : '0'); } catch { /* ignore */ }
-  const u = new URL(location.href); u.searchParams.delete('lite'); location.href = u.toString();
+  reloadWithout('lite');
 }
 let touchUI = null;
 const STEPS_PER_SECOND = 144; // QM simulation steps per second at speed 1x (one run takes about 10 s)
@@ -112,7 +114,18 @@ async function boot() {
     touchUI = initTouch({ player, canvas, act: () => { if (promptTarget && !blocking()) interact(promptTarget); }, fullscreen: toggleFullscreen });
     $('btn-map').textContent = 'Map'; $('btn-codex').textContent = 'Formulas'; $('btn-nexus').textContent = 'Nexus';
     $('pb-replay').textContent = 'Replay';
+    setupRotateHint();
   }
+  // deep links (notifications): ?open=<exercise id> and/or ?room=<course>/<room>
+  const deepOpen = params.get('open'), deepRoom = params.get('room');
+  if ((deepOpen || deepRoom) && !params.has('test') && !lite) {
+    $('start').style.display = 'none'; player.enabled = true;
+    try {
+      if (deepRoom) { const [c, r] = deepRoom.split('/'); if (findRoom(c, r)) await loadRoom(c, r, { silent: false }); }
+      if (deepOpen && encIndex.has(deepOpen)) await openById(deepOpen);
+    } catch (e) { console.warn('deep link failed', e.message); }
+  }
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
   let lastT = performance.now();
   const loop = (now) => {
     const dt = Math.max(0, Math.min(0.05, (now - lastT) / 1000)); lastT = now;
@@ -136,7 +149,7 @@ const NEXUS_ROOM = {
   id: 'nexus', slug: 'hub', title: 'The Nexus', topics: [], encounters: [], sources: [],
   intro: 'The map of everything you study.',
   tutorial: [
-    { title: 'The Nexus: a map of everything', look: { x: 0, z: -40, pitch: 0.1 }, html: '<p>Every <b>galaxy</b> is a course, every <b>star</b> a room. The ring around a star shows your progress (gold = cleared), a <span style="color:#ff7a66">red pulse</span> means a respawn is due, a tall <b>light beam</b> marks the room recommended next.</p>' },
+    { title: 'The Nexus: a map of everything', look: { x: 0, z: -40, pitch: 0.1 }, html: '<p>Every <b>galaxy</b> is a course, every <b>star</b> a room. The ring around a star shows your progress (gold = cleared), a <span class="due">red pulse</span> means a respawn is due, a tall <b>light beam</b> marks the room recommended next.</p>' },
     { title: 'Flying', look: { x: -36, z: -8, pitch: 0.05 }, html: '<p><b>W A S D</b> fly in the direction you look, <b>Space</b> up, <b>C</b> down, <b>Shift</b> fast, mouse to look. Fly close to a star to read what is in the room and what it connects to; press <b>E</b> to fly in. <b>N</b> brings you back here from any room, <b>M</b> opens the list.</p>' },
     { title: 'Each galaxy has a living exhibit', look: { x: 36, z: -8, pitch: 0.0 }, html: '<p>In the cores: a <b>ripple tank</b> (two coherent sources interfere, $I\\propto|\\psi_1+\\psi_2|^2$), a <b>crystal with its Fermi sphere</b> ($k_F=(3\\pi^2n)^{1/3}$) and a <b>rotating galaxy</b> with a flat rotation curve ($\\omega=v/r$). They are the core ideas of the three courses.</p>' },
     { title: 'Beams connect the topics', look: { x: 0, z: -26, pitch: 0.12 }, html: '<p>Curved beams with travelling pulses connect topics <i>across</i> courses: tunnelling lets the Sun fuse hydrogen, the Fermi gas of a metal is the white dwarf, phonons are quantised oscillators, the 21 cm line is spin addition. Fly next to a white diamond on a beam to read why. The thin straight lines are the study order inside a course.</p>' },
@@ -197,7 +210,7 @@ function updateNexusCard() {
   if (f.node) {
     const n = f.node, es = n.room.encounters.filter((e) => e.type !== 'sandbox'), done = es.filter((e) => store.isPassed(e.id)).length;
     const nb = set.neighbours(n);
-    html = `<h3>${n.room.title}</h3><div class="src">${course(n.course)} · ${done} / ${es.length} done${n.due ? ' · <b style="color:#ff9b8a">respawn due</b>' : ''}${n.rec ? ' · <b style="color:#ffe9a0">recommended next</b>' : ''}</div>
+    html = `<h3>${n.room.title}</h3><div class="src">${course(n.course)} · ${done} / ${es.length} done${n.due ? ' · <b class="due">respawn due</b>' : ''}${n.rec ? ' · <b style="color:var(--warn)">recommended next</b>' : ''}</div>
       <p>${(n.room.intro || '').replace(/<[^>]+>/g, '').slice(0, 230)}${(n.room.intro || '').length > 230 ? '…' : ''}</p>
       ${nb.length ? `<h4>Connections (${nb.length})</h4><ul>${nb.slice(0, 5).map(({ other, link }) => `<li><b>${link.title}</b> with <i>${other.room.title}</i> (${course(other.course)})</li>`).join('')}</ul>` : ''}
       <div class="src">[E] to fly in</div>`;
@@ -347,7 +360,9 @@ function profileHtml() {
   const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', ...(store.val('settings', {}) || {}) }, study = store.val('study', {}) || {}, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), study[todayStr(d)] || 0]; }), mx = Math.max(600, ...week.map((w) => w[1]));
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
     <div><b>Study time</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(Object.values(study).reduce((a, b) => a + b, 0))}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
-    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution)</option></select></label></div></div>
+    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution)</option></select></label>
+      <label class="labrow">theme <select id="set-theme">${[['dark', 'dark'], ['light', 'light (white room)'], ['auto', 'like the phone']].map(([v, t]) => `<option value="${v}" ${themeChoice() === v ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
+      <label class="labrow">controls <select id="set-ctl">${[['auto', 'automatic'], ['touch', 'touch (stick, drag to look)'], ['desktop', 'keyboard and mouse']].map(([v, t]) => `<option value="${v}" ${controlsChoice() === v ? 'selected' : ''}>${t}</option>`).join('')}</select></label></div></div>
     <h3>Profiles</h3><div class="row" id="prof-list"><span class="src">loading…</span></div>
     <div class="row"><input type="text" id="prof-new" placeholder="new profile name (letters, digits, - _)" maxlength="40"><button class="go" id="prof-create">Create and switch</button><button class="link" id="exp2">export progress file</button><label class="link">import <input id="imp2" type="file" accept="application/json" style="display:none"></label></div>
     <h3>Achievements (${Object.keys(have).length} / ${ACH.length})</h3><div class="achgrid">${ACH.map((a) => `<div class="ach${have[a.id] ? ' got' : ''}"><b>${a.title}</b><span class="src">${a.desc}${have[a.id] ? ` · ${have[a.id]}` : ''}</span></div>`).join('')}</div>`;
@@ -356,6 +371,8 @@ async function wireProfile() {
   const sens = $('set-sens'), q = $('set-q');
   const save = () => { store.setVal('settings', { sens: +sens.value, quality: q.value }); applySettings(); };
   sens.oninput = save; q.onchange = save;
+  $('set-theme').onchange = (e) => { setThemeChoice(e.target.value); reloadWithout(); };
+  $('set-ctl').onchange = (e) => { setControlsChoice(e.target.value); reloadWithout('touch'); };
   const ex = $('exp2'); ex.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([store.exportJson()], { type: 'application/json' })); a.download = `physics-rpg-${store.profile}.json`; a.click(); };
   const im = $('imp2'); im.onchange = async () => { const f = im.files[0]; if (f && store.importJson(await f.text())) { await pushNow(); refresh(); closeOverlay(); toast('Progress imported.'); } else alert('Not a valid progress file.'); };
   $('prof-create').onclick = () => { const n = $('prof-new').value.trim(); if (/^[A-Za-z0-9_-]{1,40}$/.test(n)) switchProfile(n); else alert('Use letters, digits, - and _ (max 40).'); };
@@ -549,6 +566,9 @@ function menuHtml() {
     ${lite ? '' : '<button class="bigbtn" data-m="nexus"><b>Fly to the Nexus</b><span>the map of everything you study</span></button>'}
     <button class="bigbtn" data-m="help"><b>Controls and help</b><span>${touch ? 'stick, look, buttons, both panels' : 'keys and tips'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="tutorial"><b>Replay the tutorial</b><span>for the room you are in</span></button>'}
+    <button class="bigbtn" data-m="theme"><b>Theme: ${isLight() ? 'light' : 'dark'}</b><span>${isLight() ? 'switch to the dark theme' : 'switch to the white room (light theme)'}</span></button>
+    <button class="bigbtn" data-m="controls"><b>Controls: ${touch ? 'touch' : 'keyboard and mouse'}</b><span>${touch ? 'switch to the keyboard and mouse layout' : 'switch to the touch layout (stick, drag to look)'}</span></button>
+    ${touch && !lite ? '<button class="bigbtn" data-m="landscape"><b>Play sideways</b><span>lock the screen to landscape (full screen)</span></button>' : ''}
     <button class="bigbtn" data-m="litetoggle"><b>${lite ? 'Switch to the 3D game' : 'Switch to the simple menu (no 3D)'}</b><span>${lite ? 'walk around, experiments, both panels side by side' : 'for slow phones: no walking, only lists'}</span></button></div>`;
 }
 function roomMenuHtml() {
@@ -562,6 +582,9 @@ function wireMenu() {
     else if (k === 'formulas') { closeOverlay(true); openCodex(); }
     else if (k === 'goto') { const [c, r] = arg.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); } else { closeOverlay(true); await loadRoom(c, r, { silent: false }); player.enabled = true; } }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
+    else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
+    else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
+    else if (k === 'landscape') { closeOverlay(true); lockLandscape(); }
     else if (k === 'nexus') { closeOverlay(true); goNexus(); } else if (k === 'litetoggle') setLitePref(!lite);
     else if (k === 'group') { closeOverlay(true); openGroup(groups[+arg]); }
     else if (k === 'conn') { closeOverlay(true); openConnections(); }
@@ -888,6 +911,22 @@ document.addEventListener('click', (e) => {
   if (e.target.id === 'tut-skip') endTutorial();
 });
 
+// ================================================================ landscape (phones): lock the screen sideways, hint in portrait
+async function lockLandscape(quiet) {
+  try {
+    if (!document.fullscreenElement && !matchMedia('(display-mode: fullscreen)').matches) await document.documentElement.requestFullscreen({ navigationUI: 'hide' });
+    await screen.orientation.lock('landscape'); setLandscapePref(true); if (!quiet) toast('Screen locked to landscape. Menu > Play sideways again turns it off.');
+  } catch { if (!quiet) toast('This browser would not lock the screen. Turn the phone sideways and switch auto-rotate on.'); }
+}
+function setupRotateHint() {
+  const el = $('rotate-hint'), key = 'physics-rpg-rot-hidden';
+  const hidden = () => { try { return sessionStorage.getItem(key) === '1'; } catch { return false; } };
+  const update = () => { el.style.display = matchMedia('(orientation: portrait)').matches && !hidden() && !lite ? '' : 'none'; };
+  $('rot-lock').onclick = () => { lockLandscape(); };
+  $('rot-x').onclick = () => { try { sessionStorage.setItem(key, '1'); } catch { /* ignore */ } update(); };
+  addEventListener('resize', update); update();
+  if (landscapePref()) document.addEventListener('pointerdown', () => lockLandscape(true), { once: true }); // a lock needs a tap first
+}
 // ================================================================ touch layout helpers
 // Both side panels can be open at once: formulas (left / top) and the exercise (right / bottom). CSS lays them out from these body classes.
 function watchPanels() {

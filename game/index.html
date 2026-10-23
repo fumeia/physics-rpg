@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#070a12">
+<script>try{var c=localStorage.getItem("physics-rpg-theme")||"dark";document.documentElement.dataset.theme=(c==="light"||(c==="auto"&&matchMedia("(prefers-color-scheme: light)").matches))?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -38,6 +39,7 @@
 <div id="overlay" style="display:none"><div class="ov-card"><div class="ov-head"><b id="ov-title"></b><button id="ov-close">×</button></div><div id="ov-body"></div></div></div>
 <div id="warp"></div>
 <div id="toast"></div>
+<div id="rotate-hint" style="display:none"><span>&#8635; Turn your phone sideways to play</span><button id="rot-lock" class="chip btn">Lock</button><button id="rot-x" class="chip btn" title="Hide">&times;</button></div>
 <div id="start"><div><h1>QM Interference Labs</h1><p>The Tunneling Bridge</p><p class="dim">Click anywhere to enter the Nexus.</p><p><button id="resume" class="go" style="display:none"></button></p><p class="dim"><span id="start-profile"></span> · press P in the game to change profile or settings, F1 for help</p></div></div>
 <footer><span id="sources"></span> <button id="debug-due" class="link">debug: make respawns due</button> <button id="debug-reset" class="link">reset progress</button></footer>
 <script type="module" src="src/main.js"></script>

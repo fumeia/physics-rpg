@@ -192,3 +192,38 @@ body.touch #close, body.touch #cx-close { top: 2px; font-size: 30px; width: 44px
   body.touch.p-side.p-cx #cx { height: 36dvh; } body.touch.p-side.p-cx #side { height: 64dvh; }
 }
 body.touch #side.max, body.touch #cx.max { top: 0 !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 100dvh !important; border-radius: 0; border: 0; z-index: 7; }
+
+/* ---------------------------------------------------------------- rotate hint (phones held upright) */
+#rotate-hint { position: fixed; left: 50%; bottom: 176px; transform: translateX(-50%); z-index: 3; display: flex; align-items: center; gap: 8px; background: rgba(8,12,22,.92); border: 1px solid var(--accent); border-radius: 22px; padding: 5px 6px 5px 14px; font-size: 13px; white-space: nowrap; }
+#rotate-hint .btn { font-size: 14px; padding: 6px 12px; min-height: 34px; }
+body.p-side #rotate-hint, body.p-cx #rotate-hint { display: none !important; }
+
+/* ---------------------------------------------------------------- light theme: the "white room". White surfaces, black ink, hard edges.
+   The 3D view is rendered as usual and inverted by the filter below; plots are remapped in theme.js. */
+html[data-theme=light] { color-scheme: light; --bg: #ffffff; --panel: #ffffff; --ink: #0d0e12; --dim: #565b67; --accent: #0f33c8; --good: #07703f; --bad: #c0141c; --warn: #9a5600; --line: #c2c6cf; }
+html[data-theme=light] canvas#view { filter: invert(1) hue-rotate(180deg) brightness(1.04); }
+html[data-theme=light] #hud .tl, html[data-theme=light] #hud .tr, html[data-theme=light] #hint, html[data-theme=light] #pbar, html[data-theme=light] #tut, html[data-theme=light] #nx-card,
+html[data-theme=light] #toast, html[data-theme=light] #prompt, html[data-theme=light] #rotate-hint { background: rgba(255,255,255,.95); color: var(--ink); border-color: #111; }
+html[data-theme=light] #hud .tl, html[data-theme=light] #hud .tr { border: 1px solid #111; }
+html[data-theme=light] #overlay { background: rgba(255,255,255,.86); }
+html[data-theme=light] .ov-card { background: #fff; border: 2px solid #111; }
+html[data-theme=light] #start { background: rgba(255,255,255,.96); color: var(--ink); }
+html[data-theme=light] #side, html[data-theme=light] #cx { background: #fff; border-color: #111; }
+html[data-theme=light] #side { border-left-width: 2px; } html[data-theme=light] #cx { border-right-width: 2px; }
+html[data-theme=light] .labcv { background: #fff; border-color: #111; } html[data-theme=light] .ex-cv, html[data-theme=light] .sketchcv { background: #fff; border: 1px solid #111; }
+html[data-theme=light] select, html[data-theme=light] .examtop { background: #fff; color: var(--ink); }
+html[data-theme=light] .bar { background: #dde0e7; } html[data-theme=light] .calbar { background: rgba(0,0,0,.1); }
+html[data-theme=light] code { background: rgba(0,0,0,.07); }
+html[data-theme=light] .deriv details, html[data-theme=light] .lk-side, html[data-theme=light] .exchart, html[data-theme=light] .pilenote, html[data-theme=light] .mnote { background: rgba(0,0,0,.035); }
+html[data-theme=light] .lk-map td { border-bottom-color: rgba(0,0,0,.1); }
+html[data-theme=light] button.go { color: #fff; }
+html[data-theme=light] #warp { background: radial-gradient(circle, #fff 0%, #dfe7ff 40%, #ffffff 100%); }
+html[data-theme=light] .tb { background: rgba(255,255,255,.92); color: var(--ink); border-color: #111; }
+html[data-theme=light] .tb.on { background: #dfe6ff; border-color: var(--accent); }
+html[data-theme=light] .tb.act { background: #fff; border: 2px solid var(--accent); color: var(--ink); }
+html[data-theme=light] #joy { background: rgba(0,0,0,.05); border-color: #111; } html[data-theme=light] #joy-knob { background: rgba(0,0,0,.3); border-color: #111; }
+html[data-theme=light] body.touch #hud .tr .btn { background: #fff; border-color: #111; }
+/* hard cut: no rounded corners, no blur (the stick and the round buttons stay round) */
+html[data-theme=light] :is(.chip, button:not(.tb), .opt, .listrow, .maprow, .ov-card, #tut, #nx-card, #pbar, #side, #cx, input, select, details, .callout, .eqbox, .mcard, .ach, .expart, .examres, .lk-side, .labcv, .ex-cv, #toast, #prompt, #hud .tl, #hud .tr, .hint, .why, .after, #rotate-hint, .bar, .bar i, .tag, code, .labinfo, .lk-plain) { border-radius: 0 !important; }
+html[data-theme=light] * { backdrop-filter: none !important; text-shadow: none !important; }
+html[data-theme=light] .opt:hover, html[data-theme=light] .listrow:hover:not(:disabled), html[data-theme=light] .maprow:hover { background: #f1f3f8; }

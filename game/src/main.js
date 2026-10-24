@@ -142,7 +142,7 @@ async function boot() {
   }
   if (lite) { document.body.classList.add('lite'); $('start').style.display = 'none'; player.enabled = true; if (!inNexus) await loadNexus({ silent: true }); setTimeout(() => openOverlay('menu'), 200); }
   else if (touch) {
-    touchUI = initTouch({ player, canvas, act: () => { if (promptTarget && !blocking()) interact(promptTarget); }, fullscreen: toggleFullscreen });
+    touchUI = initTouch({ player, canvas, act: () => { if (promptTarget && !blocking()) interact(promptTarget); }, fullscreen: toggleFullscreen, zoom: { get: () => world.zoom, set: (z) => world.setZoom(z) } });
     $('btn-map').textContent = 'Map'; $('btn-codex').textContent = 'Formulas'; $('btn-nexus').textContent = 'Nexus'; $('btn-conn').textContent = 'Connections';
     $('pb-replay').textContent = 'Replay';
     setupRotateHint();
@@ -165,6 +165,18 @@ async function boot() {
   // The frame loop must never stop: the next frame is scheduled first, an error in one frame is logged and skipped, and a watchdog restarts the loop if frames stop
   // while the page is visible. While a maximized panel (or a hidden tab) covers the 3D view nothing is drawn, which spares the phone's graphics memory.
   let lastT = performance.now(), loopId = 0, lastFrameAt = performance.now(), frameErrors = 0;
+  // keep the scene centred in the part of the screen the panels leave free (the exhibit used to hide behind the exercise panel)
+  let shiftKey = '';
+  const updateShift = () => {
+    const W = innerWidth, H = innerHeight; let l = 0, r = 0, t = 0, b = 0;
+    for (const id of ['cx', 'side']) {
+      const e = $(id); if (e.classList.contains('hidden') || e.classList.contains('max')) continue; const q = e.getBoundingClientRect(); if (q.width < 2 || q.height < 2) continue;
+      if (q.width < W * 0.9) { if (q.left < 5) l = Math.max(l, q.right); else if (q.right > W - 5) r = Math.max(r, W - q.left); } else if (q.top < 5) t = Math.max(t, q.bottom); else if (q.bottom > H - 5) b = Math.max(b, H - q.top);
+    }
+    r = Math.max(0, Math.min(r, W * 0.7)); l = Math.max(0, Math.min(l, W * 0.7)); b = Math.max(0, Math.min(b, H * 0.7)); t = Math.max(0, Math.min(t, H * 0.7));
+    const x = Math.round(W / 2 - (l + (W - r)) / 2), y = Math.round(H / 2 - (t + (H - b)) / 2), key = `${W}x${H}|${x}|${y}`; if (key === shiftKey) return; shiftKey = key;
+    world.setShift(x, y);
+  };
   const covered = () => document.hidden || $('side').classList.contains('max') || $('cx').classList.contains('max');
   const startLoop = () => {
     const id = ++loopId;
@@ -176,7 +188,7 @@ async function boot() {
         stepRunner(dt, now);
         touchUI?.update({ promptText: promptTarget && !blocking() ? $('prompt').textContent : null, flying: inNexus });
         tickStudy(dt); player.update(dt); world.update(dt); set?.update(dt, player.pos, world.camera); holos?.update(dt, player.pos); if (inNexus) updateNexusCard(); updatePrompt();
-        if (!lite && !covered()) world.render(player.camera);
+        if (!lite && !covered()) { updateShift(); world.render(player.camera); }
       } catch (e) { lastT = now; if (frameErrors++ < 5) console.error('frame error (skipped)', e); }
     };
     requestAnimationFrame(tick);
@@ -1174,7 +1186,7 @@ function exposeTestApi() {
     interactNearest: () => { const t = player.target(); if (t) interact(t); return t ? t.id : null; },
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
     activeSeconds: () => studyToday() + Math.round(studyAcc),
-    failFrames: (n) => { testHooks.failFrames = n; }, frames: () => world.renderer.info.render.frame,
+    failFrames: (n) => { testHooks.failFrames = n; }, holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
     finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };

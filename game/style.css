@@ -304,3 +304,10 @@ body.nx-card-on #tour-chip { display: none !important; }
 #gl-banner { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); z-index: 40; display: flex; align-items: center; gap: 10px; background: rgba(40,12,12,.96); border: 1px solid var(--bad); border-radius: 12px; padding: 8px 10px 8px 14px; font-size: 14px; max-width: 94vw; }
 #gl-banner .btn { min-height: 38px; padding: 6px 14px; font-size: 15px; white-space: nowrap; }
 html[data-theme=light] #gl-banner { background: #fff; border-color: #111; border-radius: 0; }
+
+/* zoom buttons of the 3D view (touch): below the toolbar at the right edge */
+#t-zoom { position: absolute; right: max(12px, env(safe-area-inset-right)); top: calc(max(8px, env(safe-area-inset-top)) + 108px); display: flex; flex-direction: column; gap: 10px; }
+.tb.sm { min-width: 44px; width: 44px; height: 44px; padding: 0; font-size: 24px; line-height: 1; border-radius: 22px; }
+body.lite #t-zoom { display: none; }
+html[data-theme=light] .tb.sm { border-radius: 22px; }
+@media (orientation: portrait) { #t-zoom { top: calc(max(8px, env(safe-area-inset-top)) + 150px); } }

@@ -27,13 +27,16 @@ export function buildLabHolos(world, room) {
   world.scene.add(group);
   const draw = (h, t) => {
     try { h.spec.draw.call(h.spec, h.ctx, h.p, t); } catch { /* a lab that cannot draw with defaults stays blank */ }
-    const c = h.ctx; c.fillStyle = 'rgba(8,16,30,.78)'; c.fillRect(0, 0, W, 26); c.fillStyle = '#9fe6ff'; c.font = '600 14px system-ui'; c.textAlign = 'left'; c.fillText(`EXPERIMENT · ${plain(h.enc.title)}`, 10, 18);
+    const c = h.ctx; c.fillStyle = 'rgba(8,16,30,.78)'; c.fillRect(0, 0, W, 26); c.fillStyle = '#9fe6ff'; c.font = '600 14px system-ui'; c.textAlign = 'left'; c.fillText(`EXPERIMENT \u00b7 ${plain(h.enc.title)}${h.live ? '  \u00b7  LIVE: follows your sliders' : ''}`, 10, 18);
     h.tex.needsUpdate = true;
   };
   holos.forEach((h) => draw(h, 0));
+  // the experiment panel reports its slider values: the hologram of the same experiment shows the same setting, live
+  const onParams = (e) => { const h = holos.find((x) => x.enc.id === e.detail.id); if (h) { Object.assign(h.p, e.detail.p); h.live = true; h.acc = 99; } };
+  window.addEventListener('lab-params', onParams);
   let clock = 0;
   return {
-    group, count: holos.length,
+    group, count: holos.length, params: () => holos.map((h) => ({ id: h.enc.id, p: { ...h.p }, live: !!h.live })),
     update(dt, playerPos) {
       clock += dt;
       for (const h of holos) {
@@ -42,6 +45,6 @@ export function buildLabHolos(world, room) {
         if (near && h.acc > (h.spec.animated ? 0.1 : 1.5)) { h.acc = 0; draw(h, clock); }
       }
     },
-    dispose() { world.scene.remove(group); for (const it of its) world.interactables.splice(world.interactables.indexOf(it), 1); group.traverse((o) => { o.geometry?.dispose?.(); o.material?.map?.dispose?.(); o.material?.dispose?.(); }); },
+    dispose() { window.removeEventListener('lab-params', onParams); world.scene.remove(group); for (const it of its) world.interactables.splice(world.interactables.indexOf(it), 1); group.traverse((o) => { o.geometry?.dispose?.(); o.material?.map?.dispose?.(); o.material?.dispose?.(); }); },
   };
 }

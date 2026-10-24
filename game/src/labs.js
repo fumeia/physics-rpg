@@ -404,11 +404,12 @@ export function mountLab(enc, el, env, helpers) {
     <button class="go" id="labdone">I explored it: mark done (+${enc.xp} XP)</button><div id="result"></div>`);
   const cv = el.querySelector('canvas'), ctx = cv.getContext('2d'), info = el.querySelector('#labinfo');
   let t0 = performance.now(), raf = 0, infoKey = '';
+  const publish = () => window.dispatchEvent(new CustomEvent('lab-params', { detail: { id: enc.id, p: { ...p } } })); // the hologram of this experiment in the hall follows the sliders
   const readInputs = () => { for (const c of spec.controls) { const inp = el.querySelector(`[data-c="${c.id}"]`); if (c.type === 'toggle') p[c.id] = inp.checked; else { const v = +inp.value; p[c.id] = c.log ? Math.pow(10, v) : v; const out = el.querySelector(`[data-v="${c.id}"]`); if (out) out.textContent = fmt(p[c.id]); } } };
   const render = (t) => { spec.draw.call(spec, ctx, p, t); const html = spec.info.call(spec, p); if (html !== infoKey) { infoKey = html; info.innerHTML = M(html); } };
   const loop = () => { render((performance.now() - t0) / 1000); raf = requestAnimationFrame(loop); };
-  el.querySelectorAll('[data-c]').forEach((i) => { i.oninput = () => { readInputs(); if (!spec.animated) render(0); }; i.onchange = i.oninput; });
-  readInputs(); render(0); if (spec.animated) loop();
+  el.querySelectorAll('[data-c]').forEach((i) => { i.oninput = () => { readInputs(); publish(); if (!spec.animated) render(0); }; i.onchange = i.oninput; });
+  readInputs(); publish(); render(0); if (spec.animated) loop();
   el.querySelector('#labdone').onclick = () => {
     el.querySelector('#labdone').disabled = true; env.flash(true);
     el.querySelector('#result').innerHTML = M(`<p class="msg good">Experiment logged. +${enc.xp} XP</p>${helpers.nextBtn(env)}`); helpers.wireNext(env);

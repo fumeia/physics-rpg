@@ -2,10 +2,11 @@
 // an action button for "E" (bottom right) and fly buttons in the Nexus. Panels, menus and the toolbar are in main.js / style.css.
 const STICK_RADIUS = 52, DEADZONE = 0.12;
 
-export function initTouch({ player, canvas, act, fullscreen }) {
+export function initTouch({ player, canvas, act, fullscreen, zoom }) {
   player.touch = true;
   const root = document.createElement('div'); root.id = 'touch';
   root.innerHTML = `<div id="joy"><div id="joy-knob"></div></div>
+    <div id="t-zoom"><button id="t-zin" class="tb sm" aria-label="Zoom in">+</button><button id="t-zout" class="tb sm" aria-label="Zoom out">&minus;</button></div>
     <div id="t-right"><button id="t-act" class="tb act" hidden></button>
       <div class="fly" hidden><button id="t-up" class="tb">&#9650;</button><button id="t-down" class="tb">&#9660;</button><button id="t-fast" class="tb">&raquo;</button></div></div>`;
   document.body.appendChild(root);
@@ -32,15 +33,21 @@ export function initTouch({ player, canvas, act, fullscreen }) {
   for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) joy.addEventListener(t, (e) => { if (e.pointerId === stickId) endStick(); });
 
   // look: drag on the 3D view with a finger (the mouse keeps its own handling in player.js)
-  const looks = new Map();
+  const looks = new Map(); let pinch = null; // two fingers on the view: pinch to zoom
   canvas.style.touchAction = 'none';
-  canvas.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') return; looks.set(e.pointerId, { x: e.clientX, y: e.clientY }); canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse') return; looks.set(e.pointerId, { x: e.clientX, y: e.clientY }); canvas.setPointerCapture(e.pointerId);
+    if (looks.size === 2 && zoom) { const [a, b] = [...looks.values()]; pinch = { d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, z0: zoom.get() }; }
+  });
   canvas.addEventListener('pointermove', (e) => {
     const l = looks.get(e.pointerId); if (!l) return;
-    if (player.enabled) player.look(e.clientX - l.x, e.clientY - l.y);
-    l.x = e.clientX; l.y = e.clientY;
+    const dx = e.clientX - l.x, dy = e.clientY - l.y; l.x = e.clientX; l.y = e.clientY;
+    if (pinch && looks.size === 2) { const [a, b] = [...looks.values()]; zoom.set(pinch.z0 * (Math.hypot(a.x - b.x, a.y - b.y) / pinch.d0)); return; }
+    if (player.enabled) player.look(dx, dy);
   });
-  for (const t of ['pointerup', 'pointercancel']) canvas.addEventListener(t, (e) => looks.delete(e.pointerId));
+  const lift = (e) => { looks.delete(e.pointerId); if (looks.size < 2) pinch = null; };
+  for (const tp of ['pointerup', 'pointercancel']) canvas.addEventListener(tp, lift);
+  if (zoom) { document.getElementById('t-zin').onclick = () => zoom.set(zoom.get() * 1.25); document.getElementById('t-zout').onclick = () => zoom.set(zoom.get() / 1.25); }
 
   // buttons held down: up / down (Nexus flight); fast is a toggle
   const hold = (id, v) => {

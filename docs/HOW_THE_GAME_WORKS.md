@@ -24,6 +24,8 @@ It shows your level, XP, streak and the days to the exam, and "Continue in <room
 - **Connections** show how topics of different courses explain each other: the equations that correspond, the situation where it applies, what it means for experiments and for intuition (46 of them).
   In a room: the **Connections** button (key K) lists that room's. In the Nexus: the same button opens **all connections**; facing a star, its card lists that star's connections (tap one for the full explanation, or "Open all in detail").
   On a phone the button is in the top bar and in the Menu.
+- **Zoom (phone):** held sideways the view is already closer than upright. Pinch with two fingers, or use the **+ / −** buttons under the top bar, to zoom further (remembered). With an exercise or the formulas open, the 3D scene is shifted into the free part of the screen, so the exhibit in the middle of the room stays visible next to the panel.
+- **Live holograms:** the floating experiment panels in the hall copy the sliders of the experiment you have open (the title says LIVE), so you see the same setting in the room as in the panel.
 - **Guide mode** (button "Guide: on") shows one next step at a time: the gold beam in the Nexus, the pulsing console in a room.
 - **Rooms** are in a recommended order (the guided route), but nothing stops you from skipping around.
 

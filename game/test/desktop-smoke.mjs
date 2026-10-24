@@ -38,6 +38,8 @@ await key(p, 'KeyP'); ck('PC: P opens the profile with theme, controls, goal, so
 await key(p, 'F1'); ck('PC: F1 help lists the Q shortcut', (await p.evaluate(() => document.getElementById('ov-body').innerText)).includes('Q quick session')); await key(p, 'Escape');
 await key(p, 'KeyQ'); const q = await p.evaluate(() => ({ open: window.__game.state().panelOpen, bar: document.querySelector('.pilebar')?.innerText || '' }));
 ck(`PC: Q starts the quick session (${q.bar.replace(/\n/g, ' ')})`, q.open && /Quick session 1 \/ \d/.test(q.bar));
+await p.evaluate(() => window.__game.close()); await key(p, 'KeyK'); ck('PC: K opens the connections of the room', await p.evaluate(() => window.__game.state().panelOpen && document.getElementById('panel').innerText.includes('Connections of')));
+await p.evaluate(() => window.__game.close()); await key(p, 'KeyN'); await p.waitForTimeout(900); await p.evaluate(() => document.getElementById('tut')?.style.display !== 'none' && document.getElementById('tut-skip')?.click()); await p.waitForTimeout(300); await key(p, 'KeyK'); ck('PC: K in the Nexus opens the connections (of the star you face, else all of them)', await p.evaluate(() => /All connections|Connections of/.test(document.getElementById('panel').innerText)));
 await p.evaluate(() => window.__game.close()); await key(p, 'KeyN'); await p.waitForTimeout(900); ck('PC: N flies to the Nexus', await p.evaluate(() => !!window.__game.nexus()));
 await p.context().close();
 

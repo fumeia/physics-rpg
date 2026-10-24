@@ -152,7 +152,7 @@ body.touch #hint, body.touch #crosshair { display: none; }
 body.touch #hud .tl { top: max(8px, env(safe-area-inset-top)); left: max(8px, env(safe-area-inset-left)); max-width: 44vw; padding: 5px 9px; font-size: 12px; }
 body.touch #hud .tl #objective { font-size: 11.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 body.touch #hud .tr { top: max(8px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right)); max-width: 56vw; gap: 6px; }
-body.touch #hud .tr > :not(#btn-menu):not(#btn-codex):not(#btn-map):not(#btn-nexus):not(#btn-fs):not(#xp) { display: none; }
+body.touch #hud .tr > :not(#btn-menu):not(#btn-codex):not(#btn-conn):not(#btn-map):not(#btn-nexus):not(#btn-fs):not(#xp) { display: none; }
 body.touch #hud .tr .btn { font-size: 14px; padding: 7px 12px; min-height: 38px; background: rgba(20,28,46,.85); border-radius: 19px; }
 body.touch #hud .tr #xp { font-size: 12px; color: var(--dim); }
 body.touch #prompt.t-hide { display: none !important; }
@@ -176,7 +176,7 @@ body.touch .opt, body.touch .listrow, body.touch button.go, body.touch .bigbtn {
 body.lite #touch { display: none; }
 
 /* panels: formulas (left or top) and the exercise (right or bottom) may both be open */
-body.touch #side, body.touch #cx { z-index: 4; padding-top: 52px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
+body.touch #side, body.touch #cx { z-index: 4; padding-top: 52px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
 body.touch #side-max, body.touch #cx-max { position: absolute; top: 8px; right: 54px; font-size: 16px; padding: 4px 10px; min-height: 34px; }
 body.touch #side-cx { right: 104px; top: 8px; font-size: 13px; padding: 4px 10px; min-height: 34px; }
 body.touch #cx .cx-head { position: absolute; top: 8px; left: 14px; right: 8px; margin: 0; }
@@ -243,7 +243,7 @@ html[data-theme=light] .xpfloat { text-shadow: none; } html[data-theme=light] .p
 #nx-card { pointer-events: auto; touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 body.touch #nx-card { z-index: 3; font-size: 14px; }
 /* the card sits between the stick (left) and the action buttons (right), so "Fly into" and the stick stay reachable */
-@media (orientation: landscape) { body.touch #nx-card { left: 176px; right: 216px; width: auto; top: calc(max(8px, env(safe-area-inset-top)) + 84px); bottom: auto; max-height: calc(100dvh - 96px); } body.touch .tb.act { max-width: 190px; } }
+@media (orientation: landscape) { body.touch #nx-card { left: 176px; right: 216px; width: auto; top: calc(max(8px, env(safe-area-inset-top)) + 100px); bottom: auto; max-height: calc(100dvh - 110px); } body.touch .tb.act { max-width: 190px; } }
 @media (orientation: portrait) { body.touch #nx-card { left: 8px; right: 8px; width: auto; bottom: 214px; max-height: 34dvh; } }
 
 input[type=time] { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; color-scheme: dark; } html[data-theme=light] input[type=time] { color-scheme: light; }
@@ -254,3 +254,11 @@ html[data-theme=light] #back-to-touch { background: #fff; border-color: #111; bo
 .todayrow.miss { border-color: var(--warn); } .todayrow.ok .mt { color: var(--ink); } .todayrow .link[disabled] { cursor: default; }
 .todayrow .link { text-align: left; text-decoration: none; font-size: inherit; color: var(--ink); padding: 0; } .todayrow .link:hover:not([disabled]) .mt { color: var(--accent); }
 body.nx-card-on #rotate-hint { display: none !important; }
+
+/* panels scroll up and down only; a formula wider than the panel scrolls inside its own box (and the panel can never be dragged sideways and stay there) */
+#cx, #side, #nx-card { overflow-x: hidden; }
+#cx .cxe, #cx .katex-display, #panel .katex-display, #nx-card .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+#cx .cxe { overflow-y: hidden; }
+#cx, #side { overflow-wrap: anywhere; } #cx .katex, #panel .katex { overflow-wrap: normal; }
+/* touch toolbar: the Connections button is back */
+#nx-card button.lkopen { text-align: left; font-size: inherit; color: var(--ink); text-decoration: none; padding: 2px 0; } #nx-card button.lkopen:hover { color: var(--accent); } #nx-card [data-allconn] { margin: 4px 0 6px; }

@@ -16,6 +16,9 @@ Everything you do is saved in your profile (a file on the server), so it is the 
 - **The Nexus** is the map of everything: every galaxy is a course, every star is a room. A ring around a star shows your progress (gold = cleared),
   a red pulse means something is due there, a light beam marks the room recommended next. Curved beams connect topics *across* courses
   (for example tunnelling and the Sun fusing hydrogen). Fly up to a star to read what is in it. N brings you back.
+- **Connections** show how topics of different courses explain each other: the equations that correspond, the situation where it applies, what it means for experiments and for intuition (46 of them).
+  In a room: the **Connections** button (key K) lists that room's. In the Nexus: the same button opens **all connections**; facing a star, its card lists that star's connections (tap one for the full explanation, or "Open all in detail").
+  On a phone the button is in the top bar and in the Menu.
 - **Guide mode** (button "Guide: on") shows one next step at a time: the gold beam in the Nexus, the pulsing console in a room.
 - **Rooms** are in a recommended order (the guided route), but nothing stops you from skipping around.
 

@@ -96,7 +96,7 @@ async function boot() {
   if (lastRoom) { $('resume').style.display = ''; $('resume').textContent = `Resume: ${lastRoom.title}`; $('resume').onclick = async (ev) => { ev.stopPropagation(); $('start').style.display = 'none'; player.enabled = true; await loadRoom(last0.course, last0.room, { silent: false }); player.lock(); }; }
   $('start-profile').textContent = `Profile: ${store.profile}`;
   if (touch) $('start').querySelector('.dim').textContent = 'Tap anywhere to enter the Nexus.';
-  $('help').onclick = () => startTutorial(); $('btn-nexus').onclick = () => goNexus(); $('btn-profile').onclick = () => openOverlay('profile'); $('btn-help').onclick = () => openOverlay('help'); $('btn-missions').onclick = () => openOverlay('missions'); $('btn-exam').onclick = () => openOverlay('exam'); $('btn-pile').onclick = () => openOverlay('pile'); $('btn-conn').onclick = () => { if (!inNexus) openConnections(); }; $('btn-guide').onclick = () => { store.setFlag('guide-off', guideOn()); refresh(); if (inNexus) goNexus(); };
+  $('help').onclick = () => startTutorial(); $('btn-nexus').onclick = () => goNexus(); $('btn-profile').onclick = () => openOverlay('profile'); $('btn-help').onclick = () => openOverlay('help'); $('btn-missions').onclick = () => openOverlay('missions'); $('btn-exam').onclick = () => openOverlay('exam'); $('btn-pile').onclick = () => openOverlay('pile'); $('btn-conn').onclick = () => connectionsHere(); $('btn-guide').onclick = () => { store.setFlag('guide-off', guideOn()); refresh(); if (inNexus) goNexus(); };
   $('btn-map').onclick = () => openOverlay('map'); $('btn-codex').onclick = () => toggleCodex(); $('side-cx').onclick = () => toggleCodex(); $('cx-close').onclick = () => closeCodex();
   $('ov-close').onclick = () => closeOverlay();
   $('debug-due').onclick = () => { store.makeAllDue(); refresh(); };
@@ -120,7 +120,7 @@ async function boot() {
   if (lite) { document.body.classList.add('lite'); $('start').style.display = 'none'; player.enabled = true; if (!inNexus) await loadNexus({ silent: true }); setTimeout(() => openOverlay('menu'), 200); }
   else if (touch) {
     touchUI = initTouch({ player, canvas, act: () => { if (promptTarget && !blocking()) interact(promptTarget); }, fullscreen: toggleFullscreen });
-    $('btn-map').textContent = 'Map'; $('btn-codex').textContent = 'Formulas'; $('btn-nexus').textContent = 'Nexus';
+    $('btn-map').textContent = 'Map'; $('btn-codex').textContent = 'Formulas'; $('btn-nexus').textContent = 'Nexus'; $('btn-conn').textContent = 'Connections';
     $('pb-replay').textContent = 'Replay';
     setupRotateHint();
   }
@@ -223,13 +223,14 @@ function updateNexusCard() {
     const nb = set.neighbours(n);
     html = `<h3>${n.room.title}</h3><div class="src">${course(n.course)} · ${done} / ${es.length} done${n.due ? ' · <b class="due">respawn due</b>' : ''}${n.rec ? ' · <b style="color:var(--warn)">recommended next</b>' : ''}</div>
       <p>${(n.room.intro || '').replace(/<[^>]+>/g, '').slice(0, 230)}${(n.room.intro || '').length > 230 ? '…' : ''}</p>
-      ${nb.length ? `<h4>Connections (${nb.length})</h4><ul>${nb.slice(0, 5).map(({ other, link }) => `<li><b>${link.title}</b> with <i>${other.room.title}</i> (${course(other.course)})</li>`).join('')}</ul>` : ''}
+      ${nb.length ? `<h4>Connections (${nb.length})</h4><ul>${nb.slice(0, 5).map(({ other, link }, i) => `<li><button class="link lkopen" data-lkopen="${i}"><b>${link.title}</b> with <i>${other.room.title}</i> (${course(other.course)})</button></li>`).join('')}</ul><button class="chip btn" data-allconn="${n.key}">Open all ${nb.length} in detail</button>` : ''}
       <div class="src">[E] to fly in</div>`;
   } else {
     const l = f.link;
     html = `${linkCardHtml(l, { compact: true })}<div class="src">${l.a.room.title} (${course(l.a.course)}) ↔ ${l.b.room.title} (${course(l.b.course)})</div><div class="src"><b>[E] read the full explanation: equations, dictionary, experiment</b></div>`;
   }
   card.innerHTML = M(html); card.style.display = ''; document.body.classList.add('nx-card-on');
+  if (f.node) { const nbs = set.neighbours(f.node); card.querySelectorAll('[data-lkopen]').forEach((b) => (b.onclick = () => openLinkPanel(nbs[+b.dataset.lkopen].link))); card.querySelectorAll('[data-allconn]').forEach((b) => (b.onclick = () => openConnections(b.dataset.allconn))); }
 }
 
 // remove the current 3D set piece (nexus, course exhibit) from the scene completely
@@ -299,7 +300,6 @@ function refresh() {
   const gs = guideOn() ? nextRouteStep() : null;
   updateProfileChip(); updatePileChip();
   $('btn-guide').textContent = `Guide: ${guideOn() ? 'on' : 'off'}`;
-  $('btn-conn').style.display = inNexus ? 'none' : '';
   { const s = missionStatus(), sk = streakNow(); $('btn-missions').textContent = `Missions ${s.done}/${s.total} · streak ${sk.count}`; $('btn-missions').classList.toggle('review', s.done < s.total); }
   for (const g of groups) g.terminal.guide = !!(gs && gs.slug === room.slug && gs.course === course.id && gs.enc && g.items.includes(gs.enc));
   $('objective').textContent = dueTarget ? 'A respawn is due: step into the review portal (west end).'
@@ -332,17 +332,21 @@ function openLinkPanel(link) {
   $('panel').querySelectorAll('[data-go]').forEach((b) => (b.onclick = () => { const [c, s] = b.dataset.go.split('/'); closePanel(true); warpTo(() => loadRoom(c, s, { silent: false })); }));
 }
 // the Connections panel of a room: every link touching this room, each as a full card
-function openConnections() {
-  const here = `${course.id}/${room.slug}`, items = [];
-  for (const l of linksData) {
-    if (l.a !== here && l.b !== here) continue; const [ac, as] = l.a.split('/'), [bc, bs] = l.b.split('/'), ra = findRoom(ac, as), rb = findRoom(bc, bs); if (!ra || !rb) continue;
-    items.push({ ...l, a: { key: l.a, course: ac, room: ra }, b: { key: l.b, course: bc, room: rb }, data: l });
-  }
+// Connections between topics. key = a room ('course/slug'): its connections; key = null: every connection of all topics (the Nexus overview).
+const linkItem = (l) => { const [ac, as] = l.a.split('/'), [bc, bs] = l.b.split('/'), ra = findRoom(ac, as), rb = findRoom(bc, bs); return ra && rb ? { ...l, a: { key: l.a, course: ac, room: ra }, b: { key: l.b, course: bc, room: rb }, data: l } : null; };
+function openConnections(key = null) {
+  const here = key, items = linksData.filter((l) => !here || l.a === here || l.b === here).map(linkItem).filter(Boolean), lazy = !here && items.length > 6; // many cards: typeset a card when it is opened
+  const title = here ? findRoom(...here.split('/'))?.title : null;
   closePanel(true); current = { connections: true }; player.unlock(); $('side').classList.remove('hidden');
-  $('panel').innerHTML = M(`<h2>Connections of "${room.title}"</h2><p class="src">${items.length} link${items.length === 1 ? '' : 's'} to other topics. Open one to see exactly which equations correspond, in which situation, and what it means for experiments and intuition.</p>` +
-    (items.length ? items.map((l, i) => { const other = l.a.key === here ? l.b : l.a; return `<details class="deriv-d" ${i === 0 ? 'open' : ''}><summary><b>${l.title}</b> ↔ ${other.room.title} <span class="src">(${courseName(other.course)})</span></summary>${linkCardHtml(l)}<button class="link" data-go="${other.key}">fly to ${other.room.title}</button></details>`; }).join('') : '<p>No connections defined for this room yet.</p>'));
+  const sum = (l) => { const other = here ? (l.a.key === here ? l.b : l.a) : null; return here ? `<b>${l.title}</b> \u2194 ${other.room.title} <span class="src">(${courseName(other.course)})</span>` : `<b>${l.title}</b> <span class="src">${l.a.room.title} (${courseName(l.a.course)}) \u2194 ${l.b.room.title} (${courseName(l.b.course)})</span>`; };
+  const go = (l) => (here ? `<button class="link" data-go="${(l.a.key === here ? l.b : l.a).key}">fly to ${(l.a.key === here ? l.b : l.a).room.title}</button>` : `<button class="link" data-go="${l.a.key}">fly to ${l.a.room.title}</button> <button class="link" data-go="${l.b.key}">fly to ${l.b.room.title}</button>`);
+  $('panel').innerHTML = M(`<h2>${here ? `Connections of "${title}"` : 'All connections'}</h2><p class="src">${items.length} link${items.length === 1 ? '' : 's'} ${here ? 'to other topics' : 'between the topics of the three courses'}. Open one to see exactly which equations correspond, in which situation, and what it means for experiments and intuition.</p>` +
+    (items.length ? items.map((l, i) => `<details class="deriv-d" data-lk="${i}" ${!lazy && i === 0 ? 'open' : ''}><summary>${sum(l)}</summary><div class="lk-body">${lazy ? '' : linkCardHtml(l)}</div>${go(l)}</details>`).join('') : '<p>No connections defined for this room yet.</p>'));
+  if (lazy) $('panel').querySelectorAll('details[data-lk]').forEach((d) => d.addEventListener('toggle', () => { const body = d.querySelector('.lk-body'); if (d.open && !body.innerHTML) body.innerHTML = M(linkCardHtml(items[+d.dataset.lk])); }));
   $('panel').querySelectorAll('[data-go]').forEach((b) => (b.onclick = () => { const [c, s] = b.dataset.go.split('/'); closePanel(true); warpTo(() => loadRoom(c, s, { silent: false })); }));
 }
+// the connections the player is looking at: the room they are in, the star they face in the Nexus, or all of them
+const connectionsHere = () => openConnections(inNexus ? set?.focus?.node?.key ?? null : `${course.id}/${room.slug}`);
 // ================================================================ profile, settings, achievements, study time
 function applySettings() {
   const s = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
@@ -580,6 +584,8 @@ function menuHtml() {
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
     <button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
     <button class="bigbtn" data-m="formulas"><b>Formulas</b><span>drawer for the current course</span></button>
+    ${inNexus ? '' : '<button class="bigbtn" data-m="connections"><b>Connections of this room</b><span>how it links to topics in other rooms and courses</span></button>'}
+    <button class="bigbtn" data-m="allconn"><b>All connections</b><span>every link between topics across the three courses</span></button>
     <button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="nexus"><b>Fly to the Nexus</b><span>the map of everything you study</span></button>'}
     <button class="bigbtn" data-m="help"><b>Controls and help</b><span>${touch ? 'stick, look, buttons, both panels' : 'keys and tips'}</span></button>
@@ -608,7 +614,8 @@ function wireMenu() {
     else if (k === 'unlock') { closeOverlay(true); unlockOrientation(); }
     else if (k === 'nexus') { closeOverlay(true); goNexus(); } else if (k === 'litetoggle') setLitePref(!lite);
     else if (k === 'group') { closeOverlay(true); openGroup(groups[+arg]); }
-    else if (k === 'conn') { closeOverlay(true); openConnections(); }
+    else if (k === 'conn') { closeOverlay(true); openConnections(`${course.id}/${room.slug}`); }
+    else if (k === 'connections') { closeOverlay(true); connectionsHere(); } else if (k === 'allconn') { closeOverlay(true); openConnections(null); }
   }));
 }
 // ================================================================ "start now or remind me later" (opened by tapping a notification: ?suggest=quick | ?suggest=open:<exercise id>)
@@ -785,7 +792,7 @@ function onKey(e) {
     if (overlay) { closeOverlay(); return; }
     if (current && !(runner && !runner.finished)) { closePanel(); return; }
   }
-  if (e.code === 'KeyK' && !tut && !inNexus && !current) { openConnections(); return; }
+  if (e.code === 'KeyK' && !tut && !current) { connectionsHere(); return; }
   if (e.code === 'KeyP' && !tut && !current) { overlay === 'profile' ? closeOverlay() : openOverlay('profile'); return; }
   if (e.code === 'F1' && !tut) { e.preventDefault(); overlay === 'help' ? closeOverlay() : openOverlay('help'); return; }
   if (e.code === 'KeyV' && !tut && !current) { overlay === 'pile' ? closeOverlay() : openOverlay('pile'); return; }
@@ -891,7 +898,7 @@ function filterCodex(q) {
 }
 function openCodex() {
   codexOpen = true; if (codexBuiltFor !== course.id) buildCodex();
-  $('cx').classList.remove('hidden'); player.unlock();
+  $('cx').classList.remove('hidden'); $('cx').scrollLeft = 0; player.unlock();
 }
 function closeCodex() {
   codexOpen = false; $('cx').classList.add('hidden');
@@ -1069,10 +1076,11 @@ function watchPanels() {
   const sync = () => {
     for (const [id, cls] of [['side', 'p-side'], ['cx', 'p-cx']]) {
       const el = $(id), open = !el.classList.contains('hidden');
-      document.body.classList.toggle(cls, open);
+      document.body.classList.toggle(cls, open); if (open) el.scrollLeft = 0;
       if (!open && el.classList.contains('max')) el.classList.remove('max'); // only when set: remove() on an absent class still re-fires the observer
     }
   };
+  for (const id of ['cx', 'side', 'nx-card']) $(id).addEventListener('scroll', () => { const e = $(id); if (e.scrollLeft) e.scrollLeft = 0; }, { passive: true }); // no sideways drift of a whole panel
   const mo = new MutationObserver(sync); for (const id of ['side', 'cx']) mo.observe($(id), { attributes: true, attributeFilter: ['class'] });
   for (const [btn, id] of [['side-max', 'side'], ['cx-max', 'cx']]) $(btn).onclick = () => $(id).classList.toggle('max');
   sync();

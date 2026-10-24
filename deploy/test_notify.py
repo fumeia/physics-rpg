@@ -127,8 +127,11 @@ class Sending(unittest.TestCase):
     def test_does_not_send_twice_for_the_same_slot_and_day(self):
         self.run_main('--slot', 'morning'); self.run_main('--slot', 'morning'); self.assertEqual(len(Handler.got), 1)
         self.run_main('--slot', 'morning', '--force'); self.assertEqual(len(Handler.got), 2)
-    def test_stays_quiet_while_you_are_studying(self):
-        json.dump({'state': state(updated=ms(NOW) - 600e3)}, open(self.profile, 'w')); self.run_main('--slot', 'morning'); self.assertEqual(Handler.got, [])
+    def test_sends_even_if_you_were_studying_a_moment_ago(self):
+        json.dump({'state': state(updated=ms(NOW) - 600e3)}, open(self.profile, 'w')); self.run_main('--slot', 'morning'); self.assertEqual(len(Handler.got), 1)
+    def test_optional_quiet_period_still_works(self):
+        json.dump({'state': state(updated=ms(NOW) - 600e3)}, open(self.profile, 'w')); self.env['NOTIFY_QUIET_MINUTES'] = '60'; self.run_main('--slot', 'morning'); self.assertEqual(Handler.got, [])
+        self.run_main('--slot', 'weekly'); self.assertEqual(len(Handler.got), 1)       # the Sunday review is never held back
     def test_dry_run_sends_nothing(self):
         self.run_main('--slot', 'morning', '--dry-run'); self.assertEqual(Handler.got, [])
     def test_test_message(self):

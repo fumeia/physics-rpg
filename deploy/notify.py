@@ -13,7 +13,7 @@ exercise in the game (?open=<id>, ?quick=1).
 Settings come from environment variables (deploy/notify-setup.sh writes /etc/physics-rpg/notify.env):
   NTFY_TOPIC (required), NTFY_URL (default https://ntfy.sh), NTFY_TOKEN (optional access token), GAME_URL (for the tap links),
   PHYSICS_RPG_PROFILES (folder with the profile files), PHYSICS_RPG_PROFILE (default "default"), NOTIFY_TZ (default Europe/Zurich),
-  NOTIFY_STATE (file that remembers what was sent today).
+  NOTIFY_STATE (file that remembers what was sent today), NOTIFY_QUIET_MINUTES (optional, default 0: stay silent this long after you last used the game).
 
 The logic mirrors game/src/main.js (nextRouteStep, routeDone, quickIds), game/src/store.js (streak, freeze) and missions.js
 (examPlan); test/notify-parity.mjs checks that the browser and this script agree.
@@ -344,7 +344,8 @@ def main(argv=None):
     try: memo = json.load(open(sfile))
     except (OSError, ValueError): memo = {}
     if not a.force and skey in memo.get('sent', {}): print(f'{slot}: already sent today'); return 0
-    if not a.force and slot != 'weekly' and now.timestamp() - P.updated() < 3600: print(f'{slot}: skipped, you were studying a moment ago'); return 0
+    quiet = int(env('NOTIFY_QUIET_MINUTES') or 0)   # optional: stay silent for this many minutes after you last used the game (0 = never, the default)
+    if quiet and not a.force and slot != 'weekly' and now.timestamp() - P.updated() < quiet * 60: print(f'{slot}: skipped, you were studying a moment ago'); return 0
     msg, why = message(P, slot, base, cfg)
     if not msg: print(f'{slot}: skipped ({why})'); return 0
     if a.dry_run or not topic:

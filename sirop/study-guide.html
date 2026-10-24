@@ -437,16 +437,21 @@ $$\mu_a(\lambda)=\sum_i \varepsilon_i(\lambda)\,C_i$$
 <section id="sheet" data-sec hidden class="sheet">
 <h2>Cheat sheet</h2>
 <h3>Equations</h3>
+<p class="src">Each symbol is explained where it first appears. Typical values are in brackets.</p>
 <dl>
-<dt>Drag</dt><dd>$F_D=6\pi\eta a u$</dd>
-<dt>Radiation force</dt><dd>$F_R=4\pi\Phi a^3 kE_{ac}\sin 2ky$, with $E_{ac}=p_a^2/4\rho c^2$</dd>
-<dt>Contrast factor</dt><dd>$\Phi=\tfrac13\big(\tfrac{5\tilde\rho-2}{2\tilde\rho+1}-\tilde\kappa\big)$, where $\tilde\rho=\rho_p/\rho_m$ and $\tilde\kappa=\kappa_p/\kappa_m$</dd>
-<dt>Gor'kov</dt><dd>$F_R=-\nabla U$, and particles go to the minima of $U$</dd>
-<dt>Boundary layer</dt><dd>$\delta=\sqrt{2\nu/\omega}$ ≈ 0.4 µm at 2 MHz</dd>
-<dt>Impedance</dt><dd>$Z=\rho c$, $K=\rho c^2=1/\kappa$, intensity reflection $R=\big(\tfrac{Z_2-Z_1}{Z_2+Z_1}\big)^2$</dd>
-<dt>MI</dt><dd>$\mathrm{PNP[MPa]}/\sqrt{f[\mathrm{MHz}]}$ ≤ 1.9</dd>
-<dt>OA</dt><dd>$p_0=\Gamma\mu_a F$, stress confinement $\tau_p\ll d/c$</dd>
-<dt>Osmotic</dt><dd>$\Pi=\Delta c\,RT$ (0.36 osmol/L ≈ 0.9 MPa)</dd>
+<dt>Drag</dt><dd>$F_D=6\pi\eta a u$<br>$F_D$: Stokes drag force on a sphere [~nN]. $\eta$: dynamic viscosity of the fluid [water 1 mPa·s]. $a$: particle radius [1–2 µm]. $u$: fluid velocity relative to the particle [mm/s]. Kim writes $(\langle v\rangle-u)$, where $\langle v\rangle$ is the time-averaged streaming velocity and $u$ the particle velocity.</dd>
+<dt>Radiation force</dt><dd>$F_R=4\pi\Phi a^3 kE_{ac}\sin 2ky$, with $E_{ac}=p_a^2/4\rho c^2$<br>$F_R$: acoustic radiation force [pN for one particle]. $\Phi$: acoustic contrast factor (next line). $k=2\pi/\lambda$: wavenumber, which Kim calls $q$ [8500 m⁻¹ at 2 MHz]. $\lambda$: acoustic wavelength. $E_{ac}$: acoustic energy density [~20 J/m³]. $y$: position along the standing wave. $p_a$: pressure amplitude [0.42 MPa]. $\rho$: density of the medium [1000 kg/m³]. $c$: speed of sound [1480 m/s].</dd>
+<dt>Contrast factor</dt><dd>$\Phi=\tfrac13\big(\tfrac{5\tilde\rho-2}{2\tilde\rho+1}-\tilde\kappa\big)$, where $\tilde\rho=\rho_p/\rho_m$ and $\tilde\kappa=\kappa_p/\kappa_m$<br>$\rho_p,\rho_m$: density of particle and medium. $\kappa_p,\kappa_m$: compressibility of particle and medium. $\Phi>0$: the particle goes to pressure nodes (solids, ~0.2). $\Phi\lt 0$: it goes to antinodes (bubbles).</dd>
+<dt>Gor'kov</dt><dd>$F_R=-\nabla U$, and particles go to the minima of $U$<br>$U$: Gor'kov potential, the effective acoustic potential energy of a small particle [J]. $\nabla$: spatial gradient. Full form: $U=\tfrac{4\pi a^3}{3}\big[\tfrac{f_1}{2\rho c^2}\langle p^2\rangle-\tfrac34 f_2\rho\langle v^2\rangle\big]$. Here $f_1=1-\kappa_p/\kappa_m$ (compressibility contrast), $f_2=\tfrac{2(\rho_p-\rho_m)}{2\rho_p+\rho_m}$ (density contrast), and $\langle p^2\rangle,\langle v^2\rangle$ are the time-averaged squared acoustic pressure and particle velocity of the fluid.</dd>
+<dt>Trap regime</dt><dd>$2\pi r/\lambda\ll1$ means streaming drag dominates<br>$r$: particle radius (same as $a$) [~0.015 for Kim]. Kim calls this ratio $\kappa$; it is not the compressibility.</dd>
+<dt>Boundary layer</dt><dd>$\delta=\sqrt{2\nu/\omega}$ ≈ 0.4 µm at 2 MHz<br>$\delta$: viscous boundary-layer thickness. $\nu=\eta/\rho$: kinematic viscosity [water 10⁻⁶ m²/s]. $\omega=2\pi f$: angular frequency. $f$: ultrasound frequency [Hz].</dd>
+<dt>Impedance</dt><dd>$Z=\rho c$, $K=\rho c^2=1/\kappa$, intensity reflection $R=\big(\tfrac{Z_2-Z_1}{Z_2+Z_1}\big)^2$<br>$Z$: acoustic impedance [plasma 1.56 MPa·s/m]. $K$: bulk modulus [~2.4 GPa]. $\kappa$: compressibility, $1/K$. $R$: fraction of intensity reflected at a boundary between media 1 and 2. $Z_1,Z_2$: impedances on either side.</dd>
+<dt>MI</dt><dd>$\mathrm{MI}=\mathrm{PNP[MPa]}/\sqrt{f[\mathrm{MHz}]}$ ≤ 1.9<br>MI: mechanical index, a dimensionless measure of cavitation risk. PNP: peak negative (rarefactional) pressure in MPa. $f$ in MHz. 1.9 is the FDA diagnostic limit.</dd>
+<dt>Pulsing</dt><dd>duty cycle = $\tau_{\text{on}}\cdot\mathrm{PRF}$<br>$\tau_{\text{on}}$: burst length [50 ms in Purohit]. PRF: pulse repetition frequency [5 Hz]. Duty cycle: fraction of time sound is on [25%].</dd>
+<dt>OA</dt><dd>$p_0=\Gamma\mu_a F$, $\Gamma=\beta c^2/C_p$, stress confinement $\tau_p\ll d/c$<br>$p_0$: initial optoacoustic pressure [~10 kPa]. $\Gamma$: Grüneisen parameter, dimensionless [0.1–0.2]. $\beta$: thermal expansion coefficient [1/K]. $C_p$: specific heat capacity [J/(kg·K)]. $\mu_a$: optical absorption coefficient [blood ~4 cm⁻¹ at 800 nm]. $F$: laser fluence, energy per area [≤ ~30 mJ/cm²]. $\tau_p$: laser pulse duration [~10 ns]. $d$: absorber size.</dd>
+<dt>Unmixing</dt><dd>$\mu_a(\lambda)=\sum_i\varepsilon_i(\lambda)C_i$<br>$\lambda$ here is the optical wavelength [nm], not the acoustic one. $\varepsilon_i$: molar absorption spectrum of absorber $i$ (HbO, HbR, ICG). $C_i$: its concentration, which is the unknown.</dd>
+<dt>Osmotic</dt><dd>$\Pi=\Delta c\,RT$ (0.36 osmol/L ≈ 0.9 MPa)<br>$\Pi$: osmotic pressure. $\Delta c$: osmolarity difference across the membrane [670 − 315 mOsm]. $R$: gas constant, 8.314 J/(mol·K), not the reflection coefficient. $T$: absolute temperature [310 K].</dd>
+<dt>Release</dt><dd>% uncaging = free / (free + liposomal) × 100%<br>Free: drug measured outside the liposomes after the column. Liposomal: drug still inside.</dd>
 </dl>
 <h3>Numbers</h3>
 <div class="tablebox"><table>

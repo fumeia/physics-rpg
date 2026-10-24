@@ -182,7 +182,8 @@ class RemindEndpoint(unittest.TestCase):
         s1, o1 = self.post(port, {'at': later, 'spec': 'quick', 'what': 'Quick session'}); s2, o2 = self.post(port, {'at': earlier, 'spec': 'quick', 'what': 'Quick session'})
         self.assertEqual((s1, s2), (200, 200)); self.assertEqual(o1['at'], later)
         d1, d2 = int(Handler.got[-2][2]['delay']), int(Handler.got[-1][2]['delay'])
-        self.assertTrue(0 < d1 - time.time() <= 2 * 3600 + 90); self.assertTrue(22 * 3600 - 90 <= d2 - time.time() <= 22 * 3600 + 90)       # 2 hours earlier = about 22 hours from now
+        hh, mm = map(int, earlier.split(':')); want = (now.replace(hour=hh, minute=mm, second=0, microsecond=0) + dt.timedelta(days=1)).timestamp()      # tomorrow at that wall-clock time (a daylight-saving change in between is fine)
+        self.assertTrue(0 < d1 - time.time() <= 2 * 3600 + 90); self.assertAlmostEqual(d2, want, delta=2)
         self.assertEqual(o2['day'], 'tomorrow')
     def test_validation(self):
         port = self.serve(**self.cfg)

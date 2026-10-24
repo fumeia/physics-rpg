@@ -46,6 +46,46 @@ for (const [name, opts] of [['sideways', phone], ['upright', upright]]) {
   await p.context().close();
 }
 
+// ---- the room card must never sit on top of a control: "Fly into", the fly buttons and the stick stay reachable, in every phone size
+const boxes = (p, sels) => p.evaluate((ss) => ss.map((s) => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return cs.display === 'none' || e.hidden || !r.width ? null : { s, l: r.left, t: r.top, r: r.right, b: r.bottom }; }), sels);
+const hit = (a, b) => a && b && a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t;
+for (const [w, h] of [[844, 390], [740, 360], [667, 375], [390, 780], [360, 640]]) {
+  const p = await open({ viewport: { width: w, height: h }, hasTouch: true, isMobile: true }); await p.evaluate(() => window.__game.enterNexus()); await p.waitForTimeout(900);
+  let shown = false, count = await p.evaluate(() => window.__game.set().nodes.length), room0 = await p.evaluate(() => window.__game.currentRoom());
+  for (let i = 0; i < Math.min(count, 12) && !shown; i++) {
+    const spot = await p.evaluate((k) => { const n = window.__game.set().nodes[k], q = n.pos || n.mesh?.position || n.group?.position; return { x: q.x, y: q.y, z: q.z }; }, i);
+    await p.evaluate((s) => window.__game.flyTo(s.x, s.y, s.z + 9, 0, 0), spot); await p.waitForTimeout(450);
+    shown = (await boxes(p, ['#nx-card', '#t-act']))?.every(Boolean);
+  }
+  const [card, act, up, down, fast, joy, tl] = await boxes(p, ['#nx-card', '#t-act', '#t-up', '#t-down', '#t-fast', '#joy', '#hud .tl']);
+  ck(`${w}x${h}: the card and the "Fly into" button show together`, !!card && !!act);
+  ck(`${w}x${h}: the card covers none of: Fly into, ▲ ▼ », the stick`, ![act, up, down, fast, joy].some((x) => hit(card, x)), JSON.stringify({ card, act }));
+  ck(`${w}x${h}: everything stays on the screen`, [card, act, joy].every((x) => x && x.l >= 0 && x.t >= 0 && x.r <= w + 0.5 && x.b <= h + 0.5), JSON.stringify({ card, act, joy }));
+  const top = await p.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return e && (e.id || e.closest('#t-act')?.id); }, [(act.l + act.r) / 2, (act.t + act.b) / 2]);
+  ck(`${w}x${h}: a finger on "Fly into" reaches the button (not the card)`, top === 't-act', top);
+  await p.touchscreen.tap((act.l + act.r) / 2, (act.t + act.b) / 2); await p.waitForTimeout(1600);
+  ck(`${w}x${h}: tapping it flies into the room`, (await p.evaluate(() => window.__game.currentRoom())) !== room0 && !(await p.evaluate(() => !!window.__game.nexus())));
+  await p.context().close();
+}
+
+// ---- the screen is never locked by itself; the menu can lock and unlock it (a recorded fake of the orientation API)
+{
+  const ctx = await b.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true });
+  await ctx.addInitScript(() => { window.__rot = []; try { Object.defineProperty(screen.orientation, 'lock', { value: async (t) => { window.__rot.push('lock ' + t); } }); Object.defineProperty(screen.orientation, 'unlock', { value: () => { window.__rot.push('unlock'); } }); } catch (e) {} Element.prototype.requestFullscreen = async () => {}; });
+  const p = await ctx.newPage(); p.on('pageerror', (e) => errs.push(e.message)); await p.goto(url); await p.evaluate(() => localStorage.setItem('physics-rpg-landscape', '1')); await p.reload(); await p.waitForFunction(() => !!window.__game); await p.waitForTimeout(800);
+  await p.touchscreen.tap(400, 200); await p.waitForTimeout(300); await p.touchscreen.tap(300, 250); await p.waitForTimeout(300);
+  ck('a stored "lock sideways" choice from the old version does nothing and is forgotten', await p.evaluate(() => window.__rot.length === 0 && localStorage.getItem('physics-rpg-landscape') === '0'));
+  await p.click('#btn-menu'); await p.waitForTimeout(300);
+  ck('menu has both: Play sideways and Let the screen rotate', await p.evaluate(() => { const t = document.getElementById('ov-body').innerText; return t.includes('Play sideways') && t.includes('Let the screen rotate'); }));
+  await p.evaluate(() => document.querySelector('[data-m="landscape"]').click()); await p.waitForTimeout(400);
+  ck('Play sideways locks to landscape', await p.evaluate(() => window.__rot.join() === 'lock landscape'));
+  await p.click('#btn-menu'); await p.waitForTimeout(300); await p.evaluate(() => document.querySelector('[data-m="unlock"]').click()); await p.waitForTimeout(300);
+  ck('Let the screen rotate unlocks it', await p.evaluate(() => window.__rot.join() === 'lock landscape,unlock'));
+  await p.reload(); await p.waitForFunction(() => !!window.__game); await p.waitForTimeout(600); await p.touchscreen.tap(400, 200);
+  ck('after a reload nothing locks again by itself', await p.evaluate(() => window.__rot.length === 0));
+  await ctx.close();
+}
+
 // ---- seeded profile on a desktop: quick session, week, missions
 let p = await open(desk, seeded);
 const ids = await p.evaluate(() => window.__game.quickIds()); ck(`quick session starts with the due respawns, most overdue first (${ids})`, ids[0] === 'qm-tunnel-L1' && ids[1] === 'qm-wm-Q1' && ids.length <= 3);

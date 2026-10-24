@@ -62,6 +62,8 @@ let runner = null;
 
 // ================================================================ boot
 async function boot() {
+  setLandscapePref(false); // older versions stored a "lock sideways" choice and re-applied it on every visit: forget it
+  if (params.get('orientation') === 'free') { try { screen.orientation.unlock(); } catch { /* ignore */ } }
   const fetchJson = async (u) => (await fetch(u)).json();
   let labs = []; for (const f of ['labs', 'labs-qm', 'labs-solid-state', 'labs-astrophysics']) { try { labs = labs.concat((await fetchJson(`content/${f}.json`)).labs); } catch { /* optional file */ } }
   for (const c of COURSES) {
@@ -212,7 +214,7 @@ function updateNexusCard() {
   const key = f?.node ? f.node.key : f?.link ? `${f.link.a.key}|${f.link.b.key}` : null;
   if (key === nexusFocusKey) return;
   nexusFocusKey = key;
-  if (!key || tut) { card.style.display = 'none'; return; }
+  if (!key || tut) { card.style.display = 'none'; document.body.classList.remove('nx-card-on'); return; }
   const course = (id) => (NEXUS_STYLE[id]?.name || id).toLowerCase();
   let html = '';
   const tex = (t) => { try { return katex.renderToString(t, { displayMode: true, throwOnError: false, strict: 'ignore' }); } catch { return ''; } };
@@ -227,7 +229,7 @@ function updateNexusCard() {
     const l = f.link;
     html = `${linkCardHtml(l, { compact: true })}<div class="src">${l.a.room.title} (${course(l.a.course)}) ↔ ${l.b.room.title} (${course(l.b.course)})</div><div class="src"><b>[E] read the full explanation: equations, dictionary, experiment</b></div>`;
   }
-  card.innerHTML = M(html); card.style.display = '';
+  card.innerHTML = M(html); card.style.display = ''; document.body.classList.add('nx-card-on');
 }
 
 // remove the current 3D set piece (nexus, course exhibit) from the scene completely
@@ -242,7 +244,7 @@ function disposeSet() {
 async function loadRoom(courseId, roomId, { silent = false } = {}) {
   closePanel(true); closeOverlay(true);
   runner = null; view = { variant: null, sim: null };
-  inNexus = false; nexusFocusKey = null; player.flying = false; world.setMode('room'); $('nx-card').style.display = 'none';
+  inNexus = false; nexusFocusKey = null; player.flying = false; world.setMode('room'); $('nx-card').style.display = 'none'; document.body.classList.remove('nx-card-on');
   course = findCourse(courseId); room = findRoom(courseId, roomId);
   store.setLast({ course: courseId, room: roomId });
   setGlossaryCourse(courseId);
@@ -584,7 +586,7 @@ function menuHtml() {
     ${lite ? '' : '<button class="bigbtn" data-m="tutorial"><b>Replay the tutorial</b><span>for the room you are in</span></button>'}
     <button class="bigbtn" data-m="theme"><b>Theme: ${isLight() ? 'light' : 'dark'}</b><span>${isLight() ? 'switch to the dark theme' : 'switch to the white room (light theme)'}</span></button>
     <button class="bigbtn" data-m="controls"><b>Controls: ${touch ? 'touch' : 'keyboard and mouse'}</b><span>${touch ? 'switch to the keyboard and mouse layout' : 'switch to the touch layout (stick, drag to look)'}</span></button>
-    ${touch && !lite ? '<button class="bigbtn" data-m="landscape"><b>Play sideways</b><span>lock the screen to landscape (full screen)</span></button>' : ''}
+    ${touch && !lite ? '<button class="bigbtn" data-m="landscape"><b>Play sideways</b><span>lock the screen to landscape (full screen, this visit only)</span></button><button class="bigbtn" data-m="unlock"><b>Let the screen rotate</b><span>unlock the rotation, back to normal</span></button>' : ''}
     <button class="bigbtn" data-m="litetoggle"><b>${lite ? 'Switch to the 3D game' : 'Switch to the simple menu (no 3D)'}</b><span>${lite ? 'walk around, experiments, both panels side by side' : 'for slow phones: no walking, only lists'}</span></button></div>`;
 }
 function roomMenuHtml() {
@@ -603,6 +605,7 @@ function wireMenu() {
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
     else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
     else if (k === 'landscape') { closeOverlay(true); lockLandscape(); }
+    else if (k === 'unlock') { closeOverlay(true); unlockOrientation(); }
     else if (k === 'nexus') { closeOverlay(true); goNexus(); } else if (k === 'litetoggle') setLitePref(!lite);
     else if (k === 'group') { closeOverlay(true); openGroup(groups[+arg]); }
     else if (k === 'conn') { closeOverlay(true); openConnections(); }
@@ -1040,11 +1043,17 @@ document.addEventListener('click', (e) => {
 });
 
 // ================================================================ landscape (phones): lock the screen sideways, hint in portrait
-async function lockLandscape(quiet) {
+// The lock only lasts for this visit (it is dropped by a reload) and is never re-applied by itself, so the screen can not get stuck.
+async function lockLandscape() {
   try {
     if (!document.fullscreenElement && !matchMedia('(display-mode: fullscreen)').matches) await document.documentElement.requestFullscreen({ navigationUI: 'hide' });
-    await screen.orientation.lock('landscape'); setLandscapePref(true); if (!quiet) toast('Screen locked to landscape. Menu > Play sideways again turns it off.');
-  } catch { if (!quiet) toast('This browser would not lock the screen. Turn the phone sideways and switch auto-rotate on.'); }
+    await screen.orientation.lock('landscape'); toast('Screen locked to landscape. Menu > "Let the screen rotate" frees it again, a reload does too.');
+  } catch { toast('This browser would not lock the screen. Turn the phone sideways and switch auto-rotate on.'); }
+}
+function unlockOrientation(quiet) {
+  try { screen.orientation.unlock(); } catch { /* not locked or not supported */ }
+  try { if (document.fullscreenElement) document.exitFullscreen(); } catch { /* ignore */ }
+  if (!quiet) toast('The screen rotates freely again.');
 }
 function setupRotateHint() {
   const el = $('rotate-hint'), key = 'physics-rpg-rot-hidden';
@@ -1053,7 +1062,6 @@ function setupRotateHint() {
   $('rot-lock').onclick = () => { lockLandscape(); };
   $('rot-x').onclick = () => { try { sessionStorage.setItem(key, '1'); } catch { /* ignore */ } update(); };
   addEventListener('resize', update); update();
-  if (landscapePref()) document.addEventListener('pointerdown', () => lockLandscape(true), { once: true }); // a lock needs a tap first
 }
 // ================================================================ touch layout helpers
 // Both side panels can be open at once: formulas (left / top) and the exercise (right / bottom). CSS lays them out from these body classes.

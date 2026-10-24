@@ -242,8 +242,9 @@ html[data-theme=light] .xpfloat { text-shadow: none; } html[data-theme=light] .p
 /* the star / link card of the Nexus: it must take touches itself (scroll with a finger) and must not sit on the stick */
 #nx-card { pointer-events: auto; touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 body.touch #nx-card { z-index: 3; font-size: 14px; }
-@media (orientation: landscape) { body.touch #nx-card { left: auto; right: max(8px, env(safe-area-inset-right)); top: calc(max(8px, env(safe-area-inset-top)) + 54px); bottom: auto; width: min(44vw, 430px); max-height: calc(100dvh - 76px); } }
-@media (orientation: portrait) { body.touch #nx-card { left: 8px; right: 8px; width: auto; bottom: 176px; max-height: 38dvh; } }
+/* the card sits between the stick (left) and the action buttons (right), so "Fly into" and the stick stay reachable */
+@media (orientation: landscape) { body.touch #nx-card { left: 176px; right: 216px; width: auto; top: calc(max(8px, env(safe-area-inset-top)) + 84px); bottom: auto; max-height: calc(100dvh - 96px); } body.touch .tb.act { max-width: 190px; } }
+@media (orientation: portrait) { body.touch #nx-card { left: 8px; right: 8px; width: auto; bottom: 214px; max-height: 34dvh; } }
 
 input[type=time] { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; color-scheme: dark; } html[data-theme=light] input[type=time] { color-scheme: light; }
 body.touch input[type=time] { min-height: 40px; }
@@ -252,3 +253,4 @@ body.touch input[type=time] { min-height: 40px; }
 html[data-theme=light] #back-to-touch { background: #fff; border-color: #111; border-radius: 0; }
 .todayrow.miss { border-color: var(--warn); } .todayrow.ok .mt { color: var(--ink); } .todayrow .link[disabled] { cursor: default; }
 .todayrow .link { text-align: left; text-decoration: none; font-size: inherit; color: var(--ink); padding: 0; } .todayrow .link:hover:not([disabled]) .mt { color: var(--accent); }
+body.nx-card-on #rotate-hint { display: none !important; }

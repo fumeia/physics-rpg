@@ -24,7 +24,7 @@ export function initTouch({ player, canvas, act, fullscreen }) {
   };
   const endStick = () => { stickId = null; knob.style.transform = ''; player.axis.x = 0; player.axis.y = 0; };
   joy.addEventListener('pointerdown', (e) => {
-    if (stickId !== null) return;
+    if (stickId !== null) { try { joy.releasePointerCapture(stickId); } catch { /* gone already */ } endStick(); } // a stale stick (its finger vanished) is replaced by the new touch
     stickId = e.pointerId; joy.setPointerCapture(e.pointerId);
     const r = joy.getBoundingClientRect(); cx = r.left + r.width / 2; cy = r.top + r.height / 2; setStick(e.clientX, e.clientY); e.preventDefault();
   });

@@ -300,3 +300,7 @@ body.touch #tour-chip { top: calc(max(8px, env(safe-area-inset-top)) + 104px); }
 @media (orientation: portrait) { body.touch #tour-chip { top: auto; bottom: 232px; } }
 @media (orientation: landscape) { body.touch #tour-chip { top: auto; bottom: 20px; } }
 body.nx-card-on #tour-chip { display: none !important; }
+
+#gl-banner { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); z-index: 40; display: flex; align-items: center; gap: 10px; background: rgba(40,12,12,.96); border: 1px solid var(--bad); border-radius: 12px; padding: 8px 10px 8px 14px; font-size: 14px; max-width: 94vw; }
+#gl-banner .btn { min-height: 38px; padding: 6px 14px; font-size: 15px; white-space: nowrap; }
+html[data-theme=light] #gl-banner { background: #fff; border-color: #111; border-radius: 0; }

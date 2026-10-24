@@ -162,16 +162,37 @@ async function boot() {
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
   startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';
   if (startWanted || window.__want) enterGame();
-  let lastT = performance.now();
-  const loop = (now) => {
-    const dt = Math.max(0, Math.min(0.05, (now - lastT) / 1000)); lastT = now;
-    stepRunner(dt, now);
-    touchUI?.update({ promptText: promptTarget && !blocking() ? $('prompt').textContent : null, flying: inNexus });
-    tickStudy(dt); player.update(dt); world.update(dt); set?.update(dt, player.pos, world.camera); holos?.update(dt, player.pos); if (inNexus) updateNexusCard(); updatePrompt();
-    if (!lite) world.render(player.camera);
-    requestAnimationFrame(loop);
+  // The frame loop must never stop: the next frame is scheduled first, an error in one frame is logged and skipped, and a watchdog restarts the loop if frames stop
+  // while the page is visible. While a maximized panel (or a hidden tab) covers the 3D view nothing is drawn, which spares the phone's graphics memory.
+  let lastT = performance.now(), loopId = 0, lastFrameAt = performance.now(), frameErrors = 0;
+  const covered = () => document.hidden || $('side').classList.contains('max') || $('cx').classList.contains('max');
+  const startLoop = () => {
+    const id = ++loopId;
+    const tick = (now) => {
+      if (id !== loopId) return; requestAnimationFrame(tick); lastFrameAt = performance.now();
+      try {
+        if (testHooks.failFrames > 0) { testHooks.failFrames--; throw new Error('test: frame error'); }
+        const dt = Math.max(0, Math.min(0.05, (now - lastT) / 1000)); lastT = now;
+        stepRunner(dt, now);
+        touchUI?.update({ promptText: promptTarget && !blocking() ? $('prompt').textContent : null, flying: inNexus });
+        tickStudy(dt); player.update(dt); world.update(dt); set?.update(dt, player.pos, world.camera); holos?.update(dt, player.pos); if (inNexus) updateNexusCard(); updatePrompt();
+        if (!lite && !covered()) world.render(player.camera);
+      } catch (e) { lastT = now; if (frameErrors++ < 5) console.error('frame error (skipped)', e); }
+    };
+    requestAnimationFrame(tick);
   };
-  requestAnimationFrame(loop);
+  window.__frames = () => loopId;
+  setInterval(() => { if (!document.hidden && performance.now() - lastFrameAt > 2500) { console.warn('frame loop restarted'); startLoop(); } }, 2000);
+  startLoop();
+  // the phone can take back the graphics memory (long exercise, screen off): three.js asks for the context back, and if it does not come back the player can reload
+  let glLostAt = 0; const banner = $('gl-banner');
+  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); glLostAt = performance.now(); });
+  canvas.addEventListener('webglcontextrestored', () => { glLostAt = 0; banner.style.display = 'none'; world.resize(); });
+  setInterval(() => { if (glLostAt && !document.hidden && performance.now() - glLostAt > 4000) banner.style.display = ''; }, 1000);
+  $('gl-reload').onclick = () => location.reload();
+  const releaseTouch = () => touchUI?.reset(); // a finger that vanished (system gesture, screen off) must not leave the stick or the look drag stuck
+  document.addEventListener('visibilitychange', () => { releaseTouch(); if (!document.hidden && world.renderer.getContext().isContextLost()) glLostAt = glLostAt || performance.now() - 3000; });
+  addEventListener('blur', releaseTouch); addEventListener('pagehide', releaseTouch);
 }
 const findCourse = (id) => catalog.find((c) => c.id === id);
 const findRoom = (cid, rid) => findCourse(cid)?.rooms.find((r) => r.slug === rid);
@@ -1140,6 +1161,7 @@ function toggleFullscreen() {
 }
 
 // ================================================================ test hooks (used by test/e2e.mjs)
+const testHooks = { failFrames: 0 };
 function exposeTestApi() {
   window.__game = {
     teleport: (x, z, yaw, pitch) => player.teleport(x, z, yaw, pitch),
@@ -1152,6 +1174,7 @@ function exposeTestApi() {
     interactNearest: () => { const t = player.target(); if (t) interact(t); return t ? t.id : null; },
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
     activeSeconds: () => studyToday() + Math.round(studyAcc),
+    failFrames: (n) => { testHooks.failFrames = n; }, frames: () => world.renderer.info.render.frame,
     finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };

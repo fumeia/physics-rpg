@@ -75,3 +75,9 @@ export const CHSH_OPT = { a: 0, a2: Math.PI / 2, b: -3 * Math.PI / 4, b2: -Math.
 // ---------------- free Gaussian packet and box expansion
 export const dxFree = (dx0, hbarOverM, t) => dx0 * Math.sqrt(1 + (hbarOverM * t / (2 * dx0 * dx0)) ** 2);
 export const pBoxDouble = (n) => (n === 2 ? 0.5 : n % 2 === 0 ? 0 : 32 / (Math.PI ** 2 * (4 - n * n) ** 2));
+
+// Particle in the ground state of a box [0,a] (a=1); the right wall jumps suddenly to L=w*a (w>=1).
+// c_n = <phi_n|psi> = 2 sin(pi n/w) / (pi sqrt(w) (1 - (n/w)^2)),  phi_n = sqrt(2/L) sin(n pi x/L); at n=w: c = 1/sqrt(w).
+export const cBoxJump = (n, w) => { const r = n / w; return Math.abs(1 - r * r) < 1e-9 ? 1 / Math.sqrt(w) : 2 * Math.sin(Math.PI * r) / (Math.PI * Math.sqrt(w) * (1 - r * r)); };
+// |psi(x,t)|^2 in the new box, x in units of a; omega1 = E_1/hbar (rad per time unit), E_n = n^2 E_1
+export function boxJumpDensity(x, t, w, omega1, N = 14) { let re = 0, im = 0; for (let n = 1; n <= N; n++) { const c = cBoxJump(n, w) * Math.sqrt(2 / w) * Math.sin(n * Math.PI * x / w), ph = -n * n * omega1 * t; re += c * Math.cos(ph); im += c * Math.sin(ph); } return re * re + im * im; }

@@ -93,13 +93,22 @@ export default (kit) => {
       animated: true,
       controls: [
         { id: 'hm', label: 'inertia: $\\hbar/m$ in units $\\sigma_0^2/\\tau$ [log scale]', min: -1, max: 1, step: 0.05, value: 0, log: true },
-        { id: 'box', label: 'show instead: box width $a\\to2a$, probabilities $P_n$', type: 'toggle', value: false },
+        { id: 'box', label: 'show instead: box wall jumps $a\\to wa$ (probabilities $P_n$ and the motion afterwards)', type: 'toggle', value: false },
+        { id: 'w', label: 'new box width $w=L/a$ (box view)', min: 1.1, max: 4, step: 0.05, value: 2, when: (p) => p.box },
       ],
       draw(ctx, p, t) {
         if (p.box) {
-          const N = 9, ax = axes(ctx, { xr: [0.5, N + 0.5], yr: [0, 0.6], xlabel: 'new eigenstate $n$ (width $2a$)', ylabel: '$P_n$' });
-          let s = 0; for (let n = 1; n <= N; n++) { const P = Q.pBoxDouble(n); s += P; ctx.fillStyle = n === 2 ? '#ffd86b' : '#6cb6ff'; ctx.fillRect(ax.X(n - 0.35), ax.Y(P), ax.X(n + 0.35) - ax.X(n - 0.35), ax.Y(0) - ax.Y(P)); label(ctx, P.toFixed(3), ax.X(n), ax.Y(P) - 5, '#cfe0ff', 'center'); }
-          label(ctx, `$P_n=\\frac{32}{\\pi^2(4-n^2)^2}$ for odd $n$, $P_2=\\frac12$, other even $n$: 0.  Sum up to $n=${N}$: ${s.toFixed(4)} ($\\to1$)`, ax.L + 6, ax.T + 14, '#9fb0d0'); return;
+          ctx.fillStyle = '#0b1220'; ctx.fillRect(0, 0, W, H);
+          const w = p.w, N = 12, om = 0.6 * p.hm * (2 / w) ** 2;   // E_1/hbar in the animation's time unit, E_1 = pi^2 hbar^2 / (2 m L^2) (a = 1, L = w)
+          const top = axes(ctx, { xr: [0, Math.max(w, 1) * 1.02], yr: [0, 3.2 / Math.sqrt(w)], y: 0, h: 168, xlabel: 'position $x/a$ (new wall at $x=wa$, old wall at $x=a$)', ylabel: '$|\\psi(x,t)|^2$', pad: { l: 52 } });
+          top.clip(); const xs = lin(0, w, 220); ctx.fillStyle = 'rgba(255,216,107,0.10)'; ctx.fillRect(top.X(0), top.T, top.X(1) - top.X(0), H - top.B - top.T);
+          curve(ctx, top, (x) => (x <= 1 ? (2 * Math.sin(Math.PI * x) ** 2) : NaN), lin(0, 1, 120), '#4a5f8a', 1.5, [4, 4]);
+          curve(ctx, top, (x) => Q.boxJumpDensity(x, t, w, om, 30), xs, '#6cb6ff', 2.6);
+          ctx.strokeStyle = '#ffd86b'; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(top.X(1), top.T); ctx.lineTo(top.X(1), H - top.B); ctx.stroke(); ctx.setLineDash([]); top.unclip();
+          label(ctx, `grey dashed: state at the jump (ground state of $[0,a]$)   blue: $|\\psi(x,t)|^2$ now   $E_1/\\hbar$ = ${fmt(om)}, $t$ = ${fmt(t)}`, top.L + 6, top.T + 14, '#9fb0d0');
+          const bar = axes(ctx, { xr: [0.5, N + 0.5], yr: [0, Math.max(0.5, ...Array.from({ length: N }, (_, k) => Q.cBoxJump(k + 1, w) ** 2)) * 1.4], y: 176, h: H - 176, xlabel: 'new eigenstate $n$ (width $wa$)', ylabel: '$P_n$', pad: { l: 52 } });
+          let s = 0; for (let n = 1; n <= N; n++) { const P = Q.cBoxJump(n, w) ** 2; s += P; ctx.fillStyle = Math.abs(n - w) < 1e-9 ? '#ffd86b' : '#6cb6ff'; ctx.fillRect(bar.X(n - 0.35), bar.Y(P), bar.X(n + 0.35) - bar.X(n - 0.35), bar.Y(0) - bar.Y(P)); if (P > 0.004) label(ctx, P.toFixed(3), bar.X(n), bar.Y(P) - 3, '#cfe0ff', 'center'); }
+          label(ctx, `$P_n=|\\langle\\varphi_n|\\psi\\rangle|^2$: depends on $w$ only, not on $\\hbar/m$   $\\sum_{n\\le${N}}P_n$ = ${s.toFixed(4)}`, bar.L + 6, bar.T + 13, '#9fb0d0'); return;
         }
         const T = 10, tt = (t % (T + 2)), ts = Math.min(tt, T), s0 = 1, ax = axes(ctx, { xr: [-12, 12], yr: [0, 0.45], xlabel: '$x/\\sigma_0$', ylabel: '$|\\psi|^2$' });
         const D = Q.dxFree(s0, p.hm, ts); ax.clip();
@@ -111,7 +120,7 @@ export default (kit) => {
         ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(bx + (ts / T) * bw, by + bh - (D / mx) * bh, 4, 0, 7); ctx.fill();
       },
       info(p) {
-        if (p.box) return `A particle in the ground state of a box $[0,a]$, $\\psi=\\sqrt{2/a}\\sin(\\pi x/a)$, suddenly sees the wall jump to $2a$. The state is unchanged, but it is expanded in the new eigenstates $\\varphi_n=\\sqrt{1/a}\\sin(n\\pi x/2a)$: $c_n=\\langle\\varphi_n|\\psi\\rangle$, $P_2=\\tfrac12$, odd $n$: $P_n=\\frac{32}{\\pi^2(4-n^2)^2}$, so $P_1=0.360$, $P_3=0.130$, $P_5=0.0074$, and $\\sum_nP_n=1$. Energies afterwards: $E_n=n^2\\pi^2\\hbar^2/(8ma^2)$.`;
+        if (p.box) return `A particle in the ground state of a box $[0,a]$, $\\psi=\\sqrt{2/a}\\sin(\\pi x/a)$, suddenly sees the wall jump to $L=wa$ (now $w=${fmt(p.w)}$). The state itself cannot change in an instant, but it is expanded in the new eigenstates $\\varphi_n=\\sqrt{2/L}\\sin(n\\pi x/L)$: $c_n=\\langle\\varphi_n|\\psi\\rangle=\\dfrac{2\\sin(\\pi n/w)}{\\pi\\sqrt w\\,(1-n^2/w^2)}$, $P_n=|c_n|^2$. For $w=2$: $P_2=\\tfrac12$, odd $n$: $P_n=\\frac{32}{\\pi^2(4-n^2)^2}$ ($P_1=0.360$, $P_3=0.130$), other even $n$: 0. The bars depend only on the geometry $w$, not on $\\hbar/m$, and they stay constant afterwards. The mass enters the dynamics: $E_n=n^2\\pi^2\\hbar^2/(2mL^2)$, so $\\psi(x,t)=\\sum_nc_n\\varphi_n(x)e^{-iE_nt/\\hbar}$ moves faster for a lighter particle (bigger $\\hbar/m$): the top plot is that motion, driven by the inertia slider. $E_1/\\hbar$ is shown in the plot.`;
         return `Free Gaussian packet, initial width $\\sigma_0=\\Delta x(0)$, $\\Delta x(t)=\\sigma_0\\sqrt{1+\\big(\\frac{\\hbar t}{2m\\sigma_0^2}\\big)^2}$: the slider is $\\hbar/m$ (large = light particle or strong quantum character, spreads fast; heavy $m$ or $\\hbar\\to0$: no spreading, classical). Now $\\hbar/m=${fmt(p.hm)}$. At large $t$: $\\Delta x\\to\\frac{\\hbar t}{2m\\sigma_0}=\\Delta v\\,t$ with $\\Delta v=\\hbar/(2m\\sigma_0)$, from $\\Delta x\\Delta p=\\hbar/2$.`;
       },
     },

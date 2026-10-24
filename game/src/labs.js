@@ -10,19 +10,18 @@ const fmt = (v, d = 3) => (v !== 0 && (Math.abs(v) < 1e-2 || Math.abs(v) >= 1e5)
 
 // ---- tiny plotting helper: axes with (log) scales; returns coordinate mappers
 function axes(ctx, o) {
-  const L = o.pad?.l ?? 56, R = 14, T = 14, B = 36, fx = o.xlog ? Math.log10 : (v) => v, fy = o.ylog ? Math.log10 : (v) => v;
+  const L = o.pad?.l ?? 56, R = 14, T = 14, B = 36, yo = o.y ?? 0, HH = o.h ?? H, Tt = yo + T, Bb = yo + HH - B, fx = o.xlog ? Math.log10 : (v) => v, fy = o.ylog ? Math.log10 : (v) => v;
   const x0 = fx(o.xr[0]), x1 = fx(o.xr[1]), y0 = fy(o.yr[0]), y1 = fy(o.yr[1]);
-  const X = (x) => L + ((fx(x) - x0) / (x1 - x0)) * (W - L - R), Y = (y) => H - B - ((fy(y) - y0) / (y1 - y0)) * (H - T - B);
-  ctx.fillStyle = '#0b1220'; ctx.fillRect(0, 0, W, H);
+  const X = (x) => L + ((fx(x) - x0) / (x1 - x0)) * (W - L - R), Y = (y) => Bb - ((fy(y) - y0) / (y1 - y0)) * (HH - T - B);
+  ctx.fillStyle = '#0b1220'; ctx.fillRect(0, yo, W, HH);
   ctx.font = '11px system-ui'; ctx.fillStyle = '#7f8aa6'; ctx.strokeStyle = '#1e2a40'; ctx.lineWidth = 1;
   const ticks = (lo, hi, log) => { if (log) { const out = []; for (let d = Math.ceil(lo); d <= Math.floor(hi); d++) out.push(d); return out; } const span = hi - lo, step = Math.pow(10, Math.floor(Math.log10(span / 5))) * ([1, 2, 5].find((m) => span / (Math.pow(10, Math.floor(Math.log10(span / 5))) * m) <= 6) || 10); const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10)); return out; };
-  for (const t of ticks(x0, x1, o.xlog)) { const xv = o.xlog ? Math.pow(10, t) : t, px = X(xv); ctx.beginPath(); ctx.moveTo(px, T); ctx.lineTo(px, H - B); ctx.stroke(); ctx.textAlign = 'center'; richText(ctx, o.xlog ? `$10^{${t}}$` : fmt(xv, 3), px, H - B + 14, { align: 'center' }); }
+  for (const t of ticks(x0, x1, o.xlog)) { const xv = o.xlog ? Math.pow(10, t) : t, px = X(xv); ctx.beginPath(); ctx.moveTo(px, Tt); ctx.lineTo(px, Bb); ctx.stroke(); ctx.textAlign = 'center'; richText(ctx, o.xlog ? `$10^{${t}}$` : fmt(xv, 3), px, Bb + 14, { align: 'center' }); }
   for (const t of ticks(y0, y1, o.ylog)) { const yv = o.ylog ? Math.pow(10, t) : t, py = Y(yv); ctx.beginPath(); ctx.moveTo(L, py); ctx.lineTo(W - R, py); ctx.stroke(); ctx.textAlign = 'right'; richText(ctx, o.ylog ? `$10^{${t}}$` : fmt(yv, 3), L - 6, py + 4, { align: 'right' }); }
-  ctx.strokeStyle = '#3a4a6a'; ctx.strokeRect(L, T, W - L - R, H - T - B);
-  ctx.fillStyle = '#9fb0d0'; ctx.textAlign = 'center'; if (o.xlabel) richText(ctx, o.xlabel, (L + W - R) / 2, H - 6, { px: 13, align: 'center', maxW: W - L - R });
-  ctx.save(); ctx.translate(12, (T + H - B) / 2); ctx.rotate(-Math.PI / 2); ctx.restore(); if (o.ylabel) richText(ctx, o.ylabel, 14, (T + H - B) / 2, { px: 13, align: 'center', angle: -Math.PI / 2, maxW: H - T - B });
-  ctx.save(); ctx.beginPath(); ctx.rect(L, T, W - L - R, H - T - B); ctx.restore();
-  return { X, Y, L, R, T, B, clip: () => { ctx.save(); ctx.beginPath(); ctx.rect(L, T, W - L - R, H - T - B); ctx.clip(); }, unclip: () => ctx.restore() };
+  ctx.strokeStyle = '#3a4a6a'; ctx.strokeRect(L, Tt, W - L - R, HH - T - B);
+  ctx.fillStyle = '#9fb0d0'; ctx.textAlign = 'center'; if (o.xlabel) richText(ctx, o.xlabel, (L + W - R) / 2, yo + HH - 6, { px: 13, align: 'center', maxW: W - L - R });
+  if (o.ylabel) richText(ctx, o.ylabel, 14, (Tt + Bb) / 2, { px: 13, align: 'center', angle: -Math.PI / 2, maxW: HH - T - B });
+    return { X, Y, L, R, T: Tt, B: H - Bb, clip: () => { ctx.save(); ctx.beginPath(); ctx.rect(L, Tt, W - L - R, HH - T - B); ctx.clip(); }, unclip: () => ctx.restore() };
 }
 function curve(ctx, ax, f, xs, color, width = 2, dash = []) {
   ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash); ctx.beginPath(); let pen = false;
@@ -424,7 +423,8 @@ export function mountLab(enc, el, env, helpers) {
   const cv = el.querySelector('canvas'), ctx = cv.getContext('2d'), info = el.querySelector('#labinfo');
   let t0 = performance.now(), raf = 0, infoKey = '';
   const publish = () => window.dispatchEvent(new CustomEvent('lab-params', { detail: { id: enc.id, p: { ...p } } })); // the hologram of this experiment in the hall follows the sliders
-  const readInputs = () => { for (const c of spec.controls) { const inp = el.querySelector(`[data-c="${c.id}"]`); if (c.type === 'toggle') p[c.id] = inp.checked; else { const v = +inp.value; p[c.id] = c.log ? Math.pow(10, v) : v; const out = el.querySelector(`[data-v="${c.id}"]`); if (out) out.textContent = fmt(p[c.id]); } } };
+  const readInputs = () => { for (const c of spec.controls) { const inp = el.querySelector(`[data-c="${c.id}"]`); if (c.type === 'toggle') p[c.id] = inp.checked; else { const v = +inp.value; p[c.id] = c.log ? Math.pow(10, v) : v; const out = el.querySelector(`[data-v="${c.id}"]`); if (out) out.textContent = fmt(p[c.id]); } }
+    for (const c of spec.controls) if (c.when) { const on = !!c.when(p), inp = el.querySelector(`[data-c="${c.id}"]`), row = inp.closest('.labrow'); inp.disabled = !on; row.style.opacity = on ? '' : '0.38'; row.title = on ? '' : 'not used in the current view'; } }; // a control with when(p) greys out while it has no effect
   const render = (t) => { spec.draw.call(spec, ctx, p, t); const html = spec.info.call(spec, p); if (html !== infoKey) { infoKey = html; info.innerHTML = M(html); } };
   const loop = () => { render((performance.now() - t0) / 1000); raf = requestAnimationFrame(loop); };
   el.querySelectorAll('[data-c]').forEach((i) => { i.oninput = () => { readInputs(); publish(); if (!spec.animated) render(0); }; i.onchange = i.oninput; });

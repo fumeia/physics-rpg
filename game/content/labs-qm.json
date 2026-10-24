@@ -58,11 +58,12 @@
    "room": "qm/wave-mechanics-basics",
    "enc": {
     "type": "lab", "id": "lab-qm-wavepacket", "title": "Wave-packet lab: spreading and the sudden wall jump", "widget": "wavepacket",
-    "intro": "A free Gaussian packet with initial width $\\sigma_0$ spreads as $\\Delta x(t)=\\sigma_0\\sqrt{1+(\\hbar t/2m\\sigma_0^2)^2}$ because its momentum spread $\\hbar/(2\\sigma_0)$ is conserved. The slider is $\\hbar/m$: the quantum 'strength' of the particle. The toggle switches to a second effect: a particle in the ground state of a box $[0,a]$ suddenly sees the right wall jump to $2a$; the state does not change but is expanded in the new energy eigenstates with probabilities $P_n$.",
+    "intro": "A free Gaussian packet with initial width $\\sigma_0$ spreads as $\\Delta x(t)=\\sigma_0\\sqrt{1+(\\hbar t/2m\\sigma_0^2)^2}$ because its momentum spread $\\hbar/(2\\sigma_0)$ is conserved. The slider is $\\hbar/m$: the quantum 'strength' of the particle. The toggle switches to a second effect: a particle in the ground state of a box $[0,a]$ suddenly sees the right wall jump to $2a$; the state does not change but is expanded in the new energy eigenstates with probabilities $P_n$. In the box view the second slider sets the new width $w=L/a$ (the $P_n$ depend only on it); the inertia slider then controls how fast the state moves in the new box afterwards ($E_n\\propto\\hbar^2/mL^2$), but not the $P_n$.",
     "tasks": [
      "Predict first: if you make the particle 4 times heavier (smaller $\\hbar/m$ by 4), how does the time to double the width change? (4 times longer, since only $\\hbar t/m$ enters.) Check with the slider.",
      "Predict $\\Delta x$ for $t\\gg2m\\sigma_0^2/\\hbar$ and compare with the shown curve: linear in $t$ with slope $\\hbar/(2m\\sigma_0)$.",
      "Switch to the box: predict which $n$ get probability 0 (even $n\\ne2$) and what $P_2$ is. Then check $P_1=0.360$, $P_3=0.130$.",
+     "Vary $w$ in the box view: for $w\\to1$ (no jump) which $n$ must dominate, and what happens to $P_1$? At $w=2$ which bar is exactly $1/2$? Does the inertia slider change any bar? (It must not: explain why, and what it changes instead.)",
      "Add $P_1+P_2+P_3+\\dots$ to confirm the sum rule $\\sum P_n=1$. What is the expectation value $\\langle H\\rangle$ right after the jump, and does it equal $E_1$ of the old box?"
     ],
     "source": [

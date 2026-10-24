@@ -657,7 +657,7 @@ function wireSuggest() {
       const r = await fetch('/api/remind', { method: 'POST', headers: { 'Content-Type': 'application/json', ...apiHeaders() }, body: JSON.stringify({ spec: suggestion.spec, what: suggestion.what.replace(/<[^>]+>/g, ''), ...body }) });
       const j = await r.json().catch(() => ({}));
       if (r.ok && j.ok) { say(`Okay. I will remind you ${j.day === 'tomorrow' ? 'tomorrow ' : ''}at ${j.at}.`, 'good'); document.querySelectorAll('#ov-body .sg-later, #sg-at').forEach((b) => (b.disabled = true)); }
-      else if (r.status === 503) say('Reminders need the server notifications. On the server run: sudo bash /opt/physics-rpg/deploy/notify-setup.sh', 'bad');
+      else if (r.status === 503) say('Reminders are not switched on at the server yet. On the server run rpg-update once. If you never set up the notifications: sudo bash /opt/physics-rpg/deploy/notify-setup.sh', 'bad');
       else say(j.error || 'Could not set the reminder.', 'bad');
     } catch { say('Could not reach the server.', 'bad'); }
   };

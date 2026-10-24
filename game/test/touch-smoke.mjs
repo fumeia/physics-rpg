@@ -29,7 +29,8 @@ await p.screenshot({ path: `${shots}/touch-1-nexus.png` });
 
 // move stick: hold it pushed forward for a moment
 const j = await box('#joy'), jx = j.x + j.w / 2, jy = j.y + j.h / 2, a = await st();
-await touch('touchStart', jx, jy, 1); await touch('touchMove', jx, jy - 40, 1); await sleep(700);
+await touch('touchStart', jx, jy, 1); await touch('touchMove', jx, jy - 40, 1);
+for (let i = 0; i < 20; i++) { await sleep(250); const q = (await st()).pos; if (Math.hypot(q[0] - a.pos[0], q[1] - a.pos[1], q[2] - a.pos[2]) > 1.5) break; } // hold until it has moved
 const mid = await st(); await touch('touchEnd', 0, 0);
 const dist = Math.hypot(mid.pos[0] - a.pos[0], mid.pos[1] - a.pos[1], mid.pos[2] - a.pos[2]); await sleep(400);
 const settled = await st(); await sleep(400); const after = await st(); const rest = Math.hypot(after.pos[0] - settled.pos[0], after.pos[1] - settled.pos[1], after.pos[2] - settled.pos[2]);

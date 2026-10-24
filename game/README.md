@@ -20,6 +20,8 @@ Touch screens: the full 3D game with an on-screen stick, drag-to-look and an act
 Study habit features: daily goal in minutes (Profile > settings), streak with one free missed day per week, Quick session (Menu or Missions), This week (Study hub), sounds and vibration for right answers.
 Light theme ("white room") and the controls mode (touch / keyboard and mouse): Menu or Profile > settings.
 
+Run the tests side by side: `test/run-tests.sh` (all, about 2 minutes), `test/run-tests.sh quick` (about 30 seconds) or `test/run-tests.sh touch desktop-smoke` (just those).
+
 Tests (node, plus headless Chromium via `test/setup-chromium.sh`):
 
     node test/labs-check.mjs && node test/missions-check.mjs && node test/explorer-check.mjs

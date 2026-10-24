@@ -26,7 +26,7 @@ ck('PC: the full toolbar is there (Study, Exam hall, Missions, Map, Formulas, Ne
 ck('PC: the touch-only buttons and the rotate hint are hidden', !(await vis(p, '#btn-fs')) && !(await vis(p, '#side-max')) && !(await vis(p, '#rotate-hint')));
 ck('PC: the key hint line mentions the quick session', (await p.textContent('#hint')).includes('Q quick session'));
 // walking with WASD
-const p0 = (await st(p)).pos; await p.keyboard.down('KeyW'); await p.waitForTimeout(700); await p.keyboard.up('KeyW'); const p1 = (await st(p)).pos;
+const p0 = (await st(p)).pos; await p.keyboard.down('KeyW'); for (let i = 0; i < 20; i++) { await p.waitForTimeout(250); const q = (await st(p)).pos; if (Math.hypot(q[0] - p0[0], q[2] - p0[2]) > 1) break; } await p.keyboard.up('KeyW'); const p1 = (await st(p)).pos; // hold until it has moved: a slow frame rate must not fail the test
 ck(`PC: W walks (${Math.hypot(p1[0] - p0[0], p1[2] - p0[2]).toFixed(2)} m)`, Math.hypot(p1[0] - p0[0], p1[2] - p0[2]) > 0.8);
 // every shortcut
 await key(p, 'KeyB'); ck('PC: B opens the formulas', (await st(p)).codex); await key(p, 'KeyB'); ck('PC: B closes them', !(await st(p)).codex);

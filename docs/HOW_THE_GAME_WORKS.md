@@ -67,6 +67,7 @@ until you get it right once. If you do not want a respawn schedule for something
 
 ## The Study hub (V)
 
+- **Today** (the first tab; also in the Menu and linked from the missions screen): everything you did today: minutes against the goal, XP, which exercises you passed (with respawns cleared) and which you failed (they come back), the missions done, with times. Click an exercise to open it again.
 - **This week:** minutes per day, exercises passed, progress per course, strongest and weakest area, exam pace.
 - **Session planner:** tell it how much time you have (30 to 120 minutes); it builds a session: respawns, mistakes, your pile, new material in the course that needs it most.
 - **Drills** (spot the error, limiting cases), **Mixed practice**, **Exam radar** (which topics appear how often in old exams), **Calibration** (how sure you were versus how right).

@@ -7,6 +7,12 @@
 const get = (k, d = null) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
 const set = (k, v) => { try { localStorage.setItem(k, v); } catch { /* ignore */ } };
 
+// escape hatch: ?controls=auto|touch|desktop and ?theme=dark|light|auto set the stored choice (and are then removed from the address)
+try {
+  const q = new URLSearchParams(location.search); let changed = false;
+  for (const [name, key, ok] of [['controls', 'physics-rpg-controls', ['auto', 'touch', 'desktop']], ['theme', 'physics-rpg-theme', ['dark', 'light', 'auto']]]) { const v = q.get(name); if (ok.includes(v)) { set(key, v); q.delete(name); changed = true; } }
+  if (changed) history.replaceState(null, '', location.pathname + (q.toString() ? `?${q}` : '') + location.hash);
+} catch { /* ignore */ }
 export const themeChoice = () => get('physics-rpg-theme', 'dark'); // dark | light | auto
 export const isLight = () => document.documentElement.dataset.theme === 'light';
 export function resolveTheme(choice = themeChoice()) { return choice === 'light' || (choice === 'auto' && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark'; }

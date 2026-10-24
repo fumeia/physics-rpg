@@ -2,8 +2,8 @@ import { controlsChoice, setControlsChoice, themeChoice, setThemeChoice, isLight
 import { World, SCALE } from './world.js';
 import { Player } from './player.js';
 import { TunnelSim } from './sim.js';
-import { mount } from './encounters.js';
-import { store, setXpHook } from './store.js';
+import { mount, finish as finishEncounter } from './encounters.js';
+import { store, setXpHook, localDate } from './store.js';
 import { M, prettyText } from './math.js';
 import katex from '../vendor/katex/katex.mjs';
 import { loadGlossary, setGlossaryCourse, whereHtml } from './glossary.js';
@@ -111,6 +111,10 @@ async function boot() {
   exposeTestApi();
   if (params.has('test')) { $('start').style.display = 'none'; player.enabled = true; if (params.has('tutorial')) startTutorial(); }
   $('btn-menu').onclick = () => openOverlay('menu');
+  // the keyboard-and-mouse layout on a device that has a touch screen: always offer the way back
+  if (!touch && !lite && (matchMedia('(pointer: coarse)').matches || (navigator.maxTouchPoints > 0 && innerWidth < 1000))) {
+    const bt = $('back-to-touch'); bt.style.display = ''; bt.onclick = () => { setControlsChoice('touch'); reloadWithout('touch', 'controls'); };
+  }
   if (lite) { document.body.classList.add('lite'); $('start').style.display = 'none'; player.enabled = true; if (!inNexus) await loadNexus({ silent: true }); setTimeout(() => openOverlay('menu'), 200); }
   else if (touch) {
     touchUI = initTouch({ player, canvas, act: () => { if (promptTarget && !blocking()) interact(promptTarget); }, fullscreen: toggleFullscreen });
@@ -441,15 +445,16 @@ function wirePile() {
   document.querySelectorAll('[data-pilerm]').forEach((b) => (b.onclick = () => { togglePile(b.dataset.pilerm); renderStudy('pile'); }));
 }
 // ---- Study hub: tabs for the pile, session planner, mistakes, weak spots and Feynman mode
-let studyTab = 'plan';
-const TABS = [['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+let studyTab = 'today';
+const TABS = [['today', 'Today'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
 function renderStudy(tab) {
   studyTab = tab || studyTab; const body = $('ov-body');
   const open = mistakes().filter((x) => x.open).length;
   body.innerHTML = `<div class="row studytabs">${TABS.map(([k, l]) => `<button class="chip btn${k === studyTab ? ' cur' : ''}" data-stab="${k}">${l}${k === 'mistakes' && open ? ` (${open})` : ''}</button>`).join('')}</div><div id="study-body"></div>`;
   body.querySelectorAll('[data-stab]').forEach((b) => (b.onclick = () => renderStudy(b.dataset.stab)));
   const host = $('study-body');
-  if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
+  if (studyTab === 'today') { host.innerHTML = M(todayHtml()); wireToday(host); }
+  else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
   else if (studyTab === 'weak') { host.innerHTML = M(weakHtml()); wireGoto(host); }
@@ -566,7 +571,8 @@ function renderPlan(host) {
 // ---- phone menu (lite mode): everything without walking around
 function menuHtml() {
   const s = missionStatus(), d = store.dueReviews().length, n = nextRouteStep();
-  return `<div class="menu"><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
+  const tdn = todayItems().filter((x) => !x.mission && x.ok).length;
+  return `<div class="menu"><button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
     <button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
     <button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
@@ -592,6 +598,7 @@ function wireMenu() {
     else if (k === 'formulas') { closeOverlay(true); openCodex(); }
     else if (k === 'goto') { const [c, r] = arg.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); } else { closeOverlay(true); await loadRoom(c, r, { silent: false }); player.enabled = true; } }
     else if (k === 'quick') { closeOverlay(true); startQuick(); }
+    else if (k === 'today') { openOverlay('pile'); renderStudy('today'); }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
     else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
@@ -633,6 +640,30 @@ function wireSuggest() {
   };
   document.querySelectorAll('.sg-later').forEach((b) => (b.onclick = () => remind({ minutes: +b.dataset.min })));
   $('sg-at').onclick = () => { const v = $('sg-time').value; if (/^\d{1,2}:\d{2}$/.test(v)) remind({ at: v }); else say('Pick a time first.', 'bad'); };
+}
+// ================================================================ what I did today
+function todayItems() {
+  const date = todayStr(), log = store.activityOn(date), seen = new Set(log.map((x) => x.id)), items = log.map((x) => ({ ...x }));
+  for (const [id, v] of Object.entries(store.snapshot.solved || {})) // finished earlier today, before the activity log existed: shown without XP
+    if (!seen.has(id) && v.at && localDate(v.at) === date && encIndex.has(id)) { const e = encIndex.get(id).enc; items.push({ t: v.at, id, title: e.title || id, type: e.type, ok: !v.failed, xp: null, review: false }); }
+  return items.sort((a, b) => a.t - b.t);
+}
+const hhmm = (t) => new Date(t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+function todayHtml() {
+  const date = todayStr(), all = todayItems(), items = all.filter((x) => !x.mission), ms = todays(), day = store.missionsOf(date), doneM = ms.filter((m) => day.done[m.id]), g = goalInfo();
+  const okN = items.filter((x) => x.ok).length, failN = items.length - okN, cleared = items.filter((x) => x.ok && x.review).length, xp = store.xpOn(date);
+  const row = (x) => { const ref = encIndex.get(x.id), room = ref ? findRoom(ref.course, ref.roomId) : null, course = ref ? findCourse(ref.course)?.region : '';
+    return `<div class="maprow todayrow ${x.ok ? 'ok' : 'miss'}"><button class="link" data-todayopen="${x.id}"${ref ? '' : ' disabled'}><span class="mt">${x.ok ? '\u2713' : '\u2717'} ${typeName[x.type] || x.type} \u201c${prettyText(x.title)}\u201d</span></button><span class="mp">${x.xp ? `+${x.xp} XP` : x.xp === 0 ? 'no XP' : ''}</span><span class="md">${[course, room?.title, hhmm(x.t)].filter(Boolean).join(' \u00b7 ')}${x.review && x.ok ? ' \u00b7 respawn cleared' : ''}${!x.ok ? ' \u00b7 comes back as a respawn' : ''}</span></div>`; };
+  return `<div class="msn-head"><div><b>${g.min} min</b> studied today<div class="src">goal ${g.goal} min${g.done ? ', reached' : ''}</div></div>
+    <div><b>${okN} exercise${okN === 1 ? '' : 's'}</b> passed${cleared ? ` (${cleared} respawn${cleared === 1 ? '' : 's'} cleared)` : ''}<div class="src">${failN ? `${failN} to retry: they come back as respawns` : 'nothing failed so far'}</div></div>
+    <div><b>${xp >= 0 ? '+' : '\u2212'}${Math.abs(xp)} XP</b> today<div class="src">${doneM.length} of ${ms.length} missions done, streak ${streakNow().count} day${streakNow().count === 1 ? '' : 's'}</div></div></div>
+    ${items.length ? `<h3>Exercises (${items.length})</h3><div class="maplist">${items.map(row).join('')}</div>` : '<p>Nothing finished yet today. A quick session is the easiest start.</p>'}
+    ${doneM.length ? `<h3>Missions done (${doneM.length})</h3><div class="maplist">${doneM.map((x) => `<div class="maprow msn done"><span class="mt"><span class="tag">${x.kind}</span> ${x.title}</span><span class="mp">done</span></div>`).join('')}</div>` : ''}
+    <div class="row"><button class="go" id="today-quick">Quick session (${quickInfo()})</button></div>`;
+}
+function wireToday(host) {
+  host.querySelectorAll('[data-todayopen]').forEach((b) => (b.onclick = () => openFromPile(b.dataset.todayopen)));
+  const q = host.querySelector('#today-quick'); if (q) q.onclick = () => startQuick();
 }
 // ================================================================ daily goal, quick session, weekly summary
 const goalMinutes = () => GOALS[(store.val('settings', {}) || {}).goal] || GOALS.normal;
@@ -709,12 +740,14 @@ function missionsHtml() {
     <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
     <div><b>Exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
     <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * g.min / g.goal))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `${g.goal - g.min} min to go. Time counts while an exercise, the formulas or a menu is open. Change the goal in Profile > settings.`}</span></div>
+    <p class="src">Done today: ${todayItems().filter((x) => !x.mission && x.ok).length} exercises, ${store.xpOn(todayStr()) >= 0 ? '+' : '\u2212'}${Math.abs(store.xpOn(todayStr()))} XP. <button class="link" id="msn-today">See what you did today</button></p>
     <div class="row"><button class="go" id="quick-go">Quick session (${quickInfo()})</button></div>
     <h3>Today's missions (${ms.filter((m) => day.done[m.id]).length} / ${ms.length})</h3><div class="maplist">${ms.map((m) => `<div class="maprow msn${day.done[m.id] ? ' done' : ''}"><span class="mt"><span class="tag">${m.kind}</span> ${m.title}</span><span class="mp">${day.done[m.id] ? 'done' : '+' + Math.round(m.xp * streakMult()) + ' XP'}</span><span class="md">${m.desc}</span>${day.done[m.id] ? '' : `<button class="go" data-mission="${m.id}">Start</button>`}</div>`).join('')}</div>
     <p class="src">New missions every day, chosen by question type like the real exam (multiple choice, derivation, estimation, full problem). Rotating focus course: ${catalog.find((c, i) => i === Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000) % catalog.length)?.region}. Answer at least one mission per day to keep the streak.</p>`;
 }
 function wireMissions() {
   const qg = $('quick-go'); if (qg) qg.onclick = () => startQuick();
+  const mt = $('msn-today'); if (mt) mt.onclick = () => { openOverlay('pile'); renderStudy('today'); };
   document.querySelectorAll('[data-mission]').forEach((b) => (b.onclick = async () => {
     const m = todays().find((x) => x.id === b.dataset.mission); if (!m) return;
     closeOverlay(true);
@@ -1052,7 +1085,7 @@ function exposeTestApi() {
     currentRoom: () => `${course.id}/${room.slug}`, enterNexus: () => loadNexus({ silent: true }), nexus: () => (inNexus && set ? { nodes: set.nodes.length, links: set.links.length, focus: set.focus ? (set.focus.node?.key || 'link') : null } : null), flyTo: (x, y, z, yaw = 0, pitch = 0) => player.teleport(x, z, yaw, pitch, y),
     interactNearest: () => { const t = player.target(); if (t) interact(t); return t ? t.id : null; },
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
-    nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
+    finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };
 }

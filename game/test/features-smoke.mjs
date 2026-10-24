@@ -19,7 +19,7 @@ async function open(opts, state) {
 const phone = { viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true }, upright = { viewport: { width: 390, height: 780 }, hasTouch: true, isMobile: true }, desk = { viewport: { width: 1200, height: 750 } };
 const centre = async (p, sel) => p.evaluate((s) => { const r = document.querySelector(s).getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, sel);
 const now = Date.now();
-const seeded = { updated: now + 60000, xp: 200, solved: { 'qm-wm-L1': { at: now - 3600e3 }, 'qm-wm-Q1': { at: now - 2 * 86400e3 } }, reviews: { 'qm-wm-Q1': { box: 0, due: now - 1000, fails: 1 }, 'qm-tunnel-L1': { box: 1, due: now - 5000, fails: 1 } }, flags: { study: { [day(0)]: 600, [day(-1)]: 1500 }, settings: { goal: 'normal' } }, streak: { last: day(-1), count: 4 }, missions: { [day(-1)]: { done: { x: true }, xp: 10 } } };
+const seeded = { updated: now + 60000, xp: 200, solved: { 'qm-wm-L1': { at: now - 20e3 }, 'qm-wm-Q1': { at: now - 2 * 86400e3 } }, reviews: { 'qm-wm-Q1': { box: 0, due: now - 1000, fails: 1 }, 'qm-tunnel-L1': { box: 1, due: now - 5000, fails: 1 } }, flags: { study: { [day(0)]: 600, [day(-1)]: 1500 }, settings: { goal: 'normal' } }, streak: { last: day(-1), count: 4 }, missions: { [day(-1)]: { done: { x: true }, xp: 10 } } };
 
 // ---- Nexus card scrolls with a finger (phone, sideways and upright)
 for (const [name, opts] of [['sideways', phone], ['upright', upright]]) {
@@ -66,6 +66,22 @@ const wk = await p.evaluate(() => document.getElementById('ov-body').innerText);
 ck('week view: minutes, exercises, courses', /35 min/.test(wk) && wk.includes('exercises passed') && wk.includes('Progress per course') && wk.includes('Strongest'));
 ck('week view: shows 2 respawns due', wk.includes('2 respawns'));
 await p.screenshot({ path: '/tmp/shots/week.png' });
+await p.context().close();
+
+// ---- what I did today: the Today view (logged entries, earlier finished ones, XP, missions) and live updates through finish()
+p = await open(desk, { ...seeded, xpLog: { [day(0)]: 35 }, flags: { ...seeded.flags, activity: [{ t: now - 600e3, id: 'qm-tunnel-L1', title: 'Stationary states', type: 'lesson', ok: true, xp: 20, review: true }, { t: now - 300e3, id: 'qm-wm-Q1', title: 'Wave mechanics quiz', type: 'quiz', ok: false, xp: 0, review: false }] }, missions: { [day(0)]: { done: {}, xp: 0 } } });
+await p.keyboard.press('KeyV'); await p.waitForTimeout(500);
+const td = await p.evaluate(() => ({ text: document.getElementById('ov-body').innerText, tab: document.querySelector('.studytabs .cur')?.textContent, rows: document.querySelectorAll('.todayrow').length }));
+ck(`Today is the first tab of the Study hub and opens by default (${td.tab})`, td.tab === 'Today');
+ck('Today: 10 min studied, 35 XP, two passed (one logged, one finished earlier today), one to retry', td.text.includes('10 min studied') && td.text.includes('+35 XP') && td.text.includes('2 exercises') && td.text.includes('1 to retry'));
+ck('Today: lists the exercises with result, XP and the respawn note', td.rows === 3 && td.text.includes('Stationary states') && td.text.includes('+20 XP') && td.text.includes('respawn cleared') && td.text.includes('comes back as a respawn'));
+await p.evaluate(() => window.__game.finish('qm-wm-L2', true, 15)); await p.evaluate(() => window.__game.finish('qm-wm-L3', false, 0)); await p.waitForTimeout(300);
+await p.evaluate(() => document.querySelector('[data-stab="today"]').click()); await p.waitForTimeout(300);
+const td2 = await p.evaluate(() => document.getElementById('ov-body').innerText);
+ck('Today: an exercise finished a moment ago shows up (passed, +15 XP), a failed one too', td2.includes('+15 XP') && td2.includes('+50 XP') && /3 exercises/.test(td2) && /2 to retry/.test(td2));
+ck('Today: clicking an exercise opens it', await (async () => { await p.evaluate(() => document.querySelector('[data-todayopen="qm-wm-L2"]').click()); await p.waitForTimeout(700); return p.evaluate(() => window.__game.state().panelOpen); })());
+await p.evaluate(() => window.__game.close()); await p.keyboard.press('KeyT'); await p.waitForTimeout(400);
+ck('Missions screen links to it with the numbers', await p.evaluate(() => { const t = document.getElementById('ov-body').innerText; return t.includes('Done today: 3 exercises') && !!document.getElementById('msn-today'); }));
 await p.context().close();
 
 // ---- streak saved only by the freeze (last mission two days ago)

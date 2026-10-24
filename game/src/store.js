@@ -8,6 +8,8 @@ let saveHook = null, xpHook = null;
 export const setSaveHook = (fn) => { saveHook = fn; };
 export const setXpHook = (fn) => { xpHook = fn; }; // called with every XP change (feedback: floating +XP, sound)
 const DAY = 86400000;
+// local calendar day of a timestamp: 'YYYY-MM-DD' (the same notion of "today" as missions.js)
+export const localDate = (ts) => { const d = new Date(ts); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
 // ISO-like week id of a 'YYYY-MM-DD' date, weeks starting on Monday: '2026-W43'
 export function weekKey(date) {
   const [y, m, d] = date.split('-').map(Number), t = new Date(Date.UTC(y, m - 1, d)), dow = (t.getUTCDay() + 6) % 7; // Monday = 0
@@ -31,7 +33,18 @@ export const store = {
   // adopt a newer state from the save server (same profile)
   adopt(remote) { state = { flags: {}, reviews: {}, solved: {}, xp: 0, ...remote }; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } },
   get xp() { return state.xp; },
-  addXp(n) { state.xp = Math.max(0, state.xp + n); save(); if (xpHook && n) xpHook(n); },
+  addXp(n) {
+    state.xp = Math.max(0, state.xp + n);
+    if (n) { const day = localDate(Date.now()), log = { ...(state.xpLog || {}) }; log[day] = (log[day] || 0) + n; for (const k of Object.keys(log).sort().slice(0, -60)) delete log[k]; state.xpLog = log; } // net XP per day
+    save(); if (xpHook && n) xpHook(n);
+  },
+  xpOn(date) { return (state.xpLog || {})[date] || 0; },
+  // what was done: one entry per finished exercise or mission {t, id, title, type, ok, xp, review}; the last 400, at most 45 days
+  logActivity(e) {
+    const log = [...(((state.flags || {}).activity) || []), { t: Date.now(), ...e }].filter((x) => x.t > Date.now() - 45 * DAY).slice(-400);
+    state.flags = { ...(state.flags || {}), activity: log }; save();
+  },
+  activityOn(date) { return (((state.flags || {}).activity) || []).filter((x) => localDate(x.t) === date); },
   isSolved(id) { return !!state.solved[id]; },
   // solved without giving up / failing (used to open doors)
   isPassed(id) { return !!state.solved[id] && !state.solved[id].failed; },

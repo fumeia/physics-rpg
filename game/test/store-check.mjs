@@ -1,5 +1,5 @@
 // Streak freeze, week keys and the XP hook (pure logic, no browser). Usage: node test/store-check.mjs
-import { store, weekKey, setXpHook } from '../src/store.js';
+import { store, weekKey, setXpHook, localDate } from '../src/store.js';
 let fails = 0; const ck = (n, c) => { if (!c) fails++; console.log(`${c ? 'PASS' : 'FAIL'} ${n}`); };
 const iso = (d) => d.toISOString().slice(0, 10), add = (s, n) => { const d = new Date(s + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return iso(d); };
 ck('week key Monday 2026-10-19 is W43', weekKey('2026-10-19') === '2026-W43');
@@ -34,4 +34,11 @@ done('2026-11-05', 'b'); ck('and it restarts at 1', store.streak.count === 1);
 
 let got = []; setXpHook((n) => got.push(n)); store.reset(); store.addXp(20); store.addXp(-5); store.addXp(0);
 ck('xp hook gets every change (not zero)', got.join() === '20,-5');
+// activity log and net XP per day
+store.reset(); const today = localDate(Date.now()), yest = localDate(Date.now() - 86400000);
+store.addXp(20); store.addXp(-5); ck('net XP of today counts gains and hint costs', store.xpOn(today) === 15 && store.xpOn(yest) === 0);
+store.logActivity({ id: 'a', title: 'A', type: 'lesson', ok: true, xp: 20, review: false }); store.logActivity({ id: 'b', title: 'B', type: 'quiz', ok: false, xp: 0, review: false });
+ck('activity of today lists both, in order', store.activityOn(today).map((x) => x.id).join() === 'a,b' && store.activityOn(yest).length === 0);
+for (let i = 0; i < 450; i++) store.logActivity({ id: 'x' + i, title: 'X', type: 'lesson', ok: true, xp: 1, review: false });
+ck('the log keeps the last 400 entries', store.activityOn(today).length === 400 && store.activityOn(today).at(-1).id === 'x449');
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED'); process.exit(fails ? 1 : 0);

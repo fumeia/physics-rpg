@@ -46,6 +46,20 @@ await p.context().close();
 p = await page(desk, () => localStorage.setItem('physics-rpg-controls', 'touch')); await p.goto(url('?test=1')); await ready(p);
 ck('desktop with controls=touch gets the stick', await p.evaluate(() => document.body.classList.contains('touch') && !!document.getElementById('joy')));
 await p.context().close();
+// stuck in the keyboard layout on a phone? There is always a way back: the Touch view button, and ?controls=auto
+p = await page(phone); await p.goto(url('?test=1')); await p.evaluate(() => localStorage.setItem('physics-rpg-controls', 'desktop')); await p.reload(); await ready(p);
+ck('phone in the keyboard layout shows the "Touch view" button', await p.evaluate(() => { const b = document.getElementById('back-to-touch'); return !!b && getComputedStyle(b).display !== 'none' && b.getBoundingClientRect().width > 40; }));
+await Promise.all([p.waitForNavigation(), p.evaluate(() => document.getElementById('back-to-touch').click())]); await ready(p);
+ck('tapping it returns to the touch layout and remembers it', await p.evaluate(() => document.body.classList.contains('touch') && localStorage.getItem('physics-rpg-controls') === 'touch' && !!document.getElementById('joy')));
+await p.context().close();
+p = await page(phone); await p.goto(url('?test=1')); await p.evaluate(() => localStorage.setItem('physics-rpg-controls', 'desktop')); await p.goto(url('?test=1&controls=auto')); await ready(p);
+ck('?controls=auto resets a stored choice and leaves the address clean', await p.evaluate(() => document.body.classList.contains('touch') && localStorage.getItem('physics-rpg-controls') === 'auto' && !location.search.includes('controls')));
+await p.goto(url('?test=1&theme=light')); await ready(p);
+ck('?theme=light sets the theme once', await p.evaluate(() => document.documentElement.dataset.theme === 'light' && localStorage.getItem('physics-rpg-theme') === 'light' && !location.search.includes('theme')));
+await p.context().close();
+p = await page(desk); await p.goto(url('?test=1')); await ready(p);
+ck('a PC does not show the Touch view button', await p.evaluate(() => getComputedStyle(document.getElementById('back-to-touch')).display === 'none'));
+await p.context().close();
 // the Menu switches (and remembers) the controls
 p = await page(phone); await p.goto(url('?test=1')); await ready(p); await p.click('#btn-menu'); await p.waitForTimeout(300);
 ck('menu offers theme, controls and sideways', await p.evaluate(() => { const t = document.getElementById('ov-body').innerText; return t.includes('Theme:') && t.includes('Controls:') && t.includes('Play sideways'); }));

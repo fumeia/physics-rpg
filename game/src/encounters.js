@@ -15,15 +15,19 @@ const eligibleForXp = (enc) => !store.isSolved(enc.id) || store.hasReview(enc.id
 
 // Record the outcome of an encounter: XP, solved flag and spaced-repetition bookkeeping.
 export function finish(enc, ok, xp) {
+  const note = (gained, review) => store.logActivity({ id: enc.id, title: String(enc.title || enc.id).slice(0, 120), type: enc.type, ok: !!ok, xp: gained, review: !!review, mission: !!enc.synthetic });
   if (enc.synthetic) { // daily-mission quizzes: XP once, no respawn bookkeeping for ids that are not part of any room
-    if (ok && xp && !store.isSolved(enc.id)) { store.addXp(xp); store.markSolved(enc.id); }
+    const gained = ok && xp && !store.isSolved(enc.id) ? xp : 0;
+    if (gained) { store.addXp(xp); store.markSolved(enc.id); }
+    note(gained, false);
     window.dispatchEvent(new CustomEvent('encounter-done', { detail: { id: enc.id, ok } })); return;
   }
-  const wasReview = store.hasReview(enc.id);
-  if (eligibleForXp(enc) && xp) store.addXp(xp);
+  const wasReview = store.hasReview(enc.id), gained = eligibleForXp(enc) && xp ? xp : 0;
+  if (gained) store.addXp(xp);
   if (ok) { if (wasReview) store.reviewPassed(enc.id); store.markSolved(enc.id); }
   else if (wasReview) store.reviewFailed(enc.id);
   else { store.fail(enc.id); store.markSolved(enc.id, { failed: true }); }
+  note(gained, wasReview);
   window.dispatchEvent(new CustomEvent('encounter-done', { detail: { id: enc.id, ok } }));
 }
 

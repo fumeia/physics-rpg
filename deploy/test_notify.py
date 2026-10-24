@@ -48,6 +48,10 @@ class Wording(unittest.TestCase):
         used = state(streak={'last': BEFORE, 'count': 9}, freeze={'week': notify.week_key(TODAY)})
         m, _ = notify.message(prog(used), 'evening', 'https://x'); self.assertNotIn('9-day', m['title'])    # freeze gone: the streak is over
 
+    def test_evening_says_what_was_done_today(self):
+        s = state(solved={'qm-wm-L1': {'at': ms(NOW) - 3600e3}, 'qm-wm-L2': {'at': ms(NOW) - 2 * 86400e3}}, flags={'study': {TODAY: 600}})
+        m, _ = notify.message(prog(s), 'evening', 'https://x'); self.assertIn('Today: 10 of 20 min, 1 exercise done.', m['message'])
+
     def test_goal_setting_changes_the_numbers(self):
         s = state(flags={'settings': {'goal': 'intense'}, 'study': {TODAY: 600}})
         m, _ = notify.message(prog(s), 'evening', 'https://x'); self.assertIn('10 of 40 min', m['message'])

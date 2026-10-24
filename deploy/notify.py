@@ -89,6 +89,12 @@ class Progress:
     def settings(self): return self.flags.get('settings') or {}
     def goal_min(self): return GOALS.get(self.settings().get('goal'), GOALS['normal'])
     def study_min(self, date): return int(round(((self.flags.get('study') or {}).get(date) or 0) / 60))
+    def exercises_today(self):  # passed exercises finished today (local day), like the game's Today view without the activity log
+        n = 0
+        for id, v in (self.s.get('solved') or {}).items():
+            at = v.get('at') or 0
+            if id in self.c['index'] and not v.get('failed') and at and dt.datetime.fromtimestamp(at / 1000, self.now.tzinfo).date().isoformat() == self.today: n += 1
+        return n
     def missions_done(self, date): return len(((self.s.get('missions') or {}).get(date) or {}).get('done') or {})
     def updated(self): return (self.s.get('updated') or 0) / 1000
 
@@ -263,7 +269,7 @@ def message(P, slot, base, cfg=None):
         elif st['alive'] and not st['today']: lines.append('One mission is enough to keep it.')
         elif st['today']: lines.append('The streak is safe for today. The rest is a bonus.')
         else: lines.append('One mission today starts a new streak.')
-        lines.append(f"Today: {today_min} of {goal} min.")
+        ex = P.exercises_today(); lines.append(f"Today: {today_min} of {goal} min" + (f", {plural(ex, 'exercise')} done." if ex else '.'))
         lines.append(f'Easiest start: {nxt}' if nxt else 'The route is finished: a mock exam is the best use of time.')
         prio = 4 if st['alive'] and not st['today'] else 3; tags = ['fire'] if st['alive'] else ['seedling']; spec = suggest_spec('quick'); what = f"Quick session: {plural(quick, 'exercise')}" if quick else (nxt or 'Quick session'); actions = None
     elif slot == 'weekly':

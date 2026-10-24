@@ -247,3 +247,8 @@ body.touch #nx-card { z-index: 3; font-size: 14px; }
 
 input[type=time] { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; color-scheme: dark; } html[data-theme=light] input[type=time] { color-scheme: light; }
 body.touch input[type=time] { min-height: 40px; }
+
+#back-to-touch { position: fixed; left: 10px; bottom: 10px; z-index: 12; font-size: 16px; padding: 10px 16px; border-radius: 22px; background: rgba(8,12,22,.94); border: 1px solid var(--accent); color: var(--ink); pointer-events: auto; }
+html[data-theme=light] #back-to-touch { background: #fff; border-color: #111; border-radius: 0; }
+.todayrow.miss { border-color: var(--warn); } .todayrow.ok .mt { color: var(--ink); } .todayrow .link[disabled] { cursor: default; }
+.todayrow .link { text-align: left; text-decoration: none; font-size: inherit; color: var(--ink); padding: 0; } .todayrow .link:hover:not([disabled]) .mt { color: var(--accent); }

@@ -107,6 +107,7 @@ if ! caddy validate --config "$CADDYFILE" --adapter caddyfile >/tmp/physics-rpg-
 fi
 systemctl reload caddy
 
+cp "$APP/deploy/README.md" /root/PHYSICS-RPG-README.md 2>/dev/null || true
 echo
 echo "Done. Open the game and log in with:"
 cat "$LOGINFILE"

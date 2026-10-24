@@ -82,6 +82,27 @@ from GitHub, restarts the game and shows what changed; then reload the page on t
 With the manual setup above, run the `rsync` from step 1 again **without** copying `profiles/` (the `--exclude profiles` does that), then
 `sudo systemctl restart physics-rpg`.
 
+## 6. Study notifications on your phone (ntfy)
+
+The server can nudge you: a morning plan, a midday quick win, an evening streak reminder and a Sunday week in review. Each message names the exact
+next exercise (from your saved progress: due respawns first, then the next step of the guided route) and tapping it opens that exercise in the game.
+
+```sh
+sudo bash /opt/physics-rpg/deploy/notify-setup.sh
+```
+
+It prints a private topic name (or pass your own: `... notify-setup.sh my-topic`). On the phone install the **ntfy** app (Google Play or F-Droid), tap **+** and subscribe to that topic;
+the setup also sends a test message. Treat the topic like a password. Times are 08:15, 13:15 and 19:45 in `NOTIFY_TZ` (default Europe/Zurich, change it in `/etc/physics-rpg/notify.env`
+and run the setup again). Nothing is sent at midday if you already studied (at least 5 minutes working on exercises, or one finished exercise, or a mission), and nothing in the evening once the daily goal is reached (minutes on exercises or number of exercises). Time with the game just open, in menus or in lists never counts as studying. Messages also arrive while you have just been studying; if you would rather have a quiet period after studying, add `NOTIFY_QUIET_MINUTES=60` to `/etc/physics-rpg/notify.env`.
+
+- **Start now or later:** every message has the buttons **Start now**, **In 10 min** (one tap, the notification comes back after 10 minutes) and **Later...**; tapping the message itself opens
+  a small chooser in the game: start now, remind me in 5 / 10 / 30 / 60 minutes, or at a time you pick (up to 3 days ahead). The reminder comes back through ntfy, with the same buttons. (The game server needs the
+  notification settings for this: `notify-setup.sh` takes care of it. On a PC that runs the game locally without them, the chooser says what is missing.)
+- Try one now: `sudo rpg-notify --slot morning --force`. Only show it: `sudo rpg-notify --slot evening --dry-run`.
+- Your own ntfy server (or an access token): `notify-setup.sh my-topic https://ntfy.example.com`, and add `NTFY_TOKEN=tk_...` to `/etc/physics-rpg/notify.env`.
+- Turn it off: `sudo systemctl disable --now physics-rpg-notify.timer`.
+- The tap links are `?open=<exercise id>`, `?quick=1` (quick session) and `?room=<course>/<room>` on your game address.
+
 ## Moving your progress between PC and server
 
 Profiles are plain JSON: copy `profiles/<name>.json` in either direction. When the game starts, the newer copy of a profile

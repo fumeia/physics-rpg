@@ -4,9 +4,19 @@
 const PROFILE_PTR = 'physics-rpg-profile';
 export const profileName = () => { try { return localStorage.getItem(PROFILE_PTR) || 'default'; } catch { return 'default'; } };
 const KEY = profileName() === 'default' ? 'physics-rpg-v1' : `physics-rpg-v1:${profileName()}`;
-let saveHook = null;
+let saveHook = null, xpHook = null;
 export const setSaveHook = (fn) => { saveHook = fn; };
+export const setXpHook = (fn) => { xpHook = fn; }; // called with every XP change (feedback: floating +XP, sound)
 const DAY = 86400000;
+// local calendar day of a timestamp: 'YYYY-MM-DD' (the same notion of "today" as missions.js)
+export const localDate = (ts) => { const d = new Date(ts); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+// ISO-like week id of a 'YYYY-MM-DD' date, weeks starting on Monday: '2026-W43'
+export function weekKey(date) {
+  const [y, m, d] = date.split('-').map(Number), t = new Date(Date.UTC(y, m - 1, d)), dow = (t.getUTCDay() + 6) % 7; // Monday = 0
+  t.setUTCDate(t.getUTCDate() - dow + 3); // the Thursday of this week decides the year
+  const y1 = t.getUTCFullYear(), first = new Date(Date.UTC(y1, 0, 4)), wk = 1 + Math.round(((t - first) / DAY - 3 + ((first.getUTCDay() + 6) % 7)) / 7);
+  return `${y1}-W${String(wk).padStart(2, '0')}`;
+}
 export const INTERVALS_DAYS = [1, 3, 7, 16]; // days until the respawn from box 0,1,2,3
 
 function load() {
@@ -23,7 +33,27 @@ export const store = {
   // adopt a newer state from the save server (same profile)
   adopt(remote) { state = { flags: {}, reviews: {}, solved: {}, xp: 0, ...remote }; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } },
   get xp() { return state.xp; },
-  addXp(n) { state.xp = Math.max(0, state.xp + n); save(); },
+  addXp(n) {
+    state.xp = Math.max(0, state.xp + n);
+    if (n) { const day = localDate(Date.now()), log = { ...(state.xpLog || {}) }; log[day] = (log[day] || 0) + n; for (const k of Object.keys(log).sort().slice(0, -60)) delete log[k]; state.xpLog = log; } // net XP per day
+    save(); if (xpHook && n) xpHook(n);
+  },
+  xpOn(date) { return (state.xpLog || {})[date] || 0; },
+  // Active study time: seconds spent working on exercises per day (main.js decides what counts). Days before the first measurement keep the
+  // older "time with a panel open" numbers, so the history does not vanish.
+  addActive(sec) {
+    const day = localDate(Date.now()), f = state.flags || {}, act = { ...(f.active || {}) }; act[day] = (act[day] || 0) + sec;
+    for (const k of Object.keys(act).sort().slice(0, -90)) delete act[k];
+    state.flags = { ...f, active: act, 'active-since': f['active-since'] || day }; save();
+  },
+  activeSecondsOn(date) { const f = state.flags || {}, since = f['active-since']; return since && date >= since ? (f.active || {})[date] || 0 : (f.study || {})[date] || 0; },
+  activeTotal() { const f = state.flags || {}, since = f['active-since']; return Object.entries(f.study || {}).filter(([d]) => !since || d < since).reduce((a, [, v]) => a + v, 0) + Object.values(f.active || {}).reduce((a, b) => a + b, 0); },
+  // what was done: one entry per finished exercise or mission {t, id, title, type, ok, xp, review}; the last 400, at most 45 days
+  logActivity(e) {
+    const log = [...(((state.flags || {}).activity) || []), { t: Date.now(), ...e }].filter((x) => x.t > Date.now() - 45 * DAY).slice(-400);
+    state.flags = { ...(state.flags || {}), activity: log }; save();
+  },
+  activityOn(date) { return (((state.flags || {}).activity) || []).filter((x) => localDate(x.t) === date); },
   isSolved(id) { return !!state.solved[id]; },
   // solved without giving up / failing (used to open doors)
   isPassed(id) { return !!state.solved[id] && !state.solved[id].failed; },
@@ -51,14 +81,31 @@ export const store = {
   // daily missions and streak
   missionsOf(date) { return (state.missions || {})[date] || { done: {}, xp: 0 }; },
   get streak() { return state.streak || { last: null, count: 0 }; },
-  completeMission(date, id, xp, yesterday) {
+  // Streak freeze: one missed day per calendar week is forgiven (the week starts on Monday). It is used automatically when a
+  // mission is completed after exactly one missed day.
+  freezeAvailable(date) { return (state.freeze?.week || '') !== weekKey(date); },
+  get freezeUsed() { return state.freeze || null; },
+  // streak as the player should see it today: { count, alive, saved }  (saved: it survives only thanks to the weekly freeze)
+  streakNow(today, yesterday, dayBefore) {
+    const st = state.streak || { last: null, count: 0 };
+    if (st.last === today || st.last === yesterday) return { count: st.count, alive: true, saved: false, today: st.last === today };
+    if (st.last === dayBefore && this.freezeAvailable(today)) return { count: st.count, alive: true, saved: true, today: false };
+    return { count: 0, alive: false, saved: false, today: false };
+  },
+  completeMission(date, id, xp, yesterday, dayBefore) {
     state.missions = state.missions || {}; const day = state.missions[date] || { done: {}, xp: 0 };
     if (day.done[id]) return false;
     day.done[id] = true; day.xp += xp; state.missions[date] = day;
     const st = state.streak || { last: null, count: 0 };
-    if (st.last !== date) state.streak = { last: date, count: st.last === yesterday ? st.count + 1 : 1 };
+    if (st.last !== date) {
+      let count = 1;
+      if (st.last === yesterday) count = st.count + 1;
+      else if (dayBefore && st.last === dayBefore && this.freezeAvailable(date)) { count = st.count + 1; state.freeze = { week: weekKey(date), saved: yesterday }; state.freezeJustUsed = date; }
+      state.streak = { last: date, count };
+    }
     save(); return true;
   },
+  get freezeJustUsed() { return state.freezeJustUsed || null; },
   exportJson() { return JSON.stringify(state, null, 1); },
   importJson(text) { try { const o = JSON.parse(text); if (typeof o.xp !== 'number' || !o.solved) return false; state = { flags: {}, reviews: {}, ...o }; save(); return true; } catch { return false; } },
   flag(name) { return !!(state.flags || {})[name]; },

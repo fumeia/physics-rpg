@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import { LABS } from './labs.js';
 
-const W = 640, H = 340, SLOTS = [[-9.8, 6.7, 0.28], [9.8, 6.7, -0.28]]; // x, z, yaw towards the middle; at the ends of the walkable gallery strip (z 5.5 to 9.5)
+const W = 640, H = 340, HEAD = 30, CH = H + HEAD, SLOTS = [[-9.8, 6.7, 0.28], [9.8, 6.7, -0.28]]; // x, z, yaw towards the middle; at the ends of the walkable gallery strip (z 5.5 to 9.5)
 const plain = (s) => String(s).replace(/\$/g, '').replace(/\\[a-zA-Z]+/g, '').replace(/[{}]/g, '').trim();
 
 export function buildLabHolos(world, room) {
@@ -12,10 +12,10 @@ export function buildLabHolos(world, room) {
   labs.forEach((enc, i) => {
     const spec = LABS[enc.widget], p = {};
     spec.controls.forEach((c) => { p[c.id] = c.type === 'toggle' ? c.value : c.log ? Math.pow(10, c.value) : c.value; });
-    const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const ctx = cv.getContext('2d'), tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = CH; const ctx = cv.getContext('2d'), tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
     const [x, z, yaw] = SLOTS[i], g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = yaw;
-    const panel = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 1.8), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.92, side: THREE.DoubleSide, depthWrite: false })); panel.position.y = 2.15; g.add(panel);
-    const frame = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(3.46, 1.86)), new THREE.LineBasicMaterial({ color: 0x6cd8ff })); frame.position.y = 2.15; g.add(frame);
+    const panel = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 1.8 * CH / H), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.92, side: THREE.DoubleSide, depthWrite: false })); panel.position.y = 2.15; g.add(panel);
+    const frame = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(3.46, 1.86 * CH / H)), new THREE.LineBasicMaterial({ color: 0x6cd8ff })); frame.position.y = 2.15; g.add(frame);
     const ring = new THREE.Mesh(new THREE.TorusGeometry(0.9, 0.03, 6, 32), new THREE.MeshBasicMaterial({ color: 0x6cd8ff })); ring.rotation.x = Math.PI / 2; ring.position.y = 0.05; g.add(ring);
     const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 1.2, 24, 1, true), new THREE.MeshBasicMaterial({ color: 0x6cd8ff, transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false })); beam.position.y = 0.65; g.add(beam);
     group.add(g);
@@ -26,14 +26,19 @@ export function buildLabHolos(world, room) {
   });
   world.scene.add(group);
   const draw = (h, t) => {
+    const c0 = h.ctx; c0.save(); c0.fillStyle = '#0b1420'; c0.fillRect(0, 0, W, CH); c0.translate(0, HEAD); c0.beginPath(); c0.rect(0, 0, W, H); c0.clip();
     try { h.spec.draw.call(h.spec, h.ctx, h.p, t); } catch { /* a lab that cannot draw with defaults stays blank */ }
-    const c = h.ctx; c.fillStyle = 'rgba(8,16,30,.78)'; c.fillRect(0, 0, W, 26); c.fillStyle = '#9fe6ff'; c.font = '600 14px system-ui'; c.textAlign = 'left'; c.fillText(`EXPERIMENT · ${plain(h.enc.title)}`, 10, 18);
+    c0.restore();
+    const c = h.ctx; c.fillStyle = 'rgba(8,16,30,.78)'; c.fillRect(0, 0, W, HEAD); c.fillStyle = '#9fe6ff'; c.font = '600 14px system-ui'; c.textAlign = 'left'; c.fillText(`EXPERIMENT \u00b7 ${plain(h.enc.title)}${h.live ? '  \u00b7  LIVE: follows your sliders' : ''}`, 10, 20);
     h.tex.needsUpdate = true;
   };
   holos.forEach((h) => draw(h, 0));
+  // the experiment panel reports its slider values: the hologram of the same experiment shows the same setting, live
+  const onParams = (e) => { const h = holos.find((x) => x.enc.id === e.detail.id); if (h) { Object.assign(h.p, e.detail.p); h.live = true; h.acc = 99; } };
+  window.addEventListener('lab-params', onParams);
   let clock = 0;
   return {
-    group, count: holos.length,
+    group, count: holos.length, params: () => holos.map((h) => ({ id: h.enc.id, p: { ...h.p }, live: !!h.live })),
     update(dt, playerPos) {
       clock += dt;
       for (const h of holos) {
@@ -42,6 +47,6 @@ export function buildLabHolos(world, room) {
         if (near && h.acc > (h.spec.animated ? 0.1 : 1.5)) { h.acc = 0; draw(h, clock); }
       }
     },
-    dispose() { world.scene.remove(group); for (const it of its) world.interactables.splice(world.interactables.indexOf(it), 1); group.traverse((o) => { o.geometry?.dispose?.(); o.material?.map?.dispose?.(); o.material?.dispose?.(); }); },
+    dispose() { window.removeEventListener('lab-params', onParams); world.scene.remove(group); for (const it of its) world.interactables.splice(world.interactables.indexOf(it), 1); group.traverse((o) => { o.geometry?.dispose?.(); o.material?.map?.dispose?.(); o.material?.dispose?.(); }); },
   };
 }

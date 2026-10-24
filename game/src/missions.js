@@ -5,6 +5,11 @@ export const RANKS = ['Freshman', 'Student', 'Adept', 'Scholar', 'Researcher', '
 
 export const todayStr = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 export const yesterdayStr = (d = new Date()) => { const y = new Date(d); y.setDate(y.getDate() - 1); return todayStr(y); };
+export const dayBeforeYesterdayStr = (d = new Date()) => { const y = new Date(d); y.setDate(y.getDate() - 2); return todayStr(y); };
+// daily study goal in minutes (setting: light / normal / intense)
+export const GOALS = { light: 10, normal: 20, intense: 40 };
+// ...or finish this many exercises (passed or not): either one reaches the goal
+export const GOAL_EXERCISES = { light: 2, normal: 4, intense: 8 };
 export const daysToExam = (d = new Date()) => Math.max(0, Math.ceil((new Date(EXAM_DATE + 'T00:00:00') - new Date(todayStr(d) + 'T00:00:00')) / 86400000));
 export const levelOf = (xp) => { const lv = Math.floor(Math.sqrt(xp / 60)) + 1, lo = 60 * (lv - 1) ** 2, hi = 60 * lv ** 2; return { lv, rank: RANKS[Math.min(RANKS.length - 1, lv - 1)], into: xp - lo, need: hi - lo }; };
 

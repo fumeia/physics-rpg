@@ -7,7 +7,7 @@ export const sync = state;
 const listeners = new Set();
 export const onSyncStatus = (fn) => listeners.add(fn);
 const emit = () => listeners.forEach((f) => f(state));
-const headers = () => (localStorage.getItem('physics-rpg-token') ? { 'X-Token': localStorage.getItem('physics-rpg-token') } : {});
+export const headers = () => (localStorage.getItem('physics-rpg-token') ? { 'X-Token': localStorage.getItem('physics-rpg-token') } : {});
 const api = (path, opt = {}) => fetch(path, { ...opt, headers: { ...headers(), ...(opt.headers || {}) }, cache: 'no-store' });
 
 export async function initSync() {

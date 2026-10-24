@@ -16,8 +16,6 @@ canvas#view { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 10
 #side { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100vw); background: var(--panel); border-left: 1px solid var(--line); padding: 16px 18px 28px; overflow-y: auto; backdrop-filter: blur(6px); }
 #side.hidden { display: none; }
 #close { position: absolute; top: 6px; right: 10px; background: none; border: 0; color: var(--dim); font-size: 26px; cursor: pointer; }
-#start { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; background: rgba(5,8,16,.88); cursor: pointer; }
-#start h1 { margin: 0 0 4px; font-size: 38px; }
 .dim { color: var(--dim); }
 footer { position: fixed; left: 0; right: 0; bottom: 0; display: none; }
 body.debug footer { display: block; }
@@ -152,7 +150,7 @@ body.touch #hint, body.touch #crosshair { display: none; }
 body.touch #hud .tl { top: max(8px, env(safe-area-inset-top)); left: max(8px, env(safe-area-inset-left)); max-width: 44vw; padding: 5px 9px; font-size: 12px; }
 body.touch #hud .tl #objective { font-size: 11.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 body.touch #hud .tr { top: max(8px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right)); max-width: 56vw; gap: 6px; }
-body.touch #hud .tr > :not(#btn-menu):not(#btn-codex):not(#btn-map):not(#btn-nexus):not(#btn-fs):not(#xp) { display: none; }
+body.touch #hud .tr > :not(#btn-menu):not(#btn-codex):not(#btn-conn):not(#btn-map):not(#btn-nexus):not(#btn-fs):not(#xp) { display: none; }
 body.touch #hud .tr .btn { font-size: 14px; padding: 7px 12px; min-height: 38px; background: rgba(20,28,46,.85); border-radius: 19px; }
 body.touch #hud .tr #xp { font-size: 12px; color: var(--dim); }
 body.touch #prompt.t-hide { display: none !important; }
@@ -162,7 +160,6 @@ body.touch #pbar { bottom: auto; left: 8px; right: 8px; transform: none; top: ca
 body.touch #pbar button { padding: 7px 11px; min-height: 36px; }
 body.touch #tut { left: 50%; transform: translateX(-50%); bottom: 12px; width: min(560px, 94vw); max-height: 52dvh; overflow-y: auto; z-index: 6; }
 body.touch #tut .tut-nav button { min-height: 40px; padding: 8px 14px; }
-body.touch #start { font-size: 17px; }
 body.touch .opt, body.touch .listrow, body.touch button.go, body.touch .bigbtn { min-height: 44px; }
 
 #touch { position: fixed; inset: 0; z-index: 1; pointer-events: none; } body.touch #hud { z-index: 2; } /* HUD cards (tutorial, toolbar) above the stick and buttons */
@@ -176,7 +173,7 @@ body.touch .opt, body.touch .listrow, body.touch button.go, body.touch .bigbtn {
 body.lite #touch { display: none; }
 
 /* panels: formulas (left or top) and the exercise (right or bottom) may both be open */
-body.touch #side, body.touch #cx { z-index: 4; padding-top: 52px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
+body.touch #side, body.touch #cx { z-index: 4; padding-top: 52px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
 body.touch #side-max, body.touch #cx-max { position: absolute; top: 8px; right: 54px; font-size: 16px; padding: 4px 10px; min-height: 34px; }
 body.touch #side-cx { right: 104px; top: 8px; font-size: 13px; padding: 4px 10px; min-height: 34px; }
 body.touch #cx .cx-head { position: absolute; top: 8px; left: 14px; right: 8px; margin: 0; }
@@ -192,3 +189,125 @@ body.touch #close, body.touch #cx-close { top: 2px; font-size: 30px; width: 44px
   body.touch.p-side.p-cx #cx { height: 36dvh; } body.touch.p-side.p-cx #side { height: 64dvh; }
 }
 body.touch #side.max, body.touch #cx.max { top: 0 !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 100dvh !important; border-radius: 0; border: 0; z-index: 7; }
+
+/* ---------------------------------------------------------------- rotate hint (phones held upright) */
+#rotate-hint { position: fixed; left: 50%; bottom: 176px; transform: translateX(-50%); z-index: 3; display: flex; align-items: center; gap: 8px; background: rgba(8,12,22,.92); border: 1px solid var(--accent); border-radius: 22px; padding: 5px 6px 5px 14px; font-size: 13px; white-space: nowrap; }
+#rotate-hint .btn { font-size: 14px; padding: 6px 12px; min-height: 34px; }
+body.p-side #rotate-hint, body.p-cx #rotate-hint { display: none !important; }
+
+/* ---------------------------------------------------------------- light theme: the "white room". White surfaces, black ink, hard edges.
+   The 3D view is rendered as usual and inverted by the filter below; plots are remapped in theme.js. */
+html[data-theme=light] { color-scheme: light; --bg: #ffffff; --panel: #ffffff; --ink: #0d0e12; --dim: #565b67; --accent: #0f33c8; --good: #07703f; --bad: #c0141c; --warn: #9a5600; --line: #c2c6cf; }
+html[data-theme=light] canvas#view { filter: invert(1) hue-rotate(180deg) brightness(1.04); }
+html[data-theme=light] #hud .tl, html[data-theme=light] #hud .tr, html[data-theme=light] #hint, html[data-theme=light] #pbar, html[data-theme=light] #tut, html[data-theme=light] #nx-card,
+html[data-theme=light] #toast, html[data-theme=light] #prompt, html[data-theme=light] #rotate-hint { background: rgba(255,255,255,.95); color: var(--ink); border-color: #111; }
+html[data-theme=light] #hud .tl, html[data-theme=light] #hud .tr { border: 1px solid #111; }
+html[data-theme=light] #overlay { background: rgba(255,255,255,.86); }
+html[data-theme=light] .ov-card { background: #fff; border: 2px solid #111; }
+html[data-theme=light] #side, html[data-theme=light] #cx { background: #fff; border-color: #111; }
+html[data-theme=light] #side { border-left-width: 2px; } html[data-theme=light] #cx { border-right-width: 2px; }
+html[data-theme=light] .labcv { background: #fff; border-color: #111; } html[data-theme=light] .ex-cv, html[data-theme=light] .sketchcv { background: #fff; border: 1px solid #111; }
+html[data-theme=light] select, html[data-theme=light] .examtop { background: #fff; color: var(--ink); }
+html[data-theme=light] .bar { background: #dde0e7; } html[data-theme=light] .calbar { background: rgba(0,0,0,.1); }
+html[data-theme=light] code { background: rgba(0,0,0,.07); }
+html[data-theme=light] .deriv details, html[data-theme=light] .lk-side, html[data-theme=light] .exchart, html[data-theme=light] .pilenote, html[data-theme=light] .mnote { background: rgba(0,0,0,.035); }
+html[data-theme=light] .lk-map td { border-bottom-color: rgba(0,0,0,.1); }
+html[data-theme=light] button.go { color: #fff; }
+html[data-theme=light] #warp { background: radial-gradient(circle, #fff 0%, #dfe7ff 40%, #ffffff 100%); }
+html[data-theme=light] .tb { background: rgba(255,255,255,.92); color: var(--ink); border-color: #111; }
+html[data-theme=light] .tb.on { background: #dfe6ff; border-color: var(--accent); }
+html[data-theme=light] .tb.act { background: #fff; border: 2px solid var(--accent); color: var(--ink); }
+html[data-theme=light] #joy { background: rgba(0,0,0,.05); border-color: #111; } html[data-theme=light] #joy-knob { background: rgba(0,0,0,.3); border-color: #111; }
+html[data-theme=light] body.touch #hud .tr .btn { background: #fff; border-color: #111; }
+/* hard cut: no rounded corners, no blur (the stick and the round buttons stay round) */
+html[data-theme=light] :is(.chip, button:not(.tb), .opt, .listrow, .maprow, .ov-card, #tut, #nx-card, #pbar, #side, #cx, input, select, details, .callout, .eqbox, .mcard, .ach, .expart, .examres, .lk-side, .labcv, .ex-cv, #toast, #prompt, #hud .tl, #hud .tr, .hint, .why, .after, #rotate-hint, .bar, .bar i, .tag, code, .labinfo, .lk-plain) { border-radius: 0 !important; }
+html[data-theme=light] * { backdrop-filter: none !important; text-shadow: none !important; }
+html[data-theme=light] .opt:hover, html[data-theme=light] .listrow:hover:not(:disabled), html[data-theme=light] .maprow:hover { background: #f1f3f8; }
+
+/* ---------------------------------------------------------------- rewards, daily goal, week view */
+.xpfloat { position: fixed; z-index: 12; transform: translateX(-50%); pointer-events: none; font: 700 18px system-ui, sans-serif; text-shadow: 0 1px 6px rgba(0,0,0,.6); animation: xpup 1.3s ease-out forwards; }
+.xpfloat.up { color: var(--good); } .xpfloat.down { color: var(--bad); }
+@keyframes xpup { 0% { opacity: 0; margin-top: 8px; } 15% { opacity: 1; } 100% { opacity: 0; margin-top: -42px; } }
+.pulse { position: fixed; inset: 0; z-index: 11; pointer-events: none; animation: pulsefade .65s ease-out forwards; }
+.pulse.right { box-shadow: inset 0 0 70px 6px rgba(76,195,138,.5); } .pulse.wrong { box-shadow: inset 0 0 60px 4px rgba(255,107,107,.32); }
+@keyframes pulsefade { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+html[data-theme=light] .xpfloat { text-shadow: none; } html[data-theme=light] .pulse.right { box-shadow: inset 0 0 70px 6px rgba(7,112,63,.35); } html[data-theme=light] .pulse.wrong { box-shadow: inset 0 0 60px 4px rgba(192,20,28,.28); }
+.goalrow { margin: 8px 0; } .goalrow .bar { height: 10px; } .bar.full i { background: var(--good); }
+.spark.week { gap: 10px; height: 64px; margin: 10px 0 4px; } .spark.week span { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; } .spark.week i { width: 22px; } .spark.week em { font-style: normal; font-size: 11px; color: var(--dim); margin-top: 2px; }
+
+/* the star / link card of the Nexus: it must take touches itself (scroll with a finger) and must not sit on the stick */
+#nx-card { pointer-events: auto; touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+body.touch #nx-card { z-index: 3; font-size: 14px; }
+/* the card sits between the stick (left) and the action buttons (right), so "Fly into" and the stick stay reachable */
+@media (orientation: landscape) { body.touch #nx-card { left: 176px; right: 216px; width: auto; top: calc(max(8px, env(safe-area-inset-top)) + 100px); bottom: auto; max-height: calc(100dvh - 110px); } body.touch .tb.act { max-width: 190px; } }
+@media (orientation: portrait) { body.touch #nx-card { left: 8px; right: 8px; width: auto; bottom: 214px; max-height: 34dvh; } }
+
+input[type=time] { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; color-scheme: dark; } html[data-theme=light] input[type=time] { color-scheme: light; }
+body.touch input[type=time] { min-height: 40px; }
+
+#back-to-touch { position: fixed; left: 10px; bottom: 10px; z-index: 12; font-size: 16px; padding: 10px 16px; border-radius: 22px; background: rgba(8,12,22,.94); border: 1px solid var(--accent); color: var(--ink); pointer-events: auto; }
+html[data-theme=light] #back-to-touch { background: #fff; border-color: #111; border-radius: 0; }
+.todayrow.miss { border-color: var(--warn); } .todayrow.ok .mt { color: var(--ink); } .todayrow .link[disabled] { cursor: default; }
+.todayrow .link { text-align: left; text-decoration: none; font-size: inherit; color: var(--ink); padding: 0; } .todayrow .link:hover:not([disabled]) .mt { color: var(--accent); }
+body.nx-card-on #rotate-hint { display: none !important; }
+
+/* panels scroll up and down only; a formula wider than the panel scrolls inside its own box (and the panel can never be dragged sideways and stay there) */
+#cx, #side, #nx-card { overflow-x: hidden; }
+#cx .cxe, #cx .katex-display, #panel .katex-display, #nx-card .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+#cx .cxe { overflow-y: hidden; }
+#cx, #side { overflow-wrap: anywhere; } #cx .katex, #panel .katex { overflow-wrap: normal; }
+/* touch toolbar: the Connections button is back */
+#nx-card button.lkopen { text-align: left; font-size: inherit; color: var(--ink); text-decoration: none; padding: 2px 0; } #nx-card button.lkopen:hover { color: var(--accent); } #nx-card [data-allconn] { margin: 4px 0 6px; }
+
+/* ---------------------------------------------------------------- start screen: one tap, a progress bar while the game loads */
+#start { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; text-align: center; cursor: pointer; overflow: hidden; color: var(--ink);
+  background: radial-gradient(ellipse at 50% 38%, #12233f 0%, #080d18 55%, #05070d 100%); transition: opacity .35s ease; --st-line: #6cb6ff; }
+#start.leaving { opacity: 0; pointer-events: none; }
+.st-orbits { position: absolute; left: 50%; top: 44%; width: min(130vmin, 980px); aspect-ratio: 1; transform: translate(-50%, -50%); color: var(--st-line); opacity: .22; pointer-events: none; }
+.st-orbits svg { width: 100%; height: 100%; animation: st-spin 90s linear infinite; }
+@keyframes st-spin { to { transform: rotate(360deg); } }
+.st-dots circle, .st-nucleus { fill: var(--good); } .st-nucleus { fill: var(--warn); }
+.st-card { position: relative; width: min(460px, 100%); padding: 0 24px; }
+.st-logo { width: 96px; height: 96px; margin: 0 auto 6px; color: var(--st-line); } .st-logo svg { width: 100%; height: 100%; animation: st-spin 24s linear infinite; }
+#start h1 { margin: 6px 0 4px; font-size: clamp(36px, 9vw, 60px); font-weight: 800; letter-spacing: -.01em; line-height: 1.05; }
+.st-sub { margin: 0; color: var(--dim); font-size: clamp(14px, 3.6vw, 17px); }
+.st-stats { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0 6px; min-height: 30px; }
+.st-stats span { border: 1px solid var(--line); border-radius: 16px; padding: 3px 12px; font-size: 13px; color: var(--ink); background: rgba(255,255,255,.04); }
+.st-go { margin-top: 14px; font: inherit; font-size: 22px; font-weight: 700; padding: 16px 64px; min-height: 60px; border: 0; border-radius: 40px; background: var(--accent); color: #06101f; cursor: pointer; box-shadow: 0 0 34px rgba(108,182,255,.35); }
+.st-go:disabled { opacity: .8; cursor: default; box-shadow: none; }
+.st-resume { display: block; margin: 12px auto 0; font: inherit; font-size: 15px; padding: 10px 20px; border-radius: 24px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; max-width: 100%; }
+.st-bar { height: 4px; width: min(320px, 72vw); margin: 22px auto 8px; background: rgba(255,255,255,.14); border-radius: 2px; overflow: hidden; }
+.st-bar i { display: block; height: 100%; width: 6%; background: linear-gradient(90deg, var(--accent), var(--good)); transition: width .25s ease; }
+.st-bar.indet i { width: 32%; animation: st-slide 1.15s ease-in-out infinite; } @keyframes st-slide { 0% { margin-left: -32%; } 100% { margin-left: 100%; } }
+.st-bar.done { visibility: hidden; }
+.st-status { min-height: 20px; font-size: 13px; color: var(--dim); }
+.st-foot { margin: 22px 0 0; font-size: 12.5px; color: var(--dim); } .st-foot .link { font-size: 12.5px; }
+.st-keys { margin: 8px 0 0; font-size: 12px; color: var(--dim); opacity: .8; }
+@media (pointer: coarse) { .st-keys { display: none; } } body.touch .st-keys { display: none; }
+@media (max-height: 460px) { .st-logo { display: none; } .st-stats { margin: 12px 0 2px; } .st-bar { margin-top: 12px; } .st-foot { margin-top: 10px; } .st-keys { display: none; } .st-go { padding: 12px 56px; min-height: 52px; font-size: 20px; } }
+html[data-theme=light] #start { background: #fff; --st-line: #111; }
+html[data-theme=light] .st-orbits { opacity: .1; } html[data-theme=light] .st-stats span { background: transparent; border-color: #111; border-radius: 0; }
+html[data-theme=light] .st-go { background: #111; color: #fff; border-radius: 0; box-shadow: none; } html[data-theme=light] .st-resume { border-color: #111; border-radius: 0; }
+html[data-theme=light] .st-bar { background: #e3e5ea; border-radius: 0; } html[data-theme=light] .st-bar i { background: #111; }
+html[data-theme=light] .st-dots circle { fill: #111; } html[data-theme=light] .st-nucleus { fill: var(--accent); }
+
+/* the optional tour (it used to open by itself and block the screen) */
+#tour-chip { position: fixed; left: 50%; top: 84px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 8px; background: rgba(8,12,22,.94); border: 1px solid var(--accent); border-radius: 24px; padding: 6px 8px 6px 16px; font-size: 14px; white-space: nowrap; }
+#tour-chip .btn { font-size: 14px; padding: 7px 12px; min-height: 36px; }
+html[data-theme=light] #tour-chip { background: #fff; border-color: #111; border-radius: 0; }
+body.touch #tour-chip { top: calc(max(8px, env(safe-area-inset-top)) + 104px); }
+.st-orbits .st-dots, .st-orbits .st-nucleus { display: none; } /* the big background ring is lines only; the small logo keeps its electrons and nucleus */
+@media (orientation: portrait) { body.touch #tour-chip { top: auto; bottom: 232px; } }
+@media (orientation: landscape) { body.touch #tour-chip { top: auto; bottom: 20px; } }
+body.nx-card-on #tour-chip { display: none !important; }
+
+#gl-banner { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); z-index: 40; display: flex; align-items: center; gap: 10px; background: rgba(40,12,12,.96); border: 1px solid var(--bad); border-radius: 12px; padding: 8px 10px 8px 14px; font-size: 14px; max-width: 94vw; }
+#gl-banner .btn { min-height: 38px; padding: 6px 14px; font-size: 15px; white-space: nowrap; }
+html[data-theme=light] #gl-banner { background: #fff; border-color: #111; border-radius: 0; }
+
+/* zoom buttons of the 3D view (touch): below the toolbar at the right edge */
+#t-zoom { position: absolute; right: max(12px, env(safe-area-inset-right)); top: calc(max(8px, env(safe-area-inset-top)) + 108px); display: flex; flex-direction: column; gap: 10px; }
+.tb.sm { min-width: 44px; width: 44px; height: 44px; padding: 0; font-size: 24px; line-height: 1; border-radius: 22px; }
+body.lite #t-zoom { display: none; }
+html[data-theme=light] .tb.sm { border-radius: 22px; }
+@media (orientation: portrait) { #t-zoom { top: calc(max(8px, env(safe-area-inset-top)) + 150px); } }

@@ -31,6 +31,9 @@ export class World {
     this.scene.background = new THREE.Color(0x070a12);
     this.scene.fog = new THREE.Fog(0x070a12, 14, 48);
     this.camera = new THREE.PerspectiveCamera(72, 1, 0.05, 400);
+    // zoom (pinch or the + / - buttons, remembered) and a view shift that keeps the scene centred in the part of the screen no panel covers
+    this.zoom = 1; this.shift = { x: 0, y: 0 };
+    try { const z = parseFloat(localStorage.getItem('physics-rpg-zoom')); if (z >= 0.6 && z <= 3) this.zoom = z; } catch { /* ignore */ }
     this.interactables = [];
     this.fx = { shake: 0, flash: 0, flashColor: new THREE.Color(0xff3030) };
     this.sim = null;
@@ -49,8 +52,18 @@ export class World {
   resize() {
     const w = window.innerWidth, h = window.innerHeight;
     this.renderer.setSize(w, h, false);
-    this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
+    this.applyCamera();
   }
+  // A phone held sideways has a short screen: the same vertical field of view makes everything half as big as upright, so it is narrower there (a closer look).
+  baseFov(w, h) { return matchMedia('(pointer: coarse)').matches && w > h ? 50 : 72; }
+  applyCamera() {
+    const w = window.innerWidth, h = window.innerHeight, c = this.camera;
+    c.fov = Math.max(22, Math.min(90, this.baseFov(w, h) / this.zoom)); c.aspect = w / h;
+    if (this.shift.x || this.shift.y) c.setViewOffset(w, h, this.shift.x, this.shift.y, w, h); else c.clearViewOffset();
+    c.updateProjectionMatrix();
+  }
+  setZoom(z) { this.zoom = Math.max(0.6, Math.min(3, z)); try { localStorage.setItem('physics-rpg-zoom', String(this.zoom)); } catch { /* ignore */ } this.applyCamera(); }
+  setShift(x, y) { if (x === this.shift.x && y === this.shift.y) return; this.shift = { x, y }; this.applyCamera(); }
 
   _buildLights() {
     this.hallLights = [];

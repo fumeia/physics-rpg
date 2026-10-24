@@ -28,7 +28,6 @@ export function context({ catalog, isPassed, store, level, streak }) {
     for (const e of room.encounters) if (e.type !== 'sandbox' && isPassed(e)) { n[e.type] = (n[e.type] || 0) + 1; total++; courses.add(course.id); if (core.includes(e)) coreDone++; }
     if (core.length && coreDone === core.length) clearedRooms++;
   }
-  const study = store.val('study', {}) || {};
-  return { n: new Proxy(n, { get: (t, k) => t[k] || 0 }), total, courses: courses.size, clearedRooms, streak, xp: store.xp, level, stats: { links: 0, missions: 0, ...(store.val('stats', {}) || {}) }, studySeconds: Object.values(study).reduce((a, b) => a + b, 0) };
+  return { n: new Proxy(n, { get: (t, k) => t[k] || 0 }), total, courses: courses.size, clearedRooms, streak, xp: store.xp, level, stats: { links: 0, missions: 0, ...(store.val('stats', {}) || {}) }, studySeconds: store.activeTotal() };
 }
 export const unlockedNow = (ctx, have) => ACH.filter((a) => !have[a.id] && a.test(ctx));

@@ -15,7 +15,10 @@ Run (progress is saved to a JSON file per profile):
 - Content is data: `content/<course>/*.json` (see `../docs/CONTENT.md`), rooms in `src/rooms/`, models in `src/labmodels.js`.
 
 Touch screens: the full 3D game with an on-screen stick, drag-to-look and an action button (E); formulas and the exercise can be open together
-(`?touch=0` off, `?lite=1` for the old lists-only phone menu). Test: `node test/touch-smoke.mjs`.
+(`?touch=0` off, `?lite=1` for the old lists-only phone menu). Tests: `node test/touch-smoke.mjs`, `node test/theme-smoke.mjs`, `node test/features-smoke.mjs`, `node test/store-check.mjs`, `node test/notify-parity.mjs` (the notifier in `deploy/notify.py` agrees with the game).
+
+Study habit features: daily goal in minutes (Profile > settings), streak with one free missed day per week, Quick session (Menu or Missions), This week (Study hub), sounds and vibration for right answers.
+Light theme ("white room") and the controls mode (touch / keyboard and mouse): Menu or Profile > settings.
 
 Tests (node, plus headless Chromium via `test/setup-chromium.sh`):
 

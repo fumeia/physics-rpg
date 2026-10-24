@@ -3,7 +3,7 @@ import { World, SCALE } from './world.js';
 import { Player } from './player.js';
 import { TunnelSim } from './sim.js';
 import { mount } from './encounters.js';
-import { store } from './store.js';
+import { store, setXpHook } from './store.js';
 import { M, prettyText } from './math.js';
 import katex from '../vendor/katex/katex.mjs';
 import { loadGlossary, setGlossaryCourse, whereHtml } from './glossary.js';
@@ -13,9 +13,10 @@ import { buildLabHolos } from './labholo.js';
 import { mistakes, updateMistake, weakSpots } from './mistakes.js';
 import { renderDrillTab, setDrillData, drillData } from './drills.js';
 import { initTouch } from './touch.js';
+import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
-import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, daysToExam } from './missions.js';
+import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS } from './missions.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view');
@@ -85,6 +86,7 @@ async function boot() {
   if (touch) document.body.classList.add('touch');
   watchPanels();
   applySettings();
+  setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]);
   onSyncStatus(updateProfileChip);
   $('close').onclick = () => closePanel();
   $('start').onclick = () => { $('start').style.display = 'none'; startPlay(); if (!localStorage.getItem('physics-rpg-profile') && !params.has('test')) setTimeout(() => openOverlay('profile'), 600); };
@@ -118,7 +120,8 @@ async function boot() {
   }
   // deep links (notifications): ?open=<exercise id> and/or ?room=<course>/<room>
   const deepOpen = params.get('open'), deepRoom = params.get('room');
-  if ((deepOpen || deepRoom) && !params.has('test') && !lite) {
+  if (params.has('quick') && !params.has('test') && !lite) { $('start').style.display = 'none'; player.enabled = true; startQuick(); }
+  else if ((deepOpen || deepRoom) && !params.has('test') && !lite) {
     $('start').style.display = 'none'; player.enabled = true;
     try {
       if (deepRoom) { const [c, r] = deepRoom.split('/'); if (findRoom(c, r)) await loadRoom(c, r, { silent: false }); }
@@ -289,7 +292,7 @@ function refresh() {
   updateProfileChip(); updatePileChip();
   $('btn-guide').textContent = `Guide: ${guideOn() ? 'on' : 'off'}`;
   $('btn-conn').style.display = inNexus ? 'none' : '';
-  { const s = missionStatus(), sk = store.streak; $('btn-missions').textContent = `Missions ${s.done}/${s.total} · streak ${sk.last === todayStr() || sk.last === yesterdayStr() ? sk.count : 0}`; $('btn-missions').classList.toggle('review', s.done < s.total); }
+  { const s = missionStatus(), sk = streakNow(); $('btn-missions').textContent = `Missions ${s.done}/${s.total} · streak ${sk.count}`; $('btn-missions').classList.toggle('review', s.done < s.total); }
   for (const g of groups) g.terminal.guide = !!(gs && gs.slug === room.slug && gs.course === course.id && gs.enc && g.items.includes(gs.enc));
   $('objective').textContent = dueTarget ? 'A respawn is due: step into the review portal (west end).'
     : gs ? (gs.slug === room.slug && gs.course === course.id && gs.enc ? `Guide: ${groupOf(gs.enc)?.label} console (pulsing) → ${gs.enc.title}` : `Guide: next room is "${gs.room.title}": ${gs.why}. Press N for the Nexus and follow the gold beam, or M.`)
@@ -334,7 +337,8 @@ function openConnections() {
 }
 // ================================================================ profile, settings, achievements, study time
 function applySettings() {
-  const s = { sens: 1, quality: 'high', ...(store.val('settings', {}) || {}) };
+  const s = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
+  configureFeedback({ sound: !!s.sound, haptics: s.haptics !== false });
   player.sens = s.sens; world.renderer.setPixelRatio(s.quality === 'low' ? 1 : Math.min(window.devicePixelRatio || 1, 2));
 }
 function updateProfileChip() {
@@ -346,7 +350,7 @@ const studyToday = () => (store.val('study', {}) || {})[todayStr()] || 0;
 let studyAcc = 0;
 function tickStudy(dt) {
   if (document.hidden || !(current || overlay || codexOpen)) return;
-  studyAcc += dt; if (studyAcc >= 15) { const st = { ...(store.val('study', {}) || {}) }; st[todayStr()] = (st[todayStr()] || 0) + Math.round(studyAcc); store.setVal('study', st); studyAcc = 0; }
+  studyAcc += dt; if (studyAcc >= 15) { const st = { ...(store.val('study', {}) || {}) }; st[todayStr()] = (st[todayStr()] || 0) + Math.round(studyAcc); store.setVal('study', st); studyAcc = 0; checkGoal(); }
 }
 function runAchievements() {
   const have = { ...(store.val('ach', {}) || {}) }, ctx = achContext({ catalog, isPassed: isPassedEnc, store, level: levelOf(store.xp).lv, streak: store.streak.count });
@@ -357,10 +361,13 @@ function runAchievements() {
 window.addEventListener('encounter-done', () => setTimeout(runAchievements, 600));
 const fmtMin = (s) => `${Math.floor(s / 3600) ? Math.floor(s / 3600) + ' h ' : ''}${Math.round((s % 3600) / 60)} min`;
 function profileHtml() {
-  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', ...(store.val('settings', {}) || {}) }, study = store.val('study', {}) || {}, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), study[todayStr(d)] || 0]; }), mx = Math.max(600, ...week.map((w) => w[1]));
+  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, study = store.val('study', {}) || {}, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), study[todayStr(d)] || 0]; }), mx = Math.max(600, ...week.map((w) => w[1]));
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
     <div><b>Study time</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(Object.values(study).reduce((a, b) => a + b, 0))}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
     <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution)</option></select></label>
+      <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min)</option>`).join('')}</select></label>
+      <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
+      <label class="labrow"><span><input type="checkbox" id="set-haptics" ${st.haptics !== false ? 'checked' : ''}> vibration</span></label>
       <label class="labrow">theme <select id="set-theme">${[['dark', 'dark'], ['light', 'light (white room)'], ['auto', 'like the phone']].map(([v, t]) => `<option value="${v}" ${themeChoice() === v ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
       <label class="labrow">controls <select id="set-ctl">${[['auto', 'automatic'], ['touch', 'touch (stick, drag to look)'], ['desktop', 'keyboard and mouse']].map(([v, t]) => `<option value="${v}" ${controlsChoice() === v ? 'selected' : ''}>${t}</option>`).join('')}</select></label></div></div>
     <h3>Profiles</h3><div class="row" id="prof-list"><span class="src">loading…</span></div>
@@ -369,8 +376,8 @@ function profileHtml() {
 }
 async function wireProfile() {
   const sens = $('set-sens'), q = $('set-q');
-  const save = () => { store.setVal('settings', { sens: +sens.value, quality: q.value }); applySettings(); };
-  sens.oninput = save; q.onchange = save;
+  const save = () => { store.setVal('settings', { ...(store.val('settings', {}) || {}), sens: +sens.value, quality: q.value, goal: $('set-goal').value, sound: $('set-sound').checked, haptics: $('set-haptics').checked }); applySettings(); refresh(); };
+  sens.oninput = save; q.onchange = save; $('set-goal').onchange = save; $('set-sound').onchange = () => { save(); if ($('set-sound').checked) sfx.right(); }; $('set-haptics').onchange = () => { save(); if ($('set-haptics').checked) sfx.wrong(); };
   $('set-theme').onchange = (e) => { setThemeChoice(e.target.value); reloadWithout(); };
   $('set-ctl').onchange = (e) => { setControlsChoice(e.target.value); reloadWithout('touch'); };
   const ex = $('exp2'); ex.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([store.exportJson()], { type: 'application/json' })); a.download = `physics-rpg-${store.profile}.json`; a.click(); };
@@ -401,7 +408,7 @@ function pileBar(enc) {
   const bar = document.createElement('div'); bar.className = 'pilebar';
   const render = () => {
     const on = inPile(enc.id), qi = pileQueue.indexOf(enc.id), p = pile()[enc.id];
-    bar.innerHTML = `<button class="chip btn pilebtn${on ? ' on' : ''}" title="Keep this exercise in your personal pile, to look at again whenever you want (V opens the pile)">${on ? '★ In my pile' : '☆ Keep for later'}</button>${on ? `<input class="pilenote" maxlength="140" placeholder="why keep it? (optional note)" value="${(p.note || '').replace(/"/g, '&quot;')}">` : ''}${qi >= 0 ? `<span class="src">pile ${qi + 1} / ${pileQueue.length}</span> ${qi + 1 < pileQueue.length ? '<button class="go pilenext">Next from pile →</button>' : '<span class="src">last one</span>'}` : ''}`;
+    bar.innerHTML = `<button class="chip btn pilebtn${on ? ' on' : ''}" title="Keep this exercise in your personal pile, to look at again whenever you want (V opens the pile)">${on ? '★ In my pile' : '☆ Keep for later'}</button>${on ? `<input class="pilenote" maxlength="140" placeholder="why keep it? (optional note)" value="${(p.note || '').replace(/"/g, '&quot;')}">` : ''}${qi >= 0 ? `<span class="src">${queueLabel} ${qi + 1} / ${pileQueue.length}</span> ${qi + 1 < pileQueue.length ? '<button class="go pilenext">Next →</button>' : '<span class="src">last one</span>'}` : ''}`;
     bar.querySelector('.pilebtn').onclick = () => { togglePile(enc.id); render(); };
     const note = bar.querySelector('.pilenote'); if (note) { note.onkeydown = (e) => e.stopPropagation(); note.onchange = () => { const q = { ...pile() }; if (q[enc.id]) { q[enc.id] = { ...q[enc.id], note: note.value }; store.setVal('pile', q); } }; }
     const nx = bar.querySelector('.pilenext'); if (nx) nx.onclick = () => openFromPile(pileQueue[qi + 1], true);
@@ -425,7 +432,7 @@ function pileHtml() {
 }
 function wirePile() {
   const ids = (cid) => Object.entries(pile()).map(([id, v]) => ({ id, v, ref: encIndex.get(id) })).filter((x) => x.ref && (!cid || x.ref.course === cid)).sort((a, b) => a.v.seen - b.v.seen).map((x) => x.id);
-  const start = (cid) => { pileQueue = ids(cid); if (pileQueue.length) openFromPile(pileQueue[0], true); };
+  const start = (cid) => { queueLabel = 'pile'; pileQueue = ids(cid); if (pileQueue.length) openFromPile(pileQueue[0], true); };
   const all = $('pile-all'); if (all) all.onclick = () => start();
   document.querySelectorAll('[data-pilec]').forEach((b) => (b.onclick = () => start(b.dataset.pilec)));
   document.querySelectorAll('[data-pileopen]').forEach((b) => (b.onclick = () => openFromPile(b.dataset.pileopen)));
@@ -433,14 +440,15 @@ function wirePile() {
 }
 // ---- Study hub: tabs for the pile, session planner, mistakes, weak spots and Feynman mode
 let studyTab = 'plan';
-const TABS = [['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+const TABS = [['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
 function renderStudy(tab) {
   studyTab = tab || studyTab; const body = $('ov-body');
   const open = mistakes().filter((x) => x.open).length;
   body.innerHTML = `<div class="row studytabs">${TABS.map(([k, l]) => `<button class="chip btn${k === studyTab ? ' cur' : ''}" data-stab="${k}">${l}${k === 'mistakes' && open ? ` (${open})` : ''}</button>`).join('')}</div><div id="study-body"></div>`;
   body.querySelectorAll('[data-stab]').forEach((b) => (b.onclick = () => renderStudy(b.dataset.stab)));
   const host = $('study-body');
-  if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
+  if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
+  else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
   else if (studyTab === 'weak') { host.innerHTML = M(weakHtml()); wireGoto(host); }
   else if (studyTab === 'feynman') { renderFeynman(host); }
@@ -556,7 +564,7 @@ function renderPlan(host) {
 // ---- phone menu (lite mode): everything without walking around
 function menuHtml() {
   const s = missionStatus(), d = store.dueReviews().length, n = nextRouteStep();
-  return `<div class="menu">${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
+  return `<div class="menu"><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
     <button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
     <button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
@@ -581,6 +589,7 @@ function wireMenu() {
     if (k === 'missions') openOverlay('missions'); else if (k === 'study') openOverlay('pile'); else if (k === 'exam') openOverlay('exam'); else if (k === 'map') openOverlay('map'); else if (k === 'profile') openOverlay('profile'); else if (k === 'menu') openOverlay('menu');
     else if (k === 'formulas') { closeOverlay(true); openCodex(); }
     else if (k === 'goto') { const [c, r] = arg.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); } else { closeOverlay(true); await loadRoom(c, r, { silent: false }); player.enabled = true; } }
+    else if (k === 'quick') { closeOverlay(true); startQuick(); }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
     else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
@@ -590,6 +599,50 @@ function wireMenu() {
     else if (k === 'conn') { closeOverlay(true); openConnections(); }
   }));
 }
+// ================================================================ daily goal, quick session, weekly summary
+const goalMinutes = () => GOALS[(store.val('settings', {}) || {}).goal] || GOALS.normal;
+function goalInfo() { const goal = goalMinutes(), min = Math.floor(studyToday() / 60); return { goal, min, done: min >= goal }; }
+function checkGoal() {
+  const date = todayStr(); if (store.flag(`goal:${date}`)) return;
+  if (studyToday() >= goalMinutes() * 60) { store.setFlag(`goal:${date}`); toast(`<b>Daily goal reached:</b> ${goalMinutes()} minutes of study today. Anything more is a bonus.`); sfx.goal(); pulse('right'); }
+}
+let queueLabel = 'pile';
+// A short session: due respawns first (at most 2), then the next unfinished exercises of the recommended room, about 10 minutes in all
+function quickIds() {
+  const out = [], push = (id) => { if (id && encIndex.has(id) && !out.includes(id)) out.push(id); }, mins = () => out.reduce((s, id) => s + (EST[encIndex.get(id).enc.type] || 10), 0);
+  const rv = store.snapshot.reviews || {};
+  store.dueReviews().filter((id) => encIndex.has(id)).sort((a, b) => (rv[a].due || 0) - (rv[b].due || 0)).slice(0, 2).forEach(push); // most overdue first
+  const n = nextRouteStep();
+  if (n) {
+    push(n.enc?.id);
+    for (const e of n.room.encounters) { if (mins() >= 10 || out.length >= 3) break; if (!['sandbox', 'boss'].includes(e.type) && !store.isPassed(e.id) && !isLocked(e) && (EST[e.type] || 10) + mins() <= 14) push(e.id); }
+  }
+  return out.slice(0, 3);
+}
+function quickInfo() { const ids = quickIds(); if (!ids.length) return 'nothing left'; const min = ids.reduce((s, id) => s + (EST[encIndex.get(id).enc.type] || 10), 0); return `${ids.length} exercise${ids.length > 1 ? 's' : ''}, about ${Math.max(5, Math.round(min / 5) * 5)} min`; }
+function startQuick() {
+  const ids = quickIds();
+  if (!ids.length) { toast('Nothing to do right now: no respawns are due and the guided route is finished. Try the exam hall.'); return; }
+  queueLabel = 'Quick session'; pileQueue = ids; openFromPile(ids[0], true);
+}
+function weekStats() {
+  const day = 86400000, now = Date.now(), days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return todayStr(d); });
+  const study = store.val('study', {}) || {}, minutes = days.map((d) => Math.round((study[d] || 0) / 60));
+  const solved = Object.entries(store.snapshot.solved || {}).filter(([id, v]) => encIndex.has(id) && v.at >= now - 7 * day && !v.failed);
+  const courses = catalog.map((c) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type !== 'sandbox')), passedN = all.filter((e) => store.isPassed(e.id)).length; return { id: c.id, region: c.region, passed: passedN, total: all.length, week: solved.filter(([id]) => encIndex.get(id).course === c.id).length }; });
+  return { days, minutes, studied: minutes.filter((x) => x > 0).length, total: minutes.reduce((a, b) => a + b, 0), exercises: solved.length, missions: days.reduce((n, d) => n + Object.keys(store.missionsOf(d).done).length, 0), courses, weak: weakSpots(encIndex, 2).map((w) => { const [c, s] = w.key.split('/'); return findRoom(c, s)?.title || w.key; }) };
+}
+function weekHtml() {
+  const w = weekStats(), mx = Math.max(20, ...w.minutes), plan = examPlan(catalog, isPassedEnc), best = [...w.courses].sort((a, b) => b.passed / b.total - a.passed / a.total)[0], sn = streakNow();
+  const dn = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  return `<div class="msn-head"><div><b>${w.total} min</b> studied<div class="src">on ${w.studied} of the last 7 days (goal ${goalMinutes()} min a day)</div></div>
+    <div><b>${w.exercises} exercises</b> passed<div class="src">${w.missions} mission${w.missions === 1 ? '' : 's'} done, streak ${sn.count} day${sn.count === 1 ? '' : 's'}</div></div>
+    <div><b>${store.dueReviews().length} respawns</b> due<div class="src">exam in ${plan.days} days: ${plan.left} items to go ≈ ${plan.perDay} a day</div></div></div>
+    <div class="spark week">${w.minutes.map((x, i) => `<span><i title="${w.days[i]}: ${x} min" style="height:${Math.max(3, Math.round(38 * x / mx))}px"></i><em>${dn[new Date(w.days[i] + 'T00:00:00').getDay()]}</em></span>`).join('')}</div>
+    <h3>Progress per course</h3>${w.courses.map((c) => `<div class="goalrow"><b>${c.region}</b> <span class="src">${c.passed} / ${c.total} done${c.week ? `, ${c.week} new this week` : ''}</span><div class="bar"><i style="width:${Math.round(100 * c.passed / Math.max(1, c.total))}%"></i></div></div>`).join('')}
+    <p><b>Strongest:</b> ${best.region}. ${w.weak.length ? `<b>Needs work:</b> ${w.weak.join(' and ')}.` : 'No weak spots recorded yet.'}</p>
+    <div class="row"><button class="go" id="week-quick">Quick session</button><button class="chip btn" id="week-plan">Plan a longer session</button></div>`;
+}
 // ================================================================ daily missions
 const isPassedEnc = (e) => store.isPassed(e.id);
 function todays() {
@@ -597,16 +650,18 @@ function todays() {
   if (!dayMissions || dayKey !== k) { dayMissions = buildMissions({ catalog, banks, links: linksData, store, isPassed: isPassedEnc }); dayKey = k; }
   return dayMissions;
 }
-const streakMult = () => 1 + 0.05 * Math.min(10, store.streak.count);
+const streakNow = () => store.streakNow(todayStr(), yesterdayStr(), dayBeforeYesterdayStr());
+const streakMult = () => 1 + 0.05 * Math.min(10, streakNow().count);
 function missionStatus() { const day = store.missionsOf(todayStr()), ms = todays(); return { done: ms.filter((m) => day.done[m.id]).length, total: ms.length, day }; }
 function toast(html) { const t = $('toast'); t.innerHTML = M(html); t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 4200); }
 function completeMission(m) {
-  const date = todayStr(); if (!store.completeMission(date, m.id, m.xp, yesterdayStr())) return;
+  const date = todayStr(); if (!store.completeMission(date, m.id, m.xp, yesterdayStr(), dayBeforeYesterdayStr())) return;
   const gain = Math.round(m.xp * streakMult()); store.addXp(gain); store.setVal('stats', { ...(store.val('stats', {}) || {}), missions: ((store.val('stats', {}) || {}).missions || 0) + 1 });
   const st = missionStatus(); let extra = '';
   if (st.done === st.total) { store.addXp(50); extra = ' All missions of the day done: <b>+50 XP bonus</b>.'; }
-  toast(`<b>Mission complete:</b> ${m.title}<br>+${gain} XP (streak bonus ×${streakMult().toFixed(2)}).${extra}`);
-  refresh(); flashWorld(true);
+  const frozen = store.freezeJustUsed === date ? ' <b>Your weekly streak freeze saved the streak.</b>' : '';
+  toast(`<b>Mission complete:</b> ${m.title}<br>+${gain} XP (streak bonus ×${streakMult().toFixed(2)}).${extra}${frozen}`);
+  sfx.goal(); pulse('right'); refresh(); flashWorld(true);
 }
 function flashWorld(ok) { if (world) (ok ? world.successEffect() : world.failEffect()); }
 window.addEventListener('encounter-done', (ev) => {
@@ -614,14 +669,17 @@ window.addEventListener('encounter-done', (ev) => {
   for (const m of todays()) if ((m.enc && m.enc.id === id) || m.encId === id) completeMission(m);
 });
 function missionsHtml() {
-  const ms = todays(), day = store.missionsOf(todayStr()), lv = levelOf(store.xp), plan = examPlan(catalog, isPassedEnc), st = store.streak, active = st.last === todayStr() || st.last === yesterdayStr() ? st.count : 0;
+  const ms = todays(), day = store.missionsOf(todayStr()), lv = levelOf(store.xp), plan = examPlan(catalog, isPassedEnc), sn = streakNow(), active = sn.count, g = goalInfo();
   return `<div class="msn-head"><div><b>${lv.rank}</b> · level ${lv.lv}<div class="bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></div><span class="src">${lv.into} / ${lv.need} XP to the next rank</span></div>
-    <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div></div>
+    <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
     <div><b>Exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
+    <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * g.min / g.goal))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `${g.goal - g.min} min to go. Time counts while an exercise, the formulas or a menu is open. Change the goal in Profile > settings.`}</span></div>
+    <div class="row"><button class="go" id="quick-go">Quick session (${quickInfo()})</button></div>
     <h3>Today's missions (${ms.filter((m) => day.done[m.id]).length} / ${ms.length})</h3><div class="maplist">${ms.map((m) => `<div class="maprow msn${day.done[m.id] ? ' done' : ''}"><span class="mt"><span class="tag">${m.kind}</span> ${m.title}</span><span class="mp">${day.done[m.id] ? 'done' : '+' + Math.round(m.xp * streakMult()) + ' XP'}</span><span class="md">${m.desc}</span>${day.done[m.id] ? '' : `<button class="go" data-mission="${m.id}">Start</button>`}</div>`).join('')}</div>
     <p class="src">New missions every day, chosen by question type like the real exam (multiple choice, derivation, estimation, full problem). Rotating focus course: ${catalog.find((c, i) => i === Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000) % catalog.length)?.region}. Answer at least one mission per day to keep the streak.</p>`;
 }
 function wireMissions() {
+  const qg = $('quick-go'); if (qg) qg.onclick = () => startQuick();
   document.querySelectorAll('[data-mission]').forEach((b) => (b.onclick = async () => {
     const m = todays().find((x) => x.id === b.dataset.mission); if (!m) return;
     closeOverlay(true);
@@ -957,6 +1015,7 @@ function exposeTestApi() {
     currentRoom: () => `${course.id}/${room.slug}`, enterNexus: () => loadNexus({ silent: true }), nexus: () => (inNexus && set ? { nodes: set.nodes.length, links: set.links.length, focus: set.focus ? (set.focus.node?.key || 'link') : null } : null), flyTo: (x, y, z, yaw = 0, pitch = 0) => player.teleport(x, z, yaw, pitch, y),
     interactNearest: () => { const t = player.target(); if (t) interact(t); return t ? t.id : null; },
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
+    nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };
 }

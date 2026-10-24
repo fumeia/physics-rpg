@@ -227,3 +227,20 @@ html[data-theme=light] body.touch #hud .tr .btn { background: #fff; border-color
 html[data-theme=light] :is(.chip, button:not(.tb), .opt, .listrow, .maprow, .ov-card, #tut, #nx-card, #pbar, #side, #cx, input, select, details, .callout, .eqbox, .mcard, .ach, .expart, .examres, .lk-side, .labcv, .ex-cv, #toast, #prompt, #hud .tl, #hud .tr, .hint, .why, .after, #rotate-hint, .bar, .bar i, .tag, code, .labinfo, .lk-plain) { border-radius: 0 !important; }
 html[data-theme=light] * { backdrop-filter: none !important; text-shadow: none !important; }
 html[data-theme=light] .opt:hover, html[data-theme=light] .listrow:hover:not(:disabled), html[data-theme=light] .maprow:hover { background: #f1f3f8; }
+
+/* ---------------------------------------------------------------- rewards, daily goal, week view */
+.xpfloat { position: fixed; z-index: 12; transform: translateX(-50%); pointer-events: none; font: 700 18px system-ui, sans-serif; text-shadow: 0 1px 6px rgba(0,0,0,.6); animation: xpup 1.3s ease-out forwards; }
+.xpfloat.up { color: var(--good); } .xpfloat.down { color: var(--bad); }
+@keyframes xpup { 0% { opacity: 0; margin-top: 8px; } 15% { opacity: 1; } 100% { opacity: 0; margin-top: -42px; } }
+.pulse { position: fixed; inset: 0; z-index: 11; pointer-events: none; animation: pulsefade .65s ease-out forwards; }
+.pulse.right { box-shadow: inset 0 0 70px 6px rgba(76,195,138,.5); } .pulse.wrong { box-shadow: inset 0 0 60px 4px rgba(255,107,107,.32); }
+@keyframes pulsefade { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+html[data-theme=light] .xpfloat { text-shadow: none; } html[data-theme=light] .pulse.right { box-shadow: inset 0 0 70px 6px rgba(7,112,63,.35); } html[data-theme=light] .pulse.wrong { box-shadow: inset 0 0 60px 4px rgba(192,20,28,.28); }
+.goalrow { margin: 8px 0; } .goalrow .bar { height: 10px; } .bar.full i { background: var(--good); }
+.spark.week { gap: 10px; height: 64px; margin: 10px 0 4px; } .spark.week span { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; } .spark.week i { width: 22px; } .spark.week em { font-style: normal; font-size: 11px; color: var(--dim); margin-top: 2px; }
+
+/* the star / link card of the Nexus: it must take touches itself (scroll with a finger) and must not sit on the stick */
+#nx-card { pointer-events: auto; touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+body.touch #nx-card { z-index: 3; font-size: 14px; }
+@media (orientation: landscape) { body.touch #nx-card { left: auto; right: max(8px, env(safe-area-inset-right)); top: calc(max(8px, env(safe-area-inset-top)) + 54px); bottom: auto; width: min(44vw, 430px); max-height: calc(100dvh - 76px); } }
+@media (orientation: portrait) { body.touch #nx-card { left: 8px; right: 8px; width: auto; bottom: 176px; max-height: 38dvh; } }

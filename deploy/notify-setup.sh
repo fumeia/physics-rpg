@@ -67,8 +67,13 @@ WantedBy=timers.target
 TIMER
 printf '#!/bin/sh\nset -a; . %s; set +a\nexec python3 %s/deploy/notify.py "$@"\n' "$ENVF" "$APP" >"$BIN/rpg-notify"; chmod +x "$BIN/rpg-notify"
 
+# the game server needs the same settings for "remind me later" (the chooser that opens when you tap a notification)
+mkdir -p "$ETC/systemd/system/physics-rpg.service.d"
+printf '[Service]\nEnvironmentFile=-%s\n' "$ENVF" >"$ETC/systemd/system/physics-rpg.service.d/notify.conf"
+
 systemctl daemon-reload
 systemctl enable --now physics-rpg-notify.timer
+systemctl restart physics-rpg 2>/dev/null || true
 
 echo
 echo "Sending a test message..."

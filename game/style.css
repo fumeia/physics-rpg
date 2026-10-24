@@ -244,3 +244,6 @@ html[data-theme=light] .xpfloat { text-shadow: none; } html[data-theme=light] .p
 body.touch #nx-card { z-index: 3; font-size: 14px; }
 @media (orientation: landscape) { body.touch #nx-card { left: auto; right: max(8px, env(safe-area-inset-right)); top: calc(max(8px, env(safe-area-inset-top)) + 54px); bottom: auto; width: min(44vw, 430px); max-height: calc(100dvh - 76px); } }
 @media (orientation: portrait) { body.touch #nx-card { left: 8px; right: 8px; width: auto; bottom: 176px; max-height: 38dvh; } }
+
+input[type=time] { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; color-scheme: dark; } html[data-theme=light] input[type=time] { color-scheme: light; }
+body.touch input[type=time] { min-height: 40px; }

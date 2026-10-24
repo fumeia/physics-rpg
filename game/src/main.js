@@ -14,7 +14,7 @@ import { mistakes, updateMistake, weakSpots } from './mistakes.js';
 import { renderDrillTab, setDrillData, drillData } from './drills.js';
 import { initTouch } from './touch.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
-import { initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
+import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
 import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS } from './missions.js';
 
@@ -120,7 +120,9 @@ async function boot() {
   }
   // deep links (notifications): ?open=<exercise id> and/or ?room=<course>/<room>
   const deepOpen = params.get('open'), deepRoom = params.get('room');
-  if (params.has('quick') && !params.has('test') && !lite) { $('start').style.display = 'none'; player.enabled = true; startQuick(); }
+  const spec = params.get('suggest');
+  if (spec && !params.has('test')) { $('start').style.display = 'none'; player.enabled = true; setTimeout(() => showSuggest(spec), lite ? 450 : 50); }
+  else if (params.has('quick') && !params.has('test') && !lite) { $('start').style.display = 'none'; player.enabled = true; startQuick(); }
   else if ((deepOpen || deepRoom) && !params.has('test') && !lite) {
     $('start').style.display = 'none'; player.enabled = true;
     try {
@@ -260,7 +262,7 @@ async function loadRoom(courseId, roomId, { silent = false } = {}) {
   $('region').textContent = course.region; $('room-title').textContent = room.title;
   $('sources').innerHTML = 'Sources: ' + (room.sources || []).map((s) => `${s.file.split('/').pop()} (${s.where})`).join('; ');
   if (codexOpen) buildCodex();
-  $('hint').textContent = bridgeOn ? 'WASD move · E interact · M map · Esc frees mouse / closes · Space pause, R replay, O loop, [ ] speed, L labels' : 'WASD move · E interact · M map · B formulas · Esc frees mouse / closes';
+  $('hint').textContent = bridgeOn ? 'WASD move · E interact · Q quick session · M map · B formulas · Esc frees mouse / closes · Space pause, R replay, O loop, [ ] speed, L labels' : 'WASD move · E interact · Q quick session · M map · B formulas · Esc frees mouse / closes';
   const ci = course.rooms.indexOf(room), nextRoom = course.rooms[ci + 1];
   world.setDoorSign(['MAP / NEXT ROOM', nextRoom ? nextRoom.title : 'last room of this region']);
   updateBar(); refresh();
@@ -392,7 +394,7 @@ function helpHtml() {
   const t = touch ? `<h3>On the phone</h3><p><b>Left stick</b> walks (in the Nexus it flies where you look; the ▲ ▼ » buttons fly up, down and fast). <b>Drag</b> anywhere on the 3D view to look. The big <b>button at the bottom right</b> does what <b>E</b> does: it appears when you stand at a console, a star or an experiment.</p>
     <p><b>Menu</b> at the top has missions, study hub, exam hall and more. <b>Formulas</b> opens the formula drawer; with an exercise open too, both show side by side (phone held sideways) or one above the other (upright). The <b>⤢</b> button of a panel makes it fill the screen, tap it again to go back. Add the page to your home screen for full screen.</p>` : '';
   return `<div class="cols"><div>${t}<h3>Moving</h3><p><b>W A S D</b> walk (in the Nexus: fly; <b>Space</b> up, <b>C</b> down, <b>Shift</b> faster). Mouse looks around; with a panel open drag with the mouse. <b>E</b> interacts with the console or star you face. <b>Esc</b> frees the mouse or closes a panel.</p>
-    <h3>Keys</h3><p><b>N</b> Nexus · <b>M</b> map and route · <b>T</b> daily missions · <b>X</b> exam hall · <b>V</b> my pile (exercises you keep) · <b>B</b> formulas · <b>K</b> connections of this room · <b>P</b> profile · <b>F1</b> this help · <b>L</b> labels · QM bridge: <b>Space</b> pause, <b>R</b> replay, <b>O</b> loop, <b>[ ]</b> speed.</p></div>
+    <h3>Keys</h3><p><b>Q</b> quick session · <b>N</b> Nexus · <b>M</b> map and route · <b>T</b> daily missions · <b>X</b> exam hall · <b>V</b> my pile (exercises you keep) · <b>B</b> formulas · <b>K</b> connections of this room · <b>P</b> profile · <b>F1</b> this help · <b>L</b> labels · QM bridge: <b>Space</b> pause, <b>R</b> replay, <b>O</b> loop, <b>[ ]</b> speed.</p></div>
     <div><h3>The consoles of a room</h3><p><b>Library</b>: theory and intuition. <b>Experiments</b>: interactive simulations, change things and see what happens. <b>Quiz hall</b>: exam-style multiple choice. <b>Derivation desk</b>: show-that problems on paper. <b>Stations</b>: predict, watch, explain. <b>Fights</b>: calculations; afterwards a "What if?" explorer opens. <b>Boss gate</b>: a real old-exam problem on paper.</p>
     <h3>How to use it</h3><p>Follow the <b>Guide</b>. Do the daily missions (T): they mix question types like the exam. Wrong answers come back as <b>respawns</b> after 1, 3, 7, 16 days. Your progress is saved in your <b>profile</b> (P).</p></div></div>`;
 }
@@ -599,6 +601,39 @@ function wireMenu() {
     else if (k === 'conn') { closeOverlay(true); openConnections(); }
   }));
 }
+// ================================================================ "start now or remind me later" (opened by tapping a notification: ?suggest=quick | ?suggest=open:<exercise id>)
+let suggestion = null;
+function showSuggest(spec) {
+  let title, detail, start;
+  if (spec === 'quick') { title = 'Quick session'; detail = quickInfo(); start = () => startQuick(); }
+  else if (spec.startsWith('open:') && encIndex.has(spec.slice(5))) {
+    const ref = encIndex.get(spec.slice(5)), e = ref.enc; title = `${typeName[e.type] || e.type} \u201c${prettyText(e.title || e.id)}\u201d`; detail = `${findRoom(ref.course, ref.roomId)?.title || ''}, about ${EST[e.type] || 10} min`; start = () => openById(e.id);
+  } else return false;
+  const soon = new Date(Date.now() + 3600e3), hhmm = `${String(soon.getHours()).padStart(2, '0')}:${String(Math.ceil(soon.getMinutes() / 5) * 5 % 60).padStart(2, '0')}`;
+  suggestion = { spec, what: `${title}: ${detail}`, start, html: `<p class="src">Suggested for now</p><h2>${title}</h2><p class="src">${detail}</p>
+    <div class="row"><button class="go" id="sg-now">Start now</button></div>
+    <h3>Not now? Remind me</h3>
+    <div class="row">${[[5, '5 min'], [10, '10 min'], [30, '30 min'], [60, '1 hour']].map(([n, l]) => `<button class="chip btn sg-later" data-min="${n}">in ${l}</button>`).join('')}</div>
+    <div class="row"><label>or at <input type="time" id="sg-time" value="${hhmm}"></label><button class="chip btn" id="sg-at">Remind me then</button></div>
+    <div class="msg" id="sg-msg"></div>` };
+  openOverlay('suggest'); return true;
+}
+function wireSuggest() {
+  $('sg-now').onclick = () => { const go = suggestion.start; closeOverlay(true); player.enabled = true; go(); };
+  const say = (t, cls = '') => { const el = $('sg-msg'); el.className = `msg ${cls}`; el.textContent = t; };
+  const remind = async (body) => {
+    say('One moment...', 'dim');
+    try {
+      const r = await fetch('/api/remind', { method: 'POST', headers: { 'Content-Type': 'application/json', ...apiHeaders() }, body: JSON.stringify({ spec: suggestion.spec, what: suggestion.what.replace(/<[^>]+>/g, ''), ...body }) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.ok) { say(`Okay. I will remind you ${j.day === 'tomorrow' ? 'tomorrow ' : ''}at ${j.at}.`, 'good'); document.querySelectorAll('#ov-body .sg-later, #sg-at').forEach((b) => (b.disabled = true)); }
+      else if (r.status === 503) say('Reminders need the server notifications. On the server run: sudo bash /opt/physics-rpg/deploy/notify-setup.sh', 'bad');
+      else say(j.error || 'Could not set the reminder.', 'bad');
+    } catch { say('Could not reach the server.', 'bad'); }
+  };
+  document.querySelectorAll('.sg-later').forEach((b) => (b.onclick = () => remind({ minutes: +b.dataset.min })));
+  $('sg-at').onclick = () => { const v = $('sg-time').value; if (/^\d{1,2}:\d{2}$/.test(v)) remind({ at: v }); else say('Pick a time first.', 'bad'); };
+}
 // ================================================================ daily goal, quick session, weekly summary
 const goalMinutes = () => GOALS[(store.val('settings', {}) || {}).goal] || GOALS.normal;
 function goalInfo() { const goal = goalMinutes(), min = Math.floor(studyToday() / 60); return { goal, min, done: min >= goal }; }
@@ -607,7 +642,7 @@ function checkGoal() {
   if (studyToday() >= goalMinutes() * 60) { store.setFlag(`goal:${date}`); toast(`<b>Daily goal reached:</b> ${goalMinutes()} minutes of study today. Anything more is a bonus.`); sfx.goal(); pulse('right'); }
 }
 let queueLabel = 'pile';
-// A short session: due respawns first (at most 2), then the next unfinished exercises of the recommended room, about 10 minutes in all
+// A short session: due respawns first (at most 2), then the next unfinished exercises of the recommended room, usually 10 to 20 minutes in all
 function quickIds() {
   const out = [], push = (id) => { if (id && encIndex.has(id) && !out.includes(id)) out.push(id); }, mins = () => out.reduce((s, id) => s + (EST[encIndex.get(id).enc.type] || 10), 0);
   const rv = store.snapshot.reviews || {};
@@ -723,6 +758,7 @@ function onKey(e) {
   if (e.code === 'KeyM' && !tut && !current) { overlay === 'map' ? closeOverlay() : openOverlay('map'); return; }
   if (e.code === 'KeyB' && !tut) { toggleCodex(); return; }
   if (e.code === 'KeyE' && promptTarget && !blocking()) interact(promptTarget);
+  if (e.code === 'KeyQ' && !tut && !current) { closeOverlay(true); startQuick(); return; }
   if (e.code === 'KeyN' && !tut && !current && !inNexus) goNexus();
   if (e.code === 'KeyL' && bridgeOn) world.setLabelsVisible(!world.labelsOn);
   if (e.code === 'Space' && view.variant) { e.preventDefault(); togglePause(); }
@@ -749,10 +785,11 @@ async function openById(id) {
 function openOverlay(kind) {
   overlay = kind; player.unlock();
   $('overlay').style.display = '';
-  $('ov-title').textContent = { missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help' }[kind] || 'Map: choose a room';
+  $('ov-title').textContent = { missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
   if (stopExam) { stopExam(); stopExam = null; }
   if (kind === 'exam') { $('ov-body').innerHTML = ''; stopExam = mountExamHall($('ov-body'), { catalog, banks, store, onGoto: (k) => { const [c, r] = k.split('/'); closeOverlay(true); loadRoom(c, r, { silent: false }); player.enabled = true; } }); return; }
   if (kind === 'pile') { renderStudy(); return; }
+  if (kind === 'suggest') { $('ov-body').innerHTML = M(suggestion.html); wireSuggest(); return; }
   if (kind === 'menu' || kind === 'roomMenu') { $('ov-body').innerHTML = kind === 'menu' ? menuHtml() : roomMenuHtml(); wireMenu(); return; }
   $('ov-body').innerHTML = kind === 'missions' ? missionsHtml() : kind === 'profile' ? profileHtml() : kind === 'help' ? helpHtml() : mapHtml();
   if (kind === 'missions') { wireMissions(); return; }

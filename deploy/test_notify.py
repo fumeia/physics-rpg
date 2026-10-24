@@ -20,14 +20,15 @@ class Wording(unittest.TestCase):
         m, why = notify.message(prog(state()), 'morning', 'https://rpg.example.com')
         step = prog(state()).next_step()
         self.assertEqual(why, 'ok'); self.assertIn(step['enc']['title'].split(':')[0][:20], m['title'] + m['message'])
-        self.assertEqual(m['click'], f"https://rpg.example.com/?open={step['enc']['id']}")
+        self.assertEqual(m['click'], f"https://rpg.example.com/?suggest=open:{step['enc']['id']}")          # tapping opens the chooser
+        self.assertEqual(m['actions'][0]['url'], f"https://rpg.example.com/?open={step['enc']['id']}")      # the first button starts it
         self.assertRegex(m['message'], r'83 days|Exam in 83'); self.assertLessEqual(len(m['message'].split('\n')), 5)
 
     def test_due_respawns_come_first_and_the_tap_starts_a_quick_session(self):
         solved = {'qm-wm-Q1': {'at': ms(NOW) - 2 * 86400e3}}
         s = state(solved=solved, reviews={'qm-wm-Q1': {'box': 0, 'due': ms(NOW) - 1000, 'fails': 1}})
         m, _ = notify.message(prog(s), 'morning', 'https://rpg.example.com')
-        self.assertIn('1 respawn due', m['message']); self.assertIn('clear them first', m['message']); self.assertTrue(m['click'].endswith('/?quick=1'))
+        self.assertIn('1 respawn due', m['message']); self.assertIn('clear them first', m['message']); self.assertTrue(m['click'].endswith('/?suggest=quick')); self.assertTrue(m['actions'][0]['url'].endswith('/?quick=1'))
         self.assertEqual(prog(s).quick_ids()[0], 'qm-wm-Q1')
 
     def test_midday_is_skipped_once_you_studied(self):
@@ -63,6 +64,29 @@ class Wording(unittest.TestCase):
     def test_latex_is_stripped_from_titles(self):
         self.assertEqual(notify.plain(r'The $\psi$ box and $E=\hbar\omega$'), 'The box and E=')
         self.assertTrue(len(notify.plain('word ' * 40, 64)) <= 65)
+
+
+class Buttons(unittest.TestCase):
+    CFG = {'topic': 'rpg-test', 'url': 'https://ntfy.sh', 'token': None}
+    def test_three_buttons_start_now_ten_minutes_later(self):
+        m, _ = notify.message(prog(state()), 'morning', 'https://rpg.example.com', self.CFG)
+        self.assertEqual([a['label'] for a in m['actions']], ['Start now', 'In 10 min', 'Later\u2026'])
+        start, snooze, later = m['actions']
+        self.assertEqual(start['action'], 'view'); self.assertIn('?open=', start['url']); self.assertEqual(later['url'], m['click'])
+        self.assertEqual((snooze['action'], snooze['method'], snooze['url']), ('http', 'POST', 'https://ntfy.sh/'))
+        body = json.loads(snooze['body'])                      # what ntfy is asked to deliver in 10 minutes
+        self.assertEqual((body['topic'], body['delay']), ('rpg-test', '10m')); self.assertTrue(body['title'].startswith('Reminder: ')); self.assertEqual(body['click'], m['click'])
+        self.assertEqual([a['label'] for a in body['actions']], ['Start now', 'Later\u2026'])   # no endless chain of snooze buttons
+        self.assertIn('Start it, or move it again', body['message'])
+    def test_no_one_tap_button_on_a_protected_topic(self):
+        m, _ = notify.message(prog(state()), 'morning', 'https://rpg.example.com', dict(self.CFG, token='tk_x'))
+        self.assertEqual([a['label'] for a in m['actions']], ['Start now', 'Later\u2026'])    # the http button could not authenticate
+    def test_quick_session_suggestions_use_the_quick_link(self):
+        m, _ = notify.message(prog(state()), 'midday', 'https://rpg.example.com', self.CFG)
+        self.assertTrue(m['click'].endswith('?suggest=quick')); self.assertTrue(m['actions'][0]['url'].endswith('?quick=1'))
+        self.assertIn('Quick session', json.loads(m['actions'][1]['body'])['message'])
+    def test_no_buttons_without_a_game_address(self):
+        m, _ = notify.message(prog(state()), 'morning', '', self.CFG); self.assertNotIn('actions', m); self.assertNotIn('click', m)
 
 
 class Rules(unittest.TestCase):
@@ -110,6 +134,70 @@ class Sending(unittest.TestCase):
         self.assertIn('work', Handler.got[0][2]['title'])
     def test_missing_profile_is_not_a_crash(self):
         self.profile = os.path.join(self.dir, 'nope.json'); self.assertEqual(self.run_main('--slot', 'morning'), 1)
+
+
+class RemindEndpoint(unittest.TestCase):
+    """game/serve.py POST /api/remind: schedules the reminder through ntfy's delay feature"""
+    def setUp(self):
+        import subprocess, time, urllib.request
+        Handler.got = []; self.ntfy = HTTPServer(('127.0.0.1', 0), Handler); threading.Thread(target=self.ntfy.serve_forever, daemon=True).start()
+        self.dir = tempfile.mkdtemp(); self.procs = []
+        self.base_env = dict(os.environ, PHYSICS_RPG_PROFILES=self.dir)
+        self.cfg = dict(NTFY_TOPIC='rpg-test', NTFY_URL=f'http://127.0.0.1:{self.ntfy.server_port}', GAME_URL='https://rpg.example.com', NOTIFY_TZ='Europe/Zurich')
+    def tearDown(self):
+        self.ntfy.shutdown()
+        for p in self.procs: p.terminate()
+    def serve(self, **extra):
+        import subprocess, time, urllib.request, socket
+        s = socket.socket(); s.bind(('127.0.0.1', 0)); port = s.getsockname()[1]; s.close()
+        env = {k: v for k, v in self.base_env.items() if not k.startswith(('NTFY_', 'PHYSICS_RPG_TOKEN'))}; env.update(extra)
+        p = subprocess.Popen([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'game', 'serve.py'), '--port', str(port)], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL); self.procs.append(p)
+        for _ in range(50):
+            try: urllib.request.urlopen(f'http://127.0.0.1:{port}/api/ping', timeout=1); break
+            except Exception: time.sleep(0.1)
+        return port
+    def post(self, port, body, headers=None):
+        import urllib.request, urllib.error
+        req = urllib.request.Request(f'http://127.0.0.1:{port}/api/remind', data=json.dumps(body).encode(), method='POST', headers=dict({'Content-Type': 'application/json'}, **(headers or {})))
+        try:
+            with urllib.request.urlopen(req, timeout=10) as r: return r.status, json.loads(r.read())
+        except urllib.error.HTTPError as e: return e.code, json.loads(e.read())
+    def test_minutes_become_an_ntfy_delay_timestamp(self):
+        import time
+        port = self.serve(**self.cfg); t0 = time.time()
+        status, out = self.post(port, {'minutes': 30, 'spec': 'open:qm-wm-L1', 'what': 'Lesson X in Room Y, ~10 min'})
+        self.assertEqual(status, 200); self.assertTrue(out['ok'])
+        body = Handler.got[-1][2]
+        self.assertEqual(body['topic'], 'rpg-test'); self.assertTrue(body['title'].startswith('Reminder:')); self.assertIn('Lesson X', body['message'])
+        self.assertAlmostEqual(int(body['delay']), t0 + 1800, delta=8)
+        self.assertEqual(body['click'], 'https://rpg.example.com/?suggest=open:qm-wm-L1'); self.assertEqual(body['actions'][0]['url'], 'https://rpg.example.com/?open=qm-wm-L1')
+    def test_a_clock_time_means_the_next_time_it_is_that_time(self):
+        import time
+        port = self.serve(**self.cfg)
+        now = notify.now_in('Europe/Zurich'); later = (now + dt.timedelta(hours=2)).strftime('%H:%M'); earlier = (now - dt.timedelta(hours=2)).strftime('%H:%M')
+        s1, o1 = self.post(port, {'at': later, 'spec': 'quick', 'what': 'Quick session'}); s2, o2 = self.post(port, {'at': earlier, 'spec': 'quick', 'what': 'Quick session'})
+        self.assertEqual((s1, s2), (200, 200)); self.assertEqual(o1['at'], later)
+        d1, d2 = int(Handler.got[-2][2]['delay']), int(Handler.got[-1][2]['delay'])
+        self.assertTrue(0 < d1 - time.time() <= 2 * 3600 + 90); self.assertTrue(22 * 3600 - 90 <= d2 - time.time() <= 22 * 3600 + 90)       # 2 hours earlier = about 22 hours from now
+        self.assertEqual(o2['day'], 'tomorrow')
+    def test_validation(self):
+        port = self.serve(**self.cfg)
+        self.assertEqual(self.post(port, {'minutes': 0, 'spec': 'quick'})[0], 400); self.assertEqual(self.post(port, {'minutes': 99999, 'spec': 'quick'})[0], 400)
+        self.assertEqual(self.post(port, {'minutes': 5, 'spec': 'rm -rf'})[0], 400); self.assertEqual(self.post(port, {'at': '25x', 'spec': 'quick'})[0], 400)
+        self.assertEqual(Handler.got, [])
+    def test_not_set_up_gives_a_clear_503(self):
+        port = self.serve(); status, out = self.post(port, {'minutes': 5, 'spec': 'quick'})
+        self.assertEqual(status, 503); self.assertIn('not set up', out['error'])
+    def test_config_endpoint_and_token(self):
+        import urllib.request, urllib.error
+        port = self.serve(**self.cfg, PHYSICS_RPG_TOKEN='secret')
+        self.assertEqual(self.post(port, {'minutes': 5, 'spec': 'quick'})[0], 401)
+        self.assertEqual(self.post(port, {'minutes': 5, 'spec': 'quick'}, {'X-Token': 'secret'})[0], 200)
+        req = urllib.request.Request(f'http://127.0.0.1:{port}/api/notify-config', headers={'X-Token': 'secret'}); self.assertTrue(json.load(urllib.request.urlopen(req))['configured'])
+        self.assertFalse(json.load(urllib.request.urlopen(f'http://127.0.0.1:{self.serve()}/api/notify-config'))['configured'])
+    def test_unreachable_ntfy_is_a_502_not_a_crash(self):
+        port = self.serve(**dict(self.cfg, NTFY_URL='http://127.0.0.1:9')); status, out = self.post(port, {'minutes': 5, 'spec': 'quick'})
+        self.assertEqual(status, 502); self.assertIn('could not reach', out['error'])
 
 
 if __name__ == '__main__':

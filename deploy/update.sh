@@ -17,9 +17,10 @@ if ! git pull --ff-only -q; then
 fi
 after=$(git rev-parse HEAD)
 systemctl restart physics-rpg
+cp "$APP/deploy/README.md" "${ROOTHOME:-/root}/PHYSICS-RPG-README.md" 2>/dev/null || true   # the guide to everything installed: less /root/PHYSICS-RPG-README.md
 if [ "$before" = "$after" ]; then
   echo "Already up to date ($(git log -1 --format='%h %s'))."
 else
   echo "Updated. What changed:"; git log --format='  %h %s' "$before..$after" | head -15
 fi
-echo "Reload the game page on your phone to get the new version."
+echo "Reload the game page on your phone to get the new version. Guide to everything installed: less /root/PHYSICS-RPG-README.md"

@@ -199,16 +199,40 @@ def link(base, **q):
     return base.rstrip('/') + '/' + (f'?{qs}' if qs else '')
 
 
-def message(P, slot, base):
+def suggest_spec(kind, id=None): return 'quick' if kind == 'quick' else f'open:{id}'
+
+def spec_links(base, spec):
+    """(start-now link, chooser link) for a suggestion: 'quick' or 'open:<exercise id>'"""
+    if spec == 'quick': return link(base, quick=1), link(base, suggest='quick')
+    return link(base, open=spec.split(':', 1)[1]), link(base, suggest=spec)
+
+def snooze_payload(what, spec, base, cfg, delay):
+    """The ntfy message that comes back later. delay: '10m' or a unix timestamp string. Its own buttons: Start now and Later (no second snooze button)."""
+    now_url, choose_url = spec_links(base, spec)
+    msg = {'topic': cfg['topic'], 'title': 'Reminder: ' + plain(what, 60), 'message': 'You moved this to now. Start it, or move it again.\n' + what, 'priority': 3, 'tags': ['alarm_clock'], 'delay': str(delay)}
+    if choose_url: msg['click'] = choose_url
+    acts = [{'action': 'view', 'label': l, 'url': u} for l, u in (('Start now', now_url), ('Later\u2026', choose_url)) if u]
+    if acts: msg['actions'] = acts
+    return msg
+
+def suggestion_actions(what, spec, base, cfg):
+    """Start now / In 10 min (one tap, no app opens; only on an open topic) / Later... (opens the chooser: 5, 10, 30, 60 minutes or a time)"""
+    now_url, choose_url = spec_links(base, spec); acts = []
+    if now_url: acts.append({'action': 'view', 'label': 'Start now', 'url': now_url})
+    if cfg and cfg.get('topic') and not cfg.get('token'):
+        acts.append({'action': 'http', 'label': 'In 10 min', 'url': (cfg.get('url') or 'https://ntfy.sh').rstrip('/') + '/', 'method': 'POST', 'headers': {'Content-Type': 'application/json'},
+                     'body': json.dumps(snooze_payload(what, spec, base, cfg, '10m'), ensure_ascii=False), 'clear': True})
+    if choose_url: acts.append({'action': 'view', 'label': 'Later\u2026', 'url': choose_url})
+    return acts[:3]
+
+def message(P, slot, base, cfg=None):
     """-> (message dict | None, reason). Plain text, a few short lines, specific to the current state."""
     rnd = random.Random(f'{P.today}:{slot}'); pick = lambda xs: xs[rnd.randrange(len(xs))]
     step, due, st, plan = P.next_step(), P.due(), P.streak(), P.exam_plan()
     today_min, goal = P.study_min(P.today), P.goal_min()
     done_today = today_min >= goal
     lines, tags, prio = [], [], 3
-    nxt = step_line(P, step); quick = len(P.quick_ids())
-    open_next = link(base, open=step['enc']['id']) if step and step['enc'] else link(base)
-    quick_url = link(base, quick=1)
+    nxt = step_line(P, step); qids = P.quick_ids(); quick = len(qids); qmin = max(5, round(sum(EST.get(P.c['index'][i]['enc']['type'], 10) for i in qids) / 5) * 5)
 
     if slot == 'morning':
         title = f"{short_course(step['course'])}: {plain(step['enc']['title'], 42)}" if step and step['enc'] else 'Exam training day'
@@ -218,16 +242,16 @@ def message(P, slot, base):
         lines.append(f'Then: {nxt}' if due and nxt else (nxt or 'The guided route is finished: do a mock exam in the Exam hall today.'))
         lines.append(pick([f"{plan['days']} days to the exam. {plan['perDay']} a day keeps you on pace.", f"Exam in {plan['days']} days: {plan['left']} items to go, about {plan['perDay']} a day."]))
         if st['alive'] and not st['today']: lines.append(f"Streak: {st['count']} days. One mission keeps it.")
-        tags = ['books']; click = quick_url if due else open_next
-        actions = [('Open exercise', open_next), ('Quick session', quick_url)]
+        tags = ['books']; spec = suggest_spec('quick') if due else (suggest_spec('open', step['enc']['id']) if step and step['enc'] else None)
+        what = (f"Quick session: {plural(quick, 'exercise')}" if due else nxt) or 'Mock exam'; actions = None
     elif slot == 'midday':
         if today_min >= 5 or P.missions_done(P.today): return None, 'already studied today'
         title = pick(['Ten minutes, right now', 'A quick win before the afternoon', 'Nothing studied yet today'])
-        lines.append(f"Quick session: {plural(quick, 'exercise') if quick else 'nothing due'}, about 10 minutes." if quick else 'Nothing is due. One new exercise is enough.')
+        lines.append(f"Quick session: {plural(quick, 'exercise')}, about {qmin} minutes." if quick else 'Nothing is due. One new exercise is enough.')
         if due: lines.append(f"{plural(len(due), 'respawn')} due. They are the cheapest points you can collect.")
         if nxt: lines.append(f'Next: {nxt}')
         if st['alive'] and not st['today']: lines.append(f"Streak: {st['count']} days. Do not let it end today.")
-        tags = ['hourglass_flowing_sand']; click = quick_url; actions = [('Quick session', quick_url), ('Open exercise', open_next)]
+        tags = ['hourglass_flowing_sand']; spec = suggest_spec('quick'); what = f"Quick session: {plural(quick, 'exercise')}" if quick else (nxt or 'Quick session'); actions = None
     elif slot == 'evening':
         if done_today: return None, 'daily goal reached'
         left = max(1, goal - today_min)
@@ -241,7 +265,7 @@ def message(P, slot, base):
         else: lines.append('One mission today starts a new streak.')
         lines.append(f"Today: {today_min} of {goal} min.")
         lines.append(f'Easiest start: {nxt}' if nxt else 'The route is finished: a mock exam is the best use of time.')
-        prio = 4 if st['alive'] and not st['today'] else 3; tags = ['fire'] if st['alive'] else ['seedling']; click = quick_url; actions = [('Quick session', quick_url), ('Open exercise', open_next)]
+        prio = 4 if st['alive'] and not st['today'] else 3; tags = ['fire'] if st['alive'] else ['seedling']; spec = suggest_spec('quick'); what = f"Quick session: {plural(quick, 'exercise')}" if quick else (nxt or 'Quick session'); actions = None
     elif slot == 'weekly':
         w = P.week(); best = max(w['courses'], key=lambda c: c['passed'] / max(1, c['total'])); weak = P.weak_rooms(1)
         title = f"Week in review: {w['minutes']} min, {w['exercises']} exercises"
@@ -249,13 +273,14 @@ def message(P, slot, base):
         lines.append(f"Strongest: {short_course(best['id'])} ({best['passed']}/{best['total']})." + (f" Needs work: {plain(P.find_room(weak[0])[1]['title'], 40)}." if weak else ''))
         lines.append(f"{plan['days']} days to the exam, {plan['left']} items to go: about {plan['perDay']} a day.")
         if nxt: lines.append(f'Start next week with: {nxt}')
-        tags = ['bar_chart']; click = open_next; actions = [('Open exercise', open_next), ('Quick session', quick_url)]
+        tags = ['bar_chart']; spec = suggest_spec('open', step['enc']['id']) if step and step['enc'] else suggest_spec('quick'); what = nxt or 'Quick session'; actions = None
     else:
         return None, f'unknown slot {slot}'
     msg = {'title': title, 'message': '\n'.join(lines), 'priority': prio, 'tags': tags}
-    if click: msg['click'] = click
-    acts = [{'action': 'view', 'label': l, 'url': u} for l, u in actions if u]
-    if acts: msg['actions'] = acts[:2]
+    if spec and base:
+        msg['click'] = spec_links(base, spec)[1]            # tapping the notification opens the chooser: start now or remind me later
+        acts = suggestion_actions(what, spec, base, cfg)
+        if acts: msg['actions'] = acts
     return msg, 'ok'
 
 
@@ -301,12 +326,12 @@ def main(argv=None):
     pdir = env('PHYSICS_RPG_PROFILES', os.path.join(GAME, 'profiles')); pfile = a.profile_file or os.path.join(pdir, env('PHYSICS_RPG_PROFILE', 'default') + '.json')
     try: state = json.load(open(pfile, encoding='utf-8')).get('state') or {}
     except (OSError, ValueError): print(f'no readable profile at {pfile}', file=sys.stderr); return 1
-    P = Progress(state, load_content(), now)
+    P = Progress(state, load_content(), now); cfg = {'topic': topic, 'url': url, 'token': token}
     if a.json:
         step = P.next_step(); week = P.week()
         out = {'today': P.today, 'next': {'key': step['key'], 'enc': step['enc']['id'] if step['enc'] else None} if step else None, 'due': P.due(), 'quick': P.quick_ids(), 'streak': P.streak(),
                'minutesToday': P.study_min(P.today), 'goal': P.goal_min(), 'plan': P.exam_plan(), 'week': week, 'weak': P.weak_rooms(2),
-               'messages': {s: dict(zip(('message', 'reason'), message(P, s, base))) for s in ('morning', 'midday', 'evening', 'weekly')}}
+               'messages': {s: dict(zip(('message', 'reason'), message(P, s, base, cfg))) for s in ('morning', 'midday', 'evening', 'weekly')}}
         print(json.dumps(out, indent=1, ensure_ascii=False)); return 0
     slot = auto_slot(now) if a.slot == 'auto' else a.slot
     skey = f'{P.today}:{slot}'; sfile = env('NOTIFY_STATE', '/var/lib/physics-rpg/notify-state.json')
@@ -314,10 +339,10 @@ def main(argv=None):
     except (OSError, ValueError): memo = {}
     if not a.force and skey in memo.get('sent', {}): print(f'{slot}: already sent today'); return 0
     if not a.force and slot != 'weekly' and now.timestamp() - P.updated() < 3600: print(f'{slot}: skipped, you were studying a moment ago'); return 0
-    msg, why = message(P, slot, base)
+    msg, why = message(P, slot, base, cfg)
     if not msg: print(f'{slot}: skipped ({why})'); return 0
     if a.dry_run or not topic:
-        print(f"[{slot}] {msg['title']}\n{msg['message']}\n-> {msg.get('click', '')}  priority {msg['priority']}  tags {msg['tags']}" + ('' if topic or a.dry_run else '\n(NTFY_TOPIC is not set: nothing sent)')); return 0
+        print(f"[{slot}] {msg['title']}\n{msg['message']}\n-> tap: {msg.get('click', '')}  priority {msg['priority']}  tags {msg['tags']}  buttons {[x['label'] for x in msg.get('actions', [])]}" + ('' if topic or a.dry_run else '\n(NTFY_TOPIC is not set: nothing sent)')); return 0
     status = send(msg, topic, url, token); print(f'{slot}: sent ({status})')
     memo.setdefault('sent', {})[skey] = int(now.timestamp()); memo['sent'] = dict(sorted(memo['sent'].items())[-30:])
     try:

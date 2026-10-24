@@ -159,7 +159,7 @@ await p.click('#quick-go'); await p.waitForTimeout(900);
 const q1 = await p.evaluate(() => ({ open: window.__game.state().panelOpen, bar: document.querySelector('.pilebar')?.innerText || '' }));
 ck(`quick session opens the first exercise (${q1.bar.replace(/\n/g, ' ')})`, q1.open && /Quick session 1 \/ \d/.test(q1.bar));
 ck('and offers the next one', await p.evaluate(() => !!document.querySelector('.pilenext')));
-await p.evaluate(() => document.querySelector('.pilenext').click()); await p.waitForTimeout(700);
+await p.evaluate(() => document.querySelector('.pilenext').click()); await p.waitForFunction(() => /Quick session 2 \/ \d/.test(document.querySelector('.pilebar')?.innerText || ''), null, { timeout: 20000 }).catch(() => {});
 ck('next goes to exercise 2', await p.evaluate(() => /Quick session 2 \/ \d/.test(document.querySelector('.pilebar')?.innerText || '')));
 await p.evaluate(() => window.__game.close()); await p.keyboard.press('KeyV'); await p.waitForTimeout(400);
 await p.evaluate(() => document.querySelector('[data-stab="week"]').click()); await p.waitForTimeout(300);

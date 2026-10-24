@@ -39,9 +39,26 @@
 <div id="overlay" style="display:none"><div class="ov-card"><div class="ov-head"><b id="ov-title"></b><button id="ov-close">×</button></div><div id="ov-body"></div></div></div>
 <div id="warp"></div>
 <div id="toast"></div>
+<div id="tour-chip" style="display:none"><span>New here?</span><button id="tour-go" class="chip btn" type="button">Take the 30-second tour</button><button id="tour-x" class="chip btn" type="button" title="No thanks">&times;</button></div>
 <button id="back-to-touch" class="chip btn" style="display:none" title="Back to the touch layout">Touch view</button>
 <div id="rotate-hint" style="display:none"><span>&#8635; Turn your phone sideways to play</span><button id="rot-lock" class="chip btn">Lock</button><button id="rot-x" class="chip btn" title="Hide">&times;</button></div>
-<div id="start"><div><h1>QM Interference Labs</h1><p>The Tunneling Bridge</p><p class="dim">Click anywhere to enter the Nexus.</p><p><button id="resume" class="go" style="display:none"></button></p><p class="dim"><span id="start-profile"></span> · press P in the game to change profile or settings, F1 for help</p></div></div>
+<div id="start">
+  <div class="st-orbits"><svg viewBox="-100 -100 200 200" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4"><ellipse rx="92" ry="34"/><ellipse rx="92" ry="34" transform="rotate(60)"/><ellipse rx="92" ry="34" transform="rotate(120)"/></g><g class="st-dots"><circle cx="92" cy="0" r="4"/><circle cx="-46" cy="-29" r="4" transform="rotate(0)"/><circle cx="-46" cy="29" r="4"/></g><circle r="9" class="st-nucleus"/></svg></div>
+  <div class="st-card">
+    <div class="st-logo"><svg viewBox="-100 -100 200 200" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4"><ellipse rx="92" ry="34"/><ellipse rx="92" ry="34" transform="rotate(60)"/><ellipse rx="92" ry="34" transform="rotate(120)"/></g><g class="st-dots"><circle cx="92" cy="0" r="4"/><circle cx="-46" cy="-29" r="4" transform="rotate(0)"/><circle cx="-46" cy="29" r="4"/></g><circle r="9" class="st-nucleus"/></svg></div>
+    <h1>Physics RPG</h1>
+    <p class="st-sub">Quantum mechanics &middot; Solid state &middot; Astrophysics</p>
+    <div class="st-stats" id="st-stats"></div>
+    <button id="st-go" class="st-go" type="button">Start</button>
+    <button id="resume" class="st-resume" type="button" style="display:none"></button>
+    <div class="st-bar indet" id="st-bar"><i id="st-fill"></i></div>
+    <div class="st-status" id="st-status">Loading...</div>
+    <p class="st-foot"><span id="start-profile"></span> <button class="link" id="st-profile" type="button">change profile</button></p>
+    <p class="st-keys">WASD move &middot; E interact &middot; Q quick session &middot; F1 help</p>
+  </div>
+</div>
+<script>/* a tap before the game has finished loading is not lost: it starts the game as soon as it is ready */
+window.__want = false; (function () { var s = document.getElementById('start'); s.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('#st-profile, #resume')) return; window.__want = true; var t = document.getElementById('st-status'); if (t) t.textContent = 'Starting as soon as everything is loaded...'; var g = document.getElementById('st-go'); if (g) { g.disabled = true; g.textContent = 'Starting...'; } }); })();</script>
 <footer><span id="sources"></span> <button id="debug-due" class="link">debug: make respawns due</button> <button id="debug-reset" class="link">reset progress</button></footer>
 <script type="module" src="src/main.js"></script>
 </body>

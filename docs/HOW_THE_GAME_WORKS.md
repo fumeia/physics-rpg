@@ -3,6 +3,11 @@
 The game exists to make you **study**: quantum mechanics, solid state physics and astrophysics, in the style of your real exams.
 Everything you do is saved in your profile (a file on the server), so it is the same on the phone and on a PC.
 
+## Starting
+
+The start screen shows at once, with a progress bar while the courses load. **One tap on Start (or anywhere) enters the Nexus**; a tap during loading is remembered and the game starts as soon as it is ready.
+It shows your level, XP, streak and the days to the exam, and "Continue in <room>" if you were somewhere. The tour is only an offer ("Take the 30-second tour" on the first visit of the Nexus and of each room); it never blocks the screen.
+
 ## The idea in one minute
 
 1. A **room** is one topic of a course (for example "The Tunneling Bridge"). You walk (or fly) there in 3D, or pick it from a list.

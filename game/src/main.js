@@ -32,6 +32,23 @@ function setLitePref(on) {
   reloadWithout('lite');
 }
 let touchUI = null;
+// ---- start screen: a progress bar while the game loads, ONE tap to enter (a tap during loading is remembered and starts the game when it is ready)
+const startEl = $('start'), nextFrame = () => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));
+let startWanted = false, startReady = false, startEntered = false, startAction = null;
+function progress(pct, text) {
+  $('st-bar').classList.remove('indet'); const p = Math.max(4, Math.min(100, Math.round(pct))); $('st-fill').style.width = `${p}%`;
+  if (startWanted || window.__want) $('st-status').textContent = `Starting... ${p} %`; else if (text) $('st-status').textContent = text;
+}
+function requestStart(action) { if (action) startAction = action; startWanted = true; if (startReady) enterGame(); else { const g = $('st-go'); g.disabled = true; g.textContent = 'Starting...'; } }
+function enterGame() {
+  if (startEntered || startEl.style.display === 'none') return; startEntered = true; startEl.classList.add('leaving'); setTimeout(() => { startEl.style.display = 'none'; }, 380);
+  Promise.resolve((startAction || startPlay)()).catch((e) => console.warn('start failed', e));
+}
+function renderStartStats() {
+  const lv = levelOf(store.xp), sn = streakNow(), d = daysToExam(), due = store.dueReviews().length, parts = [`Level ${lv.lv} ${lv.rank}`, `${store.xp} XP`];
+  if (sn.count) parts.push(`${sn.count}-day streak`); if (due) parts.push(`${due} respawn${due === 1 ? '' : 's'} due`); if (d > 0 && d < 500) parts.push(`${d} days to the exam`);
+  $('st-stats').innerHTML = parts.map((p) => `<span>${p}</span>`).join('');
+}
 const STEPS_PER_SECOND = 144; // QM simulation steps per second at speed 1x (one run takes about 10 s)
 
 // Courses: content folder, optional 3D set piece module (null = the QM bridge exhibit of the world itself)
@@ -65,24 +82,29 @@ async function boot() {
   setLandscapePref(false); // older versions stored a "lock sideways" choice and re-applied it on every visit: forget it
   if (params.get('orientation') === 'free') { try { screen.orientation.unlock(); } catch { /* ignore */ } }
   const fetchJson = async (u) => (await fetch(u)).json();
+  progress(3, 'Loading the courses...');
   let labs = []; for (const f of ['labs', 'labs-qm', 'labs-solid-state', 'labs-astrophysics']) { try { labs = labs.concat((await fetchJson(`content/${f}.json`)).labs); } catch { /* optional file */ } }
-  for (const c of COURSES) {
-    const idx = await fetchJson(`content/${c.dir}/index.json`);
-    const rooms = (await Promise.all(idx.rooms.map((id) => fetchJson(`content/${c.dir}/${id}.json`)))).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
+  const idxs = await Promise.all(COURSES.map((c) => fetchJson(`content/${c.dir}/index.json`))), roomTotal = idxs.reduce((n, i) => n + i.rooms.length, 0); let roomsGot = 0;
+  progress(6, 'Loading the courses...');
+  for (const [ci, c] of COURSES.entries()) {
+    const idx = idxs[ci];
+    const rooms = (await Promise.all(idx.rooms.map(async (id) => { const r = await fetchJson(`content/${c.dir}/${id}.json`); progress(6 + 54 * (++roomsGot) / roomTotal); return r; }))).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
     for (const l of labs) { const [lc, ls] = l.room.split('/'); if (lc !== c.id) continue; const r = rooms.find((x) => x.slug === ls); if (!r) continue; let at = 0; r.encounters.forEach((e, i) => { if (e.type === 'lesson') at = i + 1; }); r.encounters.splice(at, 0, l.enc); }
     catalog.push({ ...c, region: idx.region, rooms });
     try { banks[c.id] = await fetchJson(`content/${c.dir}/blitz.json`); } catch { /* optional question bank */ }
     if (idx.codex) codexByCourse[c.id] = await fetchJson(`content/${c.dir}/${idx.codex}`);
     for (const r of rooms) for (const enc of r.encounters) encIndex.set(enc.id, { course: c.id, roomId: r.slug, enc });
   }
-  await loadGlossary();
-  await initSync();
+  progress(62, 'Loading the glossary...'); await loadGlossary();
+  progress(68, 'Loading your progress...'); await initSync(); renderStartStats();
   store.pruneReviews(new Set(encIndex.keys()));
+  progress(74, 'Loading drills and connections...');
   try { const mf = await fetchJson('content/manifest.json'); for (const cid of mf.drills || []) { const c = catalog.find((x) => x.id === cid); if (c) setDrillData(cid, await fetchJson(`content/${c.dir}/drills.json`)); } if (mf.radar) drillData.radar = await fetchJson('content/radar.json'); } catch (e) { console.warn('drills not loaded', e.message); }
   try { linksData = (await fetchJson('content/links.json')).links; } catch { linksData = []; }
   for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
+  progress(88, 'Building the 3D world...'); await nextFrame();
   world = new World(canvas);
   player = new Player(canvas, world);
   if (touch) document.body.classList.add('touch');
@@ -91,11 +113,12 @@ async function boot() {
   setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]); window.addEventListener('encounter-done', () => setTimeout(checkGoal, 50));
   onSyncStatus(updateProfileChip);
   $('close').onclick = () => closePanel();
-  $('start').onclick = () => { $('start').style.display = 'none'; startPlay(); if (!localStorage.getItem('physics-rpg-profile') && !params.has('test')) setTimeout(() => openOverlay('profile'), 600); };
   const last0 = store.last, lastRoom = last0 && findRoom(last0.course, last0.room);
-  if (lastRoom) { $('resume').style.display = ''; $('resume').textContent = `Resume: ${lastRoom.title}`; $('resume').onclick = async (ev) => { ev.stopPropagation(); $('start').style.display = 'none'; player.enabled = true; await loadRoom(last0.course, last0.room, { silent: false }); player.lock(); }; }
+  if (lastRoom) { $('resume').style.display = ''; $('resume').textContent = `Continue in ${lastRoom.title}`; $('resume').onclick = (ev) => { ev.stopPropagation(); requestStart(async () => { player.enabled = true; await loadRoom(last0.course, last0.room, { silent: false }); if ($('tour-chip').style.display === 'none') player.lock(); }); }; }
   $('start-profile').textContent = `Profile: ${store.profile}`;
-  if (touch) $('start').querySelector('.dim').textContent = 'Tap anywhere to enter the Nexus.';
+  $('st-profile').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; openOverlay('profile'); }); };
+  $('st-go').onclick = (ev) => { ev.stopPropagation(); requestStart(); };
+  startEl.onclick = (ev) => { if (!ev.target.closest('#st-profile, #resume, #st-go')) requestStart(); };
   $('help').onclick = () => startTutorial(); $('btn-nexus').onclick = () => goNexus(); $('btn-profile').onclick = () => openOverlay('profile'); $('btn-help').onclick = () => openOverlay('help'); $('btn-missions').onclick = () => openOverlay('missions'); $('btn-exam').onclick = () => openOverlay('exam'); $('btn-pile').onclick = () => openOverlay('pile'); $('btn-conn').onclick = () => connectionsHere(); $('btn-guide').onclick = () => { store.setFlag('guide-off', guideOn()); refresh(); if (inNexus) goNexus(); };
   $('btn-map').onclick = () => openOverlay('map'); $('btn-codex').onclick = () => toggleCodex(); $('side-cx').onclick = () => toggleCodex(); $('cx-close').onclick = () => closeCodex();
   $('ov-close').onclick = () => closeOverlay();
@@ -137,6 +160,8 @@ async function boot() {
     } catch (e) { console.warn('deep link failed', e.message); }
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';
+  if (startWanted || window.__want) enterGame();
   let lastT = performance.now();
   const loop = (now) => {
     const dt = Math.max(0, Math.min(0.05, (now - lastT) / 1000)); lastT = now;
@@ -152,7 +177,15 @@ const findCourse = (id) => catalog.find((c) => c.id === id);
 const findRoom = (cid, rid) => findCourse(cid)?.rooms.find((r) => r.slug === rid);
 const blocking = () => !!(current || overlay || tut);
 
-function startPlay() { player.enabled = true; if (!store.flag(`tutorial:${room.id}`)) startTutorial(); else player.lock(); }
+function startPlay() { player.enabled = true; if (offerTour()) return; player.lock(); }
+// The tour used to open by itself and block the screen for 5 taps. Now it is a small offer on the first visit of the Nexus and of each room.
+function offerTour() {
+  const chip = $('tour-chip'); clearTimeout(offerTour.t); chip.style.display = 'none';
+  const key = `tutorial:${room.id}`; if (store.flag(key) || params.has('test') || lite || tut) return false;
+  const hide = (seen) => { chip.style.display = 'none'; if (seen) store.setFlag(key); };
+  $('tour-go').onclick = () => { hide(false); startTutorial(); }; $('tour-x').onclick = () => hide(true);
+  chip.style.display = ''; offerTour.t = setTimeout(() => hide(false), 20000); return true;
+}
 
 // (rooms below)
 // ================================================================ the Nexus (main hub)
@@ -202,7 +235,7 @@ async function loadNexus({ silent = false } = {}) {
   player.flying = true; player.enabled = player.enabled || params.has('test');
   player.teleport(0, 22, 0, -0.04, 7);
   updateBar(); refresh();
-  if (!silent && player.enabled && !store.flag('tutorial:nexus')) startTutorial();
+  if (!silent && player.enabled) offerTour();
 }
 function goNexus() { warpTo(() => loadNexus({ silent: false })); }
 function warpTo(fn) {
@@ -274,7 +307,7 @@ async function loadRoom(courseId, roomId, { silent = false } = {}) {
   world.setDoorSign(['MAP / NEXT ROOM', nextRoom ? nextRoom.title : 'last room of this region']);
   updateBar(); refresh();
   if (silent) player.pos.y = 1.7;
-  if (!silent) { player.teleport(0, 8.0, 0, 0); if (player.enabled && !store.flag(`tutorial:${room.id}`)) startTutorial(); }
+  if (!silent) { player.teleport(0, 8.0, 0, 0); if (player.enabled) offerTour(); }
 }
 
 // ================================================================ state shown in the world and HUD

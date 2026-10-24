@@ -93,7 +93,7 @@ sudo bash /opt/physics-rpg/deploy/notify-setup.sh
 
 It prints a private topic name (or pass your own: `... notify-setup.sh my-topic`). On the phone install the **ntfy** app (Google Play or F-Droid), tap **+** and subscribe to that topic;
 the setup also sends a test message. Treat the topic like a password. Times are 08:15, 13:15 and 19:45 in `NOTIFY_TZ` (default Europe/Zurich, change it in `/etc/physics-rpg/notify.env`
-and run the setup again). Nothing is sent at midday if you already studied, and nothing in the evening once the daily goal is reached. Messages also arrive while you have just been studying; if you would rather have a quiet period after studying, add `NOTIFY_QUIET_MINUTES=60` to `/etc/physics-rpg/notify.env`.
+and run the setup again). Nothing is sent at midday if you already studied (at least 5 minutes working on exercises, or one finished exercise, or a mission), and nothing in the evening once the daily goal is reached (minutes on exercises or number of exercises). Time with the game just open, in menus or in lists never counts as studying. Messages also arrive while you have just been studying; if you would rather have a quiet period after studying, add `NOTIFY_QUIET_MINUTES=60` to `/etc/physics-rpg/notify.env`.
 
 - **Start now or later:** every message has the buttons **Start now**, **In 10 min** (one tap, the notification comes back after 10 minutes) and **Later...**; tapping the message itself opens
   a small chooser in the game: start now, remind me in 5 / 10 / 30 / 60 minutes, or at a time you pick (up to 3 days ahead). The reminder comes back through ntfy, with the same buttons. (The game server needs the

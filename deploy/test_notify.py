@@ -50,11 +50,29 @@ class Wording(unittest.TestCase):
 
     def test_evening_says_what_was_done_today(self):
         s = state(solved={'qm-wm-L1': {'at': ms(NOW) - 3600e3}, 'qm-wm-L2': {'at': ms(NOW) - 2 * 86400e3}}, flags={'study': {TODAY: 600}})
-        m, _ = notify.message(prog(s), 'evening', 'https://x'); self.assertIn('Today: 10 of 20 min, 1 exercise done.', m['message'])
+        m, _ = notify.message(prog(s), 'evening', 'https://x'); self.assertIn('Today: 10 of 20 min on exercises, 1 of 4 exercises (either one counts).', m['message'])
+
+    def test_time_with_the_game_open_does_not_count_only_active_exercise_time(self):
+        # new measurement ('active') from yesterday on: the old 'study' number of today (a lot of menu time) is ignored
+        s = state(flags={'study': {TODAY: 3000}, 'active': {TODAY: 120}, 'active-since': YEST})
+        self.assertEqual(prog(s).minutes_today(), 2); self.assertEqual(prog(s).week()['minutes'], 2)
+        self.assertEqual(prog(state(flags={'study': {TODAY: 3000}})).minutes_today(), 50)                    # before the first measurement: the old numbers
+        m, _ = notify.message(prog(s), 'midday', 'https://x'); self.assertIsNotNone(m)                       # 2 minutes of exercises is not "studied today"
+        m, why = notify.message(prog(state(flags={'study': {TODAY: 3000}, 'active': {TODAY: 400}, 'active-since': YEST})), 'midday', 'https://x'); self.assertIsNone(m)
+
+    def test_finishing_exercises_counts_even_without_minutes(self):
+        log = [{'t': ms(NOW) - 600e3, 'id': 'qm-wm-L1', 'title': 'x', 'type': 'lesson', 'ok': True, 'xp': 5, 'mission': False}, {'t': ms(NOW) - 300e3, 'id': 'qm-wm-Q1', 'title': 'x', 'type': 'quiz', 'ok': False, 'xp': 0, 'mission': False}]
+        s = state(flags={'activity': log, 'active': {TODAY: 20}, 'active-since': TODAY}); P = prog(s)
+        self.assertEqual(P.finished_today(), 2); self.assertFalse(P.goal_reached())
+        m, why = notify.message(P, 'midday', 'https://x'); self.assertIsNone(m); self.assertIn('already', why)            # one finished exercise (even a failed one) is studying
+        log4 = log + [{'t': ms(NOW) - 100e3 + i, 'id': f'qm-wm-L{i}', 'title': 'x', 'type': 'lesson', 'ok': True, 'xp': 5} for i in (2, 3)]
+        P4 = prog(state(flags={'activity': log4, 'active-since': TODAY})); self.assertTrue(P4.goal_reached())               # 4 exercises = the normal goal
+        m, why = notify.message(P4, 'evening', 'https://x'); self.assertIsNone(m); self.assertIn('goal', why)
+        mission = [dict(log[0], id='2026-10-24:blitz', mission=True)]; self.assertEqual(prog(state(flags={'activity': mission})).finished_today(), 0)   # missions are listed separately
 
     def test_goal_setting_changes_the_numbers(self):
         s = state(flags={'settings': {'goal': 'intense'}, 'study': {TODAY: 600}})
-        m, _ = notify.message(prog(s), 'evening', 'https://x'); self.assertIn('10 of 40 min', m['message'])
+        m, _ = notify.message(prog(s), 'evening', 'https://x'); self.assertIn('10 of 40 min on exercises, 0 of 8 exercises', m['message'])
 
     def test_weekly_review_has_the_facts(self):
         s = state(solved={'qm-wm-L1': {'at': ms(NOW) - 86400e3}, 'qm-wm-L2': {'at': ms(NOW) - 20 * 86400e3}}, flags={'study': {TODAY: 1800, YEST: 600}})

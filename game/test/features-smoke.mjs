@@ -174,7 +174,7 @@ p = await open(desk, { ...seeded, xpLog: { [day(0)]: 35 }, flags: { ...seeded.fl
 await p.keyboard.press('KeyV'); await p.waitForTimeout(500);
 const td = await p.evaluate(() => ({ text: document.getElementById('ov-body').innerText, tab: document.querySelector('.studytabs .cur')?.textContent, rows: document.querySelectorAll('.todayrow').length }));
 ck(`Today is the first tab of the Study hub and opens by default (${td.tab})`, td.tab === 'Today');
-ck('Today: 10 min studied, 35 XP, two passed (one logged, one finished earlier today), one to retry', td.text.includes('10 min studied') && td.text.includes('+35 XP') && td.text.includes('2 exercises') && td.text.includes('1 to retry'));
+ck('Today: 10 min studied, 35 XP, two passed (one logged, one finished earlier today), one to retry', td.text.includes('10 min on exercises') && td.text.includes('+35 XP') && td.text.includes('2 exercises') && td.text.includes('1 to retry'));
 ck('Today: lists the exercises with result, XP and the respawn note', td.rows === 3 && td.text.includes('Stationary states') && td.text.includes('+20 XP') && td.text.includes('respawn cleared') && td.text.includes('comes back as a respawn'));
 await p.evaluate(() => window.__game.finish('qm-wm-L2', true, 15)); await p.evaluate(() => window.__game.finish('qm-wm-L3', false, 0)); await p.waitForTimeout(300);
 await p.evaluate(() => document.querySelector('[data-stab="today"]').click()); await p.waitForTimeout(300);

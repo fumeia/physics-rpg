@@ -16,7 +16,7 @@ import { initTouch } from './touch.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
-import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS } from './missions.js';
+import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS, GOAL_EXERCISES } from './missions.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view');
@@ -88,7 +88,7 @@ async function boot() {
   if (touch) document.body.classList.add('touch');
   watchPanels();
   applySettings();
-  setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]);
+  setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]); window.addEventListener('encounter-done', () => setTimeout(checkGoal, 50));
   onSyncStatus(updateProfileChip);
   $('close').onclick = () => closePanel();
   $('start').onclick = () => { $('start').style.display = 'none'; startPlay(); if (!localStorage.getItem('physics-rpg-profile') && !params.has('test')) setTimeout(() => openOverlay('profile'), 600); };
@@ -358,11 +358,24 @@ function updateProfileChip() {
   el.textContent = `${store.profile} · ${sync.available ? (ok ? 'saved' : sync.status) : 'browser only'}`;
   el.classList.toggle('review', !sync.available || /error/.test(sync.status)); el.title = `Profile "${store.profile}": ${sync.status}`;
 }
-const studyToday = () => (store.val('study', {}) || {})[todayStr()] || 0;
-let studyAcc = 0;
-function tickStudy(dt) {
-  if (document.hidden || !(current || overlay || codexOpen)) return;
-  studyAcc += dt; if (studyAcc >= 15) { const st = { ...(store.val('study', {}) || {}) }; st[todayStr()] = (st[todayStr()] || 0) + Math.round(studyAcc); store.setVal('study', st); studyAcc = 0; checkGoal(); }
+const studyToday = () => store.activeSecondsOn(todayStr());
+// Active study time = time spent working on exercises, not time with the game open: an exercise is open (lesson, quiz, experiment, derivation, fight,
+// station, boss, a mission quiz), or the exam hall, or a practice tab (drills, mixed practice, Feynman, calibration), AND you used the screen or keyboard
+// in the last 5 minutes (20 for derivations, bosses and the exam hall: they are done on paper). Menus, maps, lists, formulas and reading connections do not count.
+let studyAcc = 0, lastInput = performance.now();
+const IDLE_MS = params.has('test') && params.get('idle') ? +params.get('idle') : 5 * 60e3, IDLE_PAPER_MS = params.has('test') && params.get('idle') ? +params.get('idle') : 20 * 60e3;
+for (const ev of ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart', 'input']) addEventListener(ev, () => { lastInput = performance.now(); }, { capture: true, passive: true });
+function activelyStudying() {
+  if (document.hidden) return false;
+  const paper = (current?.enc && ['derive', 'boss'].includes(current.enc.type)) || overlay === 'exam';
+  if (performance.now() - lastInput > (paper ? IDLE_PAPER_MS : IDLE_MS)) return false;
+  return !!current?.enc || overlay === 'exam' || (overlay === 'pile' && ['drills', 'mix', 'feynman', 'calib'].includes(studyTab));
+}
+let lastStudyAt = performance.now();
+function tickStudy() { // real elapsed time, not the frame step: a slow frame rate must not shorten the count
+  const now = performance.now(), dt = Math.min(2, (now - lastStudyAt) / 1000); lastStudyAt = now;
+  if (!activelyStudying()) return;
+  studyAcc += dt; if (studyAcc >= 15) { store.addActive(Math.round(studyAcc)); studyAcc = 0; checkGoal(); }
 }
 function runAchievements() {
   const have = { ...(store.val('ach', {}) || {}) }, ctx = achContext({ catalog, isPassed: isPassedEnc, store, level: levelOf(store.xp).lv, streak: store.streak.count });
@@ -373,11 +386,11 @@ function runAchievements() {
 window.addEventListener('encounter-done', () => setTimeout(runAchievements, 600));
 const fmtMin = (s) => `${Math.floor(s / 3600) ? Math.floor(s / 3600) + ' h ' : ''}${Math.round((s % 3600) / 60)} min`;
 function profileHtml() {
-  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, study = store.val('study', {}) || {}, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), study[todayStr(d)] || 0]; }), mx = Math.max(600, ...week.map((w) => w[1]));
+  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
-    <div><b>Study time</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(Object.values(study).reduce((a, b) => a + b, 0))}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
+    <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
     <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution)</option></select></label>
-      <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min)</option>`).join('')}</select></label>
+      <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min or ${GOAL_EXERCISES[k]} exercises)</option>`).join('')}</select></label>
       <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
       <label class="labrow"><span><input type="checkbox" id="set-haptics" ${st.haptics !== false ? 'checked' : ''}> vibration</span></label>
       <label class="labrow">theme <select id="set-theme">${[['dark', 'dark'], ['light', 'light (white room)'], ['auto', 'like the phone']].map(([v, t]) => `<option value="${v}" ${themeChoice() === v ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
@@ -664,7 +677,7 @@ function todayHtml() {
   const okN = items.filter((x) => x.ok).length, failN = items.length - okN, cleared = items.filter((x) => x.ok && x.review).length, xp = store.xpOn(date);
   const row = (x) => { const ref = encIndex.get(x.id), room = ref ? findRoom(ref.course, ref.roomId) : null, course = ref ? findCourse(ref.course)?.region : '';
     return `<div class="maprow todayrow ${x.ok ? 'ok' : 'miss'}"><button class="link" data-todayopen="${x.id}"${ref ? '' : ' disabled'}><span class="mt">${x.ok ? '\u2713' : '\u2717'} ${typeName[x.type] || x.type} \u201c${prettyText(x.title)}\u201d</span></button><span class="mp">${x.xp ? `+${x.xp} XP` : x.xp === 0 ? 'no XP' : ''}</span><span class="md">${[course, room?.title, hhmm(x.t)].filter(Boolean).join(' \u00b7 ')}${x.review && x.ok ? ' \u00b7 respawn cleared' : ''}${!x.ok ? ' \u00b7 comes back as a respawn' : ''}</span></div>`; };
-  return `<div class="msn-head"><div><b>${g.min} min</b> studied today<div class="src">goal ${g.goal} min${g.done ? ', reached' : ''}</div></div>
+  return `<div class="msn-head"><div><b>${g.min} min</b> on exercises today<div class="src">${g.ex} finished. Goal: ${g.goal} min or ${g.exGoal} exercises${g.done ? ', reached' : ''}</div></div>
     <div><b>${okN} exercise${okN === 1 ? '' : 's'}</b> passed${cleared ? ` (${cleared} respawn${cleared === 1 ? '' : 's'} cleared)` : ''}<div class="src">${failN ? `${failN} to retry: they come back as respawns` : 'nothing failed so far'}</div></div>
     <div><b>${xp >= 0 ? '+' : '\u2212'}${Math.abs(xp)} XP</b> today<div class="src">${doneM.length} of ${ms.length} missions done, streak ${streakNow().count} day${streakNow().count === 1 ? '' : 's'}</div></div></div>
     ${items.length ? `<h3>Exercises (${items.length})</h3><div class="maplist">${items.map(row).join('')}</div>` : '<p>Nothing finished yet today. A quick session is the easiest start.</p>'}
@@ -677,10 +690,14 @@ function wireToday(host) {
 }
 // ================================================================ daily goal, quick session, weekly summary
 const goalMinutes = () => GOALS[(store.val('settings', {}) || {}).goal] || GOALS.normal;
-function goalInfo() { const goal = goalMinutes(), min = Math.floor(studyToday() / 60); return { goal, min, done: min >= goal }; }
+const goalExercises = () => GOAL_EXERCISES[(store.val('settings', {}) || {}).goal] || GOAL_EXERCISES.normal;
+const exercisesToday = () => new Set(todayItems().filter((x) => !x.mission).map((x) => x.id)).size; // finished today, passed or not
+// the daily goal is reached by minutes of work on exercises OR by the number of exercises finished
+function goalInfo() { const goal = goalMinutes(), min = Math.floor(studyToday() / 60), exGoal = goalExercises(), ex = exercisesToday(); return { goal, min, exGoal, ex, done: min >= goal || ex >= exGoal }; }
 function checkGoal() {
   const date = todayStr(); if (store.flag(`goal:${date}`)) return;
-  if (studyToday() >= goalMinutes() * 60) { store.setFlag(`goal:${date}`); toast(`<b>Daily goal reached:</b> ${goalMinutes()} minutes of study today. Anything more is a bonus.`); sfx.goal(); pulse('right'); }
+  const g = goalInfo();
+  if (g.done) { store.setFlag(`goal:${date}`); toast(`<b>Daily goal reached:</b> ${g.min >= g.goal ? `${g.goal} minutes on exercises` : `${g.ex} exercises finished`} today. Anything more is a bonus.`); sfx.goal(); pulse('right'); }
 }
 let queueLabel = 'pile';
 // A short session: due respawns first (at most 2), then the next unfinished exercises of the recommended room, usually 10 to 20 minutes in all
@@ -703,7 +720,7 @@ function startQuick() {
 }
 function weekStats() {
   const day = 86400000, now = Date.now(), days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return todayStr(d); });
-  const study = store.val('study', {}) || {}, minutes = days.map((d) => Math.round((study[d] || 0) / 60));
+  const minutes = days.map((d) => Math.round(store.activeSecondsOn(d) / 60));
   const solved = Object.entries(store.snapshot.solved || {}).filter(([id, v]) => encIndex.has(id) && v.at >= now - 7 * day && !v.failed);
   const courses = catalog.map((c) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type !== 'sandbox')), passedN = all.filter((e) => store.isPassed(e.id)).length; return { id: c.id, region: c.region, passed: passedN, total: all.length, week: solved.filter(([id]) => encIndex.get(id).course === c.id).length }; });
   return { days, minutes, studied: minutes.filter((x) => x > 0).length, total: minutes.reduce((a, b) => a + b, 0), exercises: solved.length, missions: days.reduce((n, d) => n + Object.keys(store.missionsOf(d).done).length, 0), courses, weak: weakSpots(encIndex, 2).map((w) => { const [c, s] = w.key.split('/'); return findRoom(c, s)?.title || w.key; }) };
@@ -711,7 +728,7 @@ function weekStats() {
 function weekHtml() {
   const w = weekStats(), mx = Math.max(20, ...w.minutes), plan = examPlan(catalog, isPassedEnc), best = [...w.courses].sort((a, b) => b.passed / b.total - a.passed / a.total)[0], sn = streakNow();
   const dn = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  return `<div class="msn-head"><div><b>${w.total} min</b> studied<div class="src">on ${w.studied} of the last 7 days (goal ${goalMinutes()} min a day)</div></div>
+  return `<div class="msn-head"><div><b>${w.total} min</b> on exercises<div class="src">on ${w.studied} of the last 7 days (goal ${goalMinutes()} min or ${goalExercises()} exercises a day)</div></div>
     <div><b>${w.exercises} exercises</b> passed<div class="src">${w.missions} mission${w.missions === 1 ? '' : 's'} done, streak ${sn.count} day${sn.count === 1 ? '' : 's'}</div></div>
     <div><b>${store.dueReviews().length} respawns</b> due<div class="src">exam in ${plan.days} days: ${plan.left} items to go ≈ ${plan.perDay} a day</div></div></div>
     <div class="spark week">${w.minutes.map((x, i) => `<span><i title="${w.days[i]}: ${x} min" style="height:${Math.max(3, Math.round(38 * x / mx))}px"></i><em>${dn[new Date(w.days[i] + 'T00:00:00').getDay()]}</em></span>`).join('')}</div>
@@ -749,7 +766,7 @@ function missionsHtml() {
   return `<div class="msn-head"><div><b>${lv.rank}</b> · level ${lv.lv}<div class="bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></div><span class="src">${lv.into} / ${lv.need} XP to the next rank</span></div>
     <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
     <div><b>Exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
-    <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * g.min / g.goal))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `${g.goal - g.min} min to go. Time counts while an exercise, the formulas or a menu is open. Change the goal in Profile > settings.`}</span></div>
+    <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min on exercises, or ${g.ex} of ${g.exGoal} exercises</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * Math.max(g.min / g.goal, g.ex / g.exGoal)))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `Either one counts: ${g.goal} minutes of working on exercises (menus, lists and the formulas do not count) or ${g.exGoal} finished exercises. Change the goal in Profile > settings.`}</span></div>
     <p class="src">Done today: ${todayItems().filter((x) => !x.mission && x.ok).length} exercises, ${store.xpOn(todayStr()) >= 0 ? '+' : '\u2212'}${Math.abs(store.xpOn(todayStr()))} XP. <button class="link" id="msn-today">See what you did today</button></p>
     <div class="row"><button class="go" id="quick-go">Quick session (${quickInfo()})</button></div>
     <h3>Today's missions (${ms.filter((m) => day.done[m.id]).length} / ${ms.length})</h3><div class="maplist">${ms.map((m) => `<div class="maprow msn${day.done[m.id] ? ' done' : ''}"><span class="mt"><span class="tag">${m.kind}</span> ${m.title}</span><span class="mp">${day.done[m.id] ? 'done' : '+' + Math.round(m.xp * streakMult()) + ' XP'}</span><span class="md">${m.desc}</span>${day.done[m.id] ? '' : `<button class="go" data-mission="${m.id}">Start</button>`}</div>`).join('')}</div>
@@ -1101,6 +1118,7 @@ function exposeTestApi() {
     currentRoom: () => `${course.id}/${room.slug}`, enterNexus: () => loadNexus({ silent: true }), nexus: () => (inNexus && set ? { nodes: set.nodes.length, links: set.links.length, focus: set.focus ? (set.focus.node?.key || 'link') : null } : null), flyTo: (x, y, z, yaw = 0, pitch = 0) => player.teleport(x, z, yaw, pitch, y),
     interactNearest: () => { const t = player.target(); if (t) interact(t); return t ? t.id : null; },
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
+    activeSeconds: () => studyToday() + Math.round(studyAcc),
     finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };

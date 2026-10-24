@@ -64,7 +64,9 @@ until you get it right once. If you do not want a respawn schedule for something
   a derivation or an estimation, an experiment or a lesson, an exam problem). On Sundays there is a mock exam as well. Mission XP gets a **streak bonus**
   (+5 % per streak day, up to +50 %), and finishing all of them gives +50 XP.
 - **Streak:** days in a row with at least one mission done. One missed day per week is forgiven by the **weekly streak freeze** (it is used automatically; the week starts on Monday).
-- **Daily goal:** 10, 20 or 40 minutes of study a day (Profile > settings). Time counts while an exercise, the formulas or a menu is open. Reaching it shows a message.
+- **Daily goal:** reached by **10, 20 or 40 minutes working on exercises**, or by finishing **2, 4 or 8 exercises** (passed or not), whichever comes first (Profile > settings). Only real work counts as time:
+  an exercise is open (lesson, quiz, experiment, derivation, fight, station, boss or a mission quiz), the exam hall, or a practice tab (drills, mixed practice, Feynman, calibration), and you touched the screen or keyboard in the last 5 minutes
+  (20 minutes for derivations, bosses and the exam hall, which you do on paper). Menus, maps, lists, the formulas and just having the game open do not count. Reaching it shows a message.
 - **Quick session** (Menu, Missions, or key Q): up to three exercises, the most overdue respawns first, then the next step of the guided route, usually 10 to 20 minutes (the button shows the estimate).
 - **Notifications** (server, optional): a morning plan, a midday quick win, an evening streak reminder, a Sunday week in review. Each names the exact exercise; tap it to start now or to be reminded later.
 

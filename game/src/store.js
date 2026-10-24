@@ -39,6 +39,15 @@ export const store = {
     save(); if (xpHook && n) xpHook(n);
   },
   xpOn(date) { return (state.xpLog || {})[date] || 0; },
+  // Active study time: seconds spent working on exercises per day (main.js decides what counts). Days before the first measurement keep the
+  // older "time with a panel open" numbers, so the history does not vanish.
+  addActive(sec) {
+    const day = localDate(Date.now()), f = state.flags || {}, act = { ...(f.active || {}) }; act[day] = (act[day] || 0) + sec;
+    for (const k of Object.keys(act).sort().slice(0, -90)) delete act[k];
+    state.flags = { ...f, active: act, 'active-since': f['active-since'] || day }; save();
+  },
+  activeSecondsOn(date) { const f = state.flags || {}, since = f['active-since']; return since && date >= since ? (f.active || {})[date] || 0 : (f.study || {})[date] || 0; },
+  activeTotal() { const f = state.flags || {}, since = f['active-since']; return Object.entries(f.study || {}).filter(([d]) => !since || d < since).reduce((a, [, v]) => a + v, 0) + Object.values(f.active || {}).reduce((a, b) => a + b, 0); },
   // what was done: one entry per finished exercise or mission {t, id, title, type, ok, xp, review}; the last 400, at most 45 days
   logActivity(e) {
     const log = [...(((state.flags || {}).activity) || []), { t: Date.now(), ...e }].filter((x) => x.t > Date.now() - 45 * DAY).slice(-400);

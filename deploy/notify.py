@@ -27,6 +27,7 @@ COURSES = [('qm', 'Quantum Mechanics'), ('solid-state', 'Solid State'), ('astrop
 TYPE_NAME = {'lesson': 'Lesson', 'quiz': 'Quiz', 'derive': 'Derivation', 'calc': 'Calculation fight', 'lab': 'Experiment', 'predict-observe': 'Station', 'boss': 'Exam problem'}
 EST = {'lesson': 10, 'quiz': 8, 'derive': 15, 'calc': 15, 'lab': 12, 'predict-observe': 10, 'boss': 30, 'sandbox': 5}
 GOALS = {'light': 10, 'normal': 20, 'intense': 40}
+GOAL_EXERCISES = {'light': 2, 'normal': 4, 'intense': 8}   # the daily goal is reached by minutes on exercises OR by this many finished exercises
 GUIDE_SKIP = ('sandbox', 'boss')
 
 
@@ -88,13 +89,21 @@ class Progress:
     def locked(self, e): return bool(e.get('requires')) and not self.passed(e['requires'])
     def settings(self): return self.flags.get('settings') or {}
     def goal_min(self): return GOALS.get(self.settings().get('goal'), GOALS['normal'])
-    def study_min(self, date): return int(round(((self.flags.get('study') or {}).get(date) or 0) / 60))
-    def exercises_today(self):  # passed exercises finished today (local day), like the game's Today view without the activity log
-        n = 0
+    def goal_ex(self): return GOAL_EXERCISES.get(self.settings().get('goal'), GOAL_EXERCISES['normal'])
+    def active_sec(self, date):  # seconds actively working on exercises (the game's active study time); days before the first measurement use the older numbers
+        f = self.flags; since = f.get('active-since')
+        return ((f.get('active') or {}).get(date) or 0) if since and date >= since else ((f.get('study') or {}).get(date) or 0)
+    def study_min(self, date): return int(self.active_sec(date) / 60 + 0.5)          # the week view rounds half up, like JavaScript's Math.round
+    def minutes_today(self): return int(self.active_sec(self.today) // 60)           # the daily goal counts whole minutes
+    def _day(self, ms): return dt.datetime.fromtimestamp(ms / 1000, self.now.tzinfo).date().isoformat()
+    def finished_today(self):  # distinct exercises finished today, passed or not (the game's Today list without missions)
+        log = [e for e in (self.flags.get('activity') or []) if self._day(e.get('t', 0)) == self.today]
+        seen_all = {e.get('id') for e in log}; ids = {e['id'] for e in log if not e.get('mission')}
         for id, v in (self.s.get('solved') or {}).items():
             at = v.get('at') or 0
-            if id in self.c['index'] and not v.get('failed') and at and dt.datetime.fromtimestamp(at / 1000, self.now.tzinfo).date().isoformat() == self.today: n += 1
-        return n
+            if id not in seen_all and id in self.c['index'] and at and self._day(at) == self.today: ids.add(id)
+        return len(ids)
+    def goal_reached(self): return self.minutes_today() >= self.goal_min() or self.finished_today() >= self.goal_ex()
     def missions_done(self, date): return len(((self.s.get('missions') or {}).get(date) or {}).get('done') or {})
     def updated(self): return (self.s.get('updated') or 0) / 1000
 
@@ -235,8 +244,8 @@ def message(P, slot, base, cfg=None):
     """-> (message dict | None, reason). Plain text, a few short lines, specific to the current state."""
     rnd = random.Random(f'{P.today}:{slot}'); pick = lambda xs: xs[rnd.randrange(len(xs))]
     step, due, st, plan = P.next_step(), P.due(), P.streak(), P.exam_plan()
-    today_min, goal = P.study_min(P.today), P.goal_min()
-    done_today = today_min >= goal
+    today_min, goal, ex, ex_goal = P.minutes_today(), P.goal_min(), P.finished_today(), P.goal_ex()
+    done_today = P.goal_reached()
     lines, tags, prio = [], [], 3
     nxt = step_line(P, step); qids = P.quick_ids(); quick = len(qids); qmin = max(5, round(sum(EST.get(P.c['index'][i]['enc']['type'], 10) for i in qids) / 5) * 5)
 
@@ -251,7 +260,7 @@ def message(P, slot, base, cfg=None):
         tags = ['books']; spec = suggest_spec('quick') if due else (suggest_spec('open', step['enc']['id']) if step and step['enc'] else None)
         what = (f"Quick session: {plural(quick, 'exercise')}" if due else nxt) or 'Mock exam'; actions = None
     elif slot == 'midday':
-        if today_min >= 5 or P.missions_done(P.today): return None, 'already studied today'
+        if today_min >= 5 or ex >= 1 or P.missions_done(P.today): return None, 'already studied today'
         title = pick(['Ten minutes, right now', 'A quick win before the afternoon', 'Nothing studied yet today'])
         lines.append(f"Quick session: {plural(quick, 'exercise')}, about {qmin} minutes." if quick else 'Nothing is due. One new exercise is enough.')
         if due: lines.append(f"{plural(len(due), 'respawn')} due. They are the cheapest points you can collect.")
@@ -269,7 +278,7 @@ def message(P, slot, base, cfg=None):
         elif st['alive'] and not st['today']: lines.append('One mission is enough to keep it.')
         elif st['today']: lines.append('The streak is safe for today. The rest is a bonus.')
         else: lines.append('One mission today starts a new streak.')
-        ex = P.exercises_today(); lines.append(f"Today: {today_min} of {goal} min" + (f", {plural(ex, 'exercise')} done." if ex else '.'))
+        lines.append(f"Today: {today_min} of {goal} min on exercises, {ex} of {ex_goal} exercises (either one counts).")
         lines.append(f'Easiest start: {nxt}' if nxt else 'The route is finished: a mock exam is the best use of time.')
         prio = 4 if st['alive'] and not st['today'] else 3; tags = ['fire'] if st['alive'] else ['seedling']; spec = suggest_spec('quick'); what = f"Quick session: {plural(quick, 'exercise')}" if quick else (nxt or 'Quick session'); actions = None
     elif slot == 'weekly':
@@ -336,7 +345,7 @@ def main(argv=None):
     if a.json:
         step = P.next_step(); week = P.week()
         out = {'today': P.today, 'next': {'key': step['key'], 'enc': step['enc']['id'] if step['enc'] else None} if step else None, 'due': P.due(), 'quick': P.quick_ids(), 'streak': P.streak(),
-               'minutesToday': P.study_min(P.today), 'goal': P.goal_min(), 'plan': P.exam_plan(), 'week': week, 'weak': P.weak_rooms(2),
+               'minutesToday': P.minutes_today(), 'goal': P.goal_min(), 'exercisesToday': P.finished_today(), 'goalExercises': P.goal_ex(), 'goalReached': P.goal_reached(), 'plan': P.exam_plan(), 'week': week, 'weak': P.weak_rooms(2),
                'messages': {s: dict(zip(('message', 'reason'), message(P, s, base, cfg))) for s in ('morning', 'midday', 'evening', 'weekly')}}
         print(json.dumps(out, indent=1, ensure_ascii=False)); return 0
     slot = auto_slot(now) if a.slot == 'auto' else a.slot

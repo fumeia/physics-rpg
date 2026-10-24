@@ -16,6 +16,7 @@ const catalog = await p.evaluate(() => window.__game.catalog()), path = JSON.par
 const routeIds = []; for (const it of path) { const [c, r] = it.key.split('/'); const room = catalog.find((x) => x.id === c)?.rooms.find((x) => x.id === r); for (const e of room?.encounters || []) if (e.type !== 'sandbox') routeIds.push(e.id); }
 const all = catalog.flatMap((c) => c.rooms.flatMap((r) => r.encounters.map((e) => e.id)));
 const now = Date.now(), solvedFirst = (n, failedEvery = 0) => Object.fromEntries(routeIds.slice(0, n).map((id, i) => [id, failedEvery && i % failedEvery === 0 ? { at: now - 3 * 86400e3, failed: true } : { at: now - (1 + (i % 12)) * 86400e3 }]));
+const act = (n) => Array.from({ length: n }, (_, i) => ({ t: Date.now() - 4000 * (i + 1), id: routeIds[i], title: 'x', type: 'lesson', ok: i % 3 !== 0, xp: 5, review: false, mission: false }));
 const due = (ids) => Object.fromEntries(ids.map((id, i) => [id, { box: i % 3, due: now - 1000 * (i + 1), fails: 1 + (i % 2) }]));
 const cases = [
   ['fresh profile', {}],
@@ -27,13 +28,18 @@ const cases = [
   ['missed one day, freeze available', { solved: solvedFirst(60), streak: { last: dayStr(-2), count: 7 } }],
   ['missed one day, freeze already used this week', { solved: solvedFirst(60), streak: { last: dayStr(-2), count: 7 }, freeze: { week: wk(dayStr(0)) } }],
   ['missed three days', { solved: solvedFirst(60), streak: { last: dayStr(-4), count: 7 } }],
+  ['active exercise time beats the old "panel open" number', { solved: solvedFirst(30), flags: { study: { [dayStr(0)]: 3000 }, active: { [dayStr(0)]: 200 }, 'active-since': dayStr(-1) } }],
+  ['two exercises finished today, hardly any active minutes', { solved: solvedFirst(10), flags: { activity: act(2), active: { [dayStr(0)]: 30 }, 'active-since': dayStr(0) } }],
+  ['four finished today: the goal is reached by the number of exercises', { solved: solvedFirst(10), flags: { activity: act(4), 'active-since': dayStr(0) } }],
+  ['light goal, a mission quiz in the log', { solved: solvedFirst(10), flags: { settings: { goal: 'light' }, activity: [...act(1), { t: Date.now() - 1000, id: dayStr(0) + ':blitz', title: 'Blitz', type: 'quiz', ok: true, xp: 10, mission: true }] } }],
+  ['exercises solved earlier today count too', { solved: Object.fromEntries(routeIds.slice(0, 3).map((id, i) => [id, { at: Date.now() - 9000 * (i + 1) }])) }],
   ['everything done', { solved: Object.fromEntries(all.map((id) => [id, { at: now - 86400e3 }])) }],
 ];
 let i = 0;
 for (const [name, st] of cases) {
   const state = { updated: now + 3600e3 + (i++) * 1000, xp: 100, solved: {}, reviews: {}, flags: {}, ...st };
   await p.evaluate((s) => localStorage.setItem('physics-rpg-v1', JSON.stringify(s)), state); await p.reload(); await p.waitForFunction(() => !!window.__game); await p.waitForTimeout(600);
-  const js = await p.evaluate(() => ({ next: window.__game.nextStep(), quick: window.__game.quickIds(), streak: window.__game.streak(), due: window.__game.state().due, goal: window.__game.goal().goal, week: (() => { const w = window.__game.weekStats(); return { exercises: w.exercises, minutes: w.total, missions: w.missions }; })() }));
+  const js = await p.evaluate(() => ({ next: window.__game.nextStep(), quick: window.__game.quickIds(), streak: window.__game.streak(), due: window.__game.state().due, goal: window.__game.goal(), week: (() => { const w = window.__game.weekStats(); return { exercises: w.exercises, minutes: w.total, missions: w.missions }; })() }));
   const f = join(tmp, `s${i}.json`); writeFileSync(f, JSON.stringify({ state }));
   const r = spawnSync('python3', [root + '../deploy/notify.py', '--json', '--profile-file', f], { env: { ...process.env, NOTIFY_TZ: 'Europe/Zurich' }, encoding: 'utf8' });
   if (r.status !== 0) { ck(`${name}: python ran`, false, r.stderr); continue; }
@@ -43,7 +49,8 @@ for (const [name, st] of cases) {
   ck(`${name}: quick session`, same(py.quick, js.quick), `py ${py.quick} js ${js.quick}`);
   ck(`${name}: streak`, py.streak.count === js.streak.count && py.streak.alive === js.streak.alive && py.streak.saved === js.streak.saved, `py ${JSON.stringify(py.streak)} js ${JSON.stringify(js.streak)}`);
   ck(`${name}: due respawns`, same([...py.due].sort(), [...js.due].sort()), `py ${py.due} js ${js.due}`);
-  ck(`${name}: daily goal and week numbers`, py.goal === js.goal && py.week.exercises === js.week.exercises && py.week.minutes === js.week.minutes && py.week.missions === js.week.missions, `py ${py.goal} ${JSON.stringify(py.week)} js ${js.goal} ${JSON.stringify(js.week)}`);
+  ck(`${name}: daily goal (minutes, exercises, reached)`, py.goal === js.goal.goal && py.minutesToday === js.goal.min && py.exercisesToday === js.goal.ex && py.goalExercises === js.goal.exGoal && py.goalReached === js.goal.done, `py ${py.goal} ${py.minutesToday} ${py.exercisesToday} ${py.goalExercises} ${py.goalReached} js ${JSON.stringify(js.goal)}`);
+  ck(`${name}: week numbers`, py.week.exercises === js.week.exercises && py.week.minutes === js.week.minutes && py.week.missions === js.week.missions, `py ${py.goal} ${JSON.stringify(py.week)} js ${js.goal} ${JSON.stringify(js.week)}`);
 }
 ck('no page errors', errs.length === 0); if (errs.length) console.log(errs.slice(0, 3));
 await b.close(); srv.kill(); console.log(fails ? `${fails} FAILED` : 'ALL PASSED'); process.exit(fails ? 1 : 0);

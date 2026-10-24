@@ -41,4 +41,10 @@ store.logActivity({ id: 'a', title: 'A', type: 'lesson', ok: true, xp: 20, revie
 ck('activity of today lists both, in order', store.activityOn(today).map((x) => x.id).join() === 'a,b' && store.activityOn(yest).length === 0);
 for (let i = 0; i < 450; i++) store.logActivity({ id: 'x' + i, title: 'X', type: 'lesson', ok: true, xp: 1, review: false });
 ck('the log keeps the last 400 entries', store.activityOn(today).length === 400 && store.activityOn(today).at(-1).id === 'x449');
+// active study time: new measurement from its first day on, the older numbers before that
+store.reset(); store.setVal('study', { [yest]: 3000, [today]: 900 });
+ck('before any measurement the older numbers are used', store.activeSecondsOn(today) === 900 && store.activeTotal() === 3900);
+store.addActive(120); store.addActive(60);
+ck('from the first measured day on only the new numbers count (900 s of menu time today are ignored)', store.activeSecondsOn(today) === 180 && store.activeSecondsOn(yest) === 3000 && store.activeTotal() === 3180);
+ck('the first measured day is remembered', (store.val('active-since')) === today);
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED'); process.exit(fails ? 1 : 0);

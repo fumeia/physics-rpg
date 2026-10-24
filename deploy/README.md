@@ -62,6 +62,7 @@ sudo systemctl start physics-rpg
 | The time zone of the reminders | `NOTIFY_TZ=` in `/etc/physics-rpg/notify.env` and the timer file's three times (they carry the zone name), then reload as above |
 | Which profile the notifications read | `PHYSICS_RPG_PROFILE=` in `/etc/physics-rpg/notify.env` (default `default`) |
 | The exam date (countdown, pace) | `EXAM_DATE` at the top of `/opt/physics-rpg/game/src/missions.js` (later `rpg-update` keeps your edit only if it does not clash; better ask Claude to change it in the repository) |
+| What counts as studying (for the goal and the notifications) | Time actively working on exercises, or the number of finished exercises; the rules are in `docs/HOW_THE_GAME_WORKS.md` (Daily goal). The goal size is set in the game: Profile > settings |
 | Theme, controls, daily goal, sounds | in the game: Menu or Profile (P) > settings. Theme and controls are stored in the phone's browser, the rest in your profile |
 | The game's content (exercises) | `/opt/physics-rpg/game/content/` in the repository. Edit it in the repository (GitHub), then `rpg-update` |
 | Server access to a **private** repository | `sudo bash /opt/physics-rpg/deploy/deploy-key.sh` (once) |

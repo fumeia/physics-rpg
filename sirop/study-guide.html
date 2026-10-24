@@ -1,0 +1,534 @@
+<title>Sirop Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column with a sticky tab strip; each tab is one study block of the day. */
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#f2f5f6; --panel:#ffffff; --fg:#14212b; --muted:#56656f; --line:#d5dde1;
+  --us:#1d6f78;      /* ultrasound teal */
+  --laser:#b8412f;   /* optoacoustic laser red */
+  --warn-bg:#fbf1dc; --warn-fg:#6d4a07; --warn-line:#e2c27a;
+  --tint:#e6eef0;
+  --f-display:"Archivo Narrow","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f171d; --panel:#16212a; --fg:#e3eaee; --muted:#9aa9b2; --line:#2a3943;
+  --us:#5fb7c0; --laser:#ec8a77; --warn-bg:#2d2615; --warn-fg:#f0d18e; --warn-line:#6b5524; --tint:#1b2a33; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f171d; --panel:#16212a; --fg:#e3eaee; --muted:#9aa9b2; --line:#2a3943;
+  --us:#5fb7c0; --laser:#ec8a77; --warn-bg:#2d2615; --warn-fg:#f0d18e; --warn-line:#6b5524; --tint:#1b2a33; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.2rem 4rem}
+header.top{padding-block:1.4rem .6rem}
+.eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:2.2rem;line-height:1.05;margin:.3rem 0 .4rem;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:700;font-size:1.55rem;line-height:1.15;margin:2rem 0 .6rem;text-wrap:balance}
+h3{font-family:var(--f-display);font-weight:600;font-size:1.18rem;margin:1.5rem 0 .4rem;color:var(--us)}
+p,li{max-width:65ch}
+a{color:var(--us)}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
+nav.tabs .in{max-width:46rem;margin:0 auto;display:flex;gap:.25rem;overflow-x:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.45rem;scrollbar-width:none}
+nav.tabs button{font-family:var(--f-display);font-weight:600;font-size:.95rem;white-space:nowrap;border:1px solid transparent;background:none;color:var(--muted);padding:.35rem .65rem;border-radius:6px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--line);background:var(--tint)}
+nav.tabs button:focus-visible,summary:focus-visible,.rate button:focus-visible{outline:2px solid var(--us);outline-offset:2px}
+.note{background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line);border-radius:6px;padding:.55rem .75rem;font-size:.92rem;margin:.8rem 0}
+.note b{font-family:var(--f-display);letter-spacing:.02em}
+.src{font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+.tag{font-family:var(--f-mono);font-size:.7rem;padding:.08rem .35rem;border-radius:4px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.us{color:var(--us);border-color:var(--us)} .tag.oa{color:var(--laser);border-color:var(--laser)}
+.tablebox{overflow-x:auto;margin:.8rem 0;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:.42rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-family:var(--f-display);font-weight:600;background:var(--tint)}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.sched{display:grid;gap:0;border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+.sched > div{display:grid;grid-template-columns:5.6rem 1fr;gap:.8rem;padding:.6rem .75rem;border-bottom:1px solid var(--line)}
+.sched > div:last-child{border-bottom:none}
+.sched .t{font-family:var(--f-mono);font-size:.82rem;font-variant-numeric:tabular-nums;color:var(--muted);padding-top:.15rem}
+.sched .d{min-width:0}
+.sched .do{background:var(--tint)}
+.sched .stop{border-left:4px solid var(--laser)}
+.flow{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.8rem 0;font-family:var(--f-display);font-weight:600}
+.flow span.box{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:.35rem .6rem}
+.flow span.arr{color:var(--muted)}
+ol.concepts{padding-left:1.4rem} ol.concepts li{margin:.35rem 0}
+details.q{border:1px solid var(--line);border-radius:6px;background:var(--panel);margin:.55rem 0;padding:.1rem .8rem}
+details.q summary{cursor:pointer;padding:.5rem 0;font-weight:600;list-style-position:outside}
+details.q .a{padding:.2rem 0 .7rem;border-top:1px dashed var(--line)}
+.rate{display:flex;gap:.4rem;flex-wrap:wrap;margin:.2rem 0 .7rem}
+.rate button{font-family:var(--f-mono);font-size:.75rem;border:1px solid var(--line);background:none;color:var(--muted);border-radius:4px;padding:.2rem .5rem;cursor:pointer}
+.rate button.on.ok{border-color:var(--us);color:var(--us)}
+.rate button.on.weak{border-color:var(--laser);color:var(--laser)}
+#weaklist{font-size:.92rem}
+.fig{border-left:3px solid var(--line);padding-left:.75rem;margin:.6rem 0}
+.fig b{font-family:var(--f-display)}
+.pitch{font-size:1.06rem;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.9rem 1rem}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+section[hidden]{display:none!important}
+.sheet h3{margin-top:1.1rem}
+.sheet dl{display:grid;grid-template-columns:minmax(7rem,auto) 1fr;gap:.3rem .8rem;font-size:.92rem}
+.sheet dt{font-family:var(--f-display);font-weight:600}
+.sheet dd{margin:0;min-width:0}
+@media (max-width:30rem){h1{font-size:1.85rem}.sched > div{grid-template-columns:1fr;gap:.15rem}.sheet dl{grid-template-columns:1fr}.sheet dd{margin-bottom:.4rem}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<script>
+window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'},options:{skipHtmlTags:['script','style','textarea','button']}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+
+<div class="wrap" style="padding-block:0">
+<header class="top">
+  <div class="eyebrow">Sirop project · Razansky lab (UZH/ETH IBT) · day-one prep</div>
+  <h1>Sirop Field Guide</h1>
+  <p style="margin:.2rem 0;color:var(--muted)">Ultrasound-responsive liposomes on acoustically trapped microrobots. Four papers, one day, one page you can reread for six months.</p>
+</header>
+</div>
+
+<nav class="tabs" aria-label="Sections"><div class="in" role="tablist">
+  <button role="tab" data-t="map">Map</button>
+  <button role="tab" data-t="day">Day plan</button>
+  <button role="tab" data-t="kim">1 · Kim</button>
+  <button role="tab" data-t="purohit">2 · Purohit</button>
+  <button role="tab" data-t="chen">3 · Chen</button>
+  <button role="tab" data-t="behzadi">4 · Behzadi</button>
+  <button role="tab" data-t="checks">Checks</button>
+  <button role="tab" data-t="lab">Lab tour</button>
+  <button role="tab" data-t="sheet">Cheat sheet</button>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ================= MAP ================= -->
+<section id="map" data-sec>
+<h2>The map</h2>
+<div class="note"><b>How to read this page.</b> I read every paper from rendered pages, figures included, so the equations are not from garbled text extraction. Anything marked <span class="tag">not in papers</span> is standard physics or my own inference, so check it before you rely on it. Numbers marked <span class="tag">my estimate</span> are Fermi checks I computed.</div>
+
+<h3>The experiment in one paragraph</h3>
+<p>The group (Paul Wrede, Nima Mahkam, Daniel Razansky) can already trap and steer micro-particles in flowing blood with focused ultrasound (FUS), and watch them in 3D with optoacoustic (OA) tomography. That is Kim et al. 2024, and Paul Wrede is joint first author. Separately, Purohit et al. 2025 showed that liposomes release drug on demand under low-intensity pulsed ultrasound if their core is made acoustically different from the surroundings (5% sucrose). <b>Your project glues the two together:</b> make sound-responsive liposomes, conjugate them onto microrobots, trap and steer the robots with one ultrasound setting, then release the drug with another setting. You then measure how much was released, where, and whether trapping alone already leaks it.</p>
+
+<div class="flow" aria-label="Pipeline">
+  <span class="box">Make liposomes</span><span class="arr">→</span>
+  <span class="box">Characterise (DLS, ζ, EE)</span><span class="arr">→</span>
+  <span class="box">Conjugate to robot</span><span class="arr">→</span>
+  <span class="box"><span class="tag us">US</span> trap + steer in flow</span><span class="arr">→</span>
+  <span class="box"><span class="tag oa">OA</span> image</span><span class="arr">→</span>
+  <span class="box"><span class="tag us">US</span> trigger release</span><span class="arr">→</span>
+  <span class="box">Quantify</span>
+</div>
+
+<h3>How the 4 papers fit</h3>
+<div class="tablebox"><table>
+<tr><th>Paper</th><th>Role for you</th><th>Depth today</th></tr>
+<tr><td><b>Kim 2024</b>, Adv. Mater.</td><td>The robot and the trap. Your lab's own platform and physics (radiation force, streaming, drag). The POUS imaging system.</td><td>Read fully. <b>Read first.</b></td></tr>
+<tr><td><b>Purohit 2025</b>, Nat. Nanotech.</td><td>The payload. How to build a liposome that releases on ultrasound. This is your recipe and your assays.</td><td>Read pp. 1–5 and Methods. Skim the neuro parts (Figs 3–6).</td></tr>
+<tr><td><b>Chen 2024</b>, Chem. Soc. Rev.</td><td>The eyes. How OA imaging works and how contrast agents (ICG, Au) make robots visible.</td><td>Read pp. 1–5 (intro + OA–US section). Treat the rest as a catalogue.</td></tr>
+<tr><td><b>Behzadi 2017</b>, Chem. Soc. Rev.</td><td>The biology after release. Protein corona, PEG, macrophage clearance, endocytosis.</td><td>Read Sec. 2, 3, 4.1, 4.4. Skip Sec. 7 (techniques catalogue).</td></tr>
+</table></div>
+
+<h3>The 10 concepts you must have</h3>
+<ol class="concepts">
+<li><b>Acoustic radiation force</b> $F_R$. Sound scattered by a particle pushes it toward pressure nodes or antinodes. It scales with volume ($\propto a^3$) and with the <b>acoustic contrast factor</b> $\Phi$ (density and compressibility mismatch).</li>
+<li><b>Acoustic streaming</b>. Sound loses energy to viscosity, which drives a steady flow. The resulting drag $F_{AD}\propto a$ dominates for small particles ($ka \ll 1$).</li>
+<li><b>Stokes drag</b> $F_D = 6\pi\eta a u$. The flow pushes the trap away, and the trap holds only while $F_T \ge F_D$.</li>
+<li><b>Why the "flower" works</b>. Sharp nanosheet tips create local secondary streaming vortices, which make a low Gor'kov potential that pulls neighbours in. A big cluster then gets $F_R \propto a^3$ but drag only $\propto a$, so it holds.</li>
+<li><b>Focused ultrasound parameters</b>: frequency $f$, peak negative pressure (PNP), duty cycle, PRF, and the <b>mechanical index</b> $\mathrm{MI}=\mathrm{PNP}/\sqrt{f}$ (FDA diagnostic limit 1.9).</li>
+<li><b>Liposome basics</b>: a lipid bilayer vesicle (~160 nm), made of HSPC + cholesterol + DSPE-PEG. Made by ethanol injection or thin film, then extrusion. Characterised by size, PDI, zeta potential and encapsulation efficiency.</li>
+<li><b>Remote (active) loading</b> with an ammonium-sulfate gradient. A weak-base drug crosses the bilayer uncharged, gets protonated inside and is trapped.</li>
+<li><b>Acoustic impedance</b> $Z=\rho c$ <b>and the sucrose trick</b>. A denser, stiffer core plus an osmotic gradient makes the liposome respond to ultrasound without gas, heat or cavitation.</li>
+<li><b>Optoacoustics</b>: a ns laser pulse is absorbed, heats, expands and emits ultrasound. $p_0=\Gamma\mu_a F$. Multispectral unmixing (HbO, HbR, ICG) in the NIR window.</li>
+<li><b>Nano–bio interface</b>: protein corona, opsonisation, PEG "stealth", macrophage clearance (liver, spleen), and endocytosis routes vs. size.</li>
+</ol>
+
+<h3>Long-term home for this material</h3>
+<p><b>Recommendation: no new game yet.</b> Your QM, solid-state and astro exams are in mid-January, and this page plus spaced review covers the project. If after two weeks you still want drills, I'll add a "Sirop" deck to the physics-rpg spaced-repetition system. That costs much less than a new domain and a new game. The source of this page is in your repo at <span class="src">sirop/study-guide.html</span>, so it survives.</p>
+</section>
+
+<!-- ================= DAY ================= -->
+<section id="day" data-sec hidden>
+<h2>One-day plan</h2>
+<p>About 7.5 h of work. The red bar marks when to <b>stop reading and start doing</b>. Shaded blocks are active work.</p>
+<div class="sched">
+  <div><span class="t">08:30–08:50</span><span class="d"><b>Map + cheat sheet.</b> Read the Map tab, then skim the Cheat sheet once. No papers yet.</span></div>
+  <div><span class="t">08:50–10:20</span><span class="d"><b>Kim 2024 (core).</b> Use the Kim tab as a guide. Read pp. 1–10 and the equations on p. 14. Look closely at Figs 2, 3 and 5.</span></div>
+  <div class="do"><span class="t">10:20–10:40</span><span class="d"><b>Break, then Checks K1–K5.</b> Answer on paper before you open the answers.</span></div>
+  <div><span class="t">10:40–11:50</span><span class="d"><b>Purohit 2025.</b> Read pp. 1–5, then Methods ("AAL synthesis", "In vitro ultrasonic drug uncaging") and Extended Data Tables 1–2.</span></div>
+  <div class="do"><span class="t">11:50–12:20</span><span class="d"><b>Fermi block.</b> Checks P1–P4 and F1–F3, done with a calculator.</span></div>
+  <div><span class="t">12:20–13:05</span><span class="d">Lunch, away from the screen.</span></div>
+  <div><span class="t">13:05–13:45</span><span class="d"><b>Chen 2024.</b> Read pp. 1–5 only (intro, Fig 1, OA–US section, Table 1). Skim the headings of the rest.</span></div>
+  <div><span class="t">13:45–14:25</span><span class="d"><b>Behzadi 2017.</b> Read Sec. 2, 3.1–3.5, 4.1 and 4.4, and look at Figs 1–7.</span></div>
+  <div class="do stop"><span class="t">14:25–15:05</span><span class="d"><b>Stop reading. Draw the experiment</b> on one A4 sheet: robot, liposome, transducer, flow, laser, what gets measured. Then write a 5-step protocol for "does trapping alone leak drug?"</span></div>
+  <div class="do"><span class="t">15:05–15:35</span><span class="d"><b>Lab-tour prep.</b> Pick your 6 questions from the Lab tour tab and say the 2-minute pitch <b>out loud three times</b>, timing yourself.</span></div>
+  <div class="do"><span class="t">15:35–16:00</span><span class="d"><b>Weak spots.</b> Redo the checks you marked "shaky" and send me your answers in chat. I'll tell you what's still weak and update the cheat sheet.</span></div>
+</div>
+<p class="src">If you only have half a day, do Kim, then Purohit pp. 1–5, then the pitch. Skip Chen and Behzadi until week 1.</p>
+</section>
+
+<!-- ================= KIM ================= -->
+<section id="kim" data-sec hidden>
+<h2>Paper 1 · Kim, Wrede, … Razansky, Sitti (2024)</h2>
+<p class="src">Hierarchical Nanostructures as Acoustically Manipulatable Multifunctional Agents in Dynamic Fluid Flow. Adv. Mater. 36, 2404514. Read from rendered pages 1–14.</p>
+
+<h3>Intuition first</h3>
+<p>Trapping microbubbles with ultrasound is easy because a gas core is very compressible, so it responds strongly. But bubbles are fragile: they burst above MI ≈ 1, and they are hard to modify. Solid microspheres are robust, but in moving fluid a single-beam trap loses them. Kim et al. grow <b>flower-like microparticles made of 2D nanosheets</b> (HNS-MPs, 1–5 µm) and find that these <b>do</b> stay trapped in flow up to ~60 mm/s, which is venous or arteriole speed. The reason is the sharp nanosheet tips. They create local "secondary" streaming vortices, which pull neighbouring particles together into a large cluster at the focus. A big cluster feels a much larger radiation force than one particle, so it beats the flow.</p>
+
+<h3>What they did, and why</h3>
+<ol>
+<li><b>Made 5 materials</b> (BiOI, ZnO, TiO₂, polyimide PI, Ni-MOF) by hydrothermal self-assembly (Fig 1b–g). This shows the effect comes from the <b>shape</b>, not the chemistry.</li>
+<li><b>Trapped them in tubes</b> (500 µm, 3.18 mm, 4.77 mm ID) with a single 2 MHz FUS transducer at 0.42 MPa, 85 mm away, filmed with a high-speed camera (Fig 2). Solid SiO₂/PS spheres and SonoVue bubbles were the controls.</li>
+<li><b>Simulated</b> it in COMSOL (thermoviscous acoustics plus creeping flow) to find the mechanism (Fig 3).</li>
+<li><b>Made them imaging agents</b>: Au NPs for OCT, ICG@PDA for optoacoustics, Gd doping for MRI. They also measured BET surface area and cytotoxicity (Fig 4).</li>
+<li><b>In vivo</b>: steered 3 simultaneous traps in a mouse femoral vein using the POUS system, which does FUS trapping and 3D OA imaging with the same 512-element array (Fig 5).</li>
+<li><b>As microrobots</b>: photocatalytic dye cleanup and doxorubicin loading in nanoporous carbon, up to 95.6% (Fig 5e–g).</li>
+</ol>
+
+<h3>Key equations (Experimental section, p. 14)</h3>
+<p>Trap condition (p. 5):</p>
+$$F_T \ \ge\ F_D,\qquad F_T \approx F_R + F_{AD} + \text{inter-particle forces}$$
+<p>Stokes drag from streaming and flow (their Eq. 4):</p>
+$$F_{AD} = 6\pi\eta a\,(\langle v\rangle - u)$$
+<p>$\eta$ is the viscosity (water 1 mPa·s), $a$ the particle radius (~1–2 µm), $\langle v\rangle$ the time-averaged streaming velocity, and $u$ the particle velocity. Example: a 3.3 µm particle at 51 mm/s gives $6\pi\cdot10^{-3}\cdot1.65\,\mu\text{m}\cdot0.051 \approx 1.6$ nN, matching their Fig 3a <span class="tag">my estimate</span>.</p>
+<p>Radiation force in a (quasi-)standing wave (Eq. 1) and contrast factor (Eq. 2):</p>
+$$F_R = 4\pi\,\Phi\, a^3\, k\, E_{ac}\,\sin(2ky),\qquad \Phi=\frac13\left(\frac{5\rho_p/\rho_m-2}{2\rho_p/\rho_m+1}-\frac{\kappa_p}{\kappa_m}\right)$$
+<p>Here $k=2\pi/\lambda$ (they write $q$), $E_{ac}$ is the acoustic energy density, $\rho$ the density, $\kappa$ the compressibility, and $p,m$ mean particle and medium. $\Phi>0$ means the particle goes to pressure nodes. With $E_{ac}=p_a^2/(4\rho_m c_m^2)$ <span class="tag">not in papers</span> and $p_a=0.42$ MPa you get $E_{ac}\approx 20$ J/m³. For a 1.75 µm polystyrene sphere ($\Phi\approx0.22$) that gives $F_R\approx 2.5$ pN, about 600× smaller than the nN drag <span class="tag">my estimate</span>. <b>That is why single solid particles wash away.</b></p>
+<p>Which force dominates (p. 5):</p>
+$$\kappa_{\text{Kim}} = \frac{2\pi r}{\lambda}\ \ll 1 \ \Rightarrow\ \text{streaming drag dominates}$$
+<p>At 2 MHz in water, $\lambda = c/f = 1480/2\times10^6 = 0.74$ mm, so $2\pi r/\lambda\sim 10^{-2}$. Don't confuse this $\kappa$ with compressibility. The paper reuses the symbol.</p>
+<p>Viscous boundary layer (Eq. 3):</p>
+$$\delta=\sqrt{2\nu/\omega}$$
+<div class="note"><b>Check this.</b> With $\nu=10^{-6}$ m²/s at 2 MHz I get $\delta\approx0.40$ µm. The paper says 0.32 µm, which matches <b>3 MHz</b> (0.33 µm). The difference doesn't change their conclusion (δ ≪ tube size), but it's a small inconsistency you could ask about.</div>
+<p>Gor'kov potential (Eq. 5): particles move to minima of $U$, and $F_R=-\nabla U$. Standard form <span class="tag">not in papers</span>:</p>
+$$U=\frac{4\pi a^3}{3}\left[\frac{f_1}{2\rho_m c_m^2}\langle p^2\rangle-\frac{3}{4}f_2\,\rho_m\langle v^2\rangle\right],\quad f_1=1-\frac{\kappa_p}{\kappa_m},\ f_2=\frac{2(\rho_p-\rho_m)}{2\rho_p+\rho_m}$$
+<div class="note"><b>Printed equation looks garbled.</b> Their Eq. 5 is printed as $\tfrac{4\pi a^3}{3}\big(\tfrac12 f_1|p|^2-\tfrac43 f_2|v|^2\big)$. The $\rho c^2$ and $\rho$ factors are missing and $\tfrac43$ should be $\tfrac34$. Use the standard form above (Bruus/Settnes convention). This was read from the figure of p. 14, not from extracted text.</div>
+
+<h3>Figures</h3>
+<div class="fig"><b>Fig 1.</b> (a) Concept: a FUS cone traps a cluster in a vessel, which is imaged from the side. (b) Synthesis: precursor → nuclei → 2D sheets → 3D flower. (c–g) SEM of the 5 materials, 1.1–4.9 µm, with powder photos as insets.</div>
+<div class="fig"><b>Fig 2.</b> (a) Solid SiO₂/PS are trapped without flow but lost at 8.5 mm/s. (b) The flowers stay trapped up to 59.5 mm/s (TiO₂). (c) Phase map of material × concentration (1, 2, 5 mg/mL) × flow speed. Circle = traps in flow, triangle = only if trapped before flow, cross = fails. Smaller particles (PI, Ni-MOF) fail at low concentration and high speed. (d) Multiple vertical traps ~400 µm apart in the larger tube, about λ/2 at 2 MHz (0.37 mm) <span class="tag">my inference</span>. (e) Microfluidic channel: PS and SonoVue are lost at 6.9 mm/s, PI holds to 52.5 mm/s. (f,g) A PI trap grows, stretches into a bullet shape, breaks off its tail and recovers. Trap area vs. time.</div>
+<div class="fig"><b>Fig 3.</b> (a) Simulated drag vs. flow speed for 1.6 and 3.3 µm particles, 0–1.5 nN, linear. (b) Pressure field in a 500 µm tube. (c) Streaming pattern, up to 0.7 m/s. (d) <b>The key panel</b>: streaming around a flower shows hot spots at the tips (up to ~10 mm/s), while a smooth sphere shows almost none. (e) Inter-particle radiation force up to 1.6 nN between flowers and ~0 between spheres. (f) High-speed frames of particles being dragged into the trap along streaming paths.</div>
+<div class="fig"><b>Fig 4.</b> (a,b) BET surface area: PI 250, TiO₂ 48, ZnO 42, BiOI 38, Ni-MOF 27.5, solid SiO₂ 0.9 m²/g. (c,d) Coatings for each imaging mode. (e) OA spectra 650–980 nm: ICG@PDA-coated particles give a strong ~800 nm signal. (f) Gd-BiOI as an MRI T2 agent. (g) Cytotoxicity: bare BiOI is toxic, the PDA coating fixes it, the others are fine up to 1000 µg/mL.</div>
+<div class="fig"><b>Fig 5.</b> (a) POUS: a hemispherical 512-element array that does multi-focal FUS trapping plus 3D OA. (b) Three traps in a tube at 0, 25.5 and 42.4 mm/s. (c) In vivo femoral vein. (d) Inject → 3 traps → steer by moving the stage → release when FUS turns off. (e) Photocatalysis. (f) NPC surface area 1220 m²/g. (g) DOX loading: ZnO 27%, PI 50%, NPC 96%.</div>
+
+<h3>Numbers to remember</h3>
+<p>Single-beam FUS at 2 MHz and 0.42 MPa, and POUS at 3 MHz with 512 elements, ~2.8 MPa and MI 1.6. Trapping in flow up to 59.5 mm/s. Mouse femoral vein flow ~16 mm/s. Particle concentration 1–5 mg/mL. OA laser at 20 Hz and 760/800/850 nm. 24 ms alternation between trapping and imaging gives 20 volumes/s.</p>
+
+<h3>What could go wrong (and what to ask)</h3>
+<ul>
+<li>The 2D simulation of a 3D flower, with the fluid treated as inviscid in the tube, is qualitative only. The authors say so.</li>
+<li>Trapping needs <b>high local concentration</b>, and in vivo the particles dilute. This matters for you, because liposome-coated robots will be fewer and heavier.</li>
+<li><b>Coating changes the tips.</b> If liposomes (~160 nm) cover the nanosheet edges, they may blunt the streaming hot spots that make trapping work. <span class="tag">my inference</span> This is probably the central risk of your project.</li>
+<li>They state "130 µm-sized FUS focal spots" at 3 MHz, where λ ≈ 0.5 mm. That is below λ/2 (~250 µm), so ask how it's defined (p. 9).</li>
+<li>Bare BiOI is cytotoxic. Material choice matters for in vivo work.</li>
+</ul>
+</section>
+
+<!-- ================= PUROHIT ================= -->
+<section id="purohit" data-sec hidden>
+<h2>Paper 2 · Purohit, Yu, … Airan (2025)</h2>
+<p class="src">Acoustically activatable liposomes as a translational nanotechnology for site-targeted drug delivery and noninvasive neuromodulation. Nat. Nanotech. 20, 1688–1699. Read pp. 1–5 rendered, Methods and Extended Data tables from text.</p>
+
+<h3>Intuition first</h3>
+<p>Older ultrasound-triggered carriers use a <b>gas</b> or <b>perfluorocarbon</b> core (which can cavitate, are unstable, and load drug poorly) or <b>heat</b> (slow and hard to control). Airan's group asked: can I make an ordinary, clinically approved-style liposome sound-sensitive by changing only what's <b>inside</b> it? They add 5% sucrose to the core. That makes the core slightly denser and stiffer than blood plasma (an acoustic contrast) and strongly hyperosmotic. Ultrasound shakes the membrane, the membrane briefly becomes leaky, and the osmotic gradient pulls water in, which pushes drug out. There is no gas, no measurable heating and no cavitation signature.</p>
+
+<h3>What they did, and why</h3>
+<ol>
+<li><b>Built AALs</b> (acoustically activatable liposomes): HSPC + cholesterol + DSPE-PEG2000, ~160 nm, loaded with ketamine or local anaesthetics (lidocaine, bupivacaine, ropivacaine) by an ammonium-sulfate gradient.</li>
+<li><b>Varied the core</b>: 0%, 5% or 10% sucrose, and equi-osmolar NaCl or glucose. This separates acoustic effects from osmotic effects (Fig 1d,e).</li>
+<li><b>In vitro release</b>: 250 kHz, 25% duty, 5 Hz PRF, 60 s, in plasma. Release was measured by separating free from liposomal drug on a column, then HPLC.</li>
+<li><b>Ruled out the alternatives</b>: no heating (+0.1–0.2 °C), no broadband or harmonic emissions (so no cavitation), no gas in cryo-EM, no blood–brain barrier opening.</li>
+<li><b>In vivo</b>: targeted ketamine to one rat brain region (<5 mm resolution), changed ECoG and behaviour, and produced a sciatic-nerve block with ropivacaine.</li>
+</ol>
+
+<h3>Key equations and numbers</h3>
+$$Z=\rho c,\qquad K=\rho c^2$$
+<p>$Z$ is the acoustic impedance (MPa·s/m) and $K$ the bulk modulus (compressibility $\kappa=1/K$). Measured values (Extended Data Table 2):</p>
+<div class="tablebox"><table>
+<tr><th>Medium</th><th>ρ (kg/m³)</th><th>c (m/s)</th><th>Z (MPa·s/m)</th><th>mOsm</th></tr>
+<tr><td>Plasma (outside)</td><td class="n">1026.6</td><td class="n">1519.4</td><td class="n">1.560</td><td class="n">313–317</td></tr>
+<tr><td>250 mM (NH₄)₂SO₄ (core, 0%)</td><td class="n">1018.5</td><td class="n">1527.9</td><td class="n">1.556</td><td class="n">534–537</td></tr>
+<tr><td>+ 5% sucrose (SonoKet)</td><td class="n">1038.2</td><td class="n">1543.1</td><td class="n">1.602</td><td class="n">670–671</td></tr>
+<tr><td>+ 10% sucrose</td><td class="n">1054.3</td><td class="n">1564.2</td><td class="n">1.649</td><td class="n">817–822</td></tr>
+</table></div>
+<p>Release scales linearly with core impedance, from ~20% at 0% sucrose to ~60% at 10% ($r^2=0.97$, Fig 1e). The release metric:</p>
+$$\%\text{uncaging}=\frac{\text{drug in free fraction}}{\text{free}+\text{liposomal}}\times100\%$$
+<p>Mechanical index:</p>
+$$\mathrm{MI}=\frac{\mathrm{PNP\,[MPa]}}{\sqrt{f\,[\mathrm{MHz}]}}=\frac{0.9}{\sqrt{0.25}}=1.8$$
+<p>This is just under the FDA diagnostic limit of 1.9. Release scaled with MI better than with pressure alone (Ext. Data Fig 1), which points to a mechanical rather than thermal mechanism.</p>
+<p><b>Two Fermi checks</b> <span class="tag">my estimate</span>:</p>
+<ul>
+<li>Intensity reflection at the core/plasma boundary is $R=\left(\frac{Z_2-Z_1}{Z_2+Z_1}\right)^2\approx(0.042/3.16)^2\approx2\times10^{-4}$. That's tiny, so "reflection" alone cannot be the mechanism. Think radiation force or oscillation acting on a weak contrast, across many cycles.</li>
+<li>Osmotic pressure difference (van 't Hoff): $\Pi=\Delta c\,RT\approx0.355\ \text{osmol/L}\times8.314\times310\approx0.9$ MPa. That's comparable to the ultrasound PNP. A large stored energy waits for the membrane to become leaky.</li>
+</ul>
+
+<h3>Recipe (Methods), which you will likely run</h3>
+<ol>
+<li>Dissolve lipids in hot ethanol, dilute to 10% ethanol in 250 mM ammonium sulfate (± 5% sucrose). This forms multilamellar vesicles.</li>
+<li>Extrude 10× through a 200 nm polycarbonate filter at 65–70 °C (above the HSPC transition temperature, ~52 °C <span class="tag">not in papers</span>). This makes them unilamellar.</li>
+<li>Tangential-flow filtration (TFF) against HEPES/NaCl (+ sucrose) creates the transmembrane ammonium gradient.</li>
+<li>Add drug and heat at 55 °C for 1.5 h. Active loading happens here.</li>
+<li>Run TFF again to remove free drug, then filter-sterilise (220 nm) and store at 4 °C. They were stable for 90 days.</li>
+</ol>
+<div class="note"><b>Likely typo.</b> Methods give "HSPC/DSPE-PEG2000/cholesterol 52.8:42.3:4.8 molar". 42% PEG-lipid is implausible. The usual Doxil-type ratio is HSPC : cholesterol : DSPE-PEG ≈ 56 : 38 : 5, so cholesterol and PEG are probably swapped <span class="tag">my inference</span>. Ask what ratio your lab uses.</div>
+<p>QC numbers (Ext. Data Table 1): size 158–170 nm, PDI 0.06–0.09, zeta potential −43 to −55 mV, ketamine encapsulation efficiency 24–29% (local anaesthetics 36–44%), free drug &lt;5%.</p>
+
+<h3>Figures</h3>
+<div class="fig"><b>Fig 1.</b> (a) Concept and lipid legend. (b) Release: 0% → 5% → 10% sucrose gives ~20 → 40 → 60%, with sham ~10%. (c) Trade-off: 10% sucrose leaks in plasma at 37 °C, so they chose 5%. (d,e) NaCl vs. glucose vs. sucrose at equal osmolarity: release tracks <b>impedance</b>, not osmolarity alone. (f) Release vs. PNP/MI, higher at 37 °C. (g) Stable over 90 days at 4 °C. (h) Cryo-EM: vesicles shrink from ~140 to ~70 nm after sonication, with no gas. (i–k) Works for 3 other drugs.</div>
+<div class="fig"><b>Fig 2.</b> In vivo: more drug in the sonicated brain region than in the contralateral one, increasing with duty cycle and dose. Histology shows no damage.</div>
+<div class="fig"><b>Figs 3–6</b> (skim): pharmacokinetics, ECoG gamma power, open-field behaviour, nerve block. These are less relevant to you.</div>
+
+<h3>What could go wrong</h3>
+<ul>
+<li>The mechanism is <b>not proven</b>. The authors write that it "appears" mechanical.</li>
+<li>Their trigger frequency is 250 kHz. Your trapping runs at 2–3 MHz. <b>Will trapping trigger release, or will release need a second transducer?</b> This is the key design question for your project <span class="tag">my inference</span>.</li>
+<li>The column (SEC) separation and the HPLC baseline (sham ~10% "release") put a floor under what you can measure.</li>
+<li>Release never reaches 100%, because of ultrasound field heterogeneity and assay limits.</li>
+</ul>
+</section>
+
+<!-- ================= CHEN ================= -->
+<section id="chen" data-sec hidden>
+<h2>Paper 3 · Chen, Gezginer, … Deán-Ben, Razansky (2024)</h2>
+<p class="src">Multimodal optoacoustic imaging: methods and contrast materials. Chem. Soc. Rev. 53, 6068–6099. Read pp. 1–5 rendered, headings of the rest.</p>
+
+<h3>Intuition first</h3>
+<p>Light gives great molecular contrast but scatters within ~1 mm of tissue. Ultrasound travels centimetres with little scattering but sees only mechanical contrast. <b>Optoacoustics</b> shines a nanosecond laser pulse in. Wherever light is absorbed (haemoglobin, melanin, ICG, gold), the tissue heats by millikelvins, expands, and emits an ultrasound wave. The transducers "hear" where light was absorbed, so you get optical contrast with ultrasound resolution, several mm to cm deep. Using several wavelengths lets you unmix oxygenated from deoxygenated blood, or a dye from blood. This review catalogues combinations of OA with US, fluorescence, OCT, Raman, MRI, CT, SPECT and PET, and the contrast agents for each.</p>
+
+<h3>Key equations</h3>
+<div class="note"><b>Not in the paper.</b> The review has no equations. These are the standard OA relations you will be expected to know.</div>
+$$p_0=\Gamma\,\mu_a\,F,\qquad \Gamma=\frac{\beta c^2}{C_p}$$
+<p>$p_0$ is the initial pressure, $\Gamma$ the Grüneisen parameter (~0.1–0.2 for water/tissue), $\mu_a$ the absorption coefficient (blood at ~800 nm is a few cm⁻¹), and $F$ the fluence (skin safety limit at 800 nm ≈ 32 mJ/cm²). Example: $0.2\times4\,\text{cm}^{-1}\times20\,\text{mJ/cm}^2\approx16$ kPa <span class="tag">my estimate</span>.</p>
+<p>Stress confinement: the pulse must be shorter than the time for sound to cross the absorber, $\tau_p \ll d/c$. For $d=100$ µm, $d/c\approx65$ ns, so a ~10 ns pulse works.</p>
+<p>Spectral unmixing:</p>
+$$\mu_a(\lambda)=\sum_i \varepsilon_i(\lambda)\,C_i$$
+<p>This is solved per voxel for HbO, HbR and ICG from several wavelengths. Kim used 760 vs. 850 nm to tell veins from arteries.</p>
+
+<h3>Figures you need</h3>
+<div class="fig"><b>Fig 1a.</b> Principle: laser → absorbers in blood → spherical acoustic waves → probe.</div>
+<div class="fig"><b>Fig 1b.</b> Absorption spectra (log scale, 400–1400 nm) of HbO, HbR, melanin, water, lipid, collagen and ICG. Blood dominates the visible. In NIR-I (~700–1000 nm) everything is weaker, so light goes deeper. ICG peaks near 800 nm, which is why Kim coated particles with ICG.</div>
+<div class="fig"><b>Fig 1c.</b> Scale: microscopy (µm resolution, ≤1 mm deep) → mesoscopy → tomography (cm deep). Depth/resolution ≈ 200 along the dashed line.</div>
+<div class="fig"><b>Fig 1d.</b> Radar chart of OA vs. other modalities. OA is strong in functional contrast and time resolution and weaker in penetration and anatomy, which is the case for combining modalities.</div>
+<div class="fig"><b>Fig 2 and Table 1.</b> OA–US hybrids: the same array for both modes, speed-of-sound maps, porphyrin microbubbles and phase-change nanodroplets as dual contrast agents.</div>
+
+<h3>Why it matters for you</h3>
+<ul>
+<li>POUS (Kim Fig 5) is an OA–US hybrid of exactly this kind. One array traps and images.</li>
+<li>Your liposome-coated robot needs OA contrast (ICG, PDA, Au) <b>without</b> the laser heating the liposome and leaking drug. Ask about this <span class="tag">my inference</span>.</li>
+<li>Liposomes appear in the review as OA/fluorescence carriers (liposomal ICG), so loading a dye in the bilayer is a known route.</li>
+</ul>
+</section>
+
+<!-- ================= BEHZADI ================= -->
+<section id="behzadi" data-sec hidden>
+<h2>Paper 4 · Behzadi, … Mahmoudi (2017)</h2>
+<p class="src">Cellular uptake of nanoparticles: journey inside the cell. Chem. Soc. Rev. 46, 4218–4244. Read pp. 1–8 rendered, the rest from text.</p>
+
+<h3>Intuition first</h3>
+<p>As soon as a particle enters blood it gets coated in proteins (the <b>protein corona</b>). Cells "see" the corona, not your designed surface. Some of those proteins (opsonins) are "eat me" flags for macrophages, which is why most injected particles end up in the liver and spleen. <b>PEG</b> blocks protein adsorption, which raises circulation half-life from minutes to hours (Doxil is the classic example). If a particle reaches a cell, how it enters depends on size, shape, charge and surface chemistry. Most routes end in the lysosome (acidic, digestive), so cargo that must work inside the cell needs to escape.</p>
+
+<h3>Entry routes (Sec. 3, Figs 1–6)</h3>
+<div class="tablebox"><table>
+<tr><th>Route</th><th>Size scale</th><th>Notes</th></tr>
+<tr><td>Phagocytosis</td><td>~0.5–2 µm and up</td><td>Macrophages, after opsonisation. Max uptake at 1–2 µm for PS beads. <b>Your microrobots are in this range.</b></td></tr>
+<tr><td>Clathrin-mediated</td><td>vesicles 100–150 nm</td><td>Main nutrient route. Usually ends in lysosomes.</td></tr>
+<tr><td>Caveolae-mediated</td><td>50–80 nm</td><td>Can bypass lysosomes. Used for albumin (Abraxane).</td></tr>
+<tr><td>Clathrin/caveolae-independent</td><td>small</td><td>E.g. folate receptor route.</td></tr>
+<tr><td>Macropinocytosis</td><td>0.2–5 µm vesicles</td><td>Non-specific "gulp" of fluid.</td></tr>
+<tr><td>Non-endocytic</td><td>few nm</td><td>Passive diffusion, microinjection, electroporation.</td></tr>
+</table></div>
+
+<h3>Property effects (Sec. 4)</h3>
+<ul>
+<li><b>Size</b>: ~50 nm is often optimal for receptor-mediated uptake (Au NPs in HeLa). There is a minimum wrapping radius from adhesion energy vs. membrane bending.</li>
+<li><b>Charge</b>: cationic particles are taken up more but are more toxic. Anionic or PEGylated ones circulate longer. The AALs are ζ ≈ −45 mV.</li>
+<li><b>Shape and hydrophobicity</b>: rods vs. spheres differ. Hydrophobic surfaces attract opsonins.</li>
+<li><b>Corona</b>: always measure charge after incubation in serum, not only in buffer.</li>
+</ul>
+
+<h3>Why it matters for you</h3>
+<ul>
+<li>A free small-molecule drug released near the target crosses membranes by itself. The liposome is a <b>carrier</b>, not something that needs to enter cells.</li>
+<li>The 1–5 µm robots will be cleared by macrophages, so ask about circulation time and whether they PEGylate the robot.</li>
+<li>Kim's robot cytotoxicity data (Fig 4g) plus this review give you the vocabulary for biocompatibility discussions.</li>
+</ul>
+<div class="note"><b>Common knowledge, not in this paper.</b> Lysosomal pH ≈ 4.5–5, and endosomal escape strategies (proton sponge, fusogenic lipids) are standard background.</div>
+</section>
+
+<!-- ================= CHECKS ================= -->
+<section id="checks" data-sec hidden>
+<h2>Understanding checks</h2>
+<p>Answer on paper first, then open the answer. Mark each one; the shaky list is saved on this device only. Send me your answers in chat for real feedback on weak spots.</p>
+<div id="weaklist" class="note" hidden></div>
+
+<h3>Kim</h3>
+<details class="q" data-id="K1"><summary>K1. Why do solid 3 µm PS spheres trap in still water but wash away at 8.5 mm/s?</summary><div class="a">The single-particle radiation force is ~pN (∝a³), while Stokes drag at 8.5 mm/s is ~0.26 nN (∝a). Without clustering, drag wins. Smooth spheres also make no tip streaming, so they don't aggregate.</div></details>
+<details class="q" data-id="K2"><summary>K2. Fermi: what cluster radius makes F_R (∝a³) beat drag (∝a), if a single 1.75 µm particle has F_R ≈ 2.5 pN against 1.6 nN of drag?</summary><div class="a">The ratio scales as a², so a ≈ 1.75 µm × √(1.6 nN / 2.5 pN) ≈ 1.75 × 25 ≈ 45 µm. This is crude because a cluster is not a solid sphere, but it shows why clusters of tens of µm and more hold. The observed traps are ~mm.</div></details>
+<details class="q" data-id="K3"><summary>K3. Wavelength at 2 MHz in water? Why are the traps in the big tube ~400 µm apart?</summary><div class="a">λ = 1480/2×10⁶ ≈ 0.74 mm. A spacing of ~λ/2 ≈ 0.37 mm is consistent with standing-wave pressure nodes from reflections at the tube wall (my inference, not stated in the paper).</div></details>
+<details class="q" data-id="K4"><summary>K4. What does the "κ = 2πr/λ ≪ 1" criterion tell you, and what's the value here?</summary><div class="a">For particles much smaller than λ, streaming drag dominates over radiation force, so they follow streaming lines. Here 2π×1.75 µm/740 µm ≈ 0.015.</div></details>
+<details class="q" data-id="K5"><summary>K5. Name two things that might stop a liposome-coated flower from trapping.</summary><div class="a">(1) Liposomes cover the sharp tips, which weakens the secondary streaming. (2) Lower effective concentration or a changed density/compressibility contrast. Also possible: liposomes are released or sheared off by the trapping field itself.</div></details>
+
+<h3>Purohit</h3>
+<details class="q" data-id="P1"><summary>P1. Why add sucrose and not just NaCl to the core?</summary><div class="a">At equal osmolarity, sucrose raises ρ and c (impedance) more, and release tracked impedance (r² = 0.97). So the acoustic contrast matters, not only osmolarity.</div></details>
+<details class="q" data-id="P2"><summary>P2. Compute MI for 0.9 MPa at 250 kHz, and for 2.8 MPa at 3 MHz.</summary><div class="a">0.9/√0.25 = 1.8 and 2.8/√3 ≈ 1.6. Both are below 1.9.</div></details>
+<details class="q" data-id="P3"><summary>P3. Explain ammonium-sulfate remote loading in two sentences.</summary><div class="a">NH₄⁺ inside deprotonates and NH₃ leaks out, leaving the core acidic. A weak-base drug crosses the bilayer neutral, gets protonated inside, can't get back out, and may precipitate with sulfate.</div></details>
+<details class="q" data-id="P4"><summary>P4. Why did they choose 5% and not 10% sucrose?</summary><div class="a">10% released more under ultrasound but also leaked in 37 °C plasma without ultrasound (Fig 1c), and in vivo it was no better.</div></details>
+<details class="q" data-id="P5"><summary>P5. Which three observations argue against heating and cavitation?</summary><div class="a">The bio-heat estimate is +0.1–0.2 °C and it works at room temperature. There are no broadband or ultraharmonic emissions, unlike with microbubbles. There is no gas in cryo-EM and no BBB opening (Evans Blue).</div></details>
+
+<h3>Optoacoustics and Fermi</h3>
+<details class="q" data-id="F1"><summary>F1. Estimate p₀ for blood at 800 nm (μa ≈ 4 cm⁻¹, F = 20 mJ/cm², Γ = 0.2).</summary><div class="a">p₀ = Γ μa F = 0.2 × 400 m⁻¹ × 200 J/m² ≈ 16 kPa.</div></details>
+<details class="q" data-id="F2"><summary>F2. Why use ~10 ns pulses rather than µs?</summary><div class="a">Stress confinement: the heat must be deposited before sound leaves the absorber. d/c for 100 µm is 65 ns, so µs pulses would smear the signal.</div></details>
+<details class="q" data-id="F3"><summary>F3. Reynolds number in the 500 µm tube at 60 mm/s?</summary><div class="a">Re = ρuD/η = 1000 × 0.06 × 5×10⁻⁴ / 10⁻³ ≈ 30, so the flow is laminar.</div></details>
+
+<h3>Behzadi</h3>
+<details class="q" data-id="B1"><summary>B1. What is the protein corona and why does it matter?</summary><div class="a">It's the protein layer that adsorbs in biological fluids. It sets the particle's "biological identity": what cells recognise, uptake route and clearance.</div></details>
+<details class="q" data-id="B2"><summary>B2. Which uptake route threatens your microrobots, and what's a counter?</summary><div class="a">Phagocytosis by macrophages (optimum ~1–2 µm). The counter is a PEG or other stealth coating, which reduces opsonisation.</div></details>
+</section>
+
+<!-- ================= LAB ================= -->
+<section id="lab" data-sec hidden>
+<h2>Lab tour</h2>
+<div class="note"><b>Mostly inferred.</b> The instruments are named in the papers' Methods. Whether this exact lab has each one is my guess, so ask.</div>
+<h3>Instruments you'll likely see</h3>
+<div class="tablebox"><table>
+<tr><th>Instrument</th><th>Purpose</th><th>Source</th></tr>
+<tr><td>Extruder (e.g. Avestin, or a hand mini-extruder) + 100–200 nm membranes</td><td>Size liposomes to unilamellar ~160 nm</td><td>Purohit</td></tr>
+<tr><td>Rotary evaporator / heated water bath</td><td>Thin-film method, hydration above the lipid transition temperature</td><td>not in papers</td></tr>
+<tr><td>DLS / zeta potential (Malvern Zetasizer)</td><td>Size, PDI, surface charge</td><td>Purohit</td></tr>
+<tr><td>TFF or size-exclusion columns (PD-10, Sephacryl)</td><td>Remove free drug, measure release</td><td>Purohit</td></tr>
+<tr><td>HPLC, plate reader / fluorometer</td><td>Quantify drug. A calcein or dye-release assay is a common quick readout (not in papers).</td><td>Purohit / not in papers</td></tr>
+<tr><td>Teflon autoclave + oven, centrifuge</td><td>Hydrothermal synthesis of flower particles</td><td>Kim</td></tr>
+<tr><td>SEM / TEM / cryo-EM</td><td>Morphology of robots and liposomes</td><td>Kim, Purohit</td></tr>
+<tr><td>FUS transducer (2 MHz, Sonic Concepts) + function generator + RF amplifier + oscilloscope</td><td>Trapping and triggering</td><td>Kim</td></tr>
+<tr><td>Needle hydrophone on an xyz stage</td><td>Calibrate the pressure field and focus</td><td>Kim, Purohit</td></tr>
+<tr><td>Degassed water tank, Tygon tubes, microfluidic chips, syringe pump</td><td>Flow phantom</td><td>Kim</td></tr>
+<tr><td>Microscope + high-speed camera (up to 5000 fps)</td><td>Watch the trapping</td><td>Kim</td></tr>
+<tr><td>POUS / OA tomography (512-element array, tunable ns laser)</td><td>3D imaging and in vivo steering</td><td>Kim, Chen</td></tr>
+</table></div>
+
+<h3>Good questions to ask</h3>
+<ol>
+<li>Will the robot be one of the flower HNS-MPs from Kim 2024, or a different design? Which material?</li>
+<li>How do you plan to attach liposomes: covalent (e.g. maleimide–thiol, EDC/NHS on DSPE-PEG) or biotin–streptavidin? <span class="tag">not in papers</span></li>
+<li>Does coating the nanosheet tips with ~160 nm liposomes kill the secondary streaming that makes trapping work?</li>
+<li>Trapping runs at 2–3 MHz and AAL release at 250 kHz. Do we use one transducer at two settings, or two transducers? Does trapping itself leak drug?</li>
+<li>What release readout do you use day to day: HPLC, or a fluorescent self-quenching dye?</li>
+<li>Which liposome recipe: Purohit's sucrose AAL, or something else? What lipid ratio? (The paper's printed ratio looks swapped.)</li>
+<li>How is the pressure at the focus calibrated, and what PNP/MI limits do you work under?</li>
+<li>Does the OA laser heat the coated robot enough to release drug thermally?</li>
+<li>What does a good first month look like for me, and what's the first milestone?</li>
+<li>What's the "130 µm focal spot" in the POUS paper: FWHM of intensity, or something else?</li>
+</ol>
+
+<h3 id="pitch">2-minute pitch (say it out loud)</h3>
+<div class="pitch">
+<p>Microrobots could carry drugs to exactly the right spot in the body, but releasing the drug on command is still hard. This lab has shown that you can trap and steer tiny flower-shaped particles with focused ultrasound, even in fast blood flow, because their sharp nanosheet tips stir up local currents that make the particles clump at the focus. The same ultrasound array can image them in 3D with optoacoustics, where a laser pulse makes absorbing particles emit sound.</p>
+<p>Separately, a Stanford group made liposomes, which are fat bubbles about 160 nanometres across, that release their drug under gentle pulsed ultrasound. The trick was adding a bit of sugar inside, which makes the core acoustically different and pulls water in once the membrane wobbles. That needs no gas and no heating.</p>
+<p>My project combines the two. I'll make these sound-sensitive liposomes, attach them to the microrobots, trap and steer the robots with one ultrasound setting, and then release the drug with another. The key questions are whether the coating still lets the robots trap, and whether we can keep the drug in during steering and get it out on demand.</p>
+</div>
+<p class="src">≈ 270 words ≈ 2 minutes at a calm pace.</p>
+</section>
+
+<!-- ================= SHEET ================= -->
+<section id="sheet" data-sec hidden class="sheet">
+<h2>Cheat sheet</h2>
+<h3>Equations</h3>
+<dl>
+<dt>Drag</dt><dd>$F_D=6\pi\eta a u$</dd>
+<dt>Radiation force</dt><dd>$F_R=4\pi\Phi a^3 kE_{ac}\sin 2ky$, with $E_{ac}=p_a^2/4\rho c^2$</dd>
+<dt>Contrast factor</dt><dd>$\Phi=\tfrac13\big(\tfrac{5\tilde\rho-2}{2\tilde\rho+1}-\tilde\kappa\big)$, where $\tilde\rho=\rho_p/\rho_m$ and $\tilde\kappa=\kappa_p/\kappa_m$</dd>
+<dt>Gor'kov</dt><dd>$F_R=-\nabla U$, and particles go to the minima of $U$</dd>
+<dt>Boundary layer</dt><dd>$\delta=\sqrt{2\nu/\omega}$ ≈ 0.4 µm at 2 MHz</dd>
+<dt>Impedance</dt><dd>$Z=\rho c$, $K=\rho c^2=1/\kappa$, intensity reflection $R=\big(\tfrac{Z_2-Z_1}{Z_2+Z_1}\big)^2$</dd>
+<dt>MI</dt><dd>$\mathrm{PNP[MPa]}/\sqrt{f[\mathrm{MHz}]}$ ≤ 1.9</dd>
+<dt>OA</dt><dd>$p_0=\Gamma\mu_a F$, stress confinement $\tau_p\ll d/c$</dd>
+<dt>Osmotic</dt><dd>$\Pi=\Delta c\,RT$ (0.36 osmol/L ≈ 0.9 MPa)</dd>
+</dl>
+<h3>Numbers</h3>
+<div class="tablebox"><table>
+<tr><th>Quantity</th><th>Value</th></tr>
+<tr><td>c water / tissue</td><td class="n">1480 / 1540 m/s</td></tr>
+<tr><td>λ at 0.25 / 2 / 3 MHz</td><td class="n">5.9 / 0.74 / 0.49 mm</td></tr>
+<tr><td>Kim trapping</td><td class="n">2 MHz, 0.42 MPa, ≤59.5 mm/s</td></tr>
+<tr><td>POUS</td><td class="n">512 el., 3 MHz, ~2.8 MPa, MI 1.6</td></tr>
+<tr><td>HNS-MP size</td><td class="n">1.1–4.9 µm</td></tr>
+<tr><td>Drag, 3.3 µm at 51 mm/s</td><td class="n">≈1.6 nN</td></tr>
+<tr><td>Femoral vein flow (mouse)</td><td class="n">≈16 mm/s</td></tr>
+<tr><td>AAL size / PDI / ζ</td><td class="n">~160 nm / 0.06 / −45 mV</td></tr>
+<tr><td>AAL trigger</td><td class="n">250 kHz, 0.9 MPa, 25% DC, 5 Hz PRF</td></tr>
+<tr><td>Release 0 / 5 / 10% sucrose</td><td class="n">~20 / 40 / 60%</td></tr>
+<tr><td>Z plasma / S5 core</td><td class="n">1.560 / 1.602 MPa·s/m</td></tr>
+<tr><td>Osmolarity plasma / S5 core</td><td class="n">315 / 670 mOsm</td></tr>
+<tr><td>ICG peak / OA λs used</td><td class="n">~800 nm / 760, 800, 850 nm</td></tr>
+<tr><td>OA depth/resolution</td><td class="n">≈200</td></tr>
+</table></div>
+<h3>Glossary</h3>
+<dl>
+<dt>FUS</dt><dd>Focused ultrasound</dd>
+<dt>PNP</dt><dd>Peak negative (rarefactional) pressure</dd>
+<dt>Duty cycle / PRF</dt><dd>Fraction of time on / pulses per second</dd>
+<dt>Acoustic streaming</dt><dd>Steady flow driven by viscous loss of sound energy</dd>
+<dt>Rayleigh / Schlichting</dt><dd>Outer / inner (boundary-layer) streaming</dd>
+<dt>HNS-MP</dt><dd>Hierarchical nanostructure microparticle (the "flower")</dd>
+<dt>POUS</dt><dd>Parallelised optoacoustic + ultrasound system</dd>
+<dt>OAT / MSOT</dt><dd>Optoacoustic tomography / multispectral OAT</dd>
+<dt>ICG / PDA</dt><dd>Indocyanine green dye / polydopamine coating</dd>
+<dt>BET</dt><dd>Surface area from N₂ adsorption</dd>
+<dt>AAL</dt><dd>Acoustically activatable liposome</dd>
+<dt>HSPC / DSPE-PEG</dt><dd>Saturated PC lipid / PEGylated lipid ("stealth")</dd>
+<dt>Uncaging</dt><dd>Triggered release of drug from the carrier</dd>
+<dt>EE / DL</dt><dd>Encapsulation efficiency / drug loading</dd>
+<dt>PDI</dt><dd>Polydispersity index from DLS (&lt;0.1 is narrow)</dd>
+<dt>ζ potential</dt><dd>Surface charge proxy from electrophoretic mobility</dd>
+<dt>TFF / SEC</dt><dd>Tangential flow filtration / size-exclusion chromatography</dd>
+<dt>Cavitation</dt><dd>Bubble oscillation (stable) or collapse (inertial)</dd>
+<dt>Protein corona</dt><dd>Adsorbed protein layer that sets the biological identity</dd>
+<dt>Opsonisation</dt><dd>Tagging by proteins for macrophage uptake</dd>
+<dt>RES / MPS</dt><dd>Liver/spleen macrophage clearance system</dd>
+<dt>EPR</dt><dd>Enhanced permeability and retention (leaky tumour vessels)</dd>
+</dl>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav.tabs button'));
+  var secs=[].slice.call(document.querySelectorAll('[data-sec]'));
+  function show(id){
+    if(!document.getElementById(id)||!document.getElementById(id).hasAttribute('data-sec')) id='map';
+    secs.forEach(function(s){s.hidden=(s.id!==id)});
+    tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===id?'true':'false')});
+    try{localStorage.setItem('sirop-tab',id)}catch(e){}
+    var cur=tabs.filter(function(b){return b.dataset.t===id})[0]; if(cur&&cur.scrollIntoView) cur.scrollIntoView({block:'nearest',inline:'nearest'});
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t);window.scrollTo(0,0)})});
+  var start=(location.hash||'').slice(1); if(!start){try{start=localStorage.getItem('sirop-tab')||'map'}catch(e){start='map'}}
+  show(start);
+  window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
+
+  // self-rating for checks (per-device convenience only)
+  var store={}; try{store=JSON.parse(localStorage.getItem('sirop-rate')||'{}')}catch(e){}
+  var wl=document.getElementById('weaklist');
+  function renderWeak(){
+    var w=Object.keys(store).filter(function(k){return store[k]==='weak'}).sort();
+    wl.hidden=!w.length; wl.innerHTML='<b>Shaky so far:</b> '+w.join(', ')+'. Redo these and send me your answers.';
+  }
+  document.querySelectorAll('details.q').forEach(function(d){
+    var id=d.dataset.id, row=document.createElement('div'); row.className='rate';
+    [['ok','Got it'],['weak','Shaky']].forEach(function(p){
+      var b=document.createElement('button'); b.type='button'; b.className=p[0]; b.textContent=p[1];
+      b.addEventListener('click',function(){store[id]=(store[id]===p[0]?undefined:p[0]); if(!store[id]) delete store[id];
+        try{localStorage.setItem('sirop-rate',JSON.stringify(store))}catch(e){} paint(); renderWeak();});
+      row.appendChild(b);
+    });
+    function paint(){row.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',store[id]===b.className.split(' ')[0])})}
+    d.querySelector('.a').appendChild(row); paint();
+  });
+  renderWeak();
+})();
+</script>

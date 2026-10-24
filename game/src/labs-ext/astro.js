@@ -17,21 +17,21 @@ export default (kit) => {
       ],
       draw(ctx, p) {
         if (p.cog) {
-          const ts = logsp(0.01, 1e4, 60), ax = axes(ctx, { xr: [0.01, 1e4], yr: [0.01, 30], xlog: true, ylog: true, xlabel: 'line-centre optical depth τ0 ∝ column density N', ylabel: 'W / Doppler width' });
+          const ts = logsp(0.01, 1e4, 60), ax = axes(ctx, { xr: [0.01, 1e4], yr: [0.01, 30], xlog: true, ylog: true, xlabel: 'line-centre optical depth $\\tau_0\\propto$ column density $N$', ylabel: '$W$ / Doppler width' });
           ax.clip(); curve(ctx, ax, (t) => A.equivWidth(t), ts, '#6cb6ff', 2.6); curve(ctx, ax, (t) => t * Math.sqrt(Math.PI), logsp(0.01, 1, 20), '#ff8a5b', 1.4, [5, 4]); curve(ctx, ax, (t) => 2 * Math.sqrt(Math.log(t)), logsp(3, 1e4, 40), '#7dffb0', 1.4, [5, 4]); vline(ctx, ax, p.tau, '#ffd86b'); ax.unclip();
           dot(ctx, ax.X(p.tau), ax.Y(Math.min(30, A.equivWidth(p.tau))));
-          label(ctx, 'blue: W(τ0)   orange: linear part W=√π τ0   green: flat part W≈2√ln τ0', ax.L + 6, ax.T + 14, '#9fb0d0'); return;
+          label(ctx, 'blue: $W(\\tau_0)$   orange: linear part $W=\\sqrt\\pi\\,\\tau_0$   green: flat part $W\\approx2\\sqrt{\\ln\\tau_0}$', ax.L + 6, ax.T + 14, '#9fb0d0'); return;
         }
         if (p.line) {
-          const xs = lin(-5, 5, 200), I = (x) => A.Itau(A.lineTau(x, p.tau), p.I0, p.S0), ys = xs.map(I), hi = Math.max(1.2, ...ys, p.I0, p.S0) * 1.1, ax = axes(ctx, { xr: [-5, 5], yr: [0, hi], xlabel: 'frequency offset (ν−ν0)/Δν_D', ylabel: 'emergent intensity' });
+          const xs = lin(-5, 5, 200), I = (x) => A.Itau(A.lineTau(x, p.tau), p.I0, p.S0), ys = xs.map(I), hi = Math.max(1.2, ...ys, p.I0, p.S0) * 1.1, ax = axes(ctx, { xr: [-5, 5], yr: [0, hi], xlabel: 'frequency offset $(\\nu-\\nu_0)/\\Delta\\nu_D$', ylabel: 'emergent intensity' });
           ax.clip(); curve(ctx, ax, () => p.I0, xs, '#7f8aa6', 1.2, [5, 4]); curve(ctx, ax, () => p.S0, xs, '#ff8a5b', 1.2, [5, 4]); curve(ctx, ax, I, xs, '#6cb6ff', 2.6); ax.unclip();
-          label(ctx, 'blue: I(ν)   grey dashed: background I0   orange dashed: S0   ' + (p.S0 > p.I0 ? 'EMISSION line (S0 > I0)' : p.S0 < p.I0 ? 'ABSORPTION line (S0 < I0)' : 'no line (S0 = I0)'), ax.L + 6, ax.T + 14, '#9fb0d0'); return;
+          label(ctx, 'blue: $I(\\nu)$   grey dashed: background $I_0$   orange dashed: $S_0$   ' + (p.S0 > p.I0 ? 'EMISSION line ($S_0>I_0$)' : p.S0 < p.I0 ? 'ABSORPTION line ($S_0<I_0$)' : 'no line ($S_0=I_0$)'), ax.L + 6, ax.T + 14, '#9fb0d0'); return;
         }
         const xs = lin(0, 6, 200), I = (t) => A.Itau(t, p.I0, p.S0, p.S1), hi = Math.max(1, p.I0, ...xs.map(I), p.S0) * 1.15, lo = Math.min(0, ...xs.map(I));
-        const ax = axes(ctx, { xr: [0, 6], yr: [lo, hi], xlabel: 'optical depth τ travelled through the slab', ylabel: 'intensity I' });
+        const ax = axes(ctx, { xr: [0, 6], yr: [lo, hi], xlabel: 'optical depth $\\tau$ travelled through the slab', ylabel: 'intensity $I$' });
         ax.clip(); curve(ctx, ax, (t) => p.I0 + (p.S0 - p.I0) * t, lin(0, 6, 40), '#7dffb0', 1.3, [5, 4]); curve(ctx, ax, (t) => p.S0 + p.S1 * (t - 1), xs, '#ff8a5b', 1.3, [5, 4]); curve(ctx, ax, I, xs, '#6cb6ff', 2.6); vline(ctx, ax, p.tau, '#ffd86b'); ax.unclip();
         dot(ctx, ax.X(Math.min(6, p.tau)), ax.Y(I(Math.min(6, p.tau))));
-        label(ctx, 'blue I(τ)   green dashed: optically thin I0+(S0−I0)τ   orange dashed: thick limit S(τ−1) (I follows the source)', ax.L + 6, ax.T + 14, '#9fb0d0');
+        label(ctx, 'blue: $I(\\tau)$   green dashed: optically thin $I_0+(S_0-I_0)\\tau$   orange dashed: thick limit $S(\\tau-1)$ ($I$ follows the source)', ax.L + 6, ax.T + 14, '#9fb0d0');
       },
       info: (p) => { const I = A.Itau(p.tau, p.I0, p.S0, p.S1); return `Formal solution of $dI/d\\tau=S-I$: $I(\\tau)=I_0e^{-\\tau}+\\int_0^\\tau S(t)e^{-(\\tau-t)}dt$. Here $I(\\tau=${fmt(p.tau)})=${fmt(I)}$. $\\tau\\ll1$: $I\\approx I_0+(S-I_0)\\tau$ (the slab hardly matters: thin). $\\tau\\gg1$: $I\\to S(\\tau)$-ish, the slab forgets the background. Absorption vs emission line = sign of $S-I_0$. Line centre $\\tau_0$ gives equivalent width $W=${fmt(A.equivWidth(p.tau))}\\,\\Delta\\nu_D$ (linear in $N$ for $\\tau_0\\lesssim1$, saturates $\\propto\\sqrt{\\ln\\tau_0}$).`; },
     },
@@ -43,9 +43,9 @@ export default (kit) => {
       ],
       draw(ctx, p) {
         const f = A.stromgrenProfile(p.Q, p.n, p.T), pcm = 3.0857e18, RSpc = f.RS / pcm, rp = f.r.map((r) => r * RSpc);
-        const ax = axes(ctx, { xr: [0, 1.4 * RSpc], yr: [0, 1.05], xlabel: 'radius r (pc)', ylabel: 'ionisation fraction x(r)' });
+        const ax = axes(ctx, { xr: [0, 1.4 * RSpc], yr: [0, 1.05], xlabel: 'radius $r$ (pc)', ylabel: 'ionisation fraction $x(r)$' });
         ax.clip(); curve(ctx, ax, (r) => { const i = Math.min(f.x.length - 1, Math.round((r / RSpc / 1.4) * f.x.length) - 1); return f.x[Math.max(0, i)]; }, lin(0.0, 1.4 * RSpc, 300), '#6cb6ff', 2.6); vline(ctx, ax, RSpc, '#ffd86b'); ax.unclip();
-        label(ctx, `HII region (x≈1) inside, neutral HI outside; yellow: R_S = ${fmt(RSpc)} pc`, ax.L + 6, ax.T + 14, '#9fb0d0');
+        label(ctx, `HII region ($x\\approx1$) inside, neutral HI outside; yellow: $R_S$ = ${fmt(RSpc)} pc`, ax.L + 6, ax.T + 14, '#9fb0d0');
       },
       info: (p) => { const R = A.stromgrenR(p.Q, p.n, p.T), trec = A.recombTime(p.n, p.T) / 3.156e7; return `Photon budget: ionisations balance recombinations in the sphere, $Q=\\tfrac43\\pi R_S^3\\,n^2\\alpha_B$, so $R_S=(3Q/4\\pi\\alpha_Bn^2)^{1/3}=${fmt(R / 3.0857e18)}$ pc with $\\alpha_B=${fmt(A.alphaB(p.T))}\\,$cm$^3$/s. Recombination time $t_{rec}=1/(n\\alpha_B)=${fmt(trec)}$ yr: the HII region adapts to changes of the star this fast. $R_S\\propto Q^{1/3}n^{-2/3}$: 10x denser gas shrinks it by 4.6. The edge is sharp because one neutral-gas mean free path $1/(n\\sigma)$ is tiny compared with $R_S$ (see the dip of $x$).`; },
     },
@@ -60,10 +60,10 @@ export default (kit) => {
       draw(ctx, p) {
         const EG = A.gamowEG(p.Z1, p.Z2, p.A1, p.A2), kT = A.kT_keV(p.T), E0 = A.gamowE0(EG, kT), D = A.gamowWidth(EG, kT), Em = Math.max(12 * kT, E0 + 2.5 * D), Es = lin(Em / 500, Em, 500);
         const mb = (E) => Math.exp(-E / kT), tu = (E) => Math.exp(-Math.sqrt(EG / E)) / Math.exp(-Math.sqrt(EG / Em)), pr = (E) => A.gamowIntegrand(E, EG, kT) / A.gamowIntegrand(E0, EG, kT);
-        const ax = axes(ctx, { xr: [0, Em], yr: [0, 1.1], xlabel: 'energy E (keV)', ylabel: 'relative height (each curve normalised)' });
+        const ax = axes(ctx, { xr: [0, Em], yr: [0, 1.1], xlabel: 'energy $E$ (keV)', ylabel: 'relative height (each curve normalised)' });
         ax.clip(); curve(ctx, ax, mb, Es, '#6cb6ff', 1.8); curve(ctx, ax, tu, Es, '#ff8a5b', 1.8); curve(ctx, ax, pr, Es, '#ffd86b', 2.8); vline(ctx, ax, E0, '#7dffb0'); ax.unclip();
         ctx.fillStyle = 'rgba(255,216,107,0.12)'; ctx.fillRect(ax.X(Math.max(0, E0 - D / 2)), ax.T, ax.X(E0 + D / 2) - ax.X(Math.max(0, E0 - D / 2)), H - ax.T - ax.B);
-        label(ctx, 'blue e^{-E/kT} (Maxwell)   orange e^{-√(E_G/E)} (tunnelling, scaled)   yellow product ×1 (Gamow peak)   green E0', ax.L + 6, ax.T + 14, '#9fb0d0');
+        label(ctx, 'blue: $e^{-E/kT}$ (Maxwell)   orange: $e^{-\\sqrt{E_G/E}}$ (tunnelling, scaled)   yellow: product $\\times1$ (Gamow peak)   green: $E_0$', ax.L + 6, ax.T + 14, '#9fb0d0');
       },
       info: (p) => { const EG = A.gamowEG(p.Z1, p.Z2, p.A1, p.A2), kT = A.kT_keV(p.T); return `$kT=${fmt(kT)}$ keV, Gamow energy $E_G=2m_rc^2(\\pi\\alpha Z_1Z_2)^2=${fmt(EG)}$ keV (≫ $kT$: fusion happens deep in the Maxwell tail). Peak $E_0=(E_G(kT)^2/4)^{1/3}=${fmt(A.gamowE0(EG, kT))}$ keV, width $\\Delta=4\\sqrt{E_0kT/3}=${fmt(A.gamowWidth(EG, kT))}$ keV. Rate $\\propto e^{-\\tau}$, $\\tau=3(E_G/4kT)^{1/3}=${fmt(A.gamowTau(EG, kT))}$, so rate $\\propto T^{\\nu}$ with $\\nu=\\tau/3-2/3=${fmt(A.gamowNu(EG, kT))}$. Compare pp ($\\nu\\approx4$ in the Sun) with CNO ($Z_1=7$, $A_1=14$, $Z_2=1$: $\\nu\\approx$ 20): CNO is far more temperature-sensitive.`; },
     },
@@ -74,12 +74,12 @@ export default (kit) => {
       ],
       draw(ctx, p) {
         const key = p.mue.toFixed(3); if (key !== wdKey) { wdKey = key; wdCurve = logsp(0.04, 45, 45).map((x) => ({ x, ...A.whiteDwarf(x, p.mue) })); }
-        const Mch = A.chandraMass(p.mue), ax = axes(ctx, { xr: [0, 1.7], yr: [300, 5e4], ylog: true, xlabel: 'mass M (M☉)', ylabel: 'radius R (km)' });
+        const Mch = A.chandraMass(p.mue), ax = axes(ctx, { xr: [0, 1.7], yr: [300, 5e4], ylog: true, xlabel: 'mass $M$ ($M_\\odot$)', ylabel: 'radius $R$ (km)' });
         const c = wdCurve.filter((q) => q.M > 0.02 && q.R > 0), ref = c.find((q) => q.M > 0.25) || c[0];
         ax.clip(); curve(ctx, ax, (M) => ref.R * Math.pow(M / ref.M, -1 / 3), lin(0.05, 1.7, 60), '#ff8a5b', 1.3, [5, 4]); vline(ctx, ax, Mch, '#7dffb0');
         ctx.strokeStyle = '#6cb6ff'; ctx.lineWidth = 2.6; ctx.beginPath(); c.forEach((q, i) => { const px = ax.X(q.M), py = ax.Y(q.R); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.stroke(); ax.unclip();
         const xc = A.xOfRho(p.rho * 1e3, p.mue), w = A.whiteDwarf(xc, p.mue); dot(ctx, ax.X(w.M), ax.Y(w.R));
-        label(ctx, 'blue: exact degenerate-gas M(R)   orange: R∝M^(−1/3) (non-relativistic)   green: M_Ch (R→0)', ax.L + 6, ax.T + 14, '#9fb0d0');
+        label(ctx, 'blue: exact degenerate-gas $M(R)$   orange: $R\\propto M^{-1/3}$ (non-relativistic)   green: $M_{\\rm Ch}$ ($R\\to0$)', ax.L + 6, ax.T + 14, '#9fb0d0');
       },
       info: (p) => { const xc = A.xOfRho(p.rho * 1e3, p.mue), w = A.whiteDwarf(xc, p.mue); return `Electron degeneracy pressure vs gravity. Fermi momentum $p_F=m_ecx$ with $x_c=${fmt(xc)}$ at your $\\rho_c$ ($x\\gg1$ means relativistic electrons). Result: $M=${fmt(w.M)}\\,M_\\odot$, $R=${fmt(w.R)}$ km. Low mass: $P\\propto\\rho^{5/3}$ ($n=3/2$ polytrope) gives $R\\propto M^{-1/3}$, heavier dwarfs are smaller. High density: $P\\propto\\rho^{4/3}$ ($n=3$) and $R\\to0$ at $M_{Ch}=1.46\\,(2/\\mu_e)^2M_\\odot=${fmt(1.456 * Math.pow(2 / p.mue, 2))}\\,M_\\odot$ (numerical limit shown: ${fmt(A.chandraMass(p.mue))}). Iron cores ($\\mu_e=2.15$) have a lower limit.`; },
     },
@@ -93,14 +93,14 @@ export default (kit) => {
       draw(ctx, p) {
         const r = A.bbn(p);
         if (p.viewY) {
-          const ts = lin(0.4, 1.3, 90), ax = axes(ctx, { xr: [0.4, 1.3], yr: [0, 0.5], xlabel: 'T_f for 3 species (MeV)', ylabel: 'helium mass fraction Y' });
+          const ts = lin(0.4, 1.3, 90), ax = axes(ctx, { xr: [0.4, 1.3], yr: [0, 0.5], xlabel: '$T_f$ for 3 species (MeV)', ylabel: 'helium mass fraction $Y$' });
           ax.clip(); curve(ctx, ax, (t) => A.bbn({ ...p, Tf0: t }).Y, ts, '#6cb6ff', 2.6); curve(ctx, ax, (t) => A.bbn({ ...p, Tf0: t, decay: false }).Y, ts, '#ff8a5b', 1.4, [5, 4]); vline(ctx, ax, p.Tf0, '#ffd86b'); ax.unclip(); dot(ctx, ax.X(p.Tf0), ax.Y(r.Y));
           label(ctx, 'blue: with neutron decay   orange dashed: without   observed Y ≈ 0.25', ax.L + 6, ax.T + 14, '#9fb0d0'); return;
         }
         const ts = logsp(0.1, 1000, 300), TofT = (t) => Math.sqrt(1.32 * Math.sqrt(10.75 / A.gstar(p.Nnu)) / t), f = (t) => (t < r.tf ? A.npEq(TofT(t)) : p.decay ? r.npf * Math.exp(-(t - r.tf) / 880) : r.npf);
-        const ax = axes(ctx, { xr: [0.1, 1000], yr: [0.02, 1], xlog: true, ylog: true, xlabel: 'time after big bang t (s)', ylabel: 'neutron/proton ratio n/p' });
+        const ax = axes(ctx, { xr: [0.1, 1000], yr: [0.02, 1], xlog: true, ylog: true, xlabel: 'time after big bang $t$ (s)', ylabel: 'neutron/proton ratio $n/p$' });
         ax.clip(); curve(ctx, ax, (t) => A.npEq(TofT(t)), ts, '#7f8aa6', 1.4, [5, 4]); curve(ctx, ax, f, ts.filter((t) => t <= r.tD), '#6cb6ff', 2.6); vline(ctx, ax, r.tf, '#ff8a5b'); vline(ctx, ax, r.tD, '#7dffb0'); ax.unclip();
-        label(ctx, 'grey dashed: equilibrium e^{−Δm/kT}   blue: actual n/p   orange: freeze-out   green: deuterium bottleneck opens', ax.L + 6, ax.T + 14, '#9fb0d0');
+        label(ctx, 'grey dashed: equilibrium $e^{-\\Delta m/kT}$   blue: actual $n/p$   orange: freeze-out   green: deuterium bottleneck opens', ax.L + 6, ax.T + 14, '#9fb0d0');
       },
       info(p) { const r = A.bbn(p); return `Weak reactions keep $n/p=e^{-\\Delta mc^2/kT}$ ($\\Delta mc^2=1.293$ MeV) until the rate falls below the expansion rate $H\\propto\\sqrt{g_*}T^2$ at $T_f=${fmt(r.Tf)}$ MeV (more neutrino species: larger $g_*$, faster expansion, earlier freeze-out, more neutrons). Then $n/p=${fmt(r.npf)}$. Deuterium survives photodissociation only below $T_D\\approx${fmt(r.TD * 1000)}$ keV, i.e. $t\\approx${fmt(r.tD)}$ s; the free neutrons decay meanwhile to $n/p=${fmt(r.np)}$. All neutrons end up in $^4$He: $Y=2(n/p)/(1+n/p)=${fmt(r.Y)}$ (without decay ${fmt(r.Yno)}).`; },
     },

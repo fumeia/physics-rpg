@@ -1,6 +1,7 @@
 import * as LM from './labmodels.js';
 import { M } from './math.js';
 import { EXT } from './labs-ext/index.js';
+import { richText, richWidth } from './canvastex.js';
 
 // Interactive labs ("what happens if this changes or disappears"). A lab encounter is
 // { type: 'lab', id, title, widget, intro, tasks[], source[], xp }. Models live in labmodels.js.
@@ -15,11 +16,11 @@ function axes(ctx, o) {
   ctx.fillStyle = '#0b1220'; ctx.fillRect(0, 0, W, H);
   ctx.font = '11px system-ui'; ctx.fillStyle = '#7f8aa6'; ctx.strokeStyle = '#1e2a40'; ctx.lineWidth = 1;
   const ticks = (lo, hi, log) => { if (log) { const out = []; for (let d = Math.ceil(lo); d <= Math.floor(hi); d++) out.push(d); return out; } const span = hi - lo, step = Math.pow(10, Math.floor(Math.log10(span / 5))) * ([1, 2, 5].find((m) => span / (Math.pow(10, Math.floor(Math.log10(span / 5))) * m) <= 6) || 10); const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10)); return out; };
-  for (const t of ticks(x0, x1, o.xlog)) { const xv = o.xlog ? Math.pow(10, t) : t, px = X(xv); ctx.beginPath(); ctx.moveTo(px, T); ctx.lineTo(px, H - B); ctx.stroke(); ctx.textAlign = 'center'; ctx.fillText(o.xlog ? `1e${t}` : fmt(xv, 3), px, H - B + 14); }
-  for (const t of ticks(y0, y1, o.ylog)) { const yv = o.ylog ? Math.pow(10, t) : t, py = Y(yv); ctx.beginPath(); ctx.moveTo(L, py); ctx.lineTo(W - R, py); ctx.stroke(); ctx.textAlign = 'right'; ctx.fillText(o.ylog ? `1e${t}` : fmt(yv, 3), L - 6, py + 4); }
+  for (const t of ticks(x0, x1, o.xlog)) { const xv = o.xlog ? Math.pow(10, t) : t, px = X(xv); ctx.beginPath(); ctx.moveTo(px, T); ctx.lineTo(px, H - B); ctx.stroke(); ctx.textAlign = 'center'; richText(ctx, o.xlog ? `$10^{${t}}$` : fmt(xv, 3), px, H - B + 14, { align: 'center' }); }
+  for (const t of ticks(y0, y1, o.ylog)) { const yv = o.ylog ? Math.pow(10, t) : t, py = Y(yv); ctx.beginPath(); ctx.moveTo(L, py); ctx.lineTo(W - R, py); ctx.stroke(); ctx.textAlign = 'right'; richText(ctx, o.ylog ? `$10^{${t}}$` : fmt(yv, 3), L - 6, py + 4, { align: 'right' }); }
   ctx.strokeStyle = '#3a4a6a'; ctx.strokeRect(L, T, W - L - R, H - T - B);
-  ctx.fillStyle = '#9fb0d0'; ctx.textAlign = 'center'; if (o.xlabel) ctx.fillText(o.xlabel, (L + W - R) / 2, H - 6);
-  ctx.save(); ctx.translate(12, (T + H - B) / 2); ctx.rotate(-Math.PI / 2); if (o.ylabel) ctx.fillText(o.ylabel, 0, 0); ctx.restore();
+  ctx.fillStyle = '#9fb0d0'; ctx.textAlign = 'center'; if (o.xlabel) richText(ctx, o.xlabel, (L + W - R) / 2, H - 6, { px: 13, align: 'center', maxW: W - L - R });
+  ctx.save(); ctx.translate(12, (T + H - B) / 2); ctx.rotate(-Math.PI / 2); ctx.restore(); if (o.ylabel) richText(ctx, o.ylabel, 14, (T + H - B) / 2, { px: 13, align: 'center', angle: -Math.PI / 2, maxW: H - T - B });
   ctx.save(); ctx.beginPath(); ctx.rect(L, T, W - L - R, H - T - B); ctx.restore();
   return { X, Y, L, R, T, B, clip: () => { ctx.save(); ctx.beginPath(); ctx.rect(L, T, W - L - R, H - T - B); ctx.clip(); }, unclip: () => ctx.restore() };
 }
@@ -30,7 +31,25 @@ function curve(ctx, ax, f, xs, color, width = 2, dash = []) {
 }
 const lin = (a, b, n) => Array.from({ length: n }, (_, i) => a + ((b - a) * i) / (n - 1));
 const logsp = (a, b, n) => lin(Math.log10(a), Math.log10(b), n).map((v) => Math.pow(10, v));
-const label = (ctx, text, x, y, color = '#cfe0ff', align = 'left') => { ctx.fillStyle = color; ctx.font = '12px system-ui'; ctx.textAlign = align; ctx.fillText(text, x, y); };
+const LEG = { blue: '#6cb6ff', orange: '#ff8a5b', green: '#7dffb0', yellow: '#ffd86b', grey: '#9fb0d0', gray: '#9fb0d0', white: '#ffffff', pink: '#ff6b9a', red: '#ff6b6b' };
+const LEG_RE = /^(blue|orange|green|yellow|grey|gray|white|pink|red)((?:\/(?:blue|orange|green|yellow|grey|white|pink|red))?)( dashed| dotted| filled| solid| dots?| circle| line| band)?\s*[:=]\s*/;
+// A legend line "blue: a   orange dashed: b   yellow: c" (parts separated by 3 spaces) becomes coloured swatches with their text, wrapped into rows;
+// anything else is one line of (typeset) text.
+const label = (ctx, text, x, y, color = '#cfe0ff', align = 'left') => {
+  const parts = String(text).split(/ {3,}/).map((t) => t.trim()).filter(Boolean), keyed = parts.map((t) => LEG_RE.exec(t));
+  if (parts.length < 2 || !keyed.some(Boolean) || align !== 'left') { richText(ctx, text, x, y, { px: 12, align, color }); return; }
+  ctx.save(); ctx.font = '12px system-ui';
+  const maxX = W - 8, rows = []; let cx = x, row = [];
+  parts.forEach((t, i) => { const m = keyed[i], body = m ? t.slice(m[0].length) : t, sw = m ? 20 : 0, w = sw + richWidth(ctx, body, 12) + 14;
+    if (cx + w > maxX && row.length) { rows.push(row); row = []; cx = x; } row.push({ body, m, sw, x: cx }); cx += w; });
+  rows.push(row);
+  ctx.fillStyle = 'rgba(11,18,32,0.82)'; ctx.fillRect(x - 6, y - 13, maxX - x + 8, rows.length * 16 + 4);
+  rows.forEach((r, k) => r.forEach((it) => { const yy = y + k * 16;
+    if (it.m) { ctx.save(); ctx.strokeStyle = LEG[it.m[1]]; ctx.fillStyle = LEG[it.m[1]]; ctx.lineWidth = 2.5; const dash = /dashed|dotted/.test(it.m[3] || ''); if (dash) ctx.setLineDash([4, 3]);
+      if (/band/.test(it.m[3] || '')) { ctx.globalAlpha = 0.5; ctx.fillRect(it.x, yy - 9, 15, 10); } else if (/dot|circle/.test(it.m[3] || '')) { ctx.beginPath(); ctx.arc(it.x + 7, yy - 4, 3.5, 0, 6.3); ctx.fill(); } else { ctx.beginPath(); ctx.moveTo(it.x, yy - 4); ctx.lineTo(it.x + 15, yy - 4); ctx.stroke(); } ctx.restore(); }
+    richText(ctx, it.body, it.x + it.sw, yy, { px: 12, color: it.m ? '#dbe7ff' : color }); }));
+  ctx.restore();
+};
 
 // ================================================================== the labs
 export const LABS = {
@@ -44,7 +63,7 @@ export const LABS = {
     ],
     draw(ctx, p) {
       const nus = logsp(1e8, 1e17, 240), best = Math.max(...nus.map((n) => LM.planck(n, p.T, p.hs)), p.cmb ? 1e-20 : 0, p.rj ? 0 : 0);
-      const ymax = Math.pow(10, Math.ceil(Math.log10(Math.max(best, LM.rayleighJeans(1e9, p.T)) * 3))), ax = axes(ctx, { xr: [1e8, 1e17], yr: [ymax * 1e-20, ymax], xlog: true, ylog: true, xlabel: 'frequency ν (Hz)', ylabel: 'B_ν (W m⁻² Hz⁻¹ sr⁻¹)' });
+      const ymax = Math.pow(10, Math.ceil(Math.log10(Math.max(best, LM.rayleighJeans(1e9, p.T)) * 3))), ax = axes(ctx, { xr: [1e8, 1e17], yr: [ymax * 1e-20, ymax], xlog: true, ylog: true, xlabel: 'frequency $\\nu$ (Hz)', ylabel: '$B_\\nu$ (W m$^{-2}$ Hz$^{-1}$ sr$^{-1}$)' });
       ax.clip();
       if (p.rj) curve(ctx, ax, (n) => LM.rayleighJeans(n, p.T), nus, '#ff8a5b', 1.5, [6, 4]);
       if (p.cmb) curve(ctx, ax, (n) => LM.planck(n, 2.725, p.hs), nus, '#7dffb0', 2);
@@ -53,7 +72,7 @@ export const LABS = {
       // visible band
       ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fillRect(ax.X(3.9e14), ax.T, ax.X(7.7e14) - ax.X(3.9e14), H - ax.T - ax.B);
       ax.unclip();
-      label(ctx, 'blue: Planck B_ν(T)   orange dashed: Rayleigh–Jeans   yellow: peak   grey band: visible light', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'blue: Planck $B_\\nu(T)$   orange dashed: Rayleigh–Jeans   yellow: peak   grey band: visible light', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info: (p) => `Peak at $\\nu_{\\max}=2.82\\,k_BT/h=${fmt(LM.planckPeakNu(p.T, p.hs) / 1e9)}$ GHz, i.e. $\\lambda_{\\max}=${fmt(LM.wienLambda(p.T) * 1e9)}$ nm (Wien, for the real $h$). Total flux $F=\\sigma_{SB}T^4$ ${p.hs < 0.9 ? 'would change with h: with h→0 the Rayleigh–Jeans law holds at all ν and the integral diverges (ultraviolet catastrophe)' : ''}.`,
   },
@@ -68,7 +87,7 @@ export const LABS = {
     draw(ctx, p) {
       const M0 = p.bh ? p.M0 : 0, k = p.halo ? p.k : 0, rs = logsp(0.1, 1e4, 200);
       const vmax = Math.max(100, ...rs.map((r) => LM.vCirc(r, M0 || 1e-9, k)).filter((v) => Number.isFinite(v)).map((v) => Math.min(v, 2000)));
-      const ax = axes(ctx, { xr: [0.1, 1e4], yr: [0, Math.min(2000, vmax * 1.1)], xlog: true, xlabel: 'radius r (pc)', ylabel: 'v_c (km/s)' }); ax.clip();
+      const ax = axes(ctx, { xr: [0.1, 1e4], yr: [0, Math.min(2000, vmax * 1.1)], xlog: true, xlabel: 'radius $r$ (pc)', ylabel: '$v_c$ (km/s)' }); ax.clip();
       curve(ctx, ax, (r) => LM.vCirc(r, p.M0, 0), rs, '#ff8a5b', 1.5, [6, 4]); curve(ctx, ax, (r) => LM.vCirc(r, 1e-9, p.k), rs, '#7dffb0', 1.5, [6, 4]);
       curve(ctx, ax, (r) => LM.vCirc(r, M0 || 1e-9, k), rs, '#6cb6ff', 2.8);
       ctx.fillStyle = '#ffd86b'; ctx.beginPath(); ctx.arc(ax.X(2), ax.Y(110), 5, 0, 7); ctx.fill(); ax.unclip();
@@ -87,13 +106,13 @@ export const LABS = {
     ],
     draw(ctx, p) {
       const Om = p.noM ? 0 : p.Om, OL = p.noL ? 0 : p.OL, f = LM.friedmann(Om, OL, p.rad ? 9e-5 : 0, 8);
-      const amax = Math.min(6, Math.max(2, ...f.a)), ax = axes(ctx, { xr: [-1.2, 4], yr: [0, amax], xlabel: 'H₀ (t − t_today)', ylabel: 'scale factor a' });
-      if (f.noBigBang) { label(ctx, 'no expanding solution from a = 0 for these parameters (a "bounce" or static case)', ax.L + 10, 60, '#ff8a5b'); return; }
+      const amax = Math.min(6, Math.max(2, ...f.a)), ax = axes(ctx, { xr: [-1.2, 4], yr: [0, amax], xlabel: '$H_0\\,(t-t_{\\rm today})$', ylabel: 'scale factor $a$' });
+      if (f.noBigBang) { label(ctx, 'no expanding solution from $a=0$ for these parameters (a "bounce" or static case)', ax.L + 10, 60, '#ff8a5b'); return; }
       ax.clip(); const age = f.age ?? 0;
       ctx.strokeStyle = '#6cb6ff'; ctx.lineWidth = 2.6; ctx.beginPath(); f.tau.forEach((t, i) => { const px = ax.X(t - age), py = ax.Y(f.a[i]); if (i) ctx.lineTo(px, py); else ctx.moveTo(px, py); }); ctx.stroke();
       ctx.strokeStyle = '#ffd86b'; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(ax.X(0), ax.T); ctx.lineTo(ax.X(0), H - ax.B); ctx.moveTo(ax.L, ax.Y(1)); ctx.lineTo(W - ax.R, ax.Y(1)); ctx.stroke(); ctx.setLineDash([]);
       // reference: Einstein-de Sitter
-      ax.unclip(); label(ctx, 'blue: your universe   yellow: today (a = 1)', ax.L + 6, ax.T + 14, '#9fb0d0');
+      ax.unclip(); label(ctx, 'blue: your universe   yellow: today ($a=1$)', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info: (p) => { const Om = p.noM ? 0 : p.Om, OL = p.noL ? 0 : p.OL, f = LM.friedmann(Om, OL, p.rad ? 9e-5 : 0, 8), Ok = 1 - Om - OL - (p.rad ? 9e-5 : 0);
       if (f.noBigBang) return 'No big bang for these parameters.';
@@ -110,11 +129,11 @@ export const LABS = {
     ],
     draw(ctx, p, t) {
       const r = p.equal ? 1 : p.ratio, qs = lin(-Math.PI, Math.PI, 200), top = LM.chainOmega(Math.PI, 1, r).op * 1.05 + 0.05;
-      const ax = axes(ctx, { xr: [-Math.PI, Math.PI], yr: [0, Math.max(top, LM.chainOmega(0, 1, r).op * 1.05)], xlabel: 'q a  (first Brillouin zone from −π to π)', ylabel: 'ω / √(k/M₁)' });
+      const ax = axes(ctx, { xr: [-Math.PI, Math.PI], yr: [0, Math.max(top, LM.chainOmega(0, 1, r).op * 1.05)], xlabel: '$qa$  (first Brillouin zone, $-\\pi$ to $\\pi$)', ylabel: '$\\omega/\\sqrt{k/M_1}$' });
       ax.clip(); curve(ctx, ax, (q) => LM.chainOmega(q, 1, r).ac, qs, '#6cb6ff', 2.4); curve(ctx, ax, (q) => LM.chainOmega(q, 1, r).op, qs, '#ffa94d', 2.4); ax.unclip();
       const q = p.qa * Math.PI, e = LM.chainOmega(q, 1, r), w = p.branch ? e.op : e.ac;
       ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(ax.X(q), ax.Y(w), 5, 0, 7); ctx.fill();
-      label(ctx, 'blue: acoustic   orange: optical   gap at the zone edge: ω² = 2k/M_heavy and 2k/M_light', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'blue: acoustic   orange: optical   gap at the zone edge: $\\omega^2=2k/M_{\\rm heavy}$ and $2k/M_{\\rm light}$', ax.L + 6, ax.T + 14, '#9fb0d0');
       // atoms: displacement pattern of the chosen mode
       const V = LM.chainRatio(q, 1, r, 1, 1, w), n = 12, y0 = H - 62; ctx.fillStyle = 'rgba(11,18,32,0.9)'; ctx.fillRect(ax.L + 1, y0 - 24, W - ax.L - ax.R - 2, 50);
       for (let i = 0; i < n; i++) {
@@ -134,12 +153,12 @@ export const LABS = {
       { id: 'ein', label: 'show the Einstein model', type: 'toggle', value: true },
     ],
     draw(ctx, p) {
-      const Ts = lin(0.01, 2.2, 160).map((x) => x * p.Th), ax = axes(ctx, { xr: [0, 2.2 * p.Th], yr: [0, 1.1], xlabel: 'temperature T (K)', ylabel: 'C_V / (3Nk_B)' }); ax.clip();
+      const Ts = lin(0.01, 2.2, 160).map((x) => x * p.Th), ax = axes(ctx, { xr: [0, 2.2 * p.Th], yr: [0, 1.1], xlabel: 'temperature $T$ (K)', ylabel: '$C_V/(3Nk_B)$' }); ax.clip();
       if (p.dp) { ctx.strokeStyle = '#7f8aa6'; ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.moveTo(ax.L, ax.Y(1)); ctx.lineTo(W - ax.R, ax.Y(1)); ctx.stroke(); ctx.setLineDash([]); }
       if (p.t3) curve(ctx, ax, (T) => (4 * Math.PI ** 4 / 5) * (T / p.Th) ** 3, Ts, '#7dffb0', 1.5, [6, 4]);
       if (p.ein) curve(ctx, ax, (T) => LM.einsteinC(T, p.ratio * p.Th), Ts, '#ffa94d', 2.2);
       curve(ctx, ax, (T) => LM.debyeC(T, p.Th), Ts, '#6cb6ff', 2.8); ax.unclip();
-      label(ctx, 'blue: Debye   orange: Einstein   green dashed: T³ law   grey: Dulong–Petit', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'blue: Debye   orange: Einstein   green dashed: $T^3$ law   grey: Dulong–Petit', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info: (p) => `At $T=\\Theta_D/10$: Debye $C_V/3Nk=${fmt(LM.debyeC(p.Th / 10, p.Th))}$ (T³ law: ${fmt((4 * Math.PI ** 4 / 5) * 0.001)}), Einstein ${fmt(LM.einsteinC(p.Th / 10, p.ratio * p.Th))} (exponentially frozen out). At $T=\\Theta_D$ Debye gives ${fmt(LM.debyeC(p.Th, p.Th))}. Debye's linear acoustic branch gives the $T^3$; Einstein's single frequency cannot.`,
   },
@@ -155,13 +174,13 @@ export const LABS = {
       const g = (E) => LM.dos(E), occ = (E) => 1 / (Math.exp(Math.max(-700, Math.min(700, (E - mu) / kT))) + 1);
       let A = 0; { const m = 4000, de = emax / m; let s = 0; for (let i = 1; i <= m; i++) s += g(i * de) * Math.exp(-(i * de) / kT) * de; A = p.n / s; }
       const f = p.pauli ? (E) => g(E) * occ(E) : (E) => g(E) * A * Math.exp(-E / kT), ymax = g(emax) * 1.05;
-      const ax = axes(ctx, { xr: [0, emax / LM.K.eV], yr: [0, ymax], xlabel: 'energy E (eV)', ylabel: 'states per energy (g f)', pad: { l: 40 } });
+      const ax = axes(ctx, { xr: [0, emax / LM.K.eV], yr: [0, ymax], xlabel: 'energy $E$ (eV)', ylabel: 'states per energy ($g\\,f$)', pad: { l: 40 } });
       ax.clip(); const eV = LM.K.eV;
       curve(ctx, ax, (e) => g(e * eV), Es.map((e) => e / eV), '#4a5d85', 1.5, [5, 4]);
       ctx.fillStyle = p.pauli ? 'rgba(108,182,255,0.35)' : 'rgba(255,138,91,0.4)'; ctx.beginPath(); ctx.moveTo(ax.X(0), ax.Y(0)); Es.forEach((E) => ctx.lineTo(ax.X(E / eV), ax.Y(f(E)))); ctx.lineTo(ax.X(emax / eV), ax.Y(0)); ctx.fill();
       curve(ctx, ax, (e) => f(e * eV), Es.map((e) => e / eV), p.pauli ? '#6cb6ff' : '#ff8a5b', 2.4);
       ctx.strokeStyle = '#ffd86b'; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(ax.X(EF / eV), ax.T); ctx.lineTo(ax.X(EF / eV), H - ax.B); ctx.stroke(); ctx.setLineDash([]); ax.unclip();
-      label(ctx, 'dashed grey: density of states ∝ √E   filled: occupied states   yellow: Fermi energy', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'grey dashed: density of states $\\propto\\sqrt E$   filled: occupied states   yellow: Fermi energy', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info: (p) => { const EF = LM.fermiEnergy(p.n), TF = EF / LM.K.k, mean = p.pauli ? 0.6 * EF : 1.5 * LM.K.k * p.T; return `$E_F=${fmt(EF / LM.K.eV)}$ eV, $T_F=E_F/k_B=${fmt(TF)}$ K. Mean energy per electron ${fmt(mean / LM.K.eV)} eV ${p.pauli ? `(3/5 $E_F$: almost all electrons are frozen; only a fraction $\\sim T/T_F=${fmt(p.T / TF)}$ can be excited, hence $C_V=\\frac{\\pi^2}{2}Nk_B\\,T/T_F$)` : `(classical $\\frac32k_BT$: without the Pauli principle all electrons would share the thermal energy and $C_V=\\frac32Nk_B$, which metals do not show)`}.`; },
   },
@@ -177,12 +196,12 @@ export const LABS = {
     ],
     draw(ctx, p, t) {
       const xs = lin(-7, 7, 281), co = p.coh ? LM.coherentCoeffs(p.alpha, 0) : [{ n: p.n1, re: Math.sqrt(1 - p.mix), im: 0 }, ...(p.n2 !== p.n1 || p.mix > 0 ? [{ n: p.n2, re: Math.sqrt(p.mix), im: 0 }] : [])];
-      const s = LM.hoState(co, xs, t), ax = axes(ctx, { xr: [-7, 7], yr: [0, 0.9], xlabel: 'position x / √(ħ/mω)', ylabel: '|ψ(x,t)|²' });
+      const s = LM.hoState(co, xs, t), ax = axes(ctx, { xr: [-7, 7], yr: [0, 0.9], xlabel: 'position $x/\\sqrt{\\hbar/m\\omega}$', ylabel: '$|\\psi(x,t)|^2$' });
       ax.clip(); ctx.strokeStyle = '#33425f'; ctx.beginPath(); xs.forEach((x, i) => { const px = ax.X(x), py = ax.Y(Math.min(0.9, 0.18 * x * x / 1.0 * 0 + (x * x) / 2 / 20)); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.stroke();
       ctx.fillStyle = 'rgba(108,182,255,0.3)'; ctx.beginPath(); ctx.moveTo(ax.X(-7), ax.Y(0)); xs.forEach((x, i) => ctx.lineTo(ax.X(x), ax.Y(Math.min(0.9, s.dens[i])))); ctx.lineTo(ax.X(7), ax.Y(0)); ctx.fill();
       curve(ctx, ax, (x) => s.dens[Math.round((x + 7) / 14 * 280)], xs, '#6cb6ff', 2.4);
       ctx.fillStyle = '#ffd86b'; ctx.beginPath(); ctx.arc(ax.X(s.xmean), ax.Y(0.03), 6, 0, 7); ctx.fill(); ax.unclip();
-      label(ctx, 'blue: probability density   yellow dot: ⟨x⟩   grey: parabolic potential (scaled)', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'blue: probability density   yellow dot: $\\langle x\\rangle$   grey: parabolic potential (scaled)', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info: (p) => p.coh ? `Coherent state $|\\alpha\\rangle$: $\\langle x\\rangle=\\sqrt2\\,\\alpha\\cos\\omega t$, the packet keeps its shape and swings like a classical particle, $\\Delta x\\,\\Delta p=\\hbar/2$.` : (p.n1 === p.n2 ? 'One eigenstate: $|\\psi|^2$ does not depend on time and $\\langle x\\rangle=0$.' : Math.abs(p.n1 - p.n2) % 2 === 0 ? `$n_1,n_2$ have the same parity: $\\langle x\\rangle=0$ at all times (the matrix element $\\langle n_1|x|n_2\\rangle$ vanishes), but the density breathes at frequency $${Math.abs(p.n1 - p.n2)}\\omega$.` : `$\\langle x\\rangle$ oscillates at frequency $\\omega|n_1-n_2|=${Math.abs(p.n1 - p.n2)}\\omega$ because $\\langle n|x|m\\rangle\\ne0$ only for $m=n\\pm1$ (here $|n_1-n_2|$ is odd; it is fully harmonic only for neighbours).`),
   },
@@ -195,11 +214,11 @@ export const LABS = {
       { id: 'off', label: 'switch the coupling off ($V=0$)', type: 'toggle', value: false },
     ],
     draw(ctx, p) {
-      const V = p.off ? 0 : p.V, Ds = lin(-3, 3, 400), ax = axes(ctx, { xr: [-3, 3], yr: [-2.2, 2.2], xlabel: 'unperturbed splitting Δ = ε₂ − ε₁', ylabel: 'energy' }); ax.clip();
+      const V = p.off ? 0 : p.V, Ds = lin(-3, 3, 400), ax = axes(ctx, { xr: [-3, 3], yr: [-2.2, 2.2], xlabel: 'unperturbed splitting $\\Delta=\\varepsilon_2-\\varepsilon_1$', ylabel: 'energy' }); ax.clip();
       curve(ctx, ax, (D) => -D / 2, Ds, '#4a5d85', 1.5, [6, 4]); curve(ctx, ax, (D) => D / 2, Ds, '#4a5d85', 1.5, [6, 4]);
       if (p.pt2 && V > 0) { curve(ctx, ax, (D) => (Math.abs(D) > 2.2 * V ? LM.twoLevel(D, V).second[0] : NaN), Ds, '#7dffb0', 2, [3, 3]); curve(ctx, ax, (D) => (Math.abs(D) > 2.2 * V ? LM.twoLevel(D, V).second[1] : NaN), Ds, '#7dffb0', 2, [3, 3]); }
       if (p.ex) { curve(ctx, ax, (D) => LM.twoLevel(D, V).exact[0], Ds, '#6cb6ff', 2.8); curve(ctx, ax, (D) => LM.twoLevel(D, V).exact[1], Ds, '#6cb6ff', 2.8); }
-      ax.unclip(); label(ctx, 'grey dashed: unperturbed levels   green dashed: 2nd order (breaks down at Δ ≈ 2V)   blue: exact', ax.L + 6, ax.T + 14, '#9fb0d0');
+      ax.unclip(); label(ctx, 'grey dashed: unperturbed levels   green dashed: 2nd order (breaks down at $\\Delta\\approx2V$)   blue: exact', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info: (p) => `Exact $E_\\pm=\\pm\\frac12\\sqrt{\\Delta^2+4V^2}$. Non-degenerate PT: $E_1\\approx\\varepsilon_1-V^2/\\Delta$, valid only for $|\\Delta|\\gg V$. At $\\Delta=0$ the levels are degenerate and the first-order shift is already $\\pm V$ (degenerate PT); the levels never cross: minimum gap $2V=${fmt(2 * (p.off ? 0 : p.V))}$.`,
   },
@@ -239,7 +258,7 @@ export const LABS = {
       }
       const rvecs = []; for (let i = -2; i <= 2; i++) for (let j = -2; j <= 2; j++) if (i || j) rvecs.push([i * lat.b1[0] + j * lat.b2[0], i * lat.b1[1] + j * lat.b2[1]]);
       const bz = LM.voronoiCell(rvecs); ctx.strokeStyle = '#7dffb0'; ctx.lineWidth = 2; ctx.beginPath(); bz.forEach((q, i) => { const c = Q(q); i ? ctx.lineTo(...c) : ctx.moveTo(...c); }); ctx.closePath(); ctx.stroke();
-      label(ctx, 'reciprocal lattice: dot size ∝ |F|², first Brillouin zone (green)', 322, 22, '#9fb0d0');
+      label(ctx, 'reciprocal lattice: dot size $\\propto|F|^2$, first Brillouin zone (green)', 322, 22, '#9fb0d0');
       this._peaks = peaks.sort((x, y) => x.Gm - y.Gm).filter((q, i, a) => a.findIndex((z) => Math.abs(z.Gm - q.Gm) < 1e-6 && z.I === q.I) === i).slice(0, 4); this._bz = bz; this._lat = lat;
     },
     info(p) {
@@ -258,14 +277,14 @@ export const LABS = {
       { id: 'noeps', label: 'remove the temperature dependence (n = 0: energy released uniformly)', type: 'toggle', value: false },
     ],
     draw(ctx, p) {
-      const n = p.noeps ? 0 : p.n, xs = lin(0, 1, 120), ax = axes(ctx, { xr: [0, 1], yr: [0, 1.05], xlabel: 'r / R', ylabel: 'value / central value' }), rad = p.rad;
+      const n = p.noeps ? 0 : p.n, xs = lin(0, 1, 120), ax = axes(ctx, { xr: [0, 1], yr: [0, 1.05], xlabel: '$r/R$', ylabel: 'value / central value' }), rad = p.rad;
       ax.clip();
       curve(ctx, ax, (x) => 1 - x * x, xs, '#7dffb0', 1.8, [6, 4]);
       curve(ctx, ax, (x) => (rad ? Math.pow(1 - x * x, 0.25) : 1 - x * x), xs, '#ffa94d', 2.2);
       curve(ctx, ax, (x) => LM.epsRatio(x, n, rad), xs, '#6cb6ff', 2.8);
       const xf = LM.radiusAtFraction(p.f, n || 1e-9, rad);
       ctx.strokeStyle = '#ffd86b'; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(ax.L, ax.Y(p.f)); ctx.lineTo(W - ax.R, ax.Y(p.f)); if (n > 0) { ctx.moveTo(ax.X(xf), ax.T); ctx.lineTo(ax.X(xf), H - ax.B); } ctx.stroke(); ctx.setLineDash([]);
-      ax.unclip(); label(ctx, 'green dashed: P(r)/P_c   orange: T(r)/T_c   blue: ε(r)/ε_c   yellow: chosen fraction and its radius', ax.L + 6, ax.T + 14, '#9fb0d0');
+      ax.unclip(); label(ctx, 'green dashed: $P(r)/P_c$   orange: $T(r)/T_c$   blue: $\\varepsilon(r)/\\varepsilon_c$   yellow: chosen fraction and its radius', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info(p) {
       const n = p.noeps ? 0 : p.n, rho = p.rho, R = LM.starR(LM.K2.Msun, rho), Pc = LM.hydroP(0, rho, R), Tc = LM.tempProfile(0, rho, R, 0.6, p.rad), xf = LM.radiusAtFraction(p.f, n || 1e-9, p.rad);
@@ -280,10 +299,10 @@ export const LABS = {
       { id: 'es', label: 'electron scattering present (off: opacity drops 100×, only bound-free left)', type: 'toggle', value: true },
     ],
     draw(ctx, p) {
-      const kap = p.es ? p.kap : p.kap / 100, Ms = logsp(1, 1000, 120), ax = axes(ctx, { xr: [1, 1000], yr: [1, 1e9], xlog: true, ylog: true, xlabel: 'mass M (M☉)', ylabel: 'luminosity L (L☉)' });
+      const kap = p.es ? p.kap : p.kap / 100, Ms = logsp(1, 1000, 120), ax = axes(ctx, { xr: [1, 1000], yr: [1, 1e9], xlog: true, ylog: true, xlabel: 'mass $M$ ($M_\\odot$)', ylabel: 'luminosity $L$ ($L_\\odot$)' });
       ax.clip(); curve(ctx, ax, (M) => LM.eddington(M, kap), Ms, '#ff8a5b', 2.6); curve(ctx, ax, (M) => Math.pow(M, p.alpha), Ms, '#6cb6ff', 2.6);
       const Mx = LM.eddCross(kap, p.alpha); if (Mx >= 1 && Mx <= 1000) { ctx.fillStyle = '#ffd86b'; ctx.beginPath(); ctx.arc(ax.X(Mx), ax.Y(Math.pow(Mx, p.alpha)), 6, 0, 7); ctx.fill(); }
-      ax.unclip(); label(ctx, 'orange: Eddington limit (linear in M)   blue: main sequence L ∝ M^α   yellow: crossing', ax.L + 6, ax.T + 14, '#9fb0d0');
+      ax.unclip(); label(ctx, 'orange: Eddington limit (linear in M)   blue: main sequence $L\\propto M^\\alpha$   yellow: crossing', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info(p) { const kap = p.es ? p.kap : p.kap / 100, Mx = LM.eddCross(kap, p.alpha); return `$L_{Edd}=\\frac{4\\pi cGM}{\\chi}=${fmt(LM.eddington(1, kap))}\\,L_\\odot\\,(M/M_\\odot)$ for $\\chi=${fmt(kap)}$ m$^2$/kg. Setting $M^{\\alpha}=L_{Edd}$ gives $M^{\\alpha-1}=${fmt(LM.eddington(1, kap))}$, i.e. $M=${fmt(Mx)}\\,M_\\odot$ — heavier stars would exceed the limit and blow off their envelopes. With $\\alpha=3$ and $\\chi=0.04$: $M^2=3.3\\times10^4$, $M\\approx180\\,M_\\odot$. Halving the opacity doubles $L_{Edd}$.`; },
   },
@@ -299,11 +318,11 @@ export const LABS = {
     ],
     draw(ctx, p) {
       const r0 = p.def ? p.r0 : 0, ph = (T) => (p.ph ? LM.rhoPhonon(T, p.Th, p.A) : 0), Ts = lin(0.5, 400, 200), top = Math.max(r0 + ph(400), 1) * 1.1;
-      const ax = axes(ctx, { xr: [0, 400], yr: [0, top], xlabel: 'temperature T (K)', ylabel: 'ρ(T) (nΩ·m)', pad: { l: 46 } }); ax.clip();
+      const ax = axes(ctx, { xr: [0, 400], yr: [0, top], xlabel: 'temperature $T$ (K)', ylabel: '$\\rho(T)$ (n$\\Omega\\,$m)', pad: { l: 46 } }); ax.clip();
       ctx.strokeStyle = '#ff8a5b'; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.moveTo(ax.L, ax.Y(r0)); ctx.lineTo(W - ax.R, ax.Y(r0)); ctx.stroke(); ctx.setLineDash([]);
       curve(ctx, ax, ph, Ts, '#7dffb0', 1.8, [5, 4]); curve(ctx, ax, (T) => r0 + ph(T), Ts, '#6cb6ff', 2.8);
       ctx.strokeStyle = '#ffd86b'; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(ax.X(p.Th), ax.T); ctx.lineTo(ax.X(p.Th), H - ax.B); ctx.stroke(); ctx.setLineDash([]); ax.unclip();
-      label(ctx, 'blue: ρ(T) total   orange: ρ₀ (defects)   green: phonons (T⁵ → linear)   yellow: Θ_D', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'blue: $\\rho(T)$ total   orange: $\\rho_0$ (defects)   green: phonons ($T^5\\to$ linear)   yellow: $\\Theta_D$', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info(p) { const r0 = p.def ? p.r0 : 0, rt = (r0 + (p.ph ? LM.rhoPhonon(300, p.Th, p.A) : 0)) * 1e-9, RH = LM.hallCoeff(p.n);
       return `Matthiessen: $\\rho=\\rho_0+\\rho_{ph}(T)$ — scattering rates add. At 300 K: $\\rho=${fmt(rt * 1e9)}$ nΩ·m ${rt > 0 ? `→ $\\tau=m/(ne^2\\rho)=${fmt(LM.drudeTau(p.n, rt))}$ s` : '(no scattering: infinite τ)'}. Hall coefficient $R_H=-1/(ne)=${fmt(RH)}$ m$^3$/C (independent of scattering!), Hall mobility $\\mu=|R_H|/\\rho=${rt > 0 ? fmt(Math.abs(RH) / rt * 1e4) : '∞'}$ cm$^2$/Vs. At $T\\to0$ only $\\rho_0=${fmt(r0)}$ nΩ·m remains; phonons give $T^5$ below and a linear rise above $\\Theta_D$.`; },
@@ -321,14 +340,14 @@ export const LABS = {
     ],
     draw(ctx, p) {
       const a = 5e-10, tv = p.eq ? p.tc : p.tv, mu = p.intr ? LM.muIntrinsic(p.T, a, p.EG, p.tc, tv) : p.mu, kT = (LM.K.k * p.T) / LM.K2.e, ks = lin(-Math.PI, Math.PI, 160);
-      const ax = axes(ctx, { xr: [-1, 1], yr: [-4 * tv - 0.3, p.EG + 4 * p.tc + 0.3], xlabel: 'k a / π', ylabel: 'E (eV)', pad: { l: 46 } }); ax.clip();
+      const ax = axes(ctx, { xr: [-1, 1], yr: [-4 * tv - 0.3, p.EG + 4 * p.tc + 0.3], xlabel: '$ka/\\pi$', ylabel: '$E$ (eV)', pad: { l: 46 } }); ax.clip();
       ax.unclip(); ax.clip();
       const ks1 = lin(-1, 1, 160), Ec = (x) => LM.bandC(x * Math.PI, 1, p.EG, p.tc), Ev = (x) => LM.bandV(x * Math.PI, 1, tv), occ = (E) => 1 / (Math.exp(Math.max(-700, Math.min(700, (E - mu) / kT))) + 1);
       ctx.fillStyle = 'rgba(108,182,255,0.12)'; ctx.fillRect(ax.L, ax.Y(p.EG + 4 * p.tc), W - ax.L - ax.R, ax.Y(p.EG) - ax.Y(p.EG + 4 * p.tc)); ctx.fillStyle = 'rgba(255,169,77,0.12)'; ctx.fillRect(ax.L, ax.Y(0), W - ax.L - ax.R, ax.Y(-4 * tv) - ax.Y(0));
       curve(ctx, ax, Ec, ks1, '#6cb6ff', 2.6); curve(ctx, ax, Ev, ks1, '#ffa94d', 2.6);
       for (let i = 0; i < ks1.length; i += 2) { const x = ks1[i]; ctx.fillStyle = `rgba(108,182,255,${Math.min(1, 2.5 * occ(Ec(x)))})`; if (occ(Ec(x)) > 0.01) { ctx.beginPath(); ctx.arc(ax.X(x), ax.Y(Ec(x)), 3.5, 0, 7); ctx.fill(); } const h = 1 - occ(Ev(x)); if (h > 0.01) { ctx.fillStyle = `rgba(255,120,120,${Math.min(1, 2.5 * h)})`; ctx.beginPath(); ctx.arc(ax.X(x), ax.Y(Ev(x)), 3.5, 0, 7); ctx.fill(); } }
       ctx.strokeStyle = '#ffd86b'; ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.moveTo(ax.L, ax.Y(mu)); ctx.lineTo(W - ax.R, ax.Y(mu)); ctx.stroke(); ctx.setLineDash([]); ax.unclip();
-      label(ctx, 'blue: conduction band (blue dots: electrons)   orange: valence band (red dots: holes)   yellow: μ', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'blue: conduction band (blue dots: electrons)   orange: valence band (red dots: holes)   yellow: $\\mu$', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info(p) {
       const a = 5e-10, tv = p.eq ? p.tc : p.tv, mi = LM.muIntrinsic(p.T, a, p.EG, p.tc, tv), mu = p.intr ? mi : p.mu, c = LM.carriers1d(mu, p.T, a, p.EG, p.tc, tv), kT = (LM.K.k * p.T) / LM.K2.e;
@@ -344,12 +363,12 @@ export const LABS = {
       { id: 'off', label: 'switch the exchange off (pure Curie paramagnet)', type: 'toggle', value: false },
     ],
     draw(ctx, p) {
-      const Tw = p.off ? 0 : LM.weissT(p.S, p.J1, p.J2), C = LM.curieC(p.S), lo = (-200 - Tw) / C, hi = (600 - Tw) / C, ax = axes(ctx, { xr: [-200, 600], yr: [Math.min(lo, -50 / C), Math.max(hi, 50 / C)], xlabel: 'temperature T (K)', ylabel: '1/χ  (SI)', pad: { l: 56 } });
+      const Tw = p.off ? 0 : LM.weissT(p.S, p.J1, p.J2), C = LM.curieC(p.S), lo = (-200 - Tw) / C, hi = (600 - Tw) / C, ax = axes(ctx, { xr: [-200, 600], yr: [Math.min(lo, -50 / C), Math.max(hi, 50 / C)], xlabel: 'temperature $T$ (K)', ylabel: '$1/\\chi$ (SI)', pad: { l: 56 } });
       ax.clip(); const Ts = lin(-200, 600, 200); curve(ctx, ax, (T) => LM.chiInv(T, p.S, 0), Ts, '#7f8aa6', 1.5, [5, 4]);
       curve(ctx, ax, (T) => LM.chiInv(T, p.S, Tw), Ts, '#6cb6ff', 1.5, [3, 4]); curve(ctx, ax, (T) => (T >= Math.max(Tw, 0) ? LM.chiInv(T, p.S, Tw) : NaN), Ts, '#6cb6ff', 2.8);
       ctx.strokeStyle = '#33425f'; ctx.beginPath(); ctx.moveTo(ax.X(0), ax.T); ctx.lineTo(ax.X(0), H - ax.B); ctx.moveTo(ax.L, ax.Y(0)); ctx.lineTo(W - ax.R, ax.Y(0)); ctx.stroke();
       ctx.fillStyle = '#ffd86b'; ctx.beginPath(); ctx.arc(ax.X(Tw), ax.Y(0), 6, 0, 7); ctx.fill(); ax.unclip();
-      label(ctx, 'solid: 1/χ above the transition   dashed blue: extrapolation to 1/χ = 0   grey: pure Curie   yellow: T_W', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'solid: $1/\\chi$ above the transition   blue dashed: extrapolation to $1/\\chi=0$   grey: pure Curie   yellow: $T_W$', ax.L + 6, ax.T + 14, '#9fb0d0');
     },
     info(p) { const Tw = p.off ? 0 : LM.weissT(p.S, p.J1, p.J2), C = LM.curieC(p.S);
       return `Weiss temperature (mean field, $H=-\\sum_{i<j}J_{ij}\\vec S_i\\cdot\\vec S_j$): $T_W=\\frac{2S(S+1)}{3k_B}\\sum_j zJ=${fmt(Tw)}$ K, Curie constant (for $n=10^{28}$ m$^{-3}$, $g=2$) $C=\\frac{\\mu_0 n g^2\\mu_B^2S(S+1)}{3k_B}=${fmt(C)}$ K. $\\chi=C/(T-T_W)$. ${p.off ? 'No exchange: $T_W=0$, pure Curie law, 1/χ passes through the origin.' : Tw > 1 ? `$T_W>0$: ferromagnet, 1/χ hits zero at $T_C\\approx T_W$ and the paramagnetic law fails below.` : Tw < -1 ? '$T_W<0$ (antiferromagnet): the straight line meets the T axis at negative T; the order sets in at the Néel temperature $T_N>0$ where $\\chi$ has a cusp.' : '$T_W\\approx0$: ferro and antiferro contributions cancel.'} Slope of 1/χ gives $S$, intercept gives the exchange.`; },
@@ -365,11 +384,11 @@ export const LABS = {
     ],
     draw(ctx, p, t) {
       const th = (p.th * Math.PI) / 180, tl = (p.tilt * Math.PI) / 180, n = [Math.sin(tl), 0, Math.cos(tl)], w = p.on ? 1 : 0, tau = p.on ? p.w * t : 0;
-      const taus = lin(0, 4 * Math.PI, 200), ax = axes(ctx, { xr: [0, 4 * Math.PI], yr: [-1.1, 1.1], xlabel: 'ω t (rad)', ylabel: '', pad: { l: 330 } });
+      const taus = lin(0, 4 * Math.PI, 200), ax = axes(ctx, { xr: [0, 4 * Math.PI], yr: [-1.1, 1.1], xlabel: '$\\omega t$ (rad)', ylabel: '', pad: { l: 330 } });
       const S = (tt) => LM.spinExp(th, 0, w, n, tt); ax.clip();
       curve(ctx, ax, (tt) => S(tt)[0], taus, '#ff8a5b', 2.4); curve(ctx, ax, (tt) => S(tt)[1], taus, '#7dffb0', 2.4); curve(ctx, ax, (tt) => S(tt)[2], taus, '#6cb6ff', 2.4);
       const tm = tau % (4 * Math.PI); ctx.strokeStyle = '#ffd86b'; ctx.beginPath(); ctx.moveTo(ax.X(tm), ax.T); ctx.lineTo(ax.X(tm), H - ax.B); ctx.stroke(); ax.unclip();
-      label(ctx, '⟨S_x⟩ orange   ⟨S_y⟩ green   ⟨S_z⟩ blue   (in units of ħ/2)', ax.L + 6, ax.T + 14, '#9fb0d0');
+      label(ctx, 'orange: $\\langle S_x\\rangle$   green: $\\langle S_y\\rangle$   blue: $\\langle S_z\\rangle$   (in units of $\\hbar/2$)', ax.L + 6, ax.T + 14, '#9fb0d0');
       // Bloch sphere on the left
       const cx = 150, cy = 170, R = 105, P = (v) => [cx + R * (v[0] + 0.4 * v[1]), cy - R * (v[2] + 0.25 * v[1])];
       ctx.fillStyle = '#0b1220'; ctx.fillRect(0, 0, 276, H); ctx.strokeStyle = '#3a4a6a'; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
@@ -378,7 +397,7 @@ export const LABS = {
       if (p.on) { const q = P(n); ctx.strokeStyle = '#ffd86b'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(...P([0, 0, 0])); ctx.lineTo(q[0] * 1.0, q[1]); ctx.stroke(); ctx.lineWidth = 1; label(ctx, 'B', q[0] + 6, q[1] - 6, '#ffd86b'); }
       ctx.strokeStyle = 'rgba(207,224,255,0.35)'; ctx.setLineDash([3, 3]); ctx.beginPath(); lin(0, 2 * Math.PI, 90).forEach((tt, i) => { const q = P(S(tt)); i ? ctx.lineTo(...q) : ctx.moveTo(...q); }); ctx.stroke(); ctx.setLineDash([]);
       const s = S(tau), q = P(s); ctx.strokeStyle = '#fff'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(...P([0, 0, 0])); ctx.lineTo(...q); ctx.stroke(); ctx.lineWidth = 1; ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(q[0], q[1], 5, 0, 7); ctx.fill();
-      label(ctx, 'Bloch vector ⟨S⟩ (white) precesses about B (yellow)', 10, 20, '#9fb0d0');
+      label(ctx, 'Bloch vector $\\langle\\vec S\\rangle$ (white) precesses about $\\vec B$ (yellow)', 10, 20, '#9fb0d0');
     },
     info(p) { const th = (p.th * Math.PI) / 180, tl = (p.tilt * Math.PI) / 180; const ang = p.on ? `The vector precesses on a cone about $\\vec B$ with $\\omega_L=\\gamma B$ ($=eB/m_e=1.76\\times10^{11}\\,\\text{rad/s per tesla}$ for an electron, $g=2$); the angle to $\\vec B$ and $|\\langle\\vec S\\rangle|=\\hbar/2$ are constant.` : 'Field off: $H=0$, the state does not evolve and $\\langle\\vec S\\rangle$ is constant.';
       return `Start: $\\langle S_z\\rangle=\\frac\\hbar2\\cos\\theta=${fmt(Math.cos(th))}\\,\\hbar/2$. For $\\vec B\\parallel\\hat z$: $\\langle S_z\\rangle$ is constant, $\\langle S_x\\rangle=\\frac\\hbar2\\sin\\theta\\cos\\omega t$, $\\langle S_y\\rangle=-\\frac\\hbar2\\sin\\theta\\sin\\omega t$ (for $H=-\\gamma BS_z$). ${ang} ${p.tilt > 0 && p.on ? `With $\\vec B$ tilted by ${p.tilt}° $\\langle S_z\\rangle$ oscillates as well (the cone axis is $\\vec B$, not $\\hat z$); the energy splitting is still $\\hbar\\gamma B$.` : ''}`; },
@@ -410,6 +429,7 @@ export function mountLab(enc, el, env, helpers) {
   const loop = () => { render((performance.now() - t0) / 1000); raf = requestAnimationFrame(loop); };
   el.querySelectorAll('[data-c]').forEach((i) => { i.oninput = () => { readInputs(); publish(); if (!spec.animated) render(0); }; i.onchange = i.oninput; });
   readInputs(); publish(); render(0); if (spec.animated) loop();
+  const redraw = () => { if (!el.isConnected) { window.removeEventListener('tex-ready', redraw); return; } if (!spec.animated) render(0); }; window.addEventListener('tex-ready', redraw); // equations in the plot finished loading
   el.querySelector('#labdone').onclick = () => {
     el.querySelector('#labdone').disabled = true; env.flash(true);
     el.querySelector('#result').innerHTML = M(`<p class="msg good">Experiment logged. +${enc.xp} XP</p>${helpers.nextBtn(env)}`); helpers.wireNext(env);

@@ -6,10 +6,10 @@ import katex from '../vendor/katex/katex.mjs';
 // The texture object is returned immediately and filled in a moment later (it is cached by content).
 const cssUrl = new URL('../vendor/katex/katex.min.css', import.meta.url);
 let fontCss = null, fontPromise = null;
-const BASE_FONTS = ['Main-Regular', 'Main-Italic', 'Main-Bold', 'Math-Italic', 'AMS-Regular', 'Size1-Regular', 'Size2-Regular'];
-const OPTIONAL = { mathcal: 'Caligraphic-Regular', mathbb: 'AMS-Regular', mathfrak: 'Fraktur-Regular', mathsf: 'SansSerif-Regular', mathtt: 'Typewriter-Regular', size3: 'Size3-Regular', size4: 'Size4-Regular', mathscr: 'Script-Regular', 'mathbf mathit': 'Main-BoldItalic', boldsymbol: 'Math-BoldItalic' };
+export const BASE_FONTS = ['Main-Regular', 'Main-Italic', 'Main-Bold', 'Math-Italic', 'AMS-Regular', 'Size1-Regular', 'Size2-Regular'];
+export const OPTIONAL = { mathcal: 'Caligraphic-Regular', mathbb: 'AMS-Regular', mathfrak: 'Fraktur-Regular', mathsf: 'SansSerif-Regular', mathtt: 'Typewriter-Regular', size3: 'Size3-Regular', size4: 'Size4-Regular', mathscr: 'Script-Regular', 'mathbf mathit': 'Main-BoldItalic', boldsymbol: 'Math-BoldItalic' };
 
-async function loadFonts() {
+export async function loadFonts() {
   if (fontCss) return fontCss;
   fontPromise ??= (async () => {
     const css = await (await fetch(cssUrl)).text();

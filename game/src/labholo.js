@@ -36,6 +36,8 @@ export function buildLabHolos(world, room) {
   // the experiment panel reports its slider values: the hologram of the same experiment shows the same setting, live
   const onParams = (e) => { const h = holos.find((x) => x.enc.id === e.detail.id); if (h) { Object.assign(h.p, e.detail.p); h.live = true; h.acc = 99; } };
   window.addEventListener('lab-params', onParams);
+  const onTex = () => holos.forEach((h) => { h.acc = 99; });
+  window.addEventListener('tex-ready', onTex);
   let clock = 0;
   return {
     group, count: holos.length, params: () => holos.map((h) => ({ id: h.enc.id, p: { ...h.p }, live: !!h.live })),
@@ -47,6 +49,6 @@ export function buildLabHolos(world, room) {
         if (near && h.acc > (h.spec.animated ? 0.1 : 1.5)) { h.acc = 0; draw(h, clock); }
       }
     },
-    dispose() { window.removeEventListener('lab-params', onParams); world.scene.remove(group); for (const it of its) world.interactables.splice(world.interactables.indexOf(it), 1); group.traverse((o) => { o.geometry?.dispose?.(); o.material?.map?.dispose?.(); o.material?.dispose?.(); }); },
+    dispose() { window.removeEventListener('lab-params', onParams); window.removeEventListener('tex-ready', onTex); world.scene.remove(group); for (const it of its) world.interactables.splice(world.interactables.indexOf(it), 1); group.traverse((o) => { o.geometry?.dispose?.(); o.material?.map?.dispose?.(); o.material?.dispose?.(); }); },
   };
 }

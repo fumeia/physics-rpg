@@ -42,7 +42,7 @@ function label(lines, size, { color = '#9fd8ff', accent = '#ffd86b' } = {}) {
 function sign(group, lines, pos, size0 = [4, 1.25]) {
   const size = size0.map((v) => v * 1.3); // bigger panels: the typeset formulas must be readable from the gallery
   const m = new THREE.Mesh(new THREE.PlaneGeometry(...size), label(lines, size));
-  m.position.copy(pos); group.add(m); return m;
+  m.position.copy(pos); m.position.y = Math.min(m.position.y, 7.2 - size[1] / 2); group.add(m); return m; // never poke into the ceiling (underside at 7.45)
 }
 function points(positions, colors, size = 0.08) {
   const g = new THREE.BufferGeometry();

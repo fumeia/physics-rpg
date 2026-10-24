@@ -7,7 +7,7 @@ const line = (pts, color, opacity = 1) => new THREE.Line(new THREE.BufferGeometr
 function sign(group, lines, pos, w = 1000, h = 230) {
   if (typeof document === 'undefined') return;
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w / 120, h / 120), new THREE.MeshBasicMaterial({ map: mathTexture(lines, { w, h, bg: 'rgba(11,26,43,0.9)', size: 38, small: 28 }), transparent: true }));
-  m.position.copy(pos); group.add(m);
+  m.position.copy(pos); m.position.y = Math.min(m.position.y, 7.2 - h / 240); group.add(m); // never poke into the ceiling (underside at 7.45)
 }
 
 const BUILDERS = {

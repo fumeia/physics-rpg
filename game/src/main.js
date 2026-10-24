@@ -1186,7 +1186,7 @@ function exposeTestApi() {
     interactNearest: () => { const t = player.target(); if (t) interact(t); return t ? t.id : null; },
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
     activeSeconds: () => studyToday() + Math.round(studyAcc),
-    failFrames: (n) => { testHooks.failFrames = n; }, holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
+    failFrames: (n) => { testHooks.failFrames = n; }, teleport: (...a) => player.teleport(...a), holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
     finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };

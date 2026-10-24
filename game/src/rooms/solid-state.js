@@ -107,7 +107,7 @@ function addSign(group, id) {
   const lines = SIGNS[id]; if (!lines || typeof document === 'undefined') return;
   const w = 1100, h = 250, tex = mathTexture(lines, { w, h, bg: 'rgba(11,26,43,0.9)', size: 40, small: 30 });
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w / 120, h / 120), new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
-  m.position.set(0, 6.8, -5.4); group.add(m);
+  m.position.set(0, Math.min(6.8, 7.2 - h / 240), -5.4); group.add(m); // below the ceiling (underside 7.45)
 }
 
 export function buildRoom(world, room) {

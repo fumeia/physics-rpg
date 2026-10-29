@@ -140,7 +140,7 @@ export const LABS = {
         ctx.fillStyle = light ? '#6cb6ff' : '#ffa94d'; ctx.beginPath(); ctx.arc(x, y0, light ? 7 : Math.min(13, 7 + 2 * Math.log(r + 1)), 0, 7); ctx.fill();
       }
     },
-    info: (p) => { const r = p.equal ? 1 : p.ratio, q = p.qa * Math.PI, e = LM.chainOmega(q, 1, r), edge = LM.chainOmega(Math.PI, 1, r); return `At $qa=${fmt(q)}$: $\\omega_{ac}=${fmt(e.ac)}$, $\\omega_{op}=${fmt(e.op)}$. Zone edge: $\\omega_{ac}=\\sqrt{2k/M_{heavy}}=${fmt(edge.ac)}$, $\\omega_{op}=\\sqrt{2k/M_{light}}=${fmt(edge.op)}$, gap ${fmt(edge.op - edge.ac)}$ ${p.equal ? '(equal masses: the gap closes and the chain is a monatomic one, folded)' : ''}. The group velocity $d\\omega/dq$ vanishes at the zone edge (standing waves).`; },
+    info: (p) => { const r = p.equal ? 1 : p.ratio, q = p.qa * Math.PI, e = LM.chainOmega(q, 1, r), edge = LM.chainOmega(Math.PI, 1, r); return `At $qa=${fmt(q)}$: $\\omega_{ac}=${fmt(e.ac)}$, $\\omega_{op}=${fmt(e.op)}$. Zone edge: $\\omega_{ac}=\\sqrt{2k/M_{heavy}}=${fmt(edge.ac)}$, $\\omega_{op}=\\sqrt{2k/M_{light}}=${fmt(edge.op)}$, gap $${fmt(edge.op - edge.ac)}$ ${p.equal ? '(equal masses: the gap closes and the chain is a monatomic one, folded)' : ''}. The group velocity $d\\omega/dq$ vanishes at the zone edge (standing waves).`; },
   },
   // ---------------------------------------------------------------- solid state: Debye vs Einstein
   debye: {

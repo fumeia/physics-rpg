@@ -74,7 +74,7 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
       node.halo.position.copy(pos); node.halo.scale.setScalar(4.2 + 3 * frac);
       node.ring = new THREE.Mesh(new THREE.RingGeometry(size * 1.55, size * 1.75, 48, 1, 0, Math.max(0.001, frac * Math.PI * 2)), new THREE.MeshBasicMaterial({ color: frac >= 1 ? 0xffd86b : col, side: THREE.DoubleSide, transparent: true, opacity: 0.95 }));
       node.ring.position.copy(pos);
-      const done = Math.round(frac * room.encounters.filter((e) => e.type !== 'sandbox' && !e.book).length), total = room.encounters.filter((e) => e.type !== 'sandbox' && !e.book).length;
+      const done = Math.round(frac * room.encounters.filter((e) => e.type !== 'sandbox' && !e.book && !e.sim).length), total = room.encounters.filter((e) => e.type !== 'sandbox' && !e.book && !e.sim).length;
       node.label = textSprite([room.title, `${done} / ${total} done${node.due ? ' · respawn due' : ''}`], 470, 112, 105, { border: node.due ? '#ffb347' : '#' + col.getHexString() });
       node.label.position.copy(pos).add(new THREE.Vector3(0, 2.1 + size, 0)); node.labelBase = node.label.scale.clone();
       if (node.due) {

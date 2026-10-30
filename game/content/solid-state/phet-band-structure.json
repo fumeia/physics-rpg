@@ -1,0 +1,457 @@
+{
+ "about": "Exercises with the PhET Band Structure simulation (Many Wells). Answers computed with the simulation's own solver: notes/solid-state/build/phet/README.md.",
+ "items": [
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "calc",
+    "id": "ss-fer-p1",
+    "title": "PhET: from one well to a band",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
+     "name": "PhET Band Structure",
+     "setup": "Open the <b>Many Wells (Band Structure)</b> tab. Square wells, <b>width 0.5 nm, height 10 eV, separation 0.1 nm, offset 0, particle mass 1.0</b> (the defaults: \"Configure Potential...\" shows them; \"Reset\" restores them). Set <b>Number of Wells</b> to 1 first. Read energies off the energy axis; the magnifying glass helps with close levels, clicking a level shows its wave function.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "A crystal is many atoms side by side. In the sim each atom is a square potential well; electrons tunnel through the barriers between them. Start with a single well, then add wells and watch what happens to each energy level.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "n1",
+      "prompt": "One well: how many bound levels lie below the barrier top (10 eV)?",
+      "answer": "3",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "nm^-1"
+      ],
+      "tol": 0.01,
+      "hint": "Count the horizontal lines inside the well. Estimate: $z_0=\\frac{w}{2}\\sqrt{2mV_0}/\\hbar=0.25\\,\\mathrm{nm}\\times\\sqrt{10\\,\\mathrm{eV}/0.0381\\,\\mathrm{eV\\,nm^2}}=4.05$, and a finite well has $\\lceil 2z_0/\\pi\\rceil=3$ bound states."
+     },
+     {
+      "id": "e1",
+      "prompt": "One well: energy of the ground state (eV).",
+      "answer": "0.967",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.05,
+      "hint": "The infinite well would give $\\pi^2\\hbar^2/2mw^2=1.50$ eV; the finite well is lower because the wave function leaks into the barriers ($z\\tan z=\\sqrt{z_0^2-z^2}$ gives $z=1.257$, $E=0.963$ eV). The sim shows 0.967 eV."
+     },
+     {
+      "id": "c1",
+      "kind": "choice",
+      "prompt": "Now set 5 wells. What happens to the single-well ground level near 0.97 eV?",
+      "options": [
+       "It stays one level at 0.97 eV, only the wave function spreads",
+       "It splits into 5 closely spaced levels around 0.97 eV: a band",
+       "It splits into 10 levels (two spins per well)",
+       "It moves up because the wells repel each other"
+      ],
+      "correct": 1,
+      "why": {
+       "0": "Tunnelling couples the wells: the $N$ degenerate single-well states mix into $N$ different combinations with different energies.",
+       "2": "The sim has no spin: each spatial state would hold 2 electrons, but there are $N$ spatial levels, not $2N$.",
+       "3": "The levels spread both down and up around the single-well energy (bonding-like combinations go down)."
+      },
+      "after": "Each single-well level becomes a band of $N$ levels: here 0.81, 0.86, 0.95, 1.02, 1.08 eV."
+     },
+     {
+      "id": "w1",
+      "prompt": "5 wells: width of the lowest band, top level minus bottom level (eV).",
+      "answer": "1.0842-0.8125",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.1,
+      "hint": "Read the lowest (0.81 eV) and the highest (1.08 eV) of the 5 lowest lines: the band is 0.27 eV wide."
+     },
+     {
+      "id": "n10",
+      "prompt": "Set 10 wells: how many levels does the second band have?",
+      "answer": "10",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "nm^-1"
+      ],
+      "tol": 0.01,
+      "hint": "Every band has exactly $N$ levels for $N$ wells (one per atom). With spin each holds 2 electrons, so a band holds $2N$ electrons."
+     }
+    ],
+    "xp": 60,
+    "source": {
+     "file": "https://phet.colorado.edu/en/simulations/band-structure",
+     "where": "PhET Band Structure 1.08 (Many Wells), energies from the sim's own solver, see notes/solid-state/build/phet/README.md"
+    }
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "calc",
+    "id": "ss-fer-p2",
+    "title": "PhET: tight binding predicts the band width",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
+     "name": "PhET Band Structure",
+     "setup": "Square wells, <b>width 0.5 nm, height 10 eV, separation 0.1 nm, offset 0, particle mass 1.0</b> (the defaults: \"Configure Potential...\" shows them; \"Reset\" restores them). Use the <b>Many Wells</b> tab and change only the number of wells.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "Script 3.2 (tight binding): one orbital per site with nearest-neighbour hopping $B$. For an infinite chain $E(k)=E_i-A_i-2B\\cos ka$, so the band is $4B$ wide. For a finite chain of $N$ sites (as in the sim, hard walls at the ends) the levels are $E_j=E_0-2B\\cos\\frac{j\\pi}{N+1}$, $j=1\\ldots N$. Measure $B$ with two wells and predict the rest.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "B",
+      "prompt": "2 wells: the ground level splits into a pair. Half of the splitting is $B$. Value of $B$ (eV)?",
+      "answer": "(1.0328-0.8854)/2",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.08,
+      "hint": "With $N=2$: $E_{1,2}=E_0\\mp2B\\cos\\frac\\pi3=E_0\\mp B$, so the splitting is $2B$. Levels 0.885 and 1.033 eV: $B=0.074$ eV."
+     },
+     {
+      "id": "W5",
+      "prompt": "Prediction for 5 wells: band width $E_5-E_1=4B\\cos\\frac{\\pi}{6}$ (eV). Then check it in the sim.",
+      "answer": "4*B*cos(pi/6)",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.1,
+      "hint": "$4\\times0.074\\times0.866=0.255$ eV; the sim shows 0.272 eV (the simple model ignores next-nearest neighbours and overlap): within 7 %."
+     },
+     {
+      "id": "Winf",
+      "prompt": "Width of the band for a very long chain, $4B$ (eV). Compare with 10 wells in the sim.",
+      "answer": "4*B",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.08,
+      "hint": "$4B=0.295$ eV; with 10 wells the sim already gives $1.0997-0.8056=0.294$ eV: the band fills its final width quickly."
+     },
+     {
+      "id": "ms",
+      "prompt": "Effective mass at the band bottom, $m^*/m_e=\\dfrac{\\hbar^2/2m_e}{Ba^2}$ with the period $a=w+s=0.6$ nm and $\\hbar^2/2m_e=0.0381$ eV nm$^2$.",
+      "answer": "0.0381/(B*0.6**2)",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "nm^-1"
+      ],
+      "tol": 0.08,
+      "hint": "From $E\\approx E_0-2B+Bk^2a^2$: $\\frac{\\hbar^2}{2m^*}=Ba^2$. $0.0381/(0.074\\times0.36)=1.4$: a narrow band means heavy electrons."
+     },
+     {
+      "id": "k",
+      "kind": "choice",
+      "prompt": "Click the lowest and the highest level of the band (5 wells). How do the wave functions look between the wells?",
+      "options": [
+       "Lowest: the same sign in every well (no node between wells); highest: the sign alternates from well to well",
+       "Lowest: alternating signs; highest: all the same sign",
+       "Both look the same, only the amplitude differs",
+       "Lowest is in the middle well only, highest in the outer wells"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "Alternating signs put a node in every barrier: that costs kinetic energy, so it is the top of the band ($ka=\\pi$).",
+       "2": "They differ in the relative phase between wells, which is exactly what sets the energy.",
+       "3": "All band states spread over all wells (Bloch-like), with an envelope $\\sin\\frac{j\\pi n}{N+1}$."
+      },
+      "after": "Bottom of the band = all in phase ($k=0$, bonding); top = alternating ($k=\\pi/a$, antibonding). Same pattern as the two-well molecule (Bonding Grotto)."
+     }
+    ],
+    "xp": 70,
+    "source": {
+     "file": "https://phet.colorado.edu/en/simulations/band-structure",
+     "where": "PhET Band Structure 1.08 (Many Wells), energies from the sim's own solver, see notes/solid-state/build/phet/README.md"
+    }
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "calc",
+    "id": "ss-fer-p3",
+    "title": "PhET: barrier width and tunnelling",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
+     "name": "PhET Band Structure",
+     "setup": "Many Wells tab, <b>5 wells</b>, width 0.5 nm, height 10 eV, mass 1.0. Change only the <b>separation</b> in \"Configure Potential...\" (0.05 to 0.2 nm).",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "The hopping $B$ comes from tunnelling through the barrier, so it should fall like $e^{-\\kappa s}$ with the barrier width $s$ and $\\kappa=\\sqrt{2m(V-E)}/\\hbar$ (as in the QM tunnelling bridge).",
+    "vars": {},
+    "steps": [
+     {
+      "id": "w20",
+      "prompt": "Lowest band width at separation 0.2 nm (eV).",
+      "answer": "0.9942-0.9386",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.1,
+      "hint": "Bottom 0.939 eV, top 0.994 eV: 0.056 eV, five times narrower than at 0.1 nm (0.272 eV)."
+     },
+     {
+      "id": "r",
+      "prompt": "Ratio of the lowest band widths, separation 0.15 nm divided by 0.10 nm.",
+      "answer": "(1.0239-0.9003)/(1.0842-0.8125)",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "nm^-1"
+      ],
+      "tol": 0.08,
+      "hint": "0.124 eV / 0.272 eV = 0.46. Every extra 0.05 nm of barrier multiplies the width by about the same factor: exponential dependence."
+     },
+     {
+      "id": "kap",
+      "prompt": "Decay constant in the barrier for the lowest band, $\\kappa=\\sqrt{(V-E)/(\\hbar^2/2m)}$ with $V-E\\approx10-0.97$ eV (nm$^{-1}$).",
+      "answer": "sqrt((10-0.967)/0.0381)",
+      "unit": "nm^-1",
+      "units": [
+       "nm^-1",
+       "nm",
+       "eV",
+       "dimensionless"
+      ],
+      "tol": 0.05,
+      "hint": "$\\sqrt{9.03/0.0381}=15.4$ nm$^{-1}$: the wave function drops by $e$ every 0.065 nm inside the barrier."
+     },
+     {
+      "id": "pred",
+      "prompt": "Tunnelling prediction for the ratio, $e^{-\\kappa\\,\\Delta s}$ with $\\Delta s=0.05$ nm. Compare with your measurement.",
+      "answer": "exp(-kap*0.05)",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "nm^-1"
+      ],
+      "tol": 0.05,
+      "hint": "$e^{-15.4\\times0.05}=0.46$, the measured ratio: the band width is a tunnelling amplitude."
+     },
+     {
+      "id": "hb",
+      "kind": "choice",
+      "prompt": "At separation 0.1 to 0.15 nm the second band shrinks only by a factor 0.52, the first by 0.46. Why?",
+      "options": [
+       "The second band lies closer to the barrier top, so $\\kappa$ is smaller and the tunnelling decays more slowly with $s$",
+       "The second band has more levels",
+       "The second band feels a lower barrier because of the offset",
+       "Higher bands are not formed by tunnelling but by reflection"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "Every band has $N=5$ levels.",
+       "2": "The offset shifts all energies equally; it does not change $V-E$.",
+       "3": "All bound bands come from coupling through the barriers; higher ones simply couple more strongly."
+      },
+      "after": "$V-E\\approx6.2$ eV gives $\\kappa=12.8$ nm$^{-1}$ and $e^{-0.64}=0.53$. Higher, less bound states overlap more: higher bands are wider (0.27, 1.09, 2.38 eV here)."
+     }
+    ],
+    "xp": 70,
+    "source": {
+     "file": "https://phet.colorado.edu/en/simulations/band-structure",
+     "where": "PhET Band Structure 1.08 (Many Wells), energies from the sim's own solver, see notes/solid-state/build/phet/README.md"
+    }
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "calc",
+    "id": "ss-fer-p4",
+    "title": "PhET: lighter particles, deeper wells",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
+     "name": "PhET Band Structure",
+     "setup": "Many Wells tab, <b>5 wells</b>, width 0.5 nm, separation 0.1 nm. Change the <b>particle mass</b> slider, then the <b>height</b>.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "The same tunnelling picture predicts how the band width depends on the particle mass and the barrier height. Check the predictions.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "pm",
+      "kind": "choice",
+      "prompt": "Predict first: what happens to the lowest band when the mass is lowered from 1.0 to 0.5 $m_e$?",
+      "options": [
+       "It moves up and becomes much wider",
+       "It moves up and becomes narrower",
+       "Nothing: band widths depend only on the geometry",
+       "It moves down and becomes wider"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "Smaller $m$ means smaller $\\kappa\\propto\\sqrt m$: more tunnelling, a wider band.",
+       "2": "The mass enters both the kinetic energy and $\\kappa$.",
+       "3": "Confinement energies scale as $1/m$: the levels go up."
+      },
+      "after": "Lighter: confinement energy up ($\\propto1/m$) and $\\kappa\\propto\\sqrt{m(V-E)}$ down, so much stronger coupling."
+     },
+     {
+      "id": "wm",
+      "prompt": "Lowest band width at mass 0.5 $m_e$ (eV).",
+      "answer": "2.0630-1.1456",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.1,
+      "hint": "1.15 to 2.06 eV: 0.92 eV, more than three times the 0.27 eV at $m_e$."
+     },
+     {
+      "id": "wh",
+      "prompt": "Back to mass 1.0. Lowest band width at height 20 eV (eV).",
+      "answer": "1.1419-1.0197",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.1,
+      "hint": "1.020 to 1.142 eV: 0.12 eV. A higher barrier means larger $\\kappa$ and less overlap: tighter binding, narrower band (and a heavier $m^*$)."
+     },
+     {
+      "id": "mat",
+      "kind": "choice",
+      "prompt": "Which real materials does \"heavy particle, high barrier\" describe?",
+      "options": [
+       "Inner atomic shells and d/f electrons: narrow bands, heavy carriers",
+       "Free-electron metals like Na",
+       "Semiconductors with light electrons",
+       "Insulators only"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "Na has a wide, nearly free-electron band (weak periodic potential).",
+       "2": "Light carriers come from wide bands with strong overlap.",
+       "3": "Narrow bands occur in metals too (transition metals, heavy fermions)."
+      },
+      "after": "Tightly bound orbitals overlap little: narrow bands. The tight-binding limit of the script; the nearly-free-electron limit is the opposite end (wide bands, small gaps $2|U_G|$)."
+     }
+    ],
+    "xp": 60,
+    "source": {
+     "file": "https://phet.colorado.edu/en/simulations/band-structure",
+     "where": "PhET Band Structure 1.08 (Many Wells), energies from the sim's own solver, see notes/solid-state/build/phet/README.md"
+    }
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "calc",
+    "id": "ss-fer-p5",
+    "title": "PhET: metal or insulator by counting electrons",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
+     "name": "PhET Band Structure",
+     "setup": "Many Wells tab, <b>10 wells</b>, otherwise the defaults (width 0.5 nm, height 10 eV, separation 0.1 nm, mass 1.0).",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "Each band of an $N$-atom chain has $N$ levels and holds $2N$ electrons (spin). Fill the levels from the bottom and look at the gap between the highest occupied and the lowest empty level.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "g2",
+      "prompt": "Two electrons per well (20 electrons): energy gap between the highest filled and the lowest empty level (eV).",
+      "answer": "3.1929-1.0997",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.05,
+      "hint": "20 electrons fill all 10 levels of band 1 (top 1.100 eV); the next level is the bottom of band 2 (3.193 eV): a 2.09 eV gap. An insulator (or semiconductor)."
+     },
+     {
+      "id": "g1",
+      "prompt": "One electron per well (10 electrons): gap between the highest filled and the lowest empty level (eV).",
+      "answer": "0.9602-0.9166",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.1,
+      "hint": "10 electrons fill the lowest 5 levels; level 5 is 0.917 eV, level 6 is 0.960 eV: only 0.044 eV, and it shrinks like $1/N$. For a real crystal ($N\\sim10^{23}$) it vanishes: a metal."
+     },
+     {
+      "id": "kt",
+      "kind": "choice",
+      "prompt": "Compare with $k_BT=0.026$ eV at room temperature. Which statement is right?",
+      "options": [
+       "Half-filled band: excitations cost nothing in a large crystal, so it conducts; full band: $2$ eV $\\gg k_BT$, so it does not",
+       "Both conduct because $k_BT$ is not zero",
+       "Both insulate because there are always gaps between levels",
+       "The full band conducts better because it has more electrons"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "Thermal excitation across 2 eV is suppressed by $e^{-2/0.026}\\sim10^{-34}$.",
+       "2": "In a macroscopic crystal the level spacing inside a band is $\\sim$ bandwidth/$N$, effectively zero.",
+       "3": "A full band carries no net current: for every $k$ there is a $-k$."
+      },
+      "after": "Odd number of electrons per cell in 1D: metal. Even: insulator, unless bands overlap (possible in 3D, e.g. Mg, Zn), as in the nearly-free-electron lab."
+     }
+    ],
+    "xp": 60,
+    "source": {
+     "file": "https://phet.colorado.edu/en/simulations/band-structure",
+     "where": "PhET Band Structure 1.08 (Many Wells), energies from the sim's own solver, see notes/solid-state/build/phet/README.md"
+    }
+   }
+  }
+ ]
+}

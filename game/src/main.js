@@ -66,6 +66,7 @@ const GROUPS = [
   { key: 'book', label: 'BOOK EXERCISES', types: ['derive'], book: true, blurb: 'Every end-of-chapter exercise of the textbook, on paper, with a worked solution' },
   { key: 'station', label: 'STATIONS', types: ['predict-observe', 'sandbox'], blurb: 'Predict, watch the simulation, explain' },
   { key: 'fight', label: 'FIGHTS', types: ['calc'], blurb: 'Calculation fights: equations first, numbers last' },
+  { key: 'sim', label: 'PHET SIMULATIONS', types: ['calc', 'derive', 'quiz'], sim: true, blurb: 'Exercises with an online PhET simulation (best on a PC)' },
   { key: 'boss', label: 'BOSS GATE', types: ['boss'], blurb: 'Old exam problems on paper under the timer' },
 ];
 
@@ -240,17 +241,17 @@ const NEXUS_COURSE = { id: 'nexus', name: 'The Nexus', region: 'The Nexus', brid
 const guideOn = () => !store.flag('guide-off');
 const GUIDE_SKIP = ['sandbox', 'boss']; // never forced by the guide
 // the core of a room: what opens the door, fills the progress rings and is followed by the guide (book exercises are optional extra practice)
-const core = (e) => e.type !== 'sandbox' && !e.book;
-function routeDone(r) { const es = r.encounters.filter((e) => !['sandbox', 'boss', 'lab'].includes(e.type) && !e.book); return !es.length || es.filter(passed).length / es.length >= 0.75; }
+const core = (e) => e.type !== 'sandbox' && !e.book && !e.sim;
+function routeDone(r) { const es = r.encounters.filter((e) => !['sandbox', 'boss', 'lab'].includes(e.type) && core(e)); return !es.length || es.filter(passed).length / es.length >= 0.75; }
 function nextRouteStep() {
   for (const item of route) {
     const [c, slug] = item.key.split('/'), r = findRoom(c, slug); if (!r || routeDone(r)) continue;
-    const enc = r.encounters.find((e) => !GUIDE_SKIP.includes(e.type) && !e.book && !store.isSolved(e.id) && !isLocked(e)) || r.encounters.find((e) => core(e) && !store.isPassed(e.id) && !isLocked(e));
+    const enc = r.encounters.find((e) => !GUIDE_SKIP.includes(e.type) && core(e) && !store.isSolved(e.id) && !isLocked(e)) || r.encounters.find((e) => core(e) && !store.isPassed(e.id) && !isLocked(e));
     return { course: c, slug, room: r, enc, why: item.why, key: item.key };
   }
   return null;
 }
-const inGroup = (g, e) => g.types.includes(e?.type) && !!g.book === !!e?.book; // book exercises are derivations with their own console
+const inGroup = (g, e) => g.types.includes(e?.type) && !!g.book === !!e?.book && !!g.sim === !!e?.sim; // book and simulation exercises have their own consoles
 const groupOf = (enc) => GROUPS.find((g) => inGroup(g, enc));
 function roomKeysDue() { const s = new Set(); for (const id of store.dueReviews()) { const r = encIndex.get(id); if (r) s.add(`${r.course}/${r.roomId}`); } return s; }
 function roomsRecommended() {
@@ -609,7 +610,7 @@ function newMaterial(courseId, budget, skip) {
   for (const item of route) {
     const [c, slug] = item.key.split('/'); if (c !== courseId) continue; const r = findRoom(c, slug); if (!r || routeDone(r)) continue;
     for (const e of r.encounters) {
-      if (['sandbox', 'boss'].includes(e.type) || e.book || store.isPassed(e.id) || isLocked(e) || skip.has(e.id)) continue;
+      if (['sandbox', 'boss'].includes(e.type) || !core(e) || store.isPassed(e.id) || isLocked(e) || skip.has(e.id)) continue;
       const min = EST[e.type] || 10; if (min > left) { if (left < 8) return out; continue; }
       out.push({ key: `new:${e.id}`, label: `[${findCourse(c).region.split(' ')[0]}] ${typeName[e.type] || e.type}: ${e.title || e.id}`, min, act: { open: e.id }, kind: 'new', room: r.title }); skip.add(e.id); left -= min;
     }
@@ -779,7 +780,7 @@ function quickIds() {
   const n = nextRouteStep();
   if (n) {
     push(n.enc?.id);
-    for (const e of n.room.encounters) { if (mins() >= 10 || out.length >= 3) break; if (!['sandbox', 'boss'].includes(e.type) && !e.book && !store.isPassed(e.id) && !isLocked(e) && (EST[e.type] || 10) + mins() <= 14) push(e.id); }
+    for (const e of n.room.encounters) { if (mins() >= 10 || out.length >= 3) break; if (!['sandbox', 'boss'].includes(e.type) && core(e) && !store.isPassed(e.id) && !isLocked(e) && (EST[e.type] || 10) + mins() <= 14) push(e.id); }
   }
   return out.slice(0, 3);
 }

@@ -9,5 +9,8 @@
     "semiconductor-forge",
     "magnet-vault",
     "degenerate-core"
+  ],
+  "extras": [
+    "phet-band-structure.json"
   ]
 }

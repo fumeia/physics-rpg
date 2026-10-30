@@ -124,10 +124,11 @@ function mountCalc(enc, el, env) {
   const state = Object.fromEntries(enc.steps.map((s) => [s.id, { solved: false, tries: 0, hints: 0 }]));
   let earned = 0, gaveUp = false, completed = false;
   el.innerHTML = M(`<h2>${enc.title} <span class="src">${enc.fight === 'fermi' ? '(quick fight)' : '(normal fight)'}</span></h2>
-    <p>${enc.problem}</p>${symbolsHtml(enc.symbols)}<div id="steps-box"></div><div id="calc-result"></div>
+    <p>${enc.problem}</p>${simHtml(enc.sim)}${symbolsHtml(enc.symbols)}<div id="steps-box"></div><div id="calc-result"></div>
     <button class="link" id="giveup">give up and show solution (no XP, problem respawns)</button>`);
   const q = (s) => el.querySelector(s);
   const box = q('#steps-box');
+  wireSim(el);
 
   enc.steps.forEach((s, n) => {
     const d = document.createElement('div'); d.className = 'step'; d.dataset.step = s.id;
@@ -362,6 +363,25 @@ function mountBoss(enc, el, env) {
 
 // ---------------------------------------------------------------- shared helpers for the text-based encounter types
 const shuffled = (n) => { const a = [...Array(n).keys()]; for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+// An external simulation used by an exercise (e.g. PhET): open it in a new tab, or show it inside the panel (better on a PC).
+// sim: {url, name, setup}: setup says which settings to use before answering.
+export function simHtml(sim) {
+  if (!sim) return '';
+  return `<div class="callout sim"><div class="ctitle">Simulation: ${sim.name}</div>${sim.setup ? `<p>${sim.setup}</p>` : ''}
+    <p><a class="go" href="${sim.url}" target="_blank" rel="noopener">Open ${sim.name} (new tab)</a> <button class="go" data-simshow>Show it here</button></p>
+    <p class="src">${sim.credit || ''} It runs Java in the browser (CheerpJ): give it 10 to 20 s to start; on a phone it is slow, a PC works best. Your answers here are checked against the sim's own solver.</p>
+    <div data-simbox></div></div>`;
+}
+export function wireSim(el) {
+  const b = el.querySelector('[data-simshow]'); if (!b) return;
+  b.onclick = () => {
+    const box = el.querySelector('[data-simbox]'), url = el.querySelector('.callout.sim a').href;
+    if (box.firstChild) { box.innerHTML = ''; b.textContent = 'Show it here'; return; }
+    box.innerHTML = `<iframe src="${url}" title="simulation" style="width:100%;height:min(70vh,560px);border:1px solid var(--line, #345);border-radius:8px;background:#fff" allow="fullscreen" loading="lazy"></iframe>`;
+    b.textContent = 'Hide it';
+  };
+}
+
 export function sourceHtml(src) {
   if (!src) return '';
   const arr = (Array.isArray(src) ? src : [src]).filter(Boolean); if (!arr.length) return '';

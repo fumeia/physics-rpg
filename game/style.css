@@ -311,3 +311,6 @@ html[data-theme=light] #gl-banner { background: #fff; border-color: #111; border
 body.lite #t-zoom { display: none; }
 html[data-theme=light] .tb.sm { border-radius: 22px; }
 @media (orientation: portrait) { #t-zoom { top: calc(max(8px, env(safe-area-inset-top)) + 150px); } }
+
+/* external simulation (PhET) inside an exercise: the open link looks like the other buttons */
+.callout.sim a.go { display: inline-block; text-decoration: none; background: var(--accent); color: #0b0d12; border-radius: 6px; padding: 7px 14px; font-weight: 600; margin: 6px 6px 0 0; }

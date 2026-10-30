@@ -369,7 +369,7 @@ export function simHtml(sim) {
   if (!sim) return '';
   return `<div class="callout sim"><div class="ctitle">Simulation: ${sim.name}</div>${sim.setup ? `<p>${sim.setup}</p>` : ''}
     <p><a class="go" href="${sim.url}" target="_blank" rel="noopener">Open ${sim.name} (new tab)</a> <button class="go" data-simshow>Show it here</button></p>
-    <p class="src">${sim.credit || ''} It runs Java in the browser (CheerpJ): give it 10 to 20 s to start; on a phone it is slow, a PC works best. Your answers here are checked against the sim's own solver.</p>
+    <p class="src">${sim.credit || ''} ${sim.java ? 'It runs Java in the browser (CheerpJ): give it 10 to 20 s to start; on a phone it is slow, a PC works best.' : 'It runs in any browser, also on a phone.'} Your answers here were checked against the simulation itself.</p>
     <div data-simbox></div></div>`;
 }
 export function wireSim(el) {

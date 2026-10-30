@@ -1,0 +1,99 @@
+{
+ "about": "Exercises with PhET simulations (CC-BY), placed into rooms. Answers checked against the simulations: notes/phet/build_phet.py.",
+ "items": [
+  {
+   "room": "photometry-radiation",
+   "enc": {
+    "type": "calc",
+    "id": "astro-light-p1",
+    "title": "PhET: Wien and Stefan–Boltzmann on real stars",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum_en.html",
+     "name": "PhET Blackbody Spectrum",
+     "setup": "Tick <b>Graph Values</b>, <b>Labels</b> and <b>Intensity</b>. Drag the thermometer or click its labels: Earth 250 K, Light Bulb 3000 K, Sun 5800 K, Sirius A 9950 K. Zoom the axes with the magnifiers.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "The curve is the spectral exitance $\\pi B_\\lambda(T)$ in MW m$^{-2}\\,\\mu$m$^{-1}$; Wien: $\\lambda_{\\max}T=2.898\\times10^{-3}$ m K; total intensity $\\sigma T^4$.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "lamS",
+      "prompt": "Sirius A (9950 K): wavelength of the peak ($\\mu$m).",
+      "answer": "0.002897771955/9950*1e6",
+      "unit": "um",
+      "units": [
+       "um",
+       "nm",
+       "m",
+       "eV"
+      ],
+      "tol": 0.01,
+      "hint": "$2898\\ \\mu$m K / 9950 K = 0.291 $\\mu$m: ultraviolet. Sirius looks blue-white."
+     },
+     {
+      "id": "IS",
+      "prompt": "Intensity of Sirius A relative to the Sun (ratio of the two readouts).",
+      "answer": "(9950/5800)**4",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.01,
+      "hint": "$(9950/5800)^4=8.66$: readouts $5.56\\times10^8$ and $6.42\\times10^7$ W m$^{-2}$."
+     },
+     {
+      "id": "pk",
+      "prompt": "Ratio of the peak heights Sirius A / Sun.",
+      "answer": "(9950/5800)**5",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "The peak value scales as $T^5$ ($B_\\lambda\\propto\\lambda^{-5}$ at $\\lambda_{\\max}\\propto1/T$): $14.9$; the sim shows 84.45 and 1255 MW m$^{-2}\\mu$m$^{-1}$."
+     },
+     {
+      "id": "L",
+      "prompt": "From the Sun's intensity readout, the solar luminosity $L=4\\pi R_\\odot^2\\sigma T^4$ ($R_\\odot=6.96\\times10^8$ m), in W.",
+      "answer": "4*pi*(6.96e8)**2*5.670374e-8*5800**4",
+      "unit": "W",
+      "units": [
+       "W",
+       "J",
+       "W/m^2",
+       "erg/s"
+      ],
+      "tol": 0.02,
+      "hint": "$4\\pi(6.96\\times10^8)^2\\times6.42\\times10^7=3.9\\times10^{26}$ W."
+     },
+     {
+      "id": "lamE",
+      "prompt": "Earth (250 K): peak wavelength ($\\mu$m). Zoom out to find it.",
+      "answer": "0.002897771955/250*1e6",
+      "unit": "um",
+      "units": [
+       "um",
+       "nm",
+       "m",
+       "eV"
+      ],
+      "tol": 0.01,
+      "hint": "11.6 $\\mu$m: thermal infrared, where greenhouse gases absorb. Bolometric intensity only 222 W m$^{-2}$."
+     }
+    ],
+    "xp": 70,
+    "source": {
+     "file": "https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum_en.html",
+     "where": "Blackbody Spectrum 1.0: presets 250/3000/5800/9950 K; readouts at 5800 K: peak 84.45 MW/m^2/um at 0.500 um, 6.42e7 W/m^2 (checked in the sim)"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "about": "Exercises with PhET simulations (CC-BY), placed into rooms. Answers checked against the simulations: notes/phet/build_phet.py.",
+ "items": [
+  {
+   "room": "bonding-grotto",
+   "enc": {
+    "type": "calc",
+    "id": "ss-bon-p1",
+    "title": "PhET: the Lennard-Jones pair",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/html/atomic-interactions/latest/atomic-interactions_en.html",
+     "name": "PhET Atomic Interactions",
+     "setup": "Choose the atom pair in the panel (Neon–Neon, Argon–Argon, ...). Drag the moving atom and release it; open <b>Forces</b> to see attraction and repulsion. The graph marks $\\sigma$ and $\\varepsilon$.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "The sim uses $U(r)=4\\varepsilon\\left[(\\sigma/r)^{12}-(\\sigma/r)^6\\right]$ (script eq. 1.43 with $U_0=\\varepsilon$) with Ne: $\\sigma=308$ pm, $\\varepsilon/k_B=35.8$ K; Ar: $\\sigma=376$ pm, $\\varepsilon/k_B=111.8$ K (values from the sim's code).",
+    "vars": {},
+    "steps": [
+     {
+      "id": "rmin",
+      "prompt": "Equilibrium distance of the Ar–Ar pair, where the force vanishes (pm).",
+      "answer": "2**(1/6)*376",
+      "unit": "pm",
+      "units": [
+       "pm",
+       "nm",
+       "A",
+       "eV"
+      ],
+      "tol": 0.02,
+      "hint": "$dU/dr=0\\Rightarrow r_{\\min}=2^{1/6}\\sigma=1.12\\sigma=422$ pm; there $U=-\\varepsilon$."
+     },
+     {
+      "id": "rel",
+      "kind": "choice",
+      "prompt": "Release the atom from slightly beyond $r_{\\min}$. Where is the force zero, and what happens?",
+      "options": [
+       "At $r_{\\min}$: the atom oscillates about it (the bond vibration)",
+       "At $r=\\sigma$: the atom stops there",
+       "Nowhere: it always flies apart",
+       "At the inflection point of $U$"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "At $r=\\sigma$ the energy is zero, not the force; the repulsion is already strong.",
+       "2": "With total energy below 0 the atom is bound.",
+       "3": "The inflection point is where the restoring force is largest (bond-breaking point)."
+      },
+      "after": "Small oscillations about $r_{\\min}$ with spring constant $U''(r_{\\min})=\\dfrac{72\\varepsilon}{2^{1/3}\\sigma^2}=57.1\\,\\varepsilon/\\sigma^2$."
+     },
+     {
+      "id": "f",
+      "prompt": "Small-oscillation frequency of Ar–Ar, $f=\\frac1{2\\pi}\\sqrt{U''(r_{\\min})/\\mu}$ with $\\mu=m_{\\rm Ar}/2$, $m_{\\rm Ar}=39.95$ u (THz).",
+      "answer": "6.90397e+11/1e12",
+      "unit": "THz",
+      "units": [
+       "THz",
+       "GHz",
+       "Hz",
+       "eV"
+      ],
+      "tol": 0.03,
+      "hint": "$U''=0.624$ N/m, $\\mu=3.32\\times10^{-26}$ kg: $f=0.69$ THz, i.e. a phonon-like energy $hf\\approx3$ meV $\\approx k_B\\cdot33$ K, far below $\\varepsilon$."
+     },
+     {
+      "id": "ratio",
+      "prompt": "Ratio of the well depths $\\varepsilon_{\\rm Ar}/\\varepsilon_{\\rm Ne}$ in the sim. Compare with the ratio of their triple points (83.8 K / 24.6 K = 3.4).",
+      "answer": "111.84/35.8",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "3.1: the melting/boiling temperatures scale with $\\varepsilon/k_B$ (law of corresponding states), as Table 1.1 of the script says ($T_b\\approx U_0/k_B$)."
+     },
+     {
+      "id": "sig",
+      "kind": "choice",
+      "prompt": "The script (Table 1.1) gives $\\sigma_{\\rm Ar}=3.40$ Å and the crystal nearest-neighbour distance is 3.76 Å. The sim uses $\\sigma_{\\rm Ar}=3.76$ Å. Which statement is right?",
+      "options": [
+       "With the script's $\\sigma$, $r_{\\min}=2^{1/6}\\sigma=3.82$ Å matches the crystal; the sim's value puts the minimum at 4.22 Å, too far",
+       "The sim is right: $r_{\\min}$ should equal $\\sigma$",
+       "Both are equivalent, $\\sigma$ is just a label",
+       "The crystal distance should be $1.3\\sigma$"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "At $r=\\sigma$ the energy crosses zero; the minimum is $2^{1/6}\\sigma$.",
+       "2": "The equilibrium distance follows from $\\sigma$, so the two parameter sets predict different crystals.",
+       "3": "$1.3\\sigma$ is the misprint discussed in the notes; eq. 1.43 gives $1.12\\sigma$."
+      },
+      "after": "The sim simply took the crystal spacing as $\\sigma$: a model, not data. Exam answers use the script values."
+     }
+    ],
+    "xp": 70,
+    "source": {
+     "file": "https://phet.colorado.edu/sims/html/atomic-interactions/latest/atomic-interactions_en.html",
+     "where": "Atomic Interactions: LjPotentialCalculator (U = 4 eps[(s/r)^12-(s/r)^6], r_min = 2^(1/6) sigma), SigmaTable Ne 308 pm / Ar 376 pm, InteractionStrengthTable Ne 35.8 K / Ar 111.84 K"
+    }
+   }
+  }
+ ]
+}

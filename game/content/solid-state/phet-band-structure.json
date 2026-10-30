@@ -12,7 +12,8 @@
      "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
      "name": "PhET Band Structure",
      "setup": "Open the <b>Many Wells (Band Structure)</b> tab. Square wells, <b>width 0.5 nm, height 10 eV, separation 0.1 nm, offset 0, particle mass 1.0</b> (the defaults: \"Configure Potential...\" shows them; \"Reset\" restores them). Set <b>Number of Wells</b> to 1 first. Read energies off the energy axis; the magnifying glass helps with close levels, clicking a level shows its wave function.",
-     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY).",
+     "java": true
     },
     "problem": "A crystal is many atoms side by side. In the sim each atom is a square potential well; electrons tunnel through the barriers between them. Start with a single well, then add wells and watch what happens to each energy level.",
     "vars": {},
@@ -110,7 +111,8 @@
      "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
      "name": "PhET Band Structure",
      "setup": "Square wells, <b>width 0.5 nm, height 10 eV, separation 0.1 nm, offset 0, particle mass 1.0</b> (the defaults: \"Configure Potential...\" shows them; \"Reset\" restores them). Use the <b>Many Wells</b> tab and change only the number of wells.",
-     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY).",
+     "java": true
     },
     "problem": "Script 3.2 (tight binding): one orbital per site with nearest-neighbour hopping $B$. For an infinite chain $E(k)=E_i-A_i-2B\\cos ka$, so the band is $4B$ wide. For a finite chain of $N$ sites (as in the sim, hard walls at the ends) the levels are $E_j=E_0-2B\\cos\\frac{j\\pi}{N+1}$, $j=1\\ldots N$. Measure $B$ with two wells and predict the rest.",
     "vars": {},
@@ -208,7 +210,8 @@
      "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
      "name": "PhET Band Structure",
      "setup": "Many Wells tab, <b>5 wells</b>, width 0.5 nm, height 10 eV, mass 1.0. Change only the <b>separation</b> in \"Configure Potential...\" (0.05 to 0.2 nm).",
-     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY).",
+     "java": true
     },
     "problem": "The hopping $B$ comes from tunnelling through the barrier, so it should fall like $e^{-\\kappa s}$ with the barrier width $s$ and $\\kappa=\\sqrt{2m(V-E)}/\\hbar$ (as in the QM tunnelling bridge).",
     "vars": {},
@@ -306,7 +309,8 @@
      "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
      "name": "PhET Band Structure",
      "setup": "Many Wells tab, <b>5 wells</b>, width 0.5 nm, separation 0.1 nm. Change the <b>particle mass</b> slider, then the <b>height</b>.",
-     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY).",
+     "java": true
     },
     "problem": "The same tunnelling picture predicts how the band width depends on the particle mass and the barrier height. Check the predictions.",
     "vars": {},
@@ -394,7 +398,8 @@
      "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=band-structure&locale=en",
      "name": "PhET Band Structure",
      "setup": "Many Wells tab, <b>10 wells</b>, otherwise the defaults (width 0.5 nm, height 10 eV, separation 0.1 nm, mass 1.0).",
-     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY).",
+     "java": true
     },
     "problem": "Each band of an $N$-atom chain has $N$ levels and holds $2N$ electrons (spin). Fill the levels from the bottom and look at the gap between the highest occupied and the lowest empty level.",
     "vars": {},

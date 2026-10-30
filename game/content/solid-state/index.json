@@ -11,6 +11,7 @@
     "degenerate-core"
   ],
   "extras": [
-    "phet-band-structure.json"
+    "phet-band-structure.json",
+    "phet-sims.json"
   ]
 }

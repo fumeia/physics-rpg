@@ -16,6 +16,7 @@
   ],
   "codex": "codex.json",
   "extras": [
-    "choudhuri-exercises.json"
+    "choudhuri-exercises.json",
+    "phet-sims.json"
   ]
 }

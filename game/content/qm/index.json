@@ -10,5 +10,8 @@
     "formalism-and-uncertainty",
     "entanglement-lab",
     "wave-mechanics-basics"
+  ],
+  "extras": [
+    "phet-sims.json"
   ]
 }

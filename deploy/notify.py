@@ -32,6 +32,11 @@ GUIDE_SKIP = ('sandbox', 'boss')
 
 
 # ------------------------------------------------------------------ content (same shape the game builds in boot())
+def core(e):
+    """The core of a room (main.js core): opens doors, fills progress; book exercises are optional extra practice."""
+    return e['type'] != 'sandbox' and not e.get('book')
+
+
 def load_content():
     jl = lambda *p: json.load(open(os.path.join(CONTENT, *p), encoding='utf-8'))
     labs = []
@@ -53,6 +58,12 @@ def load_content():
             for i, e in enumerate(r['encounters']):
                 if e['type'] == 'lesson': at = i + 1
             r['encounters'].insert(at, l['enc'])
+        for f in idx.get('extras', []):  # collections placed into rooms, e.g. the textbook exercises (main.js boot)
+            try:
+                for it in jl(cid, f)['items']:
+                    r = next((x for x in rooms if x['slug'] == it['room']), None)
+                    if r: r['encounters'].append(it['enc'])
+            except (OSError, ValueError, KeyError): pass
         catalog.append({'id': cid, 'region': idx.get('region', cid), 'rooms': rooms})
     index = {}
     for c in catalog:
@@ -122,7 +133,7 @@ class Progress:
 
     # ---- the guided route (main.js nextRouteStep / routeDone)
     def route_done(self, room):
-        es = [e for e in room['encounters'] if e['type'] not in ('sandbox', 'boss', 'lab')]
+        es = [e for e in room['encounters'] if e['type'] not in ('sandbox', 'boss', 'lab') and not e.get('book')]
         return not es or sum(1 for e in es if self.passed(e['id'])) / len(es) >= 0.75
 
     def find_room(self, key):
@@ -137,8 +148,8 @@ class Progress:
         for item in self.c['route']:
             course, room = self.find_room(item['key'])
             if not room or self.route_done(room): continue
-            enc = next((e for e in room['encounters'] if e['type'] not in GUIDE_SKIP and not self.solved(e['id']) and not self.locked(e)), None) \
-                or next((e for e in room['encounters'] if e['type'] != 'sandbox' and not self.passed(e['id']) and not self.locked(e)), None)
+            enc = next((e for e in room['encounters'] if e['type'] not in GUIDE_SKIP and not e.get('book') and not self.solved(e['id']) and not self.locked(e)), None) \
+                or next((e for e in room['encounters'] if core(e) and not self.passed(e['id']) and not self.locked(e)), None)
             return {'key': item['key'], 'course': course['id'], 'room': room, 'enc': enc}
         return None
 
@@ -147,7 +158,7 @@ class Progress:
         for c in self.c['catalog']:
             for r in c['rooms']:
                 for e in r['encounters']:
-                    if e['type'] != 'sandbox':
+                    if core(e):
                         total += 1; done += self.passed(e['id'])
         y, m, d = map(int, exam_date().split('-'))
         days = max(0, (dt.date(y, m, d) - self.now.date()).days); left = total - done
@@ -170,7 +181,7 @@ class Progress:
         ex = sum(1 for id, v in (self.s.get('solved') or {}).items() if id in idx and v.get('at', 0) >= cutoff and not v.get('failed'))
         courses = []
         for c in self.c['catalog']:
-            allx = [e for r in c['rooms'] for e in r['encounters'] if e['type'] != 'sandbox']
+            allx = [e for r in c['rooms'] for e in r['encounters'] if core(e)]
             courses.append({'id': c['id'], 'passed': sum(1 for e in allx if self.passed(e['id'])), 'total': len(allx)})
         return {'minutes': sum(minutes), 'studied': sum(1 for x in minutes if x > 0), 'exercises': ex, 'missions': sum(self.missions_done(d) for d in days), 'courses': courses}
 
@@ -185,7 +196,7 @@ class Progress:
             if n['enc'] and n['enc']['id'] not in out: out.append(n['enc']['id'])
             for e in n['room']['encounters']:
                 if mins() >= 10 or len(out) >= 3: break
-                if e['type'] not in ('sandbox', 'boss') and not self.passed(e['id']) and not self.locked(e) and EST.get(e['type'], 10) + mins() <= 14 and e['id'] not in out: out.append(e['id'])
+                if e['type'] not in ('sandbox', 'boss') and not e.get('book') and not self.passed(e['id']) and not self.locked(e) and EST.get(e['type'], 10) + mins() <= 14 and e['id'] not in out: out.append(e['id'])
         return out[:3]
 
 

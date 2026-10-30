@@ -53,6 +53,13 @@ Strings are HTML with KaTeX math: `$...$` inline, `$$...$$` display. Write LaTeX
 4. `explain`, `hint`, `why` and `derivation` teach: state the formula or the idea and where it comes from, not just the result.
 5. Validate all KaTeX in your file (every `$...$` must render); the content test of the reference room shows how.
 
+## Collections placed into rooms
+A course `index.json` may list `extras`: files of the form `{items: [{room, enc}]}` whose encounters are appended to the named rooms
+at load time. The astro textbook exercises (`choudhuri-exercises.json`, every end-of-chapter exercise of Choudhuri) work this way: they are
+`derive` encounters with `book: true`, shown on their own "Book exercises" console and not counted for doors, progress or the guide.
+That file is generated: edit `notes/astrophysics/build/choudhuri/part*.py` (text) or `calc.py` (numbers, book constants) and run
+`python3 build.py` there (needs scipy); `node game/test/book-check.mjs --complete` checks completeness and LaTeX.
+
 ## Adding a room
 1. Write notes in `notes/<course>/` (transcribe the relevant script pages and sheets; describe figures in words).
 2. Write `game/content/<course>/<room>.json` and add the room id to `index.json`.

@@ -63,6 +63,7 @@ const GROUPS = [
   { key: 'lab', label: 'EXPERIMENTS', types: ['lab'], blurb: 'Interactive simulations: change something, remove a term, see what happens' },
   { key: 'quiz', label: 'QUIZ HALL', types: ['quiz'], blurb: 'Exam-style multiple choice (quick fights)' },
   { key: 'derive', label: 'DERIVATION DESK', types: ['derive'], blurb: 'Derivations on paper, step by step' },
+  { key: 'book', label: 'BOOK EXERCISES', types: ['derive'], book: true, blurb: 'Every end-of-chapter exercise of the textbook, on paper, with a worked solution' },
   { key: 'station', label: 'STATIONS', types: ['predict-observe', 'sandbox'], blurb: 'Predict, watch the simulation, explain' },
   { key: 'fight', label: 'FIGHTS', types: ['calc'], blurb: 'Calculation fights: equations first, numbers last' },
   { key: 'boss', label: 'BOSS GATE', types: ['boss'], blurb: 'Old exam problems on paper under the timer' },
@@ -90,6 +91,7 @@ async function boot() {
     const idx = idxs[ci];
     const rooms = (await Promise.all(idx.rooms.map(async (id) => { const r = await fetchJson(`content/${c.dir}/${id}.json`); progress(6 + 54 * (++roomsGot) / roomTotal); return r; }))).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
     for (const l of labs) { const [lc, ls] = l.room.split('/'); if (lc !== c.id) continue; const r = rooms.find((x) => x.slug === ls); if (!r) continue; let at = 0; r.encounters.forEach((e, i) => { if (e.type === 'lesson') at = i + 1; }); r.encounters.splice(at, 0, l.enc); }
+    for (const f of idx.extras || []) { try { for (const it of (await fetchJson(`content/${c.dir}/${f}`)).items) { const r = rooms.find((x) => x.slug === it.room); if (r) r.encounters.push(it.enc); } } catch (err) { console.warn('extra content failed', f, err.message); } }
     catalog.push({ ...c, region: idx.region, rooms });
     try { banks[c.id] = await fetchJson(`content/${c.dir}/blitz.json`); } catch { /* optional question bank */ }
     if (idx.codex) codexByCourse[c.id] = await fetchJson(`content/${c.dir}/${idx.codex}`);
@@ -237,16 +239,19 @@ const NEXUS_COURSE = { id: 'nexus', name: 'The Nexus', region: 'The Nexus', brid
 // ---- guided route: one recommended next step at a time (can be switched off with the Guide button)
 const guideOn = () => !store.flag('guide-off');
 const GUIDE_SKIP = ['sandbox', 'boss']; // never forced by the guide
-function routeDone(r) { const es = r.encounters.filter((e) => !['sandbox', 'boss', 'lab'].includes(e.type)); return !es.length || es.filter(passed).length / es.length >= 0.75; }
+// the core of a room: what opens the door, fills the progress rings and is followed by the guide (book exercises are optional extra practice)
+const core = (e) => e.type !== 'sandbox' && !e.book;
+function routeDone(r) { const es = r.encounters.filter((e) => !['sandbox', 'boss', 'lab'].includes(e.type) && !e.book); return !es.length || es.filter(passed).length / es.length >= 0.75; }
 function nextRouteStep() {
   for (const item of route) {
     const [c, slug] = item.key.split('/'), r = findRoom(c, slug); if (!r || routeDone(r)) continue;
-    const enc = r.encounters.find((e) => !GUIDE_SKIP.includes(e.type) && !store.isSolved(e.id) && !isLocked(e)) || r.encounters.find((e) => e.type !== 'sandbox' && !store.isPassed(e.id) && !isLocked(e));
+    const enc = r.encounters.find((e) => !GUIDE_SKIP.includes(e.type) && !e.book && !store.isSolved(e.id) && !isLocked(e)) || r.encounters.find((e) => core(e) && !store.isPassed(e.id) && !isLocked(e));
     return { course: c, slug, room: r, enc, why: item.why, key: item.key };
   }
   return null;
 }
-const groupOf = (enc) => GROUPS.find((g) => g.types.includes(enc?.type));
+const inGroup = (g, e) => g.types.includes(e?.type) && !!g.book === !!e?.book; // book exercises are derivations with their own console
+const groupOf = (enc) => GROUPS.find((g) => inGroup(g, enc));
 function roomKeysDue() { const s = new Set(); for (const id of store.dueReviews()) { const r = encIndex.get(id); if (r) s.add(`${r.course}/${r.roomId}`); } return s; }
 function roomsRecommended() {
   const s = new Set();
@@ -285,7 +290,7 @@ function updateNexusCard() {
   let html = '';
   const tex = (t) => { try { return katex.renderToString(t, { displayMode: true, throwOnError: false, strict: 'ignore' }); } catch { return ''; } };
   if (f.node) {
-    const n = f.node, es = n.room.encounters.filter((e) => e.type !== 'sandbox'), done = es.filter((e) => store.isPassed(e.id)).length;
+    const n = f.node, es = n.room.encounters.filter((e) => core(e)), done = es.filter((e) => store.isPassed(e.id)).length;
     const nb = set.neighbours(n);
     html = `<h3>${n.room.title}</h3><div class="src">${course(n.course)} · ${done} / ${es.length} done${n.due ? ' · <b class="due">respawn due</b>' : ''}${n.rec ? ' · <b style="color:var(--warn)">recommended next</b>' : ''}</div>
       <p>${(n.room.intro || '').replace(/<[^>]+>/g, '').slice(0, 230)}${(n.room.intro || '').length > 230 ? '…' : ''}</p>
@@ -329,7 +334,7 @@ async function loadRoom(courseId, roomId, { silent = false } = {}) {
   try { holos = buildLabHolos(world, room); } catch (err) { console.warn('lab holograms failed', err.message); holos = null; }
   // consoles: one per group present in this room
   world.clearTerminals();
-  groups = GROUPS.map((g) => ({ ...g, id: `${room.id}:${g.key}`, items: room.encounters.filter((e) => g.types.includes(e.type)) })).filter((g) => g.items.length);
+  groups = GROUPS.map((g) => ({ ...g, id: `${room.id}:${g.key}`, items: room.encounters.filter((e) => inGroup(g, e)) })).filter((g) => g.items.length);
   const n = groups.length;
   groups.forEach((g, i) => { g.terminal = world.addTerminal(g, (i - (n - 1) / 2) * 2.1, g.label); });
   $('region').textContent = course.region; $('room-title').textContent = room.title;
@@ -346,7 +351,7 @@ async function loadRoom(courseId, roomId, { silent = false } = {}) {
 // ================================================================ state shown in the world and HUD
 const isLocked = (enc) => !!enc.requires && !store.isPassed(enc.requires);
 const passed = (enc) => store.isPassed(enc.id);
-const roomProgress = (r) => { const es = r.encounters.filter((e) => e.type !== 'sandbox'); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
+const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
   $('xp').textContent = `XP ${store.xp}`;
   const due = store.dueReviews();
@@ -360,9 +365,9 @@ function refresh() {
     const status = hasReview ? 'review' : es.length && done === es.length ? 'done' : 'new';
     world.setTerminalStatus(g.terminal, status, false, es.length ? `${done} / ${es.length} done${hasReview ? ', respawn due' : ''}` : 'open');
   }
-  const cleared = room.encounters.filter((e) => e.type !== 'sandbox').every(passed);
+  const cleared = room.encounters.filter((e) => core(e)).every(passed);
   world.setDoorOpen(cleared || room.encounters.some((e) => e.unlocks && passed(e)));
-  const next = room.encounters.find((e) => e.type !== 'sandbox' && !store.isSolved(e.id) && !isLocked(e));
+  const next = room.encounters.find((e) => core(e) && !store.isSolved(e.id) && !isLocked(e));
   const gs = guideOn() ? nextRouteStep() : null;
   updateProfileChip(); updatePileChip();
   $('btn-guide').textContent = `Guide: ${guideOn() ? 'on' : 'off'}`;
@@ -604,7 +609,7 @@ function newMaterial(courseId, budget, skip) {
   for (const item of route) {
     const [c, slug] = item.key.split('/'); if (c !== courseId) continue; const r = findRoom(c, slug); if (!r || routeDone(r)) continue;
     for (const e of r.encounters) {
-      if (['sandbox', 'boss'].includes(e.type) || store.isPassed(e.id) || isLocked(e) || skip.has(e.id)) continue;
+      if (['sandbox', 'boss'].includes(e.type) || e.book || store.isPassed(e.id) || isLocked(e) || skip.has(e.id)) continue;
       const min = EST[e.type] || 10; if (min > left) { if (left < 8) return out; continue; }
       out.push({ key: `new:${e.id}`, label: `[${findCourse(c).region.split(' ')[0]}] ${typeName[e.type] || e.type}: ${e.title || e.id}`, min, act: { open: e.id }, kind: 'new', room: r.title }); skip.add(e.id); left -= min;
     }
@@ -615,7 +620,7 @@ function newMaterial(courseId, budget, skip) {
 // which course gets the most time today: the one that is furthest behind (and has weak spots), rotating on ties
 function courseOrder() {
   const day = Math.floor(Date.now() / 86400000), weak = new Set(weakSpots(encIndex, 6).map((w) => w.key.split('/')[0]));
-  return catalog.map((c, i) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type !== 'sandbox')), done = all.filter((e) => store.isPassed(e.id)).length, behind = 1 - done / Math.max(1, all.length); return { id: c.id, score: behind + (weak.has(c.id) ? 0.15 : 0) + ((i + day) % 3) * 0.01 }; }).sort((a, b) => b.score - a.score).map((x) => x.id);
+  return catalog.map((c, i) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => core(e))), done = all.filter((e) => store.isPassed(e.id)).length, behind = 1 - done / Math.max(1, all.length); return { id: c.id, score: behind + (weak.has(c.id) ? 0.15 : 0) + ((i + day) % 3) * 0.01 }; }).sort((a, b) => b.score - a.score).map((x) => x.id);
 }
 function planSteps(minutes) {
   const groups = { review: [], fresh: [], extra: [] }, seen = new Set();
@@ -774,7 +779,7 @@ function quickIds() {
   const n = nextRouteStep();
   if (n) {
     push(n.enc?.id);
-    for (const e of n.room.encounters) { if (mins() >= 10 || out.length >= 3) break; if (!['sandbox', 'boss'].includes(e.type) && !store.isPassed(e.id) && !isLocked(e) && (EST[e.type] || 10) + mins() <= 14) push(e.id); }
+    for (const e of n.room.encounters) { if (mins() >= 10 || out.length >= 3) break; if (!['sandbox', 'boss'].includes(e.type) && !e.book && !store.isPassed(e.id) && !isLocked(e) && (EST[e.type] || 10) + mins() <= 14) push(e.id); }
   }
   return out.slice(0, 3);
 }
@@ -788,7 +793,7 @@ function weekStats() {
   const day = 86400000, now = Date.now(), days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return todayStr(d); });
   const minutes = days.map((d) => Math.round(store.activeSecondsOn(d) / 60));
   const solved = Object.entries(store.snapshot.solved || {}).filter(([id, v]) => encIndex.has(id) && v.at >= now - 7 * day && !v.failed);
-  const courses = catalog.map((c) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type !== 'sandbox')), passedN = all.filter((e) => store.isPassed(e.id)).length; return { id: c.id, region: c.region, passed: passedN, total: all.length, week: solved.filter(([id]) => encIndex.get(id).course === c.id).length }; });
+  const courses = catalog.map((c) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => core(e))), passedN = all.filter((e) => store.isPassed(e.id)).length; return { id: c.id, region: c.region, passed: passedN, total: all.length, week: solved.filter(([id]) => encIndex.get(id).course === c.id).length }; });
   return { days, minutes, studied: minutes.filter((x) => x > 0).length, total: minutes.reduce((a, b) => a + b, 0), exercises: solved.length, missions: days.reduce((n, d) => n + Object.keys(store.missionsOf(d).done).length, 0), courses, weak: weakSpots(encIndex, 2).map((w) => { const [c, s] = w.key.split('/'); return findRoom(c, s)?.title || w.key; }) };
 }
 function weekHtml() {

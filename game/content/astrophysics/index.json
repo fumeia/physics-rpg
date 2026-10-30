@@ -11,7 +11,11 @@
     "active-galaxies",
     "expanding-universe",
     "early-universe",
+    "relativity-annex",
     "exam-hall"
   ],
-  "codex": "codex.json"
+  "codex": "codex.json",
+  "extras": [
+    "choudhuri-exercises.json"
+  ]
 }

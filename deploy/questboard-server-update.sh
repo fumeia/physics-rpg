@@ -4,7 +4,7 @@
 #   sudo bash /opt/physics-rpg/deploy/questboard-server-update.sh
 # Later it is also installed as the shortcut: sudo qb-server-update
 #
-# Questboard is a private repository, so the first run creates a read-only "deploy key" and asks you to add it on GitHub
+# If Questboard is a private repository, the first run creates a read-only "deploy key" and asks you to add it on GitHub
 # (phone browser works). Your token, Notion secret and data (~/questboard-server/.env and data/) are never touched;
 # the old program files are kept in ~/questboard-server/old-<date>/.
 set -euo pipefail
@@ -17,14 +17,16 @@ if [ -z "$DIR" ]; then for d in /root/questboard-server /home/*/questboard-serve
 [ -n "$DIR" ] && [ -f "$DIR/.env" ] || { echo "Questboard's folder (questboard-server with a .env) was not found. Give it: sudo QB_DIR=/path bash $0"; exit 1; }
 echo "Questboard folder: $DIR"
 
-# 1. read access to the private repository
+# 1. read access: a public repository needs nothing; a private one gets a read-only deploy key (asked once)
+URL=${QB_GIT_URL:-"https://github.com/$REPO.git"}
+if [ -n "${QB_GIT_URL:-}" ] || GIT_TERMINAL_PROMPT=0 git ls-remote -q "$URL" >/dev/null 2>&1; then :; else
 mkdir -p /root/.ssh && chmod 700 /root/.ssh
 [ -f "$KEY" ] || ssh-keygen -q -t ed25519 -N "" -C "questboard-server" -f "$KEY"
 if ! grep -q "^Host $HOST\$" /root/.ssh/config 2>/dev/null; then
   printf '\nHost %s\n    HostName github.com\n    User git\n    IdentityFile %s\n    IdentitiesOnly yes\n    StrictHostKeyChecking accept-new\n' "$HOST" "$KEY" >>/root/.ssh/config
   chmod 600 /root/.ssh/config
 fi
-URL=${QB_GIT_URL:-"git@$HOST:$REPO.git"}
+URL="git@$HOST:$REPO.git"
 until git ls-remote -q "$URL" >/dev/null 2>&1; do
   echo
   echo "Once only: add this key on GitHub (phone browser works): github.com/$REPO > Settings > Deploy keys > Add deploy key."
@@ -34,9 +36,10 @@ until git ls-remote -q "$URL" >/dev/null 2>&1; do
   echo
   read -r -p "Press Enter once it is saved (Ctrl+C to stop)... " _
 done
+fi
 
 # 2. newest code
-if [ -d "$SRC/.git" ]; then git -C "$SRC" fetch -q origin "$BRANCH" && git -C "$SRC" checkout -q -B "$BRANCH" "origin/$BRANCH"
+if [ -d "$SRC/.git" ]; then git -C "$SRC" remote set-url origin "$URL"; git -C "$SRC" fetch -q origin "$BRANCH" && git -C "$SRC" checkout -q -B "$BRANCH" "origin/$BRANCH"
 else git clone -q --branch "$BRANCH" "$URL" "$SRC"; fi
 echo "Questboard code: $(git -C "$SRC" log -1 --format='%h %s')"
 

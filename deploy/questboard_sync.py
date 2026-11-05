@@ -190,7 +190,7 @@ def diagnose(qb):
     probe = {'id': 'rpg.probe', 'deleted': True, 'updatedAt': int(time.time() * 1000)}  # a deleted goal: invisible everywhere
     if qb.push([{'c': 'goals', 'r': probe}]).get('rejected'):
         print('PROBLEM: this Questboard server is too old to store goals, so your goals only exist on the phone and cannot be linked.\n'
-              '         Update the Questboard server (from the laptop: bash tools/deploy-server.sh <server>), then open the phone app once.')
+              '         Update the Questboard server: sudo bash /opt/physics-rpg/deploy/questboard-server-update.sh, then open the phone app once.')
         return 1
     goals = [g for g in qb.state('goals') if not g.get('deleted')]
     print(f"goals on the server: {', '.join(repr(g.get('title')) for g in goals) or 'none'}")

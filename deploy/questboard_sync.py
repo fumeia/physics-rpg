@@ -22,10 +22,13 @@ exercise in the list goes to the course you were in last. XP from before the per
 The sum of everything sent always equals the game's XP total.
 
 Records (Questboard's docs/DATA_MODEL.md): quests `rpg.<course>`, ledger `rpg.<course>.<YYYY-MM-DD>` and `rpg.<course>.earlier`, kind "rpg".
+Each quest also carries `progress` {done, total, text}: exercises passed of all in that course, rooms cleared, daily missions. Questboard
+shows it on the quest and counts it toward the goal the quest is linked to. The quest is linked once, automatically, to your open goal whose
+title names the course (QB_GOAL_QM / QB_GOAL_SOLID_STATE / QB_GOAL_ASTROPHYSICS: a regex, default quanten|qm|quantum, festk|solid|fkp, astro).
 The ids are fixed, so running this twice, or on two servers, never pays twice. Your own changes to the quests in Questboard
 (quadrant, ticked, schedule, steps, a new title) are kept; a quest you delete in Questboard stays deleted.
 """
-import argparse, datetime as dt, json, os, sys, time, urllib.error, urllib.request
+import argparse, datetime as dt, json, os, re, sys, time, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.join(HERE, '..', 'game')
@@ -58,11 +61,45 @@ def noon_ms(day, tz):  # ledger time of a day's entry: noon, so every client put
     return int(dt.datetime(y, m, d, 12, tzinfo=tz).timestamp() * 1000)
 
 
-def course_index():
-    """exercise id -> course id, from the game's content (same rooms and labs the game and notify.py load)."""
+def load_content():
     sys.path.insert(0, HERE)
     import notify
-    return {eid: v['course'] for eid, v in notify.load_content()['index'].items()}
+    return notify.load_content()  # the same rooms and labs the game shows (game/src/main.js boot())
+
+
+def course_index(content=None):
+    """exercise id -> course id."""
+    return {eid: v['course'] for eid, v in (content or load_content())['index'].items()}
+
+
+def course_progress(state, content, today):
+    """Per course, counted like the game's map: exercises = all but sandboxes, done = passed (not failed or given up),
+    a room is cleared when all its exercises are passed. Daily missions are not tied to a course, so they are shared."""
+    solved = state.get('solved') or {}
+    passed = lambda i: bool(solved.get(i)) and not solved[i].get('failed')
+    days = state.get('missions') or {}
+    m_all = sum(len((d or {}).get('done') or {}) for d in days.values())
+    m_today = len((days.get(today) or {}).get('done') or {})
+    out = {}
+    for c in content['catalog']:
+        ex = done = rooms = cleared = 0
+        for r in c['rooms']:
+            es = [e for e in r['encounters'] if e.get('type') != 'sandbox']
+            if not es: continue
+            n = sum(1 for e in es if passed(e['id']))
+            ex += len(es); done += n; rooms += 1; cleared += n == len(es)
+        out[c['id']] = {'done': done, 'total': ex, 'rooms': cleared, 'roomsTotal': rooms, 'missions': m_all, 'missionsToday': m_today}
+    return out
+
+
+GOAL_WORDS = {'qm': r'quanten|qm|quantum', 'solid-state': r'festk|solid|fkp', 'astrophysics': r'astro'}
+
+
+def find_goal(cid, goals):
+    """The open goal whose title names the course (e.g. "5.5 in QM 1", "5.0 in Festkörperphysik", "5.5 in Astro"); newest first."""
+    pat = re.compile(r'(?<![a-zäöü])(' + env('QB_GOAL_' + cid.upper().replace('-', '_'), GOAL_WORDS[cid]) + ')', re.I)
+    hits = [g for g in goals if not g.get('deleted') and not g.get('done') and pat.search(str(g.get('title', '')))]
+    return max(hits, key=lambda g: g.get('createdAt') or 0) if hits else None
 
 
 def course_of(eid, index):
@@ -135,12 +172,13 @@ class QB:
                                               'version': '1', 'since': 2 ** 53, 'changes': changes})
 
 
-def quest_record(cid, topic, link, notes, existing, now):
-    """Our fields on top of whatever Questboard has (the user's quadrant, done, schedule, steps, title are kept)."""
+def quest_record(cid, topic, link, notes, progress, goal_id, existing, now):
+    """Our fields on top of whatever Questboard has (the user's quadrant, done, schedule, steps, title and goal link are kept)."""
     if existing and existing.get('deleted'): return None
     rec = dict(existing) if existing else {'id': f'rpg.{cid}', 'title': f'Physics RPG · {topic}', 'quadrant': QUADRANT, 'done': False, 'createdAt': now}
-    mine = {'topic': topic, 'source': 'physics-rpg', 'notes': notes}
+    mine = {'topic': topic, 'source': 'physics-rpg', 'notes': notes, 'progress': progress}
     if link: mine['link'] = link
+    if goal_id: mine['goalId'] = goal_id; mine['goalAutoLinked'] = True  # marker on the quest: never link it again, even if this server's memory is lost
     if all(rec.get(k) == v for k, v in mine.items()) and existing: return None
     rec.update(mine); rec['updatedAt'] = max(now, int(rec.get('updatedAt') or 0) + 1)
     return rec
@@ -169,7 +207,7 @@ def run(args):
         sent = {l['id']: l.get('amount', 0) for l in qb.state('ledger') if str(l.get('id', '')).startswith('rpg.') and not l.get('deleted')}
     sent = dict(sent or {})
 
-    index = course_index()
+    content = load_content(); index = course_index(content)
     want = amounts(state, index, tz, today)
     first_day = min((k.rsplit('.', 1)[1] for k in want), default=today)
     since = (dt.date.fromisoformat(today) - dt.timedelta(days=WINDOW_DAYS)).isoformat()
@@ -191,15 +229,27 @@ def run(args):
 
     totals = {c: sum(v for k, v in {**sent, **want}.items() if k.startswith(f'rpg.{c}.')) for c in COURSES}
     todays = {c: want.get(f'rpg.{c}.{today}', 0) for c in COURSES}
-    qmemo = memo.get('quests', {})
-    existing = {}
+    qmemo = memo.get('quests', {}); linked = dict(memo.get('linked', {}))  # linked: goal links made once; unlinking in Questboard is then respected
+    prog = course_progress(state, content, today)
+    existing = goals = None
     for cid in COURSES:
-        notes = f'XP from the Physics RPG in {top[cid]}: {totals[cid]} in total, {todays[cid]} today. Updated automatically; open the game with the link.'
-        if qmemo.get(cid) == [notes, top[cid], link]: continue
-        if not existing and not args.dry_run: existing = {q['id']: q for q in qb.state('quests') if str(q.get('id', '')).startswith('rpg.')}
-        rec = quest_record(cid, top[cid], link, notes, existing.get(f'rpg.{cid}'), now)
+        p = prog[cid]
+        text = f"{p['done']}/{p['total']} exercises · {p['rooms']}/{p['roomsTotal']} rooms cleared · {p['missions']} daily missions done ({p['missionsToday']} today, all courses)"
+        progress = {'done': p['done'], 'total': p['total'], 'text': text, 'rooms': p['rooms'], 'roomsTotal': p['roomsTotal'], 'missions': p['missions']}
+        notes = f'Physics RPG, {top[cid]}: {text}. XP: {totals[cid]} in total, {todays[cid]} today. Updated automatically; open the game with the link.'
+        goal_id = None
+        if cid not in linked:
+            if goals is None: goals = [] if args.dry_run else qb.state('goals')
+            g = find_goal(cid, goals)
+            if g: goal_id = g['id']
+        if qmemo.get(cid) == [notes, top[cid], link] and not goal_id: continue
+        if existing is None: existing = {} if args.dry_run else {q['id']: q for q in qb.state('quests') if str(q.get('id', '')).startswith('rpg.')}
+        ex = existing.get(f'rpg.{cid}')
+        if goal_id and ex and (ex.get('goalId') or ex.get('goalAutoLinked')): goal_id = None  # linked by you, or linked once already (then unlinking is respected)
+        rec = quest_record(cid, top[cid], link, notes, progress, goal_id, ex, now)
         if rec: changes.append({'c': 'quests', 'r': rec})
         qmemo[cid] = [notes, top[cid], link]
+        if goal_id or (ex and (ex.get('goalId') or ex.get('goalAutoLinked'))): linked[cid] = goal_id or ex.get('goalId') or True
 
     if args.dry_run:
         print(json.dumps({'totals': totals, 'today': todays, 'changes': changes}, indent=1, ensure_ascii=False)); return 0
@@ -208,7 +258,7 @@ def run(args):
         if res.get('rejected'): print(f"Questboard rejected {res['rejected']} records", file=sys.stderr); return 1
     for ch in changes:
         if ch['c'] == 'ledger': sent[ch['r']['id']] = ch['r']['amount']
-    memo = {'sent': sent, 'quests': qmemo, 'at': now}
+    memo = {'sent': sent, 'quests': qmemo, 'linked': linked, 'at': now}
     try:
         os.makedirs(os.path.dirname(sfile) or '.', exist_ok=True)
         tmp = sfile + '.tmp'; json.dump(memo, open(tmp, 'w')); os.replace(tmp, sfile)

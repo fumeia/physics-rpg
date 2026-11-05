@@ -81,6 +81,12 @@ def check(cond, what):
 
 FAILED = False
 save()
+NOWG = NOW - 86400000
+qb.push([{'c': 'goals', 'r': {'id': 'g-qm', 'title': '5.5 in QM 1', 'done': False, 'createdAt': NOWG, 'updatedAt': NOWG}},
+         {'c': 'goals', 'r': {'id': 'g-ss', 'title': '5.0 in Festkörperphysik', 'done': False, 'createdAt': NOWG, 'updatedAt': NOWG}},
+         {'c': 'goals', 'r': {'id': 'g-old', 'title': 'Astro Vorkurs', 'done': True, 'createdAt': 1, 'updatedAt': NOWG}},
+         {'c': 'goals', 'r': {'id': 'g-as', 'title': '5.5 in Astro', 'done': False, 'createdAt': NOWG, 'updatedAt': NOWG}},
+         {'c': 'goals', 'r': {'id': 'g-x', 'title': 'Liposome Microrobots Project', 'done': False, 'createdAt': NOWG, 'updatedAt': NOWG}}])
 check(qs.split(10, {'qm': 1, 'solid-state': 1, 'astrophysics': 1}) == {'qm': 4, 'solid-state': 3, 'astrophysics': 3}, 'split adds up exactly')
 check(run() == 0, 'first run succeeds')
 L = ledger()
@@ -93,6 +99,12 @@ Q = quests()
 check(set(Q) == {'rpg.qm', 'rpg.solid-state', 'rpg.astrophysics'}, 'three quests, one per course')
 check(Q['rpg.qm']['topic'] == 'Quantenmechanik' and Q['rpg.solid-state']['title'] == 'Physics RPG · Festkörperphysik' and Q['rpg.astrophysics']['topic'] == 'Astrophysik', 'German topic names by default')
 check(Q['rpg.qm']['link'] == 'https://rpg.example.com' and Q['rpg.qm']['quadrant'] == 'q2' and Q['rpg.qm']['done'] is False, 'quests link to the game, sit in Schedule, open')
+check(Q['rpg.qm']['goalId'] == 'g-qm' and Q['rpg.solid-state']['goalId'] == 'g-ss' and Q['rpg.astrophysics']['goalId'] == 'g-as', 'each quest is linked to the open goal that names its course')
+content = qs.load_content()
+qm_total = sum(len([e for e in r['encounters'] if e.get('type') != 'sandbox']) for c in content['catalog'] if c['id'] == 'qm' for r in c['rooms'])
+pq = Q['rpg.qm']['progress']
+check(pq['total'] == qm_total and pq['done'] == 1 and 'exercises' in pq['text'] and 'rooms cleared' in pq['text'], f"progress: QM exercises passed of all ({pq['text']})")
+check(Q['rpg.solid-state']['progress']['done'] == 1 and Q['rpg.astrophysics']['progress']['done'] == 1, 'one passed exercise per course is counted')
 ledger_before = dict(L)
 
 # nothing changed -> nothing sent
@@ -103,6 +115,8 @@ check(run() == 0 and quests() == {k: v for k, v in quests().items()} and {k: r['
 r = dict(Q['rpg.qm'], quadrant='q1', done=True, doneAt=NOW, updatedAt=NOW + 10)
 r2 = dict(Q['rpg.solid-state'], title='Festkörper im Spiel', updatedAt=NOW + 10)
 qb.push([{'c': 'quests', 'r': r}, {'c': 'quests', 'r': r2}, {'c': 'quests', 'r': {'id': 'rpg.astrophysics', 'deleted': True, 'updatedAt': NOW + 10}}])
+# the user unlinks the QM quest from its goal: it stays unlinked
+qb.push([{'c': 'quests', 'r': dict(quests()['rpg.qm'], goalId=None, updatedAt=NOW + 11)}])
 # new XP today in solid state
 state['xp'] += 40; state['xpLog']['2026-11-05'] = 35; state['flags']['activity'].append({'t': at('2026-11-05', 17), 'id': SS, 'xp': 40}); save()
 check(run(now=NOW + 60000) == 0, 'run after new XP succeeds')
@@ -111,11 +125,13 @@ check(L['rpg.solid-state.2026-11-05'] == 35, "today's XP lands on today (net 35 
 check(sum(v for k, v in L.items() if k.startswith('rpg.')) == 1040, 'the total follows the game (1040)')
 check(Q['rpg.qm']['quadrant'] == 'q1' and Q['rpg.qm']['done'] is True, 'your quadrant and tick are kept')
 check(Q['rpg.solid-state']['title'] == 'Festkörper im Spiel' and '35 today' in Q['rpg.solid-state']['notes'], 'your title is kept, the notes show the XP')
+check(Q['rpg.qm'].get('goalId') is None, 'a goal link you removed is not made again')
 check(Q['rpg.astrophysics'].get('deleted') is True, 'a quest you deleted stays deleted')
 
 # the memory file is lost (reinstall): nothing is paid twice
 os.remove(STATE)
 check(run(now=NOW + 120000) == 0 and sum(v for k, v in ledger().items() if k.startswith('rpg.')) == 1040, 'losing the memory file does not double the XP')
+check(quests()['rpg.qm'].get('goalId') is None, '...and does not undo your goal unlinking')
 
 # 30 days later the game has forgotten the old days; what was sent for them stays and the total still matches
 later = NOW + 30 * 86400000

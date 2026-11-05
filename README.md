@@ -18,6 +18,8 @@ Everything installed, how to change it and how to undo it: `deploy/README.md` (a
 
 Study reminders with the exact next exercise: `sudo bash /opt/physics-rpg/deploy/notify-setup.sh` (ntfy app on the phone, see `docs/DEPLOY.md`).
 
+XP in Questboard (one quest per course, synced to desktop and phone): `sudo bash /opt/physics-rpg/deploy/questboard-setup.sh` (see `deploy/questboard_sync.py`).
+
 On phones and tablets the game runs in touch mode (stick, drag to look, action button, formulas and exercise side by side); see `docs/DEPLOY.md`.
 
 The lecture PDFs (`materials/`) are not in git; they are in the `physics-rpg.zip` release.

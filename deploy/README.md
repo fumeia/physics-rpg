@@ -38,6 +38,7 @@ The DNS entry (an `A` record `rpg` pointing to the server) is at Spaceship, not 
 | Send a test message | `sudo rpg-notify --test` |
 | See when the notifications run next | `systemctl list-timers physics-rpg-notify` |
 | Send the game's XP to Questboard now / only look at what would be sent | `sudo rpg-questboard` / `sudo rpg-questboard --dry-run` |
+| Update the Questboard server itself (no laptop needed) | `sudo qb-server-update` (the first time: `sudo bash /opt/physics-rpg/deploy/questboard-server-update.sh`, it asks you once to add a read-only deploy key on GitHub) |
 | Check the Questboard connection | `sudo rpg-questboard --check`; its log: `journalctl -u physics-rpg-questboard -n 20 --no-pager` |
 | Turn the notifications off (and on again) | `sudo systemctl disable --now physics-rpg-notify.timer` / `sudo systemctl enable --now physics-rpg-notify.timer` |
 | See my saved progress files | `ls -la /var/lib/physics-rpg/profiles/` |

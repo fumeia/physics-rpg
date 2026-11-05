@@ -184,6 +184,29 @@ def quest_record(cid, topic, link, notes, progress, goal_id, existing, now):
     return rec
 
 
+def diagnose(qb):
+    """--check: can this Questboard server keep goals, which goals does it have, and what do the three quests carry?"""
+    bad = 0
+    probe = {'id': 'rpg.probe', 'deleted': True, 'updatedAt': int(time.time() * 1000)}  # a deleted goal: invisible everywhere
+    if qb.push([{'c': 'goals', 'r': probe}]).get('rejected'):
+        print('PROBLEM: this Questboard server is too old to store goals, so your goals only exist on the phone and cannot be linked.\n'
+              '         Update the Questboard server (from the laptop: bash tools/deploy-server.sh <server>), then open the phone app once.')
+        return 1
+    goals = [g for g in qb.state('goals') if not g.get('deleted')]
+    print(f"goals on the server: {', '.join(repr(g.get('title')) for g in goals) or 'none'}")
+    if not goals: print('PROBLEM: no goals on the server yet. Open the Questboard app (0.1.10 or newer) once so it uploads them.'); bad = 1
+    quests = {q['id']: q for q in qb.state('quests')}
+    for cid in COURSES:
+        q = quests.get(f'rpg.{cid}'); g = find_goal(cid, goals)
+        if not q: print(f'{cid}: no quest yet (run: sudo rpg-questboard)'); bad = 1; continue
+        if q.get('deleted'): print(f'{cid}: you deleted the quest in Questboard; it is not recreated'); continue
+        linked = next((x.get('title') for x in goals if x['id'] == q.get('goalId')), None)
+        print(f"{cid}: quest {q.get('title')!r}, progress {(q.get('progress') or {}).get('text', 'MISSING (old version of this script ran)')}, "
+              f"goal {repr(linked) if linked else 'not linked'}" + ('' if linked or not g else f" (will link to {g.get('title')!r} on the next run)"))
+        if not q.get('progress'): bad = 1
+    return bad
+
+
 def run(args):
     url, token = env('QB_URL'), env('QB_TOKEN')
     if not (url and token) and not args.dry_run: print('QB_URL and QB_TOKEN must be set (see deploy/questboard-setup.sh)', file=sys.stderr); return 2
@@ -192,7 +215,8 @@ def run(args):
         try: n = len(qb.state('quests'))
         except urllib.error.HTTPError as e: print(f'Questboard answered {e.code}' + (' (wrong token)' if e.code == 401 else ''), file=sys.stderr); return 1
         except (urllib.error.URLError, OSError) as e: print(f'cannot reach Questboard at {url}: {e}', file=sys.stderr); return 1
-        print(f'ok: Questboard at {url} answers ({n} quests)'); return 0
+        print(f'ok: Questboard at {url} answers ({n} quests)')
+        diagnose(qb); return 0  # problems are printed; only a failed connection fails the check (the setup script relies on that)
 
     pfile = args.profile_file or os.path.join(env('PHYSICS_RPG_PROFILES', os.path.join(GAME, 'profiles')), env('PHYSICS_RPG_PROFILE', 'default') + '.json')
     try: state = json.load(open(pfile, encoding='utf-8')).get('state') or {}

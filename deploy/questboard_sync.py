@@ -73,7 +73,7 @@ def course_index(content=None):
 
 
 def course_progress(state, content, today):
-    """Per course, counted like the game's map: exercises = all but sandboxes, done = passed (not failed or given up),
+    """Per course, counted like the game's map: exercises = the core of each room (no sandboxes, no optional book, simulation or sheet exercises), done = passed (not failed or given up),
     a room is cleared when all its exercises are passed. Daily missions are not tied to a course, so they are shared."""
     solved = state.get('solved') or {}
     passed = lambda i: bool(solved.get(i)) and not solved[i].get('failed')
@@ -84,7 +84,7 @@ def course_progress(state, content, today):
     for c in content['catalog']:
         ex = done = rooms = cleared = 0
         for r in c['rooms']:
-            es = [e for e in r['encounters'] if e.get('type') != 'sandbox']
+            es = [e for e in r['encounters'] if e.get('type') != 'sandbox' and not (e.get('book') or e.get('sim') or e.get('sheet'))]
             if not es: continue
             n = sum(1 for e in es if passed(e['id']))
             ex += len(es); done += n; rooms += 1; cleared += n == len(es)

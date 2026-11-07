@@ -101,7 +101,7 @@ check(Q['rpg.qm']['topic'] == 'Quantenmechanik' and Q['rpg.solid-state']['title'
 check(Q['rpg.qm']['link'] == 'https://rpg.example.com' and Q['rpg.qm']['quadrant'] == 'q2' and Q['rpg.qm']['done'] is False, 'quests link to the game, sit in Schedule, open')
 check(Q['rpg.qm']['goalId'] == 'g-qm' and Q['rpg.solid-state']['goalId'] == 'g-ss' and Q['rpg.astrophysics']['goalId'] == 'g-as', 'each quest is linked to the open goal that names its course')
 content = qs.load_content()
-qm_total = sum(len([e for e in r['encounters'] if e.get('type') != 'sandbox']) for c in content['catalog'] if c['id'] == 'qm' for r in c['rooms'])
+qm_total = sum(len([e for e in r['encounters'] if e.get('type') != 'sandbox' and not (e.get('book') or e.get('sim') or e.get('sheet'))]) for c in content['catalog'] if c['id'] == 'qm' for r in c['rooms'])  # the core, like the map
 pq = Q['rpg.qm']['progress']
 check(pq['total'] == qm_total and pq['done'] == 1 and 'exercises' in pq['text'] and 'rooms cleared' in pq['text'], f"progress: QM exercises passed of all ({pq['text']})")
 check(Q['rpg.solid-state']['progress']['done'] == 1 and Q['rpg.astrophysics']['progress']['done'] == 1, 'one passed exercise per course is counted')

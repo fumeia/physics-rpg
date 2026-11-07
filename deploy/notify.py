@@ -34,7 +34,7 @@ GUIDE_SKIP = ('sandbox', 'boss')
 # ------------------------------------------------------------------ content (same shape the game builds in boot())
 def core(e):
     """The core of a room (main.js core): opens doors, fills progress; book exercises are optional extra practice."""
-    return e['type'] != 'sandbox' and not e.get('book') and not e.get('sim')
+    return e['type'] != 'sandbox' and not e.get('book') and not e.get('sim') and not e.get('sheet')
 
 
 def load_content():
@@ -60,8 +60,9 @@ def load_content():
             r['encounters'].insert(at, l['enc'])
         for f in idx.get('extras', []):  # collections placed into rooms, e.g. the textbook exercises (main.js boot)
             try:
-                for it in jl(cid, f)['items']:
-                    r = next((x for x in rooms if x['slug'] == it['room']), None)
+                x = jl(cid, f)
+                for it in x.get('items', []) + [{'room': q['room'], 'enc': q['enc']} for sh in x.get('sheets', []) for q in sh['questions']]:
+                    r = next((y for y in rooms if y['slug'] == it['room']), None)
                     if r: r['encounters'].append(it['enc'])
             except (OSError, ValueError, KeyError): pass
         catalog.append({'id': cid, 'region': idx.get('region', cid), 'rooms': rooms})

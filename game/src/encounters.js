@@ -476,9 +476,9 @@ function mountQuiz(enc, el, env) {
 // ---------------------------------------------------------------- derive ("show that", written on paper, self-graded)
 function mountDerive(enc, el, env) {
   env.previewBanner(enc);
-  el.innerHTML = M(`<h2>${enc.title} <span class="src">(${enc.book ? 'textbook exercise' : 'derivation practice'})</span></h2>${sourceHtml(enc.source)}
+  el.innerHTML = M(`<h2>${enc.title} <span class="src">(${enc.sheet ? 'exercise sheet' : enc.book ? 'textbook exercise' : 'derivation practice'})</span></h2>${sourceHtml(enc.source)}
     <div class="callout exam"><div class="ctitle">Goal</div>${enc.goal}</div>
-    <h3>Given</h3><ul>${enc.given.map((g) => `<li>${g}</li>`).join('')}</ul>
+    ${enc.given?.length ? `<h3>Given</h3><ul>${enc.given.map((g) => `<li>${g}</li>`).join('')}</ul>` : ''}
     <p class="src">Do each step on paper first, then reveal the reference step and compare.</p>
     <div id="dsteps"></div><div id="dkeys"></div><div id="result"></div>`);
   const host = el.querySelector('#dsteps'); let revealed = 0;

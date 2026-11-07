@@ -12,6 +12,7 @@
     "wave-mechanics-basics"
   ],
   "extras": [
+    "sheets.json",
     "phet-sims.json"
   ]
 }

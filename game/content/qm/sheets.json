@@ -3,6 +3,869 @@
  "note": "The HS25 sheets of Prof. Gaberdiel, used again this year. Due dates are last year's shifted by one year (same weekday); each question opens with links to the lessons and exercises of the game that belong to it.",
  "sheets": [
   {
+   "n": 1,
+   "title": "Compton, Bohr, Galilei",
+   "due": "2025-09-24",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Compton effect",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L1",
+      "qm-wm-D1",
+      "qm-wm-c1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s1q1",
+      "title": "Sheet 1 Q1: Compton effect",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 1.pdf",
+       "where": "Exercise sheet I, Question 1; official solution: Solutions 1.pdf"
+      },
+      "goal": "(i) Thomson: an electron at rest in the field $\\vec E=\\vec\\varepsilon E_0\\cos(kx-\\omega t)$ obeys $m\\ddot{\\vec x}=-e\\vec E$ (magnetic force neglected). Solve it; what is the frequency of the emitted light? (ii) Compton: treat light as photons, $(cp_1,\\vec p_1)$, $\\lambda_1=h/p_1$, scattering elastically off the electron by an angle $\\theta$. Show $\\lambda_2=\\lambda_1+\\frac{h}{mc}(1-\\cos\\theta)$. (iii) In which limit is Thomson scattering recovered, and for which light is the Compton effect observable?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Classical motion.",
+        "reveal": "With $\\vec k\\parallel\\hat e_3$ the motion is transverse: $\\vec x(t)=-\\frac{eE_0}{m\\omega^2}\\vec\\varepsilon(1-\\cos\\omega t)$. The electron oscillates at $\\omega$ and radiates as a dipole at the same frequency $\\omega$: no frequency shift classically."
+       },
+       {
+        "prompt": "(ii) Four-momentum conservation.",
+        "reveal": "$(cp_1,\\vec p_1)+(mc^2,0)=(cp_2,\\vec p_2)+(\\sqrt{m^2c^4+p^2c^2},\\vec p)$. Eliminate the electron: $p^2=p_1^2-2p_1p_2\\cos\\theta+p_2^2$ (momentum), and from the energy $(p_1-p_2+mc)^2=m^2c^2+p^2$. Together $2p_1p_2(1-\\cos\\theta)=2mc(p_1-p_2)$; divide by $p_1p_2$ and use $\\lambda=h/p$."
+       },
+       {
+        "prompt": "(iii) Limits.",
+        "reveal": "The shift is at most $2h/mc$ with $\\lambda_C=h/mc=2.42\\times10^{-12}$ m. For $\\lambda\\gg\\lambda_C$ (visible light, $10^{-7}$ m) the relative change is negligible: Thomson. Only hard X-rays and $\\gamma$-rays show it."
+       }
+      ],
+      "keyPoints": [
+       "classical solution oscillates at $\\omega$",
+       "4-momentum conservation and eliminating the electron",
+       "$\\Delta\\lambda=\\frac{h}{mc}(1-\\cos\\theta)$",
+       "$\\lambda_C=2.4$ pm: X-rays/$\\gamma$"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Bohr atom",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L1",
+      "qm-hl-L1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s1q2",
+      "title": "Sheet 1 Q2: Bohr atom",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 1.pdf",
+       "where": "Exercise sheet I, Question 2; official solution: Solutions 1.pdf"
+      },
+      "goal": "Bohr: $mv_nr_n=n\\hbar$, $r_n=\\frac{n^2\\hbar^2}{me^2}$ (Gaussian units). (i) With $\\lambda=h/p$ show $\\lambda/r_n=2\\pi/n$: the wave fits around the orbit. (ii) Show $v_n\\ll c$. (iii) Show that the emitted wavelength (e.g. $n=\\infty\\to1$) is much larger than the Bohr radius.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Standing wave.",
+        "reveal": "$\\frac{\\lambda}{r_n}=\\frac{h}{mv_nr_n}=\\frac{2\\pi\\hbar}{n\\hbar}=\\frac{2\\pi}n$: $n$ wavelengths fit on the circumference."
+       },
+       {
+        "prompt": "(ii) Speed.",
+        "reveal": "$v_n=\\frac{n\\hbar}{mr_n}=\\frac{e^2}{n\\hbar}\\le v_1=\\alpha c=2.19\\times10^6$ m/s $\\ll c$ ($\\alpha\\approx1/137$)."
+       },
+       {
+        "prompt": "(iii) Wavelength vs size.",
+        "reveal": "$E_n=-13.6\\ \\mathrm{eV}/n^2$, $\\lambda_{nm}=\\frac{hc}{E_n-E_m}\\ge\\lambda_{\\infty1}=\\frac{hc}{13.6\\ \\mathrm{eV}}\\approx91$ nm $\\gg a_0=0.053$ nm: the atom is tiny compared with its light (dipole approximation)."
+       }
+      ],
+      "keyPoints": [
+       "$\\lambda/r_n=2\\pi/n$",
+       "$v_1=\\alpha c\\ll c$",
+       "$91$ nm vs $0.053$ nm"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Galilei invariance of the Schrödinger equation",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s1q3",
+      "title": "Sheet 1 Q3: Galilei invariance of the Schrödinger equation",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 1.pdf",
+       "where": "Exercise sheet I, Question 3; official solution: Solutions 1.pdf"
+      },
+      "goal": "If $\\Psi(x,t)$ solves the free Schrödinger equation $i\\hbar\\partial_t\\Psi=-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi$, show that $\\Psi_u(x,t)=\\Psi(x-ut,t)\\exp\\left[\\frac{im}{\\hbar}ux-\\frac{im}{2\\hbar}u^2t\\right]$ is a solution for every constant $u$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Time derivative.",
+        "reveal": "$i\\hbar\\partial_t\\Psi_u=\\left[i\\hbar\\partial_t\\Psi-i\\hbar u\\,\\partial_x\\Psi+\\frac m2u^2\\Psi\\right]e^{imu(x-ut/2)/\\hbar}$ (arguments $x-ut,t$), and $i\\hbar\\partial_t\\Psi=-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi$."
+       },
+       {
+        "prompt": "Space derivatives.",
+        "reveal": "$-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi_u=\\left[-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi-i\\hbar u\\,\\partial_x\\Psi+\\frac m2u^2\\Psi\\right]e^{imu(x-ut/2)/\\hbar}$: identical. The phase $e^{imux/\\hbar}$ is the boost of the momentum by $mu$."
+       }
+      ],
+      "keyPoints": [
+       "chain rule for $\\Psi(x-ut,t)$",
+       "both sides give the same three terms",
+       "interpretation: momentum boost by $mu$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "title": "Ehrenfest, real energies, probability current",
+   "due": "2025-10-01",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Ehrenfest’s theorem",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-D3",
+      "qm-wm-L2",
+      "qm-fu-L4",
+      "qm-ho-b3"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s2q1",
+      "title": "Sheet 2 Q1: Ehrenfest’s theorem",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 2.pdf",
+       "where": "Exercise sheet II, Question 1; official solution: Solutions 2.pdf"
+      },
+      "goal": "Prove $m\\frac{d^2}{dt^2}\\langle x\\rangle=-\\langle V^\\prime(x)\\rangle$ for motion in a potential $V$. Hint: bring $\\frac{d}{dt}\\langle x\\rangle$ into a form proportional to $\\Psi\\overleftrightarrow{\\partial_x}\\Psi^*$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "First derivative.",
+        "reveal": "With the Schrödinger equation, $\\frac{d}{dt}\\langle x\\rangle=\\frac{i\\hbar}{2m}\\int x\\,\\partial_x(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)dx=-\\frac{i\\hbar}{2m}\\int(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)dx=\\frac{\\langle p\\rangle}{m}$ (integration by parts, no boundary terms)."
+       },
+       {
+        "prompt": "Second derivative.",
+        "reveal": "$\\frac{d^2}{dt^2}\\langle x\\rangle=\\frac1m\\int\\left[(H\\Psi)^*\\partial_x\\Psi+\\partial_x\\Psi^*(H\\Psi)\\right]dx$; the kinetic terms cancel by parts, the potential terms give $\\int\\left[\\Psi^*V\\partial_x\\Psi+\\partial_x\\Psi^*V\\Psi\\right]=-\\int\\Psi^*(\\partial_xV)\\Psi$."
+       },
+       {
+        "prompt": "Result.",
+        "reveal": "$m\\frac{d^2}{dt^2}\\langle x\\rangle=-\\langle\\partial_xV\\rangle$: Newton for averages. Not $-V^\\prime(\\langle x\\rangle)$, except for at most quadratic $V$."
+       }
+      ],
+      "keyPoints": [
+       "$d\\langle x\\rangle/dt=\\langle p\\rangle/m$ via the current",
+       "time derivatives replaced by $H$",
+       "integration by parts leaving $-\\langle V^\\prime\\rangle$",
+       "difference to $V^\\prime(\\langle x\\rangle)$"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Reality of energy",
+     "room": "formalism-and-uncertainty",
+     "related": [
+      "qm-fu-D1",
+      "qm-fu-L1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s2q2",
+      "title": "Sheet 2 Q2: Reality of energy",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 2.pdf",
+       "where": "Exercise sheet II, Question 2; official solution: Solutions 2.pdf"
+      },
+      "goal": "Show that the expectation value of the Hamiltonian of a non-relativistic particle is real, $\\langle H\\rangle=\\langle H\\rangle^*$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Write both.",
+        "reveal": "$\\langle H\\rangle=-\\frac{\\hbar^2}{2m}\\int\\Psi^*\\Psi^{\\prime\\prime}+\\langle V\\rangle$, $\\langle H\\rangle^*=-\\frac{\\hbar^2}{2m}\\int\\Psi^{*\\prime\\prime}\\Psi+\\langle V\\rangle$ ($V$ real)."
+       },
+       {
+        "prompt": "Difference.",
+        "reveal": "$\\int(\\Psi^*\\Psi^{\\prime\\prime}-\\Psi^{*\\prime\\prime}\\Psi)=\\int(-\\Psi^{*\\prime}\\Psi^\\prime+\\Psi^{*\\prime}\\Psi^\\prime)=0$ by parts: $H$ is hermitian on normalisable states."
+       }
+      ],
+      "keyPoints": [
+       "real potential",
+       "integration by parts twice",
+       "hermiticity as the reason"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Probability current",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-L1",
+      "qm-tunnel-D1",
+      "qm-wm-D2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s2q3",
+      "title": "Sheet 2 Q3: Probability current",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 2.pdf",
+       "where": "Exercise sheet II, Question 3; official solution: Solutions 2.pdf"
+      },
+      "goal": "Show that $\\Psi_k=\\left(Ae^{ikx/\\hbar}+Be^{-ikx/\\hbar}\\right)e^{-iE_kt/\\hbar}$, $E_k=k^2/2m$, solves the free Schrödinger equation and that its current is $j=\\frac km(|A|^2-|B|^2)$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Solution.",
+        "reveal": "Each $e^{\\pm ikx/\\hbar}e^{-iE_kt/\\hbar}$ solves it ($i\\hbar\\cdot(-iE_k/\\hbar)=\\frac{k^2}{2m}$), the time factor is even in $k$, and the equation is linear."
+       },
+       {
+        "prompt": "Current.",
+        "reveal": "$j=\\frac{\\hbar}{2mi}(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)$: the cross terms $AB^*$ cancel, leaving $\\frac km(|A|^2-|B|^2)$: right-movers minus left-movers, each with velocity $k/m$ ($k$ is the momentum here)."
+       }
+      ],
+      "keyPoints": [
+       "superposition of two plane waves",
+       "cross terms cancel in $j$",
+       "$j=\\frac km(|A|^2-|B|^2)$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "title": "Gaussians and the box",
+   "due": "2025-10-08",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Gaussian wave functions",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L3",
+      "qm-wm-D4",
+      "qm-wm-c2",
+      "lab-qm-wavepacket"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s3q1",
+      "title": "Sheet 3 Q1: Gaussian wave functions",
+      "xp": 47,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 3.pdf",
+       "where": "Exercise sheet III, Question 1; official solution: Solutions 3.pdf"
+      },
+      "goal": "$\\Psi(x)=Ae^{-\\lambda x^2/2}$, $\\lambda>0$. (i) Normalise. (ii) Sketch; find $V$ (with $V(0)=0$) for which $\\Psi$ is a stationary state, and $E$. (iii) Compute $\\Delta x$, $\\Delta p$ and $\\Delta x\\Delta p$. (iv) How would you tune $\\lambda$ to localise the particle, and why can $\\Delta x=0$ not be reached?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Normalisation.",
+        "reveal": "$\\int|A|^2e^{-\\lambda x^2}dx=|A|^2\\sqrt{\\pi/\\lambda}=1$: $A=(\\lambda/\\pi)^{1/4}$ (up to a phase)."
+       },
+       {
+        "prompt": "(ii) Potential.",
+        "reveal": "$\\Psi^{\\prime\\prime}=(\\lambda^2x^2-\\lambda)\\Psi$, so $V=\\frac{\\hbar^2\\lambda^2}{2m}x^2$ and $E=\\frac{\\hbar^2\\lambda}{2m}$: the harmonic oscillator ground state ($\\lambda=m\\omega/\\hbar$, $E=\\hbar\\omega/2$). Larger $\\lambda$: narrower bell."
+       },
+       {
+        "prompt": "(iii) Uncertainties.",
+        "reveal": "$\\langle x\\rangle=\\langle p\\rangle=0$, $\\langle x^2\\rangle=\\frac1{2\\lambda}$ (differentiate $\\int e^{-\\lambda x^2}$ w.r.t. $\\lambda$), $\\langle p^2\\rangle=\\frac{\\hbar^2\\lambda}2$: $\\Delta x\\Delta p=\\frac\\hbar2$, the minimum."
+       },
+       {
+        "prompt": "(iv) Localising.",
+        "reveal": "Large $\\lambda$ (steep trap) gives small $\\Delta x$, but $\\Delta p=\\hbar\\sqrt{\\lambda/2}$ and $E=\\hbar^2\\lambda/2m$ diverge: $\\Delta x\\to0$ costs infinite energy."
+       }
+      ],
+      "keyPoints": [
+       "$A=(\\lambda/\\pi)^{1/4}$",
+       "harmonic potential with $E=\\hbar^2\\lambda/2m$",
+       "$\\Delta x\\Delta p=\\hbar/2$",
+       "localisation costs energy"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Particle in a box I",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L4",
+      "qm-wm-b1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s3q2",
+      "title": "Sheet 3 Q2: Particle in a box I",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 3.pdf",
+       "where": "Exercise sheet III, Question 2; official solution: Solutions 3.pdf"
+      },
+      "goal": "(i) A particle in $[0,a]$ has $\\Psi(x,0)=1/\\sqrt a$. Probability of measuring $E_n=\\frac{n^2\\pi^2\\hbar^2}{2ma^2}$? ($\\psi_n=\\sqrt{2/a}\\sin\\frac{n\\pi x}a$.) (ii) Deduce $\\sum_m\\frac1{(2m-1)^2}=\\frac{\\pi^2}8$ and $\\zeta(2)=\\frac{\\pi^2}6$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Overlap.",
+        "reveal": "$p_n=\\left|\\int_0^a\\sqrt{\\frac2a}\\sin\\frac{n\\pi x}{a}\\frac{1}{\\sqrt a}dx\\right|^2=\\frac{2}{n^2\\pi^2}(1-(-1)^n)^2=\\frac{8}{n^2\\pi^2}$ for odd $n$, 0 for even $n$."
+       },
+       {
+        "prompt": "(ii) Sums.",
+        "reveal": "$\\sum p_n=1\\Rightarrow\\sum_{\\rm odd}\\frac1{n^2}=\\frac{\\pi^2}8$. Then $\\zeta(2)=\\frac{\\zeta(2)}4+\\frac{\\pi^2}8$, so $\\zeta(2)=\\frac{\\pi^2}6$."
+       }
+      ],
+      "keyPoints": [
+       "overlap integral and odd/even pattern",
+       "$p_n=8/(n\\pi)^2$",
+       "completeness gives the sums"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Particle in a box II",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L4",
+      "qm-wm-b2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s3q3",
+      "title": "Sheet 3 Q3: Particle in a box II",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 3.pdf",
+       "where": "Exercise sheet III, Question 3; official solution: Solutions 3.pdf"
+      },
+      "goal": "In the $n$-th eigenstate of the box $[0,a]$ show $\\langle x\\rangle=\\frac a2$, $\\langle(x-\\langle x\\rangle)^2\\rangle=\\frac{a^2}{12}\\left(1-\\frac{6}{n^2\\pi^2}\\right)$, and that the classical limit is approached as $n\\to\\infty$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Mean.",
+        "reveal": "$\\langle x\\rangle=\\int_0^a\\frac{x}{a}\\left(1-\\cos\\frac{2\\pi nx}a\\right)dx=\\frac a2$ (the cosine term integrates to 0 by parts)."
+       },
+       {
+        "prompt": "Variance.",
+        "reveal": "$\\langle x^2\\rangle=\\frac{a^2}3-\\frac{a^2}{2\\pi^2n^2}$ (two integrations by parts), so $(\\Delta x)^2=\\frac{a^2}{12}-\\frac{a^2}{2\\pi^2n^2}$."
+       },
+       {
+        "prompt": "Classical limit.",
+        "reveal": "A classical particle is uniform on $[0,a]$: $\\langle x\\rangle=a/2$, $(\\Delta x)^2=a^2/12$, reached for $n\\to\\infty$ (correspondence principle)."
+       }
+      ],
+      "keyPoints": [
+       "$\\langle x\\rangle=a/2$",
+       "$\\langle x^2\\rangle$ by parts",
+       "uniform classical distribution as the limit"
+      ]
+     }
+    },
+    {
+     "q": 4,
+     "title": "Particle in a box III: the sudden wall",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-D5",
+      "qm-wm-c3",
+      "lab-qm-wavepacket"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s3q4",
+      "title": "Sheet 3 Q4: Particle in a box III: the sudden wall",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 3.pdf",
+       "where": "Exercise sheet III, Question 4; official solution: Solutions 3.pdf"
+      },
+      "goal": "A particle in the ground state of $[0,a]$; the wall at $a$ jumps suddenly to $2a$. Expand in the eigenfunctions of $[0,2a]$, give $\\Psi(x,t)$, show that only $n=2$ and odd $n$ contribute ($E_n=\\frac{n^2\\pi^2\\hbar^2}{8ma^2}$) and that the energy is unchanged with probability 1/2. Classical intuition?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Expansion.",
+        "reveal": "$c_n=\\frac{\\sqrt2}{a}\\int_0^a\\sin\\frac{\\pi x}a\\sin\\frac{n\\pi x}{2a}dx$; with $2\\sin\\sin=\\cos-\\cos$: $c_2=\\frac1{\\sqrt2}$, and for $n\\ne2$: $c_n=\\frac{\\sin\\pi(1-n/2)}{\\sqrt2\\pi(1-n/2)}-\\frac{\\sin\\pi(1+n/2)}{\\sqrt2\\pi(1+n/2)}$, zero for even $n>2$."
+       },
+       {
+        "prompt": "Time evolution and the probability.",
+        "reveal": "$\\Psi(x,t)=\\sum c_n\\psi_n(x)e^{-iE_nt/\\hbar}$. $E_2$ of the new box equals the old ground energy: probability $|c_2|^2=\\frac12$ (odd $n$: $P_n=\\frac{32}{\\pi^2(4-n^2)^2}$)."
+       },
+       {
+        "prompt": "Classical picture.",
+        "reveal": "The particle bounces freely; moving a wall instantly (not touching it) does not change its kinetic energy. Quantum mechanically the mean energy is conserved too ($\\langle H\\rangle$ of the unchanged state), but individual outcomes spread."
+       }
+      ],
+      "keyPoints": [
+       "limits of integration $0..a$",
+       "$c_2=1/\\sqrt2$, even $n>2$ vanish",
+       "$P(E\\ \\mathrm{unchanged})=1/2$",
+       "classical expectation"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "title": "Delta potential, wells, the deuteron",
+   "due": "2025-10-15",
+   "questions": [
+    {
+     "q": 1,
+     "title": "One-dimensional delta potential",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-L2",
+      "qm-tunnel-D3"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s4q1",
+      "title": "Sheet 4 Q1: One-dimensional delta potential",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 4.pdf",
+       "where": "Exercise sheet IV, Question 1; official solution: Solutions 4.pdf"
+      },
+      "goal": "$V=V\\delta(x)$; ansatz $\\psi=e^{ikx/\\hbar}+Re^{-ikx/\\hbar}$ ($x<0$), $Te^{ikx/\\hbar}$ ($x>0$), $E=k^2/2m$. Find the matching conditions, $R$, $T$ and check $|R|^2+|T|^2=1$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Jump condition.",
+        "reveal": "Integrate from $-\\epsilon$ to $\\epsilon$: $\\psi$ continuous, $\\frac{\\hbar^2}{2m}(\\psi^\\prime(0^+)-\\psi^\\prime(0^-))=V\\psi(0)$."
+       },
+       {
+        "prompt": "Solve.",
+        "reveal": "$1+R=T$ and $\\frac{\\hbar^2}{2m}\\frac{ik}{\\hbar}(T-1+R)=VT$ give $R=\\frac{-imV}{\\hbar k+imV}$, $T=\\frac{\\hbar k}{\\hbar k+imV}$."
+       },
+       {
+        "prompt": "Conservation.",
+        "reveal": "$|R|^2+|T|^2=\\frac{m^2V^2+\\hbar^2k^2}{\\hbar^2k^2+m^2V^2}=1$. High energies transmit, the sign of $V$ does not matter for $|T|$."
+       }
+      ],
+      "keyPoints": [
+       "derivative jumps by $\\frac{2mV}{\\hbar^2}\\psi(0)$",
+       "$R$, $T$",
+       "$|R|^2+|T|^2=1$"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Infinitely deep, infinitely narrow well",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-D3",
+      "qm-tunnel-L4"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s4q2",
+      "title": "Sheet 4 Q2: Infinitely deep, infinitely narrow well",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 4.pdf",
+       "where": "Exercise sheet IV, Question 2; official solution: Solutions 4.pdf"
+      },
+      "goal": "Square well $V=-V_0$ for $|x|<a$. Show that for $V_0\\to\\infty$, $a\\to0$ with $V_0a$ fixed the ground-state energy stays finite and negative.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Even ansatz.",
+        "reveal": "$\\psi=b\\cos kx$ inside, $e^{-\\kappa|x|}$ outside, $k=\\sqrt{2m(E+V_0)}/\\hbar$, $\\kappa=\\sqrt{-2mE}/\\hbar$; matching: $e^{-\\kappa a}=b\\cos ka$, $\\kappa e^{-\\kappa a}=bk\\sin ka$."
+       },
+       {
+        "prompt": "Limit.",
+        "reveal": "$ka\\to0$ (since $k\\sim\\sqrt{V_0}$, $a\\sim1/V_0$): $b=1$, $\\kappa=k^2a\\to\\frac{2mV_0a}{\\hbar^2}$, so $E_0=-\\frac{\\hbar^2\\kappa^2}{2m}=-\\frac{2m(V_0a)^2}{\\hbar^2}$, finite."
+       },
+       {
+        "prompt": "Slicker.",
+        "reveal": "The well becomes $-2V_0a\\,\\delta(x)$; with the jump condition of Q1, $\\psi=e^{-\\kappa|x|}$ gives the same $\\kappa$. Exactly one bound state."
+       }
+      ],
+      "keyPoints": [
+       "even ansatz and matching",
+       "limit $ka\\to0$",
+       "$E_0=-2m(V_0a)^2/\\hbar^2$",
+       "delta-function picture"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "General potentials",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-D1",
+      "qm-tunnel-L1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s4q3",
+      "title": "Sheet 4 Q3: General potentials",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 4.pdf",
+       "where": "Exercise sheet IV, Question 3; official solution: Solutions 4.pdf"
+      },
+      "goal": "(i) For a stationary scattering state $\\chi=e^{ikx}+Ae^{-ikx}$ ($x\\ll0$), $Be^{ikx}$ ($x\\gg0$) show that $j$ is independent of $x$ and $|A|^2+|B|^2=1$; interpret. (ii) Show $\\langle T\\rangle\\ge0$ and that the lowest energy in any well lies above the bottom of the well.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Constant current.",
+        "reveal": "$\\partial_xj=-\\partial_t|\\psi|^2=0$ for stationary states. Left: $j=\\frac{\\hbar k}m(1-|A|^2)$, right: $\\frac{\\hbar k}m|B|^2$: equal, so $|A|^2+|B|^2=1$: every particle is reflected or transmitted."
+       },
+       {
+        "prompt": "(ii) Positive kinetic energy.",
+        "reveal": "$\\langle T\\rangle=\\frac{\\hbar^2}{2m}\\int|\\partial_x\\psi|^2\\ge0$ (by parts), strictly $>0$ for a normalisable state. Hence $\\langle H\\rangle\\ge V_{\\min}+\\langle T\\rangle>V_{\\min}$."
+       }
+      ],
+      "keyPoints": [
+       "continuity equation $\\Rightarrow$ $x$-independent $j$",
+       "$|A|^2+|B|^2=1$ with interpretation",
+       "$\\langle T\\rangle=\\frac{\\hbar^2}{2m}\\int|\\psi^\\prime|^2>0$"
+      ]
+     }
+    },
+    {
+     "q": 4,
+     "title": "The deuteron",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-L4",
+      "qm-tunnel-D2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s4q4",
+      "title": "Sheet 4 Q4: The deuteron",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 4.pdf",
+       "where": "Exercise sheet IV, Question 4; official solution: Solutions 4.pdf"
+      },
+      "goal": "3D square well $V=-V$ for $r<a$, 0 outside. Find the spherically symmetric bound states (hint: $\\chi=r\\psi$). Is there always a bound state?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Radial equation.",
+        "reveal": "$-\\frac{\\hbar^2}{2m}\\chi^{\\prime\\prime}+V(r)\\chi=E\\chi$ with $\\chi(0)=0$: the 1D well, but only odd solutions."
+       },
+       {
+        "prompt": "Matching.",
+        "reveal": "$\\chi=\\sin kr$ inside, $e^{-\\kappa r}$ outside; with $\\xi=ka$, $\\eta=\\kappa a$: $\\eta=-\\xi\\cot\\xi$ and $\\xi^2+\\eta^2=\\frac{2ma^2V}{\\hbar^2}$."
+       },
+       {
+        "prompt": "Existence.",
+        "reveal": "$-\\xi\\cot\\xi<0$ for $\\xi<\\pi/2$, so a solution needs $\\frac{2ma^2V}{\\hbar^2}>\\frac{\\pi^2}4$: unlike 1D, a 3D well needs a minimum depth $V>\\frac{\\pi^2\\hbar^2}{8ma^2}$. The deuteron is barely bound."
+       }
+      ],
+      "keyPoints": [
+       "$\\chi=r\\psi$, $\\chi(0)=0$",
+       "odd solutions, $\\eta=-\\xi\\cot\\xi$",
+       "threshold $2ma^2V/\\hbar^2>\\pi^2/4$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "title": "Transfer matrices, rays, commutators",
+   "due": "2025-10-22",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Transfer matrix method",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-L3",
+      "qm-tunnel-c1",
+      "qm-tunnel-e1",
+      "qm-tunnel-p1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s5q1",
+      "title": "Sheet 5 Q1: Transfer matrix method",
+      "xp": 47,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 5.pdf",
+       "where": "Exercise sheet V, Question 1; official solution: Solutions 5.pdf"
+      },
+      "goal": "Piecewise constant potentials. (i) Step $V_L\\to V_R$ at 0: find $M$ with $\\binom{A_L}{B_L}=M\\binom{A_R}{B_R}$. (ii) Propagation matrix $N$ over a region $[x_1,x_2]$. (iii) Chain them for a general potential. (iv) Square well $-V$ for $|x|<\\ell/2$: $M_{\\rm full}$; when is $N=I$, and what does it mean? (v) Barrier $V$, $0<E<V$, $B_R=0$, $A_L=1$: show $|B_L|^2+|A_R|^2=1$ and compute $|A_R|^2$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Step.",
+        "reveal": "Continuity of $\\psi,\\psi^\\prime$: $A_L+B_L=A_R+B_R$, $k(A_L-B_L)=q(A_R-B_R)$, so $M=\\frac12\\begin{pmatrix}1+\\eta&1-\\eta\\\\1-\\eta&1+\\eta\\end{pmatrix}$, $\\eta=q/k$."
+       },
+       {
+        "prompt": "(ii)-(iii) Propagation and chain.",
+        "reveal": "$N=\\mathrm{diag}(e^{-ik\\ell},e^{ik\\ell})$, $\\ell=x_2-x_1$. In general $\\binom{A_L}{B_L}=M_{n+1,n}N_nM_{n,n-1}\\cdots N_1M_{1,0}\\binom{A_R}{B_R}$."
+       },
+       {
+        "prompt": "(iv) Well.",
+        "reveal": "$M_{\\rm full}=M^{-1}NM$ with $q=\\sqrt{2m(E+V)}/\\hbar$. $N=I$ iff $q\\ell=2\\pi n$: the wave fits into the well, $M_{\\rm full}=I$, perfect transmission (resonance)."
+       },
+       {
+        "prompt": "(v) Barrier.",
+        "reveal": "$q=i\\kappa$, $\\alpha=k/\\kappa$: $1=A_R(\\cosh\\kappa\\ell+\\frac i2\\frac{1-\\alpha^2}{\\alpha}\\sinh\\kappa\\ell)$, $B_L=A_R\\frac i2\\frac{1+\\alpha^2}\\alpha\\sinh\\kappa\\ell$; squaring gives $|A_R|^2+|B_L|^2=1$ and $T=|A_R|^2=\\left[1+\\frac{V^2}{4E(V-E)}\\sinh^2\\kappa\\ell\\right]^{-1}$. Classically $T=0$."
+       }
+      ],
+      "keyPoints": [
+       "step matrix $M(\\eta)$",
+       "propagation $N$ and the chain",
+       "resonance $q\\ell=2\\pi n$",
+       "barrier $T$ with $\\sinh^2\\kappa\\ell$"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Rays in $\\mathbb C^2$",
+     "room": "formalism-and-uncertainty",
+     "related": [
+      "qm-fu-L1",
+      "qm-am-L2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s5q2",
+      "title": "Sheet 5 Q2: Rays in $\\mathbb C^2$",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 5.pdf",
+       "where": "Exercise sheet V, Question 2; official solution: Solutions 5.pdf"
+      },
+      "goal": "$\\mathcal H=\\mathbb C^2$ with basis $|1\\rangle,|2\\rangle$. (i) Are $|\\Psi\\rangle$ and $\\mu|\\Psi\\rangle$ physically different? (ii) Show almost every state is $|1\\rangle+z|2\\rangle$; which are not, and do different $z$ give different states? (iii) What state is $|z|\\to\\infty$? (iv) What geometric object is the space of states?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Rays.",
+        "reveal": "All probabilities $\\frac{|\\langle\\Phi|\\Psi\\rangle|^2}{\\langle\\Phi|\\Phi\\rangle\\langle\\Psi|\\Psi\\rangle}$ are unchanged by $\\mu$: physical states are rays."
+       },
+       {
+        "prompt": "(ii)-(iii) Coordinates.",
+        "reveal": "$a|1\\rangle+b|2\\rangle\\sim|1\\rangle+\\frac ba|2\\rangle$ if $a\\ne0$; distinct $z$ are distinct rays. Only $|2\\rangle$ is missing, and it is the limit $|z|\\to\\infty$."
+       },
+       {
+        "prompt": "(iv) The sphere.",
+        "reveal": "$\\mathbb C\\cup\\{\\infty\\}$ is the Riemann sphere $S^2$ (stereographic projection): the Bloch sphere of a spin-$\\frac12$/qubit, $\\mathbb{CP}^1\\cong S^2$."
+       }
+      ],
+      "keyPoints": [
+       "states are rays",
+       "$z$ as a coordinate, $|2\\rangle$ missing",
+       "Riemann/Bloch sphere"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Commutators",
+     "room": "formalism-and-uncertainty",
+     "related": [
+      "qm-fu-D1",
+      "qm-fu-L3"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s5q3",
+      "title": "Sheet 5 Q3: Commutators",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 5.pdf",
+       "where": "Exercise sheet V, Question 3; official solution: Solutions 5.pdf"
+      },
+      "goal": "(i) Show $(iAB)^\\dagger=-iB^\\dagger A^\\dagger$ and that $i[A,B]$ is self-adjoint for self-adjoint $A,B$. (ii) With $[x,p]=i\\hbar$ show $e^{iap/\\hbar}xe^{-iap/\\hbar}=x+a$. (iii) Deduce $e^{iap/\\hbar}f(x)e^{-iap/\\hbar}=f(x+a)$ and Weyl’s relation $e^{iap/\\hbar}e^{ibx/\\hbar}=e^{iba/\\hbar}e^{ibx/\\hbar}e^{iap/\\hbar}$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Adjoint.",
+        "reveal": "$\\langle f|iABg\\rangle=\\langle-iB^\\dagger A^\\dagger f|g\\rangle$ for all $f,g$. Then $(i[A,B])^\\dagger=-iBA+iAB=i[A,B]$."
+       },
+       {
+        "prompt": "(ii) Translation.",
+        "reveal": "$p^nx=xp^n-ni\\hbar p^{n-1}$, so $e^{iap/\\hbar}x=(x+a)e^{iap/\\hbar}$; multiply by $e^{-iap/\\hbar}$ from the right ($e^{iap/\\hbar}e^{-iap/\\hbar}=I$)."
+       },
+       {
+        "prompt": "(iii) Functions and Weyl.",
+        "reveal": "Conjugation is multiplicative, so $x^n\\to(x+a)^n$ and $f(x)\\to f(x+a)$. With $f=e^{ibx/\\hbar}$: $e^{iap/\\hbar}e^{ibx/\\hbar}=e^{ib(x+a)/\\hbar}e^{iap/\\hbar}$, the Weyl form."
+       }
+      ],
+      "keyPoints": [
+       "$(iAB)^\\dagger=-iB^\\dagger A^\\dagger$",
+       "$p^nx=xp^n-ni\\hbar p^{n-1}$",
+       "translation $f(x)\\to f(x+a)$",
+       "Weyl relation"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "title": "Momentum space and uncertainty",
+   "due": "2025-10-29",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Delta well in momentum space",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-D3",
+      "qm-tunnel-L2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s6q1",
+      "title": "Sheet 6 Q1: Delta well in momentum space",
+      "xp": 47,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 6.pdf",
+       "where": "Exercise sheet VI, Question 1; official solution: Solutions 6.pdf"
+      },
+      "goal": "$V=-\\alpha\\delta(x)$. (i) Bound states in position space. (ii) Show the momentum-space equation $\\frac{p^2}{2m}\\tilde\\psi+\\frac1{\\sqrt{2\\pi\\hbar}}\\int\\tilde V(p-p^\\prime)\\tilde\\psi(p^\\prime)dp^\\prime=E\\tilde\\psi$. (iii) Compute $\\tilde V$ and solve in terms of $C=\\int\\tilde\\psi\\,dp$. (iv) Get the allowed $E$. (v) Compare with the Fourier transform of (i). (vi) What goes wrong for $E>0$, or for a barrier?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Position space.",
+        "reveal": "$\\psi=Ae^{-\\kappa|x|}$, jump $\\frac{\\hbar^2}{2m}(\\psi^\\prime(0^+)-\\psi^\\prime(0^-))=-\\alpha\\psi(0)$ gives $\\kappa=\\frac{m\\alpha}{\\hbar^2}$, one bound state $E=-\\frac{m\\alpha^2}{2\\hbar^2}$."
+       },
+       {
+        "prompt": "(ii)-(iii) Momentum space.",
+        "reveal": "Fourier transforming, $V\\psi$ becomes a convolution; $\\tilde V=-\\frac{\\alpha}{\\sqrt{2\\pi\\hbar}}$ is constant, so the integral term is $-\\frac{\\alpha C}{2\\pi\\hbar}$ and $\\left(\\frac{p^2}{2m}-E\\right)\\tilde\\psi=\\frac{\\alpha C}{2\\pi\\hbar}$: $\\tilde\\psi(p)=\\frac{\\alpha C}{2\\pi\\hbar}\\,\\frac{1}{p^2/2m-E}$, with $C=\\sqrt{2\\pi\\hbar}\\,\\psi(0)$."
+       },
+       {
+        "prompt": "(iv)-(v) Consistency.",
+        "reveal": "Integrating both sides: $C=\\frac{m\\alpha C}{\\hbar\\sqrt{-2mE}}$, so $\\hbar\\sqrt{-2mE}=m\\alpha$: the same $E$. The transform of $e^{-\\kappa|x|}$ is a Lorentzian $\\propto\\frac{2\\kappa}{\\kappa^2+p^2/\\hbar^2}$: the same function."
+       },
+       {
+        "prompt": "(vi) Failures.",
+        "reveal": "$E>0$: poles at $p=\\pm\\sqrt{2mE}$, $C$ diverges (scattering states are not normalisable). Barrier $+\\alpha^\\prime\\delta$: $-m\\alpha^\\prime=\\hbar\\sqrt{-2mE}>0$ is impossible: no bound state."
+       }
+      ],
+      "keyPoints": [
+       "$E=-m\\alpha^2/2\\hbar^2$ from the jump",
+       "convolution and constant $\\tilde V$",
+       "Lorentzian $\\tilde\\psi$ and the self-consistency integral",
+       "why $E>0$ and barriers fail"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Uncertainty relation in a box",
+     "room": "formalism-and-uncertainty",
+     "related": [
+      "qm-fu-L3",
+      "qm-fu-D2",
+      "qm-wm-L4"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s6q2",
+      "title": "Sheet 6 Q2: Uncertainty relation in a box",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 6.pdf",
+       "where": "Exercise sheet VI, Question 2; official solution: Solutions 6.pdf"
+      },
+      "goal": "For the $n$-th eigenstate of the box $[0,a]$ ($\\langle x\\rangle=a/2$, $(\\Delta x)^2=\\frac{a^2}{12}(1-\\frac6{n^2\\pi^2})$, sheet III) compute $\\langle p\\rangle$, $\\Delta p$ and check $\\Delta x\\Delta p\\ge\\hbar/2$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Momentum.",
+        "reveal": "$\\langle p\\rangle=0$ (the integrand $\\sin\\cos$ is odd about $a/2$), $\\langle p^2\\rangle=\\left(\\frac{n\\pi\\hbar}a\\right)^2$ (also $=2mE_n$), so $\\Delta p=\\frac{n\\pi\\hbar}a$."
+       },
+       {
+        "prompt": "Product.",
+        "reveal": "$\\Delta x\\Delta p=\\frac\\hbar2\\sqrt{\\frac{n^2\\pi^2}3-2}\\ge\\frac\\hbar2\\times1.13$ for $n=1$, growing with $n$: Heisenberg holds, not saturated."
+       }
+      ],
+      "keyPoints": [
+       "$\\langle p\\rangle=0$ by symmetry",
+       "$\\Delta p=n\\pi\\hbar/a$",
+       "$\\frac\\hbar2\\sqrt{n^2\\pi^2/3-2}$"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Uncertainty relation and energy",
+     "room": "harmonic-oscillator-elevator",
+     "related": [
+      "qm-ho-D4",
+      "qm-fu-D4"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s6q3",
+      "title": "Sheet 6 Q3: Uncertainty relation and energy",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 6.pdf",
+       "where": "Exercise sheet VI, Question 3; official solution: Solutions 6.pdf"
+      },
+      "goal": "$V=\\frac12kx^2$. Express $\\langle E\\rangle$ through $\\langle x\\rangle,\\langle p\\rangle,\\Delta x,\\Delta p$, and use $\\Delta x\\Delta p\\ge\\hbar/2$ to show $\\langle E\\rangle\\ge\\frac\\hbar2\\sqrt{k/m}$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Energy.",
+        "reveal": "$\\langle E\\rangle=\\frac{(\\Delta p)^2+\\langle p\\rangle^2}{2m}+\\frac k2\\left((\\Delta x)^2+\\langle x\\rangle^2\\right)\\ge\\frac{(\\Delta p)^2}{2m}+\\frac k2(\\Delta x)^2$."
+       },
+       {
+        "prompt": "Bound.",
+        "reveal": "Complete the square: $\\ge\\sqrt{k/m}\\,\\Delta x\\Delta p\\ge\\frac\\hbar2\\sqrt{k/m}=\\frac{\\hbar\\omega}2$ (or minimise $\\frac{\\mu}{2m}+\\frac{k\\hbar^2}{8\\mu}$ over $\\mu=(\\Delta p)^2$). The zero-point energy is forced by uncertainty, and it is exactly the true ground state."
+       }
+      ],
+      "keyPoints": [
+       "expectation values split into mean$^2$ + variance",
+       "AM-GM / completing the square",
+       "$\\langle E\\rangle\\ge\\hbar\\omega/2$"
+      ]
+     }
+    }
+   ]
+  },
+  {
    "n": 7,
    "title": "Oscillators in 2D, coherent states, degeneracies",
    "due": "2025-11-05",
@@ -492,6 +1355,591 @@
        "roots $(2,-1),(-1,2),(1,1)$ and negatives",
        "highest weight with integer $\\lambda(h_\\alpha)$",
        "level $N$ = irrep with highest weight $(N,0)$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "title": "The 3D oscillator the hard way",
+   "due": "2025-11-26",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Harmonic oscillator in spherical coordinates",
+     "room": "harmonic-oscillator-elevator",
+     "related": [
+      "qm-ho-D6",
+      "qm-hl-D1",
+      "qm-ho-L4",
+      "qm-ho-c4"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s10q1",
+      "title": "Sheet 10 Q1: Harmonic oscillator in spherical coordinates",
+      "xp": 55,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 10.pdf",
+       "where": "Exercise sheet X, Question 1; official solution: Solutions 10.pdf"
+      },
+      "goal": "$H=\\frac{\\vec p^2}{2m}+\\frac{m\\omega^2}{2}\\vec x^2$. (i) Spectrum and degeneracies from what you know. (ii) With $\\Psi=\\frac{u(r)}rY_{\\ell m}$, $-u^{\\prime\\prime}+\\frac{\\ell(\\ell+1)}{r^2}u+\\frac{m^2\\omega^2}{\\hbar^2}r^2u=\\varepsilon u$, $\\varepsilon=\\frac{2mE}{\\hbar^2}$: show $u\\sim r^{\\ell+1}$ ($r\\to0$) and $u\\sim e^{-m\\omega r^2/2\\hbar}$ ($r\\to\\infty$); contrast with hydrogen. (iii) With $u=e^{-m\\omega r^2/2\\hbar}\\sum_{k\\ge\\ell+1}c_kr^k$ derive $c_{k+2}=\\frac{\\frac{m\\omega}\\hbar(2k+1)-\\varepsilon}{(k+2)(k+1)-\\ell(\\ell+1)}c_k$; which $c_k$ vanish, how many are free? (iv) Square integrability: allowed energies at fixed $\\ell$; draw the $(\\ell,E)$ spectrum. (v) Recover (i).",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Three 1D oscillators.",
+        "reveal": "$E=\\hbar\\omega(N+\\frac32)$, degeneracy $\\frac{(N+1)(N+2)}2$ (sheet VII Q3)."
+       },
+       {
+        "prompt": "(ii) Asymptotics.",
+        "reveal": "$r\\to0$: $u^{\\prime\\prime}\\approx\\frac{\\ell(\\ell+1)}{r^2}u$, $u=r^{\\ell+1}$ or $r^{-\\ell}$; the second is not square integrable (or, for $\\ell=0$, would need a $\\delta$ potential). $r\\to\\infty$: $u=e^S$, $S^{\\prime2}\\approx\\alpha^2r^2$, $S=-\\alpha r^2/2$ ($\\alpha=m\\omega/\\hbar$). Hydrogen decays only like $e^{-\\kappa r}$; here the confining $r^2$ potential gives a Gaussian and no scattering states: the whole spectrum is discrete."
+       },
+       {
+        "prompt": "(iii) Recursion.",
+        "reveal": "Insert $u=e^{-\\alpha r^2/2}f$: $-f^{\\prime\\prime}+\\frac{\\ell(\\ell+1)}{r^2}f+2\\alpha rf^\\prime+(\\alpha-\\varepsilon)f=0$; equate powers of $r$: the stated recursion. Starting from $c_{\\ell+1}$ in steps of 2, all $c_k$ with $k-\\ell$ even vanish; only $c_{\\ell+1}$ is free (normalisation)."
+       },
+       {
+        "prompt": "(iv) Quantisation.",
+        "reveal": "If the series does not stop, $c_{k+2}/c_k\\to2\\alpha/k$ and $f\\sim e^{\\alpha r^2}$: not normalisable. It stops at $k_{\\max}=\\ell+1+2n_r$ iff $\\varepsilon=\\alpha(2k_{\\max}+1)$, i.e. $E=\\hbar\\omega\\left(2n_r+\\ell+\\frac32\\right)$. In the $(\\ell,E)$ plane: at $E=\\hbar\\omega(N+\\frac32)$ the allowed $\\ell=N,N-2,\\dots,1$ or 0."
+       },
+       {
+        "prompt": "(v) Degeneracy.",
+        "reveal": "$\\sum_{\\ell=N,N-2,\\dots}(2\\ell+1)=\\frac{(N+1)(N+2)}{2}$: agrees with (i). Same $N$ for different $\\ell$: an accidental degeneracy, explained by the hidden su(3) (sheet IX Q4)."
+       }
+      ],
+      "keyPoints": [
+       "$r^{\\ell+1}$ and Gaussian asymptotics",
+       "recursion from equating powers",
+       "termination $\\Rightarrow E=\\hbar\\omega(2n_r+\\ell+\\frac32)$",
+       "allowed $\\ell$ have the parity of $N$",
+       "degeneracy $\\frac{(N+1)(N+2)}2$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "title": "so(4) of hydrogen, spinors, spin addition",
+   "due": "2025-12-03",
+   "questions": [
+    {
+     "q": 1,
+     "title": "More on the dynamical symmetry",
+     "room": "hydrogen-lamp",
+     "related": [
+      "qm-hl-L2",
+      "qm-hl-D4",
+      "qm-hl-b2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s11q1",
+      "title": "Sheet 11 Q1: More on the dynamical symmetry",
+      "xp": 47,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+       "where": "Exercise sheet XI, Question 1; official solution: Solutions 11.pdf"
+      },
+      "goal": "Pauli-Lenz vector $\\vec J=\\frac1{2m}(\\vec p\\wedge\\vec L-\\vec L\\wedge\\vec p)-\\kappa\\frac{\\vec x}r$; on a fixed negative energy $\\vec S=\\frac12(\\vec L+a\\vec J)$, $\\vec D=\\frac12(\\vec L-a\\vec J)$ form su(2) $\\oplus$ su(2). (i) The highest weight vector $|\\psi\\rangle$ (killed by $S_+$, $D_+$) satisfies $J_+|\\psi\\rangle=L_+|\\psi\\rangle=0$, so it is a superposition of $|n,l,l\\rangle$. (ii) Compute $[L_\\pm,J_+]$, $[L_3,J_+]$; show $J_+|n,l,l\\rangle\\propto|n,l+1,l+1\\rangle$ and $|\\psi\\rangle=|n,n-1,n-1\\rangle$. (iii) Check explicitly: $\\psi\\propto r^{n-1}\\sin^{n-1}\\theta\\,e^{i(n-1)\\varphi}e^{-m\\kappa r/\\hbar^2n}$ and $J_+\\psi=0$. (v) Describe the eigenspace with ladder operators and count its dimension.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Highest weight.",
+        "reveal": "$S_+\\pm$ and $D_+$ combinations: $S_+|\\psi\\rangle=D_+|\\psi\\rangle=0\\Leftrightarrow L_+|\\psi\\rangle=0$ and $J_+|\\psi\\rangle=0$. $L_+|\\psi\\rangle=0$ means $m=l$ in each $l$ component: $|\\psi\\rangle=\\sum_lc_l|n,l,l\\rangle$."
+       },
+       {
+        "prompt": "(ii) Commutators.",
+        "reveal": "From $[L_j,J_k]=i\\hbar\\varepsilon_{jkl}J_l$: $[L_+,J_+]=0$, $[L_3,J_+]=\\hbar J_+$, $[L_-,J_+]=-2\\hbar J_3$. So $J_+|n,l,l\\rangle$ has $L_3=\\hbar(l+1)$ and is killed by $L_+$: it is a highest weight of spin $l+1$, $\\propto|n,l+1,l+1\\rangle$. Then $J_+|\\psi\\rangle=0$ forces $c_l=0$ unless $l$ is maximal: $|\\psi\\rangle=|n,n-1,n-1\\rangle$."
+       },
+       {
+        "prompt": "(iii) Explicit check.",
+        "reveal": "For $l=n-1$, $u_{n,n-1}\\propto r^ne^{-r/na_0}$ (no radial nodes) and $Y_{n-1,n-1}\\propto\\sin^{n-1}\\theta e^{i(n-1)\\varphi}$, giving the stated $\\psi$ with $\\frac{m\\kappa}{\\hbar^2}=\\frac1{a_0}$. With $J_+=\\frac im(p_3L_+-\\hbar p_+-p_+L_3)-\\kappa\\sin\\theta e^{i\\varphi}$ and the given $p_+$, $L_+\\psi=0$, $L_3\\psi=\\hbar(n-1)\\psi$, the remaining terms cancel: $J_+\\psi=0$."
+       },
+       {
+        "prompt": "(v) The multiplet.",
+        "reveal": "$|\\psi\\rangle$ has $S_3=D_3=\\frac{n-1}2$: spin $j=\\frac{n-1}2$ for both su(2)s. The eigenspace is spanned by $S_-^aD_-^b|\\psi\\rangle$, $0\\le a,b\\le n-1$: dimension $(2j+1)^2=n^2$."
+       }
+      ],
+      "keyPoints": [
+       "$S_+,D_+$ conditions $\\Leftrightarrow$ $L_+,J_+$",
+       "$[L_3,J_+]=\\hbar J_+$, $[L_+,J_+]=0$",
+       "$J_+$ raises $l$ by one",
+       "highest weight $|n,n-1,n-1\\rangle$",
+       "$n^2$ from $(2j+1)^2$, $j=\\frac{n-1}2$"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Spinors",
+     "room": "angular-momentum-spin",
+     "related": [
+      "qm-am-D5",
+      "qm-am-c1",
+      "qm-am-L2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s11q2",
+      "title": "Sheet 11 Q2: Spinors",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+       "where": "Exercise sheet XI, Question 2; official solution: Solutions 11.pdf"
+      },
+      "goal": "(i) A spin-$\\frac12$ state has $\\langle\\vec\\sigma\\rangle=\\vec e$ (unit vector). Find $|\\chi\\rangle$. (ii) Probability that $S_z$ gives $+\\hbar/2$?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) State.",
+        "reveal": "With $\\vec e=(\\sin\\theta\\cos\\varphi,\\sin\\theta\\sin\\varphi,\\cos\\theta)$: $|\\chi\\rangle=\\binom{\\cos\\frac\\theta2}{e^{i\\varphi}\\sin\\frac\\theta2}$ (up to a phase), the $+1$ eigenvector of $\\vec e\\cdot\\vec\\sigma$; check $\\langle\\sigma_3\\rangle=\\cos^2\\frac\\theta2-\\sin^2\\frac\\theta2=\\cos\\theta$."
+       },
+       {
+        "prompt": "(ii) Probability.",
+        "reveal": "$P(S_z=+\\frac\\hbar2)=\\cos^2\\frac\\theta2=\\frac{1+e_z}{2}$."
+       }
+      ],
+      "keyPoints": [
+       "half angles in the spinor",
+       "eigenvector of $\\vec e\\cdot\\vec\\sigma$",
+       "$P=\\cos^2\\frac\\theta2$"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Addition of spins",
+     "room": "spin-addition-stern-gerlach",
+     "related": [
+      "qm-sa-L2",
+      "qm-sa-D1",
+      "lab-qm-cgadd"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s11q3",
+      "title": "Sheet 11 Q3: Addition of spins",
+      "xp": 23,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 11.pdf",
+       "where": "Exercise sheet XI, Question 3; official solution: Solutions 11.pdf"
+      },
+      "goal": "Decompose $D_{1/2}\\otimes D_1$ into irreducible representations.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Count and decompose.",
+        "reveal": "Dimension $2\\times3=6$; total $m$ ranges over $\\pm\\frac32,\\pm\\frac12$ with multiplicities $1,2$: $D_{1/2}\\otimes D_1=D_{3/2}\\oplus D_{1/2}$ ($4+2=6$), as the Clebsch-Gordan series $|j_1-j_2|\\le j\\le j_1+j_2$ says."
+       }
+      ],
+      "keyPoints": [
+       "dimension count $6=4+2$",
+       "$D_{3/2}\\oplus D_{1/2}$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "title": "Stern-Gerlach, vectors and tensors, Clebsch-Gordan",
+   "due": "2025-12-10",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Stern-Gerlach experiment",
+     "room": "spin-addition-stern-gerlach",
+     "related": [
+      "qm-sa-L1",
+      "qm-sa-b3",
+      "qm-sa-p1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s12q1",
+      "title": "Sheet 12 Q1: Stern-Gerlach experiment",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+       "where": "Exercise sheet XII, Question 1; official solution: Solutions 12.pdf"
+      },
+      "goal": "Sketch the screen of Stern-Gerlach experiments with molecules made of (i) two spin-$\\frac12$ atoms, (ii) three spin-$\\frac12$ atoms.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Two spins.",
+        "reveal": "$D_{1/2}\\otimes D_{1/2}=D_1\\oplus D_0$; the deflection measures total $m$: three spots $m=+1,0,-1$, intensities $1:2:1$ for unpolarised molecules (the middle spot holds $m=0$ of the triplet and the singlet)."
+       },
+       {
+        "prompt": "(ii) Three spins.",
+        "reveal": "$D_{1/2}^{\\otimes3}=D_{3/2}\\oplus2D_{1/2}$: four spots $m=\\pm\\frac32,\\pm\\frac12$ with intensities $1:3:3:1$ (an even number of spots: half-integer total spin)."
+       }
+      ],
+      "keyPoints": [
+       "deflection $\\propto$ total $m$",
+       "$1:2:1$ for two spins",
+       "$1:3:3:1$ for three spins"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Vectors and tensors",
+     "room": "angular-momentum-spin",
+     "related": [
+      "qm-am-L4",
+      "qm-am-L1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s12q2",
+      "title": "Sheet 12 Q2: Vectors and tensors",
+      "xp": 47,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+       "where": "Exercise sheet XII, Question 2; official solution: Solutions 12.pdf"
+      },
+      "goal": "(i) Show that the so(3) representation of the defining SO(3) action is spin 1 ($M_j=i\\frac{d}{d\\varphi}R_j(\\varphi)|_0$). (ii) Show that $\\vec x$ and $\\vec p$ transform as vectors under $O\\mapsto\\hbar^{-1}[L_j,O]$. (iii) Highest and lowest weight components of a vector (spherical basis). (iv) Decompose $S^2D_1$. (v) Combine two vectors $\\vec J,\\vec K$ symmetrically into a scalar $S$ and a tensor $T$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Spin 1.",
+        "reveal": "$(M_j)_{kl}=-i\\varepsilon_{jkl}$; $M_3$ has eigenvalues $-1,0,1$ and $\\vec M^2=2=1(1+1)$: the 3-dimensional irrep $D_1$."
+       },
+       {
+        "prompt": "(ii) $x$, $p$.",
+        "reveal": "$[L_j,x_k]=i\\hbar\\varepsilon_{jkl}x_l$, $[L_j,p_k]=i\\hbar\\varepsilon_{jkl}p_l$: exactly the action of $M_j$ (up to the factor $i$ convention): vector operators."
+       },
+       {
+        "prompt": "(iii) Spherical basis.",
+        "reveal": "$J_{\\pm1}=\\mp\\frac1{\\sqrt2}(J_1\\pm iJ_2)$, $J_0=J_3$: $J_{+1}$ is highest weight ($[L_+,J_{+1}]=0$), $J_{-1}$ lowest."
+       },
+       {
+        "prompt": "(iv)-(v) Symmetric square.",
+        "reveal": "$S^2D_1$ has dimension 6 $=D_2\\oplus D_0$ (a tensor and a scalar; the antisymmetric part would be $D_1$). Scalar $S=\\vec J\\cdot\\vec K$; tensor $T_{ij}=\\frac12(J_iK_j+J_jK_i)-\\frac13\\delta_{ij}\\vec J\\cdot\\vec K$ (symmetric, traceless: 5 components)."
+       }
+      ],
+      "keyPoints": [
+       "$M_j$ give spin 1",
+       "$[L_j,x_k]=i\\hbar\\varepsilon_{jkl}x_l$",
+       "spherical components",
+       "$S^2D_1=D_2\\oplus D_0$",
+       "traceless symmetric $T_{ij}$"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Clebsch-Gordan coefficients",
+     "room": "spin-addition-stern-gerlach",
+     "related": [
+      "qm-sa-D4",
+      "qm-sa-c3",
+      "qm-sa-L4",
+      "lab-qm-cgadd"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s12q3",
+      "title": "Sheet 12 Q3: Clebsch-Gordan coefficients",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 12.pdf",
+       "where": "Exercise sheet XII, Question 3; official solution: Solutions 12.pdf"
+      },
+      "goal": "(i) Prove $\\langle l,\\frac12,m\\mp\\frac12,\\pm\\frac12|l,\\frac12,l+\\frac12,m\\rangle=\\sqrt{\\frac{l\\pm m+\\frac12}{2l+1}}$. (ii) For $l=1$ write the states $|j=\\frac32,j_z\\rangle$ in terms of $|m,s\\rangle$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Highest state and recursion.",
+        "reveal": "$|l+\\frac12,l+\\frac12\\rangle=|l,\\uparrow\\rangle$ (coefficient 1). Apply $J_-=L_-+S_-$ repeatedly; the recursion relates neighbouring coefficients, $\\frac{c(m-1)}{c(m)}=\\sqrt{\\frac{l+m-\\frac12}{l+m+\\frac12}}$ for the $\\uparrow$ part, which telescopes to $\\sqrt{\\frac{l+m+\\frac12}{2l+1}}$; normalisation (or the other recursion) gives the $\\downarrow$ coefficient $\\sqrt{\\frac{l-m+\\frac12}{2l+1}}$."
+       },
+       {
+        "prompt": "(ii) $l=1$.",
+        "reveal": "$|\\frac32,\\frac32\\rangle=|1,\\uparrow\\rangle$, $|\\frac32,\\frac12\\rangle=\\sqrt{\\frac23}|0,\\uparrow\\rangle+\\sqrt{\\frac13}|1,\\downarrow\\rangle$, $|\\frac32,-\\frac12\\rangle=\\sqrt{\\frac13}|-1,\\uparrow\\rangle+\\sqrt{\\frac23}|0,\\downarrow\\rangle$, $|\\frac32,-\\frac32\\rangle=|-1,\\downarrow\\rangle$ (the $j=\\frac12$ states are the orthogonal combinations)."
+       }
+      ],
+      "keyPoints": [
+       "start at the highest weight",
+       "recursion with $J_-$",
+       "$\\sqrt{(l\\pm m+\\frac12)/(2l+1)}$",
+       "explicit $l=1$ quartet"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "title": "Time-energy, Zeno, Hardy",
+   "due": "2025-12-17",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Time-energy uncertainty",
+     "room": "formalism-and-uncertainty",
+     "related": [
+      "qm-fu-L4",
+      "qm-fu-L3"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s13q1",
+      "title": "Sheet 13 Q1: Time-energy uncertainty",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 13.pdf",
+       "where": "Exercise sheet XIII, Question 1; official solution: Solutions 13.pdf"
+      },
+      "goal": "(i) Show $\\langle\\psi|\\psi(t)\\rangle=\\exp\\left[-\\frac{it}\\hbar\\langle H\\rangle-\\frac{t^2}{2\\hbar^2}(\\Delta H)^2\\right](1+O(|t|^3))$. (ii) Show $P[\\text{no change}]=\\exp(-(\\Delta H)^2t^2/\\hbar^2)(1+O(|t|^3))$. (iii) What if $|\\psi\\rangle$ is an eigenstate of $H$?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Expand both sides.",
+        "reveal": "$\\langle\\psi|e^{-iHt/\\hbar}|\\psi\\rangle=1-\\frac{it}\\hbar\\langle H\\rangle-\\frac{t^2}{2\\hbar^2}\\langle H^2\\rangle+O(t^3)$; the exponential gives the same with $\\langle H^2\\rangle=(\\Delta H)^2+\\langle H\\rangle^2$."
+       },
+       {
+        "prompt": "(ii)-(iii) Survival probability.",
+        "reveal": "$|\\langle\\psi|\\psi(t)\\rangle|^2$: the phase drops out, $e^{-(\\Delta H)^2t^2/\\hbar^2}$: the decay time is $\\sim\\hbar/\\Delta H$. For an eigenstate $P=1$ for all $t$, consistent since $\\Delta H=0$."
+       }
+      ],
+      "keyPoints": [
+       "Taylor expansion to $t^2$",
+       "$\\langle H^2\\rangle=(\\Delta H)^2+\\langle H\\rangle^2$",
+       "time scale $\\hbar/\\Delta H$"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Quantum Zeno effect",
+     "room": "formalism-and-uncertainty",
+     "related": [
+      "qm-fu-L2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s13q2",
+      "title": "Sheet 13 Q2: Quantum Zeno effect",
+      "xp": 31,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 13.pdf",
+       "where": "Exercise sheet XIII, Question 2; official solution: Solutions 13.pdf"
+      },
+      "goal": "$U_t=e^{-iHt/\\hbar}$, $P=|\\phi\\rangle\\langle\\phi|$. (i) Show $PU_{t/n}P\\cdots U_{t/n}P=\\langle\\phi|U_{t/n}|\\phi\\rangle^nP$. (ii) Show $\\langle\\phi|U_{t/n}|\\phi\\rangle^n=e^{-i\\langle H\\rangle t/\\hbar}(1+O(t^2/n))$. (iii) Deduce the limit $n\\to\\infty$ and interpret.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Projectors.",
+        "reveal": "Each $P\\,U\\,P=|\\phi\\rangle\\langle\\phi|U|\\phi\\rangle\\langle\\phi|$: $n$ numbers $\\langle\\phi|U_{t/n}|\\phi\\rangle$ times $P$."
+       },
+       {
+        "prompt": "(ii)-(iii) Limit.",
+        "reveal": "By Q1, $\\langle\\phi|U_{t/n}|\\phi\\rangle=e^{-i\\langle H\\rangle t/n\\hbar}(1+O(t^2/n^2))$; to the power $n$: $(1+O(t^2/n^2))^n=1+O(t^2/n)\\to1$. So the limit is $e^{-i\\langle H\\rangle t/\\hbar}P$: continuous measurement freezes the state (watched pot)."
+       }
+      ],
+      "keyPoints": [
+       "$PUP=\\langle\\phi|U|\\phi\\rangle P$",
+       "$(1+O(1/n^2))^n\\to1$",
+       "freezing by repeated measurement"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Hardy’s paradox",
+     "room": "entanglement-lab",
+     "related": [
+      "qm-ent-L4",
+      "qm-ent-L1",
+      "qm-ent-D3"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s13q3",
+      "title": "Sheet 13 Q3: Hardy’s paradox",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 13.pdf",
+       "where": "Exercise sheet XIII, Question 3; official solution: Solutions 13.pdf"
+      },
+      "goal": "$|\\psi\\rangle=\\frac1{\\sqrt3}(|++\\rangle+|-+\\rangle+|--\\rangle)$. Alice measures $A_0$ (basis $|\\pm\\rangle$) or $A_1$ (basis $|\\pm\\hat n\\rangle=\\frac1{\\sqrt2}(|+\\rangle\\pm|-\\rangle)$), Bob $B_0$ ($|\\pm\\rangle$) or $B_1$ ($|+\\hat m\\rangle=\\frac1{\\sqrt5}(2|+\\rangle+|-\\rangle)$, $|-\\hat m\\rangle=\\frac1{\\sqrt5}(|+\\rangle-2|-\\rangle)$). (i) Show $|\\psi\\rangle\\propto|+\\hat n\\rangle(2|+\\rangle+|-\\rangle)-|-\\hat n\\rangle|-\\rangle$. (ii) Show $P[a_0>b_0]=P[b_0>a_1]=P[a_1>b_1]=0$. (iii) Classically that implies $P[a_0>b_1]=0$. (iv) Show quantum mechanically $P[a_0>b_1]>0$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Rewrite.",
+        "reveal": "$|\\pm\\rangle$ in terms of $|\\pm\\hat n\\rangle$: $|\\psi\\rangle=\\frac{1}{\\sqrt6}\\left[|+\\hat n\\rangle(2|+\\rangle+|-\\rangle)-|-\\hat n\\rangle|-\\rangle\\right]$."
+       },
+       {
+        "prompt": "(ii) Three zeros.",
+        "reveal": "$a_0=+1$ leaves $|++\\rangle$: $b_0=+1$ surely. $a_1=-1$ leaves $|-\\hat n\\rangle|-\\rangle$: $b_0=-1$ surely. $a_1=+1$ leaves $|+\\hat n\\rangle\\propto|+\\hat n\\rangle|+\\hat m\\rangle$: $b_1=+1$ surely."
+       },
+       {
+        "prompt": "(iii)-(iv) The contradiction.",
+        "reveal": "Classically $a_0\\le b_0\\le a_1\\le b_1$ always, so $a_0\\le b_1$. Quantum: $a_0=+1$ (probability $\\frac13$) leaves $|+\\rangle$ for Bob, and $|\\langle-\\hat m|+\\rangle|^2=\\frac15$: $P[a_0>b_1]=\\frac1{15}>0$. The values of non-commuting observables cannot all exist at once (no joint distribution)."
+       }
+      ],
+      "keyPoints": [
+       "rewriting in the $\\hat n$ basis",
+       "post-measurement states for the three zeros",
+       "classical chain $a_0\\le b_0\\le a_1\\le b_1$",
+       "$P=1/15$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "title": "Perturbation theory: anharmonic, Stark, spin-orbit and Zeeman",
+   "due": "2025-12-24",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Anharmonic oscillator",
+     "room": "perturbation-forge",
+     "related": [
+      "qm-ho-c1",
+      "qm-pf-L1",
+      "qm-pf-D1",
+      "qm-ho-L2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s14q1",
+      "title": "Sheet 14 Q1: Anharmonic oscillator",
+      "xp": 47,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+       "where": "Exercise sheet XIV, Question 1; official solution: Solutions 14.pdf"
+      },
+      "goal": "$H=H_0+\\lambda(x/x_0)^4$, $x_0=\\sqrt{\\hbar/m\\omega}$. (i) Write $H$ with $a,a^\\dagger$. (ii) Matrix elements of $H_a$ and the first-order shift. (iii) Energies to second order in $\\lambda$. (iv) Why does perturbation theory fail for large $n$?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Ladder operators.",
+        "reveal": "$x/x_0=(a+a^\\dagger)/\\sqrt2$: $H=\\hbar\\omega(a^\\dagger a+\\frac12)+\\frac\\lambda4(a+a^\\dagger)^4$."
+       },
+       {
+        "prompt": "(ii) First order.",
+        "reveal": "Non-zero: $\\langle n\\pm4|$, $\\langle n\\pm2|$, $\\langle n|$. Normal ordering gives $\\langle n|(a+a^\\dagger)^4|n\\rangle=6n^2+6n+3$: $E^{(1)}_n=\\frac{3\\lambda}4(2n^2+2n+1)$."
+       },
+       {
+        "prompt": "(iii) Second order.",
+        "reveal": "$E_n^{(2)}=\\sum_{k=\\pm2,\\pm4}\\frac{|\\langle n+k|H_a|n\\rangle|^2}{-k\\hbar\\omega}=-\\frac{\\lambda^2}{8\\hbar\\omega}(34n^3+51n^2+59n+21)$; ground state $E_0=\\hbar\\omega\\left[\\frac12+\\frac34\\frac{\\lambda}{\\hbar\\omega}-\\frac{21}8\\left(\\frac{\\lambda}{\\hbar\\omega}\\right)^2\\right]$."
+       },
+       {
+        "prompt": "(iv) Large $n$.",
+        "reveal": "$E^{(1)}_n/E^{(0)}_n\\sim\\frac{3\\lambda n}{\\hbar\\omega}$ grows: at large amplitudes $x^4$ dominates $x^2$, so it is no longer a small perturbation (and the series is only asymptotic: for $\\lambda<0$ the potential is unbounded)."
+       }
+      ],
+      "keyPoints": [
+       "$H_a=\\frac\\lambda4(a+a^\\dagger)^4$",
+       "$E^{(1)}=\\frac{3\\lambda}4(2n^2+2n+1)$",
+       "second-order sum over $\\pm2,\\pm4$",
+       "$-\\frac{\\lambda^2}{8\\hbar\\omega}(34n^3+51n^2+59n+21)$",
+       "why it fails at large $n$"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "Stark effect",
+     "room": "perturbation-forge",
+     "related": [
+      "qm-pf-L2",
+      "qm-pf-D4",
+      "qm-pf-c1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s14q2",
+      "title": "Sheet 14 Q2: Stark effect",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+       "where": "Exercise sheet XIV, Question 2; official solution: Solutions 14.pdf"
+      },
+      "goal": "Hydrogen in a field $\\vec E$: $\\Delta H=-e\\vec E\\cdot\\vec x$ ($e<0$). Use degenerate perturbation theory for $n=2$: energy shifts and eigenstates to first order.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Selection rules.",
+        "reveal": "Take $\\vec E=E\\hat z$, $\\Delta H=-eEz$. $z$ is odd (parity) and commutes with $L_z$: only $\\langle200|z|210\\rangle$ survives in the 4-dimensional $n=2$ space."
+       },
+       {
+        "prompt": "Matrix element.",
+        "reveal": "$\\langle200|z|210\\rangle=-3a_0$ (radial integral with the given $\\Psi_{2,0,0}$, $\\Psi_{2,1,0}$)."
+       },
+       {
+        "prompt": "Diagonalise.",
+        "reveal": "The $2\\times2$ block $\\begin{pmatrix}0&3eEa_0\\\\3eEa_0&0\\end{pmatrix}$: $\\Delta E=\\pm3|e|Ea_0$ for $\\frac1{\\sqrt2}(|200\\rangle\\mp|210\\rangle)$ (signs depend on the convention for $e$); $|21\\pm1\\rangle$ unshifted. A linear Stark effect, because of the $\\ell$ degeneracy of hydrogen."
+       }
+      ],
+      "keyPoints": [
+       "parity and $L_z$ selection rules",
+       "$\\langle200|z|210\\rangle=-3a_0$",
+       "$\\pm3|e|Ea_0$ and mixed states",
+       "$m=\\pm1$ unchanged"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Spin-orbit coupling and Zeeman effect",
+     "room": "hydrogen-lamp",
+     "related": [
+      "qm-hl-L4",
+      "qm-hl-D5",
+      "qm-hl-c3",
+      "qm-hl-b3",
+      "lab-qm-zeeman"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s14q3",
+      "title": "Sheet 14 Q3: Spin-orbit coupling and Zeeman effect",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 14.pdf",
+       "where": "Exercise sheet XIV, Question 3; official solution: Solutions 14.pdf"
+      },
+      "goal": "$\\Delta H=H_{SO}+H_Z=\\frac{1}{2m_e^2c^2}\\frac1r\\frac{dV}{dr}\\vec L\\cdot\\vec S+\\frac{\\mu_BB_z}{\\hbar}(L_z+2S_z)$. (i) Paschen-Back: $H_Z$ dominates; first-order spin-orbit shift; how large must $B_z$ be? (ii) Both as perturbation: diagonalise the $2\\times2$ blocks. (iii) For $B_z=0$ recover spin-orbit; to first order in $B_z$ show $\\Delta E=g_{\\ell j}\\mu_BB_zm_j$ with $g_{\\ell,\\ell\\pm1/2}=\\frac{2\\ell+1\\pm1}{2\\ell+1}$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Strong field.",
+        "reveal": "Basis $|n\\ell mm_s\\rangle$: $E=\\mu_BB_z(m+2m_s)+\\xi_{n\\ell}\\hbar^2mm_s$, with $\\xi_{n\\ell}=\\frac{e^2}{2m_e^2c^2}\\langle r^{-3}\\rangle$ and $\\langle r^{-3}\\rangle=\\frac{1}{a_0^3n^3\\ell(\\ell+\\frac12)(\\ell+1)}$ (only $L_zS_z$ of $\\vec L\\cdot\\vec S$ has diagonal elements). Valid when $\\mu_BB\\gg$ fine-structure splitting $\\sim\\alpha^2\\mathrm{Ry}/n^3$: of order a tesla or more."
+       },
+       {
+        "prompt": "(ii) Blocks.",
+        "reveal": "$[\\vec L^2,\\Delta H]=[L_z+S_z,\\Delta H]=0$: for fixed $\\ell$ and $m_j=m+m_s$ only $|m_j-\\frac12,\\uparrow\\rangle$, $|m_j+\\frac12,\\downarrow\\rangle$ mix; diagonalising each $2\\times2$ block gives the Breit-Rabi type formulas interpolating between weak and strong field."
+       },
+       {
+        "prompt": "(iii) Weak field.",
+        "reveal": "$B=0$: $\\vec L\\cdot\\vec S=\\frac{\\hbar^2}2[j(j+1)-\\ell(\\ell+1)-\\frac34]$. First order in $B$: $\\langle L_z+2S_z\\rangle=\\hbar m_j\\left(1+\\frac{\\langle\\vec S\\cdot\\vec J\\rangle}{\\hbar^2j(j+1)}\\right)$ (projection theorem), giving $g=\\frac{2\\ell+2}{2\\ell+1}$ for $j=\\ell+\\frac12$ and $\\frac{2\\ell}{2\\ell+1}$ for $j=\\ell-\\frac12$."
+       }
+      ],
+      "keyPoints": [
+       "Paschen-Back energies $\\mu_BB(m+2m_s)+\\xi\\hbar^2mm_s$",
+       "criterion $\\mu_BB\\gg$ fine structure",
+       "$2\\times2$ blocks at fixed $m_j$",
+       "Landé factors $g_{\\ell,\\ell\\pm1/2}$"
       ]
      }
     }

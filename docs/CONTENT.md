@@ -60,6 +60,12 @@ at load time. The astro textbook exercises (`choudhuri-exercises.json`, every en
 That file is generated: edit `notes/astrophysics/build/choudhuri/part*.py` (text) or `calc.py` (numbers, book constants) and run
 `python3 build.py` there (needs scipy); `node game/test/book-check.mjs --complete` checks completeness and LaTeX.
 
+## Exercise sheets
+`content/<course>/sheets.json` (listed in `extras`) holds the weekly sheets: `{title, note, sheets: [{n, title, due, questions: [{q, title, room,
+related: [encounter ids], enc}]}]}`. Each `enc` is a `derive` encounter with `sheet: true` (own console, not counted for doors/progress);
+`related` gives the two-way links. `due` is last year's date; the game shifts it by 364 days. The QM file is generated from
+`notes/quantum-mechanics/build/sheets/` (`qm_sheets_*.py`, `python3 build.py`); `node game/test/sheets-check.mjs` checks rooms, links and LaTeX.
+
 ## Adding a room
 1. Write notes in `notes/<course>/` (transcribe the relevant script pages and sheets; describe figures in words).
 2. Write `game/content/<course>/<room>.json` and add the room id to `index.json`.

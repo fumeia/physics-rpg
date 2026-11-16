@@ -544,7 +544,33 @@ function sheetLinksHtml(enc) {
   if (!back.length) return '';
   return `<div class="callout sheetlink"><div class="ctitle">On your exercise sheets</div><div class="row wrap">${back.map((x) => `<button class="chip btn" data-sopen="${x.q.enc.id}">Sheet ${x.sh.n} Q${x.q.q}: ${x.q.title}</button>`).join(' ')}</div></div>`;
 }
-function wireSheetLinks(host) { host.querySelectorAll('[data-sopen]').forEach((b) => (b.onclick = () => { closeOverlay(true); openById(b.dataset.sopen); player.enabled = true; })); }
+// Back navigation between a sheet question and its linked lessons: each jump pushes where you came from (the exercise with its
+// scroll position and open primer, or the Sheets tab); the opened exercise shows a sticky "back" bar while it is the jump target.
+const navStack = [];
+function wireSheetLinks(host) {
+  host.querySelectorAll('[data-sopen]').forEach((b) => (b.onclick = async () => {
+    const to = b.dataset.sopen, fromOverlay = overlay === 'pile' && studyTab === 'sheets';
+    const from = current?.enc && !fromOverlay ? { id: current.enc.id, title: current.enc.title || current.enc.id, scroll: $('side').scrollTop, primer: !!$('panel').querySelector('details.primer[open]') } : fromOverlay ? { tab: 'sheets', title: 'Sheets tab' } : null;
+    if (from && from.id !== to) navStack.push({ from, to }); else navStack.length = 0;
+    const mx = $('side').classList.contains('max');
+    closeOverlay(true); await openById(to); player.enabled = true;
+    if (mx) $('side').classList.add('max');
+  }));
+}
+function navBackBar(enc) {
+  const top = navStack[navStack.length - 1];
+  if (!top || top.to !== enc.id) { navStack.length = 0; return null; }
+  const bar = document.createElement('div'); bar.className = 'navback';
+  bar.innerHTML = `<button class="go">\u2190 Back to ${top.from.title}</button>${navStack.length > 1 ? `<span class="src">${navStack.length} steps deep</span>` : ''}`;
+  bar.querySelector('button').onclick = async () => {
+    navStack.pop(); const f = top.from, mx = $('side').classList.contains('max');
+    if (f.tab) { closePanel(true); navStack.length = 0; openOverlay('pile'); renderStudy(f.tab); return; }
+    await openById(f.id); if (mx) $('side').classList.add('max');
+    if (f.primer) { const d = $('panel').querySelector('details.primer'); if (d) d.open = true; }
+    requestAnimationFrame(() => { $('side').scrollTop = f.scroll || 0; });
+  };
+  return bar;
+}
 function sheetsHtml() {
   const cs = Object.entries(sheetsByCourse);
   if (!cs.length) return '<p class="src">No exercise sheets loaded yet.</p>';
@@ -1138,6 +1164,7 @@ function openEncounter(enc, fromGroup) {
   }
   const sl = sheetLinksHtml(enc); if (sl) { const box = document.createElement('div'); box.innerHTML = M(sl); wireSheetLinks(box); $('panel').prepend(box); }
   if (!enc.synthetic) $('panel').prepend(pileBar(enc));
+  const nb = navBackBar(enc); if (nb) $('panel').prepend(nb);
   updateBar();
 }
 function closePanel(silent) {
@@ -1222,6 +1249,7 @@ function watchPanels() {
   for (const id of ['cx', 'side', 'nx-card']) $(id).addEventListener('scroll', () => { const e = $(id); if (e.scrollLeft) e.scrollLeft = 0; }, { passive: true }); // no sideways drift of a whole panel
   const mo = new MutationObserver(sync); for (const id of ['side', 'cx']) mo.observe($(id), { attributes: true, attributeFilter: ['class'] });
   for (const [btn, id] of [['side-max', 'side'], ['cx-max', 'cx']]) $(btn).onclick = () => $(id).classList.toggle('max');
+  $('ov-max').onclick = () => document.querySelector('.ov-card').classList.toggle('max');
   sync();
 }
 function toggleFullscreen() {

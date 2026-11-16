@@ -336,3 +336,39 @@ html[data-theme=light] .primerbody h4 { color: #0a3a8c; } html[data-theme=light]
 
 /* figures cropped from the exercise sheets and slides: always on white so the print-style plots read in both themes */
 img.fig { display: inline-block; max-width: 100%; height: auto; background: #fff; border-radius: 6px; padding: 4px; margin: 6px 4px 6px 0; vertical-align: top; }
+
+/* ---- catch-up campaign and daily run */
+.cp-head { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+.cp-head > div { background: rgba(108,182,255,.07); border: 1px solid rgba(108,182,255,.18); border-radius: 10px; padding: 10px 12px; }
+.cp-head b { display: block; font-size: 26px; line-height: 1.1; color: var(--accent); } .cp-head span { font-size: 12px; opacity: .8; }
+.cp-run { border: 1px solid rgba(245,196,81,.35); background: linear-gradient(180deg, rgba(245,196,81,.09), rgba(245,196,81,.02)); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; }
+.cp-runhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; } .cp-runhead h3 { margin: 0; }
+.cp-path { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding: 12px 2px 8px; }
+.cp-node { flex: 1 0 128px; max-width: 210px; display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: 0; color: inherit; text-align: center; cursor: pointer; padding: 0 4px; font: inherit; }
+.cp-dot { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; border: 2px solid rgba(255,255,255,.3); background: rgba(255,255,255,.04); transition: transform .15s, box-shadow .15s; }
+.cp-node:hover .cp-dot { transform: scale(1.08); } .cp-node.next .cp-dot { border-color: var(--warn); box-shadow: 0 0 0 5px rgba(245,196,81,.16); animation: cp-pulse 1.8s ease-in-out infinite; }
+.cp-node.done .cp-dot { border-color: var(--good); background: rgba(76,195,138,.2); color: var(--good); } .cp-node.failed .cp-dot { border-color: var(--bad); background: rgba(255,107,107,.15); color: var(--bad); }
+.cp-nk { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; opacity: .7; } .cp-nt { font-size: 13px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.cp-link { flex: 0 0 22px; height: 2px; background: rgba(255,255,255,.25); margin-top: 22px; }
+.cp-go { font-size: 16px; padding: 10px 22px; }
+@keyframes cp-pulse { 50% { box-shadow: 0 0 0 9px rgba(245,196,81,.05); } }
+.cp-course { margin: 14px 0; } .cp-chead { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; } .cp-chead h3 { margin: 0; } .cp-chead span { font-size: 13px; opacity: .85; }
+.cp-behind { color: var(--warn); } .cp-ok { color: var(--good); }
+.cp-track { display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 4px; margin-top: 6px; }
+.cp-tile { position: relative; height: 40px; border-radius: 6px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); color: inherit; cursor: pointer; overflow: hidden; padding: 0; font: inherit; }
+.cp-tile i { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(76,195,138,.45); transition: height .4s; } .cp-tile b { position: relative; font-size: 13px; }
+.cp-tile.done, .cp-tile.known { border-color: var(--good); } .cp-tile.known i { background: repeating-linear-gradient(45deg, rgba(76,195,138,.4) 0 5px, rgba(76,195,138,.18) 5px 10px); }
+.cp-tile.future { opacity: .45; } .cp-tile.now { outline: 2px solid var(--accent); outline-offset: 1px; opacity: 1; } .cp-tile.you { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); } .cp-tile.sel { background: rgba(108,182,255,.18); }
+.cp-week { border-left: 3px solid var(--accent); padding: 6px 10px; margin-top: 8px; background: rgba(108,182,255,.05); border-radius: 0 8px 8px 0; } .cp-whead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+.cp-setrow { display: flex; align-items: center; gap: 8px; margin: 8px 0; } .cp-setrow > b { min-width: 170px; } .cp-setval { min-width: 64px; text-align: center; font-weight: 700; }
+@media (max-width: 700px) { .cp-head { grid-template-columns: 1fr 1fr; } .cp-head b { font-size: 20px; } .cp-track { gap: 2px; } .cp-tile { height: 34px; } .cp-setrow > b { min-width: 110px; } }
+html[data-theme=light] .cp-dot { border-color: rgba(0,0,0,.35); background: rgba(0,0,0,.03); } html[data-theme=light] .cp-link { background: rgba(0,0,0,.3); } html[data-theme=light] .cp-tile { border-color: rgba(0,0,0,.3); background: rgba(0,0,0,.03); } html[data-theme=light] .cp-head b { color: #0b57b0; }
+/* compact HUD: the run, the campaign and one menu; everything else is one level deeper (Menu, or its keyboard shortcut) */
+#btn-run { background: var(--warn); color: #1a1407; font-weight: 700; border-color: transparent; } #btn-run.done { background: rgba(76,195,138,.25); color: inherit; }
+body.hudc .menu-only { display: inline-block; } body.hudc #hud .tr > .chip.btn:not(#btn-menu):not(#btn-run):not(#btn-campaign):not(#btn-fs) { display: none; } body.hudc #hint { display: none; }
+body.lite #btn-run, body.lite #btn-campaign { display: inline-block; }
+.menu h4 { grid-column: 1 / -1; margin: 10px 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; opacity: .65; }
+.st-plan { margin: 6px 0 10px; font-size: 14px; opacity: .92; } .st-run { display: block; margin: 14px auto 0; font: inherit; font-size: 22px; font-weight: 700; padding: 16px 48px; min-height: 60px; border: 0; border-radius: 40px; background: var(--warn, #f5c451); color: #1a1407; cursor: pointer; box-shadow: 0 0 34px rgba(245,196,81,.35); }
+.st-run:hover { filter: brightness(1.07); } .st-card.has-run .st-go { font-size: 15px; padding: 9px 26px; min-height: 0; background: transparent; color: inherit; border: 1px solid rgba(127,160,220,.5); box-shadow: none; margin-top: 10px; }
+@media (max-height: 460px) { .st-run { padding: 10px 36px; min-height: 0; font-size: 18px; margin-top: 8px; } .st-plan { margin: 4px 0; font-size: 13px; } }
+html[data-theme=light] .st-run, html[data-theme=light] #btn-run:not(.done) { color: #fff; } html[data-theme=light] .cp-run { background: rgba(160,90,0,.06); border-color: rgba(160,90,0,.4); } html[data-theme=light] .cp-node.next .cp-dot { box-shadow: 0 0 0 5px rgba(160,90,0,.15); }

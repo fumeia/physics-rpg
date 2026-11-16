@@ -9,6 +9,7 @@ import { diagnose } from './diagnose.js';
 import { logMistake } from './mistakes.js';
 import { confBar, recordConf } from './confidence.js';
 
+export const STEP_HINT_COST = 2; // one graded hint on a sheet or book step
 export const HINT_COST = 5, FIRST_TRY_BONUS = 3, PREDICT_XP = 10, BONUS_STEP_XP = 5;
 export const fmt = (v) => (v !== 0 && (Math.abs(v) < 1e-2 || Math.abs(v) >= 1e4) ? v.toExponential(3) : Number(v.toPrecision(4)).toString());
 const eligibleForXp = (enc) => !store.isSolved(enc.id) || store.hasReview(enc.id);
@@ -484,10 +485,18 @@ function mountDerive(enc, el, env) {
   const host = el.querySelector('#dsteps'); let revealed = 0;
   enc.steps.forEach((s, n) => {
     const d = document.createElement('div'); d.className = 'step';
-    d.innerHTML = M(`<div><b>${n + 1}.</b> ${s.prompt}</div><button class="go" data-rv>Reveal reference step</button><div class="after" style="display:none">${s.reveal}</div>`);
+    const hs = s.hints || [];
+    d.innerHTML = M(`<div><b>${n + 1}.</b> ${s.prompt}</div><div class="hintbox" data-hb></div><div class="row">${hs.length ? `<button class="chip btn hintbtn" data-hint>Hint 1 of ${hs.length} (\u2212${STEP_HINT_COST} XP)</button>` : ''}<button class="go" data-rv>Reveal reference step</button></div><div class="after" style="display:none">${s.reveal}</div>`);
     host.appendChild(d);
+    // graded hints (nudge, method, key step): one at a time, each costs a little XP, none after the reference step is open
+    const hb = d.querySelector('[data-hint]'); let shown = 0;
+    if (hb) hb.onclick = () => {
+      d.querySelector('[data-hb]').insertAdjacentHTML('beforeend', M(`<div class="hint"><b>Hint ${shown + 1}.</b> ${hs[shown]}</div>`));
+      shown++; store.addXp(-STEP_HINT_COST); env.onChange();
+      if (shown === hs.length) hb.remove(); else hb.textContent = `Hint ${shown + 1} of ${hs.length} (\u2212${STEP_HINT_COST} XP)`;
+    };
     d.querySelector('[data-rv]').onclick = () => {
-      d.querySelector('.after').style.display = ''; d.querySelector('[data-rv]').style.display = 'none';
+      d.querySelector('.after').style.display = ''; d.querySelector('[data-rv]').style.display = 'none'; d.querySelector('[data-hint]')?.remove();
       if (++revealed === enc.steps.length) keys();
     };
   });

@@ -13,6 +13,7 @@ import { buildLabHolos } from './labholo.js';
 import { mistakes, updateMistake, weakSpots } from './mistakes.js';
 import { renderDrillTab, setDrillData, drillData } from './drills.js';
 import { initTouch } from './touch.js';
+import { createCampaign } from './campaignui.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
@@ -117,6 +118,10 @@ async function boot() {
   for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
+  try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
+    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign') }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
+  // compact HUD (run, campaign, menu) unless the full chip row was chosen in the menu; tests keep the full row unless they ask for hud=compact
+  if (params.get('hud') === 'compact' || (!params.has('test') && params.get('hud') !== 'full' && (store.val('settings', {}) || {}).hud !== 'full')) document.body.classList.add('hudc');
   progress(88, 'Building the 3D world...'); await nextFrame();
   world = new World(canvas);
   player = new Player(canvas, world);
@@ -131,7 +136,7 @@ async function boot() {
   $('start-profile').textContent = `Profile: ${store.profile}`;
   $('st-profile').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; openOverlay('profile'); }); };
   $('st-go').onclick = (ev) => { ev.stopPropagation(); requestStart(); };
-  startEl.onclick = (ev) => { if (!ev.target.closest('#st-profile, #resume, #st-go')) requestStart(); };
+  startEl.onclick = (ev) => { if (!ev.target.closest('#st-profile, #resume, #st-go, #st-run')) requestStart(); };
   $('help').onclick = () => startTutorial(); $('btn-nexus').onclick = () => goNexus(); $('btn-profile').onclick = () => openOverlay('profile'); $('btn-help').onclick = () => openOverlay('help'); $('btn-missions').onclick = () => openOverlay('missions'); $('btn-exam').onclick = () => openOverlay('exam'); $('btn-pile').onclick = () => openOverlay('pile'); $('btn-conn').onclick = () => connectionsHere(); $('btn-guide').onclick = () => { store.setFlag('guide-off', guideOn()); refresh(); if (inNexus) goNexus(); };
   $('btn-map').onclick = () => openOverlay('map'); $('btn-codex').onclick = () => toggleCodex(); $('side-cx').onclick = () => toggleCodex(); $('cx-close').onclick = () => closeCodex();
   $('ov-close').onclick = () => closeOverlay();
@@ -149,6 +154,8 @@ async function boot() {
   exposeTestApi();
   if (params.has('test')) { $('start').style.display = 'none'; player.enabled = true; if (params.has('tutorial')) startTutorial(); }
   $('btn-menu').onclick = () => openOverlay('menu');
+  $('btn-run').onclick = () => { if (campaign) campaign.startRun(); }; $('btn-campaign').onclick = () => openOverlay('campaign');
+  $('st-run').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; if (campaign) campaign.startRun(); }); };
   // the keyboard-and-mouse layout on a device that has a touch screen: always offer the way back
   if (!touch && !lite && (matchMedia('(pointer: coarse)').matches || (navigator.maxTouchPoints > 0 && innerWidth < 1000))) {
     const bt = $('back-to-touch'); bt.style.display = ''; bt.onclick = () => { setControlsChoice('touch'); reloadWithout('touch', 'controls'); };
@@ -173,6 +180,7 @@ async function boot() {
     } catch (e) { console.warn('deep link failed', e.message); }
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  if (campaign) { $('st-run').style.display = ''; $('st-run').textContent = campaign.isSetup() ? '\u25b6 Today\u2019s run' : '\u25b6 Set up my campaign'; document.querySelector('.st-card').classList.add('has-run'); $('st-go').textContent = 'Just walk around'; updateRunChips(); }
   startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';
   if (startWanted || window.__want) enterGame();
   // The frame loop must never stop: the next frame is scheduled first, an error in one frame is logged and skipped, and a watchdog restarts the loop if frames stop
@@ -366,6 +374,7 @@ const passed = (enc) => store.isPassed(enc.id);
 const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
   $('xp').textContent = `XP ${store.xp}`;
+  if (campaign) { if (campaign.onProgress()) setTimeout(() => { if (!current || $('panel').querySelector('#result .msg')) { toast('Run complete. Well done.'); sfx.goal(); } openOverlayWhenFree('campaign'); }, 900); updateRunChips(); }
   const due = store.dueReviews();
   $('reviews').textContent = `Respawns due: ${due.length}`;
   $('reviews').classList.toggle('review', due.length > 0);
@@ -512,6 +521,7 @@ function togglePile(id) {
 }
 function updatePileChip() { const el = $('btn-pile'); if (el) el.textContent = `Study (V) · pile ${Object.keys(pile()).length}`; }
 let pileQueue = [];
+let campaign = null; // catch-up campaign and daily run (campaignui.js)
 function pileBar(enc) {
   const bar = document.createElement('div'); bar.className = 'pilebar';
   const render = () => {
@@ -739,15 +749,15 @@ function renderPlan(host) {
 function menuHtml() {
   const s = missionStatus(), d = store.dueReviews().length, n = nextRouteStep();
   const tdn = todayItems().filter((x) => !x.mission && x.ok).length;
-  return `<div class="menu"><button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
-    <button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
+  return `<div class="menu"><h4>Play now</h4>${campaign ? `<button class="bigbtn" data-m="run"><b>${campaign.chipText()}</b><span>${campaign.startLine()} (G)</span></button><button class="bigbtn" data-m="campaign"><b>Campaign: ${campaign.behindText()}</b><span>every lecture week of the three courses, what is done and what is next (C)</span></button>` : ''}<button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
+    <h4>Study</h4><button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
     <button class="bigbtn" data-m="sheets"><b>${sheetMenuLabel()}</b><span>this week's exercise sheet, question by question, with links into the game</span></button><button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
-    <button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
+    <h4>Explore</h4><button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
     <button class="bigbtn" data-m="formulas"><b>Formulas</b><span>drawer for the current course</span></button>
     ${inNexus ? '' : '<button class="bigbtn" data-m="connections"><b>Connections of this room</b><span>how it links to topics in other rooms and courses</span></button>'}
     <button class="bigbtn" data-m="allconn"><b>All connections</b><span>every link between topics across the three courses</span></button>
-    <button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
+    <h4>Settings and help</h4><button class="bigbtn" data-m="hud"><b>Top bar: ${document.body.classList.contains('hudc') ? 'compact' : 'all buttons'}</b><span>${document.body.classList.contains('hudc') ? 'show every button in the top bar again' : 'show only the run, the campaign and the menu'}</span></button><button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="nexus"><b>Fly to the Nexus</b><span>the map of everything you study</span></button>'}
     <button class="bigbtn" data-m="help"><b>Controls and help</b><span>${touch ? 'stick, look, buttons, both panels' : 'keys and tips'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="tutorial"><b>Replay the tutorial</b><span>for the room you are in</span></button>'}
@@ -770,6 +780,8 @@ function wireMenu() {
     else if (k === 'today') { openOverlay('pile'); renderStudy('today'); }
     else if (k === 'sheets') { openOverlay('pile'); renderStudy('sheets'); }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
+    else if (k === 'run') { closeOverlay(true); campaign.startRun(); } else if (k === 'campaign') openOverlay('campaign');
+    else if (k === 'hud') { const on = !document.body.classList.contains('hudc'); document.body.classList.toggle('hudc', on); store.setVal('settings', { ...(store.val('settings', {}) || {}), hud: on ? 'compact' : 'full' }); openOverlay('menu'); }
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
     else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
     else if (k === 'landscape') { closeOverlay(true); lockLandscape(); }
@@ -961,6 +973,8 @@ function onKey(e) {
   if (e.code === 'KeyK' && !tut && !current) { connectionsHere(); return; }
   if (e.code === 'KeyP' && !tut && !current) { overlay === 'profile' ? closeOverlay() : openOverlay('profile'); return; }
   if (e.code === 'F1' && !tut) { e.preventDefault(); overlay === 'help' ? closeOverlay() : openOverlay('help'); return; }
+  if (e.code === 'KeyC' && !tut && !current) { overlay === 'campaign' ? closeOverlay() : openOverlay('campaign'); return; }
+  if (e.code === 'KeyG' && !tut && !current && campaign) { closeOverlay(true); campaign.startRun(); return; }
   if (e.code === 'KeyV' && !tut && !current) { overlay === 'pile' ? closeOverlay() : openOverlay('pile'); return; }
   if (e.code === 'KeyX' && !tut && !current) { overlay === 'exam' ? closeOverlay() : openOverlay('exam'); return; }
   if (e.code === 'KeyT' && !tut && !current) { overlay === 'missions' ? closeOverlay() : openOverlay('missions'); return; }
@@ -994,10 +1008,11 @@ async function openById(id) {
 function openOverlay(kind) {
   overlay = kind; player.unlock();
   $('overlay').style.display = '';
-  $('ov-title').textContent = { missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
+  $('ov-title').textContent = { campaign: 'Campaign: catch up, week by week', missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
   if (stopExam) { stopExam(); stopExam = null; }
   if (kind === 'exam') { $('ov-body').innerHTML = ''; stopExam = mountExamHall($('ov-body'), { catalog, banks, store, onGoto: (k) => { const [c, r] = k.split('/'); closeOverlay(true); loadRoom(c, r, { silent: false }); player.enabled = true; } }); return; }
   if (kind === 'pile') { renderStudy(); return; }
+  if (kind === 'campaign') { renderCampaign(); return; }
   if (kind === 'suggest') { $('ov-body').innerHTML = M(suggestion.html); wireSuggest(); return; }
   if (kind === 'menu' || kind === 'roomMenu') { $('ov-body').innerHTML = kind === 'menu' ? menuHtml() : roomMenuHtml(); wireMenu(); return; }
   $('ov-body').innerHTML = kind === 'missions' ? missionsHtml() : kind === 'profile' ? profileHtml() : kind === 'help' ? helpHtml() : mapHtml();
@@ -1009,6 +1024,15 @@ function openOverlay(kind) {
   document.querySelectorAll('[data-goto]').forEach((b) => (b.onclick = async () => { const [c, r] = b.dataset.goto.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); return; } loadRoom(c, r, { silent: false }); if (!player.enabled) player.enabled = true; }));
 }
 let stopExam = null;
+function renderCampaign() { if (!campaign) { $('ov-body').innerHTML = '<p>The campaign could not be loaded.</p>'; return; } const b = $('ov-body'), y = b.scrollTop; b.innerHTML = M(campaign.html()); campaign.wire(b, renderCampaign); b.scrollTop = y; }
+function updateRunChips() {
+  if (!campaign) return; const r = $('btn-run'), c = $('btn-campaign'); if (!r || !c) return;
+  r.textContent = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign';
+  const sp = $('st-plan'); if (sp) sp.textContent = campaign.startLine();
+}
+// the run summary must not tear the result of the last exercise away: show it when the panel is closed (or right away if none is open)
+let pendingOverlay = null;
+function openOverlayWhenFree(kind) { if (current) pendingOverlay = kind; else openOverlay(kind); }
 function closeOverlay(silent) {
   if (stopExam) { stopExam(); stopExam = null; }
   overlay = null; $('overlay').style.display = 'none';
@@ -1175,6 +1199,7 @@ function closePanel(silent) {
   if (runner && !runner.finished && !runner.done) { /* a replay keeps running */ }
   else if (runner && runner.done) runner = null; // a first run that was abandoned
   const had = !!current; current = null;
+  if (pendingOverlay && !silent) { const k = pendingOverlay; pendingOverlay = null; setTimeout(() => openOverlay(k), 0); updateBar(); return; }
   if (had && !silent && player.enabled) player.lock();
   updateBar();
 }

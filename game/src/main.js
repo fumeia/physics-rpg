@@ -15,6 +15,7 @@ import { renderDrillTab, setDrillData, drillData } from './drills.js';
 import { initTouch } from './touch.js';
 import { createCampaign } from './campaignui.js';
 import * as battle from './battle.js';
+import { createQuality } from './quality.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
@@ -210,7 +211,11 @@ async function boot() {
         stepRunner(dt, now);
         touchUI?.update({ promptText: promptTarget && !blocking() ? $('prompt').textContent : null, flying: inNexus });
         tickStudy(dt); player.update(dt); world.update(dt); set?.update(dt, player.pos, world.camera); holos?.update(dt, player.pos); if (inNexus) updateNexusCard(); updatePrompt();
-        if (!lite && !covered()) { updateShift(); world.render(player.camera); }
+        if (!lite && !covered()) {
+          // an exercise that is only being read (no simulation, no experiment) lets the 3D view idle at a few frames a second
+          const reading = !!current?.enc && !(runner && !runner.finished) && !view.variant && !['lab', 'predict-observe', 'sandbox'].includes(current.enc.type) && !tut;
+          if (!quality || quality.shouldRender(now, { reading })) { updateShift(); world.render(player.camera); quality?.sample(now, now - lastDrawAt, { reading, hidden: document.hidden }); lastDrawAt = now; }
+        }
       } catch (e) { lastT = now; if (frameErrors++ < 5) console.error('frame error (skipped)', e); }
     };
     requestAnimationFrame(tick);
@@ -442,9 +447,10 @@ function openConnections(key = null) {
 const connectionsHere = () => openConnections(inNexus ? set?.focus?.node?.key ?? null : `${course.id}/${room.slug}`);
 // ================================================================ profile, settings, achievements, study time
 function applySettings() {
-  const s = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
+  const s = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
   configureFeedback({ sound: !!s.sound, haptics: s.haptics !== false });
-  player.sens = s.sens; world.renderer.setPixelRatio(s.quality === 'low' ? 1 : Math.min(window.devicePixelRatio || 1, 2));
+  quality ||= createQuality({ setPixelRatio: (r) => { world.renderer.setPixelRatio(r); world.resize(); } });
+  player.sens = s.sens; quality.setMode(params.get('quality') || (params.has('test') ? 'high' : s.quality)); // tests draw every frame unless they ask for a level
 }
 function updateProfileChip() {
   const el = $('btn-profile'); if (!el) return; const ok = sync.available && /saved/.test(sync.status);
@@ -479,10 +485,10 @@ function runAchievements() {
 window.addEventListener('encounter-done', () => setTimeout(runAchievements, 600));
 const fmtMin = (s) => `${Math.floor(s / 3600) ? Math.floor(s / 3600) + ' h ' : ''}${Math.round((s % 3600) / 60)} min`;
 function profileHtml() {
-  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
+  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
     <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
-    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution)</option></select></label>
+    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="auto" ${st.quality === 'auto' ? 'selected' : ''}>automatic (follows the frame rate${quality ? `; now: ${quality.level}` : ''})</option><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="medium" ${st.quality === 'medium' ? 'selected' : ''}>medium</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution, 30 fps)</option><option value="minimal" ${st.quality === 'minimal' ? 'selected' : ''}>minimal (half resolution, 30 fps)</option></select></label>
       <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min or ${GOAL_EXERCISES[k]} exercises)</option>`).join('')}</select></label>
       <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
       <label class="labrow"><span><input type="checkbox" id="set-haptics" ${st.haptics !== false ? 'checked' : ''}> vibration</span></label>
@@ -522,6 +528,7 @@ function togglePile(id) {
 }
 function updatePileChip() { const el = $('btn-pile'); if (el) el.textContent = `Study (V) · pile ${Object.keys(pile()).length}`; }
 let pileQueue = [];
+let quality = null, lastDrawAt = 0; // graphics governor (quality.js)
 let campaign = null; // catch-up campaign and daily run (campaignui.js)
 function pileBar(enc) {
   const bar = document.createElement('div'); bar.className = 'pilebar';
@@ -1302,6 +1309,7 @@ function exposeTestApi() {
     activeSeconds: () => studyToday() + Math.round(studyAcc),
     failFrames: (n) => { testHooks.failFrames = n; }, teleport: (...a) => player.teleport(...a), holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
     finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
+    quality: () => quality?.info(), battle: () => battle.current(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };
 }

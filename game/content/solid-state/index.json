@@ -13,6 +13,7 @@
   "extras": [
     "phet-band-structure.json",
     "phet-sims.json",
-    "sheets.json"
+    "sheets.json",
+    "slide-quizzes.json"
   ]
 }

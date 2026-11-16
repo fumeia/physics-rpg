@@ -54,3 +54,10 @@ The PDFs (sheets, solutions, slides, script, test exam) are **not** in git: they
   $(210)$ comes first; sheet 8 Q2(d) last line has a wrong coefficient ($2\cdot5\cdot3^3$ for $2\cdot3\cdot2^3$); result $K=48U_0/\Omega_0\approx3.0$ GPa.
 - Due dates are estimated (Friday of the week after the lecture week, `dueShiftDays: 0`): ask the user for the real weekday.
 - Check: `node game/test/sheets-check-solid-state.mjs` (every number recomputed), `node game/test/sheets-check.mjs` (links, LaTeX).
+
+## Lecture concept questions (slides) in the game
+`notes/solid-state/build/slides/build.py` writes `game/content/solid-state/slide-quizzes.json`: 74 questions from the lecture slides
+(weeks 1–4 and the 46-question "Week08 (Quizzes)" deck) as seven quizzes in the Quiz halls of `lattice-gate` (3), `bonding-grotto`,
+`phonon-halls` and `fermi-sea` (2). The key is the red frame on each slide; the explanations are ours (script sections cited).
+The two "Yes or No?" slides have no key: those ten answers are ours and say so. Week-8 slide 34 ("how many electronic states") is
+debatable and says so. Figures: `slides/figures.py` (answer frames painted out). Check: `node game/test/slide-quiz-check.mjs`.

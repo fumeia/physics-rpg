@@ -19,6 +19,8 @@ Everything below that needs `sudo` can be run as root without it. Run commands *
 | Study notifications: settings | `/etc/physics-rpg/notify.env` (topic, ntfy address, game address, time zone) | `deploy/notify-setup.sh` |
 | Study notifications: schedule | `/etc/systemd/system/physics-rpg-notify.timer` (08:15, 13:15, 19:45) and `.service`; the shortcut `rpg-notify` | `deploy/notify-setup.sh` |
 | The game server reading the notification settings (for "remind me later") | `/etc/systemd/system/physics-rpg.service.d/notify.conf` | `deploy/notify-setup.sh` |
+| XP to Questboard: settings (Questboard address and token, topic names) | `/etc/physics-rpg/questboard.env` | `deploy/questboard-setup.sh` |
+| XP to Questboard: every 3 minutes, and what was sent | `/etc/systemd/system/physics-rpg-questboard.timer` and `.service`, the shortcut `rpg-questboard`, memory `/var/lib/physics-rpg/questboard-state.json` | `deploy/questboard-setup.sh` |
 
 The DNS entry (an `A` record `rpg` pointing to the server) is at Spaceship, not on the server.
 
@@ -35,6 +37,9 @@ The DNS entry (an `A` record `rpg` pointing to the server) is at Spaceship, not 
 | Only look at what a notification would say | `sudo rpg-notify --slot evening --dry-run` |
 | Send a test message | `sudo rpg-notify --test` |
 | See when the notifications run next | `systemctl list-timers physics-rpg-notify` |
+| Send the game's XP to Questboard now / only look at what would be sent | `sudo rpg-questboard` / `sudo rpg-questboard --dry-run` |
+| Update the Questboard server itself (no laptop needed) | `sudo qb-server-update` (the first time: `sudo bash /opt/physics-rpg/deploy/questboard-server-update.sh`, it asks you once to add a read-only deploy key on GitHub) |
+| Check the Questboard connection | `sudo rpg-questboard --check`; its log: `journalctl -u physics-rpg-questboard -n 20 --no-pager` |
 | Turn the notifications off (and on again) | `sudo systemctl disable --now physics-rpg-notify.timer` / `sudo systemctl enable --now physics-rpg-notify.timer` |
 | See my saved progress files | `ls -la /var/lib/physics-rpg/profiles/` |
 | Make a manual backup | `sudo tar czf ~/progress-$(date +%F).tgz -C /var/lib/physics-rpg profiles` |
@@ -60,6 +65,8 @@ sudo systemctl start physics-rpg
 | The notification topic or ntfy server | `sudo bash /opt/physics-rpg/deploy/notify-setup.sh NEW-TOPIC [https://your-ntfy-server]` (then subscribe to the new topic in the app, unsubscribe the old) |
 | An ntfy access token (private ntfy server) | add a line `NTFY_TOKEN=tk_...` to `/etc/physics-rpg/notify.env`, then `sudo systemctl restart physics-rpg` |
 | The time zone of the reminders | `NOTIFY_TZ=` in `/etc/physics-rpg/notify.env` and the timer file's three times (they carry the zone name), then reload as above |
+| The Questboard topic names of the three courses (must match Questboard exactly) | `QB_TOPIC_QM`, `QB_TOPIC_SOLID_STATE`, `QB_TOPIC_ASTROPHYSICS` in `/etc/physics-rpg/questboard.env` (keep the quotes), then `sudo rpg-questboard`. The quest titles stay; rename them in Questboard if you like |
+| Which Questboard goal each course's quest is linked to | done once, automatically: the open goal whose title names the course ("QM", "Quanten…", "Festk…", "Astro…"). Change it in Questboard (the quest's goal); a link you remove there is not made again. The matching words: `QB_GOAL_QM`, `QB_GOAL_SOLID_STATE`, `QB_GOAL_ASTROPHYSICS` in `/etc/physics-rpg/questboard.env` |
 | Which profile the notifications read | `PHYSICS_RPG_PROFILE=` in `/etc/physics-rpg/notify.env` (default `default`) |
 | The exam date (countdown, pace) | `EXAM_DATE` at the top of `/opt/physics-rpg/game/src/missions.js` (later `rpg-update` keeps your edit only if it does not clash; better ask Claude to change it in the repository) |
 | What counts as studying (for the goal and the notifications) | Time actively working on exercises, or the number of finished exercises; the rules are in `docs/HOW_THE_GAME_WORKS.md` (Daily goal). The goal size is set in the game: Profile > settings |
@@ -74,6 +81,7 @@ Nothing is deleted without a question, and **your progress is kept unless you ad
 | I want to... | Command |
 |---|---|
 | Remove only the notifications | `sudo bash /opt/physics-rpg/deploy/uninstall.sh notify` |
+| Stop sending XP to Questboard (what was sent stays there) | `sudo bash /opt/physics-rpg/deploy/uninstall.sh questboard` |
 | Take the game website down (keeps progress and code) | `sudo bash /opt/physics-rpg/deploy/uninstall.sh site` |
 | Remove everything the setup made, keep progress | `sudo bash /opt/physics-rpg/deploy/uninstall.sh all` |
 | ...and delete progress and backups too | `sudo bash /opt/physics-rpg/deploy/uninstall.sh all --purge-data` |

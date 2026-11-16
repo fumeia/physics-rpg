@@ -34,4 +34,12 @@ ok('box: sum rule sum P_n = 1', near([...Array(4000).keys()].reduce((s, i) => s 
 { // independent numeric overlap check
   const N = 20000, c = (n) => { let s = 0; for (let i = 0; i < N; i++) { const x = (i + .5) / N; s += Math.sqrt(2) * Math.sin(Math.PI * x) * Math.sin(n * Math.PI * x / 2) / 1 / N; } return s; };
   ok('box P_n equals numeric overlap squared', [1, 2, 3, 5].every((n) => near(c(n) ** 2, Q.pBoxDouble(n), 1e-4))); }
+{ // general wall jump a -> w a: numeric overlap, sum rule, w=2 reproduces the exam numbers, density normalised and independent of hbar/m only through time
+  const num = (n, w) => { const N = 40000; let s = 0; for (let i = 0; i < N; i++) { const x = (i + .5) / N; s += Math.sqrt(2) * Math.sin(Math.PI * x) * Math.sqrt(2 / w) * Math.sin(n * Math.PI * x / w) / N; } return s; };
+  ok('cBoxJump = numeric overlap for w = 1.3, 2, 2.7, 3.5', [1.3, 2, 2.7, 3.5].every((w) => [1, 2, 3, 4].every((n) => near(num(n, w), Q.cBoxJump(n, w), 1e-3))));
+  ok('w = 2: P1 = 0.360, P2 = 1/2, P3 = 0.130, P4 = 0', near(Q.cBoxJump(1, 2) ** 2, 0.3603, 1e-3) && near(Q.cBoxJump(2, 2) ** 2, .5) && near(Q.cBoxJump(3, 2) ** 2, 0.1297, 1e-3) && Math.abs(Q.cBoxJump(4, 2)) < 1e-9);
+  ok('sum rule: sum P_n = 1 for w = 1.7 and 3.2', [1.7, 3.2].every((w) => { let s = 0; for (let n = 1; n <= 4000; n++) s += Q.cBoxJump(n, w) ** 2; return near(s, 1, 1e-3); }));
+  ok('w -> 1: P_1 -> 1', Q.cBoxJump(1, 1.0001) ** 2 > 0.999);
+  ok('density at t = 0 is the old ground state and stays normalised', (() => { let s = 0, z = 0; const M = 4000; for (let i = 0; i < M; i++) { const x = (i + .5) / M * 2.5; s += Q.boxJumpDensity(x, 1.7, 2.5, 3) * 2.5 / M; } return near(s, 1, 2e-3) && near(Q.boxJumpDensity(0.4, 0, 2.5, 3, 200), 2 * Math.sin(Math.PI * 0.4) ** 2, 2e-2); })());
+}
 console.log(fails ? `${fails} FAILED` : 'all passed'); process.exit(fails ? 1 : 0);

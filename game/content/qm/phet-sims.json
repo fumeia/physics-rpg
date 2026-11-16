@@ -1,0 +1,523 @@
+{
+ "about": "Exercises with PhET simulations (CC-BY), placed into rooms. Answers checked against the simulations: notes/phet/build_phet.py.",
+ "items": [
+  {
+   "room": "harmonic-oscillator-elevator",
+   "enc": {
+    "type": "calc",
+    "id": "qm-ho-p1",
+    "title": "PhET: the oscillator ladder",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=bound-states&locale=en",
+     "name": "PhET Quantum Bound States",
+     "java": true,
+     "setup": "Open the <b>One Well</b> tab, choose the <b>Harmonic Oscillator</b> well. Defaults: angular frequency $\\omega=1\\ \\mathrm{fs^{-1}}$, particle mass $1.0\\,m_e$, offset 0. Click a level to see its wave function; the superposition button builds $\\psi_0+\\psi_1$.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "Check the spectrum $E_n=\\hbar\\omega(n+\\frac12)$ and the length scale $x_0=\\sqrt{\\hbar/m\\omega}$ of the ladder-operator solution in the simulation ($\\hbar=0.658$ eV fs).",
+    "vars": {},
+    "steps": [
+     {
+      "id": "E0",
+      "prompt": "Ground-state energy at $\\omega=1\\ \\mathrm{fs^{-1}}$ (eV).",
+      "answer": "0.658/2",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.03,
+      "hint": "Zero-point energy $\\hbar\\omega/2=0.329$ eV: the sim draws the lowest level there, not at the bottom of the parabola."
+     },
+     {
+      "id": "dE",
+      "prompt": "Spacing between neighbouring levels (eV).",
+      "answer": "0.658",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.03,
+      "hint": "Equal spacing $\\hbar\\omega=0.658$ eV: $a^\\dagger$ raises the energy by one quantum. (0.329, 0.987, 1.645, ... in the sim.)"
+     },
+     {
+      "id": "m",
+      "kind": "choice",
+      "prompt": "Move the <b>particle mass</b> slider from 1.0 to 0.5 at fixed $\\omega$. What changes?",
+      "options": [
+       "Only the wave functions get wider; the energies stay",
+       "The energies double",
+       "The energies halve",
+       "Nothing at all"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "$E_n=\\hbar\\omega(n+\\frac12)$ contains no mass at fixed $\\omega$ (the sim keeps $\\omega$, so it softens the spring $k=m\\omega^2$).",
+       "2": "Same reason: no $m$ in $E_n$ at fixed $\\omega$.",
+       "3": "The width $x_0=\\sqrt{\\hbar/m\\omega}$ grows by $\\sqrt2$."
+      },
+      "after": "Energies fixed by $\\omega$ alone; the length scale $x_0\\propto m^{-1/2}$ changes."
+     },
+     {
+      "id": "x0",
+      "prompt": "Oscillator length $x_0=\\sqrt{\\hbar/m_e\\omega}$ for $\\omega=1\\ \\mathrm{fs^{-1}}$, with $m_e=5.68$ eV fs$^2$/nm$^2$ (nm). It is the classical turning point of the ground state.",
+      "answer": "sqrt(0.658/5.68)",
+      "unit": "nm",
+      "units": [
+       "nm",
+       "um",
+       "pm",
+       "eV"
+      ],
+      "tol": 0.03,
+      "hint": "$\\sqrt{0.658/5.68}=0.34$ nm: where $\\frac12m\\omega^2x^2=\\frac12\\hbar\\omega$. The ground-state wave function visibly extends beyond it (tunnelling into the classically forbidden region)."
+     },
+     {
+      "id": "T",
+      "prompt": "Superposition $\\psi_0+\\psi_1$: period of the sloshing of $|\\psi|^2$ (fs). Watch the clock.",
+      "answer": "2*pi/1",
+      "unit": "fs",
+      "units": [
+       "fs",
+       "ps",
+       "s",
+       "eV"
+      ],
+      "tol": 0.05,
+      "hint": "The relative phase evolves with $(E_1-E_0)/\\hbar=\\omega$: period $2\\pi/\\omega=6.28$ fs, the classical period (Ehrenfest)."
+     },
+     {
+      "id": "E5",
+      "prompt": "Set $\\omega=2\\ \\mathrm{fs^{-1}}$. Energy of the level $n=5$ (eV).",
+      "answer": "0.658*2*5.5",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.03,
+      "hint": "$\\hbar\\omega(5+\\frac12)=1.316\\times5.5=7.24$ eV (sim: 7.238 eV). The level index equals the number of nodes."
+     }
+    ],
+    "xp": 70,
+    "source": {
+     "file": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html",
+     "where": "One Well, Harmonic Oscillator; energies from the sim's solver: 0.3290, 0.9870, 1.6450 eV ... (omega=1), 7.2380 eV (n=5, omega=2)"
+    }
+   }
+  },
+  {
+   "room": "wave-mechanics-basics",
+   "enc": {
+    "type": "calc",
+    "id": "qm-wm-p1",
+    "title": "PhET: the finite square well",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=bound-states&locale=en",
+     "name": "PhET Quantum Bound States",
+     "java": true,
+     "setup": "Open the <b>One Well</b> tab, <b>Square</b> well. Defaults: width 1 nm, height 10 eV, offset 0, mass $1.0\\,m_e$ (\"Configure Potential...\" shows them).",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "Compare the finite well with the infinite box $E_n^{\\infty}=\\dfrac{n^2\\pi^2\\hbar^2}{2mL^2}$ and count the bound states with $z_0=\\dfrac L2\\dfrac{\\sqrt{2mV_0}}{\\hbar}$ (number of bound states $=\\lceil2z_0/\\pi\\rceil$). Use $\\hbar^2/2m_e=0.0381$ eV nm$^2$.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "n",
+      "prompt": "How many bound states does the default well have?",
+      "answer": "6",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.01,
+      "hint": "$z_0=0.5\\sqrt{10/0.0381}=8.10$, $2z_0/\\pi=5.16$: 6 states (levels up to 9.81 eV in the sim)."
+     },
+     {
+      "id": "Einf",
+      "prompt": "Ground state of the <i>infinite</i> box of the same width (eV).",
+      "answer": "pi**2*0.0381/1**2",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.02,
+      "hint": "$\\pi^2\\times0.0381/1^2=0.376$ eV."
+     },
+     {
+      "id": "E1",
+      "prompt": "Ground state of the finite well, read in the sim (eV).",
+      "answer": "0.2996",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.05,
+      "hint": "The sim shows 0.300 eV: lower than 0.376 eV because the wave function leaks into the walls (effective width larger)."
+     },
+     {
+      "id": "why",
+      "kind": "choice",
+      "prompt": "Which level is shifted most, relative to the infinite box?",
+      "options": [
+       "The highest bound level",
+       "The ground state",
+       "All by the same factor",
+       "None: the levels coincide"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "The ground state is deepest; its decay length $1/\\kappa$ outside is shortest, so the leak is smallest.",
+       "2": "The shift grows with $n$ as $V_0-E$ shrinks.",
+       "3": "The finite well is always lower."
+      },
+      "after": "Near the top $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$ is small: deep penetration, large effective width. Level 6: 9.81 eV vs $36\\times0.376=13.5$ eV in the box."
+     },
+     {
+      "id": "n05",
+      "prompt": "Set the width to 0.5 nm. Number of bound states now?",
+      "answer": "3",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.01,
+      "hint": "$z_0=4.05$, $2z_0/\\pi=2.58$: 3 states (0.967, 3.777, 7.990 eV). A finite 1D well always has at least one."
+     }
+    ],
+    "xp": 60,
+    "source": {
+     "file": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html",
+     "where": "One Well, Square; solver: width 1 nm 0.2996 1.1943 2.6696 4.6937 7.1893 9.8102 eV; width 0.5 nm 0.9668 3.7769 7.9898 eV"
+    }
+   }
+  },
+  {
+   "room": "hydrogen-lamp",
+   "enc": {
+    "type": "calc",
+    "id": "qm-hl-p1",
+    "title": "PhET: hydrogen and positronium",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html?simulation=bound-states&locale=en",
+     "name": "PhET Quantum Bound States",
+     "java": true,
+     "setup": "Open the <b>One Well</b> tab, choose <b>3D Coulomb (L=0)</b>, offset 0, mass $1.0\\,m_e$. Zoom the energy axis to see the higher levels.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "The radial equation for $\\ell=0$ in the Coulomb potential gives $E_n=-\\dfrac{m e^4}{2(4\\pi\\epsilon_0)^2\\hbar^2}\\dfrac1{n^2}=-\\dfrac{13.6\\ \\mathrm{eV}}{n^2}$.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "E1",
+      "prompt": "Ground-state energy (eV).",
+      "answer": "-13.6016",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.01,
+      "hint": "Rydberg energy: $-13.6$ eV."
+     },
+     {
+      "id": "lam",
+      "prompt": "Photon wavelength of the $n=3\\to2$ transition (nm), from the two level energies.",
+      "answer": "1239.84/(13.6016*(1/4-1/9))",
+      "unit": "nm",
+      "units": [
+       "nm",
+       "um",
+       "pm",
+       "eV"
+      ],
+      "tol": 0.01,
+      "hint": "$\\Delta E=13.6(\\frac14-\\frac19)=1.889$ eV, $\\lambda=hc/\\Delta E=1239.8/1.889=656$ nm: H$\\alpha$, the red Balmer line."
+     },
+     {
+      "id": "nodes",
+      "kind": "choice",
+      "prompt": "Click the $n=3$ level. How many nodes does the plotted ($\\ell=0$) wave function have (not counting $r=0$ and infinity)?",
+      "options": [
+       "2",
+       "3",
+       "0",
+       "9"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "Radial nodes are $n-\\ell-1$.",
+       "2": "Only the ground state is node-free.",
+       "3": "$n^2=9$ is the degeneracy (all $\\ell$, $m$), not the node count."
+      },
+      "after": "$n-\\ell-1=2$ radial nodes. The sim shows only $\\ell=0$; the other $\\ell<n$ states have the same energy (degeneracy $n^2$)."
+     },
+     {
+      "id": "Eps",
+      "prompt": "Set the particle mass to 0.5 $m_e$ (the reduced mass of positronium, $e^+e^-$). Ground-state energy now (eV)?",
+      "answer": "-13.6016/2",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.01,
+      "hint": "$E_n\\propto m$: $-6.80$ eV, the positronium ground state. For real hydrogen the reduced mass $m_em_p/(m_e+m_p)$ shifts it by 0.05 %."
+     }
+    ],
+    "xp": 60,
+    "source": {
+     "file": "https://phet.colorado.edu/sims/cheerpj/bound-states/latest/bound-states.html",
+     "where": "One Well, 3D Coulomb (L=0); solver: -13.6016, -3.4004, -1.5113 eV (mass 1), -6.8008 eV (mass 0.5)"
+    }
+   }
+  },
+  {
+   "room": "tunneling-bridge",
+   "enc": {
+    "type": "calc",
+    "id": "qm-tunnel-p1",
+    "title": "PhET: tunnelling through a barrier",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/cheerpj/quantum-tunneling/latest/quantum-tunneling.html?simulation=quantum-tunneling&locale=en",
+     "name": "PhET Quantum Tunneling and Wave Packets",
+     "java": true,
+     "setup": "Choose <b>Potential: barrier/well</b>, <b>plane wave</b>, and tick <b>Show reflection and transmission probabilities</b>. With <b>Configure Energy...</b> enter the exact values of each step: total energy $E$, barrier height $V_0=0.5$ eV, barrier width $a$.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "Transmission through a rectangular barrier for $E<V_0$: $T=\\left[1+\\dfrac{V_0^2\\sinh^2\\kappa a}{4E(V_0-E)}\\right]^{-1}$, $\\kappa=\\sqrt{2m(V_0-E)}/\\hbar$; for $E>V_0$ replace $\\sinh\\to\\sin$ and $\\kappa\\to k_2=\\sqrt{2m(E-V_0)}/\\hbar$. $\\hbar^2/2m_e=0.0381$ eV nm$^2$.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "T1",
+      "prompt": "$E=0.3$ eV, $a=0.5$ nm: transmission probability $T$.",
+      "answer": "1/(1+0.25*sinh(sqrt(0.2/0.0381)*0.5)**2/(4*0.3*0.2))",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "$\\kappa=\\sqrt{0.2/0.0381}=2.29$ nm$^{-1}$, $\\kappa a=1.15$, $T=0.325$ (sim: T = 0.32)."
+     },
+     {
+      "id": "T2",
+      "prompt": "Same energy, $a=1.0$ nm: $T$.",
+      "answer": "1/(1+0.25*sinh(sqrt(0.2/0.0381)*1.0)**2/(4*0.3*0.2))",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "$\\kappa a=2.29$: $T=0.039$. Doubling the width divides $T$ by 8.4."
+     },
+     {
+      "id": "T3",
+      "prompt": "$a=1.5$ nm: $T$.",
+      "answer": "1/(1+0.25*sinh(sqrt(0.2/0.0381)*1.5)**2/(4*0.3*0.2))",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.03,
+      "hint": "$\\kappa a=3.44$: $T=0.0040$, another factor 10 down."
+     },
+     {
+      "id": "f",
+      "prompt": "Thick-barrier rule $T\\approx\\frac{16E(V_0-E)}{V_0^2}e^{-2\\kappa a}$: predicted factor for each extra 0.5 nm, $e^{-2\\kappa\\cdot0.5\\,\\mathrm{nm}}$. Compare with T3/T2.",
+      "answer": "exp(-2*sqrt(0.2/0.0381)*0.5)",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.03,
+      "hint": "$e^{-2.29}=0.101$; the sim gives $T_3/T_2=0.103$ (and $T_2/T_1=0.119$: the rule only holds once $\\kappa a\\gg1$)."
+     },
+     {
+      "id": "Eres",
+      "prompt": "Above the barrier ($a=1$ nm) $T$ reaches exactly 1 when $k_2a=\\pi$. At which total energy (eV)? Check it in the sim.",
+      "answer": "0.5+pi**2*0.0381/1**2",
+      "unit": "eV",
+      "units": [
+       "eV",
+       "meV",
+       "nm",
+       "J"
+      ],
+      "tol": 0.01,
+      "hint": "$E=V_0+\\pi^2\\hbar^2/2ma^2=0.5+0.376=0.876$ eV: the barrier holds a whole half wavelength, reflections from both edges cancel (transmission resonance, the \"Ramsauer\" effect)."
+     },
+     {
+      "id": "R6",
+      "prompt": "At $E=0.6$ eV ($a=1$ nm, above the barrier): reflection probability $R$.",
+      "answer": "1-1/(1+0.25*sin(sqrt(0.1/0.0381)*1.0)**2/(4*0.6*0.1))",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "Classically $R=0$ above the barrier; quantum mechanically $R=0.51$ here."
+     }
+    ],
+    "xp": 80,
+    "source": {
+     "file": "https://phet.colorado.edu/sims/cheerpj/quantum-tunneling/latest/quantum-tunneling.html",
+     "where": "barrier/well, plane wave; transmission from the sim's SingleBarrierSolver: 0.32467, 0.03856, 0.00397 (E 0.3), 1.00000 (E 0.876), R 0.50960 (E 0.6)"
+    }
+   }
+  },
+  {
+   "room": "spin-addition-stern-gerlach",
+   "enc": {
+    "type": "calc",
+    "id": "qm-sa-p1",
+    "title": "PhET: Stern–Gerlach chains",
+    "fight": "normal",
+    "sim": {
+     "url": "https://phet.colorado.edu/sims/html/quantum-measurement/latest/quantum-measurement_en.html",
+     "name": "PhET Quantum Measurement",
+     "setup": "Open the <b>Spin</b> screen. Use the experiment menu (Experiment 1 to 6) and <b>Custom</b>; switch the source to <b>Continuous</b> to collect statistics.",
+     "credit": "PhET Interactive Simulations, University of Colorado Boulder (CC-BY)."
+    },
+    "problem": "Spin-1/2: a measurement along $\\hat n$ gives $+\\frac\\hbar2$ with probability $|\\langle+_n|\\psi\\rangle|^2$, and leaves the particle in the eigenstate it found. $|+_x\\rangle=\\frac1{\\sqrt2}(|{\\uparrow_z}\\rangle+|{\\downarrow_z}\\rangle)$.",
+    "vars": {},
+    "steps": [
+     {
+      "id": "p1",
+      "prompt": "Prepare $+X$ and run Experiment 1 (one SG$_z$). Fraction found in $|{\\uparrow_z}\\rangle$?",
+      "answer": "0.5",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "$|\\langle\\uparrow_z|+_x\\rangle|^2=\\frac12$."
+     },
+     {
+      "id": "p4",
+      "prompt": "Prepare $+Z$, Experiment 4 (SG$_z$ then SG$_z$ on the upper beam). Fraction of the upper beam that goes up again?",
+      "answer": "1",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.01,
+      "hint": "The first SG$_z$ projected onto $|\\uparrow_z\\rangle$: repeating the same measurement gives the same result with certainty."
+     },
+     {
+      "id": "p5",
+      "prompt": "Prepare $+Z$, Experiment 3 (SG$_z$, then SG$_x$ on the upper beam). Fraction of that beam deflected to $+x$?",
+      "answer": "0.5",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "$|\\langle+_x|\\uparrow_z\\rangle|^2=\\frac12$: $S_z$ and $S_x$ do not commute; a definite $S_z$ means a completely uncertain $S_x$."
+     },
+     {
+      "id": "mem",
+      "kind": "choice",
+      "prompt": "Experiment 5 with $+Z$ prepared: SG$_x$ first, then SG$_z$ on the $+x$ beam. What fraction comes out $\\uparrow_z$, although all particles started $\\uparrow_z$?",
+      "options": [
+       "1/2: the $x$ measurement erased the $z$ information",
+       "1: the particles remember they started up",
+       "0",
+       "1/4"
+      ],
+      "correct": 0,
+      "why": {
+       "1": "After SG$_x$ the state is $|+_x\\rangle$, with no memory of the preparation.",
+       "2": "$|\\langle\\uparrow_z|+_x\\rangle|^2=\\frac12$, not 0.",
+       "3": "The 1/2 of the first stage is already accounted for: within the selected beam it is 1/2."
+      },
+      "after": "Measurement projects the state: the core of the Stern–Gerlach chain."
+     },
+     {
+      "id": "pz",
+      "prompt": "Custom: set $|\\alpha|^2=0.75$ (real $\\alpha,\\beta\\ge0$) and use SG$_z$. Probability of $\\uparrow_z$?",
+      "answer": "0.75",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "Directly $|\\alpha|^2=0.75$."
+     },
+     {
+      "id": "px",
+      "prompt": "Same state, SG$_x$: probability of $+x$, $|\\langle+_x|\\psi\\rangle|^2=\\frac12(\\alpha+\\beta)^2$.",
+      "answer": "0.5*(sqrt(0.75)+sqrt(1-0.75))**2",
+      "unit": "dimensionless",
+      "units": [
+       "dimensionless",
+       "eV",
+       "nm",
+       "%"
+      ],
+      "tol": 0.02,
+      "hint": "$\\frac12(0.866+0.5)^2=0.933$. On the Bloch sphere the state is tilted by $\\theta=60^\\circ$ from $z$ towards $x$: $P(+x)=\\cos^2\\frac{90^\\circ-60^\\circ}{2}=0.933$."
+     }
+    ],
+    "xp": 70,
+    "source": {
+     "file": "https://phet.colorado.edu/sims/html/quantum-measurement/latest/quantum-measurement_en.html",
+     "where": "Spin screen, Experiments 1-6 and Custom; probabilities from the projection postulate (exact)"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "id": "astro-relativity-annex",
+ "region": "Astro Observatory Ship",
+ "title": "The Relativity Annex",
+ "course": "astrophysics",
+ "topics": [
+  "tensors",
+  "covariant derivative",
+  "Riemann and Ricci tensors",
+  "geodesics",
+  "Schwarzschild metric",
+  "perihelion precession",
+  "light bending",
+  "gravitational waves"
+ ],
+ "sources": [
+  {
+   "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+   "where": "Choudhuri Ch. 12 (tensors, Christoffel symbols 12.31, Riemann 12.37, Ricci 12.41, Einstein equation 12.47) and its Exercises 12.1-12.7, pp. 384-385"
+  },
+  {
+   "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+   "where": "Choudhuri Ch. 13 (Schwarzschild 13.13, orbits 13.21-13.32, light 13.38, linear theory and gravitational waves 13.79-13.84) and its Exercises 13.1-13.7, pp. 416-417"
+  }
+ ],
+ "intro": "The general-relativity chapters of Choudhuri (12 and 13): tensors, curvature, the Schwarzschild solution and gravitational waves. <b>Exam priority: low.</b> Recent exams did not ask about them beyond the FRW/Friedmann and Schwarzschild basics, so do this room after the A-topics, or when the lecture slides show they are covered. Everything here is the book's end-of-chapter exercises, at the Book exercises console.",
+ "encounters": []
+}

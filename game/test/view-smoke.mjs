@@ -38,5 +38,11 @@ if (holo.length) {
     ck('the hologram took over the slider value and is marked live', after && after.live && after.p[info.c] !== before, JSON.stringify(after));
   }
 }
+// wave-packet lab: the box view greys out nothing it uses, the packet view greys out the width slider
+await g(() => window.__game.loadRoom('qm', 'wave-mechanics-basics')); await sleep(1200); await g(() => window.__game.open('lab-qm-wavepacket')); await sleep(900);
+const dis = () => g(() => ({ w: document.querySelector('[data-c=w]').disabled, hm: document.querySelector('[data-c=hm]').disabled }));
+ck('packet view: width slider greyed, inertia active', JSON.stringify(await dis()) === '{"w":true,"hm":false}');
+await g(() => { const i = document.querySelector('[data-c=box]'); i.checked = true; i.dispatchEvent(new Event('input', { bubbles: true })); }); await sleep(300);
+ck('box view: both sliders active', JSON.stringify(await dis()) === '{"w":false,"hm":false}');
 ck('no page errors', errs.length === 0, errs.join(' | '));
 await b.close(); srv.kill(); console.log(fails ? `${fails} FAILED` : 'ALL OK'); process.exit(fails ? 1 : 0);

@@ -62,14 +62,18 @@ const GROUPS = [
   { key: 'lesson', label: 'LIBRARY', types: ['lesson'], blurb: 'Theory and intuition cards with check questions' },
   { key: 'lab', label: 'EXPERIMENTS', types: ['lab'], blurb: 'Interactive simulations: change something, remove a term, see what happens' },
   { key: 'quiz', label: 'QUIZ HALL', types: ['quiz'], blurb: 'Exam-style multiple choice (quick fights)' },
+  { key: 'sheet', label: 'EXERCISE SHEETS', types: ['derive'], sheet: true, blurb: 'Your weekly exercise sheets, question by question, with hints and the official solution' },
   { key: 'derive', label: 'DERIVATION DESK', types: ['derive'], blurb: 'Derivations on paper, step by step' },
+  { key: 'book', label: 'BOOK EXERCISES', types: ['derive'], book: true, blurb: 'Every end-of-chapter exercise of the textbook, on paper, with a worked solution' },
   { key: 'station', label: 'STATIONS', types: ['predict-observe', 'sandbox'], blurb: 'Predict, watch the simulation, explain' },
   { key: 'fight', label: 'FIGHTS', types: ['calc'], blurb: 'Calculation fights: equations first, numbers last' },
+  { key: 'sim', label: 'PHET SIMULATIONS', types: ['calc', 'derive', 'quiz'], sim: true, blurb: 'Exercises with an online PhET simulation (best on a PC)' },
   { key: 'boss', label: 'BOSS GATE', types: ['boss'], blurb: 'Old exam problems on paper under the timer' },
 ];
 
 let bridgeOn = false; // is the QM bridge exhibit the 3D content of the current room?
 let holos = null, world, player, course, room, set = null, current = null, unmountPanel = null, dueTarget = null, tut = null, overlay = null;
+let sheetsByCourse = {}; // course id -> {title, sheets: [{n, title, due, questions: [{q, title, room, related, enc}]}]}
 let catalog = [], encIndex = new Map(), codexByCourse = {}, groups = [], linksData = [], route = [], banks = {}, dayMissions = null, dayKey = '';
 let inNexus = false, nexusFocusKey = null;
 const modules = {};
@@ -90,6 +94,14 @@ async function boot() {
     const idx = idxs[ci];
     const rooms = (await Promise.all(idx.rooms.map(async (id) => { const r = await fetchJson(`content/${c.dir}/${id}.json`); progress(6 + 54 * (++roomsGot) / roomTotal); return r; }))).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
     for (const l of labs) { const [lc, ls] = l.room.split('/'); if (lc !== c.id) continue; const r = rooms.find((x) => x.slug === ls); if (!r) continue; let at = 0; r.encounters.forEach((e, i) => { if (e.type === 'lesson') at = i + 1; }); r.encounters.splice(at, 0, l.enc); }
+    for (const f of idx.extras || []) {
+      try {
+        const x = await fetchJson(`content/${c.dir}/${f}`), place = (room, enc) => { const r = rooms.find((y) => y.slug === room); if (r) r.encounters.push(enc); };
+        for (const it of x.items || []) place(it.room, it.enc);
+        // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
+        if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
+      } catch (err) { console.warn('extra content failed', f, err.message); }
+    }
     catalog.push({ ...c, region: idx.region, rooms });
     try { banks[c.id] = await fetchJson(`content/${c.dir}/blitz.json`); } catch { /* optional question bank */ }
     if (idx.codex) codexByCourse[c.id] = await fetchJson(`content/${c.dir}/${idx.codex}`);
@@ -237,16 +249,20 @@ const NEXUS_COURSE = { id: 'nexus', name: 'The Nexus', region: 'The Nexus', brid
 // ---- guided route: one recommended next step at a time (can be switched off with the Guide button)
 const guideOn = () => !store.flag('guide-off');
 const GUIDE_SKIP = ['sandbox', 'boss']; // never forced by the guide
-function routeDone(r) { const es = r.encounters.filter((e) => !['sandbox', 'boss', 'lab'].includes(e.type)); return !es.length || es.filter(passed).length / es.length >= 0.75; }
+// the core of a room: what opens the door, fills the progress rings and is followed by the guide (book exercises are optional extra practice)
+const core = (e) => e.type !== 'sandbox' && !e.book && !e.sim && !e.sheet;
+function routeDone(r) { const es = r.encounters.filter((e) => !['sandbox', 'boss', 'lab'].includes(e.type) && core(e)); return !es.length || es.filter(passed).length / es.length >= 0.75; }
 function nextRouteStep() {
   for (const item of route) {
     const [c, slug] = item.key.split('/'), r = findRoom(c, slug); if (!r || routeDone(r)) continue;
-    const enc = r.encounters.find((e) => !GUIDE_SKIP.includes(e.type) && !store.isSolved(e.id) && !isLocked(e)) || r.encounters.find((e) => e.type !== 'sandbox' && !store.isPassed(e.id) && !isLocked(e));
+    const enc = r.encounters.find((e) => !GUIDE_SKIP.includes(e.type) && core(e) && !store.isSolved(e.id) && !isLocked(e)) || r.encounters.find((e) => core(e) && !store.isPassed(e.id) && !isLocked(e));
     return { course: c, slug, room: r, enc, why: item.why, key: item.key };
   }
   return null;
 }
-const groupOf = (enc) => GROUPS.find((g) => g.types.includes(enc?.type));
+const FLAGS = ['book', 'sim', 'sheet'];
+const inGroup = (g, e) => g.types.includes(e?.type) && FLAGS.every((f) => !!g[f] === !!e?.[f]); // book, simulation and sheet exercises have their own consoles
+const groupOf = (enc) => GROUPS.find((g) => inGroup(g, enc));
 function roomKeysDue() { const s = new Set(); for (const id of store.dueReviews()) { const r = encIndex.get(id); if (r) s.add(`${r.course}/${r.roomId}`); } return s; }
 function roomsRecommended() {
   const s = new Set();
@@ -285,7 +301,7 @@ function updateNexusCard() {
   let html = '';
   const tex = (t) => { try { return katex.renderToString(t, { displayMode: true, throwOnError: false, strict: 'ignore' }); } catch { return ''; } };
   if (f.node) {
-    const n = f.node, es = n.room.encounters.filter((e) => e.type !== 'sandbox'), done = es.filter((e) => store.isPassed(e.id)).length;
+    const n = f.node, es = n.room.encounters.filter((e) => core(e)), done = es.filter((e) => store.isPassed(e.id)).length;
     const nb = set.neighbours(n);
     html = `<h3>${n.room.title}</h3><div class="src">${course(n.course)} · ${done} / ${es.length} done${n.due ? ' · <b class="due">respawn due</b>' : ''}${n.rec ? ' · <b style="color:var(--warn)">recommended next</b>' : ''}</div>
       <p>${(n.room.intro || '').replace(/<[^>]+>/g, '').slice(0, 230)}${(n.room.intro || '').length > 230 ? '…' : ''}</p>
@@ -329,7 +345,7 @@ async function loadRoom(courseId, roomId, { silent = false } = {}) {
   try { holos = buildLabHolos(world, room); } catch (err) { console.warn('lab holograms failed', err.message); holos = null; }
   // consoles: one per group present in this room
   world.clearTerminals();
-  groups = GROUPS.map((g) => ({ ...g, id: `${room.id}:${g.key}`, items: room.encounters.filter((e) => g.types.includes(e.type)) })).filter((g) => g.items.length);
+  groups = GROUPS.map((g) => ({ ...g, id: `${room.id}:${g.key}`, items: room.encounters.filter((e) => inGroup(g, e)) })).filter((g) => g.items.length);
   const n = groups.length;
   groups.forEach((g, i) => { g.terminal = world.addTerminal(g, (i - (n - 1) / 2) * 2.1, g.label); });
   $('region').textContent = course.region; $('room-title').textContent = room.title;
@@ -346,7 +362,7 @@ async function loadRoom(courseId, roomId, { silent = false } = {}) {
 // ================================================================ state shown in the world and HUD
 const isLocked = (enc) => !!enc.requires && !store.isPassed(enc.requires);
 const passed = (enc) => store.isPassed(enc.id);
-const roomProgress = (r) => { const es = r.encounters.filter((e) => e.type !== 'sandbox'); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
+const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
   $('xp').textContent = `XP ${store.xp}`;
   const due = store.dueReviews();
@@ -360,9 +376,9 @@ function refresh() {
     const status = hasReview ? 'review' : es.length && done === es.length ? 'done' : 'new';
     world.setTerminalStatus(g.terminal, status, false, es.length ? `${done} / ${es.length} done${hasReview ? ', respawn due' : ''}` : 'open');
   }
-  const cleared = room.encounters.filter((e) => e.type !== 'sandbox').every(passed);
+  const cleared = room.encounters.filter((e) => core(e)).every(passed);
   world.setDoorOpen(cleared || room.encounters.some((e) => e.unlocks && passed(e)));
-  const next = room.encounters.find((e) => e.type !== 'sandbox' && !store.isSolved(e.id) && !isLocked(e));
+  const next = room.encounters.find((e) => core(e) && !store.isSolved(e.id) && !isLocked(e));
   const gs = guideOn() ? nextRouteStep() : null;
   updateProfileChip(); updatePileChip();
   $('btn-guide').textContent = `Guide: ${guideOn() ? 'on' : 'off'}`;
@@ -506,6 +522,69 @@ function pileBar(enc) {
   };
   render(); return bar;
 }
+// ---- exercise sheets: due dates of this year (the sheets are the HS25 set: same weekday one year later), current sheet, links
+const DAY = 86400000;
+const sheetDue = (sh) => (sh.due ? new Date(Date.parse(sh.due + 'T23:59:00') + 364 * DAY) : null);
+const fmtDue = (d) => (d ? d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '');
+function currentSheet(cid) { const s = sheetsByCourse[cid]; if (!s) return null; const now = Date.now(); return s.sheets.find((x) => sheetDue(x) && sheetDue(x) >= now - DAY / 2) || s.sheets[s.sheets.length - 1]; }
+function sheetMenuLabel() {
+  const parts = Object.keys(sheetsByCourse).map((cid) => { const sh = currentSheet(cid); return sh ? `${findCourse(cid)?.name || cid} sheet ${sh.n}` : ''; }).filter(Boolean);
+  return parts.length ? `Exercise sheets: ${parts.join(', ')}` : 'Exercise sheets';
+}
+const sheetRefs = () => { const out = []; for (const [cid, s] of Object.entries(sheetsByCourse)) for (const sh of s.sheets) for (const q of sh.questions) out.push({ cid, sh, q }); return out; };
+function relatedBtn(id) { const ref = encIndex.get(id); if (!ref) return ''; const e = ref.enc; return `<button class="chip btn${passed(e) ? ' ok' : ''}" data-sopen="${id}">${passed(e) ? '\u2713 ' : ''}${typeName[e.type] || e.type}: ${e.title || id}</button>`; }
+function sheetLinksHtml(enc) {
+  if (enc.sheet) {
+    const hit = sheetRefs().find((x) => x.q.enc.id === enc.id); if (!hit) return '';
+    const rel = (hit.q.related || []).map(relatedBtn).filter(Boolean).join(' ');
+    const pr = enc.primer ? `<details class="primer"><summary><b>Theory first (~10 min)</b> \u00b7 missed the lecture? Read this before the question</summary><div class="primerbody">${enc.primer}</div></details>` : '';
+    return `<div class="callout sheetlink"><div class="ctitle">${findCourse(hit.cid)?.name || ''} sheet ${hit.sh.n}, question ${hit.q.q} \u00b7 due ${fmtDue(sheetDue(hit.sh))}</div>${pr}${rel ? `<p class="src">In the game, to read up or practise around this question:</p><div class="row wrap">${rel}</div>` : ''}</div>`;
+  }
+  const back = sheetRefs().filter((x) => (x.q.related || []).includes(enc.id));
+  if (!back.length) return '';
+  return `<div class="callout sheetlink"><div class="ctitle">On your exercise sheets</div><div class="row wrap">${back.map((x) => `<button class="chip btn" data-sopen="${x.q.enc.id}">Sheet ${x.sh.n} Q${x.q.q}: ${x.q.title}</button>`).join(' ')}</div></div>`;
+}
+// Back navigation between a sheet question and its linked lessons: each jump pushes where you came from (the exercise with its
+// scroll position and open primer, or the Sheets tab); the opened exercise shows a sticky "back" bar while it is the jump target.
+const navStack = [];
+function wireSheetLinks(host) {
+  host.querySelectorAll('[data-sopen]').forEach((b) => (b.onclick = async () => {
+    const to = b.dataset.sopen, fromOverlay = overlay === 'pile' && studyTab === 'sheets';
+    const from = current?.enc && !fromOverlay ? { id: current.enc.id, title: current.enc.title || current.enc.id, scroll: $('side').scrollTop, primer: !!$('panel').querySelector('details.primer[open]') } : fromOverlay ? { tab: 'sheets', title: 'Sheets tab' } : null;
+    if (from && from.id !== to) navStack.push({ from, to }); else navStack.length = 0;
+    const mx = $('side').classList.contains('max');
+    closeOverlay(true); await openById(to); player.enabled = true;
+    if (mx) $('side').classList.add('max');
+  }));
+}
+function navBackBar(enc) {
+  const top = navStack[navStack.length - 1];
+  if (!top || top.to !== enc.id) { navStack.length = 0; return null; }
+  const bar = document.createElement('div'); bar.className = 'navback';
+  bar.innerHTML = `<button class="go">\u2190 Back to ${top.from.title}</button>${navStack.length > 1 ? `<span class="src">${navStack.length} steps deep</span>` : ''}`;
+  bar.querySelector('button').onclick = async () => {
+    navStack.pop(); const f = top.from, mx = $('side').classList.contains('max');
+    if (f.tab) { closePanel(true); navStack.length = 0; openOverlay('pile'); renderStudy(f.tab); return; }
+    await openById(f.id); if (mx) $('side').classList.add('max');
+    if (f.primer) { const d = $('panel').querySelector('details.primer'); if (d) d.open = true; }
+    requestAnimationFrame(() => { $('side').scrollTop = f.scroll || 0; });
+  };
+  return bar;
+}
+function sheetsHtml() {
+  const cs = Object.entries(sheetsByCourse);
+  if (!cs.length) return '<p class="src">No exercise sheets loaded yet.</p>';
+  return cs.map(([cid, s]) => {
+    const cur = currentSheet(cid);
+    const block = (sh) => {
+      const qs = sh.questions.map((q) => { const e = encIndex.get(q.enc.id)?.enc, ok = e && passed(e), rev = e && store.hasReview(e.id);
+        return `<div class="maprow"><button class="link" data-sopen="${q.enc.id}"><span class="mt">${ok ? '\u2713' : rev ? '\u21bb' : '\u25cb'} Q${q.q}: ${q.title}</span></button><span class="src">${q.enc.primer ? '\ud83d\udcd6 theory first \u00b7 ' : ''}${findRoom(cid, q.room)?.title || ''} \u00b7 ${(q.related || []).length} linked</span></div>`; }).join('');
+      const done = sh.questions.filter((q) => passed(encIndex.get(q.enc.id)?.enc || {})).length;
+      return `<details${sh === cur ? ' open' : ''}><summary><b>Sheet ${sh.n}</b>${sh === cur ? ' <span class="tag">this week</span>' : ''} \u00b7 ${sh.title} \u00b7 due ${fmtDue(sheetDue(sh))} \u00b7 ${done}/${sh.questions.length}</summary>${qs}</details>`;
+    };
+    return `<h3>${findCourse(cid)?.name || cid}: ${s.title}</h3>${s.note ? `<p class="src">${s.note}</p>` : ''}${s.sheets.map(block).join('')}`;
+  }).join('');
+}
 function openFromPile(id, keepQueue) {
   const p = { ...pile() }; if (p[id]) { p[id] = { ...p[id], seen: Date.now() }; store.setVal('pile', p); }
   if (!keepQueue) pileQueue = [];
@@ -531,7 +610,7 @@ function wirePile() {
 }
 // ---- Study hub: tabs for the pile, session planner, mistakes, weak spots and Feynman mode
 let studyTab = 'today';
-const TABS = [['today', 'Today'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+const TABS = [['today', 'Today'], ['sheets', 'Sheets'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
 function renderStudy(tab) {
   studyTab = tab || studyTab; const body = $('ov-body');
   const open = mistakes().filter((x) => x.open).length;
@@ -539,6 +618,7 @@ function renderStudy(tab) {
   body.querySelectorAll('[data-stab]').forEach((b) => (b.onclick = () => renderStudy(b.dataset.stab)));
   const host = $('study-body');
   if (studyTab === 'today') { host.innerHTML = M(todayHtml()); wireToday(host); }
+  else if (studyTab === 'sheets') { host.innerHTML = M(sheetsHtml()); wireSheetLinks(host); }
   else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
@@ -604,7 +684,7 @@ function newMaterial(courseId, budget, skip) {
   for (const item of route) {
     const [c, slug] = item.key.split('/'); if (c !== courseId) continue; const r = findRoom(c, slug); if (!r || routeDone(r)) continue;
     for (const e of r.encounters) {
-      if (['sandbox', 'boss'].includes(e.type) || store.isPassed(e.id) || isLocked(e) || skip.has(e.id)) continue;
+      if (['sandbox', 'boss'].includes(e.type) || !core(e) || store.isPassed(e.id) || isLocked(e) || skip.has(e.id)) continue;
       const min = EST[e.type] || 10; if (min > left) { if (left < 8) return out; continue; }
       out.push({ key: `new:${e.id}`, label: `[${findCourse(c).region.split(' ')[0]}] ${typeName[e.type] || e.type}: ${e.title || e.id}`, min, act: { open: e.id }, kind: 'new', room: r.title }); skip.add(e.id); left -= min;
     }
@@ -615,7 +695,7 @@ function newMaterial(courseId, budget, skip) {
 // which course gets the most time today: the one that is furthest behind (and has weak spots), rotating on ties
 function courseOrder() {
   const day = Math.floor(Date.now() / 86400000), weak = new Set(weakSpots(encIndex, 6).map((w) => w.key.split('/')[0]));
-  return catalog.map((c, i) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type !== 'sandbox')), done = all.filter((e) => store.isPassed(e.id)).length, behind = 1 - done / Math.max(1, all.length); return { id: c.id, score: behind + (weak.has(c.id) ? 0.15 : 0) + ((i + day) % 3) * 0.01 }; }).sort((a, b) => b.score - a.score).map((x) => x.id);
+  return catalog.map((c, i) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => core(e))), done = all.filter((e) => store.isPassed(e.id)).length, behind = 1 - done / Math.max(1, all.length); return { id: c.id, score: behind + (weak.has(c.id) ? 0.15 : 0) + ((i + day) % 3) * 0.01 }; }).sort((a, b) => b.score - a.score).map((x) => x.id);
 }
 function planSteps(minutes) {
   const groups = { review: [], fresh: [], extra: [] }, seen = new Set();
@@ -659,7 +739,7 @@ function menuHtml() {
   const tdn = todayItems().filter((x) => !x.mission && x.ok).length;
   return `<div class="menu"><button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
     <button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
-    <button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
+    <button class="bigbtn" data-m="sheets"><b>${sheetMenuLabel()}</b><span>this week's exercise sheet, question by question, with links into the game</span></button><button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
     <button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
     <button class="bigbtn" data-m="formulas"><b>Formulas</b><span>drawer for the current course</span></button>
@@ -686,6 +766,7 @@ function wireMenu() {
     else if (k === 'goto') { const [c, r] = arg.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); } else { closeOverlay(true); await loadRoom(c, r, { silent: false }); player.enabled = true; } }
     else if (k === 'quick') { closeOverlay(true); startQuick(); }
     else if (k === 'today') { openOverlay('pile'); renderStudy('today'); }
+    else if (k === 'sheets') { openOverlay('pile'); renderStudy('sheets'); }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
     else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
@@ -774,7 +855,7 @@ function quickIds() {
   const n = nextRouteStep();
   if (n) {
     push(n.enc?.id);
-    for (const e of n.room.encounters) { if (mins() >= 10 || out.length >= 3) break; if (!['sandbox', 'boss'].includes(e.type) && !store.isPassed(e.id) && !isLocked(e) && (EST[e.type] || 10) + mins() <= 14) push(e.id); }
+    for (const e of n.room.encounters) { if (mins() >= 10 || out.length >= 3) break; if (!['sandbox', 'boss'].includes(e.type) && core(e) && !store.isPassed(e.id) && !isLocked(e) && (EST[e.type] || 10) + mins() <= 14) push(e.id); }
   }
   return out.slice(0, 3);
 }
@@ -788,7 +869,7 @@ function weekStats() {
   const day = 86400000, now = Date.now(), days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return todayStr(d); });
   const minutes = days.map((d) => Math.round(store.activeSecondsOn(d) / 60));
   const solved = Object.entries(store.snapshot.solved || {}).filter(([id, v]) => encIndex.has(id) && v.at >= now - 7 * day && !v.failed);
-  const courses = catalog.map((c) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type !== 'sandbox')), passedN = all.filter((e) => store.isPassed(e.id)).length; return { id: c.id, region: c.region, passed: passedN, total: all.length, week: solved.filter(([id]) => encIndex.get(id).course === c.id).length }; });
+  const courses = catalog.map((c) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => core(e))), passedN = all.filter((e) => store.isPassed(e.id)).length; return { id: c.id, region: c.region, passed: passedN, total: all.length, week: solved.filter(([id]) => encIndex.get(id).course === c.id).length }; });
   return { days, minutes, studied: minutes.filter((x) => x > 0).length, total: minutes.reduce((a, b) => a + b, 0), exercises: solved.length, missions: days.reduce((n, d) => n + Object.keys(store.missionsOf(d).done).length, 0), courses, weak: weakSpots(encIndex, 2).map((w) => { const [c, s] = w.key.split('/'); return findRoom(c, s)?.title || w.key; }) };
 }
 function weekHtml() {
@@ -1081,7 +1162,9 @@ function openEncounter(enc, fromGroup) {
     const back = document.createElement('button'); back.className = 'link back'; back.textContent = `← ${grp.label} list`;
     back.onclick = () => openGroup(grp); $('panel').prepend(back);
   }
+  const sl = sheetLinksHtml(enc); if (sl) { const box = document.createElement('div'); box.innerHTML = M(sl); wireSheetLinks(box); $('panel').prepend(box); }
   if (!enc.synthetic) $('panel').prepend(pileBar(enc));
+  const nb = navBackBar(enc); if (nb) $('panel').prepend(nb);
   updateBar();
 }
 function closePanel(silent) {
@@ -1166,6 +1249,7 @@ function watchPanels() {
   for (const id of ['cx', 'side', 'nx-card']) $(id).addEventListener('scroll', () => { const e = $(id); if (e.scrollLeft) e.scrollLeft = 0; }, { passive: true }); // no sideways drift of a whole panel
   const mo = new MutationObserver(sync); for (const id of ['side', 'cx']) mo.observe($(id), { attributes: true, attributeFilter: ['class'] });
   for (const [btn, id] of [['side-max', 'side'], ['cx-max', 'cx']]) $(btn).onclick = () => $(id).classList.toggle('max');
+  $('ov-max').onclick = () => document.querySelector('.ov-card').classList.toggle('max');
   sync();
 }
 function toggleFullscreen() {

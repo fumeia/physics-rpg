@@ -53,6 +53,20 @@ Strings are HTML with KaTeX math: `$...$` inline, `$$...$$` display. Write LaTeX
 4. `explain`, `hint`, `why` and `derivation` teach: state the formula or the idea and where it comes from, not just the result.
 5. Validate all KaTeX in your file (every `$...$` must render); the content test of the reference room shows how.
 
+## Collections placed into rooms
+A course `index.json` may list `extras`: files of the form `{items: [{room, enc}]}` whose encounters are appended to the named rooms
+at load time. The astro textbook exercises (`choudhuri-exercises.json`, every end-of-chapter exercise of Choudhuri) work this way: they are
+`derive` encounters with `book: true`, shown on their own "Book exercises" console and not counted for doors, progress or the guide.
+That file is generated: edit `notes/astrophysics/build/choudhuri/part*.py` (text) or `calc.py` (numbers, book constants) and run
+`python3 build.py` there (needs scipy); `node game/test/book-check.mjs --complete` checks completeness and LaTeX.
+
+## Exercise sheets
+`content/<course>/sheets.json` (listed in `extras`) holds the weekly sheets: `{title, note, sheets: [{n, title, due, questions: [{q, title, room,
+related: [encounter ids], enc}]}]}`. Each `enc` is a `derive` encounter with `sheet: true` (own console, not counted for doors/progress);
+`related` gives the two-way links. `due` is last year's date; the game shifts it by 364 days. The QM file is generated from
+`notes/quantum-mechanics/build/sheets/` (`qm_sheets_*.py`, `python3 build.py`); `node game/test/sheets-check.mjs` checks rooms, links and LaTeX.
+Optional `enc.primer` (HTML with KaTeX): a "Theory first (~10 min)" introduction shown as a collapsible block above the question, for when the lecture was missed (question in plain words, picture, formulas with meaning, tiny example, what the sheet needs, script pages). QM primers live in `qm_primers.py`.
+
 ## Adding a room
 1. Write notes in `notes/<course>/` (transcribe the relevant script pages and sheets; describe figures in words).
 2. Write `game/content/<course>/<room>.json` and add the room id to `index.json`.

@@ -372,3 +372,25 @@ body.lite #btn-run, body.lite #btn-campaign { display: inline-block; }
 .st-run:hover { filter: brightness(1.07); } .st-card.has-run .st-go { font-size: 15px; padding: 9px 26px; min-height: 0; background: transparent; color: inherit; border: 1px solid rgba(127,160,220,.5); box-shadow: none; margin-top: 10px; }
 @media (max-height: 460px) { .st-run { padding: 10px 36px; min-height: 0; font-size: 18px; margin-top: 8px; } .st-plan { margin: 4px 0; font-size: 13px; } }
 html[data-theme=light] .st-run, html[data-theme=light] #btn-run:not(.done) { color: #fff; } html[data-theme=light] .cp-run { background: rgba(160,90,0,.06); border-color: rgba(160,90,0,.4); } html[data-theme=light] .cp-node.next .cp-dot { box-shadow: 0 0 0 5px rgba(160,90,0,.15); }
+
+/* ---- fights with stakes: the bar on top of every exercise */
+.battle { position: sticky; top: 0; z-index: 3; display: grid; grid-template-columns: minmax(0, 1.4fr) auto minmax(0, 1fr); gap: 12px; align-items: center; padding: 8px 10px; margin: 0 0 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: linear-gradient(180deg, rgba(18,24,38,.97), rgba(18,24,38,.9)); backdrop-filter: blur(6px); }
+.battle.elite { border-color: rgba(245,196,81,.55); box-shadow: 0 0 0 1px rgba(245,196,81,.15) inset; }
+.bt-foe { display: flex; gap: 10px; align-items: center; min-width: 0; } .bt-info { flex: 1; min-width: 0; }
+.bt-sprite { flex: none; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); animation: bt-bob 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
+.bt-name { display: flex; align-items: baseline; gap: 8px; font-size: 13px; white-space: nowrap; overflow: hidden; } .bt-name b { font-size: 14px; flex: 0 1 auto; min-width: 40%; overflow: hidden; text-overflow: ellipsis; } .bt-name span { font-size: 11px; opacity: .65; text-transform: uppercase; letter-spacing: .04em; flex: 0 10 auto; overflow: hidden; text-overflow: ellipsis; }
+.bt-hp, .bt-fo { height: 9px; border-radius: 6px; background: rgba(255,255,255,.1); overflow: hidden; margin-top: 4px; } .bt-hp i, .bt-fo i { display: block; height: 100%; border-radius: 6px; transition: width .45s cubic-bezier(.2,.9,.3,1); }
+.bt-hp i { background: linear-gradient(90deg, #ff6b6b, #ff9f6b); } .bt-fo i { background: linear-gradient(90deg, #6cb6ff, #8de0ff); } .battle.lowfocus .bt-fo i { background: linear-gradient(90deg, #f5c451, #ff9f6b); }
+.bt-mid { min-width: 96px; text-align: center; font-size: 12px; display: grid; gap: 2px; } .bt-combo { color: var(--warn); font-weight: 700; min-height: 15px; }
+.bt-pop { opacity: 0; font-weight: 700; min-height: 15px; } .bt-pop.go { animation: bt-pop 1.6s ease-out forwards; } .bt-pop.crit { color: var(--warn); } .bt-pop.hit { color: #9fe6c0; } .bt-pop.hurt { color: var(--bad); } .bt-pop.win { color: var(--good); animation-duration: 4s; }
+.battle.hit .bt-sprite { animation: bt-shake .35s; } .battle.crit .bt-sprite { animation: bt-shake .5s; filter: drop-shadow(0 0 10px rgba(245,196,81,.9)) brightness(1.6); } .battle.hurt .bt-you { animation: bt-shake .35s; } .battle.hurt .bt-sprite { animation: bt-lunge .4s; }
+.battle.won .bt-sprite { animation: bt-die .9s forwards; } .battle.won { border-color: var(--good); } .battle.lost .bt-sprite { animation: bt-flee .8s forwards; } .battle.rematch .bt-sprite { opacity: .6; }
+@keyframes bt-bob { 50% { transform: translateY(-3px) rotate(-2deg); } }
+@keyframes bt-shake { 20% { transform: translateX(-5px) rotate(-6deg); } 50% { transform: translateX(5px) rotate(5deg); } 80% { transform: translateX(-2px); } }
+@keyframes bt-lunge { 40% { transform: translateX(14px) scale(1.15); } }
+@keyframes bt-die { 30% { transform: scale(1.2) rotate(8deg); filter: brightness(2.5); } 100% { transform: scale(0) rotate(40deg); opacity: 0; } }
+@keyframes bt-flee { 100% { transform: translateX(-60px); opacity: 0; } }
+@keyframes bt-pop { 0% { opacity: 0; transform: translateY(6px) scale(.9); } 12% { opacity: 1; transform: none; } 75% { opacity: 1; } 100% { opacity: 0; transform: translateY(-6px); } }
+@media (max-width: 620px) { .battle { grid-template-columns: 1fr 1fr; gap: 6px 10px; } .bt-mid { grid-column: 1 / -1; grid-row: 2; display: flex; justify-content: center; gap: 10px; min-height: 0; } .bt-sprite { width: 40px; height: 40px; } }
+@media (prefers-reduced-motion: reduce) { .bt-sprite, .battle * { animation: none !important; } }
+html[data-theme=light] .battle { background: rgba(255,255,255,.97); border-color: rgba(0,0,0,.3); } html[data-theme=light] .bt-hp, html[data-theme=light] .bt-fo { background: rgba(0,0,0,.1); } html[data-theme=light] .bt-pop.hit { color: #0a7a45; }

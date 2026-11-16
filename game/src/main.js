@@ -14,6 +14,7 @@ import { mistakes, updateMistake, weakSpots } from './mistakes.js';
 import { renderDrillTab, setDrillData, drillData } from './drills.js';
 import { initTouch } from './touch.js';
 import { createCampaign } from './campaignui.js';
+import * as battle from './battle.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
@@ -1189,11 +1190,13 @@ function openEncounter(enc, fromGroup) {
     back.onclick = () => openGroup(grp); $('panel').prepend(back);
   }
   const sl = sheetLinksHtml(enc); if (sl) { const box = document.createElement('div'); box.innerHTML = M(sl); wireSheetLinks(box); $('panel').prepend(box); }
+  if ((store.val('settings', {}) || {}).fights !== 'off') battle.begin(enc, $('panel'), { course: encIndex.get(enc.id)?.course || course?.id, onChange: null }); // fights with stakes: enemy, focus, combo
   if (!enc.synthetic) $('panel').prepend(pileBar(enc));
   const nb = navBackBar(enc); if (nb) $('panel').prepend(nb);
   updateBar();
 }
 function closePanel(silent) {
+  battle.end();
   if (unmountPanel) { unmountPanel(); unmountPanel = null; }
   $('panel').innerHTML = ''; $('side').classList.add('hidden');
   if (runner && !runner.finished && !runner.done) { /* a replay keeps running */ }

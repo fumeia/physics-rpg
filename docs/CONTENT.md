@@ -63,8 +63,12 @@ That file is generated: edit `notes/astrophysics/build/choudhuri/part*.py` (text
 ## Exercise sheets
 `content/<course>/sheets.json` (listed in `extras`) holds the weekly sheets: `{title, note, sheets: [{n, title, due, questions: [{q, title, room,
 related: [encounter ids], enc}]}]}`. Each `enc` is a `derive` encounter with `sheet: true` (own console, not counted for doors/progress);
-`related` gives the two-way links. `due` is last year's date; the game shifts it by 364 days. The QM file is generated from
-`notes/quantum-mechanics/build/sheets/` (`qm_sheets_*.py`, `python3 build.py`); `node game/test/sheets-check.mjs` checks rooms, links and LaTeX.
+`related` gives the two-way links. `due` is last year's date; the game shifts it by 364 days, unless the file sets `dueShiftDays`
+(solid state: `0`, the sheets are this semester's own). All courses share one builder, `notes/build/sheetlib.py` (`S`, `Q`, `build`); a course
+keeps its text in `notes/<course>/build/sheets/*_sheets_*.py` and runs `python3 build.py` there (QM: `qm_sheets_*.py`; solid state:
+`ss_sheets_*.py`, figures cropped from the PDFs by `figures.py` into `game/content/solid-state/fig/`, shown with `<img class="fig">`).
+`node game/test/sheets-check.mjs` checks rooms, links and LaTeX; `node game/test/sheets-check-solid-state.mjs` recomputes every number of
+the solid-state solutions. Optional per step: `hints: [nudge, method, key step]`, revealed one at a time before the reference step.
 Optional `enc.primer` (HTML with KaTeX): a "Theory first (~10 min)" introduction shown as a collapsible block above the question, for when the lecture was missed (question in plain words, picture, formulas with meaning, tiny example, what the sheet needs, script pages). QM primers live in `qm_primers.py`.
 
 ## Adding a room

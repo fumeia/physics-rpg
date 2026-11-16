@@ -1,0 +1,253 @@
+Chapter 4.1
+            “Free” electrons in metals
+
+
+
+
+Metal ion        Electron
+(static)         (mobile)
+                         Drude model
+
+
+                                Radius 𝑟𝑟
+         Electron
+
+
+
+
+Cross section ~ 𝜋𝜋𝑟𝑟 2
+
+
+                           Lattice ion      Mean free path 𝑙𝑙
+                         Paul Drude (1863-1906)
+»Wie es auch die größte Freude macht, in solchem
+Zeitpunkt des intensivsten Aufschwungs der eigenen
+wissenschaftlichen Disziplin zu leben, wo es eine
+Überfülle von Aufgaben gibt, die sich der Bearbeitung
+darbieten, so wird dadurch doch eine Hast in der
+wissenschaftlichen Forschung provoziert, welche der
+beschaulichen Ruhe, mit der noch vor wenigen
+Jahrzehnten mancher Gelehrte seine Probleme im
+Laboratorium, am Schreibtisch und in freier Natur
+ausreifen lassen konnte, diametral entgegensteht, […]«
+
+
+Paul Drude
+                    The Hall effect
+
+
+                       𝐻𝐻
+
+      𝑑𝑑 – – – – – – – – – – – – – – – – – – – – – –   𝑉𝑉
+𝐼𝐼⃗                                 𝐹𝐹⃗𝐿𝐿
+      𝑤𝑤                  𝑣𝑣⃗𝑑𝑑     -e
+                                                            𝑦𝑦
+           +++++++++++++++++++++
+                                                                 𝑧𝑧
+                                                                      𝑥𝑥
+                  The Hall effect (positive charge carrier)
+
+
+                                        𝐻𝐻
+
+                       𝑑𝑑 + + + + + + + + + + + + + + + + + + + + +   𝑉𝑉
+                𝐼𝐼⃗                 𝐹𝐹⃗𝐿𝐿
+                      𝑤𝑤                  +e        𝑣𝑣⃗𝑑𝑑                  𝑦𝑦
+                           ––––––––––––––––––––––
+                                                                                𝑧𝑧
+                                                                                     𝑥𝑥
+
+
+
+• the Hall voltage is sensitive to the sign of the charge carrier!
+                          Experiment: Drift velocity
+
+
+                                       𝐼𝐼
+                           𝑣𝑣𝐷𝐷 = −
+                                    𝑒𝑒𝑒𝑒𝑒𝑒
+
+
+               Charge carrier density     𝑛𝑛𝑒𝑒 = 8.4 ⋅ 1028 𝑚𝑚−3
+               Electron charge            e = 1.6 ⋅ 10−19 𝐶𝐶
+               Cross section of conductor 𝐴𝐴 ≈ 1 𝑚𝑚𝑚𝑚2
+               Current                    I ≈ 12 𝐴𝐴
+
+               Drift velocity                𝑣𝑣𝑑𝑑 ≈ 0.9 𝑚𝑚𝑚𝑚/𝑠𝑠
+
+
+•   https://experimente.phys.ethz.ch/de/100/10003/20057/30138/
+                               Hall bar geometry
+
+
+                               1                   2
+
+
+                   5                                         6
+                                            magnetic
+                                              field
+
+
+
+
+                               3                   4
+
+
+• 𝑉𝑉𝐿𝐿 (forward voltage) gives conductivity
+• 𝑉𝑉𝐻𝐻 (transverse voltage) gives carrier density and sign
+Hall coefficients of elements
+Georg Simon Ohm (1789 – 1854)   Edwin Herbert Hall (1855 – 1938)
+Chapter 4.2
+                          Electron as a wave packet
+
+
+
+
+• Wave packet with wave vector 𝑘𝑘, width ≈ 1/Δ𝑘𝑘 and velocity 𝑣𝑣⃗ = ∇𝑘𝑘 𝜖𝜖/ℏ
+Effective mass 𝑚𝑚∗
+Occupation of energy levels in an electric field 𝐸𝐸
+Displaced Fermi sphere in an electric field
+
+
+
+
+                                      Δ𝑘𝑘𝑥𝑥 = 𝑘𝑘̇ x 𝜏𝜏 = −𝑒𝑒𝑒𝑒/ℏ 𝜏𝜏
+       Thermal vs. Drift vs. Fermi velocity
+
+
+     𝐸𝐸 = 0                                             𝐸𝐸
+                       Between collisions:
+                         𝑣𝑣thermal (Drude)
+                        𝑣𝑣𝐹𝐹 (Band model)
+
+
+
+
+                       Time between collisions: 𝜏𝜏
+
+
+𝑣𝑣⃗ = 𝑣𝑣⃗thermal = 0                         𝑣𝑣⃗ = 𝑣𝑣⃗thermal + 𝑣𝑣⃗𝐸𝐸 = 𝑣𝑣𝐷𝐷
+                        Scattering of Bloch electrons
+                                               Phonon scattering
+
+
+
+
+                                                             The perfect, static lattice
+                                                             does not scatter!
+
+
+
+Impurity
+scattering
+
+
+• Electrons scatter at deviations from the perfect lattice
+                        Electron scattering mechanisms
+a) Electron-Impurity         b) Electron-Phonon                    c) Electron-Electron
+                                                                   𝐸𝐸4 , 𝑘𝑘4           𝐸𝐸3 , 𝑘𝑘3
+         𝐸𝐸 ′ = 𝐸𝐸                  𝐸𝐸 ′ = 𝐸𝐸 + ℏ𝜔𝜔
+                   ⃗
+     𝑘𝑘 ′ = |𝑘𝑘 + 𝐺𝐺|             𝑘𝑘 ′ = 𝑘𝑘 + 𝑞𝑞⃗ + 𝐺𝐺⃗
+
+                                                                   𝐸𝐸2 , 𝑘𝑘2           𝐸𝐸1 , 𝑘𝑘1
+                          ℏ𝜔𝜔, 𝑞𝑞⃗                                 𝐸𝐸1 + 𝐸𝐸2 = 𝐸𝐸3 + 𝐸𝐸4
+     𝐸𝐸, 𝑘𝑘                               𝐸𝐸, 𝑘𝑘                𝑘𝑘1 + 𝑘𝑘2 = 𝑘𝑘3 + 𝑘𝑘4 + 𝐺𝐺⃗
+1                        1      5
+                                            1                                  1
+   independent of T         ∝ 𝑇𝑇 (at low T), ∝ 𝑇𝑇 (at high T>0.2 TD)              ∝ 𝑇𝑇 2
+𝜏𝜏                       𝜏𝜏                 𝜏𝜏                                 𝜏𝜏
+                 Impurity scattering
+
+
+                              Radius 𝑟𝑟
+         Electron
+
+
+
+
+Cross section ~ 𝜋𝜋𝑟𝑟 2
+
+
+                         Impurity         Mean free path 𝑙𝑙
+          Electron-Phonon scattering at low temperatures
+
+ High temperatures (𝑇𝑇 ≥ 0.2 TD )         Low temperatures (𝑇𝑇 ≪ TD )
+
+
+
+                                         Angle changes by
+                                           ≈ 𝑘𝑘𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 /𝑘𝑘𝐹𝐹
+
+
+
+
+                                                                        2
+                                                            𝑘𝑘𝐹𝐹
+• Complete randomization of direction   • Need ≈                            ∝ 𝑇𝑇 −2 collisions
+                                                        𝑘𝑘𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝
+  after each collision
+                                         for complete randomization
+                  Electron-electron scattering
+
+     Before scattering event                  After scattering event
+
+E1
+            ε1                      E3                          E4
+EF                                  EF
+                          ε2
+E2
+
+
+
+
+                        𝜖𝜖2 ≤ 𝜖𝜖1 ≈ 𝑘𝑘𝐵𝐵 𝑇𝑇
+     Comparison of Drude model and Band model of transport
+
+                       Drude model                        Band model
+Conductivity                                𝑒𝑒 2 𝜏𝜏𝑛𝑛𝑒𝑒                    𝑒𝑒 2 𝜏𝜏𝑛𝑛𝑒𝑒
+                                       𝜎𝜎 =                           𝜎𝜎 =
+                                                𝑚𝑚                            𝑚𝑚∗
+Electrons              All electrons                      Only electrons near Fermi energy
+contributing to
+transport
+Carrier density 𝑛𝑛𝑒𝑒   All electrons                      Only electrons in conduction band
+Collisions             At all lattice ions                Only at deviations from perfect
+(relaxation time 𝜏𝜏)                                      lattice (impurities, vibrations)
+Mass of electron       Free electron mass 𝑚𝑚𝑒𝑒            Effective mass 𝑚𝑚∗
+     Electrical conductivity: temperature dependence
+                           𝑒𝑒 2 𝜏𝜏 𝐸𝐸𝐹𝐹 ,𝑇𝑇 𝑛𝑛(𝑇𝑇)
+Conductivity:         𝜎𝜎 =
+                                     𝑚𝑚∗
+
+Scattering time:
+                                                     ≈ 𝑇𝑇 2 or 𝑇𝑇 3 for e-e
+       1       1             1            1
+         ≈            +              +
+       𝜏𝜏 𝜏𝜏Impurities 𝜏𝜏Phonons (𝑇𝑇) 𝜏𝜏e−e (𝑇𝑇)
+
+                                         ≈ 𝑇𝑇 5 at low T
+                                         ≈ 𝑇𝑇 at high T
+Carrier density
+
+      𝑛𝑛     ≈ const.                  for metals
+      𝑛𝑛(𝑇𝑇) ≈ exp(−Δ/𝑘𝑘𝐵𝐵 𝑇𝑇)         for semiconductors (∆: band gap)
+                 Experiment: Leitfähigkeit von Platin
+
+
+
+
+• https://experimente.phys.ethz.ch/de/100/10003/20057/30376
+Resistance of platinum thermometer
+
+
+
+
+                              Platinthermometer
+                              (www.lakeshore.com)
+Resistivity of sodium
+                     Resistivity of various metals
+• Normalized by the Debye temperature
+Example: Resistivity of copper
+Resistivity of copper-nickel alloys
+

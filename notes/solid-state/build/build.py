@@ -35,6 +35,9 @@ for mod, short, extra in ROOMS:
         l['course'] = {'astro': 'astrophysics'}.get(l['course'], l['course'])
         l['planned'] = not os.path.exists(os.path.join(OUT, '..', l['course'], l['room'] + '.json'))
     write(room, OUT); ids.append(room['file'])
+# keep the extras (PhET exercises, exercise sheets, slide questions) that other builders registered in the index
+try: extras = json.load(open(os.path.join(OUT, 'index.json'))).get('extras', [])
+except (OSError, ValueError): extras = []
 with open(os.path.join(OUT, 'index.json'), 'w') as f:
-    json.dump(dict(region="Solid State Crystal Caverns", rooms=ids), f, indent=2); f.write('\n')
+    json.dump(dict(region="Solid State Crystal Caverns", rooms=ids, **({'extras': extras} if extras else {})), f, indent=2); f.write('\n')
 print('built', len(ids), 'rooms ->', os.path.normpath(OUT))

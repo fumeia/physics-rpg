@@ -1,0 +1,145 @@
+Prof. Dr. Christian Degen                                               Autumn Semester 2026
+
+               Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                                 Weekly Solution Set 3
+
+Solution 1: Analyzing a 3D power diffraction spectrum
+  a) Here we have atoms at r0 = (0, 0, 0) and r1 = (1/2)(x̂ + ŷ + ẑ), and a general
+     reciprocal lattice vector can be written as q = (2π/a)(hx̂ + kŷ + lẑ).
+
+                                                                   iq·rj
+                                                                         = f (hkl)(1 + eiπ(h+k+l) ),
+                                                       ∑︁
+     The structure factor is then given by F (q) =        j fj (q)e
+                      (︁                      )︁
+     where f (hkl) = f (2π/a)(hx̂ + kŷ + lẑ) .
+
+     Note: One can also use Equation 1.23 of the lecture script rather than manually
+     evaluating the dot product.
+
+  b) Solving for given h, k, and l results in
+                                    {︄
+                                      2f (hkl), if h + k + l is even
+                            F (q) =
+                                      0,        if h + k + l is odd.
+
+     Thus if h + k + l is odd, diffraction peaks are absent.
+
+  c) Let f1 ̸= f2 , then
+                                   {︄
+                                     f1 (hkl) + f2 (hkl) if h + k + l is even
+                           F (q) =                                                              (1)
+                                     f1 (hkl) − f2 (hkl) if h + k + l is odd.
+
+  d) Due to the systematic absences of peaks caused by the structure factor, the peaks
+     from lowest to largest angle are: (110), (200), (211), (220), (310).
+
+  e) We use dhkl = λ/(2 sin θ). We can for instance read off from the graph that θ = 32◦
+     for the (hkl) = (200) peak, which gives d200 =0.145 nm, and therefore the side-length
+     of the conventional unit cell is a = 2d200 = 0.29 nm.
+Solution 2: Analyzing the Lennard-Jones potential
+ a) The force F (r) = − ∂U∂r(r) is positive (repulsive) when U (r) is downwards sloping and
+    negative (attractive) when U (r) is upwards sloping.
+
+
+
+
+ b) The distance r0 where the potential energy is minimum can be found by ∂U∂r(r) = 0,
+    which gives:
+                     (︃            )︃ ⃓     [︃                  ]︃
+                          ∂U (r)      ⃓        12 σ  12 6  σ  6
+                                      ⃓ = 4ϵ (− )( ) + ( )( ) = 0.                               (2)
+                           ∂r         ⃓
+                                        r0     r0 r0    r0 r0
+
+    Solving for r0 then gives r0 = 21/6 σ.
+
+    The energy at the inter-atomic distance r0 is given by:
+
+                                                   U (r0 ) = −ϵ
+
+
+
+
+ c) By Taylor expansion, we get
+
+                                   (︃            )︃ ⃓               (︃ 2       )︃ ⃓
+                                        ∂U (r)      ⃓             1   ∂  U (r)    ⃓
+                                                                                  ⃓ (r − r0 )2
+              U (r) ≈ U (r0 ) +                     ⃓ (r − r0 ) +
+                                         ∂r         ⃓
+                                                    r0            2     ∂r2       ⃓
+                                                                                  r0
+
+
+                         κ
+                   = −ϵ + (r − r0 )2
+                         2
+
+
+    where,                             (︃ 2     )︃ ⃓
+                                         ∂ U (r) ⃓⃓        72ϵ
+                                   κ =        2
+                                                        = 1/3 2 .
+                                           ∂r      ⃓
+                                                     r0   2 σ
+Solution 3: Molecular orbitals from the wave functions
+of the atomic orbitals
+ a) The wave function of a bound state localized in a delta function well at x1 is
+                                         √
+                                 ψ1 (x) = κ exp (−κ|x − x1 |),
+              √︂
+    where κ = −2mEℏ2
+                      = mVℏ2
+                             0
+                               . This wave function is our atomic orbital. The energy of
+                                  mV 2
+    the atomic orbital is ϵ0 = − 2ℏ20 . ψ2 (x) can be found by replacing x1 by x2 .
+
+
+ b) The matrix elements of the Hamiltonian in the basis of the atomic orbitals |i⟩ and |j⟩
+    are ⟨i|Ĥ|j⟩. Knowing the atomic orbitals, we can explicitly calculate these elements.
+
+    The onsite energy is
+                     E0 =⟨1|Ĥ|1⟩ = ⟨1|V̂1 + V̂2 + K̂|1⟩ = ϵ0 + ⟨1|V̂2 |1⟩
+                                 ∫︂
+                        =ϵ0 − V0 ψ1 (x)δ(x − x2 )ψ1 (x)dx
+
+                        =ϵ0 − V0 κ exp(−2κ|x2 − x1 |)
+                                (︃                       )︃
+                        = − V0 κ 1/2 + exp(−2κ|x2 − x1 |) = ⟨2|Ĥ|2⟩,
+
+    where we used ϵ0 = −V0 κ/2, as follows from part a).
+
+    The hopping energy is
+                −t =⟨1|Ĥ|2⟩ = ⟨1|V̂1 + V̂2 + K̂|2⟩ = ⟨1|V̂1 + ϵ0 |2⟩ = ⟨1|V̂1 |2⟩
+                          ∫︂
+                   = − V0 ψ1 (x)δ(x − x1 )ψ2 (x)dx
+
+                   = − V0 κ exp(−κ|x2 − x1 |) = ⟨2|Ĥ|1⟩.
+
+    So we get
+         (︃                  )︃         (︃                                                 )︃
+           ⟨1|Ĥ|1⟩ ⟨1|Ĥ|2⟩              1/2 + exp(−2κ|x2 − x1 |)     exp(−κ|x2 − x1 |)
+    Ĥ =                        = −V0 κ
+           ⟨2|Ĥ|1⟩ ⟨2|Ĥ|2⟩                  exp(−κ|x2 − x1 |)    1/2 + exp(−2κ|x2 − x1 |)
+
+
+
+ c) Defining α = exp(−κ|x2 − x1 |) and solving the eigenvalue equations det(ϵ± I − Ĥ) =
+    0, where I is the identity matrix, yields
+
+                                  ϵ± = −V0 κ(1/2 + α2 ± α).
+    We see that, if we move the atoms further and further apart, α → 0 and the eigenen-
+    ergies converge to those of the isolated atoms (i.e., ϵ± → ϵ0 ). Moreover, we can write:
+
+                                    ϵ± = ϵ0 − V0 κ(α2 ± α).
+For α ̸= 0, we have ϵ+ < ϵ− and so the bonding energy is given by
+
+                             ϵ+ − ϵ0 = −V0 κ(α2 + α).                            (3)
+
+For completeness, notice the antibonding energy is given by ϵ− − ϵ0 = −V0 κ(α2 − α),
+which is positive as 0 < α < 1.
+

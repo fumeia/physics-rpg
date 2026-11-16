@@ -1,0 +1,219 @@
+Prof. Dr. Christian Degen                                                          Autumn Semester 2026
+
+               Introduction to Solid State Physics
+               https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                                Weekly Solution Set 5
+
+Solution 1: Deriving the density of states for the linear
+dispersion relation of the Debye model
+  a) The Debye model considers only the linear dispersion ω = vs |k| relevant for acoustic
+     phonons in the low-energy (small-k) part of the dispersion.
+
+  b) The distance between nearest-neighbour points in k-space is 2π/L. The density of
+     k-points in 1, 2, and 3 dimensions is L/(2π), L2 /(2π)2 , and L3 /(2π)3 , respectively.
+
+  c) Assuming that in d dimensions there are pd polarizations, we have:
+                                                            ∫︂ k0
+                                                      L
+                                      Nstates,1D = p1               2dk
+                                                      2π      0
+                                                            ∫︂ k0
+                                                    L
+                                   Nstates,2D = p2 ( )2             2πkdk
+                                                    2π        0
+                                                            ∫︂ k0
+                                                   L
+                                  Nstates,3D = p3 ( )3              4πk 2 dk
+                                                   2π        0
+
+     where k0 = ω0 /vs .
+
+  d) We use k = |k| = ω/vs and dk = dω/vs to get
+                                                ∫︂ ω0               ∫︂ ω0
+                                           L             1
+                           Nstates,1D = p1              2 dω :=               g1D (ω)dω
+                                           2π    0       vs          0
+                                                ∫︂ ω0                 ∫︂ ω0
+                                       L                  ω
+                      Nstates,2D = p2 ( )2              2π 2 dω :=               g2D (ω)dω
+                                       2π         0       vs              0
+                                                ∫︂ ω0                    ∫︂ ω0
+                                       L                  ω2
+                      Nstates,3D = p3 ( )3              4π 3 dω :=               g3D (ω)dω
+                                       2π         0       vs              0
+
+     where g1D (ω), g2D (ω), and g3D (ω) are the densities of states for 1, 2, and 3 dimen-
+     sions, respectively.
+Solution 2: Debye model in 2D
+ a) The energy stored in the vibrational modes of a two-dimensional Debye solid is:
+
+                        p2 L2 kD =ωD /v
+                              ∫︂        (︃                )︃
+                                             (︁     )︁
+                     E=                   nB ω(k) + 1/2 ℏω(k)dk
+                        (2π)2 0
+                        p2 L2 kD
+                             ∫︂  (︃           )︃
+                                       ℏvk
+                      =                          2πkdk + E0
+                         4π 2 0     eβℏvk − 1
+
+
+    and using the substitution x = βℏvk then gives:
+
+                                            ∫︂ xD =βℏωD
+                               p2 L 2                         x2
+                          E=                                       dx + E0
+                             2πv 2 ℏ2 β 3    0              ex − 1
+
+
+
+ b) The high-T limit implies β → 0. Therefore, Taylor expanding the exponential in
+    nB = 1/(eβℏω − 1) to first-order in βℏω gives nB ≈ 1/(βℏω) = kB T /ℏω and the
+    integral becomes particularly illuminating:
+                    ∫︂ ωD                    ∫︂ ωD
+                E=        ℏωnB (ω)g(ω)dω ≈         kB T g(ω)dω = Nmodes kB T
+                      0                               0
+
+    where we neglected the zero-point energy E0 . Notice, this high-temperature expres-
+    sion depends on the dimension only through Nmodes . For example, in 3D we have
+    Nmodes = p3 Natoms , so that for the typical case of p3 = 3, we recover the Dulong
+    Petit law, Cv = dE/dT = 3kB per atom.
+
+ c) In the low temperature limit, the high-energy modes are not excited so we can safely
+    let the upper boundary of the integral go to infinity in our expression from part a).
+    This gives:
+
+                                                 ∫︂ ∞
+                               p2 L2 kB3 T 3                x2
+                            E=                                   dx + E0
+                                2πv 2 ℏ2          0       ex − 1
+
+    From which we find Cv = dE/dT = KT 2 , with
+
+                       3p2 L2 kB3 ∞ x2          3L2 kB3 ∞ x2
+                                 ∫︂                    ∫︂
+                  K=                      dx =                   dx
+                        2πv 2 ℏ2 0 ex − 1       πv 2 ℏ2 0 ex − 1
+
+    where the last equality uses the typical value p2 = 2.
+Solution 3: Anisotropic sound velocities
+In this case, the velocity depends on the direction. Note however that, the polarization
+does not affect the dispersion of the waves. We get
+                                   ∫︂
+                               L 3       ℏω(k)
+                      E = p3 ( )        βℏω(k)
+                                                   dkx ky kz + E0
+                               2π     e        −1
+                                           ∫︂
+                               L      1           ℏκ
+                         = p3 ( )3                      dκx dκy dκz + E0
+                               2π vx vy vz     eβℏκ − 1
+
+where β = 1/(kB T ) and we made the substitutions κx = kx vx , κy = ky vy , κz = kz vz so
+that ω = |κ| = κ. Going to spherical coordinates (dκx dκy dκz = 4πκ2 dκ) and using the
+change of variables x = βℏκ, we have:
+                                           ∫︂ κD
+                            p3 L 3 1                ℏκ3
+                       E=                                  dκ + E0
+                             2π 2 vx vy vz 0 eβℏκ − 1
+                                               ∫︂ βℏκD
+                              p3 L3       1               x3
+                         = 2 3 4                              dx + E0
+                            2π ℏ β vx vy vz 0          ex − 1
+                                               ∫︂ ∞
+                              p3 L3       1            x3
+                         ≈ 2 3 4                            dx + E0 ,
+                            2π ℏ β vx vy vz 0 ex − 1
+
+where the last line uses βℏκD → ∞ for the low-T limit.
+                        2p k4 L3 T 3     ∫︁ ∞ 3
+Therefore, C = dE dT
+                     = 3 πB2 ℏ3 vx v1y vz 0 exx−1 dx. We see that the result is similar to the
+one with the isotropic linear dispersion, the only difference is the factor 1/(vx vy vz ) instead
+of 1/v 3 here in the anisotropic case.
+
+
+
+
+Solution 4: Influence of temperature on diffraction -
+Debye-Waller factor
+  a)
+                                               ⃗                      ⃗
+                                     ∑︂                       ∑︂
+                              ⃗ =
+                            S(G)          γj eiG·(⃗rj +⃗u) = (                 ⃗ u
+                                                                 γj eiG·⃗rj )eiG·⃗
+                                      j                       j
+
+                            ⃗ u
+       First the function eiG·⃗ is expanded in to a Taylor series (the time average of a sum
+       is the sum of the mean values of the individual summand):
+
+                                     ⃗ u
+                                   eiG·⃗        ⃗ · ⃗u − 1 (G
+                                         = 1 + iG           ⃗ · ⃗u)2 .
+                                                         2
+       Let us assume that, the atoms oscillates from their equilibrium position indepen-
+       dently, then
+
+                                         ⃗ · ⃗u = 0,
+                                         G
+                                                   ⃓ ⃓2
+                                       ⃗ · ⃗u)2 = ⃓⃓G
+                                      (G            ⃗ ⃓⃓ u2 cos2 Θ,
+   where Θ is the angle between G    ⃗ and ⃗u. The expression cos2 Θ must be averaged
+   over a sphere since all directions are represented equally and the amplitude u of the
+   oscillation is independent from it:
+                                     ∫︂ π    ∫︂ 2π
+                                   1                                1
+                           2
+                       cos Θ =            dΘ       dΦ cos2 Θ sin Θ = .
+                                  4π 0         0                    3
+   This gives
+                                     ⃗u      1 ⃗ 2 2
+                                   eiG⃗ = 1 − |G| u.
+                                             6
+                                                                         ⃗ 2 2
+   But these are just the first two members of the Taylor series e−1/6|G| u . So, as a
+   good approximation,
+                                      ⃗u         ⃗ 2 2
+                                    eiG⃗ = e−1/6|G| u .
+   This is purely real and certainly less than 1. If you insert this equation into the
+   formula for the structure factor, it turns out
+                                     (︄              )︄
+                                                ⃗           ⃗ 2 2
+                                        ∑︂
+                               ⃗ =
+                            S(G)           γj eiG·⃗rj e−1/6|G| u .
+                                         j
+
+
+           ⃗ ∝ |S(G)|
+   Since I(G)     ⃗ 2 the intensity of the diffracted beam is therefore
+                        ⃓               ⃓2
+                        ⃓ ∑︂ iG·⃗ ⃗ rj ⃓⃓ −1/3|G|
+                                               ⃗ 2 u2            ⃗ 2 2
+                    I∝⃓ ⃓    γj e       ⃓e            = I0 e−1/3|G| u .
+                              j
+
+
+b) In the body-centered cubic
+                         √    structure with edge length a the distance between the
+   nearest neighbors is a 3/2. According to the Lindemann’s melting criterion the
+   mean square amplitude of the thermal motion is:
+                                   √︁       √
+                                      u2 = a 3/10.
+
+   The Debye-Waller factor is given by
+
+                                               ⃗ 2 u2 .
+                                         [︂          ]︂
+                                  D = exp −1/3|G|
+                                                        [︂      ]︂
+       ⃗ = 2π (1, 1, 0), this gives us D(T = TS ) = exp − π2 = exp [−0.79] = 0.45.
+   For G     a                                             12.5
+   Note that the above calculation is independent of the numerical value of the lattice
+   constant and is valid for all BCC crystals.
+

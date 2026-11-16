@@ -1,0 +1,60 @@
+Prof. Dr. Christian Degen                                         Autumn Semester 2026
+
+               Introduction to Solid State Physics
+               https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                             Weekly Problem Set 7
+
+Exercise 1: Fermi surface in two dimensions
+Consider a rectangular lattice with lattice constants a1 = 2π Å and a2 = π Å with one
+atom per lattice site. Let each atom give off three valence electrons, which move in the
+crystal like free electrons. Draw the Fermi surface in the reduced zone scheme.
+
+
+Exercise 2: Energy of electrons and phonons in solids
+Sodium crystallizes in a body-centered cubic lattice with lattice constant a = 4.23 Å and
+has one valence electron.
+
+
+
+
+Figure 1: Band structure of Sodium, from W. Y. Ching and J. Callaway, Phys. Rev. B,
+11, 1324, (1975).
+
+  a) Estimate the maximum wave vector and the maximum energy of a phonon in this
+     crystal assuming that the speed of sound is 1000 m/s.
+  b) Also determine the maximum wave vector and maximum energy of an electron.
+  c) An electron can transition to a higher band when energy is introduced from the
+     outside. In the band structure of sodium shown above, consider the case of a
+     scattering process from an electron sitting at the minimum Γ1 with a phonon. Can
+     the electron be excited into the minimum F3 by this process? Justify your statement
+     with the values for k and E calculated above. In what form could energy be made
+     available alternatively?
+Exercise 3: Calculating the electronic band structure
+of a monatomic chain with both nearest- and next-
+nearest neighbor hoppings
+In the lecture, we focused on the most elementary 1D tight binding chain, in which there
+is a nearest-neighbor hopping −t and an onsite energy E0 for all the atoms. Introducing
+more interactions between the atomic orbitals will lead to different dispersion relations.
+In this question, we study the effect of including a next-nearest neighbor interaction into
+the tight-binding analysis of the 1D monatomic chain.
+    We have a monatomic chain with onsite energy E0 and nearest-neighbor hopping
+−t = ⟨n|Ĥ|n + 1⟩. In addition, we include a hopping −t′ between the next-nearest
+neighbors:
+                                  ⟨n|Ĥ|n + 2⟩ = −t′ ̸= 0
+
+  a) Do you expect t′ < t or vice versa? Suppose we model the atoms by delta-function
+     potential wells V̂n = V0 δ(x − na) for integer n such that the atomic orbitals decay
+     exponentially over a characteristic distance d. In other words, the atomic orbitals
+     are Ψn (x) ∝ e−|x−na|/d , where a is the lattice constant. Estimate the ratio t′ /t and
+     discuss your answer.
+
+  b) Write down the equation of motion relating the probability
+                                                            ∑︁ amplitudes ϕn of the
+     linear combinations atomic orbitals wavefunction, |Ψ⟩ = n ϕn |n⟩, for this system.
+
+  c) Use the ansatz ϕn = exp(ikna)ϕ0 to solve the equation of motion and find the
+     dispersion relation E(k).
+                                             [︁ 2 ]︁−1
+  d) Calculate the effective mass m∗ (k) = ℏ2 ∂∂kE2    .
+

@@ -1,0 +1,182 @@
+Prof. Dr. Christian Degen                                            Autumn Semester 2026
+
+               Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                Weekly Solution Set 8: Repetition Week
+
+Solution 1: Miller Planes and Reciprocal Lattice Vec-
+tors
+  a) To prove this, we can show that G is orthogonal to two non-parallel vectors in the
+     Miller plane. We know that one of the (hkl) Miller planes intersects with the axes
+     at a/h, b/k, and c/l. Therefore, for our two non-parallel vectors in the Miller plane,
+     we can take v1 = a/h − b/k and v2 = a/h − c/l. For G = ha∗ + kb∗ + lc∗ , we then
+     use Equation 1.8 of the lecture script to show G · v1,2 = 0.
+
+  b) We compute the distance between two parallel planes by projecting any vector
+     connecting the two planes onto a unit vector perpendicular to the planes. Using
+                                                      G
+     the result of part (a), the unit vector is n̂ = |G| . For lattice planes, there is always
+     a plane intersecting the zero lattice point (0,0,0). As such, the vector a/h spans
+     between the plane intersecting (0,0,0) and the plane from part (a) that intersects
+     a/h, b/k, and c/l. Therefore, we project the vector a/h onto n̂, yielding a distance:
+                    2π
+     d = n̂ · ha = |G| .
+                                                                            2π
+  c) Using ρ = d/V , we must maximize d and therefore, since d = |G|           , we find the
+     smallest |G|. Since the primitive reciprocal lattice vectors all have the same length,
+     and since h, k, and l must each be integers in order for G = ha∗ + kb∗ + lc∗
+     to correspond to a reciprocal lattice vector, the smallest value of |G| occurs for
+     (h, k, l) = (±1, 0, 0), (0, ±1, 0) and (0, 0, ±1).
+
+     These values of h, k, and l correspond to the planes (1 0 0), (1̄ 0 0), (0 1 0), (0 1̄ 0),
+     (0 0 1), and (0 0 1̄) in terms of the BCC lattice, which are collectively denotes as the
+     {1 0 0} family of (symmetrically equivalent) planes. In terms of the conventional
+     simple cubic lattice, this corresponds to the {1 1 0} family of planes (this can be
+     seen from the figure below).
+
+  d) To identify one of the Miller planes of the previous subquestion in a sketch of the
+     real space lattice, we note that the normal to the (h k l) Miller plane points in the
+     direction of ha∗ + kb∗ + lc∗ . From the values of (h, k, l) = (±1, 0, 0), (0, ±1, 0) and
+     (0, 0, ±1) obtained in the previous subquestion, this corresponds to a∗ , b∗ , or c∗ in
+     terms of the primitive reciprocal lattice vectors for the BCC lattice. One of these
+     planes is shown in the figure below.
+Solution 2: Bulk Modulus of Solid Argon
+                         √
+ a) The length is r0 = a/ 2 ≈ 3.712 Å.
+
+
+ b) We know that at equilibrium, we have dϕ
+                                                                                 (︁ dϕ )︁
+                                             dr
+                                                 = 0, or in other words,           dr r=r0
+                                                                                             = 0.
+    From the given expression for ϕ(r), this gives:
+                                     (︃        )︃11         (︃        )︃5
+                                          σ                      σ
+                                12                    −6                    =0
+                                          r0                     r0
+    and so rearranging and using our value of r0 above, we have:
+
+                                                 r0
+                                      σ=              1   ≈ 3.307Å
+                                                 26
+ c) We have an FCC lattice, which means that each atom has 12 nearest neighbors.
+
+
+
+
+    The total energy per atom is thus:
+                                   (︃ )︃        [︃(︂ )︂           ]︃
+                                     1              σ 12 (︂ σ )︂6
+                          u = (12)       (4U0 )         −
+                                     2              r       r
+    The factor of 1/2 is because each bond is shared by two atoms.
+ d) Here we use Ω0 = 41 a3 as there are four atoms per conventional cubic unit cell, which
+    has volume of a3 in equilibrium.
+
+                          √
+    We then use r = a′ / 2 where a′ is the lattice constant not necessarily in equilibrium,
+    and Ω = 14 (a′ )3 similar to our expression for Ω0 above. Combining these then gives
+         3/2                                       1/3
+    Ω = 2 4 r3 and rearranging for r gives r = 421/2 Ω1/3 .
+    Calculating the bulk modulus by plugging our expression for r in then gives:
+
+
+                                      ∂ 2u
+                                 (︃          )︃
+                       K = Ω0
+                                      ∂Ω2        Ω=Ω0
+
+
+
+                                       ∂2       26 σ 12 23 σ 6
+                                 (︃                            )︃
+                          = Ω0            24U0 ( 4 4 − 2 2 )
+                                      ∂Ω2       4Ω      4Ω       Ω=Ω0
+
+
+
+                                                4 · 5 · 26 σ 12 2 · 3 · 23 σ 6
+                                           (︃                                    )︃
+                          = 24U0 Ω0                            −
+                                                    44 Ω6           42 Ω4         Ω=Ω0
+
+
+
+                                           4 · 5 · 26 σ 12 2 · 5 · 33 σ 6
+                                      (︃                                    )︃
+                          = 24U0                          −
+                                               44 Ω50          42 Ω30
+
+
+
+
+    and the answer is then given by substituting in Ω0 = 41 a3 and σ = r01 ≈ 3.307 Å
+                                                                       26
+    from above, and U0 /kB = 163 Kelvin as given in the question.
+
+
+
+
+Solution 3: Photons in a Box
+ a) The number of k-states within a sphere of radius k is:
+
+                                                         2V 4 3
+                                            N (k) =             πk
+                                                        (2π)3 3
+    where the factor of two in the numerator arises from the two polarizations. Plugging
+    in the dispersion relation E = ℏck then gives:
+
+                                                         2V 4πE 3
+                                           N (E) =
+                                                        (2π)3 3c3 ℏ3
+    and taking the derivative as a function of energy to get the density of states, we
+    have:
+                                                          V E2
+                                        ν(E) =
+                                                          π 2 c3 ℏ3
+b) Using the Bose-Einstein distribution,
+
+                                                                 1
+                                 ⟨n(E)⟩ =                  (︂          )︂
+                                                                 E
+                                                  exp           kB T
+                                                                            −1
+
+   together with our answer from part (a), gives the total energy:
+                   ∫︂ ∞                                   ∫︂ ∞
+                                                                        V E3        1
+              U=          dE E ν(E) ⟨n(E)⟩ =                     dE      2 3 3
+                                                                                 (︂   )︂
+                    0                                      0            π c ℏ exp E − 1
+                                                                                 kB T
+
+
+   Making the substitution y = kBET and dy = kdE
+                                              BT
+                                                 , we have:
+                                                  ∫︂ ∞
+                                 V k4 T 4                            y3
+                              U = 2 B3 3                   dy
+                                 π cℏ                 0          exp(y) − 1
+   Now the difference between this and the Debye model is that there is no cutoff
+   temperature, so we can solve this integral now, leading to:
+
+                                         4 4
+                                              (︃ 4 )︃
+                                      V kB T    π
+                                   U= 2 3 3
+                                      π cℏ      15
+                                       2    4 4
+                                      π V kB T
+                                    =
+                                       15c3 ℏ3
+c) We take the derivative of the above equation to get:
+
+                                                                4π 2 V kB4 3
+                                       (︃        )︃
+                                            ∂U                            T
+                                cv =                      =            3  3
+                                            ∂T    V               15c ℏ
+

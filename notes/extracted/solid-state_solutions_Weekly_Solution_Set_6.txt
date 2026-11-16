@@ -1,0 +1,145 @@
+Prof. Dr. Christian Degen                                          Autumn Semester 2026
+
+              Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                             Weekly Solution Set 6
+
+Solution 1: Low-dimensional electron systems
+  a) 2D case: Number of states with energy less than E:
+                                          ∫︂ k(E)        ∫︂ k(E)
+                           ∑︂         A                A
+                N (E) = 2      1=2      2
+                                                  dk = 2         2πkdk
+                            k
+                                    (2π)    0         2π   0
+
+                                                                     2 2
+                                                                       k             2
+     where the initial factor of 2 is for spin degeneracy. Using E = ℏ2m gives dE = ℏm kdk
+     and we then have:
+                                             Am E
+                                                  ∫︂
+                                                           Am
+                                  N (E) =       2
+                                                     dE =      E
+                                             πℏ 0          πℏ2
+     and the density of states in two dimensions is then given by:
+                                        1 dN (E)    m
+                            D2D (E) =            =     = const.
+                                        A dE       πℏ2
+
+     1D case: Number of states with energy less than E:
+                                                                √︃
+                                   L k(E)
+                                      ∫︂
+                          ∑︂                       2L        2L 2mE
+                N (E) = 2    1=2              dk =    k(E) =
+                           k
+                                   2π   −k(E)       π         π    ℏ2
+
+     Density of states in one dimension:
+                                                      √︃
+                                       1 dN (E)   1        2m 1
+                             D1D (E) =          =            √ .
+                                       L dE       π        ℏ2 E
+     0D case: Density of states for a single energy level E = E0 :
+                                    D0D (E) = 2δ(E − E0 )
+
+  b) 2D case:
+                                 N (EF )    m         m ℏ2 kF2   kF2
+                         n2D =           =     E F =           =
+                                    A      πℏ2       πℏ2 2m      2π
+                                               √
+                                       ⇒ kF = 2πn2D
+
+     1D case:
+                                          N (EF )   2kF
+                                    n1D =         =
+                                             L       π
+                                               π
+                                        ⇒ kF = n1D
+                                               2
+Solution 2: The electron dispersion, density of states,
+and heat capacity of graphene
+ a) The electron dispersion is plotted here as a function of kx for ky = 0.
+
+
+
+
+    In three dimensions, the dispersion forms a pair of cones touching at the point
+    (k, ϵ) = (0, 0) analogous to the ky = 0 cross-section of these cones shown above.
+    Low-energy (low-k) acoustic phonons also have a linear dispersion relation; There
+    the slope corresponds to the speed of sound.
+
+ b) The density of states of electrons with linear dispersion, as in graphene, can be
+    calculated similarly to that of the 2D Debye model for phonons as was done in
+    Problem Set 5, Exercise 1, except for an extra factor 2 here due to presence of two
+    linear bands instead of one.
+    The number of states with energy ϵ < ϵ0 :
+                                                       ∫︂ k0
+                                              L
+                               Nstates,2D = 4( )2              2πkdk,
+                                              2π         0
+
+    and since ϵ = ck (with the ϵ = −ck case taken into account by the factor of 2 for
+    the valley degeneracy), we have:
+                                         ∫︂ ϵ0 =ck0                ∫︂ ϵ0
+                                   L                     ϵ
+                    Nstates,2D = 4( )2                2π 2 dϵ :=           g2D (ϵ)dϵ
+                                   2π     0             c           0
+
+
+    Thus, for positive energies DOS is given by
+
+                                              L 2ϵ   2L2
+                                g(ϵ) = 8π(      ) 2 = 2ϵ,
+                                              2π c   πc
+    From the symmetry of the dispersion, it immediately follows that if we account for
+    the negative energies as well, we obtain
+                                               2L2
+                                      g(ϵ) =       |ϵ| .
+                                               πc2
+    Therefore, the DOS of a 2D linear dispersion is linear in energy.
+ c) Since we have g(ε) ∝ ε and ϵF = 0, the definition of the density of states and the
+    fact that it is linear here means the number of electrons that get thermally excited
+    is given by the area of a triangle with base kB T and height g(−kB T ):
+                                  1                L2 kB
+                                                       2 2
+                                                         T
+                             nex = g(−kB T )kB T =
+                                  2                  πc2
+    From this it follows that the energy difference is given by
+                                                     L2 kB
+                                                         3 3
+                                                           T
+                             E(T ) − E0 = nex kB T =      2
+                                                       πc
+ d) The heat capacity is
+                                             ∂E        3 2
+                                                  3L2 kB T
+                                 Cv (T ) =      =      2
+                                             ∂T     πc
+
+
+
+
+Solution 3: Energy of free electrons
+ a) The reciprocal
+         √           lattice of the square lattice is a square lattice again. Therefore,
+    k1 = 2k0 with the designation of the vectors according to the sketch. The kinetic
+    energy of a free electron at the corner of the first Brillouin zone is then given by
+           ℏ2 k2    ℏ2 k2
+    E1 = 2m1 = 2 2m0 = 2E0 where E0 is the kinetic energy of a free electron at the
+    center of a side axis of the first Brillouin zone.
+
+
+
+
+ b) In the three-dimensional case, letting the indices 1 and 0 denote electrons at the
+    corner of the first Brillouin zone and at the center of one of the faces making up
+                                                       √                         ℏ2 k2
+    the sides of the first Brillouin zone, we have k1 = 3k0 and therefore E1 = 2m1 =
+     ℏ2 k2
+    3 2m0 = 3E0 .
+

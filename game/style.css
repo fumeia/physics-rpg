@@ -333,3 +333,6 @@ body.lite #ov-max { display: none; }
 .navback { position: sticky; top: -16px; z-index: 2; display: flex; gap: 10px; align-items: center; background: var(--panel); padding: 8px 0; margin: -4px 0 8px; border-bottom: 1px solid var(--line); }
 html[data-theme=light] .navback { background: #fff; }
 html[data-theme=light] .primerbody h4 { color: #0a3a8c; } html[data-theme=light] details.primer { border-color: #111; background: #f4f8ff; }
+
+/* figures cropped from the exercise sheets and slides: always on white so the print-style plots read in both themes */
+img.fig { display: inline-block; max-width: 100%; height: auto; background: #fff; border-radius: 6px; padding: 4px; margin: 6px 4px 6px 0; vertical-align: top; }

@@ -73,6 +73,7 @@ const GROUPS = [
 
 let bridgeOn = false; // is the QM bridge exhibit the 3D content of the current room?
 let holos = null, world, player, course, room, set = null, current = null, unmountPanel = null, dueTarget = null, tut = null, overlay = null;
+const sheetShift = new Map(); // sheet -> days added to its due date (see sheetDue)
 let sheetsByCourse = {}; // course id -> {title, sheets: [{n, title, due, questions: [{q, title, room, related, enc}]}]}
 let catalog = [], encIndex = new Map(), codexByCourse = {}, groups = [], linksData = [], route = [], banks = {}, dayMissions = null, dayKey = '';
 let inNexus = false, nexusFocusKey = null;
@@ -99,7 +100,7 @@ async function boot() {
         const x = await fetchJson(`content/${c.dir}/${f}`), place = (room, enc) => { const r = rooms.find((y) => y.slug === room); if (r) r.encounters.push(enc); };
         for (const it of x.items || []) place(it.room, it.enc);
         // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
-        if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
+        if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
       } catch (err) { console.warn('extra content failed', f, err.message); }
     }
     catalog.push({ ...c, region: idx.region, rooms });
@@ -524,7 +525,8 @@ function pileBar(enc) {
 }
 // ---- exercise sheets: due dates of this year (the sheets are the HS25 set: same weekday one year later), current sheet, links
 const DAY = 86400000;
-const sheetDue = (sh) => (sh.due ? new Date(Date.parse(sh.due + 'T23:59:00') + 364 * DAY) : null);
+// A course whose sheets are this year's own (solid state) sets dueShiftDays: 0 in its sheets.json; the default 364 is for last year's set (QM).
+const sheetDue = (sh) => (sh.due ? new Date(Date.parse(sh.due + 'T23:59:00') + (sheetShift.get(sh) ?? 364) * DAY) : null);
 const fmtDue = (d) => (d ? d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '');
 function currentSheet(cid) { const s = sheetsByCourse[cid]; if (!s) return null; const now = Date.now(); return s.sheets.find((x) => sheetDue(x) && sheetDue(x) >= now - DAY / 2) || s.sheets[s.sheets.length - 1]; }
 function sheetMenuLabel() {

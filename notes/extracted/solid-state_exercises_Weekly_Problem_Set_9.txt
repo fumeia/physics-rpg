@@ -1,0 +1,79 @@
+Prof. Dr. Christian Degen                                           Autumn Semester 2026
+
+               Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                              Weekly Problem Set 9
+
+Exercise 1: The temperature dependence of resistance
+in the Drude model
+The Drude model is based on the kinetic theory of gases. In this exercise, we try to
+explain the temperature dependence of the resistivity using this theory. It assumes that
+the characteristic scattering time τ is determined by the mean speed of the individual
+electrons (note that this speed is not the same as the drift velocity v of the electrons,
+which, as argued in the lecture, should be zero in the absence of an electric field). Statis-
+tical physics tells us that the average kinetic energy of a particle in √︂
+                                                                        a gas at temperature
+                                                                         3kB T
+T equals 3kB T /2, yielding a root-mean-square speed equal to v =          m
+                                                                               .   We see that
+this speed depends on temperature.
+
+We consider copper, which has a density of 8960 kg/m3 , an atomic weight of 63.55 g/mol,
+and a room-temperature resistivity of ρ = 1/σ = 1.68 · 10−8 Ωm. Each copper atom
+provides one free electron.
+
+  a) From these numbers, calculate the Drude scattering time τ at room temperature.
+
+                                                              √︂
+  b) Assume that the electrons move with rms speed v = 3kmB T . Use this to estimate
+     the electron mean free path λ, defined as the average distance an electron travels in
+     between scattering events, at room temperature.
+
+
+  c) Now assume that the mean free path λ is independent of temperature. How would
+     the electrical resistivity ρ depend on temperature under this assumption? Discuss
+     how it scales with temperature.
+
+
+  d) Compare this temperature dependence of ρ(T ) with that for the case when electron
+     scattering is caused by phonons.
+Exercise 2: Positive and negative charge carriers
+Measurements of the Hall voltage enable determining if the conduction of a sample is
+mediated by positive or negative charge carriers. In this question we analyze the Hall ef-
+fect if we have both positive and negative charge carriers in a sample. (we will encounter
+positive charge carriers later in the course when discussing semiconductors). The negative
+charge carriers have density ne , scattering time τe , and charge −e. The positive charge
+carriers have density nh , scattering time τh , and charge e. The goal is to derive the Hall
+voltage and coefficient.
+
+As before, we consider a 2D sample in the xy plane. We push a current through the
+sample by connecting electrodes and applying an electric field Ex along the +x-direction.
+Furthermore, we apply a magnetic field Bz along the +z-direction. The boundary con-
+ditions tell us that the net current in the y-direction should be zero. However, this does
+not mean the charge carriers do not move in the y-direction!
+
+  a) Express the current density J as a function of the drift velocities ve and vh of the
+     charge carriers.
+
+
+  b) Show that the drift velocities are given by ve = −µe (E + ve × B) and vh =
+     µh (E + vh × B) and find the expressions for µe and µh .
+
+
+  c) Assume that Ex ≫ |ve,y |Bz and Ex ≫ |vh,y |Bz to show that Jx = eEx (ne µe + nh µh ).
+     Discuss the two terms of this last equation and why they should be added.
+
+
+  d) Under the same assumption, show that Jy = eEy (ne µe +nh µh )+eBz Ex (ne µ2e −nh µ2h ).
+     What should Jy be equal to?
+
+
+  e) Use the derived equations to show that the Hall electric field is
+
+                                                 nh µ2h − ne µ2e
+                                  Ey = Jx Bz
+                                               e(nh µh + ne µe )2
+
+     Extract the Hall coefficient RH = Ey /(Jx Bz ) and discuss what determines its sign.
+

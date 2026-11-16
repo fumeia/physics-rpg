@@ -394,3 +394,14 @@ html[data-theme=light] .st-run, html[data-theme=light] #btn-run:not(.done) { col
 @media (max-width: 620px) { .battle { grid-template-columns: 1fr 1fr; gap: 6px 10px; } .bt-mid { grid-column: 1 / -1; grid-row: 2; display: flex; justify-content: center; gap: 10px; min-height: 0; } .bt-sprite { width: 40px; height: 40px; } }
 @media (prefers-reduced-motion: reduce) { .bt-sprite, .battle * { animation: none !important; } }
 html[data-theme=light] .battle { background: rgba(255,255,255,.97); border-color: rgba(0,0,0,.3); } html[data-theme=light] .bt-hp, html[data-theme=light] .bt-fo { background: rgba(0,0,0,.1); } html[data-theme=light] .bt-pop.hit { color: #0a7a45; }
+
+.cp-stop { flex: 1 0 128px; max-width: 210px; display: flex; flex-direction: column; align-items: stretch; gap: 6px; } .cp-stop .cp-node { flex: none; max-width: none; }
+.cp-dot svg { width: 30px; height: 30px; animation: none; filter: none; } .cp-node.done .cp-dot { font-weight: 800; }
+.cp-node.risk .cp-dot { border-style: dashed; border-color: #ff9f6b; }
+.cp-alt { border: 1px dashed rgba(255,159,107,.6); background: rgba(255,159,107,.07); color: inherit; border-radius: 8px; padding: 4px 6px; font: inherit; cursor: pointer; text-align: center; display: grid; gap: 2px; } .cp-alt:hover { background: rgba(255,159,107,.16); }
+.cp-altk { font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: #ff9f6b; } .cp-altt { font-size: 12px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } .cp-altt svg { width: 16px; height: 16px; vertical-align: -3px; animation: none; }
+.cp-tile.dark { background: repeating-linear-gradient(135deg, rgba(255,107,107,.13) 0 6px, rgba(0,0,0,.25) 6px 12px); border-color: rgba(255,107,107,.45); }
+.cp-tile { overflow: visible; } .cp-tile i { border-radius: 0 0 5px 5px; } .cp-ghost { position: absolute; top: -13px; right: -5px; color: #cfe6ff; filter: drop-shadow(0 0 5px rgba(140,200,255,.9)); animation: bt-bob 2.6s ease-in-out infinite; pointer-events: none; }
+.cp-track { padding-top: 8px; }
+.bt-foe .bt-name { flex-direction: column; align-items: flex-start; gap: 0; white-space: normal; } .bt-foe .bt-name b { min-width: 0; max-width: 100%; white-space: nowrap; } .bt-foe .bt-name span { max-width: 100%; white-space: nowrap; }
+html[data-theme=light] .cp-ghost { color: #33507a; filter: none; } html[data-theme=light] .cp-tile.dark { background: repeating-linear-gradient(135deg, rgba(200,40,40,.14) 0 6px, rgba(0,0,0,.05) 6px 12px); }

@@ -30,6 +30,13 @@ await p.click('.cp-week [data-knownto]'); await p.waitForTimeout(250);
 const after = await p.evaluate(() => document.getElementById('btn-campaign').textContent);
 ck('marking weeks as done on paper lowers "weeks behind"', before !== after && parseFloat(after.match(/[\d.]+/)) < parseFloat(before.match(/[\d.]+/)), `${before} -> ${after}`);
 await p.screenshot({ path: '/tmp/shots/campaign.png' });
+// a fork: take the risk, the stop is swapped for a harder one and can be swapped back
+const hasAlt = await p.evaluate(() => !!document.querySelector('[data-alt]'));
+if (hasAlt) { const t0 = await p.evaluate(() => document.querySelector('[data-alt]').closest('.cp-stop').querySelector('.cp-node').dataset.stop); await p.click('[data-alt]'); await p.waitForTimeout(200);
+  ck('taking the risk swaps the stop', await p.evaluate((t) => { const n = document.querySelector('.cp-node.risk'); return !!n && n.dataset.stop !== t; }, t0));
+  await p.click('.cp-node.risk ~ [data-alt]'); await p.waitForTimeout(200); ck('the safe stop can be taken back', await p.evaluate((t) => !document.querySelector('.cp-node.risk') && !!document.querySelector(`.cp-node[data-stop="${t}"]`), t0)); }
+ck('the ghost stands on the lecture week of every course', await p.evaluate(() => document.querySelectorAll('.cp-ghost').length === 3));
+ck('weeks the lecture passed and you did not clear are dark', await p.evaluate(() => document.querySelectorAll('.cp-tile.dark').length >= 1));
 // run from start to end
 const stops2 = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop));
 await p.click('#cp-start'); await p.waitForTimeout(700);

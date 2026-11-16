@@ -314,3 +314,10 @@ html[data-theme=light] .tb.sm { border-radius: 22px; }
 
 /* external simulation (PhET) inside an exercise: the open link looks like the other buttons */
 .callout.sim a.go { display: inline-block; text-decoration: none; background: var(--accent); color: #0b0d12; border-radius: 6px; padding: 7px 14px; font-weight: 600; margin: 6px 6px 0 0; }
+/* "Theory first" primer on exercise-sheet questions: reads like a script page, so roomier text than the panels */
+details.primer { margin: 8px 0; border: 1px solid rgba(140,200,255,.35); border-radius: 8px; padding: 6px 10px; background: rgba(140,200,255,.06); }
+details.primer > summary { cursor: pointer; }
+.primerbody { line-height: 1.55; font-size: 1.02em; }
+.primerbody h4 { margin: 14px 0 4px; color: #9fd3ff; }
+.primerbody ul { padding-left: 1.2em; }
+.primerbody li { margin: 4px 0; }

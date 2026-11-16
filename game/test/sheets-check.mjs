@@ -22,7 +22,7 @@ for (const course of ['qm', 'solid-state', 'astrophysics']) {
     ok(`${k}: sheet derive`, e.type === 'derive' && e.sheet === true && e.steps.length >= 1 && e.steps.every((s) => s.prompt && s.reveal) && e.keyPoints.length >= 2 && e.goal && e.source?.file);
     for (const r of q.related) ok(`${k}: related ${r} exists`, ids.has(r));
     ok(`${k}: has related links`, q.related.length >= 1);
-    for (const t of [e.title, e.goal, ...(e.given || []), ...e.steps.flatMap((s) => [s.prompt, s.reveal]), ...e.keyPoints]) {
+    for (const t of [e.title, e.goal, ...(e.given || []), ...e.steps.flatMap((s) => [s.prompt, s.reveal]), ...e.keyPoints, ...(e.primer ? [e.primer] : [])]) {
       ok(`${k}: balanced $`, (t.match(/\$/g) || []).length % 2 === 0, t.slice(0, 60));
       for (const m of t.matchAll(/\$([^$]+)\$/g)) { try { katex.renderToString(m[1], { throwOnError: true, strict: 'ignore' }); } catch (err) { ok(`${k}: LaTeX`, false, `${m[1].slice(0, 60)} -> ${err.message.slice(0, 90)}`); } }
     }

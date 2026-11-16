@@ -537,7 +537,8 @@ function sheetLinksHtml(enc) {
   if (enc.sheet) {
     const hit = sheetRefs().find((x) => x.q.enc.id === enc.id); if (!hit) return '';
     const rel = (hit.q.related || []).map(relatedBtn).filter(Boolean).join(' ');
-    return `<div class="callout sheetlink"><div class="ctitle">${findCourse(hit.cid)?.name || ''} sheet ${hit.sh.n}, question ${hit.q.q} \u00b7 due ${fmtDue(sheetDue(hit.sh))}</div>${rel ? `<p class="src">In the game, to read up or practise around this question:</p><div class="row wrap">${rel}</div>` : ''}</div>`;
+    const pr = enc.primer ? `<details class="primer"><summary><b>Theory first (~10 min)</b> \u00b7 missed the lecture? Read this before the question</summary><div class="primerbody">${enc.primer}</div></details>` : '';
+    return `<div class="callout sheetlink"><div class="ctitle">${findCourse(hit.cid)?.name || ''} sheet ${hit.sh.n}, question ${hit.q.q} \u00b7 due ${fmtDue(sheetDue(hit.sh))}</div>${pr}${rel ? `<p class="src">In the game, to read up or practise around this question:</p><div class="row wrap">${rel}</div>` : ''}</div>`;
   }
   const back = sheetRefs().filter((x) => (x.q.related || []).includes(enc.id));
   if (!back.length) return '';
@@ -551,7 +552,7 @@ function sheetsHtml() {
     const cur = currentSheet(cid);
     const block = (sh) => {
       const qs = sh.questions.map((q) => { const e = encIndex.get(q.enc.id)?.enc, ok = e && passed(e), rev = e && store.hasReview(e.id);
-        return `<div class="maprow"><button class="link" data-sopen="${q.enc.id}"><span class="mt">${ok ? '\u2713' : rev ? '\u21bb' : '\u25cb'} Q${q.q}: ${q.title}</span></button><span class="src">${findRoom(cid, q.room)?.title || ''} \u00b7 ${(q.related || []).length} linked</span></div>`; }).join('');
+        return `<div class="maprow"><button class="link" data-sopen="${q.enc.id}"><span class="mt">${ok ? '\u2713' : rev ? '\u21bb' : '\u25cb'} Q${q.q}: ${q.title}</span></button><span class="src">${q.enc.primer ? '\ud83d\udcd6 theory first \u00b7 ' : ''}${findRoom(cid, q.room)?.title || ''} \u00b7 ${(q.related || []).length} linked</span></div>`; }).join('');
       const done = sh.questions.filter((q) => passed(encIndex.get(q.enc.id)?.enc || {})).length;
       return `<details${sh === cur ? ' open' : ''}><summary><b>Sheet ${sh.n}</b>${sh === cur ? ' <span class="tag">this week</span>' : ''} \u00b7 ${sh.title} \u00b7 due ${fmtDue(sheetDue(sh))} \u00b7 ${done}/${sh.questions.length}</summary>${qs}</details>`;
     };

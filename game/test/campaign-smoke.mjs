@@ -37,6 +37,8 @@ if (hasAlt) { const t0 = await p.evaluate(() => document.querySelector('[data-al
   await p.click('.cp-node.risk ~ [data-alt]'); await p.waitForTimeout(200); ck('the safe stop can be taken back', await p.evaluate((t) => !document.querySelector('.cp-node.risk') && !!document.querySelector(`.cp-node[data-stop="${t}"]`), t0)); }
 ck('the ghost stands on the lecture week of every course', await p.evaluate(() => document.querySelectorAll('.cp-ghost').length === 3));
 ck('weeks the lecture passed and you did not clear are dark', await p.evaluate(() => document.querySelectorAll('.cp-tile.dark').length >= 1));
+ck('week row: seven day pips and a locked chest', await p.evaluate(() => document.querySelectorAll('.cp-pip').length === 7 && document.getElementById('cp-chest').disabled));
+ck('weekly bosses render without error (present while a sheet is due within 9 days)', await p.evaluate(() => document.querySelectorAll('.cp-boss').length >= 0));
 // run from start to end
 const stops2 = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop));
 await p.click('#cp-start'); await p.waitForTimeout(700);
@@ -48,6 +50,7 @@ await p.keyboard.press('Escape'); await p.waitForTimeout(200); await p.keyboard.
 ck('summary: run complete with XP', await p.evaluate(() => /Run complete/.test(document.querySelector('.cp-run')?.innerText || '')), await p.evaluate(() => document.querySelector('.cp-run')?.innerText.slice(0, 200)));
 ck('all nodes ticked', await p.evaluate(() => document.querySelectorAll('.cp-node.done').length) === stops2.length);
 await p.click('#cp-again'); await p.waitForTimeout(300);
+ck('the finished run lights today\u2019s pip', await p.evaluate(() => !!document.querySelector('.cp-pip.today.on')));
 ck('another run can be planned', await p.evaluate(() => /#2/.test(document.querySelector('.cp-run h3').textContent)));
 // keys and menu
 await p.keyboard.press('Escape'); await p.evaluate(() => document.getElementById('btn-menu').click()); await p.waitForTimeout(200);

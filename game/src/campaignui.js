@@ -72,12 +72,64 @@ export function createCampaign(ctx) {
     const r = store.val('run', null); if (!r || r.date !== todayStr() || !r.startedAt || r.summarized) return false;
     const st = r.stops.map((s) => stopState(r, s)); if (!st.every((x) => x !== 'open')) return false;
     let bonus = 0; r.stops.forEach((s, i) => { if (s.risk && st[i] === 'done') bonus += s.bonus || 0; }); if (bonus) store.addXp(bonus); r.bonus = bonus;
+    payBosses();
     r.summarized = true; r.xp1 = store.xp; r.behind1 = behindTotal(); r.finishedAt = Date.now(); store.setVal('run', r);
     const log = (store.val('runLog', []) || []).filter((x) => !(x.date === r.date && x.n === r.n)); log.push({ date: r.date, n: r.n, stops: r.stops.length, ok: st.filter((x) => x === 'done').length, xp: r.xp1 - r.xp0 }); store.setVal('runLog', log.slice(-120));
     return true;
   }
   const runsOn = (date) => (store.val('runLog', []) || []).filter((x) => x.date === date).length;
-  function runStreak() { let n = 0; const d = new Date(); if (!runsOn(todayStr(d))) d.setDate(d.getDate() - 1); while (runsOn(todayStr(d))) { n++; d.setDate(d.getDate() - 1); } return n; }
+  // Honest streak: only a finished run counts. One missed day per calendar week is bridged by a freeze (nothing to buy or set).
+  const weekKey = (d) => { const m = new Date(d); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return todayStr(m); };
+  function runStreak() {
+    let n = 0; const d = new Date(), frozen = new Set(); if (!runsOn(todayStr(d))) d.setDate(d.getDate() - 1);
+    for (let guard = 0; guard < 400; guard++) {
+      if (runsOn(todayStr(d))) n++;
+      else if (n > 0 && !frozen.has(weekKey(d))) { const prev = new Date(d); prev.setDate(prev.getDate() - 1); if (!runsOn(todayStr(prev))) break; frozen.add(weekKey(d)); }
+      else break;
+      d.setDate(d.getDate() - 1);
+    }
+    return n;
+  }
+  // The week (Monday to Sunday): a pip per day with a finished run, and a chest that grows with the number of run days.
+  const CHEST = [[3, 'Bronze', 30], [5, 'Silver', 60], [7, 'Gold', 100]];
+  function weekInfo() {
+    const mon = new Date(weekKey(new Date()) + 'T12:00:00'), days = Array.from({ length: 7 }, (_, i) => { const x = new Date(mon); x.setDate(mon.getDate() + i); return todayStr(x); });
+    const done = days.map((x) => runsOn(x) > 0), n = done.filter(Boolean).length, key = days[0], claimed = (store.val('chests', {}) || {})[key] || 0;
+    const tier = CHEST.filter(([need]) => n >= need).length; // 0..3
+    return { days, done, n, key, claimed, tier, next: CHEST[tier] || null, today: todayStr() };
+  }
+  function claimChest() { const w = weekInfo(); if (w.tier <= w.claimed) return 0; let xp = 0; for (let i = w.claimed; i < w.tier; i++) xp += CHEST[i][2]; store.addXp(xp); store.setVal('chests', { ...(store.val('chests', {}) || {}), [w.key]: w.tier }); return xp; }
+  function weekHtmlRow() {
+    const w = weekInfo(), names = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    const pips = w.days.map((d, i) => `<span class="cp-pip${w.done[i] ? ' on' : ''}${d === w.today ? ' today' : ''}" title="${d}">${names[i]}</span>`).join('');
+    const can = w.tier > w.claimed;
+    return `<div class="cp-weekrow"><div class="cp-pips">${pips}</div><span class="src">${w.n} run day${w.n === 1 ? '' : 's'} this week · streak ${runStreak()} (one missed day a week is forgiven)</span>
+      <button class="cp-chest${can ? ' ready' : ''}" id="cp-chest" ${can ? '' : 'disabled'} title="Weekly chest: 3 run days bronze, 5 silver, 7 gold">${can ? `Open the ${CHEST[w.tier - 1][1].toLowerCase()} chest` : w.next ? `${CHEST[Math.min(2, w.tier)][1]} chest at ${w.next[0]} run days` : 'Gold chest opened'}</button></div>`;
+  }
+  // The weekly boss: the sheet that is due next in each course. Its theory is its armour; its open questions are its HP.
+  function bosses() {
+    const out = [], now = Date.now();
+    for (const [cid, sdata] of Object.entries(ctx.sheetsByCourse)) {
+      const sh = sdata.sheets.find((x) => { const d = ctx.sheetDue(x); return d && d >= now - 43200000; }); if (!sh) continue;
+      const due = ctx.sheetDue(sh), days = Math.ceil((due - now) / 86400000); if (days > 9) continue;
+      const w = W()[cid]?.find((x) => x.sheet === sh.n), theory = w ? w.theory : [], qs = sh.questions.map((q) => q.enc.id);
+      const paid = (store.val('bossPaid', {}) || {})[`${cid}/${sh.n}`];
+      out.push({ cid, sh, due, days, theory, qs, armour: theory.filter((id) => !passed(id)).length, hp: qs.filter((id) => !passed(id)).length, paid, reward: 20 * qs.length });
+    }
+    return out.sort((a, b) => a.due - b.due);
+  }
+  function payBosses() { let xp = 0; const paid = { ...(store.val('bossPaid', {}) || {}) }; for (const b of bosses()) if (!b.hp && !b.paid && Date.now() <= +b.due) { paid[`${b.cid}/${b.sh.n}`] = true; xp += b.reward; } if (xp) { store.setVal('bossPaid', paid); store.addXp(xp); } return xp; }
+  function bossHtml() {
+    const bs = bosses(); if (!bs.length) return '';
+    const card = (b) => { const ref = ctx.encIndex.get(b.qs[0]), foe = ref ? spriteSvg({ ...enemyOf(ref.enc, ref.course), elite: true, kind: 'boss' }, 46) : '';
+      const when = b.days <= 0 ? 'arrives today' : b.days === 1 ? 'arrives tomorrow' : `arrives in ${b.days} days`;
+      const state = !b.hp ? (b.paid ? `defeated before the deadline · +${b.reward} XP paid` : 'defeated') : b.armour ? `armoured: read ${b.armour} theory card${b.armour === 1 ? '' : 's'} to strip it` : 'armour gone: attack';
+      return `<div class="cp-boss${!b.hp ? ' dead' : b.days <= 2 ? ' soon' : ''}">${foe}<div class="cp-bossinfo"><b>${ctx.courseName(b.cid)}: the Warden of Sheet ${b.sh.n}</b><span class="src">${when} (${b.due.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' })}) · ${state}</span>
+        <div class="cp-bosshp">${b.qs.map((id) => `<i class="${passed(id) ? 'off' : ''}"></i>`).join('')}${b.theory.map((id) => `<u class="${passed(id) ? 'off' : ''}"></u>`).join('')}</div></div>
+        <div class="cp-bossbtn">${b.hp && b.armour ? `<button class="chip btn" data-wopen="${b.theory.find((id) => !passed(id))}">Strip armour</button>` : ''}${b.hp ? `<button class="chip btn" data-wopen="${b.qs.find((id) => !passed(id))}">Attack · +${b.reward} XP if beaten in time</button>` : ''}</div></div>`; };
+    return `<div class="cp-bosses"><h3>Weekly bosses</h3>${bs.map(card).join('')}</div>`;
+  }
+
 
   // ---- text for the HUD chips and the start screen
   function chipText() { const { done, total, complete } = runInfo(); return !isSetup() ? '▶ Set up your campaign' : complete ? `✓ Run done · again?` : total ? `▶ Today’s run ${done}/${total}` : '✓ Nothing due'; }
@@ -106,6 +158,7 @@ export function createCampaign(ctx) {
     const sum = complete && r.summarized ? `<p class="msg good">Run complete: ${st.filter((x) => x === 'done').length} of ${total} passed, ${r.xp1 - r.xp0 >= 0 ? '+' : '−'}${Math.abs(r.xp1 - r.xp0)} XP${r.bonus ? ` (risk bonus +${r.bonus})` : ''}${r.behind0 - r.behind1 > 0 ? `, ${(r.behind0 - r.behind1).toFixed(1)} weeks gained on the ghost` : ''}. ${st.includes('failed') ? 'The missed ones come back as respawns.' : ''}</p>` : '';
     return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${r.est} min · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
       <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === mins ? ' cur' : ''}" data-len="${m}" title="Plan a ${m}-minute run">${l} ${m}′</button>`).join('')}</div></div>
+      ${weekHtmlRow()}
       ${total ? `<div class="cp-path">${nodes}</div>` : '<p>Every week is done and no respawn is due. Use the exam hall for a timed mock exam.</p>'}${sum}
       <div class="row">${total && !complete ? `<button class="go cp-go" id="cp-start">${r.startedAt ? 'Continue the run' : 'Start the run'} ▶</button>` : ''}${complete ? '<button class="go cp-go" id="cp-again">Plan another run</button>' : ''}</div></div>`;
   }
@@ -128,7 +181,8 @@ export function createCampaign(ctx) {
     const b = behindTotal(), r = run(), newStops = Math.max(1, r.stops.filter((s) => s.kind === 'theory' || s.kind === 'sheet').length), cu = catchUpDate(b, newStops / 4.5, 1), d = daysToExam();
     const fmt = (x) => x.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
     const head = `<div class="cp-head"><div><b>${d}</b><span>days to the exams</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : cu.possible ? `level with the lectures at one ${runMinutes()}′ run a day` : 'one short run a day is not enough: pick a longer run'}</span></div></div>`;
-    return `${head}${runHtml()}${courses().map(trackHtml).join('')}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
+    payBosses();
+    return `${head}${runHtml()}${bossHtml()}${courses().map(trackHtml).join('')}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
   }
   function wire(host, rerender) {
     const re = () => { rerender(); ctx.onChange(); };
@@ -136,6 +190,7 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-setval]').forEach((el) => { const v = +el.dataset.v; host.querySelector(`[data-setnote="${el.dataset.setval}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; });
     const okb = host.querySelector('#cp-setup-ok'); if (okb) okb.onclick = () => { const k = {}; host.querySelectorAll('[data-setval]').forEach((el) => { k[el.dataset.setval] = Array.from({ length: +el.dataset.v }, (_, i) => i + 1); }); store.setVal('campaignKnown', k); store.setVal('campaignSetup', true); store.setVal('run', null); re(); };
     host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { newRun(+b.dataset.len); re(); }));
+    const ch = host.querySelector('#cp-chest'); if (ch) ch.onclick = () => { const xp = claimChest(); if (xp) ctx.toast(`Weekly chest: +${xp} XP`); re(); };
     const st = host.querySelector('#cp-start'); if (st) st.onclick = () => startRun();
     const ag = host.querySelector('#cp-again'); if (ag) ag.onclick = () => { newRun(runMinutes()); re(); };
     host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.map((s) => s.id), 'Today’s run', b.dataset.stop); }));
@@ -146,5 +201,5 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-known]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.known.split('/'), cur = new Set(knownRaw()[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); setKnown(cid, [...cur].sort((a, c) => a - c)); }));
     host.querySelectorAll('[data-knownto]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.knownto.split('/'); setKnown(cid, [...new Set([...(knownRaw()[cid] || []), ...Array.from({ length: +n }, (_, i) => i + 1)])].sort((a, c) => a - c)); }));
   }
-  return { html, wire, startRun, onProgress, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  return { html, wire, startRun, onProgress, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

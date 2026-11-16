@@ -755,7 +755,15 @@
  },
  "qm": {
   "\\hbar": "reduced Planck constant $h/2\\pi$",
-  "m": "mass of the particle",
+  "m": [
+   {
+    "when": "su\\(2\\)|Spin 1|Clebsch|l\\\\otimes|Tensor products",
+    "text": "magnetic quantum number (eigenvalue of $J_3/\\hbar$)"
+   },
+   {
+    "text": "mass of the particle"
+   }
+  ],
   "V": "potential energy",
   "V_0": "height of the potential barrier (or depth of the well)",
   "E": "energy of the particle",
@@ -765,27 +773,111 @@
     "text": "momentum or wave number outside the barrier"
    },
    {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi|free|packet|plane|de Broglie|Compton|Schroedinger",
     "text": "wave number $\\sqrt{2mE}/\\hbar$ (or $\\sqrt{2m(E+V)}/\\hbar$ inside a well)"
    }
   ],
-  "\\kappa": "decay constant $\\sqrt{2m(V-E)}/\\hbar$ of the wave in a classically forbidden region",
-  "l": "wave number inside the barrier $\\sqrt{2m(E-V_0)}/\\hbar$ (for $E>V_0$)",
-  "a": "half-width of the well (or the width of the box)",
-  "L": "width of the barrier",
+  "\\kappa": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "decay constant $\\sqrt{2m(V-E)}/\\hbar$ of the wave in a classically forbidden region"
+   }
+  ],
+  "l": [
+   {
+    "when": "barrier|step|tunnel|scatter",
+    "text": "wave number inside the barrier $\\sqrt{2m(E-V_0)}/\\hbar$ (for $E>V_0$)"
+   },
+   {
+    "when": "angular|su\\(2\\)|spin|Clebsch|rotation|Vector operator|Hydrogen|fine structure|Zeeman|orbital|spherical|l\\\\otimes",
+    "text": "orbital angular momentum quantum number"
+   }
+  ],
+  "a": [
+   {
+    "when": "Ladder|oscillator|Coherent|Matrix elements|dimensions",
+    "text": "annihilation (lowering) operator"
+   },
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "half-width of the well (or the width of the box)"
+   }
+  ],
+  "L": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "width of the barrier"
+   },
+   {
+    "when": "angular|su\\(2\\)|spin|Clebsch|rotation|Vector operator|Hydrogen|fine structure|Zeeman|orbital|spherical|l\\\\otimes",
+    "text": "orbital angular momentum $\\vec L=\\vec x\\times\\vec p$"
+   }
+  ],
   "x": "position",
   "t": "time",
-  "T": "transmission probability",
-  "R": "reflection probability",
+  "T": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "transmission probability"
+   },
+   {
+    "when": "kinetic|relativistic",
+    "text": "kinetic energy"
+   }
+  ],
+  "R": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "reflection probability"
+   }
+  ],
   "\\psi": "stationary wave function (spatial part)",
   "\\Psi": "time-dependent wave function",
-  "j": "probability current density",
-  "A": "amplitude of the wave",
-  "B": "amplitude of the wave",
-  "\\eta": "$\\kappa a$ (dimensionless decay constant)",
-  "\\xi": "$ka$ (dimensionless wave number)",
-  "N": "number of bound states",
+  "j": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi|current|Schroedinger equation",
+    "text": "probability current density"
+   },
+   {
+    "when": "angular|su\\(2\\)|spin|Clebsch|rotation|Vector operator|Hydrogen|fine structure|Zeeman|orbital|spherical|l\\\\otimes|Tensor products",
+    "text": "total angular momentum quantum number"
+   }
+  ],
+  "A": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "amplitude of the wave"
+   }
+  ],
+  "B": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "amplitude of the wave"
+   }
+  ],
+  "\\eta": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "$\\kappa a$ (dimensionless decay constant)"
+   }
+  ],
+  "\\xi": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "$ka$ (dimensionless wave number)"
+   }
+  ],
+  "N": [
+   {
+    "when": "well|barrier|step|box|tunnel|bound state|matching|deuteron|transfer|scatter|delta|Gamow|STM|reflect|transmi",
+    "text": "number of bound states"
+   },
+   {
+    "when": "Ladder|oscillator|Coherent|Matrix elements|dimensions",
+    "text": "number operator $a^\\dagger a$ (or the level $N=n_1+n_2+n_3$)"
+   }
+  ],
   "n": "quantum number",
-  "b": "constant",
   "v": "velocity",
   "I": "identity or intensity",
   "i": "imaginary unit"

@@ -19,6 +19,7 @@ export function norm(tex) {
     .replace(/([a-zA-Z])_B([A-Za-z])/g, '$1_B $2')
     .replace(/[{}]/g, ' ');
 }
+const VECTORISH = /vector|position|momentum|velocity|field|current|displacement|spin|angular|operator/i;
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 export async function loadGlossary() {
@@ -51,7 +52,10 @@ function resolve(entry, ctx) {
 export function symbolList(tex, ctx = '') {
   if (!data) return [];
   const table = { ...(data.global || {}), ...(data[course] || {}) };
-  let work = ' ' + norm(tex) + ' ';
+  // vector-decorated letters (\vec a, \hat n, \mathbf x) are marked so that a scalar meaning ("a = half-width") is not attached to them
+  const marked = String(tex).replace(/\\(?:vec|hat|mathbf|boldsymbol)\s*(?:\{\s*([A-Za-z])\s*\}|([A-Za-z])(?![A-Za-z]))/g, (m, a, b) => ` ${a || b}\u0003`)
+    .replace(/\u0003(?=\s*_)/g, ''); // a subscripted vector (\vec k_i) is a specific symbol: keep it matchable
+  let work = ' ' + norm(marked).replace(/(_[A-Za-z0-9,]*)\u0003/g, '$1').replace(/\u0003/g, '\u0003 ') + ' ';
   const found = [];
   for (const key of Object.keys(table).sort((a, b) => b.length - a.length)) {
     if (!key) continue;
@@ -59,12 +63,12 @@ export function symbolList(tex, ctx = '') {
     // boundaries: plain symbols must not sit inside words/subscripts; a bare d before a symbol is a differential
     const tail = key.includes('_') ? (/[0-9]$/.test(key) ? '(?![0-9])' : '(?![A-Za-z0-9])') : key === 'd' ? '(?![A-Za-z_\\\\\u0001])' : '(?![A-Za-z_])';
     const re = new RegExp((letterStart ? '(?<![A-Za-z\\\\_])' : '') + esc(key) + tail, 'g');
-    let first = Infinity, m;
-    while ((m = re.exec(work))) first = Math.min(first, m.index);
+    let first = Infinity, m, scalar = false;
+    while ((m = re.exec(work))) { first = Math.min(first, m.index); if (work[m.index + m[0].length] !== '\u0003') scalar = true; }
     if (first === Infinity) continue;
     work = work.replace(re, '\u0001');
     const meaning = resolve(table[key], ctx);
-    if (meaning) found.push([first, table[key].display, meaning]);
+    if (meaning && (scalar || VECTORISH.test(meaning))) found.push([first, table[key].display, meaning]);
   }
   return found.sort((a, b) => a[0] - b[0]).filter(([, d]) => d !== '\\pi').map(([, d, t]) => [display(d), t]);
 }

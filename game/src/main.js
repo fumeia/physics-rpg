@@ -385,6 +385,13 @@ function refresh() {
   $('reviews').textContent = `Respawns due: ${due.length}`;
   $('reviews').classList.toggle('review', due.length > 0);
   world.setPortalDue(due.length);
+  if (room && !inNexus) { // the room looks overrun until its exercises are done: darker and redder when the lecture has already passed its week
+    const cs = room.encounters.filter((e) => core(e) && e.type !== 'boss'), left = cs.length ? 1 - cs.filter(passed).length / cs.length : 0, key = `${course.id}/${room.slug}`;
+    const overdue = !!campaign?.isSetup() && campaign.roomOverdue(course.id, room.slug);
+    world.setThreat(left * (overdue ? 1 : 0.3));
+    const rec = store.val('reclaimed', {}) || {};
+    if (cs.length && left === 0 && !rec[key]) { store.setVal('reclaimed', { ...rec, [key]: Date.now() }); toast(`<b>${room.title}</b> reclaimed: every exercise of this room is done.`); world.successEffect(); sfx.goal(); }
+  }
   dueTarget = due.find((id) => encIndex.has(id)) || null;
   for (const g of groups) {
     const es = g.items.filter((e) => e.type !== 'sandbox'), done = es.filter(passed).length;

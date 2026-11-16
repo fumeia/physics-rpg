@@ -201,5 +201,10 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-known]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.known.split('/'), cur = new Set(knownRaw()[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); setKnown(cid, [...cur].sort((a, c) => a - c)); }));
     host.querySelectorAll('[data-knownto]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.knownto.split('/'); setKnown(cid, [...new Set([...(knownRaw()[cid] || []), ...Array.from({ length: +n }, (_, i) => i + 1)])].sort((a, c) => a - c)); }));
   }
-  return { html, wire, startRun, onProgress, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  // Is this room part of a week the lecture has already passed and you have not cleared? (drives the room's "overrun" look)
+  function roomOverdue(cid, slug) {
+    const ws = W()[cid]; if (!ws) return false; const kn = known()[cid], t = taught();
+    return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
+  }
+  return { html, wire, startRun, onProgress, roomOverdue, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

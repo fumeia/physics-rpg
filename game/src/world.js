@@ -285,11 +285,23 @@ export class World {
     this.doorSign.material.map = labelTexture(lines, { w: 512, h: 190 }); this.doorSign.material.needsUpdate = true;
   }
 
+  // How overrun the room is, 0 (reclaimed: bright, clear) to 1 (dark, close red fog). It eases in over a second or two.
+  setThreat(v) { this.threatTarget = Math.max(0, Math.min(1, v || 0)); }
+  _applyThreat(dt) {
+    const tgt = this.hubMode ? 0 : (this.threatTarget || 0); this.threat = this.threat ?? tgt;
+    if (Math.abs(this.threat - tgt) < 0.002 && this._threatApplied === this.threat) return;
+    this.threat += (tgt - this.threat) * Math.min(1, dt * 1.6); const k = this.threat; this._threatApplied = k;
+    if (this.hubMode) return;
+    const pulse = 1 + 0.12 * k * Math.sin(this.t * 2.3);
+    for (const l of this.hallLights) { l.color.setRGB(0.5 + 0.5 * k, 0.77 - 0.47 * k, 1 - 0.72 * k); l.intensity = (14 - 6 * k) * pulse; }
+    this.hemi.intensity = 0.9 - 0.4 * k; this.scene.fog.near = 14 - 6 * k; this.scene.fog.far = 48 - 20 * k;
+    this.scene.fog.color.setRGB(0.027 + 0.13 * k, 0.039 - 0.015 * k, 0.07 - 0.04 * k); this.scene.background.copy(this.scene.fog.color);
+  }
   failEffect() { this.fx.shake = 1.1; this.fx.flash = 1; this.fx.flashColor.set(0xff3030); }
   successEffect() { this.fx.flash = 1; this.fx.flashColor.set(0x30ff90); }
 
   update(dt) {
-    this.t += dt;
+    this.t += dt; this._applyThreat(dt);
     this.portalRing.rotation.x += dt * 1.5;
     this.portalDisc.rotation.x -= dt * 0.8;
     if (this.bridgeVisible !== false) this.barrierLight.intensity = 8 + Math.sin(this.t * 2) * 1.5;

@@ -414,3 +414,6 @@ html[data-theme=light] .cp-ghost { color: #33507a; filter: none; } html[data-the
 .cp-bossinfo { flex: 1 1 260px; display: grid; gap: 2px; min-width: 0; } .cp-bossbtn { display: flex; gap: 6px; flex-wrap: wrap; }
 .cp-bosshp { display: flex; gap: 3px; margin-top: 3px; align-items: center; } .cp-bosshp i { width: 26px; height: 8px; border-radius: 4px; background: #ff6b6b; } .cp-bosshp u { width: 12px; height: 12px; border-radius: 3px; background: #9fb4d8; margin-left: 2px; } .cp-bosshp .off { background: rgba(255,255,255,.14); }
 html[data-theme=light] .cp-pip { border-color: rgba(0,0,0,.35); } html[data-theme=light] .cp-pip.on, html[data-theme=light] .cp-chest.ready { color: #fff; } html[data-theme=light] .cp-bosshp .off { background: rgba(0,0,0,.14); }
+/* one-row top bar: the guide text is a single line (hover or tap shows all), the hint line is gone, chips never wrap */
+body.hudc #hud .tr { flex-wrap: nowrap; white-space: nowrap; } body.hudc #objective { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 38vw; } body.hudc #objective:hover { white-space: normal; }
+body.hudc #hud .tl { max-width: 42vw; } body.hudc #reviews:not(.review) { display: none; }

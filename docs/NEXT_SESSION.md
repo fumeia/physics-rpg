@@ -56,3 +56,39 @@ Each finished piece is committed and pushed to `claude/game-server-website-migra
 ## Working style
 - Studying comes first. The user reviews content on the phone; keep reports short and say exactly where to find new things.
 - Ask the user before big design changes (navigation, layout, art style): a screenshot or two plus a yes/no question.
+
+
+---
+## Status after the session of 2026-11-16/17 (branch `claude/affectionate-babbage-d862tl`)
+
+**Done**
+- Priority 1: solid-state problem sets 1–9 (27 questions, figures, links, numbers checked) and 74 lecture concept questions from the
+  slides (`notes/solid-state/build/sheets/`, `.../slides/`; see `notes/solid-state/README.md`). One shared builder: `notes/build/sheetlib.py`.
+- Game layer (the user asked for "a real game", not a menu collection; nothing was deleted):
+  - **Campaign** (`C`, `src/campaign.js` logic, `src/campaignui.js` screen, `content/campaign.json` schedule): a tile per lecture week and
+    course, weeks behind "the ghost" (lecture pace), placement on first use, weeks done on paper can be marked.
+  - **Today's run** (`G`): warm-up, theory then its exercise for the course furthest behind, forks ("take the risk" for bonus XP),
+    summary, honest run streak (one forgiven day a week), weekly chest, weekly bosses (the sheet due next; its theory is its armour).
+  - **Fights with stakes** (`src/battle.js`): every exercise has an enemy with HP, a focus bar, combos and a grade. It only watches the
+    panel (like `feedback.js`); it never decides whether an exercise is passed. Setting `fights: 'off'` in `settings` disables it.
+  - **Compact top bar** (run, campaign, menu); the full row is one tap away in the menu, every shortcut still works. Tests keep the full
+    row unless the URL has `hud=compact`.
+  - **Graphics governor** (`src/quality.js`): auto / high / medium / low / minimal (resolution scale and fps cap), and the 3D view idles
+    at 12 fps while an exercise is only being read. Measured on software rendering at 1366x768: 8.5 / 12 / 17 frames per second for
+    high / low / minimal, JS heap 14–32 MB.
+
+**Open, in the order of the brief**
+- Priority 2, hints: the engine is ready. A sheet or book step may carry `hints: [nudge, method, key step]`; they are shown one at a
+  time for 2 XP each (`STEP_HINT_COST`). For sheets put them in `ss_hints.py` / `qm_hints.py` as `HINTS = {(sheet, q): [[h1, h2, h3], ...]}`
+  (one list per part, in part order; the builders already import these files if they exist). For Choudhuri add `hints` to the steps in
+  `notes/astrophysics/build/choudhuri/`. Add a check that no hint contains the final result.
+- Priority 3, primers: unchanged format (`qm_primers.py`); the solid-state builder imports `ss_primers.py` (`PRIMERS = {(sheet, q): html}`).
+- Solid state: when the user uploads Problem Sets 1–2 and Solution Set 9, replace the reconstructed statements and our own solution of
+  sheet 9 (both are flagged in the sources). The **ISSP Test Exam HS26** (scanned, 11 pages, in the release zip) is not in the game yet:
+  it should become boss encounters (read it visually, it has no text layer). The script summary PDFs are scans too.
+- Priority 4: an exam-readiness view per topic is still missing (the campaign shows weeks, not exam topics).
+- Game ideas agreed with the user and not built yet: formula cards as loot, the exam as a final dungeon from mid-December, more
+  "juice" (sounds are off by default), rooms that look overrun until their week is cleared.
+
+**Running the tests here**: `game/node_modules/playwright-core` must link to the installed package and `CHROMIUM=/opt/pw-browsers/chromium`.
+Run with `JOBS=1` (three browsers in parallel were killed for memory in the cloud container).

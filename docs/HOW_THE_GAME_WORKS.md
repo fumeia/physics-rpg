@@ -100,3 +100,18 @@ Your results are kept in a history chart. Hints cost XP here too.
 
 Your **profile** (XP, solved exercises, respawn schedule, streak, settings, mistakes, pile, study time) is a file on the server (`/var/lib/physics-rpg/profiles/default.json`),
 mirrored in the browser. The **theme** and the **controls mode** are stored in the browser of each device. Details and backups: `deploy/README.md`.
+
+
+## The game loop (added 2026-11-17)
+- **Start screen → Today's run.** One button. The run is a short path of stops chosen for you: a respawn to warm up, then the next theory
+  card and its exercise in the course where you are furthest behind, then the other courses. Some stops offer a fork: a harder problem
+  from the same room for bonus XP. A finished run lights today's pip; three, five and seven run days in a week open a chest.
+- **Campaign (C).** Fourteen tiles per course, one per lecture week. Green: done. Dark red: the lecture has passed it and you have not.
+  The ghost stands on the lecture's current week; "weeks behind" is your distance to it. Click a tile for its theory and its sheet, or
+  to mark a week you did on paper.
+- **Weekly bosses.** The sheet due next in each course. Reading its theory strips its armour; beating all its questions before the due
+  date pays a reward.
+- **Fights.** Every exercise shows an enemy with HP and your focus. Right answers hit (first try: critical), wrong answers and hints cost
+  focus, reading a lesson restores some. The grade (S to D) appears on the run path.
+- **Top bar.** Run, campaign, menu. Everything else is in the menu (four groups) or on its old key: V study hub, X exam hall, M map,
+  B formulas, T missions, N nexus, K connections, P profile, Q quick session.

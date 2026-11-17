@@ -23,7 +23,7 @@ import { renderDerivs, nextDeriv, runDeriv } from './derivui.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
-import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS, GOAL_EXERCISES } from './missions.js';
+import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS, GOAL_EXERCISES, setExamDates, examDateOf, examDateKnown, EXAM_DATE } from './missions.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view');
@@ -116,7 +116,7 @@ async function boot() {
     for (const r of rooms) for (const enc of r.encounters) encIndex.set(enc.id, { course: c.id, roomId: r.slug, enc });
   }
   progress(62, 'Loading the glossary...'); await loadGlossary();
-  progress(68, 'Loading your progress...'); await initSync(); renderStartStats();
+  progress(68, 'Loading your progress...'); await initSync(); setExamDates(store.val('examDates', {})); renderStartStats();
   store.pruneReviews(new Set(encIndex.keys()));
   progress(74, 'Loading drills and connections...');
   try { const mf = await fetchJson('content/manifest.json'); for (const cid of mf.drills || []) { const c = catalog.find((x) => x.id === cid); if (c) setDrillData(cid, await fetchJson(`content/${c.dir}/drills.json`)); } if (mf.radar) drillData.radar = await fetchJson('content/radar.json'); } catch (e) { console.warn('drills not loaded', e.message); }
@@ -468,6 +468,7 @@ function openConnections(key = null) {
 const connectionsHere = () => openConnections(inNexus ? set?.focus?.node?.key ?? null : `${course.id}/${room.slug}`);
 // ================================================================ profile, settings, achievements, study time
 function applySettings() {
+  setExamDates(store.val('examDates', {}));
   const s = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
   configureFeedback({ sound: !!s.sound, haptics: s.haptics !== false });
   quality ||= createQuality({ setPixelRatio: (r) => { world.renderer.setPixelRatio(r); world.resize(); } });
@@ -510,6 +511,7 @@ function profileHtml() {
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
     <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
     <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="auto" ${st.quality === 'auto' ? 'selected' : ''}>automatic (follows the frame rate${quality ? `; now: ${quality.level}` : ''})</option><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="medium" ${st.quality === 'medium' ? 'selected' : ''}>medium</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution, 30 fps)</option><option value="minimal" ${st.quality === 'minimal' ? 'selected' : ''}>minimal (half resolution, 30 fps)</option></select></label>
+      <div class="examdates"><b>Exam dates</b> <span class="src">(leave empty while unknown: the game assumes ${EXAM_DATE}; everything that counts down recalculates when you set them)</span>${catalog.map((c) => `<label class="labrow">${c.name} <input type="date" data-exdate="${c.id}" value="${examDateKnown(c.id) ? examDateOf(c.id) : ''}"> <span class="src">${daysToExam(new Date(), c.id)} days</span></label>`).join('')}</div>
       <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min or ${GOAL_EXERCISES[k]} exercises)</option>`).join('')}</select></label>
       <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
       <label class="labrow"><span><input type="checkbox" id="set-haptics" ${st.haptics !== false ? 'checked' : ''}> vibration</span></label>
@@ -522,13 +524,14 @@ function profileHtml() {
 async function wireProfile() {
   const sens = $('set-sens'), q = $('set-q');
   const save = () => { store.setVal('settings', { ...(store.val('settings', {}) || {}), sens: +sens.value, quality: q.value, goal: $('set-goal').value, sound: $('set-sound').checked, haptics: $('set-haptics').checked }); applySettings(); refresh(); };
+  document.querySelectorAll('[data-exdate]').forEach((inp) => (inp.onchange = () => { const v = inp.value, ed = { ...(store.val('examDates', {}) || {}) }; if (v) ed[inp.dataset.exdate] = v; else delete ed[inp.dataset.exdate]; store.setVal('examDates', ed); setExamDates(ed); dayMissions = null; refresh(); renderStartStats?.(); const n = inp.parentElement.querySelector('.src'); if (n) n.textContent = `${daysToExam(new Date(), inp.dataset.exdate)} days`; toast(`Exam date saved: ${findCourse(inp.dataset.exdate)?.name}, ${v || 'not set'}`); }));
   sens.oninput = save; q.onchange = save; $('set-goal').onchange = save; $('set-sound').onchange = () => { save(); if ($('set-sound').checked) sfx.right(); }; $('set-haptics').onchange = () => { save(); if ($('set-haptics').checked) sfx.wrong(); };
   $('set-theme').onchange = (e) => { setThemeChoice(e.target.value); reloadWithout(); };
   $('set-ctl').onchange = (e) => { setControlsChoice(e.target.value); reloadWithout('touch'); };
   const ex = $('exp2'); ex.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([store.exportJson()], { type: 'application/json' })); a.download = `physics-rpg-${store.profile}.json`; a.click(); };
   const im = $('imp2'); im.onchange = async () => { const f = im.files[0]; if (f && store.importJson(await f.text())) { await pushNow(); refresh(); closeOverlay(); toast('Progress imported.'); } else alert('Not a valid progress file.'); };
   $('prof-create').onclick = () => { const n = $('prof-new').value.trim(); if (/^[A-Za-z0-9_-]{1,40}$/.test(n)) switchProfile(n); else alert('Use letters, digits, - and _ (max 40).'); };
-  const list = await listProfiles(), names = new Set([store.profile, ...list.map((p) => p.name)]);
+  const list = (await listProfiles()) || [], names = new Set([store.profile, ...list.map((p) => p.name)]);
   const host = $('prof-list'); if (!host) return;
   host.innerHTML = [...names].map((n) => { const p = list.find((x) => x.name === n); return `<button class="chip btn${n === store.profile ? ' cur' : ''}" data-prof="${n}">${n}${p ? ` · ${p.xp} XP` : ''}</button>`; }).join('') || '<span class="src">no saved profiles yet</span>';
   host.querySelectorAll('[data-prof]').forEach((b) => (b.onclick = () => { if (b.dataset.prof !== store.profile) switchProfile(b.dataset.prof); }));
@@ -998,7 +1001,7 @@ function missionsHtml() {
   const ms = todays(), day = store.missionsOf(todayStr()), lv = levelOf(store.xp), plan = examPlan(catalog, isPassedEnc), sn = streakNow(), active = sn.count, g = goalInfo();
   return `<div class="msn-head"><div><b>${lv.rank}</b> · level ${lv.lv}<div class="bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></div><span class="src">${lv.into} / ${lv.need} XP to the next rank</span></div>
     <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
-    <div><b>Exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
+    <div><b>First exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
     <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min on exercises, or ${g.ex} of ${g.exGoal} exercises</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * Math.max(g.min / g.goal, g.ex / g.exGoal)))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `Either one counts: ${g.goal} minutes of working on exercises (menus, lists and the formulas do not count) or ${g.exGoal} finished exercises. Change the goal in Profile > settings.`}</span></div>
     <p class="src">Done today: ${todayItems().filter((x) => !x.mission && x.ok).length} exercises, ${store.xpOn(todayStr()) >= 0 ? '+' : '\u2212'}${Math.abs(store.xpOn(todayStr()))} XP. <button class="link" id="msn-today">See what you did today</button></p>
     <div class="row"><button class="go" id="quick-go">Quick session (${quickInfo()})</button></div>

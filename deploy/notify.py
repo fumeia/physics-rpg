@@ -161,8 +161,10 @@ class Progress:
                 for e in r['encounters']:
                     if core(e):
                         total += 1; done += self.passed(e['id'])
-        y, m, d = map(int, exam_date().split('-'))
-        days = max(0, (dt.date(y, m, d) - self.now.date()).days); left = total - done
+        # per-course exam dates from the game's settings (flags.examDates); the first one still ahead counts, else the fallback date
+        dates = [v for v in (self.flags.get('examDates') or {}).values() if isinstance(v, str) and re.match(r'^\d{4}-\d{2}-\d{2}$', v)] or [exam_date()]
+        ahead = [x for x in ((dt.date(*map(int, v.split('-'))) - self.now.date()).days for v in dates) if x >= 0]
+        days = min(ahead) if ahead else 0; left = total - done
         return {'days': days, 'total': total, 'done': done, 'left': left, 'perDay': math.ceil(left / days) if days > 0 else left}
 
     def weak_rooms(self, limit=2):

@@ -450,3 +450,17 @@ body.dungeon .battle { border-color: #ff6b6b; }
 .cp-armbar { height: 8px; border-radius: 4px; background: rgba(255,255,255,.1); overflow: hidden; } .cp-armbar i { display: block; height: 100%; background: linear-gradient(90deg, #6cb6ff, #4cc38a); }
 .cp-armrow.hole .cp-armbar { outline: 1px dashed var(--bad); } .cp-armrow.hole .cp-armx, .cp-armrow.none .cp-armx { color: var(--bad); } .cp-armrow.none .cp-armlabel { opacity: .6; }
 html[data-theme=light] .cp-armbar { background: rgba(0,0,0,.1); }
+
+/* the Forge (QM by heart) and My summary (five pages) */
+.fg-head { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; } .fg-head > div:not(.row) { display: grid; } .fg-head b { font-size: 20px; color: var(--accent); } .fg-head span { font-size: 12px; opacity: .8; } .fg-head .row { margin-left: auto; }
+.fg-card { border: 1px solid rgba(245,196,81,.4); background: rgba(245,196,81,.05); border-radius: 12px; padding: 12px 16px; } .fg-card h3 { margin: 4px 0 8px; font-size: 20px; }
+.fg-tex { overflow-x: auto; padding: 6px 0; } .fg-timer { font-size: 34px; font-weight: 700; margin: 6px 0; font-variant-numeric: tabular-nums; }
+.fg-row { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 4px 10px; align-items: center; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.08); } .fg-row details { grid-column: 1 / -1; }
+.fg-bar { display: block; height: 7px; border-radius: 4px; background: rgba(255,255,255,.1); overflow: hidden; } .fg-bar i { display: block; height: 100%; background: linear-gradient(90deg, #f5c451, #4cc38a); }
+.fg-check { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.08); } .fg-check > span { flex: 1; overflow-x: auto; }
+.cp-node.forge .cp-dot { border-style: dotted; border-color: #f5c451; }
+.sm-pages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 8px 0 14px; } @media (max-width: 800px) { .sm-pages { grid-template-columns: 1fr 1fr; } }
+.sm-page { display: grid; gap: 3px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; padding: 6px 8px; } .sm-page.full { border-color: var(--bad); } .sm-page textarea { width: 100%; min-height: 54px; font: inherit; font-size: 12px; background: rgba(0,0,0,.2); color: inherit; border: 1px solid rgba(255,255,255,.15); border-radius: 6px; }
+.sm-row { display: flex; gap: 10px; align-items: center; padding: 2px 6px; border-radius: 8px; border: 1px solid transparent; } .sm-row.on { border-color: rgba(76,195,138,.5); background: rgba(76,195,138,.06); }
+.sm-tex { flex: 1; min-width: 0; overflow-x: auto; } .sm-pick { display: flex; gap: 3px; } .sm-pick .chip { padding: 1px 8px; font-size: 12px; }
+html[data-theme=light] .fg-bar { background: rgba(0,0,0,.1); } html[data-theme=light] .sm-page textarea { background: #fff; border-color: rgba(0,0,0,.3); }

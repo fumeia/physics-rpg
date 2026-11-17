@@ -120,3 +120,14 @@ not been run since; run it first and fix it or the code.
 
 Known rough edges: the run's minute estimate grows with practice stops; `fights: 'off'` has no switch in the settings screen yet;
 the battle bar's first-try detection is heuristic; action stops are not in the "Next →" queue (G continues the run).
+
+
+## Added 2026-11-17 (third part): exam-aid rules. QM has no aids; solid state and astro allow a five-page summary. Untested in the browser except one boot check.
+| Feature | Where | To verify / improve |
+|---|---|---|
+| **Forge** (Practice → Forge): write a QM formula from memory, reveal, self-check; per-formula memory (`flags.forge`); "Rebuild it" chains; "All formulas" | `content/qm/forge.json` (16 formulas, standard forms: **check notation against the QM25 script**), `src/forgeui.js`, `test/forge-check.mjs` | add more formulas; the run adds a `@forge` stop when formulas are due |
+| **Blank page**: one QM room, ten-minute timer, then a checklist of that room's lesson equations (`flags.blankLog`) | `forgeui.js` `blankHtml` | the checklist uses raw lesson equations; curated lists per chapter would be better |
+| **My summary** (Practice → My summary): pin earned formula cards to five pages (34 per page), notes per page, print to PDF (`flags.summary`) | `forgeui.js` `renderSummary` | the print window, KaTeX fonts in print, phone layout |
+| **Sheet-only fights**: in solid-state and astro fights the Cards button is "My summary" (only pinned formulas, free to use; adding a missing one counts like a hint) | `main.js` (battle cards for `cid !== 'qm'`), `battle.js` `drawSummary` | |
+| Notifications follow the campaign (`flags.campaignStat` → `deploy/notify.py` `campaign_message`); `?suggest=run`, `?run=1` | `campaignui.js` `stat`, `notify.py`, `serve.py` | add tests to `deploy/test_notify.py` for the four campaign slots |
+Not built: formula locks on QM doors (needs the door logic in `world.js`/`main.js`; do it with a Forge card, not typed LaTeX).

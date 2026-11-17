@@ -1,0 +1,124 @@
+Prof. Dr. Christian Degen                                          Autumn Semester 2026
+
+               Introduction to Solid State Physics
+               https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                             Weekly Solution Set 7
+
+Solution 1: Fermi surface in two dimensions
+The electron density is ne = 3/(a1 a2 ) = 3/(2π 2 ) Å−2 and the number of electrons in the
+Fermi sea is:
+
+Ne = (area of Fermi sea in k space) × (density of points in k space) × (2 for two spin states)
+              A
+   = πkF2 ×       ×2
+            (2π)2
+     AkF2
+   =
+      2π
+where A is the area of the crystal.
+
+The electron density is ne = Ne /A, and so from above, the Fermi wavevector is therefore
+     √         √︁       −1           −1
+kF = 2πne = 3/π Å          ≈ 0.98 Å .
+
+The Fermi surface in the reduced zone scheme is shown below where we have used kF ≈
+       −1
+0.98 Å from above along with the reciprocal lattice vector lengths b1 = 2π/a1 = 1 Å−1
+and b2 = 2π/a2 = 2 Å−1 .
+
+
+
+
+Figure 1: Fermi surface in the unfolded (upper panel) and folded (lower panel) Brillouin
+zones. Shaded area represents occupied states.
+Solution 2: Energy of electrons and phonons in solids
+ a) The maximum phonon wave vector is located at the edge of the Brillouin zone.
+    The reciprocal lattice of the bcc-lattice is the fcc-lattice. The first Brillouin zone is
+    shown below (from Fig. 1.6 of the lecture script).
+
+
+
+
+    The maximum phonon wave vector is at the H point, whose distance from the origin
+    is half of the conventional cell length. We know from Problem Set 2, Exercise 1 that
+    the length of the conventional cell of this FCC lattice is 4π/a. Thus, the maximum
+    phonon wave vector is
+
+                                        2π
+                                 kD =      = 1.49 · 1010 m−1 .
+                                         a
+    To determine the maximum energy, we first calculate the maximum phonon fre-
+    quency according to the Debye model:
+
+                                 ωD = kD · v = 1.49 · 1013 s−1
+
+    and from that the energy
+                                       ℏωD ≈ 9.81 meV.
+
+ b) The maximum wave vector of the electron is the Fermi wave vector length calculated
+    using Eqn. 3.22 of lecture script:
+                                          )︁1/3
+                              kF = 3π 2 n       = 9.2 · 109 m−1
+                                    (︁
+
+    where we have used that the electron density is n = N/V is given by n = (atoms per cell)×
+    (valence electrons per atom)/(volume of cell) = 1×2/a3 ; Each atom has one valence
+    electron available and that there are 2 atoms per unit cell in the bcc crystal.
+    The energy of the electrons is therefore:
+                                            ℏ2 kF2
+                                     EF =          ≈ 3.2 eV.
+                                             2m
+ c) For the transition under consideration, both an energy change and a change in the
+    wave vector are necessary. This is called an indirect band transition.
+    From the values calculated above we see that the electron energy exceeds that of
+    the phonon by two orders of magnitude. It is therefore hardly changed after the
+    scattering process and is therefore not sufficient to bring the electron into the higher
+    band.
+    The wave vector of the electron, on the other hand, can be strongly influenced by
+    the interaction with the phonon and thus achieve the required change.
+    In order to realize an excitation in the next higher band, the energy can be intro-
+    duced, for example, in the form of photons.
+
+
+
+
+Solution 3: Calculating the electronic band structure
+of a monatomic chain with both nearest- and next-
+nearest neighbor hoppings
+ a) Similar to Section 3.2.3 of the Lecture Script (and to Problem Set 3, Excercise 3),
+    the hopping is calculated as:
+                    −t = ⟨n|Ĥ|n + 1⟩ = ⟨n|K̂ + |n + 1⟩ = ⟨n|V̂n |n + 1⟩,
+
+    with delta-function potential wells V̂n = V0 δ(x − na).
+
+    Using Ψn (x) ∝ e−|x−na|/d , we thus find
+           ∫︂
+      −t ∝ exp(−|x − na|/d)δ(x − na) exp(−|x − (n + 1)a|/d)dx = exp(−a/d)               (1)
+
+    and similarly −t′ = ⟨n|Ĥ|n + 2⟩ ∝ exp(−2a/d).
+ b) The Schrödinger equation is Ĥ|Ψ⟩ = E|Ψ⟩. The eigen∑︁ wavefunction is expressed
+    by the linear combination of the atomic orbitals |Ψ⟩ = m ϕm |m⟩. By calculating
+                ∑︁                               ∑︁
+    ⟨n|Ĥ|Ψ⟩ = m ϕm ⟨n|Ĥ|m⟩ and ⟨n|E|Ψ⟩ = E m ϕm ⟨n|m⟩ = Eϕn , the Schrödinger
+    equation gives:
+                             ∑︂
+                      Eϕn =      ϕm ⟨n|Ĥ|m⟩
+                                m
+                            = E0 ϕn − tϕn−1 − tϕn+1 − t′ ϕn−2 − t′ ϕn+2
+
+    by definition of −t = ⟨n|Ĥ|n + 1⟩ and −t′ = ⟨n|Ĥ|n + 2⟩, where E0 = ⟨n|Ĥ|n⟩ is
+    the onsite energy.
+ c) We solve the previous equation using the ansatz ϕn = exp(ikna)ϕ0 . Doing so, we
+    find the dispersion relation:
+
+                            E(k) = E0 − 2t cos(ka) − 2t′ cos(2ka)
+                                                                     [︁ 2 ]︁−1
+d) The effective mass for an isotropic system is given by m∗ (k) = ℏ2 ∂∂kE2    , and from
+   our equation for E(k) above, this then gives:
+
+                                   ℏ2            1
+                            m∗ =                               .
+                                   2a t cos(ka) + 4t′ cos(2ka)
+                                     2
+

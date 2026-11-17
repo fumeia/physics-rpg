@@ -41,3 +41,35 @@ Totals (8 rooms): 14 lessons, 8 quizzes (48 questions, including all text-answer
 - Does Degen's course examine superconductivity (HS20 MC (b),(s); not in the 2026 script) or a magnetism sign convention of its own? Ask in the lecture.
 - Which sign convention for $J$ will the exam use? (Content follows the script, bosses follow the exam they come from, and every problem states which.)
 - Are the oral-protocol topics (phonon chain derivation, specific heat) still relevant for a written exam? Included as a concept checklist only.
+
+## Weekly problem sets (HS26, Degen) in the game
+`notes/solid-state/build/sheets/` (`ss_sheets_a/b/c.py`, `python3 build.py`) writes `game/content/solid-state/sheets.json`: 27 questions of
+problem sets 1–9, each a sheet encounter in its room with the official solution as reveal steps, key points and two-way links.
+The PDFs (sheets, solutions, slides, script, test exam) are **not** in git: they are the release asset `ISSP.zip` (tag `Version`) of
+`fumeia/physics-rpg`; text for searching is in `notes/extracted/solid-state_{exercises,solutions,slides}_*.txt`.
+- Problem Sets 1 and 2 were not in the upload: their questions are reconstructed from Solution Sets 1 and 2 (for sheet 2 Q3 the lattice
+  constants and wavelength are read off the solution figure: $d_1\approx0.47$ nm, $d_2\approx0.34$ nm, $\lambda\approx0.166$ nm).
+- Solution Set 9 was not released yet: the solution of sheet 9 is our own (script 4.1, 4.2.5), checked numerically. Replace when it appears.
+- Slips in the official solutions, flagged in the game: sheet 2 Q3(d) lists $(020)$ as the fifth peak, but with the figure's lattice
+  $(210)$ comes first; sheet 8 Q2(d) last line has a wrong coefficient ($2\cdot5\cdot3^3$ for $2\cdot3\cdot2^3$); result $K=48U_0/\Omega_0\approx3.0$ GPa.
+- Due dates are estimated (Friday of the week after the lecture week, `dueShiftDays: 0`): ask the user for the real weekday.
+- Check: `node game/test/sheets-check-solid-state.mjs` (every number recomputed), `node game/test/sheets-check.mjs` (links, LaTeX).
+
+## Lecture concept questions (slides) in the game
+`notes/solid-state/build/slides/build.py` writes `game/content/solid-state/slide-quizzes.json`: 74 questions from the lecture slides
+(weeks 1–4 and the 46-question "Week08 (Quizzes)" deck) as seven quizzes in the Quiz halls of `lattice-gate` (3), `bonding-grotto`,
+`phonon-halls` and `fermi-sea` (2). The key is the red frame on each slide; the explanations are ours (script sections cited).
+The two "Yes or No?" slides have no key: those ten answers are ours and say so. Week-8 slide 34 ("how many electronic states") is
+debatable and says so. Figures: `slides/figures.py` (answer frames painted out). Check: `node game/test/slide-quiz-check.mjs`.
+
+## Coverage map and gap lessons (2026-11-17)
+`notes/solid-state/coverage.md` (from `build/coverage/coverage.py`) lists every subsection of Script-2026 with its key concepts and how
+many lessons, quizzes, exercises and sheet questions mention each. First run: 39 covered, 19 thin, 4 missing (quasiparticles, ARPES,
+anharmonicity, shifted Fermi sea). `build/gaps/build.py` writes `game/content/solid-state/script-gaps.json`: 8 lessons and 5 quizzes
+written from the script (1.1–1.3 symmetry and Miller planes; 1.5.1–1.5.3 scattering vector, form factor, Friedel; 1.6.4–1.6.6 bonds;
+2.3.2–2.3.4 Umklapp, anharmonicity, three-axis/time of flight; 3.1.3/3.1.5/3.2.3/3.3/3.4 chemical potential, interactions, hopping,
+quasiparticles, ARPES; 4.2.4/4.3/4.4 band conductivity, Wiedemann–Franz, screening; 5.4.5 solar cell and LED; 6.2.5/6.3 Stoner and
+Hund). Now 62 of 62 have a lesson and practice; a mention is not depth: the 3.3/3.4/4.3 lessons are introductions, not derivations.
+Flagged: script eq. (4.46), free-electron form of the screening length, is not dimensionally consistent as printed; the lesson uses
+$r_0^2=\varepsilon_0/(e^2\nu(\epsilon_F))$ (checked: 0.55 Å for Cu, as the script says). Hund's rules are not spelled out in the
+script; the lesson gives the standard rules and says so. The gap lessons are pinned to their lecture weeks in `content/campaign.json`.

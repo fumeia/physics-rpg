@@ -1,0 +1,208 @@
+Chapter 2.3
+Scattering
+                   Scattering at time-dependent object
+
+
+
+
+• For oscillating object: 𝜔𝜔 → 𝜔𝜔, 𝜔𝜔 ± 𝜔𝜔𝑜𝑜𝑜𝑜𝑜𝑜
+                       Scattering at one normal mode
+
+
+
+
+• Sum is nonzero only if 𝐾𝐾 + 𝑞𝑞 or 𝐾𝐾 − 𝑞𝑞 match a reciprocal lattice vector 𝐺𝐺
+Frequency transfer 𝜔𝜔 = 𝜔𝜔𝑖𝑖 − 𝜔𝜔𝑓𝑓 of scattered EM wave
+Inelastic scattering techniques
+                       Raman and Brillouin scattering
+
+• Raman scattering: Scattering at optical phonons, high energy (THz freq. shifts)
+• Brillouin scattering: Scattering at acoustic phonons, low energy (GHz freq. shifts)
+
+
+                                  optical phonons
+
+                      frequency
+
+
+
+
+                                       acoustic
+                                       phonons
+
+
+
+                                  wave vector
+Absorption – general picture
+                                             IR transmission
+
+Cs2CoCr4: magnetic and lattice excitations
+                                      IR reflectometry
+CoSbS: photovoltaic and thermopower semiconductor
+                                  Raman scattering
+
+
+
+
+                                                                     19
+Sir Chandrasekhara Venkata Raman
+• Discovered Raman effect on 28.2.1928   National Science Day is celebrated in
+• Nobel prize in 1930                    India on 28 February
+Phonons and phonon decay
+                              Scattering Diagrams
+
+(a) Regular scattering       (b) Scattering with “Umklapp”   (c) Phonon decay
+                                                              q       q       q
+
+                                                                  q       q       q
+
+
+
+
+                                                                                              q   q
+                                  G
+
+
+
+
+             q                                 q       G
+
+                 q                                 q                                  q   q
+
+
+
+
+  • Here for neutron scattering
+Chapter 2.4: Specific heat
+                                Density of states
+
+            Surface of constant frequency 𝜔𝜔 + 𝑑𝑑𝑑𝑑
+ 𝑞𝑞𝑦𝑦
+12
+11
+10
+ 9
+ 8
+ 7                                          How many states 𝑑𝑑𝑑𝑑 are
+ 6
+ 5
+                                            in interval 𝜔𝜔 … 𝜔𝜔 + 𝑑𝑑𝑑𝑑?
+ 4
+ 3
+ 2
+ 1
+
+        1 2 3 4 5 6 7 8 9 10 11 12
+                                     𝑞𝑞𝑥𝑥
+
+
+             Surface of constant frequency 𝜔𝜔
+                     Density of states (2D and 3D)
+
+
+                  𝑑𝑑𝑑𝑑 states
+ 𝑞𝑞𝑦𝑦                                              𝑞𝑞𝑧𝑧
+12
+11
+10                                                        𝑑𝑑𝑑𝑑 states
+ 9
+ 8
+ 7
+ 6
+ 5
+ 4
+                                                             𝑞𝑞𝑦𝑦
+ 3
+ 2
+ 1
+                                            𝑞𝑞𝑥𝑥
+        1 2 3 4 5 6 7 8 9 10 11 12
+                                     𝑞𝑞𝑥𝑥
+        Density of states – change of variables 𝑑𝑑 𝑞𝑞⃗ → 𝑑𝑑𝑑𝑑
+
+
+                                                 � 𝑑𝑑𝑞𝑞⃗ = � 𝑑𝑑𝑆𝑆𝜔𝜔 � 𝑑𝑑𝑞𝑞⊥
+𝑞𝑞𝑦𝑦             𝑑𝑑𝑞𝑞⊥
+
+                                                                   𝑑𝑑𝑑𝑑  𝑑𝑑𝑑𝑑
+                                                 � 𝑑𝑑𝑞𝑞⊥ = �        =�
+             𝑑𝑑𝑆𝑆⃗𝜔𝜔                                         ∇𝑞𝑞 𝜔𝜔    𝑣𝑣(𝑞𝑞)
+                                                                           ⃗
+                                𝜔𝜔 𝑞𝑞⃗ = const
+
+
+
+
+                                                  𝑣𝑣 𝑞𝑞⃗ = ∇𝑞𝑞⃗ 𝜔𝜔 : group velocity
+       2𝜋𝜋               𝑞𝑞𝑥𝑥
+        𝐿𝐿
+  Einstein model and Debye model
+
+       𝜔𝜔
+
+            Einstein Model
+
+𝜔𝜔𝐷𝐷
+
+
+Debye Model
+
+
+
+
+                             𝑞𝑞
+Debye temperatures
+Phonon dispersion of lead
+
+
+
+                            • 1 atom per unit cell
+
+                            • No optical phonons
+Phonon dispersion of Si
+
+                          • 2 atoms per unit cell
+
+                          • Has optical phonons
+    Lattice direction and symmetry points of 3D Brillouin zones
+
+
+
+                             Γ   (0,0,0)         Center of the 1. BZ
+                             X   (0,1,0)         Intersection of [010] axis with the edge
+                                                 of the 1. BZ
+                             L   (0.5,0.5,0.5)   Intersection of the [111] diagonal with the
+                                                 edge of the 1. BZ
+                             K   (0.75,0.75,0)   Intersection of a diagonal of the [110] surface
+                                                 with the edge of the 1. BZ
+                             U   (0.25,1,0.25)
+                             W   (0.5,1,0)
+
+
+
+
+Source: wikipedia
+Measured phonon density of states in Si
+Phonon density of states of Si
+Heat capacity
+Heat capacity of aluminum
+                   Experiment: Debye temperature
+
+
+
+
+• https://experimente.phys.ethz.ch/de/100/10003/20090/30108
+     What cannot be explained by harmonic lattice potentials
+
+Macroscopic phenomena:
+• Thermal expansion of the lattice
+• Temperature dependence of elastic moduli
+• Weak growth of 𝐶𝐶𝑉𝑉 above the Debye temperature
+• Finite thermal conductivity (harmonic potential: infinite)
+
+Microscopic phenomena:
+• Phonon decay
+• Quantum harmonic oscillator energy levels depend on 𝑛𝑛 (𝜔𝜔𝑛𝑛 ≠ 𝜔𝜔)
+• Equilibrium position of harmonic oscillator depends on 𝑛𝑛 (=> explains thermal
+  expansion)
+

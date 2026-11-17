@@ -41,6 +41,7 @@ It shows your level, XP, streak and the days to the exam, and "Continue in <room
 | **Fights** | Calculation problems in steps: first choose the right equation, then the algebra, last the numbers (with tolerance and a unit check). |
 | **Boss gate** | A full old-exam problem, solved on paper under a timer, final answers entered. |
 | **PhET simulations** | Exercises done with an online PhET simulation, in the rooms where they fit: Quantum Bound States (oscillator, square well, hydrogen), Quantum Tunneling (Tunneling Bridge), Quantum Measurement (Stern–Gerlach chains), Band Structure (Fermi Sea), Atomic Interactions (Bonding Grotto), Blackbody Spectrum (Light Deck). Open the sim in a new tab or inside the panel, set it up as described, then answer; every answer was checked against the simulation itself. The Java ones (Bound States, Tunneling, Band Structure) need 10 to 20 s to start and are best on a PC; the others also run well on a phone. Optional like the book exercises. |
+| **Exercise sheets** | Your weekly exercise sheets, question by question, in the room of their topic: the statement, then each part with the official solution to reveal step by step, and key points to tick. Each question starts with links to the lessons, derivations, fights and experiments of the game that belong to it, and those show "On your exercise sheets" back. **Menu > Exercise sheets** or **Study hub > Sheets** opens this week's sheet (worked out from the due dates). Optional like the book exercises. |
 | **Book exercises** | (Astrophysics) every end-of-chapter exercise of Choudhuri, *Astrophysics for Physicists*, in the room of its topic: on paper, then step-by-step worked solution and key points. Optional extra practice: they give XP and respawn when failed, but do not hold doors shut or count in the progress rings. Chapters 12–13 (general relativity) are in the **Relativity Annex** (low exam priority). |
 
 Some exercises are **locked** until an earlier one is passed (a door in the room opens when a room is cleared).
@@ -99,3 +100,18 @@ Your results are kept in a history chart. Hints cost XP here too.
 
 Your **profile** (XP, solved exercises, respawn schedule, streak, settings, mistakes, pile, study time) is a file on the server (`/var/lib/physics-rpg/profiles/default.json`),
 mirrored in the browser. The **theme** and the **controls mode** are stored in the browser of each device. Details and backups: `deploy/README.md`.
+
+
+## The game loop (added 2026-11-17)
+- **Start screen → Today's run.** One button. The run is a short path of stops chosen for you: a respawn to warm up, then the next theory
+  card and its exercise in the course where you are furthest behind, then the other courses. Some stops offer a fork: a harder problem
+  from the same room for bonus XP. A finished run lights today's pip; three, five and seven run days in a week open a chest.
+- **Campaign (C).** Fourteen tiles per course, one per lecture week. Green: done. Dark red: the lecture has passed it and you have not.
+  The ghost stands on the lecture's current week; "weeks behind" is your distance to it. Click a tile for its theory and its sheet, or
+  to mark a week you did on paper.
+- **Weekly bosses.** The sheet due next in each course. Reading its theory strips its armour; beating all its questions before the due
+  date pays a reward.
+- **Fights.** Every exercise shows an enemy with HP and your focus. Right answers hit (first try: critical), wrong answers and hints cost
+  focus, reading a lesson restores some. The grade (S to D) appears on the run path.
+- **Top bar.** Run, campaign, menu. Everything else is in the menu (four groups) or on its old key: V study hub, X exam hall, M map,
+  B formulas, T missions, N nexus, K connections, P profile, Q quick session.

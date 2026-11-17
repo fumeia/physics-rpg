@@ -34,7 +34,7 @@ GUIDE_SKIP = ('sandbox', 'boss')
 # ------------------------------------------------------------------ content (same shape the game builds in boot())
 def core(e):
     """The core of a room (main.js core): opens doors, fills progress; book exercises are optional extra practice."""
-    return e['type'] != 'sandbox' and not e.get('book') and not e.get('sim')
+    return e['type'] != 'sandbox' and not e.get('book') and not e.get('sim') and not e.get('sheet')
 
 
 def load_content():
@@ -60,8 +60,9 @@ def load_content():
             r['encounters'].insert(at, l['enc'])
         for f in idx.get('extras', []):  # collections placed into rooms, e.g. the textbook exercises (main.js boot)
             try:
-                for it in jl(cid, f)['items']:
-                    r = next((x for x in rooms if x['slug'] == it['room']), None)
+                x = jl(cid, f)
+                for it in x.get('items', []) + [{'room': q['room'], 'enc': q['enc']} for sh in x.get('sheets', []) for q in sh['questions']]:
+                    r = next((y for y in rooms if y['slug'] == it['room']), None)
                     if r: r['encounters'].append(it['enc'])
             except (OSError, ValueError, KeyError): pass
         catalog.append({'id': cid, 'region': idx.get('region', cid), 'rooms': rooms})
@@ -160,8 +161,10 @@ class Progress:
                 for e in r['encounters']:
                     if core(e):
                         total += 1; done += self.passed(e['id'])
-        y, m, d = map(int, exam_date().split('-'))
-        days = max(0, (dt.date(y, m, d) - self.now.date()).days); left = total - done
+        # per-course exam dates from the game's settings (flags.examDates); the first one still ahead counts, else the fallback date
+        dates = [v for v in (self.flags.get('examDates') or {}).values() if isinstance(v, str) and re.match(r'^\d{4}-\d{2}-\d{2}$', v)] or [exam_date()]
+        ahead = [x for x in ((dt.date(*map(int, v.split('-'))) - self.now.date()).days for v in dates) if x >= 0]
+        days = min(ahead) if ahead else 0; left = total - done
         return {'days': days, 'total': total, 'done': done, 'left': left, 'perDay': math.ceil(left / days) if days > 0 else left}
 
     def weak_rooms(self, limit=2):
@@ -225,11 +228,12 @@ def link(base, **q):
     return base.rstrip('/') + '/' + (f'?{qs}' if qs else '')
 
 
-def suggest_spec(kind, id=None): return 'quick' if kind == 'quick' else f'open:{id}'
+def suggest_spec(kind, id=None): return kind if kind in ('quick', 'run') else f'open:{id}'
 
 def spec_links(base, spec):
     """(start-now link, chooser link) for a suggestion: 'quick' or 'open:<exercise id>'"""
     if spec == 'quick': return link(base, quick=1), link(base, suggest='quick')
+    if spec == 'run': return link(base, run=1), link(base, suggest='run')
     return link(base, open=spec.split(':', 1)[1]), link(base, suggest=spec)
 
 def snooze_payload(what, spec, base, cfg, delay):
@@ -251,8 +255,80 @@ def suggestion_actions(what, spec, base, cfg):
     if choose_url: acts.append({'action': 'view', 'label': 'Later\u2026', 'url': choose_url})
     return acts[:3]
 
+def campaign_stat(P):
+    """The campaign summary the game saves with the progress (campaignui.js stat()), if the campaign is set up and the summary
+    is at most three days old. Older profiles have none: they keep the earlier messages."""
+    cs = P.flags.get('campaignStat') or {}
+    if not cs.get('setup') or not cs.get('date'): return None
+    try: age = (dt.date.fromisoformat(P.today) - dt.date.fromisoformat(cs['date'])).days
+    except ValueError: return None
+    return dict(cs, age=age) if 0 <= age <= 3 else None
+
+def campaign_message(P, slot, cs, base, cfg):
+    """Messages for the campaign: today's run, the weekly boss, the ghost (lecture pace), what is fading, the run streak and chest."""
+    rnd = random.Random(f'{P.today}:{slot}:c'); pick = lambda xs: xs[rnd.randrange(len(xs))]
+    fresh = cs['age'] == 0; run = cs.get('run') or {}; done_run = fresh and run.get('complete')
+    behind = cs.get('behind') or {}; worst = max(behind.items(), key=lambda kv: kv[1]) if behind else None
+    boss = cs.get('boss'); bdays = None
+    if boss and boss.get('hp'):
+        try: bdays = (dt.date.fromisoformat(boss['due']) - dt.date.fromisoformat(P.today)).days
+        except ValueError: bdays = None
+    plan = P.exam_plan(); lines, tags, prio = [], [], 3
+    run_line = (f"{run['stops'] - run.get('done', 0)} stops left, about {max(5, run.get('min', 20))} min." if fresh and run.get('stops') and not done_run
+                else 'A new run is ready: a warm-up, then the next theory card and its exercise.')
+    def boss_line():
+        if bdays is None or bdays < 0 or bdays > 3: return None
+        when = 'arrives today' if bdays == 0 else 'arrives tomorrow' if bdays == 1 else f'arrives in {bdays} days'
+        arm = f" Read {plural(boss['armour'], 'theory card')} first to strip its armour." if boss.get('armour') else ''
+        return f"Weekly boss: the Warden of {short_course(boss['course'])} sheet {boss['n']} {when}, {plural(boss['hp'], 'question')} open (+{boss.get('reward', 0)} XP in time).{arm}"
+    ghost = f"{short_course(worst[0])}: the ghost is {worst[1]:g} weeks ahead. Every run closes the gap." if worst and worst[1] > 0 else 'You are level with the ghost. A run today keeps it that way.'
+    fading = f"{plural(cs['fading'], 'thing')} you passed {'is' if cs['fading'] == 1 else 'are'} fading: the run defends one." if cs.get('fading') else None
+    streak, days, chest = cs.get('runStreak', 0), cs.get('runDays', 0), cs.get('chestAt')
+    chest_line = f"{plural(days, 'run day')} this week, chest at {chest}." if chest else f"{plural(days, 'run day')} this week: the gold chest is open."
+    if slot == 'morning':
+        title = "Today's run" + (f": {run['stops'] - run.get('done', 0)} stops, about {max(5, run.get('min', 20))} min" if fresh and run.get('stops') and not done_run else ' is ready')
+        lines.append(pick(['Fresh head, best time for the run.', 'One run today, before anything else gets in the way.', 'Start the run now: the first stop is the easy one.']))
+        for x in (boss_line(), ghost, fading): 
+            if x: lines.append(x)
+        lines.append(f"{plan['days']} days to the exams.")
+        if bdays is not None and bdays <= 1: prio = 4
+        tags = ['crossed_swords']
+    elif slot == 'midday':
+        if done_run or P.minutes_today() >= 5 or P.finished_today() >= 1: return None, 'already studied today'
+        title = pick(['The run has not started yet', 'Twenty minutes: the short run', 'The ghost is studying right now'])
+        lines.append(run_line)
+        for x in (boss_line(), ghost): 
+            if x: lines.append(x)
+        tags = ['hourglass_flowing_sand']
+    elif slot == 'evening':
+        if done_run: return None, 'run done today'
+        title = f'Keep your {streak}-day run streak' if streak else pick(['One short run tonight', 'A 20-minute run still counts'])
+        lines.append('Only a finished run counts for the streak. One missed day a week is forgiven.' if streak else 'A finished run starts the streak; the short one takes about 20 minutes.')
+        lines.append(run_line if fresh and run.get('started') else 'Pick the short run (20 min) on the campaign screen if the day was long.')
+        lines.append(chest_line); b = boss_line()
+        if b: lines.append(b)
+        prio = 4 if streak or (bdays is not None and bdays <= 1) else 3; tags = ['fire'] if streak else ['seedling']
+    elif slot == 'weekly':
+        w = P.week(); g = cs.get('grades') or {}
+        title = f"Week in review: {plural(days, 'run day')}, {w['exercises']} exercises"
+        lines.append(f"Ghost: {cs.get('total', 0):g} weeks behind in total" + (f" ({', '.join(f'{short_course(c)} {v:g}' for c, v in behind.items() if v > 0)})." if any(v > 0 for v in behind.values()) else '.'))
+        if g: lines.append('Grade forecast (rough): ' + ', '.join(f"{short_course(c)} {v:g}" for c, v in g.items()) + '.')
+        if fading: lines.append(fading)
+        lines.append(f"{plan['days']} days to the exams. Start the week with a run.")
+        tags = ['bar_chart']
+    else:
+        return None, f'unknown slot {slot}'
+    msg = {'title': title, 'message': '\n'.join(lines), 'priority': prio, 'tags': tags}
+    if base:
+        msg['click'] = spec_links(base, 'run')[1]
+        acts = suggestion_actions("Today's run", 'run', base, cfg)
+        if acts: msg['actions'] = acts
+    return msg, 'ok'
+
 def message(P, slot, base, cfg=None):
     """-> (message dict | None, reason). Plain text, a few short lines, specific to the current state."""
+    cs = campaign_stat(P)
+    if cs: return campaign_message(P, slot, cs, base, cfg)
     rnd = random.Random(f'{P.today}:{slot}'); pick = lambda xs: xs[rnd.randrange(len(xs))]
     step, due, st, plan = P.next_step(), P.due(), P.streak(), P.exam_plan()
     today_min, goal, ex, ex_goal = P.minutes_today(), P.goal_min(), P.finished_today(), P.goal_ex()

@@ -61,3 +61,11 @@ cd game && npm install            # only once, installs the headless-browser dri
 node test/exam-check.mjs && node test/content-check-qm.mjs   # quick logic checks, no browser
 node test/rooms-smoke.mjs         # loads every room in a headless browser (needs Chromium)
 ```
+
+## Fast start on phones (2026-11-17)
+- `main.js` boot requests every content file at once (a memoised `fetchJson`); nothing waits for the previous file any more.
+- `index.html` preloads every module that `main.js` imports (`<link rel="modulepreload">` after the import map). When you add a
+  module that `main.js` imports statically, add a line there (rooms and labs loaded with `import()` do not need one).
+- `sw.js` serves static files from a cache. On every page load it asks `/api/version` (newest file time of the game, from `serve.py`)
+  and empties the cache when it changed, so `rpg-update` shows up on the next load. Measured with 150 ms latency and 1.5 MB/s:
+  first load 10.7 s before, 5.0–5.5 s now; later loads 1.3 s. On http the worker only runs with `?sw=1` (tests).

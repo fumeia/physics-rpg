@@ -13,12 +13,58 @@
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
 <link rel="stylesheet" href="style.css">
 <script type="importmap">{ "imports": { "three": "./vendor/three/three.module.js" } }</script>
+<!-- every module main.js imports, fetched in one wave instead of import by import (regenerate: see docs/RUNNING.md) -->
+<link rel="modulepreload" href="src/theme.js">
+<link rel="modulepreload" href="src/world.js">
+<link rel="modulepreload" href="vendor/three/three.module.js">
+<link rel="modulepreload" href="src/mathtex.js">
+<link rel="modulepreload" href="vendor/katex/katex.mjs">
+<link rel="modulepreload" href="src/player.js">
+<link rel="modulepreload" href="src/sim.js">
+<link rel="modulepreload" href="src/fft.js">
+<link rel="modulepreload" href="src/encounters.js">
+<link rel="modulepreload" href="src/expr.js">
+<link rel="modulepreload" href="src/store.js">
+<link rel="modulepreload" href="src/math.js">
+<link rel="modulepreload" href="src/glossary.js">
+<link rel="modulepreload" href="src/labs.js">
+<link rel="modulepreload" href="src/labmodels.js">
+<link rel="modulepreload" href="src/labs-ext/index.js">
+<link rel="modulepreload" href="src/labs-ext/qm.js">
+<link rel="modulepreload" href="src/labs-ext/models-qm.js">
+<link rel="modulepreload" href="src/labs-ext/astro.js">
+<link rel="modulepreload" href="src/labs-ext/models-astro.js">
+<link rel="modulepreload" href="src/labs-ext/solid-state.js">
+<link rel="modulepreload" href="src/labs-ext/models-solid-state.js">
+<link rel="modulepreload" href="src/canvastex.js">
+<link rel="modulepreload" href="src/explorer.js">
+<link rel="modulepreload" href="src/diagnose.js">
+<link rel="modulepreload" href="src/mistakes.js">
+<link rel="modulepreload" href="src/confidence.js">
+<link rel="modulepreload" href="src/rooms/nexus.js">
+<link rel="modulepreload" href="src/exam.js">
+<link rel="modulepreload" href="src/missions.js">
+<link rel="modulepreload" href="src/examgrade.js">
+<link rel="modulepreload" href="src/labholo.js">
+<link rel="modulepreload" href="src/drills.js">
+<link rel="modulepreload" href="src/touch.js">
+<link rel="modulepreload" href="src/campaignui.js">
+<link rel="modulepreload" href="src/campaign.js">
+<link rel="modulepreload" href="src/battle.js">
+<link rel="modulepreload" href="src/memory.js">
+<link rel="modulepreload" href="src/quality.js">
+<link rel="modulepreload" href="src/cards.js">
+<link rel="modulepreload" href="src/forgeui.js">
+<link rel="modulepreload" href="src/derivui.js">
+<link rel="modulepreload" href="src/feedback.js">
+<link rel="modulepreload" href="src/sync.js">
+<link rel="modulepreload" href="src/achievements.js">
 </head>
 <body>
 <canvas id="view"></canvas>
 <div id="hud">
   <div class="tl"><b id="region"></b> <span id="room-title"></span> <span id="room-progress" class="chip"></span><div id="objective"></div></div>
-  <div class="tr"><button id="btn-menu" class="chip btn menu-only">Menu</button> <button id="btn-fs" class="chip btn touch-only" title="Full screen">&#9974;</button> <button id="btn-profile" class="chip btn" title="Profile, settings, achievements (P)">profile</button> <button id="btn-help" class="chip btn" title="Controls and help (F1)">?</button> <button id="btn-conn" class="chip btn" title="Connections of this room (K)">Connections (K)</button> <button id="btn-pile" class="chip btn" title="Study hub: pile, session planner, mistakes, weak spots, Feynman (V)">Study (V)</button> <button id="btn-exam" class="chip btn" title="Exam hall: mock exams with grades (X)">Exam hall (X)</button> <button id="btn-missions" class="chip btn" title="Daily missions (T)">Missions</button> <button id="btn-guide" class="chip btn" title="Guided route on/off">Guide: on</button> <button id="btn-nexus" class="chip btn" title="Nexus (N)">Nexus (N)</button> <button id="btn-map" class="chip btn" title="Map (M)">Map (M)</button> <button id="btn-codex" class="chip btn" title="Formulas (B)">Formulas (B)</button> <button id="help" class="chip btn" title="Replay the tutorial">? Tutorial</button> <span id="xp">XP 0</span> <span id="reviews" class="chip">Respawns due: 0</span></div>
+  <div class="tr"><button id="btn-run" class="chip btn" title="Today's run: the few things to do today, in order (G)">&#9654; Today&rsquo;s run</button> <button id="btn-campaign" class="chip btn" title="Campaign: every lecture week of the three courses (C)">Campaign</button> <button id="btn-menu" class="chip btn menu-only" title="Everything else">&#9776; Menu</button> <button id="btn-gear" class="chip btn menu-only" title="Settings and help">&#9881;</button> <button id="btn-fs" class="chip btn touch-only" title="Full screen">&#9974;</button> <button id="btn-profile" class="chip btn" title="Profile, settings, achievements (P)">profile</button> <button id="btn-help" class="chip btn" title="Controls and help (F1)">?</button> <button id="btn-conn" class="chip btn" title="Connections of this room (K)">Connections (K)</button> <button id="btn-pile" class="chip btn" title="Study hub: pile, session planner, mistakes, weak spots, Feynman (V)">Study (V)</button> <button id="btn-exam" class="chip btn" title="Exam hall: mock exams with grades (X)">Exam hall (X)</button> <button id="btn-missions" class="chip btn" title="Daily missions (T)">Missions</button> <button id="btn-guide" class="chip btn" title="Guided route on/off">Guide: on</button> <button id="btn-nexus" class="chip btn" title="Nexus (N)">Nexus (N)</button> <button id="btn-map" class="chip btn" title="Map (M)">Map (M)</button> <button id="btn-codex" class="chip btn" title="Formulas (B)">Formulas (B)</button> <button id="help" class="chip btn" title="Replay the tutorial">? Tutorial</button> <span id="xp">XP 0</span> <span id="reviews" class="chip">Respawns due: 0</span></div>
   <div id="crosshair"></div>
   <div id="prompt" style="display:none"></div>
   <div id="nx-card" style="display:none"></div>
@@ -33,10 +79,10 @@
 </div>
 <aside id="cx" class="hidden"><div class="cx-head"><b id="cx-title">Formulas</b><button id="cx-max" class="chip btn touch-only" title="Fill the screen">&#10530;</button><button id="cx-close" title="Close (B or Esc)">×</button></div><div id="cx-body"></div></aside>
 <aside id="side" class="hidden">
-  <button id="side-cx" class="chip btn" title="Formula drawer (B)">Formulas (B)</button><button id="side-max" class="chip btn touch-only" title="Fill the screen">&#10530;</button><button id="close" title="Close (Esc)">×</button>
+  <button id="side-cx" class="chip btn" title="Formula drawer (B)">Formulas (B)</button><button id="side-max" class="chip btn" title="Full screen: read the exercise and its theory without the game around it">&#10530;</button><button id="close" title="Close (Esc)">×</button>
   <div id="panel"></div>
 </aside>
-<div id="overlay" style="display:none"><div class="ov-card"><div class="ov-head"><b id="ov-title"></b><button id="ov-close">×</button></div><div id="ov-body"></div></div></div>
+<div id="overlay" style="display:none"><div class="ov-card"><div class="ov-head"><button id="ov-back" class="chip btn" style="display:none" title="Back to the previous screen">&#8592; Back</button><b id="ov-title"></b><span class="ov-btns"><button id="ov-max" class="chip btn" title="Full screen">&#10530;</button><button id="ov-close">×</button></span></div><div id="ov-body"></div></div></div>
 <div id="warp"></div>
 <div id="toast"></div>
 <div id="gl-banner" style="display:none"><span>The 3D view stopped (the phone took back its graphics memory).</span><button id="gl-reload" class="chip btn" type="button">Reload the view</button></div>
@@ -50,6 +96,8 @@
     <h1>Physics RPG</h1>
     <p class="st-sub">Quantum mechanics &middot; Solid state &middot; Astrophysics</p>
     <div class="st-stats" id="st-stats"></div>
+    <p class="st-plan" id="st-plan"></p>
+    <button id="st-run" class="st-run" type="button" style="display:none">&#9654; Today&rsquo;s run</button>
     <button id="st-go" class="st-go" type="button">Start</button>
     <button id="resume" class="st-resume" type="button" style="display:none"></button>
     <div class="st-bar indet" id="st-bar"><i id="st-fill"></i></div>

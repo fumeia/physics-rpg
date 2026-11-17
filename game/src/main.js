@@ -13,10 +13,17 @@ import { buildLabHolos } from './labholo.js';
 import { mistakes, updateMistake, weakSpots } from './mistakes.js';
 import { renderDrillTab, setDrillData, drillData } from './drills.js';
 import { initTouch } from './touch.js';
+import { createCampaign } from './campaignui.js';
+import * as battle from './battle.js';
+import { createQuality } from './quality.js';
+import { notePass, noteFail, meanRetention } from './memory.js';
+import * as cards from './cards.js';
+import { renderForge, renderSummary, renderUnits, forgeDue, pinned, pin } from './forgeui.js';
+import { renderDerivs, nextDeriv, runDeriv } from './derivui.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
-import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS, GOAL_EXERCISES } from './missions.js';
+import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS, GOAL_EXERCISES, setExamDates, examDateOf, examDateKnown, EXAM_DATE } from './missions.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view');
@@ -62,6 +69,7 @@ const GROUPS = [
   { key: 'lesson', label: 'LIBRARY', types: ['lesson'], blurb: 'Theory and intuition cards with check questions' },
   { key: 'lab', label: 'EXPERIMENTS', types: ['lab'], blurb: 'Interactive simulations: change something, remove a term, see what happens' },
   { key: 'quiz', label: 'QUIZ HALL', types: ['quiz'], blurb: 'Exam-style multiple choice (quick fights)' },
+  { key: 'sheet', label: 'EXERCISE SHEETS', types: ['derive'], sheet: true, blurb: 'Your weekly exercise sheets, question by question, with hints and the official solution' },
   { key: 'derive', label: 'DERIVATION DESK', types: ['derive'], blurb: 'Derivations on paper, step by step' },
   { key: 'book', label: 'BOOK EXERCISES', types: ['derive'], book: true, blurb: 'Every end-of-chapter exercise of the textbook, on paper, with a worked solution' },
   { key: 'station', label: 'STATIONS', types: ['predict-observe', 'sandbox'], blurb: 'Predict, watch the simulation, explain' },
@@ -72,6 +80,8 @@ const GROUPS = [
 
 let bridgeOn = false; // is the QM bridge exhibit the 3D content of the current room?
 let holos = null, world, player, course, room, set = null, current = null, unmountPanel = null, dueTarget = null, tut = null, overlay = null;
+const sheetShift = new Map(); // sheet -> days added to its due date (see sheetDue)
+let sheetsByCourse = {}; // course id -> {title, sheets: [{n, title, due, questions: [{q, title, room, related, enc}]}]}
 let catalog = [], encIndex = new Map(), codexByCourse = {}, groups = [], linksData = [], route = [], banks = {}, dayMissions = null, dayKey = '';
 let inNexus = false, nexusFocusKey = null;
 const modules = {};
@@ -83,30 +93,57 @@ let runner = null;
 async function boot() {
   setLandscapePref(false); // older versions stored a "lock sideways" choice and re-applied it on every visit: forget it
   if (params.get('orientation') === 'free') { try { screen.orientation.unlock(); } catch { /* ignore */ } }
-  const fetchJson = async (u) => (await fetch(u)).json();
+  // Every file is requested at once (each url only once): on a phone each round trip costs 100-300 ms, so waiting for one file
+  // before asking for the next made the start slow. The results are used in the same order as before.
+  const cache = new Map(), fetchJson = (u) => { if (!cache.has(u)) cache.set(u, fetch(u).then((r) => { if (!r.ok) throw new Error(`${r.status} ${u}`); return r.json(); })); return cache.get(u); };
+  const soft = (u) => fetchJson(u).catch(() => null); // optional files
+  const syncP = initSync(), glossP = loadGlossary(); // the profile and the glossary load alongside the courses
+  for (const u of ['content/manifest.json', 'content/radar.json', 'content/links.json', 'content/links-plain-1.json', 'content/links-plain-2.json', 'content/path.json', 'content/qm/forge.json', 'content/units-duel.json', 'content/qm/derivations.json', 'content/campaign.json']) soft(u);
+  for (const c of COURSES) for (const f of ['hints', 'hints-2', 'blitz']) soft(`content/${c.dir}/${f}.json`);
   progress(3, 'Loading the courses...');
-  let labs = []; for (const f of ['labs', 'labs-qm', 'labs-solid-state', 'labs-astrophysics']) { try { labs = labs.concat((await fetchJson(`content/${f}.json`)).labs); } catch { /* optional file */ } }
+  const labsP = Promise.all(['labs', 'labs-qm', 'labs-solid-state', 'labs-astrophysics'].map((f) => soft(`content/${f}.json`)));
   const idxs = await Promise.all(COURSES.map((c) => fetchJson(`content/${c.dir}/index.json`))), roomTotal = idxs.reduce((n, i) => n + i.rooms.length, 0); let roomsGot = 0;
+  // all rooms, extras and codices of all courses in parallel
+  const roomsP = COURSES.map((c, ci) => Promise.all(idxs[ci].rooms.map(async (id) => { const r = await fetchJson(`content/${c.dir}/${id}.json`); progress(6 + 54 * (++roomsGot) / roomTotal); return r; })));
+  const extrasP = COURSES.map((c, ci) => Promise.all((idxs[ci].extras || []).map((f) => fetchJson(`content/${c.dir}/${f}`).catch((err) => { console.warn('extra content failed', f, err.message); return null; }))));
+  const codexP = COURSES.map((c, ci) => (idxs[ci].codex ? fetchJson(`content/${c.dir}/${idxs[ci].codex}`) : Promise.resolve(null)));
+  const labs = (await labsP).filter(Boolean).flatMap((x) => x.labs || []);
   progress(6, 'Loading the courses...');
   for (const [ci, c] of COURSES.entries()) {
     const idx = idxs[ci];
-    const rooms = (await Promise.all(idx.rooms.map(async (id) => { const r = await fetchJson(`content/${c.dir}/${id}.json`); progress(6 + 54 * (++roomsGot) / roomTotal); return r; }))).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
+    const rooms = (await roomsP[ci]).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
     for (const l of labs) { const [lc, ls] = l.room.split('/'); if (lc !== c.id) continue; const r = rooms.find((x) => x.slug === ls); if (!r) continue; let at = 0; r.encounters.forEach((e, i) => { if (e.type === 'lesson') at = i + 1; }); r.encounters.splice(at, 0, l.enc); }
-    for (const f of idx.extras || []) { try { for (const it of (await fetchJson(`content/${c.dir}/${f}`)).items) { const r = rooms.find((x) => x.slug === it.room); if (r) r.encounters.push(it.enc); } } catch (err) { console.warn('extra content failed', f, err.message); } }
+    const extras = await extrasP[ci];
+    for (const x of extras) {
+      if (!x) continue;
+      const place = (room, enc) => { const r = rooms.find((y) => y.slug === room); if (r) r.encounters.push(enc); };
+      for (const it of x.items || []) place(it.room, it.enc);
+      // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
+      if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
+    }
     catalog.push({ ...c, region: idx.region, rooms });
-    try { banks[c.id] = await fetchJson(`content/${c.dir}/blitz.json`); } catch { /* optional question bank */ }
-    if (idx.codex) codexByCourse[c.id] = await fetchJson(`content/${c.dir}/${idx.codex}`);
+    const bank = await soft(`content/${c.dir}/blitz.json`); if (bank) banks[c.id] = bank;
+    const cx = await codexP[ci]; if (cx) codexByCourse[c.id] = cx;
     for (const r of rooms) for (const enc of r.encounters) encIndex.set(enc.id, { course: c.id, roomId: r.slug, enc });
   }
-  progress(62, 'Loading the glossary...'); await loadGlossary();
-  progress(68, 'Loading your progress...'); await initSync(); renderStartStats();
+  progress(62, 'Loading the glossary...'); await glossP;
+  progress(68, 'Loading your progress...'); await syncP; setExamDates(store.val('examDates', {})); renderStartStats();
   store.pruneReviews(new Set(encIndex.keys()));
   progress(74, 'Loading drills and connections...');
-  try { const mf = await fetchJson('content/manifest.json'); for (const cid of mf.drills || []) { const c = catalog.find((x) => x.id === cid); if (c) setDrillData(cid, await fetchJson(`content/${c.dir}/drills.json`)); } if (mf.radar) drillData.radar = await fetchJson('content/radar.json'); } catch (e) { console.warn('drills not loaded', e.message); }
+  try { const mf = await fetchJson('content/manifest.json'); const ds = await Promise.all((mf.drills || []).map((cid) => { const c = catalog.find((x) => x.id === cid); return c ? fetchJson(`content/${c.dir}/drills.json`).then((d) => [cid, d]) : null; })); for (const x of ds) if (x) setDrillData(x[0], x[1]); if (mf.radar) drillData.radar = await fetchJson('content/radar.json'); } catch (e) { console.warn('drills not loaded', e.message); }
   try { linksData = (await fetchJson('content/links.json')).links; } catch { linksData = []; }
-  for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
+  for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); if (!pl) continue; for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
+  try { forgeItems = (await fetchJson('content/qm/forge.json')).items; } catch { forgeItems = []; }
+  try { unitsDuel = await fetchJson('content/units-duel.json'); } catch { /* optional */ }
+  try { derivItems = (await fetchJson('content/qm/derivations.json')).items; } catch { derivItems = []; }
+  try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
+    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), setDungeon: (on) => document.body.classList.toggle('dungeon', !!on), forgeDue: () => forgeDue(forgeItems).length, nextDeriv: () => runDeriv(derivItems), mistakes, openTab: (t, arg) => { derivStart = t === 'derivs' ? arg || null : null; openOverlay('pile'); renderStudy(t); derivStart = null; }, openMissions: () => openOverlay('missions'), openConnection: (k) => { closeOverlay(true); openConnections(k); },
+    missions: () => { const day = store.missionsOf(todayStr()); return todays().map((m) => ({ title: String(m.title || '').replace(/<[^>]+>/g, ''), done: !!day.done[m.id] })); },
+    radar: () => drillData.radar?.topics || (Array.isArray(drillData.radar) ? drillData.radar : []), links: () => linksData }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
+  // compact HUD (run, campaign, menu) unless the full chip row was chosen in the menu; tests keep the full row unless they ask for hud=compact
+  if (params.get('hud') === 'compact' || (!params.has('test') && params.get('hud') !== 'full' && (store.val('settings', {}) || {}).hud !== 'full')) document.body.classList.add('hudc');
   progress(88, 'Building the 3D world...'); await nextFrame();
   world = new World(canvas);
   player = new Player(canvas, world);
@@ -121,7 +158,7 @@ async function boot() {
   $('start-profile').textContent = `Profile: ${store.profile}`;
   $('st-profile').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; openOverlay('profile'); }); };
   $('st-go').onclick = (ev) => { ev.stopPropagation(); requestStart(); };
-  startEl.onclick = (ev) => { if (!ev.target.closest('#st-profile, #resume, #st-go')) requestStart(); };
+  startEl.onclick = (ev) => { if (!ev.target.closest('#st-profile, #resume, #st-go, #st-run')) requestStart(); };
   $('help').onclick = () => startTutorial(); $('btn-nexus').onclick = () => goNexus(); $('btn-profile').onclick = () => openOverlay('profile'); $('btn-help').onclick = () => openOverlay('help'); $('btn-missions').onclick = () => openOverlay('missions'); $('btn-exam').onclick = () => openOverlay('exam'); $('btn-pile').onclick = () => openOverlay('pile'); $('btn-conn').onclick = () => connectionsHere(); $('btn-guide').onclick = () => { store.setFlag('guide-off', guideOn()); refresh(); if (inNexus) goNexus(); };
   $('btn-map').onclick = () => openOverlay('map'); $('btn-codex').onclick = () => toggleCodex(); $('side-cx').onclick = () => toggleCodex(); $('cx-close').onclick = () => closeCodex();
   $('ov-close').onclick = () => closeOverlay();
@@ -139,6 +176,9 @@ async function boot() {
   exposeTestApi();
   if (params.has('test')) { $('start').style.display = 'none'; player.enabled = true; if (params.has('tutorial')) startTutorial(); }
   $('btn-menu').onclick = () => openOverlay('menu');
+  $('btn-gear').onclick = () => (overlay === 'settings' ? closeOverlay() : openOverlay('settings'));
+  $('btn-run').onclick = () => { if (campaign) campaign.startRun(); }; $('btn-campaign').onclick = () => openOverlay('campaign');
+  $('st-run').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; if (campaign) campaign.startRun(); }); };
   // the keyboard-and-mouse layout on a device that has a touch screen: always offer the way back
   if (!touch && !lite && (matchMedia('(pointer: coarse)').matches || (navigator.maxTouchPoints > 0 && innerWidth < 1000))) {
     const bt = $('back-to-touch'); bt.style.display = ''; bt.onclick = () => { setControlsChoice('touch'); reloadWithout('touch', 'controls'); };
@@ -154,6 +194,7 @@ async function boot() {
   const deepOpen = params.get('open'), deepRoom = params.get('room');
   const spec = params.get('suggest');
   if (spec && !params.has('test')) { $('start').style.display = 'none'; player.enabled = true; setTimeout(() => showSuggest(spec), lite ? 450 : 50); }
+  else if (params.has('run') && !params.has('test') && campaign) { $('start').style.display = 'none'; player.enabled = true; campaign.startRun(); }
   else if (params.has('quick') && !params.has('test') && !lite) { $('start').style.display = 'none'; player.enabled = true; startQuick(); }
   else if ((deepOpen || deepRoom) && !params.has('test') && !lite) {
     $('start').style.display = 'none'; player.enabled = true;
@@ -162,7 +203,9 @@ async function boot() {
       if (deepOpen && encIndex.has(deepOpen)) await openById(deepOpen);
     } catch (e) { console.warn('deep link failed', e.message); }
   }
-  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || params.has('sw'))) navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  if (campaign?.dungeonState() && !campaign.dungeonState().d.paid) document.body.classList.add('dungeon');
+  if (campaign) { $('st-run').style.display = ''; $('st-run').textContent = campaign.isSetup() ? '\u25b6 Today\u2019s run' : '\u25b6 Set up my campaign'; document.querySelector('.st-card').classList.add('has-run'); $('st-go').textContent = 'Just walk around'; updateRunChips(); }
   startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';
   if (startWanted || window.__want) enterGame();
   // The frame loop must never stop: the next frame is scheduled first, an error in one frame is logged and skipped, and a watchdog restarts the loop if frames stop
@@ -191,7 +234,11 @@ async function boot() {
         stepRunner(dt, now);
         touchUI?.update({ promptText: promptTarget && !blocking() ? $('prompt').textContent : null, flying: inNexus });
         tickStudy(dt); player.update(dt); world.update(dt); set?.update(dt, player.pos, world.camera); holos?.update(dt, player.pos); if (inNexus) updateNexusCard(); updatePrompt();
-        if (!lite && !covered()) { updateShift(); world.render(player.camera); }
+        if (!lite && !covered()) {
+          // an exercise that is only being read (no simulation, no experiment) lets the 3D view idle at a few frames a second
+          const reading = !!current?.enc && !(runner && !runner.finished) && !view.variant && !['lab', 'predict-observe', 'sandbox'].includes(current.enc.type) && !tut;
+          if (!quality || quality.shouldRender(now, { reading })) { updateShift(); world.render(player.camera); quality?.sample(now, now - lastDrawAt, { reading, hidden: document.hidden }); lastDrawAt = now; }
+        }
       } catch (e) { lastT = now; if (frameErrors++ < 5) console.error('frame error (skipped)', e); }
     };
     requestAnimationFrame(tick);
@@ -241,7 +288,7 @@ const NEXUS_COURSE = { id: 'nexus', name: 'The Nexus', region: 'The Nexus', brid
 const guideOn = () => !store.flag('guide-off');
 const GUIDE_SKIP = ['sandbox', 'boss']; // never forced by the guide
 // the core of a room: what opens the door, fills the progress rings and is followed by the guide (book exercises are optional extra practice)
-const core = (e) => e.type !== 'sandbox' && !e.book && !e.sim;
+const core = (e) => e.type !== 'sandbox' && !e.book && !e.sim && !e.sheet;
 function routeDone(r) { const es = r.encounters.filter((e) => !['sandbox', 'boss', 'lab'].includes(e.type) && core(e)); return !es.length || es.filter(passed).length / es.length >= 0.75; }
 function nextRouteStep() {
   for (const item of route) {
@@ -251,7 +298,8 @@ function nextRouteStep() {
   }
   return null;
 }
-const inGroup = (g, e) => g.types.includes(e?.type) && !!g.book === !!e?.book && !!g.sim === !!e?.sim; // book and simulation exercises have their own consoles
+const FLAGS = ['book', 'sim', 'sheet'];
+const inGroup = (g, e) => g.types.includes(e?.type) && FLAGS.every((f) => !!g[f] === !!e?.[f]); // book, simulation and sheet exercises have their own consoles
 const groupOf = (enc) => GROUPS.find((g) => inGroup(g, enc));
 function roomKeysDue() { const s = new Set(); for (const id of store.dueReviews()) { const r = encIndex.get(id); if (r) s.add(`${r.course}/${r.roomId}`); } return s; }
 function roomsRecommended() {
@@ -355,10 +403,20 @@ const passed = (enc) => store.isPassed(enc.id);
 const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
   $('xp').textContent = `XP ${store.xp}`;
+  if (campaign) { try { const cs = JSON.stringify(campaign.stat()); if (cs !== JSON.stringify(store.val('campaignStat', null))) store.setVal('campaignStat', JSON.parse(cs)); } catch (e) { console.warn('campaign stat', e); } }
+  if (campaign) { if (campaign.onProgress()) setTimeout(() => { if (!current || $('panel').querySelector('#result .msg')) { toast('Run complete. Well done.'); sfx.goal(); } openOverlayWhenFree('campaign'); }, 900); updateRunChips(); }
   const due = store.dueReviews();
   $('reviews').textContent = `Respawns due: ${due.length}`;
   $('reviews').classList.toggle('review', due.length > 0);
   world.setPortalDue(due.length);
+  if (room && !inNexus) { // the room looks overrun until its exercises are done: darker and redder when the lecture has already passed its week
+    const cs = room.encounters.filter((e) => core(e) && e.type !== 'boss'), left = cs.length ? 1 - cs.filter(passed).length / cs.length : 0, key = `${course.id}/${room.slug}`;
+    const overdue = !!campaign?.isSetup() && campaign.roomOverdue(course.id, room.slug);
+    const kept = meanRetention(cs.filter(passed).map((e) => e.id), store.val('mem', {}) || {}, store.snapshot.solved); // what you passed here fades: the room is slowly overrun again
+    world.setThreat(Math.max(left * (overdue ? 1 : 0.3), kept === null ? 0 : (1 - kept) * 0.8 * (1 - left)));
+    const rec = store.val('reclaimed', {}) || {};
+    if (cs.length && left === 0 && !rec[key]) { store.setVal('reclaimed', { ...rec, [key]: Date.now() }); toast(`<b>${room.title}</b> reclaimed: every exercise of this room is done.`); world.successEffect(); sfx.goal(); }
+  }
   dueTarget = due.find((id) => encIndex.has(id)) || null;
   for (const g of groups) {
     const es = g.items.filter((e) => e.type !== 'sandbox'), done = es.filter(passed).length;
@@ -421,9 +479,11 @@ function openConnections(key = null) {
 const connectionsHere = () => openConnections(inNexus ? set?.focus?.node?.key ?? null : `${course.id}/${room.slug}`);
 // ================================================================ profile, settings, achievements, study time
 function applySettings() {
-  const s = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
+  setExamDates(store.val('examDates', {}));
+  const s = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
   configureFeedback({ sound: !!s.sound, haptics: s.haptics !== false });
-  player.sens = s.sens; world.renderer.setPixelRatio(s.quality === 'low' ? 1 : Math.min(window.devicePixelRatio || 1, 2));
+  quality ||= createQuality({ setPixelRatio: (r) => { world.renderer.setPixelRatio(r); world.resize(); } });
+  player.sens = s.sens; quality.setMode(params.get('quality') || (params.has('test') ? 'high' : s.quality)); // tests draw every frame unless they ask for a level
 }
 function updateProfileChip() {
   const el = $('btn-profile'); if (!el) return; const ok = sync.available && /saved/.test(sync.status);
@@ -458,10 +518,11 @@ function runAchievements() {
 window.addEventListener('encounter-done', () => setTimeout(runAchievements, 600));
 const fmtMin = (s) => `${Math.floor(s / 3600) ? Math.floor(s / 3600) + ' h ' : ''}${Math.round((s % 3600) / 60)} min`;
 function profileHtml() {
-  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
+  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
     <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
-    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution)</option></select></label>
+    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="auto" ${st.quality === 'auto' ? 'selected' : ''}>automatic (follows the frame rate${quality ? `; now: ${quality.level}` : ''})</option><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="medium" ${st.quality === 'medium' ? 'selected' : ''}>medium</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution, 30 fps)</option><option value="minimal" ${st.quality === 'minimal' ? 'selected' : ''}>minimal (half resolution, 30 fps)</option></select></label>
+      <div class="examdates"><b>Exam dates</b> <span class="src">(leave empty while unknown: the game assumes ${EXAM_DATE}; everything that counts down recalculates when you set them)</span>${catalog.map((c) => `<label class="labrow">${c.name} <input type="date" data-exdate="${c.id}" value="${examDateKnown(c.id) ? examDateOf(c.id) : ''}"> <span class="src">${daysToExam(new Date(), c.id)} days</span></label>`).join('')}</div>
       <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min or ${GOAL_EXERCISES[k]} exercises)</option>`).join('')}</select></label>
       <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
       <label class="labrow"><span><input type="checkbox" id="set-haptics" ${st.haptics !== false ? 'checked' : ''}> vibration</span></label>
@@ -474,13 +535,14 @@ function profileHtml() {
 async function wireProfile() {
   const sens = $('set-sens'), q = $('set-q');
   const save = () => { store.setVal('settings', { ...(store.val('settings', {}) || {}), sens: +sens.value, quality: q.value, goal: $('set-goal').value, sound: $('set-sound').checked, haptics: $('set-haptics').checked }); applySettings(); refresh(); };
+  document.querySelectorAll('[data-exdate]').forEach((inp) => (inp.onchange = () => { const v = inp.value, ed = { ...(store.val('examDates', {}) || {}) }; if (v) ed[inp.dataset.exdate] = v; else delete ed[inp.dataset.exdate]; store.setVal('examDates', ed); setExamDates(ed); dayMissions = null; refresh(); renderStartStats?.(); const n = inp.parentElement.querySelector('.src'); if (n) n.textContent = `${daysToExam(new Date(), inp.dataset.exdate)} days`; toast(`Exam date saved: ${findCourse(inp.dataset.exdate)?.name}, ${v || 'not set'}`); }));
   sens.oninput = save; q.onchange = save; $('set-goal').onchange = save; $('set-sound').onchange = () => { save(); if ($('set-sound').checked) sfx.right(); }; $('set-haptics').onchange = () => { save(); if ($('set-haptics').checked) sfx.wrong(); };
   $('set-theme').onchange = (e) => { setThemeChoice(e.target.value); reloadWithout(); };
   $('set-ctl').onchange = (e) => { setControlsChoice(e.target.value); reloadWithout('touch'); };
   const ex = $('exp2'); ex.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([store.exportJson()], { type: 'application/json' })); a.download = `physics-rpg-${store.profile}.json`; a.click(); };
   const im = $('imp2'); im.onchange = async () => { const f = im.files[0]; if (f && store.importJson(await f.text())) { await pushNow(); refresh(); closeOverlay(); toast('Progress imported.'); } else alert('Not a valid progress file.'); };
   $('prof-create').onclick = () => { const n = $('prof-new').value.trim(); if (/^[A-Za-z0-9_-]{1,40}$/.test(n)) switchProfile(n); else alert('Use letters, digits, - and _ (max 40).'); };
-  const list = await listProfiles(), names = new Set([store.profile, ...list.map((p) => p.name)]);
+  const list = (await listProfiles()) || [], names = new Set([store.profile, ...list.map((p) => p.name)]);
   const host = $('prof-list'); if (!host) return;
   host.innerHTML = [...names].map((n) => { const p = list.find((x) => x.name === n); return `<button class="chip btn${n === store.profile ? ' cur' : ''}" data-prof="${n}">${n}${p ? ` · ${p.xp} XP` : ''}</button>`; }).join('') || '<span class="src">no saved profiles yet</span>';
   host.querySelectorAll('[data-prof]').forEach((b) => (b.onclick = () => { if (b.dataset.prof !== store.profile) switchProfile(b.dataset.prof); }));
@@ -501,6 +563,11 @@ function togglePile(id) {
 }
 function updatePileChip() { const el = $('btn-pile'); if (el) el.textContent = `Study (V) · pile ${Object.keys(pile()).length}`; }
 let pileQueue = [];
+let quality = null, lastDrawAt = 0; // graphics governor (quality.js)
+let derivItems = [], derivStart = null; // derivStart: {id, mode} the run asks the Derivations screen to open // content/qm/derivations.json
+let unitsDuel = { items: [], seconds: 75 }; // content/units-duel.json
+let forgeItems = []; // QM formulas to know by heart (content/qm/forge.json)
+let campaign = null; // catch-up campaign and daily run (campaignui.js)
 function pileBar(enc) {
   const bar = document.createElement('div'); bar.className = 'pilebar';
   const render = () => {
@@ -511,6 +578,70 @@ function pileBar(enc) {
     const nx = bar.querySelector('.pilenext'); if (nx) nx.onclick = () => openFromPile(pileQueue[qi + 1], true);
   };
   render(); return bar;
+}
+// ---- exercise sheets: due dates of this year (the sheets are the HS25 set: same weekday one year later), current sheet, links
+const DAY = 86400000;
+// A course whose sheets are this year's own (solid state) sets dueShiftDays: 0 in its sheets.json; the default 364 is for last year's set (QM).
+const sheetDue = (sh) => (sh.due ? new Date(Date.parse(sh.due + 'T23:59:00') + (sheetShift.get(sh) ?? 364) * DAY) : null);
+const fmtDue = (d) => (d ? d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '');
+function currentSheet(cid) { const s = sheetsByCourse[cid]; if (!s) return null; const now = Date.now(); return s.sheets.find((x) => sheetDue(x) && sheetDue(x) >= now - DAY / 2) || s.sheets[s.sheets.length - 1]; }
+function sheetMenuLabel() {
+  const parts = Object.keys(sheetsByCourse).map((cid) => { const sh = currentSheet(cid); return sh ? `${findCourse(cid)?.name || cid} sheet ${sh.n}` : ''; }).filter(Boolean);
+  return parts.length ? `Exercise sheets: ${parts.join(', ')}` : 'Exercise sheets';
+}
+const sheetRefs = () => { const out = []; for (const [cid, s] of Object.entries(sheetsByCourse)) for (const sh of s.sheets) for (const q of sh.questions) out.push({ cid, sh, q }); return out; };
+function relatedBtn(id) { const ref = encIndex.get(id); if (!ref) return ''; const e = ref.enc; return `<button class="chip btn${passed(e) ? ' ok' : ''}" data-sopen="${id}">${passed(e) ? '\u2713 ' : ''}${typeName[e.type] || e.type}: ${e.title || id}</button>`; }
+function sheetLinksHtml(enc) {
+  if (enc.sheet) {
+    const hit = sheetRefs().find((x) => x.q.enc.id === enc.id); if (!hit) return '';
+    const rel = (hit.q.related || []).map(relatedBtn).filter(Boolean).join(' ');
+    const pr = enc.primer ? `<details class="primer"><summary><b>Theory first (~10 min)</b> \u00b7 missed the lecture? Read this before the question</summary><div class="primerbody">${enc.primer}</div></details>` : '';
+    return `<div class="callout sheetlink"><div class="ctitle">${findCourse(hit.cid)?.name || ''} sheet ${hit.sh.n}, question ${hit.q.q} \u00b7 due ${fmtDue(sheetDue(hit.sh))}</div>${pr}${rel ? `<p class="src">In the game, to read up or practise around this question:</p><div class="row wrap">${rel}</div>` : ''}</div>`;
+  }
+  const back = sheetRefs().filter((x) => (x.q.related || []).includes(enc.id));
+  if (!back.length) return '';
+  return `<div class="callout sheetlink"><div class="ctitle">On your exercise sheets</div><div class="row wrap">${back.map((x) => `<button class="chip btn" data-sopen="${x.q.enc.id}">Sheet ${x.sh.n} Q${x.q.q}: ${x.q.title}</button>`).join(' ')}</div></div>`;
+}
+// Back navigation between a sheet question and its linked lessons: each jump pushes where you came from (the exercise with its
+// scroll position and open primer, or the Sheets tab); the opened exercise shows a sticky "back" bar while it is the jump target.
+const navStack = [];
+function wireSheetLinks(host) {
+  host.querySelectorAll('[data-sopen]').forEach((b) => (b.onclick = async () => {
+    const to = b.dataset.sopen, fromOverlay = overlay === 'pile' && studyTab === 'sheets';
+    const from = current?.enc && !fromOverlay ? { id: current.enc.id, title: current.enc.title || current.enc.id, scroll: $('side').scrollTop, primer: !!$('panel').querySelector('details.primer[open]') } : fromOverlay ? { tab: 'sheets', title: 'Sheets tab' } : null;
+    if (from && from.id !== to) navStack.push({ from, to }); else navStack.length = 0;
+    const mx = $('side').classList.contains('max');
+    closeOverlay(true); await openById(to); player.enabled = true;
+    if (mx) $('side').classList.add('max');
+  }));
+}
+function navBackBar(enc) {
+  const top = navStack[navStack.length - 1];
+  if (!top || top.to !== enc.id) { navStack.length = 0; return null; }
+  const bar = document.createElement('div'); bar.className = 'navback';
+  bar.innerHTML = `<button class="go">\u2190 Back to ${top.from.title}</button>${navStack.length > 1 ? `<span class="src">${navStack.length} steps deep</span>` : ''}`;
+  bar.querySelector('button').onclick = async () => {
+    navStack.pop(); const f = top.from, mx = $('side').classList.contains('max');
+    if (f.tab) { closePanel(true); navStack.length = 0; openOverlay('pile'); renderStudy(f.tab); return; }
+    await openById(f.id); if (mx) $('side').classList.add('max');
+    if (f.primer) { const d = $('panel').querySelector('details.primer'); if (d) d.open = true; }
+    requestAnimationFrame(() => { $('side').scrollTop = f.scroll || 0; });
+  };
+  return bar;
+}
+function sheetsHtml() {
+  const cs = Object.entries(sheetsByCourse);
+  if (!cs.length) return '<p class="src">No exercise sheets loaded yet.</p>';
+  return cs.map(([cid, s]) => {
+    const cur = currentSheet(cid);
+    const block = (sh) => {
+      const qs = sh.questions.map((q) => { const e = encIndex.get(q.enc.id)?.enc, ok = e && passed(e), rev = e && store.hasReview(e.id);
+        return `<div class="maprow"><button class="link" data-sopen="${q.enc.id}"><span class="mt">${ok ? '\u2713' : rev ? '\u21bb' : '\u25cb'} Q${q.q}: ${q.title}</span></button><span class="src">${q.enc.primer ? '\ud83d\udcd6 theory first \u00b7 ' : ''}${findRoom(cid, q.room)?.title || ''} \u00b7 ${(q.related || []).length} linked</span></div>`; }).join('');
+      const done = sh.questions.filter((q) => passed(encIndex.get(q.enc.id)?.enc || {})).length;
+      return `<details${sh === cur ? ' open' : ''}><summary><b>Sheet ${sh.n}</b>${sh === cur ? ' <span class="tag">this week</span>' : ''} \u00b7 ${sh.title} \u00b7 due ${fmtDue(sheetDue(sh))} \u00b7 ${done}/${sh.questions.length}</summary>${qs}</details>`;
+    };
+    return `<h3>${findCourse(cid)?.name || cid}: ${s.title}</h3>${s.note ? `<p class="src">${s.note}</p>` : ''}${s.sheets.map(block).join('')}`;
+  }).join('');
 }
 function openFromPile(id, keepQueue) {
   const p = { ...pile() }; if (p[id]) { p[id] = { ...p[id], seen: Date.now() }; store.setVal('pile', p); }
@@ -536,17 +667,29 @@ function wirePile() {
   document.querySelectorAll('[data-pilerm]').forEach((b) => (b.onclick = () => { togglePile(b.dataset.pilerm); renderStudy('pile'); }));
 }
 // ---- Study hub: tabs for the pile, session planner, mistakes, weak spots and Feynman mode
-let studyTab = 'today';
-const TABS = [['today', 'Today'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+let studyTab = 'today'; // in the compact layout the hub opens on the sheets
+const TABS = [['today', 'Today'], ['sheets', 'Sheets'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['derivs', 'Derivations'], ['forge', 'Forge (QM by heart)'], ['units', 'Units duel'], ['summary', 'My summary'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+let studyOpened = false;
+const MAIN_TABS = ['sheets', 'derivs', 'forge', 'summary', 'units', 'drills', 'mistakes', 'feynman', 'pile'];
 function renderStudy(tab) {
   studyTab = tab || studyTab; const body = $('ov-body');
   const open = mistakes().filter((x) => x.open).length;
+  if (document.body.classList.contains('hudc')) { // compact: five tabs, everything else one level deeper under "More"
+    const label = Object.fromEntries(TABS), more = TABS.map(([k]) => k).filter((k) => !MAIN_TABS.includes(k)), inMore = more.includes(studyTab);
+    const chip = (k, l) => `<button class="chip btn${k === studyTab ? ' cur' : ''}" data-stab="${k}">${l}${k === 'mistakes' && open ? ` (${open})` : ''}</button>`;
+    body.innerHTML = `<div class="row studytabs">${MAIN_TABS.map((k) => chip(k, k === 'feynman' ? 'Explain it' : label[k])).join('')}<button class="chip btn${inMore ? ' cur' : ''}" data-stab="${inMore ? studyTab : 'today'}">More\u2026</button></div>${inMore ? `<div class="row studytabs sub">${more.map((k) => chip(k, label[k])).join('')}</div>` : ''}<div id="study-body"></div>`;
+  } else
   body.innerHTML = `<div class="row studytabs">${TABS.map(([k, l]) => `<button class="chip btn${k === studyTab ? ' cur' : ''}" data-stab="${k}">${l}${k === 'mistakes' && open ? ` (${open})` : ''}</button>`).join('')}</div><div id="study-body"></div>`;
   body.querySelectorAll('[data-stab]').forEach((b) => (b.onclick = () => renderStudy(b.dataset.stab)));
   const host = $('study-body');
   if (studyTab === 'today') { host.innerHTML = M(todayHtml()); wireToday(host); }
+  else if (studyTab === 'sheets') { host.innerHTML = M(sheetsHtml()); wireSheetLinks(host); }
   else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
+  else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh() })
+  else if (studyTab === 'derivs') renderDerivs(host, { items: derivItems, M, onChange: () => refresh(), start: derivStart?.id, startMode: derivStart?.mode })
+  else if (studyTab === 'units') renderUnits(host, { items: unitsDuel.items, seconds: unitsDuel.seconds, symbols: unitsDuel.symbols, M, courseName: (id) => findCourse(id)?.name || id, onChange: () => refresh() })
+  else if (studyTab === 'summary') renderSummary(host, { catalog, isPassed: (id) => store.isPassed(id), courses: catalog.filter((c) => c.id !== 'qm').map((c) => ({ id: c.id, name: c.name })), M })
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
   else if (studyTab === 'weak') { host.innerHTML = M(weakHtml()); wireGoto(host); }
   else if (studyTab === 'feynman') { renderFeynman(host); }
@@ -660,18 +803,40 @@ function renderPlan(host) {
   void steps; void done; void minutes; draw();
 }
 // ---- phone menu (lite mode): everything without walking around
+// Compact menu (default): six buttons on one screen. Everything about settings and help is behind the gear in the top bar.
+// The long menu below stays for the "all buttons" top bar.
+function compactMenuHtml() {
+  const d = store.dueReviews().length, open = mistakes().filter((x) => x.open).length;
+  const big = (m, title, sub) => `<button class="bigbtn" data-m="${m}"><b>${title}</b><span>${sub}</span></button>`;
+  return `<div class="menu menu6">${campaign ? big('run', campaign.chipText(), `${campaign.startLine()} (G)`) + big('campaign', `Campaign: ${campaign.behindText()}`, 'lecture weeks, weekly bosses, chest and today\u2019s bonus goals (C)') : ''}
+    ${big('study', 'Practice', `sheets, drills, mistakes${open ? ` (${open} open)` : ''}, explain-it, your pile${d ? ` \u00b7 ${d} respawn${d > 1 ? 's' : ''} due` : ''} (V)`)}
+    ${big('exam', 'Exam hall', 'old exams under the timer, with a grade (X)')}
+    ${big('map', 'Map', 'rooms and route, the Nexus, connections between topics (M)')}
+    ${big('formulas', 'Formulas', 'the formula drawer of the current course (B)')}<button class="menu-set" data-m="settings">\u2699 Settings and help</button></div>`;
+}
+function settingsHtml() {
+  const big = (m, title, sub) => `<button class="bigbtn" data-m="${m}"><b>${title}</b><span>${sub}</span></button>`;
+  return `<div class="menu menu6">${big('profile', 'Profile and settings', `${store.profile} \u00b7 ${sync.available ? sync.status : 'browser only'} \u00b7 graphics, sound, daily goal, achievements (P)`)}
+    ${big('theme', `Theme: ${isLight() ? 'light' : 'dark'}`, isLight() ? 'switch to the dark theme' : 'switch to the white room (light theme)')}
+    ${big('controls', `Controls: ${touch ? 'touch' : 'keyboard and mouse'}`, touch ? 'switch to the keyboard and mouse layout' : 'switch to the touch layout (stick, drag to look)')}
+    ${big('hud', 'Top bar and menu: compact', 'show every button in the top bar and the long menu again')}
+    ${big('litetoggle', lite ? 'Switch to the 3D game' : 'Simple menu (no 3D)', lite ? 'walk around, experiments, both panels side by side' : 'for slow phones: no walking, only lists')}
+    ${touch && !lite ? big('landscape', 'Play sideways', 'lock the screen to landscape (this visit only)') + big('unlock', 'Let the screen rotate', 'unlock the rotation') : ''}
+    ${big('help', 'Controls and help', touch ? 'stick, look, buttons, both panels (F1)' : 'keys and tips (F1)')}${lite ? '' : big('tutorial', 'Replay the tutorial', 'for the room you are in')}</div>`;
+}
 function menuHtml() {
+  if (document.body.classList.contains('hudc')) return compactMenuHtml();
   const s = missionStatus(), d = store.dueReviews().length, n = nextRouteStep();
   const tdn = todayItems().filter((x) => !x.mission && x.ok).length;
-  return `<div class="menu"><button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
-    <button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
-    <button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
+  return `<div class="menu"><h4>Play now</h4>${campaign ? `<button class="bigbtn" data-m="run"><b>${campaign.chipText()}</b><span>${campaign.startLine()} (G)</span></button><button class="bigbtn" data-m="campaign"><b>Campaign: ${campaign.behindText()}</b><span>every lecture week of the three courses, what is done and what is next (C)</span></button>` : ''}<button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
+    <h4>Study</h4><button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
+    <button class="bigbtn" data-m="sheets"><b>${sheetMenuLabel()}</b><span>this week's exercise sheet, question by question, with links into the game</span></button><button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
-    <button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
+    <h4>Explore</h4><button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
     <button class="bigbtn" data-m="formulas"><b>Formulas</b><span>drawer for the current course</span></button>
     ${inNexus ? '' : '<button class="bigbtn" data-m="connections"><b>Connections of this room</b><span>how it links to topics in other rooms and courses</span></button>'}
     <button class="bigbtn" data-m="allconn"><b>All connections</b><span>every link between topics across the three courses</span></button>
-    <button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
+    <h4>Settings and help</h4><button class="bigbtn" data-m="hud"><b>Top bar: ${document.body.classList.contains('hudc') ? 'compact' : 'all buttons'}</b><span>${document.body.classList.contains('hudc') ? 'show every button in the top bar again' : 'show only the run, the campaign and the menu'}</span></button><button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="nexus"><b>Fly to the Nexus</b><span>the map of everything you study</span></button>'}
     <button class="bigbtn" data-m="help"><b>Controls and help</b><span>${touch ? 'stick, look, buttons, both panels' : 'keys and tips'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="tutorial"><b>Replay the tutorial</b><span>for the room you are in</span></button>'}
@@ -692,7 +857,11 @@ function wireMenu() {
     else if (k === 'goto') { const [c, r] = arg.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); } else { closeOverlay(true); await loadRoom(c, r, { silent: false }); player.enabled = true; } }
     else if (k === 'quick') { closeOverlay(true); startQuick(); }
     else if (k === 'today') { openOverlay('pile'); renderStudy('today'); }
+    else if (k === 'sheets') { openOverlay('pile'); renderStudy('sheets'); }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
+    else if (k === 'settings') openOverlay('settings');
+    else if (k === 'run') { closeOverlay(true); campaign.startRun(); } else if (k === 'campaign') openOverlay('campaign');
+    else if (k === 'hud') { const on = !document.body.classList.contains('hudc'); document.body.classList.toggle('hudc', on); store.setVal('settings', { ...(store.val('settings', {}) || {}), hud: on ? 'compact' : 'full' }); openOverlay('menu'); refresh(); }
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
     else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
     else if (k === 'landscape') { closeOverlay(true); lockLandscape(); }
@@ -708,6 +877,7 @@ let suggestion = null;
 function showSuggest(spec) {
   let title, detail, start;
   if (spec === 'quick') { title = 'Quick session'; detail = quickInfo(); start = () => startQuick(); }
+  else if (spec === 'run' && campaign) { title = 'Today\u2019s run'; detail = campaign.startLine(); start = () => campaign.startRun(); }
   else if (spec.startsWith('open:') && encIndex.has(spec.slice(5))) {
     const ref = encIndex.get(spec.slice(5)), e = ref.enc; title = `${typeName[e.type] || e.type} \u201c${prettyText(e.title || e.id)}\u201d`; detail = `${findRoom(ref.course, ref.roomId)?.title || ''}, about ${EST[e.type] || 10} min`; start = () => openById(e.id);
   } else return false;
@@ -829,6 +999,11 @@ function completeMission(m) {
   sfx.goal(); pulse('right'); refresh(); flashWorld(true);
 }
 function flashWorld(ok) { if (world) (ok ? world.successEffect() : world.failEffect()); }
+window.addEventListener('encounter-done', (ev) => { // memory model: every pass makes the memory of that exercise last longer, a fail weakens it
+  const { id, ok } = ev.detail; if (!encIndex.has(id)) return;
+  if (ok) { const e = encIndex.get(id).enc, n = cards.lootOf(e); if (n) { const re = cards.rechargeLesson(id); setTimeout(() => toast(`Loot: ${n} formula card${n === 1 ? '' : 's'} from \u201c${prettyText(e.title)}\u201d${re ? ' (recharged)' : ''}. Play them in fights with the Cards button.`), 1500); } }
+  store.setVal('mem', ok ? notePass(store.val('mem', {}) || {}, id) : noteFail(store.val('mem', {}) || {}, id));
+});
 window.addEventListener('encounter-done', (ev) => {
   const { id, ok } = ev.detail; if (!ok) return;
   for (const m of todays()) if ((m.enc && m.enc.id === id) || m.encId === id) completeMission(m);
@@ -837,7 +1012,7 @@ function missionsHtml() {
   const ms = todays(), day = store.missionsOf(todayStr()), lv = levelOf(store.xp), plan = examPlan(catalog, isPassedEnc), sn = streakNow(), active = sn.count, g = goalInfo();
   return `<div class="msn-head"><div><b>${lv.rank}</b> · level ${lv.lv}<div class="bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></div><span class="src">${lv.into} / ${lv.need} XP to the next rank</span></div>
     <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
-    <div><b>Exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
+    <div><b>First exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
     <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min on exercises, or ${g.ex} of ${g.exGoal} exercises</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * Math.max(g.min / g.goal, g.ex / g.exGoal)))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `Either one counts: ${g.goal} minutes of working on exercises (menus, lists and the formulas do not count) or ${g.exGoal} finished exercises. Change the goal in Profile > settings.`}</span></div>
     <p class="src">Done today: ${todayItems().filter((x) => !x.mission && x.ok).length} exercises, ${store.xpOn(todayStr()) >= 0 ? '+' : '\u2212'}${Math.abs(store.xpOn(todayStr()))} XP. <button class="link" id="msn-today">See what you did today</button></p>
     <div class="row"><button class="go" id="quick-go">Quick session (${quickInfo()})</button></div>
@@ -884,6 +1059,8 @@ function onKey(e) {
   if (e.code === 'KeyK' && !tut && !current) { connectionsHere(); return; }
   if (e.code === 'KeyP' && !tut && !current) { overlay === 'profile' ? closeOverlay() : openOverlay('profile'); return; }
   if (e.code === 'F1' && !tut) { e.preventDefault(); overlay === 'help' ? closeOverlay() : openOverlay('help'); return; }
+  if (e.code === 'KeyC' && !tut && !current) { overlay === 'campaign' ? closeOverlay() : openOverlay('campaign'); return; }
+  if (e.code === 'KeyG' && !tut && !current && campaign) { closeOverlay(true); campaign.startRun(); return; }
   if (e.code === 'KeyV' && !tut && !current) { overlay === 'pile' ? closeOverlay() : openOverlay('pile'); return; }
   if (e.code === 'KeyX' && !tut && !current) { overlay === 'exam' ? closeOverlay() : openOverlay('exam'); return; }
   if (e.code === 'KeyT' && !tut && !current) { overlay === 'missions' ? closeOverlay() : openOverlay('missions'); return; }
@@ -914,27 +1091,44 @@ async function openById(id) {
 }
 
 // ================================================================ overlays: map and formula codex
-function openOverlay(kind) {
+// Back inside menus: every overlay opened from another one remembers where it came from; the menu is the root for everything else.
+const ovStack = [];
+function openOverlay(kind, { back = false } = {}) {
+  if (!back) { if (overlay && overlay !== kind && ovStack[ovStack.length - 1] !== overlay) ovStack.push(overlay); else if (!overlay) ovStack.length = 0; }
+  const prev = ovStack[ovStack.length - 1] || (['menu', 'suggest', 'roomMenu'].includes(kind) ? null : 'menu');
+  const bb = $('ov-back'); bb.style.display = prev ? '' : 'none'; bb.textContent = `\u2190 ${prev === 'menu' ? 'Menu' : 'Back'}`;
+  bb.onclick = () => { const to = ovStack.pop() || 'menu'; openOverlay(to, { back: true }); };
   overlay = kind; player.unlock();
   $('overlay').style.display = '';
-  $('ov-title').textContent = { missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
+  $('ov-title').textContent = { settings: 'Settings and help', campaign: 'Campaign: catch up, week by week', missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
   if (stopExam) { stopExam(); stopExam = null; }
   if (kind === 'exam') { $('ov-body').innerHTML = ''; stopExam = mountExamHall($('ov-body'), { catalog, banks, store, onGoto: (k) => { const [c, r] = k.split('/'); closeOverlay(true); loadRoom(c, r, { silent: false }); player.enabled = true; } }); return; }
-  if (kind === 'pile') { renderStudy(); return; }
+  if (kind === 'pile') { if (document.body.classList.contains('hudc') && studyTab === 'today' && !studyOpened) studyTab = 'sheets'; studyOpened = true; renderStudy(); return; }
+  if (kind === 'campaign') { renderCampaign(); return; }
   if (kind === 'suggest') { $('ov-body').innerHTML = M(suggestion.html); wireSuggest(); return; }
-  if (kind === 'menu' || kind === 'roomMenu') { $('ov-body').innerHTML = kind === 'menu' ? menuHtml() : roomMenuHtml(); wireMenu(); return; }
+  if (kind === 'menu' || kind === 'roomMenu' || kind === 'settings') { $('ov-body').innerHTML = kind === 'menu' ? menuHtml() : kind === 'settings' ? settingsHtml() : roomMenuHtml(); wireMenu(); return; }
   $('ov-body').innerHTML = kind === 'missions' ? missionsHtml() : kind === 'profile' ? profileHtml() : kind === 'help' ? helpHtml() : mapHtml();
   if (kind === 'missions') { wireMissions(); return; }
   if (kind === 'profile') { wireProfile(); return; }
   if (kind === 'help') return;
   const ex = $('exp'); if (ex) ex.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([store.exportJson()], { type: 'application/json' })); a.download = 'physics-rpg-progress.json'; a.click(); };
   const im = $('imp'); if (im) im.onchange = async () => { const f = im.files[0]; if (f && store.importJson(await f.text())) { refresh(); closeOverlay(); } else alert('Not a valid progress file.'); };
+  wireMenu();
   document.querySelectorAll('[data-goto]').forEach((b) => (b.onclick = async () => { const [c, r] = b.dataset.goto.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); return; } loadRoom(c, r, { silent: false }); if (!player.enabled) player.enabled = true; }));
 }
 let stopExam = null;
+function renderCampaign() { if (!campaign) { $('ov-body').innerHTML = '<p>The campaign could not be loaded.</p>'; return; } const b = $('ov-body'), y = b.scrollTop; b.innerHTML = M(campaign.html()); campaign.wire(b, renderCampaign); b.scrollTop = y; }
+function updateRunChips() {
+  if (!campaign) return; const r = $('btn-run'), c = $('btn-campaign'); if (!r || !c) return;
+  r.textContent = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign';
+  const sp = $('st-plan'); if (sp) sp.textContent = campaign.startLine();
+}
+// the run summary must not tear the result of the last exercise away: show it when the panel is closed (or right away if none is open)
+let pendingOverlay = null;
+function openOverlayWhenFree(kind) { if (current) pendingOverlay = kind; else openOverlay(kind); }
 function closeOverlay(silent) {
   if (stopExam) { stopExam(); stopExam = null; }
-  overlay = null; $('overlay').style.display = 'none';
+  overlay = null; ovStack.length = 0; $('overlay').style.display = 'none';
   if (!silent && player?.enabled && !current && !tut) player.lock();
 }
 function mapHtml() {
@@ -942,7 +1136,8 @@ function mapHtml() {
   const firstOpen = rows.findIndex((x) => !x.done);
   const routeHtml = `<h3>Your route (recommended order)</h3><div class="maplist">${rows.slice(0, 40).map((x, k) => `<button class="maprow${k === firstOpen ? ' here' : ''}" data-goto="${x.c}/${x.s}"><span class="mt">${k + 1}. ${x.r.title}${k === firstOpen ? ' &nbsp;← next' : ''}</span><span class="mp">${x.done ? 'done' : `${x.p.done} / ${x.p.total}`}</span><span class="md">${x.it.why}</span></button>`).join('')}</div>
     <p class="src">Progress and respawns are saved in <b>this browser</b> (this address). <button class="link" id="exp">export progress</button> <label class="link">import <input id="imp" type="file" accept="application/json" style="display:none"></label></p><h3>All rooms by course</h3>`;
-  return routeHtml + mapHtmlCourses();
+  const places = `<div class="row wrap mapplaces">${lite ? '' : '<button class="chip btn" data-m="nexus">Fly to the Nexus (N)</button>'}${inNexus ? '' : '<button class="chip btn" data-m="connections">Connections of this room (K)</button>'}<button class="chip btn" data-m="allconn">All connections</button></div>`;
+  return places + routeHtml + mapHtmlCourses();
 }
 function mapHtmlCourses() {
   return catalog.map((c) => {
@@ -1087,15 +1282,20 @@ function openEncounter(enc, fromGroup) {
     const back = document.createElement('button'); back.className = 'link back'; back.textContent = `← ${grp.label} list`;
     back.onclick = () => openGroup(grp); $('panel').prepend(back);
   }
+  const sl = sheetLinksHtml(enc); if (sl) { const box = document.createElement('div'); box.innerHTML = M(sl); wireSheetLinks(box); $('panel').prepend(box); }
+  if ((store.val('settings', {}) || {}).fights !== 'off') { const cid = encIndex.get(enc.id)?.course || course?.id, shown = new Set(); battle.begin(enc, $('panel'), { course: cid, onChange: null, M, cards: enc.type === 'lesson' ? null : cid !== 'qm' ? { summary: true, list: () => pinned(cid, catalog, (id) => store.isPassed(id)).map((c) => ({ ...c, charge: 3, shown: true })), more: () => cards.deck(catalog, (id) => store.isPassed(id)).filter((c) => c.course === cid && !pinned(cid, catalog, (id) => store.isPassed(id)).some((p) => p.key === c.key)).slice(0, 40), pin: (k) => pin(cid, k, 5), play: () => true, recharge: () => {} } : { list: () => cards.deck(catalog, (id) => store.isPassed(id)).filter((c) => c.course === cid).sort((a, b) => (b.room === room?.slug) - (a.room === room?.slug)).slice(0, 30).map((c) => ({ ...c, shown: shown.has(c.key) })), play: (k) => { const ok = cards.play(k); if (ok) shown.add(k); return ok; }, recharge: (k) => cards.recharge(k) } }); } // fights with stakes: enemy, focus, combo
   if (!enc.synthetic) $('panel').prepend(pileBar(enc));
+  const nb = navBackBar(enc); if (nb) $('panel').prepend(nb);
   updateBar();
 }
 function closePanel(silent) {
+  battle.end();
   if (unmountPanel) { unmountPanel(); unmountPanel = null; }
   $('panel').innerHTML = ''; $('side').classList.add('hidden');
   if (runner && !runner.finished && !runner.done) { /* a replay keeps running */ }
   else if (runner && runner.done) runner = null; // a first run that was abandoned
   const had = !!current; current = null;
+  if (pendingOverlay && !silent) { const k = pendingOverlay; pendingOverlay = null; setTimeout(() => openOverlay(k), 0); updateBar(); return; }
   if (had && !silent && player.enabled) player.lock();
   updateBar();
 }
@@ -1172,6 +1372,7 @@ function watchPanels() {
   for (const id of ['cx', 'side', 'nx-card']) $(id).addEventListener('scroll', () => { const e = $(id); if (e.scrollLeft) e.scrollLeft = 0; }, { passive: true }); // no sideways drift of a whole panel
   const mo = new MutationObserver(sync); for (const id of ['side', 'cx']) mo.observe($(id), { attributes: true, attributeFilter: ['class'] });
   for (const [btn, id] of [['side-max', 'side'], ['cx-max', 'cx']]) $(btn).onclick = () => $(id).classList.toggle('max');
+  $('ov-max').onclick = () => document.querySelector('.ov-card').classList.toggle('max');
   sync();
 }
 function toggleFullscreen() {
@@ -1194,6 +1395,7 @@ function exposeTestApi() {
     activeSeconds: () => studyToday() + Math.round(studyAcc),
     failFrames: (n) => { testHooks.failFrames = n; }, teleport: (...a) => player.teleport(...a), holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
     finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
+    quality: () => quality?.info(), battle: () => battle.current(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };
 }

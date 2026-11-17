@@ -1,0 +1,107 @@
+Prof. Dr. Christian Degen                                            Autumn Semester 2026
+
+                Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                              Weekly Problem Set 4
+
+Exercise 1: A model for lattice vibrations: Phonons
+and elasticity
+We investigate the dynamics of crystal planes consisting of atoms of mass M. The quantity
+un (t) gives the displacement of the atoms in plane n from their equilibrium position (i.e.
+perpendicular to plane n). Interactions are possible between planes which are arbitrarily
+far away. The force per atom Fn in plane n is given by:
+                               ∑︂
+                         Fn =      Cs (un+s − un ) + Cs (un−s − un ),
+                                s
+
+where Cs is the force constant per atom for the interaction of a plane with its s-th neighbor.
+Derive the classical equations of motion for the planes.
+
+  a) Solve the equation of motion using the ansatz un (t) = A exp[i(nka − ωt)], where a is
+     the equilibrium distance of the planes and k is a wave vector. Derive the dispersion
+     relation ω(k).
+
+  b) For simplicity, consider only interactions between nearest neighbors in this part of
+     the problem, i.e. Cs = 0 for s > 1.
+
+        • Sketch the dispersion relation. What is the meaning of the slope of the disper-
+          sion for k → 0?
+        • How does the wave look like for k → ±π/a? What is the slope of the dispersion
+          there?
+        • What are possible values of the wave vector k if the crystal consists of N crystal
+          planes? Hint: Use the periodic boundary condition u0 (t) = uN (t).
+        • Are there lattice vibrations with k > π/a? Hint: Show that each lattice oscil-
+          lation with k > π/a can be traced back to an oscillation in the first Brillouin
+          zone.
+        • How many phonon modes (possible k values) are there for a crystal with N
+          crystal planes? Sketch the dispersion for N = 3, 10, and 30.
+
+  c) Suppose you have measured the dispersion ω(k) in an experiment. How can you
+     determine the coefficients Cs ? Hint: Interpret the general dispersion
+                                                                  ∑︁ 2Cs relation from
+                                                           2
+     subExercise (a) as a Fourier series (partial result: ω (k) = s M [1 − cos(ska)]).
+     How can you determine the Fourier coefficients?
+  d) Show that the equations of motion of the discrete crystal planes in the limiting case
+     of large wavelengths transforms into the differential equation for waves in continuous
+     media
+                                   1 ∂ 2 u(x, t)   ∂ 2 u(x, t)
+                                                 =
+                                   c2 ∂t2              ∂x2
+     How is the speed of sound c related to the spring constants Cs ? How is the elastic
+     modulus of the material related to Cs ? Hint: Under the condition ka ≪ 1/s, ex-
+     pand the functions un+s = u(xn + sa) into a Taylor series up to the 2nd order.
+
+
+  e) GaAs (zincblende structure, i.e. FCC lattice with diatomic base) has a lattice con-
+     stant of d = 5.65 Å and a sound velocity c = 4.73 ×105 cm/s for longitudinal acoustic
+     phonons in the (100) direction. Estimate the force constant C1 of the “elementary
+     spring” (ignoring interactions beyond the neighboring lattice planes).
+
+
+
+
+Exercise 2: Einstein model for the heat capacity
+In the Einstein model, only one frequency is allowed for the lattice oscillations. This cor-
+responds to a single optical branch (ω(k) = ωE = const.) of the phonon dispersion. Here
+the corresponding contribution to the specific heat of a crystal lattice is to be calculated.
+Proceed as follows:
+
+  a) Calculate the thermal energy of a crystal with N primitive cells in this model.
+
+      Hint: Use the Bose-Einstein distribution function for the occupation number of each
+      harmonic mode.
+
+
+  b) Derive the specific heat capacity.
+
+
+  c) What is the contribution to the heat capacity for high temperatures T ≫ ΘE ?
+     What is the contribution to the heat capacity for low temperatures T ≪ ΘE ? Here,
+     ΘE = ℏωE /k is the so-called Einstein temperature. Interpret these results.
+Exercise 3: Total heat capacity of a diatomic material
+One of the assumptions of the Einstein model is that every atom in a solid oscillates
+with the same frequency ω0 . However, if the solid contains different types of atoms, it
+is unreasonable to assume that the atoms oscillate with the same frequency. Here we
+consider a lithium crystal that consists 7.5% 6 Li atoms and 92.5% 7 Li atoms. These are
+both stable isotopes and the percentages correspond to their natural abundance. Here,
+we will calculate the heat capacity of this crystal by extending the Einstein model to take
+into account the different masses of these isotopes. We call the total number of atoms in
+the crystal N .
+
+
+  a) Assume that the harmonic force constant (spring constant) k experienced by each
+     atom is the same. In the harmonic approximation, what are the two eigenfrequen-
+     cies of the two different isotopes in the lithium crystal?
+
+
+  b) The lithium crystal is kept at temperature T . Write down the expectation value of
+     the energy stored in the vibrations of the 6 Li atoms. Do the same for the 7 Li atoms.
+     Write down the expectation value of the total energy stored in the vibrations of all
+     the atoms in the lithium crystal.
+
+
+  c) Compute the heat capacity of the lithium crystal as a function of T . Below what
+     temperature are all the atoms mostly in their ground state?
+

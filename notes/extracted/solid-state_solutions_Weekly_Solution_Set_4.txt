@@ -1,0 +1,290 @@
+Prof. Dr. Christian Degen                                               Autumn Semester 2026
+
+                Introduction to Solid State Physics
+                 https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                               Weekly Solution Set 4
+
+Solution 1: A model for lattice vibrations: Phonons
+and elasticity
+  a) The equation of motion for the atoms in plane n is
+                                       d2 un ∑︂
+                           Fn = M           =   Cs (un+s + un−s − 2un ).
+                                        dt2   s
+
+
+       Plugging in the Ansatzes un (t) = A exp [i (nka − ωt)] gives
+                              ∑︂ 2Cs                        ∑︂ 4Cs
+                      ω2 =               [1 − cos(ska)] =            sin2 (ska/2).
+                                s
+                                    M                        s
+                                                                 M
+
+       So the dispersion relation is
+                                             √︄
+                                               ∑︂ 4Cs
+                                    ω(k) =              sin2 (ska/2).
+                                               s
+                                                   M
+
+  b)     • From the dispersion relation given by subExercise (a):
+                                             √︃
+                                                4C
+                                        ω=          |sin(ka/2)| .
+                                                M
+                                                          √︁
+           For k → 0 the√︁dispersion is linear, i.e. ω = C/M ka. The slope is the speed
+           of sound c = Ca2 /M .
+         • For k → ±π/a (boundary of the first Brillouin-Zone) the amplitudes un =
+           A(−1)n exp(−iωt). Adjacent planes oscillate in exactly opposite phase. It is a
+           standing wave. The slope of dispersion (dω/dk = group velocity) is zero.
+         • The following should hold:
+
+                             A exp [i(0 · ka − ωt)] = A exp {i [N ka − ωt]} .
+
+            This results in 1 = exp [iN ka], i.e. N ka = 2π · p, where p is an integer, or
+                                                      2π
+                                               kp =      · p.
+                                                      Na
+         • Since exp [(in(k ′ − 2π/a)a] = exp(ink ′ a), the wave vector k = k ′ − 2π/a with
+           −π/a < k < π/a describes exactly the same deflections as the wave vector k ′ .
+           Thus, the second Brillouin zone is “folded back” to the first. The same applies
+           to the higher Brillouin zones.
+     • From −π/a < kp = 2π/(N a) · p ≤ π/a we get −N/2 < p ≤ N/2. For N crystal
+       planes there are N modes. The figure below shows the discrete dispersion with
+       increasing number of crystal planes.
+
+                                         a=1, C =1, M=1
+                                     2
+
+                                   1.5
+                                                                N=3
+                                     1
+
+                                   0.5
+
+                                     0
+                                         3        2       1      0     1   2    3
+
+                                     2
+
+                                   1.5
+                                                                N=10
+                                     1
+
+                                   0.5
+
+                                     0
+                                         3        2       1      0     1   2    3
+
+                                     2
+
+                                   1.5
+
+                                     1
+                                                                N=30
+                                   0.5
+
+                                     0
+                                         3        2       1      0     1   2    3
+
+
+
+
+c) The square of the dispersion is an even function with period 2π/a. To get the
+   Fourier coefficients, one multiplies both sides by cos(nka) and integrates over the
+   first Brillouin-Zone:
+           ∫︂ π/a                       ∫︂ π/a    ∑︂ 2Cs
+                     2
+                  dkω (k) cos(nka) =           dk        [1 − cos(ska)] cos(nka)
+             −π/a                         −π/a     s
+                                                      M
+                                                      2πCn
+                                         = −               .
+                                                       Ma
+   Then:                                          ∫︂ π/a
+                                    Ma
+                             Cn = −                           dkω 2 (k) cos(nka).
+                                    2π                −π/a
+
+d) We start with:
+
+                                         un (t) = Aei(nka−wt) ,
+
+   or letting xn = na denote the equilibrium position of plane n, we can write this as:
+
+                                   u(xn , t) = Aei(kxn −wt) .
+
+   This then gives:
+
+                               ∂ 2 u(xn , t)
+                                             = −Ak 2 ei(kxn −wt) ,
+                                    ∂x2n
+   and:
+
+                               ∂ 2 u(xn , t)
+                                             = −Aω 2 ei(kxn −wt) .
+                                    ∂t2
+   From part (c), we have:
+
+                                             ∑︂ 2Cs
+                                ω2 =                          [1 − cos(ska)],
+                                              s
+                                                      M
+  and using a second-order Taylor approximation for this in the limit ka ≪ 1/s then
+  gives:
+
+                                                  1
+                                    cos(ska) = 1 − (ska)2 ,
+                                                  2
+  and therefore,
+
+                                              ∑︂ Cs
+                                       ω2 =                 (ska)2 .
+                                                  s
+                                                       M
+                                              2
+  Plugging this into our equation for ∂ u(x
+                                         ∂t2
+                                            n ,t)
+                                                  then gives:
+
+               ∂ 2 u(xn , t)       2 i(kxn −wt)      i(kxn −wt)
+                                                                ∑︂ Cs
+                             = −Aω  e           = −Ae                 (ska)2 ,
+                    ∂t2                                          s
+                                                                   M
+                                                               2
+  and comparison of this with our equation for ∂ u(x
+                                                 ∂x2
+                                                    n ,t)
+                                                          results in:
+                                                                   n
+
+
+                                   1 ∂ 2 u(xn , t)   ∂ 2 u(xn , t)
+                                                   =               ,
+                                   c2     ∂t2             ∂x2n
+             a 2
+  where c2 = M                2
+                   ∑︁
+                        s Cs s .
+
+
+  In continuum mechanics,
+                                                      √︁
+                                            c=             E/ρ,
+
+  where ρ is the mass density and E is the elastic modulus of the material.
+
+  This results in:
+
+                                                      ρa2 ∑︂
+                                    E = ρc2 =                C s s2 .
+                                                      M s
+
+e) There are four Ga and four As atoms in the cubic unit cell. Assuming that only
+   neighboring levels interact (Cs = 0 for s > 1), according to subExercise (d):
+
+                                                       M c2
+                                            C1 =            .
+                                                        a2
+  The distance between the planes in the FCC lattice is half the lattice constant a.
+  The Mass M is the sum of masses of Ga and As. It follows
+                                                            N
+                                           C1 = 67            .
+                                                            m
+Solution 2: Einstein model for the heat capacity
+ a) The thermal energy of 3N modes is given in the harmonic approximation by
+                            [︃       ]︃ ∫︂             (︄                      )︄
+                   ∑︂              1                      1           1
+          U (T ) =    ℏω(k) n(k) +     = dωZ(ω)ℏω           +     (︁ ℏω )︁        .
+                    k
+                                   2                      2   exp    kT
+                                                                           − 1
+
+    Here n(k) is the average number of phonons with wave vector k (Bose-Einstein
+    distribution function) and Z(ω) = 3N δ(ω − ωE ) the density of states for 3N modes
+    of frequency ωE . The integration gives
+                                          (︄                   )︄
+                                             1         1
+                          U (T ) = 3N ℏωE      +    (︁ E )︁       .
+                                             2 exp ℏω kT
+                                                            −1
+
+ b) The contribution to the specific heat is therefore
+                                                           )︃2             (︁     )︁
+                                                                      exp ℏω
+                                               (︃                               E
+                             1 dU   3N k            ℏωE                       kT
+                     c(T ) =      =                                                    ]︁2 .
+                             V dT    V              kT
+                                                                 [︁    (︁     )︁
+                                                                    exp ℏωkT
+                                                                            E
+                                                                                 −   1
+
+ c) For high temperatures T ≫ ΘE ,
+
+                                                                  3N k
+                                 c(T ) ≈ lim c(T ) =                   ,
+                                          ℏωE
+                                           kT
+                                              →0                   V
+
+    which corresponds to the classical Dulong-Petit law.
+
+                                                      (︁ ℏωE )︁
+    For low temperatures T ≪ ΘE , we use exp               kT
+                                                                  ≫ 1 to give:
+                                          (︃         )︃2      (︃     )︃
+                                   3N k        ℏωE               ℏωE
+                           c(T ) ≈                         exp −        .
+                                    V          kT                kT
+
+    i.e. the contribution of such a branch to the specific heat decreases exponentially
+    for T → 0.
+
+    Note: Typical values for the Einstein temperatures are several hundred K. In GaAs,
+    for example, the energy of optical phonons is about 35 meV, which corresponds to
+    ΘE ≈ 420 K. The optical phonons described by the Einstein model only make a
+    small contribution to the heat capacity even at room temperature.
+Solution 3: Total heat capacity of a diatomic material
+             √︂
+                   k
+ a) ω1,2 =        m1,2
+                       .
+
+ b) The expectation value of the vibrational energy stored in a single atom modeled as
+    a 3D harmonic oscillator with eigenfrequency ω1,2 is given by
+                                       (︁             )︁
+                               E1,2 = 3 n(ω1,2 ) + 1/2 ℏω1,2 ,
+
+    where n(ω) is given by the Bose-Einstein distribution function:
+                                                 1
+                                   n(ω) =                   .
+                                            exp ( kℏω
+                                                   BT
+                                                      )−1
+
+    The total energy E of the crystal is obtained by summing over all the atoms: E =
+    N1 E1 + N2 E2 , where N1 is the number of 6 Li atoms and N2 is the number of 7 Li
+    atoms:                  (︃                                           )︃
+                       3N ℏ      (︁           )︁        (︁           )︁
+                 E=           7.5 n(ω1 ) + 1/2 ω1 + 92.5 n(ω2 ) + 1/2 ω2
+                       100
+
+    where the indices 1 and 2 correspond to 6 Li atoms and 7 Li atoms respectively.
+
+ c) The heat capacity is given by (1/V )(dE/dT ), with E given in the answer to the
+    previous subquestion. The calculation is similar to that for Exercise 2.
+    A harmonic oscillator starts to go mostly into its ground state when the temperature
+    is reduced below its Einstein temperature (note that the Einstein temperature is
+    the eigenfrequency of the oscillator expressed in units of Kelvin). Therefore, upon
+    reducing temperature, first the atoms with the higher eigenfrequency (or equiva-
+    lently, higher Einstein temperature) will go into their ground state, and then the
+    atoms with the lower eigenfrequency. Therefore, taking the lower of the two Ein-
+    stein temperatures, since 7 Li is heavier than 6 Li (i.e., m2 > m1 ), we have ω2 < ω1
+    and the temperature at which almost all atoms are in their ground state is given by
+    ℏω2 /kB .
+

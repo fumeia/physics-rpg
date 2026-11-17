@@ -1,0 +1,266 @@
+Chapter 3.1
+            “Free” electrons in metals
+
+
+
+
+Metal ion        Electron
+(static)         (mobile)
+         Electrostatic potential an electron sees in a solid
+
+
+
+∞          ∞
+
+                 Evac
+
+                    W
+    e–                   e–                e–                  e–
+
+
+                                                        + + + + + +
+            Particle in a box – Energy levels
+
+     1D                                             3D
+
+
+
+
+                         2𝜋𝜋𝜋𝜋
+                    𝑘𝑘 =
+                          𝐿𝐿
+
+
+
+
+          ℏ2 2                                ℏ2
+𝜖𝜖(𝑘𝑘) =       𝑘𝑘                   𝜖𝜖(𝑘𝑘) =       (𝑘𝑘𝑥𝑥2 + 𝑘𝑘𝑦𝑦2 + 𝑘𝑘𝑧𝑧2 )
+         2𝑚𝑚𝑒𝑒                               2𝑚𝑚𝑒𝑒
+                          Density of states (2D and 3D)
+
+
+ 𝑁𝑁𝑦𝑦                                                                       𝑁𝑁𝑧𝑧
+12
+11
+10                                                                                         𝑁𝑁𝑡𝑡𝑡𝑡𝑡𝑡
+ 9
+ 8
+ 7
+ 6                                   𝑁𝑁𝑡𝑡𝑡𝑡𝑡𝑡
+ 5
+ 4
+                                                                                                 𝑁𝑁𝑦𝑦
+ 3
+ 2
+ 1
+                                                       𝑁𝑁𝑥𝑥
+        1 2 3 4 5 6 7 8 9 10 11 12
+                                                𝑁𝑁𝑥𝑥
+
+
+             2                                                   2
+          𝑁𝑁𝑡𝑡𝑡𝑡𝑡𝑡 = 𝑁𝑁𝑥𝑥2 + 𝑁𝑁𝑦𝑦2                            𝑁𝑁𝑡𝑡𝑡𝑡𝑡𝑡 = 𝑁𝑁𝑥𝑥2 + 𝑁𝑁𝑦𝑦2 + 𝑁𝑁𝑧𝑧2
+  Density of states – particle in a box (3D)
+Density of states
+      𝜈𝜈(𝜖𝜖)
+                        𝜈𝜈(𝜖𝜖) ~ 𝜖𝜖 1/2
+
+
+
+
+                                          Energy 𝜖𝜖
+    Energy levels of a solid (for T=0)
+
+
+         Evac
+    E                     Work function
+                W
+
+         μ                Empty states
+
+
+
+                          Occupided states
+
+
+
+0        E1
+                  Experiment: Äusserer Photoeffekt
+
+
+
+
+• https://experimente.phys.ethz.ch/de/100/10002/20071/30034
+   Schematic to Experiment: Äusserer Photoeffekt
+
+Negatively charged plate           Positively charged plate
+
+ WZn ~3.7 eV
+                                                      ~ -5 kV
+
+
+
+
+                           Mercury lamp:
+                           λ ~ 250-600 nm
+
+                           • 250nm ~ 5eV
+               ~ 5 kV      • 600nm ~ 2eV
+                                                WZn
+                             “Fermi” values
+
+
+
+
+𝑛𝑛 free electron density             𝐸𝐸𝐹𝐹 Fermi energy
+𝑟𝑟𝑠𝑠 characteristic radius           𝑣𝑣𝐹𝐹 Fermi velocity
+𝑘𝑘𝐹𝐹 Fermi wave vector               𝑇𝑇𝐹𝐹 Fermi temperature
+         Fermi-Dirac distribution function
+
+
+
+
+𝑓𝑓(𝜖𝜖)
+
+
+
+
+                    𝜖𝜖 − 𝜇𝜇 (eV)
+Fermi-Dirac distribution function
+
+                      For very large 𝑇𝑇 > 𝑇𝑇𝐹𝐹 ,
+                      𝑓𝑓(𝐸𝐸) approaches the Boltzmann
+                      distribution
+
+
+
+
+                 𝜇𝜇
+          Fermi-Dirac distribution at 𝑇𝑇 = 0
+Density of states
+      𝜈𝜈(𝜖𝜖)
+
+
+ 𝜈𝜈(𝜇𝜇)
+
+
+
+                                       𝑓𝑓(ϵ)
+                      𝑁𝑁𝑒𝑒
+
+
+                                                  Energy 𝜖𝜖
+                             Chemical potential
+                                    𝜇𝜇
+          Fermi-Dirac distribution at 𝑇𝑇 > 0
+Density of states
+      𝜈𝜈(𝜖𝜖)
+
+
+ 𝜈𝜈(𝜇𝜇)
+                                       𝑓𝑓(ϵ)
+
+
+                                         ~4𝑘𝑘𝐵𝐵 𝑇𝑇
+                      𝑁𝑁𝑒𝑒
+
+
+                                                     Energy 𝜖𝜖
+                             Chemical potential
+                                    𝜇𝜇
+                            Specific heat of electrons
+
+
+
+
+                                                                Neff ≈ 𝑉𝑉𝑉𝑉 𝜖𝜖𝐹𝐹 ⋅ 2𝑘𝑘𝐵𝐵 𝑇𝑇
+
+                                        Area: 2𝑘𝑘𝐵𝐵 𝑇𝑇
+
+
+
+
+• Only ∼ 2𝑘𝑘𝐵𝐵 𝑇𝑇/𝜖𝜖𝐹𝐹 ∼ 2𝑇𝑇/𝑇𝑇𝐹𝐹 ∼ 1% of electrons contribute to specific heat!
+    How to extract phonon/electron specific heat
+
+
+
+
+                        Slope 𝛽𝛽
+
+
+
+
+Intercept 𝛾𝛾
+Example: Specific heat of superconducting MgB2
+
+
+
+     TC ~ 38 K
+
+
+
+
+                 𝐶𝐶𝑃𝑃 (𝑇𝑇)
+
+
+
+
+                                  Physical Review B 64, 172515 (2001)
+Example: Specific heat of superconducting MgB2
+
+                              𝐶𝐶𝑃𝑃 𝑇𝑇
+                                 𝑇𝑇 3   Phonon contributions:
+          Phonons+Electrons
+
+                                        Acoustic phonons
+                                        (Debye):              TD ~750 K
+
+                                        Optical phonons
+Phonons                                 (Einstein):           TE ~325 K
+
+
+                                                                            ℏ𝜔𝜔
+                                                                     𝑇𝑇𝐸𝐸 =
+                                                                            𝑘𝑘𝐵𝐵
+
+
+
+
+                                             Physical Review B 64, 172515 (2001)
+Example: Specific heat of superconducting MgB2
+
+
+                               𝐶𝐶𝑃𝑃𝑒𝑒𝑒𝑒 (𝑇𝑇)
+                                     𝑇𝑇
+
+
+
+
+           Electronic specific heat
+
+
+
+       Phonons of impurities (1%)
+
+
+
+
+                                               Physical Review B 64, 172515 (2001)
+    Example: Specific heat of superconducting MgB2
+
+                  Normal conducting
+
+Superconducting
+(BCS model)
+
+
+
+
+                        𝐶𝐶𝑃𝑃𝑒𝑒𝑒𝑒 (𝑇𝑇)
+
+
+
+
+                                        Physical Review B 64, 172515 (2001)
+

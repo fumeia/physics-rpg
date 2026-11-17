@@ -1,0 +1,101 @@
+Prof. Dr. Christian Degen                                       Autumn Semester 2026
+
+              Introduction to Solid State Physics
+               https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                             Weekly Solution Set 2
+
+Solution 1: Reciprocal lattice of the BCC and FCC
+lattices
+  a) A possible set of BCC primitive lattice vectors is:
+
+                                    a1 =a/2(−x̂ + ŷ + ẑ),
+                                    a2 =a/2(x̂ − ŷ + ẑ),
+                                    a3 =a/2(x̂ + ŷ − ẑ).
+
+     We expect that the volume of the primitive unit cell equals a3 /2 because the con-
+     ventional unit cell has volume a3 and contains two lattice points. We confirm this
+     by calculating the volume of the primitive unit cell using (a1 × a2 ) · a3 = a3 /2.
+
+
+
+
+  b) The corresponding set of reciprocal lattice vectors
+
+                                      b1 =2π/a(ŷ + ẑ),
+                                      b2 =2π/a(x̂ + ẑ),
+                                      b3 =2π/a(x̂ + ŷ)
+
+  c) The reciprocal lattice forms an FCC lattice. Given the lattice vectors, the volume
+     of the conventional unit cell is (4π/a)3 .
+d) Because the 1st Brillouin Zone is the Wigner-Seitz cell of the reciprocal lattice,
+   we need to construct the Wigner-Seitz cell of the FCC lattice. For visualization,
+   it is convenient to look at FCC lattice and count the nearest neighbours of each
+   lattice point. We see that each lattice point contains 12 nearest neighbours and
+   thus the Wigner-Seitz cell contains 12 sides! The volume of the 1st Brillouin zone
+   is the same as the volume of any other primitive unit cell. Therefore, it is given
+   by b1 · (b2 × b3 ) = 1/4(4π/a)3 . This is one quarter of the conventional unit cell
+   calculated in c), which is as expected because the conventional unit cell of the FCC
+   lattice contains 4 lattice points.
+
+
+
+
+e) The BCC and FCC lattices are reciprocal to each other.
+Solution 2: Crystallographic planes
+ a) The (hkl) plane intersects the lattice vectors at position vectors of a1 /h, a2 /k,
+    a3 /l. Define two vectors inside the (hkl) plane that span the plane, such as v1 =
+    a1 /h − a2 /k and v2 = a1 /h − a3 /l. We can show that [hkl] · v1,2 = 0 as for cubic
+    lattice |a1 | = |a2 | = |a3 |.
+
+ b) For orthorhombic lattice, |a1 | ̸= |a2 | ̸= |a3 |. The conclusion in a) does not hold.
+
+ c) We compute the distance between two parallel planes by projecting any vector
+    connecting the two planes onto a unit vector perpendicular to the planes. Using the
+    result of a) with a1 = ax̂, a2 = aŷ, and a3 = aẑ as appropriate for a cubic lattice,
+    the unit vector is:
+
+                                 [hkl]         1
+                         n̂ =           =√               (hx̂ + kŷ + lẑ).
+                                |[hkl]|    h2 + k 2 + l2
+
+
+    For lattice planes, there is always a plane intersecting the zero lattice point (0,0,0).
+    As such, we can project the vector a1 /h = ax̂/h onto n̂, yielding a distance:
+
+                                     1                                           a
+            d = n̂ · ax̂/h = √                   (hx̂ + kŷ + lẑ) · ax̂/h = √             .
+                                 h2 + k 2 + l2                                h + k 2 + l2
+                                                                               2
+
+
+
+
+Solution 3: X-ray scattering in 2D
+
+
+
+
+ a) See figure above for real and reciprocal lattices.
+b) Since we have elastic scattering, we have |k| = |k′ | = 2π
+                                                            λ
+                                                              = 37.9 nm−1 .
+c) The (210) Miller plane intersects with the real-space lattice with the lattice vectors
+   x̂ and 2ŷ.
+
+
+
+
+   G in the reciprocal lattice is sketched in the figure below together with the scattering
+   triangle.
+
+
+
+
+d) Since there is only 1 atom in the basis, there are no missing peaks due to a structure
+   factor. We see from above with |k| = |k′ | = k that we have 2k sin θ = |Ghkl |. Using
+   k = 2π/λ then gives 4π sin θ/λ = |Ghkl |, which is a form of Bragg’s law. Rearranging
+   gives sin θ = λ|Ghkl |/4π and we can see that the shortest reciprocal lattice vector
+   gives the smallest angle. Therefore, as a function of increasing θ, we will see peaks at
+   (hkl) = (100), (010), (110), (200), (020), where we took into account that |b1 | < |b2 |.
+

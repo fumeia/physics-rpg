@@ -1,0 +1,80 @@
+Prof. Dr. Christian Degen                                         Autumn Semester 2026
+
+               Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                Weekly Problem Set 8: Repetition Week
+
+Exercise 1: Miller Planes and Reciprocal Lattice Vec-
+tors
+Consider a family of Miller planes (hkl) in a crystal.
+
+  a) Prove that the reciprocal lattice vector G = ha∗ + kb∗ + lc∗ is perpendicular to the
+     Miller plane (hkl).
+
+  b) Show that the distance between two adjacent Miller planes (hkl) is d = 2π/|Gmin |,
+     where Gmin is the shortest reciprocal lattice vector perpendicular to these Miller
+     planes.
+
+  c) In Problem Set 2, Exercise 1, you derived the reciprocal lattice vectors of the BCC
+     lattice:
+                                            2π
+                                        a∗ =   (ŷ + ẑ),
+                                             a
+                                            2π
+                                        b∗ = (x̂ + ẑ),
+                                             a
+                                            2π
+                                        c∗ = (x̂ + ŷ)
+                                             a
+
+     where a is the side length of the conventional (simple) cubic cell. Use these vectors
+     to find the family of Miller planes that has the highest density of lattice points ρ.
+     Hint: Use that ρ = d/V , where V is the volume of the primitive unit cell and d is
+     the distance between adjacent planes that was derived in the previous subquestion.
+
+  d) Make a sketch of the BCC structure and identify a Miller plane with the highest
+     density of lattice points.
+Exercise 2: Bulk Modulus of Solid Argon
+Consider freezing argon gas at low temperature. It will freeze in a FCC lattice with a
+lattice constant of a = 5.25 Å (corresponding to the conventional cubic cell’s edge length).
+The interatomic interactions in solid argon can be very well modeled by the Lennard-Jones
+potential:
+                                           [︃(︂ )︂           ]︃
+                                               σ 12 (︂ σ )︂6
+                                ϕ(r) = 4U0          −                                     (1)
+                                               r        r
+
+  a) Considering the unit cell, what is the interatomic spacing between argon atoms?
+
+
+  b) Given the unit cell above, what is the parameter σ in the potential?
+
+
+  c) Write down an expression for the total energy per atom, u.
+     Hint: Count the number of bonds per atom.
+
+                                                                                (︂ 2 )︂
+                                                                         ∂ u
+  d) The bulk modulus K can be found as the following expression: K = Ω0 ∂Ω 2 eval-
+     uated at Ω0 where Ω is the volume per atom, and Ω0 is the volume per atom at
+     equilibrium. Find the bulk modulus of argon if U0 /kB = 163 Kelvin.
+
+
+
+
+Exercise 3: Photons in a Box
+Consider a metal box with sides of length L. Inside the box, photons exist in thermal
+equilibrium with a temperature T . The dispersion relation of photons is given from
+Planck’s relation as E = ℏck, where c is the speed of light.
+
+  a) What is the density of states of the photons for a given energy E?
+     Hint: Note that there are two polarizations to account for when counting states.
+
+
+  b) Using Bose-Einstein statistics as appropriate for photons in a metal box, write down
+     an expression for the total energy of all photons.
+
+
+  c) What is the heat capacity of the gas of photons?
+

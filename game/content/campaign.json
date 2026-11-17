@@ -1,0 +1,183 @@
+{
+ "about": "Catch-up campaign: one tile per lecture week and course. A week's items are its sheet questions plus the lessons, quizzes and derivations those questions link to (first week that links them), or the ids/rooms listed here. 'start' is the Monday of lecture week 1 (ETH autumn semester 2026). The astrophysics schedule is an estimate along Choudhuri's chapter order. 'pin' fixes theory items to their lecture week (they are reserved before the automatic pass).",
+ "weeks": 14,
+ "start": "2026-09-14",
+ "courses": {
+  "qm": {
+   "short": "QM",
+   "sheets": true,
+   "defaultBehind": 2
+  },
+  "solid-state": {
+   "short": "Solid",
+   "sheets": true,
+   "defaultBehind": 6,
+   "titles": {
+    "1": "Crystal lattices (1.1–1.2)",
+    "2": "Reciprocal lattice, diffraction (1.3–1.5)",
+    "3": "Bonding (1.6)",
+    "4": "Lattice dynamics (2.1–2.2)",
+    "5": "Phonons and heat (2.3–2.4)",
+    "6": "Free electrons (3.1)",
+    "7": "Bands (3.2–3.3)",
+    "8": "Repetition week",
+    "9": "Drude and band transport (4.1–4.2)",
+    "10": "Scattering, heat transport, screening (4.2–4.4)",
+    "11": "Semiconductors: bands and carriers (5.1–5.2)",
+    "12": "Doping and the p–n junction (5.3–5.4)",
+    "13": "Magnetism of metals (6.1–6.2)",
+    "14": "Magnetism of insulators (6.3)"
+   },
+   "extra": {
+    "8": [
+     "ss-lat-Q1",
+     "ss-pho-Q1",
+     "ss-fer-Q1"
+    ],
+    "10": [
+     "ss-dri-L2",
+     "ss-dri-Q1",
+     "ss-dri-c1",
+     "ss-dri-c2"
+    ],
+    "11": [
+     "ss-sem-L1",
+     "ss-sem-c1",
+     "ss-sem-c3"
+    ],
+    "12": [
+     "ss-sem-L2",
+     "ss-sem-D1",
+     "ss-sem-Q1",
+     "ss-sem-c2",
+     "ss-sem-c4"
+    ],
+    "13": [
+     "ss-mag-L1",
+     "ss-mag-c1"
+    ],
+    "14": [
+     "ss-mag-L2",
+     "ss-mag-D1",
+     "ss-mag-Q1",
+     "ss-mag-c2",
+     "ss-mag-c3"
+    ]
+   },
+   "pin": {
+    "1": [
+     "ss-lat-L1",
+     "ss-lat-SQ1",
+     "ss-lat-G1"
+    ],
+    "2": [
+     "ss-lat-L2",
+     "ss-lat-SQ2",
+     "ss-lat-SQ3",
+     "ss-lat-G2",
+     "ss-lat-GQ"
+    ],
+    "3": [
+     "ss-bon-L1",
+     "ss-bon-SQ1",
+     "ss-bon-G1"
+    ],
+    "4": [
+     "ss-pho-L1"
+    ],
+    "5": [
+     "ss-pho-L2",
+     "ss-pho-SQ1",
+     "ss-pho-G1",
+     "ss-pho-GQ"
+    ],
+    "6": [
+     "ss-fer-L1",
+     "ss-fer-SQ1"
+    ],
+    "7": [
+     "ss-fer-L2",
+     "ss-fer-SQ2",
+     "ss-fer-G1",
+     "ss-fer-GQ"
+    ],
+    "9": [
+     "ss-dri-L1"
+    ],
+    "10": [
+     "ss-dri-L2",
+     "ss-dri-Q1",
+     "ss-dri-G1",
+     "ss-dri-GQ"
+    ],
+    "11": [
+     "ss-sem-L1"
+    ],
+    "12": [
+     "ss-sem-L2",
+     "ss-sem-Q1",
+     "ss-sem-G1"
+    ],
+    "13": [
+     "ss-mag-L1",
+     "ss-mag-G1",
+     "ss-mag-GQ"
+    ],
+    "14": [
+     "ss-mag-L2",
+     "ss-mag-Q1"
+    ]
+   }
+  },
+  "astrophysics": {
+   "short": "Astro",
+   "sheets": false,
+   "defaultBehind": 0,
+   "rooms": {
+    "1": [
+     "photometry-radiation"
+    ],
+    "2": [
+     "radiative-transfer:a"
+    ],
+    "3": [
+     "radiative-transfer:b"
+    ],
+    "4": [
+     "stellar-forge"
+    ],
+    "5": [
+     "nuclear-furnace"
+    ],
+    "6": [
+     "degenerate-matter"
+    ],
+    "7": [
+     "interstellar-medium:a"
+    ],
+    "8": [
+     "interstellar-medium:b"
+    ],
+    "9": [
+     "galactic-dynamics"
+    ],
+    "10": [
+     "active-galaxies"
+    ],
+    "11": [
+     "expanding-universe:a"
+    ],
+    "12": [
+     "expanding-universe:b"
+    ],
+    "13": [
+     "early-universe"
+    ],
+    "14": [
+     "relativity-annex",
+     "exam-hall"
+    ]
+   }
+  }
+ }
+}

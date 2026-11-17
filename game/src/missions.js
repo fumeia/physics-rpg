@@ -10,7 +10,18 @@ export const dayBeforeYesterdayStr = (d = new Date()) => { const y = new Date(d)
 export const GOALS = { light: 10, normal: 20, intense: 40 };
 // ...or finish this many exercises (passed or not): either one reaches the goal
 export const GOAL_EXERCISES = { light: 2, normal: 4, intense: 8 };
-export const daysToExam = (d = new Date()) => Math.max(0, Math.ceil((new Date(EXAM_DATE + 'T00:00:00') - new Date(todayStr(d) + 'T00:00:00')) / 86400000));
+// Exam dates per course, set in Profile > settings (flags.examDates {course: 'YYYY-MM-DD'}); EXAM_DATE is the fallback until they are known.
+let examDates = {};
+export const setExamDates = (o) => { examDates = Object.fromEntries(Object.entries(o || {}).filter(([, v]) => /^\d{4}-\d{2}-\d{2}$/.test(v || ''))); };
+export const examDateOf = (course) => examDates[course] || EXAM_DATE;
+export const examDateKnown = (course) => !!examDates[course];
+// days to the exam of a course, or (no course given) to the first exam that is still ahead
+export const daysToExam = (d = new Date(), course = null) => {
+  const days = (iso) => Math.ceil((new Date(iso + 'T00:00:00') - new Date(todayStr(d) + 'T00:00:00')) / 86400000);
+  if (course) return Math.max(0, days(examDateOf(course)));
+  const all = ['qm', 'solid-state', 'astrophysics'].map((c) => days(examDateOf(c))), ahead = all.filter((x) => x >= 0);
+  return Math.max(0, ahead.length ? Math.min(...ahead) : 0);
+};
 export const levelOf = (xp) => { const lv = Math.floor(Math.sqrt(xp / 60)) + 1, lo = 60 * (lv - 1) ** 2, hi = 60 * lv ** 2; return { lv, rank: RANKS[Math.min(RANKS.length - 1, lv - 1)], into: xp - lo, need: hi - lo }; };
 
 function hash(s) { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }

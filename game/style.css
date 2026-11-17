@@ -504,3 +504,11 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 .cp-earlier h4{margin:.1em 0 .3em;font-size:.9em}.cp-erow{margin:.25em 0;font-size:.88em}
 .cp-echips{display:flex;flex-wrap:wrap;gap:.25em;margin-top:.2em}.cp-echip{font-size:.85em;padding:.05em .45em;border-radius:10px;background:rgba(255,255,255,.07)}
 .cp-echip.done{color:#8fe0a6}.cp-echip.failed{color:#ff9a9a}
+/* guided reading cards (lesson tier 'reading') */
+.callout.before{border-left-color:#7fb3ff}.callout.read{border-left-color:#e0b050;background:rgba(224,176,80,.10)}
+.callout.think{border-left-color:#9be09b}.callout.slip{border-left-color:#ff8a65;background:rgba(255,138,101,.10)}
+.callout.think details{margin-top:.4em}.callout.think summary{cursor:pointer;color:#9cc0ff}
+.cp-reread{display:inline-flex;gap:.3em;align-items:center;font-size:.85em;margin-left:.4em;flex-wrap:wrap}
+.cp-reread select{background:transparent;color:inherit;border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:.1em .2em}
+.cp-reread.cur{color:#9be09b}
+.cp-reread select option{background:#1a1f2b;color:#e8e6e1}

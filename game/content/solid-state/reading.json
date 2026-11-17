@@ -1,0 +1,1747 @@
+{
+ "about": "Guided reading of the solid-state script; built by notes/solid-state/build/reading/build.py",
+ "items": [
+  {
+   "room": "lattice-gate",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 1,
+    "id": "ss-read-01",
+    "title": "Read 1.1–1.2: crystal lattices and symmetry",
+    "minutes": 32,
+    "xp": 15,
+    "pages": "3–10",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "1.1–1.2, pp. 3–10"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What exactly is the difference between a lattice and a crystal structure?</li><li>When is a set of translations called primitive, and is the choice unique?</li><li>Why are only 1-, 2-, 3-, 4- and 6-fold rotations compatible with a lattice?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 1.1–1.2, pp. 3–10.</b> Look for: lattice + basis, primitive vs conventional cell, the Wigner-Seitz construction, point symmetries, the 14 Bravais lattices and the 7 crystal systems."
+     },
+     {
+      "kind": "think",
+      "html": "A 2D square lattice has a basis of two different atoms. Is the crystal structure still square, and what is the primitive cell?<details><summary>Show the answer</summary>The Bravais lattice is still square; the primitive cell is the square cell containing one atom of each kind. The basis can lower the point symmetry of the crystal (fewer mirror lines, for example) but not the translation symmetry.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is a 5-fold rotation impossible in a periodic lattice?<details><summary>Show the answer</summary>A rotation maps lattice vectors onto lattice vectors, so in a lattice basis its matrix has integer entries and integer trace $1+2\\cos\\varphi$ (3D). Only $\\cos\\varphi\\in\\{1,\\frac12,0,-\\frac12,-1\\}$ work: $\\varphi=360^\\circ,60^\\circ,90^\\circ,120^\\circ,180^\\circ$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is the Wigner-Seitz cell a &#8220;reliable&#8221; primitive cell?<details><summary>Show the answer</summary>It is unique and has the full point symmetry of the lattice: all points closer to one lattice point than to any other. Its volume equals that of any primitive cell (one lattice point per cell).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "How many Bravais lattices exist in 3D?",
+      "options": [
+       "14",
+       "7",
+       "32",
+       "230"
+      ],
+      "correct": 0,
+      "explain": "14 lattices in 7 crystal systems; 32 point groups and 230 space groups count the basis symmetry too."
+     },
+     {
+      "q": "A crystal structure is fully defined by",
+      "options": [
+       "the lattice (three primitive translations) and the basis",
+       "the lattice alone",
+       "the basis alone",
+       "the point group"
+      ],
+      "correct": 0,
+      "explain": "Script summary 1.4."
+     }
+    ]
+   }
+  },
+  {
+   "room": "lattice-gate",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 2,
+    "id": "ss-read-02",
+    "title": "Read 1.3–1.4: reciprocal lattice, Miller indices, Brillouin zones",
+    "minutes": 16,
+    "xp": 15,
+    "pages": "11–14",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "1.3–1.4, pp. 11–14"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why do we need a second, &#8220;reciprocal&#8221; lattice at all?</li><li>What do Miller indices measure, and why are they integers?</li><li>What is the Brillouin zone a Wigner-Seitz cell of?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 1.3–1.4, pp. 11–14.</b> Look for: the definition $\\mathbf a_i\\cdot\\mathbf b_j=2\\pi\\delta_{ij}$, the reciprocal cell volume $(2\\pi)^3/V$, the simple scalar product (1.15), planes and their normals, the first Brillouin zone."
+     },
+     {
+      "kind": "think",
+      "html": "Show that $e^{i\\mathbf G\\cdot\\mathbf R}=1$ for every lattice vector $\\mathbf R$ and reciprocal vector $\\mathbf G$.<details><summary>Show the answer</summary>With $\\mathbf R=\\sum n_i\\mathbf a_i$, $\\mathbf G=\\sum m_j\\mathbf b_j$: $\\mathbf G\\cdot\\mathbf R=2\\pi\\sum n_im_i$, an integer multiple of $2\\pi$. This is why the $\\mathbf G$ label the Fourier components of anything lattice-periodic.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "How is the spacing $d_{hkl}$ of the planes $(hkl)$ related to the reciprocal lattice?<details><summary>Show the answer</summary>$\\mathbf G_{hkl}$ is normal to the planes and $d_{hkl}=2\\pi/|\\mathbf G_{hkl}|$. For a cubic lattice $d=a/\\sqrt{h^2+k^2+l^2}$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "What is the reciprocal lattice of FCC with cube side $a$?<details><summary>Show the answer</summary>BCC with cube side $4\\pi/a$ (and vice versa). So the first Brillouin zone of FCC is a truncated octahedron.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The volume of the reciprocal unit cell is",
+      "options": [
+       "$(2\\pi)^3/V$",
+       "$V$",
+       "$1/V$",
+       "$2\\pi/V$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 1.4."
+     },
+     {
+      "q": "Miller indices of a plane are",
+      "options": [
+       "reciprocal-lattice coordinates of its normal",
+       "its intercepts with the axes",
+       "the coordinates of a point in the plane",
+       "always positive"
+      ],
+      "correct": 0,
+      "explain": "Reciprocals of the intercepts, cleared of fractions: they give $\\mathbf G_{hkl}$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "lattice-gate",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 2,
+    "id": "ss-read-03",
+    "title": "Read 1.5: diffraction",
+    "minutes": 40,
+    "xp": 15,
+    "pages": "15–23",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "1.5, pp. 15–23"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What does a diffraction experiment actually measure: positions or Fourier components?</li><li>Why must the wavelength be comparable to the lattice spacing?</li><li>Which radiation sees which part of the atom?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 1.5, pp. 15–23.</b> Look for: the scattering amplitude as a Fourier transform of the scattering density, the Laue condition $\\mathbf K=\\mathbf G$, Bragg&#8217;s law, the structure factor and systematic absences (1.5.3), direct and Laue geometry, X-rays vs neutrons vs electrons."
+     },
+     {
+      "kind": "think",
+      "html": "Derive Bragg&#8217;s law from the Laue condition.<details><summary>Show the answer</summary>Elastic: $|\\mathbf k^\\prime|=|\\mathbf k|=2\\pi/\\lambda$, so $|\\mathbf K|=2k\\sin\\theta$. With $\\mathbf K=\\mathbf G_{hkl}$ and $|\\mathbf G_{hkl}|=2\\pi n/d$: $2d\\sin\\theta=n\\lambda$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "For BCC described as a simple cubic lattice with a two-atom basis, which reflections vanish?<details><summary>Show the answer</summary>$F\\propto1+e^{i\\pi(h+k+l)}$: zero when $h+k+l$ is odd. So $(100)$ is absent, $(110)$ and $(200)$ are seen.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why are neutrons better than X-rays to locate hydrogen?<details><summary>Show the answer</summary>X-rays scatter from the electron density, so the intensity grows with $Z^2$ and hydrogen is almost invisible. Neutrons scatter from the nuclei with a scattering length that does not grow with $Z$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Bragg peaks occur when the wave-vector transfer $\\mathbf K$",
+      "options": [
+       "equals a reciprocal-lattice vector",
+       "is perpendicular to $\\mathbf k$",
+       "is zero",
+       "equals $\\mathbf k$"
+      ],
+      "correct": 0,
+      "explain": "Laue condition, script summary 1.5.7."
+     },
+     {
+      "q": "Electron beams are used mostly for",
+      "options": [
+       "surfaces (they do not penetrate deep)",
+       "light elements in the bulk",
+       "magnetic structure",
+       "phonons only"
+      ],
+      "correct": 0,
+      "explain": "Script summary 1.5.7."
+     }
+    ]
+   }
+  },
+  {
+   "room": "bonding-grotto",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 3,
+    "id": "ss-read-04",
+    "title": "Read 1.6.1–1.6.3: van der Waals, Lennard-Jones, ionic crystals",
+    "minutes": 24,
+    "xp": 15,
+    "pages": "24–29",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "1.6.1–1.6.3, pp. 24–29"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Two neutral spherical atoms attract each other. Where can that force come from?</li><li>Why must there be a repulsion at short distance, and what produces it?</li><li>What sets the cohesive energy of an ionic crystal?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 1.6.1–1.6.3, pp. 24–29.</b> Look for: the fluctuating-dipole picture ($\\propto r^{-6}$), the Lennard-Jones potential and its equilibrium distance, Pauli repulsion, the Madelung constant."
+     },
+     {
+      "kind": "think",
+      "html": "Why does the van der Waals attraction fall off as $r^{-6}$?<details><summary>Show the answer</summary>A fluctuating dipole $p_1$ gives a field $\\propto p_1/r^3$ at the other atom, which induces $p_2=\\alpha E\\propto p_1/r^3$; the energy $-p_2E\\propto-p_1^2/r^6$ does not average to zero.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Find the equilibrium distance of $U=4\\varepsilon[(\\sigma/r)^{12}-(\\sigma/r)^6]$.<details><summary>Show the answer</summary>$dU/dr=0$: $r_0=2^{1/6}\\sigma\\approx1.12\\sigma$, with depth $U(r_0)=-\\varepsilon$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "What is the Madelung constant, and why does it depend only on the geometry?<details><summary>Show the answer</summary>The lattice sum $\\alpha=\\sum_j\\pm r_0/r_j$ over all other ions with alternating signs: the Coulomb energy per ion pair is $-\\alpha e^2/(4\\pi\\varepsilon_0r_0)$. Only the arrangement enters (NaCl: $\\alpha\\approx1.748$).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The short-range repulsion between atoms comes mainly from",
+      "options": [
+       "the Pauli principle (overlapping filled shells)",
+       "gravity",
+       "the van der Waals force",
+       "magnetic dipoles"
+      ],
+      "correct": 0,
+      "explain": "Filled shells cannot overlap without promoting electrons to higher states."
+     },
+     {
+      "q": "Noble-gas crystals are held together by",
+      "options": [
+       "van der Waals forces",
+       "covalent bonds",
+       "metallic bonding",
+       "hydrogen bonds"
+      ],
+      "correct": 0,
+      "explain": "Script summary 1.6.7."
+     }
+    ]
+   }
+  },
+  {
+   "room": "bonding-grotto",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 3,
+    "id": "ss-read-05",
+    "title": "Read 1.6.4–1.6.7: covalent, hydrogen and metallic bonds",
+    "minutes": 36,
+    "xp": 15,
+    "pages": "29–37",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "1.6.4–1.6.7, pp. 29–37"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does sharing two electrons between two nuclei lower the energy?</li><li>Why is diamond tetrahedral?</li><li>In what sense is a metal a &#8220;collective covalent bond&#8221;?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 1.6.4–1.6.7, pp. 29–37.</b> Look for: bonding and antibonding molecular orbitals, the H$_2$ picture, sp$^3$ hybrids and the diamond structure, mixed ionic/covalent bonds, hydrogen bonds, the metallic bond and the summary 1.6.7."
+     },
+     {
+      "kind": "think",
+      "html": "Sketch the bonding and antibonding combination of two s orbitals. Which one has more charge between the nuclei?<details><summary>Show the answer</summary>Bonding $\\psi_A+\\psi_B$: charge piles up between the nuclei, attracted by both (energy lowered). Antibonding $\\psi_A-\\psi_B$: a node between them (energy raised). Two electrons with opposite spins fill the bonding orbital.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why do covalent bonds have directions while metallic bonds do not?<details><summary>Show the answer</summary>Covalent bonds use specific orbitals (sp$^3$ hybrids point to the corners of a tetrahedron). In a metal the valence electrons are delocalised over all atoms (bands), so the bonding is non-directional and close packing is favoured.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Order van der Waals, hydrogen, ionic/covalent bonds by strength.<details><summary>Show the answer</summary>van der Waals (meV to 0.1 eV) < hydrogen bond (~0.1 eV) < ionic and covalent (a few eV per bond).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The covalent bond is of",
+      "options": [
+       "purely quantum-mechanical origin",
+       "magnetic origin",
+       "gravitational origin",
+       "classical electrostatic origin only"
+      ],
+      "correct": 0,
+      "explain": "Script summary 1.6.7."
+     },
+     {
+      "q": "Graphite sheets hold together by",
+      "options": [
+       "van der Waals forces",
+       "covalent bonds",
+       "ionic bonds",
+       "metallic bonds"
+      ],
+      "correct": 0,
+      "explain": "Script summary 1.6.7."
+     }
+    ]
+   }
+  },
+  {
+   "room": "phonon-halls",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 4,
+    "id": "ss-read-06",
+    "title": "Read 2.1: Dulong-Petit and Einstein",
+    "minutes": 15,
+    "xp": 15,
+    "pages": "38–40",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "2.1, pp. 38–40"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does a classical solid have $C=3Nk_B$?</li><li>What did Einstein assume, and where does his model fail?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 2.1, pp. 38–40.</b> Look for: equipartition for 3N oscillators, Einstein&#8217;s single frequency $\\omega_E$, the exponential freeze-out at low $T$."
+     },
+     {
+      "kind": "think",
+      "html": "Derive Dulong-Petit.<details><summary>Show the answer</summary>$N$ atoms = $3N$ one-dimensional oscillators, each with two quadratic terms: $\\langle E\\rangle=3N\\cdot2\\cdot\\frac12k_BT$, so $C_V=3Nk_B$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why does the Einstein model give $C\\propto e^{-\\hbar\\omega_E/k_BT}$ at low $T$, and why is that wrong?<details><summary>Show the answer</summary>All modes share one gap $\\hbar\\omega_E$; at $k_BT\\ll\\hbar\\omega_E$ excitations are exponentially rare. Real solids have acoustic modes with arbitrarily low frequency, which gives $T^3$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Dulong-Petit predicts per mole",
+      "options": [
+       "$3R\\approx25$ J/(mol K)",
+       "$\\frac32R$",
+       "$R$",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "$3N_Ak_B=3R$."
+     },
+     {
+      "q": "The Einstein model fails at",
+      "options": [
+       "low temperatures",
+       "high temperatures",
+       "all temperatures",
+       "no temperature"
+      ],
+      "correct": 0,
+      "explain": "Exponential instead of $T^3$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "phonon-halls",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 4,
+    "id": "ss-read-07",
+    "title": "Read 2.2: normal modes and the diatomic chain",
+    "minutes": 40,
+    "xp": 15,
+    "pages": "41–49",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "2.2, pp. 41–49"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why can the vibrations of $10^{23}$ coupled atoms be split into independent modes?</li><li>Why is the wave vector restricted to the first Brillouin zone?</li><li>How many branches does a crystal with $p$ atoms per cell have?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 2.2, pp. 41–49.</b> Look for: harmonic expansion of the potential, the equation of motion with plane-wave ansatz, the role of the Brillouin zone (2.2.4), the diatomic chain (2.2.5), the counting of allowed $q$ and the summary 2.2.6."
+     },
+     {
+      "kind": "think",
+      "html": "Monatomic chain: derive $\\omega(q)$.<details><summary>Show the answer</summary>$M\\ddot u_n=C(u_{n+1}+u_{n-1}-2u_n)$, $u_n\\propto e^{i(qna-\\omega t)}$: $\\omega=2\\sqrt{C/M}\\,|\\sin(qa/2)|$. Linear at small $q$ (sound velocity $a\\sqrt{C/M}$), flat at the zone boundary (group velocity zero).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why does $q$ and $q+2\\pi/a$ describe the same vibration?<details><summary>Show the answer</summary>The displacements exist only at the atoms $x=na$: $e^{i(q+2\\pi/a)na}=e^{iqna}$. All physically different modes lie in the first zone.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Diatomic chain: frequencies at $q=0$ and at the zone boundary?<details><summary>Show the answer</summary>Acoustic: $0$ and $\\sqrt{2C/M}$ (heavy atoms move). Optical: $\\sqrt{2C(1/M+1/m)}$ at $q=0$ (neighbours against each other) and $\\sqrt{2C/m}$ at the boundary (light atoms move). Gap between $\\sqrt{2C/M}$ and $\\sqrt{2C/m}$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "How many allowed $q$ in the first zone for a sample of $N$ cells?<details><summary>Show the answer</summary>Exactly $N$ (periodic boundary conditions), each occupying $(2\\pi)^3/V$: total branches $\\times N$ = $3pN$ modes = number of degrees of freedom.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "A crystal with 2 atoms per primitive cell has",
+      "options": [
+       "3 acoustic and 3 optical branches",
+       "6 acoustic branches",
+       "2 branches",
+       "3 branches"
+      ],
+      "correct": 0,
+      "explain": "$3p$ branches, always exactly 3 acoustic."
+     },
+     {
+      "q": "The sound velocity is",
+      "options": [
+       "the slope $d\\omega/dq$ of the acoustic branches at $q\\to0$",
+       "$\\omega/q$ at the zone boundary",
+       "the optical frequency",
+       "$\\sqrt{M/C}$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 2.2.6."
+     }
+    ]
+   }
+  },
+  {
+   "room": "phonon-halls",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 5,
+    "id": "ss-read-08",
+    "title": "Read 2.3: phonons and inelastic scattering",
+    "minutes": 36,
+    "xp": 15,
+    "pages": "50–58",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "2.3, pp. 50–58"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What is a phonon: a particle, or a bookkeeping device for a mode&#8217;s energy level?</li><li>What is conserved when a neutron creates a phonon?</li><li>Why do phonons have a finite lifetime?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 2.3, pp. 50–58.</b> Look for: the quantised oscillator per mode, phonon number, quasi-momentum $\\hbar\\mathbf q$ conserved up to $\\hbar\\mathbf G$, energy-loss and energy-gain scattering, anharmonic decay, the summary 2.3.5."
+     },
+     {
+      "kind": "think",
+      "html": "Write the conservation laws for a neutron that creates one phonon.<details><summary>Show the answer</summary>$E-E^\\prime=\\hbar\\omega(\\mathbf q)$ and $\\mathbf k-\\mathbf k^\\prime=\\mathbf q+\\mathbf G$. Scanning energy transfer at fixed $\\mathbf K$ gives a peak at $\\hbar\\omega(\\mathbf q)$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is $\\hbar\\mathbf q$ called quasi-momentum and not momentum?<details><summary>Show the answer</summary>It is only defined modulo $\\hbar\\mathbf G$: the lattice can absorb any $\\hbar\\mathbf G$ (umklapp). A phonon does not move the centre of mass of the crystal.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "What does the width of a phonon peak tell you?<details><summary>Show the answer</summary>The inverse lifetime: anharmonic terms let a phonon decay into two or more phonons (script summary 2.3.5).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The ground state of a crystal in the phonon language is",
+      "options": [
+       "the phonon vacuum (zero-point motion remains)",
+       "one phonon per mode",
+       "all atoms at rest classically",
+       "undefined"
+      ],
+      "correct": 0,
+      "explain": "Script summary 2.3.5."
+     },
+     {
+      "q": "Phonon dispersion curves are measured with",
+      "options": [
+       "inelastic neutron (or X-ray) scattering",
+       "elastic X-ray diffraction",
+       "the Hall effect",
+       "ARPES"
+      ],
+      "correct": 0,
+      "explain": "Energy and momentum transfer together."
+     }
+    ]
+   }
+  },
+  {
+   "room": "phonon-halls",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 5,
+    "id": "ss-read-09",
+    "title": "Read 2.4: phonon gas, Debye model, specific heat",
+    "minutes": 28,
+    "xp": 15,
+    "pages": "59–65",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "2.4, pp. 59–65"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does the number of phonons depend only on $\\hbar\\omega$ and $T$?</li><li>What is the Debye cutoff for, and is it physical?</li><li>Where does $T^3$ come from?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 2.4, pp. 59–65.</b> Look for: Bose-Einstein occupation (2.81), the density of states $\\nu(\\varepsilon)\\propto\\varepsilon^2/v^3$, the Debye cutoff $\\omega_D$ fixed by $3N$ modes, $C_V\\propto(T/T_D)^3$ (2.82) and Dulong-Petit at $T\\gg T_D$."
+     },
+     {
+      "kind": "think",
+      "html": "Why is $\\nu(\\varepsilon)\\propto\\varepsilon^2$ for acoustic phonons?<details><summary>Show the answer</summary>States fill $q$-space uniformly with density $V/(2\\pi)^3$; with $\\varepsilon=\\hbar vq$ the number below $\\varepsilon$ is $\\propto q^3\\propto\\varepsilon^3$, so $\\nu\\propto\\varepsilon^2/v^3$ (per branch).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Give the scaling argument for $C_V\\propto T^3$.<details><summary>Show the answer</summary>Only modes with $\\hbar\\omega\\lesssim k_BT$ are excited, i.e. $q\\lesssim k_BT/\\hbar v$: their number $\\propto T^3$, each with energy $\\sim k_BT$, so $E\\propto T^4$ and $C\\propto T^3$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Which has the higher $T_D$, diamond or lead, and why?<details><summary>Show the answer</summary>Diamond (~2200 K vs ~100 K): light atoms and stiff bonds give high sound velocity and high $\\omega_D$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Phonons obey",
+      "options": [
+       "Bose-Einstein statistics with zero chemical potential",
+       "Fermi-Dirac statistics",
+       "Boltzmann statistics only",
+       "no statistics"
+      ],
+      "correct": 0,
+      "explain": "Their number is not conserved."
+     },
+     {
+      "q": "At $T\\ll T_D$ the lattice specific heat goes as",
+      "options": [
+       "$T^3$",
+       "$T$",
+       "$e^{-T_D/T}$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "(2.82)."
+     }
+    ]
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 6,
+    "id": "ss-read-10",
+    "title": "Read 3.1.1–3.1.3: free electrons and the Fermi-Dirac distribution",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "66–72",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "3.1.1–3.1.3, pp. 66–72"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why do the allowed $\\mathbf k$ form a grid, and how fine is it?</li><li>What fixes the Fermi energy?</li><li>Why is $\\epsilon_F$ of a metal so large compared to $k_BT$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 3.1.1–3.1.3, pp. 66–72.</b> Look for: the electron in a box with periodic boundary conditions, $(2\\pi)^3/V$ per $\\mathbf k$ (3.34), two spin states, the density of states $\\nu(\\varepsilon)$, the Fermi function (3.35) and the Fermi sphere."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $k_F=(3\\pi^2n)^{1/3}$.<details><summary>Show the answer</summary>$2\\cdot\\frac{V}{(2\\pi)^3}\\cdot\\frac43\\pi k_F^3=N$ (factor 2 for spin), so $k_F^3=3\\pi^2N/V$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Derive $\\nu(\\varepsilon)$ for free electrons in 3D.<details><summary>Show the answer</summary>$N(\\varepsilon)/V=\\frac{k^3}{3\\pi^2}$ with $k=\\sqrt{2m\\varepsilon}/\\hbar$: $\\nu=\\frac{d}{d\\varepsilon}\\frac{(2m\\varepsilon)^{3/2}}{3\\pi^2\\hbar^3}=\\frac{m^{3/2}\\sqrt{2\\varepsilon}}{\\pi^2\\hbar^3}$. At $\\epsilon_F$: $\\nu(\\epsilon_F)=\\frac{3n}{2\\epsilon_F}$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Silver: $n=5.9\\times10^{28}\\ {\\rm m^{-3}}$. Estimate $\\epsilon_F$ and $T_F$.<details><summary>Show the answer</summary>$k_F=1.2$ Å$^{-1}$, $\\epsilon_F=5.5$ eV, $T_F=6.4\\times10^4$ K (test exam HS26 problem 3).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Each allowed $\\mathbf k$ occupies a $k$-space volume of",
+      "options": [
+       "$(2\\pi)^3/V$",
+       "$V/(2\\pi)^3$",
+       "$2\\pi/L$",
+       "$\\pi^3/V$"
+      ],
+      "correct": 0,
+      "explain": "(3.34)."
+     },
+     {
+      "q": "The Fermi function depends on",
+      "options": [
+       "the energy of the state only",
+       "the wave vector only",
+       "the spin only",
+       "the volume"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.1.6."
+     }
+    ]
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 6,
+    "id": "ss-read-11",
+    "title": "Read 3.1.4–3.1.6: electronic specific heat and electron-electron scattering",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "73–76",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "3.1.4–3.1.6, pp. 73–76"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why do only a few electrons take part in thermal properties?</li><li>Why does electron-electron scattering die out at low $T$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 3.1.4–3.1.6, pp. 73–76.</b> Look for: the thin shell $\\pm k_BT$ around $\\epsilon_F$, $C_V=\\frac{\\pi^2}3\\nu(\\epsilon_F)k_B^2T$ (Sommerfeld coefficient), the Pauli argument for $\\tau_{ee}^{-1}\\propto T^2$, the summary 3.1.6."
+     },
+     {
+      "kind": "think",
+      "html": "Give the estimate that leads to $C_V\\propto T$.<details><summary>Show the answer</summary>Excited electrons: $\\sim\\nu(\\epsilon_F)k_BT$ per volume, each gaining $\\sim k_BT$: $E\\sim\\nu(\\epsilon_F)(k_BT)^2$, so $C\\sim\\nu(\\epsilon_F)k_B^2T$. The exact prefactor is $\\pi^2/3$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "How do you separate electron and phonon contributions in a measurement?<details><summary>Show the answer</summary>$C=\\gamma T+\\beta T^3$: plot $C/T$ against $T^2$. Intercept $\\gamma=\\frac{\\pi^2}3\\nu(\\epsilon_F)k_B^2$, slope $\\beta$ from the phonons.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is the rate of electron-electron scattering $\\propto T^2$?<details><summary>Show the answer</summary>Both the electron and its partner must start within $\\sim k_BT$ of $\\epsilon_F$ and end in empty states there: two factors of $k_BT/\\epsilon_F$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The electronic specific heat of a metal is a direct measure of",
+      "options": [
+       "$\\nu(\\epsilon_F)$",
+       "$\\epsilon_F$ alone",
+       "the number of atoms",
+       "$T_D$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.1.6."
+     },
+     {
+      "q": "At low $T$, which dominates the specific heat of a metal?",
+      "options": [
+       "the electrons ($\\propto T$)",
+       "the phonons ($\\propto T^3$)",
+       "both equally",
+       "neither"
+      ],
+      "correct": 0,
+      "explain": "$T$ beats $T^3$ as $T\\to0$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 7,
+    "id": "ss-read-12",
+    "title": "Read 3.2.1–3.2.2: Bloch theorem and nearly free electrons",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "77–81",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "3.2.1–3.2.2, pp. 77–81"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>When does an electron &#8220;feel&#8221; the periodic potential? Compare its wavelength to the lattice spacing.</li><li>What is periodic in a Bloch function, and what is not?</li><li>Why do gaps open exactly at the zone boundaries?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 3.2.1–3.2.2, pp. 77–81.</b> Look for: $U(\\mathbf r+\\mathbf R)=U(\\mathbf r)$ (3.36), Bloch&#8217;s theorem, crystal momentum, the reduced zone scheme, the gap $2|U_{\\mathbf G}|$ from mixing $\\mathbf k$ and $\\mathbf k-\\mathbf G$."
+     },
+     {
+      "kind": "think",
+      "html": "State Bloch&#8217;s theorem in two equivalent forms.<details><summary>Show the answer</summary>$\\psi_{\\mathbf k}(\\mathbf r)=e^{i\\mathbf k\\cdot\\mathbf r}u_{\\mathbf k}(\\mathbf r)$ with $u_{\\mathbf k}$ lattice periodic; equivalently $\\psi_{\\mathbf k}(\\mathbf r+\\mathbf R)=e^{i\\mathbf k\\cdot\\mathbf R}\\psi_{\\mathbf k}(\\mathbf r)$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Explain the gap at $k=\\pi/a$ with standing waves.<details><summary>Show the answer</summary>The two degenerate plane waves $e^{\\pm i\\pi x/a}$ mix into $\\cos(\\pi x/a)$ (charge on the ions, lower energy for an attractive potential) and $\\sin(\\pi x/a)$ (charge between the ions, higher). Splitting $2|U_G|$ with $U_G$ the Fourier component of the potential.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is the second gap usually smaller than the first?<details><summary>Show the answer</summary>It is set by the next Fourier component $U_{2G}$, normally smaller (a pure sine potential has none, so no second gap in first order).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "In the nearly free electron model the gap at the zone boundary is",
+      "options": [
+       "$2|U_{\\mathbf G}|$",
+       "$|U_{\\mathbf G}|/2$",
+       "$\\epsilon_F$",
+       "$\\hbar^2G^2/2m$"
+      ],
+      "correct": 0,
+      "explain": "Degenerate perturbation theory between $\\mathbf k$ and $\\mathbf k-\\mathbf G$."
+     },
+     {
+      "q": "The crystal momentum $\\hbar\\mathbf k$ of a Bloch state is defined",
+      "options": [
+       "up to a reciprocal-lattice vector",
+       "exactly, like a momentum",
+       "only at $k=0$",
+       "only in 1D"
+      ],
+      "correct": 0,
+      "explain": "$\\mathbf k$ and $\\mathbf k+\\mathbf G$ label the same state."
+     }
+    ]
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 7,
+    "id": "ss-read-13",
+    "title": "Read 3.2.3–3.2.4: tight binding; metals, insulators, semiconductors",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "82–87",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "3.2.3–3.2.4, pp. 82–87"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Start from isolated atoms: how does a level become a band when atoms approach?</li><li>What sets the bandwidth?</li><li>How do you tell from the electron count whether a crystal is a metal?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 3.2.3–3.2.4, pp. 82–87.</b> Look for: Bloch sums of atomic orbitals, $\\varepsilon(\\mathbf k)=\\varepsilon_0-\\beta-\\gamma\\sum\\cos(\\mathbf k\\cdot\\boldsymbol\\delta)$-type dispersions, bandwidth vs overlap, filling bands with 2 electrons per cell per band."
+     },
+     {
+      "kind": "think",
+      "html": "1D chain, one orbital per atom, hopping $t$: dispersion and bandwidth?<details><summary>Show the answer</summary>$\\varepsilon(k)=\\varepsilon_0-2t\\cos(ka)$, bandwidth $4t$ (in 3D simple cubic $12t$). More overlap, wider band.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why are higher atomic levels broadened into wider bands?<details><summary>Show the answer</summary>Their orbitals are more extended, so the overlap with neighbours (and $t$) is larger. Core levels stay nearly flat.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Monovalent atoms, one per cell: metal or insulator? Divalent?<details><summary>Show the answer</summary>Each band holds 2 electrons per cell (spin). One electron per cell fills half a band: metal. Two electrons per cell could fill a band exactly (insulator), unless bands overlap, as in the alkaline-earth metals.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "In tight binding, the bandwidth is proportional to",
+      "options": [
+       "the overlap (hopping) integral",
+       "the atomic mass",
+       "the lattice constant squared",
+       "the temperature"
+      ],
+      "correct": 0,
+      "explain": "Test exam HS26 1(d)."
+     },
+     {
+      "q": "A crystal with an odd number of electrons per primitive cell is (in band theory)",
+      "options": [
+       "a metal",
+       "an insulator",
+       "a semiconductor",
+       "a superconductor"
+      ],
+      "correct": 0,
+      "explain": "A band can only be completely filled with an even number."
+     }
+    ]
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 7,
+    "id": "ss-read-14",
+    "title": "Read 3.3–3.4: quasiparticles and ARPES",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "88–92",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "3.3–3.4, pp. 88–92"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why describe excitations from the Fermi surface instead of from the bottom of the band?</li><li>What does a photoemission experiment measure?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 3.3–3.4, pp. 88–92.</b> Look for: quasielectrons and quasiholes, energies measured from $\\epsilon_F$ (always non-negative), zero chemical potential, ARPES with energy and momentum conservation, the summary 3.4.1."
+     },
+     {
+      "kind": "think",
+      "html": "An electron is removed from a state below $\\epsilon_F$. What is the quasiparticle and its energy?<details><summary>Show the answer</summary>A quasihole with the same $\\mathbf k$ and spin and energy $\\epsilon_F-\\varepsilon(\\mathbf k)\\ge0$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "How does ARPES get $\\varepsilon(\\mathbf k)$?<details><summary>Show the answer</summary>A photon $\\hbar\\omega$ ejects an electron; energy conservation gives the binding energy from the kinetic energy (minus work function), and the in-plane momentum is conserved, so the emission angle gives $\\mathbf k_\\parallel$. It maps occupied states (quasiholes) and the Fermi surface.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Quasiparticle energies are",
+      "options": [
+       "always non-negative, zero on the Fermi surface",
+       "negative below $\\epsilon_F$",
+       "equal to $\\varepsilon(\\mathbf k)$",
+       "always $\\epsilon_F$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.4.1."
+     },
+     {
+      "q": "ARPES measures",
+      "options": [
+       "occupied band dispersions and Fermi surfaces",
+       "phonon dispersions",
+       "only the work function",
+       "magnetic order"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.4.1."
+     }
+    ]
+   }
+  },
+  {
+   "room": "drift-corridor",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 9,
+    "id": "ss-read-15",
+    "title": "Read 4.1: Drude model and Hall effect",
+    "minutes": 15,
+    "xp": 15,
+    "pages": "93–94",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "4.1, pp. 93–94"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Which assumptions of Drude are wrong, and why does $\\sigma=ne^2\\tau/m$ still work?</li><li>What does the sign of the Hall constant tell you?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 4.1, pp. 93–94.</b> Look for: the equation of motion with friction $m\\mathbf v/\\tau$, $\\sigma=ne^2\\tau/m$, the Hall geometry and $R_H=-1/(ne)$."
+     },
+     {
+      "kind": "think",
+      "html": "Derive the Hall constant in the Drude model.<details><summary>Show the answer</summary>Steady state, current along $x$: the transverse force $e(\\mathbf E+\\mathbf v\\times\\mathbf B)$ must vanish along $y$, so $E_y=v_xB$ with $j_x=-nev_x$ (electrons): $R_H=E_y/(j_xB)=-1/(ne)$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why do some metals (Al, Be) have a positive $R_H$?<details><summary>Show the answer</summary>The carriers are effectively holes: the band is nearly full and the states near $\\epsilon_F$ have negative effective mass (section 4.2).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The Drude conductivity is",
+      "options": [
+       "$ne^2\\tau/m$",
+       "$ne\\tau/m$",
+       "$m/(ne^2\\tau)$",
+       "$ne^2/m$"
+      ],
+      "correct": 0,
+      "explain": "Steady state of the friction model."
+     },
+     {
+      "q": "For free electrons $R_H$ is",
+      "options": [
+       "$-1/(ne)$",
+       "$+1/(ne)$",
+       "zero",
+       "$ne$"
+      ],
+      "correct": 0,
+      "explain": "Negative carriers."
+     }
+    ]
+   }
+  },
+  {
+   "room": "drift-corridor",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 9,
+    "id": "ss-read-16",
+    "title": "Read 4.2.1–4.2.4: band electrons: wave packets, effective mass, conductivity",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "95–101",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "4.2.1–4.2.4, pp. 95–101"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How fast does a Bloch electron move if its state is a stationary wave?</li><li>Can an effective mass be negative? What does that mean?</li><li>Why do only states at the Fermi surface carry the current?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 4.2.1–4.2.4, pp. 95–101.</b> Look for: group velocity $\\mathbf v=\\frac1\\hbar\\nabla_{\\mathbf k}\\varepsilon$, $\\hbar\\dot{\\mathbf k}=\\mathbf F$, the effective mass tensor, the shifted Fermi sea in a field, conductivity $\\propto\\nu(\\epsilon_F)$."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $1/m^*$ from $\\varepsilon(k)$ in 1D.<details><summary>Show the answer</summary>$v=\\frac1\\hbar\\frac{d\\varepsilon}{dk}$, $\\dot v=\\frac1\\hbar\\frac{d^2\\varepsilon}{dk^2}\\dot k=\\frac1{\\hbar^2}\\frac{d^2\\varepsilon}{dk^2}F$: $\\frac1{m^*}=\\frac1{\\hbar^2}\\frac{d^2\\varepsilon}{dk^2}$. Near the top of a band the curvature is negative: $m^*<0$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why does a completely filled band carry no current?<details><summary>Show the answer</summary>For every $\\mathbf k$ there is $-\\mathbf k$ with opposite velocity; a field shifts all $\\mathbf k$ but the set stays the same (states leaving the zone re-enter at the other side). Net current zero.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Steady state in a field: how far is the Fermi sea shifted?<details><summary>Show the answer</summary>$\\delta k=eE\\tau/\\hbar$, tiny compared to $k_F$. Only states near the Fermi surface change occupation, so $\\sigma\\propto\\nu(\\epsilon_F)$; for free electrons this reproduces $ne^2\\tau/m$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The velocity of a Bloch electron is",
+      "options": [
+       "$\\frac1\\hbar\\nabla_{\\mathbf k}\\varepsilon(\\mathbf k)$",
+       "$\\hbar\\mathbf k/m$ always",
+       "zero",
+       "$\\varepsilon/\\hbar k$"
+      ],
+      "correct": 0,
+      "explain": "Group velocity of the wave packet."
+     },
+     {
+      "q": "Near the top of a band the effective mass is",
+      "options": [
+       "negative",
+       "positive and small",
+       "infinite always",
+       "equal to $m_e$"
+      ],
+      "correct": 0,
+      "explain": "Negative curvature; these states behave as holes."
+     }
+    ]
+   }
+  },
+  {
+   "room": "drift-corridor",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "ss-read-17",
+    "title": "Read 4.2.5: relaxation and the resistivity $\\rho(T)$",
+    "minutes": 16,
+    "xp": 15,
+    "pages": "102–105",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "4.2.5, pp. 102–105"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Which scatterers exist in a metal, and which depend on temperature?</li><li>Why is the low-temperature law $T^5$ and not $T^3$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 4.2.5, pp. 102–105.</b> Look for: impurities (constant), phonons (linear at high $T$), the random-walk argument (4.28) that gives $\\rho\\propto T^5$ for $T\\ll T_D$ (4.29), electron-electron scattering $\\propto T^2$ (4.33), Matthiessen&#8217;s rule."
+     },
+     {
+      "kind": "think",
+      "html": "Why is $\\rho\\propto T$ at high temperature?<details><summary>Show the answer</summary>The number of phonons per mode is $\\approx k_BT/\\hbar\\omega$: the scattering rate grows linearly with $T$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Reproduce the $T^5$ argument.<details><summary>Show the answer</summary>Phonon number $\\propto T^3$ gives $\\tau^{-1}\\propto T^3$, but each phonon changes the electron momentum only by $\\delta p\\propto T$. Reversing $\\hbar k_F$ needs a random walk of $n\\propto(\\hbar k_F/\\delta p)^2\\propto T^{-2}$ steps, so $\\rho\\propto T^3\\cdot T^2=T^5$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Draw $\\rho(T)$ of a real metal from 0 to room temperature.<details><summary>Show the answer</summary>Residual value $\\rho_0$ (impurities) at $T\\to0$, then $T^5$, crossing over to linear around $0.2T_D$ (script, after (4.29)). Electron-electron $T^2$ only visible around 1 K in very clean samples.</details>"
+     },
+     {
+      "kind": "slip",
+      "html": "The summary 4.3.1 says the phonon relaxation rate goes &#8220;as $T^2$ for $T\\gtrsim\\Theta_D$&#8221;. The text (around (4.29)) and the standard result say <b>linear in $T$</b> at high temperature; $T^2$ is the electron-electron law. Use $\\rho\\propto T$."
+     }
+    ],
+    "check": [
+     {
+      "q": "The residual resistivity at $T\\to0$ comes from",
+      "options": [
+       "impurities and defects",
+       "phonons",
+       "electron-electron scattering",
+       "the Fermi energy"
+      ],
+      "correct": 0,
+      "explain": "Temperature independent."
+     },
+     {
+      "q": "For $T\\ll T_D$ the phonon resistivity goes as",
+      "options": [
+       "$T^5$",
+       "$T^3$",
+       "$T$",
+       "$T^2$"
+      ],
+      "correct": 0,
+      "explain": "(4.29)."
+     }
+    ]
+   }
+  },
+  {
+   "room": "drift-corridor",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "ss-read-18",
+    "title": "Read 4.3–4.4: thermal conductivity and screening",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "106–112",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "4.3–4.4, pp. 106–112"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why do good electrical conductors also conduct heat well?</li><li>How far does the field of a charge reach inside a metal?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 4.3–4.4, pp. 106–112.</b> Look for: the distribution broadened differently on the two sides, $\\kappa\\propto T\\sigma$ (Wiedemann-Franz), the Lorenz number, Thomas-Fermi screening with $r_0^2=\\varepsilon_0/(e^2\\nu(\\epsilon_F))$."
+     },
+     {
+      "kind": "think",
+      "html": "State Wiedemann-Franz and its condition.<details><summary>Show the answer</summary>$\\kappa/(\\sigma T)=L=\\frac{\\pi^2}3(k_B/e)^2\\approx2.44\\times10^{-8}\\ {\\rm W\\Omega/K^2}$, valid when the same (elastic) scattering limits both, i.e. at low $T$ (impurities) and high $T$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Estimate the Thomas-Fermi length of a metal.<details><summary>Show the answer</summary>With $\\nu(\\epsilon_F)=3n/(2\\epsilon_F)$, $n\\sim10^{29}\\ {\\rm m^{-3}}$, $\\epsilon_F\\sim5$ eV: $r_0\\sim0.5$ Å. Fields of impurity charges die within about one atomic distance.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The Thomas-Fermi screening length depends on",
+      "options": [
+       "$\\nu(\\epsilon_F)$",
+       "the lattice constant only",
+       "$T_D$",
+       "the sample size"
+      ],
+      "correct": 0,
+      "explain": "Script summary 4.4.1."
+     },
+     {
+      "q": "Wiedemann-Franz says $\\kappa/\\sigma$ is proportional to",
+      "options": [
+       "$T$",
+       "$T^2$",
+       "$1/T$",
+       "a constant"
+      ],
+      "correct": 0,
+      "explain": "Script summary 4.3.1."
+     }
+    ]
+   }
+  },
+  {
+   "room": "semiconductor-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 11,
+    "id": "ss-read-19",
+    "title": "Read 5.1: what is a semiconductor; effective mass; cyclotron resonance",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "113–118",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "5.1, pp. 113–118"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What separates a semiconductor from an insulator: physics, or just the size of the gap?</li><li>How can you measure an effective mass?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 5.1, pp. 113–118.</b> Look for: filled valence band and empty conduction band, holes, parabolic band edges with $m^*$, Si, Ge, GaAs (direct vs indirect gaps), cyclotron resonance $\\omega_c=eB/m^*$."
+     },
+     {
+      "kind": "think",
+      "html": "Direct vs indirect gap: why does it matter for LEDs?<details><summary>Show the answer</summary>In a direct gap (GaAs) the band extrema are at the same $\\mathbf k$, so a photon (almost no momentum) can create or annihilate an electron-hole pair. In an indirect gap (Si, Ge) a phonon must supply the momentum: weak light emission.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Cyclotron resonance at $B=1$ T absorbs at 24 GHz. What is $m^*/m_e$?<details><summary>Show the answer</summary>$\\omega_c=eB/m^*$: $m^*=eB/(2\\pi f)=1.6\\times10^{-19}/(1.5\\times10^{11})\\approx1.06\\times10^{-30}$ kg, $m^*\\approx1.2m_e$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Silicon has a gap of about",
+      "options": [
+       "1.1 eV, indirect",
+       "1.1 eV, direct",
+       "0.1 eV",
+       "5 eV"
+      ],
+      "correct": 0,
+      "explain": "Ge 0.67 eV indirect, GaAs 1.4 eV direct."
+     },
+     {
+      "q": "Cyclotron resonance measures",
+      "options": [
+       "the effective mass",
+       "the band gap",
+       "the Fermi energy",
+       "the mobility only"
+      ],
+      "correct": 0,
+      "explain": "$\\omega_c=eB/m^*$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "semiconductor-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 11,
+    "id": "ss-read-20",
+    "title": "Read 5.2: intrinsic carriers and mobility",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "119–122",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "5.2, pp. 119–122"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why can carriers in a semiconductor be treated with Boltzmann statistics?</li><li>What is the law of mass action, and why does it not depend on $E_F$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 5.2, pp. 119–122.</b> Look for: $n=N_c e^{-(E_c-E_F)/k_BT}$, $p=N_ve^{-(E_F-E_v)/k_BT}$, $np=N_cN_ve^{-E_g/k_BT}$, $n_i\\propto T^{3/2}e^{-E_g/2k_BT}$, $E_F$ near mid-gap, mobility limited by phonons and defects, the summary 5.2.3."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $n_i$ and the position of $E_F$ in an intrinsic semiconductor.<details><summary>Show the answer</summary>$n=p$ and $np=N_cN_ve^{-E_g/k_BT}$: $n_i=\\sqrt{N_cN_v}e^{-E_g/2k_BT}$. Equating $n$ and $p$: $E_F=\\frac{E_c+E_v}2+\\frac34k_BT\\ln(m_h^*/m_e^*)$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why does $\\sigma(T)$ of an intrinsic semiconductor rise so steeply?<details><summary>Show the answer</summary>$\\sigma=e(n\\mu_e+p\\mu_h)$: the exponential $n_i(T)$ wins over the power law of the mobility.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The factor 2 in $e^{-E_g/2k_BT}$ appears because",
+      "options": [
+       "$n=p$ and $np\\propto e^{-E_g/k_BT}$",
+       "of spin",
+       "of two valleys",
+       "it is a convention"
+      ],
+      "correct": 0,
+      "explain": "Law of mass action."
+     },
+     {
+      "q": "The product $np$ depends on",
+      "options": [
+       "temperature (and material) only",
+       "the doping",
+       "the applied voltage",
+       "$E_F$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 5.2.3."
+     }
+    ]
+   }
+  },
+  {
+   "room": "semiconductor-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 12,
+    "id": "ss-read-21",
+    "title": "Read 5.3: doped semiconductors",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "123–127",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "5.3, pp. 123–127"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why is the fifth electron of P in Si so weakly bound?</li><li>Which three regimes does $n(T)$ of a doped sample pass through?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 5.3, pp. 123–127.</b> Look for: donors and acceptors, the hydrogen model with $m^*$ and $\\varepsilon_r$, freeze-out, saturation (exhaustion), intrinsic regime, $E_F(T)$."
+     },
+     {
+      "kind": "think",
+      "html": "Estimate the donor binding energy in Si ($m^*\\approx0.26m_e$, $\\varepsilon_r\\approx11.7$).<details><summary>Show the answer</summary>$E_d=13.6\\,{\\rm eV}\\cdot\\frac{m^*/m_e}{\\varepsilon_r^2}\\approx26$ meV (measured: 45 meV for P). Bohr radius $a_B\\varepsilon_r m_e/m^*\\approx2.4$ nm, many lattice constants.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Sketch $\\ln n$ vs $1/T$ for n-type Si and give the slopes.<details><summary>Show the answer</summary>Low $T$: freeze-out, slope $-E_d/2k_B$ (at low compensation). Middle: saturation $n\\approx N_D$ (room temperature). High $T$: intrinsic, slope $-E_g/2k_B$.</details>"
+     },
+     {
+      "kind": "slip",
+      "html": "$E_d$ is used both for the donor <i>level</i> and for the donor <i>binding energy</i> $E_c-E_d$ in parts of this section: check which one a formula needs before using it."
+     }
+    ],
+    "check": [
+     {
+      "q": "At room temperature, a typically doped Si sample is in the",
+      "options": [
+       "saturation regime ($n\\approx N_D$)",
+       "freeze-out regime",
+       "intrinsic regime",
+       "metallic regime"
+      ],
+      "correct": 0,
+      "explain": "$E_d\\ll$ room temperature scale but $n_i\\ll N_D$."
+     },
+     {
+      "q": "Higher donor doping moves $E_F$",
+      "options": [
+       "towards the conduction band",
+       "to mid-gap",
+       "into the valence band",
+       "nowhere"
+      ],
+      "correct": 0,
+      "explain": "$n=N_D=N_ce^{-(E_c-E_F)/k_BT}$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "semiconductor-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 12,
+    "id": "ss-read-22",
+    "title": "Read 5.4: the p-n junction",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "128–135",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "5.4, pp. 128–135"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does a potential step build up when p and n regions touch?</li><li>What sets the width of the depletion zone?</li><li>Why does the junction rectify?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 5.4, pp. 128–135.</b> Look for: equal Fermi levels in equilibrium, contact potential $eU_D$, Poisson equation with fixed donor and acceptor charges, depletion width, the diode law, devices (5.4.5)."
+     },
+     {
+      "kind": "think",
+      "html": "Derive the depletion width for an abrupt junction.<details><summary>Show the answer</summary>Poisson with charge $eN_D$ on $[0,x_n]$ and $-eN_A$ on $[-x_p,0]$, neutrality $N_Ax_p=N_Dx_n$: $w=x_n+x_p=\\sqrt{\\frac{2\\varepsilon\\varepsilon_0U_D}e\\left(\\frac1{N_A}+\\frac1{N_D}\\right)}$ (with $U_D\\to U_D-U$ under forward bias $U$).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is the reverse current small and almost voltage independent?<details><summary>Show the answer</summary>It is carried by thermally generated minority carriers that drift down the barrier; their number $\\propto n_i^2\\propto e^{-E_g/k_BT}$ does not depend on the barrier height. Forward bias lowers the barrier for majority carriers: $I=I_s(e^{eU/k_BT}-1)$.</details>"
+     },
+     {
+      "kind": "slip",
+      "html": "In (5.51)-(5.53) the exponent is printed as $e^{U/k_BT}$; it must be $e^{eU/k_BT}$ (energy over energy). Check the units every time you copy the diode law."
+     }
+    ],
+    "check": [
+     {
+      "q": "More doping on both sides makes the depletion zone",
+      "options": [
+       "narrower",
+       "wider",
+       "unchanged",
+       "vanish"
+      ],
+      "correct": 0,
+      "explain": "$w\\propto\\sqrt{1/N_A+1/N_D}$."
+     },
+     {
+      "q": "In equilibrium across the junction",
+      "options": [
+       "the Fermi level is constant",
+       "the conduction band edge is constant",
+       "there is no field",
+       "the carrier density is constant"
+      ],
+      "correct": 0,
+      "explain": "No net current."
+     }
+    ]
+   }
+  },
+  {
+   "room": "magnet-vault",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 13,
+    "id": "ss-read-23",
+    "title": "Read 6.1–6.2.4: Pauli paramagnetism and Landau diamagnetism",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "136–140",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "6.1–6.2.4, pp. 136–140"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Each free spin has $\\chi\\propto1/T$. Why is a metal&#8217;s spin susceptibility temperature independent?</li><li>Why is there no magnetism in classical physics?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 6.1–6.2.4, pp. 136–140.</b> Look for: $\\mathbf M=\\chi\\mathbf H$ and the sign conventions, Zeeman-split bands (6.19), $\\chi_P=\\mu_0\\frac{(g\\mu_B)^2}4\\nu(\\epsilon_F)$ (6.18), Landau diamagnetism $=-\\frac13\\chi_P$."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $\\chi_P$ with split bands.<details><summary>Show the answer</summary>The field shifts spin-up and spin-down bands by $\\mp\\frac12g\\mu_B\\mu_0H$; equal Fermi levels move $\\frac12\\nu(\\epsilon_F)\\cdot\\frac12g\\mu_B\\mu_0H$ electrons per volume from one spin to the other. $M=\\frac12g\\mu_B(n_\\uparrow-n_\\downarrow)=\\frac{(g\\mu_B)^2}4\\mu_0\\nu(\\epsilon_F)H$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Explain the temperature independence in one sentence.<details><summary>Show the answer</summary>Only a fraction $\\sim k_BT/\\epsilon_F$ of the electrons can flip, each with a Curie susceptibility $\\propto1/T$: the two factors of $T$ cancel.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Landau diamagnetism of free electrons is",
+      "options": [
+       "$-\\frac13$ of the Pauli susceptibility",
+       "equal to it",
+       "$-3$ times it",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.2.4."
+     },
+     {
+      "q": "$\\chi_P$ is proportional to",
+      "options": [
+       "$\\nu(\\epsilon_F)$",
+       "$1/T$",
+       "$T$",
+       "$n^2$"
+      ],
+      "correct": 0,
+      "explain": "(6.18)."
+     }
+    ]
+   }
+  },
+  {
+   "room": "magnet-vault",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 13,
+    "id": "ss-read-24",
+    "title": "Read 6.2.5–6.2.6: metallic ferromagnetism (Stoner)",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "140–145",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "6.2.5–6.2.6, pp. 140–145"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Spins do not interact magnetically strongly enough. Where does ferromagnetism come from?</li><li>Why only Fe, Co, Ni among the elements?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 6.2.5–6.2.6, pp. 140–145.</b> Look for: the exchange interaction from Coulomb repulsion plus Pauli (6.33), the mean-field enhancement of $\\chi_P$ (6.34), the Stoner criterion $UV_0\\nu(\\epsilon_F)>2$ (6.35), spontaneously split bands."
+     },
+     {
+      "kind": "think",
+      "html": "Why does Coulomb repulsion favour parallel spins?<details><summary>Show the answer</summary>Electrons with equal spin are kept apart by the Pauli principle, so they feel less Coulomb repulsion; the effective on-site interaction $U\\,n_{j\\uparrow}n_{j\\downarrow}$ acts only between opposite spins.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Read (6.34): what happens as $UV_0\\nu(\\epsilon_F)\\to2$?<details><summary>Show the answer</summary>The denominator of the enhanced susceptibility goes to zero: $\\chi$ diverges, and beyond it a spontaneous magnetisation appears. Large $U$ and large $\\nu(\\epsilon_F)$ (narrow d bands of Fe, Co, Ni) help; Pd is just below.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The Stoner criterion in the script reads",
+      "options": [
+       "$UV_0\\nu(\\epsilon_F)>2$",
+       "$U<0$",
+       "$\\nu(\\epsilon_F)=0$",
+       "$T>T_C$"
+      ],
+      "correct": 0,
+      "explain": "(6.35)."
+     },
+     {
+      "q": "The magnetism of Fe is caused by",
+      "options": [
+       "exchange (Coulomb + Pauli)",
+       "dipole-dipole forces",
+       "orbital currents",
+       "gravity"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.2.6."
+     }
+    ]
+   }
+  },
+  {
+   "room": "magnet-vault",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 14,
+    "id": "ss-read-25",
+    "title": "Read 6.3.1–6.3.3: localised moments: exchange and Curie law",
+    "minutes": 28,
+    "xp": 15,
+    "pages": "146–152",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "6.3.1–6.3.3, pp. 146–152"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do two localised spins on neighbouring ions &#8220;know&#8221; about each other?</li><li>Why does an insulator of free moments give $\\chi=C/T$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 6.3.1–6.3.3, pp. 146–152.</b> Look for: Hund&#8217;s rules for $S$, the Heisenberg Hamiltonian $-J\\mathbf S_1\\cdot\\mathbf S_2$ (6.63), the sign of $J$, the Curie law (6.62)."
+     },
+     {
+      "kind": "think",
+      "html": "Two spins $\\frac12$ with $H=-J\\mathbf S_1\\cdot\\mathbf S_2$: energies of triplet and singlet?<details><summary>Show the answer</summary>$\\mathbf S_1\\cdot\\mathbf S_2=\\frac12[S(S+1)-\\frac32]$: triplet $+\\frac14$, singlet $-\\frac34$ (in $\\hbar^2$). $J>0$ favours the triplet (ferromagnetic), $J<0$ the singlet.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is the Curie susceptibility $\\propto1/T$?<details><summary>Show the answer</summary>Each moment aligns against thermal disorder: $\\langle\\mu_z\\rangle\\approx\\mu^2B/(3k_BT)$ for $\\mu B\\ll k_BT$. Unlike in a metal, every localised spin contributes.</details>"
+     },
+     {
+      "kind": "slip",
+      "html": "Sign convention: the script writes $H=-J\\mathbf S_1\\cdot\\mathbf S_2$ (so $J>0$ is ferromagnetic). Some old exams use $H=+J\\mathbf S_1\\cdot\\mathbf S_2$, where $J>0$ is antiferromagnetic. Read the sign in the problem first."
+     }
+    ],
+    "check": [
+     {
+      "q": "Exchange constants fall off with distance",
+      "options": [
+       "exponentially (overlap of orbitals)",
+       "as $1/r^3$ like dipoles",
+       "not at all",
+       "as $1/r$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.3.3."
+     },
+     {
+      "q": "In the script&#8217;s convention $H=-J\\mathbf S_1\\cdot\\mathbf S_2$, ferromagnetism needs",
+      "options": [
+       "$J>0$",
+       "$J<0$",
+       "$J=0$",
+       "any sign"
+      ],
+      "correct": 0,
+      "explain": "(6.63)."
+     }
+    ]
+   }
+  },
+  {
+   "room": "magnet-vault",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 14,
+    "id": "ss-read-26",
+    "title": "Read 6.3.4–6.3.6: ferro- and antiferromagnets: Curie-Weiss",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "153–160",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "6.3.4–6.3.6, pp. 153–160"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What is the Weiss field, and why does it make $\\chi$ diverge?</li><li>Why does an antiferromagnet need a bipartite lattice?</li><li>Why does $\\chi$ of an antiferromagnet depend on the field direction?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script 6.3.4–6.3.6, pp. 153–160.</b> Look for: the mean (Weiss) field $\\propto M$, Curie-Weiss $\\chi=C/(T-T_W)$, $T_C\\approx T_W$, the Néel phase at $T_N\\sim|T_W|$, $\\chi_\\parallel$ and $\\chi_\\perp$ below $T_N$."
+     },
+     {
+      "kind": "think",
+      "html": "Derive Curie-Weiss from the Weiss field.<details><summary>Show the answer</summary>$M=\\frac CT(H+\\lambda M)$ gives $M=\\frac{C}{T-C\\lambda}H$: $\\chi=\\frac C{T-T_W}$ with $T_W=C\\lambda$. Positive $T_W$ (ferro): divergence at $T_C\\approx T_W$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Below $T_N$: why is $\\chi_\\perp$ constant while $\\chi_\\parallel\\to0$?<details><summary>Show the answer</summary>A transverse field cants both sublattices by the same small angle at a cost set by $J$, independent of $T$. A parallel field must flip spins against the ordered, nearly saturated sublattices, which becomes impossible as $T\\to0$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "For an antiferromagnet ($T_W<0$) the susceptibility above $T_N$",
+      "options": [
+       "follows Curie-Weiss and never diverges",
+       "diverges at $|T_W|$",
+       "is zero",
+       "is negative"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.3.6."
+     },
+     {
+      "q": "Below $T_C$ in zero field, the magnetisation of a ferromagnet",
+      "options": [
+       "grows on cooling towards saturation",
+       "is zero",
+       "decreases on cooling",
+       "oscillates"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.3.6."
+     }
+    ]
+   }
+  }
+ ],
+ "weeks": {
+  "1": [
+   "ss-read-01"
+  ],
+  "2": [
+   "ss-read-02",
+   "ss-read-03"
+  ],
+  "3": [
+   "ss-read-04",
+   "ss-read-05"
+  ],
+  "4": [
+   "ss-read-06",
+   "ss-read-07"
+  ],
+  "5": [
+   "ss-read-08",
+   "ss-read-09"
+  ],
+  "6": [
+   "ss-read-10",
+   "ss-read-11"
+  ],
+  "7": [
+   "ss-read-12",
+   "ss-read-13",
+   "ss-read-14"
+  ],
+  "9": [
+   "ss-read-15",
+   "ss-read-16"
+  ],
+  "10": [
+   "ss-read-17",
+   "ss-read-18"
+  ],
+  "11": [
+   "ss-read-19",
+   "ss-read-20"
+  ],
+  "12": [
+   "ss-read-21",
+   "ss-read-22"
+  ],
+  "13": [
+   "ss-read-23",
+   "ss-read-24"
+  ],
+  "14": [
+   "ss-read-25",
+   "ss-read-26"
+  ]
+ }
+}

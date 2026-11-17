@@ -415,7 +415,7 @@ function mcQuestion(q, host, onAnswer, { reveal = true } = {}) {
     onAnswer(ok, orig);
   }));
 }
-const BLOCK_LABEL = { intuition: 'Intuition', pitfall: 'Pitfall', figure: 'Figure (described in words)', exam: 'In the exam' };
+const BLOCK_LABEL = { intuition: 'Intuition', pitfall: 'Pitfall', figure: 'Figure (described in words)', exam: 'In the exam', before: 'Before you read: keep these questions in mind', read: 'Now read in the script (on paper or PDF)', think: 'After reading: answer on paper, then open', slip: 'Script note' };
 function blockHtml(b, ctx = '') {
   if (b.kind === 'eq') return `<div class="eqbox">$$${b.tex}$$${b.label ? `<div class="eqlabel">${b.label}</div>` : ''}${whereHtml(b.tex, ctx + ' ' + (b.label || ''))}</div>`;
   if (b.kind === 'text') return `<p>${b.html}</p>`;

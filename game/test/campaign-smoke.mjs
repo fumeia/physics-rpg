@@ -12,7 +12,7 @@ ck('start screen carries the plan for today', (await p.textContent('#st-plan')).
 await p.evaluate(() => document.getElementById('tut-skip')?.click());
 await p.click('#st-go').catch(() => {}); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('Escape');
 const vis = await p.evaluate(() => [...document.querySelectorAll('#hud .tr > .chip.btn')].filter((x) => getComputedStyle(x).display !== 'none').map((x) => x.id));
-ck('compact top bar: run, campaign, menu only', vis.join() === 'btn-run,btn-campaign,btn-menu', vis.join());
+ck('compact top bar: run, campaign, menu, gear', vis.join() === 'btn-run,btn-campaign,btn-menu,btn-gear', vis.join());
 ck('old buttons still exist (hidden, shortcuts kept)', await p.evaluate(() => !!document.getElementById('btn-pile') && !!document.getElementById('btn-exam')));
 await p.keyboard.press('KeyC'); await p.waitForTimeout(300);
 ck('first visit asks where you are', await p.isVisible('#cp-setup-ok'));
@@ -54,9 +54,18 @@ ck('the finished run lights today\u2019s pip', await p.evaluate(() => !!document
 ck('another run can be planned', await p.evaluate(() => /#2/.test(document.querySelector('.cp-run h3').textContent)));
 // keys and menu
 await p.keyboard.press('Escape'); await p.evaluate(() => document.getElementById('btn-menu').click()); await p.waitForTimeout(200);
-ck('menu is grouped and offers the full top bar', await p.evaluate(() => document.querySelectorAll('.menu h4').length === 4 && !!document.querySelector('[data-m="hud"]')));
+ck('compact menu: at most six buttons, no settings in it', await p.evaluate(() => { const n = document.querySelectorAll('.menu6 .bigbtn').length; return n >= 5 && n <= 6 && !document.querySelector('.menu6 [data-m="theme"]'); }));
+ck('the menu fits without scrolling', await p.evaluate(() => { const b = document.getElementById('ov-body'); return b.scrollHeight <= b.clientHeight + 2; }));
+await p.click('[data-m="study"]'); await p.waitForTimeout(200);
+ck('practice hub: five tabs and More', await p.evaluate(() => document.querySelectorAll('.studytabs:not(.sub) [data-stab]').length === 6 && document.querySelector('.studytabs .cur')?.dataset.stab === 'sheets'));
+await p.click('.studytabs:not(.sub) [data-stab]:last-child'); await p.waitForTimeout(200);
+ck('More shows the other tabs one level deeper', await p.evaluate(() => document.querySelectorAll('.studytabs.sub [data-stab]').length >= 5));
+await p.keyboard.press('Escape'); await p.keyboard.press('KeyM'); await p.waitForTimeout(200);
+ck('the map carries Nexus and connections', await p.evaluate(() => !!document.querySelector('.mapplaces [data-m="nexus"]') && !!document.querySelector('.mapplaces [data-m="allconn"]')));
+await p.keyboard.press('Escape'); await p.evaluate(() => document.getElementById('btn-gear').click()); await p.waitForTimeout(200);
+ck('the gear opens settings and help', await p.evaluate(() => document.getElementById('ov-title').textContent === 'Settings and help' && !!document.querySelector('[data-m="theme"]') && !!document.querySelector('[data-m="help"]')));
 await p.click('[data-m="hud"]'); await p.waitForTimeout(200);
-ck('full top bar comes back on request', await p.evaluate(() => getComputedStyle(document.getElementById('btn-pile')).display !== 'none'));
+ck('full top bar and long menu come back on request', await p.evaluate(() => getComputedStyle(document.getElementById('btn-pile')).display !== 'none' && document.querySelectorAll('.menu h4').length === 4));
 await p.keyboard.press('Escape'); await p.keyboard.press('KeyV'); await p.waitForTimeout(200);
 ck('old shortcut V still opens the study hub', await p.evaluate(() => document.getElementById('ov-title').textContent === 'Study hub'));
 ck('no page errors', !errs.length, errs.join(' | '));

@@ -71,7 +71,7 @@ await p.keyboard.press('Escape'); await p.evaluate(() => document.getElementById
 ck('compact menu: at most six buttons, no settings in it', await p.evaluate(() => { const n = document.querySelectorAll('.menu6 .bigbtn').length; return n >= 5 && n <= 6 && !document.querySelector('.menu6 [data-m="theme"]'); }));
 ck('the menu fits without scrolling', await p.evaluate(() => { const b = document.getElementById('ov-body'); return b.scrollHeight <= b.clientHeight + 2; }));
 await p.click('[data-m="study"]'); await p.waitForTimeout(200);
-ck('practice hub: main tabs and More', await p.evaluate(() => document.querySelectorAll('.studytabs:not(.sub) [data-stab]').length === 10));
+ck('practice hub: main tabs (incl. Script) and More', await p.evaluate(() => document.querySelectorAll('.studytabs:not(.sub) [data-stab]').length === 11));
 await p.click('.studytabs:not(.sub) [data-stab]:last-child'); await p.waitForTimeout(200);
 ck('More shows the other tabs one level deeper', await p.evaluate(() => document.querySelectorAll('.studytabs.sub [data-stab]').length >= 5));
 await p.keyboard.press('Escape'); await p.keyboard.press('KeyM'); await p.waitForTimeout(200);

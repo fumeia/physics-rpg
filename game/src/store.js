@@ -41,10 +41,18 @@ export const store = {
   xpOn(date) { return (state.xpLog || {})[date] || 0; },
   // Active study time: seconds spent working on exercises per day (main.js decides what counts). Days before the first measurement keep the
   // older "time with a panel open" numbers, so the history does not vanish.
-  addActive(sec) {
+  // tag {course, kind}: what the time went to (flags.activeBy[day]["course|kind"] = seconds, kept 90 days like the total).
+  // Read by deploy/questboard_sync.py, which puts the time on the course's Questboard quest and goal.
+  addActive(sec, tag = null) {
     const day = localDate(Date.now()), f = state.flags || {}, act = { ...(f.active || {}) }; act[day] = (act[day] || 0) + sec;
     for (const k of Object.keys(act).sort().slice(0, -90)) delete act[k];
-    state.flags = { ...f, active: act, 'active-since': f['active-since'] || day }; save();
+    let by = f.activeBy;
+    if (tag) {
+      by = { ...(by || {}) }; const d = { ...(by[day] || {}) }, k = `${tag.course || 'mixed'}|${tag.kind || 'other'}`;
+      d[k] = (d[k] || 0) + sec; by[day] = d;
+      for (const k2 of Object.keys(by).sort().slice(0, -90)) delete by[k2];
+    }
+    state.flags = { ...f, active: act, ...(by ? { activeBy: by } : {}), 'active-since': f['active-since'] || day }; save();
   },
   activeSecondsOn(date) { const f = state.flags || {}, since = f['active-since']; return since && date >= since ? (f.active || {})[date] || 0 : (f.study || {})[date] || 0; },
   activeTotal() { const f = state.flags || {}, since = f['active-since']; return Object.entries(f.study || {}).filter(([d]) => !since || d < since).reduce((a, [, v]) => a + v, 0) + Object.values(f.active || {}).reduce((a, b) => a + b, 0); },

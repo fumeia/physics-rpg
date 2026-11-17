@@ -129,8 +129,29 @@ check('1 respawns' not in Q['rpg.qm.respawn']['title'], 'singular for one')
 state['reviews'] = {}; save()
 run(now=NOW + 300000)
 check(quests()['rpg.qm.respawn']['inMatrix'] is False and quests()['rpg.qm.respawn']['done'] is True, 'when none are due it leaves the matrix again')
+# study time: 40 min on 2026-11-04 (30 min tagged QM derivations, 6 min drills without a course, 4 min untagged); 2026-11-03 untagged 10 min
+state['flags']['active-since'] = '2026-11-01'
+state['flags']['active'] = {'2026-11-03': 600, '2026-11-04': 2400}
+state['flags']['activeBy'] = {'2026-11-04': {'qm|derivation': 1800, 'mixed|drills': 360}}
+save(); run(now=NOW + 400000)
+S = {s['id']: s for s in qb.state('sessions') if s['id'].startswith('rpgtime.')}
+check(S['rpgtime.qm.2026-11-04.derivation']['durationMs'] == 1800000 and S['rpgtime.qm.2026-11-04.derivation']['questId'] == 'rpg.qm',
+      'tagged time lands on its course quest and kind (30 min QM derivations)')
+check(S['rpgtime.qm.2026-11-04.derivation']['topic'] == 'Quantenmechanik' and S['rpgtime.qm.2026-11-04.derivation']['date'] == '2026-11-04', 'with topic and date')
+check(sum(s['durationMs'] for s in S.values()) == 3000000, 'all 50 minutes arrive, nothing twice')
+check(S['rpgtime.astrophysics.2026-11-04.drills']['durationMs'] == 360000, 'time without a course follows the day (no exercise that day: last course)')
+check(S['rpgtime.qm.2026-11-03.other']['durationMs'] + S['rpgtime.solid-state.2026-11-03.other']['durationMs'] == 600000,
+      'untagged time is split like the day\'s XP (QM 30 : SS 10)')
+qq = quests()['rpg.qm']
+check('38m studied' in qq['progress']['text'] and 'derivations 30m' in qq['notes'] and qq['progress']['studyByKind']['derivation'] == 1800000,
+      f"the quest shows the time and the kinds ({qq['progress']['text']})")
+before = {k: v['updatedAt'] for k, v in S.items()}
+run(now=NOW + 500000)
+check({s['id']: s['updatedAt'] for s in qb.state('sessions') if s['id'].startswith('rpgtime.')} == before, 'unchanged time is not sent again')
+state['flags']['activeBy']['2026-11-04']['qm|derivation'] = 2000; state['flags']['active']['2026-11-04'] = 2600; save(); run(now=NOW + 600000)
+check({s['id']: s for s in qb.state('sessions')}['rpgtime.qm.2026-11-04.derivation']['durationMs'] == 2000000, 'more time updates the same record')
 # the user unlinks the QM quest from its goal: it stays unlinked
-qb.push([{'c': 'quests', 'r': dict(quests()['rpg.qm'], goalId=None, updatedAt=NOW + 11)}])
+qb.push([{'c': 'quests', 'r': dict(quests()['rpg.qm'], goalId=None, updatedAt=quests()['rpg.qm']['updatedAt'] + 1)}])
 # new XP today in solid state
 state['xp'] += 40; state['xpLog']['2026-11-05'] = 35; state['flags']['activity'].append({'t': at('2026-11-05', 17), 'id': SS, 'xp': 40}); save()
 check(run(now=NOW + 60000) == 0, 'run after new XP succeeds')

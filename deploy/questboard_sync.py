@@ -21,6 +21,8 @@ course, so XP without a course (missions bonus, drills, streak bonus, minus hint
 exercise in the list goes to the course you were in last. XP from before the per-day log ("earlier") is split by finished exercises per course.
 The sum of everything sent always equals the game's XP total.
 
+Study time: sessions `rpgtime.<course>.<day>.<kind>` on the course quest (quest time, goal time, time per topic), with the kind of
+work the game recorded (derivations, quizzes, sheets, exam hall, drills, missions, ...; "other" for time from before it recorded kinds).
 Records (Questboard's docs/DATA_MODEL.md): quests `rpg.<course>`, ledger `rpg.<course>.<YYYY-MM-DD>` and `rpg.<course>.earlier`, kind "rpg".
 Each quest also carries `progress` {done, total, text}: exercises passed of all in that course, rooms cleared, daily missions. Questboard
 shows it on the quest and counts it toward the goal the quest is linked to. The quest is linked once, automatically, to your open goal whose
@@ -125,28 +127,74 @@ def split(total, weights):
     return {c: v for c, v in out.items() if v}
 
 
-def amounts(state, index, tz, today):
-    """{ledger id: amount} for every day of the game's XP log, plus the 'earlier' bucket (computed later, needs what is already sent)."""
-    flags = state.get('flags') or {}
+def day_weights(state, index, tz):
+    """How a day's work was spread over the courses, from the list of finished exercises: a function day -> {course: weight}
+    (XP of that day's exercises per course, else their number, else the course you were in last)."""
     by_day = {}  # day -> {course: [xp, count]}
-    for a in flags.get('activity') or []:
+    for a in (state.get('flags') or {}).get('activity') or []:
         c = course_of(str(a.get('id', '')), index)
         if not c or not a.get('t'): continue
         w = by_day.setdefault(day_of(a['t'], tz), {}).setdefault(c, [0, 0])
         w[0] += max(0, int(a.get('xp') or 0)); w[1] += 1
     last = (state.get('last') or {}).get('course')
     fallback = last if last in COURSES else 'qm'
+
+    def weights(day):
+        acts = by_day.get(day, {})
+        w = {c: v[0] for c, v in acts.items()}
+        if not sum(w.values()): w = {c: v[1] for c, v in acts.items()}
+        return w if sum(w.values()) else {fallback: 1}
+    return weights
+
+
+def amounts(state, index, tz, today):
+    """{ledger id: amount} for every day of the game's XP log, plus the 'earlier' bucket (computed later, needs what is already sent)."""
+    weights = day_weights(state, index, tz)
     out = {}
     for day, net in (state.get('xpLog') or {}).items():
         if day > today: continue
-        total = max(0, int(net))
-        acts = by_day.get(day, {})
-        weights = {c: v[0] for c, v in acts.items()}
-        if not sum(weights.values()): weights = {c: v[1] for c, v in acts.items()}
-        if not sum(weights.values()): weights = {fallback: 1}
-        parts = split(total, weights)
+        parts = split(max(0, int(net)), weights(day))
         for c in COURSES: out[f'rpg.{c}.{day}'] = parts.get(c, 0)
     return out
+
+
+# what the study time went to (game/src/main.js studyTagNow); "other" = time from before the game recorded the kind, or not tied to one
+KIND_LABEL = {'sheet': 'exercise sheets', 'lesson': 'lessons', 'quiz': 'quizzes', 'derivation': 'derivations', 'calculation': 'calculation fights',
+              'experiment': 'experiments', 'station': 'stations', 'exam-problem': 'exam problems', 'exam-hall': 'exam hall',
+              'mission': 'missions & blitz', 'book': 'book exercises', 'simulation': 'simulations', 'drills': 'drills',
+              'mixed-practice': 'mixed practice', 'explain-it': 'explain it', 'calibration': 'calibration', 'other': 'not sorted'}
+
+
+def study_seconds(state, index, tz, today):
+    """{(course, day, kind): seconds} of active study time (the game's own measure: an exercise open and in use).
+    Each day's total comes from flags.active (flags.study for days before the game measured active time, like the game's own
+    history). The part with a recorded course and kind (flags.activeBy) goes there; time without a course (practice tabs, missions)
+    and time without a kind are split over the courses like the day's XP."""
+    flags = state.get('flags') or {}
+    since = flags.get('active-since')
+    days = {d: s for d, s in (flags.get('active') or {}).items() if since and d >= since}
+    for d, s in (flags.get('study') or {}).items():
+        if not since or d < since: days.setdefault(d, s)
+    weights = day_weights(state, index, tz)
+    out = {}
+    def add(c, d, k, v):
+        if v > 0: out[(c, d, k)] = out.get((c, d, k), 0) + v
+    for d, total in days.items():
+        total = int(total or 0)
+        if d > today or total <= 0: continue
+        rest = total
+        for key, sec in ((flags.get('activeBy') or {}).get(d) or {}).items():
+            c, _, kind = key.partition('|'); sec = min(int(sec or 0), rest)
+            if sec <= 0: continue
+            rest -= sec
+            for cc, v in ({c: sec} if c in COURSES else split(sec, weights(d))).items(): add(cc, d, kind or 'other', v)
+        for cc, v in split(rest, weights(d)).items(): add(cc, d, 'other', v)
+    return out
+
+
+def fmt_dur(ms):
+    m = int(round(ms / 60000)); h, m = divmod(m, 60)
+    return f'{h}h {m:02d}m' if h else f'{m}m'
 
 
 def earlier_split(state, index, total):
@@ -256,6 +304,29 @@ def run(args):
         changes.append({'c': 'ledger', 'r': {'id': k, 'updatedAt': now, 'at': at, 'amount': amt, 'kind': 'rpg', 'ref': f'rpg.{cid}',
                                              'note': f'Physics RPG · {top[cid]}' + (' (before the daily log)' if day == 'earlier' else '')}})
 
+    # study time → Questboard sessions on the course quest (quest time, goal time, "time per topic", focus), one per course, day and kind
+    tsent = memo.get('sentTime')
+    if tsent is None and not args.dry_run:  # first run or lost memory: learn what Questboard has
+        tsent = {s['id']: s.get('durationMs', 0) for s in qb.state('sessions') if str(s.get('id', '')).startswith('rpgtime.') and not s.get('deleted')}
+    tsent = dict(tsent or {})
+    twant = {f'rpgtime.{c}.{d}.{k}': v * 1000 for (c, d, k), v in study_seconds(state, index, tz, today).items()}
+    for k in list(twant):  # older days already sent stay as they were (the game keeps 90 days)
+        if k.split('.')[2] < since and k in tsent: twant[k] = tsent[k]
+    for k in tsent:  # a recent split that changed: what is no longer there becomes 0
+        if k not in twant and k.split('.')[2] >= since: twant[k] = 0
+    for k, ms in sorted(twant.items()):
+        if (k in tsent and tsent[k] == ms) or (ms == 0 and k not in tsent): continue
+        _, cid, d, kind = k.split('.')
+        start = noon_ms(d, tz)
+        changes.append({'c': 'sessions', 'r': {'id': k, 'updatedAt': now, 'questId': f'rpg.{cid}', 'kind': 'rpg', 'cat': kind,
+                                               'label': KIND_LABEL.get(kind, kind), 'topic': top[cid], 'date': d,
+                                               'start': start, 'end': start + ms, 'durationMs': ms}})
+    tall = {**tsent, **twant}
+    time_by = {c: {} for c in COURSES}
+    for k, ms in tall.items():
+        _, cid, d, kind = k.split('.')
+        if cid in time_by and ms: time_by[cid][kind] = time_by[cid].get(kind, 0) + ms
+
     totals = {c: sum(v for k, v in {**sent, **want}.items() if k.startswith(f'rpg.{c}.')) for c in COURSES}
     todays = {c: want.get(f'rpg.{c}.{today}', 0) for c in COURSES}
     qmemo = memo.get('quests', {}); linked = dict(memo.get('linked', {}))  # linked: goal links made once; unlinking in Questboard is then respected
@@ -263,10 +334,14 @@ def run(args):
     existing = goals = None
     for cid in COURSES:
         p = prog[cid]
-        text = f"{p['done']}/{p['total']} exercises · {p['rooms']}/{p['roomsTotal']} rooms cleared · {p['missions']} daily missions done ({p['missionsToday']} today, all courses)"
+        tb = time_by[cid]; tms = sum(tb.values())
+        text = (f"{p['done']}/{p['total']} exercises · {p['rooms']}/{p['roomsTotal']} rooms cleared · {fmt_dur(tms)} studied · "
+                f"{p['missions']} daily missions done ({p['missionsToday']} today, all courses)")
+        time_text = ', '.join(f'{KIND_LABEL.get(k, k)} {fmt_dur(v)}' for k, v in sorted(tb.items(), key=lambda x: -x[1]) if v >= 60000)
         progress = {'done': p['done'], 'total': p['total'], 'text': text, 'rooms': p['rooms'], 'roomsTotal': p['roomsTotal'], 'missions': p['missions'],
-                    'respawns': p['respawns']}
-        notes = f'Physics RPG, {top[cid]}: {text}. XP: {totals[cid]} in total, {todays[cid]} today. Updated automatically; open the game with the link.'
+                    'respawns': p['respawns'], 'studyMs': tms, 'studyByKind': tb}
+        notes = (f'Physics RPG, {top[cid]}: {text}. XP: {totals[cid]} in total, {todays[cid]} today.'
+                 + (f' Time by kind: {time_text}.' if time_text else '') + ' Updated automatically; open the game with the link.')
         goal_id = None
         if cid not in linked:
             if goals is None: goals = [] if args.dry_run else qb.state('goals')
@@ -304,7 +379,8 @@ def run(args):
         if res.get('rejected'): print(f"Questboard rejected {res['rejected']} records", file=sys.stderr); return 1
     for ch in changes:
         if ch['c'] == 'ledger': sent[ch['r']['id']] = ch['r']['amount']
-    memo = {'sent': sent, 'quests': qmemo, 'linked': linked, 'at': now}
+        if ch['c'] == 'sessions': tsent[ch['r']['id']] = ch['r']['durationMs']
+    memo = {'sent': sent, 'sentTime': tsent, 'quests': qmemo, 'linked': linked, 'at': now}
     try:
         os.makedirs(os.path.dirname(sfile) or '.', exist_ok=True)
         tmp = sfile + '.tmp'; json.dump(memo, open(tmp, 'w')); os.replace(tmp, sfile)

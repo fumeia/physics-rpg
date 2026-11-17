@@ -47,4 +47,9 @@ ck('before any measurement the older numbers are used', store.activeSecondsOn(to
 store.addActive(120); store.addActive(60);
 ck('from the first measured day on only the new numbers count (900 s of menu time today are ignored)', store.activeSecondsOn(today) === 180 && store.activeSecondsOn(yest) === 3000 && store.activeTotal() === 3180);
 ck('the first measured day is remembered', (store.val('active-since')) === today);
+// time per course and kind (for Questboard): tagged seconds add up per day, untagged ones only count in the total
+store.reset(); store.addActive(30, { course: 'qm', kind: 'derivation' }); store.addActive(20, { course: 'qm', kind: 'derivation' }); store.addActive(15, { course: null, kind: 'drills' }); store.addActive(10);
+{ const d = localDate(Date.now()), by = store.snapshot.flags.activeBy[d];
+  ck('tagged time adds up per course and kind', by['qm|derivation'] === 50 && by['mixed|drills'] === 15);
+  ck('the day total still counts everything', store.activeSecondsOn(d) === 75); }
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED'); process.exit(fails ? 1 : 0);

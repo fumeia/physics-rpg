@@ -1440,6 +1440,7 @@ function exposeTestApi() {
     open: (id) => openById(id), openGroup: (key) => openGroup(groups.find((g) => g.key === key)),
     loadRoom: (c, r) => loadRoom(c, r), close: () => closePanel(),
     activeBy: () => (store.snapshot.flags || {}).activeBy || {},
+    activeLog: () => (store.snapshot.flags || {}).activeLog || [],
     catalog: () => catalog.map((c) => ({ id: c.id, rooms: c.rooms.map((r) => ({ id: r.slug, encounters: r.encounters.map((e) => ({ id: e.id, type: e.type })) })) })),
     groups: () => groups.map((g) => ({ key: g.key, items: g.items.length })),
     nexusDebug: () => set.links.map((l) => ({ id: l.a.key + '>' + l.b.key, pts: l.curve.points.map((p) => p && [p.x, p.y, p.z]), pulses: l.pulses.map((p) => p.t) })),

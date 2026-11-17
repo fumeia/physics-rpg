@@ -54,7 +54,7 @@ await p.screenshot({ path: `${shots}/touch-2-panel.png` });
 const sb1 = await box('#side'); ck(`upright: panel is a bottom sheet with the 3D view visible above (${Math.round(sb1.y)}px)`, sb1.y > 150 && sb1.w >= 380);
 
 // both panels at once, upright: formulas above, exercise below, no overlap
-await p.touchscreen.tap(...(await (async () => { const c = await box('#btn-codex'); return [c.x + c.w / 2, c.y + c.h / 2]; })())); await sleep(500);
+await p.touchscreen.tap(...(await (async () => { const c = await box('#side-cx'); return [c.x + c.w / 2, c.y + c.h / 2]; })())); await sleep(500);
 const cx = await box('#cx'), sd = await box('#side');
 ck('both panels open at once (upright)', !!cx && !!sd);
 ck('formulas on top, exercise below, no overlap (upright)', cx.b <= sd.y + 1 && cx.y < 5);

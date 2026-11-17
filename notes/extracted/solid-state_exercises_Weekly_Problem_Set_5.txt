@@ -1,0 +1,92 @@
+Prof. Dr. Christian Degen                                           Autumn Semester 2026
+
+               Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                              Weekly Problem Set 5
+
+Exercise 1: Deriving the density of states for the linear
+dispersion relation of the Debye model
+In the lecture, we found that the linear dispersion considered in the Debye model yields
+a density of states g(ω) ∝ ω 2 (in three dimensions). In this exercise, we will practice this
+important derivation again and extend it to 1D and 2D.
+
+  a) Write down the dispersion relation of the vibrational modes in the Debye model.
+
+  b) Assume periodic boundary conditions. What is the distance between nearest-
+     neighbour points in k-space? What is the density of k-points in 1, 2, and 3 di-
+     mensions? Assume the system size is L for 1 dimension, L × L for 2 dimensions,
+     and L × L × L for 3 dimensions.
+
+  c) Express the number of states between frequencies 0 < ω < ω0 as an integral over
+     k-space. Do so for 1D, 2D and 3D. Do not forget the possible polarizations: assume
+     that in d dimensions there are pd polarizations.
+
+  d) Transform these integrals into integrals over frequency for 1D, 2D and 3D using the
+     dispersion relation. Indicate the integral boundaries. Extract the density of states.
+
+
+
+
+Exercise 2: Debye model in 2D
+Consider a solid material that is thin enough that phonons may only propagate in two
+dimensions. Here we will consider the isotropic Debye model in two dimensions.
+
+  a) Formulate an integral expression for the energy stored in the vibrational modes of
+     a two-dimensional Debye solid as a function of T .
+
+  b) Calculate the heat capacity in the high T limit.
+
+  c) At low T , show that CV = KT n . Find n. Express K as an indefinite integral
+     (similarly to what was done during the lecture).
+Exercise 3: Anisotropic sound velocities
+We consider a 3D solid in which the sound velocity is anisotropic. I.e., the sound velocity
+depends on the direction
+                 √︁        in which the wave travels: (vx ̸= vy ̸= vz ). As a result, the
+dispersion is ω = vx2 kx2 + vy2 ky2 + vz2 kz2 .
+  a) Express the thermal energy stored in the vibrational modes of the system as an
+     integral over k-space.
+  b) Make a variable substitution to restore the spherical symmetry of the integrand.
+     Express the integral in spherical coordinates.
+  c) Formulate an integral expression for the heat capacity. Make a variable substitution
+     to extract the temperature dependence of the heat capacity in the low-T limit. Is
+     the scaling with temperature different from the case of isotropic sound velocities?
+
+
+
+
+Exercise 4: Influence of temperature on diffraction -
+Debye-Waller factor
+Besides the internal structure of the elementary cell of the lattice, the lattice vibrations
+at finite temperature also change the diffraction pattern in scattering experiments.
+  a) The Debye-Waller factor describes the temperature dependence of the intensity of
+     the elastically scattered radiation at a crystal lattice. To describe the intensity of
+     the reflections as a function of temperature, one starts from the structure factor of
+     the corresponding crystal structure:
+                                                      (︄                      )︄
+                       ∑︂                                ∑︂
+                 ⃗ =
+              S(G)                  ⃗ · (⃗ri + ⃗u)] =
+                           γi exp [iG                       γi exp [iG               ⃗ · ⃗u)
+                                                                     ⃗ · ⃗ri ] exp (iG       (1)
+                         i                             i
+
+     where u(t) is the instantaneous displacement of a lattice atom from its equilibrium
+     position due to thermal motion and the hats indicate time averaging. Derive the
+                                        ⃗ 2 2
+     Debye-Waller factor (D(T ) = e−|G| u /3 ) which describes the temperature depen-
+     dence of the scattered radiation, I = D(T )I0 . The temperature dependence is in
+     the mean square deflection u2 of the atoms from their rest position due to thermal
+                                                 ⃗ u is small compared to 1, so that the
+     excitation. Hint: Assume that the quantity G·⃗
+                 ⃗ u
+     function eiG·⃗  can be expanded into a Taylor series. Consider only the first three
+     elements of the series expansion and assume that the atoms oscillate completely
+     independently around their rest position.
+                                                            ⃗ = 2π (1, 1, 0) reflection
+  b) Calculate the value of the Debye-Waller factor for the G     a
+     when scattering on niobium (BCC structure) near the melting point (T = TS ).
+     Hint: According to the “Lindemann melting criterion”, the crystal melts when the
+     RMS amplitude of the thermal motion is about 20% of the distance to the nearest
+     neighbors.
+

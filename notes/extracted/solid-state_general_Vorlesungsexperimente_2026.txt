@@ -1,0 +1,105 @@
+List of Experiments shown in «Introduction to Solid State Physics», 2026
+
+Week 1
+Thursday, 17.9.
+Friday 18.9.
+---
+
+Week 2
+Thursday, 24.9.
+    • Braggsche Reflexion mit 2.8-cm-Wellen,
+         https://experimente.phys.ethz.ch/de/100/10002/20080/30077
+Friday, 25.9.
+    • Elektronenbeugung, https://experimente.phys.ethz.ch/de/100/10002/20012/30164
+    • Modell: Elektronenbeugung mit Miniaturkugeln,
+         https://experimente.phys.ethz.ch/de/100/10002/20012/30419/
+
+Week 3
+Thursday, 1.10.
+Friday, 2.10.
+---
+
+Week 4
+Thursday, 8.10.
+    • Spezifische Wärme, https://experimente.phys.ethz.ch/de/100/10003/20090/30560
+    • Wärmebewegung im Kristallgitter,
+         https://experimente.phys.ethz.ch/de/100/10003/20090/30633
+    • Wärmebewegung im Kristallgitter – auf Luftkissentisch,
+         https://experimente.phys.ethz.ch/de/100/10003/20090/30634
+    • Welle im Messingstab, https://experimente.phys.ethz.ch/de/100/10005/20098/30648/
+Friday, 9.10.
+
+Week 5
+Thursday, 15.10.
+Friday, 16.10.
+    • Debye-Temperatur, https://experimente.phys.ethz.ch/de/100/10003/20090/30108
+
+Week 6
+Thursday, 22.10.
+Friday, 23.10.
+    • Äusserer Photoeffekt, https://experimente.phys.ethz.ch/de/100/10002/20071/30034/
+
+Week 7
+Thursday, 29.10.
+Friday, 30.10.
+Week 8 (repetition week)
+Thursday, 5.11.
+    • Bleiglocke, https://experimente.phys.ethz.ch/de/100/10003/20061/30075
+    • Sauerstoffverflüssigung, https://experimente.phys.ethz.ch/de/100/10004/20089/30512
+    • Vakuum isoliert, https://experimente.phys.ethz.ch/de/100/10004/20089/30621
+    • Gefrorener Stickstoff, https://experimente.phys.ethz.ch/de/100/10004/20070/30229
+    • Schaumkuss im Vakuum, https://lecture-experiments.phys.ethz.ch/de/experimente/9.2.23
+Friday, 6.11.
+
+Week 9
+Thursday, 12.11.
+    • Hall-Effekt, https://experimente.phys.ethz.ch/de/100/10003/20057/30263
+    • Driftgeschwindigkeit, https://experimente.phys.ethz.ch/de/100/10003/20057/30138/
+    • Leitfähigkeit von Platin, https://experimente.phys.ethz.ch/de/100/10003/20057/30376
+    • Heisser Glasstab leitet, https://experimente.phys.ethz.ch/de/100/10003/20019/30267
+Friday, 13.11.
+
+Week 10
+Thursday, 19.11.
+    • Wärmeleitung von Kupfer, Stahl, Heatpipe,
+         https://experimente.phys.ethz.ch/de/100/10004/20089/30636
+Friday, 20.11.
+    • Elektrische Leitfähigkeit PTC, https://experimente.phys.ethz.ch/de/100/10003/20057/30158
+    • Elektrische Leitfähigkeit NTC, https://experimente.phys.ethz.ch/de/100/10003/20057/30157
+
+Week 11
+Thursday, 26.11.
+    • NTC Widerstand, https://experimente.phys.ethz.ch/de/100/10003/20057/30429
+    • Künstliche Kristalle, https://experimente.phys.ethz.ch/de/100/10003/20061/30348
+Friday, 27.11.
+
+Week 12
+Thursday, 3.12.
+    • Charakteristiken verschiedener Elektronik-Bauteile,
+         https://experimente.phys.ethz.ch/de/100/10001/20018/30090
+    • Thermospannungen, https://experimente.phys.ethz.ch/de/100/10003/20057/30602
+    • Peltier-Element, https://experimente.phys.ethz.ch/de/100/10003/20057/30445
+    • Quantenpunkte, https://experimente.phys.ethz.ch/de/100/10002/20004/32138
+Friday, 4.12.
+    • Dia- und Paramagnetismus, https://experimente.phys.ethz.ch/de/100/10003/20058/30110
+    • Eisen vergrössert das Magnetfeld,
+         https://experimente.phys.ethz.ch/de/100/10001/20059/30152
+    • Schwebendes Graphitplätchen,
+         https://experimente.phys.ethz.ch/de/100/10003/20058/31973
+Week 13
+Thursday, 10.12.
+    • Curie-Punkt von Fe und Ni, https://experimente.phys.ethz.ch/de/100/10003/20058/30104
+    • Kupfer-Nickel Rad, https://experimente.phys.ethz.ch/de/100/10003/20058/30353
+Friday, 11.12.
+    • Magnetnadel-Modelle, https://experimente.phys.ethz.ch/de/100/10003/20058/30397
+    • Magnetische Domänen, https://experimente.phys.ethz.ch/de/100/10003/20058/30394
+
+Week 14
+Thursday, 17.12.
+    • Supraleitung, Widerstand von Cu, Stahl, NbSn,
+         https://experimente.phys.ethz.ch/de/100/10003/20087/30592
+    • Schwebender Supraleiter – Meissner-Effekt,
+         https://experimente.phys.ethz.ch/de/100/10003/20087/30531
+    • Levitationsbahn, https://experimente.phys.ethz.ch/de/100/10003/20087/31991
+Friday, 18.12.
+

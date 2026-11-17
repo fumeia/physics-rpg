@@ -1,0 +1,450 @@
+Chapter 1.6: Types of Bonds in Crystals
+van der Waals interaction
+
+
+
+
+    𝑝𝑝⃗1          𝑝𝑝⃗2
+
+
+
+                  𝑑𝑑
+           𝑅𝑅
+Lennard-Jones potential
+
+
+  ∝ 1/R12
+
+
+
+
+            ∝ 1/R6
+            vdW crystals
+
+
+
+
+Ar                                 C60
+
+
+
+
+     Mica: KAl2(Si3 AlO10 )(OH)2
+                   Graphite and Diamond
+Graphite lattice
+
+
+
+
+                                          Diamond lattice
+van der Waals materials
+                                vdW and ionic crystals
+
+
+
+
+                                                                                         12 nearest neighbors
+                                                                        Ucoh /kB
+                                                                          232
+                                                                          928
+                                                                         1345
+                                                                         1972
+
+
+
+
+                                                                        FCC α ≈ 1.747
+                                                                        Primitive Cubic α ≈ 1.76
+
+
+
+Na ionization energy: 5.9×104 K kB
+Cl e- affinity energy: 4.2 × 104 K kB      NaCl boiling temperature 1738 K
+                                  Ionic bonds
+
+
+sodium (on the left) loses its
+one valence electron to
+chlorine (on the right)
+
+
+
+
+a positively charged sodium ion
+(left) and a negatively charged
+chlorine ion (right).
+         Potential between two ions i and j
+                   (of opposite charge)
+
+
+
+
+𝑈𝑈𝑖𝑖𝑖𝑖
+
+
+
+
+                                    ∝ 𝑟𝑟𝑖𝑖𝑖𝑖−1
+           𝑅𝑅0    𝑈𝑈0
+
+
+                            r𝑖𝑖𝑖𝑖
+Calculation of Madelung constants
+Madelung constants (examples)
+
+                                α
+Ionic radii
+                       Ionic radii and Crystal structures
+
+       SC                            FCC                       FCC
+                                                        (different basis)
+
+
+
+
+       𝑟𝑟𝐾𝐾 /𝑟𝑟𝐴𝐴                        𝑟𝑟𝐾𝐾 /𝑟𝑟𝐴𝐴               𝑟𝑟𝐾𝐾 /𝑟𝑟𝐴𝐴
+  larger than 0.73                    0.73 to 0.41          smaller than 0.41
+
+Example: CsCl                     Example: NaCl             Example: ZnS
+
+
+𝑟𝑟𝐾𝐾 = radius cation
+ 𝑟𝑟𝐴𝐴 = radius anion
+Recap: Atomic orbitals
+         Diatomic molecule H2+
+
+
+                                electron
+                                      𝑟𝑟⃗
+
+
+    𝑟𝑟1 = |𝑟𝑟⃗ − R1 |                       𝑟𝑟2 = |𝑟𝑟⃗ − R 2 |
+
+
+
+
+ 𝑅𝑅1                                                  𝑅𝑅2
+                        𝑅𝑅 = |𝑅𝑅2 − 𝑅𝑅1 |
+nucleus 1                                        nucleus 2
+              Diatomic molecule H2+
+
+
+
+
+                            antibonding
+Energy E/E0
+
+
+
+                  bonding
+
+
+
+
+                     Distance R
+                          Diatomic molecule H2+
+
+
+
+
+Source: Script + Claude
+Bonding and antibonding s-orbitals
+Bonding and antibonding p-orbitals
+                  p-bonding networks
+
+
+
+
+• 1,3-Butadiene                   • Benzene ring
+Interactive Orbital and Lattice Models
+
+
+
+
+                       https://www.chemtube3d.com/
+Directional bonds
+     sp3 hybridization
+
+
+
+
+Diamond                  ZnS
+sp2 hybridization
+
+
+
+
+               (from pz)
+
+                                          (from sp2)
+
+
+
+
+Example: Graphite/Graphene, hexagonal boron nitride
+Hydrogen bonds in water and ice
+             Hydrogen bonds in DNA
+
+
+
+
+DNA double helix
+                                 Base pairs
+            “Free” electrons in metals
+
+
+
+
+Metal ion        Electron
+(static)         (mobile)
+                  Metallic vs. Non-metallic chemical elements
+
+Non-metals                                      Metals
+Tend to form volatile molecules                 Crystalline solids (except Hg)
+Ready to share electrons                        Do not readily share electrons, monoatomic vapors
+Low density                                     High density
+Electronegative, form anions (Cl-, O2-, etc.)   Electropositive, form cations (Na+, Cu2+, etc.)
+Form oxides that are basic (e.g., CaO)          Form oxides that are acidic (e.g., SO2)
+Poor conductors of heat and electricity         Good electrical conductors and heat conductors..
+Brittle - if a solid.                           Malleable - can be beaten into thin sheets.
+Nonductile.                                     Ductile - can be stretched into wire.
+Do not possess metallic luster.                 Possess metallic luster.
+Transparent as a thin sheet.                    Opaque as thin sheet.
+                        Comparison of atomic interactions
+
+            Van der Waals     Ionic            Covalent          Hydrogen bond        Metallic
+Mechanism   Electrostatic     Coulomb          Quantum           Ionic-like bonding   Delocalized
+            interaction       attraction       mechanical        between polar        electrons forming
+            between induced   between ions     overlap of wave   molecules            collective covalent
+            atomic dipoles                     functions         involving            bond between all
+                                                                 hydrogen             atoms
+Strength    weak              strong           strong            medium               strong
+Example     He, Ne, …         NaCl, Al2O3, …   Diamond, SiC, …   H2O ice, …           Cu, Au, …
+
+
+
+
+•   Graphite: covalent + vdW
+•   Nucleic acids: covalent + hydrogen bond
+•   Molecular ionic salts (e.g. CaCO3-): covalent + ionic bond
+•   Polar molecules (e.g. H2O): mixed covalent/ionic character of bond
+The following Hamiltonien describes the energy of the diatomic molecule H2+
+ Question: Which of the following aspects is neglected in this Hamiltonian?
+
+                                                                            (−𝑒𝑒, 𝑚𝑚)
+                                                                 electron
+      ℏ2 ∇2     𝑒𝑒 2        𝑒𝑒 2        𝑒𝑒 2
+ 𝐻𝐻 =       −            −           +
+       2𝑚𝑚    4𝜋𝜋𝜖𝜖0 𝑟𝑟𝐴𝐴 4𝜋𝜋𝜖𝜖0 𝑟𝑟𝐵𝐵 4𝜋𝜋𝜖𝜖0 𝑅𝑅
+                                                  nucleus A
+                                                                                        nucleus B
+                                                     (+𝑒𝑒, 𝑀𝑀)               (+𝑒𝑒, 𝑀𝑀)
+
+ 1)   Columb repulsion between nuclei
+ 2)   Kinetic energy of nuclei
+ 3)   Coulomb attraction between the electron and the nuclei
+ 4)   Electrostatic potential of the electron                                               60
+                                                                                            59
+                                                                                            58
+                                                                                            57
+                                                                                            56
+                                                                                            55
+                                                                                            54
+                                                                                            53
+                                                                                            52
+                                                                                            51
+                                                                                            50
+                                                                                            49
+                                                                                            48
+                                                                                            47
+                                                                                            46
+                                                                                            45
+                                                                                            44
+                                                                                            43
+                                                                                            42
+                                                                                            41
+                                                                                            40
+                                                                                            39
+                                                                                            38
+                                                                                            37
+                                                                                            36
+                                                                                            35
+                                                                                            34
+                                                                                            33
+                                                                                            32
+                                                                                            31
+                                                                                            30
+                                                                                            29
+                                                                                            28
+                                                                                            27
+                                                                                            26
+                                                                                            25
+                                                                                            24
+                                                                                            23
+                                                                                            22
+                                                                                            21
+                                                                                            20
+                                                                                            19
+                                                                                            18
+                                                                                            17
+                                                                                            16
+                                                                                            15
+                                                                                            14
+                                                                                            13
+                                                                                            12
+                                                                                            11
+                                                                                            10
+                                                                                             9
+                                                                                             8
+                                                                                             7
+                                                                                             6
+                                                                                             5
+                                                                                             4
+                                                                                             3
+                                                                                             2
+                                                                                             1
+                                                                                             0
+ 5)   Electrostatic screening of the positive nuclear charges by the
+      electron
+               We consider metallic bonding.
+                Which statement is wrong?
+                                                        60
+                                                        59
+                                                        58
+                                                        57
+                                                        56
+                                                        55
+                                                        54
+                                                        53
+                                                        52
+                                                        51
+                                                        50
+                                                        49
+                                                        48
+                                                        47
+                                                        46
+                                                        45
+                                                        44
+                                                        43
+                                                        42
+                                                        41
+                                                        40
+                                                        39
+                                                        38
+                                                        37
+                                                        36
+                                                        35
+                                                        34
+                                                        33
+                                                        32
+                                                        31
+                                                        30
+                                                        29
+                                                        28
+                                                        27
+                                                        26
+                                                        25
+                                                        24
+                                                        23
+                                                        22
+                                                        21
+                                                        20
+                                                        19
+                                                        18
+                                                        17
+                                                        16
+                                                        15
+                                                        14
+                                                        13
+                                                        12
+                                                        11
+                                                        10
+                                                         9
+                                                         8
+                                                         7
+                                                         6
+                                                         5
+                                                         4
+                                                         3
+                                                         2
+                                                         1
+                                                         0
+
+1) The valence electrons can move freely between
+   atomic cores
+2) The metallic bond has no preferential orientation
+3) The crystal structure of metals is primarily FCC or
+   HCP, because this maximizes the filling factor
+4) All electrons are strongly localized at the atomic sites
+               Lists the following solids in order of
+             increasing cohesive energy per atom:
+
+
+
+                                                           60
+                                                           59
+                                                           58
+                                                           57
+                                                           56
+                                                           55
+                                                           54
+                                                           53
+                                                           52
+                                                           51
+                                                           50
+                                                           49
+                                                           48
+                                                           47
+                                                           46
+                                                           45
+                                                           44
+                                                           43
+                                                           42
+                                                           41
+                                                           40
+                                                           39
+                                                           38
+                                                           37
+                                                           36
+                                                           35
+                                                           34
+                                                           33
+                                                           32
+                                                           31
+                                                           30
+                                                           29
+                                                           28
+                                                           27
+                                                           26
+                                                           25
+                                                           24
+                                                           23
+                                                           22
+                                                           21
+                                                           20
+                                                           19
+                                                           18
+                                                           17
+                                                           16
+                                                           15
+                                                           14
+                                                           13
+                                                           12
+                                                           11
+                                                           10
+                                                            9
+                                                            8
+                                                            7
+                                                            6
+                                                            5
+                                                            4
+                                                            3
+                                                            2
+                                                            1
+                                                            0
+1) Diamond, NaCl, Na, Ar
+2) Na, Ar, diamond, NaCl
+3) NaCl, Ar, Na, diamond
+4) Ar, Na, NaCl, diamond
+  Ar ≈ 0.08, Na ≈ 1.1, NaCl ≈ 3.3, diamond ≈ 7.4 eV/atom
+

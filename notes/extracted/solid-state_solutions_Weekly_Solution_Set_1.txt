@@ -1,0 +1,92 @@
+Prof. Dr. Christian Degen                                            Autumn Semester 2026
+
+                Introduction to Solid State Physics
+                https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                              Weekly Solution Set 1
+
+Solution 1: Rotational symmetry
+If we follow the instructions, we get a trapezoid with AB = AD = BC = a, which results
+from the rotation around A and B, respectively.
+
+
+
+
+Since C and D are also lattice points, the distance DC = (1 − 2 cos ϕ)a must be an integer
+multiple of a − the period of the lattice. This must be true as the vector DC is in the
+same direction as the vector AB. This is true only for cos ϕ = ±1, ±0.5, and 0, or in
+other words, for ϕ = 0◦ , 180◦ , 120◦ , 90◦ , and 60◦ . This corresponds to rotation axes with
+n = 1, 2, 3, 4 and 6.
+Solution 2: Diatomic crystal
+ a) See plot below.
+
+
+
+
+ b) The area of the primitive unit cell is A = a2 . If the filled√and empty circles are
+    identical, the nearest-neighbor distance becomes a∗ = a/ 2 and thus the area
+    A∗ = a∗2 = a2 /2.
+
+ c) One set of primitive lattice vectors is a1 = ax̂ and a2 = aŷ. With respect to these
+    primitive lattice vectors, the basis is: white atom at (0,0) and black atom (1/2,1/2),
+    or vise versa. These lattice vectors would no longer be primitive lattice vectors if the
+    empty and filled circles are identical. In that case, one possible set of new primitive
+    lattice vectors is a1 = ax̂/2 + aŷ/2 and a2 = −ax̂/2 + aŷ/2, with the single-atom
+    basis of (0,0) with respect to these primitive lattice vectors.
+
+ d) The lattice is a cubic lattice. The basis of the crystal is: black atom (0,0,0), white
+    atom (1/2,1/2,1/2).
+
+ e) We obtain the BCC lattice.
+Solution 3: Reciprocal lattice
+ a) We write the reciprocal lattice vectors ⃗gi using the Levi-Civita symbol ϵijk and
+    Einstein’s summation convention. Then (summed over j, k):
+
+                                              ϵijk        ⃗aj × ⃗ak
+                                      ⃗gi =        2π
+                                               2      ⃗a1 · (⃗a2 × ⃗a3 )
+
+                                                  ϵijk ⃗al · (⃗aj × ⃗ak )
+                                  ⇒ ⃗gi · ⃗al =       2π
+                                                   2     ⃗a1 · (⃗a2 × ⃗a3 )
+        {︄
+          0     for i ̸= l, since ⃗al × ⃗al = 0 and cyclic interchange of the mixed product
+      =
+          2π    for i = l, with εijk = −εikj and ⃗aj × ⃗ak = −⃗ak × ⃗aj
+
+ b) Given the Bravais lattice vectors R   ⃗ = n1⃗a1 + n2⃗a2 + n3⃗a3 with integer ni , the
+                                                ⃗ is then defined by the condition exp(iG
+    reciprocal lattice with the lattice vectors G                                           ⃗·
+     ⃗ = 1, which follows from part a. Correspondingly, the reciprocal of the reciprocal
+    R)
+    lattice with the lattice vectors K⃗ is defined by the condition exp(iK    ⃗ · G)
+                                                                                  ⃗ = 1.
+    We first show that every vector R   ⃗ is associated with a vector K. ⃗ Since the scalar
+    product is commutative, every vector R  ⃗ also satisfies the condition for K.⃗ All vectors
+     ⃗
+    R thus belong to the reciprocal of the reciprocal lattice.
+    For completeness we also have to show that conversely every vector K          ⃗ belongs to
+    the Bravais lattice. We show this by contradiction: we assume that there is a
+    vector ⃗r of the reciprocal-reciprocal lattice, which does not belong to the Bravais
+    lattice. Then ⃗r = x1⃗a1 + x2⃗a2 + x3⃗a3 with at least one non-integer xi . Then
+    (G⃗ = m1⃗g1 + m2⃗g2 + m3⃗g3 and mi integer):
+                                  ∏︂
+                            ⃗ =
+                  exp(i⃗r · G)         exp(ixn mn⃗gn · ⃗an ) = exp(2πixi mi ) ̸= 1
+                                  n=1,2,3
+
+
+    which is a contradiction to the definition of the reciprocal-reciprocal lattice.
+                             a2 ×⃗a3
+ c) Plugging in ⃗g1 = 2π ⃗a1⃗·(⃗
+                               a2 ×⃗a3 )
+                                         the statement reduces to
+
+                                    (⃗a2 × ⃗a3 ) · (⃗g2 × ⃗g3 ) = (2π)2 .
+
+     Using the Lagrangian identity (⃗a × ⃗b) · (⃗c × d)⃗ = (⃗a · ⃗c)(⃗b · d)
+                                                                          ⃗ − (⃗b · ⃗c)(⃗a · d)
+                                                                                             ⃗ and the
+     orthogonality relations ⃗gi · ⃗aj = 2πδij it is obviously satisfied. The mixed product
+    ⃗g1 · (⃗g2 × ⃗g3 ) is the volume of the reciprocal unit cell spanned by ⃗g1 , ⃗g2 and ⃗g3 .
+

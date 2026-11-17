@@ -1,0 +1,310 @@
+Chapter 3.2
+         Electrostatic potential an electron sees in a solid
+
+
+
+∞          ∞
+
+                 Evac
+
+                    W
+    e–                   e–                e–                  e–
+
+
+                                                        + + + + + +
+Bloch wave: a cartoon
+                                         Felix Bloch
+                                        • Born in Zurich, 1905.
+                                        • Public primary school and
+                                          "Gymnasium" of the Canton of Zurich
+                                        • Federal Institute of Technology
+                                          (Eidgenössische Technische
+                                          Hochschule) in Zurich, Division of
+                                          Mathematics and Physics
+                                        • Continued with Heisenberg at the
+                                          University of Leipzig
+                                        • Bloch left Germany in the spring of
+                                          1933, accepted a position at Stanford
+                                          University.
+                                        • Nobel Prize in Physics 1952
+
+In 1954, Bloch became
+the first Director General of CERN in Geneva.
+Plane wave dispersion                             Bloch wave dispersion                           Bloch wave dispersion
+                                                                                                  (only unique solutions)
+                𝜖𝜖0 (𝑘𝑘)                                         𝜖𝜖(𝑘𝑘)                                         𝜖𝜖𝑛𝑛 (𝑘𝑘)
+
+                                                                                                                                 𝑛𝑛 = 4
+
+
+
+
+                                                                                                                                 𝑛𝑛 = 3
+
+
+
+
+                                                                                                                                 𝑛𝑛 = 2
+
+                                                                                                                                 𝑛𝑛 = 1
+−3𝜋𝜋 −2𝜋𝜋 −𝜋𝜋              𝜋𝜋   2𝜋𝜋   3𝜋𝜋
+                                            𝑘𝑘   −3𝜋𝜋 −2𝜋𝜋 −𝜋𝜋            𝜋𝜋   2𝜋𝜋   3𝜋𝜋
+                                                                                           𝑘𝑘   −3𝜋𝜋 −2𝜋𝜋 −𝜋𝜋               𝜋𝜋    2𝜋𝜋     3𝜋𝜋
+                                                                                                                                                𝑘𝑘
+                 0                                                0                                               0
+ 2    𝑎𝑎   𝑎𝑎              𝑎𝑎    𝑎𝑎    𝑎𝑎         2    𝑎𝑎   𝑎𝑎            𝑎𝑎    𝑎𝑎    𝑎𝑎         2    𝑎𝑎   𝑎𝑎               𝑎𝑎     𝑎𝑎      𝑎𝑎
+More complex dispersions (free electron model)
+       BCC                       FCC
+More complex dispersions (free electron model)
+                     HCP
+    Lattice direction and symmetry points of 3D Brillouin zones
+
+
+
+                             Γ   (0,0,0)         Center of the 1. BZ
+                             X   (0,1,0)         Intersection of [010] axis with the edge
+                                                 of the 1. BZ
+                             L   (0.5,0.5,0.5)   Intersection of the [111] diagonal with the
+                                                 edge of the 1. BZ
+                             K   (0.75,0.75,0)   Intersection of a diagonal of the [110] surface
+                                                 with the edge of the 1. BZ
+                             U   (0.25,1,0.25)
+                             W   (0.5,1,0)
+
+
+
+
+Source: wikipedia
+Nearly-free electron model
+Nearly-free electron model: Wave functions at BZ boundary
+
+               𝑈𝑈(𝑟𝑟)
+
+
+
+
+                        2
+           𝜓𝜓𝜋𝜋/𝑎𝑎 𝑟𝑟       ∝ 4sin2 (𝜋𝜋𝜋𝜋/𝑎𝑎)
+
+
+
+
+                        2
+           𝜓𝜓𝜋𝜋/𝑎𝑎 𝑟𝑟       ∝ 4cos 2 (𝜋𝜋𝜋𝜋/𝑎𝑎)
+                           From atoms to solids
+
+                 Atom 1                                   Atom 2
+
+
+
+                 Epot(x)                                  Epot(x)
+                            x                                       x
+…                                        …
+    n=4                                      n=4
+          n=3                                      n=3
+           n=2                                      n=2
+
+
+                n=1                                      n=1
+                      From atoms to solids
+
+                 Atom 1                       Atom 2
+
+
+
+                Epot(x)                       Epot(x)
+                             x                          x
+…
+    n=4                          n=4
+          n=3                          n=3
+           n=2                          n=2
+
+
+                n=1                          n=1
+     From atoms to solids
+
+                  molecule
+
+
+
+                  Epot(x)
+
+                             x
+…
+    n=4
+          n=3
+           n=2
+
+
+            n=1
+     From atoms to solids
+
+                  molecule
+
+
+
+                  Epot(x)
+
+                              x
+…
+    n=4
+          n=3                   “LUMO”
+           n=2                      Lowest unoccupied
+                                    molecular orbital
+
+            n=1
+                             “HOMO”
+                             Highest occupied
+                             molecular orbital
+             From atoms to solids
+
+                  solid
+
+
+                                           x
+n=4
+      n=3
+
+       n=2                          Energy bands
+
+       n=1
+             From atoms to solids
+
+                  solid
+
+                                    Conduction band (empty)
+                                                          x
+n=4
+      n=3
+
+       n=2                                      Valence band
+                                                (occupied)
+       n=1
+             From atoms to solids
+
+                  solid
+
+                                    Conduction band (empty)
+                                                          x
+n=4
+      n=3
+
+       n=2                                      Valence band
+                                                (occupied)
+       n=1
+             From atoms to solids
+
+                  solid
+
+                          “free” electrons
+                                                      x
+                                                          Fermi
+n=4                                                       energy EF
+      n=3
+
+       n=2                                   Energy
+                                             bands
+       n=1
+
+                 core electrons (“bound”)
+Tight-binding model
+Tight-binding model: Wave functions
+Why C, Si and Ge form sp3 orbitals
+https://phet.colorado.edu/en/simulation/bound-states
+Fermi surfaces of simple metals
+More complex Fermi surfaces
+               Metals, Semimetals, Semiconductors, Insulators
+
+
+                  metal     semimetal semiconductor       isolator
+      empty
+
+𝜖𝜖                                                                   Conduction band
+
+                                         𝜖𝜖𝐺𝐺𝐺𝐺𝐺𝐺 ~ 1eV
+                                                                       Band gap 𝜖𝜖𝐺𝐺𝐺𝐺𝐺𝐺
+        𝜖𝜖𝐹𝐹
+
+                                                                     Valence band
+     occupied
+Insulator-metal-semimetal
+Andrey Zheludev
+25.10.2026
+36
+
+
+                  Band structure of gold
+Chapter 3.3
+                         “Electron-hole” excitation
+• Not an elementary excitation!
+                 Elementary excitations
+
+“Ground state”   (Quasi)electron excitation   (Quasi)hole excitation
+The Fermi sea
+
+
+
+
+                Holes in a Fermi sea
+Dispersion of quasi-electrons and quasi-holes
+
+Original dispersion        Quasiparticle dispersion
+Chapter 3.4
+Photoemission-Spectroscopy
+Angle-resolved Photoemission Spectroscopy (ARPES)
+
+
+
+
+                                                Wikipedia
+Angle-resolved Photoemission Spectroscopy (ARPES)
+
+
+
+
+       Electron spectrometer
+
+
+                                                Wikipedia
+ARPES of copper
+
+
+
+
+            ARPES spectrum of a two-dimensional
+            electronic state localized at the (111) surface
+            of copper. The energy has free-electron-like
+            momentum dependence, p2/2m, where
+            m=0.46me.
+
+            Color scale represents electron counts per
+            kinetic energy and emission angle channel.
+            When 21.22 eV photons are used, the Fermi
+            level is imaged at 16.64 eV.
+
+
+
+
+                                                   Wikipedia
+                                                ARPES of SrTiO3
+
+
+
+
+                                                                                                   DOI: 10.1103/PhysRevB.79.113103
+Comparison between the ARPES band structure and TB calculation,
+a Band structure of STO.
+b–d Comparison for the -X, the X-M, and the X-R directions. The direct and indirect gaps are indicated. The TB calculation
+has reproduced the experimental ARPES band structure except for the overall shifts of the O 2p band by 500 meV.
+                    Band structure of graphene (calculated)
+
+                                                         “Dirac Point”
+
+
+
+
+                                                       DOI:10.4236/graphene.2013.22011
+arXiv:1101.1158v1
+Band structure of germanium (calculated)
+Band structure of copper
+

@@ -1,0 +1,107 @@
+Prof. Dr. Christian Degen                                         Autumn Semester 2026
+
+               Introduction to Solid State Physics
+               https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                             Weekly Problem Set 3
+
+Exercise 1: Analyzing a 3D power diffraction spectrum
+Consider the powder diffraction pattern from an x-ray experiment on a 3D material with
+a BCC crystal structure. Following from Sections 1.3.1 and 1.3.2 of the lecture script, we
+have I(q) ∝ |F (q)|2 where the unit cell structure factor can be written as:
+                                          ∑︂
+                                 F (q) =      fj (q) eiq·rj .
+                                          j
+                                                            ∫︁
+Here the sum is over all atoms in the unit cell and fj (q) = dr eiq·r ρj (r) is called the
+atomic form factor for atom j (and it is the Fourier transform of the electron charge
+density for atom j).
+  a) Using a conventional unit cell plus a basis to construct the BCC crystal structure,
+     calculate the structure factor F (assume all the atoms to be the same).
+  b) Which diffraction peaks are missing because of the structure factor? Discuss why
+     they are missing in relation to the crystal structure and the conventional unit cell.
+  c) How does this structure factor change if the atom in the center of the conventional
+     unit cell has a different form factor from the atoms at the corners?
+  d) A student carried out an x-ray powder diffraction experiment on chromium (Cr)
+     which is known to have a BCC structure. The measured spectrum is shown given
+     below. Furthermore, the student assigned Miller indices to the peaks. Were these
+     indices assigned correctly? Fix any mistakes and explain your reasoning.
+
+
+
+
+  e) Calculate the lattice constant a of the conventional chromium bcc unit cell. Use
+     that the x-ray diffraction experiment was carried out using Cu K-α (wavelength λ
+     = 1.5406 Å) radiation.
+Exercise 2: Analyzing the Lennard-Jones potential
+A simple model approximating the interaction between a pair of noble gas atoms such
+as Argon is the Lennard-Jones potential, in which the potential energy as a function of
+interatomic distance is
+                                           [︂ σ        σ 6 ]︂
+                                                12
+                                U (r) = 4ϵ ( ) − ( )
+                                              r        r
+where r is the distance between two atoms, ϵ is the depth of the potential well, and σ is
+the distance at which the inter-particle potential is zero.
+
+  a) Sketch U (r) as a function of interatomic distance and mark the regions of repulsive
+     and attractive forces acting between the atoms.
+
+  b) Find the distance, r0 (bond length), at which the potential energy is minimal
+     and find the value of the potential energy at this distance (binding energy of the
+     molecule).
+
+  c) Expand U (r) in a Taylor series around r0 up to second order. By considering a
+     second-order (harmonic) potential approximation around the minimum (r0 ), find
+     an expression for the spring constant κ, in terms of ϵ and σ.
+
+
+
+
+Exercise 3: Molecular orbitals from the wave functions
+of the atomic orbitals
+To describe covalent bonds, we construct the molecular orbitals from linear combinations
+of the atomic orbitals. In this exercise, we model the atomic orbital of each individual
+atom as the bound state of a delta-function potential. To construct the Hamiltonian, we
+explicitly calculate the onsite energy and the hopping from these atomic orbitals. Diago-
+nalizing this Hamiltonian yields the molecular orbitals.
+
+Consider an electron moving in 1D between two negative delta-function potential wells.
+The full Hamiltonian of this one-dimensional system is:
+
+                                p̂2
+                         Ĥ =       − V0 δ(x1 − x) − V0 δ(x2 − x),
+                                2m
+where V0 > 0 is the potential strength, p̂ the momentum of the electron, and x1 and x2
+are the positions of the potential wells.
+
+Let us find the molecular orbitals. As trial wave function for the molecular orbital, we
+consider a linear combination of the two atomic orbitals |1⟩ and |2⟩:
+
+                                   |Ψ⟩ = ϕ1 |1⟩ + ϕ2 |2⟩.
+The orbitals |1⟩ and |2⟩ correspond to the wave functions of the electron when there is
+only a single delta peak present:
+
+                                      Ĥ1 |1⟩ = ϵ0 |1⟩
+                                      Ĥ2 |2⟩ = ϵ0 |2⟩,
+
+                       p̂2                                    p̂ 2
+where Ĥ1 = K̂ + V̂1 = 2m − V0 δ(x1 − x) and Ĥ2 = K̂ + V̂2 = 2m − V0 δ(x2 − x).
+
+We start by calculating the wavefunction of an electron bound to a single delta-function
+potential well. To do so, you first need to set up the Schrödinger equation for a single
+electron bound to a delta-function potential well. You do not have to solve the Schrödinger
+equation twice—you can use the symmetry of the system to calculate the wavefunction
+of the other electron bound to the second delta-peak.
+
+  a) Find the atomic-orbital wave functions |1⟩ and |2⟩: ψ1 (x) and ψ2 (x). Also find their
+     energy ϵ0 . Remember that you need to normalize the wave functions.
+
+  b) Calculate the onsite energy E0 = ⟨1|Ĥ|1⟩ = ⟨2|Ĥ|2⟩ and the hopping energy
+     −t = ⟨2|Ĥ|1⟩ = ⟨1|Ĥ|2⟩. Use these to construct the Hamiltonian. To simplify
+     the calculations, assume that the orbitals are orthogonal.
+
+  c) Diagonalize the Hamiltonian to find the eigenenergies of the system. It was previ-
+     ously mentioned that V0 > 0. Using this, determine which terms in the eigenenergies
+     corresponds to the bonding energy.
+

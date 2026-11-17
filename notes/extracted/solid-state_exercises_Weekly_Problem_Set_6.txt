@@ -1,0 +1,73 @@
+Prof. Dr. Christian Degen                                          Autumn Semester 2026
+
+               Introduction to Solid State Physics
+               https://moodle-app2.let.ethz.ch/course/view.php?id=28987
+
+                             Weekly Problem Set 6
+
+Exercise 1: Low-dimensional electron systems
+Electronic structures with restricted dimensions can be produced at interfaces between
+different materials. Two-dimensional electron systems occur, for example, at the inter-
+face between silicon and silicon dioxide in so-called MOSFETs (MOSFET: Metal-Oxide-
+Semiconductor Field Effect Transistor), which play a major role in today’s semiconductor
+electronics. Starting from such two-dimensional electron systems, one-dimensional and
+zero-dimensional structures can also be realized by lateral confinement of the electron mo-
+tion using lithographic methods (so-called quantum wires, or quantum dots or ‘artificial
+atoms’).
+
+
+
+
+  a) Calculate the density of states for electrons in 2- and 1-dimensional electron systems.
+     Assume that the dispersion relation is given by
+
+                                                ℏ2 k2
+                                         E(k) =
+                                                 2m
+     and pay attention to spin degeneracy. What is the density of states for electrons in
+     a 0-dimensional system? Plot the densities of states as a function of energy.
+
+  b) Give the Fermi wave vector kF for the 1D and 2D cases as a function of electron
+     density n. Note that in a 2D system the density of electrons is expressed per unit
+     area and in a 1D system, per unit length.
+Exercise 2: The electron dispersion, density of states,
+and heat capacity of graphene
+One of the most famous recently discovered materials is graphene. It consists of carbon
+atoms arranged in a 2D honeycomb structure. Unlike in metals, electrons in graphene
+cannot be treated as ‘free’. Instead, close to the Fermi level, the dispersion relation can
+be approximated by a linear relation: ϵ(k) = ±c|k|. Note that the ± here means that
+there are two energy levels at a specified k. The Fermi level is set at ϵF = 0.
+
+  a) Make a sketch of the dispersion relation. Include both positive and negative energies.
+     What other well-known particles have a linear dispersion relation?
+
+  b) Using the dispersion relation and assuming periodic boundary conditions, calculate
+     the density of states g(ϵ) of graphene. Do not forget spin degeneracy, and take into
+     account that graphene has an additional two-fold ‘valley degeneracy’ (hence there
+     is a total of a fourfold degeneracy instead of two). Your result should be linear with
+     |ϵ|.
+
+  c) At finite temperatures, assume that electrons close to the Fermi level (i.e. not more
+     than kB T below the Fermi level) will get thermally excited, thereby increasing their
+     energy by kB T . Calculate the difference between the energy of the thermally excited
+     state and that of the ground state ∆E(T ) = E(T ) − E0 . To do so, show first that
+     the number of electrons that will get excited is (approximately) given by
+                                          1
+                                     nex = g(−kB T )kB T.
+                                          2
+
+  d) Calculate the heat capacity Ce as a function of the temperature T .
+
+
+
+
+Exercise 3: Energy of free electrons
+  a) For a simple square lattice in two dimensions, show that the kinetic energy of a
+     free electron at the corner of the first Brillouin zone is twice as large as that of an
+     electron at the center of a side axis of the zone.
+
+  b) For a simple cubic lattice in three dimensions, show that the kinetic energy of a free
+     electron at the corner of the first Brillouin zone is three times as large as that of an
+     electron at the center of one of the faces making up the sides of the first Brillouin
+     zone.
+

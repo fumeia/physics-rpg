@@ -1,0 +1,694 @@
+Chapter 1.3: Reciprocal lattice
+                  Reciprocal lattice
+
+
+
+ Direct lattice                    Reciprocal lattice
+
+
+
+𝑏𝑏                                     𝑏𝑏 ∗
+     𝑎𝑎⃗                                      𝑎𝑎⃗ ∗
+                 Reciprocal lattice
+
+
+
+Direct lattice                    Reciprocal lattice
+
+
+
+      𝑏𝑏                                   ∗
+                                      𝑏𝑏
+           𝑎𝑎⃗
+                                               𝑎𝑎⃗ ∗
+Pairs of direct and reciprocal lattices
+                    Miller Indices
+
+
+             𝑐𝑐⃗
+                         (hkl)
+                                  Miller index
+
+      𝑛𝑛𝑧𝑧
+                          𝑛𝑛𝑦𝑦
+                                 𝑏𝑏
+             𝑛𝑛𝑥𝑥
+𝑎𝑎⃗
+        Families of crystallographic planes
+
+    y
+
+x
+        Families of crystallographic planes
+
+
+
+
+y
+
+    x
+Crystallographic planes
+Crystallographic planes
+             Lattice directions and planes
+
+
+
+
+                     Family of axes    Single axis
+Directions                123             21� 3
+Faces (Miller index)      123             21� 3
+                              Crystallographic surfaces
+
+
+
+
+Dislocation on Ag(111)   Individual atoms on Ni(100)   “Heringbone” reconstruction   Si (110)
+                                                        of Au(111)
+
+                                 STM images                                             TEM image
+          Brillouin zone
+
+
+
+
+1st Brillouin zone
+Higher-order Brillouin zones
+Brillouin zones for important crystall lattices
+Chapter 1.5: Diffraction
+A scattering experiment
+
+
+
+
+                          Detector
+   Rutherford’s experiment
+
+
+
+
+• Scattering at atomic nuclei
+Example: Laue diffraction of Hemoglobin single crystal
+
+
+
+
+                  https://www.spektrum.de/lexikon/biologie/roentgenstrukturanalyse/57477
+           Bragg’s law
+
+                         𝜆𝜆 = 2𝑑𝑑 sin 𝜃𝜃
+              K             Bragg condition
+
+  Wave 1
+
+
+Wave 2
+Bragg’s law – alternative view
+
+                             𝜆𝜆 = 2𝑑𝑑 sin 𝜃𝜃
+                                     Bragg condition
+
+
+
+
+                     θ           θ
+
+                                 d
+       θ         θ
+Experiment: Braggsche Reflexion mit 2.8-cm-Wellen
+
+
+
+
+        https://lecture-experiments.phys.ethz.ch/experimente/7.5.1
+ Experiment: Braggsche Reflexion mit 2.8-cm-Wellen
+
+                                                                      𝜆𝜆
+Bragg condition:           𝜆𝜆 = 2𝑑𝑑 sin 𝜃𝜃           =>       𝑑𝑑 =
+                                                                   2 sin 𝜃𝜃
+
+
+
+                                                             𝑑𝑑
+
+
+
+
+          https://lecture-experiments.phys.ethz.ch/experimente/7.5.1
+            Questions on Bragg’s law – YES or NO?
+
+                    𝜆𝜆 = 2𝑑𝑑ℎ𝑘𝑘𝑘𝑘 sin 𝜃𝜃
+1) The Bragg condition can be fulfilled for any wavelength λ
+2) The larger the indexes ℎ𝑘𝑘𝑘𝑘, the larger the distance 𝑑𝑑ℎ𝑘𝑘𝑘𝑘
+3) Given a fixed wavelength λ, there is only a finite number of
+   Bragg peaks
+4) For a given pair (λ,θ) there can be at most a single Bragg
+   peak
+               Families of crystallographic planes
+
+    y
+
+x       dhkl
+Experimental Techniques
+                         Some History
+
+Max von Laue                          Röntgen (1895):
+                                   Discovery of X-rays
+
+                      Awarded first Nobel prize: 1901
+
+
+
+
+               Knipping, von Laue (1912):                Wilhelm Conrad
+               Diffraction of X-rays at Crystals                Röntgen
+               Nobel prize 1914:
+               X-ray diffraction
+Anna Bertha Ludwig wurde als Tochter eines Gastwirtes in
+Zürich geboren. Im Jahr 1866 lernten sich Anna Bertha und
+Wilhelm Conrad in der Gastwirtschaft "Zum grünen Glas" in
+Zürich kennen und lieben.
+
+
+
+
+“Ich habe meinen Tod gesehen" meinte Anna Bertha
+Röntgen am 22.12.1895 beim Betrachten der gerade von
+ihrem Mann gemachten Röntgenaufnahme ihrer Hand.            https://gruenesglas.ch
+Brillouin-Zonen für wichtige Kristallgitter
+Which radiation?
+                                      Which radiation?
+Photons (X-rays)                   Electrons                           Neutrons
+
+Energy ~100 keV                    Energy ~1 keV                       Energy ~1 eV
+
+Diffracted at inner electrons Diffracted at outer                      Diffracted at magnetic
+                              electrons                                nuclei
+Weak interaction,             Strong interaction, only                 Weak interaction,
+penetrates crystal            penetrates top few atomic                penetrates crystal
+                              layers
+No multiple scattering        Multiple scattering and                  No multiple scattering
+                              absorption; Friedel’s law is
+                              not satisfied (𝐼𝐼ℎ𝑘𝑘𝑘𝑘 = 𝐼𝐼ℎ�𝑘𝑘� 𝑙𝑙 ̅)
+                  Single-crystal diffraction
+                                             Diffracted beam
+
+
+Incoming beam
+
+
+
+
+        Axis of rotation
+
+          • Monochromatic beam & rotating sample
+          • Highest resolution and accuracy, but slow
+Single-crystal diffraction
+                                      Laue diffraction
+
+
+
+
+Simple commercial Laue X-ray                            Neutron Laue diffraction from a
+     sample alignment station                           crystal of HIV-1 protease (LADI instrument at ILL)
+
+
+                     • Polychromatic beam (range of 𝜆𝜆) & non-rotating crystal
+                     • Quick but limited resolution
+Laue diffraction of Hemoglobin single crystal
+„The most important imaging in
+  biology in the 20th century“
+                                                                                    http://dx.doi.org/10.1364/OE.26.030991
+
+
+Interpretation of Photo 51 B-form DNA diffraction pattern. (a) "X"-form distribution of the diffraction peaks (layer lines) is
+an indication of a helical structure. (b) The intensity exhibits non-zero values at kzh=2 pi n/h, where h is the period of the
+helical turn and n is the order of diffraction n=1,2... (c) The broad extended peaks (layer lines) on the top and the bottom
+are formed by diffraction on small periodical features - the base pairs. (d) The missing diffraction spots is an indication of
+a double helix. (e) The position of the maxima of the diffraction spots is related to the radius of the DNA helix.
+         Powder diffraction (Debye-Scherrer)
+
+
+                                               Detector
+                      Powder
+
+
+Incoming beam
+
+
+
+
+      • Only 1D pattern (rings as a function of angle 𝜃𝜃)
+      • Simple, no requirement for single crystals
+       Powder diffraction
+                                   Typical modern data
+
+
+
+
+     HRPT diffractometer at PSI
+
+
+
+
+Paul Scherrer                     H. C. Wu et al, Phys. Rev. B 100, 245119 (2019)
+Electron diffraction
+Experiment: Beugung von Elektronen
+Diffraction image of a FeCo Crystal (fcc)
+
+
+
+
+                                      fcc
+FeCo (fcc)
+Simulated Diffraction
+Pattern of a Membrane
+Protein at SwissFEL (PSI)
+Protein Crystallography
+Workflow for Single-Crystal X-Ray Crystallography in Biology
+
+
+
+
+                                                  Source: Wikipedia
+Swiss Light Source (SLS) at PSI
+Free electron laser @ PSI
+Concept questions
+                 Which reciprocal lattice is correct?
+                           1                2
+Direct lattice
+
+                                                            60
+                                                            59
+                                                            58
+                                                            57
+                                                            56
+                                                            55
+                                                            54
+                                                            53
+                                                            52
+                                                            51
+                                                            50
+                                                            49
+                                                            48
+                                                            47
+                                                            46
+                                                            45
+                                                            44
+                                                            43
+                                                            42
+                                                            41
+                                                            40
+                                                            39
+                                                            38
+                                                            37
+                                                            36
+                                                            35
+                                                            34
+                                                            33
+                                                            32
+                                                            31
+                                                            30
+                                                            29
+                                                            28
+                                                            27
+                                                            26
+                                                            25
+                                                            24
+                                                            23
+                                                            22
+                                                            21
+                                                            20
+                                                            19
+                                                            18
+                                                            17
+                                                            16
+                                                            15
+                                                            14
+                                                            13
+                                                            12
+                                                            11
+                                                            10
+                                                             9
+                                                             8
+                                                             7
+                                                             6
+                                                             5
+                                                             4
+                                                             3
+                                                             2
+                                                             1
+                                                             0
+
+
+                                   3                    4
+                 Which reciprocal lattice is correct?
+                           1                2
+Direct lattice
+
+                                                            60
+                                                            59
+                                                            58
+                                                            57
+                                                            56
+                                                            55
+                                                            54
+                                                            53
+                                                            52
+                                                            51
+                                                            50
+                                                            49
+                                                            48
+                                                            47
+                                                            46
+                                                            45
+                                                            44
+                                                            43
+                                                            42
+                                                            41
+                                                            40
+                                                            39
+                                                            38
+                                                            37
+                                                            36
+                                                            35
+                                                            34
+                                                            33
+                                                            32
+                                                            31
+                                                            30
+                                                            29
+                                                            28
+                                                            27
+                                                            26
+                                                            25
+                                                            24
+                                                            23
+                                                            22
+                                                            21
+                                                            20
+                                                            19
+                                                            18
+                                                            17
+                                                            16
+                                                            15
+                                                            14
+                                                            13
+                                                            12
+                                                            11
+                                                            10
+                                                             9
+                                                             8
+                                                             7
+                                                             6
+                                                             5
+                                                             4
+                                                             3
+                                                             2
+                                                             1
+                                                             0
+
+
+                                   3                    4
+        What is the Miller index of the lattice plane?
+
+
+    c
+                                 1) (1,1/2,1/2)
+                                 2) (1,1/2,-1/2)         60
+                                                         59
+                                                         58
+                                                         57
+                                                         56
+                                                         55
+                                                         54
+                                                         53
+                                                         52
+                                                         51
+                                                         50
+                                                         49
+                                                         48
+                                                         47
+                                                         46
+                                                         45
+                                                         44
+                                                         43
+                                                         42
+                                                         41
+                                                         40
+                                                         39
+                                                         38
+                                                         37
+                                                         36
+                                                         35
+                                                         34
+                                                         33
+                                                         32
+                                                         31
+                                                         30
+                                                         29
+                                                         28
+                                                         27
+                                                         26
+                                                         25
+                                                         24
+                                                         23
+                                                         22
+                                                         21
+                                                         20
+                                                         19
+                                                         18
+                                                         17
+                                                         16
+                                                         15
+                                                         14
+                                                         13
+                                                         12
+                                                         11
+                                                         10
+                                                          9
+                                                          8
+                                                          7
+                                                          6
+                                                          5
+                                                          4
+                                                          3
+                                                          2
+                                                          1
+                                                          0
+                       1/2       3) (2,1,1)
+                                 4) (-2,1,1)
+                             b   5) (2,-1,2)
+                 1/2
+                                 6) (2,-1,-1)
+a                                7) (1,2,2)
+                                 8) (1,-2,2)
+A neutron scattering experiment on a BCC lattice measures a
+Bragg peak at (100). What conclusion can we make from this
+                        observation?
+
+1) The lattice consists of a single atomic species   60
+                                                     59
+                                                     58
+                                                     57
+                                                     56
+                                                     55
+                                                     54
+                                                     53
+                                                     52
+                                                     51
+                                                     50
+                                                     49
+                                                     48
+                                                     47
+                                                     46
+                                                     45
+                                                     44
+                                                     43
+                                                     42
+                                                     41
+                                                     40
+                                                     39
+                                                     38
+                                                     37
+                                                     36
+                                                     35
+                                                     34
+                                                     33
+                                                     32
+                                                     31
+                                                     30
+                                                     29
+                                                     28
+                                                     27
+                                                     26
+                                                     25
+                                                     24
+                                                     23
+                                                     22
+                                                     21
+                                                     20
+                                                     19
+                                                     18
+                                                     17
+                                                     16
+                                                     15
+                                                     14
+                                                     13
+                                                     12
+                                                     11
+                                                     10
+                                                      9
+                                                      8
+                                                      7
+                                                      6
+                                                      5
+                                                      4
+                                                      3
+                                                      2
+                                                      1
+                                                      0
+2) The lattice consists of two atomic species
+3) The lattice is rectangular
+4) The lattice has an inversion symmetry
+5) Friedel’s law does not apply
+              What scatters X-rays most strongly?
+
+
+
+1)   Atomic nucleus
+2)   Atomic nuclei that are magnetic                60
+                                                    59
+                                                    58
+                                                    57
+                                                    56
+                                                    55
+                                                    54
+                                                    53
+                                                    52
+                                                    51
+                                                    50
+                                                    49
+                                                    48
+                                                    47
+                                                    46
+                                                    45
+                                                    44
+                                                    43
+                                                    42
+                                                    41
+                                                    40
+                                                    39
+                                                    38
+                                                    37
+                                                    36
+                                                    35
+                                                    34
+                                                    33
+                                                    32
+                                                    31
+                                                    30
+                                                    29
+                                                    28
+                                                    27
+                                                    26
+                                                    25
+                                                    24
+                                                    23
+                                                    22
+                                                    21
+                                                    20
+                                                    19
+                                                    18
+                                                    17
+                                                    16
+                                                    15
+                                                    14
+                                                    13
+                                                    12
+                                                    11
+                                                    10
+                                                     9
+                                                     8
+                                                     7
+                                                     6
+                                                     5
+                                                     4
+                                                     3
+                                                     2
+                                                     1
+                                                     0
+3)   The inner (core) electrons
+4)   The outer (valence) electrons
+We direct an X-ray beam at a cubic crystal, forming a powder
+       diffraction pattern. Which statement is wrong?
+
+
+1) Rotation of the sample causes a change in the
+   diffraction pattern.                                  60
+                                                         59
+                                                         58
+                                                         57
+                                                         56
+                                                         55
+                                                         54
+                                                         53
+                                                         52
+                                                         51
+                                                         50
+                                                         49
+                                                         48
+                                                         47
+                                                         46
+                                                         45
+                                                         44
+                                                         43
+                                                         42
+                                                         41
+                                                         40
+                                                         39
+                                                         38
+                                                         37
+                                                         36
+                                                         35
+                                                         34
+                                                         33
+                                                         32
+                                                         31
+                                                         30
+                                                         29
+                                                         28
+                                                         27
+                                                         26
+                                                         25
+                                                         24
+                                                         23
+                                                         22
+                                                         21
+                                                         20
+                                                         19
+                                                         18
+                                                         17
+                                                         16
+                                                         15
+                                                         14
+                                                         13
+                                                         12
+                                                         11
+                                                         10
+                                                          9
+                                                          8
+                                                          7
+                                                          6
+                                                          5
+                                                          4
+                                                          3
+                                                          2
+                                                          1
+                                                          0
+2) Rings in the diffraction pattern can contain
+   contributions from several lattice planes, such as
+   (100), (010) and (001)
+3) The diffraction pattern allows determining both the
+   lattice type and cell constant
+4) For a given wavelength λ, multiple rings can appear
+

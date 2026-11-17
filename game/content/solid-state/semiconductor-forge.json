@@ -38,7 +38,7 @@
       "course": "qm",
       "room": "hydrogen-lamp",
       "why": "Donors are hydrogen atoms with $m\\to m^*$, $\\epsilon_0\\to\\epsilon_r\\epsilon_0$: energies scale as $m^*/\\epsilon_r^2$, radii as $\\epsilon_r/m^*$.",
-      "planned": true
+      "planned": false
     },
     {
       "course": "astrophysics",

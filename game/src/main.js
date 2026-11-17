@@ -13,6 +13,9 @@ import { buildLabHolos } from './labholo.js';
 import { mistakes, updateMistake, weakSpots } from './mistakes.js';
 import { renderDrillTab, setDrillData, drillData } from './drills.js';
 import { initTouch } from './touch.js';
+import { createCampaign } from './campaignui.js';
+import * as battle from './battle.js';
+import { createQuality } from './quality.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
@@ -73,6 +76,7 @@ const GROUPS = [
 
 let bridgeOn = false; // is the QM bridge exhibit the 3D content of the current room?
 let holos = null, world, player, course, room, set = null, current = null, unmountPanel = null, dueTarget = null, tut = null, overlay = null;
+const sheetShift = new Map(); // sheet -> days added to its due date (see sheetDue)
 let sheetsByCourse = {}; // course id -> {title, sheets: [{n, title, due, questions: [{q, title, room, related, enc}]}]}
 let catalog = [], encIndex = new Map(), codexByCourse = {}, groups = [], linksData = [], route = [], banks = {}, dayMissions = null, dayKey = '';
 let inNexus = false, nexusFocusKey = null;
@@ -99,7 +103,7 @@ async function boot() {
         const x = await fetchJson(`content/${c.dir}/${f}`), place = (room, enc) => { const r = rooms.find((y) => y.slug === room); if (r) r.encounters.push(enc); };
         for (const it of x.items || []) place(it.room, it.enc);
         // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
-        if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
+        if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
       } catch (err) { console.warn('extra content failed', f, err.message); }
     }
     catalog.push({ ...c, region: idx.region, rooms });
@@ -116,6 +120,10 @@ async function boot() {
   for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
+  try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
+    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign') }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
+  // compact HUD (run, campaign, menu) unless the full chip row was chosen in the menu; tests keep the full row unless they ask for hud=compact
+  if (params.get('hud') === 'compact' || (!params.has('test') && params.get('hud') !== 'full' && (store.val('settings', {}) || {}).hud !== 'full')) document.body.classList.add('hudc');
   progress(88, 'Building the 3D world...'); await nextFrame();
   world = new World(canvas);
   player = new Player(canvas, world);
@@ -130,7 +138,7 @@ async function boot() {
   $('start-profile').textContent = `Profile: ${store.profile}`;
   $('st-profile').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; openOverlay('profile'); }); };
   $('st-go').onclick = (ev) => { ev.stopPropagation(); requestStart(); };
-  startEl.onclick = (ev) => { if (!ev.target.closest('#st-profile, #resume, #st-go')) requestStart(); };
+  startEl.onclick = (ev) => { if (!ev.target.closest('#st-profile, #resume, #st-go, #st-run')) requestStart(); };
   $('help').onclick = () => startTutorial(); $('btn-nexus').onclick = () => goNexus(); $('btn-profile').onclick = () => openOverlay('profile'); $('btn-help').onclick = () => openOverlay('help'); $('btn-missions').onclick = () => openOverlay('missions'); $('btn-exam').onclick = () => openOverlay('exam'); $('btn-pile').onclick = () => openOverlay('pile'); $('btn-conn').onclick = () => connectionsHere(); $('btn-guide').onclick = () => { store.setFlag('guide-off', guideOn()); refresh(); if (inNexus) goNexus(); };
   $('btn-map').onclick = () => openOverlay('map'); $('btn-codex').onclick = () => toggleCodex(); $('side-cx').onclick = () => toggleCodex(); $('cx-close').onclick = () => closeCodex();
   $('ov-close').onclick = () => closeOverlay();
@@ -148,6 +156,8 @@ async function boot() {
   exposeTestApi();
   if (params.has('test')) { $('start').style.display = 'none'; player.enabled = true; if (params.has('tutorial')) startTutorial(); }
   $('btn-menu').onclick = () => openOverlay('menu');
+  $('btn-run').onclick = () => { if (campaign) campaign.startRun(); }; $('btn-campaign').onclick = () => openOverlay('campaign');
+  $('st-run').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; if (campaign) campaign.startRun(); }); };
   // the keyboard-and-mouse layout on a device that has a touch screen: always offer the way back
   if (!touch && !lite && (matchMedia('(pointer: coarse)').matches || (navigator.maxTouchPoints > 0 && innerWidth < 1000))) {
     const bt = $('back-to-touch'); bt.style.display = ''; bt.onclick = () => { setControlsChoice('touch'); reloadWithout('touch', 'controls'); };
@@ -172,6 +182,7 @@ async function boot() {
     } catch (e) { console.warn('deep link failed', e.message); }
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  if (campaign) { $('st-run').style.display = ''; $('st-run').textContent = campaign.isSetup() ? '\u25b6 Today\u2019s run' : '\u25b6 Set up my campaign'; document.querySelector('.st-card').classList.add('has-run'); $('st-go').textContent = 'Just walk around'; updateRunChips(); }
   startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';
   if (startWanted || window.__want) enterGame();
   // The frame loop must never stop: the next frame is scheduled first, an error in one frame is logged and skipped, and a watchdog restarts the loop if frames stop
@@ -200,7 +211,11 @@ async function boot() {
         stepRunner(dt, now);
         touchUI?.update({ promptText: promptTarget && !blocking() ? $('prompt').textContent : null, flying: inNexus });
         tickStudy(dt); player.update(dt); world.update(dt); set?.update(dt, player.pos, world.camera); holos?.update(dt, player.pos); if (inNexus) updateNexusCard(); updatePrompt();
-        if (!lite && !covered()) { updateShift(); world.render(player.camera); }
+        if (!lite && !covered()) {
+          // an exercise that is only being read (no simulation, no experiment) lets the 3D view idle at a few frames a second
+          const reading = !!current?.enc && !(runner && !runner.finished) && !view.variant && !['lab', 'predict-observe', 'sandbox'].includes(current.enc.type) && !tut;
+          if (!quality || quality.shouldRender(now, { reading })) { updateShift(); world.render(player.camera); quality?.sample(now, now - lastDrawAt, { reading, hidden: document.hidden }); lastDrawAt = now; }
+        }
       } catch (e) { lastT = now; if (frameErrors++ < 5) console.error('frame error (skipped)', e); }
     };
     requestAnimationFrame(tick);
@@ -365,10 +380,18 @@ const passed = (enc) => store.isPassed(enc.id);
 const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
   $('xp').textContent = `XP ${store.xp}`;
+  if (campaign) { if (campaign.onProgress()) setTimeout(() => { if (!current || $('panel').querySelector('#result .msg')) { toast('Run complete. Well done.'); sfx.goal(); } openOverlayWhenFree('campaign'); }, 900); updateRunChips(); }
   const due = store.dueReviews();
   $('reviews').textContent = `Respawns due: ${due.length}`;
   $('reviews').classList.toggle('review', due.length > 0);
   world.setPortalDue(due.length);
+  if (room && !inNexus) { // the room looks overrun until its exercises are done: darker and redder when the lecture has already passed its week
+    const cs = room.encounters.filter((e) => core(e) && e.type !== 'boss'), left = cs.length ? 1 - cs.filter(passed).length / cs.length : 0, key = `${course.id}/${room.slug}`;
+    const overdue = !!campaign?.isSetup() && campaign.roomOverdue(course.id, room.slug);
+    world.setThreat(left * (overdue ? 1 : 0.3));
+    const rec = store.val('reclaimed', {}) || {};
+    if (cs.length && left === 0 && !rec[key]) { store.setVal('reclaimed', { ...rec, [key]: Date.now() }); toast(`<b>${room.title}</b> reclaimed: every exercise of this room is done.`); world.successEffect(); sfx.goal(); }
+  }
   dueTarget = due.find((id) => encIndex.has(id)) || null;
   for (const g of groups) {
     const es = g.items.filter((e) => e.type !== 'sandbox'), done = es.filter(passed).length;
@@ -431,9 +454,10 @@ function openConnections(key = null) {
 const connectionsHere = () => openConnections(inNexus ? set?.focus?.node?.key ?? null : `${course.id}/${room.slug}`);
 // ================================================================ profile, settings, achievements, study time
 function applySettings() {
-  const s = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
+  const s = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) };
   configureFeedback({ sound: !!s.sound, haptics: s.haptics !== false });
-  player.sens = s.sens; world.renderer.setPixelRatio(s.quality === 'low' ? 1 : Math.min(window.devicePixelRatio || 1, 2));
+  quality ||= createQuality({ setPixelRatio: (r) => { world.renderer.setPixelRatio(r); world.resize(); } });
+  player.sens = s.sens; quality.setMode(params.get('quality') || (params.has('test') ? 'high' : s.quality)); // tests draw every frame unless they ask for a level
 }
 function updateProfileChip() {
   const el = $('btn-profile'); if (!el) return; const ok = sync.available && /saved/.test(sync.status);
@@ -468,10 +492,10 @@ function runAchievements() {
 window.addEventListener('encounter-done', () => setTimeout(runAchievements, 600));
 const fmtMin = (s) => `${Math.floor(s / 3600) ? Math.floor(s / 3600) + ' h ' : ''}${Math.round((s % 3600) / 60)} min`;
 function profileHtml() {
-  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'high', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
+  const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
     <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
-    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution)</option></select></label>
+    <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="auto" ${st.quality === 'auto' ? 'selected' : ''}>automatic (follows the frame rate${quality ? `; now: ${quality.level}` : ''})</option><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="medium" ${st.quality === 'medium' ? 'selected' : ''}>medium</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution, 30 fps)</option><option value="minimal" ${st.quality === 'minimal' ? 'selected' : ''}>minimal (half resolution, 30 fps)</option></select></label>
       <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min or ${GOAL_EXERCISES[k]} exercises)</option>`).join('')}</select></label>
       <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
       <label class="labrow"><span><input type="checkbox" id="set-haptics" ${st.haptics !== false ? 'checked' : ''}> vibration</span></label>
@@ -511,6 +535,8 @@ function togglePile(id) {
 }
 function updatePileChip() { const el = $('btn-pile'); if (el) el.textContent = `Study (V) · pile ${Object.keys(pile()).length}`; }
 let pileQueue = [];
+let quality = null, lastDrawAt = 0; // graphics governor (quality.js)
+let campaign = null; // catch-up campaign and daily run (campaignui.js)
 function pileBar(enc) {
   const bar = document.createElement('div'); bar.className = 'pilebar';
   const render = () => {
@@ -524,7 +550,8 @@ function pileBar(enc) {
 }
 // ---- exercise sheets: due dates of this year (the sheets are the HS25 set: same weekday one year later), current sheet, links
 const DAY = 86400000;
-const sheetDue = (sh) => (sh.due ? new Date(Date.parse(sh.due + 'T23:59:00') + 364 * DAY) : null);
+// A course whose sheets are this year's own (solid state) sets dueShiftDays: 0 in its sheets.json; the default 364 is for last year's set (QM).
+const sheetDue = (sh) => (sh.due ? new Date(Date.parse(sh.due + 'T23:59:00') + (sheetShift.get(sh) ?? 364) * DAY) : null);
 const fmtDue = (d) => (d ? d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '');
 function currentSheet(cid) { const s = sheetsByCourse[cid]; if (!s) return null; const now = Date.now(); return s.sheets.find((x) => sheetDue(x) && sheetDue(x) >= now - DAY / 2) || s.sheets[s.sheets.length - 1]; }
 function sheetMenuLabel() {
@@ -737,15 +764,15 @@ function renderPlan(host) {
 function menuHtml() {
   const s = missionStatus(), d = store.dueReviews().length, n = nextRouteStep();
   const tdn = todayItems().filter((x) => !x.mission && x.ok).length;
-  return `<div class="menu"><button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
-    <button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
+  return `<div class="menu"><h4>Play now</h4>${campaign ? `<button class="bigbtn" data-m="run"><b>${campaign.chipText()}</b><span>${campaign.startLine()} (G)</span></button><button class="bigbtn" data-m="campaign"><b>Campaign: ${campaign.behindText()}</b><span>every lecture week of the three courses, what is done and what is next (C)</span></button>` : ''}<button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
+    <h4>Study</h4><button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
     <button class="bigbtn" data-m="sheets"><b>${sheetMenuLabel()}</b><span>this week's exercise sheet, question by question, with links into the game</span></button><button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
-    <button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
+    <h4>Explore</h4><button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
     <button class="bigbtn" data-m="formulas"><b>Formulas</b><span>drawer for the current course</span></button>
     ${inNexus ? '' : '<button class="bigbtn" data-m="connections"><b>Connections of this room</b><span>how it links to topics in other rooms and courses</span></button>'}
     <button class="bigbtn" data-m="allconn"><b>All connections</b><span>every link between topics across the three courses</span></button>
-    <button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
+    <h4>Settings and help</h4><button class="bigbtn" data-m="hud"><b>Top bar: ${document.body.classList.contains('hudc') ? 'compact' : 'all buttons'}</b><span>${document.body.classList.contains('hudc') ? 'show every button in the top bar again' : 'show only the run, the campaign and the menu'}</span></button><button class="bigbtn" data-m="profile"><b>Profile</b><span>${store.profile} · ${sync.available ? sync.status : 'browser only'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="nexus"><b>Fly to the Nexus</b><span>the map of everything you study</span></button>'}
     <button class="bigbtn" data-m="help"><b>Controls and help</b><span>${touch ? 'stick, look, buttons, both panels' : 'keys and tips'}</span></button>
     ${lite ? '' : '<button class="bigbtn" data-m="tutorial"><b>Replay the tutorial</b><span>for the room you are in</span></button>'}
@@ -768,6 +795,8 @@ function wireMenu() {
     else if (k === 'today') { openOverlay('pile'); renderStudy('today'); }
     else if (k === 'sheets') { openOverlay('pile'); renderStudy('sheets'); }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
+    else if (k === 'run') { closeOverlay(true); campaign.startRun(); } else if (k === 'campaign') openOverlay('campaign');
+    else if (k === 'hud') { const on = !document.body.classList.contains('hudc'); document.body.classList.toggle('hudc', on); store.setVal('settings', { ...(store.val('settings', {}) || {}), hud: on ? 'compact' : 'full' }); openOverlay('menu'); }
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
     else if (k === 'controls') { setControlsChoice(touch ? 'desktop' : 'touch'); reloadWithout('touch'); }
     else if (k === 'landscape') { closeOverlay(true); lockLandscape(); }
@@ -959,6 +988,8 @@ function onKey(e) {
   if (e.code === 'KeyK' && !tut && !current) { connectionsHere(); return; }
   if (e.code === 'KeyP' && !tut && !current) { overlay === 'profile' ? closeOverlay() : openOverlay('profile'); return; }
   if (e.code === 'F1' && !tut) { e.preventDefault(); overlay === 'help' ? closeOverlay() : openOverlay('help'); return; }
+  if (e.code === 'KeyC' && !tut && !current) { overlay === 'campaign' ? closeOverlay() : openOverlay('campaign'); return; }
+  if (e.code === 'KeyG' && !tut && !current && campaign) { closeOverlay(true); campaign.startRun(); return; }
   if (e.code === 'KeyV' && !tut && !current) { overlay === 'pile' ? closeOverlay() : openOverlay('pile'); return; }
   if (e.code === 'KeyX' && !tut && !current) { overlay === 'exam' ? closeOverlay() : openOverlay('exam'); return; }
   if (e.code === 'KeyT' && !tut && !current) { overlay === 'missions' ? closeOverlay() : openOverlay('missions'); return; }
@@ -992,10 +1023,11 @@ async function openById(id) {
 function openOverlay(kind) {
   overlay = kind; player.unlock();
   $('overlay').style.display = '';
-  $('ov-title').textContent = { missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
+  $('ov-title').textContent = { campaign: 'Campaign: catch up, week by week', missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
   if (stopExam) { stopExam(); stopExam = null; }
   if (kind === 'exam') { $('ov-body').innerHTML = ''; stopExam = mountExamHall($('ov-body'), { catalog, banks, store, onGoto: (k) => { const [c, r] = k.split('/'); closeOverlay(true); loadRoom(c, r, { silent: false }); player.enabled = true; } }); return; }
   if (kind === 'pile') { renderStudy(); return; }
+  if (kind === 'campaign') { renderCampaign(); return; }
   if (kind === 'suggest') { $('ov-body').innerHTML = M(suggestion.html); wireSuggest(); return; }
   if (kind === 'menu' || kind === 'roomMenu') { $('ov-body').innerHTML = kind === 'menu' ? menuHtml() : roomMenuHtml(); wireMenu(); return; }
   $('ov-body').innerHTML = kind === 'missions' ? missionsHtml() : kind === 'profile' ? profileHtml() : kind === 'help' ? helpHtml() : mapHtml();
@@ -1007,6 +1039,15 @@ function openOverlay(kind) {
   document.querySelectorAll('[data-goto]').forEach((b) => (b.onclick = async () => { const [c, r] = b.dataset.goto.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); return; } loadRoom(c, r, { silent: false }); if (!player.enabled) player.enabled = true; }));
 }
 let stopExam = null;
+function renderCampaign() { if (!campaign) { $('ov-body').innerHTML = '<p>The campaign could not be loaded.</p>'; return; } const b = $('ov-body'), y = b.scrollTop; b.innerHTML = M(campaign.html()); campaign.wire(b, renderCampaign); b.scrollTop = y; }
+function updateRunChips() {
+  if (!campaign) return; const r = $('btn-run'), c = $('btn-campaign'); if (!r || !c) return;
+  r.textContent = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign';
+  const sp = $('st-plan'); if (sp) sp.textContent = campaign.startLine();
+}
+// the run summary must not tear the result of the last exercise away: show it when the panel is closed (or right away if none is open)
+let pendingOverlay = null;
+function openOverlayWhenFree(kind) { if (current) pendingOverlay = kind; else openOverlay(kind); }
 function closeOverlay(silent) {
   if (stopExam) { stopExam(); stopExam = null; }
   overlay = null; $('overlay').style.display = 'none';
@@ -1163,16 +1204,19 @@ function openEncounter(enc, fromGroup) {
     back.onclick = () => openGroup(grp); $('panel').prepend(back);
   }
   const sl = sheetLinksHtml(enc); if (sl) { const box = document.createElement('div'); box.innerHTML = M(sl); wireSheetLinks(box); $('panel').prepend(box); }
+  if ((store.val('settings', {}) || {}).fights !== 'off') battle.begin(enc, $('panel'), { course: encIndex.get(enc.id)?.course || course?.id, onChange: null }); // fights with stakes: enemy, focus, combo
   if (!enc.synthetic) $('panel').prepend(pileBar(enc));
   const nb = navBackBar(enc); if (nb) $('panel').prepend(nb);
   updateBar();
 }
 function closePanel(silent) {
+  battle.end();
   if (unmountPanel) { unmountPanel(); unmountPanel = null; }
   $('panel').innerHTML = ''; $('side').classList.add('hidden');
   if (runner && !runner.finished && !runner.done) { /* a replay keeps running */ }
   else if (runner && runner.done) runner = null; // a first run that was abandoned
   const had = !!current; current = null;
+  if (pendingOverlay && !silent) { const k = pendingOverlay; pendingOverlay = null; setTimeout(() => openOverlay(k), 0); updateBar(); return; }
   if (had && !silent && player.enabled) player.lock();
   updateBar();
 }
@@ -1272,6 +1316,7 @@ function exposeTestApi() {
     activeSeconds: () => studyToday() + Math.round(studyAcc),
     failFrames: (n) => { testHooks.failFrames = n; }, teleport: (...a) => player.teleport(...a), holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
     finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
+    quality: () => quality?.info(), battle: () => battle.current(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };
 }

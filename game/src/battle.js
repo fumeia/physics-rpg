@@ -4,6 +4,7 @@
 // exercise code or content changes, and nothing here decides whether an exercise is passed.
 import { store } from './store.js';
 import { todayStr } from './missions.js';
+import { mistakes, updateMistake } from './mistakes.js';
 
 const MAX_FOCUS = 100, WRONG_COST = 10, HINT_COST_FOCUS = 4, READ_GAIN = 8, WIN_GAIN = 3;
 const hash = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
@@ -54,6 +55,9 @@ export function begin(enc, panel, { course, onChange } = {}) {
     <div class="bt-mid"><span class="bt-combo"></span><span class="bt-pop"></span></div>
     <div class="bt-you"><div class="bt-name"><b>Focus</b><span class="bt-fv"></span></div><div class="bt-fo"><i></i></div></div>`;
   panel.prepend(bar);
+  // nemesis: an open mistake you made on this exercise comes back with the enemy and carries what you wrote; three wins retire it
+  const nem = mistakes().filter((m) => m.open && m.encId === enc.id).slice(-1)[0];
+  if (nem) { bar.classList.add('nemesis'); const d = document.createElement('div'); d.className = 'bt-nem'; d.textContent = `Nemesis (${nem.beaten || 0}/3 beaten): last time you answered \u201c${String(nem.given).slice(0, 60)}\u201d${nem.diag ? ` \u2014 ${String(nem.diag).replace(/<[^>]+>/g, '').slice(0, 110)}` : ''}`; bar.appendChild(d); }
   const st = cur = { enc, bar, enemy, hp: 100, n, hits: 0, wrong: 0, hints: 0, combo: 0, done: false, lastWrongAt: 0, tried: new WeakSet(), onChange };
   const paint = () => { const f = focus(); bar.querySelector('.bt-hp i').style.width = `${st.hp}%`; bar.querySelector('.bt-fo i').style.width = `${f}%`; bar.querySelector('.bt-fv').textContent = `${f} / ${MAX_FOCUS}`; bar.classList.toggle('lowfocus', f <= 25); bar.querySelector('.bt-combo').textContent = st.combo >= 2 ? `combo ×${st.combo}` : ''; };
   const pop = (text, cls) => { const p = bar.querySelector('.bt-pop'); p.textContent = text; p.className = `bt-pop ${cls}`; void p.offsetWidth; p.classList.add('go'); };
@@ -63,7 +67,8 @@ export function begin(enc, panel, { course, onChange } = {}) {
   st.hint = () => { if (st.done) return; st.hints++; setFocus(focus() - HINT_COST_FOCUS); pop(`hint · −${HINT_COST_FOCUS} focus`, 'hurt'); paint(); };
   st.finish = (ok) => {
     if (st.done) return; st.done = true; const g = gradeOf(st.wrong, st.hints, ok);
-    if (ok) { st.hp = 0; setFocus(focus() + (enc.type === 'lesson' ? READ_GAIN : WIN_GAIN)); pop(`${enemy.name} defeated · grade ${g}`, 'win'); bar.classList.add('won'); }
+    if (ok && nem) { const n = (nem.beaten || 0) + 1; updateMistake(nem.id, { beaten: n, open: n < 3 }); }
+    if (ok) { st.hp = 0; setFocus(focus() + (enc.type === 'lesson' ? READ_GAIN : WIN_GAIN)); pop(`${enemy.name} defeated \u00b7 grade ${g}${nem ? ` \u00b7 nemesis ${(nem.beaten || 0) + 1}/3` : ''}`, 'win'); bar.classList.add('won'); }
     else { pop('it got away · it comes back as a respawn', 'hurt'); bar.classList.add('lost'); }
     logFight({ id: enc.id, grade: g, wrong: st.wrong, hints: st.hints, ok: !!ok, enemy: enemy.name, t: Date.now() }); paint();
   };

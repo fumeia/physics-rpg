@@ -430,3 +430,7 @@ body.hudc #hud .tl { max-width: 42vw; } body.hudc #reviews:not(.review) { displa
 .cp-tile.fade { border-color: var(--warn); border-style: dashed; } .cp-tile.fade i { background: linear-gradient(0deg, rgba(76,195,138,.45), rgba(245,196,81,.35)); opacity: .7; }
 .cp-tile.hot b::after { content: '\2022'; color: #ff9f6b; margin-left: 2px; } .cp-tile.skim b { text-decoration: underline dotted; }
 .cp-node.defend .cp-dot { border-color: #9fb4d8; }
+
+.battle.nemesis { border-color: #c77dff; } .bt-nem { grid-column: 1 / -1; font-size: 12px; color: #d9b3ff; border-top: 1px dashed rgba(199,125,255,.4); padding-top: 4px; } html[data-theme=light] .bt-nem { color: #6a2a9a; }
+.cp-goals { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; } .cp-goals .chip { font-size: 12px; padding: 2px 9px; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .cp-goals .chip.ok { border-color: var(--good); color: var(--good); }
+.cp-node.hunt .cp-dot, .cp-node.explain .cp-dot, .cp-node.blitz .cp-dot { border-style: dotted; border-color: #c77dff; } .cp-node.scout .cp-dot { border-color: #8de0ff; }

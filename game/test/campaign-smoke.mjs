@@ -41,9 +41,16 @@ ck('week row: seven day pips and a locked chest', await p.evaluate(() => documen
 ck('weekly bosses render without error (present while a sheet is due within 9 days)', await p.evaluate(() => document.querySelectorAll('.cp-boss').length >= 0));
 // run from start to end
 const stops2 = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop));
+const acts = stops2.filter((s) => s.startsWith('@')), encs = stops2.filter((s) => !s.startsWith('@'));
+ck('the run mixes in guided practice (blitz, explain-it or a mistake hunt)', acts.length >= 1, stops2.join());
+for (const a of acts) { await p.evaluate((id) => document.querySelector(`.cp-node[data-stop="${id}"]`).click(), a); await p.waitForTimeout(250);
+  ck(`practice stop ${a} opens its tab in the practice hub`, await p.evaluate(() => document.getElementById('ov-title').textContent === 'Study hub'));
+  await p.keyboard.press('Escape'); await p.waitForTimeout(100); await p.keyboard.press('KeyC'); await p.waitForTimeout(250); }
+ck('practice stops are ticked once opened', await p.evaluate((n) => document.querySelectorAll('.cp-node.done').length === n, acts.length));
 await p.click('#cp-start'); await p.waitForTimeout(700);
-ck('the run opens its first stop with a position bar', await p.evaluate(() => /run 1 \/ \d/.test(document.querySelector('.pilebar')?.innerText || '')), await p.evaluate(() => document.querySelector('.pilebar')?.innerText));
-for (let i = 0; i < stops2.length; i++) { await p.evaluate((id) => window.__game.finish(id, true, 10), stops2[i]); await p.waitForTimeout(120); }
+ck('the run opens its first exercise with a position bar', await p.evaluate(() => /run 1 \/ \d/.test(document.querySelector('.pilebar')?.innerText || '')), await p.evaluate(() => document.querySelector('.pilebar')?.innerText));
+ck('the exercise is a fight: enemy with HP and your focus', await p.evaluate(() => !!document.querySelector('.battle .bt-hp') && !!document.querySelector('.battle .bt-fo')));
+for (const id of encs) { await p.evaluate((x) => window.__game.finish(x, true, 10), id); await p.waitForTimeout(120); }
 ck('top bar counts the stops', /Run done/.test(await p.textContent('#btn-run')), await p.textContent('#btn-run'));
 await p.evaluate(() => window.__game.close()); await p.waitForTimeout(1300);
 await p.keyboard.press('Escape'); await p.waitForTimeout(200); await p.keyboard.press('KeyC'); await p.waitForTimeout(300);

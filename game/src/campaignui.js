@@ -7,8 +7,9 @@ import { fightsToday, enemyOf, spriteSvg } from './battle.js';
 import { EST_MIN } from './campaign.js';
 import { meanRetention, fading, forecast } from './memory.js';
 
-const ICON = { warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8' };
-const KIND = { warmup: 'Warm-up', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend' };
+const ACT_ICON = { hunt: '\u2620', explain: '\u275d', blitz: '\u26a1' };
+const ICON = { scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8' };
+const KIND = { scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Warm-up', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend' };
 const LENGTHS = [[20, 'Short'], [45, 'Normal'], [90, 'Long']];
 const GHOST = '<svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M2 21V9a8 8 0 0 1 16 0v12l-3-2.5-2.5 2.5-2.5-2.5L7.5 21 5 18.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.6" fill="#0b0d12"/><circle cx="12.5" cy="9" r="1.6" fill="#0b0d12"/></svg>';
 const esc = (s) => String(s).replace(/</g, '&lt;');
@@ -34,7 +35,7 @@ export function createCampaign(ctx) {
   function fadingIds() { const ids = []; for (const cid of courses()) for (const w of W()[cid]) ids.push(...w.theory, ...w.practice); return fading(ids.filter((id) => passed(id) && !ctx.isLockedId(id)), mem(), store.snapshot.solved).map((x) => x.id); }
   function grades() {
     return courses().map((cid) => { const c = ctx.catalog.find((x) => x.id === cid), bossIds = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type === 'boss').map((e) => e.id));
-      const f = forecast({ weeks: W()[cid].map((w) => ({ ids: [...w.theory, ...w.practice], weight: 0.4 + weekWeight(cid, w) })), isPassed: passed, mem: mem(), solved: store.snapshot.solved, bossIds }); return { cid, ...f }; });
+      const f = forecast({ weeks: W()[cid].map((w) => ({ ids: [...w.theory, ...w.practice], weight: 0.4 + weekWeight(cid, w), credit: known()[cid]?.has(w.n) ? 0.6 : 0 })), isPassed: passed, mem: mem(), solved: store.snapshot.solved, bossIds }); return { cid, ...f }; });
   }
   const taught = () => taughtWeeks(cfg);
   const courses = () => Object.keys(W());
@@ -66,10 +67,20 @@ export function createCampaign(ctx) {
       const alt = room.encounters.find((e) => want.includes(e.type) && !e.sim && !e.book && !e.sheet && !passed(e.id) && !ctx.isLockedId(e.id) && !r.stops.some((x) => x.id === e.id || x.alt?.id === e.id));
       if (alt) { s.alt = { id: alt.id, min: EST_MIN[alt.type] || 15, kind: alt.type === 'boss' ? 'boss' : 'sheet', bonus: Math.round((alt.xp || 30) * 0.5) }; forks++; }
     }
+    // scouting: for a course where you are (nearly) level, preview the first lesson of the coming lecture week, so the lecture is revision
+    for (const cid of courses()) { const p = pos(cid), w = W()[cid].find((x) => x.n === taught() + 1); if (!w || p.behind > 1 || r.minutes + 10 > minutes + 5) continue;
+      const id = w.theory.find((x) => !passed(x) && !ctx.isLockedId(x) && ctx.encIndex.get(x)?.enc.type === 'lesson' && !r.stops.some((s) => s.id === x)); if (id) { r.stops.push({ id, kind: 'scout', course: cid, min: 10, why: `Scouting week ${w.n}: a first look before the lecture, so the lecture becomes revision` }); r.minutes += 10; break; } }
+    // guided practice (the study hub inside the run): a blitz to warm up when nothing is due, a mistake hunt, an explain-it round
+    const act = (id, kind, action, why, at) => r.stops.splice(at, 0, { id, kind, action, min: 5, why });
+    if (!r.stops.some((s) => s.kind === 'warmup' || s.kind === 'defend') && r.stops.length) act('@blitz', 'blitz', 'drills', 'Nothing is due: one minute of quick recall to warm up', 0);
+    const openM = ctx.mistakes().filter((m) => m.open).length; if (openM && minutes >= 40) act('@hunt', 'hunt', 'mistakes', `${openM} open mistake${openM === 1 ? '' : 's'} in your log: look at one and say what went wrong`, Math.min(1, r.stops.length));
+    const ti = r.stops.findIndex((s) => s.kind === 'theory'); if (ti >= 0 && minutes >= 40) act('@explain', 'explain', 'feynman', 'Explain what you just read in your own words, without looking', ti + 1);
+    r.minutes = r.stops.reduce((a, s) => a + s.min, 0);
     return { date: todayStr(), minutes, stops: r.stops, est: r.minutes, startedAt: 0, xp0: store.xp, behind0: behindTotal(), n: (() => { const pr = store.val('run', null); return pr?.date === todayStr() ? (pr.n || 1) + (pr.summarized ? 1 : 0) : 1; })() };
   }
   function run() { let r = store.val('run', null); if (!r || r.date !== todayStr()) { r = freshRun(); r.n = 1; store.setVal('run', r); } return r; }
   function stopState(r, s) { // done / failed today since the run started, else open
+    if (s.action) return r.acted?.[s.id] ? 'done' : 'open'; // practice stops count once you opened them
     if (!r.startedAt) return 'open';
     const hit = store.activityOn(todayStr()).filter((x) => x.id === s.id && x.t >= r.startedAt - 1000).pop();
     return hit ? (hit.ok ? 'done' : 'failed') : 'open';
@@ -81,9 +92,10 @@ export function createCampaign(ctx) {
     if (!r.stops.length) { ctx.toast('Nothing open for today: every week is done and no respawn is due. Try the exam hall.'); return; }
     if (complete) { ctx.openCampaign(); return; }
     if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); }
-    const ids = r.stops.map((s) => s.id), first = r.stops[st.indexOf('open')].id;
-    ctx.openQueue(ids, `Today’s run`, first);
+    const nx = r.stops[st.indexOf('open')]; if (nx.action) { doAction(nx); return; }
+    ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), `Today\u2019s run`, nx.id);
   }
+  function doAction(s) { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); } r.acted = { ...(r.acted || {}), [s.id]: Date.now() }; store.setVal('run', r); ctx.openTab(s.action); ctx.toast(`${KIND[s.kind]}: ${s.why}. Press G to go on with the run.`); onProgress(); ctx.onChange(); }
   function newRun(minutes) { store.setVal('runMinutes', minutes); const r = freshRun(minutes); store.setVal('run', r); }
   // called after every finished exercise: when the last stop of the run is finished, log it and show the summary once
   function onProgress() {
@@ -91,6 +103,9 @@ export function createCampaign(ctx) {
     const st = r.stops.map((s) => stopState(r, s)); if (!st.every((x) => x !== 'open')) return false;
     let bonus = 0; r.stops.forEach((s, i) => { if (s.risk && st[i] === 'done') bonus += s.bonus || 0; }); if (bonus) store.addXp(bonus); r.bonus = bonus;
     payBosses();
+    // resonance: two stops of this run sit in rooms that a cross-course connection links
+    const roomsDone = new Set(r.stops.filter((s, i) => !s.action && st[i] === 'done').map((s) => { const ref = ctx.encIndex.get(s.id); return ref ? `${ref.course}/${ref.roomId}` : ''; }));
+    const res = ctx.links().find((l) => roomsDone.has(l.a) && roomsDone.has(l.b)); if (res) { r.resonance = { title: res.title, a: res.a, b: res.b }; store.addXp(15); }
     r.summarized = true; r.xp1 = store.xp; r.behind1 = behindTotal(); r.finishedAt = Date.now(); store.setVal('run', r);
     const log = (store.val('runLog', []) || []).filter((x) => !(x.date === r.date && x.n === r.n)); log.push({ date: r.date, n: r.n, stops: r.stops.length, ok: st.filter((x) => x === 'done').length, xp: r.xp1 - r.xp0, gain: +(r.behind0 - r.behind1).toFixed(2) }); store.setVal('runLog', log.slice(-120));
     return true;
@@ -127,7 +142,10 @@ export function createCampaign(ctx) {
     const w = weekInfo(), names = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
     const pips = w.days.map((d, i) => `<span class="cp-pip${w.done[i] ? ' on' : ''}${d === w.today ? ' today' : ''}" title="${d}">${names[i]}</span>`).join('');
     const can = w.tier > w.claimed;
-    return `<div class="cp-weekrow"><div class="cp-pips">${pips}</div><span class="src">${w.n} run day${w.n === 1 ? '' : 's'} this week · streak ${runStreak()} (one missed day a week is forgiven)</span>
+    const ms = ctx.missions(), msDone = ms.filter((m) => m.done).length;
+    const gains = (store.val('runLog', []) || []).filter((x) => w.days.includes(x.date) && typeof x.gain === 'number').reduce((a, x) => a + x.gain, 0), dayNo = w.days.indexOf(w.today) + 1;
+    const goals = ms.length ? `<div class="cp-goals"><span class="src">Bonus goals today (${msDone}/${ms.length}):</span>${ms.map((m) => `<button class="chip btn${m.done ? ' ok' : ''}" data-goal>${m.done ? '\u2713 ' : ''}${esc(m.title)}</button>`).join('')}</div><div class="src">This week the ghost moved ${(dayNo * 3 / 7).toFixed(1)} weeks, you gained ${gains.toFixed(1)}.</div>` : '';
+    return `${goals}<div class="cp-weekrow"><div class="cp-pips">${pips}</div><span class="src">${w.n} run day${w.n === 1 ? '' : 's'} this week · streak ${runStreak()} (one missed day a week is forgiven)</span>
       <button class="cp-chest${can ? ' ready' : ''}" id="cp-chest" ${can ? '' : 'disabled'} title="Weekly chest: 3 run days bronze, 5 silver, 7 gold">${can ? `Open the ${CHEST[w.tier - 1][1].toLowerCase()} chest` : w.next ? `${CHEST[Math.min(2, w.tier)][1]} chest at ${w.next[0]} run days` : 'Gold chest opened'}</button></div>`;
   }
   // The weekly boss: the sheet that is due next in each course. Its theory is its armour; its open questions are its HP.
@@ -178,8 +196,8 @@ export function createCampaign(ctx) {
     const foe = (id) => { const ref = ctx.encIndex.get(id); return ref ? spriteSvg(enemyOf(ref.enc, ref.course), 30) : ''; };
     const nodes = r.stops.map((s, i) => { const open = st[i] === 'open';
       const fork = open && s.alt && ctx.encIndex.has(s.alt.id) ? `<button class="cp-alt" data-alt="${i}" title="Swap this stop for ${s.alt.back ? 'the safe one' : 'a harder one from the same room'}"><span class="cp-altk">${s.alt.back ? 'or go back to the safe stop' : `or take the risk · +${s.alt.bonus} XP`}</span><span class="cp-altt">${foe(s.alt.id)} ${esc(title(s.alt.id))}</span></button>` : '';
-      return `<div class="cp-stop"><button class="cp-node ${st[i]}${open && st.indexOf('open') === i ? ' next' : ''}${s.risk ? ' risk' : ''}" data-stop="${s.id}" title="${esc(s.why)}"><span class="cp-dot">${st[i] === 'done' ? (grades[s.id] || '✓') : st[i] === 'failed' ? '✗' : open ? foe(s.id) || ICON[s.kind] : ICON[s.kind]}</span><span class="cp-nk">${s.risk ? 'Risk · ' : ''}${KIND[s.kind]}${s.course ? ` · ${cfg.courses[s.course]?.short || ''}` : ''} · ${s.min} min</span><span class="cp-nt">${esc(title(s.id))}</span></button>${fork}</div>`; }).join('<span class="cp-link"></span>');
-    const sum = complete && r.summarized ? `<p class="msg good">Run complete: ${st.filter((x) => x === 'done').length} of ${total} passed, ${r.xp1 - r.xp0 >= 0 ? '+' : '−'}${Math.abs(r.xp1 - r.xp0)} XP${r.bonus ? ` (risk bonus +${r.bonus})` : ''}${r.behind0 - r.behind1 > 0 ? `, ${(r.behind0 - r.behind1).toFixed(1)} weeks gained on the ghost` : ''}. ${st.includes('failed') ? 'The missed ones come back as respawns.' : ''}</p>` : '';
+      return `<div class="cp-stop"><button class="cp-node ${s.kind} ${st[i]}${open && st.indexOf('open') === i ? ' next' : ''}${s.risk ? ' risk' : ''}" data-stop="${s.id}" title="${esc(s.why)}"><span class="cp-dot">${st[i] === 'done' ? (grades[s.id] || '✓') : st[i] === 'failed' ? '✗' : open && !s.action ? foe(s.id) || ICON[s.kind] : ICON[s.kind]}</span><span class="cp-nk">${s.risk ? 'Risk · ' : ''}${KIND[s.kind]}${s.course ? ` · ${cfg.courses[s.course]?.short || ''}` : ''} · ${s.min} min</span><span class="cp-nt">${s.action ? esc(s.why) : esc(title(s.id))}</span></button>${fork}</div>`; }).join('<span class="cp-link"></span>');
+    const sum = complete && r.summarized ? `<p class="msg good">Run complete: ${st.filter((x) => x === 'done').length} of ${total} passed, ${r.xp1 - r.xp0 >= 0 ? '+' : '−'}${Math.abs(r.xp1 - r.xp0)} XP${r.bonus ? ` (risk bonus +${r.bonus})` : ''}${r.behind0 - r.behind1 > 0 ? `, ${(r.behind0 - r.behind1).toFixed(1)} weeks gained on the ghost` : ''}. ${st.includes('failed') ? 'The missed ones come back as respawns.' : ''}</p>${r.resonance ? `<p class="msg good">Resonance (+15 XP): <b>${esc(r.resonance.title)}</b> \u2014 two stops of this run are the same physics in two courses. <button class="link" data-reso="${r.resonance.a}">show the connection</button></p>` : ''}` : '';
     return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${r.est} min · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
       <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === mins ? ' cur' : ''}" data-len="${m}" title="Plan a ${m}-minute run">${l} ${m}′</button>`).join('')}</div></div>
       ${weekHtmlRow()}
@@ -217,10 +235,12 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-setval]').forEach((el) => { const v = +el.dataset.v; host.querySelector(`[data-setnote="${el.dataset.setval}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; });
     const okb = host.querySelector('#cp-setup-ok'); if (okb) okb.onclick = () => { const k = {}; host.querySelectorAll('[data-setval]').forEach((el) => { k[el.dataset.setval] = Array.from({ length: +el.dataset.v }, (_, i) => i + 1); }); store.setVal('campaignKnown', k); store.setVal('campaignSetup', true); store.setVal('run', null); re(); };
     host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { newRun(+b.dataset.len); re(); }));
+    host.querySelectorAll('[data-goal]').forEach((b) => (b.onclick = () => ctx.openMissions()));
     const ch = host.querySelector('#cp-chest'); if (ch) ch.onclick = () => { const xp = claimChest(); if (xp) ctx.toast(`Weekly chest: +${xp} XP`); re(); };
     const st = host.querySelector('#cp-start'); if (st) st.onclick = () => startRun();
     const ag = host.querySelector('#cp-again'); if (ag) ag.onclick = () => { newRun(runMinutes()); re(); };
-    host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.map((s) => s.id), 'Today’s run', b.dataset.stop); }));
+    host.querySelectorAll('[data-reso]').forEach((b) => (b.onclick = () => ctx.openConnection(b.dataset.reso)));
+    host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); const as = r.stops.find((s) => s.id === b.dataset.stop && s.action); if (as) { doAction(as); return; } if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), 'Today\u2019s run', b.dataset.stop); }));
     host.querySelectorAll('[data-alt]').forEach((b) => (b.onclick = () => { const r = run(), i = +b.dataset.alt, s = r.stops[i], a = s.alt; r.stops[i] = a.back ? { ...a.orig } : { ...s, id: a.id, kind: a.kind, min: a.min, bonus: a.bonus, risk: true, alt: { id: s.id, back: true, orig: { ...s } }, why: 'You took the risk: a harder problem from the same room, for bonus XP' }; r.est = r.stops.reduce((x, y) => x + y.min, 0); store.setVal('run', r); re(); }));
     host.querySelectorAll('[data-skim]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.skim.split('/'), raw = store.val('campaignSkim', {}) || {}, cur = new Set(raw[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); store.setVal('campaignSkim', { ...raw, [cid]: [...cur] }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
     host.querySelectorAll('[data-hand]').forEach((b) => (b.onclick = () => { const c = b.dataset.hand; store.setVal('handIn', { ...(store.val('handIn', {}) || {}), [c]: !handIn(c) }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));

@@ -19,7 +19,8 @@ export function fading(ids, mem, solved, now = Date.now(), below = 0.6) { return
 //   weeks: [{ids: [...], weight}], isPassed(id), bossIds: old-exam problems of the course
 export function forecast({ weeks, isPassed, mem, solved, bossIds = [], now = Date.now() }) {
   let wsum = 0, got = 0;
-  for (const w of weeks) { if (!w.ids.length) continue; const wt = w.weight ?? 1; wsum += wt; const p = w.ids.filter(isPassed); if (!p.length) continue; got += wt * (p.length / w.ids.length) * (meanRetention(p, mem, solved, now) ?? 0); }
+  for (const w of weeks) { if (!w.ids.length) continue; const wt = w.weight ?? 1; wsum += wt; if (w.credit) { got += wt * w.credit; continue; } // a week done on paper: fixed credit
+    const p = w.ids.filter(isPassed); if (!p.length) continue; got += wt * (p.length / w.ids.length) * (meanRetention(p, mem, solved, now) ?? 0); }
   const cover = wsum ? got / wsum : 0, boss = bossIds.length ? bossIds.filter(isPassed).length / bossIds.length : 0;
   const score = Math.min(1, 0.8 * cover + 0.2 * boss), grade = 1 + 5 * score ** 0.75;
   return { score, cover, boss, grade: Math.round(grade * 4) / 4 };

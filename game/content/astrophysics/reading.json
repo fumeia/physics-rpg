@@ -59,6 +59,50 @@
       ],
       "correct": 0,
       "explain": "Inverted logarithmic scale."
+     },
+     {
+      "q": "1 pc is about",
+      "options": [
+       "$3.1\\times10^{16}$ m (3.26 ly)",
+       "$1.5\\times10^{11}$ m",
+       "$9.5\\times10^{15}$ m",
+       "$10^{20}$ m"
+      ],
+      "correct": 0,
+      "explain": "206265 AU."
+     },
+     {
+      "q": "A star with parallax $0.1^{\\prime\\prime}$ is at",
+      "options": [
+       "10 pc",
+       "0.1 pc",
+       "100 pc",
+       "1 pc"
+      ],
+      "correct": 0,
+      "explain": "$d=1/p$."
+     },
+     {
+      "q": "Absolute magnitude is the apparent magnitude at",
+      "options": [
+       "10 pc",
+       "1 pc",
+       "1 AU",
+       "1 kpc"
+      ],
+      "correct": 0,
+      "explain": "Definition."
+     },
+     {
+      "q": "Declination is measured from",
+      "options": [
+       "the celestial equator",
+       "the horizon",
+       "the ecliptic",
+       "the galactic plane"
+      ],
+      "correct": 0,
+      "explain": "Equatorial coordinates."
      }
     ]
    }
@@ -121,6 +165,50 @@
       ],
       "correct": 0,
       "explain": "Atmospheric windows."
+     },
+     {
+      "q": "Ground-based optical resolution is usually limited by",
+      "options": [
+       "atmospheric seeing (~1&#8243;)",
+       "the diffraction limit always",
+       "the detector",
+       "the Moon"
+      ],
+      "correct": 0,
+      "explain": "Unless adaptive optics."
+     },
+     {
+      "q": "The atmosphere is transparent in",
+      "options": [
+       "optical and radio windows",
+       "X-rays",
+       "gamma rays",
+       "far UV"
+      ],
+      "correct": 0,
+      "explain": "Space needed for the rest."
+     },
+     {
+      "q": "Doubling the telescope diameter improves the diffraction limit by",
+      "options": [
+       "a factor 2",
+       "a factor 4",
+       "nothing",
+       "a factor $\\sqrt2$"
+      ],
+      "correct": 0,
+      "explain": "$\\theta\\propto1/D$."
+     },
+     {
+      "q": "Doubling the diameter increases the collected light by",
+      "options": [
+       "4",
+       "2",
+       "8",
+       "1"
+      ],
+      "correct": 0,
+      "explain": "Area $\\propto D^2$."
      }
     ]
    }
@@ -183,6 +271,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 2.2.4."
+     },
+     {
+      "q": "In empty space along a ray, $I_\\nu$",
+      "options": [
+       "is constant",
+       "falls as $1/r^2$",
+       "grows",
+       "oscillates"
+      ],
+      "correct": 0,
+      "explain": "Surface brightness conservation."
+     },
+     {
+      "q": "Optical depth $d\\tau_\\nu=$",
+      "options": [
+       "$\\alpha_\\nu ds$",
+       "$j_\\nu ds$",
+       "$I_\\nu ds$",
+       "$ds/\\alpha_\\nu$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 2.2.3."
+     },
+     {
+      "q": "An optically thick source at constant $S_\\nu$ shows $I_\\nu\\to$",
+      "options": [
+       "$S_\\nu$",
+       "0",
+       "$I_\\nu(0)$",
+       "infinity"
+      ],
+      "correct": 0,
+      "explain": "Formal solution."
+     },
+     {
+      "q": "The flux is obtained from $I_\\nu$ by integrating",
+      "options": [
+       "$I_\\nu\\cos\\theta\\,d\\Omega$",
+       "$I_\\nu\\,d\\Omega$",
+       "$I_\\nu\\sin\\theta$",
+       "$I_\\nu\\,dV$"
+      ],
+      "correct": 0,
+      "explain": "First moment."
      }
     ]
    }
@@ -245,6 +377,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 2.3.2."
+     },
+     {
+      "q": "Wien&#8217;s law",
+      "options": [
+       "$\\lambda_{\\max}T\\approx2.9\\times10^{-3}$ m K",
+       "$\\lambda_{\\max}=T$",
+       "$\\lambda_{\\max}T^4=$ const",
+       "$\\nu_{\\max}\\propto1/T$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 2.3."
+     },
+     {
+      "q": "Stefan-Boltzmann constant $\\sigma\\approx$",
+      "options": [
+       "$5.67\\times10^{-8}$ W m$^{-2}$K$^{-4}$",
+       "$1.38\\times10^{-23}$ J/K",
+       "$6.6\\times10^{-34}$ J s",
+       "$3\\times10^8$ m/s"
+      ],
+      "correct": 0,
+      "explain": "$L=4\\pi R^2\\sigma T^4$."
+     },
+     {
+      "q": "The CMB temperature today",
+      "options": [
+       "2.7 K",
+       "27 K",
+       "0.27 K",
+       "3000 K"
+      ],
+      "correct": 0,
+      "explain": "Every exam MC."
+     },
+     {
+      "q": "A star twice as hot (same radius) is",
+      "options": [
+       "16 times as luminous",
+       "2 times",
+       "4 times",
+       "8 times"
+      ],
+      "correct": 0,
+      "explain": "$T^4$."
      }
     ]
    }
@@ -307,6 +483,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 2.4.3."
+     },
+     {
+      "q": "The effective temperature is defined by",
+      "options": [
+       "$F=\\sigma T_{\\rm eff}^4$ at the surface",
+       "the core temperature",
+       "the colour",
+       "the line widths"
+      ],
+      "correct": 0,
+      "explain": "Blackbody with the same flux."
+     },
+     {
+      "q": "Limb darkening shows that the temperature",
+      "options": [
+       "decreases outward",
+       "increases outward",
+       "is constant",
+       "is negative"
+      ],
+      "correct": 0,
+      "explain": "Eddington-Barbier."
+     },
+     {
+      "q": "In LTE the source function equals",
+      "options": [
+       "$B_\\nu(T)$",
+       "$I_\\nu$",
+       "0",
+       "$j_\\nu$"
+      ],
+      "correct": 0,
+      "explain": "Kirchhoff."
+     },
+     {
+      "q": "Emission lines form when",
+      "options": [
+       "the source function increases outward (or optically thin hot gas)",
+       "temperature decreases outward",
+       "there is no gas",
+       "always in stars"
+      ],
+      "correct": 0,
+      "explain": "E.g. chromospheres, nebulae."
      }
     ]
    }
@@ -369,6 +589,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 2.8."
+     },
+     {
+      "q": "The Rosseland mean opacity weights",
+      "options": [
+       "$1/\\kappa_\\nu$ by $\\partial B_\\nu/\\partial T$",
+       "$\\kappa_\\nu$ by $B_\\nu$",
+       "nothing",
+       "only line opacity"
+      ],
+      "correct": 0,
+      "explain": "Harmonic mean, transparent windows dominate."
+     },
+     {
+      "q": "The H$^-$ ion dominates the opacity in",
+      "options": [
+       "the solar photosphere",
+       "the solar core",
+       "white dwarfs",
+       "the corona"
+      ],
+      "correct": 0,
+      "explain": "Cool atmospheres."
+     },
+     {
+      "q": "Saha equation describes",
+      "options": [
+       "ionisation equilibrium",
+       "hydrostatic equilibrium",
+       "nuclear rates",
+       "opacity"
+      ],
+      "correct": 0,
+      "explain": "Used in spectral classification."
+     },
+     {
+      "q": "Thomson cross-section $\\sigma_T\\approx$",
+      "options": [
+       "$6.65\\times10^{-29}$ m$^2$",
+       "$10^{-20}$ m$^2$",
+       "$10^{-35}$ m$^2$",
+       "$6.65\\times10^{-25}$ m$^2$"
+      ],
+      "correct": 0,
+      "explain": "($6.65\\times10^{-25}$ cm$^2$)."
      }
     ]
    }
@@ -431,6 +695,50 @@
       ],
       "correct": 0,
       "explain": "Schwarzschild criterion."
+     },
+     {
+      "q": "For a star, the virial theorem gives",
+      "options": [
+       "$2K+E_G=0$",
+       "$K=E_G$",
+       "$K+E_G=0$",
+       "$K=0$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 3.2.2."
+     },
+     {
+      "q": "Total energy of a star in equilibrium is",
+      "options": [
+       "negative ($E=-K$)",
+       "positive",
+       "zero",
+       "$2K$"
+      ],
+      "correct": 0,
+      "explain": "Bound."
+     },
+     {
+      "q": "The Kelvin-Helmholtz time of the Sun is about",
+      "options": [
+       "$3\\times10^7$ yr",
+       "$10^{10}$ yr",
+       "$10^3$ yr",
+       "1 yr"
+      ],
+      "correct": 0,
+      "explain": "$GM^2/(RL)$."
+     },
+     {
+      "q": "Mass continuity",
+      "options": [
+       "$dm/dr=4\\pi r^2\\rho$",
+       "$dm/dr=\\rho$",
+       "$dm/dr=4\\pi r\\rho$",
+       "$dm/dr=0$"
+      ],
+      "correct": 0,
+      "explain": "Shell mass."
      }
     ]
    }
@@ -493,6 +801,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 3.6.2."
+     },
+     {
+      "q": "Upper main sequence: luminosity limited by",
+      "options": [
+       "the Eddington limit",
+       "the Chandrasekhar limit",
+       "the Jeans mass",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 3.6.1."
+     },
+     {
+      "q": "Lower end of the main sequence ($\\approx0.08M_\\odot$) set by",
+      "options": [
+       "hydrogen ignition (degeneracy below)",
+       "the Eddington limit",
+       "radiation pressure",
+       "rotation"
+      ],
+      "correct": 0,
+      "explain": "Brown dwarfs below."
+     },
+     {
+      "q": "Spectral sequence by decreasing temperature",
+      "options": [
+       "O B A F G K M",
+       "M K G F A B O",
+       "A B F G K M O",
+       "G K M O B A F"
+      ],
+      "correct": 0,
+      "explain": "Sun is G2."
+     },
+     {
+      "q": "$L_{\\rm Edd}$ scales with mass as",
+      "options": [
+       "$\\propto M$",
+       "$\\propto M^3$",
+       "$\\propto M^{-1}$",
+       "independent"
+      ],
+      "correct": 0,
+      "explain": "$4\\pi GMc/\\kappa$."
      }
     ]
    }
@@ -555,6 +907,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 4.4.2; MC."
+     },
+     {
+      "q": "The pp chain converts per He nucleus about",
+      "options": [
+       "26.7 MeV",
+       "1 MeV",
+       "938 MeV",
+       "13.6 eV"
+      ],
+      "correct": 0,
+      "explain": "0.7% of $4m_p$."
+     },
+     {
+      "q": "The binding energy per nucleon peaks near",
+      "options": [
+       "iron (A~56)",
+       "helium",
+       "uranium",
+       "hydrogen"
+      ],
+      "correct": 0,
+      "explain": "Fusion beyond Fe costs energy."
+     },
+     {
+      "q": "Gamow energy grows with",
+      "options": [
+       "the product of the charges squared and the reduced mass",
+       "temperature",
+       "density",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "$E_G\\propto(Z_1Z_2)^2\\mu$."
+     },
+     {
+      "q": "Helioseismology probes",
+      "options": [
+       "the solar interior via surface oscillations",
+       "the corona",
+       "sunspots only",
+       "neutrinos"
+      ],
+      "correct": 0,
+      "explain": "p-modes."
      }
     ]
    }
@@ -617,6 +1013,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 4.9."
+     },
+     {
+      "q": "Helium burning proceeds by",
+      "options": [
+       "the triple-alpha process",
+       "the pp chain",
+       "CNO",
+       "neutron capture"
+      ],
+      "correct": 0,
+      "explain": "$3\\,{}^4\\mathrm{He}\\to{}^{12}\\mathrm{C}$."
+     },
+     {
+      "q": "Core-collapse supernovae leave",
+      "options": [
+       "neutron stars or black holes",
+       "white dwarfs",
+       "nothing ever",
+       "red giants"
+      ],
+      "correct": 0,
+      "explain": "Massive stars."
+     },
+     {
+      "q": "Transit method measures",
+      "options": [
+       "the planet radius relative to the star",
+       "the planet mass directly",
+       "the planet temperature",
+       "the orbital inclination only"
+      ],
+      "correct": 0,
+      "explain": "Dip depth $\\propto(R_p/R_*)^2$."
+     },
+     {
+      "q": "The Sun will end as",
+      "options": [
+       "a white dwarf",
+       "a neutron star",
+       "a black hole",
+       "a supernova"
+      ],
+      "correct": 0,
+      "explain": "Too light."
      }
     ]
    }
@@ -679,6 +1119,50 @@
       ],
       "correct": 0,
       "explain": "$p_Fc$ per particle."
+     },
+     {
+      "q": "White-dwarf radius scales as",
+      "options": [
+       "$M^{-1/3}$",
+       "$M^{1/3}$",
+       "$M$",
+       "independent of $M$"
+      ],
+      "correct": 0,
+      "explain": "Non-relativistic degeneracy."
+     },
+     {
+      "q": "Degeneracy pressure arises from",
+      "options": [
+       "the Pauli principle",
+       "thermal motion",
+       "radiation",
+       "magnetic fields"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 5.2."
+     },
+     {
+      "q": "A typical white dwarf has the size of",
+      "options": [
+       "the Earth",
+       "the Sun",
+       "10 km",
+       "Jupiter&#8217;s orbit"
+      ],
+      "correct": 0,
+      "explain": "$\\sim10^4$ km."
+     },
+     {
+      "q": "Non-relativistic degeneracy pressure",
+      "options": [
+       "$\\propto n^{5/3}$",
+       "$\\propto n^{4/3}$",
+       "$\\propto nT$",
+       "$\\propto n^2$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 5.2."
      }
     ]
    }
@@ -741,6 +1225,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 5.5."
+     },
+     {
+      "q": "Neutron-star density is about",
+      "options": [
+       "nuclear density, $\\sim10^{17}$ kg/m$^3$",
+       "$10^9$ kg/m$^3$",
+       "water",
+       "$10^{30}$ kg/m$^3$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 5.4."
+     },
+     {
+      "q": "The binary pulsar tested",
+      "options": [
+       "gravitational-wave emission of GR",
+       "neutrino masses",
+       "dark energy",
+       "the Chandrasekhar limit"
+      ],
+      "correct": 0,
+      "explain": "Orbital decay."
+     },
+     {
+      "q": "Fast spin of pulsars follows from",
+      "options": [
+       "angular momentum conservation in collapse",
+       "accretion only",
+       "magnetic braking",
+       "nuclear burning"
+      ],
+      "correct": 0,
+      "explain": "$\\Omega\\propto R^{-2}$."
+     },
+     {
+      "q": "X-ray binaries are powered by",
+      "options": [
+       "accretion onto a compact object",
+       "fusion on the surface only",
+       "rotation",
+       "dark matter"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 5.6."
      }
     ]
    }
@@ -803,6 +1331,50 @@
       ],
       "correct": 0,
       "explain": "$v^2=GM/r$."
+     },
+     {
+      "q": "The Sun is about this far from the Galactic centre",
+      "options": [
+       "8 kpc",
+       "800 pc",
+       "80 kpc",
+       "1 Mpc"
+      ],
+      "correct": 0,
+      "explain": "Shapley (with globular clusters)."
+     },
+     {
+      "q": "Reddening $E(B-V)$ measures",
+      "options": [
+       "extinction difference between B and V",
+       "distance",
+       "temperature",
+       "metallicity"
+      ],
+      "correct": 0,
+      "explain": "Colour excess."
+     },
+     {
+      "q": "Extinction is largest towards",
+      "options": [
+       "low galactic latitude (the disk)",
+       "the galactic poles",
+       "the halo",
+       "nowhere"
+      ],
+      "correct": 0,
+      "explain": "Dust in the disk (HS24 summer Q4)."
+     },
+     {
+      "q": "Oort&#8217;s constants describe",
+      "options": [
+       "local differential rotation",
+       "the Hubble flow",
+       "dark energy",
+       "stellar ages"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.2."
      }
     ]
    }
@@ -865,6 +1437,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 6.3.1."
+     },
+     {
+      "q": "The local standard of rest moves",
+      "options": [
+       "on a circular orbit at the Sun&#8217;s position",
+       "with the Sun",
+       "not at all",
+       "radially"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.3.2."
+     },
+     {
+      "q": "Globular clusters belong to",
+      "options": [
+       "population II (halo)",
+       "population I",
+       "the thin disk",
+       "spiral arms"
+      ],
+      "correct": 0,
+      "explain": "Old and metal-poor."
+     },
+     {
+      "q": "Velocity dispersion of old disk stars compared to young ones",
+      "options": [
+       "larger",
+       "smaller",
+       "equal",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "Heating over time."
+     },
+     {
+      "q": "Metallicity in astronomy means",
+      "options": [
+       "abundance of elements heavier than He",
+       "iron content only",
+       "conductivity",
+       "hydrogen fraction"
+      ],
+      "correct": 0,
+      "explain": "$Z$."
      }
     ]
    }
@@ -927,6 +1543,50 @@
       ],
       "correct": 0,
       "explain": "H$_2$ hardly radiates."
+     },
+     {
+      "q": "HII regions surround",
+      "options": [
+       "hot O/B stars",
+       "white dwarfs",
+       "red giants",
+       "black holes"
+      ],
+      "correct": 0,
+      "explain": "Ionising UV."
+     },
+     {
+      "q": "Strömgren radius scales with density as",
+      "options": [
+       "$n^{-2/3}$",
+       "$n^{-1}$",
+       "$n^{1/3}$",
+       "independent"
+      ],
+      "correct": 0,
+      "explain": "$R_S\\propto(Q/n^2)^{1/3}$."
+     },
+     {
+      "q": "Typical temperature of HII regions",
+      "options": [
+       "~$10^4$ K",
+       "~100 K",
+       "~$10^6$ K",
+       "~10 K"
+      ],
+      "correct": 0,
+      "explain": "Photoionisation equilibrium."
+     },
+     {
+      "q": "The hot coronal gas has",
+      "options": [
+       "$T\\sim10^6$ K, low density",
+       "$T\\sim10$ K",
+       "$T\\sim10^4$ K, high density",
+       "no ionisation"
+      ],
+      "correct": 0,
+      "explain": "Supernova heated."
      }
     ]
    }
@@ -985,6 +1645,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 6.7."
+     },
+     {
+      "q": "Cosmic rays are mostly",
+      "options": [
+       "protons and nuclei",
+       "photons",
+       "neutrinos",
+       "electrons only"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.7."
+     },
+     {
+      "q": "The cosmic-ray energy spectrum is",
+      "options": [
+       "a power law",
+       "a blackbody",
+       "a single line",
+       "Gaussian"
+      ],
+      "correct": 0,
+      "explain": "Non-thermal acceleration."
+     },
+     {
+      "q": "ISM phases coexist roughly in",
+      "options": [
+       "pressure equilibrium",
+       "temperature equilibrium",
+       "density equilibrium",
+       "no equilibrium"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.8."
+     },
+     {
+      "q": "Dispersion measure of a pulsar gives",
+      "options": [
+       "the column of free electrons",
+       "the magnetic field",
+       "the distance only via parallax",
+       "the mass"
+      ],
+      "correct": 0,
+      "explain": "$\\int n_eds$."
      }
     ]
    }
@@ -1047,6 +1751,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 7.4."
+     },
+     {
+      "q": "Crossing time of a galaxy is of order",
+      "options": [
+       "$10^8$ yr",
+       "$10^{15}$ yr",
+       "1 yr",
+       "$10^3$ yr"
+      ],
+      "correct": 0,
+      "explain": "$R/v$."
+     },
+     {
+      "q": "Globular clusters ($N\\sim10^5$) are",
+      "options": [
+       "collisional over their age",
+       "collisionless",
+       "unbound",
+       "without stars"
+      ],
+      "correct": 0,
+      "explain": "Relaxation time ~$10^9$ yr."
+     },
+     {
+      "q": "The isothermal sphere has",
+      "options": [
+       "infinite mass",
+       "finite mass",
+       "no density",
+       "negative density"
+      ],
+      "correct": 0,
+      "explain": "$\\rho\\propto r^{-2}$ at large $r$."
+     },
+     {
+      "q": "Virial theorem for a galaxy cluster relates",
+      "options": [
+       "velocity dispersion, size and mass",
+       "temperature and colour",
+       "redshift and distance",
+       "metallicity and age"
+      ],
+      "correct": 0,
+      "explain": "$M\\sim\\sigma^2R/G$."
      }
     ]
    }
@@ -1109,6 +1857,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 7.6."
+     },
+     {
+      "q": "The collisionless Boltzmann equation says",
+      "options": [
+       "the phase-space density is conserved along orbits",
+       "stars collide often",
+       "energy is not conserved",
+       "$f$ is constant everywhere"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 7.5."
+     },
+     {
+      "q": "Asymmetric drift: hotter populations",
+      "options": [
+       "lag behind the circular speed",
+       "rotate faster",
+       "do not rotate",
+       "move radially"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 7.6.2."
+     },
+     {
+      "q": "Velocity anisotropy $\\beta$ measures",
+      "options": [
+       "radial vs tangential dispersion",
+       "rotation speed",
+       "metallicity",
+       "mass"
+      ],
+      "correct": 0,
+      "explain": "Spherical Jeans equation."
+     },
+     {
+      "q": "The Plummer potential is",
+      "options": [
+       "$-GM/\\sqrt{r^2+b^2}$",
+       "$-GM/r$",
+       "$-GM/r^2$",
+       "$\\frac12\\omega^2r^2$"
+      ],
+      "correct": 0,
+      "explain": "HS25 winter Q4."
      }
     ]
    }
@@ -1171,6 +1963,50 @@
       ],
       "correct": 0,
       "explain": "$c_s^3$ dependence."
+     },
+     {
+      "q": "The Jeans length scales as",
+      "options": [
+       "$c_s/\\sqrt{G\\rho}$",
+       "$c_s\\sqrt{G\\rho}$",
+       "$\\sqrt{G\\rho}/c_s$",
+       "$G\\rho c_s$"
+      ],
+      "correct": 0,
+      "explain": "Sound crossing vs free fall."
+     },
+     {
+      "q": "Free-fall time",
+      "options": [
+       "$\\sim1/\\sqrt{G\\rho}$",
+       "$\\sim\\rho/G$",
+       "$\\sim G\\rho$",
+       "$\\sim c_s$"
+      ],
+      "correct": 0,
+      "explain": "Independent of size."
+     },
+     {
+      "q": "Jeans mass decreases when",
+      "options": [
+       "density increases",
+       "temperature increases",
+       "sound speed increases",
+       "never"
+      ],
+      "correct": 0,
+      "explain": "$M_J\\propto T^{3/2}\\rho^{-1/2}$."
+     },
+     {
+      "q": "The Euler equation expresses",
+      "options": [
+       "momentum balance of a fluid element",
+       "mass conservation",
+       "energy conservation only",
+       "Gauss law"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 8.2."
      }
     ]
    }
@@ -1233,6 +2069,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 9.2.2."
+     },
+     {
+      "q": "Spiral galaxies have exponential disks with surface brightness",
+      "options": [
+       "$I\\propto e^{-r/r_d}$",
+       "$I\\propto r^{1/4}$",
+       "$I\\propto r^{-2}$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "De Vaucouleurs for ellipticals."
+     },
+     {
+      "q": "De Vaucouleurs profile",
+      "options": [
+       "$\\log I\\propto-r^{1/4}$",
+       "$I\\propto e^{-r}$",
+       "$I\\propto r^{-3}$",
+       "$I=$ const"
+      ],
+      "correct": 0,
+      "explain": "Ellipticals and bulges."
+     },
+     {
+      "q": "The Hubble tuning fork orders galaxies by",
+      "options": [
+       "morphology",
+       "distance",
+       "age",
+       "mass only"
+      ],
+      "correct": 0,
+      "explain": "Not an evolutionary sequence."
+     },
+     {
+      "q": "Faber-Jackson relates luminosity to",
+      "options": [
+       "central velocity dispersion",
+       "rotation speed",
+       "colour",
+       "size only"
+      ],
+      "correct": 0,
+      "explain": "$L\\propto\\sigma^4$."
      }
     ]
    }
@@ -1295,6 +2175,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 9.4.4."
+     },
+     {
+      "q": "Quasars are",
+      "options": [
+       "very luminous AGN at large distances",
+       "nearby stars",
+       "pulsars",
+       "supernova remnants"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.4."
+     },
+     {
+      "q": "Broad emission lines come from",
+      "options": [
+       "fast gas close to the black hole",
+       "the host galaxy disk",
+       "the CMB",
+       "dust far out"
+      ],
+      "correct": 0,
+      "explain": "Broad-line region."
+     },
+     {
+      "q": "Superluminal motion needs",
+      "options": [
+       "relativistic jets close to the line of sight",
+       "faster-than-light motion",
+       "gravitational lensing",
+       "expansion of the Universe"
+      ],
+      "correct": 0,
+      "explain": "Light-travel effect."
+     },
+     {
+      "q": "Accretion efficiency of a black hole thin disk",
+      "options": [
+       "~0.06-0.4",
+       "0.007",
+       "1",
+       "$10^{-4}$"
+      ],
+      "correct": 0,
+      "explain": "Spin dependent."
      }
     ]
    }
@@ -1353,6 +2277,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 9.5."
+     },
+     {
+      "q": "Gravitational lensing measures",
+      "options": [
+       "the total (dark + luminous) mass",
+       "only stars",
+       "only gas",
+       "temperature"
+      ],
+      "correct": 0,
+      "explain": "Independent of dynamics."
+     },
+     {
+      "q": "Cluster gas temperature is typically",
+      "options": [
+       "$10^7$-$10^8$ K",
+       "$10^4$ K",
+       "100 K",
+       "$10^{12}$ K"
+      ],
+      "correct": 0,
+      "explain": "Virial temperature."
+     },
+     {
+      "q": "Gamma-ray bursts are",
+      "options": [
+       "brief extreme explosions at cosmological distances",
+       "nearby stellar flares",
+       "solar events",
+       "pulsars"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.7."
+     },
+     {
+      "q": "Galaxies on large scales form",
+      "options": [
+       "filaments, walls and voids",
+       "a uniform distribution",
+       "a single cluster",
+       "a sphere"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.6."
      }
     ]
    }
@@ -1411,6 +2379,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 8.11."
+     },
+     {
+      "q": "Relativistic beaming concentrates emission into a cone of angle",
+      "options": [
+       "$\\sim1/\\gamma$",
+       "$\\sim\\gamma$",
+       "$90^\\circ$",
+       "$\\gamma^2$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 8.11."
+     },
+     {
+      "q": "Synchrotron emission is",
+      "options": [
+       "polarised and non-thermal",
+       "unpolarised blackbody",
+       "line emission",
+       "thermal bremsstrahlung"
+      ],
+      "correct": 0,
+      "explain": "Ordered fields."
+     },
+     {
+      "q": "Bremsstrahlung is also called",
+      "options": [
+       "free-free emission",
+       "bound-bound",
+       "synchrotron",
+       "Compton"
+      ],
+      "correct": 0,
+      "explain": "Electron-ion encounters."
+     },
+     {
+      "q": "The cutoff of the thermal bremsstrahlung spectrum is at",
+      "options": [
+       "$h\\nu\\sim k_BT$",
+       "$h\\nu\\sim m_ec^2$",
+       "21 cm",
+       "no cutoff"
+      ],
+      "correct": 0,
+      "explain": "$e^{-h\\nu/k_BT}$."
      }
     ]
    }
@@ -1469,6 +2481,50 @@
       ],
       "correct": 0,
       "explain": "Period-luminosity relation."
+     },
+     {
+      "q": "Redshift is defined as",
+      "options": [
+       "$z=(\\lambda_{\\rm obs}-\\lambda_{\\rm emit})/\\lambda_{\\rm emit}$",
+       "$z=\\lambda_{\\rm emit}/\\lambda_{\\rm obs}$",
+       "$z=v/c$ exactly",
+       "$z=H_0d$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.3."
+     },
+     {
+      "q": "For small $z$, the recession velocity is",
+      "options": [
+       "$v\\approx cz$",
+       "$v=c/z$",
+       "$v=z$",
+       "$v=cz^2$"
+      ],
+      "correct": 0,
+      "explain": "Doppler limit."
+     },
+     {
+      "q": "Type Ia supernovae revealed",
+      "options": [
+       "the accelerating expansion",
+       "dark matter in clusters",
+       "the CMB",
+       "neutrino masses"
+      ],
+      "correct": 0,
+      "explain": "1998."
+     },
+     {
+      "q": "The Hubble constant is about",
+      "options": [
+       "70 km/s/Mpc",
+       "7 km/s/Mpc",
+       "700 km/s/Mpc",
+       "70 km/s/kpc"
+      ],
+      "correct": 0,
+      "explain": "Current values 67-73."
      }
     ]
    }
@@ -1531,6 +2587,50 @@
       ],
       "correct": 0,
       "explain": "$k=0$."
+     },
+     {
+      "q": "The scale factor $a(t)$ describes",
+      "options": [
+       "how all comoving distances grow",
+       "the size of galaxies",
+       "the age of stars",
+       "the temperature only"
+      ],
+      "correct": 0,
+      "explain": "FRW."
+     },
+     {
+      "q": "$k=+1$ means",
+      "options": [
+       "positively curved (closed) space",
+       "flat space",
+       "open space",
+       "no matter"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 10.3."
+     },
+     {
+      "q": "The Hubble parameter is",
+      "options": [
+       "$H=\\dot a/a$",
+       "$H=a/\\dot a$",
+       "$H=\\ddot a$",
+       "$H=a$"
+      ],
+      "correct": 0,
+      "explain": "Definition."
+     },
+     {
+      "q": "Critical density is about",
+      "options": [
+       "$10^{-26}$ kg/m$^3$",
+       "$1$ kg/m$^3$",
+       "$10^{-10}$ kg/m$^3$",
+       "$10^{-40}$ kg/m$^3$"
+      ],
+      "correct": 0,
+      "explain": "$3H^2/8\\pi G$."
      }
     ]
    }
@@ -1593,6 +2693,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 10.6."
+     },
+     {
+      "q": "Matter density scales as",
+      "options": [
+       "$a^{-3}$",
+       "$a^{-4}$",
+       "$a^{-2}$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "Dilution."
+     },
+     {
+      "q": "Temperature of the CMB scales as",
+      "options": [
+       "$1/a$",
+       "$a$",
+       "$a^{-4}$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "Redshifted blackbody stays a blackbody."
+     },
+     {
+      "q": "Age of a flat matter universe",
+      "options": [
+       "$\\frac2{3H_0}$",
+       "$\\frac1{H_0}$",
+       "$\\frac1{2H_0}$",
+       "infinite"
+      ],
+      "correct": 0,
+      "explain": "$a\\propto t^{2/3}$."
+     },
+     {
+      "q": "A closed matter universe",
+      "options": [
+       "recollapses (big crunch)",
+       "expands forever accelerating",
+       "is static",
+       "has no beginning"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 10.6.1 (HS24 winter Q7)."
      }
     ]
    }
@@ -1655,6 +2799,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 11.3."
+     },
+     {
+      "q": "Primordial nucleosynthesis happened about",
+      "options": [
+       "3 minutes after the big bang",
+       "380000 yr after",
+       "1 s before",
+       "1 Gyr after"
+      ],
+      "correct": 0,
+      "explain": "BBN."
+     },
+     {
+      "q": "The neutron-proton ratio freezes out because",
+      "options": [
+       "weak interactions become slower than the expansion",
+       "neutrons decay instantly",
+       "protons decay",
+       "of gravity"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 11.3."
+     },
+     {
+      "q": "BBN produces mainly",
+      "options": [
+       "helium-4 plus traces of D, $^3$He, Li",
+       "carbon and oxygen",
+       "iron",
+       "only hydrogen"
+      ],
+      "correct": 0,
+      "explain": "No stable mass 5 and 8."
+     },
+     {
+      "q": "The cosmic neutrino background temperature today",
+      "options": [
+       "about 1.95 K",
+       "2.7 K",
+       "0 K",
+       "3000 K"
+      ],
+      "correct": 0,
+      "explain": "$(4/11)^{1/3}T_\\gamma$."
      }
     ]
    }
@@ -1717,6 +2905,50 @@
       ],
       "correct": 0,
       "explain": "Choudhuri 11.6.1."
+     },
+     {
+      "q": "The Sunyaev-Zeldovich effect is",
+      "options": [
+       "inverse Compton scattering of CMB photons by hot cluster gas",
+       "lensing of the CMB",
+       "a neutrino effect",
+       "synchrotron from clusters"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 11.7.2."
+     },
+     {
+      "q": "The Ly$\\alpha$ forest traces",
+      "options": [
+       "neutral hydrogen clouds along the line of sight to quasars",
+       "stars in our Galaxy",
+       "the CMB",
+       "dark energy"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 11.8.2."
+     },
+     {
+      "q": "CMB temperature anisotropies are of order",
+      "options": [
+       "$10^{-5}$",
+       "$10^{-1}$",
+       "$1$",
+       "$10^{-10}$"
+      ],
+      "correct": 0,
+      "explain": "Seeds of structure."
+     },
+     {
+      "q": "Baryogenesis must explain",
+      "options": [
+       "the excess of matter over antimatter",
+       "dark energy",
+       "the CMB temperature",
+       "helium abundance"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 11.6.2."
      }
     ]
    }

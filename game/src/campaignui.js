@@ -102,10 +102,11 @@ export function createCampaign(ctx) {
   function newRun(minutes) { store.setVal('runMinutes', minutes); const r = freshRun(minutes); store.setVal('run', r); }
   // called after every finished exercise: when the last stop of the run is finished, log it and show the summary once
   function onProgress() {
+    settleDungeon();
     const r = store.val('run', null); if (!r || r.date !== todayStr() || !r.startedAt || r.summarized) return false;
     const st = r.stops.map((s) => stopState(r, s)); if (!st.every((x) => x !== 'open')) return false;
     let bonus = 0; r.stops.forEach((s, i) => { if (s.risk && st[i] === 'done') bonus += s.bonus || 0; }); if (bonus) store.addXp(bonus); r.bonus = bonus;
-    payBosses();
+    payBosses(); settleDungeon();
     // resonance: two stops of this run sit in rooms that a cross-course connection links
     const roomsDone = new Set(r.stops.filter((s, i) => !s.action && st[i] === 'done').map((s) => { const ref = ctx.encIndex.get(s.id); return ref ? `${ref.course}/${ref.roomId}` : ''; }));
     const res = ctx.links().find((l) => roomsDone.has(l.a) && roomsDone.has(l.b)); if (res) { r.resonance = { title: res.title, a: res.a, b: res.b }; store.addXp(15); }
@@ -230,7 +231,8 @@ export function createCampaign(ctx) {
     const gr = grades(), short = (c) => cfg.courses[c]?.short || c;
     const head = `<div class="cp-head cp-head4"><div><b>${d}</b><span>days to the exams</span></div><div title="A rough forecast on the scale 1 to 6 (4 passes): how much of the exam-weighted material you have passed, how much of it you probably still remember, and old-exam problems passed. It falls when you stop."><b class="cp-grades">${gr.map((g) => `<span class="${g.grade >= 4 ? 'ok' : ''}">${g.grade.toFixed(2).replace(/0$/, '')}</span>`).join(' ')}</b><span>grade forecast: ${gr.map((g) => short(g.cid)).join(' \u00b7 ')}</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : !pc ? 'catch-up date: shown after three finished runs, from your real pace' : cu.possible ? `level with the lectures at your pace of the last runs (${pc.perDay.toFixed(2)} weeks gained per run day)` : `at your pace of the last runs (${pc.perDay.toFixed(2)} weeks per run day) the ghost pulls away: longer runs or two a day`}</span></div></div>`;
     payBosses();
-    return `${head}${runHtml()}${bossHtml()}${courses().map(trackHtml).join('')}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
+    settleDungeon();
+    return `${head}${runHtml()}${bossHtml()}${courses().map(trackHtml).join('')}${dungeonHtml()}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
   }
   function wire(host, rerender) {
     const re = () => { rerender(); ctx.onChange(); };
@@ -245,6 +247,8 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-reso]').forEach((b) => (b.onclick = () => ctx.openConnection(b.dataset.reso)));
     host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); const as = r.stops.find((s) => s.id === b.dataset.stop && s.action); if (as) { doAction(as); return; } if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), 'Today\u2019s run', b.dataset.stop); }));
     host.querySelectorAll('[data-alt]').forEach((b) => (b.onclick = () => { const r = run(), i = +b.dataset.alt, s = r.stops[i], a = s.alt; r.stops[i] = a.back ? { ...a.orig } : { ...s, id: a.id, kind: a.kind, min: a.min, bonus: a.bonus, risk: true, alt: { id: s.id, back: true, orig: { ...s } }, why: 'You took the risk: a harder problem from the same room, for bonus XP' }; r.est = r.stops.reduce((x, y) => x + y.min, 0); store.setVal('run', r); re(); }));
+    host.querySelectorAll('[data-dungeon]').forEach((b) => (b.onclick = () => enterDungeon(b.dataset.dungeon)));
+    const dl = host.querySelector('#cp-dleave'); if (dl) dl.onclick = () => { leaveDungeon(); re(); };
     host.querySelectorAll('[data-skim]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.skim.split('/'), raw = store.val('campaignSkim', {}) || {}, cur = new Set(raw[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); store.setVal('campaignSkim', { ...raw, [cid]: [...cur] }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
     host.querySelectorAll('[data-hand]').forEach((b) => (b.onclick = () => { const c = b.dataset.hand; store.setVal('handIn', { ...(store.val('handIn', {}) || {}), [c]: !handIn(c) }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
     host.querySelectorAll('[data-week]').forEach((b) => (b.onclick = () => { openWeek = openWeek === b.dataset.week ? null : b.dataset.week; rerender(); }));
@@ -253,10 +257,38 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-known]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.known.split('/'), cur = new Set(knownRaw()[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); setKnown(cid, [...cur].sort((a, c) => a - c)); }));
     host.querySelectorAll('[data-knownto]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.knownto.split('/'); setKnown(cid, [...new Set([...(knownRaw()[cid] || []), ...Array.from({ length: +n }, (_, i) => i + 1)])].sort((a, c) => a - c)); }));
   }
+  // ---- exam dungeon: your armour per exam topic (holes = no practice or forgotten), and a gauntlet of old-exam problems
+  const coreOf = (cid, slugs) => (ctx.catalog.find((c) => c.id === cid)?.rooms || []).filter((r) => slugs.includes(r.slug)).flatMap((r) => r.encounters.filter((e) => !e.book && !e.sim && !e.sheet && e.type !== 'sandbox'));
+  function armour(cid) {
+    return ctx.radar().filter((t) => t.course === cid).sort((a, b) => b.count / (b.of || 1) - a.count / (a.of || 1)).map((t) => {
+      const es = coreOf(cid, t.rooms || []), p = es.filter((e) => passed(e.id)), kept = meanRetention(p.map((e) => e.id), mem(), store.snapshot.solved) ?? 0;
+      const exam = es.filter((e) => e.type === 'boss'), examP = exam.filter((e) => passed(e.id)).length;
+      return { label: t.label, freq: t.of ? t.count / t.of : 0, count: t.count, of: t.of, total: es.length, strength: es.length ? (p.length / es.length) * kept : 0, exam: exam.length, examP, none: !es.length, rooms: t.rooms || [] };
+    });
+  }
+  const dungeon = () => store.val('dungeon', null);
+  function dungeonState() { const d = dungeon(); if (!d) return null; const log = ((store.snapshot.flags || {}).activity || []).filter((x) => x.t >= d.startedAt - 1000); const st = d.ids.map((id) => { const h = log.filter((x) => x.id === id).pop(); return h ? (h.ok ? 'done' : 'failed') : 'open'; }); return { d, st, over: st.every((x) => x !== 'open'), left: Math.max(0, d.minutes * 60000 - (Date.now() - d.startedAt)) }; }
+  function enterDungeon(cid) {
+    const bosses = coreOf(cid, (ctx.catalog.find((c) => c.id === cid)?.rooms || []).map((r) => r.slug)).filter((e) => e.type === 'boss' && !ctx.isLockedId(e.id));
+    const wt = (e) => { const room = ctx.encIndex.get(e.id)?.roomId; return Math.max(0, ...ctx.radar().filter((t) => t.course === cid && (t.rooms || []).includes(room)).map((t) => (t.of ? t.count / t.of : 0))); };
+    const pick = bosses.sort((a, b) => (passed(a.id) - passed(b.id)) || (wt(b) - wt(a))).slice(0, 3); if (!pick.length) { ctx.toast('No exam problems available for this course yet.'); return; }
+    store.setVal('dungeon', { cid, ids: pick.map((e) => e.id), startedAt: Date.now(), minutes: pick.reduce((a, e) => a + (+e.minutes || 30), 0), paid: false }); ctx.setDungeon(true);
+    ctx.openQueue(pick.map((e) => e.id), 'Exam dungeon', pick[0].id);
+  }
+  function settleDungeon() { const s = dungeonState(); if (!s || !s.over || s.d.paid) return; const won = s.st.filter((x) => x === 'done').length; store.setVal('dungeon', { ...s.d, paid: true, finishedAt: Date.now() }); if (won) store.addXp(40 * won); ctx.setDungeon(false); }
+  function leaveDungeon() { store.setVal('dungeon', null); ctx.setDungeon(false); }
+  function dungeonHtml() {
+    const s = dungeonState(), dec = new Date(new Date().getFullYear(), 11, 15), early = Date.now() < +dec && new Date().getMonth() >= 8;
+    const active = s && !s.d.paid ? `<div class="cp-boss soon"><div class="cp-bossinfo"><b>In the dungeon: ${ctx.courseName(s.d.cid)}</b><span class="src">${s.st.filter((x) => x === 'done').length} of ${s.d.ids.length} cleared \u00b7 ${Math.ceil(s.left / 60000)} min left of ${s.d.minutes} \u00b7 no hints, no cards</span></div><div class="cp-bossbtn">${s.st.includes('open') ? `<button class="chip btn" data-wopen="${s.d.ids[s.st.indexOf('open')]}">Continue</button>` : ''}<button class="chip btn" id="cp-dleave">Leave the dungeon</button></div></div>` : '';
+    const last = s && s.d.paid ? `<p class="msg ${s.st.filter((x) => x === 'done').length >= 2 ? 'good' : 'bad'}">Last dungeon (${ctx.courseName(s.d.cid)}): ${s.st.filter((x) => x === 'done').length} of ${s.d.ids.length} exam problems cleared in ${Math.round(((s.d.finishedAt || Date.now()) - s.d.startedAt) / 60000)} of ${s.d.minutes} min.</p>` : '';
+    const col = (cid) => { const a = armour(cid); if (!a.length) return '';
+      return `<div class="cp-arm"><div class="cp-armhead"><b>${ctx.courseName(cid)}</b><button class="chip btn" data-dungeon="${cid}">Enter: 3 exam problems, timed, no hints</button></div>${a.slice(0, 8).map((t) => `<div class="cp-armrow${t.none ? ' none' : t.strength < 0.3 ? ' hole' : ''}" title="${esc(t.label)}: in ${t.count} of ${t.of} old exams \u00b7 ${t.none ? 'no practice in the game yet' : `${Math.round(100 * t.strength)}% armour (passed and still remembered) \u00b7 exam problems ${t.examP}/${t.exam}`}"><span class="cp-armlabel">${esc(t.label)}</span><span class="cp-armfreq">${t.count}/${t.of}</span><span class="cp-armbar"><i style="width:${Math.round(100 * t.strength)}%"></i></span><span class="cp-armx">${t.none ? 'no practice' : t.strength < 0.3 ? 'hole' : ''}</span></div>`).join('')}</div>`; };
+    return `<div class="cp-dungeon"><h3>Exam dungeon and armour</h3><p class="src">Your armour per exam topic: how much of it you passed and still remember. The number is how many old exams had the topic. Holes are where the exam would hit you.${early ? ' The dungeon is meant for the weeks from 15 December; you can enter early.' : ''}</p>${active}${last}<div class="cp-arms">${courses().map(col).join('')}</div></div>`;
+  }
   // Is this room part of a week the lecture has already passed and you have not cleared? (drives the room's "overrun" look)
   function roomOverdue(cid, slug) {
     const ws = W()[cid]; if (!ws) return false; const kn = known()[cid], t = taught();
     return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn, skim()[cid]).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
   }
-  return { html, wire, startRun, onProgress, roomOverdue, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  return { html, wire, startRun, onProgress, roomOverdue, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

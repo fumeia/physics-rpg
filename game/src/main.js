@@ -123,7 +123,7 @@ async function boot() {
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
   try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
-    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), mistakes, openTab: (t) => { openOverlay('pile'); renderStudy(t); }, openMissions: () => openOverlay('missions'), openConnection: (k) => { closeOverlay(true); openConnections(k); },
+    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), setDungeon: (on) => document.body.classList.toggle('dungeon', !!on), mistakes, openTab: (t) => { openOverlay('pile'); renderStudy(t); }, openMissions: () => openOverlay('missions'), openConnection: (k) => { closeOverlay(true); openConnections(k); },
     missions: () => { const day = store.missionsOf(todayStr()); return todays().map((m) => ({ title: String(m.title || '').replace(/<[^>]+>/g, ''), done: !!day.done[m.id] })); },
     radar: () => drillData.radar?.topics || (Array.isArray(drillData.radar) ? drillData.radar : []), links: () => linksData }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
   // compact HUD (run, campaign, menu) unless the full chip row was chosen in the menu; tests keep the full row unless they ask for hud=compact
@@ -187,6 +187,7 @@ async function boot() {
     } catch (e) { console.warn('deep link failed', e.message); }
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  if (campaign?.dungeonState() && !campaign.dungeonState().d.paid) document.body.classList.add('dungeon');
   if (campaign) { $('st-run').style.display = ''; $('st-run').textContent = campaign.isSetup() ? '\u25b6 Today\u2019s run' : '\u25b6 Set up my campaign'; document.querySelector('.st-card').classList.add('has-run'); $('st-go').textContent = 'Just walk around'; updateRunChips(); }
   startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';
   if (startWanted || window.__want) enterGame();

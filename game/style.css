@@ -439,3 +439,14 @@ body.hudc #hud .tl { max-width: 42vw; } body.hudc #reviews:not(.review) { displa
 .bt-drawer { grid-column: 1 / -1; max-height: 40vh; overflow: auto; border-top: 1px solid rgba(255,255,255,.12); padding-top: 6px; display: grid; gap: 6px; }
 .bt-card { border: 1px solid rgba(245,196,81,.4); background: rgba(245,196,81,.06); border-radius: 8px; padding: 5px 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; } .bt-card.worn { opacity: .7; border-style: dashed; }
 .bt-cl { flex: 1 1 180px; display: grid; } .bt-cl b { font-size: 13px; } .bt-cl span { font-size: 11px; opacity: .7; } .bt-ctex { flex: 1 1 100%; overflow-x: auto; }
+
+/* exam dungeon: no hints and no cards while it runs; armour per exam topic */
+body.dungeon #panel [data-hint], body.dungeon #panel .hintbtn, body.dungeon #panel .bt-cards, body.dungeon #panel .bt-drawer, body.dungeon #panel details.primer { display: none !important; }
+body.dungeon .battle { border-color: #ff6b6b; }
+.cp-dungeon { margin-top: 18px; } .cp-arms { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.cp-armhead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; } .cp-armhead .chip { font-size: 12px; padding: 2px 9px; }
+.cp-armrow { display: grid; grid-template-columns: minmax(0, 1fr) 34px 90px 70px; gap: 6px; align-items: center; font-size: 12px; padding: 2px 0; }
+.cp-armlabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .cp-armfreq { opacity: .7; text-align: right; }
+.cp-armbar { height: 8px; border-radius: 4px; background: rgba(255,255,255,.1); overflow: hidden; } .cp-armbar i { display: block; height: 100%; background: linear-gradient(90deg, #6cb6ff, #4cc38a); }
+.cp-armrow.hole .cp-armbar { outline: 1px dashed var(--bad); } .cp-armrow.hole .cp-armx, .cp-armrow.none .cp-armx { color: var(--bad); } .cp-armrow.none .cp-armlabel { opacity: .6; }
+html[data-theme=light] .cp-armbar { background: rgba(0,0,0,.1); }

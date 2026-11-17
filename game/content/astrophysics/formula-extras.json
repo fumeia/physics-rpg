@@ -1,0 +1,233 @@
+{
+ "about": "Formula supplements (cards for the summary); built by notes/build/formulas/build.py",
+ "items": [
+  {
+   "room": "stellar-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 8,
+    "xp": 10,
+    "id": "astro-fx-edd",
+    "title": "Formula card: Eddington luminosity",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Choudhuri 3.6.1"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "Radiation pressure on electrons (Thomson) balances gravity on the protons they drag along:"
+     },
+     {
+      "kind": "eq",
+      "tex": "L_{\\rm Edd}=\\frac{4\\pi GMm_pc}{\\sigma_T}\\approx1.3\\times10^{31}\\,\\mathrm W\\,\\frac{M}{M_\\odot}=3.3\\times10^4L_\\odot\\frac M{M_\\odot}",
+      "label": "Eddington luminosity (pure hydrogen, Thomson opacity)"
+     },
+     {
+      "kind": "eq",
+      "tex": "\\dot M_{\\rm Edd}=\\frac{L_{\\rm Edd}}{\\eta c^2},\\qquad t_{\\rm Edd}=\\frac{M}{\\dot M_{\\rm Edd}}=\\frac{\\eta\\,\\sigma_Tc}{4\\pi Gm_p}\\approx\\eta\\times4.5\\times10^8\\,\\mathrm{yr}",
+      "label": "Eddington accretion rate and growth time (HS25 winter Q6)"
+     }
+    ],
+    "check": [
+     {
+      "q": "$L_{\\rm Edd}$ scales with mass as",
+      "options": [
+       "$\\propto M$",
+       "$\\propto M^2$",
+       "$\\propto M^3$",
+       "independent of $M$"
+      ],
+      "correct": 0,
+      "explain": "Gravity and radiation force both $\\propto1/r^2$."
+     },
+     {
+      "q": "A black hole growing at the Eddington rate grows",
+      "options": [
+       "exponentially (e-folding time $\\propto\\eta$)",
+       "linearly",
+       "not at all",
+       "as $t^2$"
+      ],
+      "correct": 0,
+      "explain": "$\\dot M\\propto M$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "degenerate-matter",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 8,
+    "xp": 10,
+    "id": "astro-fx-rs",
+    "title": "Formula cards: Schwarzschild radius and free-fall time",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Choudhuri 5, 8.3, 13 (Schwarzschild)"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "Two quick scales: the size of a black hole, and how long a pressureless cloud needs to collapse."
+     },
+     {
+      "kind": "eq",
+      "tex": "R_S=\\frac{2GM}{c^2}\\approx3\\,\\mathrm{km}\\,\\frac M{M_\\odot}",
+      "label": "Schwarzschild radius"
+     },
+     {
+      "kind": "eq",
+      "tex": "t_{\\rm ff}=\\sqrt{\\frac{3\\pi}{32G\\rho}}\\approx\\frac{0.54}{\\sqrt{G\\rho}}",
+      "label": "free-fall time of a uniform sphere"
+     }
+    ],
+    "check": [
+     {
+      "q": "$R_S$ of a $10^8M_\\odot$ black hole",
+      "options": [
+       "$3\\times10^8$ km $\\approx2$ AU",
+       "3 km",
+       "$3\\times10^{12}$ km",
+       "1 pc"
+      ],
+      "correct": 0,
+      "explain": "$3\\,\\mathrm{km}\\times10^8$."
+     },
+     {
+      "q": "The free-fall time depends on",
+      "options": [
+       "only the mean density",
+       "the radius only",
+       "the temperature",
+       "the mass only"
+      ],
+      "correct": 0,
+      "explain": "$t_{\\rm ff}\\propto1/\\sqrt{G\\rho}$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "galactic-dynamics",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 8,
+    "xp": 10,
+    "id": "astro-fx-plum",
+    "title": "Formula cards: Plummer sphere and tidal radius",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Choudhuri 7; HS25 winter Q4 (Plummer), HS24 summer Q6 (tidal disruption)"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "The Plummer sphere is the standard soft-core model of a star cluster; the tidal radius says where a companion&#8217;s pull wins."
+     },
+     {
+      "kind": "eq",
+      "tex": "\\Phi(r)=-\\frac{GM}{\\sqrt{r^2+b^2}},\\qquad \\rho(r)=\\frac{3M}{4\\pi b^3}\\left(1+\\frac{r^2}{b^2}\\right)^{-5/2}",
+      "label": "Plummer potential and density"
+     },
+     {
+      "kind": "eq",
+      "tex": "r_t\\approx R\\left(\\frac{m}{3M}\\right)^{1/3}\\ \\ (\\text{satellite }m\\text{ at distance }R),\\qquad r_{\\rm TD}\\approx R_*\\left(\\frac{M_{\\rm BH}}{M_*}\\right)^{1/3}",
+      "label": "tidal radius; tidal-disruption radius of a star"
+     }
+    ],
+    "check": [
+     {
+      "q": "At $r\\gg b$ the Plummer potential becomes",
+      "options": [
+       "$-GM/r$ (point mass)",
+       "constant",
+       "harmonic",
+       "$-GM/b$"
+      ],
+      "correct": 0,
+      "explain": "Soft core only matters inside $b$."
+     },
+     {
+      "q": "A star is torn apart by a black hole when it comes closer than about",
+      "options": [
+       "$R_*(M_{\\rm BH}/M_*)^{1/3}$",
+       "$R_S$ always",
+       "$R_*$",
+       "1 pc"
+      ],
+      "correct": 0,
+      "explain": "Tidal acceleration exceeds the star&#8217;s self-gravity."
+     }
+    ]
+   }
+  },
+  {
+   "room": "expanding-universe",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 8,
+    "xp": 10,
+    "id": "astro-fx-age",
+    "title": "Formula cards: ages and densities of simple universes",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "Choudhuri 10.6-10.7"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "Flat universes with one component: the age follows from $a\\propto t^{2/(3(1+w))}$ and $H=\\dot a/a$."
+     },
+     {
+      "kind": "eq",
+      "tex": "\\text{matter: }t_0=\\frac2{3H_0},\\qquad \\text{radiation: }t=\\frac1{2H},\\qquad \\text{empty (Milne): }t_0=\\frac1{H_0}",
+      "label": "age of flat one-component universes"
+     },
+     {
+      "kind": "eq",
+      "tex": "\\rho_c=\\frac{3H_0^2}{8\\pi G}\\approx9.2\\times10^{-27}\\,\\mathrm{kg\\,m^{-3}}\\,\\Big(\\frac{H_0}{70\\,\\mathrm{km/s/Mpc}}\\Big)^2,\\qquad \\frac1{H_0}\\approx14\\,\\mathrm{Gyr}",
+      "label": "critical density and Hubble time in numbers"
+     }
+    ],
+    "check": [
+     {
+      "q": "The age of a flat matter-dominated universe is",
+      "options": [
+       "$\\frac2{3H_0}$",
+       "$\\frac1{H_0}$",
+       "$\\frac1{2H_0}$",
+       "$\\frac3{2H_0}$"
+      ],
+      "correct": 0,
+      "explain": "$a\\propto t^{2/3}$, $H=\\frac2{3t}$."
+     },
+     {
+      "q": "The Hubble time for $H_0=70$ km/s/Mpc is about",
+      "options": [
+       "14 Gyr",
+       "1.4 Gyr",
+       "140 Gyr",
+       "4.5 Gyr"
+      ],
+      "correct": 0,
+      "explain": "$1/H_0$."
+     }
+    ]
+   }
+  }
+ ]
+}

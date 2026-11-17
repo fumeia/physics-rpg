@@ -139,6 +139,7 @@ async function boot() {
   progress(74, 'Loading drills and connections...');
   try { const mf = await fetchJson('content/manifest.json'); const ds = await Promise.all((mf.drills || []).map((cid) => { const c = catalog.find((x) => x.id === cid); return c ? fetchJson(`content/${c.dir}/drills.json`).then((d) => [cid, d]) : null; })); for (const x of ds) if (x) setDrillData(x[0], x[1]); if (mf.radar) drillData.radar = await fetchJson('content/radar.json'); } catch (e) { console.warn('drills not loaded', e.message); }
   try { linksData = (await fetchJson('content/links.json')).links; } catch { linksData = []; }
+  try { cards.setNames((await fetchJson('content/formula-names.json')).names); } catch { /* optional: cards fall back to their labels */ }
   for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); if (!pl) continue; for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
@@ -1050,7 +1051,7 @@ function completeMission(m) {
 function flashWorld(ok) { if (world) (ok ? world.successEffect() : world.failEffect()); }
 window.addEventListener('encounter-done', (ev) => { // memory model: every pass makes the memory of that exercise last longer, a fail weakens it
   const { id, ok } = ev.detail; if (!encIndex.has(id)) return;
-  if (ok) { const e = encIndex.get(id).enc, n = cards.lootOf(e); if (n) { const re = cards.rechargeLesson(id); setTimeout(() => toast(`Loot: ${n} formula card${n === 1 ? '' : 's'} from \u201c${prettyText(e.title)}\u201d${re ? ' (recharged)' : ''}. Play them in fights with the Cards button.`), 1500); } }
+  if (ok) { const e = encIndex.get(id).enc, n = cards.lootOf(e); if (n) { const re = cards.rechargeLesson(id); setTimeout(() => toast(`Loot: ${cards.namesOf(e).map((x) => `\u201c${x}\u201d`).join(', ')}${re ? ' (recharged)' : ''}. Play them in fights with the Cards button.`), 1500); } }
   store.setVal('mem', ok ? notePass(store.val('mem', {}) || {}, id) : noteFail(store.val('mem', {}) || {}, id));
 });
 window.addEventListener('encounter-done', (ev) => {

@@ -17,6 +17,7 @@ import { createCampaign } from './campaignui.js';
 import * as battle from './battle.js';
 import { createQuality } from './quality.js';
 import { notePass, noteFail, meanRetention } from './memory.js';
+import * as cards from './cards.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
@@ -968,7 +969,9 @@ function completeMission(m) {
 }
 function flashWorld(ok) { if (world) (ok ? world.successEffect() : world.failEffect()); }
 window.addEventListener('encounter-done', (ev) => { // memory model: every pass makes the memory of that exercise last longer, a fail weakens it
-  const { id, ok } = ev.detail; if (!encIndex.has(id)) return; store.setVal('mem', ok ? notePass(store.val('mem', {}) || {}, id) : noteFail(store.val('mem', {}) || {}, id));
+  const { id, ok } = ev.detail; if (!encIndex.has(id)) return;
+  if (ok) { const e = encIndex.get(id).enc, n = cards.lootOf(e); if (n) { const re = cards.rechargeLesson(id); setTimeout(() => toast(`Loot: ${n} formula card${n === 1 ? '' : 's'} from \u201c${prettyText(e.title)}\u201d${re ? ' (recharged)' : ''}. Play them in fights with the Cards button.`), 1500); } }
+  store.setVal('mem', ok ? notePass(store.val('mem', {}) || {}, id) : noteFail(store.val('mem', {}) || {}, id));
 });
 window.addEventListener('encounter-done', (ev) => {
   const { id, ok } = ev.detail; if (!ok) return;
@@ -1243,7 +1246,7 @@ function openEncounter(enc, fromGroup) {
     back.onclick = () => openGroup(grp); $('panel').prepend(back);
   }
   const sl = sheetLinksHtml(enc); if (sl) { const box = document.createElement('div'); box.innerHTML = M(sl); wireSheetLinks(box); $('panel').prepend(box); }
-  if ((store.val('settings', {}) || {}).fights !== 'off') battle.begin(enc, $('panel'), { course: encIndex.get(enc.id)?.course || course?.id, onChange: null }); // fights with stakes: enemy, focus, combo
+  if ((store.val('settings', {}) || {}).fights !== 'off') { const cid = encIndex.get(enc.id)?.course || course?.id, shown = new Set(); battle.begin(enc, $('panel'), { course: cid, onChange: null, M, cards: enc.type === 'lesson' ? null : { list: () => cards.deck(catalog, (id) => store.isPassed(id)).filter((c) => c.course === cid).sort((a, b) => (b.room === room?.slug) - (a.room === room?.slug)).slice(0, 30).map((c) => ({ ...c, shown: shown.has(c.key) })), play: (k) => { const ok = cards.play(k); if (ok) shown.add(k); return ok; }, recharge: (k) => cards.recharge(k) } }); } // fights with stakes: enemy, focus, combo
   if (!enc.synthetic) $('panel').prepend(pileBar(enc));
   const nb = navBackBar(enc); if (nb) $('panel').prepend(nb);
   updateBar();

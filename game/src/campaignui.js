@@ -3,7 +3,7 @@
 // Logic lives in campaign.js; this file only renders and stores (flags: campaignKnown, campaignSetup, run, runLog).
 import { buildWeeks, weekStatus, position, lectureWeek, taughtWeeks, buildRun, catchUpDate } from './campaign.js';
 import { todayStr, daysToExam } from './missions.js';
-import { fightsToday, enemyOf, spriteSvg } from './battle.js';
+import { fightsToday, enemyOf, spriteSvg, gradeBook } from './battle.js';
 import { EST_MIN } from './campaign.js';
 import { meanRetention, fading, forecast } from './memory.js';
 
@@ -32,7 +32,10 @@ export function createCampaign(ctx) {
     return any ? best : 0.5; // no data: treat as average
   }
   const weekMemory = (w) => meanRetention([...w.theory, ...w.practice].filter(passed), mem(), store.snapshot.solved);
-  function fadingIds() { const ids = []; for (const cid of courses()) for (const w of W()[cid]) ids.push(...w.theory, ...w.practice); return fading(ids.filter((id) => passed(id) && !ctx.isLockedId(id)), mem(), store.snapshot.solved).map((x) => x.id); }
+  // rematch ladder: fights you won with help (grade B or C) come back after a week to be won clean
+  const rematchIds = () => Object.entries(gradeBook()).filter(([id, v]) => ['B', 'C'].includes(v.g) && Date.now() - v.t > 7 * 86400000 && ctx.encIndex.has(id) && passed(id)).sort((a, b) => a[1].t - b[1].t).map(([id]) => id);
+  function fadingIds() { const ids = [...rematchIds()]; if (ids.length) return ids.concat(fadingOnly()).filter((x, i, a) => a.indexOf(x) === i); return fadingOnly(); }
+  function fadingOnly() { const ids = []; for (const cid of courses()) for (const w of W()[cid]) ids.push(...w.theory, ...w.practice); return fading(ids.filter((id) => passed(id) && !ctx.isLockedId(id)), mem(), store.snapshot.solved).map((x) => x.id); }
   function grades() {
     return courses().map((cid) => { const c = ctx.catalog.find((x) => x.id === cid), bossIds = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type === 'boss').map((e) => e.id));
       const f = forecast({ weeks: W()[cid].map((w) => ({ ids: [...w.theory, ...w.practice], weight: 0.4 + weekWeight(cid, w), credit: known()[cid]?.has(w.n) ? 0.6 : 0 })), isPassed: passed, mem: mem(), solved: store.snapshot.solved, bossIds }); return { cid, ...f }; });

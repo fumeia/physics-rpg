@@ -434,3 +434,8 @@ body.hudc #hud .tl { max-width: 42vw; } body.hudc #reviews:not(.review) { displa
 .battle.nemesis { border-color: #c77dff; } .bt-nem { grid-column: 1 / -1; font-size: 12px; color: #d9b3ff; border-top: 1px dashed rgba(199,125,255,.4); padding-top: 4px; } html[data-theme=light] .bt-nem { color: #6a2a9a; }
 .cp-goals { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; } .cp-goals .chip { font-size: 12px; padding: 2px 9px; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .cp-goals .chip.ok { border-color: var(--good); color: var(--good); }
 .cp-node.hunt .cp-dot, .cp-node.explain .cp-dot, .cp-node.blitz .cp-dot { border-style: dotted; border-color: #c77dff; } .cp-node.scout .cp-dot { border-color: #8de0ff; }
+
+.bt-cards { margin-left: auto; font-size: 11px; padding: 1px 8px; } .bt-you .bt-name { align-items: center; }
+.bt-drawer { grid-column: 1 / -1; max-height: 40vh; overflow: auto; border-top: 1px solid rgba(255,255,255,.12); padding-top: 6px; display: grid; gap: 6px; }
+.bt-card { border: 1px solid rgba(245,196,81,.4); background: rgba(245,196,81,.06); border-radius: 8px; padding: 5px 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; } .bt-card.worn { opacity: .7; border-style: dashed; }
+.bt-cl { flex: 1 1 180px; display: grid; } .bt-cl b { font-size: 13px; } .bt-cl span { font-size: 11px; opacity: .7; } .bt-ctex { flex: 1 1 100%; overflow-x: auto; }

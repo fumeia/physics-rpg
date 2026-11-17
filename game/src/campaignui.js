@@ -80,7 +80,15 @@ export function createCampaign(ctx) {
     const nd = minutes >= 40 && ctx.nextDeriv(); if (nd) { act('@deriv', 'deriv', 'derivs', `QM derivation, ${nd.label}: \u201c${String(nd.title).replace(/<[^>]+>|\$|\\[a-zA-Z]+/g, '')}\u201d`, Math.min(2, r.stops.length), { id: nd.id, mode: nd.mode }); }
     const fd = ctx.forgeDue(); if (fd) act('@forge', 'forge', 'forge', `QM by heart: ${fd} formula${fd === 1 ? '' : 's'} due in the Forge (write from memory, two minutes)`, Math.min(1, r.stops.length));
     const ti = r.stops.findIndex((s) => s.kind === 'theory'); if (ti >= 0 && minutes >= 40) act('@explain', 'explain', 'feynman', 'Explain what you just read in your own words, without looking', ti + 1);
-    r.minutes = r.stops.reduce((a, s) => a + s.min, 0);
+    // The chosen length is a promise: drop the least important stops until the run fits (never the first catch-up pair)
+    const total = () => r.stops.reduce((a, s) => a + s.min, 0), firstNew = r.stops.findIndex((s) => s.kind === 'theory' || s.kind === 'sheet');
+    for (const kind of ['scout', 'hunt', 'explain', 'blitz', 'boss', 'catchup', 'forge', 'deriv', 'defend']) {
+      while (total() > minutes + 5) {
+        let i = -1; for (let k = r.stops.length - 1; k >= 0; k--) { const s = r.stops[k]; if ((kind === 'catchup' ? ['theory', 'sheet'].includes(s.kind) && k > firstNew + 1 : s.kind === kind)) { i = k; break; } }
+        if (i < 0) break; r.stops.splice(i, 1);
+      }
+    }
+    r.minutes = total();
     return { date: todayStr(), minutes, stops: r.stops, est: r.minutes, startedAt: 0, xp0: store.xp, behind0: behindTotal(), n: (() => { const pr = store.val('run', null); return pr?.date === todayStr() ? (pr.n || 1) + (pr.summarized ? 1 : 0) : 1; })() };
   }
   function run() { let r = store.val('run', null); if (!r || r.date !== todayStr()) { r = freshRun(); r.n = 1; store.setVal('run', r); } return r; }
@@ -101,6 +109,14 @@ export function createCampaign(ctx) {
     ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), `Today\u2019s run`, nx.id);
   }
   function doAction(s) { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); } r.acted = { ...(r.acted || {}), [s.id]: Date.now() }; store.setVal('run', r); ctx.openTab(s.action, s.arg); ctx.toast(`${KIND[s.kind]}: ${s.why}. Press G to go on with the run.`); onProgress(); ctx.onChange(); }
+  // Settings changed (hand-ins, weeks marked, skim, length): plan again. A run that is under way keeps its finished stops and
+  // its start, and only the open stops are replaced.
+  function replan(minutes = runMinutes()) {
+    const old = store.val('run', null), fresh = freshRun(minutes);
+    if (!old || old.date !== todayStr() || !old.startedAt || old.summarized) { store.setVal('run', fresh); return; }
+    const kept = old.stops.filter((s) => stopState(old, s) !== 'open'), ids = new Set(kept.map((s) => s.id));
+    store.setVal('run', { ...old, minutes, stops: [...kept, ...fresh.stops.filter((s) => !ids.has(s.id))], est: kept.reduce((a, s) => a + s.min, 0) + fresh.stops.filter((s) => !ids.has(s.id)).reduce((a, s) => a + s.min, 0) });
+  }
   function newRun(minutes) { store.setVal('runMinutes', minutes); const r = freshRun(minutes); store.setVal('run', r); }
   // called after every finished exercise: when the last stop of the run is finished, log it and show the summary once
   function onProgress() {
@@ -241,7 +257,7 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-step]').forEach((b) => (b.onclick = () => { const [c, d] = b.dataset.step.split(':'), el = host.querySelector(`[data-setval="${c}"]`), v = Math.max(0, Math.min(cfg.weeks, +el.dataset.v + +d)); el.dataset.v = v; el.textContent = `week ${v}`; host.querySelector(`[data-setnote="${c}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; }));
     host.querySelectorAll('[data-setval]').forEach((el) => { const v = +el.dataset.v; host.querySelector(`[data-setnote="${el.dataset.setval}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; });
     const okb = host.querySelector('#cp-setup-ok'); if (okb) okb.onclick = () => { const k = {}; host.querySelectorAll('[data-setval]').forEach((el) => { k[el.dataset.setval] = Array.from({ length: +el.dataset.v }, (_, i) => i + 1); }); store.setVal('campaignKnown', k); store.setVal('campaignSetup', true); store.setVal('run', null); re(); };
-    host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { newRun(+b.dataset.len); re(); }));
+    host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { store.setVal('runMinutes', +b.dataset.len); replan(+b.dataset.len); re(); }));
     host.querySelectorAll('[data-goal]').forEach((b) => (b.onclick = () => ctx.openMissions()));
     const ch = host.querySelector('#cp-chest'); if (ch) ch.onclick = () => { const xp = claimChest(); if (xp) ctx.toast(`Weekly chest: +${xp} XP`); re(); };
     const st = host.querySelector('#cp-start'); if (st) st.onclick = () => startRun();
@@ -251,11 +267,11 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-alt]').forEach((b) => (b.onclick = () => { const r = run(), i = +b.dataset.alt, s = r.stops[i], a = s.alt; r.stops[i] = a.back ? { ...a.orig } : { ...s, id: a.id, kind: a.kind, min: a.min, bonus: a.bonus, risk: true, alt: { id: s.id, back: true, orig: { ...s } }, why: 'You took the risk: a harder problem from the same room, for bonus XP' }; r.est = r.stops.reduce((x, y) => x + y.min, 0); store.setVal('run', r); re(); }));
     host.querySelectorAll('[data-dungeon]').forEach((b) => (b.onclick = () => enterDungeon(b.dataset.dungeon)));
     const dl = host.querySelector('#cp-dleave'); if (dl) dl.onclick = () => { leaveDungeon(); re(); };
-    host.querySelectorAll('[data-skim]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.skim.split('/'), raw = store.val('campaignSkim', {}) || {}, cur = new Set(raw[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); store.setVal('campaignSkim', { ...raw, [cid]: [...cur] }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
-    host.querySelectorAll('[data-hand]').forEach((b) => (b.onclick = () => { const c = b.dataset.hand; store.setVal('handIn', { ...(store.val('handIn', {}) || {}), [c]: !handIn(c) }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
+    host.querySelectorAll('[data-skim]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.skim.split('/'), raw = store.val('campaignSkim', {}) || {}, cur = new Set(raw[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); store.setVal('campaignSkim', { ...raw, [cid]: [...cur] }); replan(); re(); }));
+    host.querySelectorAll('[data-hand]').forEach((b) => (b.onclick = () => { const c = b.dataset.hand; store.setVal('handIn', { ...(store.val('handIn', {}) || {}), [c]: !handIn(c) }); replan(); re(); }));
     host.querySelectorAll('[data-week]').forEach((b) => (b.onclick = () => { openWeek = openWeek === b.dataset.week ? null : b.dataset.week; rerender(); }));
     host.querySelectorAll('[data-wopen]').forEach((b) => (b.onclick = () => ctx.openQueue([b.dataset.wopen], '', b.dataset.wopen)));
-    const setKnown = (cid, list) => { const k = { ...knownRaw(), [cid]: list }; store.setVal('campaignKnown', k); store.setVal('run', null); re(); };
+    const setKnown = (cid, list) => { const k = { ...knownRaw(), [cid]: list }; store.setVal('campaignKnown', k); replan(); re(); };
     host.querySelectorAll('[data-known]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.known.split('/'), cur = new Set(knownRaw()[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); setKnown(cid, [...cur].sort((a, c) => a - c)); }));
     host.querySelectorAll('[data-knownto]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.knownto.split('/'); setKnown(cid, [...new Set([...(knownRaw()[cid] || []), ...Array.from({ length: +n }, (_, i) => i + 1)])].sort((a, c) => a - c)); }));
   }

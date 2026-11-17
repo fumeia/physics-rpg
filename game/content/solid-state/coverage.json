@@ -5,17 +5,21 @@
    "section": "1.1",
    "title": "Introduction",
    "page": 3,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "crystal vs. liquid, long-range order",
-     "theory": 0,
-     "quiz": 0,
+     "theory": 1,
+     "quiz": 1,
      "exercise": 1,
      "sheet": 0,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "ss-lat-G1"
+      ],
+      "quiz": [
+       "ss-lat-GQ"
+      ],
       "exercise": [
        "ss-fer-p1"
       ],
@@ -28,18 +32,20 @@
    "section": "1.2.1",
    "title": "Lattice definitions",
    "page": 5,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "primitive cell / vectors",
-     "theory": 2,
+     "theory": 4,
      "quiz": 5,
      "exercise": 5,
      "sheet": 5,
      "ids": {
       "theory": [
        "ss-lat-L1",
-       "ss-pho-L1"
+       "ss-pho-L1",
+       "ss-lat-G1",
+       "ss-lat-G2"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -66,14 +72,16 @@
     },
     {
      "concept": "basis",
-     "theory": 2,
+     "theory": 4,
      "quiz": 6,
      "exercise": 5,
      "sheet": 3,
      "ids": {
       "theory": [
        "ss-lat-L1",
-       "ss-lat-L2"
+       "ss-lat-L2",
+       "ss-lat-G1",
+       "ss-lat-G2"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -99,12 +107,16 @@
     },
     {
      "concept": "unit cell",
-     "theory": 0,
-     "quiz": 6,
+     "theory": 3,
+     "quiz": 7,
      "exercise": 5,
      "sheet": 1,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-lat-G1",
+       "ss-lat-G2",
+       "ss-mag-G1"
+      ],
       "quiz": [
        "ss-lat-Q1",
        "ss-lat-SQ1",
@@ -131,16 +143,19 @@
    "section": "1.2.2",
    "title": "Crystallographic symmetries",
    "page": 7,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "rotation axes (1,2,3,4,6)",
-     "theory": 0,
+     "theory": 2,
      "quiz": 2,
      "exercise": 0,
      "sheet": 1,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-lat-G1",
+       "ss-lat-G2"
+      ],
       "quiz": [
        "ss-lat-Q1",
        "ss-lat-SQ2"
@@ -153,12 +168,15 @@
     },
     {
      "concept": "inversion",
-     "theory": 0,
+     "theory": 2,
      "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-lat-G1",
+       "ss-lat-G2"
+      ],
       "quiz": [
        "ss-lat-SQ3"
       ],
@@ -177,7 +195,7 @@
     {
      "concept": "Bravais lattices",
      "theory": 1,
-     "quiz": 3,
+     "quiz": 4,
      "exercise": 1,
      "sheet": 1,
      "ids": {
@@ -187,7 +205,8 @@
       "quiz": [
        "ss-lat-SQ1",
        "ss-lat-SQ2",
-       "ss-lat-SQ3"
+       "ss-lat-SQ3",
+       "ss-lat-GQ"
       ],
       "exercise": [
        "ss-lat-b1"
@@ -199,8 +218,8 @@
     },
     {
      "concept": "BCC / FCC",
-     "theory": 4,
-     "quiz": 8,
+     "theory": 7,
+     "quiz": 9,
      "exercise": 5,
      "sheet": 8,
      "ids": {
@@ -208,7 +227,9 @@
        "ss-lat-L1",
        "ss-lat-L2",
        "ss-bon-L1",
-       "ss-mag-L2"
+       "ss-mag-L2",
+       "ss-lat-G1",
+       "ss-lat-G2"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -237,13 +258,14 @@
     },
     {
      "concept": "hexagonal / HCP",
-     "theory": 1,
+     "theory": 2,
      "quiz": 4,
      "exercise": 0,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-lat-L1"
+       "ss-lat-L1",
+       "ss-bon-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -261,23 +283,26 @@
    "section": "1.3.1",
    "title": "Reciprocal lattice: definition",
    "page": 11,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "reciprocal lattice",
-     "theory": 2,
-     "quiz": 3,
+     "theory": 4,
+     "quiz": 4,
      "exercise": 7,
      "sheet": 8,
      "ids": {
       "theory": [
        "ss-lat-L1",
-       "ss-lat-L2"
+       "ss-lat-L2",
+       "ss-lat-G1",
+       "ss-pho-G1"
       ],
       "quiz": [
        "ss-lat-SQ2",
        "ss-lat-SQ3",
-       "ss-fer-SQ2"
+       "ss-fer-SQ2",
+       "ss-pho-GQ"
       ],
       "exercise": [
        "ss-lat-c1",
@@ -299,12 +324,14 @@
     },
     {
      "concept": "a_i·b_j = 2πδ_ij",
-     "theory": 0,
+     "theory": 1,
      "quiz": 0,
      "exercise": 1,
      "sheet": 3,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-lat-G1"
+      ],
       "quiz": [],
       "exercise": [
        "ss-lat-b1"
@@ -326,13 +353,14 @@
    "concepts": [
     {
      "concept": "Miller indices",
-     "theory": 1,
+     "theory": 2,
      "quiz": 3,
      "exercise": 1,
      "sheet": 4,
      "ids": {
       "theory": [
-       "ss-lat-L2"
+       "ss-lat-L2",
+       "ss-lat-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -352,13 +380,14 @@
     },
     {
      "concept": "plane spacing d_hkl",
-     "theory": 1,
+     "theory": 2,
      "quiz": 1,
      "exercise": 2,
      "sheet": 2,
      "ids": {
       "theory": [
-       "ss-lat-L2"
+       "ss-lat-L2",
+       "ss-lat-G1"
       ],
       "quiz": [
        "ss-lat-SQ3"
@@ -383,13 +412,15 @@
    "concepts": [
     {
      "concept": "Brillouin zone",
-     "theory": 1,
-     "quiz": 6,
+     "theory": 3,
+     "quiz": 7,
      "exercise": 8,
      "sheet": 5,
      "ids": {
       "theory": [
-       "ss-lat-L1"
+       "ss-lat-L1",
+       "ss-pho-G1",
+       "ss-sem-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -418,13 +449,14 @@
     },
     {
      "concept": "Wigner–Seitz cell",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 3,
      "sheet": 2,
      "ids": {
       "theory": [
-       "ss-lat-L1"
+       "ss-lat-L1",
+       "ss-lat-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -447,16 +479,19 @@
    "section": "1.5.1",
    "title": "Scattering",
    "page": 15,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "scattering vector q = k′ − k",
-     "theory": 0,
+     "theory": 2,
      "quiz": 1,
      "exercise": 0,
      "sheet": 1,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-lat-G2",
+       "ss-fer-G1"
+      ],
       "quiz": [
        "ss-lat-SQ3"
       ],
@@ -468,14 +503,17 @@
     },
     {
      "concept": "form factor / scattering length",
-     "theory": 0,
-     "quiz": 1,
+     "theory": 1,
+     "quiz": 2,
      "exercise": 0,
      "sheet": 1,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-lat-G2"
+      ],
       "quiz": [
-       "ss-lat-SQ3"
+       "ss-lat-SQ3",
+       "ss-lat-GQ"
       ],
       "exercise": [],
       "sheet": [
@@ -493,13 +531,14 @@
    "concepts": [
     {
      "concept": "Laue condition",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 3,
      "sheet": 1,
      "ids": {
       "theory": [
-       "ss-lat-L2"
+       "ss-lat-L2",
+       "ss-lat-G2"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -517,17 +556,19 @@
     },
     {
      "concept": "Bragg law",
-     "theory": 2,
-     "quiz": 1,
+     "theory": 3,
+     "quiz": 2,
      "exercise": 9,
      "sheet": 1,
      "ids": {
       "theory": [
        "ss-pho-L1",
-       "ss-fer-L2"
+       "ss-fer-L2",
+       "ss-pho-G1"
       ],
       "quiz": [
-       "ss-lat-SQ3"
+       "ss-lat-SQ3",
+       "ss-lat-GQ"
       ],
       "exercise": [
        "ss-lat-D1",
@@ -544,13 +585,14 @@
     },
     {
      "concept": "structure factor",
-     "theory": 1,
+     "theory": 2,
      "quiz": 3,
      "exercise": 4,
      "sheet": 1,
      "ids": {
       "theory": [
-       "ss-lat-L2"
+       "ss-lat-L2",
+       "ss-lat-G2"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -574,16 +616,18 @@
    "section": "1.5.3",
    "title": "The role of symmetry",
    "page": 19,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "Friedel’s law",
-     "theory": 0,
+     "theory": 1,
      "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-lat-G2"
+      ],
       "quiz": [
        "ss-lat-SQ3"
       ],
@@ -593,17 +637,19 @@
     },
     {
      "concept": "systematic absences",
-     "theory": 2,
-     "quiz": 1,
+     "theory": 3,
+     "quiz": 2,
      "exercise": 0,
      "sheet": 2,
      "ids": {
       "theory": [
        "ss-lat-L2",
-       "ss-mag-L2"
+       "ss-mag-L2",
+       "ss-lat-G2"
       ],
       "quiz": [
-       "ss-sem-Q1"
+       "ss-sem-Q1",
+       "ss-lat-GQ"
       ],
       "exercise": [],
       "sheet": [
@@ -622,17 +668,20 @@
    "concepts": [
     {
      "concept": "X-rays vs neutrons",
-     "theory": 2,
-     "quiz": 1,
+     "theory": 4,
+     "quiz": 2,
      "exercise": 10,
      "sheet": 0,
      "ids": {
       "theory": [
        "ss-lat-L2",
-       "ss-pho-L1"
+       "ss-pho-L1",
+       "ss-lat-G2",
+       "ss-pho-G1"
       ],
       "quiz": [
-       "ss-lat-SQ3"
+       "ss-lat-SQ3",
+       "ss-lat-GQ"
       ],
       "exercise": [
        "ss-lat-c1",
@@ -698,13 +747,14 @@
    "concepts": [
     {
      "concept": "single-crystal / Laue geometry",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 1,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-lat-L2"
+       "ss-lat-L2",
+       "ss-pho-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -726,13 +776,14 @@
    "concepts": [
     {
      "concept": "van der Waals / fluctuating dipoles",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 4,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-bon-L1"
+       "ss-bon-L1",
+       "ss-bon-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -779,13 +830,14 @@
     },
     {
      "concept": "noble-gas crystals",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 4,
      "sheet": 2,
      "ids": {
       "theory": [
-       "ss-bon-L1"
+       "ss-bon-L1",
+       "ss-bon-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -834,14 +886,15 @@
     },
     {
      "concept": "ionic crystal / NaCl",
-     "theory": 2,
+     "theory": 3,
      "quiz": 5,
      "exercise": 7,
      "sheet": 0,
      "ids": {
       "theory": [
        "ss-bon-L1",
-       "ss-pho-L1"
+       "ss-pho-L1",
+       "ss-bon-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -867,17 +920,18 @@
    "section": "1.6.4",
    "title": "Covalent crystals",
    "page": 29,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "covalent bond",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 1,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-bon-L1"
+       "ss-bon-L1",
+       "ss-bon-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -891,12 +945,14 @@
     },
     {
      "concept": "bonding / antibonding orbitals",
-     "theory": 0,
+     "theory": 1,
      "quiz": 1,
      "exercise": 2,
      "sheet": 1,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-bon-G1"
+      ],
       "quiz": [
        "ss-bon-SQ1"
       ],
@@ -911,12 +967,14 @@
     },
     {
      "concept": "H2+ / LCAO / hybrids",
-     "theory": 0,
+     "theory": 1,
      "quiz": 2,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-bon-G1"
+      ],
       "quiz": [
        "ss-lat-SQ2",
        "ss-bon-SQ1"
@@ -931,16 +989,18 @@
    "section": "1.6.5",
    "title": "Hydrogen bond",
    "page": 36,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "hydrogen bond",
-     "theory": 0,
+     "theory": 1,
      "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-bon-G1"
+      ],
       "quiz": [
        "ss-bon-SQ1"
       ],
@@ -954,16 +1014,18 @@
    "section": "1.6.6",
    "title": "Metallic crystals",
    "page": 36,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "metallic bond",
-     "theory": 0,
+     "theory": 1,
      "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-bon-G1"
+      ],
       "quiz": [
        "ss-bon-SQ1"
       ],
@@ -982,7 +1044,7 @@
     {
      "concept": "Dulong–Petit",
      "theory": 1,
-     "quiz": 3,
+     "quiz": 4,
      "exercise": 4,
      "sheet": 2,
      "ids": {
@@ -992,7 +1054,8 @@
       "quiz": [
        "ss-pho-Q1",
        "ss-pho-SQ1",
-       "ss-fer-SQ1"
+       "ss-fer-SQ1",
+       "ss-pho-GQ"
       ],
       "exercise": [
        "ss-pho-c2",
@@ -1048,16 +1111,18 @@
    "concepts": [
     {
      "concept": "equation of motion / normal modes",
-     "theory": 1,
-     "quiz": 1,
+     "theory": 2,
+     "quiz": 2,
      "exercise": 1,
      "sheet": 2,
      "ids": {
       "theory": [
-       "ss-pho-L1"
+       "ss-pho-L1",
+       "ss-pho-G1"
       ],
       "quiz": [
-       "ss-pho-SQ1"
+       "ss-pho-SQ1",
+       "ss-pho-GQ"
       ],
       "exercise": [
        "ss-pho-D1"
@@ -1070,19 +1135,21 @@
     },
     {
      "concept": "phonon dispersion ω(k)",
-     "theory": 1,
-     "quiz": 4,
+     "theory": 2,
+     "quiz": 5,
      "exercise": 8,
      "sheet": 5,
      "ids": {
       "theory": [
-       "ss-pho-L2"
+       "ss-pho-L2",
+       "ss-fer-G1"
       ],
       "quiz": [
        "ss-pho-Q1",
        "ss-bon-SQ1",
        "ss-pho-SQ1",
-       "ss-fer-SQ2"
+       "ss-fer-SQ2",
+       "ss-fer-GQ"
       ],
       "exercise": [
        "ss-pho-D1",
@@ -1111,22 +1178,24 @@
    "concepts": [
     {
      "concept": "k restricted to the 1st BZ, N modes",
-     "theory": 3,
-     "quiz": 5,
+     "theory": 4,
+     "quiz": 6,
      "exercise": 9,
      "sheet": 6,
      "ids": {
       "theory": [
        "ss-lat-L1",
        "ss-pho-L2",
-       "ss-fer-L1"
+       "ss-fer-L1",
+       "ss-pho-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
        "ss-lat-SQ2",
        "ss-pho-SQ1",
        "ss-fer-SQ1",
-       "ss-fer-SQ2"
+       "ss-fer-SQ2",
+       "ss-pho-GQ"
       ],
       "exercise": [
        "ss-lat-c1",
@@ -1212,12 +1281,12 @@
    "section": "2.3.1–2",
    "title": "Phonons, inelastic scattering",
    "page": 50,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "phonon as quasiparticle",
-     "theory": 6,
-     "quiz": 9,
+     "theory": 9,
+     "quiz": 10,
      "exercise": 12,
      "sheet": 8,
      "ids": {
@@ -1257,29 +1326,33 @@
     },
     {
      "concept": "crystal momentum / Umklapp",
-     "theory": 2,
-     "quiz": 0,
+     "theory": 3,
+     "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
       "theory": [
        "ss-pho-L1",
-       "ss-fer-L2"
+       "ss-fer-L2",
+       "ss-pho-G1"
       ],
-      "quiz": [],
+      "quiz": [
+       "ss-pho-GQ"
+      ],
       "exercise": [],
       "sheet": []
      }
     },
     {
      "concept": "inelastic scattering",
-     "theory": 1,
+     "theory": 2,
      "quiz": 1,
      "exercise": 3,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-pho-L1"
+       "ss-pho-L1",
+       "ss-pho-G1"
       ],
       "quiz": [
        "ss-pho-SQ1"
@@ -1298,17 +1371,21 @@
    "section": "2.3.3",
    "title": "Anharmonic lattice",
    "page": 55,
-   "status": "missing",
+   "status": "covered",
    "concepts": [
     {
      "concept": "anharmonicity (decay, expansion)",
-     "theory": 0,
-     "quiz": 0,
+     "theory": 1,
+     "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "ss-pho-G1"
+      ],
+      "quiz": [
+       "ss-pho-GQ"
+      ],
       "exercise": [],
       "sheet": []
      }
@@ -1319,16 +1396,19 @@
    "section": "2.3.4",
    "title": "Inelastic scattering techniques",
    "page": 57,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "triple-axis / monochromator",
-     "theory": 0,
+     "theory": 2,
      "quiz": 2,
      "exercise": 2,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-pho-G1",
+       "ss-sem-G1"
+      ],
       "quiz": [
        "ss-lat-Q1",
        "ss-lat-SQ3"
@@ -1419,13 +1499,15 @@
     },
     {
      "concept": "phonon density of states",
-     "theory": 1,
-     "quiz": 7,
+     "theory": 3,
+     "quiz": 8,
      "exercise": 7,
      "sheet": 4,
      "ids": {
       "theory": [
-       "ss-pho-L2"
+       "ss-pho-L2",
+       "ss-dri-G1",
+       "ss-mag-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -1462,7 +1544,7 @@
     {
      "concept": "T³ law / Debye temperature",
      "theory": 3,
-     "quiz": 5,
+     "quiz": 6,
      "exercise": 6,
      "sheet": 6,
      "ids": {
@@ -1476,7 +1558,8 @@
        "ss-dri-Q1",
        "ss-mag-Q1",
        "ss-pho-SQ1",
-       "ss-fer-SQ1"
+       "ss-fer-SQ1",
+       "ss-pho-GQ"
       ],
       "exercise": [
        "ss-pho-c2",
@@ -1506,7 +1589,7 @@
    "concepts": [
     {
      "concept": "free electrons in a box",
-     "theory": 4,
+     "theory": 5,
      "quiz": 5,
      "exercise": 15,
      "sheet": 3,
@@ -1515,7 +1598,8 @@
        "ss-fer-L1",
        "ss-fer-L2",
        "ss-mag-L1",
-       "ss-deg-L1"
+       "ss-deg-L1",
+       "ss-dri-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -1541,8 +1625,8 @@
     },
     {
      "concept": "electronic density of states",
-     "theory": 5,
-     "quiz": 7,
+     "theory": 8,
+     "quiz": 8,
      "exercise": 11,
      "sheet": 4,
      "ids": {
@@ -1551,7 +1635,8 @@
        "ss-fer-L1",
        "ss-dri-L2",
        "ss-mag-L1",
-       "ss-deg-L1"
+       "ss-deg-L1",
+       "ss-fer-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -1583,17 +1668,18 @@
    "section": "3.1.3",
    "title": "Fermi–Dirac, Fermi energy",
    "page": 68,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "Fermi–Dirac distribution",
-     "theory": 1,
+     "theory": 2,
      "quiz": 1,
      "exercise": 1,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-fer-L1"
+       "ss-fer-L1",
+       "ss-fer-G1"
       ],
       "quiz": [
        "ss-fer-SQ1"
@@ -1606,8 +1692,8 @@
     },
     {
      "concept": "Fermi energy / k_F",
-     "theory": 7,
-     "quiz": 6,
+     "theory": 13,
+     "quiz": 10,
      "exercise": 18,
      "sheet": 4,
      "ids": {
@@ -1645,13 +1731,17 @@
     },
     {
      "concept": "chemical potential",
-     "theory": 0,
-     "quiz": 0,
+     "theory": 1,
+     "quiz": 1,
      "exercise": 2,
      "sheet": 0,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "ss-fer-G1"
+      ],
+      "quiz": [
+       "ss-fer-GQ"
+      ],
       "exercise": [
        "ss-sem-c3",
        "ss-sem-b1"
@@ -1669,7 +1759,7 @@
    "concepts": [
     {
      "concept": "C_el ∝ T",
-     "theory": 3,
+     "theory": 5,
      "quiz": 6,
      "exercise": 5,
      "sheet": 5,
@@ -1677,7 +1767,9 @@
       "theory": [
        "ss-pho-L2",
        "ss-dri-L2",
-       "ss-deg-L1"
+       "ss-deg-L1",
+       "ss-pho-G1",
+       "ss-fer-G1"
       ],
       "quiz": [
        "ss-lat-Q1",
@@ -1709,16 +1801,18 @@
    "section": "3.1.5",
    "title": "Interactions",
    "page": 75,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "electron–electron interactions",
-     "theory": 0,
+     "theory": 1,
      "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-fer-G1"
+      ],
       "quiz": [
        "ss-pho-SQ1"
       ],
@@ -1789,7 +1883,7 @@
     },
     {
      "concept": "gap at the zone boundary",
-     "theory": 5,
+     "theory": 6,
      "quiz": 6,
      "exercise": 12,
      "sheet": 2,
@@ -1799,7 +1893,8 @@
        "ss-pho-L2",
        "ss-fer-L2",
        "ss-sem-L1",
-       "ss-sem-L2"
+       "ss-sem-L2",
+       "ss-sem-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -1829,23 +1924,25 @@
    "section": "3.2.3",
    "title": "Tight binding",
    "page": 82,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "tight-binding model",
-     "theory": 1,
-     "quiz": 4,
+     "theory": 2,
+     "quiz": 5,
      "exercise": 4,
      "sheet": 1,
      "ids": {
       "theory": [
-       "ss-fer-L2"
+       "ss-fer-L2",
+       "ss-fer-G1"
       ],
       "quiz": [
        "ss-fer-Q1",
        "ss-pho-SQ1",
        "ss-fer-SQ1",
-       "ss-fer-SQ2"
+       "ss-fer-SQ2",
+       "ss-fer-GQ"
       ],
       "exercise": [
        "ss-fer-c3",
@@ -1860,12 +1957,14 @@
     },
     {
      "concept": "hopping t",
-     "theory": 0,
+     "theory": 1,
      "quiz": 2,
      "exercise": 5,
      "sheet": 2,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-fer-G1"
+      ],
       "quiz": [
        "ss-bon-SQ1",
        "ss-fer-SQ2"
@@ -1893,7 +1992,7 @@
    "concepts": [
     {
      "concept": "band filling: metal / insulator",
-     "theory": 3,
+     "theory": 4,
      "quiz": 4,
      "exercise": 4,
      "sheet": 1,
@@ -1901,7 +2000,8 @@
       "theory": [
        "ss-bon-L1",
        "ss-fer-L2",
-       "ss-sem-L1"
+       "ss-sem-L1",
+       "ss-mag-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -1926,17 +2026,21 @@
    "section": "3.3",
    "title": "Quasiparticles",
    "page": 88,
-   "status": "missing",
+   "status": "covered",
    "concepts": [
     {
      "concept": "quasiparticles, quasielectrons/holes",
-     "theory": 0,
-     "quiz": 0,
+     "theory": 1,
+     "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "ss-fer-G1"
+      ],
+      "quiz": [
+       "ss-fer-GQ"
+      ],
       "exercise": [],
       "sheet": []
      }
@@ -1947,17 +2051,21 @@
    "section": "3.4",
    "title": "ARPES",
    "page": 91,
-   "status": "missing",
+   "status": "covered",
    "concepts": [
     {
      "concept": "photoemission (ARPES)",
-     "theory": 0,
-     "quiz": 0,
+     "theory": 1,
+     "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "ss-fer-G1"
+      ],
+      "quiz": [
+       "ss-fer-GQ"
+      ],
       "exercise": [],
       "sheet": []
      }
@@ -1972,16 +2080,18 @@
    "concepts": [
     {
      "concept": "Drude model",
-     "theory": 1,
-     "quiz": 1,
+     "theory": 2,
+     "quiz": 2,
      "exercise": 3,
      "sheet": 2,
      "ids": {
       "theory": [
-       "ss-dri-L1"
+       "ss-dri-L1",
+       "ss-dri-G1"
       ],
       "quiz": [
-       "ss-dri-Q1"
+       "ss-dri-Q1",
+       "ss-dri-GQ"
       ],
       "exercise": [
        "ss-dri-D1",
@@ -1996,14 +2106,15 @@
     },
     {
      "concept": "relaxation time / mobility",
-     "theory": 2,
+     "theory": 3,
      "quiz": 2,
      "exercise": 5,
      "sheet": 2,
      "ids": {
       "theory": [
        "ss-dri-L1",
-       "ss-sem-L1"
+       "ss-sem-L1",
+       "ss-dri-G1"
       ],
       "quiz": [
        "ss-dri-Q1",
@@ -2032,13 +2143,14 @@
    "concepts": [
     {
      "concept": "Hall effect / coefficient",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 4,
      "sheet": 1,
      "ids": {
       "theory": [
-       "ss-dri-L1"
+       "ss-dri-L1",
+       "ss-bon-G1"
       ],
       "quiz": [
        "ss-pho-Q1",
@@ -2087,7 +2199,7 @@
     },
     {
      "concept": "effective mass",
-     "theory": 4,
+     "theory": 5,
      "quiz": 2,
      "exercise": 9,
      "sheet": 1,
@@ -2096,7 +2208,8 @@
        "ss-fer-L2",
        "ss-sem-L1",
        "ss-sem-L2",
-       "ss-mag-L1"
+       "ss-mag-L1",
+       "ss-dri-G1"
       ],
       "quiz": [
        "ss-fer-Q1",
@@ -2125,8 +2238,8 @@
    "concepts": [
     {
      "concept": "ħk̇ = force, filled bands carry no current, holes",
-     "theory": 4,
-     "quiz": 2,
+     "theory": 6,
+     "quiz": 4,
      "exercise": 6,
      "sheet": 3,
      "ids": {
@@ -2134,11 +2247,15 @@
        "ss-fer-L2",
        "ss-dri-L1",
        "ss-sem-L1",
-       "ss-sem-L2"
+       "ss-sem-L2",
+       "ss-fer-G1",
+       "ss-sem-G1"
       ],
       "quiz": [
        "ss-dri-Q1",
-       "ss-fer-SQ2"
+       "ss-fer-SQ2",
+       "ss-fer-GQ",
+       "ss-dri-GQ"
       ],
       "exercise": [
        "ss-dri-c3",
@@ -2161,17 +2278,21 @@
    "section": "4.2.4",
    "title": "Conductivity of band electrons",
    "page": 101,
-   "status": "missing",
+   "status": "covered",
    "concepts": [
     {
      "concept": "shifted Fermi sphere",
-     "theory": 0,
-     "quiz": 0,
+     "theory": 1,
+     "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "ss-dri-G1"
+      ],
+      "quiz": [
+       "ss-dri-GQ"
+      ],
       "exercise": [],
       "sheet": []
      }
@@ -2213,18 +2334,22 @@
    "section": "4.3",
    "title": "Thermal conductivity",
    "page": 106,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "thermal conductivity",
-     "theory": 0,
-     "quiz": 1,
+     "theory": 2,
+     "quiz": 2,
      "exercise": 2,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-pho-G1",
+       "ss-dri-G1"
+      ],
       "quiz": [
-       "ss-pho-SQ1"
+       "ss-pho-SQ1",
+       "ss-dri-GQ"
       ],
       "exercise": [
        "ss-dri-c1",
@@ -2235,15 +2360,18 @@
     },
     {
      "concept": "Wiedemann–Franz",
-     "theory": 1,
-     "quiz": 0,
+     "theory": 2,
+     "quiz": 1,
      "exercise": 3,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-dri-L2"
+       "ss-dri-L2",
+       "ss-dri-G1"
       ],
-      "quiz": [],
+      "quiz": [
+       "ss-dri-GQ"
+      ],
       "exercise": [
        "ss-dri-c1",
        "ss-dri-c2",
@@ -2258,18 +2386,22 @@
    "section": "4.4",
    "title": "Screening",
    "page": 111,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "Thomas–Fermi screening",
-     "theory": 0,
-     "quiz": 1,
+     "theory": 2,
+     "quiz": 2,
      "exercise": 0,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-fer-G1",
+       "ss-dri-G1"
+      ],
       "quiz": [
-       "ss-bon-SQ1"
+       "ss-bon-SQ1",
+       "ss-dri-GQ"
       ],
       "exercise": [],
       "sheet": []
@@ -2285,13 +2417,14 @@
    "concepts": [
     {
      "concept": "band gap, direct / indirect",
-     "theory": 1,
+     "theory": 2,
      "quiz": 4,
      "exercise": 5,
      "sheet": 1,
      "ids": {
       "theory": [
-       "ss-sem-L1"
+       "ss-sem-L1",
+       "ss-sem-G1"
       ],
       "quiz": [
        "ss-bon-Q1",
@@ -2313,7 +2446,7 @@
     },
     {
      "concept": "Si / GaAs, heavy and light holes",
-     "theory": 3,
+     "theory": 5,
      "quiz": 4,
      "exercise": 4,
      "sheet": 2,
@@ -2321,7 +2454,9 @@
       "theory": [
        "ss-bon-L1",
        "ss-sem-L1",
-       "ss-sem-L2"
+       "ss-sem-L2",
+       "ss-bon-G1",
+       "ss-sem-G1"
       ],
       "quiz": [
        "ss-sem-Q1",
@@ -2480,13 +2615,14 @@
    "concepts": [
     {
      "concept": "p–n junction, built-in voltage",
-     "theory": 1,
+     "theory": 2,
      "quiz": 1,
      "exercise": 2,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-sem-L2"
+       "ss-sem-L2",
+       "ss-sem-G1"
       ],
       "quiz": [
        "ss-sem-Q1"
@@ -2500,13 +2636,14 @@
     },
     {
      "concept": "depletion layer",
-     "theory": 1,
+     "theory": 2,
      "quiz": 0,
      "exercise": 2,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-sem-L2"
+       "ss-sem-L2",
+       "ss-sem-G1"
       ],
       "quiz": [],
       "exercise": [
@@ -2526,13 +2663,14 @@
    "concepts": [
     {
      "concept": "diode current, forward / reverse bias",
-     "theory": 1,
+     "theory": 2,
      "quiz": 0,
      "exercise": 2,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-sem-L2"
+       "ss-sem-L2",
+       "ss-sem-G1"
       ],
       "quiz": [],
       "exercise": [
@@ -2548,16 +2686,18 @@
    "section": "5.4.5",
    "title": "Devices (LED, solar cell)",
    "page": 133,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "LED / solar cell / transistor",
-     "theory": 0,
+     "theory": 1,
      "quiz": 1,
      "exercise": 1,
      "sheet": 0,
      "ids": {
-      "theory": [],
+      "theory": [
+       "ss-sem-G1"
+      ],
       "quiz": [
        "ss-sem-Q1"
       ],
@@ -2577,17 +2717,20 @@
    "concepts": [
     {
      "concept": "susceptibility, magnetization",
-     "theory": 2,
-     "quiz": 1,
+     "theory": 4,
+     "quiz": 2,
      "exercise": 3,
      "sheet": 0,
      "ids": {
       "theory": [
        "ss-fer-L1",
-       "ss-mag-L1"
+       "ss-mag-L1",
+       "ss-fer-G1",
+       "ss-mag-G1"
       ],
       "quiz": [
-       "ss-mag-Q1"
+       "ss-mag-Q1",
+       "ss-mag-GQ"
       ],
       "exercise": [
        "ss-mag-c1",
@@ -2607,14 +2750,15 @@
    "concepts": [
     {
      "concept": "Curie law",
-     "theory": 2,
+     "theory": 3,
      "quiz": 0,
      "exercise": 3,
      "sheet": 0,
      "ids": {
       "theory": [
        "ss-mag-L1",
-       "ss-mag-L2"
+       "ss-mag-L2",
+       "ss-mag-G1"
       ],
       "quiz": [],
       "exercise": [
@@ -2635,17 +2779,19 @@
    "concepts": [
     {
      "concept": "Pauli paramagnetism",
-     "theory": 2,
-     "quiz": 1,
+     "theory": 3,
+     "quiz": 2,
      "exercise": 1,
      "sheet": 0,
      "ids": {
       "theory": [
        "ss-fer-L1",
-       "ss-mag-L1"
+       "ss-mag-L1",
+       "ss-mag-G1"
       ],
       "quiz": [
-       "ss-mag-Q1"
+       "ss-mag-Q1",
+       "ss-mag-GQ"
       ],
       "exercise": [
        "ss-mag-c1"
@@ -2684,19 +2830,22 @@
    "section": "6.2.5",
    "title": "Metallic ferromagnetism (Stoner)",
    "page": 141,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "Stoner criterion / itinerant ferromagnetism",
-     "theory": 1,
-     "quiz": 0,
+     "theory": 2,
+     "quiz": 1,
      "exercise": 0,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-mag-L1"
+       "ss-mag-L1",
+       "ss-mag-G1"
       ],
-      "quiz": [],
+      "quiz": [
+       "ss-mag-GQ"
+      ],
       "exercise": [],
       "sheet": []
      }
@@ -2707,17 +2856,18 @@
    "section": "6.3.1",
    "title": "Exchange interactions",
    "page": 146,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "exchange, Heisenberg model",
-     "theory": 1,
+     "theory": 2,
      "quiz": 1,
      "exercise": 3,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-mag-L2"
+       "ss-mag-L2",
+       "ss-mag-G1"
       ],
       "quiz": [
        "ss-mag-Q1"
@@ -2732,13 +2882,17 @@
     },
     {
      "concept": "Hund’s rules",
-     "theory": 0,
-     "quiz": 0,
+     "theory": 1,
+     "quiz": 1,
      "exercise": 0,
      "sheet": 1,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "ss-mag-G1"
+      ],
+      "quiz": [
+       "ss-mag-GQ"
+      ],
       "exercise": [],
       "sheet": [
        "ss-sheet-s4q2"
@@ -2755,13 +2909,14 @@
    "concepts": [
     {
      "concept": "mean field / Weiss field",
-     "theory": 1,
+     "theory": 2,
      "quiz": 1,
      "exercise": 4,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-mag-L2"
+       "ss-mag-L2",
+       "ss-mag-G1"
       ],
       "quiz": [
        "ss-mag-Q1"
@@ -2777,13 +2932,14 @@
     },
     {
      "concept": "Curie–Weiss, T_C",
-     "theory": 1,
+     "theory": 2,
      "quiz": 2,
      "exercise": 5,
      "sheet": 0,
      "ids": {
       "theory": [
-       "ss-mag-L2"
+       "ss-mag-L2",
+       "ss-mag-G1"
       ],
       "quiz": [
        "ss-sem-Q1",

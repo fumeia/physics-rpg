@@ -67,23 +67,29 @@
    "pin": {
     "1": [
      "ss-lat-L1",
-     "ss-lat-SQ1"
+     "ss-lat-SQ1",
+     "ss-lat-G1"
     ],
     "2": [
      "ss-lat-L2",
      "ss-lat-SQ2",
-     "ss-lat-SQ3"
+     "ss-lat-SQ3",
+     "ss-lat-G2",
+     "ss-lat-GQ"
     ],
     "3": [
      "ss-bon-L1",
-     "ss-bon-SQ1"
+     "ss-bon-SQ1",
+     "ss-bon-G1"
     ],
     "4": [
      "ss-pho-L1"
     ],
     "5": [
      "ss-pho-L2",
-     "ss-pho-SQ1"
+     "ss-pho-SQ1",
+     "ss-pho-G1",
+     "ss-pho-GQ"
     ],
     "6": [
      "ss-fer-L1",
@@ -91,24 +97,31 @@
     ],
     "7": [
      "ss-fer-L2",
-     "ss-fer-SQ2"
+     "ss-fer-SQ2",
+     "ss-fer-G1",
+     "ss-fer-GQ"
     ],
     "9": [
      "ss-dri-L1"
     ],
     "10": [
      "ss-dri-L2",
-     "ss-dri-Q1"
+     "ss-dri-Q1",
+     "ss-dri-G1",
+     "ss-dri-GQ"
     ],
     "11": [
      "ss-sem-L1"
     ],
     "12": [
      "ss-sem-L2",
-     "ss-sem-Q1"
+     "ss-sem-Q1",
+     "ss-sem-G1"
     ],
     "13": [
-     "ss-mag-L1"
+     "ss-mag-L1",
+     "ss-mag-G1",
+     "ss-mag-GQ"
     ],
     "14": [
      "ss-mag-L2",

@@ -61,3 +61,15 @@ The PDFs (sheets, solutions, slides, script, test exam) are **not** in git: they
 `phonon-halls` and `fermi-sea` (2). The key is the red frame on each slide; the explanations are ours (script sections cited).
 The two "Yes or No?" slides have no key: those ten answers are ours and say so. Week-8 slide 34 ("how many electronic states") is
 debatable and says so. Figures: `slides/figures.py` (answer frames painted out). Check: `node game/test/slide-quiz-check.mjs`.
+
+## Coverage map and gap lessons (2026-11-17)
+`notes/solid-state/coverage.md` (from `build/coverage/coverage.py`) lists every subsection of Script-2026 with its key concepts and how
+many lessons, quizzes, exercises and sheet questions mention each. First run: 39 covered, 19 thin, 4 missing (quasiparticles, ARPES,
+anharmonicity, shifted Fermi sea). `build/gaps/build.py` writes `game/content/solid-state/script-gaps.json`: 8 lessons and 5 quizzes
+written from the script (1.1–1.3 symmetry and Miller planes; 1.5.1–1.5.3 scattering vector, form factor, Friedel; 1.6.4–1.6.6 bonds;
+2.3.2–2.3.4 Umklapp, anharmonicity, three-axis/time of flight; 3.1.3/3.1.5/3.2.3/3.3/3.4 chemical potential, interactions, hopping,
+quasiparticles, ARPES; 4.2.4/4.3/4.4 band conductivity, Wiedemann–Franz, screening; 5.4.5 solar cell and LED; 6.2.5/6.3 Stoner and
+Hund). Now 62 of 62 have a lesson and practice; a mention is not depth: the 3.3/3.4/4.3 lessons are introductions, not derivations.
+Flagged: script eq. (4.46), free-electron form of the screening length, is not dimensionally consistent as printed; the lesson uses
+$r_0^2=\varepsilon_0/(e^2\nu(\epsilon_F))$ (checked: 0.55 Å for Cu, as the script says). Hund's rules are not spelled out in the
+script; the lesson gives the standard rules and says so. The gap lessons are pinned to their lecture weeks in `content/campaign.json`.

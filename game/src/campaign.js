@@ -48,18 +48,19 @@ export function buildWeeks(cfg, catalog, sheetsByCourse) {
 }
 
 // Status of one week. isPassed(id) -> bool, known: Set of week numbers marked as done outside the game.
-export function weekStatus(w, isPassed, known) {
+// skim: Set of week numbers you decided to only skim (triage): such a week is done when its theory is passed, without exercises.
+export function weekStatus(w, isPassed, known, skim) {
   const th = w.theory.filter(isPassed).length, pr = w.practice.filter(isPassed).length, total = w.theory.length + w.practice.length;
-  const empty = total === 0, isKnown = !!known?.has(w.n);
-  const done = isKnown || (!empty && th === w.theory.length && pr >= Math.ceil(w.practice.length / 2));
-  return { th, pr, total, passed: th + pr, empty, known: isKnown, done, frac: isKnown ? 1 : empty ? 0 : (th + pr) / total };
+  const empty = total === 0, isKnown = !!known?.has(w.n), isSkim = !!skim?.has(w.n);
+  const done = isKnown || (!empty && th === w.theory.length && (isSkim ? w.theory.length > 0 : pr >= Math.ceil(w.practice.length / 2)));
+  return { th, pr, total, passed: th + pr, empty, known: isKnown, skim: isSkim, done, frac: isKnown ? 1 : empty ? 0 : (th + pr) / total };
 }
 
 // Where you are in a course: the number of leading weeks that are done (empty weeks do not block), and how far behind the
 // lecture that is. Partial progress in the first open week counts as a fraction, so every exercise moves the number.
-export function position(weeks, isPassed, known, taught) {
+export function position(weeks, isPassed, known, taught, skim) {
   let pos = 0, frac = 0, next = null;
-  for (const w of weeks) { const s = weekStatus(w, isPassed, known); if (s.done || s.empty) { pos = w.n; continue; } next = w; frac = Math.min(0.95, s.frac); break; }
+  for (const w of weeks) { const s = weekStatus(w, isPassed, known, skim); if (s.done || s.empty) { pos = w.n; continue; } next = w; frac = Math.min(0.95, s.frac); break; }
   const you = (next ? next.n - 1 : weeks.length) + (next ? frac : 0);
   return { week: next ? next.n - 1 : weeks.length, next, you, behind: Math.max(0, +(taught - you).toFixed(1)), ahead: you > taught };
 }
@@ -77,13 +78,15 @@ export function catchUpDate(behindTotal, weeksPerRun, runsPerDay = 1, now = Date
 //   theory    the next unread lesson/quiz of the course you are furthest behind in
 //   sheet     the next open question of that week's sheet (the thing you owe), then the same for the other courses
 //   boss      one calculation or exam problem from a week you already finished (interleaving, exam fitness)
-export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null }) {
+//   defend    something you passed that is fading from memory (memory.js): retrieval keeps the room from being overrun again
+export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null, skim = null, defend = [] }) {
   const stops = [], seen = new Set(); let used = 0;
   const est = (id) => EST_MIN[encOf(id)?.type] || 10;
   const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; if (stops.length && used + est(id) > minutes + (minutes < 60 ? 5 : 0)) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
   for (const id of due) { if (used > minutes * 0.25 || stops.length >= 2) break; add(id, 'warmup', 'A respawn that is due: recall it before anything new'); } // warm-up stays a quarter of the run
-  const order = Object.keys(weeks).map((cid) => ({ cid, p: position(weeks[cid], isPassed, known?.[cid], taught) })).sort((a, b) => b.p.behind - a.p.behind);
-  const open = (cid, bucket) => { const w = order.find((o) => o.cid === cid).p.next; return w ? w[bucket].filter((id) => !isPassed(id) && !isLocked(id) && !seen.has(id)) : []; };
+  for (const id of defend) { if (used > minutes * 0.3 || stops.filter((s) => s.kind === 'defend').length >= (minutes >= 60 ? 2 : 1)) break; add(id, 'defend', 'You passed this a while ago and it is fading: defend it'); }
+  const order = Object.keys(weeks).map((cid) => ({ cid, p: position(weeks[cid], isPassed, known?.[cid], taught, skim?.[cid]) })).sort((a, b) => b.p.behind - a.p.behind);
+  const open = (cid, bucket) => { const w = order.find((o) => o.cid === cid).p.next; if (w && bucket === 'practice' && skim?.[cid]?.has(w.n)) return []; return w ? w[bucket].filter((id) => !isPassed(id) && !isLocked(id) && !seen.has(id)) : []; };
   const label = (cid) => { const o = order.find((x) => x.cid === cid); return o.p.next ? `week ${o.p.next.n}` : 'all weeks done'; };
   // a sheet that is due within three days jumps the queue (dueSoon: {course, ids})
   if (dueSoon) for (const id of dueSoon.ids.filter((x) => !isPassed(x)).slice(0, 1)) add(id, 'sheet', 'Due this week: the sheet you have to hand in', dueSoon.course);
@@ -104,7 +107,7 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
   // finisher: something exam-like from a finished week of the course you are best in (kept short on short runs)
   if (minutes >= 40) {
     outer: for (const { cid } of [...order].reverse()) for (const w of weeks[cid]) {
-      if (!weekStatus(w, isPassed, known?.[cid]).done) break;
+      if (!weekStatus(w, isPassed, known?.[cid], skim?.[cid]).done) break;
       const id = w.practice.find((x) => !isPassed(x) && !seen.has(x) && !isLocked(x) && ['calc', 'boss', 'derive'].includes(encOf(x)?.type));
       if (id) { if (used + est(id) <= minutes + 5) { seen.add(id); stops.push({ id, kind: 'boss', why: 'Finisher from a week you already cleared: exam fitness', course: cid, min: est(id) }); used += est(id); } break outer; }
     }

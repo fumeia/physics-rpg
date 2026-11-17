@@ -5,9 +5,10 @@ import { buildWeeks, weekStatus, position, lectureWeek, taughtWeeks, buildRun, c
 import { todayStr, daysToExam } from './missions.js';
 import { fightsToday, enemyOf, spriteSvg } from './battle.js';
 import { EST_MIN } from './campaign.js';
+import { meanRetention, fading, forecast } from './memory.js';
 
-const ICON = { warmup: '↻', theory: '▤', sheet: '✎', boss: '⚔' };
-const KIND = { warmup: 'Warm-up', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher' };
+const ICON = { warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8' };
+const KIND = { warmup: 'Warm-up', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend' };
 const LENGTHS = [[20, 'Short'], [45, 'Normal'], [90, 'Long']];
 const GHOST = '<svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M2 21V9a8 8 0 0 1 16 0v12l-3-2.5-2.5 2.5-2.5-2.5L7.5 21 5 18.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.6" fill="#0b0d12"/><circle cx="12.5" cy="9" r="1.6" fill="#0b0d12"/></svg>';
 const esc = (s) => String(s).replace(/</g, '&lt;');
@@ -21,9 +22,23 @@ export function createCampaign(ctx) {
   const passed = (id) => store.isPassed(id);
   const knownRaw = () => store.val('campaignKnown', {}) || {};
   const known = () => Object.fromEntries(Object.entries(knownRaw()).map(([k, v]) => [k, new Set(v)]));
+  const skim = () => Object.fromEntries(Object.entries(store.val('campaignSkim', {}) || {}).map(([k, v]) => [k, new Set(v)]));
+  const mem = () => store.val('mem', {}) || {};
+  // exam weight of a week, 0..1: how often its rooms' topics came up in old exams (content/radar.json)
+  function weekWeight(cid, w) {
+    const rooms = new Set([...w.theory, ...w.practice].map((id) => ctx.encIndex.get(id)?.roomId).filter(Boolean)); let best = 0, any = false;
+    for (const t of ctx.radar()) if (t.course === cid && (t.rooms || []).some((r) => rooms.has(r))) { any = true; best = Math.max(best, t.of ? t.count / t.of : 0); }
+    return any ? best : 0.5; // no data: treat as average
+  }
+  const weekMemory = (w) => meanRetention([...w.theory, ...w.practice].filter(passed), mem(), store.snapshot.solved);
+  function fadingIds() { const ids = []; for (const cid of courses()) for (const w of W()[cid]) ids.push(...w.theory, ...w.practice); return fading(ids.filter((id) => passed(id) && !ctx.isLockedId(id)), mem(), store.snapshot.solved).map((x) => x.id); }
+  function grades() {
+    return courses().map((cid) => { const c = ctx.catalog.find((x) => x.id === cid), bossIds = c.rooms.flatMap((r) => r.encounters.filter((e) => e.type === 'boss').map((e) => e.id));
+      const f = forecast({ weeks: W()[cid].map((w) => ({ ids: [...w.theory, ...w.practice], weight: 0.4 + weekWeight(cid, w) })), isPassed: passed, mem: mem(), solved: store.snapshot.solved, bossIds }); return { cid, ...f }; });
+  }
   const taught = () => taughtWeeks(cfg);
   const courses = () => Object.keys(W());
-  const pos = (cid) => position(W()[cid], passed, known()[cid], taught());
+  const pos = (cid) => position(W()[cid], passed, known()[cid], taught(), skim()[cid]);
   const behindTotal = () => +courses().reduce((s, c) => s + pos(c).behind, 0).toFixed(1);
   const isSetup = () => !!store.val('campaignSetup', false);
   const runMinutes = () => store.val('runMinutes', 45);
@@ -40,7 +55,7 @@ export function createCampaign(ctx) {
   }
   function freshRun(minutes = runMinutes()) {
     const rv = store.snapshot.reviews || {}, due = store.dueReviews().filter((id) => ctx.encIndex.has(id)).sort((a, b) => (rv[a].due || 0) - (rv[b].due || 0));
-    const r = buildRun({ weeks: W(), isPassed: passed, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon() });
+    const r = buildRun({ weeks: W(), isPassed: passed, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds() });
     // forks: up to two stops offer a riskier alternative from the same room (a calculation fight or an exam problem) for bonus XP
     let forks = 0;
     for (const s of r.stops) {
@@ -173,24 +188,26 @@ export function createCampaign(ctx) {
   }
   function trackHtml(cid) {
     const ws = W()[cid], kn = known()[cid], p = pos(cid), t = taught(), lw = lectureWeek(cfg);
-    const tiles = ws.map((w) => { const s = weekStatus(w, passed, kn), cls = s.known ? 'known' : s.done ? 'done' : s.passed ? 'part' : 'open';
-      return `<button class="cp-tile ${cls}${w.n <= t && !s.done ? ' dark' : ''}${w.n === lw ? ' now' : ''}${w.n > t ? ' future' : ''}${openWeek === `${cid}/${w.n}` ? ' sel' : ''}${p.next?.n === w.n ? ' you' : ''}" data-week="${cid}/${w.n}" title="Week ${w.n}: ${esc(w.title)}"><i style="height:${Math.round(100 * s.frac)}%"></i><b>${w.n}</b>${w.n === lw ? `<span class="cp-ghost" title="The ghost studies exactly at lecture pace">${GHOST}</span>` : ''}</button>`; }).join('');
+    const tiles = ws.map((w) => { const s = weekStatus(w, passed, kn, skim()[cid]), wm = weekMemory(w), fade = s.done && !s.known && wm !== null && wm < 0.6, wt = weekWeight(cid, w), cls = (s.known ? 'known' : s.done ? 'done' : s.passed ? 'part' : 'open') + (fade ? ' fade' : '') + (s.skim ? ' skim' : '') + (wt >= 0.6 ? ' hot' : '');
+      return `<button class="cp-tile ${cls}${w.n <= t && !s.done ? ' dark' : ''}${w.n === lw ? ' now' : ''}${w.n > t ? ' future' : ''}${openWeek === `${cid}/${w.n}` ? ' sel' : ''}${p.next?.n === w.n ? ' you' : ''}" data-week="${cid}/${w.n}" title="Week ${w.n}: ${esc(w.title)}${fade ? ` \u00b7 fading: about ${Math.round(100 * wm)}% remembered` : ''}${wt >= 0.6 ? ' \u00b7 often in old exams' : wt < 0.25 ? ' \u00b7 rare in old exams' : ''}"><i style="height:${Math.round(100 * s.frac)}%"></i><b>${w.n}</b>${w.n === lw ? `<span class="cp-ghost" title="The ghost studies exactly at lecture pace">${GHOST}</span>` : ''}</button>`; }).join('');
     const state = p.behind > 0 ? `<b class="cp-behind">ghost ${p.behind} weeks ahead</b>` : `<b class="cp-ok">level with the ghost</b>`;
     return `<div class="cp-course"><div class="cp-chead"><h3>${ctx.courseName(cid)}</h3><span>${state} · you: ${p.next ? `in week ${p.next.n}` : 'all 14 weeks done'} · lecture: week ${lw}</span>${ctx.sheetsByCourse[cid] ? `<button class="chip btn cp-hand${handIn(cid) ? ' cur' : ''}" data-hand="${cid}" title="On: the sheet due within three days comes first in the run. Off: strict catch-up, oldest open week first; the due sheet stays visible as the weekly boss.">Hand-ins first: ${handIn(cid) ? 'on' : 'off'}</button>` : ''}</div><div class="cp-track">${tiles}</div>${openWeek?.startsWith(cid + '/') ? weekHtml(cid, +openWeek.split('/')[1]) : ''}</div>`;
   }
   function weekHtml(cid, n) {
-    const w = W()[cid].find((x) => x.n === n), s = weekStatus(w, passed, known()[cid]);
+    const w = W()[cid].find((x) => x.n === n), s = weekStatus(w, passed, known()[cid], skim()[cid]), wt = weekWeight(cid, w), wm = weekMemory(w);
+    const exam = wt >= 0.6 ? 'often in old exams: do it properly' : wt < 0.25 ? 'rare in old exams: a good week to skim if time is short' : 'sometimes in old exams';
     const row = (id) => { const e = ctx.encIndex.get(id)?.enc; return `<div class="maprow"><button class="link" data-wopen="${id}"><span class="mt">${passed(id) ? '✓' : store.hasReview(id) ? '↻' : '○'} ${esc(title(id))}</span></button><span class="src">${e?.sheet ? 'sheet question' : e?.type || ''}</span></div>`; };
-    return `<div class="cp-week"><div class="cp-whead"><b>Week ${n}: ${esc(w.title)}</b><span class="src">${s.known ? 'marked as done on paper' : s.done ? 'done' : `${s.passed} of ${s.total} passed · done when the theory and half of the exercises are passed`}</span></div>
+    return `<div class="cp-week"><div class="cp-whead"><b>Week ${n}: ${esc(w.title)}</b><span class="src">${exam}${wm !== null ? ` \u00b7 about ${Math.round(100 * wm)}% remembered` : ''} \u00b7 ${s.known ? 'marked as done on paper' : s.skim ? 'skim: done when the theory is read' : s.done ? 'done' : `${s.passed} of ${s.total} passed · done when the theory and half of the exercises are passed`}</span></div>
       ${w.theory.length ? `<div class="src">Read and check</div>${w.theory.map(row).join('')}` : ''}${w.practice.length ? `<div class="src">${w.sheet ? `Sheet ${w.sheet}` : 'Exercises'}</div>${w.practice.map(row).join('')}` : ''}${s.empty ? '<p class="src">Nothing in the game for this week yet.</p>' : ''}
-      <div class="row"><button class="chip btn" data-known="${cid}/${n}">${s.known ? 'Not done after all: unmark this week' : 'I did this week on paper: mark as done'}</button>${s.known ? '' : `<button class="chip btn" data-knownto="${cid}/${n}">Mark weeks 1–${n} as done</button>`}</div></div>`;
+      <div class="row"><button class="chip btn" data-known="${cid}/${n}">${s.known ? 'Not done after all: unmark this week' : 'I did this week on paper: mark as done'}</button>${s.known ? '' : `<button class="chip btn" data-knownto="${cid}/${n}">Mark weeks 1\u2013${n} as done</button>`}${s.known ? '' : `<button class="chip btn${s.skim ? ' cur' : ''}" data-skim="${cid}/${n}" title="Triage: the week counts as done once its theory is read; its exercises are left out of the run">${s.skim ? 'Skimming this week: undo' : 'Only skim this week (theory, no exercises)'}</button>`}</div></div>`;
   }
   function html() {
     if (!isSetup()) return setupHtml();
     const b = behindTotal(), pc = pace(), d = daysToExam(), net = pc ? pc.perDay - 3 / 7 : 0; // the ghost moves 3 course-weeks per 7 days
     const cu = { possible: !!pc && net > 0, date: pc && net > 0 ? new Date(Date.now() + Math.ceil(b / net) * 86400000) : null };
     const fmt = (x) => x.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-    const head = `<div class="cp-head"><div><b>${d}</b><span>days to the exams</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : !pc ? 'catch-up date: shown after three finished runs, from your real pace' : cu.possible ? `level with the lectures at your pace of the last runs (${pc.perDay.toFixed(2)} weeks gained per run day)` : `at your pace of the last runs (${pc.perDay.toFixed(2)} weeks per run day) the ghost pulls away: longer runs or two a day`}</span></div></div>`;
+    const gr = grades(), short = (c) => cfg.courses[c]?.short || c;
+    const head = `<div class="cp-head cp-head4"><div><b>${d}</b><span>days to the exams</span></div><div title="A rough forecast on the scale 1 to 6 (4 passes): how much of the exam-weighted material you have passed, how much of it you probably still remember, and old-exam problems passed. It falls when you stop."><b class="cp-grades">${gr.map((g) => `<span class="${g.grade >= 4 ? 'ok' : ''}">${g.grade.toFixed(2).replace(/0$/, '')}</span>`).join(' ')}</b><span>grade forecast: ${gr.map((g) => short(g.cid)).join(' \u00b7 ')}</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : !pc ? 'catch-up date: shown after three finished runs, from your real pace' : cu.possible ? `level with the lectures at your pace of the last runs (${pc.perDay.toFixed(2)} weeks gained per run day)` : `at your pace of the last runs (${pc.perDay.toFixed(2)} weeks per run day) the ghost pulls away: longer runs or two a day`}</span></div></div>`;
     payBosses();
     return `${head}${runHtml()}${bossHtml()}${courses().map(trackHtml).join('')}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
   }
@@ -205,6 +222,7 @@ export function createCampaign(ctx) {
     const ag = host.querySelector('#cp-again'); if (ag) ag.onclick = () => { newRun(runMinutes()); re(); };
     host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.map((s) => s.id), 'Today’s run', b.dataset.stop); }));
     host.querySelectorAll('[data-alt]').forEach((b) => (b.onclick = () => { const r = run(), i = +b.dataset.alt, s = r.stops[i], a = s.alt; r.stops[i] = a.back ? { ...a.orig } : { ...s, id: a.id, kind: a.kind, min: a.min, bonus: a.bonus, risk: true, alt: { id: s.id, back: true, orig: { ...s } }, why: 'You took the risk: a harder problem from the same room, for bonus XP' }; r.est = r.stops.reduce((x, y) => x + y.min, 0); store.setVal('run', r); re(); }));
+    host.querySelectorAll('[data-skim]').forEach((b) => (b.onclick = () => { const [cid, n] = b.dataset.skim.split('/'), raw = store.val('campaignSkim', {}) || {}, cur = new Set(raw[cid] || []); cur.has(+n) ? cur.delete(+n) : cur.add(+n); store.setVal('campaignSkim', { ...raw, [cid]: [...cur] }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
     host.querySelectorAll('[data-hand]').forEach((b) => (b.onclick = () => { const c = b.dataset.hand; store.setVal('handIn', { ...(store.val('handIn', {}) || {}), [c]: !handIn(c) }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
     host.querySelectorAll('[data-week]').forEach((b) => (b.onclick = () => { openWeek = openWeek === b.dataset.week ? null : b.dataset.week; rerender(); }));
     host.querySelectorAll('[data-wopen]').forEach((b) => (b.onclick = () => ctx.openQueue([b.dataset.wopen], '', b.dataset.wopen)));
@@ -215,7 +233,7 @@ export function createCampaign(ctx) {
   // Is this room part of a week the lecture has already passed and you have not cleared? (drives the room's "overrun" look)
   function roomOverdue(cid, slug) {
     const ws = W()[cid]; if (!ws) return false; const kn = known()[cid], t = taught();
-    return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
+    return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn, skim()[cid]).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
   }
-  return { html, wire, startRun, onProgress, roomOverdue, pace, handIn, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  return { html, wire, startRun, onProgress, roomOverdue, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

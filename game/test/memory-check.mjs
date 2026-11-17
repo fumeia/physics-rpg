@@ -1,0 +1,25 @@
+// Memory model: retention falls with time, passing again makes it last longer, fading lists, grade forecast. node test/memory-check.mjs
+import { stabilityDays, retention, entryOf, notePass, noteFail, meanRetention, fading, forecast } from '../src/memory.js';
+let fails = 0, n = 0; const ok = (name, c, x = '') => { n++; if (!c) { fails++; console.log(`FAIL ${name} ${x}`); } };
+const DAY = 86400000, t0 = Date.parse('2026-11-17T10:00:00');
+ok('fresh pass: retention 1', retention({ n: 1, t: t0 }, t0) === 1);
+ok('after 6 days: 1/e', Math.abs(retention({ n: 1, t: t0 }, t0 + 6 * DAY) - Math.exp(-1)) < 1e-9);
+ok('a second pass lasts longer', retention({ n: 2, t: t0 }, t0 + 6 * DAY) > retention({ n: 1, t: t0 }, t0 + 6 * DAY));
+ok('stability grows 6, 13, 29', Math.round(stabilityDays(1)) === 6 && Math.round(stabilityDays(2)) === 13 && Math.round(stabilityDays(3)) === 29);
+ok('nothing passed: 0', retention(null, t0) === 0);
+let mem = notePass({}, 'a', t0); ok('first pass n = 1', mem.a.n === 1);
+mem = notePass(mem, 'a', t0 + 3600000); ok('twice on one day counts once', mem.a.n === 1 && mem.a.t === t0 + 3600000);
+mem = notePass(mem, 'a', t0 + 3 * DAY); ok('again after three days: n = 2', mem.a.n === 2);
+mem = noteFail(mem, 'a', t0 + 4 * DAY); ok('a fail weakens it', mem.a.n === 1);
+ok('fallback to the solved table', entryOf('b', {}, { b: { at: t0 } }).n === 1 && entryOf('c', {}, { c: { at: t0, failed: true } }) === null);
+const solved = { x: { at: t0 - 20 * DAY }, y: { at: t0 - 1 * DAY } };
+ok('mean retention of passed ids only', Math.abs(meanRetention(['x', 'y', 'z'], {}, solved, t0) - (Math.exp(-20 / 6) + Math.exp(-1 / 6)) / 2) < 1e-9 && meanRetention(['z'], {}, solved, t0) === null);
+const f = fading(['x', 'y', 'z'], {}, solved, t0); ok('fading: only the old one, weakest first', f.length === 1 && f[0].id === 'x');
+const weeks = [{ ids: ['x', 'y'], weight: 1 }, { ids: ['p', 'q'], weight: 1 }];
+const none = forecast({ weeks, isPassed: () => false, mem: {}, solved: {} }); ok('nothing done: grade 1', none.grade === 1);
+const all = forecast({ weeks, isPassed: () => true, mem: { x: { n: 3, t: t0 }, y: { n: 3, t: t0 }, p: { n: 3, t: t0 }, q: { n: 3, t: t0 } }, solved: {}, bossIds: ['b1'], now: t0 }); ok('everything fresh and the exams passed: grade 6', all.grade === 6);
+const half = forecast({ weeks, isPassed: (id) => id === 'x' || id === 'y', mem: { x: { n: 2, t: t0 }, y: { n: 2, t: t0 } }, solved: {}, now: t0 }); ok('half the material: between 3 and 4.5', half.grade >= 3 && half.grade <= 4.5, half.grade);
+const later = forecast({ weeks, isPassed: (id) => id === 'x' || id === 'y', mem: { x: { n: 2, t: t0 }, y: { n: 2, t: t0 } }, solved: {}, now: t0 + 30 * DAY }); ok('the forecast drops when you stop', later.grade < half.grade, `${half.grade} -> ${later.grade}`);
+const heavy = forecast({ weeks: [{ ids: ['x'], weight: 3 }, { ids: ['p'], weight: 1 }], isPassed: (id) => id === 'x', mem: { x: { n: 3, t: t0 } }, solved: {}, now: t0 }); const light = forecast({ weeks: [{ ids: ['x'], weight: 3 }, { ids: ['p'], weight: 1 }], isPassed: (id) => id === 'p', mem: { p: { n: 3, t: t0 } }, solved: {}, now: t0 });
+ok('exam-heavy weeks count more', heavy.grade > light.grade);
+console.log(`${n} checks`); console.log(fails ? `${fails} FAILED` : 'ALL OK'); process.exit(fails ? 1 : 0);

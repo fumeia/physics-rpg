@@ -424,3 +424,9 @@ body.hudc #hud .tl { max-width: 42vw; } body.hudc #reviews:not(.review) { displa
 .menu6 { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 560px) { .menu6 { grid-template-columns: 1fr; } .menu6 .bigbtn { padding: 10px 12px; } .menu6 .bigbtn span { display: none; } }
 #btn-gear { font-size: 16px; padding: 3px 9px; } body:not(.hudc):not(.lite):not(.touch) #btn-gear { display: none; }
 .studytabs.sub { margin-top: -2px; opacity: .9; } .studytabs.sub .chip { font-size: 12px; padding: 2px 9px; } .mapplaces { margin-bottom: 10px; }
+
+.cp-head4 { grid-template-columns: repeat(4, 1fr); } @media (max-width: 700px) { .cp-head4 { grid-template-columns: 1fr 1fr; } }
+.cp-grades { display: flex; gap: 10px; } .cp-grades span { color: var(--warn); } .cp-grades span.ok { color: var(--good); }
+.cp-tile.fade { border-color: var(--warn); border-style: dashed; } .cp-tile.fade i { background: linear-gradient(0deg, rgba(76,195,138,.45), rgba(245,196,81,.35)); opacity: .7; }
+.cp-tile.hot b::after { content: '\2022'; color: #ff9f6b; margin-left: 2px; } .cp-tile.skim b { text-decoration: underline dotted; }
+.cp-node.defend .cp-dot { border-color: #9fb4d8; }

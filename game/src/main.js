@@ -16,6 +16,7 @@ import { initTouch } from './touch.js';
 import { createCampaign } from './campaignui.js';
 import * as battle from './battle.js';
 import { createQuality } from './quality.js';
+import { notePass, noteFail, meanRetention } from './memory.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
@@ -121,7 +122,7 @@ async function boot() {
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
   try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
-    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign') }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
+    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), radar: () => drillData.radar?.topics || (Array.isArray(drillData.radar) ? drillData.radar : []), links: () => linksData }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
   // compact HUD (run, campaign, menu) unless the full chip row was chosen in the menu; tests keep the full row unless they ask for hud=compact
   if (params.get('hud') === 'compact' || (!params.has('test') && params.get('hud') !== 'full' && (store.val('settings', {}) || {}).hud !== 'full')) document.body.classList.add('hudc');
   progress(88, 'Building the 3D world...'); await nextFrame();
@@ -389,7 +390,8 @@ function refresh() {
   if (room && !inNexus) { // the room looks overrun until its exercises are done: darker and redder when the lecture has already passed its week
     const cs = room.encounters.filter((e) => core(e) && e.type !== 'boss'), left = cs.length ? 1 - cs.filter(passed).length / cs.length : 0, key = `${course.id}/${room.slug}`;
     const overdue = !!campaign?.isSetup() && campaign.roomOverdue(course.id, room.slug);
-    world.setThreat(left * (overdue ? 1 : 0.3));
+    const kept = meanRetention(cs.filter(passed).map((e) => e.id), store.val('mem', {}) || {}, store.snapshot.solved); // what you passed here fades: the room is slowly overrun again
+    world.setThreat(Math.max(left * (overdue ? 1 : 0.3), kept === null ? 0 : (1 - kept) * 0.8 * (1 - left)));
     const rec = store.val('reclaimed', {}) || {};
     if (cs.length && left === 0 && !rec[key]) { store.setVal('reclaimed', { ...rec, [key]: Date.now() }); toast(`<b>${room.title}</b> reclaimed: every exercise of this room is done.`); world.successEffect(); sfx.goal(); }
   }
@@ -963,6 +965,9 @@ function completeMission(m) {
   sfx.goal(); pulse('right'); refresh(); flashWorld(true);
 }
 function flashWorld(ok) { if (world) (ok ? world.successEffect() : world.failEffect()); }
+window.addEventListener('encounter-done', (ev) => { // memory model: every pass makes the memory of that exercise last longer, a fail weakens it
+  const { id, ok } = ev.detail; if (!encIndex.has(id)) return; store.setVal('mem', ok ? notePass(store.val('mem', {}) || {}, id) : noteFail(store.val('mem', {}) || {}, id));
+});
 window.addEventListener('encounter-done', (ev) => {
   const { id, ok } = ev.detail; if (!ok) return;
   for (const m of todays()) if ((m.enc && m.enc.id === id) || m.encId === id) completeMission(m);

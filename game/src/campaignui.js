@@ -362,5 +362,8 @@ export function createCampaign(ctx) {
     const ws = W()[cid]; if (!ws) return false; const kn = known()[cid], t = taught();
     return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn, skim()[cid]).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
   }
-  return { html, wire, startRun, onProgress, roomOverdue, stat, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  // for the Script tab of the study hub: second-pass state per course, and starting/stopping it from there
+  function rereadInfo(cid) { const st = rereadState()[cid]; return st?.since ? { from: st.from, done: new Set(syncReread()[cid]?.done || []) } : null; }
+  function setReread(cid, from) { const rs = { ...rereadState() }; if (from) rs[cid] = { from, since: Date.now(), done: [] }; else delete rs[cid]; store.setVal('reread', rs); replan(); }
+  return { rereadInfo, setReread, html, wire, startRun, onProgress, roomOverdue, stat, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

@@ -177,7 +177,8 @@ DERIVS = [
      r'$\partial_t\rho+\partial_xj=-\frac\Gamma\hbar\rho$: probability is lost at the rate $\Gamma/\hbar$.')),
 ]
 
-topics = {t['topic']: t for t in json.load(open(os.path.join(os.path.dirname(__file__), '../../../../game/content/radar.json')))['topics']}
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'part2.py'), encoding='utf-8').read())  # more derivations
+topics = {t['topic']: t for t in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../../game/content/radar.json'), encoding='utf-8'))['topics']}
 for d in DERIVS:
     t = topics[d['topic']]; d['exam'] = {'count': t['count'], 'of': t['of'], 'label': t['label']}
     assert all(0 <= w['at'] < len(d['lines']) for w in d['whys']), d['id']

@@ -63,6 +63,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 1.4."
+     },
+     {
+      "q": "The Wigner-Seitz cell of a lattice is",
+      "options": [
+       "the set of points closer to one lattice point than to any other",
+       "the conventional cubic cell",
+       "any parallelogram spanned by two lattice vectors",
+       "the first Brillouin zone of the lattice itself"
+      ],
+      "correct": 0,
+      "explain": "It is a primitive cell with the full point symmetry."
+     },
+     {
+      "q": "The conventional cubic cell of an FCC lattice contains how many lattice points?",
+      "options": [
+       "4",
+       "1",
+       "2",
+       "8"
+      ],
+      "correct": 0,
+      "explain": "$8\\cdot\\frac18+6\\cdot\\frac12=4$."
+     },
+     {
+      "q": "Which rotation is NOT compatible with a periodic lattice?",
+      "options": [
+       "5-fold",
+       "2-fold",
+       "4-fold",
+       "6-fold"
+      ],
+      "correct": 0,
+      "explain": "Only 1, 2, 3, 4, 6."
+     },
+     {
+      "q": "A basis of two different atoms on a square lattice can change",
+      "options": [
+       "the point symmetry, not the Bravais lattice",
+       "the Bravais lattice",
+       "the translation vectors",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Lattice and basis are independent ingredients."
      }
     ]
    }
@@ -129,6 +173,50 @@
       ],
       "correct": 0,
       "explain": "Reciprocals of the intercepts, cleared of fractions: they give $\\mathbf G_{hkl}$."
+     },
+     {
+      "q": "Reciprocal vectors satisfy",
+      "options": [
+       "$\\mathbf a_i\\cdot\\mathbf b_j=2\\pi\\delta_{ij}$",
+       "$\\mathbf a_i\\cdot\\mathbf b_j=\\delta_{ij}$",
+       "$\\mathbf a_i\\times\\mathbf b_j=0$",
+       "$\\mathbf b_j=\\mathbf a_j/|\\mathbf a_j|^2$ always"
+      ],
+      "correct": 0,
+      "explain": "Definition in 1.3.1."
+     },
+     {
+      "q": "The spacing of the $(hkl)$ planes is",
+      "options": [
+       "$2\\pi/|\\mathbf G_{hkl}|$",
+       "$|\\mathbf G_{hkl}|$",
+       "$a(h+k+l)$",
+       "$2\\pi|\\mathbf G_{hkl}|$"
+      ],
+      "correct": 0,
+      "explain": "Script 1.3.2."
+     },
+     {
+      "q": "The reciprocal lattice of BCC is",
+      "options": [
+       "FCC",
+       "BCC",
+       "simple cubic",
+       "hexagonal"
+      ],
+      "correct": 0,
+      "explain": "And vice versa."
+     },
+     {
+      "q": "In a cubic crystal, $d_{hkl}=$",
+      "options": [
+       "$a/\\sqrt{h^2+k^2+l^2}$",
+       "$a(h^2+k^2+l^2)$",
+       "$a/(h+k+l)$",
+       "$\\sqrt{h^2+k^2+l^2}/a$"
+      ],
+      "correct": 0,
+      "explain": "From $|\\mathbf G|=\\frac{2\\pi}a\\sqrt{h^2+k^2+l^2}$."
      }
     ]
    }
@@ -195,6 +283,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 1.5.7."
+     },
+     {
+      "q": "Bragg&#8217;s law",
+      "options": [
+       "$2d\\sin\\theta=n\\lambda$",
+       "$d\\sin\\theta=n\\lambda$",
+       "$2d\\cos\\theta=n\\lambda$",
+       "$d=n\\lambda\\sin\\theta$"
+      ],
+      "correct": 0,
+      "explain": "$\\theta$ is measured from the planes."
+     },
+     {
+      "q": "Bragg reflection needs a wavelength",
+      "options": [
+       "comparable to or shorter than $2d$",
+       "much longer than $d$",
+       "equal to the crystal size",
+       "in the visible"
+      ],
+      "correct": 0,
+      "explain": "$\\sin\\theta\\le1$."
+     },
+     {
+      "q": "The structure factor depends on",
+      "options": [
+       "the basis (atom positions and form factors in the cell)",
+       "only the lattice constant",
+       "only the wavelength",
+       "the sample size"
+      ],
+      "correct": 0,
+      "explain": "Script 1.5.3."
+     },
+     {
+      "q": "In BCC (cubic cell with 2-atom basis) the $(100)$ reflection is",
+      "options": [
+       "absent",
+       "the strongest",
+       "present with half intensity",
+       "only seen with neutrons"
+      ],
+      "correct": 0,
+      "explain": "$h+k+l$ odd gives $F=0$."
      }
     ]
    }
@@ -261,6 +393,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 1.6.7."
+     },
+     {
+      "q": "The van der Waals attraction falls off as",
+      "options": [
+       "$r^{-6}$",
+       "$r^{-1}$",
+       "$r^{-12}$",
+       "$e^{-r}$"
+      ],
+      "correct": 0,
+      "explain": "Induced dipole-dipole."
+     },
+     {
+      "q": "The minimum of the Lennard-Jones potential lies at",
+      "options": [
+       "$2^{1/6}\\sigma$",
+       "$\\sigma$",
+       "$2\\sigma$",
+       "$0$"
+      ],
+      "correct": 0,
+      "explain": "$dU/dr=0$."
+     },
+     {
+      "q": "The Madelung constant of NaCl is about",
+      "options": [
+       "1.75",
+       "1",
+       "0.5",
+       "12"
+      ],
+      "correct": 0,
+      "explain": "Lattice sum of $\\pm1/r_j$."
+     },
+     {
+      "q": "Ionic crystals are typically",
+      "options": [
+       "insulators (filled shells, large gap)",
+       "metals",
+       "superconductors",
+       "semiconductors with tiny gaps"
+      ],
+      "correct": 0,
+      "explain": "Electrons are transferred and localised."
      }
     ]
    }
@@ -327,6 +503,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 1.6.7."
+     },
+     {
+      "q": "In the bonding orbital the electron density",
+      "options": [
+       "increases between the nuclei",
+       "vanishes between the nuclei",
+       "is the same as for free atoms",
+       "is localised far outside"
+      ],
+      "correct": 0,
+      "explain": "Script 1.6.4."
+     },
+     {
+      "q": "The diamond structure has coordination number",
+      "options": [
+       "4 (tetrahedral)",
+       "6",
+       "8",
+       "12"
+      ],
+      "correct": 0,
+      "explain": "sp$^3$ hybrids."
+     },
+     {
+      "q": "Typical strength of a hydrogen bond",
+      "options": [
+       "~0.1 eV",
+       "~10 eV",
+       "~1 meV",
+       "~1 keV"
+      ],
+      "correct": 0,
+      "explain": "Between van der Waals and covalent."
+     },
+     {
+      "q": "Metals favour close-packed structures because",
+      "options": [
+       "metallic bonding is non-directional",
+       "covalent bonds point along cube edges",
+       "ions repel",
+       "of hydrogen bonds"
+      ],
+      "correct": 0,
+      "explain": "Delocalised valence electrons."
      }
     ]
    }
@@ -389,6 +609,50 @@
       ],
       "correct": 0,
       "explain": "Exponential instead of $T^3$."
+     },
+     {
+      "q": "Dulong-Petit is the high-temperature limit because",
+      "options": [
+       "all modes are classically excited ($k_BT\\gg\\hbar\\omega$)",
+       "phonons freeze out",
+       "electrons dominate",
+       "the crystal melts"
+      ],
+      "correct": 0,
+      "explain": "Equipartition."
+     },
+     {
+      "q": "In the Einstein model all atoms vibrate",
+      "options": [
+       "independently with one frequency $\\omega_E$",
+       "as sound waves",
+       "with a linear dispersion",
+       "not at all"
+      ],
+      "correct": 0,
+      "explain": "Script 2.1.2."
+     },
+     {
+      "q": "Einstein&#8217;s $C_V$ for $k_BT\\gg\\hbar\\omega_E$ tends to",
+      "options": [
+       "$3Nk_B$",
+       "0",
+       "$\\frac32Nk_B$",
+       "infinity"
+      ],
+      "correct": 0,
+      "explain": "Dulong-Petit."
+     },
+     {
+      "q": "Diamond has a low $C_V$ at room temperature because",
+      "options": [
+       "its vibration frequencies are high ($\\hbar\\omega\\gtrsim k_BT$)",
+       "it has few atoms",
+       "it is transparent",
+       "it has no phonons"
+      ],
+      "correct": 0,
+      "explain": "Historic puzzle explained by Einstein."
      }
     ]
    }
@@ -459,6 +723,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 2.2.6."
+     },
+     {
+      "q": "Group velocity of the monatomic chain at the zone boundary",
+      "options": [
+       "0",
+       "the sound velocity",
+       "infinite",
+       "$\\omega/q$"
+      ],
+      "correct": 0,
+      "explain": "$d\\omega/dq=0$ at $q=\\pi/a$."
+     },
+     {
+      "q": "Monatomic chain: $\\omega(q)=$",
+      "options": [
+       "$2\\sqrt{C/M}|\\sin(qa/2)|$",
+       "$\\sqrt{C/M}\\,qa$ for all $q$",
+       "$2\\sqrt{C/M}\\cos(qa)$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "Script 2.2.3."
+     },
+     {
+      "q": "In a diatomic chain the gap between branches grows with",
+      "options": [
+       "the mass ratio $M/m$",
+       "the lattice constant",
+       "temperature",
+       "nothing; there is no gap"
+      ],
+      "correct": 0,
+      "explain": "Between $\\sqrt{2C/M}$ and $\\sqrt{2C/m}$."
+     },
+     {
+      "q": "Number of allowed $q$ in the first zone for $N$ cells",
+      "options": [
+       "$N$",
+       "$3N$",
+       "infinite",
+       "$N^3$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 2.2.6."
      }
     ]
    }
@@ -525,6 +833,50 @@
       ],
       "correct": 0,
       "explain": "Energy and momentum transfer together."
+     },
+     {
+      "q": "A phonon carries quasi-momentum",
+      "options": [
+       "$\\hbar\\mathbf q$, defined up to $\\hbar\\mathbf G$",
+       "$M\\mathbf v$",
+       "zero",
+       "$\\hbar\\omega/c$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 2.3.5."
+     },
+     {
+      "q": "In energy-loss neutron scattering the neutron",
+      "options": [
+       "creates a phonon",
+       "absorbs a phonon",
+       "is unchanged",
+       "creates a photon"
+      ],
+      "correct": 0,
+      "explain": "Script 2.3."
+     },
+     {
+      "q": "The width of a phonon peak in inelastic scattering is",
+      "options": [
+       "the inverse phonon lifetime",
+       "the instrument only",
+       "the phonon energy",
+       "always zero"
+      ],
+      "correct": 0,
+      "explain": "Anharmonic decay."
+     },
+     {
+      "q": "Phonon decay into two phonons requires",
+      "options": [
+       "anharmonic terms in the potential",
+       "a perfectly harmonic crystal",
+       "impurities only",
+       "an electric field"
+      ],
+      "correct": 0,
+      "explain": "Harmonic modes are independent."
      }
     ]
    }
@@ -591,6 +943,50 @@
       ],
       "correct": 0,
       "explain": "(2.82)."
+     },
+     {
+      "q": "The Debye frequency is fixed by requiring",
+      "options": [
+       "a total of $3N$ modes",
+       "$\\omega_D=v_s/a$ exactly",
+       "the melting point",
+       "the Fermi energy"
+      ],
+      "correct": 0,
+      "explain": "Script summary 2.4.4."
+     },
+     {
+      "q": "Typical Debye temperatures are",
+      "options": [
+       "a few hundred K",
+       "a few K",
+       "$10^5$ K",
+       "1 mK"
+      ],
+      "correct": 0,
+      "explain": "Script summary 2.4.4."
+     },
+     {
+      "q": "The phonon occupation $n(\\varepsilon)=$",
+      "options": [
+       "$1/(e^{\\varepsilon/k_BT}-1)$",
+       "$1/(e^{\\varepsilon/k_BT}+1)$",
+       "$e^{-\\varepsilon/k_BT}$",
+       "1"
+      ],
+      "correct": 0,
+      "explain": "(2.81)."
+     },
+     {
+      "q": "The Debye model is exact at",
+      "options": [
+       "low $T$ (only acoustic phonons near $q=0$ matter)",
+       "all temperatures",
+       "only $T\\gg T_D$",
+       "no temperature"
+      ],
+      "correct": 0,
+      "explain": "Linear dispersion holds at small $q$."
      }
     ]
    }
@@ -654,6 +1050,50 @@
        "the wave vector only",
        "the spin only",
        "the volume"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.1.6."
+     },
+     {
+      "q": "The number of electrons per volume in terms of $k_F$",
+      "options": [
+       "$n=k_F^3/3\\pi^2$",
+       "$n=k_F^3/6\\pi^2$",
+       "$n=k_F^2/\\pi$",
+       "$n=k_F/2\\pi$"
+      ],
+      "correct": 0,
+      "explain": "Factor 2 for spin included."
+     },
+     {
+      "q": "At $T=0$ the Fermi function is",
+      "options": [
+       "a step: 1 below $\\epsilon_F$, 0 above",
+       "a Gaussian",
+       "1/2 everywhere",
+       "exponential"
+      ],
+      "correct": 0,
+      "explain": "Script 3.1.3."
+     },
+     {
+      "q": "Free electrons in 3D: $\\nu(\\varepsilon)\\propto$",
+      "options": [
+       "$\\sqrt\\varepsilon$",
+       "$\\varepsilon$",
+       "constant",
+       "$\\varepsilon^2$"
+      ],
+      "correct": 0,
+      "explain": "In 2D constant, in 1D $\\propto1/\\sqrt\\varepsilon$."
+     },
+     {
+      "q": "In metals $k_F$ is comparable to",
+      "options": [
+       "the reciprocal lattice spacing",
+       "$1/$sample size",
+       "the photon wave vector of light",
+       "zero"
       ],
       "correct": 0,
       "explain": "Script summary 3.1.6."
@@ -723,6 +1163,50 @@
       ],
       "correct": 0,
       "explain": "$T$ beats $T^3$ as $T\\to0$."
+     },
+     {
+      "q": "The Sommerfeld coefficient $\\gamma$ in $C=\\gamma T$ is proportional to",
+      "options": [
+       "$\\nu(\\epsilon_F)$",
+       "$T_D$",
+       "$\\epsilon_F^2$",
+       "$1/\\nu(\\epsilon_F)$"
+      ],
+      "correct": 0,
+      "explain": "$\\gamma=\\frac{\\pi^2}3\\nu(\\epsilon_F)k_B^2$."
+     },
+     {
+      "q": "Fraction of electrons thermally excited at room temperature in a metal",
+      "options": [
+       "about $k_BT/\\epsilon_F\\sim1\\%$",
+       "about 50%",
+       "all of them",
+       "none"
+      ],
+      "correct": 0,
+      "explain": "Pauli blocking."
+     },
+     {
+      "q": "Plotting $C/T$ against $T^2$ gives",
+      "options": [
+       "intercept $\\gamma$ (electrons), slope $\\beta$ (phonons)",
+       "intercept $\\beta$",
+       "a parabola",
+       "$T_D$ directly as intercept"
+      ],
+      "correct": 0,
+      "explain": "$C=\\gamma T+\\beta T^3$."
+     },
+     {
+      "q": "Electron-electron scattering rate at low $T$",
+      "options": [
+       "$\\propto T^2$",
+       "$\\propto T$",
+       "$\\propto T^5$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.1.6."
      }
     ]
    }
@@ -789,6 +1273,50 @@
       ],
       "correct": 0,
       "explain": "$\\mathbf k$ and $\\mathbf k+\\mathbf G$ label the same state."
+     },
+     {
+      "q": "Which waves form at the zone boundary in the nearly free electron model?",
+      "options": [
+       "standing waves",
+       "running plane waves",
+       "evanescent waves only",
+       "spherical waves"
+      ],
+      "correct": 0,
+      "explain": "Bragg reflection of the electron."
+     },
+     {
+      "q": "With an attractive ionic potential, the lower state at the gap has its charge",
+      "options": [
+       "on the ions ($\\cos$)",
+       "between the ions ($\\sin$)",
+       "uniform",
+       "outside the crystal"
+      ],
+      "correct": 0,
+      "explain": "Script 3.2.2."
+     },
+     {
+      "q": "Bloch&#8217;s theorem: $\\psi_{\\mathbf k}(\\mathbf r+\\mathbf R)=$",
+      "options": [
+       "$e^{i\\mathbf k\\cdot\\mathbf R}\\psi_{\\mathbf k}(\\mathbf r)$",
+       "$\\psi_{\\mathbf k}(\\mathbf r)$",
+       "$-\\psi_{\\mathbf k}(\\mathbf r)$",
+       "$e^{i\\mathbf G\\cdot\\mathbf R}\\psi$"
+      ],
+      "correct": 0,
+      "explain": "Script 3.2.1."
+     },
+     {
+      "q": "Electrons at $\\epsilon_F$ feel the lattice because",
+      "options": [
+       "their de Broglie wavelength is comparable to the lattice spacing",
+       "they are slow",
+       "they are heavy",
+       "they do not"
+      ],
+      "correct": 0,
+      "explain": "Script 3.2 introduction."
      }
     ]
    }
@@ -855,6 +1383,50 @@
       ],
       "correct": 0,
       "explain": "A band can only be completely filled with an even number."
+     },
+     {
+      "q": "1D tight binding with hopping $t$: bandwidth",
+      "options": [
+       "$4t$",
+       "$2t$",
+       "$t$",
+       "$12t$"
+      ],
+      "correct": 0,
+      "explain": "$\\varepsilon_0-2t\\cos ka$."
+     },
+     {
+      "q": "Core-level bands are",
+      "options": [
+       "very narrow (tiny overlap)",
+       "very wide",
+       "always half filled",
+       "metallic"
+      ],
+      "correct": 0,
+      "explain": "Localised orbitals."
+     },
+     {
+      "q": "Each band holds per primitive cell",
+      "options": [
+       "2 electrons",
+       "1 electron",
+       "$N$ electrons",
+       "8 electrons"
+      ],
+      "correct": 0,
+      "explain": "Spin degeneracy."
+     },
+     {
+      "q": "Divalent metals (Mg, Ca) conduct because",
+      "options": [
+       "bands overlap",
+       "they have one electron per cell",
+       "of impurities",
+       "they do not conduct"
+      ],
+      "correct": 0,
+      "explain": "Otherwise a full band would make them insulators."
      }
     ]
    }
@@ -917,6 +1489,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 3.4.1."
+     },
+     {
+      "q": "Quasiparticles obey Fermi statistics with chemical potential",
+      "options": [
+       "zero",
+       "$\\epsilon_F$",
+       "$k_BT$",
+       "negative"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.4.1."
+     },
+     {
+      "q": "A quasihole has a wave vector",
+      "options": [
+       "inside the Fermi surface",
+       "outside the Fermi surface",
+       "only at $k=0$",
+       "on the zone boundary"
+      ],
+      "correct": 0,
+      "explain": "Script summary 3.4.1."
+     },
+     {
+      "q": "ARPES uses",
+      "options": [
+       "the photoelectric effect with angle and energy resolution",
+       "neutron scattering",
+       "X-ray diffraction",
+       "the Hall effect"
+      ],
+      "correct": 0,
+      "explain": "Script 3.4."
+     },
+     {
+      "q": "The ground state of the electron gas, in quasiparticle language, is",
+      "options": [
+       "the quasiparticle vacuum",
+       "one quasielectron per state",
+       "all holes",
+       "undefined"
+      ],
+      "correct": 0,
+      "explain": "Filled Fermi sea."
      }
     ]
    }
@@ -979,6 +1595,50 @@
       ],
       "correct": 0,
       "explain": "Negative carriers."
+     },
+     {
+      "q": "In the Drude model $\\tau$ is",
+      "options": [
+       "the mean time between collisions",
+       "the time to reach $\\epsilon_F$",
+       "the sample transit time",
+       "$1/\\epsilon_F$"
+      ],
+      "correct": 0,
+      "explain": "Friction term $m\\mathbf v/\\tau$."
+     },
+     {
+      "q": "A positive Hall constant indicates",
+      "options": [
+       "hole-like carriers",
+       "electrons",
+       "no carriers",
+       "superconductivity"
+      ],
+      "correct": 0,
+      "explain": "Section 4.2 explains it."
+     },
+     {
+      "q": "The Hall voltage is proportional to",
+      "options": [
+       "$IB/(nde)$",
+       "$IB\\,n$",
+       "$I/B$",
+       "$n/B$"
+      ],
+      "correct": 0,
+      "explain": "$R_H=-1/ne$ with thickness $d$."
+     },
+     {
+      "q": "Drude&#8217;s classical gas fails for",
+      "options": [
+       "heat capacity and the mean free path ($\\propto T$ predictions)",
+       "Ohm&#8217;s law",
+       "the form of $\\sigma=ne^2\\tau/m$",
+       "the Hall sign of Na"
+      ],
+      "correct": 0,
+      "explain": "Fermi statistics fixes it."
      }
     ]
    }
@@ -1045,6 +1705,50 @@
       ],
       "correct": 0,
       "explain": "Negative curvature; these states behave as holes."
+     },
+     {
+      "q": "In a field, $\\hbar\\dot{\\mathbf k}=$",
+      "options": [
+       "$-e\\mathbf E$ (electron)",
+       "$m\\mathbf v$",
+       "0",
+       "$e\\mathbf E/m$"
+      ],
+      "correct": 0,
+      "explain": "Script 4.2.3."
+     },
+     {
+      "q": "The effective mass is",
+      "options": [
+       "$\\hbar^2/(d^2\\varepsilon/dk^2)$",
+       "$d\\varepsilon/dk$",
+       "always $m_e$",
+       "$\\hbar k/v$ only for holes"
+      ],
+      "correct": 0,
+      "explain": "Script 4.2.2."
+     },
+     {
+      "q": "A completely filled band carries",
+      "options": [
+       "no current",
+       "the maximal current",
+       "half the current",
+       "a current $\\propto n$"
+      ],
+      "correct": 0,
+      "explain": "$\\pm\\mathbf k$ cancel."
+     },
+     {
+      "q": "Conductivity of band electrons is proportional to",
+      "options": [
+       "$\\nu(\\epsilon_F)$ (states at the Fermi surface)",
+       "the number of core electrons",
+       "the band bottom energy",
+       "$1/\\tau$"
+      ],
+      "correct": 0,
+      "explain": "Script summary 4.3.1."
      }
     ]
    }
@@ -1115,6 +1819,50 @@
       ],
       "correct": 0,
       "explain": "(4.29)."
+     },
+     {
+      "q": "Matthiessen&#8217;s rule",
+      "options": [
+       "$\\rho=\\rho_{\\rm imp}+\\rho_{\\rm ph}(T)$",
+       "$\\rho=\\rho_{\\rm imp}\\rho_{\\rm ph}$",
+       "$\\rho\\propto T$ always",
+       "$\\sigma=\\sigma_1+\\sigma_2$"
+      ],
+      "correct": 0,
+      "explain": "Rates add."
+     },
+     {
+      "q": "The crossover from $T^5$ to linear occurs around",
+      "options": [
+       "$0.2\\,T_D$ (script)",
+       "$T_D/100$",
+       "$10\\,T_D$",
+       "the melting point"
+      ],
+      "correct": 0,
+      "explain": "Text after (4.29)."
+     },
+     {
+      "q": "Why do small-angle phonon collisions not reverse the current quickly?",
+      "options": [
+       "each changes $\\mathbf k$ only a little: a random walk is needed",
+       "they are elastic",
+       "phonons have no momentum",
+       "they are forbidden"
+      ],
+      "correct": 0,
+      "explain": "(4.28)."
+     },
+     {
+      "q": "Electron-electron resistivity $\\propto T^2$ is visible",
+      "options": [
+       "only around 1 K in very clean samples",
+       "at room temperature",
+       "never",
+       "above $T_D$"
+      ],
+      "correct": 0,
+      "explain": "Script 4.2.5."
      }
     ]
    }
@@ -1177,6 +1925,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 4.3.1."
+     },
+     {
+      "q": "The Lorenz number $L=\\kappa/(\\sigma T)$ is about",
+      "options": [
+       "$2.4\\times10^{-8}$ W$\\Omega$/K$^2$",
+       "$1$",
+       "$k_B/e$",
+       "$10^{-3}$ W/K"
+      ],
+      "correct": 0,
+      "explain": "$\\frac{\\pi^2}3(k_B/e)^2$."
+     },
+     {
+      "q": "In thermal transport the electron distribution is",
+      "options": [
+       "not shifted but broadened differently on the two sides",
+       "shifted by $eE\\tau/\\hbar$",
+       "unchanged",
+       "fully excited"
+      ],
+      "correct": 0,
+      "explain": "Script summary 4.3.1."
+     },
+     {
+      "q": "Thomas-Fermi screening length in metals is about",
+      "options": [
+       "0.5 Å",
+       "1 mm",
+       "100 nm",
+       "1 km"
+      ],
+      "correct": 0,
+      "explain": "Short: metals screen within an atom."
+     },
+     {
+      "q": "Wiedemann-Franz holds best when scattering is",
+      "options": [
+       "elastic",
+       "inelastic small-angle",
+       "absent",
+       "electron-electron"
+      ],
+      "correct": 0,
+      "explain": "Same $\\tau$ for charge and heat."
      }
     ]
    }
@@ -1239,6 +2031,50 @@
       ],
       "correct": 0,
       "explain": "$\\omega_c=eB/m^*$."
+     },
+     {
+      "q": "Holes behave like",
+      "options": [
+       "positive charges with positive effective mass",
+       "electrons with positive charge and negative energy always",
+       "neutral particles",
+       "photons"
+      ],
+      "correct": 0,
+      "explain": "Missing electrons near a band maximum."
+     },
+     {
+      "q": "GaAs is used for LEDs because its gap is",
+      "options": [
+       "direct",
+       "indirect",
+       "zero",
+       "very large"
+      ],
+      "correct": 0,
+      "explain": "Photons need no phonon."
+     },
+     {
+      "q": "The cyclotron frequency",
+      "options": [
+       "$eB/m^*$",
+       "$m^*/eB$",
+       "$eB m^*$",
+       "$\\sqrt{eB/m^*}$"
+      ],
+      "correct": 0,
+      "explain": "Script 5.1.3."
+     },
+     {
+      "q": "Germanium&#8217;s gap is about",
+      "options": [
+       "0.67 eV",
+       "1.1 eV",
+       "3.4 eV",
+       "0.01 eV"
+      ],
+      "correct": 0,
+      "explain": "Indirect."
      }
     ]
    }
@@ -1301,6 +2137,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 5.2.3."
+     },
+     {
+      "q": "Intrinsic carriers obey essentially",
+      "options": [
+       "Boltzmann statistics (low density)",
+       "degenerate Fermi statistics",
+       "Bose statistics",
+       "no statistics"
+      ],
+      "correct": 0,
+      "explain": "Script summary 5.2.3."
+     },
+     {
+      "q": "$N_c$ (effective density of states) depends on",
+      "options": [
+       "$m_e^*$ and $T$ ($\\propto(m^*T)^{3/2}$)",
+       "$E_g$ only",
+       "the doping",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Band-edge density of states."
+     },
+     {
+      "q": "Mobility at high $T$ is limited by",
+      "options": [
+       "phonons",
+       "impurities",
+       "nothing",
+       "the gap"
+      ],
+      "correct": 0,
+      "explain": "Script summary 5.2.3."
+     },
+     {
+      "q": "In an intrinsic semiconductor $E_F$ lies",
+      "options": [
+       "near mid-gap",
+       "in the conduction band",
+       "at the valence band edge",
+       "above the vacuum level"
+      ],
+      "correct": 0,
+      "explain": "$n=p$."
      }
     ]
    }
@@ -1367,6 +2247,50 @@
       ],
       "correct": 0,
       "explain": "$n=N_D=N_ce^{-(E_c-E_F)/k_BT}$."
+     },
+     {
+      "q": "P in Si is a",
+      "options": [
+       "donor",
+       "acceptor",
+       "isoelectronic impurity",
+       "deep trap"
+      ],
+      "correct": 0,
+      "explain": "Valence 5."
+     },
+     {
+      "q": "B in Si is",
+      "options": [
+       "an acceptor",
+       "a donor",
+       "neutral",
+       "a metal"
+      ],
+      "correct": 0,
+      "explain": "Valence 3."
+     },
+     {
+      "q": "Donor binding energy in the hydrogen model scales as",
+      "options": [
+       "$m^*/\\varepsilon_r^2$",
+       "$\\varepsilon_r^2/m^*$",
+       "$m^*\\varepsilon_r$",
+       "independent of $\\varepsilon_r$"
+      ],
+      "correct": 0,
+      "explain": "Script 5.3.1."
+     },
+     {
+      "q": "In the intrinsic regime of a doped sample, $n$ is set by",
+      "options": [
+       "$n_i(T)$",
+       "$N_D$",
+       "$E_d$",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Then $n_i\\gg N_D$."
      }
     ]
    }
@@ -1433,6 +2357,50 @@
       ],
       "correct": 0,
       "explain": "No net current."
+     },
+     {
+      "q": "In equilibrium the diffusion current across the junction is",
+      "options": [
+       "balanced by the drift current",
+       "zero by itself",
+       "larger than drift",
+       "carried by photons"
+      ],
+      "correct": 0,
+      "explain": "No net current."
+     },
+     {
+      "q": "Forward bias",
+      "options": [
+       "lowers the barrier",
+       "raises the barrier",
+       "does nothing",
+       "reverses the doping"
+      ],
+      "correct": 0,
+      "explain": "Majority carriers can cross."
+     },
+     {
+      "q": "The depletion zone contains",
+      "options": [
+       "fixed ionised donors and acceptors, few free carriers",
+       "many free electrons",
+       "only holes",
+       "neutral atoms only"
+      ],
+      "correct": 0,
+      "explain": "Space charge."
+     },
+     {
+      "q": "The diode law",
+      "options": [
+       "$I=I_s(e^{eU/k_BT}-1)$",
+       "$I=U/R$",
+       "$I=I_se^{-eU/k_BT}$",
+       "$I\\propto U^2$"
+      ],
+      "correct": 0,
+      "explain": "Note the $e$ in the exponent."
      }
     ]
    }
@@ -1495,6 +2463,50 @@
       ],
       "correct": 0,
       "explain": "(6.18)."
+     },
+     {
+      "q": "Paramagnets have",
+      "options": [
+       "$\\chi>0$",
+       "$\\chi<0$",
+       "$\\chi=0$",
+       "$\\chi=-1$"
+      ],
+      "correct": 0,
+      "explain": "Moments align with the field."
+     },
+     {
+      "q": "In a field the bands of spin up and down shift by",
+      "options": [
+       "$\\mp\\frac12g\\mu_B\\mu_0H$",
+       "$g\\mu_B$ each in the same direction",
+       "zero",
+       "$\\epsilon_F$"
+      ],
+      "correct": 0,
+      "explain": "(6.19)."
+     },
+     {
+      "q": "Only electrons within $\\sim k_BT$ of $\\epsilon_F$",
+      "options": [
+       "can flip their spin in the field",
+       "carry charge",
+       "exist",
+       "are paired"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.2.4."
+     },
+     {
+      "q": "Free-electron Landau diamagnetism comes from",
+      "options": [
+       "orbital motion in the field",
+       "spin",
+       "the nuclei",
+       "phonons"
+      ],
+      "correct": 0,
+      "explain": "$-\\frac13\\chi_P$."
      }
     ]
    }
@@ -1557,6 +2569,50 @@
       ],
       "correct": 0,
       "explain": "Script summary 6.2.6."
+     },
+     {
+      "q": "The effective on-site interaction in the script acts between electrons of",
+      "options": [
+       "opposite spin on the same site",
+       "equal spin",
+       "different atoms",
+       "nuclei"
+      ],
+      "correct": 0,
+      "explain": "$U n_{j\\uparrow}n_{j\\downarrow}$."
+     },
+     {
+      "q": "Near the Stoner instability the susceptibility",
+      "options": [
+       "is strongly enhanced",
+       "vanishes",
+       "becomes negative",
+       "is unchanged"
+      ],
+      "correct": 0,
+      "explain": "(6.34)."
+     },
+     {
+      "q": "In a ferromagnetic metal the bands are",
+      "options": [
+       "spontaneously split by spin",
+       "unsplit",
+       "all filled",
+       "flat"
+      ],
+      "correct": 0,
+      "explain": "As if in a field."
+     },
+     {
+      "q": "A large $\\nu(\\epsilon_F)$ is found in",
+      "options": [
+       "narrow d bands (Fe, Co, Ni)",
+       "free-electron s bands",
+       "insulators",
+       "noble gases"
+      ],
+      "correct": 0,
+      "explain": "Stoner."
      }
     ]
    }
@@ -1623,6 +2679,50 @@
       ],
       "correct": 0,
       "explain": "(6.63)."
+     },
+     {
+      "q": "In a magnetic insulator, every localised spin contributes to $\\chi$ at",
+      "options": [
+       "all temperatures ($\\chi\\propto1/T$)",
+       "only near $\\epsilon_F$",
+       "only at $T=0$",
+       "no temperature"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.3.3."
+     },
+     {
+      "q": "The size of the spin of a magnetic ion is set by",
+      "options": [
+       "Hund&#8217;s rules",
+       "the Fermi energy",
+       "the lattice constant",
+       "the Debye temperature"
+      ],
+      "correct": 0,
+      "explain": "Script 6.3 introduction."
+     },
+     {
+      "q": "Two spins $\\frac12$, $H=-J\\mathbf S_1\\cdot\\mathbf S_2$, $J<0$: ground state",
+      "options": [
+       "singlet",
+       "triplet",
+       "degenerate quartet",
+       "no ground state"
+      ],
+      "correct": 0,
+      "explain": "Antiferromagnetic."
+     },
+     {
+      "q": "The Heisenberg Hamiltonian originates from",
+      "options": [
+       "Coulomb repulsion plus Pauli exclusion",
+       "magnetic dipoles",
+       "gravity",
+       "spin-orbit only"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.3.3."
      }
     ]
    }
@@ -1682,6 +2782,50 @@
        "is zero",
        "decreases on cooling",
        "oscillates"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.3.6."
+     },
+     {
+      "q": "Curie-Weiss law",
+      "options": [
+       "$\\chi=C/(T-T_W)$",
+       "$\\chi=C/T$",
+       "$\\chi=CT$",
+       "$\\chi=C(T-T_W)$"
+      ],
+      "correct": 0,
+      "explain": "Weiss field."
+     },
+     {
+      "q": "An antiferromagnet orders at",
+      "options": [
+       "$T_N\\sim|T_W|$",
+       "$T_C=T_W>0$",
+       "never",
+       "$\\epsilon_F/k_B$"
+      ],
+      "correct": 0,
+      "explain": "Néel temperature."
+     },
+     {
+      "q": "Above $T_C$ in zero field, the magnetisation of a ferromagnet is",
+      "options": [
+       "zero",
+       "saturated",
+       "negative",
+       "half saturated"
+      ],
+      "correct": 0,
+      "explain": "Script summary 6.3.6."
+     },
+     {
+      "q": "Antiferromagnetic order needs",
+      "options": [
+       "a bipartite lattice (for simple Néel order)",
+       "a triangular lattice",
+       "a metal",
+       "$J>0$"
       ],
       "correct": 0,
       "explain": "Script summary 6.3.6."

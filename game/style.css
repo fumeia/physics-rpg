@@ -516,3 +516,6 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 .srow{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2em .6em}.srow .link{text-align:left}.srow .link .mt{text-decoration:none}
 .sfrom{font-size:11px;padding:1px 7px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:transparent;color:inherit;opacity:.75;cursor:pointer}
 .sfrom:hover{opacity:1}
+/* summary builder: page buttons wrap under the formula (10 pages for solid state) */
+.sm-row { flex-wrap: wrap; } .sm-tex { flex: 1 1 260px; } .sm-pick { flex-wrap: wrap; } .sm-tex b { display: block; font-size: 13px; }
+@media (max-width: 600px) { .sm-pick { flex-basis: 100%; } .sm-pick .chip { padding: 1px 6px; } }

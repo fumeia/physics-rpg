@@ -1,0 +1,183 @@
+{
+ "about": "Formula supplements (cards for the summary); built by notes/build/formulas/build.py",
+ "items": [
+  {
+   "room": "phonon-halls",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 8,
+    "xp": 10,
+    "id": "ss-fx-pho",
+    "title": "Formula cards: Einstein and Debye in numbers",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "eq. (2.13); 2.4.2-2.4.3"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "Two formulas for the summary that the lessons only use in words: Einstein&#8217;s heat capacity and the Debye cutoff from counting modes."
+     },
+     {
+      "kind": "eq",
+      "tex": "C_V=\\frac{3Nk_B}{V}\\left(\\frac{\\hbar\\omega}{k_BT}\\right)^2\\frac{e^{\\hbar\\omega/k_BT}}{\\left(e^{\\hbar\\omega/k_BT}-1\\right)^2}",
+      "label": "Einstein heat capacity, script (2.13), per volume"
+     },
+     {
+      "kind": "eq",
+      "tex": "k_D=\\left(6\\pi^2\\frac NV\\right)^{1/3},\\qquad \\omega_D=v_sk_D,\\qquad T_D=\\frac{\\hbar\\omega_D}{k_B}",
+      "label": "Debye wave vector, frequency and temperature (one atom per cell, one sound velocity)"
+     },
+     {
+      "kind": "intuition",
+      "html": "$k_D$ is the radius of a sphere with as many $q$-points as atoms: $\\frac{V}{(2\\pi)^3}\\frac43\\pi k_D^3=N$. With three branches that gives the $3N$ modes."
+     }
+    ],
+    "check": [
+     {
+      "q": "Einstein $C_V$ for $k_BT\\ll\\hbar\\omega$ decays as",
+      "options": [
+       "$e^{-\\hbar\\omega/k_BT}$ (times a power)",
+       "$T^3$",
+       "$T$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "All modes are gapped."
+     },
+     {
+      "q": "$k_D=(6\\pi^2N/V)^{1/3}$ follows from",
+      "options": [
+       "one $q$-point per atom inside the Debye sphere",
+       "the Fermi sphere with spin",
+       "the Brillouin zone volume times 2",
+       "the sound velocity"
+      ],
+      "correct": 0,
+      "explain": "$\\frac{V}{(2\\pi)^3}\\frac43\\pi k_D^3=N$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "fermi-sea",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 8,
+    "xp": 10,
+    "id": "ss-fx-tb",
+    "title": "Formula card: tight-binding band of a cubic lattice",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "eqs. (3.59), (3.62)"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "The tight-binding dispersion in the script&#8217;s notation, with nearest-neighbour hopping $t$ on a simple cubic lattice of constant $a$:"
+     },
+     {
+      "kind": "eq",
+      "tex": "\\varepsilon(\\mathbf k)=\\varepsilon-t_0-2t\\big(\\cos ak_x+\\cos ak_y+\\cos ak_z\\big),\\qquad W=12t",
+      "label": "tight binding, script (3.62); bandwidth W"
+     },
+     {
+      "kind": "eq",
+      "tex": "\\varepsilon\\approx\\varepsilon-t_0-6t+ta^2k^2\\ \\ (k\\to0)\\quad\\Rightarrow\\quad m^*=\\frac{\\hbar^2}{2ta^2}",
+      "label": "effective mass at the band bottom"
+     },
+     {
+      "kind": "pitfall",
+      "html": "Larger overlap means larger $t$: a wider band and a <i>smaller</i> effective mass. Near the band top ($k=\\pi/a$) the curvature is negative: $m^*=-\\hbar^2/2ta^2$."
+     }
+    ],
+    "check": [
+     {
+      "q": "Bandwidth of the simple-cubic tight-binding band",
+      "options": [
+       "$12t$",
+       "$4t$",
+       "$6t$",
+       "$2t$"
+      ],
+      "correct": 0,
+      "explain": "From $-6t$ to $+6t$ around $\\varepsilon-t_0$."
+     },
+     {
+      "q": "Effective mass at the bottom of this band",
+      "options": [
+       "$\\hbar^2/2ta^2$",
+       "$\\hbar^2/ta^2$",
+       "$m_e$",
+       "$2ta^2/\\hbar^2$"
+      ],
+      "correct": 0,
+      "explain": "Expand $\\cos ak\\approx1-a^2k^2/2$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "semiconductor-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 8,
+    "xp": 10,
+    "id": "ss-fx-cyc",
+    "title": "Formula card: cyclotron resonance",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "5.1.3"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "In a magnetic field $B$, carriers with effective mass $m^*$ circle with the cyclotron frequency; absorption of microwaves at $\\omega_c$ measures $m^*$."
+     },
+     {
+      "kind": "eq",
+      "tex": "\\omega_c=\\frac{eB}{m^*},\\qquad \\text{resonance condition }\\ \\omega_c\\tau\\gg1",
+      "label": "cyclotron frequency, script 5.1.3"
+     },
+     {
+      "kind": "exam",
+      "html": "Numbers: $f=24$ GHz at $B=1$ T gives $m^*=eB/2\\pi f\\approx1.2\\,m_e$."
+     }
+    ],
+    "check": [
+     {
+      "q": "Cyclotron resonance measures",
+      "options": [
+       "the effective mass",
+       "the gap",
+       "the mobility only",
+       "the Fermi energy"
+      ],
+      "correct": 0,
+      "explain": "$\\omega_c=eB/m^*$."
+     },
+     {
+      "q": "A resonance is only visible if",
+      "options": [
+       "$\\omega_c\\tau\\gg1$ (cold, clean samples)",
+       "$\\omega_c\\tau\\ll1$",
+       "$B=0$",
+       "$T$ is high"
+      ],
+      "correct": 0,
+      "explain": "The carrier must complete orbits between collisions."
+     }
+    ]
+   }
+  }
+ ]
+}

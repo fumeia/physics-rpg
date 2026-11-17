@@ -178,6 +178,7 @@ async function boot() {
   const deepOpen = params.get('open'), deepRoom = params.get('room');
   const spec = params.get('suggest');
   if (spec && !params.has('test')) { $('start').style.display = 'none'; player.enabled = true; setTimeout(() => showSuggest(spec), lite ? 450 : 50); }
+  else if (params.has('run') && !params.has('test') && campaign) { $('start').style.display = 'none'; player.enabled = true; campaign.startRun(); }
   else if (params.has('quick') && !params.has('test') && !lite) { $('start').style.display = 'none'; player.enabled = true; startQuick(); }
   else if ((deepOpen || deepRoom) && !params.has('test') && !lite) {
     $('start').style.display = 'none'; player.enabled = true;
@@ -386,6 +387,7 @@ const passed = (enc) => store.isPassed(enc.id);
 const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
   $('xp').textContent = `XP ${store.xp}`;
+  if (campaign) { try { const cs = JSON.stringify(campaign.stat()); if (cs !== JSON.stringify(store.val('campaignStat', null))) store.setVal('campaignStat', JSON.parse(cs)); } catch (e) { console.warn('campaign stat', e); } }
   if (campaign) { if (campaign.onProgress()) setTimeout(() => { if (!current || $('panel').querySelector('#result .msg')) { toast('Run complete. Well done.'); sfx.goal(); } openOverlayWhenFree('campaign'); }, 900); updateRunChips(); }
   const due = store.dueReviews();
   $('reviews').textContent = `Respawns due: ${due.length}`;
@@ -848,6 +850,7 @@ let suggestion = null;
 function showSuggest(spec) {
   let title, detail, start;
   if (spec === 'quick') { title = 'Quick session'; detail = quickInfo(); start = () => startQuick(); }
+  else if (spec === 'run' && campaign) { title = 'Today\u2019s run'; detail = campaign.startLine(); start = () => campaign.startRun(); }
   else if (spec.startsWith('open:') && encIndex.has(spec.slice(5))) {
     const ref = encIndex.get(spec.slice(5)), e = ref.enc; title = `${typeName[e.type] || e.type} \u201c${prettyText(e.title || e.id)}\u201d`; detail = `${findRoom(ref.course, ref.roomId)?.title || ''}, about ${EST[e.type] || 10} min`; start = () => openById(e.id);
   } else return false;

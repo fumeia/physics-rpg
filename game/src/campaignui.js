@@ -285,10 +285,21 @@ export function createCampaign(ctx) {
       return `<div class="cp-arm"><div class="cp-armhead"><b>${ctx.courseName(cid)}</b><button class="chip btn" data-dungeon="${cid}">Enter: 3 exam problems, timed, no hints</button></div>${a.slice(0, 8).map((t) => `<div class="cp-armrow${t.none ? ' none' : t.strength < 0.3 ? ' hole' : ''}" title="${esc(t.label)}: in ${t.count} of ${t.of} old exams \u00b7 ${t.none ? 'no practice in the game yet' : `${Math.round(100 * t.strength)}% armour (passed and still remembered) \u00b7 exam problems ${t.examP}/${t.exam}`}"><span class="cp-armlabel">${esc(t.label)}</span><span class="cp-armfreq">${t.count}/${t.of}</span><span class="cp-armbar"><i style="width:${Math.round(100 * t.strength)}%"></i></span><span class="cp-armx">${t.none ? 'no practice' : t.strength < 0.3 ? 'hole' : ''}</span></div>`).join('')}</div>`; };
     return `<div class="cp-dungeon"><h3>Exam dungeon and armour</h3><p class="src">Your armour per exam topic: how much of it you passed and still remember. The number is how many old exams had the topic. Holes are where the exam would hit you.${early ? ' The dungeon is meant for the weeks from 15 December; you can enter early.' : ''}</p>${active}${last}<div class="cp-arms">${courses().map(col).join('')}</div></div>`;
   }
+  // What the notifier on the server needs (deploy/notify.py reads flags.campaignStat): no logic is duplicated there.
+  function stat() {
+    if (!isSetup()) return { setup: false };
+    const { r, st, done, total, complete } = runInfo(), b = bosses()[0], w = weekInfo();
+    const per = Object.fromEntries(courses().map((c) => [c, pos(c).behind]));
+    return { setup: true, date: todayStr(), behind: per, total: behindTotal(), fading: fadingOnly().length,
+      run: { stops: total, done, min: r.stops.filter((s, i) => st[i] === 'open').reduce((a, s) => a + s.min, 0), complete, started: !!r.startedAt },
+      runDays: w.n, runStreak: runStreak(), chestAt: w.next ? w.next[0] : null,
+      boss: b ? { course: b.cid, n: b.sh.n, due: todayStr(b.due), hp: b.hp, armour: b.armour, reward: b.reward } : null,
+      grades: Object.fromEntries(grades().map((g) => [g.cid, g.grade])) };
+  }
   // Is this room part of a week the lecture has already passed and you have not cleared? (drives the room's "overrun" look)
   function roomOverdue(cid, slug) {
     const ws = W()[cid]; if (!ws) return false; const kn = known()[cid], t = taught();
     return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn, skim()[cid]).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
   }
-  return { html, wire, startRun, onProgress, roomOverdue, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  return { html, wire, startRun, onProgress, roomOverdue, stat, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

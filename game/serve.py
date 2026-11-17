@@ -79,7 +79,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             n = int(self.headers.get('Content-Length') or 0)
             if n <= 0 or n > 4096: return self._send(413, {'error': 'size'})
             d = json.loads(self.rfile.read(n)); spec = str(d.get('spec', '')); what = str(d.get('what', ''))[:200] or 'Study session'
-            if not re.match(r'^(quick|open:[A-Za-z0-9_.-]{1,80})$', spec): return self._send(400, {'error': 'bad spec'})
+            if not re.match(r'^(quick|run|open:[A-Za-z0-9_.-]{1,80})$', spec): return self._send(400, {'error': 'bad spec'})
             now = notify.now_in(cfg['tz'])
             if d.get('minutes') is not None:
                 minutes = int(d['minutes'])

@@ -464,3 +464,12 @@ html[data-theme=light] .cp-armbar { background: rgba(0,0,0,.1); }
 .sm-row { display: flex; gap: 10px; align-items: center; padding: 2px 6px; border-radius: 8px; border: 1px solid transparent; } .sm-row.on { border-color: rgba(76,195,138,.5); background: rgba(76,195,138,.06); }
 .sm-tex { flex: 1; min-width: 0; overflow-x: auto; } .sm-pick { display: flex; gap: 3px; } .sm-pick .chip { padding: 1px 8px; font-size: 12px; }
 html[data-theme=light] .fg-bar { background: rgba(0,0,0,.1); } html[data-theme=light] .sm-page textarea { background: #fff; border-color: rgba(0,0,0,.3); }
+
+/* phones (touch layout) with the compact top bar: run, menu and gear; the rest is in the menu. Without this the touch rule hid them. */
+body.touch.hudc #hud .tr > #btn-run, body.touch.hudc #hud .tr > #btn-gear, body.touch.hudc #hud .tr > #btn-menu { display: inline-block !important; }
+body.touch.hudc #hud .tr > #btn-codex, body.touch.hudc #hud .tr > #btn-conn, body.touch.hudc #hud .tr > #btn-map, body.touch.hudc #hud .tr > #btn-nexus, body.touch.hudc #hud .tr > #btn-campaign { display: none !important; }
+body.touch.hudc #hud .tr { max-width: 70vw; flex-wrap: nowrap; } body.touch.hudc #btn-run { max-width: 38vw; overflow: hidden; text-overflow: ellipsis; }
+body.lite #btn-gear { display: inline-block; }
+#ov-back { margin-right: 10px; font-size: 13px; padding: 3px 10px; white-space: nowrap; } .ov-head { align-items: center; }
+/* a slim settings line at the bottom of the compact menu, so settings are reachable from the menu too */
+.menu6 .menu-set { grid-column: 1 / -1; text-align: center; padding: 8px; border: 1px dashed rgba(255,255,255,.2); border-radius: 10px; background: none; color: inherit; font: inherit; font-size: 13px; cursor: pointer; opacity: .85; }

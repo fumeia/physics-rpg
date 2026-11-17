@@ -791,7 +791,7 @@ function compactMenuHtml() {
     ${big('study', 'Practice', `sheets, drills, mistakes${open ? ` (${open} open)` : ''}, explain-it, your pile${d ? ` \u00b7 ${d} respawn${d > 1 ? 's' : ''} due` : ''} (V)`)}
     ${big('exam', 'Exam hall', 'old exams under the timer, with a grade (X)')}
     ${big('map', 'Map', 'rooms and route, the Nexus, connections between topics (M)')}
-    ${big('formulas', 'Formulas', 'the formula drawer of the current course (B)')}</div>`;
+    ${big('formulas', 'Formulas', 'the formula drawer of the current course (B)')}<button class="menu-set" data-m="settings">\u2699 Settings and help</button></div>`;
 }
 function settingsHtml() {
   const big = (m, title, sub) => `<button class="bigbtn" data-m="${m}"><b>${title}</b><span>${sub}</span></button>`;
@@ -838,6 +838,7 @@ function wireMenu() {
     else if (k === 'today') { openOverlay('pile'); renderStudy('today'); }
     else if (k === 'sheets') { openOverlay('pile'); renderStudy('sheets'); }
     else if (k === 'help') openOverlay('help'); else if (k === 'tutorial') { closeOverlay(true); startTutorial(); }
+    else if (k === 'settings') openOverlay('settings');
     else if (k === 'run') { closeOverlay(true); campaign.startRun(); } else if (k === 'campaign') openOverlay('campaign');
     else if (k === 'hud') { const on = !document.body.classList.contains('hudc'); document.body.classList.toggle('hudc', on); store.setVal('settings', { ...(store.val('settings', {}) || {}), hud: on ? 'compact' : 'full' }); openOverlay('menu'); refresh(); }
     else if (k === 'theme') { setThemeChoice(isLight() ? 'dark' : 'light'); reloadWithout(); }
@@ -1069,7 +1070,13 @@ async function openById(id) {
 }
 
 // ================================================================ overlays: map and formula codex
-function openOverlay(kind) {
+// Back inside menus: every overlay opened from another one remembers where it came from; the menu is the root for everything else.
+const ovStack = [];
+function openOverlay(kind, { back = false } = {}) {
+  if (!back) { if (overlay && overlay !== kind && ovStack[ovStack.length - 1] !== overlay) ovStack.push(overlay); else if (!overlay) ovStack.length = 0; }
+  const prev = ovStack[ovStack.length - 1] || (['menu', 'suggest', 'roomMenu'].includes(kind) ? null : 'menu');
+  const bb = $('ov-back'); bb.style.display = prev ? '' : 'none'; bb.textContent = `\u2190 ${prev === 'menu' ? 'Menu' : 'Back'}`;
+  bb.onclick = () => { const to = ovStack.pop() || 'menu'; openOverlay(to, { back: true }); };
   overlay = kind; player.unlock();
   $('overlay').style.display = '';
   $('ov-title').textContent = { settings: 'Settings and help', campaign: 'Campaign: catch up, week by week', missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
@@ -1100,7 +1107,7 @@ let pendingOverlay = null;
 function openOverlayWhenFree(kind) { if (current) pendingOverlay = kind; else openOverlay(kind); }
 function closeOverlay(silent) {
   if (stopExam) { stopExam(); stopExam = null; }
-  overlay = null; $('overlay').style.display = 'none';
+  overlay = null; ovStack.length = 0; $('overlay').style.display = 'none';
   if (!silent && player?.enabled && !current && !tut) player.lock();
 }
 function mapHtml() {

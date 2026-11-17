@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """Install the lecturer's chapter 7 reading pack (ch7_page.zip, QM I HS26) on the server.
 
-The pack holds the lecture notes of chapter 7 verbatim plus 28 explainers. It is the lecturer's material, so it is NOT
-committed to this public repository. This script only rebuilds it into a clean, linked folder that the game server serves
-behind its password (Caddy basic auth):
+The pack holds the lecture notes of chapter 7 plus 28 explainers (made with Claude; publishing it is allowed). The zip is
+kept as is in deploy/packs/ch7_page.zip; this script rebuilds it into a clean, linked folder that the game server serves:
 
-    python3 deploy/ch7pack.py ~/ch7_page.zip            # -> game/private/ch7/  (git-ignored)
+    python3 deploy/ch7pack.py                           # -> game/private/ch7/  (generated, git-ignored)
 
 Why a rebuild: the zip was saved with "Save page as", so the files carry their page titles as names while their links
 point to the original site layout (chapter07.html, concepts/<slug>.html, assets/style.css), and assets/ is missing.
@@ -94,8 +93,9 @@ mjx-container[display=true]{overflow-x:auto;overflow-y:hidden;max-width:100%}
 
 
 def main():
-    if len(sys.argv) < 2: sys.exit(__doc__)
-    z = zipfile.ZipFile(sys.argv[1])
+    src = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'deploy', 'packs', 'ch7_page.zip')  # the copy in the repo
+    if not os.path.exists(src): sys.exit(__doc__)
+    z = zipfile.ZipFile(src)
     os.makedirs(os.path.join(DST, 'concepts'), exist_ok=True); os.makedirs(os.path.join(DST, 'assets'), exist_ok=True)
     seen = set()
     for info in z.infolist():

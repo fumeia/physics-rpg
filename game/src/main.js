@@ -18,7 +18,7 @@ import * as battle from './battle.js';
 import { createQuality } from './quality.js';
 import { notePass, noteFail, meanRetention } from './memory.js';
 import * as cards from './cards.js';
-import { renderForge, renderSummary, forgeDue, pinned, pin } from './forgeui.js';
+import { renderForge, renderSummary, renderUnits, forgeDue, pinned, pin } from './forgeui.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
@@ -124,6 +124,7 @@ async function boot() {
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
   try { forgeItems = (await fetchJson('content/qm/forge.json')).items; } catch { forgeItems = []; }
+  try { unitsDuel = await fetchJson('content/units-duel.json'); } catch { /* optional */ }
   try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
     openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), setDungeon: (on) => document.body.classList.toggle('dungeon', !!on), forgeDue: () => forgeDue(forgeItems).length, mistakes, openTab: (t) => { openOverlay('pile'); renderStudy(t); }, openMissions: () => openOverlay('missions'), openConnection: (k) => { closeOverlay(true); openConnections(k); },
     missions: () => { const day = store.missionsOf(todayStr()); return todays().map((m) => ({ title: String(m.title || '').replace(/<[^>]+>/g, ''), done: !!day.done[m.id] })); },
@@ -547,6 +548,7 @@ function togglePile(id) {
 function updatePileChip() { const el = $('btn-pile'); if (el) el.textContent = `Study (V) · pile ${Object.keys(pile()).length}`; }
 let pileQueue = [];
 let quality = null, lastDrawAt = 0; // graphics governor (quality.js)
+let unitsDuel = { items: [], seconds: 75 }; // content/units-duel.json
 let forgeItems = []; // QM formulas to know by heart (content/qm/forge.json)
 let campaign = null; // catch-up campaign and daily run (campaignui.js)
 function pileBar(enc) {
@@ -649,9 +651,9 @@ function wirePile() {
 }
 // ---- Study hub: tabs for the pile, session planner, mistakes, weak spots and Feynman mode
 let studyTab = 'today'; // in the compact layout the hub opens on the sheets
-const TABS = [['today', 'Today'], ['sheets', 'Sheets'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['forge', 'Forge (QM by heart)'], ['summary', 'My summary'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+const TABS = [['today', 'Today'], ['sheets', 'Sheets'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['forge', 'Forge (QM by heart)'], ['units', 'Units duel'], ['summary', 'My summary'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
 let studyOpened = false;
-const MAIN_TABS = ['sheets', 'forge', 'summary', 'drills', 'mistakes', 'feynman', 'pile'];
+const MAIN_TABS = ['sheets', 'forge', 'summary', 'units', 'drills', 'mistakes', 'feynman', 'pile'];
 function renderStudy(tab) {
   studyTab = tab || studyTab; const body = $('ov-body');
   const open = mistakes().filter((x) => x.open).length;
@@ -668,6 +670,7 @@ function renderStudy(tab) {
   else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh() })
+  else if (studyTab === 'units') renderUnits(host, { items: unitsDuel.items, seconds: unitsDuel.seconds, M, courseName: (id) => findCourse(id)?.name || id, onChange: () => refresh() })
   else if (studyTab === 'summary') renderSummary(host, { catalog, isPassed: (id) => store.isPassed(id), courses: catalog.filter((c) => c.id !== 'qm').map((c) => ({ id: c.id, name: c.name })), M })
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
   else if (studyTab === 'weak') { host.innerHTML = M(weakHtml()); wireGoto(host); }

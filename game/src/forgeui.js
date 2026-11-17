@@ -80,3 +80,24 @@ export function renderSummary(host, ctx) {
   }
   draw();
 }
+
+// ---- Units duel: the unit of the result is given, one of four expressions can be right by dimensions alone. One question at
+// a time with a clock (seconds from the content file); the options are shuffled; the explanation shows after every answer.
+export function renderUnits(host, ctx) {
+  const { items, seconds = 75, M } = ctx; let order = items.map((_, i) => i).sort(() => Math.random() - 0.5), i = 0, right = 0, streak = 0, t0 = 0, timer = 0, answered = false, perm = [];
+  const log = () => store.val('unitsLog', { right: 0, total: 0, best: 0 }) || { right: 0, total: 0, best: 0 };
+  function show() {
+    clearInterval(timer); const it = items[order[i % order.length]]; perm = it.options.map((_, k) => k).sort(() => Math.random() - 0.5); answered = false; t0 = Date.now(); const L = log();
+    host.innerHTML = `<div class="fg-head"><div><b>${right}</b><span>right this round</span></div><div><b>${streak}</b><span>in a row (best ${L.best})</span></div><div><b data-ut>${seconds}</b><span>seconds</span></div><div><span>all time: ${L.right} of ${L.total}</span></div></div>
+      <div class="fg-card"><div class="src">${esc(ctx.courseName(it.course))} \u00b7 which expression can be right? Decide by the units alone.</div><h3>${M(it.q)} <span class="ud-unit">${M(`$[\\mathrm{${it.unit}}]$`)}</span></h3>
+      <div class="ud-opts">${perm.map((k) => `<button class="opt ud-opt" data-uk="${k}">${M(`$${it.options[k]}$`)}</button>`).join('')}</div><div data-uwhy></div></div>`;
+    const done = (k) => { if (answered) return; answered = true; clearInterval(timer); const ok = k === it.correct, L2 = log(); streak = ok ? streak + 1 : 0; if (ok) { right++; store.addXp(2); }
+      store.setVal('unitsLog', { right: L2.right + (ok ? 1 : 0), total: L2.total + 1, best: Math.max(L2.best, streak) });
+      host.querySelectorAll('[data-uk]').forEach((b) => { b.disabled = true; if (+b.dataset.uk === it.correct) b.classList.add('right'); else if (+b.dataset.uk === k) b.classList.add('wrong'); });
+      host.querySelector('[data-uwhy]').innerHTML = `<p class="msg ${ok ? 'good' : 'bad'}">${ok ? 'Right.' : k === -1 ? 'Time is up.' : 'Not this one.'} ${M(it.why)}</p><button class="go" data-unext>Next</button>`;
+      host.querySelector('[data-unext]').onclick = () => { i++; show(); }; ctx.onChange?.(); };
+    host.querySelectorAll('[data-uk]').forEach((b) => (b.onclick = () => done(+b.dataset.uk)));
+    const ut = host.querySelector('[data-ut]'); timer = setInterval(() => { if (!ut.isConnected) { clearInterval(timer); return; } const left = Math.max(0, seconds - Math.floor((Date.now() - t0) / 1000)); ut.textContent = left; if (!left) done(-1); }, 500);
+  }
+  show();
+}

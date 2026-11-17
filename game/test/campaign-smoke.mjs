@@ -23,6 +23,13 @@ ck('three course tracks with 14 tiles', await p.evaluate(() => document.querySel
 const stops = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop));
 ck('today has a run with 2+ stops', stops.length >= 2, stops.length);
 ck('top bar shows the run', /0\/\d/.test(await p.textContent('#btn-run')), await p.textContent('#btn-run'));
+{ // opening a run stop puts it in the run queue; "Next" (bar and after finishing) then follows the run, not the room order
+  const encStops = await p.evaluate(() => { const ids = new Set(window.__game.catalog().flatMap((c) => c.rooms.flatMap((r) => r.encounters.map((e) => e.id)))); return [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop).filter((id) => ids.has(id)); });
+  const first = await p.$(`.cp-node[data-stop="${encStops[0]}"]`); if (first) await first.click(); await p.waitForTimeout(2000);
+  const bar = await p.evaluate(() => document.querySelector('#panel .pilebar')?.textContent || '');
+  ck('a run stop opens inside the run queue', /run 1 \/ /.test(bar), bar.slice(0, 120));
+  await p.evaluate(() => window.__game.close()); await p.keyboard.press('KeyC'); await p.waitForTimeout(300);
+}
 await p.click('[data-week="solid-state/5"]'); await p.waitForTimeout(150);
 ck('a week unfolds with its theory and its sheet', await p.evaluate(() => /Week 5/.test(document.querySelector('.cp-week')?.innerText || '') && document.querySelectorAll('.cp-week [data-wopen]').length >= 4));
 const before = await p.evaluate(() => document.getElementById('btn-campaign').textContent);

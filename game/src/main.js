@@ -1273,10 +1273,14 @@ function openEncounter(enc, fromGroup) {
   const grp = enc.synthetic ? null : fromGroup || groups.find((g) => g.items.includes(enc));
   current = { enc, group: grp }; player.unlock();
   const idx = room.encounters.indexOf(enc);
-  const nextEnc = idx < 0 ? null : room.encounters.slice(idx + 1).find((e) => !isLocked(e));
+  const roomNext = idx < 0 ? null : room.encounters.slice(idx + 1).find((e) => !isLocked(e));
+  // inside a queue (today's run, a quick session, the pile) "Next" follows the queue, not the room order
+  const qi = pileQueue.indexOf(enc.id), inRun = qi >= 0 && queueLabel === 'Today\u2019s run' && campaign;
+  const queueNext = qi >= 0 && !inRun ? pileQueue[qi + 1] : null;
+  const next = inRun ? () => { closePanel(true); campaign.startRun(enc.id); } : queueNext ? () => openFromPile(queueNext, true) : roomNext ? () => openEncounter(roomNext) : null;
   const env = {
-    hasNext: !!nextEnc,
-    next: () => openEncounter(nextEnc),
+    hasNext: !!next,
+    next: () => next && next(),
     onChange: refresh,
     flash: (ok) => (ok ? world.successEffect() : world.failEffect()),
     preview: (variant) => {

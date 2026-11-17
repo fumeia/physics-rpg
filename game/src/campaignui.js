@@ -99,13 +99,15 @@ export function createCampaign(ctx) {
     return hit ? (hit.ok ? 'done' : 'failed') : 'open';
   }
   const runInfo = () => { const r = run(), st = r.stops.map((s) => stopState(r, s)); return { r, st, done: st.filter((x) => x !== 'open').length, total: r.stops.length, complete: r.stops.length > 0 && st.every((x) => x !== 'open') }; };
-  function startRun() {
+  function startRun(skipId) {
     if (!isSetup()) { ctx.openCampaign(); return; }
     const { r, st, complete } = runInfo();
     if (!r.stops.length) { ctx.toast('Nothing open for today: every week is done and no respawn is due. Try the exam hall.'); return; }
     if (complete) { ctx.openCampaign(); return; }
     if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); }
-    const nx = r.stops[st.indexOf('open')]; if (nx.action) { doAction(nx); return; }
+    // skipId: the stop on screen when "Next" was pressed without finishing it: go on to the next open stop after it
+    let i = st.indexOf('open'); if (skipId && r.stops[i]?.id === skipId) { const j = st.findIndex((x, k) => k > i && x === 'open'); if (j >= 0) i = j; }
+    const nx = r.stops[i]; if (nx.action) { doAction(nx); return; }
     ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), `Today\u2019s run`, nx.id);
   }
   function doAction(s) { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); } r.acted = { ...(r.acted || {}), [s.id]: Date.now() }; store.setVal('run', r); ctx.openTab(s.action, s.arg); ctx.toast(`${KIND[s.kind]}: ${s.why}. Press G to go on with the run.`); onProgress(); ctx.onChange(); }

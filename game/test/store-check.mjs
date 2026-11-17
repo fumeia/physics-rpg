@@ -52,4 +52,7 @@ store.reset(); store.addActive(30, { course: 'qm', kind: 'derivation' }); store.
 { const d = localDate(Date.now()), by = store.snapshot.flags.activeBy[d];
   ck('tagged time adds up per course and kind', by['qm|derivation'] === 50 && by['mixed|drills'] === 15);
   ck('the day total still counts everything', store.activeSecondsOn(d) === 75); }
+{ const log = store.snapshot.flags.activeLog || [];
+  ck('the stretches say when it happened (same course and kind in a row = one stretch)', log.length === 2 && log[0].c === 'qm' && log[0].k === 'derivation'
+     && log[0].e - log[0].s >= 29000 && log[1].c === 'mixed' && log[1].k === 'drills'); }
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED'); process.exit(fails ? 1 : 0);

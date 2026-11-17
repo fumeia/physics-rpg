@@ -21,7 +21,8 @@ course, so XP without a course (missions bonus, drills, streak bonus, minus hint
 exercise in the list goes to the course you were in last. XP from before the per-day log ("earlier") is split by finished exercises per course.
 The sum of everything sent always equals the game's XP total.
 
-Study time: sessions `rpgtime.<course>.<day>.<kind>` on the course quest (quest time, goal time, time per topic), with the kind of
+Study time: sessions `rpgtime.<course>.<day>.<kind>.<start s>` at their real time (`exact`, drawn as calendar blocks) where the game recorded
+when it happened (flags.activeLog), else one `rpgtime.<course>.<day>.<kind>` per day, on the course quest (quest time, goal time, time per topic), with the kind of
 work the game recorded (derivations, quizzes, sheets, exam hall, drills, missions, ...; "other" for time from before it recorded kinds).
 Records (Questboard's docs/DATA_MODEL.md): quests `rpg.<course>`, ledger `rpg.<course>.<YYYY-MM-DD>` and `rpg.<course>.earlier`, kind "rpg".
 Each quest also carries `progress` {done, total, text}: exercises passed of all in that course, rooms cleared, daily missions. Questboard
@@ -165,7 +166,23 @@ KIND_LABEL = {'sheet': 'exercise sheets', 'lesson': 'lessons', 'quiz': 'quizzes'
               'mixed-practice': 'mixed practice', 'explain-it': 'explain it', 'calibration': 'calibration', 'other': 'not sorted'}
 
 
-def study_seconds(state, index, tz, today):
+def study_stretches(state, index, tz, today):
+    """[(course, day, kind, start ms, end ms)]: when the time happened (flags.activeLog, recorded by the game since it knows it).
+    A stretch without a course (practice tabs, missions) goes to the course the day's exercises were mostly in."""
+    weights = day_weights(state, index, tz)
+    out = []
+    for x in (state.get('flags') or {}).get('activeLog') or []:
+        s, e = int(x.get('s') or 0), int(x.get('e') or 0)
+        d = day_of(s, tz) if s else ''
+        if e - s < 1000 or not d or d > today: continue
+        c = x.get('c')
+        if c not in COURSES:
+            w = weights(d); c = max(w, key=lambda k: (w[k], -COURSES.index(k)))
+        out.append((c, d, x.get('k') or 'other', s, e))
+    return out
+
+
+def study_seconds(state, index, tz, today, exact_days=None):
     """{(course, day, kind): seconds} of active study time (the game's own measure: an exercise open and in use).
     Each day's total comes from flags.active (flags.study for days before the game measured active time, like the game's own
     history). The part with a recorded course and kind (flags.activeBy) goes there; time without a course (practice tabs, missions)
@@ -182,6 +199,9 @@ def study_seconds(state, index, tz, today):
     for d, total in days.items():
         total = int(total or 0)
         if d > today or total <= 0: continue
+        if exact_days and d in exact_days:  # this day's time is in its stretches; only what they miss (a minute or more) stays here
+            for cc, v in (split(total - exact_days[d], weights(d)).items() if total - exact_days[d] >= 60 else []): add(cc, d, 'other', v)
+            continue
         rest = total
         for key, sec in ((flags.get('activeBy') or {}).get(d) or {}).items():
             c, _, kind = key.partition('|'); sec = min(int(sec or 0), rest)
@@ -309,22 +329,30 @@ def run(args):
     if tsent is None and not args.dry_run:  # first run or lost memory: learn what Questboard has
         tsent = {s['id']: s.get('durationMs', 0) for s in qb.state('sessions') if str(s.get('id', '')).startswith('rpgtime.') and not s.get('deleted')}
     tsent = dict(tsent or {})
-    twant = {f'rpgtime.{c}.{d}.{k}': v * 1000 for (c, d, k), v in study_seconds(state, index, tz, today).items()}
+    # days the game recorded stretches for: one session per stretch, at its real time (the calendars draw them as blocks)
+    stretches = study_stretches(state, index, tz, today)
+    exact_days, exact = {}, {}
+    for c, d, k, s, e in stretches:
+        exact_days[d] = exact_days.get(d, 0) + (e - s) // 1000
+        exact[f'rpgtime.{c}.{d}.{k}.{s // 1000}'] = (s, e)
+    twant = {f'rpgtime.{c}.{d}.{k}': v * 1000 for (c, d, k), v in study_seconds(state, index, tz, today, exact_days).items()}
+    twant.update({key: e - s for key, (s, e) in exact.items()})
     for k in list(twant):  # older days already sent stay as they were (the game keeps 90 days)
         if k.split('.')[2] < since and k in tsent: twant[k] = tsent[k]
     for k in tsent:  # a recent split that changed: what is no longer there becomes 0
         if k not in twant and k.split('.')[2] >= since: twant[k] = 0
     for k, ms in sorted(twant.items()):
         if (k in tsent and tsent[k] == ms) or (ms == 0 and k not in tsent): continue
-        _, cid, d, kind = k.split('.')
-        start = noon_ms(d, tz)
-        changes.append({'c': 'sessions', 'r': {'id': k, 'updatedAt': now, 'questId': f'rpg.{cid}', 'kind': 'rpg', 'cat': kind,
-                                               'label': KIND_LABEL.get(kind, kind), 'topic': top[cid], 'date': d,
-                                               'start': start, 'end': start + ms, 'durationMs': ms}})
+        _, cid, d, kind = k.split('.')[:4]
+        start, end = exact.get(k, (noon_ms(d, tz), noon_ms(d, tz) + ms))
+        rec = {'id': k, 'updatedAt': now, 'questId': f'rpg.{cid}', 'kind': 'rpg', 'cat': kind, 'label': KIND_LABEL.get(kind, kind),
+               'topic': top[cid], 'date': d, 'start': start, 'end': end, 'durationMs': ms}
+        if k in exact: rec['exact'] = True  # real start and end: drawn as a block in the calendars
+        changes.append({'c': 'sessions', 'r': rec})
     tall = {**tsent, **twant}
     time_by = {c: {} for c in COURSES}
     for k, ms in tall.items():
-        _, cid, d, kind = k.split('.')
+        _, cid, d, kind = k.split('.')[:4]
         if cid in time_by and ms: time_by[cid][kind] = time_by[cid].get(kind, 0) + ms
 
     totals = {c: sum(v for k, v in {**sent, **want}.items() if k.startswith(f'rpg.{c}.')) for c in COURSES}

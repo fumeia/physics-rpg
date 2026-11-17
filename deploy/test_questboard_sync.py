@@ -150,6 +150,17 @@ run(now=NOW + 500000)
 check({s['id']: s['updatedAt'] for s in qb.state('sessions') if s['id'].startswith('rpgtime.')} == before, 'unchanged time is not sent again')
 state['flags']['activeBy']['2026-11-04']['qm|derivation'] = 2000; state['flags']['active']['2026-11-04'] = 2600; save(); run(now=NOW + 600000)
 check({s['id']: s for s in qb.state('sessions')}['rpgtime.qm.2026-11-04.derivation']['durationMs'] == 2000000, 'more time updates the same record')
+total_before = sum(s['durationMs'] for s in qb.state('sessions') if s['id'].startswith('rpgtime.'))
+# the game now also knows WHEN: stretches replace that day's per-kind totals, at their real times
+t14 = at('2026-11-04', 14); t15 = at('2026-11-04', 15)
+state['flags']['activeLog'] = [{'s': t14, 'e': t14 + 2000000, 'c': 'qm', 'k': 'derivation'}, {'s': t15, 'e': t15 + 360000, 'c': 'mixed', 'k': 'drills'}]
+save(); run(now=NOW + 700000)
+S = {s['id']: s for s in qb.state('sessions') if s['id'].startswith('rpgtime.')}
+blk = S.get(f'rpgtime.qm.2026-11-04.derivation.{t14 // 1000}')
+check(blk is not None and blk['start'] == t14 and blk['end'] == t14 + 2000000 and blk.get('exact') is True, 'a stretch arrives at its real start and end (a calendar block)')
+check(S['rpgtime.qm.2026-11-04.derivation']['durationMs'] == 0, 'the day\'s old per-kind total for that day is replaced, not counted twice')
+check(sum(s['durationMs'] for s in S.values()) == total_before, f'the time in total stays the same ({total_before // 60000} min)')
+check(S[f'rpgtime.astrophysics.2026-11-04.drills.{t15 // 1000}']['durationMs'] == 360000, 'a stretch without a course goes to the day\'s main course')
 # the user unlinks the QM quest from its goal: it stays unlinked
 qb.push([{'c': 'quests', 'r': dict(quests()['rpg.qm'], goalId=None, updatedAt=quests()['rpg.qm']['updatedAt'] + 1)}])
 # new XP today in solid state

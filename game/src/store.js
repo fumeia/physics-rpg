@@ -52,7 +52,17 @@ export const store = {
       d[k] = (d[k] || 0) + sec; by[day] = d;
       for (const k2 of Object.keys(by).sort().slice(0, -90)) delete by[k2];
     }
-    state.flags = { ...f, active: act, ...(by ? { activeBy: by } : {}), 'active-since': f['active-since'] || day }; save();
+    // when it happened: stretches {s, e (ms), c (course), k (kind)}; a stretch that goes on with the same course and kind within 2 minutes
+    // is extended, so one sitting is one entry. Questboard draws them as blocks in its calendar. Kept 90 days, at most 3000 stretches.
+    let log = f.activeLog;
+    if (tag) {
+      const now = Date.now(), s = now - sec * 1000, c = tag.course || 'mixed', k = tag.kind || 'other';
+      log = [...(log || [])]; const last = log[log.length - 1];
+      if (last && last.c === c && last.k === k && s - last.e <= 120000 && localDate(last.s) === localDate(now)) log[log.length - 1] = { ...last, e: now };
+      else log.push({ s, e: now, c, k });
+      const cut = now - 90 * 86400000; log = log.filter((x) => x.e >= cut).slice(-3000);
+    }
+    state.flags = { ...f, active: act, ...(by ? { activeBy: by } : {}), ...(log ? { activeLog: log } : {}), 'active-since': f['active-since'] || day }; save();
   },
   activeSecondsOn(date) { const f = state.flags || {}, since = f['active-since']; return since && date >= since ? (f.active || {})[date] || 0 : (f.study || {})[date] || 0; },
   activeTotal() { const f = state.flags || {}, since = f['active-since']; return Object.entries(f.study || {}).filter(([d]) => !since || d < since).reduce((a, [, v]) => a + v, 0) + Object.values(f.active || {}).reduce((a, b) => a + b, 0); },

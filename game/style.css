@@ -499,3 +499,8 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 /* derivations: the exam's own wording in "As asked in the exam" */
 .dv-exam{border-left:3px solid #e0b050;background:rgba(224,176,80,.08);padding:.4em .8em;margin:.5em 0;border-radius:4px;font-size:.95em}
 .dv-exam p{margin:.35em 0}
+/* campaign: finished runs of today, above a newly planned run */
+.cp-earlier{margin:.4em 0 .8em;padding:.4em .7em;border-radius:6px;background:rgba(120,200,140,.08);border-left:3px solid #6fcf8f}
+.cp-earlier h4{margin:.1em 0 .3em;font-size:.9em}.cp-erow{margin:.25em 0;font-size:.88em}
+.cp-echips{display:flex;flex-wrap:wrap;gap:.25em;margin-top:.2em}.cp-echip{font-size:.85em;padding:.05em .45em;border-radius:10px;background:rgba(255,255,255,.07)}
+.cp-echip.done{color:#8fe0a6}.cp-echip.failed{color:#ff9a9a}

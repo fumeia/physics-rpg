@@ -267,7 +267,11 @@ def campaign_stat(P):
 def campaign_message(P, slot, cs, base, cfg):
     """Messages for the campaign: today's run, the weekly boss, the ghost (lecture pace), what is fading, the run streak and chest."""
     rnd = random.Random(f'{P.today}:{slot}:c'); pick = lambda xs: xs[rnd.randrange(len(xs))]
-    fresh = cs['age'] == 0; run = cs.get('run') or {}; done_run = fresh and run.get('complete')
+    fresh = cs['age'] == 0; run = cs.get('run') or {}
+    # a run finished earlier today counts even when another run was planned afterwards (stat().today, game >= 2026-11-17)
+    day = cs.get('today') or {}; runs_done = day.get('runsDone', 1 if run.get('complete') else 0) if fresh else 0
+    done_run = fresh and (run.get('complete') or runs_done > 0)
+    bonus_open = fresh and runs_done > 0 and not run.get('complete') and run.get('stops', 0) > run.get('done', 0)
     behind = cs.get('behind') or {}; worst = max(behind.items(), key=lambda kv: kv[1]) if behind else None
     boss = cs.get('boss'); bdays = None
     if boss and boss.get('hp'):
@@ -276,6 +280,8 @@ def campaign_message(P, slot, cs, base, cfg):
     plan = P.exam_plan(); lines, tags, prio = [], [], 3
     run_line = (f"{run['stops'] - run.get('done', 0)} stops left, about {max(5, run.get('min', 20))} min." if fresh and run.get('stops') and not done_run
                 else 'A new run is ready: a warm-up, then the next theory card and its exercise.')
+    if bonus_open: run_line = f"Today's run is done ({plural(runs_done, 'run')}). Bonus run #{run.get('n', 2)}: {run['stops'] - run.get('done', 0)} stops left, about {max(5, run.get('min', 20))} min."
+
     def boss_line():
         if bdays is None or bdays < 0 or bdays > 3: return None
         when = 'arrives today' if bdays == 0 else 'arrives tomorrow' if bdays == 1 else f'arrives in {bdays} days'

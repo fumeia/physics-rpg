@@ -115,11 +115,17 @@ export function createCampaign(ctx) {
   // its start, and only the open stops are replaced.
   function replan(minutes = runMinutes()) {
     const old = store.val('run', null), fresh = freshRun(minutes);
-    if (!old || old.date !== todayStr() || !old.startedAt || old.summarized) { store.setVal('run', fresh); return; }
+    if (!old || old.date !== todayStr() || !old.startedAt || old.summarized) { archive(old); store.setVal('run', fresh); return; }
     const kept = old.stops.filter((s) => stopState(old, s) !== 'open'), ids = new Set(kept.map((s) => s.id));
     store.setVal('run', { ...old, minutes, stops: [...kept, ...fresh.stops.filter((s) => !ids.has(s.id))], est: kept.reduce((a, s) => a + s.min, 0) + fresh.stops.filter((s) => !ids.has(s.id)).reduce((a, s) => a + s.min, 0) });
   }
-  function newRun(minutes) { store.setVal('runMinutes', minutes); const r = freshRun(minutes); store.setVal('run', r); }
+  // Finished runs of today stay visible (flag runsPrev) when another run is planned, and the newest can be restored (undo)
+  // as long as the new run has no finished stop. The notifier counts all of them (stat().today).
+  const prevRuns = () => { const p = store.val('runsPrev', null); return p?.date === todayStr() ? p.runs || [] : []; };
+  function archive(old) { if (old && old.date === todayStr() && old.summarized) store.setVal('runsPrev', { date: todayStr(), runs: [...prevRuns().filter((x) => x.n !== old.n), old] }); }
+  function newRun(minutes) { store.setVal('runMinutes', minutes); const old = store.val('run', null), r = freshRun(minutes); archive(old); store.setVal('run', r); }
+  function canUndo() { const pr = prevRuns(); if (!pr.length) return false; const { r, st } = runInfo(); return !r.summarized && st.every((x) => x === 'open'); }
+  function undoNewRun() { if (!canUndo()) return false; const pr = prevRuns(), last = pr[pr.length - 1]; store.setVal('runsPrev', { date: todayStr(), runs: pr.slice(0, -1) }); store.setVal('run', last); return true; }
   // called after every finished exercise: when the last stop of the run is finished, log it and show the summary once
   function onProgress() {
     settleDungeon();
@@ -130,7 +136,7 @@ export function createCampaign(ctx) {
     // resonance: two stops of this run sit in rooms that a cross-course connection links
     const roomsDone = new Set(r.stops.filter((s, i) => !s.action && st[i] === 'done').map((s) => { const ref = ctx.encIndex.get(s.id); return ref ? `${ref.course}/${ref.roomId}` : ''; }));
     const res = ctx.links().find((l) => roomsDone.has(l.a) && roomsDone.has(l.b)); if (res) { r.resonance = { title: res.title, a: res.a, b: res.b }; store.addXp(15); }
-    r.summarized = true; r.xp1 = store.xp; r.behind1 = behindTotal(); r.finishedAt = Date.now(); store.setVal('run', r);
+    r.final = st; r.summarized = true; r.xp1 = store.xp; r.behind1 = behindTotal(); r.finishedAt = Date.now(); store.setVal('run', r);
     const log = (store.val('runLog', []) || []).filter((x) => !(x.date === r.date && x.n === r.n)); log.push({ date: r.date, n: r.n, stops: r.stops.length, ok: st.filter((x) => x === 'done').length, xp: r.xp1 - r.xp0, gain: +(r.behind0 - r.behind1).toFixed(2) }); store.setVal('runLog', log.slice(-120));
     return true;
   }
@@ -225,8 +231,14 @@ export function createCampaign(ctx) {
     return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${r.est} min · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
       <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === mins ? ' cur' : ''}" data-len="${m}" title="Plan a ${m}-minute run">${l} ${m}′</button>`).join('')}</div></div>
       ${weekHtmlRow()}
+      ${earlierHtml()}
       ${total ? `<div class="cp-path">${nodes}</div>` : '<p>Every week is done and no respawn is due. Use the exam hall for a timed mock exam.</p>'}${sum}
-      <div class="row">${total && !complete ? `<button class="go cp-go" id="cp-start">${r.startedAt ? 'Continue the run' : 'Start the run'} ▶</button>` : ''}${complete ? '<button class="go cp-go" id="cp-again">Plan another run</button>' : ''}</div></div>`;
+      <div class="row">${total && !complete ? `<button class="go cp-go" id="cp-start">${r.startedAt ? 'Continue the run' : 'Start the run'} ▶</button>` : ''}${complete ? '<button class="go cp-go" id="cp-again">Plan another run</button>' : ''}${canUndo() ? `<button class="chip btn" id="cp-undo" title="Throw this new run away and show the finished run #${prevRuns().slice(-1)[0].n} again">\u21b6 Undo: back to run #${prevRuns().slice(-1)[0].n}</button>` : ''}</div></div>`;
+  }
+  function earlierHtml() {
+    const pr = prevRuns(); if (!pr.length) return '';
+    return `<div class="cp-earlier"><h4>Earlier runs today</h4>${pr.map((x) => { const fs = x.final || x.stops.map((s) => stopState(x, s)), ok = fs.filter((v) => v === 'done').length;
+      return `<div class="cp-erow"><b>Run #${x.n}</b> <span class="src">${ok} of ${x.stops.length} passed${typeof x.xp1 === 'number' ? `, ${x.xp1 - x.xp0 >= 0 ? '+' : '\u2212'}${Math.abs(x.xp1 - x.xp0)} XP` : ''}</span><span class="cp-echips">${x.stops.map((s, i) => `<span class="cp-echip ${fs[i]}" title="${esc(s.action ? KIND[s.kind] || s.kind : title(s.id))}">${fs[i] === 'done' ? '\u2713' : fs[i] === 'failed' ? '\u2717' : '\u00b7'} ${esc((s.action ? KIND[s.kind] || s.kind : title(s.id)).replace(/\$[^$]*\$/g, '\u2026').slice(0, 28))}</span>`).join('')}</span></div>`; }).join('')}</div>`;
   }
   function trackHtml(cid) {
     const ws = W()[cid], kn = known()[cid], p = pos(cid), t = taught(), lw = lectureWeek(cfg);
@@ -264,6 +276,7 @@ export function createCampaign(ctx) {
     const ch = host.querySelector('#cp-chest'); if (ch) ch.onclick = () => { const xp = claimChest(); if (xp) ctx.toast(`Weekly chest: +${xp} XP`); re(); };
     const st = host.querySelector('#cp-start'); if (st) st.onclick = () => startRun();
     const ag = host.querySelector('#cp-again'); if (ag) ag.onclick = () => { newRun(runMinutes()); re(); };
+    const un = host.querySelector('#cp-undo'); if (un) un.onclick = () => { if (undoNewRun()) { ctx.toast('Back to your finished run.'); ctx.onChange(); } re(); };
     host.querySelectorAll('[data-reso]').forEach((b) => (b.onclick = () => ctx.openConnection(b.dataset.reso)));
     host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); const as = r.stops.find((s) => s.id === b.dataset.stop && s.action); if (as) { doAction(as); return; } if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), 'Today\u2019s run', b.dataset.stop); }));
     host.querySelectorAll('[data-alt]').forEach((b) => (b.onclick = () => { const r = run(), i = +b.dataset.alt, s = r.stops[i], a = s.alt; r.stops[i] = a.back ? { ...a.orig } : { ...s, id: a.id, kind: a.kind, min: a.min, bonus: a.bonus, risk: true, alt: { id: s.id, back: true, orig: { ...s } }, why: 'You took the risk: a harder problem from the same room, for bonus XP' }; r.est = r.stops.reduce((x, y) => x + y.min, 0); store.setVal('run', r); re(); }));
@@ -311,7 +324,8 @@ export function createCampaign(ctx) {
     const { r, st, done, total, complete } = runInfo(), b = bosses()[0], w = weekInfo();
     const per = Object.fromEntries(courses().map((c) => [c, pos(c).behind]));
     return { setup: true, date: todayStr(), behind: per, total: behindTotal(), fading: fadingOnly().length,
-      run: { stops: total, done, min: r.stops.filter((s, i) => st[i] === 'open').reduce((a, s) => a + s.min, 0), complete, started: !!r.startedAt },
+      run: { stops: total, done, min: r.stops.filter((s, i) => st[i] === 'open').reduce((a, s) => a + s.min, 0), complete, started: !!r.startedAt, n: r.n || 1 },
+      today: (() => { const pr = prevRuns(); return { runsDone: pr.length + (complete ? 1 : 0), stopsDone: pr.reduce((a, x) => a + (x.final || []).filter((v) => v !== 'open').length, 0) + done }; })(),
       runDays: w.n, runStreak: runStreak(), chestAt: w.next ? w.next[0] : null,
       boss: b ? { course: b.cid, n: b.sh.n, due: todayStr(b.due), hp: b.hp, armour: b.armour, reward: b.reward } : null,
       grades: Object.fromEntries(grades().map((g) => [g.cid, g.grade])), examDays: Object.fromEntries(courses().map((c) => [c, daysToExam(new Date(), c)])) };

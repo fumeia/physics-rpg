@@ -18,6 +18,7 @@
   "extras": [
     "choudhuri-exercises.json",
     "phet-sims.json",
-    "gaps.json"
+    "gaps.json",
+    "reading.json"
   ]
 }

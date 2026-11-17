@@ -1,0 +1,1781 @@
+{
+ "about": "Guided reading of Choudhuri for Astro I; built by notes/astrophysics/build/reading/build.py",
+ "items": [
+  {
+   "room": "photometry-radiation",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 1,
+    "id": "astro-read-01a",
+    "title": "Read 1.1–1.4: scales, coordinates and magnitudes",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "1–11",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "1.1–1.4, pp. 1–11"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Which units make astronomical numbers manageable, and how big is each?</li><li>Why is the magnitude scale logarithmic and &#8220;backwards&#8221;?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 1.1–1.4, pp. 1–11.</b> Look for: AU, parsec, light year, solar mass and luminosity; equatorial coordinates; apparent and absolute magnitude, the distance modulus."
+     },
+     {
+      "kind": "think",
+      "html": "Define the parsec from parallax.<details><summary>Show the answer</summary>The distance at which 1 AU subtends 1 arcsec: $d[\\mathrm{pc}]=1/p[^{\\prime\\prime}]$, $1\\,\\mathrm{pc}=206265\\,\\mathrm{AU}=3.09\\times10^{16}$ m.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Two stars differ by 5 magnitudes. Flux ratio? And the distance modulus?<details><summary>Show the answer</summary>$m_1-m_2=-2.5\\log_{10}(F_1/F_2)$: 5 mag = factor 100. $m-M=5\\log_{10}(d/10\\,\\mathrm{pc})$ (without extinction).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "A star at 100 pc has $m-M=$",
+      "options": [
+       "$5$",
+       "$10$",
+       "$2$",
+       "$0$"
+      ],
+      "correct": 0,
+      "explain": "$5\\log_{10}(10)$."
+     },
+     {
+      "q": "A brighter star has a",
+      "options": [
+       "smaller magnitude",
+       "larger magnitude",
+       "magnitude independent of brightness",
+       "negative distance"
+      ],
+      "correct": 0,
+      "explain": "Inverted logarithmic scale."
+     }
+    ]
+   }
+  },
+  {
+   "room": "photometry-radiation",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 1,
+    "id": "astro-read-01b",
+    "title": "Read 1.5–1.8: physics in astronomy; observing bands",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "11–22",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "1.5–1.8, pp. 11–22"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What limits the sharpness of a telescope image?</li><li>Which wavelengths reach the ground, and why do we need space telescopes?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 1.5–1.8, pp. 11–22.</b> Look for: the diffraction limit $\\theta\\approx1.22\\lambda/D$, seeing, atmospheric windows (optical and radio), X-ray and gamma-ray astronomy from space, new messengers."
+     },
+     {
+      "kind": "think",
+      "html": "Resolution of a 10 m telescope at 500 nm vs the human eye (pupil 5 mm)?<details><summary>Show the answer</summary>$1.22\\lambda/D=6\\times10^{-8}$ rad $=0.013^{\\prime\\prime}$ for 10 m (in practice seeing $\\sim1^{\\prime\\prime}$ unless adaptive optics); eye $\\approx1.2\\times10^{-4}$ rad $\\approx25^{\\prime\\prime}$ (HS25 winter Q1).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why do radio interferometers reach better resolution than optical telescopes?<details><summary>Show the answer</summary>Resolution $\\sim\\lambda/B$ with the baseline $B$: intercontinental baselines (thousands of km) beat the long wavelength.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Angular resolution scales as",
+      "options": [
+       "$\\lambda/D$",
+       "$D/\\lambda$",
+       "$\\lambda D$",
+       "$1/\\lambda$"
+      ],
+      "correct": 0,
+      "explain": "Diffraction."
+     },
+     {
+      "q": "X-ray astronomy needs",
+      "options": [
+       "satellites (the atmosphere absorbs X-rays)",
+       "large ground dishes",
+       "only dark nights",
+       "radio receivers"
+      ],
+      "correct": 0,
+      "explain": "Atmospheric windows."
+     }
+    ]
+   }
+  },
+  {
+   "room": "radiative-transfer",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 2,
+    "id": "astro-read-02a",
+    "title": "Read 2.1–2.2: radiation field and the transfer equation",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "23–31",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "2.1–2.2, pp. 23–31"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What is the difference between specific intensity and flux?</li><li>Why is $I_\\nu$ constant along a ray in empty space?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 2.1–2.2, pp. 23–31.</b> Look for: $I_\\nu$ and its units, flux and energy density as moments of $I_\\nu$, radiation pressure, $dI_\\nu/ds=j_\\nu-\\alpha_\\nu I_\\nu$, optical depth $\\tau_\\nu$, source function $S_\\nu=j_\\nu/\\alpha_\\nu$, the formal solution, Kirchhoff&#8217;s law."
+     },
+     {
+      "kind": "think",
+      "html": "Write the formal solution for a slab with constant $S_\\nu$.<details><summary>Show the answer</summary>$I_\\nu(\\tau)=I_\\nu(0)e^{-\\tau}+S_\\nu(1-e^{-\\tau})$. Optically thick: $I\\to S$; thin: $I\\approx I(0)+S\\tau$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is $I_\\nu$ independent of distance while the flux falls as $1/r^2$?<details><summary>Show the answer</summary>$I_\\nu$ is energy per area, time, frequency and solid angle; the source&#8217;s solid angle shrinks as $1/r^2$ exactly as the received flux. Surface brightness is conserved.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Units of $I_\\nu$",
+      "options": [
+       "W m$^{-2}$ Hz$^{-1}$ sr$^{-1}$",
+       "W m$^{-2}$",
+       "W",
+       "W m$^{-2}$ Hz$^{-1}$"
+      ],
+      "correct": 0,
+      "explain": "MC favourite in every exam."
+     },
+     {
+      "q": "Kirchhoff&#8217;s law in thermal equilibrium",
+      "options": [
+       "$j_\\nu/\\alpha_\\nu=B_\\nu(T)$",
+       "$j_\\nu=\\alpha_\\nu$",
+       "$S_\\nu=0$",
+       "$I_\\nu=0$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 2.2.4."
+     }
+    ]
+   }
+  },
+  {
+   "room": "radiative-transfer",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 2,
+    "id": "astro-read-02b",
+    "title": "Read 2.3: thermodynamic equilibrium and LTE",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "31–35",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "2.3, pp. 31–35"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Which laws follow from the Planck function?</li><li>Why can a star be treated as in local thermodynamic equilibrium although it radiates?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 2.3, pp. 31–35.</b> Look for: $B_\\nu(T)$, Wien&#8217;s displacement law, Stefan-Boltzmann, the Rayleigh-Jeans limit, the conditions for LTE (mean free path vs temperature scale height)."
+     },
+     {
+      "kind": "think",
+      "html": "Derive the Rayleigh-Jeans limit and say when it applies.<details><summary>Show the answer</summary>$h\\nu\\ll k_BT$: $e^{h\\nu/k_BT}-1\\approx h\\nu/k_BT$, $B_\\nu\\approx\\frac{2\\nu^2k_BT}{c^2}$. Radio astronomy and the CMB at low frequency (HS24 summer, HS25 winter).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Wien: peak of the Sun ($T\\approx5800$ K) in wavelength?<details><summary>Show the answer</summary>$\\lambda_{\\max}T=2.9\\times10^{-3}$ m K: $\\lambda\\approx500$ nm.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Total flux from a blackbody surface",
+      "options": [
+       "$\\sigma T^4$",
+       "$\\sigma T^2$",
+       "$k_BT$",
+       "$B_\\nu$"
+      ],
+      "correct": 0,
+      "explain": "Stefan-Boltzmann."
+     },
+     {
+      "q": "LTE means",
+      "options": [
+       "local $T$ defines $S_\\nu=B_\\nu(T)$ although the radiation field is not isotropic",
+       "no radiation leaves the star",
+       "the star is isothermal",
+       "no absorption"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 2.3.2."
+     }
+    ]
+   }
+  },
+  {
+   "room": "radiative-transfer",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 3,
+    "id": "astro-read-03a",
+    "title": "Read 2.4: stellar atmospheres and spectral lines",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "35–46",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "2.4, pp. 35–46"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does the photosphere sit at $\\tau\\approx2/3$?</li><li>Why do absorption lines form?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 2.4, pp. 35–46.</b> Look for: plane-parallel atmosphere, the grey atmosphere and Eddington approximation $T^4=\\frac34T_{\\rm eff}^4(\\tau+\\frac23)$, limb darkening, line formation from $S_\\nu$ decreasing outward."
+     },
+     {
+      "kind": "think",
+      "html": "Why do absorption lines appear dark?<details><summary>Show the answer</summary>At line frequencies the opacity is high, so we see shallower, cooler layers: lower $S_\\nu=B_\\nu(T)$ there than in the continuum.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Limb darkening in the grey Eddington model?<details><summary>Show the answer</summary>$I(\\mu)/I(1)=(3\\mu+2)/5$, so $0.4$ at the limb.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "In the grey atmosphere $T=T_{\\rm eff}$ at",
+      "options": [
+       "$\\tau=\\frac23$",
+       "$\\tau=0$",
+       "$\\tau=1$",
+       "$\\tau=\\infty$"
+      ],
+      "correct": 0,
+      "explain": "Eddington approximation."
+     },
+     {
+      "q": "Absorption lines form because",
+      "options": [
+       "temperature decreases outward",
+       "temperature increases outward",
+       "of interstellar dust",
+       "of the Doppler effect alone"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 2.4.3."
+     }
+    ]
+   }
+  },
+  {
+   "room": "radiative-transfer",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 3,
+    "id": "astro-read-03b",
+    "title": "Read 2.5–2.8: radiative transport inside stars; opacity; photon diffusion",
+    "minutes": 40,
+    "xp": 15,
+    "pages": "46–60",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "2.5–2.8, pp. 46–60"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How long does a photon need to get out of the Sun?</li><li>Which processes make stellar matter opaque?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 2.5–2.8, pp. 46–60.</b> Look for: the diffusion approximation and Rosseland mean, $F\\propto-\\frac{1}{\\kappa\\rho}\\frac{d(T^4)}{dr}$, Thomson scattering, Kramers law $\\kappa\\propto\\rho T^{-7/2}$, H$^-$, the Saha equation in line analysis, the random walk out of the Sun."
+     },
+     {
+      "kind": "think",
+      "html": "Random-walk escape time from the Sun with mean free path $\\ell\\sim1$ cm?<details><summary>Show the answer</summary>$N=(R/\\ell)^2$ steps, $t=N\\ell/c=R^2/(\\ell c)\\approx(7\\times10^{10}\\,{\\rm cm})^2/(1\\,{\\rm cm}\\cdot3\\times10^{10}\\,{\\rm cm/s})\\approx1.6\\times10^{11}$ s $\\approx5000$ yr (order $10^4$ yr).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Electron-scattering opacity of ionised matter?<details><summary>Show the answer</summary>$\\kappa_{\\rm es}=\\sigma_T(1+X)/2m_p\\approx0.2(1+X)$ cm$^2$/g.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Kramers opacity scales as",
+      "options": [
+       "$\\rho T^{-7/2}$",
+       "$\\rho^2T$",
+       "constant",
+       "$T^4$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 2.6."
+     },
+     {
+      "q": "Photons leave the Sun&#8217;s core by",
+      "options": [
+       "a random walk taking $\\sim10^4$ yr",
+       "flying straight in 2 s",
+       "convection only",
+       "neutrinos"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 2.8."
+     }
+    ]
+   }
+  },
+  {
+   "room": "stellar-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 4,
+    "id": "astro-read-04a",
+    "title": "Read 3.1–3.2: equations of stellar structure",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "61–69",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "3.1–3.2, pp. 61–69"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Which four equations describe a star?</li><li>Why does the virial theorem say a contracting star heats up?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 3.1–3.2, pp. 61–69.</b> Look for: hydrostatic equilibrium, mass continuity, energy generation $dL/dr$, radiative and convective transport, the virial theorem $2K+E_G=0$, the Schwarzschild criterion."
+     },
+     {
+      "kind": "think",
+      "html": "Estimate the central pressure of the Sun from hydrostatic equilibrium.<details><summary>Show the answer</summary>$P_c\\sim\\frac{GM^2}{R^4}\\approx\\frac{6.7\\times10^{-11}(2\\times10^{30})^2}{(7\\times10^8)^4}\\approx10^{15}$ Pa (detailed models: $2\\times10^{16}$ Pa).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Virial: total energy and thermal energy of a star.<details><summary>Show the answer</summary>$2K=-E_G$ so $E=K+E_G=-K<0$. Losing energy (radiating) makes $E$ more negative, $K$ grows: the star contracts and heats (negative heat capacity).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Hydrostatic equilibrium",
+      "options": [
+       "$\\frac{dP}{dr}=-\\frac{Gm(r)\\rho}{r^2}$",
+       "$\\frac{dP}{dr}=0$",
+       "$\\frac{dP}{dr}=\\rho g^2$",
+       "$P=\\rho c^2$"
+      ],
+      "correct": 0,
+      "explain": "Every exam (open questions)."
+     },
+     {
+      "q": "Convection sets in when",
+      "options": [
+       "the radiative temperature gradient exceeds the adiabatic one",
+       "the opacity is low",
+       "the star is small",
+       "never in stars"
+      ],
+      "correct": 0,
+      "explain": "Schwarzschild criterion."
+     }
+    ]
+   }
+  },
+  {
+   "room": "stellar-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 4,
+    "id": "astro-read-04b",
+    "title": "Read 3.3–3.6: models, scaling relations, HR diagram, Eddington limit",
+    "minutes": 40,
+    "xp": 15,
+    "pages": "70–90",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "3.3–3.6, pp. 70–90"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Where does $L\\propto M^3$ come from without solving anything?</li><li>What sets the upper end of the main sequence?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 3.3–3.6, pp. 70–90.</b> Look for: homology and order-of-magnitude relations, $L\\propto M^3$ (radiative, constant opacity), main-sequence lifetime $\\propto M/L$, the HR diagram and spectral classes, cluster HR diagrams, $L_{\\rm Edd}=4\\pi GMc/\\kappa$."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $L\\propto M^3$ by scaling.<details><summary>Show the answer</summary>$T\\propto M/R$ (virial), $L\\propto\\frac{R^2T^4}{\\kappa\\rho R}\\cdot R\\propto\\frac{R^4T^4}{\\kappa M}\\propto\\frac{M^3}\\kappa$ (radiative diffusion with $\\rho\\propto M/R^3$).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Derive the Eddington luminosity.<details><summary>Show the answer</summary>Radiation force on electrons $\\frac{\\kappa L}{4\\pi r^2c}$ per unit mass equals gravity $\\frac{GM}{r^2}$: $L_{\\rm Edd}=\\frac{4\\pi GMc}\\kappa\\approx1.3\\times10^{31}(M/M_\\odot)$ W for $\\kappa_{\\rm es}$ of hydrogen.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Main-sequence lifetime scales roughly as",
+      "options": [
+       "$M^{-2}$ (with $L\\propto M^3$)",
+       "$M^2$",
+       "$M$",
+       "independent of $M$"
+      ],
+      "correct": 0,
+      "explain": "$t\\propto M/L$."
+     },
+     {
+      "q": "The age of a star cluster comes from",
+      "options": [
+       "the main-sequence turn-off",
+       "its total mass",
+       "its distance",
+       "its colour only"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 3.6.2."
+     }
+    ]
+   }
+  },
+  {
+   "room": "nuclear-furnace",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 5,
+    "id": "astro-read-05a",
+    "title": "Read 4.1–4.4: nuclear reactions and the solar neutrinos",
+    "minutes": 40,
+    "xp": 15,
+    "pages": "91–107",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "4.1–4.4, pp. 91–107"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How can protons fuse at $T\\sim10^7$ K when the Coulomb barrier needs $10^{10}$ K?</li><li>What did the solar neutrino problem teach us?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 4.1–4.4, pp. 91–107.</b> Look for: tunnelling and the Gamow factor, the Gamow peak, reaction rates and their steep $T$ dependence, pp chain and CNO cycle, the binding energy per nucleon, helioseismology, solar neutrino experiments and oscillations."
+     },
+     {
+      "kind": "think",
+      "html": "Why is the reaction rate a narrow peak in energy?<details><summary>Show the answer</summary>Maxwell-Boltzmann tail $e^{-E/k_BT}$ times tunnelling probability $e^{-\\sqrt{E_G/E}}$: the product peaks at the Gamow energy, well above $k_BT$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why does the CNO cycle dominate in massive stars?<details><summary>Show the answer</summary>Its rate rises much faster with temperature ($\\sim T^{16}$-$T^{20}$ vs $T^4$ for pp) because of the higher Coulomb barriers of C, N, O; hotter cores of massive stars favour it.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Fusion in the Sun is possible thanks to",
+      "options": [
+       "quantum tunnelling",
+       "the high pressure alone",
+       "gravity of the nuclei",
+       "magnetic fields"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 4.1."
+     },
+     {
+      "q": "The solar neutrino deficit was explained by",
+      "options": [
+       "neutrino oscillations",
+       "a cooler Sun",
+       "wrong cross sections",
+       "dark matter"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 4.4.2; MC."
+     }
+    ]
+   }
+  },
+  {
+   "room": "nuclear-furnace",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 5,
+    "id": "astro-read-05b",
+    "title": "Read 4.5–4.9: stellar evolution, binaries, supernovae, exoplanets",
+    "minutes": 40,
+    "xp": 15,
+    "pages": "108–126",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "4.5–4.9, pp. 108–126"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What happens when hydrogen runs out in the core?</li><li>Which stars end as supernovae, and what is special about type Ia?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 4.5–4.9, pp. 108–126.</b> Look for: post-main-sequence evolution (red giants, helium burning), binary evolution and mass transfer, mass loss, core-collapse and type Ia supernovae, rotation and magnetic fields, exoplanet detection."
+     },
+     {
+      "kind": "think",
+      "html": "Why do stars become red giants?<details><summary>Show the answer</summary>The inert He core contracts and heats; H burns in a shell at higher rate, the envelope expands and cools: large radius, low $T_{\\rm eff}$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why are type Ia supernovae standard candles?<details><summary>Show the answer</summary>A carbon-oxygen white dwarf near the Chandrasekhar mass ignites: similar mass, similar peak luminosity (calibrated by the decline rate).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "A type Ia supernova comes from",
+      "options": [
+       "a white dwarf in a binary",
+       "core collapse of a massive star",
+       "a neutron star merger only",
+       "a red giant"
+      ],
+      "correct": 0,
+      "explain": "No hydrogen lines."
+     },
+     {
+      "q": "Radial-velocity searches detect planets through",
+      "options": [
+       "the star&#8217;s Doppler wobble",
+       "the planet&#8217;s own light",
+       "gravitational lensing only",
+       "X-rays"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 4.9."
+     }
+    ]
+   }
+  },
+  {
+   "room": "degenerate-matter",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 6,
+    "id": "astro-read-06a",
+    "title": "Read 5.1–5.3: degeneracy pressure, white dwarfs, Chandrasekhar",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "127–136",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "5.1–5.3, pp. 127–136"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does a white dwarf not collapse although it does not burn anything?</li><li>Why is there a maximum mass?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 5.1–5.3, pp. 127–136.</b> Look for: Fermi momentum $p_F=\\hbar(3\\pi^2n)^{1/3}$, $P\\propto n^{5/3}$ (non-relativistic) and $P\\propto n^{4/3}$ (relativistic), the mass-radius relation $R\\propto M^{-1/3}$, the Chandrasekhar mass $\\approx1.4M_\\odot$."
+     },
+     {
+      "kind": "think",
+      "html": "Show that a relativistic degenerate star has no stable radius.<details><summary>Show the answer</summary>Degeneracy energy per electron $\\sim p_Fc\\propto N^{1/3}/R$, gravitational energy per nucleon $\\sim-GMm_p/R$: both $\\propto1/R$. Equilibrium only at one mass (Chandrasekhar); above it gravity wins at every $R$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why does a heavier white dwarf have a smaller radius?<details><summary>Show the answer</summary>Non-relativistic: $P\\propto\\rho^{5/3}$ balanced against $GM^2/R^4$ gives $R\\propto M^{-1/3}$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The Chandrasekhar mass is about",
+      "options": [
+       "$1.4M_\\odot$",
+       "$0.08M_\\odot$",
+       "$3M_\\odot$",
+       "$10M_\\odot$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 5.3."
+     },
+     {
+      "q": "Relativistic degeneracy pressure scales as",
+      "options": [
+       "$n^{4/3}$",
+       "$n^{5/3}$",
+       "$n^2$",
+       "$n$"
+      ],
+      "correct": 0,
+      "explain": "$p_Fc$ per particle."
+     }
+    ]
+   }
+  },
+  {
+   "room": "degenerate-matter",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 6,
+    "id": "astro-read-06b",
+    "title": "Read 5.4–5.6: neutron stars, pulsars, accretion",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "137–152",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "5.4–5.6, pp. 137–152"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do neutron stars form, and how big are they?</li><li>Why are accreting compact objects so bright?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 5.4–5.6, pp. 137–152.</b> Look for: neutron drip and inverse beta decay, neutron-star radius $\\sim10$ km, pulsars as rotating magnetised neutron stars, spin-down, the binary pulsar, X-ray binaries and accretion disks."
+     },
+     {
+      "kind": "think",
+      "html": "Estimate the spin-down luminosity of a pulsar.<details><summary>Show the answer</summary>$L=-\\frac d{dt}\\frac12I\\Omega^2=I\\Omega|\\dot\\Omega|$; for the Crab $I\\sim10^{38}$ kg m$^2$, $\\Omega=190$ s$^{-1}$, $\\dot\\Omega\\sim-2.4\\times10^{-9}$ s$^{-2}$: $L\\sim5\\times10^{31}$ W, enough to power the nebula.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Accretion efficiency onto a neutron star?<details><summary>Show the answer</summary>$\\eta=GM/Rc^2\\approx0.2$, far above fusion (0.007).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "A neutron star has a radius of about",
+      "options": [
+       "10 km",
+       "1000 km",
+       "1 km",
+       "$R_\\odot$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 5.4."
+     },
+     {
+      "q": "Pulsars slow down because",
+      "options": [
+       "they radiate rotational energy",
+       "they accrete",
+       "of nuclear burning",
+       "they do not"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 5.5."
+     }
+    ]
+   }
+  },
+  {
+   "room": "interstellar-medium",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 7,
+    "id": "astro-read-07a",
+    "title": "Read 6.1–6.2: shape of the Galaxy; rotation",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "153–165",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "6.1–6.2, pp. 153–165"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How did Shapley find that the Sun is not at the centre?</li><li>What does a flat rotation curve imply?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 6.1–6.2, pp. 153–165.</b> Look for: star counts and $N(>F)\\propto F^{-3/2}$, extinction and reddening, galactic coordinates, differential rotation and the Oort constants, the rotation curve."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $N(>F)\\propto F^{-3/2}$.<details><summary>Show the answer</summary>Uniform stars of luminosity $L$: those brighter than $F$ lie within $r=\\sqrt{L/4\\pi F}$, number $\\propto r^3\\propto F^{-3/2}$ (HS24 winter Q3). Deviations reveal extinction or a non-uniform distribution.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Flat rotation curve $v(r)=v_0$: enclosed mass?<details><summary>Show the answer</summary>$M(r)=v_0^2r/G$ grows linearly with $r$, far beyond the light: dark matter halo with $\\rho\\propto r^{-2}$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Extinction makes stars appear",
+      "options": [
+       "fainter and redder",
+       "brighter",
+       "bluer",
+       "closer"
+      ],
+      "correct": 0,
+      "explain": "Dust scatters blue light more."
+     },
+     {
+      "q": "For a flat rotation curve $M(r)\\propto$",
+      "options": [
+       "$r$",
+       "$r^3$",
+       "constant",
+       "$r^{-1}$"
+      ],
+      "correct": 0,
+      "explain": "$v^2=GM/r$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "galactic-dynamics",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 7,
+    "id": "astro-read-07b",
+    "title": "Read 6.3–6.4: nearly circular orbits; stellar populations",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "166–174",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "6.3–6.4, pp. 166–174"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How does a star move if it is slightly off a circular orbit?</li><li>What distinguishes population I and II?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 6.3–6.4, pp. 166–174.</b> Look for: epicycle frequency $\\kappa$, solar motion and the local standard of rest, the velocity ellipsoid, populations (age, metallicity, kinematics)."
+     },
+     {
+      "kind": "think",
+      "html": "Epicycle frequency for a flat rotation curve?<details><summary>Show the answer</summary>$\\kappa^2=R\\frac{d\\Omega^2}{dR}+4\\Omega^2$; with $\\Omega=v_0/R$: $\\kappa=\\sqrt2\\Omega$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Population II stars: where and why?<details><summary>Show the answer</summary>Halo and globular clusters: old, metal-poor (formed before the ISM was enriched), with large random velocities and slow rotation.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Population I stars are",
+      "options": [
+       "young, metal-rich, in the disk",
+       "old, metal-poor, in the halo",
+       "only in the bulge",
+       "white dwarfs"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.4; MC."
+     },
+     {
+      "q": "For a flat rotation curve, $\\kappa/\\Omega=$",
+      "options": [
+       "$\\sqrt2$",
+       "$1$",
+       "$2$",
+       "$0$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.3.1."
+     }
+    ]
+   }
+  },
+  {
+   "room": "interstellar-medium",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 8,
+    "id": "astro-read-08a",
+    "title": "Read 6.5–6.6: the interstellar gas and its phases",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "174–187",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "6.5–6.6, pp. 174–187"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do we see cold hydrogen at all?</li><li>Why is the ISM in several phases at roughly equal pressure?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 6.5–6.6, pp. 174–187.</b> Look for: the 21 cm line, HI clouds, warm intercloud medium, molecular clouds and CO, HII regions and the Strömgren sphere, hot coronal gas."
+     },
+     {
+      "kind": "think",
+      "html": "Strömgren radius of an O star emitting $Q$ ionising photons per second in gas of density $n$?<details><summary>Show the answer</summary>Ionisations balance recombinations: $Q=\\frac43\\pi R_S^3n^2\\alpha_B$, so $R_S=\\left(\\frac{3Q}{4\\pi n^2\\alpha_B}\\right)^{1/3}$ (HS25 practice Q4).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is the 21 cm line so useful despite its tiny transition probability?<details><summary>Show the answer</summary>The Galaxy holds so much HI that the line is bright; radio waves pass dust, and Doppler shifts give the rotation curve.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The 21 cm line comes from",
+      "options": [
+       "the hyperfine spin flip of hydrogen",
+       "the Lyman series",
+       "molecular hydrogen",
+       "free electrons"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.5."
+     },
+     {
+      "q": "Molecular clouds are traced mainly by",
+      "options": [
+       "CO emission",
+       "21 cm",
+       "X-rays",
+       "H$\\alpha$"
+      ],
+      "correct": 0,
+      "explain": "H$_2$ hardly radiates."
+     }
+    ]
+   }
+  },
+  {
+   "room": "interstellar-medium",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 8,
+    "id": "astro-read-08b",
+    "title": "Read 6.7–6.8: magnetic field, cosmic rays, thermal balance of the ISM",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "187–196",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "6.7–6.8, pp. 187–196"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How is the galactic magnetic field measured?</li><li>What heats and cools the ISM?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 6.7–6.8, pp. 187–196.</b> Look for: Faraday rotation and Zeeman splitting, cosmic rays and their spectrum, heating by UV and cosmic rays, cooling functions, pressure equilibrium of the phases."
+     },
+     {
+      "kind": "think",
+      "html": "How does Faraday rotation measure $B$?<details><summary>Show the answer</summary>The polarisation angle rotates as $\\lambda^2\\cdot$RM with $\\mathrm{RM}\\propto\\int n_eB_\\parallel ds$; combined with the dispersion measure $\\int n_eds$ of pulsars gives $\\langle B_\\parallel\\rangle\\sim$ few $\\mu$G.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The galactic magnetic field is of order",
+      "options": [
+       "a few $\\mu$G",
+       "1 G",
+       "1 T",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.7."
+     },
+     {
+      "q": "Faraday rotation is proportional to",
+      "options": [
+       "$\\lambda^2$",
+       "$\\lambda$",
+       "$1/\\lambda$",
+       "independent of $\\lambda$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 6.7."
+     }
+    ]
+   }
+  },
+  {
+   "room": "galactic-dynamics",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 9,
+    "id": "astro-read-09a",
+    "title": "Read 7.1–7.4: virial theorem, relaxation, self-gravity",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "197–206",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "7.1–7.4, pp. 197–206"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>When do star-star encounters matter in a galaxy?</li><li>Why can a self-gravitating system never reach thermal equilibrium?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 7.1–7.4, pp. 197–206.</b> Look for: the virial theorem for stellar systems, two-body relaxation time $t_{\\rm relax}\\approx\\frac N{8\\ln N}t_{\\rm cross}$, negative heat capacity, the isothermal sphere&#8217;s infinite mass."
+     },
+     {
+      "kind": "think",
+      "html": "Relaxation time of a galaxy with $N=10^{11}$, $t_{\\rm cross}=10^8$ yr?<details><summary>Show the answer</summary>$\\frac{10^{11}}{8\\cdot25}\\cdot10^8\\approx5\\times10^{16}$ yr $\\gg$ the age of the Universe: galaxies are collisionless; globular clusters ($N\\sim10^5$) are not.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Virial mass of a cluster with velocity dispersion $\\sigma$ and radius $R$?<details><summary>Show the answer</summary>$M\\sim\\frac{\\sigma^2R}G$ (factor of order unity from the profile): the classic evidence for dark matter in clusters (HS25 practice Q5).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "For galaxies, two-body relaxation is",
+      "options": [
+       "negligible (collisionless)",
+       "dominant",
+       "the source of spiral arms",
+       "faster than a crossing time"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 7.3."
+     },
+     {
+      "q": "A self-gravitating system that loses energy",
+      "options": [
+       "heats up (negative heat capacity)",
+       "cools down",
+       "keeps its temperature",
+       "expands and cools"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 7.4."
+     }
+    ]
+   }
+  },
+  {
+   "room": "galactic-dynamics",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 9,
+    "id": "astro-read-09b",
+    "title": "Read 7.5–7.7: collisionless Boltzmann and Jeans equations",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "207–218",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "7.5–7.7, pp. 207–218"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do you describe $10^{11}$ stars without following each one?</li><li>What do the Jeans equations let you measure?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 7.5–7.7, pp. 207–218.</b> Look for: the distribution function and the collisionless Boltzmann equation, velocity moments giving the Jeans equations, the Oort limit, asymmetric drift, the two subsystems of solar-neighbourhood stars."
+     },
+     {
+      "kind": "think",
+      "html": "What is the stellar-dynamics analogue of hydrostatic equilibrium?<details><summary>Show the answer</summary>The spherical Jeans equation $\\frac{d(\\nu\\sigma_r^2)}{dr}+\\frac{2\\beta\\nu\\sigma_r^2}r=-\\nu\\frac{GM(r)}{r^2}$: pressure $\\to\\nu\\sigma^2$, with anisotropy $\\beta$. For isotropic $\\sigma$ it is the gas equation.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Plummer sphere: what is given, what do you compute?<details><summary>Show the answer</summary>Density/potential $\\Phi=-GM/\\sqrt{r^2+b^2}$; the Jeans equation gives $\\sigma^2(r)$, and the virial theorem checks the total energy (HS25 winter Q4).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The Oort limit measures",
+      "options": [
+       "the total local mass density from vertical kinematics",
+       "the age of the disk",
+       "the Sun&#8217;s orbit",
+       "the Hubble constant"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 7.6.1."
+     },
+     {
+      "q": "The Jeans equations are",
+      "options": [
+       "velocity moments of the collisionless Boltzmann equation",
+       "the Navier-Stokes equations",
+       "Maxwell&#8217;s equations",
+       "Friedmann equations"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 7.6."
+     }
+    ]
+   }
+  },
+  {
+   "room": "interstellar-medium",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 9,
+    "id": "astro-read-09c",
+    "title": "Read 8.2–8.3: fluid equations and the Jeans instability",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "220–227",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "8.2–8.3, pp. 220–227"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>When does a gas cloud collapse under its own weight?</li><li>What competes with gravity?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 8.2–8.3, pp. 220–227.</b> Look for: continuity and Euler equations, linear perturbations, the dispersion relation $\\omega^2=c_s^2k^2-4\\pi G\\rho_0$, the Jeans length and mass."
+     },
+     {
+      "kind": "think",
+      "html": "Derive the Jeans length from the dispersion relation.<details><summary>Show the answer</summary>Instability for $\\omega^2<0$: $k<k_J=\\sqrt{4\\pi G\\rho_0}/c_s$, so $\\lambda_J=c_s\\sqrt{\\pi/(G\\rho_0)}$ and $M_J\\sim\\rho_0\\lambda_J^3$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why do cold, dense molecular clouds form stars?<details><summary>Show the answer</summary>$M_J\\propto T^{3/2}\\rho^{-1/2}$: low $T$ and high $\\rho$ make the Jeans mass small, so ordinary clouds exceed it.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Perturbations are Jeans-unstable when their wavelength",
+      "options": [
+       "exceeds $\\lambda_J$",
+       "is shorter than $\\lambda_J$",
+       "equals the sound wavelength",
+       "is zero"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 8.3."
+     },
+     {
+      "q": "Raising the temperature makes the Jeans mass",
+      "options": [
+       "larger",
+       "smaller",
+       "unchanged",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "$c_s^3$ dependence."
+     }
+    ]
+   }
+  },
+  {
+   "room": "active-galaxies",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "astro-read-10a",
+    "title": "Read 9.1–9.2: normal galaxies",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "261–270",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "9.1–9.2, pp. 261–270"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How are galaxies classified, and does the classification mean evolution?</li><li>What do Tully-Fisher and Faber-Jackson relate?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 9.1–9.2, pp. 261–270.</b> Look for: the Hubble sequence (ellipticals, spirals, irregulars), surface-brightness profiles (de Vaucouleurs, exponential disks), rotation curves, Tully-Fisher $L\\propto v^4$, Faber-Jackson $L\\propto\\sigma^4$, open questions."
+     },
+     {
+      "kind": "think",
+      "html": "Why can Tully-Fisher be used as a distance indicator?<details><summary>Show the answer</summary>Measure $v_{\\max}$ (21 cm line width), infer $L\\propto v^4$, compare with the flux: distance.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Spiral vs elliptical: list three physical differences.<details><summary>Show the answer</summary>Spirals: rotation-supported disk, gas and young stars, blue. Ellipticals: dispersion-supported, little cold gas, old red stars (HS24 winter Q5).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Elliptical galaxies are supported mainly by",
+      "options": [
+       "random stellar motions",
+       "rotation",
+       "gas pressure",
+       "magnetic fields"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.2."
+     },
+     {
+      "q": "Tully-Fisher relates luminosity to",
+      "options": [
+       "rotation velocity",
+       "colour",
+       "distance",
+       "metallicity"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.2.2."
+     }
+    ]
+   }
+  },
+  {
+   "room": "active-galaxies",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "astro-read-10b",
+    "title": "Read 9.4: active galactic nuclei",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "276–285",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "9.4, pp. 276–285"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What powers a quasar, and how do we know the engine is small?</li><li>Why do AGN types differ if the engine is the same?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 9.4, pp. 276–285.</b> Look for: the AGN zoo, variability and the size limit $R\\lesssim c\\Delta t$, superluminal motion, black-hole accretion as the engine (Eddington), unification by viewing angle."
+     },
+     {
+      "kind": "think",
+      "html": "A quasar varies in 1 day. Size limit and black-hole bound?<details><summary>Show the answer</summary>$R\\lesssim c\\Delta t\\approx2.6\\times10^{13}$ m $\\approx170$ AU; with $R\\gtrsim R_S=2GM/c^2$: $M\\lesssim\\frac{c^3\\Delta t}{2G}\\approx10^{10}M_\\odot$ (HS24 winter Q6).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Minimum black-hole mass for $L=10^{40}$ W at the Eddington limit?<details><summary>Show the answer</summary>$M\\ge L/(1.3\\times10^{31}\\,{\\rm W}/M_\\odot)\\approx8\\times10^8M_\\odot$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Variability on time $\\Delta t$ limits the source size to",
+      "options": [
+       "$\\lesssim c\\Delta t$",
+       "$\\gtrsim c\\Delta t$",
+       "$c/\\Delta t$",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Light-travel argument."
+     },
+     {
+      "q": "AGN unification explains differences by",
+      "options": [
+       "viewing angle (and obscuring torus)",
+       "different engines",
+       "distance only",
+       "age only"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.4.4."
+     }
+    ]
+   }
+  },
+  {
+   "room": "active-galaxies",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "astro-read-10c",
+    "title": "Read 9.5–9.7: clusters, large-scale structure, gamma-ray bursts",
+    "minutes": 30,
+    "xp": 15,
+    "pages": "286–296",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "9.5–9.7, pp. 286–296"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Which three ways to weigh a cluster agree that most of its mass is dark?</li><li>How is the hot gas in clusters seen?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 9.5–9.7, pp. 286–296.</b> Look for: virial masses, X-ray gas and hydrostatic masses, gravitational lensing, the large-scale distribution of galaxies, gamma-ray bursts."
+     },
+     {
+      "kind": "think",
+      "html": "Cluster X-ray luminosity from bremsstrahlung: scaling?<details><summary>Show the answer</summary>$L_X\\propto n_e^2T^{1/2}V$; with the virial temperature $k_BT\\sim GMm_p/R$, $L_X$ grows steeply with mass (HS25 winter Q5).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Hot intracluster gas emits mostly",
+      "options": [
+       "X-ray bremsstrahlung",
+       "21 cm",
+       "optical lines",
+       "radio synchrotron only"
+      ],
+      "correct": 0,
+      "explain": "$T\\sim10^7$-$10^8$ K."
+     },
+     {
+      "q": "The mass of galaxy clusters is dominated by",
+      "options": [
+       "dark matter",
+       "stars",
+       "hot gas",
+       "black holes"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.5."
+     }
+    ]
+   }
+  },
+  {
+   "room": "active-galaxies",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "astro-read-10d",
+    "title": "Read 8.11–8.12: synchrotron radiation and bremsstrahlung",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "248–254",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "8.11–8.12, pp. 248–254"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do you tell non-thermal from thermal emission by the spectrum?</li><li>Why is synchrotron light polarised?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 8.11–8.12, pp. 248–254.</b> Look for: relativistic beaming into a cone $1/\\gamma$, the synchrotron spectrum from a power-law electron distribution $F_\\nu\\propto\\nu^{-(p-1)/2}$, thermal bremsstrahlung emissivity $\\propto n^2T^{1/2}e^{-h\\nu/k_BT}$."
+     },
+     {
+      "kind": "think",
+      "html": "Electrons with $N(E)\\propto E^{-p}$, $p=2.5$: spectral index?<details><summary>Show the answer</summary>$F_\\nu\\propto\\nu^{-(p-1)/2}=\\nu^{-0.75}$: a power law, unlike a blackbody or thermal bremsstrahlung (flat then exponential cutoff).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Thermal bremsstrahlung emissivity scales with density as",
+      "options": [
+       "$n^2$",
+       "$n$",
+       "$n^{1/2}$",
+       "independent"
+      ],
+      "correct": 0,
+      "explain": "Two-body process."
+     },
+     {
+      "q": "Synchrotron radiation needs",
+      "options": [
+       "relativistic electrons in magnetic fields",
+       "hot gas in equilibrium",
+       "atomic transitions",
+       "dust"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 8.11."
+     }
+    ]
+   }
+  },
+  {
+   "room": "expanding-universe",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 11,
+    "id": "astro-read-11a",
+    "title": "Read 9.3: the expansion of the Universe",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "271–275",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "9.3, pp. 271–275"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do you measure distances to galaxies, and what did Hubble find?</li><li>Why is redshift not a Doppler velocity at large distance?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 9.3, pp. 271–275.</b> Look for: the distance ladder (parallax, Cepheids, standard candles), redshift $z$, Hubble&#8217;s law $v=H_0d$, the Hubble time."
+     },
+     {
+      "kind": "think",
+      "html": "Hubble time for $H_0=70$ km/s/Mpc?<details><summary>Show the answer</summary>$1/H_0=\\frac{3.09\\times10^{19}\\,{\\rm km}}{70\\,{\\rm km/s}}=4.4\\times10^{17}$ s $\\approx14$ Gyr.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Hubble&#8217;s law",
+      "options": [
+       "$v=H_0d$ for nearby galaxies",
+       "$v=H_0/d$",
+       "$d=H_0v^2$",
+       "$z=H_0$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 9.3."
+     },
+     {
+      "q": "Cepheids are useful because",
+      "options": [
+       "their period gives their luminosity",
+       "they are the brightest stars",
+       "they do not vary",
+       "they emit X-rays"
+      ],
+      "correct": 0,
+      "explain": "Period-luminosity relation."
+     }
+    ]
+   }
+  },
+  {
+   "room": "expanding-universe",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 11,
+    "id": "astro-read-11b",
+    "title": "Read 10.1–10.4: metric of the Universe and the Friedmann equation",
+    "minutes": 40,
+    "xp": 15,
+    "pages": "297–312",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "10.1–10.4, pp. 297–312"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What does homogeneity and isotropy fix about the metric?</li><li>Which quantities enter the Friedmann equation?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 10.1–10.4, pp. 297–312.</b> Look for: basic GR ideas, the Robertson-Walker metric with $a(t)$ and $k$, comoving coordinates and redshift $1+z=a_0/a$, the Friedmann equation $\\dot a^2/a^2=\\frac{8\\pi G}3\\rho-\\frac{kc^2}{a^2}$ (with $\\Lambda$), critical density."
+     },
+     {
+      "kind": "think",
+      "html": "Critical density today for $H_0=70$ km/s/Mpc?<details><summary>Show the answer</summary>$\\rho_c=\\frac{3H_0^2}{8\\pi G}\\approx9.2\\times10^{-27}$ kg/m$^3$, about 5 protons per m$^3$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Derive the Newtonian Friedmann equation.<details><summary>Show the answer</summary>Shell of radius $R=ar$ around mass $M=\\frac43\\pi R^3\\rho$: energy $\\frac12\\dot R^2-\\frac{GM}R=$ const. Divide by $R^2/2$: $\\frac{\\dot a^2}{a^2}=\\frac{8\\pi G\\rho}3-\\frac{kc^2}{a^2}$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "$1+z=$",
+      "options": [
+       "$a(t_0)/a(t_{\\rm emit})$",
+       "$v/c$ always",
+       "$a(t_{\\rm emit})/a(t_0)$",
+       "$H_0t$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 10.3."
+     },
+     {
+      "q": "A flat universe has density",
+      "options": [
+       "equal to the critical density",
+       "zero",
+       "twice the critical",
+       "infinite"
+      ],
+      "correct": 0,
+      "explain": "$k=0$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "expanding-universe",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 12,
+    "id": "astro-read-12a",
+    "title": "Read 10.5–10.7: contents, CMB, matter and radiation eras",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "313–324",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "10.5–10.7, pp. 313–324"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How does each component dilute as the Universe expands?</li><li>Why was the early Universe radiation dominated?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 10.5–10.7, pp. 313–324.</b> Look for: $\\rho_m\\propto a^{-3}$, $\\rho_r\\propto a^{-4}$, $T\\propto1/a$, the CMB blackbody at 2.7 K, closed and open matter solutions, the age, $a\\propto t^{2/3}$ (matter) and $a\\propto t^{1/2}$ (radiation)."
+     },
+     {
+      "kind": "think",
+      "html": "Solve the flat matter-dominated Friedmann equation.<details><summary>Show the answer</summary>$\\dot a^2\\propto a^{-1}$: $a^{1/2}da\\propto dt$, $a\\propto t^{2/3}$, $H=\\frac2{3t}$, age $t_0=\\frac2{3H_0}$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Generalise: $\\rho\\propto a^{-3(1+w)}$ in a flat universe.<details><summary>Show the answer</summary>$a\\propto t^{2/(3(1+w))}$: $w=0$ gives $\\frac23$, $w=\\frac13$ gives $\\frac12$ (HS24 summer Q7).</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Radiation energy density scales as",
+      "options": [
+       "$a^{-4}$",
+       "$a^{-3}$",
+       "$a^{-2}$",
+       "constant"
+      ],
+      "correct": 0,
+      "explain": "Dilution plus redshift."
+     },
+     {
+      "q": "In a flat matter-dominated universe $a\\propto$",
+      "options": [
+       "$t^{2/3}$",
+       "$t^{1/2}$",
+       "$e^{Ht}$",
+       "$t$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 10.6."
+     }
+    ]
+   }
+  },
+  {
+   "room": "early-universe",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 13,
+    "id": "astro-read-13a",
+    "title": "Read 11.1–11.4: the hot early Universe and nucleosynthesis",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "325–335",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "11.1–11.4, pp. 325–335"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do you get $T(t)$ in the radiation era?</li><li>Why is about a quarter of the baryonic mass helium?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 11.1–11.4, pp. 325–335.</b> Look for: the time table, $T\\propto t^{-1/2}$, thermal equilibrium and relativistic degrees of freedom, neutron-proton freeze-out, BBN and the helium mass fraction, the neutrino background $T_\\nu=(4/11)^{1/3}T_\\gamma$."
+     },
+     {
+      "kind": "think",
+      "html": "Helium fraction from $n/p\\approx1/7$ at nucleosynthesis?<details><summary>Show the answer</summary>All neutrons end in $^4$He: $Y=\\frac{2(n/p)}{1+n/p}=\\frac{2/7}{8/7}=0.25$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is the neutrino background colder than the CMB?<details><summary>Show the answer</summary>Neutrinos decouple before $e^+e^-$ annihilation, which heats only the photons: $T_\\nu/T_\\gamma=(4/11)^{1/3}\\approx0.71$, $T_\\nu\\approx1.95$ K.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "In the radiation era $T\\propto$",
+      "options": [
+       "$t^{-1/2}$",
+       "$t^{-2/3}$",
+       "$t$",
+       "$e^{-t}$"
+      ],
+      "correct": 0,
+      "explain": "$a\\propto t^{1/2}$, $T\\propto1/a$."
+     },
+     {
+      "q": "The primordial helium mass fraction is about",
+      "options": [
+       "$0.25$",
+       "$0.01$",
+       "$0.75$",
+       "$0.5$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 11.3."
+     }
+    ]
+   }
+  },
+  {
+   "room": "early-universe",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 13,
+    "id": "astro-read-13b",
+    "title": "Read 11.5–11.9: dark matter, inflation, recombination, structure formation",
+    "minutes": 45,
+    "xp": 15,
+    "pages": "336–356",
+    "source": [
+     {
+      "file": "materials/astrophysics/scripts/Choudhuri_Textbook.pdf",
+      "where": "11.5–11.9, pp. 336–356"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What is the CMB a picture of, and when?</li><li>How did small fluctuations grow into galaxies?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Choudhuri 11.5–11.9, pp. 336–356.</b> Look for: hot vs cold dark matter, the horizon problem and inflation, baryogenesis, recombination and last scattering at $z\\approx1100$, CMB anisotropies, the SZ effect, the Ly$\\alpha$ forest, growth of perturbations."
+     },
+     {
+      "kind": "think",
+      "html": "Why does recombination happen at $T\\approx3000$ K and not at 13.6 eV $\\approx1.6\\times10^5$ K?<details><summary>Show the answer</summary>There are $\\sim10^9$ photons per baryon: even at $k_BT\\ll13.6$ eV the Wien tail holds enough ionising photons until $T\\approx3000$ K ($z\\approx1100$).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why must most dark matter be cold?<details><summary>Show the answer</summary>Hot (relativistic) dark matter free-streams and erases small-scale structure (top-down); observed hierarchical (bottom-up) formation needs cold dark matter.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The CMB was released at",
+      "options": [
+       "recombination, $z\\approx1100$",
+       "BBN, $t\\approx3$ min",
+       "today",
+       "$z\\approx6$"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 11.7."
+     },
+     {
+      "q": "Inflation solves",
+      "options": [
+       "the horizon and flatness problems",
+       "the solar neutrino problem",
+       "the Chandrasekhar limit",
+       "the Algol paradox"
+      ],
+      "correct": 0,
+      "explain": "Choudhuri 11.6.1."
+     }
+    ]
+   }
+  }
+ ],
+ "weeks": {
+  "1": [
+   "astro-read-01a",
+   "astro-read-01b"
+  ],
+  "2": [
+   "astro-read-02a",
+   "astro-read-02b"
+  ],
+  "3": [
+   "astro-read-03a",
+   "astro-read-03b"
+  ],
+  "4": [
+   "astro-read-04a",
+   "astro-read-04b"
+  ],
+  "5": [
+   "astro-read-05a",
+   "astro-read-05b"
+  ],
+  "6": [
+   "astro-read-06a",
+   "astro-read-06b"
+  ],
+  "7": [
+   "astro-read-07a",
+   "astro-read-07b"
+  ],
+  "8": [
+   "astro-read-08a",
+   "astro-read-08b"
+  ],
+  "9": [
+   "astro-read-09a",
+   "astro-read-09b",
+   "astro-read-09c"
+  ],
+  "10": [
+   "astro-read-10a",
+   "astro-read-10b",
+   "astro-read-10c",
+   "astro-read-10d"
+  ],
+  "11": [
+   "astro-read-11a",
+   "astro-read-11b"
+  ],
+  "12": [
+   "astro-read-12a"
+  ],
+  "13": [
+   "astro-read-13a",
+   "astro-read-13b"
+  ]
+ }
+}

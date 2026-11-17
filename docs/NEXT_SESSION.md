@@ -92,3 +92,31 @@ Each finished piece is committed and pushed to `claude/game-server-website-migra
 
 **Running the tests here**: `game/node_modules/playwright-core` must link to the installed package and `CHROMIUM=/opt/pw-browsers/chromium`.
 Run with `JOBS=1` (three browsers in parallel were killed for memory in the cloud container).
+
+
+---
+## Added on 2026-11-17 (second half): game features, mostly NOT browser-tested
+The user asked to stop spending usage on tests and to have another model test and fix. Each item below was syntax-checked
+(`node --check`), the pure logic has Node tests (`campaign-check`, `memory-check`, `quality-check`), and one boot check showed the
+campaign rendering with all sections. `test/campaign-smoke.mjs` was being adapted to the practice stops when testing stopped: it has
+not been run since; run it first and fix it or the code.
+
+| Feature | Where | To verify |
+|---|---|---|
+| Hand-ins first per course (default on unless more than 3 weeks behind) | `campaignui.js` `handIn`, `dueSoon` | toggle in the course header rebuilds an unstarted run |
+| Catch-up date from the measured pace (needs 3 finished runs) | `campaignui.js` `pace` | `runLog[].gain` is written at the end of a run |
+| Compact menu (6 buttons), gear = settings, practice hub with 5 tabs + More, map with Nexus and connections | `main.js` `compactMenuHtml`, `settingsHtml`, `renderStudy`, `mapHtml` | phone layout; the long menu is still used when the top bar is set to "all buttons" (tests) |
+| Memory model: passes fade, rooms get overrun again, fading week tiles, defend stops | `memory.js`, `main.js` (`mem` flag, `setThreat`), `campaign.js` `defend` | retention numbers, that defend stops reappear sensibly |
+| Triage: "only skim this week" (done when theory is read), exam weight from `content/radar.json` | `campaign.js` `weekStatus(…, skim)`, `campaignui.js` `weekWeight` | skim excludes the week's exercises from the run |
+| Grade forecast per course (1–6) | `memory.js` `forecast`, `campaignui.js` `grades` | the formula is a rough invention: calibrate against the exam hall's real grades |
+| Scout stop (first lesson of the coming week when nearly level) | `campaignui.js` `freshRun` | |
+| Practice stops: blitz (drills), mistake hunt, explain-it (Feynman): count as done once opened | `campaignui.js` `doAction`, `stopState` | better: mark done only when the tab's activity was really completed |
+| Resonance bonus (+15 XP when two stops of a run are linked by `links.json`) | `campaignui.js` `onProgress` | "show the connection" button |
+| Bonus goals = the daily missions shown inside the campaign; ghost report for the week | `campaignui.js` `weekHtmlRow` | |
+| Nemesis: an open mistake on the exercise shows on the enemy; 3 wins close the mistake | `battle.js` | closing mistakes automatically: confirm the user wants that |
+| Formula cards: lesson equations as loot, play in fights (wears 3 charges, counts like a hint for the grade), recharge by cold recall | `cards.js`, `battle.js` drawer, `main.js` | KaTeX in the drawer, phone layout |
+| Rematch ladder: fights won with grade B/C come back after 7 days as defend stops | `battle.js` `gradeBook`, `campaignui.js` `rematchIds` | |
+| Exam dungeon: 3 old-exam problems, timed, hints/cards/primers hidden (`body.dungeon`), +40 XP each; armour per exam topic with holes | `campaignui.js` `armour`, `enterDungeon`, `dungeonHtml` | the timer is only displayed, not enforced; boss panels have their own timer |
+
+Known rough edges: the run's minute estimate grows with practice stops; `fights: 'off'` has no switch in the settings screen yet;
+the battle bar's first-try detection is heuristic; action stops are not in the "Next →" queue (G continues the run).

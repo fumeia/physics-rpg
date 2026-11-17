@@ -12,7 +12,7 @@ ck('start screen carries the plan for today', (await p.textContent('#st-plan')).
 await p.evaluate(() => document.getElementById('tut-skip')?.click());
 await p.click('#st-go').catch(() => {}); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('Escape');
 const vis = await p.evaluate(() => [...document.querySelectorAll('#hud .tr > .chip.btn')].filter((x) => getComputedStyle(x).display !== 'none').map((x) => x.id));
-ck('compact top bar: run, campaign, menu only', vis.join() === 'btn-run,btn-campaign,btn-menu', vis.join());
+ck('compact top bar: run, campaign, menu, gear', vis.join() === 'btn-run,btn-campaign,btn-menu,btn-gear', vis.join());
 ck('old buttons still exist (hidden, shortcuts kept)', await p.evaluate(() => !!document.getElementById('btn-pile') && !!document.getElementById('btn-exam')));
 await p.keyboard.press('KeyC'); await p.waitForTimeout(300);
 ck('first visit asks where you are', await p.isVisible('#cp-setup-ok'));
@@ -41,9 +41,16 @@ ck('week row: seven day pips and a locked chest', await p.evaluate(() => documen
 ck('weekly bosses render without error (present while a sheet is due within 9 days)', await p.evaluate(() => document.querySelectorAll('.cp-boss').length >= 0));
 // run from start to end
 const stops2 = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop));
+const acts = stops2.filter((s) => s.startsWith('@')), encs = stops2.filter((s) => !s.startsWith('@'));
+ck('the run mixes in guided practice (blitz, explain-it or a mistake hunt)', acts.length >= 1, stops2.join());
+for (const a of acts) { await p.evaluate((id) => document.querySelector(`.cp-node[data-stop="${id}"]`).click(), a); await p.waitForTimeout(250);
+  ck(`practice stop ${a} opens its tab in the practice hub`, await p.evaluate(() => document.getElementById('ov-title').textContent === 'Study hub'));
+  await p.keyboard.press('Escape'); await p.waitForTimeout(100); await p.keyboard.press('KeyC'); await p.waitForTimeout(250); }
+ck('practice stops are ticked once opened', await p.evaluate((n) => document.querySelectorAll('.cp-node.done').length === n, acts.length));
 await p.click('#cp-start'); await p.waitForTimeout(700);
-ck('the run opens its first stop with a position bar', await p.evaluate(() => /run 1 \/ \d/.test(document.querySelector('.pilebar')?.innerText || '')), await p.evaluate(() => document.querySelector('.pilebar')?.innerText));
-for (let i = 0; i < stops2.length; i++) { await p.evaluate((id) => window.__game.finish(id, true, 10), stops2[i]); await p.waitForTimeout(120); }
+ck('the run opens its first exercise with a position bar', await p.evaluate(() => /run 1 \/ \d/.test(document.querySelector('.pilebar')?.innerText || '')), await p.evaluate(() => document.querySelector('.pilebar')?.innerText));
+ck('the exercise is a fight: enemy with HP and your focus', await p.evaluate(() => !!document.querySelector('.battle .bt-hp') && !!document.querySelector('.battle .bt-fo')));
+for (const id of encs) { await p.evaluate((x) => window.__game.finish(x, true, 10), id); await p.waitForTimeout(120); }
 ck('top bar counts the stops', /Run done/.test(await p.textContent('#btn-run')), await p.textContent('#btn-run'));
 await p.evaluate(() => window.__game.close()); await p.waitForTimeout(1300);
 await p.keyboard.press('Escape'); await p.waitForTimeout(200); await p.keyboard.press('KeyC'); await p.waitForTimeout(300);
@@ -54,9 +61,18 @@ ck('the finished run lights today\u2019s pip', await p.evaluate(() => !!document
 ck('another run can be planned', await p.evaluate(() => /#2/.test(document.querySelector('.cp-run h3').textContent)));
 // keys and menu
 await p.keyboard.press('Escape'); await p.evaluate(() => document.getElementById('btn-menu').click()); await p.waitForTimeout(200);
-ck('menu is grouped and offers the full top bar', await p.evaluate(() => document.querySelectorAll('.menu h4').length === 4 && !!document.querySelector('[data-m="hud"]')));
+ck('compact menu: at most six buttons, no settings in it', await p.evaluate(() => { const n = document.querySelectorAll('.menu6 .bigbtn').length; return n >= 5 && n <= 6 && !document.querySelector('.menu6 [data-m="theme"]'); }));
+ck('the menu fits without scrolling', await p.evaluate(() => { const b = document.getElementById('ov-body'); return b.scrollHeight <= b.clientHeight + 2; }));
+await p.click('[data-m="study"]'); await p.waitForTimeout(200);
+ck('practice hub: five tabs and More', await p.evaluate(() => document.querySelectorAll('.studytabs:not(.sub) [data-stab]').length === 6 && document.querySelector('.studytabs .cur')?.dataset.stab === 'sheets'));
+await p.click('.studytabs:not(.sub) [data-stab]:last-child'); await p.waitForTimeout(200);
+ck('More shows the other tabs one level deeper', await p.evaluate(() => document.querySelectorAll('.studytabs.sub [data-stab]').length >= 5));
+await p.keyboard.press('Escape'); await p.keyboard.press('KeyM'); await p.waitForTimeout(200);
+ck('the map carries Nexus and connections', await p.evaluate(() => !!document.querySelector('.mapplaces [data-m="nexus"]') && !!document.querySelector('.mapplaces [data-m="allconn"]')));
+await p.keyboard.press('Escape'); await p.evaluate(() => document.getElementById('btn-gear').click()); await p.waitForTimeout(200);
+ck('the gear opens settings and help', await p.evaluate(() => document.getElementById('ov-title').textContent === 'Settings and help' && !!document.querySelector('[data-m="theme"]') && !!document.querySelector('[data-m="help"]')));
 await p.click('[data-m="hud"]'); await p.waitForTimeout(200);
-ck('full top bar comes back on request', await p.evaluate(() => getComputedStyle(document.getElementById('btn-pile')).display !== 'none'));
+ck('full top bar and long menu come back on request', await p.evaluate(() => getComputedStyle(document.getElementById('btn-pile')).display !== 'none' && document.querySelectorAll('.menu h4').length === 4));
 await p.keyboard.press('Escape'); await p.keyboard.press('KeyV'); await p.waitForTimeout(200);
 ck('old shortcut V still opens the study hub', await p.evaluate(() => document.getElementById('ov-title').textContent === 'Study hub'));
 ck('no page errors', !errs.length, errs.join(' | '));

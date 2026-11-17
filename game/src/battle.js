@@ -4,6 +4,7 @@
 // exercise code or content changes, and nothing here decides whether an exercise is passed.
 import { store } from './store.js';
 import { todayStr } from './missions.js';
+import { mistakes, updateMistake } from './mistakes.js';
 
 const MAX_FOCUS = 100, WRONG_COST = 10, HINT_COST_FOCUS = 4, READ_GAIN = 8, WIN_GAIN = 3;
 const hash = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
@@ -33,7 +34,9 @@ export function spriteSvg(e, size = 54) {
 export function focus() { const f = store.val('focus', null); return f && f.date === todayStr() ? f.v : MAX_FOCUS; }
 function setFocus(v) { store.setVal('focus', { date: todayStr(), v: Math.max(0, Math.min(MAX_FOCUS, Math.round(v))) }); }
 export function fightsToday() { const f = store.val('fights', null); return f && f.date === todayStr() ? f.list : []; }
-function logFight(row) { const list = fightsToday().filter((x) => x.id !== row.id); list.push(row); store.setVal('fights', { date: todayStr(), list: list.slice(-60) }); }
+export const gradeBook = () => store.val('grades', {}) || {};
+function logFight(row) { store.setVal('grades', { ...gradeBook(), [row.id]: { g: row.grade, t: row.t } }); const list = fightsToday().filter((x) => x.id !== row.id); list.push(row); store.setVal('fights', { date: todayStr(), list: list.slice(-60) }); }
+// cards played count like hints for the grade (an S needs neither)
 export const gradeOf = (wrong, hints, ok) => (!ok ? 'D' : wrong === 0 && hints === 0 ? 'S' : wrong + hints <= 1 ? 'A' : wrong + hints <= 3 ? 'B' : 'C');
 export function expectedHits(enc) {
   if (enc.type === 'quiz') return enc.questions?.length || 4;
@@ -45,15 +48,18 @@ export function expectedHits(enc) {
 }
 
 let cur = null; // the fight of the open panel
-export function begin(enc, panel, { course, onChange } = {}) {
+export function begin(enc, panel, { course, onChange, cards = null, M = (x) => x } = {}) {
   end();
   if (!enc || enc.synthetic || enc.type === 'sandbox') return;
   const enemy = enemyOf(enc, course), n = expectedHits(enc);
   const bar = document.createElement('div'); bar.className = `battle${enemy.elite ? ' elite' : ''}`;
   bar.innerHTML = `<div class="bt-foe">${spriteSvg(enemy)}<div class="bt-info"><div class="bt-name"><b>${enemy.name}</b><span>${enemy.elite ? 'elite · ' : ''}${enemy.role}</span></div><div class="bt-hp"><i></i></div></div></div>
     <div class="bt-mid"><span class="bt-combo"></span><span class="bt-pop"></span></div>
-    <div class="bt-you"><div class="bt-name"><b>Focus</b><span class="bt-fv"></span></div><div class="bt-fo"><i></i></div></div>`;
+    <div class="bt-you"><div class="bt-name"><b>Focus</b>${cards ? '<button class="bt-cards chip btn" type="button" title="Play a formula card you earned (it wears the card, not your focus)"></button>' : ''}<span class="bt-fv"></span></div><div class="bt-fo"><i></i></div></div>`;
   panel.prepend(bar);
+  // nemesis: an open mistake you made on this exercise comes back with the enemy and carries what you wrote; three wins retire it
+  const nem = mistakes().filter((m) => m.open && m.encId === enc.id).slice(-1)[0];
+  if (nem) { bar.classList.add('nemesis'); const d = document.createElement('div'); d.className = 'bt-nem'; d.textContent = `Nemesis (${nem.beaten || 0}/3 beaten): last time you answered \u201c${String(nem.given).slice(0, 60)}\u201d${nem.diag ? ` \u2014 ${String(nem.diag).replace(/<[^>]+>/g, '').slice(0, 110)}` : ''}`; bar.appendChild(d); }
   const st = cur = { enc, bar, enemy, hp: 100, n, hits: 0, wrong: 0, hints: 0, combo: 0, done: false, lastWrongAt: 0, tried: new WeakSet(), onChange };
   const paint = () => { const f = focus(); bar.querySelector('.bt-hp i').style.width = `${st.hp}%`; bar.querySelector('.bt-fo i').style.width = `${f}%`; bar.querySelector('.bt-fv').textContent = `${f} / ${MAX_FOCUS}`; bar.classList.toggle('lowfocus', f <= 25); bar.querySelector('.bt-combo').textContent = st.combo >= 2 ? `combo ×${st.combo}` : ''; };
   const pop = (text, cls) => { const p = bar.querySelector('.bt-pop'); p.textContent = text; p.className = `bt-pop ${cls}`; void p.offsetWidth; p.classList.add('go'); };
@@ -62,8 +68,9 @@ export function begin(enc, panel, { course, onChange } = {}) {
   st.bad = () => { if (st.done) return; const now = Date.now(); if (now - st.lastWrongAt < 150) return; st.lastWrongAt = now; st.wrong++; st.combo = 0; setFocus(focus() - WRONG_COST); pop(`−${WRONG_COST} focus`, 'hurt'); anim('hurt'); paint(); st.onChange?.(); };
   st.hint = () => { if (st.done) return; st.hints++; setFocus(focus() - HINT_COST_FOCUS); pop(`hint · −${HINT_COST_FOCUS} focus`, 'hurt'); paint(); };
   st.finish = (ok) => {
-    if (st.done) return; st.done = true; const g = gradeOf(st.wrong, st.hints, ok);
-    if (ok) { st.hp = 0; setFocus(focus() + (enc.type === 'lesson' ? READ_GAIN : WIN_GAIN)); pop(`${enemy.name} defeated · grade ${g}`, 'win'); bar.classList.add('won'); }
+    if (st.done) return; st.done = true; const g = gradeOf(st.wrong, st.hints + (st.cardsPlayed || 0), ok);
+    if (ok && nem) { const n = (nem.beaten || 0) + 1; updateMistake(nem.id, { beaten: n, open: n < 3 }); }
+    if (ok) { st.hp = 0; setFocus(focus() + (enc.type === 'lesson' ? READ_GAIN : WIN_GAIN)); pop(`${enemy.name} defeated \u00b7 grade ${g}${nem ? ` \u00b7 nemesis ${(nem.beaten || 0) + 1}/3` : ''}`, 'win'); bar.classList.add('won'); }
     else { pop('it got away · it comes back as a respawn', 'hurt'); bar.classList.add('lost'); }
     logFight({ id: enc.id, grade: g, wrong: st.wrong, hints: st.hints, ok: !!ok, enemy: enemy.name, t: Date.now() }); paint();
   };
@@ -80,6 +87,15 @@ export function begin(enc, panel, { course, onChange } = {}) {
   panel.addEventListener('click', st.click, true);
   st.doneEv = (ev) => { if (ev.detail?.id === enc.id) st.finish(!!ev.detail.ok); };
   window.addEventListener('encounter-done', st.doneEv);
+  // formula cards: play one you earned to see its formula during this fight
+  if (cards) {
+    const btn = bar.querySelector('.bt-cards'), drawer = document.createElement('div'); drawer.className = 'bt-drawer'; drawer.style.display = 'none'; bar.appendChild(drawer);
+    const draw = () => { const list = cards.list(); btn.textContent = `Cards ${list.filter((c) => c.charge > 0).length}`; btn.disabled = !list.length;
+      drawer.innerHTML = list.length ? list.map((c) => `<div class="bt-card${c.charge ? '' : ' worn'}" data-k="${c.key}"><div class="bt-cl"><b>${c.label}</b><span>${c.roomTitle} \u00b7 ${'\u25cf'.repeat(c.charge)}${'\u25cb'.repeat(3 - c.charge)}</span></div>${c.shown ? `<div class="bt-ctex">${M(`$$${c.tex}$$`)}</div>` : c.charge ? '<button class="chip btn" data-play>Play</button>' : '<button class="chip btn" data-recall>Recall it cold to recharge</button>'}</div>`).join('') : '<p class="src">No cards yet: passing a lesson drops its formulas as cards.</p>';
+      drawer.querySelectorAll('[data-play]').forEach((b) => (b.onclick = () => { const k = b.closest('.bt-card').dataset.k; if (cards.play(k)) { st.cardsPlayed = (st.cardsPlayed || 0) + 1; pop('card played', 'hit'); draw(); } }));
+      drawer.querySelectorAll('[data-recall]').forEach((b) => (b.onclick = () => { const row = b.closest('.bt-card'), k = row.dataset.k, c = cards.list().find((x) => x.key === k); row.querySelector('[data-recall]').outerHTML = `<div class="bt-ctex"><p class="src">Write it on paper first. Then compare:</p><details><summary>show the formula</summary>${M(`$$${c.tex}$$`)}<div class="row"><button class="chip btn" data-had="1">I had it</button><button class="chip btn" data-had="0">Not quite</button></div></details></div>`; row.querySelectorAll('[data-had]').forEach((x) => (x.onclick = () => { if (x.dataset.had === '1') { cards.recharge(k); pop('card recharged', 'win'); } draw(); })); })); };
+    btn.onclick = () => { drawer.style.display = drawer.style.display === 'none' ? '' : 'none'; draw(); }; draw();
+  }
   st.panel = panel; paint();
   if (store.isPassed(enc.id) && !store.hasReview(enc.id)) { bar.classList.add('rematch'); bar.querySelector('.bt-name span').textContent += ' · rematch'; }
 }

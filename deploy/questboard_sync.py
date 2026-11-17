@@ -72,14 +72,17 @@ def course_index(content=None):
     return {eid: v['course'] for eid, v in (content or load_content())['index'].items()}
 
 
-def course_progress(state, content, today):
+def course_progress(state, content, today, now):
     """Per course, counted like the game's map: exercises = all but sandboxes, done = passed (not failed or given up),
-    a room is cleared when all its exercises are passed. Daily missions are not tied to a course, so they are shared."""
+    a room is cleared when all its exercises are passed. Daily missions are not tied to a course, so they are shared.
+    respawns = failed or given-up exercises that are due now (the game's Respawn list, same rule as due() in notify.py)."""
     solved = state.get('solved') or {}
     passed = lambda i: bool(solved.get(i)) and not solved[i].get('failed')
     days = state.get('missions') or {}
     m_all = sum(len((d or {}).get('done') or {}) for d in days.values())
     m_today = len((days.get(today) or {}).get('done') or {})
+    course_of_id = {eid: v['course'] for eid, v in content['index'].items()}
+    due = [i for i, r in (state.get('reviews') or {}).items() if (r.get('due') or 0) <= now and i in course_of_id]
     out = {}
     for c in content['catalog']:
         ex = done = rooms = cleared = 0
@@ -88,7 +91,8 @@ def course_progress(state, content, today):
             if not es: continue
             n = sum(1 for e in es if passed(e['id']))
             ex += len(es); done += n; rooms += 1; cleared += n == len(es)
-        out[c['id']] = {'done': done, 'total': ex, 'rooms': cleared, 'roomsTotal': rooms, 'missions': m_all, 'missionsToday': m_today}
+        out[c['id']] = {'done': done, 'total': ex, 'rooms': cleared, 'roomsTotal': rooms, 'missions': m_all, 'missionsToday': m_today,
+                        'respawns': sum(1 for i in due if course_of_id[i] == c['id'])}
     return out
 
 
@@ -176,7 +180,8 @@ def quest_record(cid, topic, link, notes, progress, goal_id, existing, now):
     """Our fields on top of whatever Questboard has (the user's quadrant, done, schedule, steps, title and goal link are kept)."""
     if existing and existing.get('deleted'): return None
     rec = dict(existing) if existing else {'id': f'rpg.{cid}', 'title': f'Physics RPG · {topic}', 'quadrant': QUADRANT, 'done': False, 'createdAt': now}
-    mine = {'topic': topic, 'source': 'physics-rpg', 'notes': notes, 'progress': progress}
+    # a course is a progress tracker, not a task: out of the matrix, it lives in its goal (like the Lernplan sessions)
+    mine = {'topic': topic, 'source': 'physics-rpg', 'notes': notes, 'progress': progress, 'inMatrix': False}
     if link: mine['link'] = link
     if goal_id: mine['goalId'] = goal_id; mine['goalAutoLinked'] = True  # marker on the quest: never link it again, even if this server's memory is lost
     if all(rec.get(k) == v for k, v in mine.items()) and existing: return None
@@ -254,26 +259,43 @@ def run(args):
     totals = {c: sum(v for k, v in {**sent, **want}.items() if k.startswith(f'rpg.{c}.')) for c in COURSES}
     todays = {c: want.get(f'rpg.{c}.{today}', 0) for c in COURSES}
     qmemo = memo.get('quests', {}); linked = dict(memo.get('linked', {}))  # linked: goal links made once; unlinking in Questboard is then respected
-    prog = course_progress(state, content, today)
+    prog = course_progress(state, content, today, now)
     existing = goals = None
     for cid in COURSES:
         p = prog[cid]
         text = f"{p['done']}/{p['total']} exercises · {p['rooms']}/{p['roomsTotal']} rooms cleared · {p['missions']} daily missions done ({p['missionsToday']} today, all courses)"
-        progress = {'done': p['done'], 'total': p['total'], 'text': text, 'rooms': p['rooms'], 'roomsTotal': p['roomsTotal'], 'missions': p['missions']}
+        progress = {'done': p['done'], 'total': p['total'], 'text': text, 'rooms': p['rooms'], 'roomsTotal': p['roomsTotal'], 'missions': p['missions'],
+                    'respawns': p['respawns']}
         notes = f'Physics RPG, {top[cid]}: {text}. XP: {totals[cid]} in total, {todays[cid]} today. Updated automatically; open the game with the link.'
         goal_id = None
         if cid not in linked:
             if goals is None: goals = [] if args.dry_run else qb.state('goals')
             g = find_goal(cid, goals)
             if g: goal_id = g['id']
-        if qmemo.get(cid) == [notes, top[cid], link] and not goal_id: continue
+        if qmemo.get(cid) == [notes, top[cid], link, 2] and not goal_id: continue  # 2 = out-of-matrix layout
         if existing is None: existing = {} if args.dry_run else {q['id']: q for q in qb.state('quests') if str(q.get('id', '')).startswith('rpg.')}
         ex = existing.get(f'rpg.{cid}')
         if goal_id and ex and (ex.get('goalId') or ex.get('goalAutoLinked')): goal_id = None  # linked by you, or linked once already (then unlinking is respected)
         rec = quest_record(cid, top[cid], link, notes, progress, goal_id, ex, now)
         if rec: changes.append({'c': 'quests', 'r': rec})
-        qmemo[cid] = [notes, top[cid], link]
+        qmemo[cid] = [notes, top[cid], link, 2]
         if goal_id or (ex and (ex.get('goalId') or ex.get('goalAutoLinked'))): linked[cid] = goal_id or ex.get('goalId') or True
+
+    # respawns: failed exercises that are due. One quest per course in Schedule, in the matrix only while some are due
+    if existing is None: existing = {} if args.dry_run else {q['id']: q for q in qb.state('quests') if str(q.get('id', '')).startswith('rpg.')}
+    for cid in COURSES:
+        k = prog[cid]['respawns']
+        rid = f'rpg.{cid}.respawn'
+        ex = existing.get(rid)
+        if ex and ex.get('deleted'): continue  # you deleted it in Questboard
+        want = {'title': f"Physics RPG · {top[cid]}: {k} respawn{'s' if k != 1 else ''} due" if k else f"Physics RPG · {top[cid]}: no respawns due",
+                'quadrant': QUADRANT, 'inMatrix': k > 0, 'done': k == 0, 'source': 'physics-rpg', 'topic': top[cid], 'kind': 'respawn',
+                'notes': 'Failed exercises come back here when they are due. Open the game with the link and do them; the quest is gone when none are due.'}
+        if link: want['link'] = link
+        rec = dict(ex or {'id': rid, 'createdAt': now})
+        if all(rec.get(f) == v for f, v in want.items()): continue
+        rec.update(want); rec['updatedAt'] = max(now, int(rec.get('updatedAt') or 0) + 1)
+        changes.append({'c': 'quests', 'r': rec})
 
     if args.dry_run:
         print(json.dumps({'totals': totals, 'today': todays, 'changes': changes}, indent=1, ensure_ascii=False)); return 0

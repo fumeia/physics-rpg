@@ -96,7 +96,10 @@ check(L.get('rpg.solid-state.2026-11-05', 0) == 0 and not any(v < 0 for v in L.v
 check(sum(v for k, v in L.items() if k.startswith('rpg.')) == 1000, 'everything sent adds up to the game total (1000)')
 check(sum(v for k, v in L.items() if k.endswith('.earlier')) == 1000 - 30 - 150, 'XP from before the daily log lands in "earlier"')
 Q = quests()
-check(set(Q) == {'rpg.qm', 'rpg.solid-state', 'rpg.astrophysics'}, 'three quests, one per course')
+check({k for k in Q if not k.endswith('.respawn')} == {'rpg.qm', 'rpg.solid-state', 'rpg.astrophysics'}, 'three course quests, one per course')
+check(all(Q[f'rpg.{c}.respawn']['done'] and not Q[f'rpg.{c}.respawn']['inMatrix'] for c in ('qm', 'solid-state', 'astrophysics')),
+      'no respawns due: the respawn quests are done and out of the matrix')
+check(Q['rpg.qm']['inMatrix'] is False, 'the course quest is a tracker: out of the matrix, lives in its goal')
 check(Q['rpg.qm']['topic'] == 'Quantenmechanik' and Q['rpg.solid-state']['title'] == 'Physics RPG · Festkörperphysik' and Q['rpg.astrophysics']['topic'] == 'Astrophysik', 'German topic names by default')
 check(Q['rpg.qm']['link'] == 'https://rpg.example.com' and Q['rpg.qm']['quadrant'] == 'q2' and Q['rpg.qm']['done'] is False, 'quests link to the game, sit in Schedule, open')
 check(Q['rpg.qm']['goalId'] == 'g-qm' and Q['rpg.solid-state']['goalId'] == 'g-ss' and Q['rpg.astrophysics']['goalId'] == 'g-as', 'each quest is linked to the open goal that names its course')
@@ -115,6 +118,17 @@ check(run() == 0 and quests() == {k: v for k, v in quests().items()} and {k: r['
 r = dict(Q['rpg.qm'], quadrant='q1', done=True, doneAt=NOW, updatedAt=NOW + 10)
 r2 = dict(Q['rpg.solid-state'], title='Festkörper im Spiel', updatedAt=NOW + 10)
 qb.push([{'c': 'quests', 'r': r}, {'c': 'quests', 'r': r2}, {'c': 'quests', 'r': {'id': 'rpg.astrophysics', 'deleted': True, 'updatedAt': NOW + 10}}])
+# a failed QM exercise is due now → one respawn quest in the matrix
+state['reviews'] = {QM: {'due': NOW - 1000, 'box': 0, 'fails': 1}}; save()
+run(now=NOW + 200000)
+Q = quests()
+check(Q['rpg.qm.respawn']['inMatrix'] is True and Q['rpg.qm.respawn']['done'] is False and '1 respawn due' in Q['rpg.qm.respawn']['title'],
+      'a due respawn puts one quest in the matrix')
+check(Q['rpg.qm.respawn'].get('goalId') is None, 'respawn quests are not counted in the goal')
+check('1 respawns' not in Q['rpg.qm.respawn']['title'], 'singular for one')
+state['reviews'] = {}; save()
+run(now=NOW + 300000)
+check(quests()['rpg.qm.respawn']['inMatrix'] is False and quests()['rpg.qm.respawn']['done'] is True, 'when none are due it leaves the matrix again')
 # the user unlinks the QM quest from its goal: it stays unlinked
 qb.push([{'c': 'quests', 'r': dict(quests()['rpg.qm'], goalId=None, updatedAt=NOW + 11)}])
 # new XP today in solid state

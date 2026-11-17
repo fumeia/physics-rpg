@@ -15,6 +15,7 @@ await p.keyboard.press('KeyC'); await p.waitForTimeout(300); await p.click('#cp-
 const stops = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop + ':' + x.className));
 ck('the run starts the solid-state week with its script reading', stops.some((s) => /^ss-read-\d+:.*\bread\b/.test(s)), stops.join(' | '));
 ck('second-pass control on the solid-state track', await p.isVisible('[data-rrstart="solid-state"]'));
+ck('second-pass control on the QM track too (QM has reading cards)', await p.isVisible('[data-rrstart="qm"]'));
 await p.selectOption('[data-rrfrom="solid-state"]', '1'); await p.click('[data-rrstart="solid-state"]'); await p.waitForTimeout(400);
 const stops2 = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop + ':' + x.className));
 ck('second pass puts week 1 reading into the run', stops2.some((s) => s.startsWith('ss-read-01:') && /reread/.test(s)), stops2.join(' | '));
@@ -26,6 +27,6 @@ await p.keyboard.press('KeyC'); await p.waitForTimeout(400);
 const rr = await p.textContent('.cp-reread.cur').catch(() => '');
 ck('second-pass counter moves to 1 read', /1 of \d+ read/.test(rr), rr);
 await p.setViewportSize({ width: 390, height: 844 }); await p.evaluate(() => window.__game.open('ss-read-17')); await p.waitForTimeout(1200);
-await p.evaluate(() => document.querySelector('#panel details')?.setAttribute('open', '')); await p.screenshot({ path: process.env.SHOT || '/dev/null' });
+await p.evaluate(() => document.querySelector('#panel details')?.setAttribute('open', '')); if (process.env.SHOT) await p.screenshot({ path: process.env.SHOT });
 ck('no page errors', errs.length === 0, errs.join(' | '));
 console.log(fails ? `${fails} FAILED` : 'ALL OK'); await b.close(); server.close(); process.exit(fails ? 1 : 0);

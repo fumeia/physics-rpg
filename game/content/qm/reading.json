@@ -1,0 +1,907 @@
+{
+ "about": "Guided reading of the QM script; built by notes/quantum-mechanics/build/reading/build.py",
+ "items": [
+  {
+   "room": "angular-momentum-spin",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 8,
+    "id": "qm-read-07a",
+    "title": "Read 7.1–7.2: unitary representations; SO(3) and its Lie algebra",
+    "minutes": 16,
+    "xp": 15,
+    "pages": "66–69",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "7.1–7.2, pp. 66–69"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why must a symmetry act by unitary operators that compose like the group?</li><li>How do you get from a rotation group to commutators like $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 7.1–7.2, pp. 66–69.</b> Look for: $U(g_1)U(g_2)=U(g_1g_2)$, rotations $R(\\vec e,\\omega)=e^{\\omega\\Omega(\\vec e)}$, the generators $\\Omega_j$ and their commutators (the Lie algebra so(3)), and how $U(R)=e^{-i\\omega\\vec e\\cdot\\vec L/\\hbar}$ turns them into angular momentum. If the lecturer&#8217;s chapter 7 pack is installed, the strip at the top links the explainers for this section."
+     },
+     {
+      "kind": "think",
+      "html": "Why are the generators of rotations in $\\mathcal H$ hermitian?<details><summary>Show the answer</summary>$U(R(\\vec e,\\omega))=e^{-i\\omega\\vec e\\cdot\\vec M}$ is unitary for all $\\omega$; differentiating $U^\\dagger U=\\mathbb 1$ at $\\omega=0$ gives $M^\\dagger=M$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Which property of rotations makes the Lie algebra non-abelian?<details><summary>Show the answer</summary>Rotations about different axes do not commute; to second order the commutator of two infinitesimal rotations is a rotation about the third axis: $[\\Omega_1,\\Omega_2]=\\Omega_3$, which becomes $[L_1,L_2]=i\\hbar L_3$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "A unitary representation satisfies",
+      "options": [
+       "$U(g_1)U(g_2)=U(g_1g_2)$ and $U^\\dagger=U^{-1}$",
+       "$U(g)$ hermitian",
+       "$U(g_1)U(g_2)=U(g_2)U(g_1)$",
+       "$\\det U=0$"
+      ],
+      "correct": 0,
+      "explain": "Script 7.1."
+     },
+     {
+      "q": "The generators $L_j$ of rotations satisfy",
+      "options": [
+       "$[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$",
+       "$[L_j,L_k]=0$",
+       "$\\{L_j,L_k\\}=0$",
+       "$L_j^2=1$"
+      ],
+      "correct": 0,
+      "explain": "so(3), script 7.2."
+     }
+    ]
+   }
+  },
+  {
+   "room": "angular-momentum-spin",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 8,
+    "id": "qm-read-07b",
+    "title": "Read 7.3–7.4: irreducible representations; the spectrum $j(j+1)$",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "70–74",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "7.3–7.4, pp. 70–74"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What does &#8220;irreducible&#8221; mean, and why does unitarity let you split a representation?</li><li>Why must $j$ be a half-integer or integer?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 7.3–7.4, pp. 70–74.</b> Look for: invariant subspaces and their complements, ladder operators $M_\\pm$, the top state $M_+\\psi_j=0$, the Casimir $\\vec M^2=j(j+1)$, $\\dim\\mathcal D_j=2j+1$. If the lecturer&#8217;s chapter 7 pack is installed, the strip at the top links the explainers for this section."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $\\vec M^2=j(j+1)$ on the top state.<details><summary>Show the answer</summary>$\\vec M^2=M_-M_++M_3^2+M_3$; on $\\psi_j$ with $M_+\\psi_j=0$, $M_3\\psi_j=j\\psi_j$: $\\vec M^2\\psi_j=(j^2+j)\\psi_j$. It commutes with all $M_k$, so it is $j(j+1)$ on the whole irreducible space.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why does the ladder down from $m=j$ have to stop exactly at $m=-j$?<details><summary>Show the answer</summary>$\\|M_-\\psi_m\\|^2=j(j+1)-m(m-1)$ must not be negative; the chain must end with $M_-\\psi_{m_0}=0$, i.e. $m_0=-j$. From $j$ to $-j$ in integer steps: $2j$ is an integer.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "$M_\\pm|j,m\\rangle=$",
+      "options": [
+       "$\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$",
+       "$\\sqrt{j\\pm m}\\,|j,m\\pm1\\rangle$",
+       "$m|j,m\\pm1\\rangle$",
+       "$|j\\pm1,m\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Script 7.4 ($\\hbar=1$ units of the generators)."
+     },
+     {
+      "q": "The irreducible representation $\\mathcal D_j$ has dimension",
+      "options": [
+       "$2j+1$",
+       "$j$",
+       "$j(j+1)$",
+       "$2j$"
+      ],
+      "correct": 0,
+      "explain": "$m=-j,\\dots,j$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "angular-momentum-spin",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 9,
+    "id": "qm-read-07c",
+    "title": "Read 7.5–7.7: SO(3) vs SU(2), projective representations, spin",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "75–79",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "7.5–7.7, pp. 75–79"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How can a rotation by $2\\pi$ act as $-\\mathbb 1$ without contradicting anything measurable?</li><li>What is the double cover, concretely?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 7.5–7.7, pp. 75–79.</b> Look for: $\\tilde x=x^j\\sigma_j$ and $\\tilde x\\mapsto A\\tilde xA^\\dagger$, the kernel $\\{\\pm\\mathbb 1\\}$, $e^{-2\\pi iM_3}=(-1)^{2j}$, the cocycle condition, the spin of the electron on $L^2(\\mathbb R^3)\\otimes\\mathbb C^2$. If the lecturer&#8217;s chapter 7 pack is installed, the strip at the top links the explainers for this section."
+     },
+     {
+      "kind": "think",
+      "html": "Compute $e^{-i\\pi\\sigma_3}$ and interpret it.<details><summary>Show the answer</summary>$\\mathrm{diag}(e^{-i\\pi},e^{i\\pi})=-\\mathbb 1$: the rotation by $2\\pi$ on spin $\\frac12$. The overall sign does not change any probability, so it is allowed: $\\mathcal D_{1/2}$ is a projective representation of SO(3), an honest one of SU(2).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why do the spherical harmonics only have integer $l$?<details><summary>Show the answer</summary>$Y_{lm}\\propto e^{im\\varphi}$ must be single-valued on the sphere, so $m$ and $l$ are integers. Spin is not a function on the sphere.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "$\\mathrm{SO}(3)\\cong$",
+      "options": [
+       "$\\mathrm{SU}(2)/\\{\\pm\\mathbb 1\\}$",
+       "$\\mathrm{SU}(2)$",
+       "$\\mathrm U(1)$",
+       "$\\mathrm{SU}(2)\\times\\mathbb Z_2$"
+      ],
+      "correct": 0,
+      "explain": "Script 7.5."
+     },
+     {
+      "q": "Half-integer $j$ give",
+      "options": [
+       "projective representations of SO(3) (honest ones of SU(2))",
+       "no representations at all",
+       "honest representations of SO(3)",
+       "only reducible ones"
+      ],
+      "correct": 0,
+      "explain": "Script 7.5-7.6."
+     }
+    ]
+   }
+  },
+  {
+   "room": "angular-momentum-spin",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "qm-read-07d",
+    "title": "Read 7.8: Wigner&#8217;s theorem",
+    "minutes": 15,
+    "xp": 15,
+    "pages": "80–81",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "7.8, pp. 80–81"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What is the weakest thing a symmetry must preserve?</li><li>Why are rotations represented unitarily and never anti-unitarily?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 7.8, pp. 80–81.</b> Look for: transition probabilities on rays, unitary or anti-unitary, the square argument (Weyl&#8217;s lemma), time reversal as the anti-unitary example. If the lecturer&#8217;s chapter 7 pack is installed, the strip at the top links the explainers for this section."
+     },
+     {
+      "kind": "think",
+      "html": "Why does an anti-unitary operator still preserve probabilities?<details><summary>Show the answer</summary>$\\langle U\\phi|U\\psi\\rangle=\\overline{\\langle\\phi|\\psi\\rangle}$ has the same modulus.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Give the argument that every rotation is unitary.<details><summary>Show the answer</summary>$U(g)^2$ is unitary even if $U(g)$ is anti-unitary, so $U(g^2)\\propto U(g)^2$ is unitary; every rotation is the square of the rotation by half the angle.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Wigner: a symmetry is represented by an operator that is",
+      "options": [
+       "unitary or anti-unitary",
+       "always unitary",
+       "hermitian",
+       "any invertible one"
+      ],
+      "correct": 0,
+      "explain": "Script 7.8."
+     },
+     {
+      "q": "Time reversal is",
+      "options": [
+       "anti-unitary",
+       "unitary",
+       "hermitian",
+       "not a symmetry"
+      ],
+      "correct": 0,
+      "explain": "Complex conjugation is needed."
+     }
+    ]
+   }
+  },
+  {
+   "room": "hydrogen-lamp",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 10,
+    "id": "qm-read-08a",
+    "title": "Read 8.1–8.2: relative coordinates and the Coulomb potential",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "82–87",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "8.1–8.2, pp. 82–87"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does a two-body problem become a one-body problem?</li><li>What do the limits $r\\to0$ and $r\\to\\infty$ tell you before solving anything?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 8.1–8.2, pp. 82–87.</b> Look for: centre of mass and reduced mass, separation $\\Psi=\\frac{u(r)}rY_{lm}$, the effective potential with $\\frac{\\hbar^2l(l+1)}{2mr^2}$, the behaviour at $r=0$ (8.2.1) and $r\\to\\infty$ (8.2.2), the terminating series and $E_n=-\\frac{me^4}{2\\hbar^2n^2}$."
+     },
+     {
+      "kind": "think",
+      "html": "Why $u\\sim r^{l+1}$ at small $r$?<details><summary>Show the answer</summary>The centrifugal term dominates: $u^{\\prime\\prime}\\approx\\frac{l(l+1)}{r^2}u$, so $u=r^{l+1}$ or $r^{-l}$; the second is not allowed (not normalisable for $l\\ge1$, and for $l=0$ it would need a $\\delta$ source).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Where does the degeneracy $n^2$ come from?<details><summary>Show the answer</summary>$E$ depends only on $n=n_r+l+1$; for given $n$, $l=0,\\dots,n-1$ with $2l+1$ values of $m$: $\\sum(2l+1)=n^2$. The $l$-degeneracy is the hidden symmetry of 8.3.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "How does the radial asymptotics differ from the 3D oscillator (sheet 10)?<details><summary>Show the answer</summary>Hydrogen: $u\\sim e^{-\\kappa r}$ (exponential), bound states only for $E<0$ and a continuum above. Oscillator: Gaussian $e^{-m\\omega r^2/2\\hbar}$ and a purely discrete spectrum.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Bohr radius in the script&#8217;s units",
+      "options": [
+       "$a=\\hbar^2/me^2$",
+       "$a=e^2/mc^2$",
+       "$a=\\hbar/mc$",
+       "$a=\\hbar^2/e^2$"
+      ],
+      "correct": 0,
+      "explain": "Gaussian units."
+     },
+     {
+      "q": "The energies of hydrogen depend on",
+      "options": [
+       "$n$ only (without fine structure)",
+       "$n$ and $l$",
+       "$l$ and $m$",
+       "$m$ only"
+      ],
+      "correct": 0,
+      "explain": "$E_n\\propto-1/n^2$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "hydrogen-lamp",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 11,
+    "id": "qm-read-08b",
+    "title": "Read 8.3: the dynamical symmetry so(4)",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "88–92",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "8.3, pp. 88–92"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Rotations explain the $m$-degeneracy. What explains that different $l$ have the same energy?</li><li>What is conserved besides $\\vec L$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 8.3, pp. 88–92.</b> Look for: the Pauli-Lenz vector $\\vec J$, its algebra on a fixed energy $E<0$, $\\vec S=\\frac12(\\vec L+a\\vec J)$, $\\vec D=\\frac12(\\vec L-a\\vec J)$ with $a=\\sqrt{-m/2E}$, $\\vec S^2=\\vec D^2$ and the energies from the Casimir."
+     },
+     {
+      "kind": "think",
+      "html": "Why does $\\vec S^2=\\vec D^2$, and what does it give for the multiplets?<details><summary>Show the answer</summary>$\\vec S^2-\\vec D^2=a\\vec L\\cdot\\vec J=0$ since $\\vec J\\perp\\vec L$. So both su(2) have the same spin $s$: the eigenspace is $\\mathcal D_s\\otimes\\mathcal D_s$ of dimension $(2s+1)^2=n^2$ with $n=2s+1$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Which $l$ appear in $\\mathcal D_s\\otimes\\mathcal D_s$?<details><summary>Show the answer</summary>$\\vec L=\\vec S+\\vec D$: $l=0,1,\\dots,2s=n-1$, exactly the hydrogen multiplet.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "The Pauli-Lenz vector is perpendicular to",
+      "options": [
+       "$\\vec L$",
+       "$\\vec x$",
+       "$\\vec p$",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "$\\vec J\\cdot\\vec L=0$."
+     },
+     {
+      "q": "On the energy $E_n$, $\\vec S$ and $\\vec D$ both have spin",
+      "options": [
+       "$s=\\frac{n-1}2$",
+       "$s=n$",
+       "$s=\\frac n2$",
+       "$s=l$"
+      ],
+      "correct": 0,
+      "explain": "$n=2s+1$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "spin-addition-stern-gerlach",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 11,
+    "id": "qm-read-09a",
+    "title": "Read 9.1–9.3: tensor products; two spins $\\frac12$",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "93–97",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "9.1–9.3, pp. 93–97"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How does a rotation act on a two-particle state?</li><li>Why do two spins $\\frac12$ give spin 1 and spin 0?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 9.1–9.3, pp. 93–97.</b> Look for: $\\mathcal H_1\\otimes\\mathcal H_2$, total generators $\\vec J=\\vec J^{(1)}\\otimes\\mathbb 1+\\mathbb 1\\otimes\\vec J^{(2)}$, the highest-weight method, triplet and singlet."
+     },
+     {
+      "kind": "think",
+      "html": "Build the triplet and the singlet with $S_-=S_-^{(1)}+S_-^{(2)}$.<details><summary>Show the answer</summary>$|1,1\\rangle=|\\uparrow\\uparrow\\rangle$, $S_-$ gives $|1,0\\rangle=\\frac1{\\sqrt2}(|\\uparrow\\downarrow\\rangle+|\\downarrow\\uparrow\\rangle)$, $|1,-1\\rangle=|\\downarrow\\downarrow\\rangle$. The orthogonal $m=0$ state $\\frac1{\\sqrt2}(|\\uparrow\\downarrow\\rangle-|\\downarrow\\uparrow\\rangle)$ is killed by $S_+$: the singlet.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Eigenvalues of $\\vec S_1\\cdot\\vec S_2$ on triplet and singlet?<details><summary>Show the answer</summary>$\\frac12(S^2-S_1^2-S_2^2)$: $\\frac{\\hbar^2}2(2-\\frac32)=\\frac{\\hbar^2}4$ and $\\frac{\\hbar^2}2(0-\\frac32)=-\\frac34\\hbar^2$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "$\\mathcal D_{1/2}\\otimes\\mathcal D_{1/2}=$",
+      "options": [
+       "$\\mathcal D_1\\oplus\\mathcal D_0$",
+       "$\\mathcal D_1$",
+       "$\\mathcal D_{1/2}\\oplus\\mathcal D_{1/2}$",
+       "$\\mathcal D_2$"
+      ],
+      "correct": 0,
+      "explain": "$2\\times2=3+1$."
+     },
+     {
+      "q": "The singlet is",
+      "options": [
+       "antisymmetric under exchange",
+       "symmetric",
+       "a product state",
+       "$|\\uparrow\\uparrow\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "$\\frac1{\\sqrt2}(\\uparrow\\downarrow-\\downarrow\\uparrow)$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "spin-addition-stern-gerlach",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 12,
+    "id": "qm-read-09b",
+    "title": "Read 9.4–9.5: Clebsch-Gordan series and coefficients",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "98–101",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "9.4–9.5, pp. 98–101"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Which total $j$ appear in $\\mathcal D_{j_1}\\otimes\\mathcal D_{j_2}$, and how do you check it?</li><li>How are Clebsch-Gordan coefficients computed without tables?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 9.4–9.5, pp. 98–101.</b> Look for: the series $|j_1-j_2|\\le j\\le j_1+j_2$, counting by $m$ multiplicities and dimensions, the coefficients $\\langle j_1m_1;j_2m_2|j,m\\rangle$ and the simple example 9.5.1."
+     },
+     {
+      "kind": "think",
+      "html": "Check $\\mathcal D_1\\otimes\\mathcal D_1=\\mathcal D_2\\oplus\\mathcal D_1\\oplus\\mathcal D_0$ by counting.<details><summary>Show the answer</summary>Dimensions $9=5+3+1$; $m$ multiplicities for $m=2,1,0$: $1,2,3$, so one top state each for $j=2,1,0$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Find $|\\frac32,\\frac12\\rangle$ in $1\\otimes\\frac12$.<details><summary>Show the answer</summary>Apply $J_-$ to $|1\\rangle|\\uparrow\\rangle$: $J_-|\\frac32,\\frac32\\rangle=\\sqrt3|\\frac32,\\frac12\\rangle=\\sqrt2|0\\rangle|\\uparrow\\rangle+|1\\rangle|\\downarrow\\rangle$, so $|\\frac32,\\frac12\\rangle=\\sqrt{\\frac23}|0\\rangle\\uparrow+\\sqrt{\\frac13}|1\\rangle\\downarrow$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Clebsch-Gordan coefficients vanish unless",
+      "options": [
+       "$m=m_1+m_2$",
+       "$m=m_1-m_2$",
+       "$j=j_1j_2$",
+       "$m_1=m_2$"
+      ],
+      "correct": 0,
+      "explain": "$J_3$ is additive."
+     },
+     {
+      "q": "$\\mathcal D_{1/2}\\otimes\\mathcal D_1=$",
+      "options": [
+       "$\\mathcal D_{3/2}\\oplus\\mathcal D_{1/2}$",
+       "$\\mathcal D_{3/2}$",
+       "$\\mathcal D_1\\oplus\\mathcal D_0$",
+       "$\\mathcal D_2$"
+      ],
+      "correct": 0,
+      "explain": "Sheet 11 Q3: $6=4+2$."
+     }
+    ]
+   }
+  },
+  {
+   "room": "hydrogen-lamp",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 14,
+    "id": "qm-read-09c",
+    "title": "Read 9.6–9.7: magnetic moment, Zeeman effect, spin-orbit coupling",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "102–107",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "9.6–9.7, pp. 102–107"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Where does a magnetic moment come from in the Hamiltonian?</li><li>Why does the anomalous Zeeman effect need $g\\approx2$ and $\\vec J=\\vec L+\\vec S$?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 9.6–9.7, pp. 102–107.</b> Look for: minimal coupling (9.39), $\\vec M=\\frac q{2mc}\\vec L$ (9.46), $H_Z=-\\vec M\\cdot\\vec B$ (9.47), $\\Delta E_Z=\\mu_BB_zm$ (9.50), spin moment with $g$ (9.52), spin-orbit coupling and $\\vec L\\cdot\\vec S=\\frac12(\\vec J^2-\\vec L^2-\\vec S^2)$."
+     },
+     {
+      "kind": "think",
+      "html": "Why is $\\vec L\\cdot\\vec S$ diagonal in the $|j,m_j\\rangle$ basis but not in $|m_l,m_s\\rangle$?<details><summary>Show the answer</summary>$\\vec L\\cdot\\vec S=\\frac12(\\vec J^2-\\vec L^2-\\vec S^2)$ commutes with $\\vec J^2$ and $J_z$, but not with $L_z$ or $S_z$ separately. Eigenvalue $\\frac{\\hbar^2}2[j(j+1)-l(l+1)-\\frac34]$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Weak field vs strong field (Paschen-Back): which basis?<details><summary>Show the answer</summary>Weak $B$: spin-orbit dominates, $|j,m_j\\rangle$ with $\\Delta E=g_{lj}\\mu_BBm_j$. Strong $B$: Zeeman dominates, $|m_l,m_s\\rangle$ with $\\Delta E=\\mu_BB(m_l+2m_s)$ plus spin-orbit as a small correction.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "For $j=l+\\frac12$, the Landé factor is",
+      "options": [
+       "$g=\\frac{2l+2}{2l+1}$",
+       "$g=2$",
+       "$g=1$",
+       "$g=\\frac{2l}{2l+1}$"
+      ],
+      "correct": 0,
+      "explain": "Projection theorem; sheet 14 Q3."
+     },
+     {
+      "q": "$\\vec L\\cdot\\vec S$ in a state $|l,s=\\frac12,j\\rangle$ equals",
+      "options": [
+       "$\\frac{\\hbar^2}2[j(j+1)-l(l+1)-\\frac34]$",
+       "$\\hbar^2lm_s$",
+       "$0$",
+       "$\\hbar^2j$"
+      ],
+      "correct": 0,
+      "explain": "Script 9.7.1."
+     }
+    ]
+   }
+  },
+  {
+   "room": "entanglement-lab",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 13,
+    "id": "qm-read-10a",
+    "title": "Read 10.1–10.2: EPR and Bell&#8217;s inequality",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "108–110",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "10.1–10.2, pp. 108–110"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What exactly did EPR find paradoxical?</li><li>What do &#8220;local hidden variables&#8221; assume, and why does it give a bound of 2?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 10.1–10.2, pp. 108–110.</b> Look for: the EPR pair (10.1), local hidden-variable expectation values (10.2)-(10.3), the CHSH form (10.4)-(10.8), the quantum correlation $C(\\vec n_1,\\vec n_2)=-\\vec n_1\\cdot\\vec n_2$ (10.11) and the violation."
+     },
+     {
+      "kind": "think",
+      "html": "Prove (10.5) in two lines.<details><summary>Show the answer</summary>If $A=A^\\prime$: $A+A^\\prime=\\pm2$, $A-A^\\prime=0$; if $A=-A^\\prime$: the reverse. So $(A+A^\\prime)B+(A-A^\\prime)B^\\prime=\\pm2$, and averaging gives $|\\dots|\\le2$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Find angles where the singlet violates CHSH.<details><summary>Show the answer</summary>With $C=-\\cos\\theta$: $\\vec n_1,\\vec n_1^\\prime$ at $0^\\circ,90^\\circ$, $\\vec n_2,\\vec n_2^\\prime$ at $45^\\circ,-45^\\circ$ give $|C+C+C-C|=4\\cos45^\\circ=2\\sqrt2>2$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "For the singlet, $C(\\vec n_1,\\vec n_2)=\\langle\\sigma^{(1)}_{\\vec n_1}\\sigma^{(2)}_{\\vec n_2}\\rangle=$",
+      "options": [
+       "$-\\vec n_1\\cdot\\vec n_2$",
+       "$\\vec n_1\\cdot\\vec n_2$",
+       "$0$",
+       "$1$"
+      ],
+      "correct": 0,
+      "explain": "(10.11)."
+     },
+     {
+      "q": "The maximal quantum value of the CHSH combination is",
+      "options": [
+       "$2\\sqrt2$",
+       "$2$",
+       "$4$",
+       "$\\sqrt2$"
+      ],
+      "correct": 0,
+      "explain": "Tsirelson bound."
+     }
+    ]
+   }
+  },
+  {
+   "room": "entanglement-lab",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 13,
+    "id": "qm-read-10b",
+    "title": "Read 10.3: quantum teleportation",
+    "minutes": 15,
+    "xp": 15,
+    "pages": "111–113",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "10.3, pp. 111–113"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How can a continuous state be transmitted with two bits?</li><li>Why does this not allow signalling faster than light?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 10.3, pp. 111–113.</b> Look for: the three-particle state (10.14), the Bell-basis projectors $P_i=|\\chi_i\\rangle\\langle\\chi_i|$ (10.15), the four post-measurement states and the table of Bob&#8217;s operations."
+     },
+     {
+      "kind": "think",
+      "html": "Without Alice&#8217;s bits, what state does Bob have?<details><summary>Show the answer</summary>Each outcome has probability $\\frac14$ and leaves a unitary image of $|\\varphi\\rangle$; averaged, Bob holds $\\frac12\\mathbb 1$: no information.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Verify one row of the table: outcome 3 and $\\sigma_1$.<details><summary>Show the answer</summary>Bob holds $|\\downarrow\\rangle\\langle\\uparrow|\\varphi\\rangle+|\\uparrow\\rangle\\langle\\downarrow|\\varphi\\rangle$; $\\sigma_1$ swaps $\\uparrow$ and $\\downarrow$ and gives $|\\varphi\\rangle$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Teleportation needs",
+      "options": [
+       "an entangled pair and 2 classical bits",
+       "only classical bits",
+       "cloning",
+       "a faster-than-light channel"
+      ],
+      "correct": 0,
+      "explain": "Script 10.3."
+     },
+     {
+      "q": "After the protocol, Alice&#8217;s particle 0",
+      "options": [
+       "no longer carries $|\\varphi\\rangle$ (no cloning)",
+       "still carries $|\\varphi\\rangle$",
+       "is destroyed physically",
+       "carries $-|\\varphi\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Her Bell measurement entangles 0 and 1."
+     }
+    ]
+   }
+  },
+  {
+   "room": "perturbation-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 14,
+    "id": "qm-read-11a",
+    "title": "Read 11.1: non-degenerate perturbation theory",
+    "minutes": 20,
+    "xp": 15,
+    "pages": "114–117",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "11.1, pp. 114–117"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>What do you expand, and which convention fixes the expansion?</li><li>When is perturbation theory reliable?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 11.1, pp. 114–117.</b> Look for: $H=H_0+\\lambda H^\\prime$, power series in $\\lambda$ for $\\psi$ and $E$, projecting the order-$\\lambda^s$ equation on $\\psi_n$, $E^{(1)}$, $E^{(2)}$, $\\psi^{(1)}$, the perturbed oscillator (11.1.1)."
+     },
+     {
+      "kind": "think",
+      "html": "Derive $E^{(1)}$ and $E^{(2)}$.<details><summary>Show the answer</summary>Order 1: $(H_0-E_n)\\psi^{(1)}=(E^{(1)}-H^\\prime)\\psi_n$; project on $\\psi_n$: $E^{(1)}=\\langle n|H^\\prime|n\\rangle$, and $\\psi^{(1)}=\\sum_{m\\ne n}\\frac{\\langle m|H^\\prime|n\\rangle}{E_n-E_m}\\psi_m$. Order 2 projected: $E^{(2)}=\\sum_{m\\ne n}\\frac{|\\langle m|H^\\prime|n\\rangle|^2}{E_n-E_m}$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Why is $E^{(2)}$ of the ground state never positive?<details><summary>Show the answer</summary>All $E_0-E_m<0$ and the numerators are non-negative: levels repel, the lowest is pushed down.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "Perturbation theory is valid when",
+      "options": [
+       "$|\\langle m|\\lambda H^\\prime|n\\rangle|\\ll|E_n-E_m|$",
+       "$\\lambda=1$",
+       "$H^\\prime$ commutes with $H_0$",
+       "the levels are degenerate"
+      ],
+      "correct": 0,
+      "explain": "Small mixing."
+     },
+     {
+      "q": "$E^{(1)}_n=$",
+      "options": [
+       "$\\langle n|H^\\prime|n\\rangle$",
+       "$\\sum_m|H^\\prime_{mn}|^2$",
+       "$0$",
+       "$E_n$"
+      ],
+      "correct": 0,
+      "explain": "Script 11.1."
+     }
+    ]
+   }
+  },
+  {
+   "room": "perturbation-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 14,
+    "id": "qm-read-11b",
+    "title": "Read 11.2: degenerate perturbation theory and the Stark effect",
+    "minutes": 25,
+    "xp": 15,
+    "pages": "118–123",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "11.2, pp. 118–123"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>Why does the non-degenerate formula break down for degenerate levels?</li><li>How can a symmetry save you the diagonalisation?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 11.2, pp. 118–123.</b> Look for: diagonalising $H^\\prime$ in the degenerate subspace (11.2.1-11.2.2), lifting at second order (11.2.3), the linear Stark effect of $n=2$ (11.2.4)."
+     },
+     {
+      "kind": "think",
+      "html": "Stark effect for $n=2$: why do only $|200\\rangle$ and $|210\\rangle$ mix?<details><summary>Show the answer</summary>$H^\\prime=-eEz$ is odd under parity and commutes with $L_z$: it connects $l=0\\leftrightarrow1$ with the same $m$. Only $\\langle200|z|210\\rangle\\ne0$ (magnitude $3a$).</details>"
+     },
+     {
+      "kind": "think",
+      "html": "Result for $n=2$?<details><summary>Show the answer</summary>Two levels shift by $\\pm3eEa$ (states $(|200\\rangle\\mp|210\\rangle)/\\sqrt2$), $|21\\pm1\\rangle$ stay: a linear Stark effect, possible because of the $l$-degeneracy.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "In a degenerate level the first-order energies are",
+      "options": [
+       "the eigenvalues of $H^\\prime$ restricted to the degenerate subspace",
+       "the diagonal elements in any basis",
+       "always zero",
+       "$E^{(2)}$"
+      ],
+      "correct": 0,
+      "explain": "Script 11.2."
+     },
+     {
+      "q": "The ground state of hydrogen has",
+      "options": [
+       "no linear Stark effect (only quadratic)",
+       "a linear Stark effect",
+       "no Stark effect at all",
+       "a splitting into 3 levels"
+      ],
+      "correct": 0,
+      "explain": "Non-degenerate and parity even."
+     }
+    ]
+   }
+  },
+  {
+   "room": "perturbation-forge",
+   "enc": {
+    "type": "lesson",
+    "tier": "reading",
+    "reading": true,
+    "week": 14,
+    "id": "qm-read-11c",
+    "title": "Read 11.3: time-dependent perturbation theory and the golden rule",
+    "minutes": 35,
+    "xp": 15,
+    "pages": "124–132",
+    "source": [
+     {
+      "file": "materials/quantum-mechanics/scripts/QM25.Kap1+2+3+4+5+6+7+8+9+10+11.pdf",
+      "where": "11.3, pp. 124–132"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "before",
+      "html": "<ul><li>How do you organise the time evolution when $H$ depends on time?</li><li>Why does a transition probability turn into a constant rate?</li></ul>"
+     },
+     {
+      "kind": "read",
+      "html": "<b>Script (German) 11.3, pp. 124–132.</b> Look for: the propagator $U(t,t_0)$ and its time-ordered exponential (11.3.1), the Heisenberg picture (11.3.2), the Dirac picture (11.88)-(11.95), first-order amplitude (11.98), sudden switch-on (11.100), Fermi&#8217;s golden rule (11.106) and its time window (Abb. 23)."
+     },
+     {
+      "kind": "think",
+      "html": "Why is time ordering needed in $U(t,t_0)$?<details><summary>Show the answer</summary>$H(t)$ at different times need not commute; the Dyson series orders later times to the left. If $H$ commutes with itself at all times, $U=e^{-\\frac i\\hbar\\int H}$.</details>"
+     },
+     {
+      "kind": "think",
+      "html": "For $H^\\prime=V\\theta(t)$, how does $P_{i\\to f}$ behave at $\\omega_{if}=0$ and how wide is the peak?<details><summary>Show the answer</summary>Height $|V_{fi}|^2t^2/\\hbar^2$, zeros at $\\omega_{if}t=2n\\pi$, width $\\sim2\\pi/t$: area $\\propto t$, hence a rate $\\Gamma=\\frac{2\\pi}\\hbar|V_{fi}|^2\\rho(E_f)$.</details>"
+     }
+    ],
+    "check": [
+     {
+      "q": "In the Dirac picture the state evolves under",
+      "options": [
+       "$H^\\prime_D(t)=e^{iH_0t/\\hbar}H^\\prime e^{-iH_0t/\\hbar}$",
+       "$H_0$",
+       "$H_0+H^\\prime$",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "(11.93)-(11.94)."
+     },
+     {
+      "q": "Fermi&#8217;s golden rule: $\\Gamma=$",
+      "options": [
+       "$\\frac{2\\pi}\\hbar|\\langle f|V|i\\rangle|^2\\rho(E_f)$",
+       "$\\frac\\hbar{2\\pi}|V_{fi}|^2$",
+       "$|V_{fi}|^2t^2/\\hbar^2$",
+       "$\\rho(E_f)/\\hbar$"
+      ],
+      "correct": 0,
+      "explain": "(11.106)."
+     }
+    ]
+   }
+  }
+ ],
+ "weeks": {
+  "8": [
+   "qm-read-07a",
+   "qm-read-07b"
+  ],
+  "9": [
+   "qm-read-07c"
+  ],
+  "10": [
+   "qm-read-07d",
+   "qm-read-08a"
+  ],
+  "11": [
+   "qm-read-08b",
+   "qm-read-09a"
+  ],
+  "12": [
+   "qm-read-09b"
+  ],
+  "14": [
+   "qm-read-09c",
+   "qm-read-11a",
+   "qm-read-11b",
+   "qm-read-11c"
+  ],
+  "13": [
+   "qm-read-10a",
+   "qm-read-10b"
+  ]
+ }
+}

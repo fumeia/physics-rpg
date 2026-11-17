@@ -184,6 +184,10 @@ READINGS = {
     'qm-sym-D3': [('wigner-theorem', "Wigner's theorem and Weyl's lemma")],
     'qm-sym-D4': [('time-reversal', 'Time reversal')],
     'qm-sym-Q1': [('index', 'All chapter 7 explainers')],
+    'qm-read-07a': [('unitary-representations', 'Unitary representations'), ('rotation-group-so3', 'The rotation group SO(3)'), ('lie-groups-and-algebras', 'Lie groups and Lie algebras'), ('generators-angular-momentum', 'Generators = angular momentum')],
+    'qm-read-07b': [('reducible-irreducible', 'Reducible and irreducible'), ('why-j-labels-representations', 'Why j labels the irreducibles'), ('casimir-operator', 'The Casimir operator'), ('ladder-operators', 'Raising and lowering operators')],
+    'qm-read-07c': [('so3-vs-su2', 'SO(3) versus SU(2)'), ('projective-representations', 'Projective representations'), ('spin-of-electron', 'The spin of the electron')],
+    'qm-read-07d': [('wigner-theorem', "Wigner's theorem and Weyl's lemma"), ('time-reversal', 'Time reversal')],
 }
 
 out = {

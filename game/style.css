@@ -512,3 +512,7 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 .cp-reread select{background:transparent;color:inherit;border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:.1em .2em}
 .cp-reread.cur{color:#9be09b}
 .cp-reread select option{background:#1a1f2b;color:#e8e6e1}
+/* study hub: Script tab rows (title, pages, a small "second pass from here") */
+.srow{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2em .6em}.srow .link{text-align:left}.srow .link .mt{text-decoration:none}
+.sfrom{font-size:11px;padding:1px 7px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:transparent;color:inherit;opacity:.75;cursor:pointer}
+.sfrom:hover{opacity:1}

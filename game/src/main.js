@@ -690,11 +690,35 @@ function wirePile() {
   document.querySelectorAll('[data-pileopen]').forEach((b) => (b.onclick = () => openFromPile(b.dataset.pileopen)));
   document.querySelectorAll('[data-pilerm]').forEach((b) => (b.onclick = () => { togglePile(b.dataset.pilerm); renderStudy('pile'); }));
 }
+// ---- Script tab: every guided-reading card of a course in script order, read (✓) / read again in the second pass (↺)
+let scriptCourse = null;
+const secKey = (e) => (String(e.source?.[0]?.where || '').match(/\d+(?:\.\d+)*/)?.[0] || '0').split('.').map(Number);
+const cmpSec = (a, b) => { const x = secKey(a), y = secKey(b); for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = (x[i] ?? -1) - (y[i] ?? -1); if (d) return d; } return 0; };
+function scriptCards(cid) { const out = []; for (const r of findCourse(cid)?.rooms || []) for (const e of r.encounters) if (e.reading) out.push(e); return out.sort(cmpSec); }
+function scriptHtml() {
+  const withCards = catalog.filter((c) => scriptCards(c.id).length); if (!withCards.length) return '<p class="src">No guided reading yet.</p>';
+  if (!withCards.some((c) => c.id === scriptCourse)) scriptCourse = withCards[0].id;
+  const cards = scriptCards(scriptCourse), rr = campaign?.rereadInfo(scriptCourse), read = cards.filter((e) => store.isPassed(e.id)).length;
+  const book = scriptCourse === 'astrophysics' ? 'Choudhuri' : 'the script';
+  const tabs = `<div class="row studytabs sub">${withCards.map((c) => `<button class="chip btn${c.id === scriptCourse ? ' cur' : ''}" data-scourse="${c.id}">${c.name}</button>`).join('')}</div>`;
+  const pass = rr ? `<p class="src">↺ Second pass from week ${rr.from}: ${cards.filter((e) => e.week >= rr.from && rr.done.has(e.id)).length} of ${cards.filter((e) => e.week >= rr.from).length} read again. <button class="chip btn" data-sstop>Stop the second pass</button></p>`
+    : `<p class="src">Second pass: go through ${book} again, one card per daily run. <button class="chip btn" data-sstart="1">Start from the beginning</button></p>`;
+  const rows = cards.map((e) => { const ok = store.isPassed(e.id), again = rr?.done.has(e.id);
+    return `<div class="maprow srow"><button class="link" data-sread="${e.id}"><span class="mt">${again ? '↺' : ok ? '✓' : '○'} ${e.title.replace(/^Read /, '')}</span></button><span class="src">pp. ${e.pages} · week ${e.week} · ${e.minutes} min</span>${`<button class="sfrom" data-sfrom="${e.week}" title="Start the second pass at week ${e.week}">↺ from here</button>`}</div>`; }).join('');
+  return `${tabs}<p class="src">Guided reading of ${book}: questions to keep in mind, the pages, questions to answer afterwards. ${read} of ${cards.length} read (✓).</p>${pass}<div class="list">${rows}</div>`;
+}
+function wireScript(host) {
+  host.querySelectorAll('[data-scourse]').forEach((b) => (b.onclick = () => { scriptCourse = b.dataset.scourse; renderStudy('script'); }));
+  host.querySelectorAll('[data-sread]').forEach((b) => (b.onclick = () => { closeOverlay(true); openById(b.dataset.sread); player.enabled = true; }));
+  host.querySelectorAll('[data-sstart]').forEach((b) => (b.onclick = () => { campaign?.setReread(scriptCourse, +b.dataset.sstart); refresh(); renderStudy('script'); }));
+  host.querySelectorAll('[data-sfrom]').forEach((b) => (b.onclick = () => { campaign?.setReread(scriptCourse, +b.dataset.sfrom); refresh(); renderStudy('script'); }));
+  host.querySelectorAll('[data-sstop]').forEach((b) => (b.onclick = () => { campaign?.setReread(scriptCourse, 0); refresh(); renderStudy('script'); }));
+}
 // ---- Study hub: tabs for the pile, session planner, mistakes, weak spots and Feynman mode
 let studyTab = 'today'; // in the compact layout the hub opens on the sheets
-const TABS = [['today', 'Today'], ['sheets', 'Sheets'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['derivs', 'Derivations'], ['forge', 'Forge (QM by heart)'], ['units', 'Units duel'], ['summary', 'My summary'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+const TABS = [['today', 'Today'], ['script', 'Script'], ['sheets', 'Sheets'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['derivs', 'Derivations'], ['forge', 'Forge (QM by heart)'], ['units', 'Units duel'], ['summary', 'My summary'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
 let studyOpened = false;
-const MAIN_TABS = ['sheets', 'derivs', 'forge', 'summary', 'units', 'drills', 'mistakes', 'feynman', 'pile'];
+const MAIN_TABS = ['script', 'sheets', 'derivs', 'forge', 'summary', 'units', 'drills', 'mistakes', 'feynman', 'pile'];
 function renderStudy(tab) {
   studyTab = tab || studyTab; const body = $('ov-body');
   const open = mistakes().filter((x) => x.open).length;
@@ -708,6 +732,7 @@ function renderStudy(tab) {
   const host = $('study-body');
   if (studyTab === 'today') { host.innerHTML = M(todayHtml()); wireToday(host); }
   else if (studyTab === 'sheets') { host.innerHTML = M(sheetsHtml()); wireSheetLinks(host); }
+  else if (studyTab === 'script') { host.innerHTML = M(scriptHtml()); wireScript(host); }
   else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh() })

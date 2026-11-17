@@ -7,7 +7,8 @@ Notation follows the script: nu(eps) density of states per volume, T_D Debye tem
 q phonon wave vector, tau relaxation time, chi_P Pauli susceptibility, U V_0 nu(eps_F) > 2 Stoner.
 Page numbers from the script's table of contents and section headings (notes/extracted, page markers).
 Writes game/content/solid-state/reading.json: {items: [{room, enc}], weeks: {n: [ids]}}. Run: python3 build.py"""
-import json, os
+import json, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '../../../../game/content/solid-state/reading.json')
@@ -237,6 +238,10 @@ C.append(card('ss-read-26', 14, 'magnet-vault', '6.3.4–6.3.6', '153–160', 'f
   [(r'For an antiferromagnet ($T_W<0$) the susceptibility above $T_N$', [r'follows Curie-Weiss and never diverges', r'diverges at $|T_W|$', r'is zero', r'is negative'], r'Script summary 6.3.6.'),
    (r'Below $T_C$ in zero field, the magnetisation of a ferromagnet', [r'grows on cooling towards saturation', r'is zero', r'decreases on cooling', r'oscillates'], r'Script summary 6.3.6.')], minutes=30))
 
+from more_checks import MORE  # 4 more checks per card
+for it in C:
+    for q, o, e in MORE.get(it['enc']['id'], []): it['enc']['check'].append({'q': q, 'options': o, 'correct': 0, 'explain': e})
+assert all(len(it['enc']['check']) >= 6 for it in C), [it['enc']['id'] for it in C if len(it['enc']['check']) < 6]
 weeks = {}
 for it in C: weeks.setdefault(str(it['enc']['week']), []).append(it['enc']['id'])
 with open(OUT, 'w') as f: json.dump({'about': 'Guided reading of the solid-state script; built by notes/solid-state/build/reading/build.py', 'items': C, 'weeks': weeks}, f, ensure_ascii=False, indent=1)

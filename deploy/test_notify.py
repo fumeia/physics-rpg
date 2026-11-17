@@ -31,6 +31,13 @@ class Wording(unittest.TestCase):
         self.assertIn('1 respawn due', m['message']); self.assertIn('clear them first', m['message']); self.assertTrue(m['click'].endswith('/?suggest=quick')); self.assertTrue(m['actions'][0]['url'].endswith('/?quick=1'))
         self.assertEqual(prog(s).quick_ids()[0], 'qm-wm-Q1')
 
+    def test_a_run_finished_earlier_today_counts_after_planning_another(self):
+        cs = {'setup': True, 'date': TODAY, 'behind': {'solid-state': 4}, 'total': 4, 'fading': 0, 'runDays': 3, 'runStreak': 2, 'chestAt': 4,
+              'run': {'stops': 5, 'done': 0, 'min': 40, 'complete': False, 'started': False, 'n': 2}, 'today': {'runsDone': 1, 'stopsDone': 6}}
+        m, why = notify.message(prog(state(flags={'campaignStat': cs})), 'evening', None); self.assertIsNone(m); self.assertEqual(why, 'run done today')
+        m, why = notify.message(prog(state(flags={'campaignStat': cs})), 'midday', None); self.assertIsNone(m)
+        m, _ = notify.message(prog(state(flags={'campaignStat': cs})), 'morning', None); self.assertNotIn('5 stops', m['title'])  # the day's run is done; the new one is a bonus
+
     def test_midday_is_skipped_once_you_studied(self):
         m, why = notify.message(prog(state(flags={'study': {TODAY: 600}})), 'midday', None); self.assertIsNone(m); self.assertIn('already', why)
         m, why = notify.message(prog(state(missions={TODAY: {'done': {'x': True}, 'xp': 5}})), 'midday', None); self.assertIsNone(m)

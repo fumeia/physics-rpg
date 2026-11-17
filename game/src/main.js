@@ -510,11 +510,28 @@ function activelyStudying() {
   if (performance.now() - lastInput > (paper ? IDLE_PAPER_MS : IDLE_MS)) return false;
   return !!current?.enc || overlay === 'exam' || (overlay === 'pile' && ['drills', 'mix', 'feynman', 'calib'].includes(studyTab));
 }
-let lastStudyAt = performance.now();
+// What the time goes to (course + kind), so Questboard can show it per course and per kind of work.
+const KIND_OF_TYPE = { lesson: 'lesson', quiz: 'quiz', derive: 'derivation', calc: 'calculation', lab: 'experiment', sandbox: 'experiment',
+  'predict-observe': 'station', boss: 'exam-problem' };
+function studyTagNow() {
+  if (overlay === 'exam') return { course: store.val('exam-course', null), kind: 'exam-hall' };
+  const e = current?.enc;
+  if (e) {
+    const kind = e.sheet ? 'sheet' : e.book ? 'book' : e.sim ? 'simulation' : e.synthetic ? 'mission' : (KIND_OF_TYPE[e.type] || e.type || 'other');
+    return { course: encIndex.get(e.id)?.course || e.course || null, kind };
+  }
+  if (overlay === 'pile') return { course: null, kind: { drills: 'drills', mix: 'mixed-practice', feynman: 'explain-it', calib: 'calibration' }[studyTab] || studyTab };
+  return { course: null, kind: 'other' };
+}
+let lastStudyAt = performance.now(), studyTag = null;
+function flushStudy() { if (studyAcc >= 1) store.addActive(Math.round(studyAcc), studyTag); studyAcc = 0; }
 function tickStudy() { // real elapsed time, not the frame step: a slow frame rate must not shorten the count
   const now = performance.now(), dt = Math.min(2, (now - lastStudyAt) / 1000); lastStudyAt = now;
   if (!activelyStudying()) return;
-  studyAcc += dt; if (studyAcc >= 15) { store.addActive(Math.round(studyAcc)); studyAcc = 0; checkGoal(); }
+  const tag = studyTagNow();
+  if (studyTag && (tag.course !== studyTag.course || tag.kind !== studyTag.kind)) flushStudy(); // switched exercise kind: book the time so far
+  studyTag = tag;
+  studyAcc += dt; if (studyAcc >= 15) { flushStudy(); checkGoal(); }
 }
 function runAchievements() {
   const have = { ...(store.val('ach', {}) || {}) }, ctx = achContext({ catalog, isPassed: isPassedEnc, store, level: levelOf(store.xp).lv, streak: store.streak.count });
@@ -1393,6 +1410,7 @@ function exposeTestApi() {
     teleport: (x, z, yaw, pitch) => player.teleport(x, z, yaw, pitch),
     open: (id) => openById(id), openGroup: (key) => openGroup(groups.find((g) => g.key === key)),
     loadRoom: (c, r) => loadRoom(c, r), close: () => closePanel(),
+    activeBy: () => (store.snapshot.flags || {}).activeBy || {},
     catalog: () => catalog.map((c) => ({ id: c.id, rooms: c.rooms.map((r) => ({ id: r.slug, encounters: r.encounters.map((e) => ({ id: e.id, type: e.type })) })) })),
     groups: () => groups.map((g) => ({ key: g.key, items: g.items.length })),
     nexusDebug: () => set.links.map((l) => ({ id: l.a.key + '>' + l.b.key, pts: l.curve.points.map((p) => p && [p.x, p.y, p.z]), pulses: l.pulses.map((p) => p.t) })),

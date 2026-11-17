@@ -32,6 +32,8 @@ ck(`a list of exercises is not an exercise (${(await secs()) - b4} s)`, (await s
 // 6. the exam hall counts, the Today view does not
 await p.evaluate(() => window.__game.close()); await p.keyboard.press('KeyX'); await p.waitForTimeout(500); const b5 = await secs(); await busy(6000); const exam = (await secs()) - b5; await p.keyboard.press('Escape');
 ck(`working in the exam hall counts (${exam} s)`, exam >= 5);
+{ const by = Object.values(await p.evaluate(() => window.__game.activeBy())).reduce((a, d) => ({ ...a, ...d }), {});
+  ck(`time is booked per course and kind (${Object.keys(by).join(', ')})`, (by['qm|lesson'] || 0) >= 5); }
 await p.keyboard.press('KeyV'); await p.waitForTimeout(400); const b6 = await secs(); await busy(5000); ck('reading the Today view does not count', (await secs()) - b6 === 0); await p.keyboard.press('Escape');
 // 7. the goal can be reached by finishing exercises without any minutes
 await p.evaluate(() => { window.__game.finish('qm-wm-L2', true, 5); window.__game.finish('qm-wm-L3', false, 0); window.__game.finish('qm-wm-D2', true, 5); }); await p.waitForTimeout(300);

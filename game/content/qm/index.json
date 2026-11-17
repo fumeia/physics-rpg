@@ -14,6 +14,7 @@
   "extras": [
     "sheets.json",
     "phet-sims.json",
-    "ch7-reading.json"
+    "ch7-reading.json",
+    "script-gaps.json"
   ]
 }

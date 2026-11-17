@@ -79,15 +79,18 @@ export function catchUpDate(behindTotal, weeksPerRun, runsPerDay = 1, now = Date
 //   sheet     the next open question of that week's sheet (the thing you owe), then the same for the other courses
 //   boss      one calculation or exam problem from a week you already finished (interleaving, exam fitness)
 //   defend    something you passed that is fading from memory (memory.js): retrieval keeps the room from being overrun again
-export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null, skim = null, defend = [] }) {
+//   examDays  {course: days to its exam}: the course whose exam comes first is favoured (weeks behind count more the sooner the exam)
+export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null, skim = null, defend = [], examDays = null }) {
   const stops = [], seen = new Set(); let used = 0;
   const est = (id) => EST_MIN[encOf(id)?.type] || 10;
   const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; if (stops.length && used + est(id) > minutes + (minutes < 60 ? 5 : 0)) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
   for (const id of due) { if (used > minutes * 0.25 || stops.length >= 2) break; add(id, 'warmup', 'A respawn that is due: recall it before anything new'); } // warm-up stays a quarter of the run
   for (const id of defend) { if (used > minutes * 0.3 || stops.filter((s) => s.kind === 'defend').length >= (minutes >= 60 ? 2 : 1)) break; add(id, 'defend', 'You passed this a while ago and it is fading: defend it'); }
-  const order = Object.keys(weeks).map((cid) => ({ cid, p: position(weeks[cid], isPassed, known?.[cid], taught, skim?.[cid]) })).sort((a, b) => b.p.behind - a.p.behind);
+  // priority = (weeks behind + 0.5) x urgency, urgency = (first exam + 7 days) / (this exam + 7 days): 1 for the first exam, less for later ones
+  const firstDays = examDays ? Math.min(...Object.values(examDays)) : 0, urgency = (cid) => (examDays && Number.isFinite(examDays[cid]) ? (firstDays + 7) / (examDays[cid] + 7) : 1);
+  const order = Object.keys(weeks).map((cid) => { const p = position(weeks[cid], isPassed, known?.[cid], taught, skim?.[cid]); return { cid, p, prio: (p.behind + 0.5) * urgency(cid) }; }).sort((a, b) => b.prio - a.prio);
   const open = (cid, bucket) => { const w = order.find((o) => o.cid === cid).p.next; if (w && bucket === 'practice' && skim?.[cid]?.has(w.n)) return []; return w ? w[bucket].filter((id) => !isPassed(id) && !isLocked(id) && !seen.has(id)) : []; };
-  const label = (cid) => { const o = order.find((x) => x.cid === cid); return o.p.next ? `week ${o.p.next.n}` : 'all weeks done'; };
+  const label = (cid) => { const o = order.find((x) => x.cid === cid); return (o.p.next ? `week ${o.p.next.n}` : 'all weeks done') + (examDays && Number.isFinite(examDays[cid]) ? `, exam in ${examDays[cid]} days` : ''); };
   // a sheet that is due within three days jumps the queue (dueSoon: {course, ids})
   if (dueSoon) for (const id of dueSoon.ids.filter((x) => !isPassed(x)).slice(0, 1)) add(id, 'sheet', 'Due this week: the sheet you have to hand in', dueSoon.course);
   const budget = minutes >= 60 ? minutes - 15 : minutes; // long runs keep room for the finisher

@@ -59,7 +59,7 @@ export function createCampaign(ctx) {
   }
   function freshRun(minutes = runMinutes()) {
     const rv = store.snapshot.reviews || {}, due = store.dueReviews().filter((id) => ctx.encIndex.has(id)).sort((a, b) => (rv[a].due || 0) - (rv[b].due || 0));
-    const r = buildRun({ weeks: W(), isPassed: passed, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds() });
+    const r = buildRun({ weeks: W(), isPassed: passed, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds(), examDays: Object.fromEntries(courses().map((c) => [c, daysToExam(new Date(), c)])) });
     // forks: up to two stops offer a riskier alternative from the same room (a calculation fight or an exam problem) for bonus XP
     let forks = 0;
     for (const s of r.stops) {

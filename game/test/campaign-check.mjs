@@ -45,6 +45,10 @@ const short = buildRun({ weeks, isPassed: none, known, taught: 9, due: [], minut
 const long = buildRun({ weeks, isPassed: none, known, taught: 9, due: [], minutes: 90, encOf }); ok('long run is longer and ends with a finisher', long.stops.length > run.stops.length && long.stops.at(-1).kind === 'boss', long.stops.map((s) => s.kind).join());
 const allDone = buildRun({ weeks, isPassed: () => true, known, taught: 9, due: [], minutes: 45, encOf }); ok('everything passed: empty run', allDone.stops.length === 0);
 const soon = buildRun({ weeks, isPassed: none, known, taught: 9, due: [], minutes: 45, encOf, dueSoon: { course: 'qm', ids: ['qm-sheet-s9q1'] } }); ok('a sheet due soon comes first', soon.stops[0].id === 'qm-sheet-s9q1');
+const near = buildRun({ weeks, isPassed: none, known: { 'solid-state': new Set([1, 2, 3, 4, 5, 6, 7]), qm: new Set([1, 2, 3, 4, 5, 6, 7]), astrophysics: new Set([1, 2, 3, 4, 5, 6, 7]) }, taught: 9, due: [], minutes: 45, encOf, examDays: { qm: 60, 'solid-state': 20, astrophysics: 60 } });
+ok('equal backlog: the course with the first exam comes first', near.stops.find((s) => s.course)?.course === 'solid-state', near.stops.map((s) => s.course).join());
+const near2 = buildRun({ weeks, isPassed: none, known: { 'solid-state': new Set([1, 2, 3, 4, 5, 6, 7]), qm: new Set([1, 2, 3, 4, 5, 6, 7]), astrophysics: new Set([1, 2, 3, 4, 5, 6, 7]) }, taught: 9, due: [], minutes: 45, encOf, examDays: { qm: 15, 'solid-state': 60, astrophysics: 60 } });
+ok('and it flips with the dates', near2.stops.find((s) => s.course)?.course === 'qm', near2.stops.map((s) => s.course).join());
 // catch-up date
 const cu = catchUpDate(8, 0.6, 1, nov16); ok('catch-up date is finite when you gain on the lecture', cu.possible && cu.days > 30 && cu.days < 400, cu.days); ok('no catch-up when too slow', !catchUpDate(8, 0.1, 1).possible); ok('level already', catchUpDate(0, 0.6).days === 0);
 console.log(`${n} checks`); console.log(fails ? `${fails} FAILED` : 'ALL OK'); process.exit(fails ? 1 : 0);

@@ -146,3 +146,8 @@ radial equation, Clebsch–Gordan for 1⊗½, golden rule); the ladder's "order"
 - `game/content/qm/ch7-reading.json`: lessons qm-sym-L1..L3 (script 7.1-7.8), derivations qm-sym-D1..D4, quiz qm-sym-Q1, and the
   map of encounters to the lecturer's explainers. Engine: `enc.read` strip in encounters.js mount(), HEAD probe in main.js.
 - To test: strip appears only with game/private/ch7 installed (deploy/ch7pack.py); links open in a new tab; phone layout.
+
+## 2026-11-17 (later): content round
+- Astro coverage map (`notes/astrophysics/coverage.md`) and gap lessons (`astrophysics/gaps.json`).
+- Solid-state test exam HS26 as quiz + 2 bosses (`solid-state/test-exam.json`), Miller figure cropped from the scan.
+- Run fix: "Next encounter" follows the run queue (main.js openEncounter, campaignui startRun(skipId)).

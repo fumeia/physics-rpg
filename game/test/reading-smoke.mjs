@@ -15,7 +15,7 @@ await p.keyboard.press('KeyC'); await p.waitForTimeout(300); await p.click('#cp-
 const stops = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop + ':' + x.className));
 ck('the run starts the solid-state week with its script reading', stops.some((s) => /^ss-read-\d+:.*\bread\b/.test(s)), stops.join(' | '));
 ck('second-pass control on the solid-state track', await p.isVisible('[data-rrstart="solid-state"]'));
-ck('second-pass control on the QM track too (QM has reading cards)', await p.isVisible('[data-rrstart="qm"]'));
+ck('second-pass control on the QM and astro tracks too', await p.isVisible('[data-rrstart="qm"]') && await p.isVisible('[data-rrstart="astrophysics"]'));
 await p.selectOption('[data-rrfrom="solid-state"]', '1'); await p.click('[data-rrstart="solid-state"]'); await p.waitForTimeout(400);
 const stops2 = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop + ':' + x.className));
 ck('second pass puts week 1 reading into the run', stops2.some((s) => s.startsWith('ss-read-01:') && /reread/.test(s)), stops2.join(' | '));

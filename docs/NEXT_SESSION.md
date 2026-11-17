@@ -160,4 +160,4 @@ radial equation, Clebsch–Gordan for 1⊗½, golden rule); the ladder's "order"
   stop before the week's lessons, and `reread` stops from the optional second pass (flag `reread` {course: {from, since, done}}).
 - campaignui.js: second-pass control per course track ("from week N"), counter, listing in the week panel; trimming order puts
   the second pass above the Forge/derivation extras. Tests: campaign-check (bucket, reread), reading-smoke (browser).
-- Next: the same reading cards for QM (chapters 8-11 first) and, once slides exist, astro.
+- QM: 28 cards (`notes/quantum-mechanics/build/reading/`, chapters 7-11 in build.py, 1-6 in part2.py; chapter 7 linked to the lecturer pack). Astro: 28 cards on Choudhuri (`notes/astrophysics/build/reading/`), no GR and no MHD 8.4-8.10; re-check against Refregier slides when they appear. Shared helper `notes/build/readinglib.py`.

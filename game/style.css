@@ -473,3 +473,5 @@ body.lite #btn-gear { display: inline-block; }
 #ov-back { margin-right: 10px; font-size: 13px; padding: 3px 10px; white-space: nowrap; } .ov-head { align-items: center; }
 /* a slim settings line at the bottom of the compact menu, so settings are reachable from the menu too */
 .menu6 .menu-set { grid-column: 1 / -1; text-align: center; padding: 8px; border: 1px dashed rgba(255,255,255,.2); border-radius: 10px; background: none; color: inherit; font: inherit; font-size: 13px; cursor: pointer; opacity: .85; }
+body.touch #hud .tr > #btn-run { background: var(--warn) !important; color: #1a1407 !important; font-weight: 700; } body.touch #hud .tr > #btn-run.done { background: rgba(76,195,138,.3) !important; color: inherit !important; }
+html[data-theme=light] body.touch #hud .tr > #btn-run:not(.done) { color: #fff !important; }

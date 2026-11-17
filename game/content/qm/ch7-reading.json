@@ -847,6 +847,66 @@
      "path": "concepts/index.html",
      "label": "All chapter 7 explainers"
     }
+   ],
+   "qm-read-07a": [
+    {
+     "path": "concepts/unitary-representations.html",
+     "label": "Unitary representations"
+    },
+    {
+     "path": "concepts/rotation-group-so3.html",
+     "label": "The rotation group SO(3)"
+    },
+    {
+     "path": "concepts/lie-groups-and-algebras.html",
+     "label": "Lie groups and Lie algebras"
+    },
+    {
+     "path": "concepts/generators-angular-momentum.html",
+     "label": "Generators = angular momentum"
+    }
+   ],
+   "qm-read-07b": [
+    {
+     "path": "concepts/reducible-irreducible.html",
+     "label": "Reducible and irreducible"
+    },
+    {
+     "path": "concepts/why-j-labels-representations.html",
+     "label": "Why j labels the irreducibles"
+    },
+    {
+     "path": "concepts/casimir-operator.html",
+     "label": "The Casimir operator"
+    },
+    {
+     "path": "concepts/ladder-operators.html",
+     "label": "Raising and lowering operators"
+    }
+   ],
+   "qm-read-07c": [
+    {
+     "path": "concepts/so3-vs-su2.html",
+     "label": "SO(3) versus SU(2)"
+    },
+    {
+     "path": "concepts/projective-representations.html",
+     "label": "Projective representations"
+    },
+    {
+     "path": "concepts/spin-of-electron.html",
+     "label": "The spin of the electron"
+    }
+   ],
+   "qm-read-07d": [
+    {
+     "path": "concepts/wigner-theorem.html",
+     "label": "Wigner's theorem and Weyl's lemma"
+    },
+    {
+     "path": "concepts/time-reversal.html",
+     "label": "Time reversal"
+    }
    ]
   }
  }

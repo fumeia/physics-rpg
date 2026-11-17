@@ -98,7 +98,7 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
   for (const r of reread.slice(0, minutes >= 60 ? 2 : 1)) add(r.id, 'reread', `Second pass through the script, ${r.label}`, r.course);
   // a sheet that is due within three days jumps the queue (dueSoon: {course, ids})
   if (dueSoon) for (const id of dueSoon.ids.filter((x) => !isPassed(x)).slice(0, 1)) add(id, 'sheet', 'Due this week: the sheet you have to hand in', dueSoon.course);
-  const budget = minutes >= 60 ? minutes - 15 : minutes; // long runs keep room for the finisher
+  const budget = minutes >= 60 ? minutes - 20 : minutes; // long runs keep room for the finisher (readings are long)
   let round = 0;
   while (used < budget && round < 6) {
     let any = false;
@@ -110,7 +110,7 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
       if (rd) any = add(rd, 'read', `Catch-up, ${label(cid)}: read this part of the script first`, cid) || any;
       const th = open(cid, 'theory')[0], pr = open(cid, 'practice')[0];
       if (th) any = add(th, 'theory', `Catch-up, ${label(cid)}: read this first`, cid) || any;
-      if (pr && used < budget) any = add(pr, 'sheet', `Catch-up, ${label(cid)}: ${th ? 'then the exercise that uses it' : 'next open exercise'}`, cid) || any;
+      if (pr && used + est(pr) <= budget + 5) any = add(pr, 'sheet', `Catch-up, ${label(cid)}: ${th ? 'then the exercise that uses it' : 'next open exercise'}`, cid) || any;
     }
     if (!any) break; round++;
   }

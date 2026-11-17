@@ -93,35 +93,46 @@ let runner = null;
 async function boot() {
   setLandscapePref(false); // older versions stored a "lock sideways" choice and re-applied it on every visit: forget it
   if (params.get('orientation') === 'free') { try { screen.orientation.unlock(); } catch { /* ignore */ } }
-  const fetchJson = async (u) => (await fetch(u)).json();
+  // Every file is requested at once (each url only once): on a phone each round trip costs 100-300 ms, so waiting for one file
+  // before asking for the next made the start slow. The results are used in the same order as before.
+  const cache = new Map(), fetchJson = (u) => { if (!cache.has(u)) cache.set(u, fetch(u).then((r) => { if (!r.ok) throw new Error(`${r.status} ${u}`); return r.json(); })); return cache.get(u); };
+  const soft = (u) => fetchJson(u).catch(() => null); // optional files
+  const syncP = initSync(), glossP = loadGlossary(); // the profile and the glossary load alongside the courses
+  for (const u of ['content/manifest.json', 'content/radar.json', 'content/links.json', 'content/links-plain-1.json', 'content/links-plain-2.json', 'content/path.json', 'content/qm/forge.json', 'content/units-duel.json', 'content/qm/derivations.json', 'content/campaign.json']) soft(u);
+  for (const c of COURSES) for (const f of ['hints', 'hints-2', 'blitz']) soft(`content/${c.dir}/${f}.json`);
   progress(3, 'Loading the courses...');
-  let labs = []; for (const f of ['labs', 'labs-qm', 'labs-solid-state', 'labs-astrophysics']) { try { labs = labs.concat((await fetchJson(`content/${f}.json`)).labs); } catch { /* optional file */ } }
+  const labsP = Promise.all(['labs', 'labs-qm', 'labs-solid-state', 'labs-astrophysics'].map((f) => soft(`content/${f}.json`)));
   const idxs = await Promise.all(COURSES.map((c) => fetchJson(`content/${c.dir}/index.json`))), roomTotal = idxs.reduce((n, i) => n + i.rooms.length, 0); let roomsGot = 0;
+  // all rooms, extras and codices of all courses in parallel
+  const roomsP = COURSES.map((c, ci) => Promise.all(idxs[ci].rooms.map(async (id) => { const r = await fetchJson(`content/${c.dir}/${id}.json`); progress(6 + 54 * (++roomsGot) / roomTotal); return r; })));
+  const extrasP = COURSES.map((c, ci) => Promise.all((idxs[ci].extras || []).map((f) => fetchJson(`content/${c.dir}/${f}`).catch((err) => { console.warn('extra content failed', f, err.message); return null; }))));
+  const codexP = COURSES.map((c, ci) => (idxs[ci].codex ? fetchJson(`content/${c.dir}/${idxs[ci].codex}`) : Promise.resolve(null)));
+  const labs = (await labsP).filter(Boolean).flatMap((x) => x.labs || []);
   progress(6, 'Loading the courses...');
   for (const [ci, c] of COURSES.entries()) {
     const idx = idxs[ci];
-    const rooms = (await Promise.all(idx.rooms.map(async (id) => { const r = await fetchJson(`content/${c.dir}/${id}.json`); progress(6 + 54 * (++roomsGot) / roomTotal); return r; }))).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
+    const rooms = (await roomsP[ci]).map((r, i) => ({ ...r, slug: idx.rooms[i] }));
     for (const l of labs) { const [lc, ls] = l.room.split('/'); if (lc !== c.id) continue; const r = rooms.find((x) => x.slug === ls); if (!r) continue; let at = 0; r.encounters.forEach((e, i) => { if (e.type === 'lesson') at = i + 1; }); r.encounters.splice(at, 0, l.enc); }
-    for (const f of idx.extras || []) {
-      try {
-        const x = await fetchJson(`content/${c.dir}/${f}`), place = (room, enc) => { const r = rooms.find((y) => y.slug === room); if (r) r.encounters.push(enc); };
-        for (const it of x.items || []) place(it.room, it.enc);
-        // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
-        if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
-      } catch (err) { console.warn('extra content failed', f, err.message); }
+    const extras = await extrasP[ci];
+    for (const x of extras) {
+      if (!x) continue;
+      const place = (room, enc) => { const r = rooms.find((y) => y.slug === room); if (r) r.encounters.push(enc); };
+      for (const it of x.items || []) place(it.room, it.enc);
+      // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
+      if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
     }
     catalog.push({ ...c, region: idx.region, rooms });
-    try { banks[c.id] = await fetchJson(`content/${c.dir}/blitz.json`); } catch { /* optional question bank */ }
-    if (idx.codex) codexByCourse[c.id] = await fetchJson(`content/${c.dir}/${idx.codex}`);
+    const bank = await soft(`content/${c.dir}/blitz.json`); if (bank) banks[c.id] = bank;
+    const cx = await codexP[ci]; if (cx) codexByCourse[c.id] = cx;
     for (const r of rooms) for (const enc of r.encounters) encIndex.set(enc.id, { course: c.id, roomId: r.slug, enc });
   }
-  progress(62, 'Loading the glossary...'); await loadGlossary();
-  progress(68, 'Loading your progress...'); await initSync(); setExamDates(store.val('examDates', {})); renderStartStats();
+  progress(62, 'Loading the glossary...'); await glossP;
+  progress(68, 'Loading your progress...'); await syncP; setExamDates(store.val('examDates', {})); renderStartStats();
   store.pruneReviews(new Set(encIndex.keys()));
   progress(74, 'Loading drills and connections...');
-  try { const mf = await fetchJson('content/manifest.json'); for (const cid of mf.drills || []) { const c = catalog.find((x) => x.id === cid); if (c) setDrillData(cid, await fetchJson(`content/${c.dir}/drills.json`)); } if (mf.radar) drillData.radar = await fetchJson('content/radar.json'); } catch (e) { console.warn('drills not loaded', e.message); }
+  try { const mf = await fetchJson('content/manifest.json'); const ds = await Promise.all((mf.drills || []).map((cid) => { const c = catalog.find((x) => x.id === cid); return c ? fetchJson(`content/${c.dir}/drills.json`).then((d) => [cid, d]) : null; })); for (const x of ds) if (x) setDrillData(x[0], x[1]); if (mf.radar) drillData.radar = await fetchJson('content/radar.json'); } catch (e) { console.warn('drills not loaded', e.message); }
   try { linksData = (await fetchJson('content/links.json')).links; } catch { linksData = []; }
-  for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
+  for (const f of ['links-plain-1', 'links-plain-2']) { try { const pl = await fetchJson(`content/${f}.json`); if (!pl) continue; for (const l of linksData) if (pl[l.id]) l.plain = pl[l.id]; } catch { /* optional */ } }
   for (const c of catalog) for (const f of ['hints', 'hints-2']) { try { const h = await fetchJson(`content/${c.dir}/${f}.json`); for (const r of c.rooms) for (const e of r.encounters) if (h[e.id]) e.hints = h[e.id]; } catch { /* optional */ } }
   try { route = (await fetchJson('content/path.json')).route; } catch { route = []; }
   try { forgeItems = (await fetchJson('content/qm/forge.json')).items; } catch { forgeItems = []; }
@@ -192,7 +203,7 @@ async function boot() {
       if (deepOpen && encIndex.has(deepOpen)) await openById(deepOpen);
     } catch (e) { console.warn('deep link failed', e.message); }
   }
-  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || params.has('sw'))) navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
   if (campaign?.dungeonState() && !campaign.dungeonState().d.paid) document.body.classList.add('dungeon');
   if (campaign) { $('st-run').style.display = ''; $('st-run').textContent = campaign.isSetup() ? '\u25b6 Today\u2019s run' : '\u25b6 Set up my campaign'; document.querySelector('.st-card').classList.add('has-run'); $('st-go').textContent = 'Just walk around'; updateRunChips(); }
   startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';

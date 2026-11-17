@@ -25,6 +25,17 @@ def _notify_cfg():  # set by deploy/notify-setup.sh (EnvironmentFile of the serv
     return {'topic': topic, 'url': os.environ.get('NTFY_URL') or 'https://ntfy.sh', 'token': os.environ.get('NTFY_TOKEN') or None, 'base': os.environ.get('GAME_URL', ''), 'tz': os.environ.get('NOTIFY_TZ') or 'Europe/Zurich'} if topic else None
 
 
+def _version():
+    """Newest modification time of the game's files: a cheap fingerprint that changes with every update."""
+    newest = 0
+    for base, dirs, files in os.walk(ROOT):
+        dirs[:] = [d for d in dirs if d not in ('node_modules', 'test', '.git')]
+        for f in files:
+            try: newest = max(newest, os.stat(os.path.join(base, f)).st_mtime_ns)
+            except OSError: pass
+    return str(newest)
+
+
 class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=ROOT, **k)
@@ -50,6 +61,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         return os.path.join(PROFILES, name + '.json')
 
     def do_GET(self):
+        if self.path == '/api/version':  # for the service worker: changes whenever any file of the game changes (git pull, edit)
+            return self._send(200, {'version': _version()})
         if self.path.startswith('/api/'):
             if not self._authorized(): return self._send(401, {'error': 'token required'})
             if self.path == '/api/ping': return self._send(200, {'ok': True, 'token': bool(TOKEN)})

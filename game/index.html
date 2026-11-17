@@ -13,6 +13,52 @@
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
 <link rel="stylesheet" href="style.css">
 <script type="importmap">{ "imports": { "three": "./vendor/three/three.module.js" } }</script>
+<!-- every module main.js imports, fetched in one wave instead of import by import (regenerate: see docs/RUNNING.md) -->
+<link rel="modulepreload" href="src/theme.js">
+<link rel="modulepreload" href="src/world.js">
+<link rel="modulepreload" href="vendor/three/three.module.js">
+<link rel="modulepreload" href="src/mathtex.js">
+<link rel="modulepreload" href="vendor/katex/katex.mjs">
+<link rel="modulepreload" href="src/player.js">
+<link rel="modulepreload" href="src/sim.js">
+<link rel="modulepreload" href="src/fft.js">
+<link rel="modulepreload" href="src/encounters.js">
+<link rel="modulepreload" href="src/expr.js">
+<link rel="modulepreload" href="src/store.js">
+<link rel="modulepreload" href="src/math.js">
+<link rel="modulepreload" href="src/glossary.js">
+<link rel="modulepreload" href="src/labs.js">
+<link rel="modulepreload" href="src/labmodels.js">
+<link rel="modulepreload" href="src/labs-ext/index.js">
+<link rel="modulepreload" href="src/labs-ext/qm.js">
+<link rel="modulepreload" href="src/labs-ext/models-qm.js">
+<link rel="modulepreload" href="src/labs-ext/astro.js">
+<link rel="modulepreload" href="src/labs-ext/models-astro.js">
+<link rel="modulepreload" href="src/labs-ext/solid-state.js">
+<link rel="modulepreload" href="src/labs-ext/models-solid-state.js">
+<link rel="modulepreload" href="src/canvastex.js">
+<link rel="modulepreload" href="src/explorer.js">
+<link rel="modulepreload" href="src/diagnose.js">
+<link rel="modulepreload" href="src/mistakes.js">
+<link rel="modulepreload" href="src/confidence.js">
+<link rel="modulepreload" href="src/rooms/nexus.js">
+<link rel="modulepreload" href="src/exam.js">
+<link rel="modulepreload" href="src/missions.js">
+<link rel="modulepreload" href="src/examgrade.js">
+<link rel="modulepreload" href="src/labholo.js">
+<link rel="modulepreload" href="src/drills.js">
+<link rel="modulepreload" href="src/touch.js">
+<link rel="modulepreload" href="src/campaignui.js">
+<link rel="modulepreload" href="src/campaign.js">
+<link rel="modulepreload" href="src/battle.js">
+<link rel="modulepreload" href="src/memory.js">
+<link rel="modulepreload" href="src/quality.js">
+<link rel="modulepreload" href="src/cards.js">
+<link rel="modulepreload" href="src/forgeui.js">
+<link rel="modulepreload" href="src/derivui.js">
+<link rel="modulepreload" href="src/feedback.js">
+<link rel="modulepreload" href="src/sync.js">
+<link rel="modulepreload" href="src/achievements.js">
 </head>
 <body>
 <canvas id="view"></canvas>

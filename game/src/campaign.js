@@ -19,10 +19,12 @@ export function buildWeeks(cfg, catalog, sheetsByCourse) {
     const cc = cfg.courses[c.id]; if (!cc) continue;
     const byId = new Map(); for (const r of c.rooms) for (const e of r.encounters) byId.set(e.id, { enc: e, room: r.slug });
     const used = new Set(), weeks = [];
-    const take = (id, w, bucket) => { const ref = byId.get(id); if (!ref || used.has(id)) return; used.add(id); w[bucket].push(id); };
+    const take = (id, w, bucket) => { const ref = byId.get(id); if (!ref || used.has(id) || ref.enc.reading) return; used.add(id); w[bucket].push(id); };
+    // guided-reading cards (enc.reading, enc.week): their own bucket, so they never decide whether a week is done
+    const readingOf = (n) => [...byId.values()].filter((r) => r.enc.reading && r.enc.week === n).map((r) => r.enc.id).sort();
     const pinned = new Set(Object.values(cc.pin || {}).flat());
     for (let n = 1; n <= cfg.weeks; n++) {
-      const w = { n, title: cc.titles?.[n] || '', theory: [], practice: [], sheet: null };
+      const w = { n, title: cc.titles?.[n] || '', theory: [], practice: [], sheet: null, reading: readingOf(n) };
       const sh = cc.sheets ? sheetsByCourse[c.id]?.sheets.find((s) => s.n === n) : null;
       for (const id of cc.pin?.[n] || []) take(id, w, 'theory');
       if (sh) {
@@ -80,9 +82,10 @@ export function catchUpDate(behindTotal, weeksPerRun, runsPerDay = 1, now = Date
 //   boss      one calculation or exam problem from a week you already finished (interleaving, exam fitness)
 //   defend    something you passed that is fading from memory (memory.js): retrieval keeps the room from being overrun again
 //   examDays  {course: days to its exam}: the course whose exam comes first is favoured (weeks behind count more the sooner the exam)
-export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null, skim = null, defend = [], examDays = null }) {
+//   read      guided reading of the script section of the week (before its lessons); reread: the optional second pass
+export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null, skim = null, defend = [], examDays = null, reread = [] }) {
   const stops = [], seen = new Set(); let used = 0;
-  const est = (id) => EST_MIN[encOf(id)?.type] || 10;
+  const est = (id) => { const e = encOf(id); return e?.reading ? Math.min(40, e.minutes || 20) : EST_MIN[e?.type] || 10; };
   const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; if (stops.length && used + est(id) > minutes + (minutes < 60 ? 5 : 0)) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
   for (const id of due) { if (used > minutes * 0.25 || stops.length >= 2) break; add(id, 'warmup', 'A respawn that is due: recall it before anything new'); } // warm-up stays a quarter of the run
   for (const id of defend) { if (used > minutes * 0.3 || stops.filter((s) => s.kind === 'defend').length >= (minutes >= 60 ? 2 : 1)) break; add(id, 'defend', 'You passed this a while ago and it is fading: defend it'); }
@@ -91,6 +94,8 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
   const order = Object.keys(weeks).map((cid) => { const p = position(weeks[cid], isPassed, known?.[cid], taught, skim?.[cid]); return { cid, p, prio: (p.behind + 0.5) * urgency(cid) }; }).sort((a, b) => b.prio - a.prio);
   const open = (cid, bucket) => { const w = order.find((o) => o.cid === cid).p.next; if (w && bucket === 'practice' && skim?.[cid]?.has(w.n)) return []; return w ? w[bucket].filter((id) => !isPassed(id) && !isLocked(id) && !seen.has(id)) : []; };
   const label = (cid) => { const o = order.find((x) => x.cid === cid); return (o.p.next ? `week ${o.p.next.n}` : 'all weeks done') + (examDays && Number.isFinite(examDays[cid]) ? `, exam in ${examDays[cid]} days` : ''); };
+  // second pass through the script (only courses where you switched it on): one card per run, two on long runs
+  for (const r of reread.slice(0, minutes >= 60 ? 2 : 1)) add(r.id, 'reread', `Second pass through the script, ${r.label}`, r.course);
   // a sheet that is due within three days jumps the queue (dueSoon: {course, ids})
   if (dueSoon) for (const id of dueSoon.ids.filter((x) => !isPassed(x)).slice(0, 1)) add(id, 'sheet', 'Due this week: the sheet you have to hand in', dueSoon.course);
   const budget = minutes >= 60 ? minutes - 15 : minutes; // long runs keep room for the finisher
@@ -101,6 +106,8 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
       if (used >= budget) break;
       if (!p.next) continue;
       if (round > 0 && p.behind <= 0 && used >= minutes * 0.6) continue; // courses that are on track get one slot
+      const rd = (p.next.reading || []).find((id) => !isPassed(id) && !isLocked(id) && !seen.has(id));
+      if (rd) any = add(rd, 'read', `Catch-up, ${label(cid)}: read this part of the script first`, cid) || any;
       const th = open(cid, 'theory')[0], pr = open(cid, 'practice')[0];
       if (th) any = add(th, 'theory', `Catch-up, ${label(cid)}: read this first`, cid) || any;
       if (pr && used < budget) any = add(pr, 'sheet', `Catch-up, ${label(cid)}: ${th ? 'then the exercise that uses it' : 'next open exercise'}`, cid) || any;

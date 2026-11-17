@@ -37,8 +37,11 @@ const known = { 'solid-state': new Set([1, 2, 3]), qm: new Set([1, 2, 3, 4, 5, 6
 const run = buildRun({ weeks, isPassed: none, known, taught: 9, due: ['qm-wm-c1', 'ss-lat-c1', 'astro-light-c1'].filter((x) => encOfMap.has(x)), minutes: 45, encOf });
 ok('run has 3-7 stops', run.stops.length >= 3 && run.stops.length <= 7, run.stops.length); ok('run fits the time', run.minutes <= 65, run.minutes);
 ok('run starts with a warm-up when respawns are due', run.stops[0].kind === 'warmup');
-const firstNew = run.stops.find((s) => s.kind !== 'warmup'); ok('first new stop is solid state week 4 (furthest behind)', firstNew.course === 'solid-state' && w4.theory.concat(w4.practice).includes(firstNew.id), JSON.stringify(firstNew));
-console.log(run.stops.map((s) => s.kind + ':' + s.id + ':' + s.min).join(' ')); ok('theory comes before its sheet question', run.stops.findIndex((s) => s.kind === 'theory' && s.course === 'solid-state') < run.stops.findIndex((s) => s.kind === 'sheet' && s.course === 'solid-state'));
+const firstNew = run.stops.find((s) => s.kind !== 'warmup'); ok('first new stop is solid state week 4 (furthest behind), its script reading first', firstNew.course === 'solid-state' && (w4.reading || []).concat(w4.theory, w4.practice).includes(firstNew.id) && (!w4.reading?.length || firstNew.kind === 'read'), JSON.stringify(firstNew));
+ok('reading cards never decide whether a week is done', !ss.some((w) => w.theory.concat(w.practice).some((id) => encOf(id)?.reading)));
+console.log(run.stops.map((s) => s.kind + ':' + s.id + ':' + s.min).join(' ')); { const iT = run.stops.findIndex((s) => ['read', 'theory'].includes(s.kind) && s.course === 'solid-state'), iS = run.stops.findIndex((s) => s.kind === 'sheet' && s.course === 'solid-state'); ok('reading/theory comes before its sheet question (if the run has one)', iT >= 0 && (iS < 0 || iT < iS)); }
+{ const rr = buildRun({ weeks, isPassed: none, known, taught: 9, minutes: 45, encOf, reread: [{ id: 'ss-read-01', course: 'solid-state', label: 'week 1' }] });
+  ok('second pass: the chosen card of an earlier week is in the run', rr.stops.some((s) => s.kind === 'reread' && s.id === 'ss-read-01'), rr.stops.map((s) => s.kind + ':' + s.id).join(' ')); }
 ok('run covers a second course', new Set(run.stops.map((s) => s.course).filter(Boolean)).size >= 2);
 ok('run is deterministic', JSON.stringify(buildRun({ weeks, isPassed: none, known, taught: 9, due: [], minutes: 45, encOf })) === JSON.stringify(buildRun({ weeks, isPassed: none, known, taught: 9, due: [], minutes: 45, encOf })));
 const short = buildRun({ weeks, isPassed: none, known, taught: 9, due: [], minutes: 20, encOf }); ok('short run is short', short.stops.length >= 1 && short.minutes <= 30, short.minutes);

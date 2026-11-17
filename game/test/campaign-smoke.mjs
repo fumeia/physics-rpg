@@ -49,7 +49,7 @@ ck('weekly bosses render without error (present while a sheet is due within 9 da
 // run from start to end
 const stops2 = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop));
 const acts = stops2.filter((s) => s.startsWith('@')), encs = stops2.filter((s) => !s.startsWith('@'));
-ck('the run mixes in guided practice (blitz, explain-it or a mistake hunt)', acts.length >= 1, stops2.join());
+ck('the run mixes in guided practice (blitz, explain-it, a mistake hunt) or a guided script reading', acts.length >= 1 || stops2.some((s) => s.startsWith('ss-read-')), stops2.join());
 for (const a of acts) { await p.evaluate((id) => document.querySelector(`.cp-node[data-stop="${id}"]`).click(), a); await p.waitForTimeout(250);
   ck(`practice stop ${a} opens its tab in the practice hub`, await p.evaluate(() => document.getElementById('ov-title').textContent === 'Study hub'));
   await p.keyboard.press('Escape'); await p.waitForTimeout(100); await p.keyboard.press('KeyC'); await p.waitForTimeout(250); }

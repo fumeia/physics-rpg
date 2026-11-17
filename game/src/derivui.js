@@ -6,6 +6,7 @@
 //   Variant    the same derivation with one assumption changed
 //   Backwards  from the result, what must the line before be?
 //   Outline    two minutes: start, moves, result
+//   As asked   the old-exam sub-questions that need it (verbatim), on paper against the exam's clock (2 min per point)
 // Content: content/qm/derivations.json (notes/quantum-mechanics/build/derivations/build.py). Progress: flags.derivs {id: {lv, n, t}}.
 import { store } from './store.js';
 import { retention, notePass } from './memory.js';
@@ -22,8 +23,9 @@ const shuffle = (n, seed) => { const a = [...Array(n).keys()]; let s = seed >>> 
 // other modes (why, change one assumption, backwards, two minutes) so it stays alive and flexible.
 export function runDeriv(items, day = new Date().getDate()) {
   const x = nextDeriv(items); if (!x) return null; const lv = lvOf(x.id);
-  const mode = lv < 4 ? (lv >= 2 && day % 3 === 0 ? 'variant' : 'ladder') : ['why', 'variant', 'back', 'outline'][day % 4];
-  const label = { ladder: `rung ${lv + 1} of the ladder`, variant: 'change one assumption', why: 'why is this step allowed?', back: 'backwards', outline: 'two-minute outline' }[mode];
+  const late = x.asked?.length ? ['why', 'asked', 'variant', 'back', 'outline'] : ['why', 'variant', 'back', 'outline'];
+  const mode = lv < 4 ? (lv >= 2 && day % 3 === 0 ? (x.asked?.length && day % 2 ? 'asked' : 'variant') : 'ladder') : late[day % late.length];
+  const label = { ladder: `rung ${lv + 1} of the ladder`, variant: 'change one assumption', why: 'why is this step allowed?', back: 'backwards', outline: 'two-minute outline', asked: 'as asked in the exam, against the clock' }[mode];
   return { id: x.id, title: x.title, mode, label };
 }
 export function nextDeriv(items) { return items.filter((d) => lvOf(d.id) < 4 || keep(d.id) < 0.6).sort((a, b) => b.exam.count - a.exam.count || lvOf(a.id) - lvOf(b.id))[0] || null; }
@@ -39,7 +41,7 @@ export function renderDerivs(host, ctx) {
       <div class="dv-map">${items.map((x) => { const lv = lvOf(x.id), k = keep(x.id); return `<button class="dv-row" data-open="${x.id}"><span class="dv-t">${M(x.title)}</span><span class="dv-ex" title="${esc(x.exam.label)}">${x.exam.count}/${x.exam.of}</span><span class="dv-rungs">${[0, 1, 2, 3].map((i) => `<i class="${i < lv ? 'on' : ''}"></i>`).join('')}</span><span class="fg-bar" title="how well you probably still remember it"><i style="width:${Math.round(100 * k)}%"></i></span></button>`; }).join('')}</div>`;
   }
   function detailHtml() {
-    const x = d(), lv = lvOf(x.id), tabs = [['ladder', `Ladder (rung ${Math.min(4, lv + 1)})`], ['moves', 'Moves'], ['why', 'Why?'], ['variant', 'Change one assumption'], ['back', 'Backwards'], ['outline', 'Two minutes']];
+    const x = d(), lv = lvOf(x.id), tabs = [['ladder', `Ladder (rung ${Math.min(4, lv + 1)})`], ['moves', 'Moves'], ['why', 'Why?'], ['variant', 'Change one assumption'], ['back', 'Backwards'], ['outline', 'Two minutes']].concat(x.asked?.length ? [['asked', 'As asked in the exam']] : []);
     return `<div class="row"><button class="chip btn" data-map>\u2190 All derivations</button><span class="src">${esc(x.exam.label)}: in ${x.exam.count} of ${x.exam.of} old exams</span></div>
       <h3 class="dv-title">${M(x.title)}</h3><div class="row studytabs">${tabs.map(([k, l]) => `<button class="chip btn${mode === k ? ' cur' : ''}" data-mode="${k}">${l}</button>`).join('')}</div>
       <div class="fg-card"><div class="callout exam"><div class="ctitle">Goal</div>${M(x.goal)}</div>${body(x, lv)}</div>`;
@@ -62,6 +64,15 @@ export function renderDerivs(host, ctx) {
       return `<div class="callout pitfall"><div class="ctitle">Changed</div>${M(v.change)}</div><p><b>${M(v.task)}</b></p><p class="src">Redo the derivation with the change. Which move breaks, which survive?</p>${st.step >= 1 ? `<div class="callout intuition"><div class="ctitle">What changes</div>${M(v.changed)}</div>` : '<button class="go" data-vstep>Show what changes</button>'}${st.step >= 2 ? `<div class="callout exam"><div class="ctitle">Result</div>${M(v.result)}</div>${selfCheck('I got it')}` : st.step >= 1 ? '<button class="go" data-vstep>Show the result</button>' : ''}`; }
     if (mode === 'back') { const n = x.lines.length; st.k ??= n - 1;
       return `<p class="src">Start from the end. What must the line before be? Write it, then reveal.</p>${lineList(x, x.lines.map((_, i) => i).filter((i) => i >= st.k), 'dv-back')}${st.k > 0 ? `<button class="go" data-prev>Reveal line ${st.k}</button>` : `<p class="msg good">Back at the start.</p>${selfCheck('I found most lines before revealing them')}`}`; }
+    if (mode === 'asked' && x.asked?.length) {
+      const a = x.asked[(st.ai || 0) % x.asked.length]; st.dur = a.minutes * 60;
+      const head = `<p class="src"><b>${esc(a.exam)}</b>${a.points ? ` \u00b7 ${a.points} points` : ''} \u00b7 ${a.minutes} min on paper (exam pace: 2 min per point). The exam&#8217;s own wording:</p><div class="dv-exam">${a.parts.map((p) => `<p>${M(p)}</p>`).join('')}</div>`;
+      const other = x.asked.length > 1 ? `<button class="chip btn" data-nextask>Another exam that asks it (${x.asked.length})</button>` : '';
+      if (!st.started) return head + `<div class="row"><button class="go" data-start>Start the clock</button>${other}</div>`;
+      const left = Math.max(0, st.dur - Math.floor((Date.now() - st.t0) / 1000));
+      if (!st.shown) return head + `<p class="fg-timer" data-dt>${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}</p><button class="go" data-show>Stop and compare</button>`;
+      return head + `<p class="src">${left ? `Done with ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')} to spare.` : 'Time is up.'} The derivation it needs:</p>${lineList(x, x.lines.map((_, i) => i))}${selfCheck('I would have got these points')}<div class="row">${other}</div>`;
+    }
     // outline
     const left = Math.max(0, 120 - Math.floor((Date.now() - (st.t0 ||= Date.now())) / 1000));
     return `<p class="src">Two minutes: write only the skeleton (where you start, the moves, the result).</p>${st.shown ? `<ul class="dv-moves">${x.moves.map((m) => `<li>${M(m)}</li>`).join('')}</ul><div class="dv-step">${M(x.lines[x.lines.length - 1])}</div>${selfCheck('My skeleton had all of it')}` : `<p class="fg-timer" data-dt>${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}</p><button class="go" data-show>Stop and compare</button>`}`;
@@ -77,6 +88,8 @@ export function renderDerivs(host, ctx) {
     q('[data-retry]').forEach((b) => (b.onclick = () => { st = {}; draw(); }));
     q('[data-pass]').forEach((b) => (b.onclick = () => { save(view, { up: true }); store.addXp(10); ctx.onChange?.(); st = {}; draw(); }));
     q('[data-show]').forEach((b) => (b.onclick = () => { st.shown = true; draw(); }));
+    q('[data-start]').forEach((b) => (b.onclick = () => { st.started = true; st.t0 = Date.now(); draw(); }));
+    q('[data-nextask]').forEach((b) => (b.onclick = () => { st = { ai: (st.ai || 0) + 1 }; draw(); }));
     q('[data-vstep]').forEach((b) => (b.onclick = () => { st.step = (st.step || 0) + 1; draw(); }));
     q('[data-prev]').forEach((b) => (b.onclick = () => { st.k--; draw(); }));
     q('[data-ans]').forEach((b) => (b.onclick = () => { st.ans = +b.dataset.ans; const w = d().whys[st.wi % d().whys.length]; if (st.ans === w.correct) store.addXp(2); draw(); }));
@@ -88,7 +101,7 @@ export function renderDerivs(host, ctx) {
       if (mode === 'outline' && st.queue?.length) { view = st.queue[0]; st = { queue: st.queue.slice(1) }; draw(); return; }
       st = {}; if (good && mode === 'ladder') view = null; draw();
     }));
-    const tm = host.querySelector('[data-dt]'); if (tm) timer = setInterval(() => { if (!tm.isConnected) { clearInterval(timer); return; } const left = Math.max(0, 120 - Math.floor((Date.now() - st.t0) / 1000)); tm.textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`; if (!left) { st.shown = true; draw(); } }, 500);
+    const tm = host.querySelector('[data-dt]'); if (tm) timer = setInterval(() => { if (!tm.isConnected) { clearInterval(timer); return; } const left = Math.max(0, (st.dur || 120) - Math.floor((Date.now() - st.t0) / 1000)); tm.textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`; if (!left) { st.shown = true; draw(); } }, 500);
   }
   if (ctx.start) { view = ctx.start; if (ctx.startMode) mode = ctx.startMode; } draw();
 }

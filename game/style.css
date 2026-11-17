@@ -496,3 +496,6 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 /* reading-pack strip (lecturer explainers) under an encounter title */
 .readstrip{font-size:.85em;margin:.2em 0 .8em;padding:.45em .7em;border-left:3px solid #6aa0ff;background:rgba(106,160,255,.10);border-radius:4px;line-height:1.5}
 .readstrip .rlab{font-weight:600;margin-right:.2em}.readstrip a{color:#9cc0ff}
+/* derivations: the exam's own wording in "As asked in the exam" */
+.dv-exam{border-left:3px solid #e0b050;background:rgba(224,176,80,.08);padding:.4em .8em;margin:.5em 0;border-radius:4px;font-size:.95em}
+.dv-exam p{margin:.35em 0}

@@ -12,13 +12,14 @@ ck('start screen carries the plan for today', (await p.textContent('#st-plan')).
 await p.evaluate(() => document.getElementById('tut-skip')?.click());
 await p.click('#st-go').catch(() => {}); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('Escape');
 const vis = await p.evaluate(() => [...document.querySelectorAll('#hud .tr > .chip.btn')].filter((x) => getComputedStyle(x).display !== 'none').map((x) => x.id));
-ck('compact top bar: run, campaign, menu, gear', vis.join() === 'btn-run,btn-campaign,btn-menu,btn-gear', vis.join());
+ck('compact top bar before setup: run, menu, gear (Campaign would open the same as the gold button)', vis.join() === 'btn-run,btn-menu,btn-gear', vis.join());
 ck('old buttons still exist (hidden, shortcuts kept)', await p.evaluate(() => !!document.getElementById('btn-pile') && !!document.getElementById('btn-exam')));
 await p.keyboard.press('KeyC'); await p.waitForTimeout(300);
 ck('first visit asks where you are', await p.isVisible('#cp-setup-ok'));
 ck('defaults: QM 2 behind, solid state 6 behind, astro up to date', await p.evaluate(() => { const t = (c) => document.querySelector(`[data-setnote="${c}"]`).textContent; return /2 weeks behind/.test(t('qm')) || /behind|up to date/.test(t('qm')); }));
 await p.click('[data-step="solid-state:1"]'); await p.click('[data-step="solid-state:-1"]');
 await p.click('#cp-setup-ok'); await p.waitForTimeout(300);
+ck('after setup the Campaign chip joins the top bar', await p.evaluate(() => getComputedStyle(document.getElementById('btn-campaign')).display !== 'none'));
 ck('three course tracks with 14 tiles', await p.evaluate(() => document.querySelectorAll('.cp-track').length === 3 && document.querySelectorAll('.cp-tile').length === 42));
 const stops = await p.evaluate(() => [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop));
 ck('today has a run with 2+ stops', stops.length >= 2, stops.length);

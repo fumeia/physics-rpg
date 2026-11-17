@@ -80,7 +80,7 @@ export function catchUpDate(behindTotal, weeksPerRun, runsPerDay = 1, now = Date
 export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null }) {
   const stops = [], seen = new Set(); let used = 0;
   const est = (id) => EST_MIN[encOf(id)?.type] || 10;
-  const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; if (stops.length && used + est(id) > minutes + 5) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
+  const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; if (stops.length && used + est(id) > minutes + (minutes < 60 ? 5 : 0)) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
   for (const id of due) { if (used > minutes * 0.25 || stops.length >= 2) break; add(id, 'warmup', 'A respawn that is due: recall it before anything new'); } // warm-up stays a quarter of the run
   const order = Object.keys(weeks).map((cid) => ({ cid, p: position(weeks[cid], isPassed, known?.[cid], taught) })).sort((a, b) => b.p.behind - a.p.behind);
   const open = (cid, bucket) => { const w = order.find((o) => o.cid === cid).p.next; return w ? w[bucket].filter((id) => !isPassed(id) && !isLocked(id) && !seen.has(id)) : []; };
@@ -106,7 +106,7 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
     outer: for (const { cid } of [...order].reverse()) for (const w of weeks[cid]) {
       if (!weekStatus(w, isPassed, known?.[cid]).done) break;
       const id = w.practice.find((x) => !isPassed(x) && !seen.has(x) && !isLocked(x) && ['calc', 'boss', 'derive'].includes(encOf(x)?.type));
-      if (id) { if (used + est(id) <= minutes + (minutes >= 60 ? 15 : 5)) { seen.add(id); stops.push({ id, kind: 'boss', why: 'Finisher from a week you already cleared: exam fitness', course: cid, min: est(id) }); used += est(id); } break outer; }
+      if (id) { if (used + est(id) <= minutes + 5) { seen.add(id); stops.push({ id, kind: 'boss', why: 'Finisher from a week you already cleared: exam fitness', course: cid, min: est(id) }); used += est(id); } break outer; }
     }
   }
   return { stops, minutes: used };

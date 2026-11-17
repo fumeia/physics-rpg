@@ -30,9 +30,12 @@ export function createCampaign(ctx) {
   const title = (id) => { const e = ctx.encIndex.get(id)?.enc; return e ? String(e.title || id).replace(/<[^>]+>/g, '') : id; };
 
   // ---- the run of today (kept for the day so that reopening shows the same path and its progress)
+  // Hand-ins first, per course: on means the sheet that is due within three days jumps the queue of the run. The default is on
+  // unless you are more than three weeks behind in that course (then the theory for the new sheet is missing anyway).
+  const handIn = (cid) => { const v = (store.val('handIn', {}) || {})[cid]; return v === undefined ? pos(cid).behind <= 3 : !!v; };
   function dueSoon() { // the sheet with the nearest due date within 3 days, if it still has open questions
     let best = null; const now = Date.now();
-    for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of s.sheets) { const d = ctx.sheetDue(sh); if (!d || d < now - 43200000 || d - now > 3 * 86400000) continue; const ids = sh.questions.map((q) => q.enc.id).filter((id) => !passed(id)); if (ids.length && (!best || d < best.d)) best = { d, course: cid, ids }; }
+    for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of (handIn(cid) ? s.sheets : [])) { const d = ctx.sheetDue(sh); if (!d || d < now - 43200000 || d - now > 3 * 86400000) continue; const ids = sh.questions.map((q) => q.enc.id).filter((id) => !passed(id)); if (ids.length && (!best || d < best.d)) best = { d, course: cid, ids }; }
     return best;
   }
   function freshRun(minutes = runMinutes()) {
@@ -48,7 +51,7 @@ export function createCampaign(ctx) {
       const alt = room.encounters.find((e) => want.includes(e.type) && !e.sim && !e.book && !e.sheet && !passed(e.id) && !ctx.isLockedId(e.id) && !r.stops.some((x) => x.id === e.id || x.alt?.id === e.id));
       if (alt) { s.alt = { id: alt.id, min: EST_MIN[alt.type] || 15, kind: alt.type === 'boss' ? 'boss' : 'sheet', bonus: Math.round((alt.xp || 30) * 0.5) }; forks++; }
     }
-    return { date: todayStr(), minutes, stops: r.stops, est: r.minutes, startedAt: 0, xp0: store.xp, behind0: behindTotal(), n: (store.val('run', null)?.date === todayStr() ? (store.val('run').n || 1) : 0) + 1 };
+    return { date: todayStr(), minutes, stops: r.stops, est: r.minutes, startedAt: 0, xp0: store.xp, behind0: behindTotal(), n: (() => { const pr = store.val('run', null); return pr?.date === todayStr() ? (pr.n || 1) + (pr.summarized ? 1 : 0) : 1; })() };
   }
   function run() { let r = store.val('run', null); if (!r || r.date !== todayStr()) { r = freshRun(); r.n = 1; store.setVal('run', r); } return r; }
   function stopState(r, s) { // done / failed today since the run started, else open
@@ -74,8 +77,14 @@ export function createCampaign(ctx) {
     let bonus = 0; r.stops.forEach((s, i) => { if (s.risk && st[i] === 'done') bonus += s.bonus || 0; }); if (bonus) store.addXp(bonus); r.bonus = bonus;
     payBosses();
     r.summarized = true; r.xp1 = store.xp; r.behind1 = behindTotal(); r.finishedAt = Date.now(); store.setVal('run', r);
-    const log = (store.val('runLog', []) || []).filter((x) => !(x.date === r.date && x.n === r.n)); log.push({ date: r.date, n: r.n, stops: r.stops.length, ok: st.filter((x) => x === 'done').length, xp: r.xp1 - r.xp0 }); store.setVal('runLog', log.slice(-120));
+    const log = (store.val('runLog', []) || []).filter((x) => !(x.date === r.date && x.n === r.n)); log.push({ date: r.date, n: r.n, stops: r.stops.length, ok: st.filter((x) => x === 'done').length, xp: r.xp1 - r.xp0, gain: +(r.behind0 - r.behind1).toFixed(2) }); store.setVal('runLog', log.slice(-120));
     return true;
+  }
+  // Your measured pace: weeks gained on the ghost per day with a run, from the last runs (needs three finished runs).
+  function pace() {
+    const log = (store.val('runLog', []) || []).filter((x) => typeof x.gain === 'number'); if (log.length < 3) return null;
+    const byDay = {}; for (const x of log) byDay[x.date] = (byDay[x.date] || 0) + x.gain;
+    const days = Object.keys(byDay).sort().slice(-7); return { perDay: days.reduce((a, d) => a + byDay[d], 0) / days.length, runs: log.length };
   }
   const runsOn = (date) => (store.val('runLog', []) || []).filter((x) => x.date === date).length;
   // Honest streak: only a finished run counts. One missed day per calendar week is bridged by a freeze (nothing to buy or set).
@@ -167,7 +176,7 @@ export function createCampaign(ctx) {
     const tiles = ws.map((w) => { const s = weekStatus(w, passed, kn), cls = s.known ? 'known' : s.done ? 'done' : s.passed ? 'part' : 'open';
       return `<button class="cp-tile ${cls}${w.n <= t && !s.done ? ' dark' : ''}${w.n === lw ? ' now' : ''}${w.n > t ? ' future' : ''}${openWeek === `${cid}/${w.n}` ? ' sel' : ''}${p.next?.n === w.n ? ' you' : ''}" data-week="${cid}/${w.n}" title="Week ${w.n}: ${esc(w.title)}"><i style="height:${Math.round(100 * s.frac)}%"></i><b>${w.n}</b>${w.n === lw ? `<span class="cp-ghost" title="The ghost studies exactly at lecture pace">${GHOST}</span>` : ''}</button>`; }).join('');
     const state = p.behind > 0 ? `<b class="cp-behind">ghost ${p.behind} weeks ahead</b>` : `<b class="cp-ok">level with the ghost</b>`;
-    return `<div class="cp-course"><div class="cp-chead"><h3>${ctx.courseName(cid)}</h3><span>${state} · you: ${p.next ? `in week ${p.next.n}` : 'all 14 weeks done'} · lecture: week ${lw}</span></div><div class="cp-track">${tiles}</div>${openWeek?.startsWith(cid + '/') ? weekHtml(cid, +openWeek.split('/')[1]) : ''}</div>`;
+    return `<div class="cp-course"><div class="cp-chead"><h3>${ctx.courseName(cid)}</h3><span>${state} · you: ${p.next ? `in week ${p.next.n}` : 'all 14 weeks done'} · lecture: week ${lw}</span>${ctx.sheetsByCourse[cid] ? `<button class="chip btn cp-hand${handIn(cid) ? ' cur' : ''}" data-hand="${cid}" title="On: the sheet due within three days comes first in the run. Off: strict catch-up, oldest open week first; the due sheet stays visible as the weekly boss.">Hand-ins first: ${handIn(cid) ? 'on' : 'off'}</button>` : ''}</div><div class="cp-track">${tiles}</div>${openWeek?.startsWith(cid + '/') ? weekHtml(cid, +openWeek.split('/')[1]) : ''}</div>`;
   }
   function weekHtml(cid, n) {
     const w = W()[cid].find((x) => x.n === n), s = weekStatus(w, passed, known()[cid]);
@@ -178,9 +187,10 @@ export function createCampaign(ctx) {
   }
   function html() {
     if (!isSetup()) return setupHtml();
-    const b = behindTotal(), r = run(), newStops = Math.max(1, r.stops.filter((s) => s.kind === 'theory' || s.kind === 'sheet').length), cu = catchUpDate(b, newStops / 4.5, 1), d = daysToExam();
+    const b = behindTotal(), pc = pace(), d = daysToExam(), net = pc ? pc.perDay - 3 / 7 : 0; // the ghost moves 3 course-weeks per 7 days
+    const cu = { possible: !!pc && net > 0, date: pc && net > 0 ? new Date(Date.now() + Math.ceil(b / net) * 86400000) : null };
     const fmt = (x) => x.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-    const head = `<div class="cp-head"><div><b>${d}</b><span>days to the exams</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : cu.possible ? `level with the lectures at one ${runMinutes()}′ run a day` : 'one short run a day is not enough: pick a longer run'}</span></div></div>`;
+    const head = `<div class="cp-head"><div><b>${d}</b><span>days to the exams</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : !pc ? 'catch-up date: shown after three finished runs, from your real pace' : cu.possible ? `level with the lectures at your pace of the last runs (${pc.perDay.toFixed(2)} weeks gained per run day)` : `at your pace of the last runs (${pc.perDay.toFixed(2)} weeks per run day) the ghost pulls away: longer runs or two a day`}</span></div></div>`;
     payBosses();
     return `${head}${runHtml()}${bossHtml()}${courses().map(trackHtml).join('')}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
   }
@@ -195,6 +205,7 @@ export function createCampaign(ctx) {
     const ag = host.querySelector('#cp-again'); if (ag) ag.onclick = () => { newRun(runMinutes()); re(); };
     host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.map((s) => s.id), 'Today’s run', b.dataset.stop); }));
     host.querySelectorAll('[data-alt]').forEach((b) => (b.onclick = () => { const r = run(), i = +b.dataset.alt, s = r.stops[i], a = s.alt; r.stops[i] = a.back ? { ...a.orig } : { ...s, id: a.id, kind: a.kind, min: a.min, bonus: a.bonus, risk: true, alt: { id: s.id, back: true, orig: { ...s } }, why: 'You took the risk: a harder problem from the same room, for bonus XP' }; r.est = r.stops.reduce((x, y) => x + y.min, 0); store.setVal('run', r); re(); }));
+    host.querySelectorAll('[data-hand]').forEach((b) => (b.onclick = () => { const c = b.dataset.hand; store.setVal('handIn', { ...(store.val('handIn', {}) || {}), [c]: !handIn(c) }); const pr = store.val('run', null); if (!pr?.startedAt) store.setVal('run', null); re(); }));
     host.querySelectorAll('[data-week]').forEach((b) => (b.onclick = () => { openWeek = openWeek === b.dataset.week ? null : b.dataset.week; rerender(); }));
     host.querySelectorAll('[data-wopen]').forEach((b) => (b.onclick = () => ctx.openQueue([b.dataset.wopen], '', b.dataset.wopen)));
     const setKnown = (cid, list) => { const k = { ...knownRaw(), [cid]: list }; store.setVal('campaignKnown', k); store.setVal('run', null); re(); };
@@ -206,5 +217,5 @@ export function createCampaign(ctx) {
     const ws = W()[cid]; if (!ws) return false; const kn = known()[cid], t = taught();
     return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
   }
-  return { html, wire, startRun, onProgress, roomOverdue, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  return { html, wire, startRun, onProgress, roomOverdue, pace, handIn, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

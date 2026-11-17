@@ -58,7 +58,21 @@
     "count": 12,
     "of": 14,
     "label": "Harmonic oscillator, ladder operators, coherent states"
-   }
+   },
+   "asked": [
+    {
+     "exam": "HS25 Q3",
+     "boss": "qm-ho-b1",
+     "parts": [
+      "The Hamiltonian of a particle in a one-dimensional harmonic potential is $H_0=\\frac{p^2}{2m}+\\frac12m\\omega^2q^2$, $[q,p]=i\\hbar$.",
+      "(i) Define $a=\\sqrt{\\frac{m\\omega}{2\\hbar}}\\,q+\\frac{i}{\\sqrt{2m\\hbar\\omega}}\\,p$. Show that $H_0=\\hbar\\omega(a^\\dagger a+\\frac12)$ and calculate $[a,a^\\dagger]$. [3 pt]",
+      "(ii) Derive the energies $E_n$ and eigenstates $|n\\rangle$ of this Hamiltonian using the ladder operators $a,a^\\dagger$. [6 pt]",
+      "(iii) What property does the vacuum $|0\\rangle$ satisfy? Use it to find the (normalised) wave function in position space. [4 pt]"
+     ],
+     "points": 13,
+     "minutes": 26
+    }
+   ]
   },
   {
    "id": "am-spectrum",
@@ -114,7 +128,32 @@
     "count": 12,
     "of": 14,
     "label": "Angular momentum algebra, rotations, spin-1/2 and spin-1"
-   }
+   },
+   "asked": [
+    {
+     "exam": "FS22 Q2",
+     "boss": "qm-am-b2",
+     "parts": [
+      "The angular momentum operator is defined by $L_j=-i\\hbar\\varepsilon_{jkl}x_k\\partial_{x_l}$, $j=1,2,3$.",
+      "(i) Show $[L_j,L_k]=i\\hbar\\varepsilon_{jkl}L_l$ (hint: work out $[L_1,L_2]$ and argue by symmetry). [2 pt]",
+      "(ii) With $L_\\pm=L_1\\pm iL_2$ compute $[L_3,L_\\pm]$ and $[L_+,L_-]$ in terms of these generators. [2 pt]",
+      "(iii) In an irreducible representation $L_3|l,m\\rangle=\\hbar m|l,m\\rangle$, $L_\\pm|l,m\\rangle=\\hbar\\sqrt{l(l+1)-m(m\\pm1)}|l,m\\pm1\\rangle$. Show $\\langle L_1\\rangle=\\langle L_2\\rangle=0$. [3 pt]"
+     ],
+     "points": 7,
+     "minutes": 14
+    },
+    {
+     "exam": "HS21 Q3",
+     "boss": "qm-ent-b1",
+     "parts": [
+      "Consider a single particle transforming in the representation $D_j$ of su(2). We choose an orthonormal basis of $D_j$ consisting of the vectors $|j,m\\rangle$ that are eigenvectors of $S_z$ with eigenvalue $m$: $S_z|j,m\\rangle=m|j,m\\rangle$. Furthermore $S_\\pm=S_x\\pm iS_y$ acts as $S_\\pm|j,m\\rangle=\\sqrt{j(j+1)-m(m\\pm1)}\\,|j,m\\pm1\\rangle$.",
+      "(i) Using $[S_x,S_y]=iS_z$, $[S_y,S_z]=iS_x$, $[S_z,S_x]=iS_y$, deduce the commutation relations $[S_z,S_\\pm]$ and $[S_+,S_-]$. [2 points]",
+      "(ii) Using the formulas for $S_z$ and $S_\\pm$ above, but not your result from (i), compute $[S_\\pm,S_z]|j,m\\rangle$ and $[S_+,S_-]|j,m\\rangle$. Show that this agrees with (i). [3 points]"
+     ],
+     "points": 5,
+     "minutes": 10
+    }
+   ]
   },
   {
    "id": "coherent",
@@ -158,7 +197,19 @@
     "count": 12,
     "of": 14,
     "label": "Harmonic oscillator, ladder operators, coherent states"
-   }
+   },
+   "asked": [
+    {
+     "exam": "HS23 Q4",
+     "boss": "qm-ho-b2",
+     "parts": [
+      "Let $\\hat H=\\frac{\\hat P^2}{2m}+\\frac12m\\omega^2\\hat X^2$ be the Hamiltonian of the 1D harmonic oscillator and $|n\\rangle$ the Fock states.",
+      "(d) Consider the state $|\\psi\\rangle=\\exp\\!\\big(\\frac{r\\hat P}{i\\hbar}\\big)|0\\rangle$ with $r\\in\\mathbb R$. Determine $\\langle\\hat X_H(t)\\rangle$ for $t\\ge0$. What would the constant $r$ mean for a classical oscillator? [6 pt]"
+     ],
+     "points": 6,
+     "minutes": 12
+    }
+   ]
   },
   {
    "id": "box",
@@ -214,7 +265,29 @@
     "count": 10,
     "of": 14,
     "label": "1D box, finite well, parity, bound-state existence"
-   }
+   },
+   "asked": [
+    {
+     "exam": "FS26 Q2",
+     "boss": "qm-wm-b1",
+     "parts": [
+      "Consider a particle in 1d, confined to a box of length $a$. The Hamiltonian is $H=-\\frac{\\hbar^2}{2m}\\partial_x^2+V(x)$ with $V=0$ for $x\\in[0,a]$ and $V=\\infty$ else.",
+      "(i) Find the (normalised) eigenfunctions $\\psi_n$ and the associated eigenvalues $E_n$ of the Hamiltonian for the particle in the box. What boundary conditions does the wave function have to satisfy? [5 points]"
+     ],
+     "points": 5,
+     "minutes": 10
+    },
+    {
+     "exam": "FS19 Q1",
+     "boss": "qm-wm-b2",
+     "parts": [
+      "We consider a particle of mass $m$ moving in a 2-dimensional box of size $a$ with coordinates $0\\le x\\le a$ and $0\\le y\\le a$. The potential vanishes inside the box, and the wave function vanishes at the edges.",
+      "(i) Find the normalised eigenfunctions of the Hamilton operator and the associated energies. [6 pt]"
+     ],
+     "points": 6,
+     "minutes": 12
+    }
+   ]
   },
   {
    "id": "finite-well",
@@ -328,7 +401,29 @@
     "count": 9,
     "of": 14,
     "label": "Time-independent perturbation theory"
-   }
+   },
+   "asked": [
+    {
+     "exam": "FS19 Q4 = HS18 Q4",
+     "boss": "qm-pf-b1",
+     "parts": [
+      "In this question we study time-independent non-degenerate perturbation theory.",
+      "(i) Let $H_0$ be a Hamiltonian whose complete set of eigenfunctions is described by $H_0\\psi_n=E_n\\psi_n$, $n=0,1,2,\\dots$, where $E_n\\neq E_m$ for $n\\ne m$. We want to find the eigenfunctions of the perturbed Hamiltonian $H=H_0+\\lambda H'$. Make an ansatz for $\\psi$ and $E$ as a power series in $\\lambda$ and determine the equations order by order in $\\lambda$ (up to $\\lambda^2$). Explain how to find the perturbed eigenfunction $\\psi$ to first order in $\\lambda$ and the corresponding eigenvalue to second order in $\\lambda$. (You should work with the convention that the higher order corrections to the eigenfunction are orthogonal to the leading term.) [10 pt]"
+     ],
+     "points": 10,
+     "minutes": 20
+    },
+    {
+     "exam": "FS22 Q4",
+     "boss": "qm-pf-b3",
+     "parts": [
+      "Let $H_0$ be a Hamiltonian whose complete set of eigenfunctions is described by $H_0\\psi_n=E_n\\psi_n$, $n=0,1,2,\\dots$. We want to find the eigenfunctions of the perturbed Hamiltonian $H=H_0+\\lambda H'$.",
+      "(i) Let $\\psi$ be an eigenstate of the perturbed system with energy $E$. Make an ansatz for $\\psi$ and $E$ as a power series in $\\lambda$, and derive the equations for the perturbation at any order $\\lambda^s$. [5 pt] [Hint: Derive a general equation that holds for $s\\ge2$, and then treat the cases $s=0$ and $s=1$ separately.]"
+     ],
+     "points": 5,
+     "minutes": 10
+    }
+   ]
   },
   {
    "id": "spin-dot",
@@ -384,7 +479,20 @@
     "count": 8,
     "of": 14,
     "label": "Spin addition, Clebsch-Gordan"
-   }
+   },
+   "asked": [
+    {
+     "exam": "HS25 Q4",
+     "boss": "qm-sa-b1",
+     "parts": [
+      "We consider two spin-$s$ particles with spin operators $\\vec S_1,\\vec S_2$. The state space of each individual particle is described by a $D_s$ representation of su(2), $D_s=\\mathrm{span}\\{|s,m\\rangle\\,|\\,m=-s,\\dots,s\\}$, with $\\hbar m$ being the eigenvalue of the $z$-component of $\\vec S_i$ on the state $|s,m\\rangle$. The particles are coupled by the Hamiltonian $H=\\frac\\omega\\hbar\\vec S_1\\cdot\\vec S_2$.",
+      "(i) Let $\\vec S=\\vec S_1+\\vec S_2$ be the total spin. What are the allowed eigenvalues of $\\vec S^2$ and $S_z$? [3 points]",
+      "(ii) Find the eigenvalues of the Hamiltonian and their degeneracy. [3 points] Hint: Write $\\vec S_1\\cdot\\vec S_2$ in terms of $\\vec S^2,\\vec S_1^2,\\vec S_2^2$."
+     ],
+     "points": 6,
+     "minutes": 12
+    }
+   ]
   },
   {
    "id": "virial",
@@ -484,7 +592,30 @@
     "count": 8,
     "of": 14,
     "label": "Heisenberg picture, commutators, conservation laws"
-   }
+   },
+   "asked": [
+    {
+     "exam": "HS23 Q4",
+     "boss": "qm-ho-b2",
+     "parts": [
+      "Let $\\hat H=\\frac{\\hat P^2}{2m}+\\frac12m\\omega^2\\hat X^2$ be the Hamiltonian of the 1D harmonic oscillator and $|n\\rangle$ the Fock states.",
+      "(c) Show that in the Heisenberg picture $\\hat X_H(t)=\\hat X\\cos\\omega t+\\frac{\\hat P}{m\\omega}\\sin\\omega t$ and $\\hat P_H(t)=-m\\omega\\hat X\\sin\\omega t+\\hat P\\cos\\omega t$. Hint: find expressions for $d\\hat X_H/dt$, $d\\hat P_H/dt$ and solve the coupled differential equations. [8 pt]"
+     ],
+     "points": 8,
+     "minutes": 16
+    },
+    {
+     "exam": "HS18 Q3",
+     "boss": "qm-fu-b2",
+     "parts": [
+      "(i) State the time-dependent Schrodinger equation, and write down the solution with initial state $\\Psi(t_0)$ as $\\Psi(t)=U(t,t_0)\\Psi(t_0)$. Deduce the differential equation the propagator $U(t,t_0)$ has to solve, and construct its (formal) solution. [5 pt]",
+      "(ii) Explain how to define the Heisenberg picture, and deduce the equations of motion of an operator in the Heisenberg picture. [3 pt]",
+      "(iii) Determine the condition for an observable $A$ that does not depend explicitly on time, to be conserved. [2 pt]"
+     ],
+     "points": 10,
+     "minutes": 20
+    }
+   ]
   },
   {
    "id": "cg-1-half",
@@ -529,7 +660,19 @@
     "count": 8,
     "of": 14,
     "label": "Spin addition, Clebsch-Gordan"
-   }
+   },
+   "asked": [
+    {
+     "exam": "sheet 12 Q1 and Q3",
+     "boss": "qm-sa-b3",
+     "parts": [
+      "Question 3 [Clebsch-Gordan coefficients] (i) Prove that the Clebsch-Gordan coefficients for the decomposition of the tensor product of spin $l$ and spin $\\frac12$ to spin $l+\\frac12$ are $\\langle l,\\tfrac12,m\\mp\\tfrac12,\\pm\\tfrac12|l,\\tfrac12,l+\\tfrac12,m\\rangle=\\sqrt{\\frac{l\\pm m+\\frac12}{2l+1}}$. Hint: First focus on the $m_2=\\frac12$ coefficients. Using one of the recursion relations from the lecture show that $\\langle l,\\tfrac12,m-\\tfrac32,\\tfrac12|l,\\tfrac12,l+\\tfrac12,m-1\\rangle=\\sqrt{\\frac{l+m-\\frac12}{l+m+\\frac12}}\\langle l,\\tfrac12,m-\\tfrac12,\\tfrac12|l,\\tfrac12,l+\\tfrac12,m\\rangle$. Identify the state of highest spin, then use this relation to find all the $m_2=\\frac12$ coefficients. To find the $m_2=-\\frac12$ coefficients, consider the other recursion relation from the lecture.",
+      "(ii) An electron in the hydrogen atom is in an orbital angular momentum state with $l=1$. Find the eigenstates of the total (orbital and spin) angular momentum $|j,j_z\\rangle$ in $D_{3/2}$ in terms of those labelled by $|m,s\\rangle$, where $m$ and $s$ are the $z$-components of the orbital and spin angular momentum operators, respectively."
+     ],
+     "points": 0,
+     "minutes": 10
+    }
+   ]
   },
   {
    "id": "delta",
@@ -672,7 +815,20 @@
     "count": 4,
     "of": 14,
     "label": "Uncertainty relation and its proofs"
-   }
+   },
+   "asked": [
+    {
+     "exam": "HS18 Q2",
+     "boss": "qm-fu-b1",
+     "parts": [
+      "Suppose $A$ and $B$ are two self-adjoint operators acting on a Hilbert space. We define the variance of $A$ via $(\\Delta A)_\\psi\\equiv\\sqrt{\\langle(A-\\langle A\\rangle_\\psi)^2\\rangle_\\psi}$, where the expectation value is taken with respect to some state $\\psi$ in the Hilbert space.",
+      "(i) Prove that $i[A,B]$ and $\\{A,B\\}\\equiv AB+BA$ are hermitian operators. [2 pt]",
+      "(ii) Prove the Heisenberg uncertainty relation $(\\Delta A)_\\psi(\\Delta B)_\\psi\\ge\\frac12|\\langle i[A,B]\\rangle_\\psi|$. [4 pt]"
+     ],
+     "points": 6,
+     "minutes": 12
+    }
+   ]
   },
   {
    "id": "ehrenfest",
@@ -716,7 +872,19 @@
     "count": 4,
     "of": 14,
     "label": "Ehrenfest theorem and probability current"
-   }
+   },
+   "asked": [
+    {
+     "exam": "FS19 Q2",
+     "boss": "qm-ho-b3",
+     "parts": [
+      "Consider a particle of mass $m$ moving in one dimension subject to a potential $V(x)$.",
+      "(i) State the time-dependent Schrödinger equation, and deduce Ehrenfest's theorem $\\frac d{dt}\\langle x\\rangle=\\frac1m\\langle p\\rangle$. [5 pt]"
+     ],
+     "points": 5,
+     "minutes": 10
+    }
+   ]
   },
   {
    "id": "continuity",
@@ -772,7 +940,19 @@
     "count": 4,
     "of": 14,
     "label": "Ehrenfest theorem and probability current"
-   }
+   },
+   "asked": [
+    {
+     "exam": "FS22 Q1",
+     "boss": "qm-wm-b3",
+     "parts": [
+      "Let $\\Psi(x,t)$ be a solution of the time-dependent Schroedinger equation (one dimension). The probability density is $\\rho(x,t)=|\\Psi(x,t)|^2$.",
+      "(i) Show the continuity equation $\\partial_t\\rho+\\partial_xj=0$, where $j$ is the probability current that you should define. [4 pt]"
+     ],
+     "points": 4,
+     "minutes": 8
+    }
+   ]
   },
   {
    "id": "spin-precession",

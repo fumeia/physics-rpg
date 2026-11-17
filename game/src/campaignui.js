@@ -179,7 +179,7 @@ export function createCampaign(ctx) {
 
   // ---- text for the HUD chips and the start screen
   function chipText() { const { done, total, complete } = runInfo(); return !isSetup() ? '▶ Set up your campaign' : complete ? `✓ Run done · again?` : total ? `▶ Today’s run ${done}/${total}` : '✓ Nothing due'; }
-  function behindText() { const b = behindTotal(); return b > 0 ? `${b} weeks behind` : 'level with the lectures'; }
+  function behindText() { if (!isSetup()) return 'set it up first'; const b = behindTotal(); return b > 0 ? `${b} weeks behind` : 'level with the lectures'; }
   function startLine() {
     if (!isSetup()) return 'First step: tell the game where you are in each course (one tap).';
     const { r, done, total, complete } = runInfo();

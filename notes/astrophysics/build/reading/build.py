@@ -214,4 +214,9 @@ C.append(card('astro-read-13b', 13, 'early-universe', '11.5–11.9', '336–356'
   [(r'The CMB was released at', [r'recombination, $z\approx1100$', r'BBN, $t\approx3$ min', r'today', r'$z\approx6$'], r'Choudhuri 11.7.'),
    (r'Inflation solves', [r'the horizon and flatness problems', r'the solar neutrino problem', r'the Chandrasekhar limit', r'the Algol paradox'], r'Choudhuri 11.6.1.')], minutes=45))
 
+sys.path.insert(0, HERE)
+from more_checks import MORE  # 4 more checks per card
+for it in C:
+    for q, o, e in MORE.get(it['enc']['id'], []): it['enc']['check'].append({'q': q, 'options': o, 'correct': 0, 'explain': e})
+assert all(len(it['enc']['check']) >= 6 for it in C), [it['enc']['id'] for it in C if len(it['enc']['check']) < 6]
 write(os.path.join(HERE, '../../../../game/content/astrophysics/reading.json'), C, 'Guided reading of Choudhuri for Astro I; built by notes/astrophysics/build/reading/build.py')

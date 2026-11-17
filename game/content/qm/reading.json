@@ -59,6 +59,50 @@
       ],
       "correct": 0,
       "explain": "so(3), script 7.2."
+     },
+     {
+      "q": "Rotations about different axes",
+      "options": [
+       "do not commute",
+       "commute",
+       "are not a group",
+       "are unitary in $\\mathbb R^3$ only for small angles"
+      ],
+      "correct": 0,
+      "explain": "Non-abelian SO(3)."
+     },
+     {
+      "q": "The Lie algebra so(3) is spanned by",
+      "options": [
+       "three generators",
+       "one generator",
+       "nine generators",
+       "no generators"
+      ],
+      "correct": 0,
+      "explain": "Three axes."
+     },
+     {
+      "q": "$U(R(\\vec e,\\omega))=$",
+      "options": [
+       "$e^{-i\\omega\\vec e\\cdot\\vec L/\\hbar}$",
+       "$e^{\\omega\\vec e\\cdot\\vec L}$",
+       "$\\vec e\\cdot\\vec L$",
+       "$1+\\omega$"
+      ],
+      "correct": 0,
+      "explain": "Script 7.2."
+     },
+     {
+      "q": "An observable commutes with all $L_j$ iff it is",
+      "options": [
+       "rotationally invariant",
+       "zero",
+       "a vector operator",
+       "the parity"
+      ],
+      "correct": 0,
+      "explain": "Symmetry $\\Leftrightarrow$ commutation."
      }
     ]
    }
@@ -121,6 +165,50 @@
       ],
       "correct": 0,
       "explain": "$m=-j,\\dots,j$."
+     },
+     {
+      "q": "Allowed values of $j$",
+      "options": [
+       "$0,\\frac12,1,\\frac32,\\dots$",
+       "only integers",
+       "any real number",
+       "only $\\frac12$"
+      ],
+      "correct": 0,
+      "explain": "$2j\\in\\mathbb N$."
+     },
+     {
+      "q": "$\\vec M^2$ on $\\mathcal D_j$",
+      "options": [
+       "is $j(j+1)\\mathbb 1$",
+       "depends on $m$",
+       "is zero",
+       "is $j^2$"
+      ],
+      "correct": 0,
+      "explain": "Casimir."
+     },
+     {
+      "q": "An invariant subspace $K$ of a unitary representation has",
+      "options": [
+       "an invariant orthogonal complement",
+       "no complement",
+       "dimension 1",
+       "to be the whole space"
+      ],
+      "correct": 0,
+      "explain": "Complete reducibility."
+     },
+     {
+      "q": "$M_+$ on the top state $|j,j\\rangle$",
+      "options": [
+       "gives 0",
+       "gives $|j,j+1\\rangle$",
+       "gives $|j,j\\rangle$",
+       "is undefined"
+      ],
+      "correct": 0,
+      "explain": "Ladder stops."
      }
     ]
    }
@@ -183,6 +271,50 @@
       ],
       "correct": 0,
       "explain": "Script 7.5-7.6."
+     },
+     {
+      "q": "$\\det\\tilde x$ for $\\tilde x=x^j\\sigma_j$",
+      "options": [
+       "$-\\vec x\\cdot\\vec x$",
+       "$\\vec x\\cdot\\vec x$",
+       "0",
+       "1"
+      ],
+      "correct": 0,
+      "explain": "Script 7.5."
+     },
+     {
+      "q": "Spin $\\frac12$ returns to itself after a rotation by",
+      "options": [
+       "$4\\pi$",
+       "$2\\pi$",
+       "$\\pi$",
+       "never"
+      ],
+      "correct": 0,
+      "explain": "$2\\pi$ gives $-1$."
+     },
+     {
+      "q": "The cocycle condition follows from",
+      "options": [
+       "associativity of operator products",
+       "unitarity",
+       "hermiticity",
+       "commutativity"
+      ],
+      "correct": 0,
+      "explain": "Script 7.6."
+     },
+     {
+      "q": "The electron&#8217;s state space is",
+      "options": [
+       "$L^2(\\mathbb R^3)\\otimes\\mathbb C^2$",
+       "$L^2(\\mathbb R^3)$",
+       "$\\mathbb C^2$",
+       "$\\mathbb C^3$"
+      ],
+      "correct": 0,
+      "explain": "Script 7.7."
      }
     ]
    }
@@ -245,6 +377,50 @@
       ],
       "correct": 0,
       "explain": "Complex conjugation is needed."
+     },
+     {
+      "q": "Wigner&#8217;s theorem assumes the symmetry preserves",
+      "options": [
+       "transition probabilities between rays",
+       "energies only",
+       "positions",
+       "the Hamiltonian"
+      ],
+      "correct": 0,
+      "explain": "Script 7.8."
+     },
+     {
+      "q": "An anti-unitary operator is",
+      "options": [
+       "anti-linear",
+       "linear",
+       "hermitian",
+       "a projector"
+      ],
+      "correct": 0,
+      "explain": "$U(\\alpha\\psi)=\\bar\\alpha U\\psi$."
+     },
+     {
+      "q": "The square of an anti-unitary operator is",
+      "options": [
+       "unitary (linear)",
+       "anti-unitary",
+       "zero",
+       "hermitian"
+      ],
+      "correct": 0,
+      "explain": "Two conjugations cancel."
+     },
+     {
+      "q": "Why can time reversal not give a conservation law?",
+      "options": [
+       "it is anti-unitary: no hermitian generator",
+       "it is not a symmetry",
+       "it is unitary",
+       "it commutes with nothing"
+      ],
+      "correct": 0,
+      "explain": "No $e^{-i\\theta T}$."
      }
     ]
    }
@@ -311,6 +487,50 @@
       ],
       "correct": 0,
       "explain": "$E_n\\propto-1/n^2$."
+     },
+     {
+      "q": "The reduced mass is",
+      "options": [
+       "$\\frac{m_1m_2}{m_1+m_2}$",
+       "$m_1+m_2$",
+       "$\\sqrt{m_1m_2}$",
+       "$m_1-m_2$"
+      ],
+      "correct": 0,
+      "explain": "Script 8.1."
+     },
+     {
+      "q": "Degeneracy of the hydrogen level $n$ (without spin)",
+      "options": [
+       "$n^2$",
+       "$2n+1$",
+       "$n$",
+       "$2n^2$"
+      ],
+      "correct": 0,
+      "explain": "$\\sum(2l+1)$."
+     },
+     {
+      "q": "For $l\\ge1$ the radial function $u(r)$ near 0 behaves as",
+      "options": [
+       "$r^{l+1}$",
+       "$r^{-l}$",
+       "constant",
+       "$e^{-r}$"
+      ],
+      "correct": 0,
+      "explain": "Script 8.2.1."
+     },
+     {
+      "q": "The centrifugal barrier",
+      "options": [
+       "$\\frac{\\hbar^2l(l+1)}{2mr^2}$",
+       "$\\frac{l}{r}$",
+       "$-\\frac{e^2}r$",
+       "$\\hbar^2l^2r^2$"
+      ],
+      "correct": 0,
+      "explain": "Effective potential."
      }
     ]
    }
@@ -373,6 +593,50 @@
       ],
       "correct": 0,
       "explain": "$n=2s+1$."
+     },
+     {
+      "q": "The Pauli-Lenz vector commutes with",
+      "options": [
+       "$H$",
+       "$\\vec L$ componentwise",
+       "$\\vec x$",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Conserved."
+     },
+     {
+      "q": "On fixed $E<0$, $\\vec S$ and $\\vec D$ generate",
+      "options": [
+       "two commuting su(2)",
+       "one su(2)",
+       "su(3)",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "so(4) = su(2) $\\oplus$ su(2)."
+     },
+     {
+      "q": "The highest weight of the level $n$ is",
+      "options": [
+       "$|n,n-1,n-1\\rangle$",
+       "$|n,0,0\\rangle$",
+       "$|n,n,n\\rangle$",
+       "$|1,0,0\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Sheet 11 Q1."
+     },
+     {
+      "q": "The $l$-degeneracy of hydrogen is lifted by",
+      "options": [
+       "perturbations that break the so(4) (e.g. relativistic $p^4$)",
+       "rotations",
+       "parity",
+       "nothing ever"
+      ],
+      "correct": 0,
+      "explain": "FS26 Q4."
      }
     ]
    }
@@ -435,6 +699,50 @@
       ],
       "correct": 0,
       "explain": "$\\frac1{\\sqrt2}(\\uparrow\\downarrow-\\downarrow\\uparrow)$."
+     },
+     {
+      "q": "The total generator on $\\mathcal H_1\\otimes\\mathcal H_2$",
+      "options": [
+       "$\\vec J^{(1)}\\otimes\\mathbb 1+\\mathbb 1\\otimes\\vec J^{(2)}$",
+       "$\\vec J^{(1)}\\otimes\\vec J^{(2)}$",
+       "$\\vec J^{(1)}\\vec J^{(2)}$",
+       "$\\vec J^{(1)}-\\vec J^{(2)}$"
+      ],
+      "correct": 0,
+      "explain": "Script 9.1-9.2."
+     },
+     {
+      "q": "Two spins $\\frac12$: $\\vec S_1\\cdot\\vec S_2$ on the triplet",
+      "options": [
+       "$\\frac{\\hbar^2}4$",
+       "$-\\frac34\\hbar^2$",
+       "0",
+       "$\\hbar^2$"
+      ],
+      "correct": 0,
+      "explain": "$\\frac12(2-\\frac32)\\hbar^2$."
+     },
+     {
+      "q": "$m$ of a product state $|m_1\\rangle|m_2\\rangle$",
+      "options": [
+       "$m_1+m_2$",
+       "$m_1m_2$",
+       "$|m_1-m_2|$",
+       "$\\max(m_1,m_2)$"
+      ],
+      "correct": 0,
+      "explain": "$J_3$ additive."
+     },
+     {
+      "q": "Dimension of $\\mathcal D_{j_1}\\otimes\\mathcal D_{j_2}$",
+      "options": [
+       "$(2j_1+1)(2j_2+1)$",
+       "$2(j_1+j_2)+1$",
+       "$j_1j_2$",
+       "$2j_1+2j_2$"
+      ],
+      "correct": 0,
+      "explain": "Product of dimensions."
      }
     ]
    }
@@ -497,6 +805,50 @@
       ],
       "correct": 0,
       "explain": "Sheet 11 Q3: $6=4+2$."
+     },
+     {
+      "q": "Largest total $j$ in $\\mathcal D_{j_1}\\otimes\\mathcal D_{j_2}$",
+      "options": [
+       "$j_1+j_2$",
+       "$|j_1-j_2|$",
+       "$j_1j_2$",
+       "$\\max(j_1,j_2)$"
+      ],
+      "correct": 0,
+      "explain": "Top state."
+     },
+     {
+      "q": "The top state of $j_1+j_2$ is",
+      "options": [
+       "$|j_1\\rangle|j_2\\rangle$ (both maximal)",
+       "an entangled sum",
+       "$|-j_1\\rangle|j_2\\rangle$",
+       "the singlet"
+      ],
+      "correct": 0,
+      "explain": "Highest weight."
+     },
+     {
+      "q": "Clebsch-Gordan coefficients form",
+      "options": [
+       "a unitary change of basis",
+       "a projector",
+       "a scalar",
+       "a non-invertible matrix"
+      ],
+      "correct": 0,
+      "explain": "Both bases orthonormal."
+     },
+     {
+      "q": "How many times does $\\mathcal D_1$ appear in $\\mathcal D_1\\otimes\\mathcal D_1$?",
+      "options": [
+       "once",
+       "twice",
+       "never",
+       "three times"
+      ],
+      "correct": 0,
+      "explain": "$2\\oplus1\\oplus0$."
      }
     ]
    }
@@ -559,6 +911,50 @@
       ],
       "correct": 0,
       "explain": "Script 9.7.1."
+     },
+     {
+      "q": "The orbital magnetic moment of the electron (Gaussian)",
+      "options": [
+       "$-\\frac e{2mc}\\vec L$",
+       "$\\frac e{2mc}\\vec L$",
+       "$-\\frac e{mc}\\vec S$ only",
+       "0"
+      ],
+      "correct": 0,
+      "explain": "$q=-e$ in (9.46)."
+     },
+     {
+      "q": "$g$ of the electron spin",
+      "options": [
+       "$\\approx2$ ($2+\\alpha/\\pi+\\dots$)",
+       "1",
+       "5.59",
+       "0"
+      ],
+      "correct": 0,
+      "explain": "(9.53)."
+     },
+     {
+      "q": "The normal Zeeman shift (9.50)",
+      "options": [
+       "$\\mu_BB_zm$",
+       "$\\mu_BB_zl$",
+       "$2\\mu_BB_zm_s$ only",
+       "$\\mu_B^2B$"
+      ],
+      "correct": 0,
+      "explain": "Orbital only."
+     },
+     {
+      "q": "$\\vec L\\cdot\\vec S$ commutes with",
+      "options": [
+       "$\\vec J^2$ and $J_z$",
+       "$L_z$ and $S_z$ separately",
+       "nothing",
+       "$x$"
+      ],
+      "correct": 0,
+      "explain": "Use the coupled basis."
      }
     ]
    }
@@ -621,6 +1017,50 @@
       ],
       "correct": 0,
       "explain": "Tsirelson bound."
+     },
+     {
+      "q": "Local hidden variables imply the CHSH combination is bounded by",
+      "options": [
+       "2",
+       "$2\\sqrt2$",
+       "1",
+       "4"
+      ],
+      "correct": 0,
+      "explain": "(10.4)."
+     },
+     {
+      "q": "Quantum mechanics can reach",
+      "options": [
+       "$2\\sqrt2$",
+       "only 2",
+       "4",
+       "0"
+      ],
+      "correct": 0,
+      "explain": "Violation."
+     },
+     {
+      "q": "For the singlet, $\\langle\\psi|\\vec\\sigma^{(1)}\\cdot\\vec v|\\psi\\rangle=$",
+      "options": [
+       "0",
+       "1",
+       "$|\\vec v|$",
+       "$-1$"
+      ],
+      "correct": 0,
+      "explain": "(10.10)."
+     },
+     {
+      "q": "Locality in (10.3) means",
+      "options": [
+       "space-like separated measurements factorise on hidden variables",
+       "particles never interact",
+       "the state is a product",
+       "measurements are instantaneous"
+      ],
+      "correct": 0,
+      "explain": "$(AB)(\\omega)=A(\\omega)B(\\omega)$."
      }
     ]
    }
@@ -683,6 +1123,50 @@
       ],
       "correct": 0,
       "explain": "Her Bell measurement entangles 0 and 1."
+     },
+     {
+      "q": "Alice&#8217;s measurement in teleportation is a measurement in",
+      "options": [
+       "the Bell basis of particles 0 and 1",
+       "the $z$ basis of particle 2",
+       "position",
+       "energy"
+      ],
+      "correct": 0,
+      "explain": "(10.15)."
+     },
+     {
+      "q": "Each of Alice&#8217;s four outcomes occurs with probability",
+      "options": [
+       "$\\frac14$",
+       "$\\frac12$",
+       "1",
+       "depends on $|\\varphi\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Independent of the state."
+     },
+     {
+      "q": "For outcome 1 Bob applies",
+      "options": [
+       "nothing ($\\mathbb 1$)",
+       "$\\sigma_1$",
+       "$\\sigma_2$",
+       "$\\sigma_3$"
+      ],
+      "correct": 0,
+      "explain": "Table in 10.3."
+     },
+     {
+      "q": "Teleportation was realised experimentally with",
+      "options": [
+       "photons (Zeilinger et al. 1997)",
+       "electrons in 1920",
+       "neutrons only",
+       "never"
+      ],
+      "correct": 0,
+      "explain": "Script 10.3."
      }
     ]
    }
@@ -745,6 +1229,50 @@
       ],
       "correct": 0,
       "explain": "Script 11.1."
+     },
+     {
+      "q": "The usual normalisation convention for corrections",
+      "options": [
+       "$\\langle\\psi_n|\\psi^{(s)}\\rangle=0$ for $s\\ge1$",
+       "$\\psi^{(1)}=\\psi_n$",
+       "$\\|\\psi^{(1)}\\|=1$",
+       "none"
+      ],
+      "correct": 0,
+      "explain": "Fixes the phase/normalisation."
+     },
+     {
+      "q": "$\\psi^{(1)}$ is a sum over",
+      "options": [
+       "other states $m\\ne n$ weighted by $\\frac{\\langle m|H^\\prime|n\\rangle}{E_n-E_m}$",
+       "only $\\psi_n$",
+       "continuum states only",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Script 11.1."
+     },
+     {
+      "q": "Second-order energy uses",
+      "options": [
+       "squared matrix elements over energy differences",
+       "only diagonal elements",
+       "the exact energies",
+       "the commutator"
+      ],
+      "correct": 0,
+      "explain": "$E^{(2)}=\\sum\\frac{|H^\\prime_{mn}|^2}{E_n-E_m}$."
+     },
+     {
+      "q": "Two-level system: exact vs PT",
+      "options": [
+       "PT is the expansion of the square root for small coupling",
+       "PT is exact",
+       "they disagree at first order",
+       "there is no exact solution"
+      ],
+      "correct": 0,
+      "explain": "$\\frac12\\sqrt{\\Delta^2+4V^2}$."
      }
     ]
    }
@@ -807,6 +1335,50 @@
       ],
       "correct": 0,
       "explain": "Non-degenerate and parity even."
+     },
+     {
+      "q": "Within a degenerate level, the &#8220;good&#8221; basis",
+      "options": [
+       "diagonalises $H^\\prime$ in that subspace",
+       "is arbitrary",
+       "is the position basis",
+       "diagonalises $H_0$ only"
+      ],
+      "correct": 0,
+      "explain": "Script 11.2."
+     },
+     {
+      "q": "A symmetry $A$ with $[H^\\prime,A]=0$ helps because",
+      "options": [
+       "$H^\\prime$ has no matrix elements between different eigenvalues of $A$",
+       "it makes $H^\\prime=0$",
+       "it removes the degeneracy of $H_0$",
+       "it does not"
+      ],
+      "correct": 0,
+      "explain": "Selection rules."
+     },
+     {
+      "q": "Linear Stark effect of $n=2$: levels shift by",
+      "options": [
+       "$\\pm3|e|Ea$ and two stay",
+       "all by $3eEa$",
+       "quadratically",
+       "not at all"
+      ],
+      "correct": 0,
+      "explain": "Script 11.2.4."
+     },
+     {
+      "q": "The perturbation $-eEz$ connects",
+      "options": [
+       "$l$ and $l\\pm1$ with the same $m$",
+       "equal $l$",
+       "different $m$",
+       "nothing"
+      ],
+      "correct": 0,
+      "explain": "Parity odd, $[L_z,z]=0$."
      }
     ]
    }
@@ -869,6 +1441,50 @@
       ],
       "correct": 0,
       "explain": "(11.106)."
+     },
+     {
+      "q": "In the Heisenberg picture",
+      "options": [
+       "operators evolve, states are fixed",
+       "states evolve, operators fixed",
+       "both fixed",
+       "both evolve under $H^\\prime$ only"
+      ],
+      "correct": 0,
+      "explain": "Script 11.3.2."
+     },
+     {
+      "q": "The first-order transition amplitude contains",
+      "options": [
+       "$e^{i\\omega_{if}t^\\prime}\\langle f|H^\\prime(t^\\prime)|i\\rangle$",
+       "$E_f-E_i$ only",
+       "$|V|^2$",
+       "the propagator of $H^\\prime$"
+      ],
+      "correct": 0,
+      "explain": "(11.97)."
+     },
+     {
+      "q": "The energy-conservation window after time $t$ has width",
+      "options": [
+       "$\\Delta\\omega_{if}\\sim2\\pi/t$",
+       "zero",
+       "$\\hbar t$",
+       "$t/2\\pi$"
+      ],
+      "correct": 0,
+      "explain": "(11.101)."
+     },
+     {
+      "q": "The golden rule needs",
+      "options": [
+       "a dense set of final states",
+       "a single final state",
+       "strong coupling",
+       "$t\\to0$"
+      ],
+      "correct": 0,
+      "explain": "Script 11.3.4, Abb. 23."
      }
     ]
    }
@@ -931,6 +1547,50 @@
       ],
       "correct": 0,
       "explain": "Script 1.5."
+     },
+     {
+      "q": "Planck&#8217;s hypothesis: an oscillator of frequency $\\nu$ exchanges energy in units of",
+      "options": [
+       "$h\\nu$",
+       "$k_BT$",
+       "$h/\\nu$",
+       "$\\frac12h\\nu$"
+      ],
+      "correct": 0,
+      "explain": "Script 1.1."
+     },
+     {
+      "q": "Photoeffect: the maximal kinetic energy of the electrons depends on",
+      "options": [
+       "the frequency of the light (not its intensity)",
+       "the intensity only",
+       "the exposure time",
+       "neither"
+      ],
+      "correct": 0,
+      "explain": "$E_{\\max}=h\\nu-W$."
+     },
+     {
+      "q": "Compton shift for scattering by $90^\\circ$",
+      "options": [
+       "$h/(m_ec)\\approx2.4$ pm",
+       "zero",
+       "$2h/(m_ec)$",
+       "$\\lambda/2$"
+      ],
+      "correct": 0,
+      "explain": "$\\Delta\\lambda=\\frac h{m_ec}(1-\\cos\\theta)$."
+     },
+     {
+      "q": "Bohr&#8217;s energy levels of hydrogen scale as",
+      "options": [
+       "$-1/n^2$",
+       "$n^2$",
+       "$-1/n$",
+       "$n$"
+      ],
+      "correct": 0,
+      "explain": "$E_n=-\\frac{me^4}{2\\hbar^2n^2}$."
      }
     ]
    }
@@ -993,6 +1653,50 @@
       ],
       "correct": 0,
       "explain": "Born."
+     },
+     {
+      "q": "The energy operator in the Schrödinger equation is",
+      "options": [
+       "$i\\hbar\\partial_t$",
+       "$-i\\hbar\\partial_t$",
+       "$\\hbar\\partial_t$",
+       "$\\partial_t^2$"
+      ],
+      "correct": 0,
+      "explain": "From $e^{-i\\omega t}$."
+     },
+     {
+      "q": "Normalisation means",
+      "options": [
+       "$\\int|\\Psi|^2d^3x=1$",
+       "$\\int\\Psi\\,d^3x=1$",
+       "$|\\Psi|=1$ everywhere",
+       "$\\Psi(0)=1$"
+      ],
+      "correct": 0,
+      "explain": "Total probability 1."
+     },
+     {
+      "q": "The Schrödinger equation is first order in time, so",
+      "options": [
+       "$\\Psi(0)$ alone determines $\\Psi(t)$",
+       "you also need $\\dot\\Psi(0)$",
+       "it has no solutions",
+       "it is non-linear"
+      ],
+      "correct": 0,
+      "explain": "Unlike the wave equation."
+     },
+     {
+      "q": "A global phase $e^{i\\alpha}\\Psi$",
+      "options": [
+       "changes no measurable quantity",
+       "changes $|\\Psi|^2$",
+       "changes the energy",
+       "is forbidden"
+      ],
+      "correct": 0,
+      "explain": "States are rays."
      }
     ]
    }
@@ -1052,6 +1756,50 @@
        "imaginary",
        "zero",
        "complex in general"
+      ],
+      "correct": 0,
+      "explain": "Script 2.4."
+     },
+     {
+      "q": "The continuity equation expresses",
+      "options": [
+       "local conservation of probability",
+       "energy conservation",
+       "momentum conservation",
+       "Pauli exclusion"
+      ],
+      "correct": 0,
+      "explain": "Script 2.2."
+     },
+     {
+      "q": "Ehrenfest: $\\frac{d}{dt}\\langle x\\rangle=$",
+      "options": [
+       "$\\langle p\\rangle/m$",
+       "$\\langle p\\rangle$",
+       "0",
+       "$-\\langle V^\\prime\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Script 2.3."
+     },
+     {
+      "q": "For a real stationary $\\psi$ the current $j$ is",
+      "options": [
+       "zero",
+       "maximal",
+       "$\\hbar/m$",
+       "undefined"
+      ],
+      "correct": 0,
+      "explain": "Needs a complex phase."
+     },
+     {
+      "q": "A hermitian $A$ satisfies",
+      "options": [
+       "$\\langle\\phi|A\\psi\\rangle=\\langle A\\phi|\\psi\\rangle$",
+       "$A^2=1$",
+       "$A=-A^\\dagger$",
+       "$[A,H]=0$"
       ],
       "correct": 0,
       "explain": "Script 2.4."
@@ -1117,6 +1865,50 @@
       ],
       "correct": 0,
       "explain": "Weighted by the probabilities."
+     },
+     {
+      "q": "A stationary state has a time dependence",
+      "options": [
+       "$e^{-iEt/\\hbar}$",
+       "$\\cos(Et)$",
+       "none at all",
+       "$e^{-Et/\\hbar}$"
+      ],
+      "correct": 0,
+      "explain": "Separation of variables."
+     },
+     {
+      "q": "Eigenfunctions of $H$ for different energies are",
+      "options": [
+       "orthogonal",
+       "equal",
+       "parallel",
+       "complex conjugates"
+      ],
+      "correct": 0,
+      "explain": "Hermiticity."
+     },
+     {
+      "q": "$\\sum_n|c_n|^2=$",
+      "options": [
+       "1",
+       "0",
+       "$\\langle H\\rangle$",
+       "$n$"
+      ],
+      "correct": 0,
+      "explain": "Normalisation."
+     },
+     {
+      "q": "A measurement of $E$ in $\\Psi=\\frac1{\\sqrt2}(\\psi_1+\\psi_2)$ gives $E_2$ with probability",
+      "options": [
+       "$\\frac12$",
+       "1",
+       "$\\frac14$",
+       "0"
+      ],
+      "correct": 0,
+      "explain": "$|c_2|^2$."
      }
     ]
    }
@@ -1179,6 +1971,50 @@
       ],
       "correct": 0,
       "explain": "Node theorem."
+     },
+     {
+      "q": "The box eigenfunctions alternate in parity about the centre:",
+      "options": [
+       "$n$ odd even, $n$ even odd",
+       "all even",
+       "all odd",
+       "none have parity"
+      ],
+      "correct": 0,
+      "explain": "$\\sin(n\\pi x/L)$ about $L/2$."
+     },
+     {
+      "q": "Halving the box width multiplies $E_1$ by",
+      "options": [
+       "4",
+       "2",
+       "1/2",
+       "1"
+      ],
+      "correct": 0,
+      "explain": "$E\\propto1/L^2$."
+     },
+     {
+      "q": "$\\langle x\\rangle$ in any box eigenstate is",
+      "options": [
+       "$L/2$",
+       "0",
+       "$L$",
+       "$L/n$"
+      ],
+      "correct": 0,
+      "explain": "Symmetric $|\\psi|^2$."
+     },
+     {
+      "q": "The infinite well has",
+      "options": [
+       "only bound states",
+       "only scattering states",
+       "both",
+       "no states"
+      ],
+      "correct": 0,
+      "explain": "Infinite walls."
      }
     ]
    }
@@ -1241,6 +2077,50 @@
       ],
       "correct": 0,
       "explain": "Larger $\\Delta p$."
+     },
+     {
+      "q": "A Gaussian packet of width $\\Delta x_0$ has momentum spread",
+      "options": [
+       "$\\hbar/(2\\Delta x_0)$",
+       "$\\hbar\\Delta x_0$",
+       "0",
+       "$m/\\Delta x_0$"
+      ],
+      "correct": 0,
+      "explain": "Minimal uncertainty."
+     },
+     {
+      "q": "The phase velocity of a free matter wave is",
+      "options": [
+       "half the group velocity",
+       "equal to the group velocity",
+       "$c$",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "$\\omega=\\hbar k^2/2m$."
+     },
+     {
+      "q": "Plane waves $e^{ikx}$ are",
+      "options": [
+       "not normalisable",
+       "normalisable",
+       "zero",
+       "bound states"
+      ],
+      "correct": 0,
+      "explain": "$\\int|e^{ikx}|^2=\\infty$."
+     },
+     {
+      "q": "Spreading time scale of a packet of width $\\Delta x_0$",
+      "options": [
+       "$\\sim m\\Delta x_0^2/\\hbar$",
+       "$\\sim\\hbar/m$",
+       "infinite",
+       "$\\sim\\Delta x_0/c$"
+      ],
+      "correct": 0,
+      "explain": "From $\\Delta x(t)$."
      }
     ]
    }
@@ -1303,6 +2183,50 @@
       ],
       "correct": 0,
       "explain": "Only a $\\delta$ potential makes $\\psi^\\prime$ jump."
+     },
+     {
+      "q": "Outside a finite well the bound-state wave function",
+      "options": [
+       "decays exponentially",
+       "oscillates",
+       "vanishes exactly",
+       "grows"
+      ],
+      "correct": 0,
+      "explain": "$E<0$."
+     },
+     {
+      "q": "Number of bound states of a finite well grows with",
+      "options": [
+       "$V_0a^2$",
+       "only $a$",
+       "only $V_0$ inversely",
+       "nothing; always one"
+      ],
+      "correct": 0,
+      "explain": "Radius of the circle $\\propto\\sqrt{V_0}a$."
+     },
+     {
+      "q": "At a step with $E<V_0$ the transmission coefficient is",
+      "options": [
+       "0",
+       "1",
+       "1/2",
+       "$e^{-2\\kappa a}$"
+      ],
+      "correct": 0,
+      "explain": "Infinite barrier width."
+     },
+     {
+      "q": "In the symmetric well, bound states are",
+      "options": [
+       "even or odd",
+       "neither",
+       "all even",
+       "complex"
+      ],
+      "correct": 0,
+      "explain": "$V(-x)=V(x)$, non-degenerate."
      }
     ]
    }
@@ -1365,6 +2289,50 @@
       ],
       "correct": 0,
       "explain": "Script 3.5.2."
+     },
+     {
+      "q": "Over a well, scattering states with $E>0$ show",
+      "options": [
+       "transmission resonances",
+       "total reflection",
+       "no reflection ever",
+       "bound states"
+      ],
+      "correct": 0,
+      "explain": "Script 3.5.2."
+     },
+     {
+      "q": "Thicker barrier, same height: transmission",
+      "options": [
+       "drops exponentially",
+       "drops linearly",
+       "rises",
+       "unchanged"
+      ],
+      "correct": 0,
+      "explain": "$e^{-2\\kappa a}$."
+     },
+     {
+      "q": "$\\kappa$ under a barrier",
+      "options": [
+       "$\\sqrt{2m(V_0-E)}/\\hbar$",
+       "$\\sqrt{2mE}/\\hbar$",
+       "$V_0/\\hbar$",
+       "$2mV_0$"
+      ],
+      "correct": 0,
+      "explain": "Decay constant."
+     },
+     {
+      "q": "$R+T=$",
+      "options": [
+       "1",
+       "0",
+       "2",
+       "depends on $E$"
+      ],
+      "correct": 0,
+      "explain": "Current conservation."
      }
     ]
    }
@@ -1427,6 +2395,50 @@
       ],
       "correct": 0,
       "explain": "Script 4.2."
+     },
+     {
+      "q": "Two vectors are orthogonal if",
+      "options": [
+       "$\\langle\\phi|\\psi\\rangle=0$",
+       "$\\|\\phi\\|=\\|\\psi\\|$",
+       "$\\phi=-\\psi$",
+       "$\\langle\\phi|\\psi\\rangle=1$"
+      ],
+      "correct": 0,
+      "explain": "Inner product."
+     },
+     {
+      "q": "Cauchy-Schwarz",
+      "options": [
+       "$|\\langle\\phi|\\psi\\rangle|\\le\\|\\phi\\|\\|\\psi\\|$",
+       "$\\langle\\phi|\\psi\\rangle\\ge\\|\\phi\\|$",
+       "$\\|\\phi+\\psi\\|=\\|\\phi\\|+\\|\\psi\\|$",
+       "$\\langle\\phi|\\phi\\rangle<0$"
+      ],
+      "correct": 0,
+      "explain": "Used for the uncertainty relation."
+     },
+     {
+      "q": "A separable Hilbert space has",
+      "options": [
+       "a countable orthonormal basis",
+       "no basis",
+       "a finite basis only",
+       "only one vector"
+      ],
+      "correct": 0,
+      "explain": "Script 4.3."
+     },
+     {
+      "q": "Completeness means",
+      "options": [
+       "Cauchy sequences converge in the space",
+       "the space is finite",
+       "all vectors are normalised",
+       "there is a zero vector"
+      ],
+      "correct": 0,
+      "explain": "Script 4.1."
      }
     ]
    }
@@ -1489,6 +2501,50 @@
       ],
       "correct": 0,
       "explain": "Squares to itself."
+     },
+     {
+      "q": "Eigenvectors of a self-adjoint operator to different eigenvalues are",
+      "options": [
+       "orthogonal",
+       "equal",
+       "linearly dependent",
+       "complex conjugate"
+      ],
+      "correct": 0,
+      "explain": "Script 4.4."
+     },
+     {
+      "q": "The probability to find $a$ in $|\\psi\\rangle$",
+      "options": [
+       "$\\langle\\psi|P_a|\\psi\\rangle$",
+       "$\\langle\\psi|A|\\psi\\rangle$",
+       "$a^2$",
+       "$|\\psi|$"
+      ],
+      "correct": 0,
+      "explain": "Projector on the eigenspace."
+     },
+     {
+      "q": "A projector satisfies",
+      "options": [
+       "$P^2=P=P^\\dagger$",
+       "$P^2=1$",
+       "$P=-P^\\dagger$",
+       "$P^2=0$"
+      ],
+      "correct": 0,
+      "explain": "Script 4.5."
+     },
+     {
+      "q": "$\\langle A\\rangle=\\langle\\psi|A|\\psi\\rangle$ for a normalised state equals",
+      "options": [
+       "$\\sum_aa\\,P(a)$",
+       "$\\max a$",
+       "$\\sum a$",
+       "$|a|^2$"
+      ],
+      "correct": 0,
+      "explain": "Average of the outcomes."
      }
     ]
    }
@@ -1551,6 +2607,50 @@
       ],
       "correct": 0,
       "explain": "Script 4.7."
+     },
+     {
+      "q": "The free-particle Hamiltonian has spectrum",
+      "options": [
+       "$[0,\\infty)$",
+       "$\\mathbb R$",
+       "$\\{0\\}$",
+       "discrete"
+      ],
+      "correct": 0,
+      "explain": "(4.39)."
+     },
+     {
+      "q": "Momentum eigenfunctions in position space",
+      "options": [
+       "$e^{ipx/\\hbar}$ (not normalisable)",
+       "$\\delta(x)$",
+       "Gaussians",
+       "$\\sin(px)$ normalised"
+      ],
+      "correct": 0,
+      "explain": "Script 4.6-4.7."
+     },
+     {
+      "q": "$P_I(A)$ for an interval $I$ is",
+      "options": [
+       "an orthogonal projector",
+       "a number",
+       "unitary",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "Spectral theorem."
+     },
+     {
+      "q": "In momentum space, $x$ acts as",
+      "options": [
+       "$i\\hbar\\partial_p$",
+       "$-i\\hbar\\partial_p$",
+       "$p$",
+       "multiplication by $x$"
+      ],
+      "correct": 0,
+      "explain": "Fourier transform."
      }
     ]
    }
@@ -1613,6 +2713,50 @@
       ],
       "correct": 0,
       "explain": "Script 5.1."
+     },
+     {
+      "q": "If $[A,B]=0$, then",
+      "options": [
+       "both can be sharp in a common eigenstate",
+       "neither can be sharp",
+       "$A=B$",
+       "$\\Delta A\\Delta B\\ge\\hbar/2$"
+      ],
+      "correct": 0,
+      "explain": "Script 5.1."
+     },
+     {
+      "q": "$(\\Delta A)^2=$",
+      "options": [
+       "$\\langle A^2\\rangle-\\langle A\\rangle^2$",
+       "$\\langle A\\rangle^2$",
+       "$\\langle A^2\\rangle$",
+       "$\\langle A\\rangle-\\langle A^2\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Script 5.2."
+     },
+     {
+      "q": "In an eigenstate of $A$, $\\Delta A=$",
+      "options": [
+       "0",
+       "$\\hbar$",
+       "$\\langle A\\rangle$",
+       "infinite"
+      ],
+      "correct": 0,
+      "explain": "Sharp value."
+     },
+     {
+      "q": "Lower bound on $\\Delta L_xL_y$-type products comes from",
+      "options": [
+       "$\\frac12|\\langle[L_x,L_y]\\rangle|=\\frac\\hbar2|\\langle L_z\\rangle|$",
+       "$\\hbar/2$ always",
+       "0 always",
+       "$\\hbar^2$"
+      ],
+      "correct": 0,
+      "explain": "Robertson; can be zero."
      }
     ]
    }
@@ -1675,6 +2819,50 @@
       ],
       "correct": 0,
       "explain": "Script 6.1."
+     },
+     {
+      "q": "$a|n\\rangle=$",
+      "options": [
+       "$\\sqrt n\\,|n-1\\rangle$",
+       "$\\sqrt{n+1}\\,|n-1\\rangle$",
+       "$n|n-1\\rangle$",
+       "$|n+1\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Script 6.1.2."
+     },
+     {
+      "q": "The number operator is",
+      "options": [
+       "$a^\\dagger a$",
+       "$aa^\\dagger$",
+       "$a+a^\\dagger$",
+       "$a^2$"
+      ],
+      "correct": 0,
+      "explain": "$aa^\\dagger=a^\\dagger a+1$."
+     },
+     {
+      "q": "$\\psi_0(x)\\propto$",
+      "options": [
+       "$e^{-m\\omega x^2/2\\hbar}$",
+       "$e^{-x}$",
+       "$\\sin(kx)$",
+       "$x$"
+      ],
+      "correct": 0,
+      "explain": "From $a\\psi_0=0$."
+     },
+     {
+      "q": "The oscillator eigenfunctions in the conventional solution contain",
+      "options": [
+       "Hermite polynomials",
+       "Legendre polynomials",
+       "Bessel functions",
+       "Laguerre polynomials"
+      ],
+      "correct": 0,
+      "explain": "Script 6.1.1."
      }
     ]
    }
@@ -1737,6 +2925,50 @@
       ],
       "correct": 0,
       "explain": "Stationary states."
+     },
+     {
+      "q": "A coherent state has",
+      "options": [
+       "minimal uncertainty that stays constant in time",
+       "growing uncertainty",
+       "a sharp energy",
+       "zero $\\langle x\\rangle$"
+      ],
+      "correct": 0,
+      "explain": "Script 6.2."
+     },
+     {
+      "q": "$\\langle x\\rangle(t)$ in a coherent state oscillates with",
+      "options": [
+       "$\\omega$",
+       "$2\\omega$",
+       "$\\omega/2$",
+       "it does not"
+      ],
+      "correct": 0,
+      "explain": "Classical motion."
+     },
+     {
+      "q": "The photon number distribution of a coherent state is",
+      "options": [
+       "Poisson",
+       "Gaussian always",
+       "uniform",
+       "a single $n$"
+      ],
+      "correct": 0,
+      "explain": "$|\\langle n|\\alpha\\rangle|^2=e^{-|\\alpha|^2}|\\alpha|^{2n}/n!$."
+     },
+     {
+      "q": "For large $n$, the probability density $|\\psi_n|^2$ approaches",
+      "options": [
+       "the classical time-averaged density (peaked at the turning points)",
+       "a Gaussian at 0",
+       "uniform",
+       "zero"
+      ],
+      "correct": 0,
+      "explain": "Correspondence."
      }
     ]
    }

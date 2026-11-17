@@ -125,4 +125,9 @@ try:
 except ImportError:
     pass
 
+sys.path.insert(0, HERE)
+from more_checks import MORE  # 4 more checks per card
+for it in C:
+    for q, o, e in MORE.get(it['enc']['id'], []): it['enc']['check'].append({'q': q, 'options': o, 'correct': 0, 'explain': e})
+assert all(len(it['enc']['check']) >= 6 for it in C), [it['enc']['id'] for it in C if len(it['enc']['check']) < 6]
 write(os.path.join(HERE, '../../../../game/content/qm/reading.json'), C, 'Guided reading of the QM script; built by notes/quantum-mechanics/build/reading/build.py')

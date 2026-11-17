@@ -18,6 +18,14 @@ const keep = (id) => { const p = prog()[id]; return p?.t ? retention(p) : 0; };
 function save(id, { up = false } = {}) { const p = prog(), cur = p[id] || { lv: 0 }, m = notePass({ [id]: cur.t ? { n: cur.n || 1, t: cur.t } : undefined }, id); store.setVal('derivs', { ...p, [id]: { lv: Math.min(4, cur.lv + (up ? 1 : 0)), n: m[id].n, t: m[id].t } }); }
 const shuffle = (n, seed) => { const a = [...Array(n).keys()]; let s = seed >>> 0 || 1; for (let i = n - 1; i > 0; i--) { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; const j = s % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 // the next derivation to climb: most exam-relevant first, among the ones not yet mastered (or mastered but fading)
+// What the run should do today with a derivation: climb the ladder while it is not mastered; once mastered, rotate through the
+// other modes (why, change one assumption, backwards, two minutes) so it stays alive and flexible.
+export function runDeriv(items, day = new Date().getDate()) {
+  const x = nextDeriv(items); if (!x) return null; const lv = lvOf(x.id);
+  const mode = lv < 4 ? (lv >= 2 && day % 3 === 0 ? 'variant' : 'ladder') : ['why', 'variant', 'back', 'outline'][day % 4];
+  const label = { ladder: `rung ${lv + 1} of the ladder`, variant: 'change one assumption', why: 'why is this step allowed?', back: 'backwards', outline: 'two-minute outline' }[mode];
+  return { id: x.id, title: x.title, mode, label };
+}
 export function nextDeriv(items) { return items.filter((d) => lvOf(d.id) < 4 || keep(d.id) < 0.6).sort((a, b) => b.exam.count - a.exam.count || lvOf(a.id) - lvOf(b.id))[0] || null; }
 
 export function renderDerivs(host, ctx) {
@@ -82,5 +90,5 @@ export function renderDerivs(host, ctx) {
     }));
     const tm = host.querySelector('[data-dt]'); if (tm) timer = setInterval(() => { if (!tm.isConnected) { clearInterval(timer); return; } const left = Math.max(0, 120 - Math.floor((Date.now() - st.t0) / 1000)); tm.textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`; if (!left) { st.shown = true; draw(); } }, 500);
   }
-  if (ctx.start) { view = ctx.start; } draw();
+  if (ctx.start) { view = ctx.start; if (ctx.startMode) mode = ctx.startMode; } draw();
 }

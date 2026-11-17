@@ -74,10 +74,10 @@ export function createCampaign(ctx) {
     for (const cid of courses()) { const p = pos(cid), w = W()[cid].find((x) => x.n === taught() + 1); if (!w || p.behind > 1 || r.minutes + 10 > minutes + 5) continue;
       const id = w.theory.find((x) => !passed(x) && !ctx.isLockedId(x) && ctx.encIndex.get(x)?.enc.type === 'lesson' && !r.stops.some((s) => s.id === x)); if (id) { r.stops.push({ id, kind: 'scout', course: cid, min: 10, why: `Scouting week ${w.n}: a first look before the lecture, so the lecture becomes revision` }); r.minutes += 10; break; } }
     // guided practice (the study hub inside the run): a blitz to warm up when nothing is due, a mistake hunt, an explain-it round
-    const act = (id, kind, action, why, at) => r.stops.splice(at, 0, { id, kind, action, min: 5, why });
+    const act = (id, kind, action, why, at, arg) => r.stops.splice(at, 0, { id, kind, action, min: kind === 'deriv' ? 10 : 5, why, ...(arg ? { arg } : {}) });
     if (!r.stops.some((s) => s.kind === 'warmup' || s.kind === 'defend') && r.stops.length) act('@blitz', 'blitz', new Date().getDate() % 2 ? 'units' : 'drills', new Date().getDate() % 2 ? 'Warm up with the units duel: which expression can be right by its units?' : 'Nothing is due: one minute of quick recall to warm up', 0);
     const openM = ctx.mistakes().filter((m) => m.open).length; if (openM && minutes >= 40) act('@hunt', 'hunt', 'mistakes', `${openM} open mistake${openM === 1 ? '' : 's'} in your log: look at one and say what went wrong`, Math.min(1, r.stops.length));
-    const nd = minutes >= 40 && ctx.nextDeriv(); if (nd) act('@deriv', 'deriv', 'derivs', `QM derivation ladder: the next rung of \u201c${String(nd).replace(/<[^>]+>|\$/g, '')}\u201d`, Math.min(2, r.stops.length));
+    const nd = minutes >= 40 && ctx.nextDeriv(); if (nd) { act('@deriv', 'deriv', 'derivs', `QM derivation, ${nd.label}: \u201c${String(nd.title).replace(/<[^>]+>|\$|\\[a-zA-Z]+/g, '')}\u201d`, Math.min(2, r.stops.length), { id: nd.id, mode: nd.mode }); }
     const fd = ctx.forgeDue(); if (fd) act('@forge', 'forge', 'forge', `QM by heart: ${fd} formula${fd === 1 ? '' : 's'} due in the Forge (write from memory, two minutes)`, Math.min(1, r.stops.length));
     const ti = r.stops.findIndex((s) => s.kind === 'theory'); if (ti >= 0 && minutes >= 40) act('@explain', 'explain', 'feynman', 'Explain what you just read in your own words, without looking', ti + 1);
     r.minutes = r.stops.reduce((a, s) => a + s.min, 0);
@@ -100,7 +100,7 @@ export function createCampaign(ctx) {
     const nx = r.stops[st.indexOf('open')]; if (nx.action) { doAction(nx); return; }
     ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), `Today\u2019s run`, nx.id);
   }
-  function doAction(s) { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); } r.acted = { ...(r.acted || {}), [s.id]: Date.now() }; store.setVal('run', r); ctx.openTab(s.action); ctx.toast(`${KIND[s.kind]}: ${s.why}. Press G to go on with the run.`); onProgress(); ctx.onChange(); }
+  function doAction(s) { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); } r.acted = { ...(r.acted || {}), [s.id]: Date.now() }; store.setVal('run', r); ctx.openTab(s.action, s.arg); ctx.toast(`${KIND[s.kind]}: ${s.why}. Press G to go on with the run.`); onProgress(); ctx.onChange(); }
   function newRun(minutes) { store.setVal('runMinutes', minutes); const r = freshRun(minutes); store.setVal('run', r); }
   // called after every finished exercise: when the last stop of the run is finished, log it and show the summary once
   function onProgress() {

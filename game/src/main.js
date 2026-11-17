@@ -82,6 +82,7 @@ let bridgeOn = false; // is the QM bridge exhibit the 3D content of the current 
 let holos = null, world, player, course, room, set = null, current = null, unmountPanel = null, dueTarget = null, tut = null, overlay = null;
 const sheetShift = new Map(); // sheet -> days added to its due date (see sheetDue)
 let sheetsByCourse = {}; // course id -> {title, sheets: [{n, title, due, questions: [{q, title, room, related, enc}]}]}
+const readingPacks = []; // {probe, base, label, links} from content extras
 let catalog = [], encIndex = new Map(), codexByCourse = {}, groups = [], linksData = [], route = [], banks = {}, dayMissions = null, dayKey = '';
 let inNexus = false, nexusFocusKey = null;
 const modules = {};
@@ -119,6 +120,7 @@ async function boot() {
       const place = (room, enc) => { const r = rooms.find((y) => y.slug === room); if (r) r.encounters.push(enc); };
       for (const it of x.items || []) place(it.room, it.enc);
       // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
+      if (x.readings) readingPacks.push(x.readings);
       if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
     }
     catalog.push({ ...c, region: idx.region, rooms });
@@ -126,6 +128,11 @@ async function boot() {
     const cx = await codexP[ci]; if (cx) codexByCourse[c.id] = cx;
     for (const r of rooms) for (const enc of r.encounters) encIndex.set(enc.id, { course: c.id, roomId: r.slug, enc });
   }
+  // reading packs: attach their links only if the pack is installed on this server (deploy/ch7pack.py); never blocks the boot
+  for (const rp of readingPacks) fetch(rp.probe, { method: 'HEAD', cache: 'no-store' }).then((res) => {
+    if (!res.ok) return;
+    for (const [id, links] of Object.entries(rp.links)) { const e = encIndex.get(id)?.enc; if (e) e.read = { label: rp.label, links: links.map((l) => ({ label: l.label, href: rp.base + l.path })).concat(rp.chapter ? [{ label: 'the chapter with questions', href: rp.base + rp.chapter }] : []) }; }
+  }).catch(() => {});
   progress(62, 'Loading the glossary...'); await glossP;
   progress(68, 'Loading your progress...'); await syncP; setExamDates(store.val('examDates', {})); renderStartStats();
   store.pruneReviews(new Set(encIndex.keys()));

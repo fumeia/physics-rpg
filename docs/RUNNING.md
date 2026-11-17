@@ -69,3 +69,12 @@ node test/rooms-smoke.mjs         # loads every room in a headless browser (need
 - `sw.js` serves static files from a cache. On every page load it asks `/api/version` (newest file time of the game, from `serve.py`)
   and empties the cache when it changed, so `rpg-update` shows up on the next load. Measured with 150 ms latency and 1.5 MB/s:
   first load 10.7 s before, 5.0–5.5 s now; later loads 1.3 s. On http the worker only runs with `?sw=1` (tests).
+
+## Lecturer reading packs (not in git)
+The QM chapter 7 explainer pack (ch7_page.zip, made by the lecturer) is not committed: the repository is public. On the server:
+
+    cd /opt/physics-rpg && python3 deploy/ch7pack.py ~/ch7_page.zip    # after copying the zip to the server's home folder
+
+This writes `game/private/ch7/` (git-ignored, behind the site password). `rpg-update` keeps it. The game probes
+`private/ch7/index.html` at start and only then shows the "📖 Lecturer's chapter 7 explainers" strip in the symmetry lessons,
+derivations and sheets (map in `notes/quantum-mechanics/build/ch7/build.py`, READINGS).

@@ -37,7 +37,18 @@ export function finish(enc, ok, xp) {
  * env: { onChange(), flash(ok), preview(variant) -> sim, run(variant, onDone(sim)), previewSketch(enc),
  *        previewBanner(enc), next(), hasNext }.  The 3D world and the DOM panel only talk through this.
  */
+// Reading packs (e.g. the lecturer's chapter 7 explainers): served from a git-ignored folder on the server; enc.read is set
+// by main.js only when the pack was found there. Shown as a strip under the encounter title, opening in a new tab.
 export function mount(enc, el, env) {
+  const r = mountType(enc, el, env);
+  if (enc.read?.links?.length) {
+    const strip = document.createElement('div'); strip.className = 'readstrip';
+    strip.innerHTML = `<span class="rlab">📖 ${enc.read.label}:</span> ` + enc.read.links.map((l) => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join(' · ');
+    const h = el.querySelector('h2'); if (h) h.after(strip); else el.prepend(strip);
+  }
+  return r;
+}
+function mountType(enc, el, env) {
   if (enc.type === 'predict-observe') return mountPredict(enc, el, env);
   if (enc.type === 'calc') return mountCalc(enc, el, env);
   if (enc.type === 'sandbox') return mountSandbox(enc, el, env);

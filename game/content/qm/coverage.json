@@ -149,7 +149,7 @@
      "concept": "time-dependent Schrödinger equation",
      "theory": 4,
      "quiz": 1,
-     "exercise": 15,
+     "exercise": 16,
      "sheet": 5,
      "ids": {
       "theory": [
@@ -261,9 +261,9 @@
    "concepts": [
     {
      "concept": "Hermitian operators, real expectation values",
-     "theory": 7,
-     "quiz": 1,
-     "exercise": 21,
+     "theory": 10,
+     "quiz": 2,
+     "exercise": 23,
      "sheet": 4,
      "ids": {
       "theory": [
@@ -275,7 +275,8 @@
        "qm-fu-L2"
       ],
       "quiz": [
-       "qm-fu-Q1"
+       "qm-fu-Q1",
+       "qm-sym-Q1"
       ],
       "exercise": [
        "qm-ho-D5",
@@ -335,7 +336,7 @@
     },
     {
      "concept": "superposition of energy eigenstates",
-     "theory": 8,
+     "theory": 9,
      "quiz": 1,
      "exercise": 9,
      "sheet": 2,
@@ -642,16 +643,18 @@
    "concepts": [
     {
      "concept": "Hilbert space / inner product",
-     "theory": 4,
+     "theory": 6,
      "quiz": 1,
-     "exercise": 5,
+     "exercise": 6,
      "sheet": 1,
      "ids": {
       "theory": [
        "qm-sa-L1",
        "qm-fu-L1",
        "qm-fu-L4",
-       "qm-ent-L1"
+       "qm-ent-L1",
+       "qm-sym-L1",
+       "qm-sym-L3"
       ],
       "quiz": [
        "qm-ent-Q1"
@@ -661,7 +664,8 @@
        "qm-fu-D2",
        "qm-fu-b1",
        "qm-fu-b3",
-       "qm-ent-D6"
+       "qm-ent-D6",
+       "qm-sym-D1"
       ],
       "sheet": [
        "qm-sheet-s9q2"
@@ -670,7 +674,7 @@
     },
     {
      "concept": "orthonormal basis, completeness",
-     "theory": 6,
+     "theory": 7,
      "quiz": 1,
      "exercise": 12,
      "sheet": 3,
@@ -777,9 +781,9 @@
    "concepts": [
     {
      "concept": "Dirac notation",
-     "theory": 30,
-     "quiz": 8,
-     "exercise": 105,
+     "theory": 32,
+     "quiz": 9,
+     "exercise": 108,
      "sheet": 26,
      "ids": {
       "theory": [
@@ -909,10 +913,10 @@
    "concepts": [
     {
      "concept": "commutators, compatible observables",
-     "theory": 13,
-     "quiz": 2,
-     "exercise": 40,
-     "sheet": 9,
+     "theory": 15,
+     "quiz": 3,
+     "exercise": 41,
+     "sheet": 10,
      "ids": {
       "theory": [
        "qm-ho-L1",
@@ -924,7 +928,8 @@
       ],
       "quiz": [
        "qm-hl-Q1",
-       "qm-fu-Q1"
+       "qm-fu-Q1",
+       "qm-sym-Q1"
       ],
       "exercise": [
        "qm-ho-D2",
@@ -1027,7 +1032,7 @@
    "concepts": [
     {
      "concept": "ladder operators",
-     "theory": 9,
+     "theory": 10,
      "quiz": 2,
      "exercise": 29,
      "sheet": 8,
@@ -1107,19 +1112,22 @@
    "concepts": [
     {
      "concept": "unitary symmetry operators",
-     "theory": 3,
-     "quiz": 2,
-     "exercise": 8,
+     "theory": 5,
+     "quiz": 3,
+     "exercise": 11,
      "sheet": 1,
      "ids": {
       "theory": [
        "qm-sa-L4",
        "qm-fu-L1",
-       "qm-fu-L4"
+       "qm-fu-L4",
+       "qm-sym-L1",
+       "qm-sym-L3"
       ],
       "quiz": [
        "qm-fu-Q1",
-       "qm-ent-Q1"
+       "qm-ent-Q1",
+       "qm-sym-Q1"
       ],
       "exercise": [
        "qm-am-D2",
@@ -1144,20 +1152,22 @@
    "concepts": [
     {
      "concept": "rotation group, generators",
-     "theory": 5,
-     "quiz": 1,
-     "exercise": 11,
-     "sheet": 4,
+     "theory": 8,
+     "quiz": 2,
+     "exercise": 14,
+     "sheet": 5,
      "ids": {
       "theory": [
        "qm-ho-L4",
        "qm-am-L1",
        "qm-am-L2",
        "qm-am-L4",
-       "qm-pf-L2"
+       "qm-pf-L2",
+       "qm-sym-L1"
       ],
       "quiz": [
-       "qm-am-Q1"
+       "qm-am-Q1",
+       "qm-sym-Q1"
       ],
       "exercise": [
        "qm-ho-D5",
@@ -1171,6 +1181,7 @@
        "qm-sheet-s7q1",
        "qm-sheet-s9q3",
        "qm-sheet-s9q4",
+       "qm-sheet-s10q2",
        "qm-sheet-s12q2"
       ]
      }
@@ -1181,20 +1192,25 @@
    "section": "7.3–7.4",
    "title": "Irreducible representations of so(3)",
    "page": 70,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "irreducible representations",
-     "theory": 0,
-     "quiz": 0,
-     "exercise": 2,
+     "theory": 1,
+     "quiz": 1,
+     "exercise": 3,
      "sheet": 2,
      "ids": {
-      "theory": [],
-      "quiz": [],
+      "theory": [
+       "qm-sym-L1"
+      ],
+      "quiz": [
+       "qm-sym-Q1"
+      ],
       "exercise": [
        "qm-am-b2",
-       "qm-sa-b3"
+       "qm-sa-b3",
+       "qm-sym-D1"
       ],
       "sheet": [
        "qm-sheet-s9q4",
@@ -1204,8 +1220,8 @@
     },
     {
      "concept": "spectrum j(j+1), m = −j..j",
-     "theory": 6,
-     "quiz": 3,
+     "theory": 7,
+     "quiz": 4,
      "exercise": 21,
      "sheet": 3,
      "ids": {
@@ -1220,7 +1236,8 @@
       "quiz": [
        "qm-am-Q1",
        "qm-pf-Q1",
-       "qm-fu-Q1"
+       "qm-fu-Q1",
+       "qm-sym-Q1"
       ],
       "exercise": [
        "qm-am-D2",
@@ -1247,10 +1264,10 @@
    "concepts": [
     {
      "concept": "SU(2), spinors, 4π",
-     "theory": 7,
-     "quiz": 1,
-     "exercise": 17,
-     "sheet": 6,
+     "theory": 9,
+     "quiz": 2,
+     "exercise": 18,
+     "sheet": 7,
      "ids": {
       "theory": [
        "qm-ho-L4",
@@ -1261,7 +1278,8 @@
        "qm-sa-L4"
       ],
       "quiz": [
-       "qm-am-Q1"
+       "qm-am-Q1",
+       "qm-sym-Q1"
       ],
       "exercise": [
        "qm-ho-D6",
@@ -1276,8 +1294,8 @@
        "qm-sheet-s8q3",
        "qm-sheet-s9q3",
        "qm-sheet-s9q4",
-       "qm-sheet-s11q1",
-       "qm-sheet-s11q2"
+       "qm-sheet-s10q2",
+       "qm-sheet-s11q1"
       ]
      }
     }
@@ -1324,20 +1342,25 @@
    "section": "7.8",
    "title": "Wigner’s theorem",
    "page": 80,
-   "status": "thin",
+   "status": "covered",
    "concepts": [
     {
      "concept": "Wigner’s theorem",
-     "theory": 1,
-     "quiz": 0,
-     "exercise": 0,
+     "theory": 2,
+     "quiz": 1,
+     "exercise": 1,
      "sheet": 0,
      "ids": {
       "theory": [
-       "qm-hl-L4"
+       "qm-hl-L4",
+       "qm-sym-L3"
       ],
-      "quiz": [],
-      "exercise": [],
+      "quiz": [
+       "qm-sym-Q1"
+      ],
+      "exercise": [
+       "qm-sym-D3"
+      ],
       "sheet": []
      }
     }
@@ -1470,7 +1493,7 @@
    "concepts": [
     {
      "concept": "tensor product",
-     "theory": 9,
+     "theory": 10,
      "quiz": 1,
      "exercise": 18,
      "sheet": 2,
@@ -1510,9 +1533,9 @@
    "concepts": [
     {
      "concept": "j = |j1−j2| … j1+j2",
-     "theory": 8,
+     "theory": 9,
      "quiz": 1,
-     "exercise": 8,
+     "exercise": 9,
      "sheet": 5,
      "ids": {
       "theory": [
@@ -1808,9 +1831,9 @@
    "concepts": [
     {
      "concept": "first and second order corrections",
-     "theory": 7,
+     "theory": 8,
      "quiz": 2,
-     "exercise": 24,
+     "exercise": 25,
      "sheet": 4,
      "ids": {
       "theory": [
@@ -1851,15 +1874,16 @@
    "concepts": [
     {
      "concept": "anharmonic / perturbed oscillator",
-     "theory": 3,
+     "theory": 4,
      "quiz": 2,
-     "exercise": 4,
+     "exercise": 5,
      "sheet": 1,
      "ids": {
       "theory": [
        "qm-ho-L1",
        "qm-pf-L1",
-       "qm-wm-L2"
+       "qm-wm-L2",
+       "qm-sym-L2"
       ],
       "quiz": [
        "qm-fu-Q1",
@@ -1868,6 +1892,7 @@
       "exercise": [
        "qm-ho-c1",
        "qm-wm-D3",
+       "qm-sym-D2",
        "ehrenfest",
        "variational"
       ],

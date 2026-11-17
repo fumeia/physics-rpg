@@ -493,3 +493,6 @@ html[data-theme=light] .dv-row { border-color: rgba(0,0,0,.2); } html[data-theme
 html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 .ud-hint { margin: 4px 0 8px; font-size: 14px; } .ud-hint summary { cursor: pointer; color: var(--warn); font-size: 13px; } .ud-hint .src { margin-top: 3px; }
 .examdates { display: grid; gap: 4px; margin: 6px 0 10px; } .examdates input[type=date] { font: inherit; background: rgba(0,0,0,.2); color: inherit; border: 1px solid rgba(255,255,255,.2); border-radius: 6px; padding: 2px 6px; } html[data-theme=light] .examdates input[type=date] { background: #fff; border-color: rgba(0,0,0,.3); }
+/* reading-pack strip (lecturer explainers) under an encounter title */
+.readstrip{font-size:.85em;margin:.2em 0 .8em;padding:.45em .7em;border-left:3px solid #6aa0ff;background:rgba(106,160,255,.10);border-radius:4px;line-height:1.5}
+.readstrip .rlab{font-weight:600;margin-right:.2em}.readstrip a{color:#9cc0ff}

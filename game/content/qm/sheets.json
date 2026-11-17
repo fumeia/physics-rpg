@@ -1427,9 +1427,9 @@
      "title": "Projective representations of Z2 x Z2",
      "room": "angular-momentum-spin",
      "related": [
-      "qm-am-L2",
-      "qm-am-D3",
-      "qm-am-L1"
+      "qm-sym-L2",
+      "qm-sym-D2",
+      "qm-am-L2"
      ],
      "enc": {
       "type": "derive",

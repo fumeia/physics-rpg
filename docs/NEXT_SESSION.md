@@ -139,3 +139,10 @@ visit, `flags.derivs`), moves, "why is this step allowed?", a variant with one a
 The run adds a `@deriv` stop (runs of 40 minutes or more). `node game/test/derivs-check.mjs` checks the content and LaTeX.
 To do: check the notation against the QM25 script; add more derivations (time evolution of spin in a field, 3D oscillator, hydrogen
 radial equation, Clebsch–Gordan for 1⊗½, golden rule); the ladder's "order" rung was only boot-checked.
+
+## 2026-11-17: QM sheet 10 and the chapter 7 pack
+- QM sheets now due on this year's Mondays (dueShiftDays 362). Sheet 10 Q2 (projective representations of Z2xZ2) added with
+  our own solution (cocycle verified numerically on all 16 pairs; official solution not out yet: compare once it is).
+- `game/content/qm/ch7-reading.json`: lessons qm-sym-L1..L3 (script 7.1-7.8), derivations qm-sym-D1..D4, quiz qm-sym-Q1, and the
+  map of encounters to the lecturer's explainers. Engine: `enc.read` strip in encounters.js mount(), HEAD probe in main.js.
+- To test: strip appears only with game/private/ch7 installed (deploy/ch7pack.py); links open in a new tab; phone layout.

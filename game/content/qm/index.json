@@ -13,6 +13,7 @@
   ],
   "extras": [
     "sheets.json",
-    "phet-sims.json"
+    "phet-sims.json",
+    "ch7-reading.json"
   ]
 }

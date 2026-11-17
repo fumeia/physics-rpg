@@ -5,7 +5,7 @@ content (rooms, exercise sheets, experiments, the Derivations screen, the Forge)
 ✅ every concept has a lesson **and** practice · 🟡 some concept lacks a lesson or practice · ❌ nothing in the game.
 A mention is not a lesson: this map finds gaps; it does not prove that a topic is taught well.
 
-**42 covered, 7 thin, 2 missing** of 51 sections.
+**44 covered, 5 thin, 2 missing** of 51 sections.
 
 | § | Topic | p. | | Concept | Lessons | Quizzes | Exercises | Sheet Qs |
 |---|---|---|---|---|---|---|---|---|
@@ -14,12 +14,12 @@ A mention is not a lesson: this map finds gaps; it does not prove that a topic i
 | 1.3 | Bohr–Sommerfeld quantisation | 10 | ❌ | Bohr–Sommerfeld | – | – | – | – |
 | 1.4 | Photoelectric and Compton effect | 12 | ✅ | photoelectric / Compton | 1 | 1 | 2 | 1 |
 | 1.5 | de Broglie waves | 13 | ✅ | de Broglie | 1 | 1 | – | – |
-| 2.1 | Schrödinger equation | 14 | ✅ | time-dependent Schrödinger equation | 4 | 1 | 15 | 5 |
+| 2.1 | Schrödinger equation | 14 | ✅ | time-dependent Schrödinger equation | 4 | 1 | 16 | 5 |
 | 2.2 | Probability current, continuity | 16 | ✅ | probability current / continuity equation | 2 | 1 | 7 | 2 |
 | 2.3 | Ehrenfest theorem | 17 | ✅ | Ehrenfest | 3 | 1 | 8 | 2 |
-| 2.4 | Reality of observables | 19 | ✅ | Hermitian operators, real expectation values | 7 | 1 | 21 | 4 |
+| 2.4 | Reality of observables | 19 | ✅ | Hermitian operators, real expectation values | 10 | 2 | 23 | 4 |
 | 2.5–2.6 | Stationary states, energy eigenstates | 19 | ✅ | time-independent equation / stationary states | 5 | 2 | 20 | 2 |
-|  |  |  |  | superposition of energy eigenstates | 8 | 1 | 9 | 2 |
+|  |  |  |  | superposition of energy eigenstates | 9 | 1 | 9 | 2 |
 | 2.7 | Energy measurement | 22 | ✅ | measurement probabilities |c_n|² | 5 | – | 12 | – |
 | 3.1 | Particle in a box | 26 | ✅ | infinite well | 5 | 1 | 12 | 5 |
 | 3.2 | Particle in a well | 28 | ✅ | finite well, bound states | 2 | 1 | 6 | 1 |
@@ -28,32 +28,32 @@ A mention is not a lesson: this map finds gaps; it does not prove that a topic i
 |  |  |  |  | Gaussian packet spreading | 7 | 3 | 18 | 7 |
 | 3.5 | Well: positive energies, tunnelling, resonances | 36 | ✅ | transmission / tunnelling | 4 | 1 | 15 | 1 |
 |  |  |  |  | resonances | 4 | 1 | 4 | 1 |
-| 4.1–4.3 | Hilbert space, L², separability | 41 | ✅ | Hilbert space / inner product | 4 | 1 | 5 | 1 |
-|  |  |  |  | orthonormal basis, completeness | 6 | 1 | 12 | 3 |
+| 4.1–4.3 | Hilbert space, L², separability | 41 | ✅ | Hilbert space / inner product | 6 | 1 | 6 | 1 |
+|  |  |  |  | orthonormal basis, completeness | 7 | 1 | 12 | 3 |
 | 4.4 | Operators and observables | 44 | ✅ | operators, eigenvalues | 9 | 1 | 39 | 3 |
 |  |  |  |  | observables | 5 | – | 2 | 2 |
-| 4.5 | Measurements, expectation values, Dirac notation | 46 | ✅ | Dirac notation | 30 | 8 | 105 | 26 |
+| 4.5 | Measurements, expectation values, Dirac notation | 46 | ✅ | Dirac notation | 32 | 9 | 108 | 26 |
 |  |  |  |  | expectation value | 7 | – | 16 | 4 |
 | 4.6 | Continuous spectra (∞-dimensional) | 48 | ❌ | continuous spectrum, delta normalisation | – | – | – | – |
 | 4.7 | Other representations | 50 | ✅ | momentum representation | 2 | – | 3 | 1 |
-| 5.1 | Non-commuting observables | 52 | ✅ | commutators, compatible observables | 13 | 2 | 40 | 9 |
+| 5.1 | Non-commuting observables | 52 | ✅ | commutators, compatible observables | 15 | 3 | 41 | 10 |
 | 5.2–5.3 | Uncertainty and the Heisenberg relation | 55 | ✅ | uncertainty relation | 8 | 2 | 21 | 4 |
 | 6.1.1 | Oscillator: conventional solution | 60 | ✅ | Hermite polynomials / series | 2 | – | 3 | 1 |
-| 6.1.2 | Oscillator: ladder operators | 61 | ✅ | ladder operators | 9 | 2 | 29 | 8 |
+| 6.1.2 | Oscillator: ladder operators | 61 | ✅ | ladder operators | 10 | 2 | 29 | 8 |
 | 6.2 | Classical limit | 64 | ✅ | coherent states / classical limit | 2 | 1 | 5 | 2 |
-| 7.1 | Unitary representations of symmetries | 66 | ✅ | unitary symmetry operators | 3 | 2 | 8 | 1 |
-| 7.2 | SO(3) and its Lie algebra | 67 | ✅ | rotation group, generators | 5 | 1 | 11 | 4 |
-| 7.3–7.4 | Irreducible representations of so(3) | 70 | 🟡 | irreducible representations | – | – | 2 | 2 |
-|  |  |  |  | spectrum j(j+1), m = −j..j | 6 | 3 | 21 | 3 |
-| 7.5–7.6 | SO(3) vs SU(2), projective representations | 75 | ✅ | SU(2), spinors, 4π | 7 | 1 | 17 | 6 |
+| 7.1 | Unitary representations of symmetries | 66 | ✅ | unitary symmetry operators | 5 | 3 | 11 | 1 |
+| 7.2 | SO(3) and its Lie algebra | 67 | ✅ | rotation group, generators | 8 | 2 | 14 | 5 |
+| 7.3–7.4 | Irreducible representations of so(3) | 70 | ✅ | irreducible representations | 1 | 1 | 3 | 2 |
+|  |  |  |  | spectrum j(j+1), m = −j..j | 7 | 4 | 21 | 3 |
+| 7.5–7.6 | SO(3) vs SU(2), projective representations | 75 | ✅ | SU(2), spinors, 4π | 9 | 2 | 18 | 7 |
 | 7.7 | Spin of the electron | 78 | ✅ | spin ½, Pauli matrices, Stern–Gerlach | 3 | 1 | 13 | 2 |
-| 7.8 | Wigner’s theorem | 80 | 🟡 | Wigner’s theorem | 1 | – | – | – |
+| 7.8 | Wigner’s theorem | 80 | ✅ | Wigner’s theorem | 2 | 1 | 1 | – |
 | 8.1 | Relative coordinates | 82 | ✅ | reduced mass, centre of mass | 1 | – | 1 | – |
 | 8.2 | Coulomb potential, radial equation | 84 | ✅ | radial equation, centrifugal term | 2 | – | 4 | 1 |
 |  |  |  |  | behaviour at r→0 and r→∞, series ends | 3 | 1 | 3 | 2 |
 | 8.3 | Dynamical symmetry (Runge–Lenz, so(4)) | 88 | ✅ | Runge–Lenz vector, so(4), n² degeneracy | 4 | 1 | 4 | 3 |
-| 9.1 | Tensor products | 93 | ✅ | tensor product | 9 | 1 | 18 | 2 |
-| 9.2–9.4 | Addition of angular momenta, Clebsch–Gordan series | 94 | ✅ | j = |j1−j2| … j1+j2 | 8 | 1 | 8 | 5 |
+| 9.1 | Tensor products | 93 | ✅ | tensor product | 10 | 1 | 18 | 2 |
+| 9.2–9.4 | Addition of angular momenta, Clebsch–Gordan series | 94 | ✅ | j = |j1−j2| … j1+j2 | 9 | 1 | 9 | 5 |
 |  |  |  |  | singlet and triplet | 7 | 2 | 16 | 1 |
 | 9.5 | Clebsch–Gordan coefficients | 99 | ✅ | Clebsch–Gordan coefficients | 3 | 1 | 7 | 2 |
 | 9.6 | Magnetic moment | 102 | 🟡 | magnetic moment, Bohr magneton, g-factor | – | 1 | 3 | 1 |
@@ -62,8 +62,8 @@ A mention is not a lesson: this map finds gaps; it does not prove that a topic i
 | 10.1 | EPR paradox | 108 | ✅ | EPR, entanglement | 4 | 1 | 10 | – |
 | 10.2 | Bell inequality | 109 | ✅ | Bell / CHSH | 4 | 1 | 8 | 1 |
 | 10.3 | Quantum teleportation | 111 | 🟡 | teleportation | – | 1 | 3 | – |
-| 11.1 | Non-degenerate perturbation theory | 114 | ✅ | first and second order corrections | 7 | 2 | 24 | 4 |
-| 11.1.1 | Perturbed oscillator | 117 | ✅ | anharmonic / perturbed oscillator | 3 | 2 | 4 | 1 |
+| 11.1 | Non-degenerate perturbation theory | 114 | ✅ | first and second order corrections | 8 | 2 | 25 | 4 |
+| 11.1.1 | Perturbed oscillator | 117 | ✅ | anharmonic / perturbed oscillator | 4 | 2 | 5 | 1 |
 | 11.2 | Degenerate perturbation theory | 118 | ✅ | degenerate perturbation theory | 2 | – | 9 | 2 |
 | 11.2.4 | Stark effect | 123 | ✅ | Stark effect | 1 | 1 | 2 | 1 |
 | 11.3.1 | The propagator | 124 | ✅ | time evolution operator / propagator | 2 | – | 2 | – |

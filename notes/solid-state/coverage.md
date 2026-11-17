@@ -48,40 +48,40 @@ A mention is not a lesson: this map finds gaps; it does not prove that a topic i
 | 2.1.1 | Dulong–Petit | 38 | ✅ | Dulong–Petit | 1 | 4 | 4 | 2 |
 | 2.1.2 | Einstein’s solid | 38 | ✅ | Einstein model | 1 | 3 | 1 | 2 |
 | 2.2.1–3 | Normal modes, equation of motion | 41 | ✅ | equation of motion / normal modes | 2 | 2 | 1 | 2 |
-|  |  |  |  | phonon dispersion ω(k) | 2 | 5 | 8 | 5 |
+|  |  |  |  | phonon dispersion ω(k) | 3 | 5 | 8 | 5 |
 | 2.2.4 | Role of the Brillouin zone | 44 | ✅ | k restricted to the 1st BZ, N modes | 4 | 6 | 9 | 6 |
 | 2.2.5 | Diatomic chain | 45 | ✅ | diatomic chain | 1 | 3 | 2 | 2 |
 |  |  |  |  | acoustic and optical branches | 2 | 4 | 3 | 1 |
 | 2.3.1–2 | Phonons, inelastic scattering | 50 | ✅ | phonon as quasiparticle | 9 | 10 | 12 | 8 |
-|  |  |  |  | crystal momentum / Umklapp | 3 | 1 | – | – |
+|  |  |  |  | crystal momentum / Umklapp | 4 | 1 | – | – |
 |  |  |  |  | inelastic scattering | 2 | 1 | 3 | – |
 | 2.3.3 | Anharmonic lattice | 55 | ✅ | anharmonicity (decay, expansion) | 1 | 1 | – | – |
 | 2.3.4 | Inelastic scattering techniques | 57 | ✅ | triple-axis / monochromator | 2 | 2 | 2 | – |
 | 2.4.1 | How many phonons? | 59 | ✅ | Bose–Einstein occupation | 1 | – | 2 | 4 |
 | 2.4.2 | Phonon density of states, Debye | 60 | ✅ | Debye model | 3 | 6 | 6 | 7 |
-|  |  |  |  | phonon density of states | 3 | 8 | 7 | 4 |
-| 2.4.3 | Specific heat (T³) | 63 | ✅ | T³ law / Debye temperature | 3 | 6 | 6 | 6 |
-| 3.1.1–2 | Electron in a box, DoS | 66 | ✅ | free electrons in a box | 5 | 5 | 15 | 3 |
-|  |  |  |  | electronic density of states | 8 | 8 | 11 | 4 |
+|  |  |  |  | phonon density of states | 4 | 8 | 8 | 4 |
+| 2.4.3 | Specific heat (T³) | 63 | ✅ | T³ law / Debye temperature | 3 | 6 | 7 | 6 |
+| 3.1.1–2 | Electron in a box, DoS | 66 | ✅ | free electrons in a box | 6 | 5 | 16 | 3 |
+|  |  |  |  | electronic density of states | 10 | 8 | 12 | 4 |
 | 3.1.3 | Fermi–Dirac, Fermi energy | 68 | ✅ | Fermi–Dirac distribution | 2 | 1 | 1 | – |
-|  |  |  |  | Fermi energy / k_F | 13 | 10 | 18 | 4 |
-|  |  |  |  | chemical potential | 1 | 1 | 2 | – |
+|  |  |  |  | Fermi energy / k_F | 15 | 10 | 20 | 4 |
+|  |  |  |  | chemical potential | 2 | 1 | 3 | – |
 | 3.1.4 | Electronic specific heat | 73 | ✅ | C_el ∝ T | 5 | 6 | 5 | 5 |
 | 3.1.5 | Interactions | 75 | ✅ | electron–electron interactions | 1 | 1 | – | – |
-| 3.2.1 | Bloch’s theorem | 77 | ✅ | Bloch theorem / Bloch waves | 1 | 4 | 2 | – |
+| 3.2.1 | Bloch’s theorem | 77 | ✅ | Bloch theorem / Bloch waves | 2 | 4 | 3 | – |
 | 3.2.2 | Nearly free electrons | 79 | ✅ | nearly free electron model | 1 | 1 | 4 | – |
-|  |  |  |  | gap at the zone boundary | 6 | 6 | 12 | 2 |
+|  |  |  |  | gap at the zone boundary | 8 | 6 | 13 | 2 |
 | 3.2.3 | Tight binding | 82 | ✅ | tight-binding model | 2 | 5 | 4 | 1 |
-|  |  |  |  | hopping t | 1 | 2 | 5 | 2 |
-| 3.2.4 | Many electrons: metals vs insulators | 84 | ✅ | band filling: metal / insulator | 4 | 4 | 4 | 1 |
+|  |  |  |  | hopping t | 2 | 2 | 5 | 2 |
+| 3.2.4 | Many electrons: metals vs insulators | 84 | ✅ | band filling: metal / insulator | 5 | 4 | 4 | 1 |
 | 3.3 | Quasiparticles | 88 | ✅ | quasiparticles, quasielectrons/holes | 1 | 1 | – | – |
 | 3.4 | ARPES | 91 | ✅ | photoemission (ARPES) | 1 | 1 | – | – |
 | 4.1.1 | Drude conductivity | 93 | ✅ | Drude model | 2 | 2 | 3 | 2 |
 |  |  |  |  | relaxation time / mobility | 3 | 2 | 5 | 2 |
-| 4.1.2 | Hall effect | 94 | ✅ | Hall effect / coefficient | 2 | 2 | 4 | 1 |
-| 4.2.1–2 | Wave packets, effective mass | 95 | ✅ | group velocity / wave packet | 1 | 1 | 2 | 1 |
-|  |  |  |  | effective mass | 5 | 2 | 9 | 1 |
-| 4.2.3 | Band electrons in a field (holes) | 98 | ✅ | ħk̇ = force, filled bands carry no current, holes | 6 | 4 | 6 | 3 |
+| 4.1.2 | Hall effect | 94 | ✅ | Hall effect / coefficient | 3 | 2 | 4 | 1 |
+| 4.2.1–2 | Wave packets, effective mass | 95 | ✅ | group velocity / wave packet | 2 | 1 | 3 | 1 |
+|  |  |  |  | effective mass | 7 | 2 | 11 | 1 |
+| 4.2.3 | Band electrons in a field (holes) | 98 | ✅ | ħk̇ = force, filled bands carry no current, holes | 8 | 4 | 9 | 3 |
 | 4.2.4 | Conductivity of band electrons | 101 | ✅ | shifted Fermi sphere | 1 | 1 | – | – |
 | 4.2.5 | Relaxation: what scatters | 102 | ✅ | ρ(T): T, T⁵, residual, Matthiessen | 1 | 2 | 2 | 1 |
 | 4.3 | Thermal conductivity | 106 | ✅ | thermal conductivity | 2 | 2 | 2 | – |
@@ -90,21 +90,21 @@ A mention is not a lesson: this map finds gaps; it does not prove that a topic i
 | 5.1 | Semiconductors: gap, materials | 113 | ✅ | band gap, direct / indirect | 2 | 4 | 5 | 1 |
 |  |  |  |  | Si / GaAs, heavy and light holes | 5 | 4 | 4 | 2 |
 | 5.1.3 | Cyclotron resonance | 117 | ✅ | cyclotron resonance | 1 | – | 1 | – |
-| 5.2 | Intrinsic carriers, mobility | 119 | ✅ | intrinsic carrier density, n·p | 2 | 1 | 3 | – |
+| 5.2 | Intrinsic carriers, mobility | 119 | ✅ | intrinsic carrier density, n·p | 3 | 1 | 4 | – |
 |  |  |  |  | mobility in semiconductors | 2 | 2 | 1 | – |
-| 5.3 | Doped semiconductors | 123 | ✅ | donors / acceptors (hydrogen-like) | 2 | 1 | 3 | – |
-|  |  |  |  | freeze-out, saturation regimes | 1 | 2 | 2 | 1 |
-| 5.4.1–3 | p–n junction, depletion layer | 128 | ✅ | p–n junction, built-in voltage | 2 | 1 | 2 | – |
-|  |  |  |  | depletion layer | 2 | – | 2 | – |
-| 5.4.4 | Rectification | 132 | ✅ | diode current, forward / reverse bias | 2 | – | 2 | – |
+| 5.3 | Doped semiconductors | 123 | ✅ | donors / acceptors (hydrogen-like) | 3 | 1 | 3 | – |
+|  |  |  |  | freeze-out, saturation regimes | 2 | 2 | 2 | 1 |
+| 5.4.1–3 | p–n junction, depletion layer | 128 | ✅ | p–n junction, built-in voltage | 2 | 1 | 3 | – |
+|  |  |  |  | depletion layer | 2 | – | 3 | – |
+| 5.4.4 | Rectification | 132 | ✅ | diode current, forward / reverse bias | 2 | – | 3 | – |
 | 5.4.5 | Devices (LED, solar cell) | 133 | ✅ | LED / solar cell / transistor | 1 | 1 | 1 | – |
-| 6.1 | Classical magnetism | 136 | ✅ | susceptibility, magnetization | 4 | 2 | 3 | – |
-| 6.2.1 | Paramagnetism of atoms (Curie) | 137 | ✅ | Curie law | 3 | – | 3 | – |
-| 6.2.2 | Pauli paramagnetism | 138 | ✅ | Pauli paramagnetism | 3 | 2 | 1 | – |
-| 6.2.3 | Landau diamagnetism | 140 | ✅ | Landau diamagnetism | 1 | – | 1 | – |
+| 6.1 | Classical magnetism | 136 | ✅ | susceptibility, magnetization | 6 | 2 | 6 | – |
+| 6.2.1 | Paramagnetism of atoms (Curie) | 137 | ✅ | Curie law | 5 | – | 5 | – |
+| 6.2.2 | Pauli paramagnetism | 138 | ✅ | Pauli paramagnetism | 3 | 2 | 2 | – |
+| 6.2.3 | Landau diamagnetism | 140 | ✅ | Landau diamagnetism | 2 | – | 1 | – |
 | 6.2.5 | Metallic ferromagnetism (Stoner) | 141 | ✅ | Stoner criterion / itinerant ferromagnetism | 2 | 1 | – | – |
-| 6.3.1 | Exchange interactions | 146 | ✅ | exchange, Heisenberg model | 2 | 1 | 3 | – |
-|  |  |  |  | Hund’s rules | 1 | 1 | – | 1 |
-| 6.3.2–4 | Mean field, ferromagnets | 150 | ✅ | mean field / Weiss field | 2 | 1 | 4 | – |
-|  |  |  |  | Curie–Weiss, T_C | 2 | 2 | 5 | – |
-| 6.3.5 | Antiferromagnets | 156 | ✅ | antiferromagnet, Néel, sublattices | 1 | 2 | 3 | – |
+| 6.3.1 | Exchange interactions | 146 | ✅ | exchange, Heisenberg model | 4 | 1 | 4 | – |
+|  |  |  |  | Hund’s rules | 2 | 1 | – | 1 |
+| 6.3.2–4 | Mean field, ferromagnets | 150 | ✅ | mean field / Weiss field | 3 | 1 | 5 | – |
+|  |  |  |  | Curie–Weiss, T_C | 3 | 2 | 6 | – |
+| 6.3.5 | Antiferromagnets | 156 | ✅ | antiferromagnet, Néel, sublattices | 2 | 2 | 3 | – |

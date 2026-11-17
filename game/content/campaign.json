@@ -43,25 +43,33 @@
     "11": [
      "ss-sem-L1",
      "ss-sem-c1",
-     "ss-sem-c3"
+     "ss-sem-c3",
+     "ss-sem-D2"
     ],
     "12": [
      "ss-sem-L2",
      "ss-sem-D1",
      "ss-sem-Q1",
      "ss-sem-c2",
-     "ss-sem-c4"
+     "ss-sem-c4",
+     "ss-sem-D3"
     ],
     "13": [
      "ss-mag-L1",
-     "ss-mag-c1"
+     "ss-mag-c1",
+     "ss-mag-D2",
+     "ss-mag-D3"
     ],
     "14": [
      "ss-mag-L2",
      "ss-mag-D1",
      "ss-mag-Q1",
      "ss-mag-c2",
-     "ss-mag-c3"
+     "ss-mag-c3",
+     "ss-mag-D4"
+    ],
+    "9": [
+     "ss-dri-D2"
     ]
    },
    "pin": {
@@ -102,7 +110,8 @@
      "ss-fer-GQ"
     ],
     "9": [
-     "ss-dri-L1"
+     "ss-dri-L1",
+     "ss-dri-L3"
     ],
     "10": [
      "ss-dri-L2",
@@ -111,7 +120,8 @@
      "ss-dri-GQ"
     ],
     "11": [
-     "ss-sem-L1"
+     "ss-sem-L1",
+     "ss-sem-L3"
     ],
     "12": [
      "ss-sem-L2",
@@ -121,11 +131,13 @@
     "13": [
      "ss-mag-L1",
      "ss-mag-G1",
-     "ss-mag-GQ"
+     "ss-mag-GQ",
+     "ss-mag-L3"
     ],
     "14": [
      "ss-mag-L2",
-     "ss-mag-Q1"
+     "ss-mag-Q1",
+     "ss-mag-L4"
     ]
    }
   },

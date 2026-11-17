@@ -7,5 +7,7 @@ const tex = (t, k) => { try { katex.renderToString(t, { throwOnError: true, stri
 ok('more than 30 seconds per question', seconds >= 60);
 items.forEach((it, i) => { const k = `#${i} ${it.q.slice(0, 30)}`; ok(`${k}: fields`, ['qm', 'solid-state', 'astrophysics'].includes(it.course) && it.options.length === 4 && new Set(it.options).size === 4 && it.correct >= 0 && it.correct < 4 && it.why.length > 30);
   it.options.forEach((o) => tex(o, k)); tex(`[\\mathrm{${it.unit}}]`, k); for (const s of [it.q, it.why]) { ok(`${k}: balanced $`, (s.match(/\$/g) || []).length % 2 === 0); for (const m of s.matchAll(/\$([^$]+)\$/g)) tex(m[1], k); } });
+const { symbols } = JSON.parse(readFileSync(new URL('../content/units-duel.json', import.meta.url)));
+items.forEach((it, i) => { ok(`#${i}: symbols listed`, (it.sym || []).length >= 2 && it.sym.every((k) => symbols[k])); for (const k of it.sym || []) if (symbols[k]) { tex(symbols[k][0], `#${i} ${k}`); tex(`[\\mathrm{${symbols[k][1]}}]`, `#${i} ${k}`); } });
 ok('at least 8 per course', ['qm', 'solid-state', 'astrophysics'].every((c) => items.filter((x) => x.course === c).length >= 8));
 console.log(`${items.length} duel questions checked`); console.log(fails ? `${fails} FAILED` : 'ALL OK'); process.exit(fails ? 1 : 0);

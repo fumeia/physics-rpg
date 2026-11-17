@@ -94,7 +94,9 @@ export function renderUnits(host, ctx) {
     const done = (k) => { if (answered) return; answered = true; clearInterval(timer); const ok = k === it.correct, L2 = log(); streak = ok ? streak + 1 : 0; if (ok) { right++; store.addXp(2); }
       store.setVal('unitsLog', { right: L2.right + (ok ? 1 : 0), total: L2.total + 1, best: Math.max(L2.best, streak) });
       host.querySelectorAll('[data-uk]').forEach((b) => { b.disabled = true; if (+b.dataset.uk === it.correct) b.classList.add('right'); else if (+b.dataset.uk === k) b.classList.add('wrong'); });
-      host.querySelector('[data-uwhy]').innerHTML = `<p class="msg ${ok ? 'good' : 'bad'}">${ok ? 'Right.' : k === -1 ? 'Time is up.' : 'Not this one.'} ${M(it.why)}</p><button class="go" data-unext>Next</button>`;
+      const syms = (it.sym || []).map((key) => ctx.symbols?.[key]).filter(Boolean);
+      const table = syms.length ? `<div class="ud-syms"><div class="src">Units of the pieces (SI):</div>${syms.map(([t, u, note]) => `<span class="ud-sym">${M(`$${t}$`)}<b>${M(`$[\\mathrm{${u}}]$`)}</b><small>${esc(note)}</small></span>`).join('')}</div>` : '';
+      host.querySelector('[data-uwhy]').innerHTML = `<p class="msg ${ok ? 'good' : 'bad'}">${ok ? 'Right.' : k === -1 ? 'Time is up.' : 'Not this one.'} ${M(it.why)}</p>${table}<button class="go" data-unext>Next</button>`;
       host.querySelector('[data-unext]').onclick = () => { i++; show(); }; ctx.onChange?.(); };
     host.querySelectorAll('[data-uk]').forEach((b) => (b.onclick = () => done(+b.dataset.uk)));
     const ut = host.querySelector('[data-ut]'); timer = setInterval(() => { if (!ut.isConnected) { clearInterval(timer); return; } const left = Math.max(0, seconds - Math.floor((Date.now() - t0) / 1000)); ut.textContent = left; if (!left) done(-1); }, 500);

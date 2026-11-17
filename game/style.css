@@ -487,3 +487,7 @@ html[data-theme=light] body.touch #hud .tr > #btn-run:not(.done) { color: #fff !
 .dv-pool { display: grid; gap: 6px; margin: 8px 0; } .dv-pick { text-align: left; padding: 8px 10px; overflow-x: auto; } .dv-moves li { margin: 4px 0; } .dv-step { border-left: 3px solid var(--accent); padding: 4px 10px; margin: 6px 0; overflow-x: auto; } .dv-back li:first-child { opacity: .95; }
 .cp-node.deriv .cp-dot { border-style: dotted; border-color: #6cb6ff; }
 html[data-theme=light] .dv-row { border-color: rgba(0,0,0,.2); } html[data-theme=light] .dv-rungs i { background: rgba(0,0,0,.14); } html[data-theme=light] .dv-rungs i.on { background: #a35d00; }
+
+.ud-syms { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; } .ud-syms .src { flex-basis: 100%; }
+.ud-sym { display: inline-flex; align-items: baseline; gap: 6px; padding: 3px 9px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; background: rgba(255,255,255,.03); } .ud-sym b { font-weight: 400; } .ud-sym small { opacity: .65; font-size: 11px; }
+html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }

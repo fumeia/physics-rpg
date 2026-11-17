@@ -674,7 +674,7 @@ function renderStudy(tab) {
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh() })
   else if (studyTab === 'derivs') renderDerivs(host, { items: derivItems, M, onChange: () => refresh() })
-  else if (studyTab === 'units') renderUnits(host, { items: unitsDuel.items, seconds: unitsDuel.seconds, M, courseName: (id) => findCourse(id)?.name || id, onChange: () => refresh() })
+  else if (studyTab === 'units') renderUnits(host, { items: unitsDuel.items, seconds: unitsDuel.seconds, symbols: unitsDuel.symbols, M, courseName: (id) => findCourse(id)?.name || id, onChange: () => refresh() })
   else if (studyTab === 'summary') renderSummary(host, { catalog, isPassed: (id) => store.isPassed(id), courses: catalog.filter((c) => c.id !== 'qm').map((c) => ({ id: c.id, name: c.name })), M })
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
   else if (studyTab === 'weak') { host.innerHTML = M(weakHtml()); wireGoto(host); }

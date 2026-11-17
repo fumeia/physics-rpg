@@ -1,31 +1,637 @@
 {
- "about": "Units duel: the unit of the result is given; exactly one of four expressions can be right by dimensions alone. Trains the dimension check as a reflex. 75 seconds per question. SI units throughout.",
+ "about": "Units duel: the unit of the result is given; exactly one of four expressions can be right by dimensions alone. Trains the dimension check as a reflex. 75 seconds per question. SI units throughout. After each answer the units of every symbol in the question are listed (symbols table).",
  "seconds": 75,
  "items": [
-  { "course": "qm", "q": "Energy of a quantum of the oscillator", "unit": "J", "options": ["\\hbar\\omega", "\\hbar/\\omega", "\\hbar\\omega^2", "m\\omega^2/\\hbar"], "correct": 0, "why": "$[\\hbar]=\\mathrm{J\\,s}$, $[\\omega]=\\mathrm{s^{-1}}$: only $\\hbar\\omega$ is an energy." },
-  { "course": "qm", "q": "de Broglie wavelength", "unit": "m", "options": ["h/p", "hp", "p/h", "h/(mc^2)"], "correct": 0, "why": "$[h]=\\mathrm{J\\,s}=\\mathrm{kg\\,m^2/s}$, $[p]=\\mathrm{kg\\,m/s}$: $h/p$ is a length. $h/(mc^2)$ is a time." },
-  { "course": "qm", "q": "Decay constant $\\kappa$ inside a barrier", "unit": "m^{-1}", "options": ["\\sqrt{2m(V_0-E)}/\\hbar", "\\hbar\\sqrt{2m(V_0-E)}", "2m(V_0-E)/\\hbar", "\\hbar/\\sqrt{2m(V_0-E)}"], "correct": 0, "why": "$\\sqrt{2mE}$ is a momentum, and momentum over $\\hbar$ is a wave number. Without the root you get momentum squared over $\\hbar$." },
-  { "course": "qm", "q": "Bohr radius", "unit": "m", "options": ["\\dfrac{4\\pi\\epsilon_0\\hbar^2}{m_ee^2}", "\\dfrac{m_ee^2}{4\\pi\\epsilon_0\\hbar^2}", "\\dfrac{4\\pi\\epsilon_0\\hbar}{m_ee^2}", "\\dfrac{e^2}{4\\pi\\epsilon_0\\hbar}"], "correct": 0, "why": "$e^2/4\\pi\\epsilon_0$ is energy times length. $\\hbar^2/m$ is energy times length squared. Their ratio is a length. The last option is a velocity ($\\alpha c$)." },
-  { "course": "qm", "q": "Ground-state energy of a box of width $a$", "unit": "J", "options": ["\\dfrac{\\hbar^2\\pi^2}{2ma^2}", "\\dfrac{\\hbar\\pi}{2ma^2}", "\\dfrac{\\hbar^2\\pi^2}{2ma}", "\\dfrac{\\hbar^2a^2}{2m}"], "correct": 0, "why": "$\\hbar k$ is a momentum with $k\\sim1/a$, and $p^2/2m$ is an energy: $\\hbar^2/(ma^2)$." },
-  { "course": "qm", "q": "Oscillator length (width of the ground state)", "unit": "m", "options": ["\\sqrt{\\hbar/(m\\omega)}", "\\sqrt{m\\omega/\\hbar}", "\\hbar/(m\\omega)", "\\sqrt{\\hbar\\omega/m}"], "correct": 0, "why": "$\\hbar/(m\\omega)$ has units $\\mathrm{m^2}$, so the root is a length. $\\sqrt{\\hbar\\omega/m}$ is a velocity." },
-  { "course": "qm", "q": "Transition rate (golden rule), $\\rho(E)$ = states per energy", "unit": "s^{-1}", "options": ["\\dfrac{2\\pi}{\\hbar}|V_{fi}|^2\\rho(E)", "\\dfrac{2\\pi}{\\hbar}|V_{fi}|\\,\\rho(E)", "2\\pi\\hbar\\,|V_{fi}|^2\\rho(E)", "\\dfrac{2\\pi}{\\hbar^2}|V_{fi}|^2\\rho(E)"], "correct": 0, "why": "$|V|^2\\rho$ is energy$^2$ per energy = energy; energy over $\\hbar$ is a rate." },
-  { "course": "qm", "q": "Bohr magneton", "unit": "J/T", "options": ["\\dfrac{e\\hbar}{2m_e}", "\\dfrac{e}{2m_e\\hbar}", "\\dfrac{e\\hbar}{2m_ec}", "\\dfrac{e^2\\hbar}{2m_e}"], "correct": 0, "why": "A magnetic moment is charge over mass times angular momentum: $\\frac{e}{m}\\hbar$. The version with $1/c$ is the Gaussian form and is off by a velocity in SI." },
-  { "course": "solid-state", "q": "Fermi energy of a free-electron gas of density $n$", "unit": "J", "options": ["\\dfrac{\\hbar^2(3\\pi^2n)^{2/3}}{2m}", "\\dfrac{\\hbar(3\\pi^2n)^{2/3}}{2m}", "\\dfrac{\\hbar^2(3\\pi^2n)^{1/3}}{2m}", "\\dfrac{\\hbar^2(3\\pi^2n)}{2m}"], "correct": 0, "why": "$k_F=(3\\pi^2n)^{1/3}$ is a wave number ($n$ is per volume), and $\\hbar^2k^2/2m$ is an energy: the power must be $2/3$." },
-  { "course": "solid-state", "q": "Drude conductivity", "unit": "A/(V\\,m)", "options": ["\\dfrac{ne^2\\tau}{m}", "\\dfrac{ne\\tau}{m}", "\\dfrac{ne^2}{m\\tau}", "\\dfrac{nem}{\\tau}"], "correct": 0, "why": "$j=nev$ and $v=\\frac{e\\tau}{m}E$: $\\sigma=ne\\cdot\\frac{e\\tau}{m}$. With one $e$ you have $n$ times the mobility divided by a charge." },
-  { "course": "solid-state", "q": "Magnitude of the Hall coefficient", "unit": "m^3/C", "options": ["\\dfrac{1}{ne}", "ne", "\\dfrac{e}{n}", "\\dfrac{1}{ne^2}"], "correct": 0, "why": "$ne$ is a charge density, $\\mathrm{C/m^3}$; its inverse is volume per charge." },
-  { "course": "solid-state", "q": "Debye temperature", "unit": "K", "options": ["\\dfrac{\\hbar v_s(6\\pi^2n)^{1/3}}{k_B}", "\\dfrac{\\hbar v_s(6\\pi^2n)}{k_B}", "\\dfrac{k_Bv_s(6\\pi^2n)^{1/3}}{\\hbar}", "\\dfrac{\\hbar(6\\pi^2n)^{1/3}}{k_Bv_s}"], "correct": 0, "why": "$k_D=(6\\pi^2n)^{1/3}$ is a wave number, $v_sk_D$ a frequency, $\\hbar\\omega_D$ an energy, and energy over $k_B$ a temperature." },
-  { "course": "solid-state", "q": "Sound velocity of the monatomic chain (spring $C$, mass $M$, spacing $a$)", "unit": "m/s", "options": ["a\\sqrt{C/M}", "\\sqrt{C/M}", "a\\sqrt{M/C}", "aC/M"], "correct": 0, "why": "$[C]=\\mathrm{N/m}=\\mathrm{kg/s^2}$, so $\\sqrt{C/M}$ is a frequency; times a length gives a velocity." },
-  { "course": "solid-state", "q": "Electronic heat capacity per volume of a metal", "unit": "J/(K\\,m^3)", "options": ["\\dfrac{\\pi^2}{2}nk_B\\dfrac{T}{T_F}", "\\dfrac{\\pi^2}{2}nk_B^2\\dfrac{T}{T_F}", "\\dfrac{\\pi^2}{2}nk_BT\\,T_F", "\\dfrac{\\pi^2}{2}\\dfrac{k_BT}{nT_F}"], "correct": 0, "why": "$nk_B$ already has the units of a heat capacity per volume; $T/T_F$ is a pure number (the fraction of electrons that can be excited)." },
-  { "course": "solid-state", "q": "Cyclotron frequency", "unit": "s^{-1}", "options": ["\\dfrac{eB}{m^*}", "eBm^*", "\\dfrac{e}{Bm^*}", "\\dfrac{B}{em^*}"], "correct": 0, "why": "Force $evB$ = $m^*v\\omega$: $\\omega=eB/m^*$. Check: $[eB]=\\mathrm{C\\,T}=\\mathrm{kg/s}$." },
-  { "course": "solid-state", "q": "Width of the depletion layer of a p–n junction", "unit": "m", "options": ["\\sqrt{\\dfrac{2\\epsilon\\epsilon_0V}{e}\\dfrac{N_A+N_D}{N_AN_D}}", "\\dfrac{2\\epsilon\\epsilon_0V}{e}\\dfrac{N_A+N_D}{N_AN_D}", "\\sqrt{\\dfrac{2\\epsilon\\epsilon_0eV}{N_A+N_D}}", "\\sqrt{\\dfrac{eN_AN_D}{2\\epsilon\\epsilon_0V(N_A+N_D)}}"], "correct": 0, "why": "Poisson: $V\\sim\\frac{eN}{\\epsilon\\epsilon_0}w^2$, so $w^2\\sim\\frac{\\epsilon\\epsilon_0V}{eN}$: the expression without the root is an area, the last one an inverse length." },
-  { "course": "astrophysics", "q": "Schwarzschild radius", "unit": "m", "options": ["\\dfrac{2GM}{c^2}", "\\dfrac{2GM}{c}", "\\dfrac{2G}{Mc^2}", "\\dfrac{GM^2}{c^2}"], "correct": 0, "why": "$GM/r$ is a velocity squared (escape speed), so $GM/c^2$ is a length." },
-  { "course": "astrophysics", "q": "Free-fall (dynamical) time of a cloud of density $\\rho$", "unit": "s", "options": ["\\dfrac{1}{\\sqrt{G\\rho}}", "\\sqrt{G\\rho}", "\\dfrac{1}{G\\rho}", "\\sqrt{G/\\rho}"], "correct": 0, "why": "$[G\\rho]=\\mathrm{s^{-2}}$ (from $\\ddot r\\sim GM/r^2\\sim G\\rho r$): the inverse root is a time." },
-  { "course": "astrophysics", "q": "Eddington luminosity", "unit": "W", "options": ["\\dfrac{4\\pi GMm_pc}{\\sigma_T}", "\\dfrac{4\\pi GMm_p}{\\sigma_Tc}", "\\dfrac{4\\pi GMc}{m_p\\sigma_T}", "4\\pi GMm_pc\\,\\sigma_T"], "correct": 0, "why": "Balance $\\frac{L\\sigma_T}{4\\pi r^2c}=\\frac{GMm_p}{r^2}$: $L=\\frac{4\\pi GMm_pc}{\\sigma_T}$. $GMm_p$ is energy times length; times $c$ over an area is a power." },
-  { "course": "astrophysics", "q": "Jeans length (sound speed $c_s$)", "unit": "m", "options": ["\\sqrt{\\dfrac{\\pi c_s^2}{G\\rho}}", "\\sqrt{\\dfrac{\\pi c_s}{G\\rho}}", "\\dfrac{\\pi c_s^2}{G\\rho}", "\\sqrt{\\dfrac{G\\rho}{\\pi c_s^2}}"], "correct": 0, "why": "Sound speed times the free-fall time $1/\\sqrt{G\\rho}$: a length." },
-  { "course": "astrophysics", "q": "Radiation pressure ($a$ = radiation constant, $\\mathrm{J\\,m^{-3}K^{-4}}$)", "unit": "Pa", "options": ["\\dfrac{aT^4}{3}", "\\dfrac{aT^3}{3}", "\\dfrac{aT^4}{3c}", "\\dfrac{\\sigma T^4}{3}"], "correct": 0, "why": "$aT^4$ is an energy density, and pressure has the units of energy density. $\\sigma T^4$ is a flux ($\\mathrm{W/m^2}$): it differs by a velocity." },
-  { "course": "astrophysics", "q": "Hubble time", "unit": "s", "options": ["1/H_0", "H_0", "c/H_0", "H_0/c"], "correct": 0, "why": "$H_0$ is a velocity per distance, $\\mathrm{s^{-1}}$. $c/H_0$ is the Hubble length." },
-  { "course": "astrophysics", "q": "Critical density of the universe", "unit": "kg/m^3", "options": ["\\dfrac{3H_0^2}{8\\pi G}", "\\dfrac{3H_0}{8\\pi G}", "\\dfrac{8\\pi G}{3H_0^2}", "\\dfrac{3H_0^2G}{8\\pi}"], "correct": 0, "why": "$[G\\rho]=\\mathrm{s^{-2}}$ again: $\\rho\\sim H_0^2/G$." },
-  { "course": "astrophysics", "q": "Virial temperature of a gas cloud (mass $M$, radius $R$)", "unit": "K", "options": ["\\dfrac{GMm_p}{k_BR}", "\\dfrac{GM}{k_BR}", "\\dfrac{GMm_p}{k_BR^2}", "\\dfrac{k_BGMm_p}{R}"], "correct": 0, "why": "$k_BT\\sim$ gravitational energy per particle, $GMm_p/R$." },
-  { "course": "astrophysics", "q": "Mass scale of the Chandrasekhar limit", "unit": "kg", "options": ["\\left(\\dfrac{\\hbar c}{G}\\right)^{3/2}\\dfrac{1}{m_p^2}", "\\left(\\dfrac{\\hbar c}{G}\\right)^{1/2}\\dfrac{1}{m_p^2}", "\\left(\\dfrac{\\hbar c}{G}\\right)^{3/2}\\dfrac{1}{m_p}", "\\left(\\dfrac{\\hbar G}{c}\\right)^{3/2}\\dfrac{1}{m_p^2}"], "correct": 0, "why": "$\\hbar c/G$ is a mass squared (the Planck mass squared). To the power $3/2$ it is a mass cubed; divided by $m_p^2$ a mass." }
- ]
+  {
+   "course": "qm",
+   "q": "Energy of a quantum of the oscillator",
+   "unit": "J",
+   "options": [
+    "\\hbar\\omega",
+    "\\hbar/\\omega",
+    "\\hbar\\omega^2",
+    "m\\omega^2/\\hbar"
+   ],
+   "correct": 0,
+   "why": "$[\\hbar]=\\mathrm{J\\,s}$, $[\\omega]=\\mathrm{s^{-1}}$: only $\\hbar\\omega$ is an energy.",
+   "sym": [
+    "hbar",
+    "omega",
+    "m"
+   ]
+  },
+  {
+   "course": "qm",
+   "q": "de Broglie wavelength",
+   "unit": "m",
+   "options": [
+    "h/p",
+    "hp",
+    "p/h",
+    "h/(mc^2)"
+   ],
+   "correct": 0,
+   "why": "$[h]=\\mathrm{J\\,s}=\\mathrm{kg\\,m^2/s}$, $[p]=\\mathrm{kg\\,m/s}$: $h/p$ is a length. $h/(mc^2)$ is a time.",
+   "sym": [
+    "h",
+    "p",
+    "m",
+    "c"
+   ]
+  },
+  {
+   "course": "qm",
+   "q": "Decay constant $\\kappa$ inside a barrier",
+   "unit": "m^{-1}",
+   "options": [
+    "\\sqrt{2m(V_0-E)}/\\hbar",
+    "\\hbar\\sqrt{2m(V_0-E)}",
+    "2m(V_0-E)/\\hbar",
+    "\\hbar/\\sqrt{2m(V_0-E)}"
+   ],
+   "correct": 0,
+   "why": "$\\sqrt{2mE}$ is a momentum, and momentum over $\\hbar$ is a wave number. Without the root you get momentum squared over $\\hbar$.",
+   "sym": [
+    "m",
+    "E",
+    "hbar"
+   ]
+  },
+  {
+   "course": "qm",
+   "q": "Bohr radius",
+   "unit": "m",
+   "options": [
+    "\\dfrac{4\\pi\\epsilon_0\\hbar^2}{m_ee^2}",
+    "\\dfrac{m_ee^2}{4\\pi\\epsilon_0\\hbar^2}",
+    "\\dfrac{4\\pi\\epsilon_0\\hbar}{m_ee^2}",
+    "\\dfrac{e^2}{4\\pi\\epsilon_0\\hbar}"
+   ],
+   "correct": 0,
+   "why": "$e^2/4\\pi\\epsilon_0$ is energy times length. $\\hbar^2/m$ is energy times length squared. Their ratio is a length. The last option is a velocity ($\\alpha c$).",
+   "sym": [
+    "eps0",
+    "hbar",
+    "me",
+    "e"
+   ]
+  },
+  {
+   "course": "qm",
+   "q": "Ground-state energy of a box of width $a$",
+   "unit": "J",
+   "options": [
+    "\\dfrac{\\hbar^2\\pi^2}{2ma^2}",
+    "\\dfrac{\\hbar\\pi}{2ma^2}",
+    "\\dfrac{\\hbar^2\\pi^2}{2ma}",
+    "\\dfrac{\\hbar^2a^2}{2m}"
+   ],
+   "correct": 0,
+   "why": "$\\hbar k$ is a momentum with $k\\sim1/a$, and $p^2/2m$ is an energy: $\\hbar^2/(ma^2)$.",
+   "sym": [
+    "hbar",
+    "m",
+    "a"
+   ]
+  },
+  {
+   "course": "qm",
+   "q": "Oscillator length (width of the ground state)",
+   "unit": "m",
+   "options": [
+    "\\sqrt{\\hbar/(m\\omega)}",
+    "\\sqrt{m\\omega/\\hbar}",
+    "\\hbar/(m\\omega)",
+    "\\sqrt{\\hbar\\omega/m}"
+   ],
+   "correct": 0,
+   "why": "$\\hbar/(m\\omega)$ has units $\\mathrm{m^2}$, so the root is a length. $\\sqrt{\\hbar\\omega/m}$ is a velocity.",
+   "sym": [
+    "hbar",
+    "m",
+    "omega"
+   ]
+  },
+  {
+   "course": "qm",
+   "q": "Transition rate (golden rule), $\\rho(E)$ = states per energy",
+   "unit": "s^{-1}",
+   "options": [
+    "\\dfrac{2\\pi}{\\hbar}|V_{fi}|^2\\rho(E)",
+    "\\dfrac{2\\pi}{\\hbar}|V_{fi}|\\,\\rho(E)",
+    "2\\pi\\hbar\\,|V_{fi}|^2\\rho(E)",
+    "\\dfrac{2\\pi}{\\hbar^2}|V_{fi}|^2\\rho(E)"
+   ],
+   "correct": 0,
+   "why": "$|V|^2\\rho$ is energy$^2$ per energy = energy; energy over $\\hbar$ is a rate.",
+   "sym": [
+    "Vfi",
+    "rhoE",
+    "hbar"
+   ]
+  },
+  {
+   "course": "qm",
+   "q": "Bohr magneton",
+   "unit": "J/T",
+   "options": [
+    "\\dfrac{e\\hbar}{2m_e}",
+    "\\dfrac{e}{2m_e\\hbar}",
+    "\\dfrac{e\\hbar}{2m_ec}",
+    "\\dfrac{e^2\\hbar}{2m_e}"
+   ],
+   "correct": 0,
+   "why": "A magnetic moment is charge over mass times angular momentum: $\\frac{e}{m}\\hbar$. The version with $1/c$ is the Gaussian form and is off by a velocity in SI.",
+   "sym": [
+    "e",
+    "hbar",
+    "me",
+    "c"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Fermi energy of a free-electron gas of density $n$",
+   "unit": "J",
+   "options": [
+    "\\dfrac{\\hbar^2(3\\pi^2n)^{2/3}}{2m}",
+    "\\dfrac{\\hbar(3\\pi^2n)^{2/3}}{2m}",
+    "\\dfrac{\\hbar^2(3\\pi^2n)^{1/3}}{2m}",
+    "\\dfrac{\\hbar^2(3\\pi^2n)}{2m}"
+   ],
+   "correct": 0,
+   "why": "$k_F=(3\\pi^2n)^{1/3}$ is a wave number ($n$ is per volume), and $\\hbar^2k^2/2m$ is an energy: the power must be $2/3$.",
+   "sym": [
+    "hbar",
+    "n",
+    "m"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Drude conductivity",
+   "unit": "A/(V\\,m)",
+   "options": [
+    "\\dfrac{ne^2\\tau}{m}",
+    "\\dfrac{ne\\tau}{m}",
+    "\\dfrac{ne^2}{m\\tau}",
+    "\\dfrac{nem}{\\tau}"
+   ],
+   "correct": 0,
+   "why": "$j=nev$ and $v=\\frac{e\\tau}{m}E$: $\\sigma=ne\\cdot\\frac{e\\tau}{m}$. With one $e$ you have $n$ times the mobility divided by a charge.",
+   "sym": [
+    "n",
+    "e",
+    "tau",
+    "m"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Magnitude of the Hall coefficient",
+   "unit": "m^3/C",
+   "options": [
+    "\\dfrac{1}{ne}",
+    "ne",
+    "\\dfrac{e}{n}",
+    "\\dfrac{1}{ne^2}"
+   ],
+   "correct": 0,
+   "why": "$ne$ is a charge density, $\\mathrm{C/m^3}$; its inverse is volume per charge.",
+   "sym": [
+    "n",
+    "e"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Debye temperature",
+   "unit": "K",
+   "options": [
+    "\\dfrac{\\hbar v_s(6\\pi^2n)^{1/3}}{k_B}",
+    "\\dfrac{\\hbar v_s(6\\pi^2n)}{k_B}",
+    "\\dfrac{k_Bv_s(6\\pi^2n)^{1/3}}{\\hbar}",
+    "\\dfrac{\\hbar(6\\pi^2n)^{1/3}}{k_Bv_s}"
+   ],
+   "correct": 0,
+   "why": "$k_D=(6\\pi^2n)^{1/3}$ is a wave number, $v_sk_D$ a frequency, $\\hbar\\omega_D$ an energy, and energy over $k_B$ a temperature.",
+   "sym": [
+    "hbar",
+    "vs",
+    "n",
+    "kB"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Sound velocity of the monatomic chain (spring $C$, mass $M$, spacing $a$)",
+   "unit": "m/s",
+   "options": [
+    "a\\sqrt{C/M}",
+    "\\sqrt{C/M}",
+    "a\\sqrt{M/C}",
+    "aC/M"
+   ],
+   "correct": 0,
+   "why": "$[C]=\\mathrm{N/m}=\\mathrm{kg/s^2}$, so $\\sqrt{C/M}$ is a frequency; times a length gives a velocity.",
+   "sym": [
+    "a",
+    "C",
+    "M"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Electronic heat capacity per volume of a metal",
+   "unit": "J/(K\\,m^3)",
+   "options": [
+    "\\dfrac{\\pi^2}{2}nk_B\\dfrac{T}{T_F}",
+    "\\dfrac{\\pi^2}{2}nk_B^2\\dfrac{T}{T_F}",
+    "\\dfrac{\\pi^2}{2}nk_BT\\,T_F",
+    "\\dfrac{\\pi^2}{2}\\dfrac{k_BT}{nT_F}"
+   ],
+   "correct": 0,
+   "why": "$nk_B$ already has the units of a heat capacity per volume; $T/T_F$ is a pure number (the fraction of electrons that can be excited).",
+   "sym": [
+    "n",
+    "kB",
+    "T"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Cyclotron frequency",
+   "unit": "s^{-1}",
+   "options": [
+    "\\dfrac{eB}{m^*}",
+    "eBm^*",
+    "\\dfrac{e}{Bm^*}",
+    "\\dfrac{B}{em^*}"
+   ],
+   "correct": 0,
+   "why": "Force $evB$ = $m^*v\\omega$: $\\omega=eB/m^*$. Check: $[eB]=\\mathrm{C\\,T}=\\mathrm{kg/s}$.",
+   "sym": [
+    "e",
+    "B",
+    "mstar"
+   ]
+  },
+  {
+   "course": "solid-state",
+   "q": "Width of the depletion layer of a p–n junction",
+   "unit": "m",
+   "options": [
+    "\\sqrt{\\dfrac{2\\epsilon\\epsilon_0V}{e}\\dfrac{N_A+N_D}{N_AN_D}}",
+    "\\dfrac{2\\epsilon\\epsilon_0V}{e}\\dfrac{N_A+N_D}{N_AN_D}",
+    "\\sqrt{\\dfrac{2\\epsilon\\epsilon_0eV}{N_A+N_D}}",
+    "\\sqrt{\\dfrac{eN_AN_D}{2\\epsilon\\epsilon_0V(N_A+N_D)}}"
+   ],
+   "correct": 0,
+   "why": "Poisson: $V\\sim\\frac{eN}{\\epsilon\\epsilon_0}w^2$, so $w^2\\sim\\frac{\\epsilon\\epsilon_0V}{eN}$: the expression without the root is an area, the last one an inverse length.",
+   "sym": [
+    "eps",
+    "eps0",
+    "V",
+    "e",
+    "NAD"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Schwarzschild radius",
+   "unit": "m",
+   "options": [
+    "\\dfrac{2GM}{c^2}",
+    "\\dfrac{2GM}{c}",
+    "\\dfrac{2G}{Mc^2}",
+    "\\dfrac{GM^2}{c^2}"
+   ],
+   "correct": 0,
+   "why": "$GM/r$ is a velocity squared (escape speed), so $GM/c^2$ is a length.",
+   "sym": [
+    "G",
+    "M",
+    "c"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Free-fall (dynamical) time of a cloud of density $\\rho$",
+   "unit": "s",
+   "options": [
+    "\\dfrac{1}{\\sqrt{G\\rho}}",
+    "\\sqrt{G\\rho}",
+    "\\dfrac{1}{G\\rho}",
+    "\\sqrt{G/\\rho}"
+   ],
+   "correct": 0,
+   "why": "$[G\\rho]=\\mathrm{s^{-2}}$ (from $\\ddot r\\sim GM/r^2\\sim G\\rho r$): the inverse root is a time.",
+   "sym": [
+    "G",
+    "rho"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Eddington luminosity",
+   "unit": "W",
+   "options": [
+    "\\dfrac{4\\pi GMm_pc}{\\sigma_T}",
+    "\\dfrac{4\\pi GMm_p}{\\sigma_Tc}",
+    "\\dfrac{4\\pi GMc}{m_p\\sigma_T}",
+    "4\\pi GMm_pc\\,\\sigma_T"
+   ],
+   "correct": 0,
+   "why": "Balance $\\frac{L\\sigma_T}{4\\pi r^2c}=\\frac{GMm_p}{r^2}$: $L=\\frac{4\\pi GMm_pc}{\\sigma_T}$. $GMm_p$ is energy times length; times $c$ over an area is a power.",
+   "sym": [
+    "G",
+    "M",
+    "mp",
+    "c",
+    "sigT"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Jeans length (sound speed $c_s$)",
+   "unit": "m",
+   "options": [
+    "\\sqrt{\\dfrac{\\pi c_s^2}{G\\rho}}",
+    "\\sqrt{\\dfrac{\\pi c_s}{G\\rho}}",
+    "\\dfrac{\\pi c_s^2}{G\\rho}",
+    "\\sqrt{\\dfrac{G\\rho}{\\pi c_s^2}}"
+   ],
+   "correct": 0,
+   "why": "Sound speed times the free-fall time $1/\\sqrt{G\\rho}$: a length.",
+   "sym": [
+    "cs",
+    "G",
+    "rho"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Radiation pressure ($a$ = radiation constant, $\\mathrm{J\\,m^{-3}K^{-4}}$)",
+   "unit": "Pa",
+   "options": [
+    "\\dfrac{aT^4}{3}",
+    "\\dfrac{aT^3}{3}",
+    "\\dfrac{aT^4}{3c}",
+    "\\dfrac{\\sigma T^4}{3}"
+   ],
+   "correct": 0,
+   "why": "$aT^4$ is an energy density, and pressure has the units of energy density. $\\sigma T^4$ is a flux ($\\mathrm{W/m^2}$): it differs by a velocity.",
+   "sym": [
+    "arad",
+    "T",
+    "c",
+    "sigSB"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Hubble time",
+   "unit": "s",
+   "options": [
+    "1/H_0",
+    "H_0",
+    "c/H_0",
+    "H_0/c"
+   ],
+   "correct": 0,
+   "why": "$H_0$ is a velocity per distance, $\\mathrm{s^{-1}}$. $c/H_0$ is the Hubble length.",
+   "sym": [
+    "H0",
+    "c"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Critical density of the universe",
+   "unit": "kg/m^3",
+   "options": [
+    "\\dfrac{3H_0^2}{8\\pi G}",
+    "\\dfrac{3H_0}{8\\pi G}",
+    "\\dfrac{8\\pi G}{3H_0^2}",
+    "\\dfrac{3H_0^2G}{8\\pi}"
+   ],
+   "correct": 0,
+   "why": "$[G\\rho]=\\mathrm{s^{-2}}$ again: $\\rho\\sim H_0^2/G$.",
+   "sym": [
+    "H0",
+    "G"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Virial temperature of a gas cloud (mass $M$, radius $R$)",
+   "unit": "K",
+   "options": [
+    "\\dfrac{GMm_p}{k_BR}",
+    "\\dfrac{GM}{k_BR}",
+    "\\dfrac{GMm_p}{k_BR^2}",
+    "\\dfrac{k_BGMm_p}{R}"
+   ],
+   "correct": 0,
+   "why": "$k_BT\\sim$ gravitational energy per particle, $GMm_p/R$.",
+   "sym": [
+    "G",
+    "M",
+    "mp",
+    "kB",
+    "R"
+   ]
+  },
+  {
+   "course": "astrophysics",
+   "q": "Mass scale of the Chandrasekhar limit",
+   "unit": "kg",
+   "options": [
+    "\\left(\\dfrac{\\hbar c}{G}\\right)^{3/2}\\dfrac{1}{m_p^2}",
+    "\\left(\\dfrac{\\hbar c}{G}\\right)^{1/2}\\dfrac{1}{m_p^2}",
+    "\\left(\\dfrac{\\hbar c}{G}\\right)^{3/2}\\dfrac{1}{m_p}",
+    "\\left(\\dfrac{\\hbar G}{c}\\right)^{3/2}\\dfrac{1}{m_p^2}"
+   ],
+   "correct": 0,
+   "why": "$\\hbar c/G$ is a mass squared (the Planck mass squared). To the power $3/2$ it is a mass cubed; divided by $m_p^2$ a mass.",
+   "sym": [
+    "hbar",
+    "c",
+    "G",
+    "mp"
+   ]
+  }
+ ],
+ "symbols": {
+  "hbar": [
+   "\\hbar",
+   "J\\,s=kg\\,m^2\\,s^{-1}",
+   "reduced Planck constant"
+  ],
+  "h": [
+   "h",
+   "J\\,s",
+   "Planck constant"
+  ],
+  "omega": [
+   "\\omega",
+   "s^{-1}",
+   "angular frequency"
+  ],
+  "m": [
+   "m",
+   "kg",
+   "mass"
+  ],
+  "me": [
+   "m_e",
+   "kg",
+   "electron mass"
+  ],
+  "p": [
+   "p",
+   "kg\\,m\\,s^{-1}",
+   "momentum"
+  ],
+  "c": [
+   "c",
+   "m\\,s^{-1}",
+   "speed of light"
+  ],
+  "E": [
+   "E,\\ V_0",
+   "J",
+   "energies"
+  ],
+  "a": [
+   "a",
+   "m",
+   "length"
+  ],
+  "eps0": [
+   "\\epsilon_0",
+   "C^2\\,J^{-1}\\,m^{-1}=F\\,m^{-1}",
+   "vacuum permittivity"
+  ],
+  "e": [
+   "e",
+   "C",
+   "elementary charge"
+  ],
+  "Vfi": [
+   "V_{fi}",
+   "J",
+   "matrix element of an energy"
+  ],
+  "rhoE": [
+   "\\rho(E)",
+   "J^{-1}",
+   "states per energy"
+  ],
+  "B": [
+   "B",
+   "T=kg\\,C^{-1}\\,s^{-1}",
+   "magnetic field"
+  ],
+  "n": [
+   "n",
+   "m^{-3}",
+   "number density"
+  ],
+  "tau": [
+   "\\tau",
+   "s",
+   "scattering time"
+  ],
+  "kB": [
+   "k_B",
+   "J\\,K^{-1}",
+   "Boltzmann constant"
+  ],
+  "vs": [
+   "v_s",
+   "m\\,s^{-1}",
+   "sound velocity"
+  ],
+  "C": [
+   "C",
+   "N\\,m^{-1}=kg\\,s^{-2}",
+   "spring constant"
+  ],
+  "M": [
+   "M",
+   "kg",
+   "mass"
+  ],
+  "T": [
+   "T,\\ T_F",
+   "K",
+   "temperatures"
+  ],
+  "mstar": [
+   "m^*",
+   "kg",
+   "effective mass"
+  ],
+  "eps": [
+   "\\epsilon",
+   "1",
+   "relative permittivity (no unit)"
+  ],
+  "V": [
+   "V",
+   "V=J\\,C^{-1}",
+   "voltage"
+  ],
+  "NAD": [
+   "N_A,\\ N_D",
+   "m^{-3}",
+   "dopant densities"
+  ],
+  "G": [
+   "G",
+   "m^3\\,kg^{-1}\\,s^{-2}",
+   "gravitational constant"
+  ],
+  "rho": [
+   "\\rho",
+   "kg\\,m^{-3}",
+   "mass density"
+  ],
+  "mp": [
+   "m_p",
+   "kg",
+   "proton mass"
+  ],
+  "sigT": [
+   "\\sigma_T",
+   "m^2",
+   "Thomson cross-section"
+  ],
+  "cs": [
+   "c_s",
+   "m\\,s^{-1}",
+   "sound speed"
+  ],
+  "arad": [
+   "a",
+   "J\\,m^{-3}\\,K^{-4}",
+   "radiation constant"
+  ],
+  "sigSB": [
+   "\\sigma",
+   "W\\,m^{-2}\\,K^{-4}",
+   "Stefan–Boltzmann constant"
+  ],
+  "H0": [
+   "H_0",
+   "s^{-1}\\ (km\\,s^{-1}\\,Mpc^{-1})",
+   "Hubble constant"
+  ],
+  "R": [
+   "R,\\ r",
+   "m",
+   "radius"
+  ]
+ }
 }

@@ -131,3 +131,11 @@ the battle bar's first-try detection is heuristic; action stops are not in the "
 | **Sheet-only fights**: in solid-state and astro fights the Cards button is "My summary" (only pinned formulas, free to use; adding a missing one counts like a hint) | `main.js` (battle cards for `cid !== 'qm'`), `battle.js` `drawSummary` | |
 | Notifications follow the campaign (`flags.campaignStat` → `deploy/notify.py` `campaign_message`); `?suggest=run`, `?run=1` | `campaignui.js` `stat`, `notify.py`, `serve.py` | add tests to `deploy/test_notify.py` for the four campaign slots |
 Not built: formula locks on QM doors (needs the door logic in `world.js`/`main.js`; do it with a Forge card, not typed LaTeX).
+
+## Derivations screen (Practice → Derivations), 2026-11-17
+Ten QM derivations the old exams ask most (`notes/quantum-mechanics/build/derivations/build.py` → `game/content/qm/derivations.json`,
+priority from `content/radar.json`), each with: ladder (order the lines → fill the gaps → write from the moves → blank page, one rung per
+visit, `flags.derivs`), moves, "why is this step allowed?", a variant with one assumption changed, backwards, and a two-minute outline.
+The run adds a `@deriv` stop (runs of 40 minutes or more). `node game/test/derivs-check.mjs` checks the content and LaTeX.
+To do: check the notation against the QM25 script; add more derivations (time evolution of spin in a field, 3D oscillator, hydrogen
+radial equation, Clebsch–Gordan for 1⊗½, golden rule); the ladder's "order" rung was only boot-checked.

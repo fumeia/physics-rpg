@@ -8,8 +8,8 @@ import { EST_MIN } from './campaign.js';
 import { meanRetention, fading, forecast } from './memory.js';
 
 const ACT_ICON = { hunt: '\u2620', explain: '\u275d', blitz: '\u26a1' };
-const ICON = { forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8' };
-const KIND = { forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Warm-up', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend' };
+const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8' };
+const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Warm-up', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend' };
 const LENGTHS = [[20, 'Short'], [45, 'Normal'], [90, 'Long']];
 const GHOST = '<svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M2 21V9a8 8 0 0 1 16 0v12l-3-2.5-2.5 2.5-2.5-2.5L7.5 21 5 18.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.6" fill="#0b0d12"/><circle cx="12.5" cy="9" r="1.6" fill="#0b0d12"/></svg>';
 const esc = (s) => String(s).replace(/</g, '&lt;');
@@ -77,6 +77,7 @@ export function createCampaign(ctx) {
     const act = (id, kind, action, why, at) => r.stops.splice(at, 0, { id, kind, action, min: 5, why });
     if (!r.stops.some((s) => s.kind === 'warmup' || s.kind === 'defend') && r.stops.length) act('@blitz', 'blitz', new Date().getDate() % 2 ? 'units' : 'drills', new Date().getDate() % 2 ? 'Warm up with the units duel: which expression can be right by its units?' : 'Nothing is due: one minute of quick recall to warm up', 0);
     const openM = ctx.mistakes().filter((m) => m.open).length; if (openM && minutes >= 40) act('@hunt', 'hunt', 'mistakes', `${openM} open mistake${openM === 1 ? '' : 's'} in your log: look at one and say what went wrong`, Math.min(1, r.stops.length));
+    const nd = minutes >= 40 && ctx.nextDeriv(); if (nd) act('@deriv', 'deriv', 'derivs', `QM derivation ladder: the next rung of \u201c${String(nd).replace(/<[^>]+>|\$/g, '')}\u201d`, Math.min(2, r.stops.length));
     const fd = ctx.forgeDue(); if (fd) act('@forge', 'forge', 'forge', `QM by heart: ${fd} formula${fd === 1 ? '' : 's'} due in the Forge (write from memory, two minutes)`, Math.min(1, r.stops.length));
     const ti = r.stops.findIndex((s) => s.kind === 'theory'); if (ti >= 0 && minutes >= 40) act('@explain', 'explain', 'feynman', 'Explain what you just read in your own words, without looking', ti + 1);
     r.minutes = r.stops.reduce((a, s) => a + s.min, 0);

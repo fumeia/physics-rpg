@@ -491,3 +491,4 @@ html[data-theme=light] .dv-row { border-color: rgba(0,0,0,.2); } html[data-theme
 .ud-syms { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; } .ud-syms .src { flex-basis: 100%; }
 .ud-sym { display: inline-flex; align-items: baseline; gap: 6px; padding: 3px 9px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; background: rgba(255,255,255,.03); } .ud-sym b { font-weight: 400; } .ud-sym small { opacity: .65; font-size: 11px; }
 html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
+.ud-hint { margin: 4px 0 8px; font-size: 14px; } .ud-hint summary { cursor: pointer; color: var(--warn); font-size: 13px; } .ud-hint .src { margin-top: 3px; }

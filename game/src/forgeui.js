@@ -90,6 +90,7 @@ export function renderUnits(host, ctx) {
     clearInterval(timer); const it = items[order[i % order.length]]; perm = it.options.map((_, k) => k).sort(() => Math.random() - 0.5); answered = false; t0 = Date.now(); const L = log();
     host.innerHTML = `<div class="fg-head"><div><b>${right}</b><span>right this round</span></div><div><b>${streak}</b><span>in a row (best ${L.best})</span></div><div><b data-ut>${seconds}</b><span>seconds</span></div><div><span>all time: ${L.right} of ${L.total}</span></div></div>
       <div class="fg-card"><div class="src">${esc(ctx.courseName(it.course))} \u00b7 which expression can be right? Decide by the units alone.</div><h3>${M(it.q)} <span class="ud-unit">${M(`$[\\mathrm{${it.unit}}]$`)}</span></h3>
+      ${it.meaning ? `<details class="ud-hint"><summary>Hint: what is this quantity?</summary>${M(it.meaning)}${it.ref ? `<div class="src">Read: ${esc(it.ref)}</div>` : ''}</details>` : ''}
       <div class="ud-opts">${perm.map((k) => `<button class="opt ud-opt" data-uk="${k}">${M(`$${it.options[k]}$`)}</button>`).join('')}</div><div data-uwhy></div></div>`;
     const done = (k) => { if (answered) return; answered = true; clearInterval(timer); const ok = k === it.correct, L2 = log(); streak = ok ? streak + 1 : 0; if (ok) { right++; store.addXp(2); }
       store.setVal('unitsLog', { right: L2.right + (ok ? 1 : 0), total: L2.total + 1, best: Math.max(L2.best, streak) });

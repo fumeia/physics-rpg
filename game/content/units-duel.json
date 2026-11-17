@@ -1,5 +1,5 @@
 {
- "about": "Units duel: the unit of the result is given; exactly one of four expressions can be right by dimensions alone. Trains the dimension check as a reflex. 75 seconds per question. SI units throughout. After each answer the units of every symbol in the question are listed (symbols table).",
+ "about": "Units duel: the unit of the result is given; exactly one of four expressions can be right by dimensions alone. Trains the dimension check as a reflex. 75 seconds per question. SI units throughout. After each answer the units of every symbol in the question are listed (symbols table). Each question has a 'meaning' hint (what the quantity is, without units) with the script section.",
  "seconds": 75,
  "items": [
   {
@@ -18,7 +18,9 @@
     "hbar",
     "omega",
     "m"
-   ]
+   ],
+   "meaning": "The energy step between neighbouring levels of the harmonic oscillator: what one excitation (one quantum of that frequency) carries.",
+   "ref": "QM25 script (Gaberdiel), §6.1"
   },
   {
    "course": "qm",
@@ -37,7 +39,9 @@
     "p",
     "m",
     "c"
-   ]
+   ],
+   "meaning": "The wavelength of the wave that belongs to a particle of given momentum: the larger the momentum, the shorter the wave.",
+   "ref": "QM25 script (Gaberdiel), §1.5"
   },
   {
    "course": "qm",
@@ -55,7 +59,9 @@
     "m",
     "E",
     "hbar"
-   ]
+   ],
+   "meaning": "Inside a barrier higher than the energy, the wave function does not oscillate but decays; $\\kappa$ says how fast, and $1/\\kappa$ is how deep the particle reaches into the barrier.",
+   "ref": "QM25 script (Gaberdiel), ch. 3 (step and barrier)"
   },
   {
    "course": "qm",
@@ -74,7 +80,9 @@
     "hbar",
     "me",
     "e"
-   ]
+   ],
+   "meaning": "The radius of the lowest orbit in Bohr’s hydrogen model: the natural size of atoms, where the Coulomb attraction balances the cost of confining the electron.",
+   "ref": "QM25 script (Gaberdiel), §1.2"
   },
   {
    "course": "qm",
@@ -92,7 +100,9 @@
     "hbar",
     "m",
     "a"
-   ]
+   ],
+   "meaning": "The lowest energy of a particle trapped between two infinitely high walls. It is never zero: confinement forces a minimum momentum.",
+   "ref": "QM25 script (Gaberdiel), infinite square well"
   },
   {
    "course": "qm",
@@ -110,7 +120,9 @@
     "hbar",
     "m",
     "omega"
-   ]
+   ],
+   "meaning": "How far the Gaussian ground state of the oscillator spreads out; every oscillator wave function is measured in this length.",
+   "ref": "QM25 script (Gaberdiel), §6.1"
   },
   {
    "course": "qm",
@@ -128,7 +140,9 @@
     "Vfi",
     "rhoE",
     "hbar"
-   ]
+   ],
+   "meaning": "How quickly a weak perturbation drives a system from its initial state into a continuum of final states (Fermi’s golden rule).",
+   "ref": "QM25 script (Gaberdiel), §11.3.4"
   },
   {
    "course": "qm",
@@ -147,7 +161,9 @@
     "hbar",
     "me",
     "c"
-   ]
+   ],
+   "meaning": "The natural size of an electron’s magnetic moment: the moment of an electron carrying one quantum of angular momentum.",
+   "ref": "QM25 script (Gaberdiel), §9.6.1"
   },
   {
    "course": "solid-state",
@@ -165,7 +181,9 @@
     "hbar",
     "n",
     "m"
-   ]
+   ],
+   "meaning": "The energy of the highest occupied electron state at zero temperature, when all electrons fill the lowest states two by two (Pauli).",
+   "ref": "solid-state script (Degen 2026), §3.1.3"
   },
   {
    "course": "solid-state",
@@ -184,7 +202,9 @@
     "e",
     "tau",
     "m"
-   ]
+   ],
+   "meaning": "How much current flows per applied field when electrons are accelerated by the field and lose their momentum in collisions every $\\tau$ on average.",
+   "ref": "solid-state script (Degen 2026), §4.1.1"
   },
   {
    "course": "solid-state",
@@ -201,7 +221,9 @@
    "sym": [
     "n",
     "e"
-   ]
+   ],
+   "meaning": "The transverse (Hall) field per current density and magnetic field. Its sign tells the sign of the carriers, its size their density.",
+   "ref": "solid-state script (Degen 2026), §4.1.2"
   },
   {
    "course": "solid-state",
@@ -220,7 +242,9 @@
     "vs",
     "n",
     "kB"
-   ]
+   ],
+   "meaning": "The temperature that belongs to the highest phonon frequency of the Debye model: far above it every mode is excited (Dulong–Petit), far below it the heat capacity grows like $T^3$.",
+   "ref": "solid-state script (Degen 2026), §2.4.2–2.4.3"
   },
   {
    "course": "solid-state",
@@ -238,7 +262,9 @@
     "a",
     "C",
     "M"
-   ]
+   ],
+   "meaning": "The slope of the acoustic branch $\\omega(k)$ at small $k$: how fast long-wavelength vibrations (sound) run along a chain of masses joined by springs.",
+   "ref": "solid-state script (Degen 2026), §2.2"
   },
   {
    "course": "solid-state",
@@ -256,7 +282,9 @@
     "n",
     "kB",
     "T"
-   ]
+   ],
+   "meaning": "The heat that warms the conduction electrons per volume and per degree. Only electrons within about $k_BT$ of the Fermi energy can take up energy.",
+   "ref": "solid-state script (Degen 2026), §3.1.4"
   },
   {
    "course": "solid-state",
@@ -274,7 +302,9 @@
     "e",
     "B",
     "mstar"
-   ]
+   ],
+   "meaning": "The angular frequency at which a carrier circles in a magnetic field; resonant absorption at this frequency measures the effective mass.",
+   "ref": "solid-state script (Degen 2026), §5.1.3"
   },
   {
    "course": "solid-state",
@@ -294,7 +324,9 @@
     "V",
     "e",
     "NAD"
-   ]
+   ],
+   "meaning": "The thickness of the region around a p–n interface that is emptied of free carriers; the fixed ionised dopants left there carry the built-in voltage.",
+   "ref": "solid-state script (Degen 2026), §5.4.3"
   },
   {
    "course": "astrophysics",
@@ -312,7 +344,9 @@
     "G",
     "M",
     "c"
-   ]
+   ],
+   "meaning": "The radius at which the escape speed from a mass equals the speed of light: the horizon of a non-rotating black hole.",
+   "ref": "Choudhuri, §9.4"
   },
   {
    "course": "astrophysics",
@@ -329,7 +363,9 @@
    "sym": [
     "G",
     "rho"
-   ]
+   ],
+   "meaning": "How long a cloud without pressure needs to collapse under its own gravity; it depends only on its density.",
+   "ref": "Choudhuri, star formation (Jeans criterion)"
   },
   {
    "course": "astrophysics",
@@ -349,7 +385,9 @@
     "mp",
     "c",
     "sigT"
-   ]
+   ],
+   "meaning": "The luminosity at which the push of radiation on electrons (Thomson scattering) balances gravity on the protons; brighter objects blow away their outer layers.",
+   "ref": "Choudhuri, §3.6"
   },
   {
    "course": "astrophysics",
@@ -367,7 +405,9 @@
     "cs",
     "G",
     "rho"
-   ]
+   ],
+   "meaning": "The smallest size of a region that collapses under its own gravity despite its pressure: larger perturbations grow, smaller ones just oscillate as sound waves.",
+   "ref": "Choudhuri, §11.9"
   },
   {
    "course": "astrophysics",
@@ -386,7 +426,9 @@
     "T",
     "c",
     "sigSB"
-   ]
+   ],
+   "meaning": "The pressure exerted by blackbody radiation (a photon gas in thermal equilibrium); it matters in the most massive stars.",
+   "ref": "Choudhuri, §2.4"
   },
   {
    "course": "astrophysics",
@@ -403,7 +445,9 @@
    "sym": [
     "H0",
     "c"
-   ]
+   ],
+   "meaning": "Roughly the age of the universe if it had always expanded at today’s rate: the time galaxies needed to reach their present separations.",
+   "ref": "Choudhuri, ch. 10"
   },
   {
    "course": "astrophysics",
@@ -420,7 +464,9 @@
    "sym": [
     "H0",
     "G"
-   ]
+   ],
+   "meaning": "The density at which the universe is spatially flat: the dividing line between expanding forever and recollapsing (without a cosmological constant).",
+   "ref": "Choudhuri, ch. 10"
   },
   {
    "course": "astrophysics",
@@ -440,7 +486,9 @@
     "mp",
     "kB",
     "R"
-   ]
+   ],
+   "meaning": "The temperature a self-gravitating gas cloud must have so that the thermal energy of its particles balances its gravitational binding (virial theorem).",
+   "ref": "Choudhuri, §3.2"
   },
   {
    "course": "astrophysics",
@@ -459,7 +507,9 @@
     "c",
     "G",
     "mp"
-   ]
+   ],
+   "meaning": "The largest mass a star held up by degenerate electron pressure can have; above it, relativistic degenerate electrons can no longer resist gravity.",
+   "ref": "Choudhuri, §5.2–5.3"
   }
  ],
  "symbols": {

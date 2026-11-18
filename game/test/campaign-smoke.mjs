@@ -28,7 +28,7 @@ ck('top bar shows the run', /0\/\d/.test(await p.textContent('#btn-run')), await
   const encStops = await p.evaluate(() => { const ids = new Set(window.__game.catalog().flatMap((c) => c.rooms.flatMap((r) => r.encounters.map((e) => e.id)))); return [...document.querySelectorAll('.cp-node')].map((x) => x.dataset.stop).filter((id) => ids.has(id)); });
   const first = await p.$(`.cp-node[data-stop="${encStops[0]}"]`); if (first) await first.click(); await p.waitForTimeout(2000);
   const bar = await p.evaluate(() => document.querySelector('#panel .pilebar')?.textContent || '');
-  ck('a run stop opens inside the run queue', /run 1 \/ /.test(bar), bar.slice(0, 120));
+  ck('a run stop opens inside the run queue, showing the whole run (all stops, its length)', /Today’s run: \d+ of \d+ stops done \(\d+ min run\)/.test(bar), bar.slice(0, 120));
   await p.evaluate(() => window.__game.close()); await p.keyboard.press('KeyC'); await p.waitForTimeout(300);
 }
 await p.click('[data-week="solid-state/5"]'); await p.waitForTimeout(150);
@@ -56,7 +56,7 @@ for (const a of acts) { await p.evaluate((id) => document.querySelector(`.cp-nod
   await p.keyboard.press('Escape'); await p.waitForTimeout(100); await p.keyboard.press('KeyC'); await p.waitForTimeout(250); }
 ck('practice stops are ticked once opened', await p.evaluate((n) => document.querySelectorAll('.cp-node.done').length === n, acts.length));
 await p.click('#cp-start'); await p.waitForTimeout(700);
-ck('the run opens its first exercise with a position bar', await p.evaluate(() => /run 1 \/ \d/.test(document.querySelector('.pilebar')?.innerText || '')), await p.evaluate(() => document.querySelector('.pilebar')?.innerText));
+ck('the run opens its first exercise with a progress bar of the whole run', await p.evaluate(() => /Today’s run: \d+ of \d+ stops done/.test(document.querySelector('.pilebar')?.innerText || '')), await p.evaluate(() => document.querySelector('.pilebar')?.innerText));
 ck('the exercise is a fight: enemy with HP and your focus', await p.evaluate(() => !!document.querySelector('.battle .bt-hp') && !!document.querySelector('.battle .bt-fo')));
 for (const id of encs) { await p.evaluate((x) => window.__game.finish(x, true, 10), id); await p.waitForTimeout(120); }
 ck('top bar counts the stops', /Run done/.test(await p.textContent('#btn-run')), await p.textContent('#btn-run'));

@@ -594,11 +594,17 @@ let derivItems = [], derivStart = null; // derivStart: {id, mode} the run asks t
 let unitsDuel = { items: [], seconds: 75 }; // content/units-duel.json
 let forgeItems = []; // QM formulas to know by heart (content/qm/forge.json)
 let campaign = null; // catch-up campaign and daily run (campaignui.js)
+// the position shown above an exercise in a queue; for today's run the run's own progress (all stops, also the practice ones
+// that are not exercises), so a long run does not look like "1 / 5"
+function queueText(qi) {
+  if (queueLabel === 'Today\u2019s run' && campaign) { try { const { done, total, r } = campaign.runInfo(); return `Today\u2019s run${r.n > 1 ? ` #${r.n}` : ''}: ${done} of ${total} stops done (${r.minutes || r.est} min run)`; } catch { /* fall back */ } }
+  return `${queueLabel} ${qi + 1} / ${pileQueue.length}`;
+}
 function pileBar(enc) {
   const bar = document.createElement('div'); bar.className = 'pilebar';
   const render = () => {
     const on = inPile(enc.id), qi = pileQueue.indexOf(enc.id), p = pile()[enc.id];
-    bar.innerHTML = `<button class="chip btn pilebtn${on ? ' on' : ''}" title="Keep this exercise in your personal pile, to look at again whenever you want (V opens the pile)">${on ? '★ In my pile' : '☆ Keep for later'}</button>${on ? `<input class="pilenote" maxlength="140" placeholder="why keep it? (optional note)" value="${(p.note || '').replace(/"/g, '&quot;')}">` : ''}${qi >= 0 ? `<span class="src">${queueLabel} ${qi + 1} / ${pileQueue.length}</span> ${qi + 1 < pileQueue.length ? '<button class="go pilenext">Next →</button>' : '<span class="src">last one</span>'}` : ''}`;
+    bar.innerHTML = `<button class="chip btn pilebtn${on ? ' on' : ''}" title="Keep this exercise in your personal pile, to look at again whenever you want (V opens the pile)">${on ? '★ In my pile' : '☆ Keep for later'}</button>${on ? `<input class="pilenote" maxlength="140" placeholder="why keep it? (optional note)" value="${(p.note || '').replace(/"/g, '&quot;')}">` : ''}${qi >= 0 ? `<span class="src">${queueText(qi)}</span> ${qi + 1 < pileQueue.length ? '<button class="go pilenext">Next →</button>' : '<span class="src">last one</span>'}` : ''}`;
     bar.querySelector('.pilebtn').onclick = () => { togglePile(enc.id); render(); };
     const note = bar.querySelector('.pilenote'); if (note) { note.onkeydown = (e) => e.stopPropagation(); note.onchange = () => { const q = { ...pile() }; if (q[enc.id]) { q[enc.id] = { ...q[enc.id], note: note.value }; store.setVal('pile', q); } }; }
     const nx = bar.querySelector('.pilenext'); if (nx) nx.onclick = () => openFromPile(pileQueue[qi + 1], true);

@@ -24,8 +24,8 @@ const shuffle = (n, seed) => { const a = [...Array(n).keys()]; let s = seed >>> 
 export function runDeriv(items, day = new Date().getDate()) {
   const x = nextDeriv(items); if (!x) return null; const lv = lvOf(x.id);
   const late = x.asked?.length ? ['why', 'asked', 'variant', 'back', 'outline'] : ['why', 'variant', 'back', 'outline'];
-  const mode = lv < 4 ? (lv >= 2 && day % 3 === 0 ? (x.asked?.length && day % 2 ? 'asked' : 'variant') : 'ladder') : late[day % late.length];
-  const label = { ladder: `rung ${lv + 1} of the ladder`, variant: 'change one assumption', why: 'why is this step allowed?', back: 'backwards', outline: 'two-minute outline', asked: 'as asked in the exam, against the clock' }[mode];
+  const mode = !prog()[x.id] ? 'walk' : lv < 4 ? (lv >= 2 && day % 3 === 0 ? (x.asked?.length && day % 2 ? 'asked' : 'variant') : 'ladder') : late[day % late.length];
+  const label = { ladder: `rung ${lv + 1} of the ladder`, variant: 'change one assumption', why: 'why is this step allowed?', back: 'backwards', outline: 'two-minute outline', asked: 'as asked in the exam, against the clock', walk: 'walk-through: understand it line by line first' }[mode];
   return { id: x.id, title: x.title, mode, label };
 }
 export function nextDeriv(items) { return items.filter((d) => lvOf(d.id) < 4 || keep(d.id) < 0.6).sort((a, b) => b.exam.count - a.exam.count || lvOf(a.id) - lvOf(b.id))[0] || null; }
@@ -41,7 +41,7 @@ export function renderDerivs(host, ctx) {
       <div class="dv-map">${items.map((x) => { const lv = lvOf(x.id), k = keep(x.id); return `<button class="dv-row" data-open="${x.id}"><span class="dv-t">${M(x.title)}</span><span class="dv-ex" title="${esc(x.exam.label)}">${x.exam.count}/${x.exam.of}</span><span class="dv-rungs">${[0, 1, 2, 3].map((i) => `<i class="${i < lv ? 'on' : ''}"></i>`).join('')}</span><span class="fg-bar" title="how well you probably still remember it"><i style="width:${Math.round(100 * k)}%"></i></span></button>`; }).join('')}</div>`;
   }
   function detailHtml() {
-    const x = d(), lv = lvOf(x.id), tabs = [['ladder', `Ladder (rung ${Math.min(4, lv + 1)})`], ['moves', 'Moves'], ['why', 'Why?'], ['variant', 'Change one assumption'], ['back', 'Backwards'], ['outline', 'Two minutes']].concat(x.asked?.length ? [['asked', 'As asked in the exam']] : []);
+    const x = d(), lv = lvOf(x.id), tabs = [['walk', 'Walk me through it'], ['ladder', `Ladder (rung ${Math.min(4, lv + 1)})`], ['moves', 'Moves'], ['why', 'Why?'], ['variant', 'Change one assumption'], ['back', 'Backwards'], ['outline', 'Two minutes']].concat(x.asked?.length ? [['asked', 'As asked in the exam']] : []);
     return `<div class="row"><button class="chip btn" data-map>\u2190 All derivations</button><span class="src">${esc(x.exam.label)}: in ${x.exam.count} of ${x.exam.of} old exams</span></div>
       <h3 class="dv-title">${M(x.title)}</h3>${whereHtml(x)}<div class="row studytabs">${tabs.map(([k, l]) => `<button class="chip btn${mode === k ? ' cur' : ''}" data-mode="${k}">${l}</button>`).join('')}</div>
       <div class="fg-card"><div class="callout exam"><div class="ctitle">Goal</div>${M(x.goal)}</div>${body(x, lv)}</div>`;
@@ -50,8 +50,15 @@ export function renderDerivs(host, ctx) {
   const whereHtml = (x) => { const w = x.where; if (!w) return '';
     const loc = w.pages ? `script (German) \u00a7${esc(w.sec)}, pp. ${esc(w.pages)}${w.eqs ? `, eqs. ${esc(w.eqs)}` : ''}` : 'not in the script';
     return `<div class="dv-where"><b>Where it is:</b> ${loc}.${w.note ? ` <span class="src">${esc(w.note)}</span>` : ''}<div class="row">${w.read ? `<button class="chip btn" data-dvread="${w.read}">\ud83d\udcd6 Read this part of the script first</button>` : ''}${w.sheet ? `<button class="chip btn" data-dvread="${w.sheet}">\u270e The sheet question that does it (with solution)</button>` : ''}</div></div>`; };
-  const lineList = (x, idx, cls = '') => `<ol class="dv-lines ${cls}">${idx.map((i) => `<li value="${i + 1}">${M(x.lines[i])}</li>`).join('')}</ol>`;
+  const why = (x, i, open = false) => (x.explain?.[i] ? `<details class="fg-why"${open ? ' open' : ''}><summary>Why?</summary>${M(x.explain[i])}</details>` : '');
+  const lineList = (x, idx, cls = '') => `<ol class="dv-lines ${cls}">${idx.map((i) => `<li value="${i + 1}">${M(x.lines[i])}${why(x, i)}</li>`).join('')}</ol>`;
   function body(x, lv) {
+    if (mode === 'walk') { // understand it first: one line at a time, each with its explanation
+      st.k ||= 1; const n = x.lines.length, k = Math.min(st.k, n);
+      return `<p class="src">Read each line, then its explanation. Try to see why it follows before you open the next one.${x.where?.read ? ' If a symbol is unfamiliar, read the script part first (button above).' : ''}</p>
+        <ol class="dv-lines">${x.lines.slice(0, k).map((l, i) => `<li value="${i + 1}">${M(l)}${why(x, i, true)}</li>`).join('')}</ol>
+        ${k < n ? `<button class="go" data-walk>Next line (${k + 1} of ${n})</button>` : `<p class="msg good">That is the whole derivation.</p><div class="row"><button class="go" data-mode="ladder">Now rebuild it myself (ladder)</button><button class="chip btn" data-mode="moves">Just the key moves</button></div>`}`;
+    }
     if (mode === 'ladder') {
       const rung = Math.min(3, lv), head = `<p class="src">Rung ${rung + 1} of 4: <b>${RUNGS[rung]}</b>${lv >= 4 ? ' \u00b7 mastered: keep it alive on the top rung' : ''}</p>`;
       if (rung === 0) { st.order ||= shuffle(x.lines.length, Date.now()); st.placed ||= []; st.err ||= 0; const done = st.placed.length === x.lines.length;
@@ -84,7 +91,7 @@ export function renderDerivs(host, ctx) {
   function draw() {
     clearInterval(timer); host.innerHTML = view ? detailHtml() : mapHtml();
     const q = (s) => host.querySelectorAll(s);
-    q('[data-open]').forEach((b) => (b.onclick = () => { view = b.dataset.open; mode = 'ladder'; st = {}; draw(); }));
+    q('[data-open]').forEach((b) => (b.onclick = () => { view = b.dataset.open; mode = lvOf(view) === 0 && !prog()[view] ? 'walk' : 'ladder'; st = {}; draw(); }));
     q('[data-map]').forEach((b) => (b.onclick = () => { view = null; draw(); }));
     q('[data-outline]').forEach((b) => (b.onclick = () => { const three = [...items].sort((a, c) => keep(a.id) - keep(c.id)).slice(0, 3).map((x) => x.id); st = { queue: three.slice(1) }; view = three[0]; mode = 'outline'; draw(); }));
     q('[data-mode]').forEach((b) => (b.onclick = () => { mode = b.dataset.mode; st = {}; draw(); }));
@@ -92,6 +99,7 @@ export function renderDerivs(host, ctx) {
     q('[data-retry]').forEach((b) => (b.onclick = () => { st = {}; draw(); }));
     q('[data-pass]').forEach((b) => (b.onclick = () => { save(view, { up: true }); store.addXp(10); ctx.onChange?.(); st = {}; draw(); }));
     q('[data-show]').forEach((b) => (b.onclick = () => { st.shown = true; draw(); }));
+    q('[data-walk]').forEach((b) => (b.onclick = () => { st.k = (st.k || 1) + 1; draw(); }));
     q('[data-dvread]').forEach((b) => (b.onclick = () => ctx.openEnc?.(b.dataset.dvread)));
     q('[data-start]').forEach((b) => (b.onclick = () => { st.started = true; st.t0 = Date.now(); draw(); }));
     q('[data-nextask]').forEach((b) => (b.onclick = () => { st = { ai: (st.ai || 0) + 1 }; draw(); }));

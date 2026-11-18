@@ -737,7 +737,7 @@ function renderStudy(tab) {
   else if (studyTab === 'script') { host.innerHTML = M(scriptHtml()); wireScript(host); }
   else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
-  else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh() })
+  else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh(), openEnc: (id) => { closeOverlay(true); openById(id); player.enabled = true; } })
   else if (studyTab === 'derivs') renderDerivs(host, { items: derivItems, M, onChange: () => refresh(), openEnc: (id) => { closeOverlay(true); openById(id); player.enabled = true; }, start: derivStart?.id, startMode: derivStart?.mode })
   else if (studyTab === 'units') renderUnits(host, { items: unitsDuel.items, seconds: unitsDuel.seconds, symbols: unitsDuel.symbols, M, courseName: (id) => findCourse(id)?.name || id, onChange: () => refresh() })
   else if (studyTab === 'summary') renderSummary(host, { catalog, isPassed: (id) => store.isPassed(id), courses: catalog.filter((c) => c.id !== 'qm').map((c) => ({ id: c.id, name: c.name })), M })

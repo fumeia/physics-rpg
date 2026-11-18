@@ -29,14 +29,17 @@ export function renderForge(host, ctx) {
   const st = () => forgeStats(items);
   const head = () => { const s = st(); return `<div class="fg-head"><div><b>${s.solid} / ${s.total}</b><span>formulas you can probably still write</span></div><div><b>${s.due}</b><span>due now</span></div><div class="row">${[['recall', 'Write from memory'], ['rebuild', 'Rebuild it'], ['blank', 'Blank page'], ['all', 'All formulas']].map(([k, l]) => `<button class="chip btn${mode === k ? ' cur' : ''}" data-fm="${k}">${l}</button>`).join('')}</div></div>`; };
   const next = () => { if (!queue.length) queue = forgeDue(items).slice(0, 5); cur = queue.shift() || null; shown = false; step = 0; };
+  // what the formula says, and where it is in the script (with the guided reading); explanations per step are in rebuild mode
+  const meaningHtml = (it) => (it.meaning ? `<div class="fg-meaning"><b>What it says:</b> ${M(it.meaning)}</div>` : '');
+  const whereHtml = (it) => { const w = it.where; if (!w) return ''; return `<div class="dv-where"><b>In the script (German):</b> \u00a7${esc(w.sec)}, pp. ${esc(w.pages)}.${w.read ? ` <button class="chip btn" data-fread="${w.read}">\ud83d\udcd6 Read this part first</button>` : ''}</div>`; };
   function body() {
-    if (mode === 'all') return `<div class="maplist">${items.map((it) => `<div class="fg-row"><span class="fg-bar"><i style="width:${Math.round(100 * strength(it.id))}%"></i></span><b>${esc(it.name)}</b><details><summary>show</summary>${M(`$$${it.tex}$$`)}</details></div>`).join('')}</div>`;
+    if (mode === 'all') return `<div class="maplist">${items.map((it) => `<div class="fg-row"><span class="fg-bar"><i style="width:${Math.round(100 * strength(it.id))}%"></i></span><b>${esc(it.name)}</b><details><summary>show</summary>${M(`$$${it.tex}$$`)}${meaningHtml(it)}${whereHtml(it)}</details></div>`).join('')}</div>`;
     if (mode === 'blank') return blankHtml();
     if (!cur) return `<p class="msg good">Nothing is due: every formula is above 70%. Come back tomorrow, or use “All formulas”.</p>`;
-    if (mode === 'rebuild') return `<div class="fg-card"><div class="src">Rebuild it: do not recall the result, regenerate it</div><h3>${esc(cur.name)}</h3><p>${M(cur.anchor)}</p><ol>${cur.steps.slice(0, step).map((s) => `<li>${M(s)}</li>`).join('')}</ol>
-      ${step < cur.steps.length ? `<p class="src">Write the next step yourself, then compare.</p><button class="go" data-fstep>Show step ${step + 1} of ${cur.steps.length}</button>` : `<div class="fg-tex">${M(`$$${cur.tex}$$`)}</div><div class="row"><button class="go" data-had="1">I could rebuild it</button><button class="chip btn" data-had="0">I got stuck</button></div>`}</div>`;
+    if (mode === 'rebuild') return `<div class="fg-card"><div class="src">Rebuild it: do not recall the result, regenerate it</div><h3>${esc(cur.name)}</h3>${meaningHtml(cur)}<p>${M(cur.anchor)}</p><ol class="fg-steps">${cur.steps.slice(0, step).map((s, i) => `<li>${M(s)}${cur.explain?.[i] ? `<details class="fg-why"${step === cur.steps.length ? '' : ' open'}><summary>Why?</summary>${M(cur.explain[i])}</details>` : ''}</li>`).join('')}</ol>
+      ${step < cur.steps.length ? `<p class="src">Write the next step yourself, then compare.</p><button class="go" data-fstep>Show step ${step + 1} of ${cur.steps.length}</button>` : `<div class="fg-tex">${M(`$$${cur.tex}$$`)}</div><div class="row"><button class="go" data-had="1">I could rebuild it</button><button class="chip btn" data-had="0">I got stuck</button></div>`}${whereHtml(cur)}</div>`;
     return `<div class="fg-card"><div class="src">Write it on paper from memory. No peeking.</div><h3>${esc(cur.name)}</h3>
-      ${shown ? `<div class="fg-tex">${M(`$$${cur.tex}$$`)}</div><p class="src">Compare every symbol, sign and factor.</p><div class="row"><button class="go" data-had="1">I had it exactly</button><button class="chip btn" data-had="0">Not quite</button><button class="chip btn" data-fm="rebuild">Show me how to rebuild it</button></div>` : '<button class="go" data-freveal>I wrote it: show the formula</button>'}</div>`;
+      ${shown ? `<div class="fg-tex">${M(`$$${cur.tex}$$`)}</div><p class="src">Compare every symbol, sign and factor.</p><div class="row"><button class="go" data-had="1">I had it exactly</button><button class="chip btn" data-had="0">Not quite</button><button class="chip btn" data-fm="rebuild">Show me how to rebuild it</button></div>${meaningHtml(cur)}${whereHtml(cur)}` : '<button class="go" data-freveal>I wrote it: show the formula</button>'}</div>`;
   }
   // blank page: one QM room, a timer, then a checklist made of that room's lesson equations
   function blankHtml() {
@@ -48,6 +51,7 @@ export function renderForge(host, ctx) {
   let timer = 0;
   function draw() {
     clearInterval(timer); host.innerHTML = head() + body();
+    host.querySelectorAll('[data-fread]').forEach((b) => (b.onclick = () => ctx.openEnc?.(b.dataset.fread)));
     host.querySelectorAll('[data-fm]').forEach((b) => (b.onclick = () => { mode = b.dataset.fm; if (mode === 'recall' || mode === 'rebuild') { if (!cur) next(); shown = false; step = 0; } draw(); }));
     const rv = host.querySelector('[data-freveal]'); if (rv) rv.onclick = () => { shown = true; draw(); };
     const stp = host.querySelector('[data-fstep]'); if (stp) stp.onclick = () => { step++; draw(); };

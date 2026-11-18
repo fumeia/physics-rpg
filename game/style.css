@@ -527,3 +527,6 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 /* the lecturer's questions in the chapter 7 reading cards: only when the reading pack is installed */
 .callout.asked { display: none; border-left-color: #b38cff; } body.has-ch7 .callout.asked { display: block; } .callout.asked ol { padding-left: 1.3em; margin: .3em 0; } .callout.asked li { margin: .25em 0; }
 .callout.asked a, .callout.think a, .readstrip a { color: #9cc0ff; } .callout.asked a:visited { color: #c3a6ff; }
+/* Forge: what a formula says, and the explanation under each rebuild step */
+.fg-meaning{background:rgba(155,224,155,.08);border-left:3px solid #9be09b;padding:.35em .7em;margin:.4em 0;border-radius:4px;font-size:.95em}
+.fg-steps li{margin:.35em 0}.fg-why{margin:.2em 0 .4em;font-size:.92em}.fg-why summary{cursor:pointer;color:#9cc0ff}.fg-why[open]{background:rgba(127,179,255,.07);padding:.2em .5em;border-radius:4px}

@@ -1,21 +1,355 @@
 {
  "about": "QM formulas to know by heart (the exam allows no aids), each with a short 'rebuild it' chain from one anchor: what to memorise and what you can regenerate. Standard forms; check the notation against the QM25 script (Gaberdiel) where it differs. Shown in the Forge (study hub).",
  "items": [
-  { "id": "comm", "name": "Canonical commutator", "tex": "[\\hat x,\\hat p]=i\\hbar", "anchor": "Memorise this one. Everything about the oscillator and the uncertainty relation follows from it.", "steps": ["Position representation: $\\hat p=-i\\hbar\\,\\partial_x$.", "Act on a test function: $(\\hat x\\hat p-\\hat p\\hat x)\\psi=-i\\hbar x\\psi^\\prime+i\\hbar(x\\psi)^\\prime=i\\hbar\\psi$."] },
-  { "id": "se", "name": "Time-dependent Schrödinger equation and stationary states", "tex": "i\\hbar\\,\\partial_t\\psi=\\hat H\\psi,\\qquad \\psi(x,t)=\\psi_E(x)\\,e^{-iEt/\\hbar}\\ \\text{with}\\ \\hat H\\psi_E=E\\psi_E", "anchor": "Memorise the equation. The stationary form is separation of variables.", "steps": ["Ansatz $\\psi=\\psi_E(x)f(t)$: $i\\hbar\\dot f/f=E$ is constant.", "So $f=e^{-iEt/\\hbar}$ and $\\hat H\\psi_E=E\\psi_E$ with $\\hat H=-\\frac{\\hbar^2}{2m}\\partial_x^2+V$."] },
-  { "id": "current", "name": "Probability current", "tex": "j=\\frac{\\hbar}{m}\\,\\mathrm{Im}\\!\\left(\\psi^*\\partial_x\\psi\\right),\\qquad \\partial_t|\\psi|^2+\\partial_xj=0", "anchor": "Rebuild it from the Schrödinger equation and its complex conjugate.", "steps": ["$\\partial_t|\\psi|^2=\\psi^*\\partial_t\\psi+\\psi\\,\\partial_t\\psi^*$.", "Insert $\\partial_t\\psi=\\frac{i\\hbar}{2m}\\psi^{\\prime\\prime}-\\frac{i}{\\hbar}V\\psi$: the potential terms cancel for real $V$.", "What is left is $-\\partial_x\\left[\\frac{\\hbar}{2mi}(\\psi^*\\psi^\\prime-\\psi\\psi^{*\\prime})\\right]$."] },
-  { "id": "box", "name": "Infinite square well of width a", "tex": "E_n=\\frac{\\hbar^2\\pi^2n^2}{2ma^2},\\qquad \\psi_n(x)=\\sqrt{\\tfrac2a}\\,\\sin\\frac{n\\pi x}{a},\\quad n=1,2,\\dots", "anchor": "Nothing to memorise: standing waves between two walls.", "steps": ["Inside: $\\psi^{\\prime\\prime}=-k^2\\psi$, $E=\\frac{\\hbar^2k^2}{2m}$.", "$\\psi(0)=0$ gives $\\sin kx$; $\\psi(a)=0$ gives $k=n\\pi/a$.", "Normalise: $\\int_0^a\\sin^2=\\frac a2$."] },
-  { "id": "uncert", "name": "General uncertainty relation", "tex": "\\Delta A\\,\\Delta B\\ \\ge\\ \\tfrac12\\left|\\langle[\\hat A,\\hat B]\\rangle\\right|", "anchor": "Cauchy–Schwarz plus the commutator. For $x$ and $p$: $\\Delta x\\Delta p\\ge\\hbar/2$.", "steps": ["Shift to zero mean: $\\hat a=\\hat A-\\langle A\\rangle$, $\\hat b=\\hat B-\\langle B\\rangle$; $\\Delta A^2=\\|\\hat a\\psi\\|^2$.", "Cauchy–Schwarz: $\\|\\hat a\\psi\\|\\,\\|\\hat b\\psi\\|\\ge|\\langle\\hat a\\psi|\\hat b\\psi\\rangle|\\ge|\\mathrm{Im}\\langle\\hat a\\hat b\\rangle|$.", "$\\mathrm{Im}\\langle\\hat a\\hat b\\rangle=\\frac{1}{2i}\\langle[\\hat a,\\hat b]\\rangle=\\frac1{2i}\\langle[\\hat A,\\hat B]\\rangle$."] },
-  { "id": "ehrenfest", "name": "Time derivative of an expectation value (Ehrenfest)", "tex": "\\frac{d}{dt}\\langle\\hat A\\rangle=\\frac{i}{\\hbar}\\langle[\\hat H,\\hat A]\\rangle+\\langle\\partial_t\\hat A\\rangle", "anchor": "Product rule on $\\langle\\psi|\\hat A|\\psi\\rangle$ with the Schrödinger equation.", "steps": ["$\\partial_t|\\psi\\rangle=-\\frac i\\hbar\\hat H|\\psi\\rangle$, $\\partial_t\\langle\\psi|=+\\frac i\\hbar\\langle\\psi|\\hat H$.", "Three terms: $\\frac i\\hbar\\langle\\hat H\\hat A\\rangle-\\frac i\\hbar\\langle\\hat A\\hat H\\rangle+\\langle\\partial_t\\hat A\\rangle$.", "Check: $\\frac{d}{dt}\\langle x\\rangle=\\langle p\\rangle/m$, $\\frac d{dt}\\langle p\\rangle=-\\langle V^\\prime\\rangle$."] },
-  { "id": "ho", "name": "Harmonic oscillator: ladder operators and spectrum", "tex": "\\hat a=\\sqrt{\\tfrac{m\\omega}{2\\hbar}}\\Big(\\hat x+\\tfrac{i\\hat p}{m\\omega}\\Big),\\quad[\\hat a,\\hat a^\\dagger]=1,\\quad \\hat H=\\hbar\\omega\\big(\\hat a^\\dagger\\hat a+\\tfrac12\\big),\\quad E_n=\\hbar\\omega\\big(n+\\tfrac12\\big)", "anchor": "Memorise the shape of $\\hat a$ (x plus i p, made dimensionless). The rest follows from $[\\hat x,\\hat p]=i\\hbar$.", "steps": ["$[\\hat a,\\hat a^\\dagger]=\\frac{m\\omega}{2\\hbar}\\cdot\\frac{-2i}{m\\omega}[\\hat x,\\hat p]=1$.", "$\\hat a^\\dagger\\hat a=\\frac{m\\omega}{2\\hbar}\\hat x^2+\\frac{\\hat p^2}{2m\\hbar\\omega}-\\frac12$, so $\\hat H=\\hbar\\omega(\\hat a^\\dagger\\hat a+\\frac12)$.", "$\\|\\hat a\\psi\\|^2\\ge0$ bounds the spectrum; $\\hat a|0\\rangle=0$; $\\hat a^\\dagger$ raises by $\\hbar\\omega$."] },
-  { "id": "ladder", "name": "Action of the ladder operators", "tex": "\\hat a|n\\rangle=\\sqrt n\\,|n-1\\rangle,\\qquad \\hat a^\\dagger|n\\rangle=\\sqrt{n+1}\\,|n+1\\rangle,\\qquad \\hat x=\\sqrt{\\tfrac{\\hbar}{2m\\omega}}\\,(\\hat a+\\hat a^\\dagger)", "anchor": "The square roots come from the norm.", "steps": ["$\\|\\hat a|n\\rangle\\|^2=\\langle n|\\hat a^\\dagger\\hat a|n\\rangle=n$.", "$\\|\\hat a^\\dagger|n\\rangle\\|^2=\\langle n|\\hat a\\hat a^\\dagger|n\\rangle=n+1$.", "Invert the definition of $\\hat a$ for $\\hat x$ and $\\hat p=i\\sqrt{\\frac{m\\omega\\hbar}{2}}(\\hat a^\\dagger-\\hat a)$."] },
-  { "id": "tunnel", "name": "Tunnelling through a thick barrier", "tex": "T\\approx\\frac{16E(V_0-E)}{V_0^2}\\,e^{-2\\kappa L},\\qquad \\kappa=\\frac{\\sqrt{2m(V_0-E)}}{\\hbar}", "anchor": "Memorise $e^{-2\\kappa L}$ and where $\\kappa$ comes from. The prefactor is of order one.", "steps": ["Inside the barrier: $\\psi^{\\prime\\prime}=\\kappa^2\\psi$, so $\\psi\\propto e^{-\\kappa x}$.", "The amplitude drops by $e^{-\\kappa L}$ across the barrier; the probability by its square.", "Matching at both walls gives the prefactor $16E(V_0-E)/V_0^2$ for $\\kappa L\\gg1$."] },
-  { "id": "am", "name": "Angular momentum algebra and spectrum", "tex": "[\\hat L_i,\\hat L_j]=i\\hbar\\,\\epsilon_{ijk}\\hat L_k,\\qquad \\hat{\\mathbf L}^2|l,m\\rangle=\\hbar^2l(l+1)|l,m\\rangle,\\quad \\hat L_z|l,m\\rangle=\\hbar m|l,m\\rangle,\\ \\ m=-l,\\dots,l", "anchor": "Memorise the commutator. The spectrum is the ladder argument.", "steps": ["$\\hat L_\\pm=\\hat L_x\\pm i\\hat L_y$: $[\\hat L_z,\\hat L_\\pm]=\\pm\\hbar\\hat L_\\pm$, so $\\hat L_\\pm$ shifts $m$ by $\\pm1$.", "$\\hat{\\mathbf L}^2=\\hat L_\\mp\\hat L_\\pm+\\hat L_z^2\\pm\\hbar\\hat L_z$.", "The ladder must stop: $\\hat L_+|l,l\\rangle=0$ gives the eigenvalue $\\hbar^2l(l+1)$; symmetric at the bottom, so $m$ runs from $-l$ to $l$."] },
-  { "id": "lpm", "name": "Raising and lowering angular momentum", "tex": "\\hat L_\\pm|l,m\\rangle=\\hbar\\sqrt{l(l+1)-m(m\\pm1)}\\ |l,m\\pm1\\rangle", "anchor": "The norm again.", "steps": ["$\\|\\hat L_\\pm|l,m\\rangle\\|^2=\\langle\\hat L_\\mp\\hat L_\\pm\\rangle=\\langle\\hat{\\mathbf L}^2-\\hat L_z^2\\mp\\hbar\\hat L_z\\rangle$.", "$=\\hbar^2[l(l+1)-m^2\\mp m]$."] },
-  { "id": "pauli", "name": "Spin 1/2 and the Pauli matrices", "tex": "\\hat{\\mathbf S}=\\tfrac\\hbar2\\boldsymbol\\sigma,\\quad \\sigma_x=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\ \\sigma_y=\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix},\\ \\sigma_z=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix},\\quad \\sigma_i\\sigma_j=\\delta_{ij}+i\\epsilon_{ijk}\\sigma_k", "anchor": "$\\sigma_z$ is diagonal by choice of basis; the other two follow from the ladder formula with $s=\\frac12$.", "steps": ["$\\hat S_+|\\!\\downarrow\\rangle=\\hbar|\\!\\uparrow\\rangle$, $\\hat S_-|\\!\\uparrow\\rangle=\\hbar|\\!\\downarrow\\rangle$ (the square root is 1).", "$\\hat S_x=\\frac12(\\hat S_++\\hat S_-)$, $\\hat S_y=\\frac1{2i}(\\hat S_+-\\hat S_-)$.", "Product rule: square is 1, different ones anticommute, $\\sigma_x\\sigma_y=i\\sigma_z$."] },
-  { "id": "hydrogen", "name": "Hydrogen: energies and Bohr radius", "tex": "E_n=-\\frac{m_ee^4}{2(4\\pi\\epsilon_0)^2\\hbar^2}\\,\\frac1{n^2}=-\\frac{13.6\\ \\mathrm{eV}}{n^2},\\qquad a_0=\\frac{4\\pi\\epsilon_0\\hbar^2}{m_ee^2}=0.529\\ \\text{Å},\\qquad \\text{degeneracy } n^2", "anchor": "Memorise 13.6 eV and 0.53 Å. The structure comes from Bohr's argument or from dimensional analysis.", "steps": ["Circular orbit: $\\frac{m_ev^2}{r}=\\frac{e^2}{4\\pi\\epsilon_0r^2}$, and $m_evr=n\\hbar$.", "Solve: $r_n=n^2a_0$.", "$E=-\\frac12\\frac{e^2}{4\\pi\\epsilon_0r_n}$ (virial theorem): $E_n=-\\frac{e^2}{8\\pi\\epsilon_0a_0n^2}$.", "Degeneracy: $l=0,\\dots,n-1$, each with $2l+1$ values of $m$: $\\sum(2l+1)=n^2$ (without spin)."] },
-  { "id": "pt1", "name": "Time-independent perturbation theory (non-degenerate)", "tex": "E_n^{(1)}=\\langle n|\\hat V|n\\rangle,\\qquad E_n^{(2)}=\\sum_{m\\ne n}\\frac{|\\langle m|\\hat V|n\\rangle|^2}{E_n^{(0)}-E_m^{(0)}},\\qquad |n^{(1)}\\rangle=\\sum_{m\\ne n}\\frac{\\langle m|\\hat V|n\\rangle}{E_n^{(0)}-E_m^{(0)}}\\,|m\\rangle", "anchor": "Expand in $\\lambda$ and project. Remember: second order of the ground state is always negative.", "steps": ["$(\\hat H_0+\\lambda\\hat V)(|n\\rangle+\\lambda|n^{(1)}\\rangle+\\dots)=(E_n^{(0)}+\\lambda E_n^{(1)}+\\dots)(\\dots)$.", "Order $\\lambda$, project on $\\langle n|$: $E_n^{(1)}=\\langle n|\\hat V|n\\rangle$.", "Order $\\lambda$, project on $\\langle m|$, $m\\ne n$: the coefficient of $|m\\rangle$ in $|n^{(1)}\\rangle$.", "Order $\\lambda^2$, project on $\\langle n|$: $E_n^{(2)}=\\langle n|\\hat V|n^{(1)}\\rangle$."] },
-  { "id": "ptdeg", "name": "Degenerate perturbation theory", "tex": "\\det\\big(\\langle n,a|\\hat V|n,b\\rangle-E^{(1)}\\delta_{ab}\\big)=0", "anchor": "The formula above divides by zero when levels are degenerate: first diagonalise $\\hat V$ inside the degenerate subspace.", "steps": ["Any combination of the degenerate states is an eigenstate of $\\hat H_0$: choose the one that $\\hat V$ does not mix.", "That means: the eigenvectors of the matrix $V_{ab}$ in the subspace; its eigenvalues are the first-order shifts."] },
-  { "id": "addition", "name": "Addition of angular momenta", "tex": "j=|j_1-j_2|,\\ |j_1-j_2|+1,\\ \\dots,\\ j_1+j_2,\\qquad \\tfrac12\\otimes\\tfrac12=1\\oplus0:\\ \\ |1,0\\rangle=\\tfrac{1}{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle+|\\!\\downarrow\\uparrow\\rangle),\\ |0,0\\rangle=\\tfrac1{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle-|\\!\\downarrow\\uparrow\\rangle)", "anchor": "Count states and lower from the top.", "steps": ["Top state $|j_1,j_1\\rangle|j_2,j_2\\rangle$ has $m=j_1+j_2$: it is $|j_1+j_2,j_1+j_2\\rangle$.", "Apply $\\hat J_-=\\hat J_{1-}+\\hat J_{2-}$ to walk down the multiplet.", "The state orthogonal to it with the same $m$ starts the next multiplet, $j=j_1+j_2-1$.", "Check the count: $\\sum_j(2j+1)=(2j_1+1)(2j_2+1)$."] }
+  {
+   "id": "comm",
+   "name": "Canonical commutator",
+   "tex": "[\\hat x,\\hat p]=i\\hbar",
+   "anchor": "Memorise this one. Everything about the oscillator and the uncertainty relation follows from it.",
+   "steps": [
+    "Position representation: $\\hat p=-i\\hbar\\,\\partial_x$.",
+    "Act on a test function: $(\\hat x\\hat p-\\hat p\\hat x)\\psi=-i\\hbar x\\psi^\\prime+i\\hbar(x\\psi)^\\prime=i\\hbar\\psi$."
+   ],
+   "meaning": "Position and momentum do not commute: measuring them in the two orders differs by $i\\hbar$. This single fact is behind the uncertainty relation, the oscillator ladder and $[L_i,L_j]$.",
+   "explain": [
+    "In position space a state is a function $\\psi(x)$; $\\hat x$ multiplies by $x$, and $\\hat p$ differentiates (it generates translations: $e^{-ia\\hat p/\\hbar}\\psi(x)=\\psi(x-a)$).",
+    "An operator identity is checked by letting both sides act on an arbitrary test function. Product rule: $(x\\psi)^\\prime=\\psi+x\\psi^\\prime$, so the $x\\psi^\\prime$ terms cancel and only $i\\hbar\\psi$ remains, for every $\\psi$."
+   ],
+   "where": {
+    "sec": "4.4, 5.1",
+    "pages": "44–45, 52–55",
+    "read": "qm-read-05a"
+   }
+  },
+  {
+   "id": "se",
+   "name": "Time-dependent Schrödinger equation and stationary states",
+   "tex": "i\\hbar\\,\\partial_t\\psi=\\hat H\\psi,\\qquad \\psi(x,t)=\\psi_E(x)\\,e^{-iEt/\\hbar}\\ \\text{with}\\ \\hat H\\psi_E=E\\psi_E",
+   "anchor": "Memorise the equation. The stationary form is separation of variables.",
+   "steps": [
+    "Ansatz $\\psi=\\psi_E(x)f(t)$: $i\\hbar\\dot f/f=E$ is constant.",
+    "So $f=e^{-iEt/\\hbar}$ and $\\hat H\\psi_E=E\\psi_E$ with $\\hat H=-\\frac{\\hbar^2}{2m}\\partial_x^2+V$."
+   ],
+   "meaning": "The first equation is the law of motion of quantum mechanics. States of sharp energy only pick up a rotating phase: all probabilities are time independent (\"stationary\").",
+   "explain": [
+    "Try a product of a function of $x$ and a function of $t$. Inserting it and dividing by $\\psi_E f$ gives (function of $t$ only) = (function of $x$ only); both must be the same constant, called $E$.",
+    "$i\\hbar\\dot f=Ef$ is solved by $f=e^{-iEt/\\hbar}$; the $x$ part is the eigenvalue equation of $\\hat H$. A general solution is a sum of such terms, $\\sum c_n\\psi_ne^{-iE_nt/\\hbar}$."
+   ],
+   "where": {
+    "sec": "2.1, 2.5",
+    "pages": "14–15, 19–21",
+    "read": "qm-read-02c"
+   }
+  },
+  {
+   "id": "current",
+   "name": "Probability current",
+   "tex": "j=\\frac{\\hbar}{m}\\,\\mathrm{Im}\\!\\left(\\psi^*\\partial_x\\psi\\right),\\qquad \\partial_t|\\psi|^2+\\partial_xj=0",
+   "anchor": "Rebuild it from the Schrödinger equation and its complex conjugate.",
+   "steps": [
+    "$\\partial_t|\\psi|^2=\\psi^*\\partial_t\\psi+\\psi\\,\\partial_t\\psi^*$.",
+    "Insert $\\partial_t\\psi=\\frac{i\\hbar}{2m}\\psi^{\\prime\\prime}-\\frac{i}{\\hbar}V\\psi$: the potential terms cancel for real $V$.",
+    "What is left is $-\\partial_x\\left[\\frac{\\hbar}{2mi}(\\psi^*\\psi^\\prime-\\psi\\psi^{*\\prime})\\right]$."
+   ],
+   "meaning": "Probability can only move, not appear or vanish: the density $|\\psi|^2$ changes exactly by what the current $j$ carries in or out (like charge and electric current).",
+   "explain": [
+    "Product rule on $|\\psi|^2=\\psi^*\\psi$.",
+    "From $i\\hbar\\partial_t\\psi=-\\frac{\\hbar^2}{2m}\\psi^{\\prime\\prime}+V\\psi$ divide by $i\\hbar$. The conjugate equation has $-i$ instead of $i$; in the sum the $V$ terms appear as $-\\frac i\\hbar V|\\psi|^2+\\frac i\\hbar V|\\psi|^2=0$ (needs $V$ real).",
+    "The rest is $\\frac{i\\hbar}{2m}(\\psi^*\\psi^{\\prime\\prime}-\\psi\\psi^{*\\prime\\prime})$, and this is a total derivative: $\\partial_x(\\psi^*\\psi^\\prime-\\psi\\psi^{*\\prime})=\\psi^*\\psi^{\\prime\\prime}-\\psi\\psi^{*\\prime\\prime}$ (the $\\psi^{*\\prime}\\psi^\\prime$ terms cancel). So $\\partial_t|\\psi|^2=-\\partial_xj$."
+   ],
+   "where": {
+    "sec": "2.2",
+    "pages": "16–17",
+    "read": "qm-read-02b"
+   }
+  },
+  {
+   "id": "box",
+   "name": "Infinite square well of width a",
+   "tex": "E_n=\\frac{\\hbar^2\\pi^2n^2}{2ma^2},\\qquad \\psi_n(x)=\\sqrt{\\tfrac2a}\\,\\sin\\frac{n\\pi x}{a},\\quad n=1,2,\\dots",
+   "anchor": "Nothing to memorise: standing waves between two walls.",
+   "steps": [
+    "Inside: $\\psi^{\\prime\\prime}=-k^2\\psi$, $E=\\frac{\\hbar^2k^2}{2m}$.",
+    "$\\psi(0)=0$ gives $\\sin kx$; $\\psi(a)=0$ gives $k=n\\pi/a$.",
+    "Normalise: $\\int_0^a\\sin^2=\\frac a2$."
+   ],
+   "meaning": "A particle trapped between two walls can only have wavelengths that fit: an integer number of half waves. Hence discrete energies growing as $n^2$ and no zero energy.",
+   "explain": [
+    "Inside $V=0$, so the Schrödinger equation is $-\\frac{\\hbar^2}{2m}\\psi^{\\prime\\prime}=E\\psi$, i.e. $\\psi^{\\prime\\prime}=-k^2\\psi$ with $E=\\hbar^2k^2/2m$: sines and cosines.",
+    "The infinite walls force $\\psi=0$ there (the particle cannot be outside). $\\psi(0)=0$ kills the cosine; $\\sin(ka)=0$ needs $ka=n\\pi$, $n=1,2,\\dots$ ($n=0$ is the zero function).",
+    "$\\int_0^a\\sin^2(n\\pi x/a)dx=a/2$ (average of $\\sin^2$ is $\\frac12$), so the prefactor is $\\sqrt{2/a}$."
+   ],
+   "where": {
+    "sec": "3.1",
+    "pages": "26–27",
+    "read": "qm-read-03a"
+   }
+  },
+  {
+   "id": "uncert",
+   "name": "General uncertainty relation",
+   "tex": "\\Delta A\\,\\Delta B\\ \\ge\\ \\tfrac12\\left|\\langle[\\hat A,\\hat B]\\rangle\\right|",
+   "anchor": "Cauchy–Schwarz plus the commutator. For $x$ and $p$: $\\Delta x\\Delta p\\ge\\hbar/2$.",
+   "steps": [
+    "Shift to zero mean: $\\hat a=\\hat A-\\langle A\\rangle$, $\\hat b=\\hat B-\\langle B\\rangle$; $\\Delta A^2=\\|\\hat a\\psi\\|^2$.",
+    "Cauchy–Schwarz: $\\|\\hat a\\psi\\|\\,\\|\\hat b\\psi\\|\\ge|\\langle\\hat a\\psi|\\hat b\\psi\\rangle|\\ge|\\mathrm{Im}\\langle\\hat a\\hat b\\rangle|$.",
+    "$\\mathrm{Im}\\langle\\hat a\\hat b\\rangle=\\frac{1}{2i}\\langle[\\hat a,\\hat b]\\rangle=\\frac1{2i}\\langle[\\hat A,\\hat B]\\rangle$."
+   ],
+   "meaning": "Two observables that do not commute cannot both be sharp: the product of their spreads is at least half the size of their commutator.",
+   "explain": [
+    "$\\Delta A$ is the standard deviation. Subtracting the mean does not change the commutator, and $\\langle\\hat a^2\\rangle=\\langle\\psi|\\hat a^\\dagger\\hat a|\\psi\\rangle=\\|\\hat a\\psi\\|^2$ because $\\hat a$ is hermitian.",
+    "Cauchy-Schwarz: the overlap of two vectors is at most the product of their lengths. And $|z|\\ge|\\mathrm{Im}\\,z|$ for any complex number.",
+    "$\\langle\\hat a\\hat b\\rangle-\\overline{\\langle\\hat a\\hat b\\rangle}=\\langle\\hat a\\hat b\\rangle-\\langle\\hat b\\hat a\\rangle=\\langle[\\hat a,\\hat b]\\rangle$, and $z-\\bar z=2i\\,\\mathrm{Im}z$. Constants commute with everything, so $[\\hat a,\\hat b]=[\\hat A,\\hat B]$. With $[x,p]=i\\hbar$: $\\Delta x\\Delta p\\ge\\hbar/2$."
+   ],
+   "where": {
+    "sec": "5.2–5.3",
+    "pages": "55–58",
+    "read": "qm-read-05a"
+   }
+  },
+  {
+   "id": "ehrenfest",
+   "name": "Time derivative of an expectation value (Ehrenfest)",
+   "tex": "\\frac{d}{dt}\\langle\\hat A\\rangle=\\frac{i}{\\hbar}\\langle[\\hat H,\\hat A]\\rangle+\\langle\\partial_t\\hat A\\rangle",
+   "anchor": "Product rule on $\\langle\\psi|\\hat A|\\psi\\rangle$ with the Schrödinger equation.",
+   "steps": [
+    "$\\partial_t|\\psi\\rangle=-\\frac i\\hbar\\hat H|\\psi\\rangle$, $\\partial_t\\langle\\psi|=+\\frac i\\hbar\\langle\\psi|\\hat H$.",
+    "Three terms: $\\frac i\\hbar\\langle\\hat H\\hat A\\rangle-\\frac i\\hbar\\langle\\hat A\\hat H\\rangle+\\langle\\partial_t\\hat A\\rangle$.",
+    "Check: $\\frac{d}{dt}\\langle x\\rangle=\\langle p\\rangle/m$, $\\frac d{dt}\\langle p\\rangle=-\\langle V^\\prime\\rangle$."
+   ],
+   "meaning": "How the average of an observable changes in time. If $\\hat A$ commutes with $\\hat H$ (and has no explicit $t$), its average is conserved. For $x$ and $p$ it gives Newton&#8217;s laws for averages.",
+   "explain": [
+    "This is the Schrödinger equation $i\\hbar\\partial_t|\\psi\\rangle=\\hat H|\\psi\\rangle$ divided by $i\\hbar$. Its adjoint (bra) gets the opposite sign of $i$, and $\\hat H^\\dagger=\\hat H$.",
+    "$\\langle\\hat A\\rangle=\\langle\\psi|\\hat A|\\psi\\rangle$ has three time-dependent pieces (bra, operator, ket): the product rule gives three terms. Insert step 1 into the bra and ket terms; together they are $\\frac i\\hbar\\langle\\hat H\\hat A-\\hat A\\hat H\\rangle=\\frac i\\hbar\\langle[\\hat H,\\hat A]\\rangle$.",
+    "With $\\hat H=\\frac{\\hat p^2}{2m}+V(\\hat x)$: $[\\hat H,\\hat x]=-\\frac{i\\hbar}m\\hat p$ gives $\\frac{d}{dt}\\langle x\\rangle=\\frac{\\langle p\\rangle}m$; $[\\hat H,\\hat p]=i\\hbar V^\\prime(\\hat x)$ gives $\\frac{d}{dt}\\langle p\\rangle=-\\langle V^\\prime\\rangle$. Newton for averages (exact only if $\\langle V^\\prime(x)\\rangle=V^\\prime(\\langle x\\rangle)$)."
+   ],
+   "where": {
+    "sec": "2.3",
+    "pages": "17–19",
+    "read": "qm-read-02b"
+   }
+  },
+  {
+   "id": "ho",
+   "name": "Harmonic oscillator: ladder operators and spectrum",
+   "tex": "\\hat a=\\sqrt{\\tfrac{m\\omega}{2\\hbar}}\\Big(\\hat x+\\tfrac{i\\hat p}{m\\omega}\\Big),\\quad[\\hat a,\\hat a^\\dagger]=1,\\quad \\hat H=\\hbar\\omega\\big(\\hat a^\\dagger\\hat a+\\tfrac12\\big),\\quad E_n=\\hbar\\omega\\big(n+\\tfrac12\\big)",
+   "anchor": "Memorise the shape of $\\hat a$ (x plus i p, made dimensionless). The rest follows from $[\\hat x,\\hat p]=i\\hbar$.",
+   "steps": [
+    "$[\\hat a,\\hat a^\\dagger]=\\frac{m\\omega}{2\\hbar}\\cdot\\frac{-2i}{m\\omega}[\\hat x,\\hat p]=1$.",
+    "$\\hat a^\\dagger\\hat a=\\frac{m\\omega}{2\\hbar}\\hat x^2+\\frac{\\hat p^2}{2m\\hbar\\omega}-\\frac12$, so $\\hat H=\\hbar\\omega(\\hat a^\\dagger\\hat a+\\frac12)$.",
+    "$\\|\\hat a\\psi\\|^2\\ge0$ bounds the spectrum; $\\hat a|0\\rangle=0$; $\\hat a^\\dagger$ raises by $\\hbar\\omega$."
+   ],
+   "meaning": "The oscillator Hamiltonian is a perfect square up to a constant: $\\hat H=\\hbar\\omega(\\hat a^\\dagger\\hat a+\\frac12)$. Everything (spectrum, states) follows from one commutator, no differential equation needed.",
+   "explain": [
+    "Expand $[\\hat x+\\frac{i\\hat p}{m\\omega},\\hat x-\\frac{i\\hat p}{m\\omega}]$: only the cross terms survive, $-\\frac{i}{m\\omega}[\\hat x,\\hat p]+\\frac{i}{m\\omega}[\\hat p,\\hat x]=-\\frac{2i}{m\\omega}\\cdot i\\hbar=\\frac{2\\hbar}{m\\omega}$; times the prefactor $\\frac{m\\omega}{2\\hbar}$ gives 1.",
+    "Multiply out $\\hat a^\\dagger\\hat a$: the $\\hat x^2$ and $\\hat p^2$ terms give $\\frac{\\hat H}{\\hbar\\omega}$, and the cross terms $\\frac{i}{2\\hbar}[\\hat x,\\hat p]=-\\frac12$ leave the constant. So $\\hat H=\\hbar\\omega(\\hat a^\\dagger\\hat a+\\frac12)$.",
+    "$\\langle\\hat a^\\dagger\\hat a\\rangle=\\|\\hat a\\psi\\|^2\\ge0$, so $E\\ge\\frac12\\hbar\\omega$. From $[\\hat H,\\hat a^\\dagger]=\\hbar\\omega\\hat a^\\dagger$, $\\hat a^\\dagger$ raises the energy by $\\hbar\\omega$ and $\\hat a$ lowers it; lowering must end at a state with $\\hat a|0\\rangle=0$, energy $\\frac12\\hbar\\omega$. Hence $E_n=\\hbar\\omega(n+\\frac12)$."
+   ],
+   "where": {
+    "sec": "6.1.2",
+    "pages": "61–63",
+    "read": "qm-read-06a"
+   }
+  },
+  {
+   "id": "ladder",
+   "name": "Action of the ladder operators",
+   "tex": "\\hat a|n\\rangle=\\sqrt n\\,|n-1\\rangle,\\qquad \\hat a^\\dagger|n\\rangle=\\sqrt{n+1}\\,|n+1\\rangle,\\qquad \\hat x=\\sqrt{\\tfrac{\\hbar}{2m\\omega}}\\,(\\hat a+\\hat a^\\dagger)",
+   "anchor": "The square roots come from the norm.",
+   "steps": [
+    "$\\|\\hat a|n\\rangle\\|^2=\\langle n|\\hat a^\\dagger\\hat a|n\\rangle=n$.",
+    "$\\|\\hat a^\\dagger|n\\rangle\\|^2=\\langle n|\\hat a\\hat a^\\dagger|n\\rangle=n+1$.",
+    "Invert the definition of $\\hat a$ for $\\hat x$ and $\\hat p=i\\sqrt{\\frac{m\\omega\\hbar}{2}}(\\hat a^\\dagger-\\hat a)$."
+   ],
+   "meaning": "How the ladder operators act on the number states $|n\\rangle$, and $x$, $p$ written through them: the tool for every matrix element and perturbation of the oscillator.",
+   "explain": [
+    "$\\hat a|n\\rangle$ is proportional to $|n-1\\rangle$; its length squared is $\\langle n|\\hat a^\\dagger\\hat a|n\\rangle=n$ because $\\hat a^\\dagger\\hat a=\\hat N$ counts. So the factor is $\\sqrt n$ (phase chosen real).",
+    "Same for $\\hat a^\\dagger$: $\\hat a\\hat a^\\dagger=\\hat a^\\dagger\\hat a+1$, so the length squared is $n+1$.",
+    "Add and subtract $\\hat a=\\sqrt{\\frac{m\\omega}{2\\hbar}}(\\hat x+\\frac{i\\hat p}{m\\omega})$ and its adjoint: $\\hat a+\\hat a^\\dagger\\propto\\hat x$, $\\hat a-\\hat a^\\dagger\\propto\\hat p$. Consequence: $\\hat x$ only connects $n$ with $n\\pm1$."
+   ],
+   "where": {
+    "sec": "6.1.2",
+    "pages": "61–63",
+    "read": "qm-read-06a"
+   }
+  },
+  {
+   "id": "tunnel",
+   "name": "Tunnelling through a thick barrier",
+   "tex": "T\\approx\\frac{16E(V_0-E)}{V_0^2}\\,e^{-2\\kappa L},\\qquad \\kappa=\\frac{\\sqrt{2m(V_0-E)}}{\\hbar}",
+   "anchor": "Memorise $e^{-2\\kappa L}$ and where $\\kappa$ comes from. The prefactor is of order one.",
+   "steps": [
+    "Inside the barrier: $\\psi^{\\prime\\prime}=\\kappa^2\\psi$, so $\\psi\\propto e^{-\\kappa x}$.",
+    "The amplitude drops by $e^{-\\kappa L}$ across the barrier; the probability by its square.",
+    "Matching at both walls gives the prefactor $16E(V_0-E)/V_0^2$ for $\\kappa L\\gg1$."
+   ],
+   "meaning": "A particle can cross a barrier higher than its energy; the probability falls exponentially with width and with $\\sqrt{V_0-E}$.",
+   "explain": [
+    "Inside the barrier $E<V_0$, so $\\psi^{\\prime\\prime}=\\frac{2m(V_0-E)}{\\hbar^2}\\psi=\\kappa^2\\psi$: growing and decaying exponentials instead of waves.",
+    "For a thick barrier the decaying one dominates: across width $L$ the amplitude shrinks by $e^{-\\kappa L}$; probabilities are squares of amplitudes, so $e^{-2\\kappa L}$.",
+    "Matching $\\psi$ and $\\psi^\\prime$ at both walls (transfer matrices) gives the exact $T$; for $\\kappa L\\gg1$ its prefactor is $16E(V_0-E)/V_0^2$, a number of order one."
+   ],
+   "where": {
+    "sec": "3.5, 3.5.1",
+    "pages": "36–38",
+    "read": "qm-read-03c"
+   }
+  },
+  {
+   "id": "am",
+   "name": "Angular momentum algebra and spectrum",
+   "tex": "[\\hat L_i,\\hat L_j]=i\\hbar\\,\\epsilon_{ijk}\\hat L_k,\\qquad \\hat{\\mathbf L}^2|l,m\\rangle=\\hbar^2l(l+1)|l,m\\rangle,\\quad \\hat L_z|l,m\\rangle=\\hbar m|l,m\\rangle,\\ \\ m=-l,\\dots,l",
+   "anchor": "Memorise the commutator. The spectrum is the ladder argument.",
+   "steps": [
+    "$\\hat L_\\pm=\\hat L_x\\pm i\\hat L_y$: $[\\hat L_z,\\hat L_\\pm]=\\pm\\hbar\\hat L_\\pm$, so $\\hat L_\\pm$ shifts $m$ by $\\pm1$.",
+    "$\\hat{\\mathbf L}^2=\\hat L_\\mp\\hat L_\\pm+\\hat L_z^2\\pm\\hbar\\hat L_z$.",
+    "The ladder must stop: $\\hat L_+|l,l\\rangle=0$ gives the eigenvalue $\\hbar^2l(l+1)$; symmetric at the bottom, so $m$ runs from $-l$ to $l$."
+   ],
+   "meaning": "The components of angular momentum do not commute (rotations about different axes do not). Only $\\hat{\\mathbf L}^2$ and one component are sharp together, and the ladder argument gives $l(l+1)$ and $m=-l..l$.",
+   "explain": [
+    "Using $[L_z,L_x]=i\\hbar L_y$, $[L_z,L_y]=-i\\hbar L_x$: $[L_z,L_x\\pm iL_y]=i\\hbar L_y\\pm\\hbar L_x=\\pm\\hbar L_\\pm$. So $L_zL_\\pm|m\\rangle=\\hbar(m\\pm1)L_\\pm|m\\rangle$: $L_\\pm$ shifts $m$ by one.",
+    "Multiply out $L_\\mp L_\\pm=L_x^2+L_y^2\\pm i[L_x,L_y]=\\hat{\\mathbf L}^2-L_z^2\\mp\\hbar L_z$ and rearrange.",
+    "$m$ is bounded ($L_z^2\\le\\hat{\\mathbf L}^2$), so there is a top $m=l$ with $L_+|l,l\\rangle=0$. Then $\\hat{\\mathbf L}^2=L_-L_++L_z^2+\\hbar L_z$ gives $\\hbar^2(l^2+l)$. The same at the bottom forces the lowest $m$ to be $-l$, and $2l$ must be an integer."
+   ],
+   "where": {
+    "sec": "7.2, 7.4",
+    "pages": "67–69, 71–74",
+    "read": "qm-read-07b"
+   }
+  },
+  {
+   "id": "lpm",
+   "name": "Raising and lowering angular momentum",
+   "tex": "\\hat L_\\pm|l,m\\rangle=\\hbar\\sqrt{l(l+1)-m(m\\pm1)}\\ |l,m\\pm1\\rangle",
+   "anchor": "The norm again.",
+   "steps": [
+    "$\\|\\hat L_\\pm|l,m\\rangle\\|^2=\\langle\\hat L_\\mp\\hat L_\\pm\\rangle=\\langle\\hat{\\mathbf L}^2-\\hat L_z^2\\mp\\hbar\\hat L_z\\rangle$.",
+    "$=\\hbar^2[l(l+1)-m^2\\mp m]$."
+   ],
+   "meaning": "The exact numbers in front when $L_\\pm$ raises or lowers $m$: needed for every Clebsch-Gordan coefficient and spin calculation.",
+   "explain": [
+    "The length squared of $L_\\pm|l,m\\rangle$ is $\\langle l,m|L_\\pm^\\dagger L_\\pm|l,m\\rangle$ with $L_\\pm^\\dagger=L_\\mp$; then use $L_\\mp L_\\pm=\\hat{\\mathbf L}^2-L_z^2\\mp\\hbar L_z$ from the previous card.",
+    "On $|l,m\\rangle$: $\\hbar^2l(l+1)-\\hbar^2m^2\\mp\\hbar^2m=\\hbar^2[l(l+1)-m(m\\pm1)]$. The square root is the coefficient (phase chosen real and positive). It vanishes at $m=\\pm l$, as it must."
+   ],
+   "where": {
+    "sec": "7.4",
+    "pages": "71–74",
+    "read": "qm-read-07b"
+   }
+  },
+  {
+   "id": "pauli",
+   "name": "Spin 1/2 and the Pauli matrices",
+   "tex": "\\hat{\\mathbf S}=\\tfrac\\hbar2\\boldsymbol\\sigma,\\quad \\sigma_x=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\ \\sigma_y=\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix},\\ \\sigma_z=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix},\\quad \\sigma_i\\sigma_j=\\delta_{ij}+i\\epsilon_{ijk}\\sigma_k",
+   "anchor": "$\\sigma_z$ is diagonal by choice of basis; the other two follow from the ladder formula with $s=\\frac12$.",
+   "steps": [
+    "$\\hat S_+|\\!\\downarrow\\rangle=\\hbar|\\!\\uparrow\\rangle$, $\\hat S_-|\\!\\uparrow\\rangle=\\hbar|\\!\\downarrow\\rangle$ (the square root is 1).",
+    "$\\hat S_x=\\frac12(\\hat S_++\\hat S_-)$, $\\hat S_y=\\frac1{2i}(\\hat S_+-\\hat S_-)$.",
+    "Product rule: square is 1, different ones anticommute, $\\sigma_x\\sigma_y=i\\sigma_z$."
+   ],
+   "meaning": "Spin $\\frac12$ in the basis $|\\!\\uparrow\\rangle,|\\!\\downarrow\\rangle$: the three spin components are $\\frac\\hbar2$ times the Pauli matrices.",
+   "explain": [
+    "Use the ladder formula with $l=s=\\frac12$, $m=-\\frac12$: $\\sqrt{\\frac34+\\frac14}=1$. So $S_+$ turns down into up with factor $\\hbar$, and $S_-$ the reverse.",
+    "Invert $S_\\pm=S_x\\pm iS_y$. In matrices: $S_+=\\hbar\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$, $S_-$ its transpose; their sum over 2 gives $\\frac\\hbar2\\sigma_x$, the difference over $2i$ gives $\\frac\\hbar2\\sigma_y$.",
+    "Multiply the matrices: $\\sigma_i^2=\\mathbb 1$, $\\sigma_x\\sigma_y=i\\sigma_z=-\\sigma_y\\sigma_x$ (cyclic). This reproduces $[S_x,S_y]=i\\hbar S_z$."
+   ],
+   "where": {
+    "sec": "7.5, 9.3",
+    "pages": "75–77, 95–97",
+    "read": "qm-read-07c"
+   }
+  },
+  {
+   "id": "hydrogen",
+   "name": "Hydrogen: energies and Bohr radius",
+   "tex": "E_n=-\\frac{m_ee^4}{2(4\\pi\\epsilon_0)^2\\hbar^2}\\,\\frac1{n^2}=-\\frac{13.6\\ \\mathrm{eV}}{n^2},\\qquad a_0=\\frac{4\\pi\\epsilon_0\\hbar^2}{m_ee^2}=0.529\\ \\text{Å},\\qquad \\text{degeneracy } n^2",
+   "anchor": "Memorise 13.6 eV and 0.53 Å. The structure comes from Bohr's argument or from dimensional analysis.",
+   "steps": [
+    "Circular orbit: $\\frac{m_ev^2}{r}=\\frac{e^2}{4\\pi\\epsilon_0r^2}$, and $m_evr=n\\hbar$.",
+    "Solve: $r_n=n^2a_0$.",
+    "$E=-\\frac12\\frac{e^2}{4\\pi\\epsilon_0r_n}$ (virial theorem): $E_n=-\\frac{e^2}{8\\pi\\epsilon_0a_0n^2}$.",
+    "Degeneracy: $l=0,\\dots,n-1$, each with $2l+1$ values of $m$: $\\sum(2l+1)=n^2$ (without spin)."
+   ],
+   "meaning": "The energy levels of hydrogen fall as $1/n^2$ with the Rydberg energy 13.6 eV; the size of the atom is set by the Bohr radius 0.53 Å.",
+   "explain": [
+    "Bohr: the Coulomb force supplies the centripetal force, and the angular momentum is quantised in units of $\\hbar$ (the old quantum theory, script 1.2).",
+    "From $mvr=n\\hbar$: $v=n\\hbar/mr$; insert into the force balance: $r=\\frac{4\\pi\\epsilon_0\\hbar^2n^2}{me^2}=n^2a_0$.",
+    "Virial theorem for $1/r$ forces: kinetic $=-\\frac12$ potential, so $E=\\frac12V=-\\frac{e^2}{8\\pi\\epsilon_0r_n}$. The full Schrödinger solution (script 8.2) gives exactly the same energies.",
+    "For each $n$, $l$ runs from 0 to $n-1$ and $m$ over $2l+1$ values; $\\sum_{l=0}^{n-1}(2l+1)=n^2$. That $E$ does not depend on $l$ is the hidden so(4) symmetry (8.3)."
+   ],
+   "where": {
+    "sec": "1.2, 8.2",
+    "pages": "8–10, 84–87",
+    "read": "qm-read-08a"
+   }
+  },
+  {
+   "id": "pt1",
+   "name": "Time-independent perturbation theory (non-degenerate)",
+   "tex": "E_n^{(1)}=\\langle n|\\hat V|n\\rangle,\\qquad E_n^{(2)}=\\sum_{m\\ne n}\\frac{|\\langle m|\\hat V|n\\rangle|^2}{E_n^{(0)}-E_m^{(0)}},\\qquad |n^{(1)}\\rangle=\\sum_{m\\ne n}\\frac{\\langle m|\\hat V|n\\rangle}{E_n^{(0)}-E_m^{(0)}}\\,|m\\rangle",
+   "anchor": "Expand in $\\lambda$ and project. Remember: second order of the ground state is always negative.",
+   "steps": [
+    "$(\\hat H_0+\\lambda\\hat V)(|n\\rangle+\\lambda|n^{(1)}\\rangle+\\dots)=(E_n^{(0)}+\\lambda E_n^{(1)}+\\dots)(\\dots)$.",
+    "Order $\\lambda$, project on $\\langle n|$: $E_n^{(1)}=\\langle n|\\hat V|n\\rangle$.",
+    "Order $\\lambda$, project on $\\langle m|$, $m\\ne n$: the coefficient of $|m\\rangle$ in $|n^{(1)}\\rangle$.",
+    "Order $\\lambda^2$, project on $\\langle n|$: $E_n^{(2)}=\\langle n|\\hat V|n^{(1)}\\rangle$."
+   ],
+   "meaning": "For a small extra term $\\hat V$: the first correction is the average of $\\hat V$ in the state; the second comes from mixing with the other states, weighted by $1/$(energy difference).",
+   "explain": [
+    "Write energy and state as power series in the small parameter $\\lambda$ and insert into $(\\hat H_0+\\lambda\\hat V)|\\psi\\rangle=E|\\psi\\rangle$.",
+    "Collect the terms with one power of $\\lambda$: $\\hat H_0|n^{(1)}\\rangle+\\hat V|n\\rangle=E^{(0)}|n^{(1)}\\rangle+E^{(1)}|n\\rangle$. Take $\\langle n|$: the $|n^{(1)}\\rangle$ terms cancel because $\\langle n|\\hat H_0=E^{(0)}\\langle n|$, leaving $E^{(1)}=\\langle n|\\hat V|n\\rangle$.",
+    "The same equation with $\\langle m|$, $m\\ne n$: $(E_m-E_n)\\langle m|n^{(1)}\\rangle+\\langle m|\\hat V|n\\rangle=0$, so $\\langle m|n^{(1)}\\rangle=\\frac{\\langle m|\\hat V|n\\rangle}{E_n-E_m}$.",
+    "At order $\\lambda^2$ project on $\\langle n|$ again: $E^{(2)}=\\langle n|\\hat V|n^{(1)}\\rangle$; insert step 3. For the ground state every $E_n-E_m<0$, so $E^{(2)}\\le0$."
+   ],
+   "where": {
+    "sec": "11.1",
+    "pages": "114–117",
+    "read": "qm-read-11a"
+   }
+  },
+  {
+   "id": "ptdeg",
+   "name": "Degenerate perturbation theory",
+   "tex": "\\det\\big(\\langle n,a|\\hat V|n,b\\rangle-E^{(1)}\\delta_{ab}\\big)=0",
+   "anchor": "The formula above divides by zero when levels are degenerate: first diagonalise $\\hat V$ inside the degenerate subspace.",
+   "steps": [
+    "Any combination of the degenerate states is an eigenstate of $\\hat H_0$: choose the one that $\\hat V$ does not mix.",
+    "That means: the eigenvectors of the matrix $V_{ab}$ in the subspace; its eigenvalues are the first-order shifts."
+   ],
+   "meaning": "If several states share the same energy, the small term $\\hat V$ decides which combinations are the right starting states; the first-order shifts are the eigenvalues of $\\hat V$ inside that degenerate set.",
+   "explain": [
+    "The non-degenerate formula has $E_n-E_m=0$ in a denominator. But inside a degenerate level any combination is an eigenstate of $\\hat H_0$, so we are free to pick the combination for which the dangerous terms vanish.",
+    "Those are the combinations that diagonalise the matrix $V_{ab}=\\langle n,a|\\hat V|n,b\\rangle$; its eigenvalues are the shifts (secular equation). A symmetry commuting with $\\hat V$ often makes the matrix diagonal from the start (Stark effect: parity and $L_z$)."
+   ],
+   "where": {
+    "sec": "11.2",
+    "pages": "118–123",
+    "read": "qm-read-11b"
+   }
+  },
+  {
+   "id": "addition",
+   "name": "Addition of angular momenta",
+   "tex": "j=|j_1-j_2|,\\ |j_1-j_2|+1,\\ \\dots,\\ j_1+j_2,\\qquad \\tfrac12\\otimes\\tfrac12=1\\oplus0:\\ \\ |1,0\\rangle=\\tfrac{1}{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle+|\\!\\downarrow\\uparrow\\rangle),\\ |0,0\\rangle=\\tfrac1{\\sqrt2}(|\\!\\uparrow\\downarrow\\rangle-|\\!\\downarrow\\uparrow\\rangle)",
+   "anchor": "Count states and lower from the top.",
+   "steps": [
+    "Top state $|j_1,j_1\\rangle|j_2,j_2\\rangle$ has $m=j_1+j_2$: it is $|j_1+j_2,j_1+j_2\\rangle$.",
+    "Apply $\\hat J_-=\\hat J_{1-}+\\hat J_{2-}$ to walk down the multiplet.",
+    "The state orthogonal to it with the same $m$ starts the next multiplet, $j=j_1+j_2-1$.",
+    "Check the count: $\\sum_j(2j+1)=(2j_1+1)(2j_2+1)$."
+   ],
+   "meaning": "Two angular momenta $j_1$ and $j_2$ combine to every total $j$ from $|j_1-j_2|$ to $j_1+j_2$ in steps of one; two spins $\\frac12$ give a triplet and a singlet.",
+   "explain": [
+    "$J_z=J_{1z}+J_{2z}$ is additive. The state with both maximal has the largest possible $m=j_1+j_2$ and nothing above it, so it must be the top of the multiplet $j=j_1+j_2$.",
+    "The total lowering operator acts on both factors (product rule); applying it generates the whole $j=j_1+j_2$ multiplet, with the coefficients from the ladder formula.",
+    "At $m=j_1+j_2-1$ there are two product states; one combination is used by the first multiplet, the orthogonal one is killed by $J_+$: it is the top of $j=j_1+j_2-1$. Continue down.",
+    "Every product state is used exactly once: $\\sum_{j=|j_1-j_2|}^{j_1+j_2}(2j+1)=(2j_1+1)(2j_2+1)$. For $\\frac12\\otimes\\frac12$: $3+1=4$."
+   ],
+   "where": {
+    "sec": "9.2–9.4",
+    "pages": "94–99",
+    "read": "qm-read-09a"
+   }
+  }
  ]
 }

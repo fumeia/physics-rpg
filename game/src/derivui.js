@@ -43,9 +43,13 @@ export function renderDerivs(host, ctx) {
   function detailHtml() {
     const x = d(), lv = lvOf(x.id), tabs = [['ladder', `Ladder (rung ${Math.min(4, lv + 1)})`], ['moves', 'Moves'], ['why', 'Why?'], ['variant', 'Change one assumption'], ['back', 'Backwards'], ['outline', 'Two minutes']].concat(x.asked?.length ? [['asked', 'As asked in the exam']] : []);
     return `<div class="row"><button class="chip btn" data-map>\u2190 All derivations</button><span class="src">${esc(x.exam.label)}: in ${x.exam.count} of ${x.exam.of} old exams</span></div>
-      <h3 class="dv-title">${M(x.title)}</h3><div class="row studytabs">${tabs.map(([k, l]) => `<button class="chip btn${mode === k ? ' cur' : ''}" data-mode="${k}">${l}</button>`).join('')}</div>
+      <h3 class="dv-title">${M(x.title)}</h3>${whereHtml(x)}<div class="row studytabs">${tabs.map(([k, l]) => `<button class="chip btn${mode === k ? ' cur' : ''}" data-mode="${k}">${l}</button>`).join('')}</div>
       <div class="fg-card"><div class="callout exam"><div class="ctitle">Goal</div>${M(x.goal)}</div>${body(x, lv)}</div>`;
   }
+  // where the derivation is in the script (section, pages, equations), with buttons to the guided reading and the sheet question
+  const whereHtml = (x) => { const w = x.where; if (!w) return '';
+    const loc = w.pages ? `script (German) \u00a7${esc(w.sec)}, pp. ${esc(w.pages)}${w.eqs ? `, eqs. ${esc(w.eqs)}` : ''}` : 'not in the script';
+    return `<div class="dv-where"><b>Where it is:</b> ${loc}.${w.note ? ` <span class="src">${esc(w.note)}</span>` : ''}<div class="row">${w.read ? `<button class="chip btn" data-dvread="${w.read}">\ud83d\udcd6 Read this part of the script first</button>` : ''}${w.sheet ? `<button class="chip btn" data-dvread="${w.sheet}">\u270e The sheet question that does it (with solution)</button>` : ''}</div></div>`; };
   const lineList = (x, idx, cls = '') => `<ol class="dv-lines ${cls}">${idx.map((i) => `<li value="${i + 1}">${M(x.lines[i])}</li>`).join('')}</ol>`;
   function body(x, lv) {
     if (mode === 'ladder') {
@@ -88,6 +92,7 @@ export function renderDerivs(host, ctx) {
     q('[data-retry]').forEach((b) => (b.onclick = () => { st = {}; draw(); }));
     q('[data-pass]').forEach((b) => (b.onclick = () => { save(view, { up: true }); store.addXp(10); ctx.onChange?.(); st = {}; draw(); }));
     q('[data-show]').forEach((b) => (b.onclick = () => { st.shown = true; draw(); }));
+    q('[data-dvread]').forEach((b) => (b.onclick = () => ctx.openEnc?.(b.dataset.dvread)));
     q('[data-start]').forEach((b) => (b.onclick = () => { st.started = true; st.t0 = Date.now(); draw(); }));
     q('[data-nextask]').forEach((b) => (b.onclick = () => { st = { ai: (st.ai || 0) + 1 }; draw(); }));
     q('[data-vstep]').forEach((b) => (b.onclick = () => { st.step = (st.step || 0) + 1; draw(); }));

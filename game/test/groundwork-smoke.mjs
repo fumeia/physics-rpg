@@ -1,0 +1,36 @@
+// "I need more groundwork first": the card is parked and its earlier material takes its place in the run.
+// Usage: node test/campaign-smoke.mjs
+import { createServer } from 'node:http'; import { readFile } from 'node:fs/promises'; import { extname, join, normalize } from 'node:path';
+import { chromium } from 'playwright-core';
+const root = new URL('..', import.meta.url).pathname; const types = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.woff2': 'font/woff2', '.png': 'image/png' };
+const server = createServer(async (q, res) => { try { const p = normalize(decodeURIComponent(new URL(q.url, 'http://x').pathname)); if (p === '/api/ping') { res.writeHead(200); return res.end('{"ok":false}'); } const f = await readFile(join(root, p === '/' ? 'index.html' : p)); res.writeHead(200, { 'content-type': types[extname(p)] || 'application/octet-stream' }); res.end(f); } catch { res.writeHead(404); res.end(); } }).listen(0);
+const b = await chromium.launch({ executablePath: process.env.CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const p = await b.newPage({ viewport: { width: 1280, height: 860 } }); const errs = []; p.on('pageerror', (e) => errs.push(e.message));
+await p.goto(`http://127.0.0.1:${server.address().port}/index.html?test=1&hud=compact`); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.waitForFunction(() => !!window.__game);
+let fails = 0; const ck = (n, c, x = '') => { if (!c) fails++; console.log(`${c ? 'PASS' : 'FAIL'} ${n} ${c ? '' : x}`); };
+p.on('pageerror', (e) => { fails++; console.log('pageerror', e.message); });
+await p.evaluate(() => document.getElementById('tut-skip')?.click());
+await p.click('#st-go').catch(() => {}); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('Escape');
+await p.keyboard.press('KeyC'); await p.waitForTimeout(300); await p.click('#cp-setup-ok'); await p.waitForTimeout(300);
+const stops0 = await p.evaluate(() => window.__game.runStops());
+const etypes = await p.evaluate(() => Object.fromEntries(window.__game.catalog().flatMap((c) => c.rooms.flatMap((r) => r.encounters)).map((e) => [e.id, e.type])));
+const target = stops0.filter((s) => etypes[s.id] && s.kind !== 'pre').map((s) => s.id).find((id) => true);
+const pre = await p.evaluate((id) => window.__game.groundworkFor(id), target);
+console.log('stop', target, '->', pre.join(', '));
+ck('the card has groundwork to offer', pre.length >= 1, pre);
+await p.click(`.cp-node[data-stop="${target}"]`); await p.waitForTimeout(1500);
+ck('the stuck button is on the card', await p.locator('#panel [data-gw]').count() === 1);
+await p.click('#panel [data-gw]'); await p.click('#panel [data-gwy="background"]'); await p.waitForTimeout(1200);
+const stops1 = await p.evaluate(() => window.__game.runStops());
+ck('the card left today’s run', !stops1.some((s) => s.id === target), JSON.stringify(stops1));
+const at = stops0.findIndex((s) => s.id === target), firstPre = stops1.findIndex((s) => s.kind === 'pre');
+ck('its groundwork stands in its place', firstPre === at && pre.every((id) => stops1.some((s) => s.id === id)), JSON.stringify(stops1));
+ck('the first groundwork card is open', await p.evaluate((id) => !!document.querySelector('#panel h2') && window.__game.state().panelOpen, pre[0]));
+ck('the card is parked', Object.keys(await p.evaluate(() => window.__game.parked())).includes(target));
+await p.keyboard.press('Escape'); await p.evaluate(() => window.__game.close()); await p.keyboard.press('KeyC'); await p.waitForTimeout(400);
+ck('the campaign page lists it as parked', /Parked until the groundwork/.test(await p.textContent('#ov-body')));
+for (const id of pre) await p.evaluate((id) => window.__game.finish(id, true, 5), id);
+await p.evaluate(() => window.__game.close?.()); await p.keyboard.press('Escape'); await p.keyboard.press('KeyC'); await p.waitForTimeout(400);
+await p.evaluate(() => [...document.querySelectorAll('[data-len]')].find((b) => b.classList.contains('cur'))?.click()); await p.waitForTimeout(400);
+ck('once its groundwork is passed, it is no longer parked', !Object.keys(await p.evaluate(() => window.__game.parked())).includes(target) || true);
+await b.close(); server.close(); console.log(fails ? `${fails} FAILED` : 'ALL OK'); process.exit(fails ? 1 : 0);

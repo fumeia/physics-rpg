@@ -8,8 +8,8 @@ import { EST_MIN } from './campaign.js';
 import { meanRetention, fading, forecast } from './memory.js';
 
 const ACT_ICON = { hunt: '\u2620', explain: '\u275d', blitz: '\u26a1' };
-const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba' };
-const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass' };
+const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba', pre: '\ud83e\uddf1' };
+const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass', pre: 'Groundwork' };
 const LENGTHS = [[20, 'Short'], [45, 'Normal'], [90, 'Long']];
 const GHOST = '<svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M2 21V9a8 8 0 0 1 16 0v12l-3-2.5-2.5 2.5-2.5-2.5L7.5 21 5 18.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.6" fill="#0b0d12"/><circle cx="12.5" cy="9" r="1.6" fill="#0b0d12"/></svg>';
 const esc = (s) => String(s).replace(/</g, '&lt;');
@@ -77,6 +77,13 @@ export function createCampaign(ctx) {
   function freshRun(minutes = runMinutes()) {
     const rv = store.snapshot.reviews || {}, due = store.dueReviews().filter((id) => ctx.encIndex.has(id)).sort((a, b) => (rv[a].due || 0) - (rv[b].due || 0));
     const r = buildRun({ weeks: W(), isPassed: passed, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds(), reread: rereadStops(), examDays: Object.fromEntries(courses().map((c) => [c, daysToExam(new Date(), c)])) });
+    // parked cards ("I need more groundwork first"): until their groundwork is passed, the groundwork stands in their place
+    { const pk = parked(); let changed = false;
+      for (const [pid, p] of Object.entries(pk)) { if (passed(pid) || (p.pre || []).every((x) => passed(x))) { delete pk[pid]; changed = true; } }
+      if (changed) store.setVal('parked', pk);
+      for (let i = r.stops.length - 1; i >= 0; i--) { const p = pk[r.stops[i].id]; if (!p) continue;
+        const todo = p.pre.filter((x) => !passed(x) && !r.stops.some((y) => y.id === x) && ctx.encIndex.has(x));
+        r.stops.splice(i, 1, ...todo.map((x) => preStop(x, p.title))); } }
     // forks: up to two stops offer a riskier alternative from the same room (a calculation fight or an exam problem) for bonus XP
     let forks = 0;
     for (const s of r.stops) {
@@ -107,6 +114,29 @@ export function createCampaign(ctx) {
     }
     r.minutes = total();
     return { date: todayStr(), minutes, stops: r.stops, est: r.minutes, startedAt: 0, xp0: store.xp, behind0: behindTotal(), n: (() => { const pr = store.val('run', null); return pr?.date === todayStr() ? (pr.n || 1) + (pr.summarized ? 1 : 0) : 1; })() };
+  }
+  // ---- groundwork: a card that needs earlier material first is parked; its groundwork takes its place in the run
+  const parked = () => ({ ...(store.val('parked', {}) || {}) });
+  const preStop = (id, title) => { const e = ctx.encIndex.get(id)?.enc; return { id, kind: 'pre', min: e?.reading ? Math.min(40, e.minutes || 20) : EST_MIN[e?.type] || 10, why: `Groundwork for \u201c${title}\u201d: the earlier part it builds on` }; };
+  function groundwork(id, pre, title, why) {
+    const pk = parked(); pk[id] = { at: Date.now(), pre, title, why }; store.setVal('parked', pk);
+    if (why === 'unclear') store.setVal('unclear', [...(store.val('unclear', []) || []).filter((x) => x.id !== id), { id, title, at: Date.now() }].slice(-60));
+    const r = run(), st = r.stops.map((x) => stopState(r, x)), i = r.stops.findIndex((x) => x.id === id && !x.action);
+    const fresh = pre.filter((x) => !r.stops.some((y, k) => y.id === x && st[k] !== 'open'));
+    const stops = r.stops.filter((y, k) => !(fresh.includes(y.id) && st[k] === 'open')); // groundwork that was already planned later moves up
+    const at = i >= 0 ? stops.findIndex((x) => x.id === id) : stops.findIndex((x, k) => stopState(r, x) === 'open');
+    const add = fresh.map((x) => preStop(x, title));
+    if (at >= 0) stops.splice(at, i >= 0 ? 1 : 0, ...add); else stops.push(...add);
+    if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); }
+    store.setVal('run', { ...r, stops, est: stops.reduce((a, x) => a + x.min, 0) });
+    return add.length;
+  }
+  function unpark(id) { const pk = parked(); delete pk[id]; store.setVal('parked', pk); }
+  function parkedHtml() {
+    const pk = Object.entries(parked()).filter(([id]) => ctx.encIndex.has(id)); if (!pk.length) return '';
+    return `<div class="cp-parked"><h3>\ud83e\uddf1 Parked until the groundwork is done</h3>${pk.map(([id, p]) => { const done = p.pre.filter((x) => passed(x)).length;
+      return `<div class="cp-pk"><span><b>${p.title}</b> \u00b7 groundwork ${done}/${p.pre.length}${p.why === 'unclear' ? ' \u00b7 marked as badly explained' : ''}</span><button class="chip btn" data-unpark="${id}">Try it again now</button></div>`; }).join('')}
+      <p class="src">A parked card comes back into a run by itself once its groundwork is passed.${(store.val('unclear', []) || []).length ? ' Cards you marked as badly explained are kept in a list (flag <code>unclear</code>); tell Claude in a session, and they get rewritten.' : ''}</p></div>`;
   }
   function run() { let r = store.val('run', null); if (!r || r.date !== todayStr()) { r = freshRun(); r.n = 1; store.setVal('run', r); } return r; }
   function stopState(r, s) { // done / failed today since the run started, else open
@@ -250,6 +280,7 @@ export function createCampaign(ctx) {
       <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === mins ? ' cur' : ''}" data-len="${m}" title="Plan a ${m}-minute run">${l} ${m}′</button>`).join('')}</div></div>
       ${weekHtmlRow()}
       ${earlierHtml()}
+      ${parkedHtml()}
       ${total ? `<div class="cp-path">${nodes}</div>` : '<p>Every week is done and no respawn is due. Use the exam hall for a timed mock exam.</p>'}${sum}
       <div class="row">${total && !complete ? `<button class="go cp-go" id="cp-start">${r.startedAt ? 'Continue the run' : 'Start the run'} ▶</button>` : ''}${complete ? '<button class="go cp-go" id="cp-again">Plan another run</button>' : ''}${canUndo() ? `<button class="chip btn" id="cp-undo" title="Throw this new run away and show the finished run #${prevRuns().slice(-1)[0].n} again">\u21b6 Undo: back to run #${prevRuns().slice(-1)[0].n}</button>` : ''}</div></div>`;
   }
@@ -305,6 +336,7 @@ export function createCampaign(ctx) {
     const un = host.querySelector('#cp-undo'); if (un) un.onclick = () => { if (undoNewRun()) { ctx.toast('Back to your finished run.'); ctx.onChange(); } re(); };
     host.querySelectorAll('[data-reso]').forEach((b) => (b.onclick = () => ctx.openConnection(b.dataset.reso)));
     host.querySelectorAll('[data-stop]').forEach((b) => (b.onclick = () => { const r = run(); const as = r.stops.find((s) => s.id === b.dataset.stop && s.action); if (as) { doAction(as); return; } if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); } ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), 'Today\u2019s run', b.dataset.stop); }));
+    host.querySelectorAll('[data-unpark]').forEach((b) => (b.onclick = () => { unpark(b.dataset.unpark); ctx.openQueue([b.dataset.unpark], 'pile', b.dataset.unpark); }));
     host.querySelectorAll('[data-alt]').forEach((b) => (b.onclick = () => { const r = run(), i = +b.dataset.alt, s = r.stops[i], a = s.alt; r.stops[i] = a.back ? { ...a.orig } : { ...s, id: a.id, kind: a.kind, min: a.min, bonus: a.bonus, risk: true, alt: { id: s.id, back: true, orig: { ...s } }, why: 'You took the risk: a harder problem from the same room, for bonus XP' }; r.est = r.stops.reduce((x, y) => x + y.min, 0); store.setVal('run', r); re(); }));
     host.querySelectorAll('[data-dungeon]').forEach((b) => (b.onclick = () => enterDungeon(b.dataset.dungeon)));
     const dl = host.querySelector('#cp-dleave'); if (dl) dl.onclick = () => { leaveDungeon(); re(); };
@@ -366,5 +398,5 @@ export function createCampaign(ctx) {
   // for the Script tab of the study hub: second-pass state per course, and starting/stopping it from there
   function rereadInfo(cid) { const st = rereadState()[cid]; return st?.since ? { from: st.from, done: new Set(syncReread()[cid]?.done || []) } : null; }
   function setReread(cid, from) { const rs = { ...rereadState() }; if (from) rs[cid] = { from, since: Date.now(), done: [] }; else delete rs[cid]; store.setVal('reread', rs); replan(); }
-  return { rereadInfo, setReread, html, wire, startRun, onProgress, roomOverdue, stat, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  return { groundwork, unpark, parked, rereadInfo, setReread, html, wire, startRun, onProgress, roomOverdue, stat, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }

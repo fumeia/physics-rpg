@@ -551,6 +551,10 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 
 /* out of focus: the exercise waits behind a choice */
 .bt-gate { grid-column: 1 / -1; display: grid; gap: 6px; border-top: 1px dashed rgba(245,196,81,.5); padding-top: 6px; font-size: 13px; } .bt-gate b { color: var(--warn); font-size: 14px; } .bt-gate span { opacity: .85; } .bt-gate .row { display: flex; flex-wrap: wrap; gap: 6px; }
-#panel.bt-out > *:not(.battle):not(.back):not(.navback) { opacity: .3; pointer-events: none; filter: grayscale(.6); }
-#panel.bt-lread .opt, #panel.bt-lread input, #panel.bt-lread textarea, #panel.bt-lread button:not(.battle button):not(.back) { pointer-events: none; opacity: .4; }
+#panel.bt-out > *:not(.battle):not(.back):not(.navback):not(.gwstrip) { opacity: .3; pointer-events: none; filter: grayscale(.6); }
+#panel.bt-lread .opt, #panel.bt-lread input, #panel.bt-lread textarea, #panel.bt-lread button:not(.battle button):not(.back):not(.gwstrip button) { pointer-events: none; opacity: .4; }
 .bt-gate button[disabled] { opacity: .65; cursor: default; }
+/* groundwork: "I need more groundwork first" */
+.gwstrip { margin: 2px 0 8px; font-size: 13px; } .gwstrip [data-gw] { color: #9cc0ff; } .gw-ask { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; padding: 8px; border: 1px dashed rgba(156,192,255,.4); border-radius: 8px; } .gw-ask[hidden] { display: none; }
+.cp-parked { margin: 12px 0; padding: 10px 12px; border: 1px solid rgba(245,196,81,.35); border-radius: 10px; } .cp-parked h3 { margin: 0 0 6px; font-size: 15px; } .cp-pk { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 4px 0; border-top: 1px solid rgba(255,255,255,.06); }
+html[data-theme=light] .gwstrip [data-gw] { color: #1f5fbf; }

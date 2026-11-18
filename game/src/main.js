@@ -1384,6 +1384,42 @@ function rechargeFor(enc) {
   const t = (rm?.encounters || []).find((e) => e.type === 'lesson' && e.id !== enc.id);
   return t ? () => { closePanel(true); openById(t.id); } : null;
 }
+// ---- "I need more groundwork first": the earlier material a card builds on, earliest first (at most 3).
+// Order of preference: what is not passed yet before what you passed (a re-read); the theory of the same week before this card,
+// the script section behind it, the two script sections right before it, the theory and reading of the week before.
+function groundworkFor(enc) {
+  const ref = encIndex.get(enc.id); if (!ref) return [];
+  const ok = (id) => id && id !== enc.id && encIndex.has(id) && !isLocked(encIndex.get(id).enc) && !['sandbox', 'boss'].includes(encIndex.get(id).enc.type);
+  const cand = [];
+  const push = (id) => { if (ok(id) && !cand.includes(id)) cand.push(id); };
+  let weeks = []; try { weeks = campaign?.weeks?.()?.[ref.course] || []; } catch { /* no campaign */ }
+  const wi = weeks.findIndex((w) => w.theory.includes(enc.id) || w.practice.includes(enc.id) || (w.reading || []).includes(enc.id));
+  const w = weeks[wi], prev = wi > 0 ? weeks[wi - 1] : null;
+  const rf = enc.reading ? null : readingForAny(enc);
+  const cards = findCourse(ref.course).rooms.flatMap((r) => r.encounters.filter((e) => e.reading)).sort(cmpSec);
+  const anchor = enc.reading ? enc : rf && encIndex.get(rf.id)?.enc, ai = anchor ? cards.indexOf(anchor) : -1;
+  if (w) { const t = w.theory.filter((x) => encIndex.get(x)?.enc.type === 'lesson'), k = t.indexOf(enc.id); (k >= 0 ? t.slice(0, k) : enc.type === 'lesson' ? [] : t).forEach(push); }
+  if (rf) push(rf.id);
+  if (ai > 0) cards.slice(Math.max(0, ai - 2), ai).forEach((e) => push(e.id));
+  if (prev) { [...(prev.reading || []), ...prev.theory.filter((x) => encIndex.get(x)?.enc.type === 'lesson')].forEach(push); }
+  const open = cand.filter((id) => !store.isPassed(id)), again = cand.filter((id) => store.isPassed(id));
+  const pick = [...open, ...again].slice(0, 3), order = new Map(cand.map((id, i) => [id, i]));
+  // earliest first: the week before, then earlier script sections, then the section itself, then this week's earlier theory
+  const rank = (id) => (prev && [...(prev.reading || []), ...prev.theory].includes(id) ? 0 : cards.some((e) => e.id === id) ? 1 + cards.findIndex((e) => e.id === id) / 1000 : 2) + order.get(id) / 1e6;
+  return pick.sort((a, b) => rank(a) - rank(b));
+}
+function needGroundwork(enc, why, inRun) {
+  const pre = groundworkFor(enc), title = String(enc.title || enc.id).replace(/<[^>]+>|\$[^$]*\$/g, '').trim() || enc.id;
+  if (!pre.length) { toast('No earlier material found for this card in the game. Open the Script tab for the chapters before it.'); return; }
+  if (campaign) campaign.groundwork(enc.id, pre, title, why);
+  const names = pre.map((id) => String(encIndex.get(id).enc.title || id).replace(/<[^>]+>|\$[^$]*\$/g, '').trim()).join(', ');
+  toast(`Parked \u201c${title}\u201d. Groundwork first: ${names}. It comes back once those are passed.`);
+  closePanel(true);
+  const first = pre.find((id) => !store.isPassed(id)) || pre[0];
+  if (inRun) { queueLabel = 'Today\u2019s run'; pileQueue = campaign.runInfo().r.stops.filter((x) => !x.action).map((x) => x.id); openById(first); }
+  else { queueLabel = 'Groundwork'; pileQueue = pre; openById(first); }
+  refresh();
+}
 function openEncounter(enc, fromGroup) {
   closePanel(true);
   const grp = enc.synthetic ? null : fromGroup || groups.find((g) => g.items.includes(enc));
@@ -1396,6 +1432,7 @@ function openEncounter(enc, fromGroup) {
   const next = inRun ? () => { closePanel(true); campaign.startRun(enc.id); } : queueNext ? () => openFromPile(queueNext, true) : roomNext ? () => openEncounter(roomNext) : null;
   const env = {
     readFirst: ['derive', 'calc', 'boss'].includes(enc.type) ? readingForAny(enc) : null,
+    groundwork: enc.synthetic || enc.type === 'sandbox' ? null : (why) => needGroundwork(enc, why, inRun),
     openRead: (id) => { closePanel(true); openById(id); },
     hasNext: !!next,
     next: () => next && next(),
@@ -1533,7 +1570,7 @@ function exposeTestApi() {
     open: (id) => openById(id), openGroup: (key) => openGroup(groups.find((g) => g.key === key)),
     loadRoom: (c, r) => loadRoom(c, r), close: () => closePanel(),
     activeBy: () => (store.snapshot.flags || {}).activeBy || {},
-    syncState: () => ({ ...sync }), syncNow: () => pushNow(), solvedIds: () => Object.keys(store.snapshot.solved || {}),
+    syncState: () => ({ ...sync }), groundworkFor: (id) => groundworkFor(encIndex.get(id).enc), needGroundwork: (id, why) => needGroundwork(encIndex.get(id).enc, why, false), runStops: () => campaign?.runInfo().r.stops.map((s) => ({ id: s.id, kind: s.kind })) || [], parked: () => campaign?.parked() || {}, syncNow: () => pushNow(), solvedIds: () => Object.keys(store.snapshot.solved || {}),
     activeLog: () => (store.snapshot.flags || {}).activeLog || [],
     catalog: () => catalog.map((c) => ({ id: c.id, rooms: c.rooms.map((r) => ({ id: r.slug, encounters: r.encounters.map((e) => ({ id: e.id, type: e.type })) })) })),
     groups: () => groups.map((g) => ({ key: g.key, items: g.items.length })),

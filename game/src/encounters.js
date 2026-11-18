@@ -41,6 +41,13 @@ export function finish(enc, ok, xp) {
 // by main.js only when the pack was found there. Shown as a strip under the encounter title, opening in a new tab.
 export function mount(enc, el, env) {
   const r = mountType(enc, el, env);
+  if (env.groundwork) { // stuck: the card builds on something you have not got yet, or it explains badly -> do the groundwork first
+    const gw = document.createElement('div'); gw.className = 'gwstrip';
+    gw.innerHTML = `<button class="link" type="button" data-gw>\ud83e\uddf1 Stuck? I need more groundwork first</button><div class="gw-ask" hidden><span>What is missing?</span><button class="chip btn" data-gwy="background">I lack the background (earlier sections, basics)</button><button class="chip btn" data-gwy="unclear">This card explains it too badly for me</button><span class="src">Either way the card is parked and the earlier material it builds on takes its place in today\u2019s run; the card comes back once that is done.</span></div>`;
+    gw.querySelector('[data-gw]').onclick = () => { const a = gw.querySelector('.gw-ask'); a.hidden = !a.hidden; };
+    gw.querySelectorAll('[data-gwy]').forEach((b) => (b.onclick = () => env.groundwork(b.dataset.gwy)));
+    const h = el.querySelector('h2'); if (h) h.after(gw); else el.prepend(gw);
+  }
   if (env.readFirst) { // the script section this exercise comes from, with its guided-reading card
     const rf = env.readFirst, strip = document.createElement('div'); strip.className = 'readstrip readfirst';
     strip.innerHTML = `<span class="rlab">\ud83d\udcd6 ${rf.fallback ? 'The script part behind this exercise' : 'From the script'}: \u00a7${rf.sec}${rf.pages ? `, pp. ${rf.pages}` : ''}.</span> <a href="#" data-readfirst>Read it first (guided)</a>`;

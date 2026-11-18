@@ -1,7 +1,7 @@
 // Fights with stakes: every exercise is an encounter with an enemy. A right answer hits it, a first-try answer is a
 // critical hit, a wrong answer costs you focus, a hint costs a little focus, and a streak of right answers builds a combo.
-// Focus at 0 means you are guessing: the next exercise stops behind a gate until you recharge (go back to the theory,
-// or take a real 5-minute break) or choose to push on (then the grade is capped at C).
+// Focus at 0 means you are guessing: the exercise stops behind a gate until you recharge (go back to the theory,
+// or take a real 5-minute break) or choose to push on (then the grade is capped at C). In a theory card the answers wait 30 s for a re-read.
 // It is a layer on top of the exercise panel: it watches the panel for answers being marked (like feedback.js), so no
 // exercise code or content changes, and nothing here decides whether an exercise is passed.
 import { store } from './store.js';
@@ -76,28 +76,32 @@ export function begin(enc, panel, { course, onChange, cards = null, recharge = n
   if (nem) { bar.classList.add('nemesis'); const d = document.createElement('div'); d.className = 'bt-nem'; d.textContent = `Nemesis (${nem.beaten || 0}/3 beaten): last time you answered \u201c${String(nem.given).slice(0, 60)}\u201d${nem.diag ? ` \u2014 ${String(nem.diag).replace(/<[^>]+>/g, '').slice(0, 110)}` : ''}`; bar.appendChild(d); }
   const st = cur = { enc, bar, enemy, hp: 100, n, hits: 0, wrong: 0, hints: 0, combo: 0, done: false, lastWrongAt: 0, tried: new WeakSet(), onChange };
   const paint = () => { const f = focus(); bar.querySelector('.bt-hp i').style.width = `${st.hp}%`; bar.querySelector('.bt-fo i').style.width = `${f}%`; bar.querySelector('.bt-fv').textContent = `${f} / ${MAX_FOCUS}`; bar.classList.toggle('lowfocus', f <= 25); bar.querySelector('.bt-combo').textContent = st.combo >= 2 ? `combo ×${st.combo}` : ''; gate(f); };
-  // out of focus: the exercise waits behind a choice (theory and reading cards are the recharge, so they are never gated)
+  // out of focus: the exercise waits behind a choice. In a theory or reading card (the recharge itself) the card stays readable,
+  // only its answers wait: read it once more (they unlock after 30 s) or take a break; passing the card then gives +35.
+  const READ_S = 30, lesson = enc.type === 'lesson';
   const gate = (f) => {
-    const out = f <= 0 && !st.done && !st.pushOn && enc.type !== 'lesson'; panel.classList.toggle('bt-out', out);
+    const out = f <= 0 && !st.done && !st.pushOn; panel.classList.toggle('bt-out', out && !lesson); panel.classList.toggle('bt-lread', out && lesson);
     let g = bar.querySelector('.bt-gate'); if (!out) { g?.remove(); clearInterval(st.tick); st.tick = null; return; }
-    const left = breakLeft();
+    const left = breakLeft(); if (lesson && !st.readFrom) st.readFrom = Date.now();
+    const readLeft = lesson ? Math.max(0, READ_S - Math.floor((Date.now() - st.readFrom) / 1000)) : 0;
     if (!g) { g = document.createElement('div'); g.className = 'bt-gate'; bar.appendChild(g); }
-    const key = left ? 'break' : 'ask'; if (g.dataset.k === key && !left) return; g.dataset.k = key;
+    const key = left ? 'break' : lesson ? `read${readLeft}` : 'ask'; if (g.dataset.k === key) return; g.dataset.k = key;
+    if (left || (lesson && readLeft)) { if (!st.tick) st.tick = setInterval(() => paint(), 1000); } else { clearInterval(st.tick); st.tick = null; }
     if (left) { const m = Math.floor(left / 60000), sec = Math.floor(left / 1000) % 60;
-      g.innerHTML = `<b>☕ On a break: ${m}:${String(sec).padStart(2, '0')}</b><span>Stand up, drink something, look out of the window. Focus refills to ${GAIN.breakTo} when the timer runs out.</span><div class="row"><button class="chip btn" data-push>Skip the break and push on (grade capped at C)</button></div>`;
-      if (!st.tick) st.tick = setInterval(() => paint(), 1000);
-    } else g.innerHTML = `<b>Out of focus</b><span>Your focus ran out: that usually means guessing more than thinking. Recharge first:</span><div class="row">${recharge ? '<button class="chip btn primary" data-rc>📖 Go back to the theory (+35 when you pass it)</button>' : ''}<button class="chip btn" data-brk>☕ Take a ${GAIN.breakMin}-minute break (refills to ${GAIN.breakTo})</button><button class="chip btn" data-push>Push on anyway (grade capped at C)</button></div>${recharge ? '' : '<span>Any theory or reading card also recharges you (+35).</span>'}`;
+      g.innerHTML = `<b>☕ On a break: ${m}:${String(sec).padStart(2, '0')}</b><span>Stand up, drink something, look out of the window. Focus refills to ${GAIN.breakTo} when the timer runs out.</span><div class="row"><button class="chip btn" data-push>Skip the break and ${lesson ? 'go on' : 'push on (grade capped at C)'}</button></div>`;
+    } else if (lesson) g.innerHTML = `<b>Out of focus</b><span>The answers wait while you read this card once more, slowly, from the top: the mistakes usually come from skimming. Passing the card then recharges you (+${GAIN.readLow}).</span><div class="row"><button class="chip btn primary" data-push ${readLeft ? 'disabled' : ''}>${readLeft ? `📖 Reading… answers unlock in ${readLeft} s` : '📖 I read it again: answer now'}</button><button class="chip btn" data-brk>☕ Take a ${GAIN.breakMin}-minute break (refills to ${GAIN.breakTo})</button></div>`;
+    else g.innerHTML = `<b>Out of focus</b><span>Your focus ran out: that usually means guessing more than thinking. Recharge first:</span><div class="row">${recharge ? `<button class="chip btn primary" data-rc>📖 Go back to the theory (+${GAIN.readLow} when you pass it)</button>` : ''}<button class="chip btn" data-brk>☕ Take a ${GAIN.breakMin}-minute break (refills to ${GAIN.breakTo})</button><button class="chip btn" data-push>Push on anyway (grade capped at C)</button></div>${recharge ? '' : `<span>Any theory or reading card also recharges you (+${GAIN.readLow}).</span>`}`;
     g.querySelector('[data-rc]')?.addEventListener('click', () => recharge());
     g.querySelector('[data-brk]')?.addEventListener('click', () => { startBreak(); paint(); });
-    g.querySelector('[data-push]')?.addEventListener('click', () => { st.pushOn = true; store.setVal('focusBreak', null); pop('pushing on · grade capped at C', 'hurt'); paint(); });
+    g.querySelector('[data-push]')?.addEventListener('click', () => { st.pushOn = true; st.cap = !lesson; store.setVal('focusBreak', null); pop(lesson ? 'answers unlocked' : 'pushing on · grade capped at C', lesson ? 'hit' : 'hurt'); paint(); });
   };
   const pop = (text, cls) => { const p = bar.querySelector('.bt-pop'); p.textContent = text; p.className = `bt-pop ${cls}`; void p.offsetWidth; p.classList.add('go'); };
   const anim = (cls) => { bar.classList.remove('hit', 'crit', 'hurt'); void bar.offsetWidth; bar.classList.add(cls); };
   st.right = (firstTry) => { if (st.done) return; st.hits++; st.combo++; const dmg = 92 / st.n; st.hp = Math.max(8, st.hp - dmg); if (firstTry && st.combo >= 3) setFocus(focus() + GAIN.combo); pop(firstTry ? `critical hit${st.combo >= 3 ? ` · combo ×${st.combo} · +${GAIN.combo} focus` : ''}` : 'hit', firstTry ? 'crit' : 'hit'); anim(firstTry ? 'crit' : 'hit'); paint(); };
-  st.bad = () => { if (st.done) return; const now = Date.now(); if (now - st.lastWrongAt < 150) return; st.lastWrongAt = now; st.wrong++; st.combo = 0; setFocus(focus() - WRONG_COST); pop(`−${WRONG_COST} focus`, 'hurt'); anim('hurt'); paint(); st.onChange?.(); };
+  st.bad = () => { if (st.done) return; const now = Date.now(); if (now - st.lastWrongAt < 150) return; st.lastWrongAt = now; st.wrong++; st.combo = 0; const f0 = focus(); setFocus(f0 - WRONG_COST); pop(f0 > 0 ? `−${WRONG_COST} focus` : lesson ? 'out of focus · read the card again' : 'out of focus · grade capped at C', 'hurt'); anim('hurt'); paint(); st.onChange?.(); };
   st.hint = () => { if (st.done) return; st.hints++; setFocus(focus() - HINT_COST_FOCUS); pop(`hint · −${HINT_COST_FOCUS} focus`, 'hurt'); paint(); };
   st.finish = (ok) => {
-    if (st.done) return; st.done = true; let g = gradeOf(st.wrong, st.hints + (st.cardsPlayed || 0), ok); if (ok && st.pushOn && g !== 'D') g = 'C';
+    if (st.done) return; st.done = true; let g = gradeOf(st.wrong, st.hints + (st.cardsPlayed || 0), ok); if (ok && st.cap && g !== 'D' && g !== 'C') g = 'C';
     if (ok && nem) { const n = (nem.beaten || 0) + 1; updateMistake(nem.id, { beaten: n, open: n < 3 }); }
     if (ok) { st.hp = 0; const f0 = focus(), gain = enc.type === 'lesson' ? (f0 < GAIN.low ? GAIN.readLow : GAIN.read) : GAIN.win + (g === 'S' ? GAIN.clean : 0); setFocus(f0 + gain); pop(`${enemy.name} defeated \u00b7 grade ${g} \u00b7 +${gain} focus${nem ? ` \u00b7 nemesis ${(nem.beaten || 0) + 1}/3` : ''}`, 'win'); bar.classList.add('won'); }
     else { pop('it got away · it comes back as a respawn', 'hurt'); bar.classList.add('lost'); }

@@ -62,7 +62,7 @@ export function initTouch({ player, canvas, act, fullscreen, zoom }) {
   root.addEventListener('contextmenu', (e) => e.preventDefault());
   const fsBtn = document.getElementById('btn-fs');
   if (fsBtn) {
-    const can = document.documentElement.requestFullscreen && !matchMedia('(display-mode: standalone)').matches;
+    const can = document.documentElement.requestFullscreen && !matchMedia('(display-mode: standalone)').matches && !matchMedia('(display-mode: fullscreen)').matches && !/PhysicsRPG-Android/.test(navigator.userAgent); // the Android app is always full screen
     if (!can) fsBtn.style.display = 'none'; else fsBtn.onclick = () => fullscreen();
   }
 

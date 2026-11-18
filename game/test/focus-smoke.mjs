@@ -20,7 +20,16 @@ await p.click('.bt-gate [data-push]'); await p.waitForTimeout(300);
 ck('push on lifts the gate', await p.locator('.bt-gate').count() === 0 && !(await p.evaluate(() => document.getElementById('panel').classList.contains('bt-out'))));
 await p.evaluate((id) => window.__game.open(id), ids.calc); await p.waitForTimeout(300);
 await p.click('.bt-gate [data-rc]'); await p.waitForTimeout(400);
-ck('"go back to the theory" opens a lesson without a gate', await p.locator('.bt-gate').count() === 0 && await p.evaluate(() => !!document.querySelector('.battle')));
+ck('"go back to the theory" opens a lesson: readable, only its answers wait', await p.evaluate(() => document.getElementById('panel').classList.contains('bt-lread') && !document.getElementById('panel').classList.contains('bt-out')));
+ck('the lesson gate counts down before the answers unlock', /unlock in \d+ s/.test(await p.locator('.bt-gate').innerText()) && await p.locator('.bt-gate [data-push][disabled]').count() === 1);
+await p.evaluate((date) => { const k = 'physics-rpg-v1', s = JSON.parse(localStorage.getItem(k)); s.flags.focus = { date, v: 10 }; s.flags.focusBreak = null; localStorage.setItem(k, JSON.stringify(s)); }, today);
+await p.reload(); await p.waitForFunction(() => !!window.__game);
+const qid = await p.evaluate(() => window.__game.catalog().flatMap((c) => c.rooms.flatMap((r) => r.encounters)).find((e) => e.type === 'quiz').id);
+await p.evaluate((id) => window.__game.open(id), qid); await p.waitForTimeout(400);
+ck('at 10 focus a quiz is open as usual', await p.locator('.bt-gate').count() === 0);
+await p.locator('#panel .opt').first().click(); await p.waitForTimeout(400);
+const fv = await p.locator('.bt-fv').innerText();
+ck(`a wrong answer that empties focus brings the gate up at once (${fv})`, !fv.startsWith('0') || (await p.locator('.bt-gate').count() === 1));
 // a finished break refills to 60
 await p.evaluate((date) => { const k = 'physics-rpg-v1', s = JSON.parse(localStorage.getItem(k)); s.flags.focus = { date, v: 0 }; s.flags.focusBreak = { date, until: Date.now() - 1 }; localStorage.setItem(k, JSON.stringify(s)); }, today);
 await p.reload(); await p.waitForFunction(() => !!window.__game); await p.evaluate((id) => window.__game.open(id), ids.calc); await p.waitForTimeout(400);

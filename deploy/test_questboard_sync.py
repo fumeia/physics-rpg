@@ -126,6 +126,7 @@ check(Q['rpg.qm.respawn']['inMatrix'] is True and Q['rpg.qm.respawn']['done'] is
       'a due respawn puts one quest in the matrix')
 check(Q['rpg.qm.respawn'].get('goalId') is None, 'respawn quests are not counted in the goal')
 check('1 respawns' not in Q['rpg.qm.respawn']['title'], 'singular for one')
+check(Q['rpg.qm.respawn'].get('respawns') == 1 and Q['rpg.solid-state.respawn'].get('respawns') == 0, 'the count is a field too (Questboard shows it as a chip)')
 state['reviews'] = {}; save()
 run(now=NOW + 300000)
 check(quests()['rpg.qm.respawn']['inMatrix'] is False and quests()['rpg.qm.respawn']['done'] is True, 'when none are due it leaves the matrix again')

@@ -384,7 +384,8 @@ def run(args):
         qmemo[cid] = [notes, top[cid], link, 2]
         if goal_id or (ex and (ex.get('goalId') or ex.get('goalAutoLinked'))): linked[cid] = goal_id or ex.get('goalId') or True
 
-    # respawns: failed exercises that are due. One quest per course in Schedule, in the matrix only while some are due
+    # respawns: failed exercises that are due. One quest per course in Schedule, in the matrix only while some are due.
+    # The count is also a field of its own: Questboard shows it as a chip, because the title is cut short in a matrix cell.
     if existing is None: existing = {} if args.dry_run else {q['id']: q for q in qb.state('quests') if str(q.get('id', '')).startswith('rpg.')}
     for cid in COURSES:
         k = prog[cid]['respawns']
@@ -392,7 +393,7 @@ def run(args):
         ex = existing.get(rid)
         if ex and ex.get('deleted'): continue  # you deleted it in Questboard
         want = {'title': f"Physics RPG · {top[cid]}: {k} respawn{'s' if k != 1 else ''} due" if k else f"Physics RPG · {top[cid]}: no respawns due",
-                'quadrant': QUADRANT, 'inMatrix': k > 0, 'done': k == 0, 'source': 'physics-rpg', 'topic': top[cid], 'kind': 'respawn',
+                'quadrant': QUADRANT, 'inMatrix': k > 0, 'done': k == 0, 'source': 'physics-rpg', 'topic': top[cid], 'kind': 'respawn', 'respawns': k,
                 'notes': 'Failed exercises come back here when they are due. Open the game with the link and do them; the quest is gone when none are due.'}
         if link: want['link'] = link
         rec = dict(ex or {'id': rid, 'createdAt': now})

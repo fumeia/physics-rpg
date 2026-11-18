@@ -1,5 +1,7 @@
 // Fights with stakes: every exercise is an encounter with an enemy. A right answer hits it, a first-try answer is a
 // critical hit, a wrong answer costs you focus, a hint costs a little focus, and a streak of right answers builds a combo.
+// Focus at 0 means you are guessing: the next exercise stops behind a gate until you recharge (go back to the theory,
+// or take a real 5-minute break) or choose to push on (then the grade is capped at C).
 // It is a layer on top of the exercise panel: it watches the panel for answers being marked (like feedback.js), so no
 // exercise code or content changes, and nothing here decides whether an exercise is passed.
 import { store } from './store.js';
@@ -8,7 +10,10 @@ import { mistakes, updateMistake } from './mistakes.js';
 // the script/book reference of a formula card, as short plain text (LaTeX stripped), shown next to its readable name
 const refText = (r) => { const t = String(r || '').replace(/\$[^$]*\$/g, '').replace(/\s+/g, ' ').trim().slice(0, 40); return t ? ` \u00b7 ${t.replace(/</g, '&lt;')}` : ''; };
 
-const MAX_FOCUS = 100, WRONG_COST = 10, HINT_COST_FOCUS = 4, READ_GAIN = 8, WIN_GAIN = 3;
+const MAX_FOCUS = 100, WRONG_COST = 10, HINT_COST_FOCUS = 4;
+// gains: theory and reading cards recharge most (+35 when you were running low), any won exercise +8, a clean one (grade S) +5 more,
+// each critical hit in a combo of 3 or more +1; a 5-minute break refills to 60
+export const GAIN = { read: 15, readLow: 35, win: 8, clean: 5, combo: 1, breakTo: 60, breakMin: 5, low: 25 };
 const hash = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
 const rnd = (seed) => () => { seed = Math.imul(seed ^ (seed >>> 15), 2246822507) >>> 0; seed = Math.imul(seed ^ (seed >>> 13), 3266489909) >>> 0; return ((seed ^= seed >>> 16) >>> 0) / 4294967296; };
 
@@ -33,7 +38,14 @@ export function spriteSvg(e, size = 54) {
 }
 
 // ---- your focus (resets every day) and today's fight log (grades shown in the run summary)
-export function focus() { const f = store.val('focus', null); return f && f.date === todayStr() ? f.v : MAX_FOCUS; }
+export function focus() {
+  const f = store.val('focus', null); let v = f && f.date === todayStr() ? f.v : MAX_FOCUS;
+  const b = store.val('focusBreak', null); // a break that has run out refills focus
+  if (b && Date.now() >= b.until) { store.setVal('focusBreak', null); if (b.date === todayStr() && v < GAIN.breakTo) { v = GAIN.breakTo; setFocus(v); } }
+  return v;
+}
+export const breakLeft = () => { const b = store.val('focusBreak', null); return b && b.date === todayStr() ? Math.max(0, b.until - Date.now()) : 0; };
+export function startBreak() { store.setVal('focusBreak', { date: todayStr(), until: Date.now() + GAIN.breakMin * 60000 }); }
 function setFocus(v) { store.setVal('focus', { date: todayStr(), v: Math.max(0, Math.min(MAX_FOCUS, Math.round(v))) }); }
 export function fightsToday() { const f = store.val('fights', null); return f && f.date === todayStr() ? f.list : []; }
 export const gradeBook = () => store.val('grades', {}) || {};
@@ -50,7 +62,7 @@ export function expectedHits(enc) {
 }
 
 let cur = null; // the fight of the open panel
-export function begin(enc, panel, { course, onChange, cards = null, M = (x) => x } = {}) {
+export function begin(enc, panel, { course, onChange, cards = null, recharge = null, M = (x) => x } = {}) {
   end();
   if (!enc || enc.synthetic || enc.type === 'sandbox') return;
   const enemy = enemyOf(enc, course), n = expectedHits(enc);
@@ -63,16 +75,31 @@ export function begin(enc, panel, { course, onChange, cards = null, M = (x) => x
   const nem = mistakes().filter((m) => m.open && m.encId === enc.id).slice(-1)[0];
   if (nem) { bar.classList.add('nemesis'); const d = document.createElement('div'); d.className = 'bt-nem'; d.textContent = `Nemesis (${nem.beaten || 0}/3 beaten): last time you answered \u201c${String(nem.given).slice(0, 60)}\u201d${nem.diag ? ` \u2014 ${String(nem.diag).replace(/<[^>]+>/g, '').slice(0, 110)}` : ''}`; bar.appendChild(d); }
   const st = cur = { enc, bar, enemy, hp: 100, n, hits: 0, wrong: 0, hints: 0, combo: 0, done: false, lastWrongAt: 0, tried: new WeakSet(), onChange };
-  const paint = () => { const f = focus(); bar.querySelector('.bt-hp i').style.width = `${st.hp}%`; bar.querySelector('.bt-fo i').style.width = `${f}%`; bar.querySelector('.bt-fv').textContent = `${f} / ${MAX_FOCUS}`; bar.classList.toggle('lowfocus', f <= 25); bar.querySelector('.bt-combo').textContent = st.combo >= 2 ? `combo ×${st.combo}` : ''; };
+  const paint = () => { const f = focus(); bar.querySelector('.bt-hp i').style.width = `${st.hp}%`; bar.querySelector('.bt-fo i').style.width = `${f}%`; bar.querySelector('.bt-fv').textContent = `${f} / ${MAX_FOCUS}`; bar.classList.toggle('lowfocus', f <= 25); bar.querySelector('.bt-combo').textContent = st.combo >= 2 ? `combo ×${st.combo}` : ''; gate(f); };
+  // out of focus: the exercise waits behind a choice (theory and reading cards are the recharge, so they are never gated)
+  const gate = (f) => {
+    const out = f <= 0 && !st.done && !st.pushOn && enc.type !== 'lesson'; panel.classList.toggle('bt-out', out);
+    let g = bar.querySelector('.bt-gate'); if (!out) { g?.remove(); clearInterval(st.tick); st.tick = null; return; }
+    const left = breakLeft();
+    if (!g) { g = document.createElement('div'); g.className = 'bt-gate'; bar.appendChild(g); }
+    const key = left ? 'break' : 'ask'; if (g.dataset.k === key && !left) return; g.dataset.k = key;
+    if (left) { const m = Math.floor(left / 60000), sec = Math.floor(left / 1000) % 60;
+      g.innerHTML = `<b>☕ On a break: ${m}:${String(sec).padStart(2, '0')}</b><span>Stand up, drink something, look out of the window. Focus refills to ${GAIN.breakTo} when the timer runs out.</span><div class="row"><button class="chip btn" data-push>Skip the break and push on (grade capped at C)</button></div>`;
+      if (!st.tick) st.tick = setInterval(() => paint(), 1000);
+    } else g.innerHTML = `<b>Out of focus</b><span>Your focus ran out: that usually means guessing more than thinking. Recharge first:</span><div class="row">${recharge ? '<button class="chip btn primary" data-rc>📖 Go back to the theory (+35 when you pass it)</button>' : ''}<button class="chip btn" data-brk>☕ Take a ${GAIN.breakMin}-minute break (refills to ${GAIN.breakTo})</button><button class="chip btn" data-push>Push on anyway (grade capped at C)</button></div>${recharge ? '' : '<span>Any theory or reading card also recharges you (+35).</span>'}`;
+    g.querySelector('[data-rc]')?.addEventListener('click', () => recharge());
+    g.querySelector('[data-brk]')?.addEventListener('click', () => { startBreak(); paint(); });
+    g.querySelector('[data-push]')?.addEventListener('click', () => { st.pushOn = true; store.setVal('focusBreak', null); pop('pushing on · grade capped at C', 'hurt'); paint(); });
+  };
   const pop = (text, cls) => { const p = bar.querySelector('.bt-pop'); p.textContent = text; p.className = `bt-pop ${cls}`; void p.offsetWidth; p.classList.add('go'); };
   const anim = (cls) => { bar.classList.remove('hit', 'crit', 'hurt'); void bar.offsetWidth; bar.classList.add(cls); };
-  st.right = (firstTry) => { if (st.done) return; st.hits++; st.combo++; const dmg = 92 / st.n; st.hp = Math.max(8, st.hp - dmg); pop(firstTry ? `critical hit${st.combo >= 3 ? ` · combo ×${st.combo}` : ''}` : 'hit', firstTry ? 'crit' : 'hit'); anim(firstTry ? 'crit' : 'hit'); paint(); };
+  st.right = (firstTry) => { if (st.done) return; st.hits++; st.combo++; const dmg = 92 / st.n; st.hp = Math.max(8, st.hp - dmg); if (firstTry && st.combo >= 3) setFocus(focus() + GAIN.combo); pop(firstTry ? `critical hit${st.combo >= 3 ? ` · combo ×${st.combo} · +${GAIN.combo} focus` : ''}` : 'hit', firstTry ? 'crit' : 'hit'); anim(firstTry ? 'crit' : 'hit'); paint(); };
   st.bad = () => { if (st.done) return; const now = Date.now(); if (now - st.lastWrongAt < 150) return; st.lastWrongAt = now; st.wrong++; st.combo = 0; setFocus(focus() - WRONG_COST); pop(`−${WRONG_COST} focus`, 'hurt'); anim('hurt'); paint(); st.onChange?.(); };
   st.hint = () => { if (st.done) return; st.hints++; setFocus(focus() - HINT_COST_FOCUS); pop(`hint · −${HINT_COST_FOCUS} focus`, 'hurt'); paint(); };
   st.finish = (ok) => {
-    if (st.done) return; st.done = true; const g = gradeOf(st.wrong, st.hints + (st.cardsPlayed || 0), ok);
+    if (st.done) return; st.done = true; let g = gradeOf(st.wrong, st.hints + (st.cardsPlayed || 0), ok); if (ok && st.pushOn && g !== 'D') g = 'C';
     if (ok && nem) { const n = (nem.beaten || 0) + 1; updateMistake(nem.id, { beaten: n, open: n < 3 }); }
-    if (ok) { st.hp = 0; setFocus(focus() + (enc.type === 'lesson' ? READ_GAIN : WIN_GAIN)); pop(`${enemy.name} defeated \u00b7 grade ${g}${nem ? ` \u00b7 nemesis ${(nem.beaten || 0) + 1}/3` : ''}`, 'win'); bar.classList.add('won'); }
+    if (ok) { st.hp = 0; const f0 = focus(), gain = enc.type === 'lesson' ? (f0 < GAIN.low ? GAIN.readLow : GAIN.read) : GAIN.win + (g === 'S' ? GAIN.clean : 0); setFocus(f0 + gain); pop(`${enemy.name} defeated \u00b7 grade ${g} \u00b7 +${gain} focus${nem ? ` \u00b7 nemesis ${(nem.beaten || 0) + 1}/3` : ''}`, 'win'); bar.classList.add('won'); }
     else { pop('it got away · it comes back as a respawn', 'hurt'); bar.classList.add('lost'); }
     logFight({ id: enc.id, grade: g, wrong: st.wrong, hints: st.hints, ok: !!ok, enemy: enemy.name, t: Date.now() }); paint();
   };
@@ -105,5 +132,5 @@ export function begin(enc, panel, { course, onChange, cards = null, M = (x) => x
   st.panel = panel; paint();
   if (store.isPassed(enc.id) && !store.hasReview(enc.id)) { bar.classList.add('rematch'); bar.querySelector('.bt-name span').textContent += ' · rematch'; }
 }
-export function end() { if (!cur) return; cur.mo?.disconnect(); cur.panel?.removeEventListener('click', cur.click, true); window.removeEventListener('encounter-done', cur.doneEv); cur = null; }
+export function end() { if (!cur) return; clearInterval(cur.tick); cur.panel?.classList.remove('bt-out'); cur.mo?.disconnect(); cur.panel?.removeEventListener('click', cur.click, true); window.removeEventListener('encounter-done', cur.doneEv); cur = null; }
 export const current = () => cur && { hp: cur.hp, hits: cur.hits, wrong: cur.wrong, hints: cur.hints, combo: cur.combo, done: cur.done, enemy: cur.enemy.name };

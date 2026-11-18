@@ -548,3 +548,7 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 .st-line{display:grid;grid-template-columns:80px 1fr auto;gap:6px;align-items:center;font-size:13px;margin:3px 0}
 .menu-sets{display:flex;gap:8px;flex-wrap:wrap}.menu-sets .menu-set{flex:1}
 .cp-stats{margin-top:18px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px}
+
+/* out of focus: the exercise waits behind a choice */
+.bt-gate { grid-column: 1 / -1; display: grid; gap: 6px; border-top: 1px dashed rgba(245,196,81,.5); padding-top: 6px; font-size: 13px; } .bt-gate b { color: var(--warn); font-size: 14px; } .bt-gate span { opacity: .85; } .bt-gate .row { display: flex; flex-wrap: wrap; gap: 6px; }
+#panel.bt-out > *:not(.battle):not(.back):not(.navback) { opacity: .3; pointer-events: none; filter: grayscale(.6); }

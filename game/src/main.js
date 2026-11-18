@@ -1377,6 +1377,12 @@ function readingForAny(enc) {
   const room = findCourse(ref.course)?.rooms.find((r) => r.slug === ref.roomId), cards = (room?.encounters || []).filter((e) => e.reading).sort(cmpSec);
   return cards.length ? cardInfo(cards[0]) : null;
 }
+// out of focus with no guided reading behind the exercise: the theory card of its room is the recharge
+function rechargeFor(enc) {
+  const ref = encIndex.get(enc.id), rm = ref && findCourse(ref.course)?.rooms.find((r) => r.slug === ref.roomId);
+  const t = (rm?.encounters || []).find((e) => e.type === 'lesson' && e.id !== enc.id);
+  return t ? () => { closePanel(true); openById(t.id); } : null;
+}
 function openEncounter(enc, fromGroup) {
   closePanel(true);
   const grp = enc.synthetic ? null : fromGroup || groups.find((g) => g.items.includes(enc));
@@ -1422,7 +1428,7 @@ function openEncounter(enc, fromGroup) {
     back.onclick = () => openGroup(grp); $('panel').prepend(back);
   }
   const sl = sheetLinksHtml(enc); if (sl) { const box = document.createElement('div'); box.innerHTML = M(sl); wireSheetLinks(box); $('panel').prepend(box); }
-  if ((store.val('settings', {}) || {}).fights !== 'off') { const cid = encIndex.get(enc.id)?.course || course?.id, shown = new Set(); battle.begin(enc, $('panel'), { course: cid, onChange: null, M, cards: enc.type === 'lesson' ? null : cid !== 'qm' ? { summary: true, list: () => pinned(cid, catalog, (id) => store.isPassed(id)).map((c) => ({ ...c, charge: 3, shown: true })), more: () => cards.deck(catalog, (id) => store.isPassed(id)).filter((c) => c.course === cid && !pinned(cid, catalog, (id) => store.isPassed(id)).some((p) => p.key === c.key)).slice(0, 40), pin: (k) => pin(cid, k, 5), play: () => true, recharge: () => {} } : { list: () => cards.deck(catalog, (id) => store.isPassed(id)).filter((c) => c.course === cid).sort((a, b) => (b.room === room?.slug) - (a.room === room?.slug)).slice(0, 30).map((c) => ({ ...c, shown: shown.has(c.key) })), play: (k) => { const ok = cards.play(k); if (ok) shown.add(k); return ok; }, recharge: (k) => cards.recharge(k) } }); } // fights with stakes: enemy, focus, combo
+  if ((store.val('settings', {}) || {}).fights !== 'off') { const cid = encIndex.get(enc.id)?.course || course?.id, shown = new Set(); battle.begin(enc, $('panel'), { course: cid, onChange: null, M, recharge: env.readFirst ? () => env.openRead(env.readFirst.id) : rechargeFor(enc), cards: enc.type === 'lesson' ? null : cid !== 'qm' ? { summary: true, list: () => pinned(cid, catalog, (id) => store.isPassed(id)).map((c) => ({ ...c, charge: 3, shown: true })), more: () => cards.deck(catalog, (id) => store.isPassed(id)).filter((c) => c.course === cid && !pinned(cid, catalog, (id) => store.isPassed(id)).some((p) => p.key === c.key)).slice(0, 40), pin: (k) => pin(cid, k, 5), play: () => true, recharge: () => {} } : { list: () => cards.deck(catalog, (id) => store.isPassed(id)).filter((c) => c.course === cid).sort((a, b) => (b.room === room?.slug) - (a.room === room?.slug)).slice(0, 30).map((c) => ({ ...c, shown: shown.has(c.key) })), play: (k) => { const ok = cards.play(k); if (ok) shown.add(k); return ok; }, recharge: (k) => cards.recharge(k) } }); } // fights with stakes: enemy, focus, combo
   if (!enc.synthetic) $('panel').prepend(pileBar(enc));
   const nb = navBackBar(enc); if (nb) $('panel').prepend(nb);
   updateBar();

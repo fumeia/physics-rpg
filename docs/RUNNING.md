@@ -78,3 +78,10 @@ The QM chapter 7 explainer pack is in the repo as `deploy/packs/ch7_page.zip`. O
 This writes `game/private/ch7/` (generated, git-ignored). The game probes `private/ch7/index.html` at start and only then
 shows the "📖 Lecturer's chapter 7 explainers" strip in the symmetry lessons, derivations and sheets
 (map in `notes/quantum-mechanics/build/ch7/build.py`, READINGS).
+
+## Which branch the server runs
+The server runs `main`. One-time switch from the old branch:
+
+    cd /opt/physics-rpg && sudo git fetch origin main && sudo git checkout -B main origin/main && sudo git branch -u origin/main main && rpg-update
+
+After that, `rpg-update` pulls `main` as usual.

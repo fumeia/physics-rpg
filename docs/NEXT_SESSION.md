@@ -161,3 +161,8 @@ radial equation, Clebsch–Gordan for 1⊗½, golden rule); the ladder's "order"
 - campaignui.js: second-pass control per course track ("from week N"), counter, listing in the week panel; trimming order puts
   the second pass above the Forge/derivation extras. Tests: campaign-check (bucket, reread), reading-smoke (browser).
 - QM: 28 cards (`notes/quantum-mechanics/build/reading/`, chapters 7-11 in build.py, 1-6 in part2.py; chapter 7 linked to the lecturer pack). Astro: 28 cards on Choudhuri (`notes/astrophysics/build/reading/`), no GR and no MHD 8.4-8.10; re-check against Refregier slides when they appear. Shared helper `notes/build/readinglib.py`.
+
+## 2026-11-18: the server now pulls `main`
+`main` was fast-forwarded to `claude/game-server-website-migration-ikz0nf` (no rewrite). The server checkout follows `main`
+(`git checkout -B main origin/main`, then `rpg-update` as before). Every finished piece goes into `main`; the old server branch
+is no longer pulled and only kept for history.

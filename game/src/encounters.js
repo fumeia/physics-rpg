@@ -497,7 +497,8 @@ function mountDerive(enc, el, env) {
   el.innerHTML = M(`<h2>${enc.title} <span class="src">(${enc.sheet ? 'exercise sheet' : enc.book ? 'textbook exercise' : 'derivation practice'})</span></h2>${sourceHtml(enc.source)}
     <div class="callout exam"><div class="ctitle">Goal</div>${enc.goal}</div>
     ${enc.given?.length ? `<h3>Given</h3><ul>${enc.given.map((g) => `<li>${g}</li>`).join('')}</ul>` : ''}
-    <p class="src">Do each step on paper first, then reveal the reference step and compare.</p>
+    <p class="src">Do each step on paper first, then reveal the reference step and compare. Never seen it before? Walk through the reference solution first, then try it on paper.</p>
+    <div class="row"><button class="chip btn" id="dwalk">\ud83d\udc63 Walk me through it: open the next step</button></div>
     <div id="dsteps"></div><div id="dkeys"></div><div id="result"></div>`);
   const host = el.querySelector('#dsteps'); let revealed = 0;
   enc.steps.forEach((s, n) => {
@@ -517,6 +518,9 @@ function mountDerive(enc, el, env) {
       if (++revealed === enc.steps.length) keys();
     };
   });
+  // walk-through: open the reference steps one by one, in order (the same as pressing each step's reveal button)
+  const walk = el.querySelector('#dwalk');
+  if (walk) walk.onclick = () => { const nx = [...host.querySelectorAll('[data-rv]')].find((b) => b.style.display !== 'none'); if (!nx) { walk.remove(); return; } nx.click(); nx.closest('.step')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); if (![...host.querySelectorAll('[data-rv]')].some((b) => b.style.display !== 'none')) walk.remove(); };
   function keys() {
     el.querySelector('#dkeys').innerHTML = M(`<h3>Key points of a full-marks solution</h3><p class="src">Tick each one you really had on paper.</p>
       <ul class="key" style="list-style:none;padding:0">${enc.keyPoints.map((k) => `<li><label><input type="checkbox" class="kp"> ${k}</label></li>`).join('')}</ul>

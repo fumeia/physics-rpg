@@ -4,7 +4,7 @@
   python3 serve.py                       # http://127.0.0.1:8123, profiles in ./profiles/<name>.json
   python3 serve.py --port 9000 --host 0.0.0.0   # on a server (set PHYSICS_RPG_TOKEN=secret to require a token)
 
-API: GET /api/ping, GET /api/profiles, GET /api/profile/<name>, PUT /api/profile/<name>  (JSON body),
+API: GET /api/ping, GET /api/precache (the game's files with their times, for offline play), GET /api/profiles, GET /api/profile/<name>, PUT /api/profile/<name>  (JSON body),
      GET /api/notify-config, POST /api/remind ("remind me later" through ntfy; only when the server notifications are set up, see deploy/notify-setup.sh).
 Names: letters, digits, _ and - (max 40). Writes are atomic and the last 5 versions are kept as backups.
 """
@@ -36,6 +36,19 @@ def _version():
     return str(newest)
 
 
+SKIP_DIRS = ('node_modules', 'test', '.git', 'profiles', 'downloads', '__pycache__')
+def _precache():
+    out = {}
+    for base, dirs, files in os.walk(ROOT):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+        for f in files:
+            if f.endswith(('.py', '.pyc', '.sh', '.md', '.zip', '.tmp')) or f.startswith('.'): continue
+            fp = os.path.join(base, f)
+            try: out['/' + os.path.relpath(fp, ROOT).replace(os.sep, '/')] = int(os.stat(fp).st_mtime)
+            except OSError: pass
+    return out
+
+
 class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=ROOT, **k)
@@ -63,6 +76,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/api/version':  # for the service worker: changes whenever any file of the game changes (git pull, edit)
             return self._send(200, {'version': _version()})
+        if self.path == '/api/precache':  # for the service worker: every file the game needs offline, with its modification time
+            return self._send(200, {'files': _precache()})
         if self.path.startswith('/api/'):
             if not self._authorized(): return self._send(401, {'error': 'token required'})
             if self.path == '/api/ping': return self._send(200, {'ok': True, 'token': bool(TOKEN)})
@@ -125,6 +140,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return self._send(400, {'error': 'invalid json'})
         os.makedirs(PROFILES, exist_ok=True)
         p = self._path(m.group(1))
+        if 'base' in data and os.path.exists(p):  # offline-first clients say which server copy their save is based on
+            try:
+                with open(p) as fh: cur = json.load(fh).get('updated', 0)
+            except Exception: cur = None
+            if cur is not None and cur != data.get('base') and cur != data.get('updated'):
+                return self._send(409, {'error': 'the server copy changed: merge first', 'updated': cur})
         if os.path.exists(p):  # rolling backups
             for i in range(4, 0, -1):
                 if os.path.exists(f'{p}.bak{i}'): shutil.move(f'{p}.bak{i}', f'{p}.bak{i + 1}')

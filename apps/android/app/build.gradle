@@ -1,0 +1,17 @@
+plugins { id 'com.android.application' }
+// a thin app around the game on your own server: no libraries, so the APK stays tiny. The game itself (and every update of it)
+// comes from the server; the service worker keeps a copy for offline play, and sync.js merges progress when back online.
+android {
+    namespace 'app.physicsrpg'
+    compileSdk 35
+    defaultConfig { applicationId 'app.physicsrpg'; minSdk 26; targetSdk 35; versionCode 1; versionName '1.0' }
+    signingConfigs {
+        release {
+            // the key lives outside the repository (see apps/README.md): keystore path and passwords from ~/.gradle/gradle.properties or env
+            def ks = System.getenv('RPG_KEYSTORE') ?: (project.findProperty('RPG_KEYSTORE') ?: '')
+            if (ks) { storeFile file(ks); storePassword System.getenv('RPG_KEYSTORE_PASS') ?: project.findProperty('RPG_KEYSTORE_PASS'); keyAlias 'rpg'; keyPassword System.getenv('RPG_KEYSTORE_PASS') ?: project.findProperty('RPG_KEYSTORE_PASS') }
+        }
+    }
+    buildTypes { release { minifyEnabled false; signingConfig signingConfigs.release } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}

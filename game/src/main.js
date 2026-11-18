@@ -161,6 +161,7 @@ async function boot() {
   applySettings();
   setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]); window.addEventListener('encounter-done', () => setTimeout(checkGoal, 50));
   onSyncStatus(updateProfileChip);
+  window.addEventListener('store-replaced', () => { try { refresh(); } catch (e) { console.warn(e); } }); // progress from another device arrived (merged)
   $('close').onclick = () => closePanel();
   const last0 = store.last, lastRoom = last0 && findRoom(last0.course, last0.room);
   if (lastRoom) { $('resume').style.display = ''; $('resume').textContent = `Continue in ${lastRoom.title}`; $('resume').onclick = (ev) => { ev.stopPropagation(); requestStart(async () => { player.enabled = true; await loadRoom(last0.course, last0.room, { silent: false }); if ($('tour-chip').style.display === 'none') player.lock(); }); }; }
@@ -496,8 +497,8 @@ function applySettings() {
   player.sens = s.sens; quality.setMode(params.get('quality') || (params.has('test') ? 'high' : s.quality)); // tests draw every frame unless they ask for a level
 }
 function updateProfileChip() {
-  const el = $('btn-profile'); if (!el) return; const ok = sync.available && /saved/.test(sync.status);
-  el.textContent = `${store.profile} · ${sync.available ? (ok ? 'saved' : sync.status) : 'browser only'}`;
+  const el = $('btn-profile'); if (!el) return; const ok = sync.available && /saved/.test(sync.status) && !sync.offline;
+  el.textContent = `${store.profile} · ${sync.available ? (ok ? 'saved' : sync.offline ? 'offline \u00b7 saved here' : sync.status) : 'browser only'}`;
   el.classList.toggle('review', !sync.available || /error/.test(sync.status)); el.title = `Profile "${store.profile}": ${sync.status}`;
 }
 const studyToday = () => store.activeSecondsOn(todayStr());
@@ -1532,6 +1533,7 @@ function exposeTestApi() {
     open: (id) => openById(id), openGroup: (key) => openGroup(groups.find((g) => g.key === key)),
     loadRoom: (c, r) => loadRoom(c, r), close: () => closePanel(),
     activeBy: () => (store.snapshot.flags || {}).activeBy || {},
+    syncState: () => ({ ...sync }), syncNow: () => pushNow(), solvedIds: () => Object.keys(store.snapshot.solved || {}),
     activeLog: () => (store.snapshot.flags || {}).activeLog || [],
     catalog: () => catalog.map((c) => ({ id: c.id, rooms: c.rooms.map((r) => ({ id: r.slug, encounters: r.encounters.map((e) => ({ id: e.id, type: e.type })) })) })),
     groups: () => groups.map((g) => ({ key: g.key, items: g.items.length })),

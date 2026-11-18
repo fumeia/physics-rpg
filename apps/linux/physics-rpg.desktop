@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Physics RPG
+Comment=Study game for quantum mechanics, solid state physics and astrophysics
+Exec=physics-rpg-desktop
+Icon=physics-rpg
+Terminal=false
+Categories=Education;Science;Physics;Game;
+StartupWMClass=physics-rpg
+Actions=settings;
+
+[Desktop Action settings]
+Name=Server settings
+Exec=physics-rpg-desktop --settings

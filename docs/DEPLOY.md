@@ -108,3 +108,8 @@ and run the setup again). Nothing is sent at midday if you already studied (at l
 Profiles are plain JSON: copy `profiles/<name>.json` in either direction. When the game starts, the newer copy of a profile
 (by its `updated` timestamp) wins and replaces the older one. If you have played on two devices without a connection to the server in between,
 export the profile on the device you want to keep first (Profile -> export progress file).
+
+## 6. Apps for Android and the Linux desktop; offline play
+
+`https://<your server>/downloads/` has the Android app (`physics-rpg.apk`) and the Linux desktop app (`physics-rpg_1.0_all.deb`).
+Both open the game from this server and work offline, merging progress when they are back online. See `apps/README.md`.

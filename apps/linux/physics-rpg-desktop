@@ -1,0 +1,180 @@
+#!/usr/bin/python3
+"""Physics RPG for the Linux desktop (Zorin OS 17/18, Ubuntu 24.04): a window around the game on your own server (GTK 3 + WebKitGTK).
+
+- The game and every update of it come from the server; progress is the same profile as in the browser and on the phone.
+- Offline: the game's service worker keeps a copy of all files, so it starts and plays without a network; progress is saved
+  on this computer and merged with the server (and your other devices) as soon as it is online again.
+- The server's login (basic auth) is asked once and remembered (in ~/.config/physics-rpg/config.json, readable only by you).
+Keys: F11 full screen · Ctrl+R reload · Ctrl+, server settings · Ctrl+Q quit.
+
+  physics-rpg-desktop                 # normal start
+  physics-rpg-desktop --settings      # change the server address or login
+  physics-rpg-desktop --url URL       # open another address once (e.g. a local serve.py)
+"""
+import argparse, json, os, sys
+from urllib.parse import urlparse
+import gi
+gi.require_version('Gtk', '3.0'); gi.require_version('WebKit2', '4.1')
+from gi.repository import Gtk, Gdk, Gio, GLib, WebKit2  # noqa: E402
+
+APP = 'physics-rpg'
+CONF_DIR = os.path.join(GLib.get_user_config_dir(), APP); CONF = os.path.join(CONF_DIR, 'config.json')
+DATA = os.path.join(GLib.get_user_data_dir(), APP, 'web'); CACHE = os.path.join(GLib.get_user_cache_dir(), APP)
+ICON = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icon.png')
+
+
+def load_conf():
+    try:
+        with open(CONF) as f: return json.load(f)
+    except Exception: return {}
+
+
+def save_conf(c):
+    os.makedirs(CONF_DIR, exist_ok=True)
+    fd = os.open(CONF, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    with os.fdopen(fd, 'w') as f: json.dump(c, f, indent=1)
+
+
+def ask(parent, title, fields, text=None):
+    """A small form: fields = [(key, label, value, secret)] -> dict or None."""
+    d = Gtk.Dialog(title=title, transient_for=parent, modal=True); d.add_buttons('Cancel', Gtk.ResponseType.CANCEL, 'OK', Gtk.ResponseType.OK)
+    d.set_default_response(Gtk.ResponseType.OK); box = d.get_content_area(); box.set_spacing(6); box.set_border_width(14)
+    if text: lab = Gtk.Label(label=text, xalign=0); lab.set_line_wrap(True); lab.set_max_width_chars(60); box.add(lab)
+    ents = {}
+    for key, label, value, secret in fields:
+        box.add(Gtk.Label(label=label, xalign=0)); e = Gtk.Entry(text=value or ''); e.set_visibility(not secret); e.set_activates_default(True); e.set_width_chars(46); box.add(e); ents[key] = e
+    d.show_all(); r = d.run(); out = {k: e.get_text().strip() if k != 'password' else e.get_text() for k, e in ents.items()} if r == Gtk.ResponseType.OK else None
+    d.destroy(); return out
+
+
+def settings_dialog(parent, conf):
+    r = ask(parent, 'Physics RPG: your server', [('url', 'Game address (your server)', conf.get('url') or 'https://', False),
+            ('user', 'Login name (empty if the server has none)', conf.get('user', ''), False), ('password', 'Password', conf.get('password', ''), True)],
+            'The address you open the game with in the browser, and the login of the server if it asks for one.')
+    if not r: return None
+    u = r['url']
+    if not u.startswith(('http://', 'https://')): u = 'https://' + u
+    if not u.endswith('/') and urlparse(u).path in ('', '/'): u += '/'
+    conf.update(url=u, user=r['user'], password=r['password']); save_conf(conf); return conf
+
+
+class Game:
+    def __init__(self, url, conf, test=False):
+        self.conf, self.url, self.test, self.retry = conf, url, test, 0
+        dm = WebKit2.WebsiteDataManager(base_data_directory=DATA, base_cache_directory=CACHE)  # localStorage, service worker copy, cookies
+        self.ctx = WebKit2.WebContext.new_with_website_data_manager(dm)
+        dm.get_cookie_manager().set_persistent_storage(os.path.join(DATA, 'cookies.sqlite'), WebKit2.CookiePersistentStorage.SQLITE)
+        self.ctx.connect('download-started', self.on_download)
+        self.view = self.make_view(None)
+        s = self.view.get_settings()
+        s.set_property('user-agent', s.get_property('user-agent') + ' PhysicsRPG-Desktop/1.0')
+        self.win = self.window(self.view, 'Physics RPG')
+        self.win.connect('destroy', lambda *_: Gtk.main_quit())
+        self.win.connect('focus-in-event', lambda *_: self.kick())  # coming back to the window: pull progress from the other devices
+        self.win.connect('delete-event', self.on_close)
+        self.view.load_uri(url)
+
+    def make_view(self, related):
+        v = WebKit2.WebView.new_with_related_view(related) if related else WebKit2.WebView.new_with_context(self.ctx)
+        s = v.get_settings()
+        for k, val in (('enable-webgl', True), ('enable-javascript', True), ('enable-html5-local-storage', True), ('enable-html5-database', True),
+                       ('javascript-can-open-windows-automatically', True), ('enable-developer-extras', '--dev' in sys.argv), ('enable-back-forward-navigation-gestures', False)):
+            try: s.set_property(k, val)
+            except TypeError: pass
+        try: s.set_hardware_acceleration_policy(WebKit2.HardwareAccelerationPolicy.ALWAYS)
+        except Exception: pass
+        if self.test: s.set_property('enable-write-console-messages-to-stdout', True)
+        v.connect('authenticate', self.on_auth)
+        v.connect('decide-policy', self.on_policy)
+        v.connect('create', self.on_create)
+        v.connect('load-failed', self.on_failed)
+        v.connect('notify::title', lambda w, _p: w.get_toplevel().set_title(w.get_title() or 'Physics RPG') if isinstance(w.get_toplevel(), Gtk.Window) else None)
+        return v
+
+    def window(self, view, title):
+        w = Gtk.Window(title=title); w.set_default_size(1280, 800)
+        if os.path.exists(ICON): w.set_icon_from_file(ICON)
+        w.add(view); w.connect('key-press-event', self.on_key); w.show_all(); return w
+
+    def kick(self, *_):
+        self.view.evaluate_javascript("try{window.dispatchEvent(new Event('online'))}catch(e){}", -1, None, None, None, None, None)
+        return False
+
+    def on_close(self, *_):  # one last sync, then close
+        self.kick(); GLib.timeout_add(900, Gtk.main_quit); self.win.hide(); return True
+
+    def on_key(self, w, ev):
+        ctrl = ev.state & Gdk.ModifierType.CONTROL_MASK; k = Gdk.keyval_name(ev.keyval)
+        if k == 'F11':
+            if w.get_window().get_state() & Gdk.WindowState.FULLSCREEN: w.unfullscreen()
+            else: w.fullscreen()
+            return True
+        if ctrl and k in ('r', 'R'): self.view.reload(); return True
+        if ctrl and k in ('q', 'Q'): self.on_close(); return True
+        if ctrl and k == 'comma':
+            c = settings_dialog(self.win, dict(self.conf))
+            if c: self.conf = c; self.url = c['url']; self.retry = 0; self.view.load_uri(self.url)
+            return True
+        return False
+
+    def on_auth(self, view, req):
+        user, pw = self.conf.get('user', ''), self.conf.get('password', '')
+        if not user or req.is_retry():
+            r = ask(self.win, 'Login', [('user', 'Login name', user, False), ('password', 'Password', '', True)], f'{req.get_host()} asks for its login.')
+            if not r: req.cancel(); return True
+            user, pw = r['user'], r['password']; self.conf.update(user=user, password=pw); save_conf(self.conf)
+        req.authenticate(WebKit2.Credential.new(user, pw, WebKit2.CredentialPersistence.FOR_SESSION)); return True
+
+    def same_site(self, uri):
+        return urlparse(uri).netloc == urlparse(self.url).netloc
+
+    def on_policy(self, view, decision, kind):
+        if kind == WebKit2.PolicyDecisionType.NAVIGATION_ACTION:
+            uri = decision.get_navigation_action().get_request().get_uri()
+            if uri.startswith(('http://', 'https://')) and not self.same_site(uri):
+                Gio.AppInfo.launch_default_for_uri(uri, None); decision.ignore(); return True
+        return False
+
+    def on_create(self, view, action):  # links that open a new tab (the chapter 7 pack, sheets): a second window, or the browser if elsewhere
+        uri = action.get_request().get_uri()
+        if uri and uri.startswith(('http://', 'https://')) and not self.same_site(uri):
+            Gio.AppInfo.launch_default_for_uri(uri, None); return None
+        v = self.make_view(view); w = self.window(v, 'Physics RPG'); v.connect('close', lambda *_: w.destroy()); return v
+
+    def on_download(self, ctx, dl):  # the profile export and other downloads land in ~/Downloads
+        folder = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) or os.path.expanduser('~')
+        dl.connect('decide-destination', lambda d, name: (d.set_destination('file://' + os.path.join(folder, name or 'physics-rpg-download')), True)[1])
+
+    def on_failed(self, view, event, uri, err):
+        # only reached when there is no offline copy yet (the first start needs the network once)
+        if err.matches(WebKit2.NetworkError.quark(), WebKit2.NetworkError.CANCELLED) or self.test: return False
+        view.load_alternate_html(f"""<html><body style="background:#070a12;color:#dde;font:16px sans-serif;padding:32px"><h2>Physics RPG</h2>
+          <p>Could not reach <b>{self.url}</b> ({GLib.markup_escape_text(err.message)}).</p><p>The first start needs the internet once; after that the game also works offline.</p>
+          <p><a style="color:#9cc0ff" href="{self.url}">Try again</a> &middot; wrong address? Ctrl+, opens the server settings.</p></body></html>""", self.url, None)
+        return True
+
+
+def main():
+    ap = argparse.ArgumentParser(description='Physics RPG desktop app'); ap.add_argument('--settings', action='store_true'); ap.add_argument('--url'); ap.add_argument('--dev', action='store_true')
+    ap.add_argument('--test', type=int, default=0, help='(for tests) print what loaded after N seconds, then quit')
+    a = ap.parse_args()
+    GLib.set_prgname(APP); GLib.set_application_name('Physics RPG')
+    conf = load_conf()
+    if a.settings or (not a.url and not conf.get('url')):
+        conf = settings_dialog(None, conf)
+        if not conf: return 1
+    g = Game(a.url or conf['url'], conf, test=bool(a.test))
+    if a.test:
+        def report():
+            js = "JSON.stringify({game: !!window.__game, courses: window.__game ? window.__game.catalog().length : 0, sw: !!(navigator.serviceWorker && navigator.serviceWorker.controller), sync: window.__game ? window.__game.syncState().status : null, webgl: !!document.createElement('canvas').getContext('webgl2')})"
+            def done(v, res):
+                try: print('REPORT', v.evaluate_javascript_finish(res).to_string(), flush=True)
+                except Exception as e: print('REPORT-ERROR', e, flush=True)
+                Gtk.main_quit()
+            g.view.evaluate_javascript(js, -1, None, None, None, done); return False
+        GLib.timeout_add_seconds(a.test, report)
+    Gtk.main(); return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

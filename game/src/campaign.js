@@ -87,8 +87,6 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
   const stops = [], seen = new Set(); let used = 0;
   const est = (id) => { const e = encOf(id); return e?.reading ? Math.min(40, e.minutes || 20) : EST_MIN[e?.type] || 10; };
   const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; if (stops.length && used + est(id) > minutes + (minutes < 60 ? 5 : 0)) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
-  for (const id of due) { if (used > minutes * 0.25 || stops.length >= 2) break; add(id, 'warmup', 'A respawn that is due: recall it before anything new'); } // warm-up stays a quarter of the run
-  for (const id of defend) { if (used > minutes * 0.3 || stops.filter((s) => s.kind === 'defend').length >= (minutes >= 60 ? 2 : 1)) break; add(id, 'defend', 'You passed this a while ago and it is fading: defend it'); }
   // priority = (weeks behind + 0.5) x urgency, urgency = (first exam + 7 days) / (this exam + 7 days): 1 for the first exam, less for later ones
   const firstDays = examDays ? Math.min(...Object.values(examDays)) : 0, urgency = (cid) => (examDays && Number.isFinite(examDays[cid]) ? (firstDays + 7) / (examDays[cid] + 7) : 1);
   const order = Object.keys(weeks).map((cid) => { const p = position(weeks[cid], isPassed, known?.[cid], taught, skim?.[cid]); return { cid, p, prio: (p.behind + 0.5) * urgency(cid) }; }).sort((a, b) => b.prio - a.prio);
@@ -98,7 +96,9 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
   for (const r of reread.slice(0, minutes >= 60 ? 2 : 1)) add(r.id, 'reread', `Second pass through the script, ${r.label}`, r.course);
   // a sheet that is due within three days jumps the queue (dueSoon: {course, ids})
   if (dueSoon) for (const id of dueSoon.ids.filter((x) => !isPassed(x)).slice(0, 1)) add(id, 'sheet', 'Due this week: the sheet you have to hand in', dueSoon.course);
-  const budget = minutes >= 60 ? minutes - 20 : minutes; // long runs keep room for the finisher (readings are long)
+  // progress first: catch-up fills the run; reviews (due respawns, fading material) come after it, in the time that is left
+  const reserve = (due.length || defend.length) && minutes >= 40 ? 10 : 0;
+  const budget = (minutes >= 60 ? minutes - 20 : minutes) - reserve; // long runs also keep room for the finisher (readings are long)
   let round = 0;
   while (used < budget && round < 6) {
     let any = false;
@@ -114,6 +114,9 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
     }
     if (!any) break; round++;
   }
+  // reviews at the end of the run: due respawns (spaced 3, 7, 16, 35 days) and something fading, only while time is left
+  for (const id of due) { if (stops.filter((x) => x.kind === 'warmup').length >= (minutes >= 60 ? 3 : 2)) break; add(id, 'warmup', 'Review: a respawn that is due (spaced repetition)'); }
+  for (const id of defend) { if (stops.filter((x) => x.kind === 'defend').length >= (minutes >= 60 ? 2 : 1)) break; add(id, 'defend', 'You passed this a while ago and it is fading: defend it'); }
   // finisher: something exam-like from a finished week of the course you are best in (kept short on short runs)
   if (minutes >= 40) {
     outer: for (const { cid } of [...order].reverse()) for (const w of weeks[cid]) {

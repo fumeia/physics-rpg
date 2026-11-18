@@ -530,3 +530,21 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 /* Forge: what a formula says, and the explanation under each rebuild step */
 .fg-meaning{background:rgba(155,224,155,.08);border-left:3px solid #9be09b;padding:.35em .7em;margin:.4em 0;border-radius:4px;font-size:.95em}
 .fg-steps li{margin:.35em 0}.fg-why{margin:.2em 0 .4em;font-size:.92em}.fg-why summary{cursor:pointer;color:#9cc0ff}.fg-why[open]{background:rgba(127,179,255,.07);padding:.2em .5em;border-radius:4px}
+/* Stats page */
+.st-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:.3em 0}
+.st-tile{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px}.st-tile b{display:block;font-size:22px}.st-tile span{font-size:12px;color:var(--dim)}.st-tile .fg-bar{display:block;margin-top:4px}
+.st-tile.fire b{color:#ffb454}
+.st-cal{display:grid;grid-template-rows:repeat(7,14px);grid-auto-flow:column;grid-auto-columns:14px;gap:3px;overflow-x:auto;padding:4px 0}
+.st-cal em{font-size:9px;color:var(--dim);font-style:normal;line-height:14px}
+.st-c{display:inline-block;width:14px;height:14px;border-radius:3px;background:rgba(255,255,255,.06);position:relative}
+.st-c.l-1{background:transparent}.st-c.l1{background:#1f4d36}.st-c.l2{background:#2e7d4f}.st-c.l3{background:#45b06d}.st-c.l4{background:#7be39a}
+.st-c.run::after{content:'';position:absolute;left:5px;top:5px;width:4px;height:4px;border-radius:50%;background:#ffb454}
+.st-c.now{outline:1px solid #ffb454}.st-legend .st-c{vertical-align:middle;margin:0 1px}
+.sx-days{display:flex;gap:6px;align-items:flex-end;height:110px;padding:4px 0}
+.sx-day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:11px}
+.sx-day span{width:70%;background:#4cc38a;border-radius:4px 4px 0 0;min-height:2px}.sx-day b{font-weight:400;color:var(--dim)}.sx-day em{font-style:normal;color:var(--dim)}
+.st-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.st-course{background:rgba(255,255,255,.04);border-radius:10px;padding:8px 10px}.st-ch{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.st-line{display:grid;grid-template-columns:80px 1fr auto;gap:6px;align-items:center;font-size:13px;margin:3px 0}
+.menu-sets{display:flex;gap:8px;flex-wrap:wrap}.menu-sets .menu-set{flex:1}
+.cp-stats{margin-top:18px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px}

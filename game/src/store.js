@@ -17,7 +17,7 @@ export function weekKey(date) {
   const y1 = t.getUTCFullYear(), first = new Date(Date.UTC(y1, 0, 4)), wk = 1 + Math.round(((t - first) / DAY - 3 + ((first.getUTCDay() + 6) % 7)) / 7);
   return `${y1}-W${String(wk).padStart(2, '0')}`;
 }
-export const INTERVALS_DAYS = [1, 3, 7, 16]; // days until the respawn from box 0,1,2,3
+export const INTERVALS_DAYS = [3, 7, 16, 35]; // days until the respawn from box 0,1,2,3 (spaced like Anki: a miss comes back after 3 days, not tomorrow)
 
 function load() {
   try { const s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) { /* ignore */ }
@@ -124,6 +124,13 @@ export const store = {
     save(); return true;
   },
   get freezeJustUsed() { return state.freezeJustUsed || null; },
+  // a finished run counts as a streak day too (the same bump as a completed mission), so the saved streak stays in step for the notifier
+  markActiveDay(date, yesterday, dayBefore) {
+    const st = state.streak || { last: null, count: 0 }; if (st.last === date) return;
+    let count = 1; if (st.last === yesterday) count = st.count + 1;
+    else if (dayBefore && st.last === dayBefore && this.freezeAvailable(date)) { count = st.count + 1; state.freeze = { week: weekKey(date), saved: yesterday }; }
+    state.streak = { last: date, count }; save();
+  },
   exportJson() { return JSON.stringify(state, null, 1); },
   importJson(text) { try { const o = JSON.parse(text); if (typeof o.xp !== 'number' || !o.solved) return false; state = { flags: {}, reviews: {}, ...o }; save(); return true; } catch { return false; } },
   flag(name) { return !!(state.flags || {})[name]; },

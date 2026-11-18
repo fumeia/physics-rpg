@@ -9,7 +9,7 @@ import { meanRetention, fading, forecast } from './memory.js';
 
 const ACT_ICON = { hunt: '\u2620', explain: '\u275d', blitz: '\u26a1' };
 const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba' };
-const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Warm-up', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass' };
+const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass' };
 const LENGTHS = [[20, 'Short'], [45, 'Normal'], [90, 'Long']];
 const GHOST = '<svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M2 21V9a8 8 0 0 1 16 0v12l-3-2.5-2.5 2.5-2.5-2.5L7.5 21 5 18.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.6" fill="#0b0d12"/><circle cx="12.5" cy="9" r="1.6" fill="#0b0d12"/></svg>';
 const esc = (s) => String(s).replace(/</g, '&lt;');
@@ -99,7 +99,7 @@ export function createCampaign(ctx) {
     const ti = r.stops.findIndex((s) => s.kind === 'read' || s.kind === 'theory'); if (ti >= 0 && minutes >= 40) act('@explain', 'explain', 'feynman', 'Explain what you just read in your own words, without looking', ti + 1);
     // The chosen length is a promise: drop the least important stops until the run fits (never the first catch-up pair)
     const total = () => r.stops.reduce((a, s) => a + s.min, 0), firstNew = r.stops.findIndex((s) => ['read', 'theory', 'sheet'].includes(s.kind));
-    for (const kind of ['scout', 'hunt', 'explain', 'blitz', 'boss', 'catchup', 'forge', 'deriv', 'reread', 'defend']) {
+    for (const kind of ['scout', 'hunt', 'explain', 'blitz', 'boss', 'warmup', 'defend', 'catchup', 'forge', 'deriv', 'reread']) {
       while (total() > minutes + 5) {
         let i = -1; for (let k = r.stops.length - 1; k >= 0; k--) { const s = r.stops[k]; if ((kind === 'catchup' ? ['read', 'theory', 'sheet'].includes(s.kind) && k > firstNew + 1 : s.kind === kind)) { i = k; break; } }
         if (i < 0) break; r.stops.splice(i, 1);
@@ -167,6 +167,7 @@ export function createCampaign(ctx) {
   // Honest streak: only a finished run counts. One missed day per calendar week is bridged by a freeze (nothing to buy or set).
   const weekKey = (d) => { const m = new Date(d); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return todayStr(m); };
   function runStreak() {
+    if (ctx.dayStreak) return ctx.dayStreak(); // the one streak of the game (runs and missions), from main.js
     let n = 0; const d = new Date(), frozen = new Set(); if (!runsOn(todayStr(d))) d.setDate(d.getDate() - 1);
     for (let guard = 0; guard < 400; guard++) {
       if (runsOn(todayStr(d))) n++;

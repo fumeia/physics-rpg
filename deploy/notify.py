@@ -279,7 +279,7 @@ def campaign_message(P, slot, cs, base, cfg):
         except ValueError: bdays = None
     plan = P.exam_plan(); lines, tags, prio = [], [], 3
     run_line = (f"{run['stops'] - run.get('done', 0)} stops left, about {max(5, run.get('min', 20))} min." if fresh and run.get('stops') and not done_run
-                else 'A new run is ready: a warm-up, then the next theory card and its exercise.')
+                else 'A new run is ready: the next part of the script, its theory card and exercise; reviews come at the end.')
     if bonus_open: run_line = f"Today's run is done ({plural(runs_done, 'run')}). Bonus run #{run.get('n', 2)}: {run['stops'] - run.get('done', 0)} stops left, about {max(5, run.get('min', 20))} min."
 
     def boss_line():

@@ -150,7 +150,7 @@ async function boot() {
   try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
     openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), setDungeon: (on) => document.body.classList.toggle('dungeon', !!on), forgeDue: () => forgeDue(forgeItems).length, nextDeriv: () => runDeriv(derivItems), mistakes, openTab: (t, arg) => { derivStart = t === 'derivs' ? arg || null : null; openOverlay('pile'); renderStudy(t); derivStart = null; }, openMissions: () => openOverlay('missions'), openConnection: (k) => { closeOverlay(true); openConnections(k); },
     missions: () => { const day = store.missionsOf(todayStr()); return todays().map((m) => ({ title: String(m.title || '').replace(/<[^>]+>/g, ''), done: !!day.done[m.id] })); },
-    radar: () => drillData.radar?.topics || (Array.isArray(drillData.radar) ? drillData.radar : []), links: () => linksData }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
+    dayStreak: () => streakNow().count, radar: () => drillData.radar?.topics || (Array.isArray(drillData.radar) ? drillData.radar : []), links: () => linksData }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
   // compact HUD (run, campaign, menu) unless the full chip row was chosen in the menu; tests keep the full row unless they ask for hud=compact
   if (params.get('hud') === 'compact' || (!params.has('test') && params.get('hud') !== 'full' && (store.val('settings', {}) || {}).hud !== 'full')) document.body.classList.add('hudc');
   progress(88, 'Building the 3D world...'); await nextFrame();
@@ -185,6 +185,7 @@ async function boot() {
   exposeTestApi();
   if (params.has('test')) { $('start').style.display = 'none'; player.enabled = true; if (params.has('tutorial')) startTutorial(); }
   $('btn-menu').onclick = () => openOverlay('menu');
+  $('xp').onclick = () => { openOverlay('campaign'); setTimeout(() => $('cp-stats')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50); }; $('xp').title = 'Your stats (bottom of the campaign page)'; $('xp').style.cursor = 'pointer';
   $('btn-gear').onclick = () => (overlay === 'settings' ? closeOverlay() : openOverlay('settings'));
   $('btn-run').onclick = () => { if (campaign) campaign.startRun(); }; $('btn-campaign').onclick = () => openOverlay('campaign');
   $('st-run').onclick = (ev) => { ev.stopPropagation(); requestStart(() => { player.enabled = true; if (campaign) campaign.startRun(); }); };
@@ -411,9 +412,9 @@ const isLocked = (enc) => !!enc.requires && !store.isPassed(enc.requires);
 const passed = (enc) => store.isPassed(enc.id);
 const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
-  $('xp').textContent = `XP ${store.xp}`;
+  $('xp').textContent = `\ud83d\udd25 ${streakNow().count} \u00b7 XP ${store.xp}`;
   if (campaign) { try { const cs = JSON.stringify(campaign.stat()); if (cs !== JSON.stringify(store.val('campaignStat', null))) store.setVal('campaignStat', JSON.parse(cs)); } catch (e) { console.warn('campaign stat', e); } }
-  if (campaign) { if (campaign.onProgress()) setTimeout(() => { if (!current || $('panel').querySelector('#result .msg')) { toast('Run complete. Well done.'); sfx.goal(); } openOverlayWhenFree('campaign'); }, 900); updateRunChips(); }
+  if (campaign) { if (campaign.onProgress() && (store.markActiveDay(todayStr(), yesterdayStr(), dayBeforeYesterdayStr()), true)) setTimeout(() => { if (!current || $('panel').querySelector('#result .msg')) { toast('Run complete. Well done.'); sfx.goal(); } openOverlayWhenFree('campaign'); }, 900); updateRunChips(); }
   const due = store.dueReviews();
   $('reviews').textContent = `Respawns due: ${due.length}`;
   $('reviews').classList.toggle('review', due.length > 0);
@@ -536,7 +537,7 @@ function tickStudy() { // real elapsed time, not the frame step: a slow frame ra
   studyAcc += dt; if (studyAcc >= 15) { flushStudy(); checkGoal(); }
 }
 function runAchievements() {
-  const have = { ...(store.val('ach', {}) || {}) }, ctx = achContext({ catalog, isPassed: isPassedEnc, store, level: levelOf(store.xp).lv, streak: store.streak.count });
+  const have = { ...(store.val('ach', {}) || {}) }, ctx = achContext({ catalog, isPassed: isPassedEnc, store, level: levelOf(store.xp).lv, streak: streakNow().count });
   const fresh = unlockedNow(ctx, have); if (!fresh.length) return;
   for (const a of fresh) have[a.id] = todayStr(); store.setVal('ach', have);
   toast(`<b>Achievement unlocked:</b> ${fresh.map((a) => a.title).join(', ')}<br><span class="src">${fresh.map((a) => a.desc).join(' ')}</span>`);
@@ -909,7 +910,7 @@ function roomMenuHtml() {
 function wireMenu() {
   document.querySelectorAll('[data-m]').forEach((b) => (b.onclick = async () => {
     const [k, arg] = b.dataset.m.split(':');
-    if (k === 'missions') openOverlay('missions'); else if (k === 'study') openOverlay('pile'); else if (k === 'exam') openOverlay('exam'); else if (k === 'map') openOverlay('map'); else if (k === 'profile') openOverlay('profile'); else if (k === 'menu') openOverlay('menu');
+    if (k === 'stats') openOverlay('stats'); else if (k === 'missions') openOverlay('missions'); else if (k === 'study') openOverlay('pile'); else if (k === 'exam') openOverlay('exam'); else if (k === 'map') openOverlay('map'); else if (k === 'profile') openOverlay('profile'); else if (k === 'menu') openOverlay('menu');
     else if (k === 'formulas') { closeOverlay(true); openCodex(); }
     else if (k === 'goto') { const [c, r] = arg.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); } else { closeOverlay(true); await loadRoom(c, r, { silent: false }); player.enabled = true; } }
     else if (k === 'quick') { closeOverlay(true); startQuick(); }
@@ -1017,6 +1018,33 @@ function startQuick() {
   if (!ids.length) { toast('Nothing to do right now: no respawns are due and the guided route is finished. Try the exam hall.'); return; }
   queueLabel = 'Quick session'; pileQueue = ids; openFromPile(ids[0], true);
 }
+// ---- Stats page (tap the XP counter or Menu > Stats): streak, calendar, last 7 days and every course at a glance
+function statsHtml() {
+  const sn = streakNow(), lv = levelOf(store.xp), log = store.val('runLog', []) || [], runDates = new Set(log.map((x) => x.date)), active = activeDays();
+  const days = []; const start = new Date(); start.setDate(start.getDate() - ((start.getDay() + 6) % 7) - 7 * 11);
+  for (let i = 0; i < 84; i++) { const d = new Date(start); d.setDate(start.getDate() + i); days.push(todayStr(d)); }
+  const today = todayStr(), mins = (d) => Math.round(store.activeSecondsOn(d) / 60), exs = (d) => store.activityOn(d).filter((x) => x.ok).length;
+  const lvl = (d) => { const m = mins(d), e = exs(d); return d > today ? -1 : !m && !e && !active.has(d) ? 0 : m >= 60 || e >= 8 ? 4 : m >= 30 || e >= 4 ? 3 : m >= 10 || e >= 2 ? 2 : 1; };
+  const cells = days.map((d) => `<i class="st-c l${lvl(d)}${runDates.has(d) ? ' run' : ''}${d === today ? ' now' : ''}" title="${d}: ${mins(d)} min, ${exs(d)} passed${runDates.has(d) ? ', run finished' : ''}"></i>`).join('');
+  const w = weekStats(), mx = Math.max(30, ...w.minutes);
+  const bars = w.days.map((d, i) => `<div class="sx-day"><span style="height:${Math.round(100 * w.minutes[i] / mx)}%"></span><b>${w.minutes[i] || ''}</b><em>${new Date(d + 'T12:00:00').toLocaleDateString(undefined, { weekday: 'narrow' })}</em></div>`).join('');
+  const grades = Object.fromEntries((campaign?.grades?.() || []).map((g) => [g.cid, g.grade]));
+  const course = (c) => { const all = c.rooms.flatMap((r) => r.encounters.filter((e) => core(e))), pass = all.filter((e) => store.isPassed(e.id)).length, reads = c.rooms.flatMap((r) => r.encounters.filter((e) => e.reading)), rp = reads.filter((e) => store.isPassed(e.id)).length;
+    let behind = null; try { behind = campaign?.isSetup() ? campaign.position(c.id).behind : null; } catch { behind = null; }
+    const pct = (a, b) => (b ? Math.round(100 * a / b) : 0), days2 = daysToExam(new Date(), c.id);
+    return `<div class="st-course"><div class="st-ch"><b>${c.name}</b><span class="src">${days2 > 0 ? `exam in ${days2} days` : ''}${grades[c.id] ? ` · forecast ${grades[c.id]}` : ''}</span></div>
+      <div class="st-line"><span>Exercises</span><span class="fg-bar"><i style="width:${pct(pass, all.length)}%"></i></span><b>${pass}/${all.length}</b></div>
+      ${reads.length ? `<div class="st-line"><span>Script read</span><span class="fg-bar"><i style="width:${pct(rp, reads.length)}%"></i></span><b>${rp}/${reads.length}</b></div>` : ''}
+      ${behind !== null ? `<div class="st-line"><span>Lecture</span><span class="src">${behind > 0 ? `${behind} week${behind === 1 ? '' : 's'} behind` : 'level with the lectures'}</span></div>` : ''}</div>`; };
+  const deriv = Object.values(store.val('derivs', {}) || {}).filter((x) => x.lv >= 4).length, cardsN = cards.deck(catalog, (id) => store.isPassed(id)).length;
+  const tile = (big, small, cls = '') => `<div class="st-tile ${cls}"><b>${big}</b><span>${small}</span></div>`;
+  return `<div class="st-tiles">${tile(`🔥 ${sn.count}`, `day streak${sn.saved ? ' (kept by the weekly freeze)' : sn.today ? ' · today counted' : sn.alive ? ' · study today to keep it' : ''}`, 'fire')}${tile(`Lv ${lv.lv}`, `${lv.rank} · ${store.xp} XP<span class="fg-bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></span>`)}${tile(log.length, `runs finished · ${new Set(log.filter((x) => x.date > todayStr(new Date(Date.now() - 30 * 86400000))).map((x) => x.date)).size} run days in 30 days`)}${tile(`${w.total} min`, `this week, on ${w.studied} day${w.studied === 1 ? '' : 's'}`)}</div>
+    <p class="src">A day counts for the streak when you finish a run or complete a daily mission; one missed day per week is forgiven.</p>
+    <h3>Last 12 weeks</h3><div class="st-cal">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((x) => `<em>${x}</em>`).join('')}${cells}</div><p class="src st-legend">less <i class="st-c l1"></i><i class="st-c l2"></i><i class="st-c l3"></i><i class="st-c l4"></i> more · <i class="st-c l2 run"></i> run finished</p>
+    <h3>Last 7 days (minutes)</h3><div class="sx-days">${bars}</div>
+    <h3>Courses</h3><div class="st-courses">${catalog.map(course).join('')}</div>
+    <p class="src">${w.exercises} exercises passed this week · ${cardsN} formula cards · ${deriv} of ${derivItems.length} QM derivations mastered</p>`;
+}
 function weekStats() {
   const day = 86400000, now = Date.now(), days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return todayStr(d); });
   const minutes = days.map((d) => Math.round(store.activeSecondsOn(d) / 60));
@@ -1042,7 +1070,27 @@ function todays() {
   if (!dayMissions || dayKey !== k) { dayMissions = buildMissions({ catalog, banks, links: linksData, store, isPassed: isPassedEnc }); dayKey = k; }
   return dayMissions;
 }
-const streakNow = () => store.streakNow(todayStr(), yesterdayStr(), dayBeforeYesterdayStr());
+// One streak for the whole game: a day counts when you finished a run or completed a daily mission. One missed day per
+// calendar week (Monday to Sunday) is forgiven. Computed from the history, so runs count even from before this rule.
+const mondayOf = (ds) => { const d = new Date(ds + 'T12:00:00'); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return todayStr(d); };
+function activeDays() {
+  const s = new Set((store.val('runLog', []) || []).map((x) => x.date));
+  for (const [d, v] of Object.entries(store.snapshot.missions || {})) if (Object.keys(v?.done || {}).length) s.add(d);
+  const st = store.streak; if (st.last) { const d = new Date(st.last + 'T12:00:00'); for (let i = 0; i < Math.min(st.count, 400); i++) { s.add(todayStr(d)); d.setDate(d.getDate() - 1); } }
+  return s;
+}
+function streakNow() {
+  const has = activeDays(), d = new Date(), today = todayStr(d), frozen = new Set(); let count = 0, saved = false;
+  if (!has.has(today)) d.setDate(d.getDate() - 1);
+  if (!has.has(todayStr(d))) { const prev = new Date(d); prev.setDate(prev.getDate() - 1); if (!has.has(todayStr(prev))) return { count: 0, alive: false, saved: false, today: false }; frozen.add(mondayOf(todayStr(d))); saved = true; d.setDate(d.getDate() - 1); }
+  for (let guard = 0; guard < 500; guard++) {
+    const ds = todayStr(d);
+    if (has.has(ds)) count++;
+    else { const prev = new Date(d); prev.setDate(prev.getDate() - 1); if (frozen.has(mondayOf(ds)) || !has.has(todayStr(prev))) break; frozen.add(mondayOf(ds)); }
+    d.setDate(d.getDate() - 1);
+  }
+  return { count, alive: count > 0, saved, today: has.has(today) };
+}
 const streakMult = () => 1 + 0.05 * Math.min(10, streakNow().count);
 function missionStatus() { const day = store.missionsOf(todayStr()), ms = todays(); return { done: ms.filter((m) => day.done[m.id]).length, total: ms.length, day }; }
 function toast(html) { const t = $('toast'); t.innerHTML = M(html); t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 4200); }
@@ -1068,7 +1116,7 @@ window.addEventListener('encounter-done', (ev) => {
 function missionsHtml() {
   const ms = todays(), day = store.missionsOf(todayStr()), lv = levelOf(store.xp), plan = examPlan(catalog, isPassedEnc), sn = streakNow(), active = sn.count, g = goalInfo();
   return `<div class="msn-head"><div><b>${lv.rank}</b> · level ${lv.lv}<div class="bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></div><span class="src">${lv.into} / ${lv.need} XP to the next rank</span></div>
-    <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
+    <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">A day counts when you finish today\u2019s run <i>or</i> complete one of these missions. Missions are bonus goals.</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
     <div><b>First exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
     <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min on exercises, or ${g.ex} of ${g.exGoal} exercises</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * Math.max(g.min / g.goal, g.ex / g.exGoal)))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `Either one counts: ${g.goal} minutes of working on exercises (menus, lists and the formulas do not count) or ${g.exGoal} finished exercises. Change the goal in Profile > settings.`}</span></div>
     <p class="src">Done today: ${todayItems().filter((x) => !x.mission && x.ok).length} exercises, ${store.xpOn(todayStr()) >= 0 ? '+' : '\u2212'}${Math.abs(store.xpOn(todayStr()))} XP. <button class="link" id="msn-today">See what you did today</button></p>
@@ -1157,11 +1205,12 @@ function openOverlay(kind, { back = false } = {}) {
   bb.onclick = () => { const to = ovStack.pop() || 'menu'; openOverlay(to, { back: true }); };
   overlay = kind; player.unlock();
   $('overlay').style.display = '';
-  $('ov-title').textContent = { settings: 'Settings and help', campaign: 'Campaign: catch up, week by week', missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
+  $('ov-title').textContent = { stats: 'Your stats', settings: 'Settings and help', campaign: 'Campaign: catch up, week by week', missions: 'Daily missions', profile: 'Profile, settings and achievements', exam: 'Exam hall: pure exam training', pile: 'Study hub', menu: 'Menu', roomMenu: room?.title || 'Room', help: 'Controls and help', suggest: 'Ready?' }[kind] || 'Map: choose a room';
   if (stopExam) { stopExam(); stopExam = null; }
   if (kind === 'exam') { $('ov-body').innerHTML = ''; stopExam = mountExamHall($('ov-body'), { catalog, banks, store, onGoto: (k) => { const [c, r] = k.split('/'); closeOverlay(true); loadRoom(c, r, { silent: false }); player.enabled = true; } }); return; }
   if (kind === 'pile') { if (document.body.classList.contains('hudc') && studyTab === 'today' && !studyOpened) studyTab = 'sheets'; studyOpened = true; renderStudy(); return; }
   if (kind === 'campaign') { renderCampaign(); return; }
+  if (kind === 'stats') { $('ov-body').innerHTML = M(statsHtml()); return; }
   if (kind === 'suggest') { $('ov-body').innerHTML = M(suggestion.html); wireSuggest(); return; }
   if (kind === 'menu' || kind === 'roomMenu' || kind === 'settings') { $('ov-body').innerHTML = kind === 'menu' ? menuHtml() : kind === 'settings' ? settingsHtml() : roomMenuHtml(); wireMenu(); return; }
   $('ov-body').innerHTML = kind === 'missions' ? missionsHtml() : kind === 'profile' ? profileHtml() : kind === 'help' ? helpHtml() : mapHtml();
@@ -1174,7 +1223,7 @@ function openOverlay(kind, { back = false } = {}) {
   document.querySelectorAll('[data-goto]').forEach((b) => (b.onclick = async () => { const [c, r] = b.dataset.goto.split('/'); if (lite) { await loadRoom(c, r, { silent: true }); openOverlay('roomMenu'); return; } loadRoom(c, r, { silent: false }); if (!player.enabled) player.enabled = true; }));
 }
 let stopExam = null;
-function renderCampaign() { if (!campaign) { $('ov-body').innerHTML = '<p>The campaign could not be loaded.</p>'; return; } const b = $('ov-body'), y = b.scrollTop; b.innerHTML = M(campaign.html()); campaign.wire(b, renderCampaign); b.scrollTop = y; }
+function renderCampaign() { if (!campaign) { $('ov-body').innerHTML = '<p>The campaign could not be loaded.</p>'; return; } const b = $('ov-body'), y = b.scrollTop; b.innerHTML = M(campaign.html() + `<div class="cp-stats" id="cp-stats"><h3>Your stats</h3>${statsHtml()}</div>`); campaign.wire(b, renderCampaign); b.scrollTop = y; }
 function updateRunChips() {
   if (!campaign) return; const r = $('btn-run'), c = $('btn-campaign'); if (!r || !c) return;
   r.textContent = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign'; c.style.display = campaign.isSetup() ? '' : 'none'; // before the setup it would open the same thing as the gold button next to it

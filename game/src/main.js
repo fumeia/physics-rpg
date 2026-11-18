@@ -720,7 +720,7 @@ function renderStudy(tab) {
   else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh() })
-  else if (studyTab === 'derivs') renderDerivs(host, { items: derivItems, M, onChange: () => refresh(), start: derivStart?.id, startMode: derivStart?.mode })
+  else if (studyTab === 'derivs') renderDerivs(host, { items: derivItems, M, onChange: () => refresh(), openEnc: (id) => { closeOverlay(true); openById(id); player.enabled = true; }, start: derivStart?.id, startMode: derivStart?.mode })
   else if (studyTab === 'units') renderUnits(host, { items: unitsDuel.items, seconds: unitsDuel.seconds, symbols: unitsDuel.symbols, M, courseName: (id) => findCourse(id)?.name || id, onChange: () => refresh() })
   else if (studyTab === 'summary') renderSummary(host, { catalog, isPassed: (id) => store.isPassed(id), courses: catalog.filter((c) => c.id !== 'qm').map((c) => ({ id: c.id, name: c.name })), M })
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
@@ -1277,6 +1277,33 @@ function openGroup(g) {
   $('panel').querySelectorAll('[data-enc]').forEach((b) => (b.onclick = () => openEncounter(room.encounters.find((e) => e.id === b.dataset.enc), g)));
   updateBar();
 }
+// The guided-reading card that covers the script section an exercise cites (its source 'where': "Ch. 7.5", "Choudhuri §6.2",
+// "4.2.5", ...): shown as a "read it first" strip on derivations and calculations. Section numbers compare as tuples.
+const secTuple = (str) => String(str).split('.').map(Number);
+const secCmp = (a, b) => { for (let i = 0; i < Math.max(a.length, b.length); i++) { const d = (a[i] ?? 0) - (b[i] ?? 0); if (d) return d; } return 0; };
+function readingFor(enc) {
+  const ref = encIndex.get(enc.id); if (!ref || enc.reading) return null;
+  const srcs = Array.isArray(enc.source) ? enc.source : enc.source ? [enc.source] : [];
+  const where = srcs.map((s) => s.where || '').join(' ');
+  const m = where.match(/(?:Ch\.|§|Kap\.?|Choudhuri\s*§?|script\s*(?:Ch\.)?)\s*(\d+\.\d+(?:\.\d+)?)/i) || where.match(/^\s*(\d+\.\d+(?:\.\d+)?)/);
+  if (!m) return null; const sec = secTuple(m[1]);
+  for (const r of findCourse(ref.course)?.rooms || []) for (const e of r.encounters) {
+    if (!e.reading) continue; const rng = String(e.source?.[0]?.where || '').match(/^(\d+(?:\.\d+)*)(?:–(\d+(?:\.\d+)*))?/); if (!rng) continue;
+    const lo = secTuple(rng[1]), hi = secTuple(rng[2] || rng[1]);
+    // a section belongs to the card if it lies between the card's first and last section (the last one with all its subsections)
+    if (secCmp(sec, lo) >= 0 && (secCmp(sec, hi) <= 0 || secCmp(sec.slice(0, hi.length), hi) === 0)) return { id: e.id, title: e.title, pages: e.pages, sec: m[1] };
+  }
+  return null;
+}
+// fallback: the reading card of the campaign week the exercise belongs to (sheet n = week n), else the card of its room
+const cardInfo = (e) => ({ fallback: true, id: e.id, title: e.title, pages: e.pages, sec: String(e.source?.[0]?.where || '').match(/^[\d.–]+/)?.[0] || '' });
+function readingForAny(enc) {
+  const direct = readingFor(enc); if (direct) return direct;
+  const ref = encIndex.get(enc.id); if (!ref) return null;
+  try { const w = campaign?.weeks?.()?.[ref.course]?.find((x) => x.theory.includes(enc.id) || x.practice.includes(enc.id)); const id = w?.reading?.[0]; if (id && encIndex.get(id)) return cardInfo(encIndex.get(id).enc); } catch { /* campaign not set up */ }
+  const room = findCourse(ref.course)?.rooms.find((r) => r.slug === ref.roomId), cards = (room?.encounters || []).filter((e) => e.reading).sort(cmpSec);
+  return cards.length ? cardInfo(cards[0]) : null;
+}
 function openEncounter(enc, fromGroup) {
   closePanel(true);
   const grp = enc.synthetic ? null : fromGroup || groups.find((g) => g.items.includes(enc));
@@ -1288,6 +1315,8 @@ function openEncounter(enc, fromGroup) {
   const queueNext = qi >= 0 && !inRun ? pileQueue[qi + 1] : null;
   const next = inRun ? () => { closePanel(true); campaign.startRun(enc.id); } : queueNext ? () => openFromPile(queueNext, true) : roomNext ? () => openEncounter(roomNext) : null;
   const env = {
+    readFirst: ['derive', 'calc', 'boss'].includes(enc.type) ? readingForAny(enc) : null,
+    openRead: (id) => { closePanel(true); openById(id); },
     hasNext: !!next,
     next: () => next && next(),
     onChange: refresh,

@@ -72,7 +72,14 @@
      "points": 13,
      "minutes": 26
     }
-   ]
+   ],
+   "where": {
+    "sec": "6.1.2",
+    "pages": "61–63",
+    "eqs": "(6.14)–(6.33)",
+    "read": "qm-read-06a",
+    "sheet": "qm-sheet-s7q1"
+   }
   },
   {
    "id": "am-spectrum",
@@ -153,7 +160,14 @@
      "points": 5,
      "minutes": 10
     }
-   ]
+   ],
+   "where": {
+    "sec": "7.4",
+    "pages": "71–74",
+    "eqs": "(7.37)–(7.51)",
+    "read": "qm-read-07b",
+    "sheet": "qm-sheet-s8q3"
+   }
   },
   {
    "id": "coherent",
@@ -209,7 +223,14 @@
      "points": 6,
      "minutes": 12
     }
-   ]
+   ],
+   "where": {
+    "sec": "6.2",
+    "pages": "64–65",
+    "read": "qm-read-06b",
+    "sheet": "qm-sheet-s7q2",
+    "note": "The script only sketches the classical limit; the full derivation is sheet 7 Q2 (with the official solution)."
+   }
   },
   {
    "id": "box",
@@ -287,7 +308,13 @@
      "points": 6,
      "minutes": 12
     }
-   ]
+   ],
+   "where": {
+    "sec": "3.1",
+    "pages": "26–27",
+    "read": "qm-read-03a",
+    "sheet": "qm-sheet-s3q2"
+   }
   },
   {
    "id": "finite-well",
@@ -359,7 +386,12 @@
       "(e) Find the condition on $V_0$ for exactly one bound state. Which parity does it have? [4]"
      ]
     }
-   ]
+   ],
+   "where": {
+    "sec": "3.2",
+    "pages": "28–30",
+    "read": "qm-read-03b"
+   }
   },
   {
    "id": "pt-nondeg",
@@ -438,7 +470,13 @@
      "points": 5,
      "minutes": 10
     }
-   ]
+   ],
+   "where": {
+    "sec": "11.1",
+    "pages": "114–117",
+    "read": "qm-read-11a",
+    "sheet": "qm-sheet-s14q1"
+   }
   },
   {
    "id": "spin-dot",
@@ -507,7 +545,12 @@
      "points": 6,
      "minutes": 12
     }
-   ]
+   ],
+   "where": {
+    "sec": "9.3",
+    "pages": "95–97",
+    "read": "qm-read-09a"
+   }
   },
   {
    "id": "virial",
@@ -577,7 +620,13 @@
       "(iii) Apply it to the harmonic oscillator and to $V\\propto|x|^n$: how are $\\langle T\\rangle$, $\\langle V\\rangle$ and $E$ related? [2]"
      ]
     }
-   ]
+   ],
+   "where": {
+    "sec": "2.3",
+    "pages": "17–19",
+    "read": "qm-read-02b",
+    "note": "Not in the script. It uses the same idea as Ehrenfest (2.3): the time derivative of an expectation value vanishes in a stationary state."
+   }
   },
   {
    "id": "heisenberg-ho",
@@ -644,7 +693,12 @@
      "points": 10,
      "minutes": 20
     }
-   ]
+   ],
+   "where": {
+    "sec": "11.3.2",
+    "pages": "126–128",
+    "read": "qm-read-11c"
+   }
   },
   {
    "id": "cg-1-half",
@@ -701,7 +755,13 @@
      "points": 0,
      "minutes": 10
     }
-   ]
+   ],
+   "where": {
+    "sec": "9.5",
+    "pages": "99–101",
+    "read": "qm-read-09b",
+    "sheet": "qm-sheet-s12q3"
+   }
   },
   {
    "id": "delta",
@@ -757,7 +817,14 @@
       "b) Compute the energy correction of the bound state of the pure $\\delta$ potential to the first non-vanishing order, treating the step as a perturbation with $V_1\\ll V_0$. [1 P]"
      ]
     }
-   ]
+   ],
+   "where": {
+    "sec": "3.2–3.3",
+    "pages": "28–32",
+    "read": "qm-read-03b",
+    "sheet": "qm-sheet-s4q1",
+    "note": "The delta potential itself is not in the script; it is sheet 4 Q1 (with the official solution). The matching method is the one of 3.2-3.3."
+   }
   },
   {
    "id": "radial",
@@ -814,7 +881,13 @@
       "(d) The equation for $r\\to0$ and its solution (ansatz $u\\sim r^\\alpha$). [1 P] (e) The equation for $r\\to\\infty$: which known problem is it, and how does $u$ behave? [1.5 P]"
      ]
     }
-   ]
+   ],
+   "where": {
+    "sec": "8.2",
+    "pages": "84–87",
+    "read": "qm-read-08a",
+    "sheet": "qm-sheet-s10q1"
+   }
   },
   {
    "id": "robertson",
@@ -882,7 +955,12 @@
      "points": 6,
      "minutes": 12
     }
-   ]
+   ],
+   "where": {
+    "sec": "5.3",
+    "pages": "56–58",
+    "read": "qm-read-05a"
+   }
   },
   {
    "id": "ehrenfest",
@@ -938,7 +1016,13 @@
      "points": 5,
      "minutes": 10
     }
-   ]
+   ],
+   "where": {
+    "sec": "2.3",
+    "pages": "17–19",
+    "read": "qm-read-02b",
+    "sheet": "qm-sheet-s2q1"
+   }
   },
   {
    "id": "continuity",
@@ -1006,7 +1090,12 @@
      "points": 4,
      "minutes": 8
     }
-   ]
+   ],
+   "where": {
+    "sec": "2.2",
+    "pages": "16–17",
+    "read": "qm-read-02b"
+   }
   },
   {
    "id": "spin-precession",
@@ -1068,7 +1157,13 @@
       "a) For a constant homogeneous field along $x_3$, compute $|\\psi(t)\\rangle$ for the state that at $t=0$ is the eigenstate of $S_1$ with eigenvalue $+\\hbar$ (check: $(\\frac12,\\frac1{\\sqrt2},\\frac12)^T$). [3 P]"
      ]
     }
-   ]
+   ],
+   "where": {
+    "sec": "7.5, 9.6",
+    "pages": "75–77, 102–104",
+    "read": "qm-read-07c",
+    "note": "Not a named section: it combines the spin-1/2 rotation formula (7.5, script (7.60)) with the Zeeman Hamiltonian (9.6)."
+   }
   },
   {
    "id": "golden-rule",
@@ -1131,7 +1226,13 @@
       "A particle in the ground state of a deep one-dimensional well of width $d$. Compute the transition rate from the ground state into the continuum (box regularisation $L$ for the density of states $\\rho(k)$) due to the time-dependent perturbation $\\bar H=\\bar V\\delta(x)\\cos(\\omega t)$. (Points of this part estimated; C.7 has 5 in total.)"
      ]
     }
-   ]
+   ],
+   "where": {
+    "sec": "11.3.3–11.3.4",
+    "pages": "128–132",
+    "eqs": "(11.88)–(11.106)",
+    "read": "qm-read-11c"
+   }
   },
   {
    "id": "variational",
@@ -1184,7 +1285,12 @@
       "D.5 [5] Find the normalised ground-state wave function of the harmonic oscillator (1D) with the variational ansatz $\\psi(x)=A\\exp[-x^2/2\\sigma^2]$."
      ]
     }
-   ]
+   ],
+   "where": {
+    "sec": "—",
+    "pages": "",
+    "note": "Not in the script. Old exams use it (HS14 D.5, HS25 Q2): the proof is one line, expand psi in energy eigenstates."
+   }
   }
  ]
 }

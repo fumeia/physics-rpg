@@ -519,3 +519,6 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 /* summary builder: page buttons wrap under the formula (10 pages for solid state) */
 .sm-row { flex-wrap: wrap; } .sm-tex { flex: 1 1 260px; } .sm-pick { flex-wrap: wrap; } .sm-tex b { display: block; font-size: 13px; }
 @media (max-width: 600px) { .sm-pick { flex-basis: 100%; } .sm-pick .chip { padding: 1px 6px; } }
+/* derivations: where the derivation is in the script */
+.dv-where{border-left:3px solid #7fb3ff;background:rgba(127,179,255,.08);padding:.4em .7em;margin:.4em 0 .6em;border-radius:4px;font-size:.92em}
+.dv-where .row{margin-top:.3em;flex-wrap:wrap;gap:.3em}

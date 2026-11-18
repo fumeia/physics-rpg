@@ -41,6 +41,12 @@ export function finish(enc, ok, xp) {
 // by main.js only when the pack was found there. Shown as a strip under the encounter title, opening in a new tab.
 export function mount(enc, el, env) {
   const r = mountType(enc, el, env);
+  if (env.readFirst) { // the script section this exercise comes from, with its guided-reading card
+    const rf = env.readFirst, strip = document.createElement('div'); strip.className = 'readstrip readfirst';
+    strip.innerHTML = `<span class="rlab">\ud83d\udcd6 ${rf.fallback ? 'The script part behind this exercise' : 'From the script'}: \u00a7${rf.sec}${rf.pages ? `, pp. ${rf.pages}` : ''}.</span> <a href="#" data-readfirst>Read it first (guided)</a>`;
+    strip.querySelector('[data-readfirst]').onclick = (ev) => { ev.preventDefault(); env.openRead(rf.id); };
+    const h = el.querySelector('h2'); if (h) h.after(strip); else el.prepend(strip);
+  }
   if (enc.read?.links?.length) {
     const strip = document.createElement('div'); strip.className = 'readstrip';
     strip.innerHTML = `<span class="rlab">📖 ${enc.read.label}:</span> ` + enc.read.links.map((l) => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join(' · ');

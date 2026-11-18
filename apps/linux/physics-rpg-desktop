@@ -6,13 +6,20 @@
   on this computer and merged with the server (and your other devices) as soon as it is online again.
 - The server's login (basic auth) is asked once and remembered (in ~/.config/physics-rpg/config.json, readable only by you).
 Keys: F11 full screen · Ctrl+R reload · Ctrl+, server settings · Ctrl+Q quit.
+If the game does not finish loading within 30 s, a bar shows why, with fixes (reload, simple mode, software rendering, fresh
+offline copy). The game's messages are logged to ~/.cache/physics-rpg/console.log.
 
   physics-rpg-desktop                 # normal start
   physics-rpg-desktop --settings      # change the server address or login
   physics-rpg-desktop --url URL       # open another address once (e.g. a local serve.py)
+  physics-rpg-desktop --software      # software rendering (graphics driver trouble: blank or frozen window)
+  physics-rpg-desktop --lite          # the simple menu without 3D
+  physics-rpg-desktop --dev           # right click > Inspect element: the browser developer tools
 """
 import argparse, json, os, sys
 from urllib.parse import urlparse
+if '--software' in sys.argv:  # graphics driver trouble: let WebKit draw without the GPU path that breaks on some drivers
+    os.environ.setdefault('WEBKIT_DISABLE_DMABUF_RENDERER', '1'); os.environ.setdefault('WEBKIT_DISABLE_COMPOSITING_MODE', '1'); os.environ.setdefault('LIBGL_ALWAYS_SOFTWARE', '1')
 import gi
 gi.require_version('Gtk', '3.0'); gi.require_version('WebKit2', '4.1')
 from gi.repository import Gtk, Gdk, Gio, GLib, WebKit2  # noqa: E402
@@ -20,7 +27,17 @@ from gi.repository import Gtk, Gdk, Gio, GLib, WebKit2  # noqa: E402
 APP = 'physics-rpg'
 CONF_DIR = os.path.join(GLib.get_user_config_dir(), APP); CONF = os.path.join(CONF_DIR, 'config.json')
 DATA = os.path.join(GLib.get_user_data_dir(), APP, 'web'); CACHE = os.path.join(GLib.get_user_cache_dir(), APP)
+LOG = os.path.join(CACHE, 'console.log')
+ERRS = """window.__errs=[];addEventListener('error',function(e){__errs.push(String(e.message||e)+(e.filename?' @'+e.filename.split('/').pop()+':'+e.lineno:''))},true);addEventListener('unhandledrejection',function(e){__errs.push('promise: '+String(e.reason&&e.reason.message||e.reason))});"""
 ICON = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icon.png')
+
+
+SOFTWARE = '--software' in sys.argv
+
+
+def restart(extra):
+    args = [a for a in sys.argv[1:] if a not in extra] + extra
+    os.execv(sys.executable, [sys.executable, os.path.realpath(__file__)] + args)
 
 
 def load_conf():
@@ -65,6 +82,9 @@ class Game:
         self.ctx = WebKit2.WebContext.new_with_website_data_manager(dm)
         dm.get_cookie_manager().set_persistent_storage(os.path.join(DATA, 'cookies.sqlite'), WebKit2.CookiePersistentStorage.SQLITE)
         self.ctx.connect('download-started', self.on_download)
+        self.ucm = WebKit2.UserContentManager()  # catches the page's errors from the first line, for the loading check
+        self.ucm.add_script(WebKit2.UserScript(ERRS, WebKit2.UserContentInjectedFrames.TOP_FRAME, WebKit2.UserScriptInjectionTime.START, None, None))
+        self.dm = dm
         self.view = self.make_view(None)
         s = self.view.get_settings()
         s.set_property('user-agent', s.get_property('user-agent') + ' PhysicsRPG-Desktop/1.0')
@@ -72,18 +92,19 @@ class Game:
         self.win.connect('destroy', lambda *_: Gtk.main_quit())
         self.win.connect('focus-in-event', lambda *_: self.kick())  # coming back to the window: pull progress from the other devices
         self.win.connect('delete-event', self.on_close)
-        self.view.load_uri(url)
+        self.view.load_uri(url); self.watch()
 
     def make_view(self, related):
-        v = WebKit2.WebView.new_with_related_view(related) if related else WebKit2.WebView.new_with_context(self.ctx)
+        v = WebKit2.WebView.new_with_related_view(related) if related else WebKit2.WebView(web_context=self.ctx, user_content_manager=self.ucm)
         s = v.get_settings()
         for k, val in (('enable-webgl', True), ('enable-javascript', True), ('enable-html5-local-storage', True), ('enable-html5-database', True),
                        ('javascript-can-open-windows-automatically', True), ('enable-developer-extras', '--dev' in sys.argv), ('enable-back-forward-navigation-gestures', False)):
             try: s.set_property(k, val)
             except TypeError: pass
-        try: s.set_hardware_acceleration_policy(WebKit2.HardwareAccelerationPolicy.ALWAYS)
-        except Exception: pass
-        if self.test: s.set_property('enable-write-console-messages-to-stdout', True)
+        if not SOFTWARE:
+            try: s.set_hardware_acceleration_policy(WebKit2.HardwareAccelerationPolicy.ALWAYS)
+            except Exception: pass
+        s.set_property('enable-write-console-messages-to-stdout', True)  # into console.log (see main)
         v.connect('authenticate', self.on_auth)
         v.connect('decide-policy', self.on_policy)
         v.connect('create', self.on_create)
@@ -94,7 +115,43 @@ class Game:
     def window(self, view, title):
         w = Gtk.Window(title=title); w.set_default_size(1280, 800)
         if os.path.exists(ICON): w.set_icon_from_file(ICON)
-        w.add(view); w.connect('key-press-event', self.on_key); w.show_all(); return w
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL); view.set_vexpand(True); box.pack_end(view, True, True, 0); w.add(box); w.box = box
+        w.connect('key-press-event', self.on_key); w.show_all(); return w
+
+    # ---- loading check: if the start screen has not finished after 30 s, say why and offer the usual fixes
+    def watch(self):
+        if getattr(self, 'watch_id', None): GLib.source_remove(self.watch_id)
+        self.watch_id = GLib.timeout_add_seconds(30, self.check)
+
+    def check(self):
+        self.watch_id = None
+        js = "JSON.stringify({ready: !!(document.getElementById('st-bar') && document.getElementById('st-bar').classList.contains('done')) || !document.getElementById('start') || document.getElementById('start').style.display === 'none', status: (document.getElementById('st-status')||{}).textContent || '', errs: [...(window.__errs||[]).slice(-4), ...[...document.querySelectorAll('body > pre')].map(function(x){return x.textContent.split('\\n')[0]})], webgl: !!document.createElement('canvas').getContext('webgl2'), sw: !!(navigator.serviceWorker && navigator.serviceWorker.controller)})"
+        def done(v, res):
+            try: info = json.loads(v.evaluate_javascript_finish(res).to_string())
+            except Exception as e: info = {'ready': False, 'status': '', 'errs': [f'the page did not answer ({e})'], 'webgl': None, 'sw': None}
+            print('LOADCHECK', json.dumps(info), flush=True)
+            if not info.get('ready'): self.show_trouble(info)
+        self.view.evaluate_javascript(js, -1, None, None, None, done)
+        return False
+
+    def show_trouble(self, info):
+        if getattr(self, 'bar', None): self.bar.destroy()
+        bar = Gtk.InfoBar(message_type=Gtk.MessageType.WARNING); self.bar = bar
+        why = '; '.join(info.get('errs') or []) or ('no WebGL (3D graphics) in this window' if info.get('webgl') is False else f"stuck at \u201c{info.get('status') or 'Loading...'}\u201d")
+        lab = Gtk.Label(xalign=0); lab.set_line_wrap(True); lab.set_selectable(True)
+        lab.set_markup(f"<b>The game has not finished loading.</b> {GLib.markup_escape_text(why[:400])}\nDetails: {GLib.markup_escape_text(LOG)}")
+        bar.get_content_area().add(lab)
+        for i, t in enumerate(('Reload', 'Simple mode (no 3D)', 'Software rendering', 'Fresh offline copy', 'Close')): bar.add_button(t, i)
+        bar.connect('response', self.on_trouble); self.win.box.pack_start(bar, False, False, 0); bar.show_all()
+
+    def on_trouble(self, bar, r):
+        bar.destroy(); self.bar = None
+        if r == 0: self.view.reload(); self.watch()
+        elif r == 1: self.view.load_uri(self.url + ('&' if '?' in self.url else '?') + 'lite=1'); self.watch()
+        elif r == 2: restart(['--software'])
+        elif r == 3:  # drops only the cached game files and the service worker; progress (localStorage) stays
+            T = WebKit2.WebsiteDataTypes
+            self.dm.clear(T.SERVICE_WORKER_REGISTRATIONS | T.DISK_CACHE | T.MEMORY_CACHE | T.DOM_CACHE, 0, None, lambda *_: (self.view.load_uri(self.url), self.watch()))
 
     def kick(self, *_):
         self.view.evaluate_javascript("try{window.dispatchEvent(new Event('online'))}catch(e){}", -1, None, None, None, None, None)
@@ -109,7 +166,7 @@ class Game:
             if w.get_window().get_state() & Gdk.WindowState.FULLSCREEN: w.unfullscreen()
             else: w.fullscreen()
             return True
-        if ctrl and k in ('r', 'R'): self.view.reload(); return True
+        if ctrl and k in ('r', 'R'): self.view.reload(); self.watch(); return True
         if ctrl and k in ('q', 'Q'): self.on_close(); return True
         if ctrl and k == 'comma':
             c = settings_dialog(self.win, dict(self.conf))
@@ -156,14 +213,20 @@ class Game:
 
 def main():
     ap = argparse.ArgumentParser(description='Physics RPG desktop app'); ap.add_argument('--settings', action='store_true'); ap.add_argument('--url'); ap.add_argument('--dev', action='store_true')
+    ap.add_argument('--software', action='store_true'); ap.add_argument('--lite', action='store_true')
     ap.add_argument('--test', type=int, default=0, help='(for tests) print what loaded after N seconds, then quit')
     a = ap.parse_args()
+    os.makedirs(CACHE, exist_ok=True)
+    if not sys.stdout.isatty() and not a.test:  # started from the menu: keep the game's messages in a log file (last run only)
+        fd = os.open(LOG, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600); os.dup2(fd, 1); os.dup2(fd, 2)
     GLib.set_prgname(APP); GLib.set_application_name('Physics RPG')
     conf = load_conf()
     if a.settings or (not a.url and not conf.get('url')):
         conf = settings_dialog(None, conf)
         if not conf: return 1
-    g = Game(a.url or conf['url'], conf, test=bool(a.test))
+    url = a.url or conf['url']
+    if a.lite: url += ('&' if '?' in url else '?') + 'lite=1'
+    g = Game(url, conf, test=bool(a.test))
     if a.test:
         def report():
             js = "JSON.stringify({game: !!window.__game, courses: window.__game ? window.__game.catalog().length : 0, sw: !!(navigator.serviceWorker && navigator.serviceWorker.controller), sync: window.__game ? window.__game.syncState().status : null, webgl: !!document.createElement('canvas').getContext('webgl2')})"

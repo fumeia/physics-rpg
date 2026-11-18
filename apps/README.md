@@ -16,7 +16,7 @@ so the apps only need reinstalling when the app shell itself changes, which shou
 
 ## Downloads (served by your game server)
 - Android: `https://<your server>/downloads/physics-rpg.apk`
-- Linux desktop: `https://<your server>/downloads/physics-rpg_1.0_all.deb`
+- Linux desktop: `https://<your server>/downloads/physics-rpg_1.1_all.deb`
 
 ## Android
 1. Open the APK link on the phone and log in with the server login.
@@ -37,7 +37,7 @@ Build: `apps/android/build-apk.sh`. It needs only the Android SDK (platform 35 a
 ## Linux desktop (Zorin OS 17/18, Ubuntu 22.04/24.04)
 Install the deb, which pulls in GTK WebKit:
 ```bash
-sudo apt install ./physics-rpg_1.0_all.deb
+sudo apt install ./physics-rpg_1.1_all.deb
 ```
 Or install from the repository without root files, into `~/.local`:
 ```bash

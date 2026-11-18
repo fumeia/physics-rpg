@@ -125,6 +125,33 @@ try:
 except ImportError:
     pass
 
+# The lecturer's "Related questions" of chapter 7 (reading pack deploy/packs/ch7_page.zip, publishing allowed): every question
+# with the link to the explainer paragraph that answers it, added to the chapter 7 reading cards as an 'asked' block.
+# The block only shows when the pack is installed on the server (body.has-ch7, set by the probe in main.js).
+import html as _html, re as _re, zipfile as _zip
+def _asked():
+    z = _zip.ZipFile(os.path.join(HERE, '../../../../deploy/packs/ch7_page.zip'))
+    ch = next(z.read(n).decode() for n in z.namelist() if n.endswith('.html') and b'<title>7 Symmetries' in z.read(n))
+    parts = _re.split(r'<h2 id="sec-7-(\d)"', ch); out = {'0': []}
+    def qs(body):
+        res = []
+        for box in _re.findall(r'<aside class="asked".*?</aside>', body, _re.S):
+            for href, q in _re.findall(r'<li><a href="([^"]+)">(.*?)</a></li>', box, _re.S):
+                q = _html.unescape(_re.sub(r'<[^>]+>', '', q)).replace(r'\(', '$').replace(r'\)', '$').strip()
+                res.append((href, q))
+        return res
+    out['0'] = qs(parts[0])
+    for i in range(1, len(parts), 2): out[parts[i]] = qs(parts[i + 1])
+    return out
+ASKED = _asked()
+SEC_OF = {'qm-read-07a': ['0', '1', '2'], 'qm-read-07b': ['3', '4'], 'qm-read-07c': ['5', '6', '7'], 'qm-read-07d': ['8']}
+for it in C:
+    secs = SEC_OF.get(it['enc']['id'])
+    if not secs: continue
+    rows = ''.join(f'<li><a href="private/ch7/{h}" target="_blank" rel="noopener">{q}</a> <span class="src">({"7, intro" if n == "0" else "7." + n})</span></li>' for n in secs for h, q in ASKED.get(n, []))
+    if rows:
+        it['enc']['blocks'].insert(2, {'kind': 'asked', 'html': f'<p>The lecturer&#8217;s own questions on these pages, each linked to the explainer paragraph that answers it. Try to answer before you open it.</p><ol>{rows}</ol>'})
+assert sum(len(v) for v in ASKED.values()) >= 70, sum(len(v) for v in ASKED.values())
 sys.path.insert(0, HERE)
 from more_checks import MORE  # 4 more checks per card
 for it in C:

@@ -862,14 +862,114 @@
      "label": "Lie groups and Lie algebras"
     },
     {
+     "path": "concepts/infinitesimal-rotations.html",
+     "label": "Why infinitesimal rotations form a vector space"
+    },
+    {
+     "path": "concepts/lie-algebra-representation.html",
+     "label": "From a group to a Lie algebra representation"
+    },
+    {
+     "path": "concepts/exponential-map.html",
+     "label": "The exponential map and BCH"
+    },
+    {
      "path": "concepts/generators-angular-momentum.html",
      "label": "Generators = angular momentum"
+    },
+    {
+     "path": "concepts/what-is-a-representation.html",
+     "label": "What a representation is"
+    },
+    {
+     "path": "concepts/group-homomorphism.html",
+     "label": "Group homomorphisms"
+    },
+    {
+     "path": "concepts/lie-bracket.html",
+     "label": "The Lie bracket and Jacobi"
+    }
+   ],
+   "qm-read-03a": [
+    {
+     "path": "concepts/parity.html",
+     "label": "The parity operator"
+    }
+   ],
+   "qm-read-03b": [
+    {
+     "path": "concepts/parity.html",
+     "label": "The parity operator"
+    }
+   ],
+   "qm-read-05a": [
+    {
+     "path": "concepts/commuting-observables.html",
+     "label": "Commuting operators and common eigenvectors"
+    }
+   ],
+   "qm-read-06a": [
+    {
+     "path": "concepts/ladder-operators.html",
+     "label": "Raising and lowering operators"
+    }
+   ],
+   "qm-read-08a": [
+    {
+     "path": "concepts/spherical-harmonics.html",
+     "label": "Spherical harmonics"
+    },
+    {
+     "path": "concepts/commuting-observables.html",
+     "label": "Commuting operators"
+    }
+   ],
+   "qm-read-08b": [
+    {
+     "path": "concepts/su2-lie-algebra.html",
+     "label": "The Lie algebra su(2)"
+    },
+    {
+     "path": "concepts/casimir-operator.html",
+     "label": "The Casimir operator"
+    }
+   ],
+   "qm-read-09a": [
+    {
+     "path": "concepts/reducible-irreducible.html",
+     "label": "Reducible and irreducible representations"
+    },
+    {
+     "path": "concepts/fundamental-and-adjoint.html",
+     "label": "The fundamental and the adjoint representation"
+    }
+   ],
+   "qm-read-09b": [
+    {
+     "path": "concepts/why-j-labels-representations.html",
+     "label": "Why j labels the irreducibles"
+    },
+    {
+     "path": "concepts/equivalent-representations.html",
+     "label": "Equivalent representations"
     }
    ],
    "qm-read-07b": [
     {
      "path": "concepts/reducible-irreducible.html",
      "label": "Reducible and irreducible"
+    },
+    {
+     "path": "concepts/compact-groups.html",
+     "label": "Compact groups and complete reducibility"
+    },
+    {
+     "path": "concepts/equivalent-representations.html",
+     "label": "Equivalent (isomorphic) representations"
+    },
+    {
+     "path": "concepts/su2-lie-algebra.html",
+     "label": "The Lie algebra su(2)"
     },
     {
      "path": "concepts/why-j-labels-representations.html",
@@ -882,6 +982,10 @@
     {
      "path": "concepts/ladder-operators.html",
      "label": "Raising and lowering operators"
+    },
+    {
+     "path": "concepts/isomorphism.html",
+     "label": "The word isomorphic, four times"
     }
    ],
    "qm-read-07c": [
@@ -896,6 +1000,14 @@
     {
      "path": "concepts/spin-of-electron.html",
      "label": "The spin of the electron"
+    },
+    {
+     "path": "concepts/pauli-matrices.html",
+     "label": "The Pauli matrices"
+    },
+    {
+     "path": "concepts/spherical-harmonics.html",
+     "label": "Spherical harmonics (why no half-integer l)"
     }
    ],
    "qm-read-07d": [

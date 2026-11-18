@@ -55,5 +55,8 @@ const astroCalc = await p.evaluate(() => window.__game.catalog().find((c) => c.i
 await p.evaluate((id) => window.__game.open(id), astroCalc); await p.waitForTimeout(1000);
 const rf2 = await p.evaluate(() => document.querySelector('.readfirst')?.textContent || '');
 ck('an exam exercise without a script reference falls back to its week/room reading', /script part behind this exercise/.test(rf2), astroCalc + ' ' + rf2);
+await p.evaluate(() => window.__game.open('qm-read-07a')); await p.waitForTimeout(1500);
+const ask = await p.evaluate(() => { const b = document.querySelector('.callout.asked'); return { shown: !!b && getComputedStyle(b).display !== 'none', n: b ? b.querySelectorAll('a').length : 0, strip: (document.querySelector('.readstrip')?.textContent || '').slice(0, 60), first: b?.querySelector('a')?.getAttribute('href') }; });
+ck('chapter 7 card shows the lecturer’s questions with explainer links (pack installed)', ask.shown && ask.n >= 25 && /^private\/ch7\/concepts\//.test(ask.first) && /explainers/.test(ask.strip), JSON.stringify(ask));
 ck('no page errors', errs.length === 0, errs.join(' | '));
 console.log(fails ? `${fails} FAILED` : 'ALL OK'); await b.close(); server.close(); process.exit(fails ? 1 : 0);

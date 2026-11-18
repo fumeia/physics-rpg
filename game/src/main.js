@@ -131,6 +131,7 @@ async function boot() {
   // reading packs: attach their links only if the pack is installed on this server (deploy/ch7pack.py); never blocks the boot
   for (const rp of readingPacks) fetch(rp.probe, { method: 'HEAD', cache: 'no-store' }).then((res) => {
     if (!res.ok) return;
+    document.body.classList.add('has-' + rp.pack); // shows blocks that need the pack (the lecturer's questions in the reading cards)
     for (const [id, links] of Object.entries(rp.links)) { const e = encIndex.get(id)?.enc; if (e) e.read = { label: rp.label, links: links.map((l) => ({ label: l.label, href: rp.base + l.path })).concat(rp.chapter ? [{ label: 'the chapter with questions', href: rp.base + rp.chapter }] : []) }; }
   }).catch(() => {});
   progress(62, 'Loading the glossary...'); await glossP;

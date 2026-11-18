@@ -524,3 +524,6 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 /* derivations: where the derivation is in the script */
 .dv-where{border-left:3px solid #7fb3ff;background:rgba(127,179,255,.08);padding:.4em .7em;margin:.4em 0 .6em;border-radius:4px;font-size:.92em}
 .dv-where .row{margin-top:.3em;flex-wrap:wrap;gap:.3em}
+/* the lecturer's questions in the chapter 7 reading cards: only when the reading pack is installed */
+.callout.asked { display: none; border-left-color: #b38cff; } body.has-ch7 .callout.asked { display: block; } .callout.asked ol { padding-left: 1.3em; margin: .3em 0; } .callout.asked li { margin: .25em 0; }
+.callout.asked a, .callout.think a, .readstrip a { color: #9cc0ff; } .callout.asked a:visited { color: #c3a6ff; }

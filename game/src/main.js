@@ -501,7 +501,7 @@ const fmtMin = (s) => `${Math.floor(s / 3600) ? Math.floor(s / 3600) + ' h ' : '
 function profileHtml() {
   const have = store.val('ach', {}) || {}, st = { sens: 1, quality: 'auto', sound: false, haptics: true, goal: 'normal', ...(store.val('settings', {}) || {}) }, week = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return [todayStr(d), store.activeSecondsOn(todayStr(d))]; }), mx = Math.max(600, ...week.map((w) => w[1]));
   return `<div class="msn-head"><div><b>Profile: ${store.profile}</b><div class="src">${sync.available ? `Saved as <code>profiles/${store.profile}.json</code> next to the game (${sync.status}).` : 'No save server found: progress is kept in this browser only. Start the game with <code>python3 serve.py</code> to save it to a file.'}</div></div>
-    <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div><div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div></div>
+    <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div>${week.some(([, s]) => s >= 30) ? `<div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div>` : '<div class="src">The last 7 days appear here as bars once you have done an exercise.</div>'}</div>
     <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="auto" ${st.quality === 'auto' ? 'selected' : ''}>automatic (follows the frame rate${quality ? `; now: ${quality.level}` : ''})</option><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="medium" ${st.quality === 'medium' ? 'selected' : ''}>medium</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution, 30 fps)</option><option value="minimal" ${st.quality === 'minimal' ? 'selected' : ''}>minimal (half resolution, 30 fps)</option></select></label>
       <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min or ${GOAL_EXERCISES[k]} exercises)</option>`).join('')}</select></label>
       <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
@@ -780,7 +780,7 @@ function renderPlan(host) {
 function compactMenuHtml() {
   const d = store.dueReviews().length, open = mistakes().filter((x) => x.open).length;
   const big = (m, title, sub) => `<button class="bigbtn" data-m="${m}"><b>${title}</b><span>${sub}</span></button>`;
-  return `<div class="menu menu6">${campaign ? big('run', campaign.chipText(), `${campaign.startLine()} (G)`) + big('campaign', `Campaign: ${campaign.behindText()}`, 'lecture weeks, weekly bosses, chest and today\u2019s bonus goals (C)') : ''}
+  return `<div class="menu menu6">${campaign ? big('run', campaign.chipText(), `${campaign.startLine()} (G)`) + (campaign.isSetup() ? big('campaign', `Campaign: ${campaign.behindText()}`, 'lecture weeks, weekly bosses, chest and today\u2019s bonus goals (C)') : big('quick', 'Quick session', 'one exercise, about 10 minutes, without setting anything up (Q)')) : ''}
     ${big('study', 'Practice', `sheets, drills, mistakes${open ? ` (${open} open)` : ''}, explain-it, your pile${d ? ` \u00b7 ${d} respawn${d > 1 ? 's' : ''} due` : ''} (V)`)}
     ${big('exam', 'Exam hall', 'old exams under the timer, with a grade (X)')}
     ${big('map', 'Map', 'rooms and route, the Nexus, connections between topics (M)')}
@@ -1084,7 +1084,7 @@ let stopExam = null;
 function renderCampaign() { if (!campaign) { $('ov-body').innerHTML = '<p>The campaign could not be loaded.</p>'; return; } const b = $('ov-body'), y = b.scrollTop; b.innerHTML = M(campaign.html()); campaign.wire(b, renderCampaign); b.scrollTop = y; }
 function updateRunChips() {
   if (!campaign) return; const r = $('btn-run'), c = $('btn-campaign'); if (!r || !c) return;
-  r.textContent = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign';
+  r.textContent = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign'; c.style.display = campaign.isSetup() ? '' : 'none'; // before the setup it would open the same thing as the gold button next to it
   const sp = $('st-plan'); if (sp) sp.textContent = campaign.startLine();
 }
 // the run summary must not tear the result of the last exercise away: show it when the panel is closed (or right away if none is open)

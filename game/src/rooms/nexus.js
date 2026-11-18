@@ -145,8 +145,11 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
       n.core.scale.lerp(new THREE.Vector3(s, s, s), Math.min(1, dt * 6));
       n.halo.material.opacity = (on ? 0.55 : 0.18) + 0.4 * n.frac + Math.sin(t * 2 + n.i) * 0.05;
       n.ring.quaternion.copy(camera.quaternion);
-      n.label.material.opacity = on ? 1 : 0.3;
-      n.label.scale.copy(n.labelBase).multiplyScalar(THREE.MathUtils.clamp(n.pos.distanceTo(playerPos) / 22, 1, 3.6));
+      // far labels fade out so the clusters do not turn into a heap of overlapping cards; the course titles name a far cluster,
+      // and the recommended / due rooms and the focused star with its neighbours always keep their label
+      const ld2 = n.pos.distanceTo(playerPos), keep = n.rec || n.due || (dim && nearSet.has(n)), near = keep ? 1 : THREE.MathUtils.clamp((58 - ld2) / 16, 0, 1);
+      n.label.material.opacity = (on ? 1 : 0.3) * near; n.label.visible = near > 0.02;
+      n.label.scale.copy(n.labelBase).multiplyScalar(THREE.MathUtils.clamp(ld2 / 22, 1, 2.4));
       if (n.alert) { n.alert.rotation.x = t * 1.3; n.alert.rotation.y = t * 0.9; n.alert.scale.setScalar(1 + 0.12 * Math.sin(t * 5)); }
       if (n.beacon) n.beacon.material.opacity = 0.35 + 0.25 * Math.sin(t * 2.5);
     }

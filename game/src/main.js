@@ -214,7 +214,7 @@ async function boot() {
       if (deepOpen && encIndex.has(deepOpen)) await openById(deepOpen);
     } catch (e) { console.warn('deep link failed', e.message); }
   }
-  if ('serviceWorker' in navigator && (location.protocol === 'https:' || params.has('sw'))) navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || params.has('sw') || /PhysicsRPG-Desktop/.test(navigator.userAgent))) navigator.serviceWorker.register('sw.js').catch(() => {}); // makes the page installable as an app
   if (campaign?.dungeonState() && !campaign.dungeonState().d.paid) document.body.classList.add('dungeon');
   if (campaign) { $('st-run').style.display = ''; $('st-run').textContent = campaign.isSetup() ? '\u25b6 Today\u2019s run' : '\u25b6 Set up my campaign'; document.querySelector('.st-card').classList.add('has-run'); $('st-go').textContent = 'Just walk around'; updateRunChips(); }
   startReady = true; progress(100, ''); $('st-bar').classList.add('done'); $('st-status').textContent = '';

@@ -5,6 +5,8 @@
 - Offline: the game's service worker keeps a copy of all files, so it starts and plays without a network; progress is saved
   on this computer and merged with the server (and your other devices) as soon as it is online again.
 - The server's login (basic auth) is asked once and remembered (in ~/.config/physics-rpg/config.json, readable only by you).
+  The window talks to a small relay on 127.0.0.1 that adds the login to every request to the server: WebKit's service worker
+  does not reliably pass a basic-auth login on, which left the game stuck on its loading screen behind a login.
 Keys: F11 full screen · Ctrl+R reload · Ctrl+, server settings · Ctrl+Q quit.
 If the game does not finish loading within 30 s, a bar shows why, with fixes (reload, simple mode, software rendering, fresh
 offline copy). The game's messages are logged to ~/.cache/physics-rpg/console.log.
@@ -16,7 +18,7 @@ offline copy). The game's messages are logged to ~/.cache/physics-rpg/console.lo
   physics-rpg-desktop --lite          # the simple menu without 3D
   physics-rpg-desktop --dev           # right click > Inspect element: the browser developer tools
 """
-import argparse, json, os, sys
+import argparse, base64, http.client, http.server, json, os, socket, ssl, sys, threading
 from urllib.parse import urlparse
 if '--software' in sys.argv:  # graphics driver trouble: let WebKit draw without the GPU path that breaks on some drivers
     os.environ.setdefault('WEBKIT_DISABLE_DMABUF_RENDERER', '1'); os.environ.setdefault('WEBKIT_DISABLE_COMPOSITING_MODE', '1'); os.environ.setdefault('LIBGL_ALWAYS_SOFTWARE', '1')
@@ -75,9 +77,72 @@ def settings_dialog(parent, conf):
     conf.update(url=u, user=r['user'], password=r['password']); save_conf(conf); return conf
 
 
+class Relay:
+    """http://127.0.0.1:<port>/... -> the server, with the login added. Offline: answers 502 at once (the game then uses its copy)."""
+    HOP = {'connection', 'keep-alive', 'proxy-authenticate', 'proxy-authorization', 'te', 'trailers', 'transfer-encoding', 'upgrade', 'host', 'content-length'}
+
+    def __init__(self, upstream, user, password, port, on_refused):
+        u = urlparse(upstream); self.https, self.netloc = u.scheme == 'https', u.netloc
+        self.set_login(user, password); self.on_refused = on_refused; self.local = threading.local()
+        relay = self
+
+        class H(http.server.BaseHTTPRequestHandler):
+            protocol_version = 'HTTP/1.1'
+            def log_message(self, *a): pass
+            def go(self): relay.forward(self)
+            do_GET = do_HEAD = do_PUT = do_POST = do_DELETE = do_OPTIONS = go
+
+        last = None
+        for p in [port, 0]:  # the saved port keeps the same origin (and so the same offline copy and local progress)
+            try: self.srv = http.server.ThreadingHTTPServer(('127.0.0.1', p), H); break
+            except OSError as e: last = e
+        else: raise last
+        self.srv.daemon_threads = True; self.port = self.srv.server_address[1]
+        threading.Thread(target=self.srv.serve_forever, daemon=True).start()
+
+    def set_login(self, user, password):
+        self.auth = 'Basic ' + base64.b64encode(f'{user}:{password}'.encode()).decode() if user else None
+
+    def conn(self, fresh=False):
+        c = getattr(self.local, 'c', None)
+        if fresh and c: c.close(); c = None
+        if not c:
+            c = http.client.HTTPSConnection(self.netloc, timeout=10, context=ssl.create_default_context()) if self.https else http.client.HTTPConnection(self.netloc, timeout=10)
+            self.local.c = c
+        return c
+
+    def forward(self, h):
+        n = int(h.headers.get('Content-Length') or 0); body = h.rfile.read(n) if n else None
+        hdrs = {k: v for k, v in h.headers.items() if k.lower() not in self.HOP and k.lower() not in ('authorization', 'origin', 'referer')}
+        hdrs['Host'] = self.netloc
+        if self.auth: hdrs['Authorization'] = self.auth
+        r = None
+        for attempt in (0, 1):  # a kept-alive connection the server closed: once more on a fresh one
+            try:
+                c = self.conn(fresh=attempt == 1); c.request(h.command, h.path, body=body, headers=hdrs); r = c.getresponse(); data = r.read(); break
+            except (OSError, http.client.HTTPException):
+                r = None
+        if r is None:  # offline or server down
+            msg = b'{"error": "offline"}'; h.send_response(502); h.send_header('Content-Type', 'application/json'); h.send_header('Content-Length', str(len(msg))); h.send_header('Cache-Control', 'no-store'); h.end_headers()
+            if h.command != 'HEAD': h.wfile.write(msg)
+            return
+        if r.status == 401 and self.on_refused: GLib.idle_add(self.on_refused)
+        h.send_response(r.status)
+        for k, v in r.getheaders():
+            if k.lower() not in self.HOP and k.lower() not in ('www-authenticate', 'strict-transport-security', 'alt-svc'):
+                h.send_header(k, v)
+        h.send_header('Content-Length', str(len(data))); h.end_headers()
+        if h.command != 'HEAD': h.wfile.write(data)
+
+
 class Game:
     def __init__(self, url, conf, test=False):
-        self.conf, self.url, self.test, self.retry = conf, url, test, 0
+        self.conf, self.test, self.retry = conf, test, 0
+        u = urlparse(url)
+        self.relay = Relay(f'{u.scheme}://{u.netloc}', conf.get('user', ''), conf.get('password', ''), int(conf.get('port') or 47123), self.login_refused)
+        if conf.get('port') != self.relay.port and not test: conf['port'] = self.relay.port; save_conf(conf)
+        url = f'http://127.0.0.1:{self.relay.port}{u.path or "/"}' + (f'?{u.query}' if u.query else '')
+        self.url = url
         dm = WebKit2.WebsiteDataManager(base_data_directory=DATA, base_cache_directory=CACHE)  # localStorage, service worker copy, cookies
         self.ctx = WebKit2.WebContext.new_with_website_data_manager(dm)
         dm.get_cookie_manager().set_persistent_storage(os.path.join(DATA, 'cookies.sqlite'), WebKit2.CookiePersistentStorage.SQLITE)
@@ -170,8 +235,16 @@ class Game:
         if ctrl and k in ('q', 'Q'): self.on_close(); return True
         if ctrl and k == 'comma':
             c = settings_dialog(self.win, dict(self.conf))
-            if c: self.conf = c; self.url = c['url']; self.retry = 0; self.view.load_uri(self.url)
+            if c: self.conf = c; restart([])
             return True
+        return False
+
+    def login_refused(self):  # the server said 401 to the relay: the saved login is wrong or missing
+        if getattr(self, 'asking', False): return False
+        self.asking = True
+        r = ask(self.win, 'Login', [('user', 'Login name', self.conf.get('user', ''), False), ('password', 'Password', '', True)], 'The server refused the saved login. Enter it again (the one you use in the browser).')
+        self.asking = False
+        if r: self.conf.update(user=r['user'], password=r['password']); save_conf(self.conf); self.relay.set_login(r['user'], r['password']); self.view.reload(); self.watch()
         return False
 
     def on_auth(self, view, req):

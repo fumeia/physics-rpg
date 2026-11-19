@@ -2,7 +2,7 @@
 # Installs the Physics RPG desktop app for the current user (Zorin OS 17/18, Ubuntu 22.04/24.04 and relatives).
 #   bash install.sh            # install or update
 #   bash install.sh --remove   # uninstall (your progress stays on the server; the local copy in ~/.local/share/physics-rpg is removed)
-# Alternative: sudo apt install ./physics-rpg_1.1_all.deb (from https://<your server>/downloads/).
+# Alternative: sudo apt install ./physics-rpg_1.2_all.deb (from https://<your server>/downloads/).
 set -e
 cd "$(dirname "$0")"
 APPDIR=$HOME/.local/share/physics-rpg/app; BIN=$HOME/.local/bin

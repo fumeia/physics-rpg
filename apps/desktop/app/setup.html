@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Physics RPG: your server</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<style>
+  :root { color-scheme: dark; } body { margin: 0; background: #0d1322; color: #e8eefc; font: 15px/1.45 system-ui, sans-serif; }
+  main { padding: 26px 30px; } h1 { font-size: 20px; margin: 0 0 6px; } p { color: #b9c4dc; margin: 0 0 16px; }
+  label { display: block; font-size: 13px; color: #9fb0d0; margin: 12px 0 4px; } input { width: 100%; box-sizing: border-box; padding: 9px 10px; border-radius: 8px; border: 1px solid #34436a; background: #070a12; color: #e8eefc; font-size: 15px; }
+  button { margin-top: 20px; background: #f5c451; color: #1a1406; border: 0; border-radius: 8px; padding: 10px 18px; font-weight: 700; font-size: 15px; cursor: pointer; } button:disabled { opacity: .6; }
+  .msg { margin-top: 14px; min-height: 20px; font-size: 14px; } .bad { color: #ff8b8b; } .good { color: #8fe3b0; } .note { color: #f5c451; }
+</style></head><body><main>
+<h1>Physics RPG on this computer</h1>
+<p>The game runs from a copy on this laptop and works offline. Your server is where the progress syncs to and where updates come from.</p>
+<div class="note" id="note"></div>
+<form id="f">
+  <label for="url">Game address (the one you open in the browser)</label><input id="url" placeholder="https://physics.example.com" required autofocus>
+  <label for="user">Login name (leave empty if your server has none)</label><input id="user" autocomplete="username">
+  <label for="pass">Password</label><input id="pass" type="password" autocomplete="current-password" placeholder="(unchanged if left empty)">
+  <button id="go" type="submit">Connect</button>
+  <div class="msg" id="msg"></div>
+</form>
+<script>
+  const q = new URLSearchParams(location.search), $ = (i) => document.getElementById(i);
+  $('url').value = q.get('url') || ''; $('user').value = q.get('user') || ''; $('note').textContent = q.get('note') || '';
+  if (!q.get('url')) $('pass').placeholder = '';
+  $('f').onsubmit = async (e) => {
+    e.preventDefault(); $('go').disabled = true; $('msg').className = 'msg'; $('msg').textContent = 'Checking the server…';
+    const r = await window.rpgDesktop.save({ url: $('url').value, user: $('user').value, pass: $('pass').value });
+    $('go').disabled = false; $('msg').className = 'msg ' + (r.ok ? 'good' : 'bad'); $('msg').textContent = r.ok ? 'Connected. Downloading the game…' : r.msg;
+  };
+</script></main></body></html>

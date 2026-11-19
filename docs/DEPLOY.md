@@ -111,5 +111,5 @@ export the profile on the device you want to keep first (Profile -> export progr
 
 ## 6. Apps for Android and the Linux desktop; offline play
 
-`https://<your server>/downloads/` has the Android app (`physics-rpg.apk`) and the Linux desktop app (`physics-rpg_1.2_all.deb`).
+`https://<your server>/downloads/` has the Android app (`physics-rpg.apk`) and the Linux desktop installer (`physics-rpg-desktop-install.sh`; the desktop app then updates itself from this server).
 Both open the game from this server and work offline, merging progress when they are back online. See `apps/README.md`.

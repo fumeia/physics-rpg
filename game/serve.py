@@ -4,7 +4,7 @@
   python3 serve.py                       # http://127.0.0.1:8123, profiles in ./profiles/<name>.json
   python3 serve.py --port 9000 --host 0.0.0.0   # on a server (set PHYSICS_RPG_TOKEN=secret to require a token)
 
-API: GET /api/ping, GET /api/precache (the game's files with their times, for offline play), GET /api/profiles, GET /api/profile/<name>, PUT /api/profile/<name>  (JSON body),
+API: GET /api/ping, GET /api/precache (the game's files with their times, for offline play), GET /api/manifest[?part=desktop] (files with time and size, for the desktop app), GET /api/profiles, GET /api/profile/<name>, PUT /api/profile/<name>  (JSON body),
      GET /api/notify-config, POST /api/remind ("remind me later" through ntfy; only when the server notifications are set up, see deploy/notify-setup.sh).
 Names: letters, digits, _ and - (max 40). Writes are atomic and the last 5 versions are kept as backups.
 """
@@ -37,6 +37,19 @@ def _version():
 
 
 SKIP_DIRS = ('node_modules', 'test', '.git', 'profiles', 'downloads', '__pycache__')
+def _manifest(sub=''):
+    """Every file of the game (or of downloads/<sub>) as {path: [mtime, size]}: the desktop app updates its local copy from it."""
+    out, top = {}, os.path.join(ROOT, 'downloads', sub) if sub else ROOT
+    for base, dirs, files in os.walk(top):
+        if not sub: dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+        for f in files:
+            if f.endswith(('.py', '.pyc', '.sh', '.md', '.zip', '.tmp')) or f.startswith('.'): continue
+            fp = os.path.join(base, f)
+            try: st = os.stat(fp); out['/' + os.path.relpath(fp, ROOT).replace(os.sep, '/')] = [int(st.st_mtime), st.st_size]
+            except OSError: pass
+    return out
+
+
 def _precache():
     out = {}
     for base, dirs, files in os.walk(ROOT):
@@ -76,6 +89,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/api/version':  # for the service worker: changes whenever any file of the game changes (git pull, edit)
             return self._send(200, {'version': _version()})
+        if self.path in ('/api/manifest', '/api/manifest?part=desktop'):  # the desktop app: game files, or its own code (downloads/desktop/app)
+            return self._send(200, {'files': _manifest('desktop/app' if self.path.endswith('desktop') else '')})
         if self.path == '/api/precache':  # for the service worker: every file the game needs offline, with its modification time
             return self._send(200, {'files': _precache()})
         if self.path.startswith('/api/'):

@@ -1,0 +1,7 @@
+{
+  "name": "physics-rpg",
+  "productName": "Physics RPG",
+  "version": "2.0.0",
+  "description": "Physics RPG desktop app: the game runs on this computer, progress syncs with your server",
+  "main": "loader.js"
+}

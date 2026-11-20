@@ -239,6 +239,9 @@ exports.start = (ctx) => {
   app.whenReady().then(() => {
     log(`start ${VERSION} from ${ctx.coreDir}`);
     protocol.handle('rpg', handle);
+    // the menu entry points at ~/.local/share/physics-rpg/icon.png (written by the installer): keep it equal to the app's own icon,
+    // so a new icon arrives with an app update, without reinstalling
+    try { const src = path.join(__dirname, 'icon.png'), dst = path.join(P.home, 'icon.png'); if (!fs.existsSync(dst) || !fs.readFileSync(dst).equals(fs.readFileSync(src))) fs.copyFileSync(src, dst); } catch { /* ignore */ }
     conf = readConf();
     if (!server()) { // coming from the earlier GTK app: take its address and login over
       try { const o = JSON.parse(fs.readFileSync(path.join(process.env.XDG_CONFIG_HOME || path.join(require('os').homedir(), '.config'), 'physics-rpg', 'config.json'), 'utf8'));

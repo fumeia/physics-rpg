@@ -1,4 +1,5 @@
 import { controlsChoice, setControlsChoice, themeChoice, setThemeChoice, isLight, landscapePref, setLandscapePref } from './theme.js'; // first: applies the theme before anything is drawn
+import { ic } from './icons.js';
 import { World, SCALE } from './world.js';
 import { Player } from './player.js';
 import { TunnelSim } from './sim.js';
@@ -415,7 +416,7 @@ const isLocked = (enc) => !!enc.requires && !store.isPassed(enc.requires);
 const passed = (enc) => store.isPassed(enc.id);
 const roomProgress = (r) => { const es = r.encounters.filter((e) => core(e)); return { done: es.filter((e) => store.isPassed(e.id)).length, total: es.length }; };
 function refresh() {
-  $('xp').textContent = `\ud83d\udd25 ${streakNow().count} \u00b7 XP ${store.xp}`;
+  $('xp').innerHTML = `${ic('flame')} ${streakNow().count} \u00b7 XP ${store.xp}`;
   if (campaign) { try { const cs = JSON.stringify(campaign.stat()); if (cs !== JSON.stringify(store.val('campaignStat', null))) store.setVal('campaignStat', JSON.parse(cs)); } catch (e) { console.warn('campaign stat', e); } }
   if (campaign) { if (campaign.onProgress() && (store.markActiveDay(todayStr(), yesterdayStr(), dayBeforeYesterdayStr()), true)) setTimeout(() => { if (!current || $('panel').querySelector('#result .msg')) { toast('Run complete. Well done.'); sfx.goal(); } openOverlayWhenFree('campaign'); }, 900); updateRunChips(); }
   const due = store.dueReviews();
@@ -608,7 +609,7 @@ function pileBar(enc) {
   const bar = document.createElement('div'); bar.className = 'pilebar';
   const render = () => {
     const on = inPile(enc.id), qi = pileQueue.indexOf(enc.id), p = pile()[enc.id];
-    bar.innerHTML = `<button class="chip btn pilebtn${on ? ' on' : ''}" title="Keep this exercise in your personal pile, to look at again whenever you want (V opens the pile)">${on ? '★ In my pile' : '☆ Keep for later'}</button>${on ? `<input class="pilenote" maxlength="140" placeholder="why keep it? (optional note)" value="${(p.note || '').replace(/"/g, '&quot;')}">` : ''}${qi >= 0 ? `<span class="src">${queueText(qi)}</span> ${qi + 1 < pileQueue.length ? '<button class="go pilenext">Next →</button>' : '<span class="src">last one</span>'}` : ''}`;
+    bar.innerHTML = `<button class="chip btn pilebtn${on ? ' on' : ''}" title="Keep this exercise in your personal pile, to look at again whenever you want (V opens the pile)">${on ? `${ic('starFull')} In my pile` : `${ic('star')} Keep for later`}</button>${on ? `<input class="pilenote" maxlength="140" placeholder="why keep it? (optional note)" value="${(p.note || '').replace(/"/g, '&quot;')}">` : ''}${qi >= 0 ? `<span class="src">${queueText(qi)}</span> ${qi + 1 < pileQueue.length ? '<button class="go pilenext">Next →</button>' : '<span class="src">last one</span>'}` : ''}`;
     bar.querySelector('.pilebtn').onclick = () => { togglePile(enc.id); render(); };
     const note = bar.querySelector('.pilenote'); if (note) { note.onkeydown = (e) => e.stopPropagation(); note.onchange = () => { const q = { ...pile() }; if (q[enc.id]) { q[enc.id] = { ...q[enc.id], note: note.value }; store.setVal('pile', q); } }; }
     const nx = bar.querySelector('.pilenext'); if (nx) nx.onclick = () => openFromPile(pileQueue[qi + 1], true);
@@ -626,7 +627,7 @@ function sheetMenuLabel() {
   return parts.length ? `Exercise sheets: ${parts.join(', ')}` : 'Exercise sheets';
 }
 const sheetRefs = () => { const out = []; for (const [cid, s] of Object.entries(sheetsByCourse)) for (const sh of s.sheets) for (const q of sh.questions) out.push({ cid, sh, q }); return out; };
-function relatedBtn(id) { const ref = encIndex.get(id); if (!ref) return ''; const e = ref.enc; return `<button class="chip btn${passed(e) ? ' ok' : ''}" data-sopen="${id}">${passed(e) ? '\u2713 ' : ''}${typeName[e.type] || e.type}: ${e.title || id}</button>`; }
+function relatedBtn(id) { const ref = encIndex.get(id); if (!ref) return ''; const e = ref.enc; return `<button class="chip btn${passed(e) ? ' ok' : ''}" data-sopen="${id}">${passed(e) ? ic('check') + ' ' : ''}${typeName[e.type] || e.type}: ${e.title || id}</button>`; }
 function sheetLinksHtml(enc) {
   if (enc.sheet) {
     const hit = sheetRefs().find((x) => x.q.enc.id === enc.id); if (!hit) return '';
@@ -672,7 +673,7 @@ function sheetsHtml() {
     const cur = currentSheet(cid);
     const block = (sh) => {
       const qs = sh.questions.map((q) => { const e = encIndex.get(q.enc.id)?.enc, ok = e && passed(e), rev = e && store.hasReview(e.id);
-        return `<div class="maprow"><button class="link" data-sopen="${q.enc.id}"><span class="mt">${ok ? '\u2713' : rev ? '\u21bb' : '\u25cb'} Q${q.q}: ${q.title}</span></button><span class="src">${q.enc.primer ? '\ud83d\udcd6 theory first \u00b7 ' : ''}${findRoom(cid, q.room)?.title || ''} \u00b7 ${(q.related || []).length} linked</span></div>`; }).join('');
+        return `<div class="maprow"><button class="link" data-sopen="${q.enc.id}"><span class="mt">${ok ? ic('check') : rev ? ic('review') : '\u25cb'} Q${q.q}: ${q.title}</span></button><span class="src">${q.enc.primer ? '\ud83d\udcd6 theory first \u00b7 ' : ''}${findRoom(cid, q.room)?.title || ''} \u00b7 ${(q.related || []).length} linked</span></div>`; }).join('');
       const done = sh.questions.filter((q) => passed(encIndex.get(q.enc.id)?.enc || {})).length;
       return `<details${sh === cur ? ' open' : ''}><summary><b>Sheet ${sh.n}</b>${sh === cur ? ' <span class="tag">this week</span>' : ''} \u00b7 ${sh.title} \u00b7 due ${fmtDue(sheetDue(sh))} \u00b7 ${done}/${sh.questions.length}</summary>${qs}</details>`;
     };
@@ -688,7 +689,7 @@ function pileHtml() {
   const p = pile(), rows = Object.entries(p).map(([id, v]) => ({ id, v, ref: encIndex.get(id) })).filter((x) => x.ref);
   rows.sort((a, b) => a.v.seen - b.v.seen);
   const days = (t) => Math.floor((Date.now() - t) / 86400000), ago = (t) => (days(t) <= 0 ? 'today' : `${days(t)} d ago`);
-  if (!rows.length) return '<p>Your pile is empty. Open any exercise and press <b>☆ Keep for later</b> at the top of its panel. Exercises you keep stay here for good: no timer, no schedule. Look at them whenever you want (also in two months).</p>';
+  if (!rows.length) return '<p>Your pile is empty. Open any exercise and press <b>' + ic('star') + ' Keep for later</b> at the top of its panel. Exercises you keep stay here for good: no timer, no schedule. Look at them whenever you want (also in two months).</p>';
   const byCourse = catalog.map((c) => ({ c, items: rows.filter((r) => r.ref.course === c.id) })).filter((g) => g.items.length);
   return `<p class="src">${rows.length} exercise${rows.length > 1 ? 's' : ''} kept. Sorted by the one you looked at longest ago. Nothing here is timed.</p>
     <div class="row"><button class="go" id="pile-all">Review all in order</button>${byCourse.map((g) => `<button class="chip btn" data-pilec="${g.c.id}">only ${g.c.region} (${g.items.length})</button>`).join('')}</div>
@@ -713,10 +714,10 @@ function scriptHtml() {
   const cards = scriptCards(scriptCourse), rr = campaign?.rereadInfo(scriptCourse), read = cards.filter((e) => store.isPassed(e.id)).length;
   const book = scriptCourse === 'astrophysics' ? 'Choudhuri' : 'the script';
   const tabs = `<div class="row studytabs sub">${withCards.map((c) => `<button class="chip btn${c.id === scriptCourse ? ' cur' : ''}" data-scourse="${c.id}">${c.name}</button>`).join('')}</div>`;
-  const pass = rr ? `<p class="src">↺ Second pass from week ${rr.from}: ${cards.filter((e) => e.week >= rr.from && rr.done.has(e.id)).length} of ${cards.filter((e) => e.week >= rr.from).length} read again. <button class="chip btn" data-sstop>Stop the second pass</button></p>`
+  const pass = rr ? `<p class="src">${ic('again')} Second pass from week ${rr.from}: ${cards.filter((e) => e.week >= rr.from && rr.done.has(e.id)).length} of ${cards.filter((e) => e.week >= rr.from).length} read again. <button class="chip btn" data-sstop>Stop the second pass</button></p>`
     : `<p class="src">Second pass: go through ${book} again, one card per daily run. <button class="chip btn" data-sstart="1">Start from the beginning</button></p>`;
   const rows = cards.map((e) => { const ok = store.isPassed(e.id), again = rr?.done.has(e.id);
-    return `<div class="maprow srow"><button class="link" data-sread="${e.id}"><span class="mt">${again ? '↺' : ok ? '✓' : '○'} ${e.title.replace(/^Read /, '')}</span></button><span class="src">pp. ${e.pages} · week ${e.week} · ${e.minutes} min</span>${`<button class="sfrom" data-sfrom="${e.week}" title="Start the second pass at week ${e.week}">↺ from here</button>`}</div>`; }).join('');
+    return `<div class="maprow srow"><button class="link" data-sread="${e.id}"><span class="mt">${again ? ic('again') : ok ? ic('check') : '○'} ${e.title.replace(/^Read /, '')}</span></button><span class="src">pp. ${e.pages} · week ${e.week} · ${e.minutes} min</span>${`<button class="sfrom" data-sfrom="${e.week}" title="Start the second pass at week ${e.week}">↺ from here</button>`}</div>`; }).join('');
   return `${tabs}<p class="src">Guided reading of ${book}: questions to keep in mind, the pages, questions to answer afterwards. ${read} of ${cards.length} read (✓).</p>${pass}<div class="list">${rows}</div>`;
 }
 function wireScript(host) {
@@ -874,7 +875,7 @@ function compactMenuHtml() {
     ${big('study', 'Practice', `sheets, drills, mistakes${open ? ` (${open} open)` : ''}, explain-it, your pile${d ? ` \u00b7 ${d} respawn${d > 1 ? 's' : ''} due` : ''} (V)`)}
     ${big('exam', 'Exam hall', 'old exams under the timer, with a grade (X)')}
     ${big('map', 'Map', 'rooms and route, the Nexus, connections between topics (M)')}
-    ${big('formulas', 'Formulas', 'the formula drawer of the current course (B)')}<button class="menu-set" data-m="settings">\u2699 Settings and help</button></div>`;
+    ${big('formulas', 'Formulas', 'the formula drawer of the current course (B)')}<button class="menu-set" data-m="settings">${ic('gear')} Settings and help</button></div>`;
 }
 function settingsHtml() {
   const big = (m, title, sub) => `<button class="bigbtn" data-m="${m}"><b>${title}</b><span>${sub}</span></button>`;
@@ -980,7 +981,7 @@ function todayHtml() {
   const date = todayStr(), all = todayItems(), items = all.filter((x) => !x.mission), ms = todays(), day = store.missionsOf(date), doneM = ms.filter((m) => day.done[m.id]), g = goalInfo();
   const okN = items.filter((x) => x.ok).length, failN = items.length - okN, cleared = items.filter((x) => x.ok && x.review).length, xp = store.xpOn(date);
   const row = (x) => { const ref = encIndex.get(x.id), room = ref ? findRoom(ref.course, ref.roomId) : null, course = ref ? findCourse(ref.course)?.region : '';
-    return `<div class="maprow todayrow ${x.ok ? 'ok' : 'miss'}"><button class="link" data-todayopen="${x.id}"${ref ? '' : ' disabled'}><span class="mt">${x.ok ? '\u2713' : '\u2717'} ${typeName[x.type] || x.type} \u201c${prettyText(x.title)}\u201d</span></button><span class="mp">${x.xp ? `+${x.xp} XP` : x.xp === 0 ? 'no XP' : ''}</span><span class="md">${[course, room?.title, hhmm(x.t)].filter(Boolean).join(' \u00b7 ')}${x.review && x.ok ? ' \u00b7 respawn cleared' : ''}${!x.ok ? ' \u00b7 comes back as a respawn' : ''}</span></div>`; };
+    return `<div class="maprow todayrow ${x.ok ? 'ok' : 'miss'}"><button class="link" data-todayopen="${x.id}"${ref ? '' : ' disabled'}><span class="mt">${x.ok ? ic('check') : ic('x')} ${typeName[x.type] || x.type} \u201c${prettyText(x.title)}\u201d</span></button><span class="mp">${x.xp ? `+${x.xp} XP` : x.xp === 0 ? 'no XP' : ''}</span><span class="md">${[course, room?.title, hhmm(x.t)].filter(Boolean).join(' \u00b7 ')}${x.review && x.ok ? ' \u00b7 respawn cleared' : ''}${!x.ok ? ' \u00b7 comes back as a respawn' : ''}</span></div>`; };
   return `<div class="msn-head"><div><b>${g.min} min</b> on exercises today<div class="src">${g.ex} finished. Goal: ${g.goal} min or ${g.exGoal} exercises${g.done ? ', reached' : ''}</div></div>
     <div><b>${okN} exercise${okN === 1 ? '' : 's'}</b> passed${cleared ? ` (${cleared} respawn${cleared === 1 ? '' : 's'} cleared)` : ''}<div class="src">${failN ? `${failN} to retry: they come back as respawns` : 'nothing failed so far'}</div></div>
     <div><b>${xp >= 0 ? '+' : '\u2212'}${Math.abs(xp)} XP</b> today<div class="src">${doneM.length} of ${ms.length} missions done, streak ${streakNow().count} day${streakNow().count === 1 ? '' : 's'}</div></div></div>
@@ -1042,7 +1043,7 @@ function statsHtml() {
       ${behind !== null ? `<div class="st-line"><span>Lecture</span><span class="src">${behind > 0 ? `${behind} week${behind === 1 ? '' : 's'} behind` : 'level with the lectures'}</span></div>` : ''}</div>`; };
   const deriv = Object.values(store.val('derivs', {}) || {}).filter((x) => x.lv >= 4).length, cardsN = cards.deck(catalog, (id) => store.isPassed(id)).length;
   const tile = (big, small, cls = '') => `<div class="st-tile ${cls}"><b>${big}</b><span>${small}</span></div>`;
-  return `<div class="st-tiles">${tile(`🔥 ${sn.count}`, `day streak${sn.saved ? ' (kept by the weekly freeze)' : sn.today ? ' · today counted' : sn.alive ? ' · study today to keep it' : ''}`, 'fire')}${tile(`Lv ${lv.lv}`, `${lv.rank} · ${store.xp} XP<span class="fg-bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></span>`)}${tile(log.length, `runs finished · ${new Set(log.filter((x) => x.date > todayStr(new Date(Date.now() - 30 * 86400000))).map((x) => x.date)).size} run days in 30 days`)}${tile(`${w.total} min`, `this week, on ${w.studied} day${w.studied === 1 ? '' : 's'}`)}</div>
+  return `<div class="st-tiles">${tile(`${ic('flame')} ${sn.count}`, `day streak${sn.saved ? ' (kept by the weekly freeze)' : sn.today ? ' · today counted' : sn.alive ? ' · study today to keep it' : ''}`, 'fire')}${tile(`Lv ${lv.lv}`, `${lv.rank} · ${store.xp} XP<span class="fg-bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></span>`)}${tile(log.length, `runs finished · ${new Set(log.filter((x) => x.date > todayStr(new Date(Date.now() - 30 * 86400000))).map((x) => x.date)).size} run days in 30 days`)}${tile(`${w.total} min`, `this week, on ${w.studied} day${w.studied === 1 ? '' : 's'}`)}</div>
     <p class="src">A day counts for the streak when you finish a run or complete a daily mission; one missed day per week is forgiven.</p>
     <h3>Last 12 weeks</h3><div class="st-cal">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((x) => `<em>${x}</em>`).join('')}${cells}</div><p class="src st-legend">less <i class="st-c l1"></i><i class="st-c l2"></i><i class="st-c l3"></i><i class="st-c l4"></i> more · <i class="st-c l2 run"></i> run finished</p>
     <h3>Last 7 days (minutes)</h3><div class="sx-days">${bars}</div>
@@ -1232,7 +1233,7 @@ let stopExam = null;
 function renderCampaign() { if (!campaign) { $('ov-body').innerHTML = '<p>The campaign could not be loaded.</p>'; return; } const b = $('ov-body'), y = b.scrollTop; b.innerHTML = M(campaign.html() + `<div class="cp-stats" id="cp-stats"><h3>Your stats</h3>${statsHtml()}</div>`); campaign.wire(b, renderCampaign); b.scrollTop = y; }
 function updateRunChips() {
   if (!campaign) return; const r = $('btn-run'), c = $('btn-campaign'); if (!r || !c) return;
-  r.textContent = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign'; c.style.display = campaign.isSetup() ? '' : 'none'; // before the setup it would open the same thing as the gold button next to it
+  r.innerHTML = campaign.chipText(); r.classList.toggle('done', campaign.isSetup() && (campaign.runInfo().complete || !campaign.runInfo().total)); c.textContent = campaign.isSetup() ? `Campaign \u00b7 ${campaign.behindText()}` : 'Campaign'; c.style.display = campaign.isSetup() ? '' : 'none'; // before the setup it would open the same thing as the gold button next to it
   const sp = $('st-plan'); if (sp) sp.textContent = campaign.startLine();
 }
 // the run summary must not tear the result of the last exercise away: show it when the panel is closed (or right away if none is open)

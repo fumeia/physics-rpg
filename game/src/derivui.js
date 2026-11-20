@@ -9,6 +9,7 @@
 //   As asked   the old-exam sub-questions that need it (verbatim), on paper against the exam's clock (2 min per point)
 // Content: content/qm/derivations.json (notes/quantum-mechanics/build/derivations/build.py). Progress: flags.derivs {id: {lv, n, t}}.
 import { store } from './store.js';
+import { ic } from './icons.js';
 import { retention, notePass } from './memory.js';
 
 const RUNGS = ['Put the lines in order', 'Fill the gaps', 'Write it from the moves', 'Write it from a blank page'];
@@ -49,7 +50,7 @@ export function renderDerivs(host, ctx) {
   // where the derivation is in the script (section, pages, equations), with buttons to the guided reading and the sheet question
   const whereHtml = (x) => { const w = x.where; if (!w) return '';
     const loc = w.pages ? `script (German) \u00a7${esc(w.sec)}, pp. ${esc(w.pages)}${w.eqs ? `, eqs. ${esc(w.eqs)}` : ''}` : 'not in the script';
-    return `<div class="dv-where"><b>Where it is:</b> ${loc}.${w.note ? ` <span class="src">${esc(w.note)}</span>` : ''}<div class="row">${w.read ? `<button class="chip btn" data-dvread="${w.read}">\ud83d\udcd6 Read this part of the script first</button>` : ''}${w.sheet ? `<button class="chip btn" data-dvread="${w.sheet}">\u270e The sheet question that does it (with solution)</button>` : ''}</div></div>`; };
+    return `<div class="dv-where"><b>Where it is:</b> ${loc}.${w.note ? ` <span class="src">${esc(w.note)}</span>` : ''}<div class="row">${w.read ? `<button class="chip btn" data-dvread="${w.read}">${ic('book')} Read this part of the script first</button>` : ''}${w.sheet ? `<button class="chip btn" data-dvread="${w.sheet}">${ic('pencil')} The sheet question that does it (with solution)</button>` : ''}</div></div>`; };
   const why = (x, i, open = false) => (x.explain?.[i] ? `<details class="fg-why"${open ? ' open' : ''}><summary>Why?</summary>${M(x.explain[i])}</details>` : '');
   const lineList = (x, idx, cls = '') => `<ol class="dv-lines ${cls}">${idx.map((i) => `<li value="${i + 1}">${M(x.lines[i])}${why(x, i)}</li>`).join('')}</ol>`;
   function body(x, lv) {

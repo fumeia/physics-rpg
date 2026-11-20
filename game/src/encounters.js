@@ -1,4 +1,5 @@
 import { TunnelSim } from './sim.js';
+import { ic } from './icons.js';
 import { evaluate, parseNumber, withinTolerance, checkSymbolic } from './expr.js';
 import { store } from './store.js';
 import { M } from './math.js';
@@ -43,20 +44,20 @@ export function mount(enc, el, env) {
   const r = mountType(enc, el, env);
   if (env.groundwork) { // stuck: the card builds on something you have not got yet, or it explains badly -> do the groundwork first
     const gw = document.createElement('div'); gw.className = 'gwstrip';
-    gw.innerHTML = `<button class="link" type="button" data-gw>\ud83e\uddf1 Stuck? I need more groundwork first</button><div class="gw-ask" hidden><span>What is missing?</span><button class="chip btn" data-gwy="background">I lack the background (earlier sections, basics)</button><button class="chip btn" data-gwy="unclear">This card explains it too badly for me</button><span class="src">Either way the card is parked and the earlier material it builds on takes its place in today\u2019s run; the card comes back once that is done.</span></div>`;
+    gw.innerHTML = `<button class="link" type="button" data-gw>${ic('bricks')} Stuck? I need more groundwork first</button><div class="gw-ask" hidden><span>What is missing?</span><button class="chip btn" data-gwy="background">I lack the background (earlier sections, basics)</button><button class="chip btn" data-gwy="unclear">This card explains it too badly for me</button><span class="src">Either way the card is parked and the earlier material it builds on takes its place in today\u2019s run; the card comes back once that is done.</span></div>`;
     gw.querySelector('[data-gw]').onclick = () => { const a = gw.querySelector('.gw-ask'); a.hidden = !a.hidden; };
     gw.querySelectorAll('[data-gwy]').forEach((b) => (b.onclick = () => env.groundwork(b.dataset.gwy)));
     const h = el.querySelector('h2'); if (h) h.after(gw); else el.prepend(gw);
   }
   if (env.readFirst) { // the script section this exercise comes from, with its guided-reading card
     const rf = env.readFirst, strip = document.createElement('div'); strip.className = 'readstrip readfirst';
-    strip.innerHTML = `<span class="rlab">\ud83d\udcd6 ${rf.fallback ? 'The script part behind this exercise' : 'From the script'}: \u00a7${rf.sec}${rf.pages ? `, pp. ${rf.pages}` : ''}.</span> <a href="#" data-readfirst>Read it first (guided)</a>`;
+    strip.innerHTML = `<span class="rlab">${ic('book')} ${rf.fallback ? 'The script part behind this exercise' : 'From the script'}: \u00a7${rf.sec}${rf.pages ? `, pp. ${rf.pages}` : ''}.</span> <a href="#" data-readfirst>Read it first (guided)</a>`;
     strip.querySelector('[data-readfirst]').onclick = (ev) => { ev.preventDefault(); env.openRead(rf.id); };
     const h = el.querySelector('h2'); if (h) h.after(strip); else el.prepend(strip);
   }
   if (enc.read?.links?.length) {
     const strip = document.createElement('div'); strip.className = 'readstrip';
-    strip.innerHTML = `<span class="rlab">📖 ${enc.read.label}:</span> ` + enc.read.links.map((l) => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join(' · ');
+    strip.innerHTML = `<span class="rlab">${ic('book')} ${enc.read.label}:</span> ` + enc.read.links.map((l) => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join(' · ');
     const h = el.querySelector('h2'); if (h) h.after(strip); else el.prepend(strip);
   }
   return r;
@@ -505,13 +506,13 @@ function mountDerive(enc, el, env) {
     <div class="callout exam"><div class="ctitle">Goal</div>${enc.goal}</div>
     ${enc.given?.length ? `<h3>Given</h3><ul>${enc.given.map((g) => `<li>${g}</li>`).join('')}</ul>` : ''}
     <p class="src">Do each step on paper first, then reveal the reference step and compare. Never seen it before? Walk through the reference solution first, then try it on paper.</p>
-    <div class="row"><button class="chip btn" id="dwalk">\ud83d\udc63 Walk me through it: open the next step</button></div>
+    <div class="row"><button class="chip btn" id="dwalk">${ic('steps')} Walk me through it: open the next step</button></div>
     <div id="dsteps"></div><div id="dkeys"></div><div id="result"></div>`);
   const host = el.querySelector('#dsteps'); let revealed = 0;
   enc.steps.forEach((s, n) => {
     const d = document.createElement('div'); d.className = 'step';
     const hs = s.hints || [];
-    d.innerHTML = M(`<div><b>${n + 1}.</b> ${s.prompt}</div><div class="hintbox" data-hb></div><div class="row">${hs.length ? `<button class="chip btn hintbtn" data-hint>Hint 1 of ${hs.length} (\u2212${STEP_HINT_COST} XP)</button>` : ''}<button class="go" data-rv>Reveal reference step</button></div><div class="after" style="display:none">${s.reveal}${s.explain ? `<details class="dexp"><summary>\ud83d\udca1 Explain this step: why it is done this way</summary><div>${s.explain}</div></details>` : ''}</div>`);
+    d.innerHTML = M(`<div><b>${n + 1}.</b> ${s.prompt}</div><div class="hintbox" data-hb></div><div class="row">${hs.length ? `<button class="chip btn hintbtn" data-hint>Hint 1 of ${hs.length} (\u2212${STEP_HINT_COST} XP)</button>` : ''}<button class="go" data-rv>Reveal reference step</button></div><div class="after" style="display:none">${s.reveal}${s.explain ? `<details class="dexp"><summary>${ic('bulb')} Explain this step: why it is done this way</summary><div>${s.explain}</div></details>` : ''}</div>`);
     host.appendChild(d);
     // graded hints (nudge, method, key step): one at a time, each costs a little XP, none after the reference step is open
     const hb = d.querySelector('[data-hint]'); let shown = 0;

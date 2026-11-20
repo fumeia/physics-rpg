@@ -1,0 +1,36 @@
+// Line icons for the interface (instead of emojis, which look different on every phone and do not follow the theme).
+// ic(name) returns an inline SVG drawn with currentColor, sized to the surrounding text (CSS .ic in style.css).
+const P = {
+  book: '<path d="M2 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z"/>',
+  coffee: '<path d="M4 9h12v5a6 6 0 0 1-6 6h0a6 6 0 0 1-6-6z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3v2.5M12 3v2.5"/>',
+  bricks: '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 9.7v4.6M8 14.3V19M16 14.3V19"/>',
+  flame: '<path d="M12 3c.8 3.2 5 5.4 5 10.2A5 5 0 0 1 7 13.2c0-2.4 1.3-3.9 2.4-4.9.4 1.9 1.3 2.9 2.4 3.1-.3-2.8-.8-5.5.2-8.4z"/>',
+  steps: '<path d="M7.5 3.5c1.6 0 2.5 1.9 2.5 4.2S9.1 12 7.5 12 5 10 5 7.7s.9-4.2 2.5-4.2zM6 14.5h3v1.8a1.5 1.5 0 0 1-3 0z"/><path d="M16.5 8.5c1.6 0 2.5 1.9 2.5 4.2S18.1 17 16.5 17 14 15 14 12.7s.9-4.2 2.5-4.2zM15 19.5h3v.3a1.5 1.5 0 0 1-3 0z"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  review: '<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/>',
+  again: '<path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/>',
+  pencil: '<path d="M4 20l4.2-1L19 8.2 15.8 5 5 15.8z"/><path d="M13.6 7.2l3.2 3.2"/>',
+  pen: '<path d="M12 20h8"/><path d="M16.5 3.6a2.1 2.1 0 0 1 3 3L7.5 18.6 3.5 20l1.4-4z"/>',
+  star: '<path d="M12 3.3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17.3l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+  starFull: '<path fill="currentColor" d="M12 3.3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17.3l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/>',
+  speech: '<path d="M4 5h16v10.5H9.5L5 19.5v-4H4z"/>',
+  zap: '<path d="M13 2.5L4.5 13.5h6.5l-1 8 8.5-11H12z"/>',
+  sparkle: '<path d="M12 3l1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9z"/>',
+  shuffle: '<path d="M3 7h3.5c2 0 3.2.9 4.3 2.4l2.4 3.2c1.1 1.5 2.3 2.4 4.3 2.4H21M3 17h3.5c1.5 0 2.5-.5 3.4-1.4M14.1 8.4C15 7.5 16 7 17.5 7H21"/><path d="M18.5 4.5L21 7l-2.5 2.5M18.5 14.5L21 17l-2.5 2.5"/>',
+  timer: '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 2.5h5"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+  hammer: '<path d="M14.5 4.5l5 5-2.2 2.2-5-5z"/><path d="M12.3 6.7L9 3.5 6.5 6l3.2 3.3M13.5 10.5L4 20"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  swords: '<path d="M4 4l9.5 9.5M14 4h6v6L10.5 19.5M4 20l3.5-3.5M20 20l-3.5-3.5M6.5 13.5l4 4M17.5 13.5l-4 4"/>',
+  shield: '<path d="M12 3l8 3v6c0 4.8-3.4 8-8 9-4.6-1-8-4.2-8-9V6z"/>',
+  scale: '<path d="M12 4v16M7.5 20h9M5 7.5h14"/><path d="M5 7.5l-2.8 6a2.8 2.8 0 0 0 5.6 0zM19 7.5l-2.8 6a2.8 2.8 0 0 0 5.6 0z"/>',
+  list: '<rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8.5h8M8 12h8M8 15.5h5"/>',
+  therefore: '<circle cx="12" cy="6.5" r="1.4" fill="currentColor"/><circle cx="6.5" cy="17" r="1.4" fill="currentColor"/><circle cx="17.5" cy="17" r="1.4" fill="currentColor"/>',
+  play: '<path fill="currentColor" d="M7.5 4.5l12 7.5-12 7.5z"/>',
+};
+export const ic = (name, cls = '') => `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${P[name] || ''}</svg>`;
+export const ICON_NAMES = Object.keys(P);

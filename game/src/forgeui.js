@@ -3,6 +3,7 @@
 // (memory.js), so weak ones come back sooner. Rebuild: the chain from one anchor to the formula. Blank page: ten minutes, one
 // chapter, everything you know, then tick it off. My summary: pin the formulas you earned to five pages and print them.
 import { store } from './store.js';
+import { ic } from './icons.js';
 import { retention, notePass } from './memory.js';
 import { deck } from './cards.js';
 
@@ -31,7 +32,7 @@ export function renderForge(host, ctx) {
   const next = () => { if (!queue.length) queue = forgeDue(items).slice(0, 5); cur = queue.shift() || null; shown = false; step = 0; };
   // what the formula says, and where it is in the script (with the guided reading); explanations per step are in rebuild mode
   const meaningHtml = (it) => (it.meaning ? `<div class="fg-meaning"><b>What it says:</b> ${M(it.meaning)}</div>` : '');
-  const whereHtml = (it) => { const w = it.where; if (!w) return ''; return `<div class="dv-where"><b>In the script (German):</b> \u00a7${esc(w.sec)}, pp. ${esc(w.pages)}.${w.read ? ` <button class="chip btn" data-fread="${w.read}">\ud83d\udcd6 Read this part first</button>` : ''}</div>`; };
+  const whereHtml = (it) => { const w = it.where; if (!w) return ''; return `<div class="dv-where"><b>In the script (German):</b> \u00a7${esc(w.sec)}, pp. ${esc(w.pages)}.${w.read ? ` <button class="chip btn" data-fread="${w.read}">${ic('book')} Read this part first</button>` : ''}</div>`; };
   function body() {
     if (mode === 'all') return `<div class="maplist">${items.map((it) => `<div class="fg-row"><span class="fg-bar"><i style="width:${Math.round(100 * strength(it.id))}%"></i></span><b>${esc(it.name)}</b><details><summary>show</summary>${M(`$$${it.tex}$$`)}${meaningHtml(it)}${whereHtml(it)}</details></div>`).join('')}</div>`;
     if (mode === 'blank') return blankHtml();

@@ -20,7 +20,7 @@ ck(`it gives minutes per day (${d0})`, d0 > 0);
 await p.evaluate(() => document.querySelector('[data-len="auto"]').click()); await p.waitForTimeout(500);
 ck('Auto run length is selected', await p.evaluate(() => document.querySelector('[data-len="auto"]').classList.contains('cur')));
 const est = await p.evaluate(() => +(document.querySelector('.cp-runhead .src').textContent.match(/about (\d+) min/) || [])[1]);
-const togo = +((await txt()).match(/(\d+) min to go/) || [])[1];
+const togo = +((await txt()).match(/(\d+) planned min to go/) || [])[1];
 ck(`the Auto run is sized from what is left today (about ${est} min, ${togo} min to go)`, est >= 0.75 * togo && est <= 1.3 * togo + 10, (await txt()).slice(0, 300));
 const lens = await p.evaluate(() => [...document.querySelectorAll('[data-len]')].map((b) => b.textContent));
 console.log('   ', lens.join(' | '));
@@ -33,6 +33,12 @@ ck('when it does not fit, skimming low-weight weeks is suggested', await p.locat
 await p.evaluate(() => document.getElementById('cp-triage').click()); await p.waitForTimeout(600);
 const d2 = await perDay();
 ck(`skimming lowers the daily load (${d1} -> ${d2})`, d2 < d1);
+// an hour on the clock spent on one card does not use up the day: only the card's planned minutes count
+await p.evaluate(() => { const k = 'physics-rpg-v1', st = JSON.parse(localStorage.getItem(k)), d = new Date(), day = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  st.flags.active = { ...(st.flags.active || {}), [day]: 3600 }; st.flags['active-since'] = day; st.flags.activity = [{ t: Date.now(), id: 'qm-wm-L1', title: 'x', type: 'lesson', ok: true }]; localStorage.setItem(k, JSON.stringify(st)); });
+await p.reload(); await p.waitForFunction(() => !!window.__game); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('KeyC'); await p.waitForTimeout(600);
+const slow = await txt(), pd = +(slow.match(/(\d+) min a day/) || [])[1], left = +(slow.match(/(\d+) planned min to go/) || [])[1];
+ck(`60 clock minutes on one lesson count as that lesson's 10 planned minutes (${pd} a day, ${left} to go)`, left === pd - 10 && /your clock today: 60 min/.test(slow), slow.slice(0, 400));
 // exam dates per course: each course has its own deadline (exam minus the buffer)
 await p.evaluate(() => { const k = 'physics-rpg-v1', st = JSON.parse(localStorage.getItem(k)); st.flags.examDates = { qm: '2027-02-02', 'solid-state': '2027-01-26', astrophysics: '2027-02-09' }; localStorage.setItem(k, JSON.stringify(st)); });
 await p.reload(); await p.waitForFunction(() => !!window.__game); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('KeyC'); await p.waitForTimeout(600);

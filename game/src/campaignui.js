@@ -93,7 +93,10 @@ export function createCampaign(ctx) {
     const mockMin = mocksOwed().length * MOCK_MIN; total += mockMin;
     return { total, by, reviews, examMin, extraMin, mockMin };
   }
-  const studiedToday = () => Math.round((store.activeSecondsOn(todayStr()) || 0) / 60);
+  const studiedToday = () => Math.round((store.activeSecondsOn(todayStr()) || 0) / 60); // clock time: shown for information only
+  // today's progress counts cards, not the clock: every card finished today counts its planned minutes (a reading that took an hour
+  // still counts as one reading), so one slow card does not make the rest of the day look done
+  const plannedDoneToday = () => { const seen = new Set(); let m = 0; for (const x of store.activityOn(todayStr())) { if (!x.id || seen.has(x.id) || !ctx.encIndex.has(x.id)) continue; seen.add(x.id); m += estOf(x.id); } return m; };
   // per course: done by its exam date minus a buffer (store 'examBuffer', default 14 days) when the exam date is set (Settings ->
   // Profile), otherwise by the global target. The daily need is the sum of each course's work over the days to its own deadline,
   // so a course whose exam is far away gets a calmer pace instead of being finished first.
@@ -101,12 +104,12 @@ export function createCampaign(ctx) {
   const deadlineOf = (cid) => (examDateKnown(cid) ? new Date(Date.parse(examDateOf(cid) + 'T12:00:00') - buffer() * 86400000).toISOString().slice(0, 10) : finishBy());
   const daysTo = (iso) => Math.max(1, Math.ceil((Date.parse(iso + 'T23:59:00') - Date.now()) / 86400000));
   function finishPlan() {
-    const rem = remaining(), done = studiedToday();
+    const rem = remaining(), done = plannedDoneToday(), clock = studiedToday();
     const per = courses().map((cid) => ({ cid, deadline: deadlineOf(cid), days: daysTo(deadlineOf(cid)), min: rem.by[cid].min }));
     // reviews and mock exams (not per course) follow the nearest deadline
     const first = Math.min(...per.map((x) => x.days)), extraMin = rem.total - per.reduce((a, x) => a + x.min, 0);
     const perDay = Math.ceil(per.reduce((a, x) => a + x.min / x.days, 0) + extraMin / first);
-    return { rem, days: Math.max(...per.map((x) => x.days)), perDay, done, todayLeft: Math.max(0, perDay - done), per };
+    return { rem, days: Math.max(...per.map((x) => x.days)), perDay, done, clock, todayLeft: Math.max(0, perDay - done), per };
   }
   // triage: the weeks with the least exam weight, skimmed (theory only), until the daily load is bearable
   function triage(limitPerDay = 150) {
@@ -153,7 +156,7 @@ export function createCampaign(ctx) {
       <p><b>${hm(fp.rem.total)}</b> of work left (${courses().map((c) => `${short(c)} ${hm(fp.rem.by[c].min)}`).join(', ')}${fp.rem.reviews ? `, ${fp.rem.reviews} reviews` : ''}) \u2192 <b>${fp.perDay} min a day</b>: ${verdict}.</p>
       <p class="src">${fp.per.map((x) => `${short(x.cid)}: ${hm(x.min)} by ${new Date(x.deadline + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}${examDateKnown(x.cid) ? '' : ' (no exam date yet: Settings \u2192 Profile)'} \u2192 ${Math.ceil(x.min / x.days)} min/day`).join(' \u00b7 ')}. Buffer before each exam: <input type="number" id="cp-buffer" min="0" max="60" value="${buffer()}" style="width:3.5em"> days.</p>
       <p class="src">Included: sheets and theory, ${hm(fp.rem.examMin)} of old-exam problems (mixed into the runs on the weeks you are working on) and ${hm(fp.rem.extraMin)} of the other cards of the game (calculation fights, derivations, extra lessons), so nothing is left out${fp.rem.mockMin ? `, plus ${fp.rem.mockMin / MOCK_MIN} timed mock exam${fp.rem.mockMin / MOCK_MIN === 1 ? '' : 's'} (${hm(fp.rem.mockMin)}) in the last 14 days before the target` : ''}.</p>
-      <div class="cp-fbar"><i style="width:${pct}%"></i></div><p class="src">Today: ${fp.done} of ${fp.perDay} min studied${fp.todayLeft ? `, ${fp.todayLeft} min to go` : ` ${ic('check')} on track for today`}. ${runMode() === 'auto' ? 'Run length is on Auto: each run is sized from what is left today.' : `Run length: ${runMode()} (${minutesOf(runMode())} min, from the daily target). <button class="link" id="cp-auto">Auto instead</button>`}</p>
+      <div class="cp-fbar"><i style="width:${pct}%"></i></div><p class="src">Today: cards worth ${fp.done} of ${fp.perDay} planned minutes done${fp.todayLeft ? `, ${fp.todayLeft} planned min to go` : `${ic('check')} on track for today`} (counted by the cards' planned minutes; your clock today: ${fp.clock} min). ${runMode() === 'auto' ? 'Run length is on Auto: each run is sized from what is left today.' : `Run length: ${runMode()} (${minutesOf(runMode())} min, from the daily target). <button class="link" id="cp-auto">Auto instead</button>`}</p>
       ${od.length ? `<p class="src">Overdue sheet questions (${od.length}), oldest first:</p><div class="row wrap">${od.slice(0, 6).map((x) => `<button class="chip btn" data-wopen="${x.id}">${short(x.cid)} sheet ${x.sh} Q${x.q}</button>`).join('')}</div>` : ''}
       ${tri ? `<div class="cp-triage"><p><b>To make it fit</b> (\u2264 150 min a day), skim the weeks that count least in old exams: only their theory, no exercises. That brings it to <b>${tri.after} min a day</b>:</p><ul>${tri.pick.map((c) => `<li>${short(c.cid)} week ${c.n}: ${esc(c.title)} \u00b7 saves ${hm(c.save)} \u00b7 exam weight ${Math.round(100 * c.weight)}%</li>`).join('')}</ul><button class="chip btn" id="cp-triage">Skim these ${tri.pick.length} weeks</button> <span class="src">(undo any time in the week view)</span></div>` : ''}</div>`;
   }
@@ -278,7 +281,7 @@ export function createCampaign(ctx) {
   const isBonus = (s) => !!s.action && s.kind !== 'mock';
   const runInfo = () => { const r = run(), st = r.stops.map((s) => stopState(r, s)), core = r.stops.map((s, i) => [s, st[i]]).filter(([s]) => !isBonus(s));
     return { r, st, done: core.filter(([, x]) => x !== 'open').length, total: core.length, complete: core.length > 0 && core.every(([, x]) => x !== 'open'),
-      coreMin: core.reduce((a, [s2]) => a + s2.min, 0), bonusMin: r.stops.filter(isBonus).reduce((a, s2) => a + s2.min, 0), bonusN: r.stops.filter(isBonus).length }; };
+      coreMin: core.reduce((a, [s2]) => a + s2.min, 0), openMin: core.filter(([, x]) => x === 'open').reduce((a, [s2]) => a + s2.min, 0), bonusMin: r.stops.filter(isBonus).reduce((a, s2) => a + s2.min, 0), bonusN: r.stops.filter(isBonus).length }; };
   function startRun(skipId) {
     if (!isSetup()) { ctx.openCampaign(); return; }
     const { r, st, complete } = runInfo();
@@ -406,9 +409,9 @@ export function createCampaign(ctx) {
       <div class="row"><button class="go" id="cp-setup-ok">Start my campaign</button></div></div>`;
   }
   function secondRunHtml() {
-    const fp = finishPlan(); if (fp.todayLeft < 15) return `<p class="msg good">Today's target of the finish plan is reached (${fp.done} of ${fp.perDay} min). Anything more is a head start.</p>`;
+    const fp = finishPlan(); if (fp.todayLeft < 15) return `<p class="msg good">Today's target of the finish plan is reached (cards worth ${fp.done} of ${fp.perDay} planned min). Anything more is a head start.</p>`;
     const m = Math.max(20, Math.min(90, Math.round(fp.todayLeft / 5) * 5));
-    return `<div class="cp-second"><p>The finish plan needs <b>${fp.perDay} min</b> today and you have <b>${fp.done}</b>: another <b>${m}-minute</b> run (later today, after a break) keeps you on track for ${new Date(finishBy() + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}.</p><button class="go" id="cp-second" data-min="${m}">Plan a ${m}-minute catch-up run</button></div>`;
+    return `<div class="cp-second"><p>The finish plan needs cards worth <b>${fp.perDay} min</b> today and you have done <b>${fp.done}</b>: another <b>${m}-minute</b> run (later today, after a break) keeps you on track for ${new Date(finishBy() + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}.</p><button class="go" id="cp-second" data-min="${m}">Plan a ${m}-minute catch-up run</button></div>`;
   }
   function runHtml() {
     const ri = runInfo(), { r, st, done, total, complete } = ri, mins = runMinutes();
@@ -418,7 +421,7 @@ export function createCampaign(ctx) {
       const fork = open && s.alt && ctx.encIndex.has(s.alt.id) ? `<button class="cp-alt" data-alt="${i}" title="Swap this stop for ${s.alt.back ? 'the safe one' : 'a harder one from the same room'}"><span class="cp-altk">${s.alt.back ? 'or go back to the safe stop' : `or take the risk · +${s.alt.bonus} XP`}</span><span class="cp-altt">${foe(s.alt.id)} ${esc(title(s.alt.id))}</span></button>` : '';
       return `<div class="cp-stop"><button class="cp-node ${s.kind} ${st[i]}${isBonus(s) ? ' bonus' : ''}${open && st.indexOf('open') === i ? ' next' : ''}${s.risk ? ' risk' : ''}" data-stop="${s.id}" title="${esc(s.why)}"><span class="cp-dot">${st[i] === 'done' ? (grades[s.id] || ic('check')) : st[i] === 'failed' ? ic('x') : open && !s.action ? foe(s.id) || ICON[s.kind] : ICON[s.kind]}</span><span class="cp-nk">${s.risk ? 'Risk · ' : ''}${isBonus(s) ? 'Bonus · ' : ''}${KIND[s.kind]}${s.course ? ` · ${cfg.courses[s.course]?.short || ''}` : ''} · ${s.min} min</span><span class="cp-nt">${s.action ? esc(s.why) : esc(title(s.id))}</span></button>${fork}</div>`; }).join('<span class="cp-link"></span>');
     const sum = complete && r.summarized ? `<p class="msg good">Run complete: ${st.filter((x) => x === 'done').length} of ${total} passed, ${r.xp1 - r.xp0 >= 0 ? '+' : '−'}${Math.abs(r.xp1 - r.xp0)} XP${r.bonus ? ` (risk bonus +${r.bonus})` : ''}${r.behind0 - r.behind1 > 0 ? `, ${(r.behind0 - r.behind1).toFixed(1)} weeks gained on the ghost` : ''}. ${st.includes('failed') ? 'The missed ones come back as respawns.' : ''}</p>${r.resonance ? `<p class="msg good">Resonance (+15 XP): <b>${esc(r.resonance.title)}</b> \u2014 two stops of this run are the same physics in two courses. <button class="link" data-reso="${r.resonance.a}">show the connection</button></p>` : ''}` : '';
-    return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${ri.coreMin} min${ri.bonusN ? ` (+ ${ri.bonusN} bonus stop${ri.bonusN === 1 ? '' : 's'}, ${ri.bonusMin} min, optional)` : ''} · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
+    return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${ri.coreMin} min${done && ri.openMin ? `, about ${ri.openMin} min of planned work still open` : ''}${ri.bonusN ? ` (+ ${ri.bonusN} bonus stop${ri.bonusN === 1 ? '' : 's'}, ${ri.bonusMin} min, optional)` : ''} · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
       <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === runMode() ? ' cur' : ''}" data-len="${m}" title="${{ auto: 'What is left of today’s target of the finish plan', short: 'Half of the daily target', normal: 'The daily target of the finish plan', long: 'One and a half times the daily target' }[m]}">${l} ${minutesOf(m)}′</button>`).join('')}</div></div>
       ${weekHtmlRow()}
       ${earlierHtml()}

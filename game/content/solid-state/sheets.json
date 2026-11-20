@@ -30,15 +30,18 @@
       "steps": [
        {
         "prompt": "Draw the construction and express $\\overline{DC}$.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s1q1-trapezoid.png\" alt=\"Trapezoid ABCD with AB = AD = BC = a and the angle phi at A and at B\"><br>A trapezoid with $\\overline{AB}=\\overline{AD}=\\overline{BC}=a$. With $A$ at the origin and $B=(a,0)$: $D=a(\\cos\\phi,\\sin\\phi)$, $C=(a-a\\cos\\phi,\\,a\\sin\\phi)$, so $\\overline{DC}=(1-2\\cos\\phi)\\,a$ and $\\vec{DC}\\parallel\\vec{AB}$."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s1q1-trapezoid.png\" alt=\"Trapezoid ABCD with AB = AD = BC = a and the angle phi at A and at B\"><br>A trapezoid with $\\overline{AB}=\\overline{AD}=\\overline{BC}=a$. With $A$ at the origin and $B=(a,0)$: $D=a(\\cos\\phi,\\sin\\phi)$, $C=(a-a\\cos\\phi,\\,a\\sin\\phi)$, so $\\overline{DC}=(1-2\\cos\\phi)\\,a$ and $\\vec{DC}\\parallel\\vec{AB}$.",
+        "explain": "<p><b>Why this construction.</b> A rotation axis through one lattice point is an axis through <i>every</i> lattice point (all\n    points are equivalent). So we may rotate about $A$ and also about $B$, and every rotated lattice point must again be a lattice point.</p>\n    <p><b>Coordinates.</b> Put $A$ at the origin, $B=(a,0)$. Rotating $B$ about $A$ by $\\phi$ gives $D=(a\\cos\\phi,a\\sin\\phi)$; rotating\n    $A$ about $B$ by $-\\phi$ gives $C=(a-a\\cos\\phi,a\\sin\\phi)$. Both have the same height $a\\sin\\phi$, so $\\vec{DC}$ is horizontal,\n    parallel to $\\vec{AB}$, with length $x_C-x_D=a-2a\\cos\\phi$.</p>"
        },
        {
         "prompt": "Use that $C$ and $D$ are lattice points.",
-        "reveal": "If the rotation is a symmetry, $C$ and $D$ are lattice points. $\\vec{DC}$ is parallel to $\\vec{AB}$, and $a$ is the lattice period in that direction, so $\\overline{DC}=(1-2\\cos\\phi)a=m\\,a$ with $m$ an integer. Hence $\\cos\\phi=\\frac{1-m}{2}\\in\\{\\pm1,\\pm\\frac12,0\\}$."
+        "reveal": "If the rotation is a symmetry, $C$ and $D$ are lattice points. $\\vec{DC}$ is parallel to $\\vec{AB}$, and $a$ is the lattice period in that direction, so $\\overline{DC}=(1-2\\cos\\phi)a=m\\,a$ with $m$ an integer. Hence $\\cos\\phi=\\frac{1-m}{2}\\in\\{\\pm1,\\pm\\frac12,0\\}$.",
+        "explain": "<p><b>The key argument.</b> $C$ and $D$ are lattice points on a line parallel to $\\vec{AB}$. Along that direction the lattice repeats\n    with period $a$ (we chose $a$ as the shortest distance), so two lattice points on such a line are an <i>integer</i> number of periods\n    apart: $(1-2\\cos\\phi)a=ma$.</p>\n    <p><b>Solve for $\\cos\\phi$:</b> $\\cos\\phi=\\frac{1-m}{2}$. Since $-1\\le\\cos\\phi\\le1$, only $m=-1,0,1,2,3$ are possible, giving\n    $\\cos\\phi=1,\\frac12,0,-\\frac12,-1$.</p>"
        },
        {
         "prompt": "Read off the allowed axes.",
-        "reveal": "$\\phi=0^\\circ\\,(360^\\circ),\\ 180^\\circ,\\ 120^\\circ,\\ 90^\\circ,\\ 60^\\circ$: rotation axes with $n=1,2,3,4,6$. A 5-fold or 7-fold axis is incompatible with translation symmetry (this is why quasicrystals are not periodic)."
+        "reveal": "$\\phi=0^\\circ\\,(360^\\circ),\\ 180^\\circ,\\ 120^\\circ,\\ 90^\\circ,\\ 60^\\circ$: rotation axes with $n=1,2,3,4,6$. A 5-fold or 7-fold axis is incompatible with translation symmetry (this is why quasicrystals are not periodic).",
+        "explain": "<p>$\\cos\\phi=1,\\frac12,0,-\\frac12,-1$ means $\\phi=360^\\circ,60^\\circ,90^\\circ,120^\\circ,180^\\circ$, i.e. $n=2\\pi/\\phi=1,6,4,3,2$. A\n    5-fold axis would need $\\cos72^\\circ=0.309$, which is not of the form $\\frac{1-m}{2}$: a pentagon pattern cannot tile the plane\n    periodically.</p>"
        }
       ],
       "keyPoints": [
@@ -73,19 +76,23 @@
       "steps": [
        {
         "prompt": "(a) Primitive cells.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s1q2-diatomic.png\" alt=\"Square arrangement of filled and empty circles with three primitive cells drawn: two parallelograms and the square Wigner-Seitz cell around a filled circle\"><br>Any cell that contains exactly one filled and one empty circle and tiles the plane is primitive: the square, any sheared parallelogram with the same base and height, and the Wigner–Seitz cell (marked WZ: the square around one filled circle whose corners are the four neighbouring empty circles)."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s1q2-diatomic.png\" alt=\"Square arrangement of filled and empty circles with three primitive cells drawn: two parallelograms and the square Wigner-Seitz cell around a filled circle\"><br>Any cell that contains exactly one filled and one empty circle and tiles the plane is primitive: the square, any sheared parallelogram with the same base and height, and the Wigner–Seitz cell (marked WZ: the square around one filled circle whose corners are the four neighbouring empty circles).",
+        "explain": "<p><b>What \"primitive\" means.</b> The lattice is the set of translations that map the whole crystal onto itself. Here a filled\n    circle must land on a filled one, so the lattice is the square grid of filled circles (spacing $a$). A primitive cell contains\n    exactly one lattice point; since every lattice point carries one filled and one empty atom (the basis), each primitive cell holds\n    one of each. Many shapes do this; the Wigner–Seitz cell is the special one built from all points closer to one lattice point than\n    to any other.</p>"
        },
        {
         "prompt": "(b) Area.",
-        "reveal": "$A=a^2$. If the two kinds are identical, the nearest-neighbour distance becomes $a^*=a/\\sqrt2$ and the lattice is a square lattice rotated by $45^\\circ$ with $A^*=a^{*2}=a^2/2$: half the area, because the cell now holds one atom instead of two."
+        "reveal": "$A=a^2$. If the two kinds are identical, the nearest-neighbour distance becomes $a^*=a/\\sqrt2$ and the lattice is a square lattice rotated by $45^\\circ$ with $A^*=a^{*2}=a^2/2$: half the area, because the cell now holds one atom instead of two.",
+        "explain": "<p><b>Area.</b> All primitive cells of a lattice have the same area: one square of side $a$, $A=a^2$.</p>\n    <p><b>Identical atoms.</b> Now the shift to the square centre (length $a/\\sqrt2$, diagonal direction) also maps the crystal onto itself:\n    there are more lattice translations, the lattice is denser, and its cell is smaller. The new lattice is a square lattice of spacing\n    $a/\\sqrt2$, rotated by $45^\\circ$: area $a^2/2$, one atom per cell.</p>"
        },
        {
         "prompt": "(c) Lattice vectors and basis.",
-        "reveal": "$\\mathbf a_1=a\\hat{\\mathbf x}$, $\\mathbf a_2=a\\hat{\\mathbf y}$ with the basis: one atom at $(0,0)$ and the other at $(\\frac12,\\frac12)$ (in units of $\\mathbf a_1,\\mathbf a_2$). For identical atoms these are no longer primitive; one choice is $\\mathbf a_1=\\frac a2\\hat{\\mathbf x}+\\frac a2\\hat{\\mathbf y}$, $\\mathbf a_2=-\\frac a2\\hat{\\mathbf x}+\\frac a2\\hat{\\mathbf y}$ with a single atom at $(0,0)$."
+        "reveal": "$\\mathbf a_1=a\\hat{\\mathbf x}$, $\\mathbf a_2=a\\hat{\\mathbf y}$ with the basis: one atom at $(0,0)$ and the other at $(\\frac12,\\frac12)$ (in units of $\\mathbf a_1,\\mathbf a_2$). For identical atoms these are no longer primitive; one choice is $\\mathbf a_1=\\frac a2\\hat{\\mathbf x}+\\frac a2\\hat{\\mathbf y}$, $\\mathbf a_2=-\\frac a2\\hat{\\mathbf x}+\\frac a2\\hat{\\mathbf y}$ with a single atom at $(0,0)$.",
+        "explain": "<p><b>Lattice vectors</b> are the two shortest independent translations of the lattice; the <b>basis</b> lists the atoms in one cell in\n    fractions of them. Different kinds: $a\\hat x$, $a\\hat y$, basis = filled atom at $(0,0)$, empty one at $(\\frac12,\\frac12)$. Identical: the\n    diagonal half-steps are now lattice vectors, so the cell contains a single atom.</p>"
        },
        {
         "prompt": "(d), (e) Three dimensions.",
-        "reveal": "(d) The lattice is <b>simple cubic</b>; the basis is one atom at $(0,0,0)$ and the other at $(\\frac12,\\frac12,\\frac12)$ (the CsCl structure). It is not BCC: a lattice translation must map the crystal onto itself, and $(\\frac12,\\frac12,\\frac12)$ maps one kind of atom onto the other. (e) With identical atoms that translation becomes a symmetry: the lattice is <b>BCC</b>."
+        "reveal": "(d) The lattice is <b>simple cubic</b>; the basis is one atom at $(0,0,0)$ and the other at $(\\frac12,\\frac12,\\frac12)$ (the CsCl structure). It is not BCC: a lattice translation must map the crystal onto itself, and $(\\frac12,\\frac12,\\frac12)$ maps one kind of atom onto the other. (e) With identical atoms that translation becomes a symmetry: the lattice is <b>BCC</b>.",
+        "explain": "<p><b>3D, different atoms.</b> The translation by $(\\frac12,\\frac12,\\frac12)a$ would carry a corner atom onto the centre atom, which is a\n    different kind: not a symmetry. Only the cube edges are lattice translations, so the lattice is simple cubic with a two-atom basis\n    (like CsCl).</p>\n    <p><b>3D, identical atoms.</b> Now that half-diagonal shift is a symmetry, and adding it to the simple cubic translations gives the BCC\n    lattice with one atom per lattice point. Rule to remember: the lattice is decided by which shifts map the crystal onto itself, not by\n    where the atoms happen to sit.</p>"
        }
       ],
       "keyPoints": [
@@ -120,15 +127,18 @@
       "steps": [
        {
         "prompt": "(a) Orthogonality.",
-        "reveal": "Compactly $\\vec g_i=\\frac{\\epsilon_{ijk}}{2}\\,2\\pi\\frac{\\vec a_j\\times\\vec a_k}{\\vec a_1\\cdot(\\vec a_2\\times\\vec a_3)}$ (summed over $j,k$), so $\\vec g_i\\cdot\\vec a_l=\\frac{\\epsilon_{ijk}}{2}2\\pi\\frac{\\vec a_l\\cdot(\\vec a_j\\times\\vec a_k)}{\\vec a_1\\cdot(\\vec a_2\\times\\vec a_3)}$. For $i\\ne l$ the vector $\\vec a_l$ appears twice in the triple product: zero. For $i=l$ the two terms ($jk$ and $kj$) are equal by $\\epsilon_{ijk}=-\\epsilon_{ikj}$, $\\vec a_j\\times\\vec a_k=-\\vec a_k\\times\\vec a_j$, and the triple product is cyclic: $2\\pi$."
+        "reveal": "Compactly $\\vec g_i=\\frac{\\epsilon_{ijk}}{2}\\,2\\pi\\frac{\\vec a_j\\times\\vec a_k}{\\vec a_1\\cdot(\\vec a_2\\times\\vec a_3)}$ (summed over $j,k$), so $\\vec g_i\\cdot\\vec a_l=\\frac{\\epsilon_{ijk}}{2}2\\pi\\frac{\\vec a_l\\cdot(\\vec a_j\\times\\vec a_k)}{\\vec a_1\\cdot(\\vec a_2\\times\\vec a_3)}$. For $i\\ne l$ the vector $\\vec a_l$ appears twice in the triple product: zero. For $i=l$ the two terms ($jk$ and $kj$) are equal by $\\epsilon_{ijk}=-\\epsilon_{ikj}$, $\\vec a_j\\times\\vec a_k=-\\vec a_k\\times\\vec a_j$, and the triple product is cyclic: $2\\pi$.",
+        "explain": "<p><b>How $\\vec g_1$ is built.</b> $\\vec a_2\\times\\vec a_3$ is perpendicular to both $\\vec a_2$ and $\\vec a_3$, so $\\vec g_1\\cdot\\vec a_2=\\vec g_1\\cdot\\vec a_3=0$\n    automatically. The denominator $\\vec a_1\\cdot(\\vec a_2\\times\\vec a_3)$ (the cell volume) is chosen so that $\\vec g_1\\cdot\\vec a_1=2\\pi$\n    exactly. That is all $\\vec g_i\\cdot\\vec a_l=2\\pi\\delta_{il}$ says.</p>\n    <p><b>The $\\epsilon$ notation</b> is just a compact way to write the three cyclic formulas at once; the vanishing for $i\\ne l$ is the\n    statement \"a triple product with a repeated vector is zero\".</p>"
        },
        {
         "prompt": "(b) Reciprocal of the reciprocal.",
-        "reveal": "With $\\vec R=n_i\\vec a_i$ and $\\vec G=m_i\\vec g_i$, part (a) gives $e^{i\\vec G\\cdot\\vec R}=1$: this defines the reciprocal lattice. The reciprocal of the reciprocal is the set of $\\vec K$ with $e^{i\\vec K\\cdot\\vec G}=1$ for all $\\vec G$. Every $\\vec R$ qualifies (the scalar product is symmetric). Conversely, suppose $\\vec r=x_i\\vec a_i$ qualifies with some non-integer $x_i$. Choose $\\vec G=\\vec g_i$: $e^{i\\vec r\\cdot\\vec G}=e^{2\\pi ix_i}\\ne1$. Contradiction, so the set is exactly the Bravais lattice."
+        "reveal": "With $\\vec R=n_i\\vec a_i$ and $\\vec G=m_i\\vec g_i$, part (a) gives $e^{i\\vec G\\cdot\\vec R}=1$: this defines the reciprocal lattice. The reciprocal of the reciprocal is the set of $\\vec K$ with $e^{i\\vec K\\cdot\\vec G}=1$ for all $\\vec G$. Every $\\vec R$ qualifies (the scalar product is symmetric). Conversely, suppose $\\vec r=x_i\\vec a_i$ qualifies with some non-integer $x_i$. Choose $\\vec G=\\vec g_i$: $e^{i\\vec r\\cdot\\vec G}=e^{2\\pi ix_i}\\ne1$. Contradiction, so the set is exactly the Bravais lattice.",
+        "explain": "<p><b>Why $e^{i\\vec G\\cdot\\vec R}=1$ is the definition.</b> With $\\vec R=n_i\\vec a_i$, $\\vec G=m_i\\vec g_i$ and (a):\n    $\\vec G\\cdot\\vec R=2\\pi\\sum_in_im_i$, an integer times $2\\pi$. The reciprocal lattice is exactly the set of wave vectors whose plane\n    waves look the same at every lattice point.</p>\n    <p><b>The argument.</b> Apply the same definition again, starting from the $\\vec G$'s. Every $\\vec R$ works (the condition is symmetric in\n    $\\vec R$ and $\\vec G$). And nothing else works: for a point with a non-integer coordinate $x_i$, the test vector $\\vec g_i$ gives\n    the phase $2\\pi x_i$, not a multiple of $2\\pi$. So we get back exactly the original lattice.</p>"
        },
        {
         "prompt": "(c) Volume.",
-        "reveal": "Insert $\\vec g_1$: the claim becomes $(\\vec a_2\\times\\vec a_3)\\cdot(\\vec g_2\\times\\vec g_3)=(2\\pi)^2$. The Lagrange identity $(\\vec a\\times\\vec b)\\cdot(\\vec c\\times\\vec d)=(\\vec a\\cdot\\vec c)(\\vec b\\cdot\\vec d)-(\\vec b\\cdot\\vec c)(\\vec a\\cdot\\vec d)$ with $\\vec g_i\\cdot\\vec a_j=2\\pi\\delta_{ij}$ gives $(2\\pi)(2\\pi)-0$. So $V^*=(2\\pi)^3/V$: a large cell in real space is a small cell in reciprocal space."
+        "reveal": "Insert $\\vec g_1$: the claim becomes $(\\vec a_2\\times\\vec a_3)\\cdot(\\vec g_2\\times\\vec g_3)=(2\\pi)^2$. The Lagrange identity $(\\vec a\\times\\vec b)\\cdot(\\vec c\\times\\vec d)=(\\vec a\\cdot\\vec c)(\\vec b\\cdot\\vec d)-(\\vec b\\cdot\\vec c)(\\vec a\\cdot\\vec d)$ with $\\vec g_i\\cdot\\vec a_j=2\\pi\\delta_{ij}$ gives $(2\\pi)(2\\pi)-0$. So $V^*=(2\\pi)^3/V$: a large cell in real space is a small cell in reciprocal space.",
+        "explain": "<p><b>The trick.</b> Write $\\vec g_1$ out: $\\vec g_1\\cdot(\\vec g_2\\times\\vec g_3)=\\frac{2\\pi}{V}(\\vec a_2\\times\\vec a_3)\\cdot(\\vec g_2\\times\\vec g_3)$.\n    A dot product of two cross products is evaluated with the Lagrange identity, and every $\\vec a\\cdot\\vec g$ in it is either $2\\pi$ or\n    $0$: $(\\vec a_2\\cdot\\vec g_2)(\\vec a_3\\cdot\\vec g_3)-(\\vec a_3\\cdot\\vec g_2)(\\vec a_2\\cdot\\vec g_3)=(2\\pi)^2$. Together: $(2\\pi)^3/V$.</p>\n    <p><b>Meaning.</b> Big real-space cell, small reciprocal cell: the same \"large in $x$, small in $k$\" as for Fourier transforms.</p>"
        }
       ],
       "keyPoints": [
@@ -170,23 +180,28 @@
       "steps": [
        {
         "prompt": "(a) Primitive vectors.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q1-bcc-cell.png\" alt=\"Conventional BCC cube with the primitive vectors a1, a2, a3 pointing from a corner to three body centres and the primitive cell shaded\"><br>$\\mathbf a_1=\\frac a2(-\\hat{\\mathbf x}+\\hat{\\mathbf y}+\\hat{\\mathbf z})$, $\\mathbf a_2=\\frac a2(\\hat{\\mathbf x}-\\hat{\\mathbf y}+\\hat{\\mathbf z})$, $\\mathbf a_3=\\frac a2(\\hat{\\mathbf x}+\\hat{\\mathbf y}-\\hat{\\mathbf z})$. The cube has volume $a^3$ and two lattice points, so the primitive cell must have $a^3/2$; indeed $(\\mathbf a_1\\times\\mathbf a_2)\\cdot\\mathbf a_3=a^3/2$."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q1-bcc-cell.png\" alt=\"Conventional BCC cube with the primitive vectors a1, a2, a3 pointing from a corner to three body centres and the primitive cell shaded\"><br>$\\mathbf a_1=\\frac a2(-\\hat{\\mathbf x}+\\hat{\\mathbf y}+\\hat{\\mathbf z})$, $\\mathbf a_2=\\frac a2(\\hat{\\mathbf x}-\\hat{\\mathbf y}+\\hat{\\mathbf z})$, $\\mathbf a_3=\\frac a2(\\hat{\\mathbf x}+\\hat{\\mathbf y}-\\hat{\\mathbf z})$. The cube has volume $a^3$ and two lattice points, so the primitive cell must have $a^3/2$; indeed $(\\mathbf a_1\\times\\mathbf a_2)\\cdot\\mathbf a_3=a^3/2$.",
+        "explain": "<p><b>Why these vectors.</b> In BCC every corner and every body centre is a lattice point. The vectors from a corner to the centres of\n    three neighbouring cubes, $\\frac a2(\\pm1,\\pm1,\\pm1)$ with one sign flipped, are three short independent lattice vectors, and every\n    lattice point (corners included: $\\mathbf a_2+\\mathbf a_3=a\\hat x$) is an integer combination of them.</p>\n    <p><b>Volume check without computing.</b> The cube $a^3$ contains $8\\cdot\\frac18+1=2$ lattice points, so one primitive cell (one point)\n    has $a^3/2$.</p>"
        },
        {
         "prompt": "(b) Reciprocal vectors.",
-        "reveal": "$\\mathbf b_1=2\\pi\\frac{\\mathbf a_2\\times\\mathbf a_3}{\\mathbf a_1\\cdot(\\mathbf a_2\\times\\mathbf a_3)}=\\frac{2\\pi}{a}(\\hat{\\mathbf y}+\\hat{\\mathbf z})$, $\\mathbf b_2=\\frac{2\\pi}{a}(\\hat{\\mathbf x}+\\hat{\\mathbf z})$, $\\mathbf b_3=\\frac{2\\pi}{a}(\\hat{\\mathbf x}+\\hat{\\mathbf y})$. Check: $\\mathbf a_1\\cdot\\mathbf b_1=\\frac a2\\frac{2\\pi}{a}(1+1)=2\\pi$, $\\mathbf a_1\\cdot\\mathbf b_2=\\frac a2\\frac{2\\pi}a(-1+1)=0$."
+        "reveal": "$\\mathbf b_1=2\\pi\\frac{\\mathbf a_2\\times\\mathbf a_3}{\\mathbf a_1\\cdot(\\mathbf a_2\\times\\mathbf a_3)}=\\frac{2\\pi}{a}(\\hat{\\mathbf y}+\\hat{\\mathbf z})$, $\\mathbf b_2=\\frac{2\\pi}{a}(\\hat{\\mathbf x}+\\hat{\\mathbf z})$, $\\mathbf b_3=\\frac{2\\pi}{a}(\\hat{\\mathbf x}+\\hat{\\mathbf y})$. Check: $\\mathbf a_1\\cdot\\mathbf b_1=\\frac a2\\frac{2\\pi}{a}(1+1)=2\\pi$, $\\mathbf a_1\\cdot\\mathbf b_2=\\frac a2\\frac{2\\pi}a(-1+1)=0$.",
+        "explain": "<p><b>The calculation.</b> $\\mathbf a_2\\times\\mathbf a_3=\\frac{a^2}{4}(1,-1,1)\\times(1,1,-1)=\\frac{a^2}{4}(0,2,2)=\\frac{a^2}{2}(0,1,1)$. Divide by the\n    volume $a^3/2$ and multiply by $2\\pi$: $\\mathbf b_1=\\frac{2\\pi}{a}(0,1,1)$. The others follow by cycling. The check $\\mathbf a_i\\cdot\\mathbf b_j=2\\pi\\delta_{ij}$\n    is the quickest way to catch a sign error.</p>"
        },
        {
         "prompt": "(c) Which lattice?",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q1-reciprocal-cell.png\" alt=\"A cube of edge 4 pi over a with points on corners and face centres; b1, b2, b3 point from a corner to three face centres\"><br>Vectors from a cube corner to the centres of the three adjacent faces: an <b>FCC</b> lattice with conventional cube edge $4\\pi/a$, volume $(4\\pi/a)^3$."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q1-reciprocal-cell.png\" alt=\"A cube of edge 4 pi over a with points on corners and face centres; b1, b2, b3 point from a corner to three face centres\"><br>Vectors from a cube corner to the centres of the three adjacent faces: an <b>FCC</b> lattice with conventional cube edge $4\\pi/a$, volume $(4\\pi/a)^3$.",
+        "explain": "<p><b>Recognise the shape.</b> $(0,1,1)$, $(1,0,1)$, $(1,1,0)$ in units of $2\\pi/a$ point from a cube corner to face centres of a cube\n    of edge $2\\cdot\\frac{2\\pi}{a}=\\frac{4\\pi}{a}$. \"Corner to face centres\" are exactly the primitive vectors of FCC. So the reciprocal of BCC\n    is FCC, conventional cube $(4\\pi/a)^3$.</p>"
        },
        {
         "prompt": "(d) First Brillouin zone.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q1-first-bz.png\" alt=\"Rhombic dodecahedron: the Wigner-Seitz cell of the FCC lattice\"><br>The first Brillouin zone is the Wigner–Seitz cell of the reciprocal lattice. Each FCC point has 12 nearest neighbours, so the cell is bounded by 12 planes: a rhombic dodecahedron. Its volume is that of any primitive cell: $\\mathbf b_1\\cdot(\\mathbf b_2\\times\\mathbf b_3)=\\frac14\\left(\\frac{4\\pi}{a}\\right)^3=\\frac{(2\\pi)^3}{a^3/2}$, a quarter of the conventional cube because the FCC cube holds 4 lattice points."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q1-first-bz.png\" alt=\"Rhombic dodecahedron: the Wigner-Seitz cell of the FCC lattice\"><br>The first Brillouin zone is the Wigner–Seitz cell of the reciprocal lattice. Each FCC point has 12 nearest neighbours, so the cell is bounded by 12 planes: a rhombic dodecahedron. Its volume is that of any primitive cell: $\\mathbf b_1\\cdot(\\mathbf b_2\\times\\mathbf b_3)=\\frac14\\left(\\frac{4\\pi}{a}\\right)^3=\\frac{(2\\pi)^3}{a^3/2}$, a quarter of the conventional cube because the FCC cube holds 4 lattice points.",
+        "explain": "<p><b>Brillouin zone = Wigner–Seitz cell in $k$-space:</b> the region closer to $\\mathbf k=0$ than to any other reciprocal lattice point.\n    Its faces are the perpendicular bisector planes to the nearest neighbours. In FCC each point has 12 nearest neighbours, so 12\n    faces: the rhombic dodecahedron. Its volume is that of a primitive cell, $(2\\pi)^3/V_{\\rm real}=(2\\pi)^3/(a^3/2)$ (sheet 1 Q3).</p>"
        },
        {
         "prompt": "(e) FCC.",
-        "reveal": "BCC and FCC are reciprocal to each other (the reciprocal of the reciprocal is the original, sheet 1 Q3): the reciprocal of FCC with cube edge $a$ is BCC with cube edge $4\\pi/a$, and its first Brillouin zone is a truncated octahedron (8 hexagons from the nearest neighbours, 6 squares from the next-nearest)."
+        "reveal": "BCC and FCC are reciprocal to each other (the reciprocal of the reciprocal is the original, sheet 1 Q3): the reciprocal of FCC with cube edge $a$ is BCC with cube edge $4\\pi/a$, and its first Brillouin zone is a truncated octahedron (8 hexagons from the nearest neighbours, 6 squares from the next-nearest).",
+        "explain": "<p><b>No new calculation needed.</b> If the reciprocal of BCC is FCC, then the reciprocal of that FCC is BCC again (reciprocal of the\n    reciprocal = original). So FCC (edge $a$) ↔ BCC (edge $4\\pi/a$). Its zone: the BCC point has 8 nearest neighbours (hexagonal faces) and 6\n    next-nearest ones close enough to cut the corners (square faces): the truncated octahedron.</p>"
        }
       ],
       "keyPoints": [
@@ -222,15 +237,18 @@
       "steps": [
        {
         "prompt": "(a) Perpendicular.",
-        "reveal": "The $(hkl)$ plane cuts the axes at $\\mathbf a_1/h$, $\\mathbf a_2/k$, $\\mathbf a_3/l$. Two vectors in the plane: $\\mathbf v_1=\\mathbf a_1/h-\\mathbf a_2/k$, $\\mathbf v_2=\\mathbf a_1/h-\\mathbf a_3/l$. With $[hkl]=h\\mathbf a_1+k\\mathbf a_2+l\\mathbf a_3$ and orthogonal axes: $[hkl]\\cdot\\mathbf v_1=|\\mathbf a_1|^2-|\\mathbf a_2|^2=0$ because $|\\mathbf a_1|=|\\mathbf a_2|=|\\mathbf a_3|$ in a cubic lattice; the same for $\\mathbf v_2$."
+        "reveal": "The $(hkl)$ plane cuts the axes at $\\mathbf a_1/h$, $\\mathbf a_2/k$, $\\mathbf a_3/l$. Two vectors in the plane: $\\mathbf v_1=\\mathbf a_1/h-\\mathbf a_2/k$, $\\mathbf v_2=\\mathbf a_1/h-\\mathbf a_3/l$. With $[hkl]=h\\mathbf a_1+k\\mathbf a_2+l\\mathbf a_3$ and orthogonal axes: $[hkl]\\cdot\\mathbf v_1=|\\mathbf a_1|^2-|\\mathbf a_2|^2=0$ because $|\\mathbf a_1|=|\\mathbf a_2|=|\\mathbf a_3|$ in a cubic lattice; the same for $\\mathbf v_2$.",
+        "explain": "<p><b>Miller indices in one sentence:</b> the plane $(hkl)$ cuts the three axes at $\\mathbf a_1/h$, $\\mathbf a_2/k$, $\\mathbf a_3/l$.\n    Differences of these intercepts lie in the plane, which gives two in-plane vectors. A direction is perpendicular to the plane exactly\n    when it is perpendicular to both.</p>\n    <p><b>The dot product.</b> $(h\\mathbf a_1+k\\mathbf a_2+l\\mathbf a_3)\\cdot(\\mathbf a_1/h-\\mathbf a_2/k)=|\\mathbf a_1|^2-|\\mathbf a_2|^2$ for orthogonal axes:\n    zero only if the axes are equally long, which is the cubic case.</p>"
        },
        {
         "prompt": "(b) Orthorhombic.",
-        "reveal": "No: $|\\mathbf a_1|\\ne|\\mathbf a_2|\\ne|\\mathbf a_3|$, so $[hkl]\\cdot\\mathbf v_1=a_1^2-a_2^2\\ne0$. What is always perpendicular to $(hkl)$ is the <b>reciprocal</b> vector $\\mathbf G=h\\mathbf a^*+k\\mathbf b^*+l\\mathbf c^*$ (sheet 8 Q1); only in the cubic case is it parallel to $[hkl]$."
+        "reveal": "No: $|\\mathbf a_1|\\ne|\\mathbf a_2|\\ne|\\mathbf a_3|$, so $[hkl]\\cdot\\mathbf v_1=a_1^2-a_2^2\\ne0$. What is always perpendicular to $(hkl)$ is the <b>reciprocal</b> vector $\\mathbf G=h\\mathbf a^*+k\\mathbf b^*+l\\mathbf c^*$ (sheet 8 Q1); only in the cubic case is it parallel to $[hkl]$.",
+        "explain": "<p>Same computation, but now $|\\mathbf a_1|\\ne|\\mathbf a_2|$: the dot product does not vanish. The general rule uses the reciprocal\n    vectors instead (sheet 8 Q1): they are built to be perpendicular to planes, and only for cubic axes do they point along the same\n    $[hkl]$.</p>"
        },
        {
         "prompt": "(c) Plane spacing.",
-        "reveal": "Unit normal $\\hat{\\mathbf n}=\\frac{1}{\\sqrt{h^2+k^2+l^2}}(h\\hat{\\mathbf x}+k\\hat{\\mathbf y}+l\\hat{\\mathbf z})$. One plane of the family passes through the origin, the next through $\\mathbf a_1/h=a\\hat{\\mathbf x}/h$. Project: $d=\\hat{\\mathbf n}\\cdot\\frac{a\\hat{\\mathbf x}}{h}=\\frac{a}{\\sqrt{h^2+k^2+l^2}}$."
+        "reveal": "Unit normal $\\hat{\\mathbf n}=\\frac{1}{\\sqrt{h^2+k^2+l^2}}(h\\hat{\\mathbf x}+k\\hat{\\mathbf y}+l\\hat{\\mathbf z})$. One plane of the family passes through the origin, the next through $\\mathbf a_1/h=a\\hat{\\mathbf x}/h$. Project: $d=\\hat{\\mathbf n}\\cdot\\frac{a\\hat{\\mathbf x}}{h}=\\frac{a}{\\sqrt{h^2+k^2+l^2}}$.",
+        "explain": "<p><b>Distance between parallel planes</b> = component of any vector connecting them along the unit normal. The plane through the\n    origin and the neighbouring plane through the intercept $a\\hat x/h$: project that point on $\\hat n$ (which in the cubic case is\n    $[hkl]$ normalised): $\\frac{a}{h}\\cdot\\frac{h}{\\sqrt{h^2+k^2+l^2}}$.</p>"
        }
       ],
       "keyPoints": [
@@ -267,19 +285,23 @@
       "steps": [
        {
         "prompt": "(a) Lattices.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q3-lattices.png\" alt=\"Left: rectangular real lattice with spacings d1 and d2. Right: reciprocal lattice with spacings 2 pi over d1 = 13.4 per nm and 2 pi over d2 = 18.5 per nm\"><br>$\\mathbf a_1=d_1\\hat{\\mathbf x}$, $\\mathbf a_2=d_2\\hat{\\mathbf y}$; $\\mathbf b_1=\\frac{2\\pi}{d_1}\\hat{\\mathbf x}$, $\\mathbf b_2=\\frac{2\\pi}{d_2}\\hat{\\mathbf y}$. Again rectangular, but the long real-space direction is the short reciprocal one."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q3-lattices.png\" alt=\"Left: rectangular real lattice with spacings d1 and d2. Right: reciprocal lattice with spacings 2 pi over d1 = 13.4 per nm and 2 pi over d2 = 18.5 per nm\"><br>$\\mathbf a_1=d_1\\hat{\\mathbf x}$, $\\mathbf a_2=d_2\\hat{\\mathbf y}$; $\\mathbf b_1=\\frac{2\\pi}{d_1}\\hat{\\mathbf x}$, $\\mathbf b_2=\\frac{2\\pi}{d_2}\\hat{\\mathbf y}$. Again rectangular, but the long real-space direction is the short reciprocal one.",
+        "explain": "<p><b>Reciprocal of a rectangle.</b> For orthogonal axes the formula simply gives $\\mathbf b_i=\\frac{2\\pi}{d_i}\\hat e_i$. Long in real space,\n    short in $k$-space: the long side $d_1$ becomes the short spacing $13.4$ nm$^{-1}$.</p>"
        },
        {
         "prompt": "(b) Wave vectors.",
-        "reveal": "Elastic: $|\\mathbf k|=|\\mathbf k^\\prime|=\\frac{2\\pi}{\\lambda}=37.9\\ \\mathrm{nm^{-1}}$."
+        "reveal": "Elastic: $|\\mathbf k|=|\\mathbf k^\\prime|=\\frac{2\\pi}{\\lambda}=37.9\\ \\mathrm{nm^{-1}}$.",
+        "explain": "<p><b>Elastic</b> scattering: the X-ray loses no energy, $\\hbar ck=\\hbar ck'$, so $|\\mathbf k|=|\\mathbf k'|=2\\pi/\\lambda$. With $\\lambda=0.166$ nm:\n    $2\\pi/0.166=37.9$ nm$^{-1}$. Only the direction changes.</p>"
        },
        {
         "prompt": "(c) The $(210)$ plane and the scattering triangle.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q3-210-plane.png\" alt=\"Real lattice with the (210) plane through d1 over 2 on the x axis and d2 on the y axis\" style=\"max-width:300px\"> <img class=\"fig\" src=\"content/solid-state/fig/s2q3-triangle.png\" alt=\"Reciprocal lattice with k, k prime and G = 2 b1 + b2 forming an isosceles triangle\" style=\"max-width:300px\"><br>The $(210)$ plane cuts the axes at $\\mathbf a_1/2$ and $\\mathbf a_2/1$; the family is spanned in direction by $d_1\\hat{\\mathbf x}-2d_2\\hat{\\mathbf y}$. $\\mathbf G_{210}=2\\mathbf b_1+\\mathbf b_2$ is perpendicular to it. Laue: $\\mathbf k^\\prime-\\mathbf k=\\mathbf G$ with $|\\mathbf k|=|\\mathbf k^\\prime|$: an isosceles triangle."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s2q3-210-plane.png\" alt=\"Real lattice with the (210) plane through d1 over 2 on the x axis and d2 on the y axis\" style=\"max-width:300px\"> <img class=\"fig\" src=\"content/solid-state/fig/s2q3-triangle.png\" alt=\"Reciprocal lattice with k, k prime and G = 2 b1 + b2 forming an isosceles triangle\" style=\"max-width:300px\"><br>The $(210)$ plane cuts the axes at $\\mathbf a_1/2$ and $\\mathbf a_2/1$; the family is spanned in direction by $d_1\\hat{\\mathbf x}-2d_2\\hat{\\mathbf y}$. $\\mathbf G_{210}=2\\mathbf b_1+\\mathbf b_2$ is perpendicular to it. Laue: $\\mathbf k^\\prime-\\mathbf k=\\mathbf G$ with $|\\mathbf k|=|\\mathbf k^\\prime|$: an isosceles triangle.",
+        "explain": "<p><b>Laue condition</b> $\\mathbf k'-\\mathbf k=\\mathbf G$: the change of wave vector must be a reciprocal lattice vector (then the waves\n    scattered from all lattice points are in phase). Two sides of equal length $|\\mathbf k|=|\\mathbf k'|$ and the third side $\\mathbf G$: an\n    isosceles triangle. For the (210) plane: intercepts at $\\mathbf a_1/2$ and $\\mathbf a_2/1$, and $\\mathbf G_{210}=2\\mathbf b_1+\\mathbf b_2$ is perpendicular to\n    it, as reciprocal vectors always are to their planes.</p>"
        },
        {
         "prompt": "(d) Peaks.",
-        "reveal": "One atom in the basis: no structure-factor extinctions. From the triangle $2k\\sin\\theta=|\\mathbf G_{hkl}|$, i.e. $\\sin\\theta=\\frac{\\lambda|\\mathbf G_{hkl}|}{4\\pi}$ (Bragg’s law, $2\\theta$ = angle between $\\mathbf k$ and $\\mathbf k^\\prime$): shorter $\\mathbf G$, smaller angle. With $|\\mathbf b_1|<|\\mathbf b_2|$ the official order is $(100),(010),(110),(200),(020)$. <b>Check with the figure’s numbers:</b> $|\\mathbf G|=13.4,\\ 18.5,\\ 22.8,\\ 26.7,\\ 37.0\\ \\mathrm{nm^{-1}}$ for these, but $(210)$ has $32.6\\ \\mathrm{nm^{-1}}$ and lies before $(020)$. With the real numbers of your sheet, sort by $|\\mathbf G|=2\\pi\\sqrt{h^2/d_1^2+k^2/d_2^2}$."
+        "reveal": "One atom in the basis: no structure-factor extinctions. From the triangle $2k\\sin\\theta=|\\mathbf G_{hkl}|$, i.e. $\\sin\\theta=\\frac{\\lambda|\\mathbf G_{hkl}|}{4\\pi}$ (Bragg’s law, $2\\theta$ = angle between $\\mathbf k$ and $\\mathbf k^\\prime$): shorter $\\mathbf G$, smaller angle. With $|\\mathbf b_1|<|\\mathbf b_2|$ the official order is $(100),(010),(110),(200),(020)$. <b>Check with the figure’s numbers:</b> $|\\mathbf G|=13.4,\\ 18.5,\\ 22.8,\\ 26.7,\\ 37.0\\ \\mathrm{nm^{-1}}$ for these, but $(210)$ has $32.6\\ \\mathrm{nm^{-1}}$ and lies before $(020)$. With the real numbers of your sheet, sort by $|\\mathbf G|=2\\pi\\sqrt{h^2/d_1^2+k^2/d_2^2}$.",
+        "explain": "<p><b>From the triangle to Bragg.</b> In the isosceles triangle with apex angle $2\\theta$: $|\\mathbf G|=2k\\sin\\theta$. With $|\\mathbf G|=2\\pi/d$\n    and $k=2\\pi/\\lambda$ this is $2d\\sin\\theta=\\lambda$. Small $|\\mathbf G|$ means small angle, so the peaks come in order of increasing\n    $|\\mathbf G|$.</p>\n    <p><b>Missing peaks</b> come from the basis (atoms in the cell scattering in antiphase). With one atom per cell nothing cancels: every\n    $\\mathbf G$ gives a peak.</p>"
        }
       ],
       "keyPoints": [
@@ -323,23 +345,28 @@
       "steps": [
        {
         "prompt": "(a) Structure factor.",
-        "reveal": "Atoms at $\\mathbf r_0=(0,0,0)$ and $\\mathbf r_1=\\frac a2(\\hat{\\mathbf x}+\\hat{\\mathbf y}+\\hat{\\mathbf z})$; $\\mathbf q=\\frac{2\\pi}{a}(h\\hat{\\mathbf x}+k\\hat{\\mathbf y}+l\\hat{\\mathbf z})$. $F=f(hkl)\\left(1+e^{i\\pi(h+k+l)}\\right)$ (script eq. 1.23)."
+        "reveal": "Atoms at $\\mathbf r_0=(0,0,0)$ and $\\mathbf r_1=\\frac a2(\\hat{\\mathbf x}+\\hat{\\mathbf y}+\\hat{\\mathbf z})$; $\\mathbf q=\\frac{2\\pi}{a}(h\\hat{\\mathbf x}+k\\hat{\\mathbf y}+l\\hat{\\mathbf z})$. $F=f(hkl)\\left(1+e^{i\\pi(h+k+l)}\\right)$ (script eq. 1.23).",
+        "explain": "<p><b>What $F$ is.</b> Each atom in the cell sends out a wave with phase $e^{i\\mathbf q\\cdot\\mathbf r_j}$; $F$ adds them up. The peaks sit at\n    $\\mathbf q$ in the reciprocal lattice of the cube we chose, $\\mathbf q=\\frac{2\\pi}{a}(h,k,l)$.</p>\n    <p><b>The phase of the centre atom:</b> $\\mathbf q\\cdot\\mathbf r_1=\\frac{2\\pi}{a}\\frac a2(h+k+l)=\\pi(h+k+l)$, so $F=f\\,(1+e^{i\\pi(h+k+l)})=f\\,(1+(-1)^{h+k+l})$.</p>"
        },
        {
         "prompt": "(b) Missing peaks.",
-        "reveal": "$F=2f$ for $h+k+l$ even, $F=0$ for $h+k+l$ odd. Reason: the conventional cube is not primitive. The planes through the body centres lie exactly halfway between the $(hkl)$ planes of the cube when $h+k+l$ is odd and scatter in antiphase. Equivalently: those $\\mathbf q$ are not reciprocal lattice vectors of the BCC lattice (its reciprocal lattice is FCC)."
+        "reveal": "$F=2f$ for $h+k+l$ even, $F=0$ for $h+k+l$ odd. Reason: the conventional cube is not primitive. The planes through the body centres lie exactly halfway between the $(hkl)$ planes of the cube when $h+k+l$ is odd and scatter in antiphase. Equivalently: those $\\mathbf q$ are not reciprocal lattice vectors of the BCC lattice (its reciprocal lattice is FCC).",
+        "explain": "<p>$(-1)^{h+k+l}=+1$ or $-1$: the two waves add ($F=2f$) or cancel ($F=0$).</p>\n    <p><b>Why some cancel.</b> We described BCC with a cube that is twice too big (two lattice points). Its \"reciprocal lattice\" has too many\n    points; the structure factor removes the fake ones. Picture: for odd $h+k+l$ the body-centre atoms form planes exactly halfway between\n    the corner-atom planes and scatter with a half-wavelength path difference.</p>"
        },
        {
         "prompt": "(c) Two form factors.",
-        "reveal": "$F=f_1+f_2$ for $h+k+l$ even, $F=f_1-f_2$ for $h+k+l$ odd: the odd peaks reappear, weakly (CsCl structure: simple cubic with a basis)."
+        "reveal": "$F=f_1+f_2$ for $h+k+l$ even, $F=f_1-f_2$ for $h+k+l$ odd: the odd peaks reappear, weakly (CsCl structure: simple cubic with a basis).",
+        "explain": "<p>With two different form factors the cancellation is incomplete: $f_1+f_2$ or $f_1-f_2$. The \"forbidden\" peaks come back, weak,\n    because now the cube really is the primitive cell (simple cubic with a two-atom basis, CsCl).</p>"
        },
        {
         "prompt": "(d) Correct indexing.",
-        "reveal": "Only $h+k+l$ even: from the lowest angle $(110),(200),(211),(220),(310)$. The student used the simple-cubic sequence $(100),(110),(111),(200),(210)$. Both have $\\sin^2\\theta\\propto h^2+k^2+l^2$ in the ratio $1:2:3:4:5$ for the first five peaks, so the ratios alone do not decide: knowing the structure is BCC does."
+        "reveal": "Only $h+k+l$ even: from the lowest angle $(110),(200),(211),(220),(310)$. The student used the simple-cubic sequence $(100),(110),(111),(200),(210)$. Both have $\\sin^2\\theta\\propto h^2+k^2+l^2$ in the ratio $1:2:3:4:5$ for the first five peaks, so the ratios alone do not decide: knowing the structure is BCC does.",
+        "explain": "<p><b>Indexing a powder pattern.</b> Bragg + cubic spacing: $\\sin^2\\theta=\\frac{\\lambda^2}{4a^2}(h^2+k^2+l^2)$, so the peaks are ordered by\n    $h^2+k^2+l^2$. Simple cubic allows 1, 2, 3, 4, 5, …; BCC only even $h+k+l$: 2, 4, 6, 8, 10, … i.e. (110), (200), (211), (220), (310).\n    The ratios 1:2:3:4:5 are the same for both, so the ratio test cannot tell them apart; knowing the structure does.</p>"
        },
        {
         "prompt": "(e) Lattice constant.",
-        "reveal": "$d_{hkl}=\\frac{\\lambda}{2\\sin\\theta}$. The $(200)$ peak is at $2\\theta\\approx64^\\circ$, $\\theta=32^\\circ$: $d_{200}=\\frac{1.5406}{2\\sin32^\\circ}=1.45$ Å, and $a=d_{200}\\sqrt{4}=2d_{200}=0.29$ nm (literature: 2.88 Å)."
+        "reveal": "$d_{hkl}=\\frac{\\lambda}{2\\sin\\theta}$. The $(200)$ peak is at $2\\theta\\approx64^\\circ$, $\\theta=32^\\circ$: $d_{200}=\\frac{1.5406}{2\\sin32^\\circ}=1.45$ Å, and $a=d_{200}\\sqrt{4}=2d_{200}=0.29$ nm (literature: 2.88 Å).",
+        "explain": "<p><b>Read off one peak, use Bragg.</b> $2\\theta\\approx64^\\circ$ is the (200) peak (second BCC peak), so $\\theta=32^\\circ$ and\n    $d_{200}=\\lambda/(2\\sin\\theta)=1.45$ Å. For a cube $d_{hkl}=a/\\sqrt{h^2+k^2+l^2}$ (sheet 2 Q2), so $a=2d_{200}=2.9$ Å.</p>"
        }
       ],
       "keyPoints": [
@@ -376,15 +403,18 @@
       "steps": [
        {
         "prompt": "(a) Sketch.",
-        "reveal": "$U\\to+\\infty$ for $r\\to0$, $U(\\sigma)=0$, a minimum of depth $-\\epsilon$ just right of $\\sigma$, then $U\\to0^-$ like $-r^{-6}$. $F=-\\partial U/\\partial r$: repulsive ($F>0$) where $U$ falls ($r<r_0$), attractive where $U$ rises ($r>r_0$)."
+        "reveal": "$U\\to+\\infty$ for $r\\to0$, $U(\\sigma)=0$, a minimum of depth $-\\epsilon$ just right of $\\sigma$, then $U\\to0^-$ like $-r^{-6}$. $F=-\\partial U/\\partial r$: repulsive ($F>0$) where $U$ falls ($r<r_0$), attractive where $U$ rises ($r>r_0$).",
+        "explain": "<p><b>Reading the formula.</b> The $r^{-12}$ term (Pauli repulsion of overlapping shells) wins at small $r$, the $-r^{-6}$ term (van\n    der Waals attraction) at large $r$. $U(\\sigma)=0$ because the bracket is $1-1$. The force is $F=-dU/dr$: where $U$ decreases with $r$ the\n    force pushes outward (repulsive), where $U$ increases it pulls inward.</p>"
        },
        {
         "prompt": "(b) Minimum.",
-        "reveal": "$\\frac{\\partial U}{\\partial r}\\Big|_{r_0}=4\\epsilon\\left[-\\frac{12}{r_0}\\left(\\frac\\sigma{r_0}\\right)^{12}+\\frac{6}{r_0}\\left(\\frac\\sigma{r_0}\\right)^{6}\\right]=0\\Rightarrow\\left(\\frac{\\sigma}{r_0}\\right)^6=\\frac12$, $r_0=2^{1/6}\\sigma\\approx1.12\\,\\sigma$, and $U(r_0)=4\\epsilon\\left(\\frac14-\\frac12\\right)=-\\epsilon$."
+        "reveal": "$\\frac{\\partial U}{\\partial r}\\Big|_{r_0}=4\\epsilon\\left[-\\frac{12}{r_0}\\left(\\frac\\sigma{r_0}\\right)^{12}+\\frac{6}{r_0}\\left(\\frac\\sigma{r_0}\\right)^{6}\\right]=0\\Rightarrow\\left(\\frac{\\sigma}{r_0}\\right)^6=\\frac12$, $r_0=2^{1/6}\\sigma\\approx1.12\\,\\sigma$, and $U(r_0)=4\\epsilon\\left(\\frac14-\\frac12\\right)=-\\epsilon$.",
+        "explain": "<p><b>Minimum: set $dU/dr=0$.</b> $\\frac{d}{dr}(\\sigma/r)^{12}=-\\frac{12}{r}(\\sigma/r)^{12}$ and similarly for the 6. Dividing by\n    $\\frac{6}{r_0}(\\sigma/r_0)^6$ leaves $-2(\\sigma/r_0)^6+1=0$. Insert $(\\sigma/r_0)^6=\\frac12$ and $(\\sigma/r_0)^{12}=\\frac14$ into $U$:\n    $4\\epsilon(\\frac14-\\frac12)=-\\epsilon$. So $\\epsilon$ is the bond energy and $\\sigma$ sets the size.</p>"
        },
        {
         "prompt": "(c) Harmonic approximation.",
-        "reveal": "$U(r)\\approx-\\epsilon+\\frac\\kappa2(r-r_0)^2$ (the linear term vanishes at the minimum) with $\\kappa=\\frac{\\partial^2U}{\\partial r^2}\\Big|_{r_0}=\\frac{4\\epsilon}{r_0^2}\\left[156\\left(\\frac\\sigma{r_0}\\right)^{12}-42\\left(\\frac\\sigma{r_0}\\right)^6\\right]=\\frac{4\\epsilon}{r_0^2}(39-21)=\\frac{72\\,\\epsilon}{2^{1/3}\\sigma^2}\\approx57\\,\\frac{\\epsilon}{\\sigma^2}$. This $\\kappa$ is the spring of the phonon chain of chapter 2."
+        "reveal": "$U(r)\\approx-\\epsilon+\\frac\\kappa2(r-r_0)^2$ (the linear term vanishes at the minimum) with $\\kappa=\\frac{\\partial^2U}{\\partial r^2}\\Big|_{r_0}=\\frac{4\\epsilon}{r_0^2}\\left[156\\left(\\frac\\sigma{r_0}\\right)^{12}-42\\left(\\frac\\sigma{r_0}\\right)^6\\right]=\\frac{4\\epsilon}{r_0^2}(39-21)=\\frac{72\\,\\epsilon}{2^{1/3}\\sigma^2}\\approx57\\,\\frac{\\epsilon}{\\sigma^2}$. This $\\kappa$ is the spring of the phonon chain of chapter 2.",
+        "explain": "<p><b>Why a Taylor expansion.</b> Near any minimum a potential looks like a parabola: $U(r_0)+U'(r_0)(r-r_0)+\\frac12U''(r_0)(r-r_0)^2$,\n    and $U'(r_0)=0$. A parabola is a spring, with spring constant $\\kappa=U''(r_0)$.</p>\n    <p><b>The second derivative:</b> $\\frac{d^2}{dr^2}r^{-12}=156\\,r^{-14}$, $\\frac{d^2}{dr^2}r^{-6}=42\\,r^{-8}$. At $r_0$: $156\\cdot\\frac14=39$ and\n    $42\\cdot\\frac12=21$, so $\\kappa=\\frac{4\\epsilon}{r_0^2}\\cdot18=\\frac{72\\epsilon}{r_0^2}$ with $r_0^2=2^{1/3}\\sigma^2$.</p>"
        }
       ],
       "keyPoints": [
@@ -420,15 +450,18 @@
       "steps": [
        {
         "prompt": "(a) One delta well.",
-        "reveal": "For $x\\ne x_1$: $-\\frac{\\hbar^2}{2m}\\psi^{\\prime\\prime}=E\\psi$ with $E<0$, so $\\psi_1(x)=\\sqrt\\kappa\\,e^{-\\kappa|x-x_1|}$, $\\kappa=\\sqrt{-2mE}/\\hbar$ (the prefactor from $\\int|\\psi|^2=1$). Integrating the Schrödinger equation across the delta gives the kink $\\psi^\\prime(x_1^+)-\\psi^\\prime(x_1^-)=-\\frac{2mV_0}{\\hbar^2}\\psi(x_1)$, i.e. $-2\\kappa=-\\frac{2mV_0}{\\hbar^2}$: $\\kappa=\\frac{mV_0}{\\hbar^2}$, $\\epsilon_0=-\\frac{\\hbar^2\\kappa^2}{2m}=-\\frac{mV_0^2}{2\\hbar^2}=-\\frac{V_0\\kappa}{2}$. $\\psi_2$: replace $x_1$ by $x_2$."
+        "reveal": "For $x\\ne x_1$: $-\\frac{\\hbar^2}{2m}\\psi^{\\prime\\prime}=E\\psi$ with $E<0$, so $\\psi_1(x)=\\sqrt\\kappa\\,e^{-\\kappa|x-x_1|}$, $\\kappa=\\sqrt{-2mE}/\\hbar$ (the prefactor from $\\int|\\psi|^2=1$). Integrating the Schrödinger equation across the delta gives the kink $\\psi^\\prime(x_1^+)-\\psi^\\prime(x_1^-)=-\\frac{2mV_0}{\\hbar^2}\\psi(x_1)$, i.e. $-2\\kappa=-\\frac{2mV_0}{\\hbar^2}$: $\\kappa=\\frac{mV_0}{\\hbar^2}$, $\\epsilon_0=-\\frac{\\hbar^2\\kappa^2}{2m}=-\\frac{mV_0^2}{2\\hbar^2}=-\\frac{V_0\\kappa}{2}$. $\\psi_2$: replace $x_1$ by $x_2$.",
+        "explain": "<p><b>Away from the delta</b> the potential is zero, and a bound state has $E<0$: $\\psi''=\\kappa^2\\psi$, solutions $e^{\\pm\\kappa x}$. Keeping\n    the ones that decay on each side gives $e^{-\\kappa|x-x_1|}$.</p>\n    <p><b>At the delta</b> integrate the Schrödinger equation over a tiny interval around $x_1$: $\\int\\psi''=\\psi'(x_1^+)-\\psi'(x_1^-)$, $\\int E\\psi\\to0$,\n    and the delta gives $-V_0\\psi(x_1)$. So the slope jumps: $-2\\kappa\\psi(x_1)=-\\frac{2mV_0}{\\hbar^2}\\psi(x_1)$, i.e. $\\kappa=mV_0/\\hbar^2$, and\n    $E=-\\hbar^2\\kappa^2/2m$. Normalisation: $\\int e^{-2\\kappa|x|}dx=1/\\kappa$, hence the $\\sqrt\\kappa$.</p>"
        },
        {
         "prompt": "(b) Matrix elements.",
-        "reveal": "$E_0=\\langle1|\\hat K+\\hat V_1+\\hat V_2|1\\rangle=\\epsilon_0+\\langle1|\\hat V_2|1\\rangle=\\epsilon_0-V_0\\int\\psi_1^2\\,\\delta(x-x_2)\\,dx=\\epsilon_0-V_0\\kappa e^{-2\\kappa|x_2-x_1|}=-V_0\\kappa\\left(\\frac12+e^{-2\\kappa|x_2-x_1|}\\right)$. Hopping: $\\langle1|\\hat H|2\\rangle=\\langle1|\\hat V_1|2\\rangle+\\epsilon_0\\langle1|2\\rangle=\\langle1|\\hat V_1|2\\rangle=-V_0\\psi_1(x_1)\\psi_2(x_1)=-V_0\\kappa e^{-\\kappa|x_2-x_1|}$, so $t=V_0\\kappa e^{-\\kappa|x_2-x_1|}>0$. With $\\alpha=e^{-\\kappa|x_2-x_1|}$: $\\hat H=-V_0\\kappa\\begin{pmatrix}\\frac12+\\alpha^2&\\alpha\\\\\\alpha&\\frac12+\\alpha^2\\end{pmatrix}$."
+        "reveal": "$E_0=\\langle1|\\hat K+\\hat V_1+\\hat V_2|1\\rangle=\\epsilon_0+\\langle1|\\hat V_2|1\\rangle=\\epsilon_0-V_0\\int\\psi_1^2\\,\\delta(x-x_2)\\,dx=\\epsilon_0-V_0\\kappa e^{-2\\kappa|x_2-x_1|}=-V_0\\kappa\\left(\\frac12+e^{-2\\kappa|x_2-x_1|}\\right)$. Hopping: $\\langle1|\\hat H|2\\rangle=\\langle1|\\hat V_1|2\\rangle+\\epsilon_0\\langle1|2\\rangle=\\langle1|\\hat V_1|2\\rangle=-V_0\\psi_1(x_1)\\psi_2(x_1)=-V_0\\kappa e^{-\\kappa|x_2-x_1|}$, so $t=V_0\\kappa e^{-\\kappa|x_2-x_1|}>0$. With $\\alpha=e^{-\\kappa|x_2-x_1|}$: $\\hat H=-V_0\\kappa\\begin{pmatrix}\\frac12+\\alpha^2&\\alpha\\\\\\alpha&\\frac12+\\alpha^2\\end{pmatrix}$.",
+        "explain": "<p><b>Split $\\hat H$ cleverly.</b> $\\hat H=\\hat K+\\hat V_1+\\hat V_2=\\hat H_1+\\hat V_2$, and $\\hat H_1|1\\rangle=\\epsilon_0|1\\rangle$. So\n    $\\langle1|\\hat H|1\\rangle=\\epsilon_0+\\langle1|\\hat V_2|1\\rangle$: the atomic energy plus the pull of the <i>other</i> well on orbital 1.\n    A delta potential just samples the wave function: $\\langle1|\\hat V_2|1\\rangle=-V_0\\psi_1(x_2)^2=-V_0\\kappa e^{-2\\kappa|x_2-x_1|}$.</p>\n    <p><b>Hopping</b> the same way with $\\hat H=\\hat H_2+\\hat V_1$ acting on $|2\\rangle$: $\\epsilon_0\\langle1|2\\rangle$ (zero by assumption) plus\n    $\\langle1|\\hat V_1|2\\rangle=-V_0\\psi_1(x_1)\\psi_2(x_1)$. It shrinks like $e^{-\\kappa\\cdot\\text{distance}}$: the overlap of the two tails.</p>"
        },
        {
         "prompt": "(c) Eigenenergies.",
-        "reveal": "$\\det(\\epsilon-\\hat H)=0$: $\\epsilon_\\pm=-V_0\\kappa\\left(\\frac12+\\alpha^2\\pm\\alpha\\right)=\\epsilon_0-V_0\\kappa(\\alpha^2\\pm\\alpha)$, eigenvectors $\\frac1{\\sqrt2}(1,\\pm1)$. Far apart, $\\alpha\\to0$ and $\\epsilon_\\pm\\to\\epsilon_0$. For $0<\\alpha<1$: $\\epsilon_+<\\epsilon_-$; the symmetric state is bonding with bonding energy $\\epsilon_+-\\epsilon_0=-V_0\\kappa(\\alpha^2+\\alpha)<0$; the antisymmetric one is antibonding, $\\epsilon_--\\epsilon_0=V_0\\kappa(\\alpha-\\alpha^2)>0$. The splitting is $2t$."
+        "reveal": "$\\det(\\epsilon-\\hat H)=0$: $\\epsilon_\\pm=-V_0\\kappa\\left(\\frac12+\\alpha^2\\pm\\alpha\\right)=\\epsilon_0-V_0\\kappa(\\alpha^2\\pm\\alpha)$, eigenvectors $\\frac1{\\sqrt2}(1,\\pm1)$. Far apart, $\\alpha\\to0$ and $\\epsilon_\\pm\\to\\epsilon_0$. For $0<\\alpha<1$: $\\epsilon_+<\\epsilon_-$; the symmetric state is bonding with bonding energy $\\epsilon_+-\\epsilon_0=-V_0\\kappa(\\alpha^2+\\alpha)<0$; the antisymmetric one is antibonding, $\\epsilon_--\\epsilon_0=V_0\\kappa(\\alpha-\\alpha^2)>0$. The splitting is $2t$.",
+        "explain": "<p><b>A 2×2 matrix with equal diagonal $A$ and off-diagonal $B$</b> always has eigenvalues $A\\pm B$ with eigenvectors $(1,\\pm1)/\\sqrt2$.\n    Here $A=-V_0\\kappa(\\frac12+\\alpha^2)$, $B=-V_0\\kappa\\alpha$.</p>\n    <p><b>Which is bonding?</b> $B<0$, so $A+B$ is the lower energy: the symmetric combination (no node between the atoms, electron density\n    piled up between them) is bonding; the antisymmetric one is antibonding. Their splitting is $2|B|=2t$: the more the orbitals overlap,\n    the stronger the bond.</p>"
        }
       ],
       "keyPoints": [
@@ -530,15 +563,18 @@
       "steps": [
        {
         "prompt": "(a) Energy.",
-        "reveal": "$U=\\sum_k\\hbar\\omega(k)\\left[n(k)+\\frac12\\right]=\\int d\\omega\\,Z(\\omega)\\,\\hbar\\omega\\left(\\frac12+\\frac{1}{e^{\\hbar\\omega/kT}-1}\\right)$ with $Z(\\omega)=3N\\delta(\\omega-\\omega_E)$: $U=3N\\hbar\\omega_E\\left(\\frac12+\\frac1{e^{\\hbar\\omega_E/kT}-1}\\right)$."
+        "reveal": "$U=\\sum_k\\hbar\\omega(k)\\left[n(k)+\\frac12\\right]=\\int d\\omega\\,Z(\\omega)\\,\\hbar\\omega\\left(\\frac12+\\frac{1}{e^{\\hbar\\omega/kT}-1}\\right)$ with $Z(\\omega)=3N\\delta(\\omega-\\omega_E)$: $U=3N\\hbar\\omega_E\\left(\\frac12+\\frac1{e^{\\hbar\\omega_E/kT}-1}\\right)$.",
+        "explain": "<p><b>Counting oscillators.</b> $N$ cells with one atom each, 3 directions: $3N$ modes, all at $\\omega_E$ in this model (that is what\n    $Z(\\omega)=3N\\delta(\\omega-\\omega_E)$ says). Each is a quantum oscillator with energy $\\hbar\\omega(n+\\frac12)$, and at temperature $T$ its\n    mean occupation is the Bose–Einstein number $n=1/(e^{\\hbar\\omega/kT}-1)$. Multiply: $3N$ times the mean energy of one.</p>"
        },
        {
         "prompt": "(b) Specific heat.",
-        "reveal": "$c(T)=\\frac1V\\frac{dU}{dT}=\\frac{3Nk}{V}\\left(\\frac{\\hbar\\omega_E}{kT}\\right)^2\\frac{e^{\\hbar\\omega_E/kT}}{\\left(e^{\\hbar\\omega_E/kT}-1\\right)^2}$."
+        "reveal": "$c(T)=\\frac1V\\frac{dU}{dT}=\\frac{3Nk}{V}\\left(\\frac{\\hbar\\omega_E}{kT}\\right)^2\\frac{e^{\\hbar\\omega_E/kT}}{\\left(e^{\\hbar\\omega_E/kT}-1\\right)^2}$.",
+        "explain": "<p><b>The derivative.</b> Only the occupation depends on $T$. With $x=\\hbar\\omega_E/kT$: $\\frac{d}{dT}\\frac1{e^x-1}=\\frac{e^x}{(e^x-1)^2}\\cdot\\frac{x}{T}$\n    (chain rule, $dx/dT=-x/T$). Multiplying by $3N\\hbar\\omega_E=3NkTx$ gives $3Nk\\,\\frac{x^2e^x}{(e^x-1)^2}$.</p>"
        },
        {
         "prompt": "(c) Limits.",
-        "reveal": "$T\\gg\\Theta_E$: with $x=\\hbar\\omega_E/kT\\to0$, $x^2e^x/(e^x-1)^2\\to1$: $c\\to\\frac{3Nk}{V}$, Dulong–Petit (every oscillator classical). $T\\ll\\Theta_E$: $c\\approx\\frac{3Nk}{V}\\left(\\frac{\\Theta_E}{T}\\right)^2e^{-\\Theta_E/T}$: exponentially frozen out, because the first excited level is a finite gap $\\hbar\\omega_E$ away. Real crystals show $T^3$ instead (acoustic phonons have no gap: Debye). Typical $\\Theta_E$: several hundred K; GaAs optical phonons $\\approx35$ meV, $\\Theta_E\\approx420$ K, a small contribution even at room temperature."
+        "reveal": "$T\\gg\\Theta_E$: with $x=\\hbar\\omega_E/kT\\to0$, $x^2e^x/(e^x-1)^2\\to1$: $c\\to\\frac{3Nk}{V}$, Dulong–Petit (every oscillator classical). $T\\ll\\Theta_E$: $c\\approx\\frac{3Nk}{V}\\left(\\frac{\\Theta_E}{T}\\right)^2e^{-\\Theta_E/T}$: exponentially frozen out, because the first excited level is a finite gap $\\hbar\\omega_E$ away. Real crystals show $T^3$ instead (acoustic phonons have no gap: Debye). Typical $\\Theta_E$: several hundred K; GaAs optical phonons $\\approx35$ meV, $\\Theta_E\\approx420$ K, a small contribution even at room temperature.",
+        "explain": "<p><b>High $T$</b> ($x\\to0$): $e^x-1\\approx x$, so the fraction $\\to1$ and each mode gives $k$: the classical equipartition value\n    (Dulong–Petit, $3k$ per atom).</p>\n    <p><b>Low $T$</b> ($x\\gg1$): the fraction $\\approx x^2e^{-x}$. To excite an oscillator you need the whole quantum $\\hbar\\omega_E$, and the\n    Boltzmann factor for that is $e^{-\\hbar\\omega_E/kT}$: exponentially rare. Real crystals fall off only like $T^3$ because acoustic phonons\n    have arbitrarily small energies (Debye).</p>"
        }
       ],
       "keyPoints": [
@@ -573,15 +609,18 @@
       "steps": [
        {
         "prompt": "(a) Frequencies.",
-        "reveal": "$\\omega_{1,2}=\\sqrt{k/m_{1,2}}$ with $m_1=6u$, $m_2=7u$: $\\omega_1/\\omega_2=\\sqrt{7/6}=1.08$."
+        "reveal": "$\\omega_{1,2}=\\sqrt{k/m_{1,2}}$ with $m_1=6u$, $m_2=7u$: $\\omega_1/\\omega_2=\\sqrt{7/6}=1.08$.",
+        "explain": "<p>Each atom sits in a harmonic well of the same stiffness $k$, so it oscillates at $\\omega=\\sqrt{k/m}$: the lighter isotope is faster.\n    The ratio $\\sqrt{7/6}$ does not need $k$.</p>"
        },
        {
         "prompt": "(b) Energies.",
-        "reveal": "One atom is a 3D oscillator: $E_{1,2}=3\\left(n(\\omega_{1,2})+\\frac12\\right)\\hbar\\omega_{1,2}$, $n(\\omega)=\\frac1{e^{\\hbar\\omega/k_BT}-1}$. Total: $E=N_1E_1+N_2E_2=\\frac{3N\\hbar}{100}\\left[7.5\\left(n(\\omega_1)+\\frac12\\right)\\omega_1+92.5\\left(n(\\omega_2)+\\frac12\\right)\\omega_2\\right]$."
+        "reveal": "One atom is a 3D oscillator: $E_{1,2}=3\\left(n(\\omega_{1,2})+\\frac12\\right)\\hbar\\omega_{1,2}$, $n(\\omega)=\\frac1{e^{\\hbar\\omega/k_BT}-1}$. Total: $E=N_1E_1+N_2E_2=\\frac{3N\\hbar}{100}\\left[7.5\\left(n(\\omega_1)+\\frac12\\right)\\omega_1+92.5\\left(n(\\omega_2)+\\frac12\\right)\\omega_2\\right]$.",
+        "explain": "<p><b>Same logic as Q2</b>, done separately for the two populations: each atom is three oscillators (x, y, z), each with mean\n    energy $\\hbar\\omega(n+\\frac12)$. The total is the number of $^6$Li atoms times their energy plus the same for $^7$Li ($7.5\\%$ and $92.5\\%$\n    of $N$).</p>"
        },
        {
         "prompt": "(c) Heat capacity.",
-        "reveal": "$C=\\frac{dE}{dT}=3Nk_B\\left[0.075\\,f\\!\\left(\\frac{\\hbar\\omega_1}{k_BT}\\right)+0.925\\,f\\!\\left(\\frac{\\hbar\\omega_2}{k_BT}\\right)\\right]$ with the Einstein function $f(x)=\\frac{x^2e^x}{(e^x-1)^2}$ (per volume: divide by $V$). An oscillator freezes into its ground state below its Einstein temperature. On cooling, the higher frequency ($^6$Li, $\\omega_1$) freezes first; all atoms are mostly in the ground state below the <b>lower</b> one, $T\\lesssim\\hbar\\omega_2/k_B$ ($^7$Li)."
+        "reveal": "$C=\\frac{dE}{dT}=3Nk_B\\left[0.075\\,f\\!\\left(\\frac{\\hbar\\omega_1}{k_BT}\\right)+0.925\\,f\\!\\left(\\frac{\\hbar\\omega_2}{k_BT}\\right)\\right]$ with the Einstein function $f(x)=\\frac{x^2e^x}{(e^x-1)^2}$ (per volume: divide by $V$). An oscillator freezes into its ground state below its Einstein temperature. On cooling, the higher frequency ($^6$Li, $\\omega_1$) freezes first; all atoms are mostly in the ground state below the <b>lower</b> one, $T\\lesssim\\hbar\\omega_2/k_B$ ($^7$Li).",
+        "explain": "<p><b>Heat capacity</b> is the sum of two Einstein curves weighted by abundance. Each freezes out below its own Einstein temperature\n    $\\hbar\\omega/k_B$. The higher frequency ($^6$Li) freezes first on cooling; only when you are also below the lower one ($^7$Li) are nearly\n    all atoms in the ground state.</p>"
        }
       ],
       "keyPoints": [
@@ -623,19 +662,23 @@
       "steps": [
        {
         "prompt": "(a) Dispersion.",
-        "reveal": "$\\omega=v_s|\\mathbf k|$: the linear, low-$k$ part of the acoustic branches, used for all $k$."
+        "reveal": "$\\omega=v_s|\\mathbf k|$: the linear, low-$k$ part of the acoustic branches, used for all $k$.",
+        "explain": "<p><b>Debye's simplification:</b> take the straight-line start of the acoustic branches, $\\omega=v_s k$, and pretend it holds for every\n    $k$ up to a cutoff. It is exact at low $k$ (sound waves), which is all that matters at low temperature.</p>"
        },
        {
         "prompt": "(b) $k$-points.",
-        "reveal": "$e^{ikL}=1$: spacing $2\\pi/L$. Densities $\\frac{L}{2\\pi}$, $\\frac{L^2}{(2\\pi)^2}$, $\\frac{L^3}{(2\\pi)^3}$."
+        "reveal": "$e^{ikL}=1$: spacing $2\\pi/L$. Densities $\\frac{L}{2\\pi}$, $\\frac{L^2}{(2\\pi)^2}$, $\\frac{L^3}{(2\\pi)^3}$.",
+        "explain": "<p><b>Periodic boundary conditions</b> $e^{ikL}=1$ allow $k=2\\pi m/L$: allowed points spaced $2\\pi/L$. One point per $2\\pi/L$ in each\n    direction gives densities $(L/2\\pi)^d$ in $d$ dimensions.</p>"
        },
        {
         "prompt": "(c) Counting.",
-        "reveal": "With $k_0=\\omega_0/v_s$: $N_{1D}=p_1\\frac{L}{2\\pi}\\int_0^{k_0}2\\,dk$ (the 2: $+k$ and $-k$), $N_{2D}=p_2\\left(\\frac{L}{2\\pi}\\right)^2\\int_0^{k_0}2\\pi k\\,dk$, $N_{3D}=p_3\\left(\\frac{L}{2\\pi}\\right)^3\\int_0^{k_0}4\\pi k^2\\,dk$."
+        "reveal": "With $k_0=\\omega_0/v_s$: $N_{1D}=p_1\\frac{L}{2\\pi}\\int_0^{k_0}2\\,dk$ (the 2: $+k$ and $-k$), $N_{2D}=p_2\\left(\\frac{L}{2\\pi}\\right)^2\\int_0^{k_0}2\\pi k\\,dk$, $N_{3D}=p_3\\left(\\frac{L}{2\\pi}\\right)^3\\int_0^{k_0}4\\pi k^2\\,dk$.",
+        "explain": "<p><b>Counting states = volume in $k$-space × density of points.</b> All states with $\\omega<\\omega_0$ lie within $|k|<k_0$: in 1D the\n    two intervals $\\pm k$ (length $2k_0$), in 2D a disc (rings of area $2\\pi k\\,dk$), in 3D a ball (shells $4\\pi k^2dk$). Multiply by the\n    number of polarisations $p_d$.</p>"
        },
        {
         "prompt": "(d) Density of states.",
-        "reveal": "$k=\\omega/v_s$, $dk=d\\omega/v_s$: $g_{1D}(\\omega)=\\frac{p_1L}{\\pi v_s}$ (constant), $g_{2D}(\\omega)=\\frac{p_2L^2}{2\\pi v_s^2}\\,\\omega$, $g_{3D}(\\omega)=\\frac{p_3L^3}{2\\pi^2v_s^3}\\,\\omega^2$; integration from 0 to $\\omega_0$. In $d$ dimensions $g\\propto\\omega^{d-1}$."
+        "reveal": "$k=\\omega/v_s$, $dk=d\\omega/v_s$: $g_{1D}(\\omega)=\\frac{p_1L}{\\pi v_s}$ (constant), $g_{2D}(\\omega)=\\frac{p_2L^2}{2\\pi v_s^2}\\,\\omega$, $g_{3D}(\\omega)=\\frac{p_3L^3}{2\\pi^2v_s^3}\\,\\omega^2$; integration from 0 to $\\omega_0$. In $d$ dimensions $g\\propto\\omega^{d-1}$.",
+        "explain": "<p><b>Density of states</b> $g(\\omega)$ is \"states per frequency interval\": write the integrand in terms of $\\omega$ with\n    $k=\\omega/v_s$, $dk=d\\omega/v_s$, and read off what multiplies $d\\omega$. Ring/shell area grows like $k^{d-1}$, hence $g\\propto\\omega^{d-1}$.</p>"
        }
       ],
       "keyPoints": [
@@ -671,15 +714,18 @@
       "steps": [
        {
         "prompt": "(a) Energy.",
-        "reveal": "$E=\\frac{p_2L^2}{(2\\pi)^2}\\int_0^{k_D}\\left(n_B+\\frac12\\right)\\hbar vk\\,2\\pi k\\,dk=\\frac{p_2L^2}{2\\pi}\\int_0^{k_D}\\frac{\\hbar vk^2}{e^{\\beta\\hbar vk}-1}dk+E_0$. With $x=\\beta\\hbar vk$: $E=\\frac{p_2L^2}{2\\pi v^2\\hbar^2\\beta^3}\\int_0^{x_D}\\frac{x^2}{e^x-1}dx+E_0$, $x_D=\\beta\\hbar\\omega_D$."
+        "reveal": "$E=\\frac{p_2L^2}{(2\\pi)^2}\\int_0^{k_D}\\left(n_B+\\frac12\\right)\\hbar vk\\,2\\pi k\\,dk=\\frac{p_2L^2}{2\\pi}\\int_0^{k_D}\\frac{\\hbar vk^2}{e^{\\beta\\hbar vk}-1}dk+E_0$. With $x=\\beta\\hbar vk$: $E=\\frac{p_2L^2}{2\\pi v^2\\hbar^2\\beta^3}\\int_0^{x_D}\\frac{x^2}{e^x-1}dx+E_0$, $x_D=\\beta\\hbar\\omega_D$.",
+        "explain": "<p><b>Recipe for any thermal energy:</b> sum over modes of (energy of a quantum) × (mean occupation + ½). In 2D the modes in a ring\n    of radius $k$ number $p_2\\frac{L^2}{(2\\pi)^2}2\\pi k\\,dk$, each with energy $\\hbar vk$.</p>\n    <p><b>Why substitute $x=\\beta\\hbar vk$:</b> it makes the integrand dimensionless and moves all the $T$ dependence into the prefactor\n    ($k=x/\\beta\\hbar v$, so $k^2dk\\propto T^3$) and into the upper limit $x_D$.</p>"
        },
        {
         "prompt": "(b) High $T$.",
-        "reveal": "$\\beta\\to0$: $n_B\\approx\\frac{k_BT}{\\hbar\\omega}$, so $E\\approx\\int_0^{\\omega_D}k_BT\\,g(\\omega)\\,d\\omega=N_{\\rm modes}k_BT$ and $C_V=N_{\\rm modes}k_B=p_2N_{\\rm atoms}k_B$: $2k_B$ per atom for $p_2=2$ (in 3D: $3k_B$, Dulong–Petit). The dimension enters only through the number of modes."
+        "reveal": "$\\beta\\to0$: $n_B\\approx\\frac{k_BT}{\\hbar\\omega}$, so $E\\approx\\int_0^{\\omega_D}k_BT\\,g(\\omega)\\,d\\omega=N_{\\rm modes}k_BT$ and $C_V=N_{\\rm modes}k_B=p_2N_{\\rm atoms}k_B$: $2k_B$ per atom for $p_2=2$ (in 3D: $3k_B$, Dulong–Petit). The dimension enters only through the number of modes.",
+        "explain": "<p><b>High $T$:</b> every mode is classical, $n\\approx k_BT/\\hbar\\omega$, so each mode carries $k_BT$ whatever its frequency. Energy\n    = (number of modes)·$k_BT$ and $C$ = (number of modes)·$k_B$. In 2D there are 2 polarisations per atom, hence $2k_B$ per atom.</p>"
        },
        {
         "prompt": "(c) Low $T$.",
-        "reveal": "High-energy modes are frozen, so $x_D\\to\\infty$: $E=\\frac{p_2L^2k_B^3T^3}{2\\pi v^2\\hbar^2}\\int_0^\\infty\\frac{x^2}{e^x-1}dx+E_0$, hence $C_V=KT^2$, $n=2$, $K=\\frac{3p_2L^2k_B^3}{2\\pi v^2\\hbar^2}\\int_0^\\infty\\frac{x^2}{e^x-1}dx$ ($=\\frac{3L^2k_B^3}{\\pi v^2\\hbar^2}\\cdot2\\zeta(3)$ for $p_2=2$; $\\int_0^\\infty\\frac{x^2}{e^x-1}dx=2\\zeta(3)\\approx2.404$). In $d$ dimensions $C_V\\propto T^d$."
+        "reveal": "High-energy modes are frozen, so $x_D\\to\\infty$: $E=\\frac{p_2L^2k_B^3T^3}{2\\pi v^2\\hbar^2}\\int_0^\\infty\\frac{x^2}{e^x-1}dx+E_0$, hence $C_V=KT^2$, $n=2$, $K=\\frac{3p_2L^2k_B^3}{2\\pi v^2\\hbar^2}\\int_0^\\infty\\frac{x^2}{e^x-1}dx$ ($=\\frac{3L^2k_B^3}{\\pi v^2\\hbar^2}\\cdot2\\zeta(3)$ for $p_2=2$; $\\int_0^\\infty\\frac{x^2}{e^x-1}dx=2\\zeta(3)\\approx2.404$). In $d$ dimensions $C_V\\propto T^d$.",
+        "explain": "<p><b>Low $T$:</b> modes with $\\hbar\\omega\\gg k_BT$ are empty, so it does not matter where the cutoff is: send $x_D\\to\\infty$ and the\n    integral becomes a pure number. Then $E-E_0\\propto T^3$ (from the prefactor) and $C=dE/dT\\propto T^2$. General rule: $C\\propto T^d$.</p>"
        }
       ],
       "keyPoints": [
@@ -714,15 +760,18 @@
       "steps": [
        {
         "prompt": "(a) Energy.",
-        "reveal": "$E=p_3\\left(\\frac L{2\\pi}\\right)^3\\int\\frac{\\hbar\\omega(\\mathbf k)}{e^{\\beta\\hbar\\omega(\\mathbf k)}-1}dk_xdk_ydk_z+E_0$ (the polarisation does not change the dispersion here)."
+        "reveal": "$E=p_3\\left(\\frac L{2\\pi}\\right)^3\\int\\frac{\\hbar\\omega(\\mathbf k)}{e^{\\beta\\hbar\\omega(\\mathbf k)}-1}dk_xdk_ydk_z+E_0$ (the polarisation does not change the dispersion here).",
+        "explain": "<p>Same recipe as Q2 but the frequency depends on the direction, so we cannot use spherical shells directly: write the sum over all\n    $k$-points as $(L/2\\pi)^3\\int d^3k$.</p>"
        },
        {
         "prompt": "(b) Substitution.",
-        "reveal": "$\\kappa_i=v_ik_i$: $\\omega=|\\boldsymbol\\kappa|=\\kappa$ and $dk_xdk_ydk_z=\\frac{d^3\\kappa}{v_xv_yv_z}$. $E=p_3\\left(\\frac L{2\\pi}\\right)^3\\frac1{v_xv_yv_z}\\int_0^{\\kappa_D}\\frac{\\hbar\\kappa}{e^{\\beta\\hbar\\kappa}-1}4\\pi\\kappa^2d\\kappa+E_0=\\frac{p_3L^3}{2\\pi^2\\hbar^3\\beta^4}\\frac{1}{v_xv_yv_z}\\int_0^{\\beta\\hbar\\kappa_D}\\frac{x^3}{e^x-1}dx+E_0$ with $x=\\beta\\hbar\\kappa$."
+        "reveal": "$\\kappa_i=v_ik_i$: $\\omega=|\\boldsymbol\\kappa|=\\kappa$ and $dk_xdk_ydk_z=\\frac{d^3\\kappa}{v_xv_yv_z}$. $E=p_3\\left(\\frac L{2\\pi}\\right)^3\\frac1{v_xv_yv_z}\\int_0^{\\kappa_D}\\frac{\\hbar\\kappa}{e^{\\beta\\hbar\\kappa}-1}4\\pi\\kappa^2d\\kappa+E_0=\\frac{p_3L^3}{2\\pi^2\\hbar^3\\beta^4}\\frac{1}{v_xv_yv_z}\\int_0^{\\beta\\hbar\\kappa_D}\\frac{x^3}{e^x-1}dx+E_0$ with $x=\\beta\\hbar\\kappa$.",
+        "explain": "<p><b>The substitution stretches $k$-space</b> so that the surfaces of equal $\\omega$ (ellipsoids) become spheres: with $\\kappa_i=v_ik_i$,\n    $\\omega=|\\boldsymbol\\kappa|$. Changing variables multiplies the volume element by the Jacobian $1/(v_xv_yv_z)$. After that it is the isotropic\n    integral with shells $4\\pi\\kappa^2d\\kappa$.</p>"
        },
        {
         "prompt": "(c) Heat capacity.",
-        "reveal": "Low $T$: $\\beta\\hbar\\kappa_D\\to\\infty$, $\\int_0^\\infty\\frac{x^3}{e^x-1}dx=\\frac{\\pi^4}{15}$. $C=\\frac{dE}{dT}=\\frac{2p_3k_B^4L^3T^3}{\\pi^2\\hbar^3}\\frac1{v_xv_yv_z}\\int_0^\\infty\\frac{x^3}{e^x-1}dx$. Still $T^3$: the only change is $1/v^3\\to1/(v_xv_yv_z)$."
+        "reveal": "Low $T$: $\\beta\\hbar\\kappa_D\\to\\infty$, $\\int_0^\\infty\\frac{x^3}{e^x-1}dx=\\frac{\\pi^4}{15}$. $C=\\frac{dE}{dT}=\\frac{2p_3k_B^4L^3T^3}{\\pi^2\\hbar^3}\\frac1{v_xv_yv_z}\\int_0^\\infty\\frac{x^3}{e^x-1}dx$. Still $T^3$: the only change is $1/v^3\\to1/(v_xv_yv_z)$.",
+        "explain": "<p><b>Low $T$:</b> send the cutoff to infinity as before; the integral is the pure number $\\pi^4/15$ and $E\\propto T^4$, $C\\propto T^3$.\n    The anisotropy only changes the prefactor: $1/v^3$ is replaced by the geometric mean $1/(v_xv_yv_z)$.</p>"
        }
       ],
       "keyPoints": [
@@ -758,11 +807,13 @@
       "steps": [
        {
         "prompt": "(a) Derivation.",
-        "reveal": "$\\overline{e^{i\\vec G\\cdot\\vec u}}\\approx1+i\\,\\overline{\\vec G\\cdot\\vec u}-\\frac12\\overline{(\\vec G\\cdot\\vec u)^2}$. Random, independent motion: $\\overline{\\vec G\\cdot\\vec u}=0$ and $\\overline{(\\vec G\\cdot\\vec u)^2}=|\\vec G|^2\\,\\overline{u^2}\\,\\overline{\\cos^2\\Theta}$ with $\\overline{\\cos^2\\Theta}=\\frac1{4\\pi}\\int_0^{\\pi}d\\Theta\\int_0^{2\\pi}d\\Phi\\cos^2\\Theta\\sin\\Theta=\\frac13$. So $\\overline{e^{i\\vec G\\cdot\\vec u}}=1-\\frac16|\\vec G|^2\\overline{u^2}\\approx e^{-\\frac16|\\vec G|^2\\overline{u^2}}$ (first two terms of the exponential; real and $<1$). $I\\propto|S|^2$: $I=I_0e^{-\\frac13|\\vec G|^2\\overline{u^2}}$. The peaks stay sharp and at the same place; they lose intensity, more at large $|\\vec G|$ and high $T$."
+        "reveal": "$\\overline{e^{i\\vec G\\cdot\\vec u}}\\approx1+i\\,\\overline{\\vec G\\cdot\\vec u}-\\frac12\\overline{(\\vec G\\cdot\\vec u)^2}$. Random, independent motion: $\\overline{\\vec G\\cdot\\vec u}=0$ and $\\overline{(\\vec G\\cdot\\vec u)^2}=|\\vec G|^2\\,\\overline{u^2}\\,\\overline{\\cos^2\\Theta}$ with $\\overline{\\cos^2\\Theta}=\\frac1{4\\pi}\\int_0^{\\pi}d\\Theta\\int_0^{2\\pi}d\\Phi\\cos^2\\Theta\\sin\\Theta=\\frac13$. So $\\overline{e^{i\\vec G\\cdot\\vec u}}=1-\\frac16|\\vec G|^2\\overline{u^2}\\approx e^{-\\frac16|\\vec G|^2\\overline{u^2}}$ (first two terms of the exponential; real and $<1$). $I\\propto|S|^2$: $I=I_0e^{-\\frac13|\\vec G|^2\\overline{u^2}}$. The peaks stay sharp and at the same place; they lose intensity, more at large $|\\vec G|$ and high $T$.",
+        "explain": "<p><b>Why an average.</b> The X-ray sees each atom at a slightly shifted position $\\vec r_i+\\vec u$; over the measurement $\\vec u$ jiggles,\n    so we average the phase factor.</p>\n    <p><b>The expansion.</b> $e^{iy}\\approx1+iy-\\frac{y^2}{2}$ with $y=\\vec G\\cdot\\vec u$. The linear term averages to zero (the atom is equally often\n    displaced forwards and backwards). For the square, $\\vec G\\cdot\\vec u=|\\vec G||\\vec u|\\cos\\Theta$ and the direction of $\\vec u$ is random,\n    so we average $\\cos^2\\Theta$ over a sphere: $\\frac13$ (in 3D each of $x,y,z$ gets a third of $u^2$). Then $1-\\frac16G^2\\overline{u^2}\\approx e^{-G^2\\overline{u^2}/6}$,\n    and the intensity is the square: $e^{-G^2\\overline{u^2}/3}$.</p>"
        },
        {
         "prompt": "(b) Niobium at the melting point.",
-        "reveal": "BCC nearest-neighbour distance $\\frac{\\sqrt3}{2}a$, so $\\sqrt{\\overline{u^2}}=0.2\\cdot\\frac{\\sqrt3}2a=\\frac{\\sqrt3}{10}a$, $\\overline{u^2}=\\frac{3a^2}{100}$. $|\\vec G|^2=\\frac{8\\pi^2}{a^2}$. $D=\\exp\\left[-\\frac13\\cdot\\frac{8\\pi^2}{a^2}\\cdot\\frac{3a^2}{100}\\right]=\\exp\\left[-\\frac{\\pi^2}{12.5}\\right]=e^{-0.79}=0.45$. Independent of $a$: valid for the (110) reflection of every BCC crystal."
+        "reveal": "BCC nearest-neighbour distance $\\frac{\\sqrt3}{2}a$, so $\\sqrt{\\overline{u^2}}=0.2\\cdot\\frac{\\sqrt3}2a=\\frac{\\sqrt3}{10}a$, $\\overline{u^2}=\\frac{3a^2}{100}$. $|\\vec G|^2=\\frac{8\\pi^2}{a^2}$. $D=\\exp\\left[-\\frac13\\cdot\\frac{8\\pi^2}{a^2}\\cdot\\frac{3a^2}{100}\\right]=\\exp\\left[-\\frac{\\pi^2}{12.5}\\right]=e^{-0.79}=0.45$. Independent of $a$: valid for the (110) reflection of every BCC crystal.",
+        "explain": "<p><b>Plug in.</b> BCC nearest neighbours are along the body diagonal at $\\frac{\\sqrt3}{2}a$; Lindemann says the RMS amplitude at\n    melting is 20% of that. $|\\vec G|^2=(2\\pi/a)^2(1^2+1^2)$. The $a$'s cancel, so the answer $D\\approx0.45$ holds for every BCC metal at its\n    melting point: thermal motion halves the (110) peak but does not blur it.</p>"
        }
       ],
       "keyPoints": [
@@ -806,15 +857,18 @@
       "steps": [
        {
         "prompt": "(a) 2D.",
-        "reveal": "$N(E)=2\\frac{A}{(2\\pi)^2}\\int_0^{k(E)}2\\pi k\\,dk$; with $dE=\\frac{\\hbar^2}{m}k\\,dk$: $N(E)=\\frac{Am}{\\pi\\hbar^2}E$ and $D_{2D}(E)=\\frac1A\\frac{dN}{dE}=\\frac{m}{\\pi\\hbar^2}$: constant."
+        "reveal": "$N(E)=2\\frac{A}{(2\\pi)^2}\\int_0^{k(E)}2\\pi k\\,dk$; with $dE=\\frac{\\hbar^2}{m}k\\,dk$: $N(E)=\\frac{Am}{\\pi\\hbar^2}E$ and $D_{2D}(E)=\\frac1A\\frac{dN}{dE}=\\frac{m}{\\pi\\hbar^2}$: constant.",
+        "explain": "<p><b>The general recipe for a density of states:</b> (1) count all states below energy $E$, $N(E)$ = (area of the region in $k$-space with\n    energy $<E$) × (density of $k$-points $A/(2\\pi)^2$) × 2 for spin; (2) differentiate, $D=\\frac1A\\frac{dN}{dE}$.</p>\n    <p><b>2D:</b> the region is a disc of radius $k(E)=\\sqrt{2mE}/\\hbar$, area $\\pi k^2=\\pi\\cdot2mE/\\hbar^2$, linear in $E$. So $N\\propto E$ and its\n    derivative is a constant.</p>"
        },
        {
         "prompt": "(a) 1D and 0D.",
-        "reveal": "$N(E)=2\\frac{L}{2\\pi}\\int_{-k(E)}^{k(E)}dk=\\frac{2L}{\\pi}\\sqrt{\\frac{2mE}{\\hbar^2}}$, $D_{1D}(E)=\\frac1L\\frac{dN}{dE}=\\frac1\\pi\\sqrt{\\frac{2m}{\\hbar^2}}\\frac1{\\sqrt E}$: diverges at the band bottom (van Hove). 0D: a single level, $D_{0D}(E)=2\\delta(E-E_0)$.<br><img class=\"fig\" src=\"content/solid-state/fig/s6q1-dos.png\" alt=\"Density of states against energy: 0D a spike, 1D falling as one over square root of E, 2D constant, 3D rising as square root of E\" style=\"max-width:380px\">"
+        "reveal": "$N(E)=2\\frac{L}{2\\pi}\\int_{-k(E)}^{k(E)}dk=\\frac{2L}{\\pi}\\sqrt{\\frac{2mE}{\\hbar^2}}$, $D_{1D}(E)=\\frac1L\\frac{dN}{dE}=\\frac1\\pi\\sqrt{\\frac{2m}{\\hbar^2}}\\frac1{\\sqrt E}$: diverges at the band bottom (van Hove). 0D: a single level, $D_{0D}(E)=2\\delta(E-E_0)$.<br><img class=\"fig\" src=\"content/solid-state/fig/s6q1-dos.png\" alt=\"Density of states against energy: 0D a spike, 1D falling as one over square root of E, 2D constant, 3D rising as square root of E\" style=\"max-width:380px\">",
+        "explain": "<p><b>1D:</b> the \"region\" is the interval $[-k,k]$ of length $2k\\propto\\sqrt E$, so $N\\propto\\sqrt E$ and $D\\propto1/\\sqrt E$: many states\n    at the band bottom, where the dispersion is flat.</p>\n    <p><b>0D:</b> no free direction left, no $k$ at all: just discrete levels, each holding 2 electrons (spin), hence the delta peaks. The\n    sequence 0D spike, 1D $E^{-1/2}$, 2D constant, 3D $E^{1/2}$ comes from the $k$-space volume growing like $k^d\\propto E^{d/2}$.</p>"
        },
        {
         "prompt": "(b) Fermi wave vectors.",
-        "reveal": "2D: $n_{2D}=\\frac{N(E_F)}{A}=\\frac{m}{\\pi\\hbar^2}\\frac{\\hbar^2k_F^2}{2m}=\\frac{k_F^2}{2\\pi}$, $k_F=\\sqrt{2\\pi n_{2D}}$. 1D: $n_{1D}=\\frac{2k_F}{\\pi}$, $k_F=\\frac\\pi2n_{1D}$. (3D for comparison: $k_F=(3\\pi^2n)^{1/3}$, script eq. 3.22.)"
+        "reveal": "2D: $n_{2D}=\\frac{N(E_F)}{A}=\\frac{m}{\\pi\\hbar^2}\\frac{\\hbar^2k_F^2}{2m}=\\frac{k_F^2}{2\\pi}$, $k_F=\\sqrt{2\\pi n_{2D}}$. 1D: $n_{1D}=\\frac{2k_F}{\\pi}$, $k_F=\\frac\\pi2n_{1D}$. (3D for comparison: $k_F=(3\\pi^2n)^{1/3}$, script eq. 3.22.)",
+        "explain": "<p><b>At $T=0$ all states up to $E_F$ are filled,</b> so the density equals the number of states below $E_F$ per area or length:\n    $n=N(E_F)/A$. Write $E_F=\\hbar^2k_F^2/2m$ and solve for $k_F$. In 2D: disc area $\\pi k_F^2$ × density $1/(2\\pi)^2$ × 2 spins\n    $=k_F^2/2\\pi$.</p>"
        }
       ],
       "keyPoints": [
@@ -850,19 +904,23 @@
       "steps": [
        {
         "prompt": "(a) Dispersion.",
-        "reveal": "Two cones touching at $(\\mathbf k,\\epsilon)=(0,0)$ (a V and an inverted V in a cut along $k_x$). Photons ($\\omega=ck$) and low-energy acoustic phonons ($\\omega=v_sk$) are linear too; here $c$ plays the role of $\\hbar v_F$."
+        "reveal": "Two cones touching at $(\\mathbf k,\\epsilon)=(0,0)$ (a V and an inverted V in a cut along $k_x$). Photons ($\\omega=ck$) and low-energy acoustic phonons ($\\omega=v_sk$) are linear too; here $c$ plays the role of $\\hbar v_F$.",
+        "explain": "<p>$\\epsilon=\\pm c|\\mathbf k|$ in two dimensions is a cone pointing up (conduction) and one pointing down (valence), meeting at a point.\n    Any dispersion that is linear in $|k|$ looks like this; light and sound are the familiar examples, which is why the counting below copies\n    the Debye phonon calculation.</p>"
        },
        {
         "prompt": "(b) Density of states.",
-        "reveal": "As for the 2D Debye phonons (sheet 5 Q1) with degeneracy 4: $N=4\\left(\\frac L{2\\pi}\\right)^2\\int_0^{k_0}2\\pi k\\,dk=4\\left(\\frac L{2\\pi}\\right)^2\\int_0^{\\epsilon_0}2\\pi\\frac{\\epsilon}{c^2}d\\epsilon$, so $g(\\epsilon)=\\frac{2L^2}{\\pi c^2}\\epsilon$ for $\\epsilon>0$ and by symmetry $g(\\epsilon)=\\frac{2L^2}{\\pi c^2}|\\epsilon|$. It vanishes at the Fermi level."
+        "reveal": "As for the 2D Debye phonons (sheet 5 Q1) with degeneracy 4: $N=4\\left(\\frac L{2\\pi}\\right)^2\\int_0^{k_0}2\\pi k\\,dk=4\\left(\\frac L{2\\pi}\\right)^2\\int_0^{\\epsilon_0}2\\pi\\frac{\\epsilon}{c^2}d\\epsilon$, so $g(\\epsilon)=\\frac{2L^2}{\\pi c^2}\\epsilon$ for $\\epsilon>0$ and by symmetry $g(\\epsilon)=\\frac{2L^2}{\\pi c^2}|\\epsilon|$. It vanishes at the Fermi level.",
+        "explain": "<p><b>Counting as in sheet 5 Q1:</b> states with energy below $\\epsilon$ fill a disc of radius $k=\\epsilon/c$. Number $=4\\cdot\\frac{L^2}{(2\\pi)^2}\\pi k^2$\n    (4 = 2 spins × 2 valleys) $=\\frac{L^2\\epsilon^2}{\\pi c^2}$; derivative: $g=\\frac{2L^2}{\\pi c^2}\\epsilon$. Linear in $|\\epsilon|$, and zero exactly at the\n    Fermi level: graphene has very few states to excite.</p>"
        },
        {
         "prompt": "(c) Excited electrons.",
-        "reveal": "$g$ is linear and zero at $\\epsilon_F=0$, so the number of states between $-k_BT$ and $0$ is a triangle of base $k_BT$ and height $g(-k_BT)$: $n_{ex}=\\frac12g(-k_BT)k_BT=\\frac{L^2k_B^2T^2}{\\pi c^2}$. Each gains $\\sim k_BT$: $E(T)-E_0=n_{ex}k_BT=\\frac{L^2k_B^3T^3}{\\pi c^2}$."
+        "reveal": "$g$ is linear and zero at $\\epsilon_F=0$, so the number of states between $-k_BT$ and $0$ is a triangle of base $k_BT$ and height $g(-k_BT)$: $n_{ex}=\\frac12g(-k_BT)k_BT=\\frac{L^2k_B^2T^2}{\\pi c^2}$. Each gains $\\sim k_BT$: $E(T)-E_0=n_{ex}k_BT=\\frac{L^2k_B^3T^3}{\\pi c^2}$.",
+        "explain": "<p><b>Why a triangle.</b> Thermal excitation only affects states within about $k_BT$ of $\\epsilon_F$. The number of states there is the\n    area under $g$ between $-k_BT$ and 0; since $g$ is a straight line through zero, that area is a triangle, $\\frac12\\cdot$base·height.\n    Each excited electron gains about $k_BT$, so $\\Delta E\\approx n_{ex}k_BT\\propto T^3$.</p>"
        },
        {
         "prompt": "(d) Heat capacity.",
-        "reveal": "$C_e=\\frac{\\partial E}{\\partial T}=\\frac{3L^2k_B^3T^2}{\\pi c^2}\\propto T^2$. Compare a metal: $g(\\epsilon_F)$ finite, $n_{ex}\\sim g(\\epsilon_F)k_BT$, $C\\propto T$. The $T^2$ is the 2D Debye law with $v\\to c/\\hbar$: same linear dispersion, same counting."
+        "reveal": "$C_e=\\frac{\\partial E}{\\partial T}=\\frac{3L^2k_B^3T^2}{\\pi c^2}\\propto T^2$. Compare a metal: $g(\\epsilon_F)$ finite, $n_{ex}\\sim g(\\epsilon_F)k_BT$, $C\\propto T$. The $T^2$ is the 2D Debye law with $v\\to c/\\hbar$: same linear dispersion, same counting.",
+        "explain": "<p>$C=d(\\Delta E)/dT\\propto T^2$. Compare: an ordinary metal has a finite $g(\\epsilon_F)$, so $n_{ex}\\propto T$, $\\Delta E\\propto T^2$,\n    $C\\propto T$. The power changes because graphene's density of states vanishes at the Fermi level.</p>"
        }
       ],
       "keyPoints": [
@@ -898,11 +956,13 @@
       "steps": [
        {
         "prompt": "(a) Square lattice.",
-        "reveal": "The reciprocal lattice is square with constant $2\\pi/a$; the zone is the square $|k_x|,|k_y|\\le\\pi/a$. Side centre: $k_0=\\frac\\pi a$. Corner: $k_1=\\sqrt2\\frac{\\pi}{a}=\\sqrt2k_0$. $E_1=\\frac{\\hbar^2k_1^2}{2m}=2\\frac{\\hbar^2k_0^2}{2m}=2E_0$."
+        "reveal": "The reciprocal lattice is square with constant $2\\pi/a$; the zone is the square $|k_x|,|k_y|\\le\\pi/a$. Side centre: $k_0=\\frac\\pi a$. Corner: $k_1=\\sqrt2\\frac{\\pi}{a}=\\sqrt2k_0$. $E_1=\\frac{\\hbar^2k_1^2}{2m}=2\\frac{\\hbar^2k_0^2}{2m}=2E_0$.",
+        "explain": "<p><b>Where the special points are.</b> The zone of a square lattice is the square $|k_x|,|k_y|\\le\\pi/a$. The middle of a side is at\n    distance $\\pi/a$ from the centre, the corner at $\\sqrt2\\pi/a$ (Pythagoras). Free-electron energy $\\propto k^2$, so the factor\n    $(\\sqrt2)^2=2$.</p>"
        },
        {
         "prompt": "(b) Simple cubic.",
-        "reveal": "Face centre $k_0=\\frac\\pi a$, corner $k_1=\\sqrt3\\frac\\pi a$: $E_1=3E_0$. Why it matters: a divalent metal can only stay metallic if the gap at the face centre is smaller than this spread, so that states near the corners of the first zone remain empty while the second zone starts to fill."
+        "reveal": "Face centre $k_0=\\frac\\pi a$, corner $k_1=\\sqrt3\\frac\\pi a$: $E_1=3E_0$. Why it matters: a divalent metal can only stay metallic if the gap at the face centre is smaller than this spread, so that states near the corners of the first zone remain empty while the second zone starts to fill.",
+        "explain": "<p>Same in 3D: face centre at $\\pi/a$, corner at $\\sqrt{3}\\pi/a$ (space diagonal), energy ratio $3$. This spread of energies along the zone\n    surface is why the band gaps at the zone faces do not automatically make a divalent metal an insulator: the corners are so much\n    higher that electrons rather start filling the second zone.</p>"
        }
       ],
       "keyPoints": [
@@ -944,15 +1004,18 @@
       "steps": [
        {
         "prompt": "Electron density and $k_F$.",
-        "reveal": "$n_e=\\frac{3}{a_1a_2}=\\frac{3}{2\\pi^2}$ Å$^{-2}$. Counting: $N_e=\\pi k_F^2\\cdot\\frac{A}{(2\\pi)^2}\\cdot2=\\frac{Ak_F^2}{2\\pi}$, so $k_F=\\sqrt{2\\pi n_e}=\\sqrt{3/\\pi}$ Å$^{-1}\\approx0.98$ Å$^{-1}$."
+        "reveal": "$n_e=\\frac{3}{a_1a_2}=\\frac{3}{2\\pi^2}$ Å$^{-2}$. Counting: $N_e=\\pi k_F^2\\cdot\\frac{A}{(2\\pi)^2}\\cdot2=\\frac{Ak_F^2}{2\\pi}$, so $k_F=\\sqrt{2\\pi n_e}=\\sqrt{3/\\pi}$ Å$^{-1}\\approx0.98$ Å$^{-1}$.",
+        "explain": "<p><b>Electron density:</b> 3 electrons per atom, one atom per cell of area $a_1a_2$.</p>\n    <p><b>$k_F$:</b> at $T=0$ the electrons fill a disc in $k$-space. Number of electrons = disc area $\\pi k_F^2$ × density of $k$-points\n    $A/(2\\pi)^2$ × 2 spins. Solving gives $k_F=\\sqrt{2\\pi n_e}$ (the same as sheet 6 Q1).</p>"
        },
        {
         "prompt": "Reciprocal lattice and zones.",
-        "reveal": "$b_1=\\frac{2\\pi}{a_1}=1$ Å$^{-1}$, $b_2=\\frac{2\\pi}{a_2}=2$ Å$^{-1}$. First zone: the rectangle $|k_1|\\le0.5$, $|k_2|\\le1$ Å$^{-1}$ (area 2 Å$^{-2}$ = room for 2 electrons per atom). Three electrons fill an area of 1.5 zones. The Fermi circle ($k_F=0.98$) crosses the two long zone edges at $k_1=\\pm0.5$ but does not reach $k_2=\\pm1$, and the corners (distance $\\sqrt{0.5^2+1^2}=1.12>k_F$) stay empty."
+        "reveal": "$b_1=\\frac{2\\pi}{a_1}=1$ Å$^{-1}$, $b_2=\\frac{2\\pi}{a_2}=2$ Å$^{-1}$. First zone: the rectangle $|k_1|\\le0.5$, $|k_2|\\le1$ Å$^{-1}$ (area 2 Å$^{-2}$ = room for 2 electrons per atom). Three electrons fill an area of 1.5 zones. The Fermi circle ($k_F=0.98$) crosses the two long zone edges at $k_1=\\pm0.5$ but does not reach $k_2=\\pm1$, and the corners (distance $\\sqrt{0.5^2+1^2}=1.12>k_F$) stay empty.",
+        "explain": "<p><b>Reciprocal lattice of a rectangle:</b> $b_i=2\\pi/a_i$; the first zone is the rectangle halfway to the neighbours. It contains as many\n    $k$-points as there are cells, so with spin it holds exactly 2 electrons per atom. Three electrons per atom therefore need 1.5 zones of\n    area, and the Fermi circle must stick out of the first zone.</p>\n    <p><b>Where it sticks out:</b> compare $k_F=0.98$ with the distances to the zone edges: $0.5$ (crossed), $1.0$ (not reached) and the corner\n    $1.12$ (not reached).</p>"
        },
        {
         "prompt": "Fold back.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s7q1-fermi-surface.png\" alt=\"Top: reciprocal lattice with the Fermi circle drawn over the first Brillouin zone (rectangle) and the second zone around it. Bottom: the occupied parts of band 1 and band 2 folded into the first zone\"><br>Band 1 (first zone): occupied except for the regions outside the circle near the four corners, i.e. the Fermi line consists of two arcs near the short edges. Band 2: the two circle segments that stick out beyond $k_1=\\pm0.5$, shifted by $\\mp b_1$ into the first zone, form two half-lenses attached to the opposite long edges. The circle does not reach the third zone. Two partly filled bands: a metal."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s7q1-fermi-surface.png\" alt=\"Top: reciprocal lattice with the Fermi circle drawn over the first Brillouin zone (rectangle) and the second zone around it. Bottom: the occupied parts of band 1 and band 2 folded into the first zone\"><br>Band 1 (first zone): occupied except for the regions outside the circle near the four corners, i.e. the Fermi line consists of two arcs near the short edges. Band 2: the two circle segments that stick out beyond $k_1=\\pm0.5$, shifted by $\\mp b_1$ into the first zone, form two half-lenses attached to the opposite long edges. The circle does not reach the third zone. Two partly filled bands: a metal.",
+        "explain": "<p><b>Reduced zone scheme:</b> every $k$ outside the first zone is equivalent to one inside, shifted by a reciprocal lattice vector\n    (sheet 4 Q1). So the parts of the circle beyond $k_1=\\pm0.5$ are moved by $\\mp b_1$ back into the first zone, where they become a second\n    band. Band 1: everything inside the circle and the zone, i.e. full except the corners. Band 2: the two moved caps. Two bands partly\n    filled, so there are states right at $E_F$: a metal.</p>"
        }
       ],
       "keyPoints": [
@@ -989,15 +1052,18 @@
       "steps": [
        {
         "prompt": "(a) Phonon.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s7q2-bz-h-point.png\" alt=\"First Brillouin zone of the BCC lattice (rhombic dodecahedron) with the point H marked on the cube axis\" style=\"max-width:260px\"><br>The largest phonon wave vector is at the zone boundary. The reciprocal lattice is FCC with cube edge $4\\pi/a$ (sheet 2 Q1); the farthest point on a cube axis is H, at half the cube edge: $k_D=\\frac{2\\pi}{a}=1.49\\times10^{10}\\ \\mathrm{m^{-1}}$. Debye: $\\omega_D=k_Dv=1.49\\times10^{13}\\ \\mathrm{s^{-1}}$, $\\hbar\\omega_D\\approx9.8$ meV."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s7q2-bz-h-point.png\" alt=\"First Brillouin zone of the BCC lattice (rhombic dodecahedron) with the point H marked on the cube axis\" style=\"max-width:260px\"><br>The largest phonon wave vector is at the zone boundary. The reciprocal lattice is FCC with cube edge $4\\pi/a$ (sheet 2 Q1); the farthest point on a cube axis is H, at half the cube edge: $k_D=\\frac{2\\pi}{a}=1.49\\times10^{10}\\ \\mathrm{m^{-1}}$. Debye: $\\omega_D=k_Dv=1.49\\times10^{13}\\ \\mathrm{s^{-1}}$, $\\hbar\\omega_D\\approx9.8$ meV.",
+        "explain": "<p><b>Largest phonon wave vector</b> = farthest you can go before folding back = the zone boundary. BCC has an FCC reciprocal lattice of\n    edge $4\\pi/a$; along a cube axis the boundary point H is half of that, $2\\pi/a$.</p>\n    <p><b>Energy:</b> with the Debye straight line $\\omega=vk$ at $k=2\\pi/a$: $\\hbar\\omega\\approx10$ meV, small because sound is slow (1000 m/s).</p>"
        },
        {
         "prompt": "(b) Electron.",
-        "reveal": "$n=\\frac{2\\cdot1}{a^3}$ (2 atoms per cube, one electron each) $=2.64\\times10^{28}\\ \\mathrm{m^{-3}}$. $k_F=(3\\pi^2n)^{1/3}=9.2\\times10^9\\ \\mathrm{m^{-1}}$ (script eq. 3.22), $E_F=\\frac{\\hbar^2k_F^2}{2m}\\approx3.2$ eV."
+        "reveal": "$n=\\frac{2\\cdot1}{a^3}$ (2 atoms per cube, one electron each) $=2.64\\times10^{28}\\ \\mathrm{m^{-3}}$. $k_F=(3\\pi^2n)^{1/3}=9.2\\times10^9\\ \\mathrm{m^{-1}}$ (script eq. 3.22), $E_F=\\frac{\\hbar^2k_F^2}{2m}\\approx3.2$ eV.",
+        "explain": "<p><b>Electron:</b> the largest occupied wave vector is $k_F$, from the free-electron formula $k_F=(3\\pi^2n)^{1/3}$ with $n$ = electrons per\n    volume (2 atoms per BCC cube, 1 electron each). $E_F=\\hbar^2k_F^2/2m\\approx3$ eV. Comparable wave vector to the phonon, but three hundred\n    times more energy, because electrons move about a thousand times faster than sound.</p>"
        },
        {
         "prompt": "(c) Can a phonon do it?",
-        "reveal": "The transition $\\Gamma_1\\to F_3$ needs a change of wave vector <b>and</b> of energy (an indirect transition). A phonon has plenty of wave vector ($k_D>k_F$) but only $\\sim10$ meV, more than two orders of magnitude below electronic energies of several eV: it changes the electron’s $\\mathbf k$ a lot and its energy hardly at all. So no. The energy has to come from a photon (which in turn carries almost no wave vector): in an indirect transition the photon supplies the energy and a phonon the momentum."
+        "reveal": "The transition $\\Gamma_1\\to F_3$ needs a change of wave vector <b>and</b> of energy (an indirect transition). A phonon has plenty of wave vector ($k_D>k_F$) but only $\\sim10$ meV, more than two orders of magnitude below electronic energies of several eV: it changes the electron’s $\\mathbf k$ a lot and its energy hardly at all. So no. The energy has to come from a photon (which in turn carries almost no wave vector): in an indirect transition the photon supplies the energy and a phonon the momentum.",
+        "explain": "<p><b>The comparison decides it.</b> A transition needs both the right $\\Delta\\mathbf k$ and the right $\\Delta E$. A phonon supplies plenty of\n    $\\Delta\\mathbf k$ but only ~10 meV; the gap here is ~0.9 Ry ≈ 12 eV. A photon is the opposite: plenty of energy, almost no wave vector\n    ($k=E/\\hbar c$ is tiny). So an indirect transition needs both: the photon pays the energy, a phonon the momentum.</p>"
        }
       ],
       "keyPoints": [
@@ -1033,19 +1099,23 @@
       "steps": [
        {
         "prompt": "(a) Size of $t^\\prime$.",
-        "reveal": "As in script 3.2.3 and sheet 3 Q3: $-t=\\langle n|\\hat V_n|n+1\\rangle\\propto\\int e^{-|x-na|/d}\\delta(x-na)e^{-|x-(n+1)a|/d}dx=e^{-a/d}$ and $-t^\\prime\\propto e^{-2a/d}$. So $t^\\prime/t\\approx e^{-a/d}\\ll1$ when the orbitals are well localised ($d\\ll a$): $t^\\prime<t$, and hopping falls off exponentially with distance."
+        "reveal": "As in script 3.2.3 and sheet 3 Q3: $-t=\\langle n|\\hat V_n|n+1\\rangle\\propto\\int e^{-|x-na|/d}\\delta(x-na)e^{-|x-(n+1)a|/d}dx=e^{-a/d}$ and $-t^\\prime\\propto e^{-2a/d}$. So $t^\\prime/t\\approx e^{-a/d}\\ll1$ when the orbitals are well localised ($d\\ll a$): $t^\\prime<t$, and hopping falls off exponentially with distance.",
+        "explain": "<p><b>Hopping = overlap of the tails.</b> The matrix element samples the neighbour's orbital at the delta, where it has decayed by\n    $e^{-a/d}$ for the nearest neighbour and $e^{-2a/d}$ for the next-nearest. Their ratio $e^{-a/d}$ is small when the orbitals are much\n    smaller than the spacing.</p>"
        },
        {
         "prompt": "(b) Equation of motion.",
-        "reveal": "Project $\\hat H|\\Psi\\rangle=E|\\Psi\\rangle$ on $\\langle n|$ (orthonormal orbitals): $E\\phi_n=\\sum_m\\phi_m\\langle n|\\hat H|m\\rangle=E_0\\phi_n-t(\\phi_{n-1}+\\phi_{n+1})-t^\\prime(\\phi_{n-2}+\\phi_{n+2})$."
+        "reveal": "Project $\\hat H|\\Psi\\rangle=E|\\Psi\\rangle$ on $\\langle n|$ (orthonormal orbitals): $E\\phi_n=\\sum_m\\phi_m\\langle n|\\hat H|m\\rangle=E_0\\phi_n-t(\\phi_{n-1}+\\phi_{n+1})-t^\\prime(\\phi_{n-2}+\\phi_{n+2})$.",
+        "explain": "<p><b>Getting equations for the amplitudes:</b> insert $|\\Psi\\rangle=\\sum_m\\phi_m|m\\rangle$ into $\\hat H|\\Psi\\rangle=E|\\Psi\\rangle$ and take the overlap\n    with $\\langle n|$. Orthonormality leaves $E\\phi_n$ on the left; on the right only the matrix elements that are not zero survive:\n    on-site $E_0$, nearest $-t$, next-nearest $-t'$. This is the discrete version of the Schrödinger equation.</p>"
        },
        {
         "prompt": "(c) Dispersion.",
-        "reveal": "$E(k)=E_0-2t\\cos(ka)-2t^\\prime\\cos(2ka)$."
+        "reveal": "$E(k)=E_0-2t\\cos(ka)-2t^\\prime\\cos(2ka)$.",
+        "explain": "<p><b>Plane-wave ansatz again</b> (every site is equivalent, as in sheet 4 Q1): $\\phi_{n\\pm1}=e^{\\pm ika}\\phi_n$, $\\phi_{n\\pm2}=e^{\\pm2ika}\\phi_n$.\n    Divide by $\\phi_n$: $E=E_0-t(e^{ika}+e^{-ika})-t'(e^{2ika}+e^{-2ika})=E_0-2t\\cos ka-2t'\\cos2ka$.</p>"
        },
        {
         "prompt": "(d) Effective mass.",
-        "reveal": "$\\frac{\\partial^2E}{\\partial k^2}=2a^2t\\cos(ka)+8a^2t^\\prime\\cos(2ka)$, so $m^*(k)=\\frac{\\hbar^2}{2a^2}\\frac{1}{t\\cos(ka)+4t^\\prime\\cos(2ka)}$. At $k=0$: $m^*=\\frac{\\hbar^2}{2a^2(t+4t^\\prime)}$, lighter than without $t^\\prime$; at the zone boundary $m^*=-\\frac{\\hbar^2}{2a^2(t-4t^\\prime)}$, negative for $t^\\prime<t/4$: a hole-like band top."
+        "reveal": "$\\frac{\\partial^2E}{\\partial k^2}=2a^2t\\cos(ka)+8a^2t^\\prime\\cos(2ka)$, so $m^*(k)=\\frac{\\hbar^2}{2a^2}\\frac{1}{t\\cos(ka)+4t^\\prime\\cos(2ka)}$. At $k=0$: $m^*=\\frac{\\hbar^2}{2a^2(t+4t^\\prime)}$, lighter than without $t^\\prime$; at the zone boundary $m^*=-\\frac{\\hbar^2}{2a^2(t-4t^\\prime)}$, negative for $t^\\prime<t/4$: a hole-like band top.",
+        "explain": "<p><b>Effective mass</b> measures the curvature of the band: near a minimum $E\\approx E_{\\min}+\\frac{\\hbar^2(k-k_0)^2}{2m^*}$, so\n    $\\frac{\\hbar^2}{m^*}=\\frac{d^2E}{dk^2}$. Differentiate twice: $(\\cos ka)''=-a^2\\cos ka$, $(\\cos2ka)''=-4a^2\\cos2ka$. At the band top\n    ($k=\\pi/a$) the curvature is negative, so $m^*<0$: electrons there respond to a force like positive charges (holes).</p>"
        }
       ],
       "keyPoints": [
@@ -1088,19 +1158,23 @@
       "steps": [
        {
         "prompt": "(a) Perpendicular.",
-        "reveal": "One $(hkl)$ plane cuts the axes at $\\mathbf a/h$, $\\mathbf b/k$, $\\mathbf c/l$. In-plane vectors: $\\mathbf v_1=\\mathbf a/h-\\mathbf b/k$, $\\mathbf v_2=\\mathbf a/h-\\mathbf c/l$. With $\\mathbf a^*\\cdot\\mathbf a=2\\pi$, $\\mathbf a^*\\cdot\\mathbf b=0$, ... (script eq. 1.8): $\\mathbf G\\cdot\\mathbf v_1=\\frac{h}{h}2\\pi-\\frac kk2\\pi=0$, likewise $\\mathbf G\\cdot\\mathbf v_2=0$. This holds for any lattice, not only cubic ones (compare sheet 2 Q2)."
+        "reveal": "One $(hkl)$ plane cuts the axes at $\\mathbf a/h$, $\\mathbf b/k$, $\\mathbf c/l$. In-plane vectors: $\\mathbf v_1=\\mathbf a/h-\\mathbf b/k$, $\\mathbf v_2=\\mathbf a/h-\\mathbf c/l$. With $\\mathbf a^*\\cdot\\mathbf a=2\\pi$, $\\mathbf a^*\\cdot\\mathbf b=0$, ... (script eq. 1.8): $\\mathbf G\\cdot\\mathbf v_1=\\frac{h}{h}2\\pi-\\frac kk2\\pi=0$, likewise $\\mathbf G\\cdot\\mathbf v_2=0$. This holds for any lattice, not only cubic ones (compare sheet 2 Q2).",
+        "explain": "<p><b>Same idea as sheet 2 Q2</b> (two in-plane vectors from the intercepts), but with reciprocal vectors the dot products are clean\n    for every lattice: $\\mathbf a^*\\cdot\\mathbf a=2\\pi$ and $\\mathbf a^*\\cdot\\mathbf b=\\mathbf a^*\\cdot\\mathbf c=0$ by construction. So $\\mathbf G\\cdot(\\mathbf a/h-\\mathbf b/k)=2\\pi-2\\pi=0$:\n    no need for equal axes.</p>"
        },
        {
         "prompt": "(b) Spacing.",
-        "reveal": "$\\hat{\\mathbf n}=\\mathbf G/|\\mathbf G|$. One plane goes through the origin, the next through $\\mathbf a/h$: $d=\\hat{\\mathbf n}\\cdot\\frac{\\mathbf a}{h}=\\frac{h\\,2\\pi}{h|\\mathbf G|}=\\frac{2\\pi}{|\\mathbf G|}$ (for $h,k,l$ without a common factor, which is $\\mathbf G_{\\min}$)."
+        "reveal": "$\\hat{\\mathbf n}=\\mathbf G/|\\mathbf G|$. One plane goes through the origin, the next through $\\mathbf a/h$: $d=\\hat{\\mathbf n}\\cdot\\frac{\\mathbf a}{h}=\\frac{h\\,2\\pi}{h|\\mathbf G|}=\\frac{2\\pi}{|\\mathbf G|}$ (for $h,k,l$ without a common factor, which is $\\mathbf G_{\\min}$).",
+        "explain": "<p><b>Spacing = projection on the unit normal</b> of a vector from one plane to the next (one through the origin, the next through\n    $\\mathbf a/h$). With $\\hat n=\\mathbf G/|\\mathbf G|$: $\\mathbf G\\cdot\\mathbf a/h=2\\pi$, so $d=2\\pi/|\\mathbf G|$. The shortest $\\mathbf G$ in that direction gives the\n    actual neighbouring planes (a longer multiple would count every second plane only).</p>"
        },
        {
         "prompt": "(c) Densest planes of BCC.",
-        "reveal": "$\\rho=d/V$ is largest for the largest $d$, i.e. the shortest $\\mathbf G$. All three primitive reciprocal vectors have the same length $\\frac{2\\pi}{a}\\sqrt2$, and no integer combination is shorter: $(hkl)=(\\pm1,0,0),(0,\\pm1,0),(0,0,\\pm1)$ with respect to the <b>primitive</b> BCC vectors. Then $d=\\frac{a}{\\sqrt2}$ and with $V=\\frac{a^3}{2}$: $\\rho=\\frac{\\sqrt2}{a^2}$. In the indices of the conventional cube these are the $\\{110\\}$ planes ($\\mathbf a^*\\parallel(0,1,1)$ and so on)."
+        "reveal": "$\\rho=d/V$ is largest for the largest $d$, i.e. the shortest $\\mathbf G$. All three primitive reciprocal vectors have the same length $\\frac{2\\pi}{a}\\sqrt2$, and no integer combination is shorter: $(hkl)=(\\pm1,0,0),(0,\\pm1,0),(0,0,\\pm1)$ with respect to the <b>primitive</b> BCC vectors. Then $d=\\frac{a}{\\sqrt2}$ and with $V=\\frac{a^3}{2}$: $\\rho=\\frac{\\sqrt2}{a^2}$. In the indices of the conventional cube these are the $\\{110\\}$ planes ($\\mathbf a^*\\parallel(0,1,1)$ and so on).",
+        "explain": "<p><b>Why $\\rho=d/V$.</b> Each primitive cell holds one lattice point; slicing space into planes of spacing $d$, each plane of area $A$\n    contains $A\\,d/V$ points. So the areal density of points in the plane is $d/V$: dense planes are widely spaced planes, i.e. the shortest\n    $\\mathbf G$. For BCC the shortest reciprocal vectors are the primitive ones, all of length $\\frac{2\\pi}{a}\\sqrt2$, so $d=a/\\sqrt2$.</p>"
        },
        {
         "prompt": "(d) Sketch.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s8q1-bcc-110.png\" alt=\"BCC cube with the diagonal (110) plane shaded: it contains four corner atoms and the body-centre atom\" style=\"max-width:240px\"><br>The normal points along $\\mathbf a^*$, $\\mathbf b^*$ or $\\mathbf c^*$, e.g. $(\\hat{\\mathbf x}+\\hat{\\mathbf y})$: the diagonal plane through two opposite cube edges, which also contains the body-centre atom. (Check: rectangle $a\\times\\sqrt2a$ with $4\\cdot\\frac14+1=2$ points, $\\rho=\\frac{2}{\\sqrt2a^2}=\\frac{\\sqrt2}{a^2}$.)"
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s8q1-bcc-110.png\" alt=\"BCC cube with the diagonal (110) plane shaded: it contains four corner atoms and the body-centre atom\" style=\"max-width:240px\"><br>The normal points along $\\mathbf a^*$, $\\mathbf b^*$ or $\\mathbf c^*$, e.g. $(\\hat{\\mathbf x}+\\hat{\\mathbf y})$: the diagonal plane through two opposite cube edges, which also contains the body-centre atom. (Check: rectangle $a\\times\\sqrt2a$ with $4\\cdot\\frac14+1=2$ points, $\\rho=\\frac{2}{\\sqrt2a^2}=\\frac{\\sqrt2}{a^2}$.)",
+        "explain": "<p><b>Translate back to cube language:</b> $\\mathbf a^*\\propto(0,1,1)$ is the normal of the cube's $(011)$ plane, the diagonal plane through two\n    opposite edges; it contains the body centre too. The count $4\\cdot\\frac14+1=2$ points on a $a\\times\\sqrt2a$ rectangle reproduces\n    $\\rho=\\sqrt2/a^2$.</p>"
        }
       ],
       "keyPoints": [
@@ -1136,19 +1210,23 @@
       "steps": [
        {
         "prompt": "(a) Spacing.",
-        "reveal": "$r_0=\\frac a{\\sqrt2}\\approx3.712$ Å (corner to face centre)."
+        "reveal": "$r_0=\\frac a{\\sqrt2}\\approx3.712$ Å (corner to face centre).",
+        "explain": "<p>In FCC the nearest neighbour of a corner atom is the centre of an adjacent face: half a face diagonal, $\\frac{\\sqrt2a}{2}=a/\\sqrt2$.</p>"
        },
        {
         "prompt": "(b) $\\sigma$.",
-        "reveal": "Equilibrium: $\\frac{d\\phi}{dr}\\Big|_{r_0}=0\\Rightarrow12\\left(\\frac{\\sigma}{r_0}\\right)^{11}-6\\left(\\frac\\sigma{r_0}\\right)^5=0$, $\\sigma=\\frac{r_0}{2^{1/6}}\\approx3.307$ Å. (This uses nearest neighbours only, as the official solution does.)"
+        "reveal": "Equilibrium: $\\frac{d\\phi}{dr}\\Big|_{r_0}=0\\Rightarrow12\\left(\\frac{\\sigma}{r_0}\\right)^{11}-6\\left(\\frac\\sigma{r_0}\\right)^5=0$, $\\sigma=\\frac{r_0}{2^{1/6}}\\approx3.307$ Å. (This uses nearest neighbours only, as the official solution does.)",
+        "explain": "<p><b>Assumption:</b> each bond sits at the minimum of the pair potential (only nearest neighbours count). Same derivative as sheet 3\n    Q2: the minimum is at $r_0=2^{1/6}\\sigma$, so $\\sigma=r_0/2^{1/6}$.</p>"
        },
        {
         "prompt": "(c) Energy per atom.",
-        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s8q2-fcc-neighbours.png\" alt=\"FCC cube with the bonds from one atom to its nearest neighbours drawn\" style=\"max-width:180px\"><br>12 nearest neighbours, each bond shared by two atoms: $u=12\\cdot\\frac12\\cdot4U_0\\left[\\left(\\frac\\sigma r\\right)^{12}-\\left(\\frac\\sigma r\\right)^6\\right]=24U_0\\left[\\left(\\frac\\sigma r\\right)^{12}-\\left(\\frac\\sigma r\\right)^6\\right]$."
+        "reveal": "<img class=\"fig\" src=\"content/solid-state/fig/s8q2-fcc-neighbours.png\" alt=\"FCC cube with the bonds from one atom to its nearest neighbours drawn\" style=\"max-width:180px\"><br>12 nearest neighbours, each bond shared by two atoms: $u=12\\cdot\\frac12\\cdot4U_0\\left[\\left(\\frac\\sigma r\\right)^{12}-\\left(\\frac\\sigma r\\right)^6\\right]=24U_0\\left[\\left(\\frac\\sigma r\\right)^{12}-\\left(\\frac\\sigma r\\right)^6\\right]$.",
+        "explain": "<p><b>Counting bonds.</b> Each atom has 12 nearest neighbours, but each bond is shared by two atoms; per atom: 6 bonds, each worth\n    $\\phi(r)$. That is where $12\\cdot\\frac12$ comes from.</p>"
        },
        {
         "prompt": "(d) Bulk modulus.",
-        "reveal": "Four atoms per cube: $\\Omega=\\frac{a^{\\prime3}}4$ with $a^\\prime=\\sqrt2r$, so $\\Omega=\\frac{r^3}{\\sqrt2}$, $r^6=2\\Omega^2$, $r^{12}=4\\Omega^4$: $u=24U_0\\left[\\frac{\\sigma^{12}}{4\\Omega^4}-\\frac{\\sigma^6}{2\\Omega^2}\\right]$. $\\frac{\\partial^2u}{\\partial\\Omega^2}=24U_0\\left[\\frac{5\\sigma^{12}}{\\Omega^6}-\\frac{3\\sigma^6}{\\Omega^4}\\right]$. At equilibrium $\\sigma^6=\\frac{r_0^6}{2}=\\Omega_0^2$: $K=24U_0\\left[\\frac{5}{\\Omega_0}-\\frac3{\\Omega_0}\\right]=\\frac{48U_0}{\\Omega_0}$. Numbers: $\\Omega_0=\\frac{a^3}{4}=3.62\\times10^{-29}\\ \\mathrm{m^3}$, $U_0=163\\,k_B=2.25\\times10^{-21}$ J: $K\\approx3.0\\times10^9$ Pa $=3.0$ GPa. (The official solution stops at the general expression; its last printed line has a typo in the second coefficient, the result above is checked numerically.)"
+        "reveal": "Four atoms per cube: $\\Omega=\\frac{a^{\\prime3}}4$ with $a^\\prime=\\sqrt2r$, so $\\Omega=\\frac{r^3}{\\sqrt2}$, $r^6=2\\Omega^2$, $r^{12}=4\\Omega^4$: $u=24U_0\\left[\\frac{\\sigma^{12}}{4\\Omega^4}-\\frac{\\sigma^6}{2\\Omega^2}\\right]$. $\\frac{\\partial^2u}{\\partial\\Omega^2}=24U_0\\left[\\frac{5\\sigma^{12}}{\\Omega^6}-\\frac{3\\sigma^6}{\\Omega^4}\\right]$. At equilibrium $\\sigma^6=\\frac{r_0^6}{2}=\\Omega_0^2$: $K=24U_0\\left[\\frac{5}{\\Omega_0}-\\frac3{\\Omega_0}\\right]=\\frac{48U_0}{\\Omega_0}$. Numbers: $\\Omega_0=\\frac{a^3}{4}=3.62\\times10^{-29}\\ \\mathrm{m^3}$, $U_0=163\\,k_B=2.25\\times10^{-21}$ J: $K\\approx3.0\\times10^9$ Pa $=3.0$ GPa. (The official solution stops at the general expression; its last printed line has a typo in the second coefficient, the result above is checked numerically.)",
+        "explain": "<p><b>Why rewrite in $\\Omega$.</b> The bulk modulus is the curvature of energy against volume, so express $u$ through the volume per\n    atom: an FCC cube holds 4 atoms and has edge $\\sqrt2r$, so $\\Omega=(\\sqrt2r)^3/4=r^3/\\sqrt2$, i.e. $r^6=2\\Omega^2$.</p>\n    <p><b>Then</b> differentiate twice in $\\Omega$ ($\\Omega^{-4}\\to20\\Omega^{-6}$, $\\Omega^{-2}\\to6\\Omega^{-4}$) and use the equilibrium condition\n    $\\sigma^6=\\Omega_0^2$ to simplify. $K=48U_0/\\Omega_0$: stiffness = bond energy per volume, a few GPa for a van der Waals solid (steel:\n    ~160 GPa).</p>"
        }
       ],
       "keyPoints": [
@@ -1185,15 +1263,18 @@
       "steps": [
        {
         "prompt": "(a) Density of states.",
-        "reveal": "$N(k)=\\frac{2V}{(2\\pi)^3}\\frac43\\pi k^3$, with $k=\\frac{E}{\\hbar c}$: $N(E)=\\frac{2V}{(2\\pi)^3}\\frac{4\\pi E^3}{3c^3\\hbar^3}$ and $\\nu(E)=\\frac{dN}{dE}=\\frac{VE^2}{\\pi^2c^3\\hbar^3}$."
+        "reveal": "$N(k)=\\frac{2V}{(2\\pi)^3}\\frac43\\pi k^3$, with $k=\\frac{E}{\\hbar c}$: $N(E)=\\frac{2V}{(2\\pi)^3}\\frac{4\\pi E^3}{3c^3\\hbar^3}$ and $\\nu(E)=\\frac{dN}{dE}=\\frac{VE^2}{\\pi^2c^3\\hbar^3}$.",
+        "explain": "<p><b>Photons are counted like phonons</b> (sheet 5 Q1): states with $|k|<k$ fill a ball, $\\frac{V}{(2\\pi)^3}\\frac43\\pi k^3$, times 2\n    polarisations. With $k=E/\\hbar c$ and a derivative in $E$: $\\nu(E)\\propto E^2$.</p>"
        },
        {
         "prompt": "(b) Energy.",
-        "reveal": "$U=\\int_0^\\infty dE\\,E\\,\\nu(E)\\frac1{e^{E/k_BT}-1}=\\frac{Vk_B^4T^4}{\\pi^2c^3\\hbar^3}\\int_0^\\infty\\frac{y^3}{e^y-1}dy=\\frac{\\pi^2Vk_B^4T^4}{15c^3\\hbar^3}$ ($y=E/k_BT$, integral $=\\pi^4/15$). Unlike Debye there is no cutoff: the integral can be done at every $T$. This is the Stefan–Boltzmann law."
+        "reveal": "$U=\\int_0^\\infty dE\\,E\\,\\nu(E)\\frac1{e^{E/k_BT}-1}=\\frac{Vk_B^4T^4}{\\pi^2c^3\\hbar^3}\\int_0^\\infty\\frac{y^3}{e^y-1}dy=\\frac{\\pi^2Vk_B^4T^4}{15c^3\\hbar^3}$ ($y=E/k_BT$, integral $=\\pi^4/15$). Unlike Debye there is no cutoff: the integral can be done at every $T$. This is the Stefan–Boltzmann law.",
+        "explain": "<p><b>Energy</b> = sum over states of $E$ × mean number of photons $1/(e^{E/k_BT}-1)$ (no ½: the zero-point energy is a constant and\n    is dropped). With $y=E/k_BT$ the integral is a pure number and the prefactor carries $T^4$: the Stefan–Boltzmann law.</p>\n    <p><b>Why no cutoff:</b> photon modes exist up to arbitrarily high $k$ (no lattice), unlike phonons which stop at the zone boundary.</p>"
        },
        {
         "prompt": "(c) Heat capacity.",
-        "reveal": "$c_V=\\left(\\frac{\\partial U}{\\partial T}\\right)_V=\\frac{4\\pi^2Vk_B^4T^3}{15c^3\\hbar^3}\\propto T^3$ at all temperatures. Phonons obey the same law only for $T\\ll\\Theta_D$ (with $c\\to v_s$ and 3 polarisations instead of 2)."
+        "reveal": "$c_V=\\left(\\frac{\\partial U}{\\partial T}\\right)_V=\\frac{4\\pi^2Vk_B^4T^3}{15c^3\\hbar^3}\\propto T^3$ at all temperatures. Phonons obey the same law only for $T\\ll\\Theta_D$ (with $c\\to v_s$ and 3 polarisations instead of 2).",
+        "explain": "<p>$U\\propto T^4$ gives $c_V\\propto T^3$ at every temperature. Phonons follow the same $T^3$ only while $T\\ll\\Theta_D$, where the cutoff\n    does not matter yet.</p>"
        }
       ],
       "keyPoints": [
@@ -1237,19 +1318,23 @@
       "steps": [
        {
         "prompt": "(a) Scattering time.",
-        "reveal": "$n=\\frac{\\rho_mN_A}{M}=\\frac{8960\\cdot6.022\\times10^{23}}{0.06355}=8.49\\times10^{28}\\ \\mathrm{m^{-3}}$. From $\\sigma=\\frac{ne^2\\tau}{m}$ (script eq. 4.4): $\\tau=\\frac{m}{ne^2\\rho}=\\frac{9.11\\times10^{-31}}{8.49\\times10^{28}\\cdot(1.602\\times10^{-19})^2\\cdot1.68\\times10^{-8}}=2.5\\times10^{-14}$ s."
+        "reveal": "$n=\\frac{\\rho_mN_A}{M}=\\frac{8960\\cdot6.022\\times10^{23}}{0.06355}=8.49\\times10^{28}\\ \\mathrm{m^{-3}}$. From $\\sigma=\\frac{ne^2\\tau}{m}$ (script eq. 4.4): $\\tau=\\frac{m}{ne^2\\rho}=\\frac{9.11\\times10^{-31}}{8.49\\times10^{28}\\cdot(1.602\\times10^{-19})^2\\cdot1.68\\times10^{-8}}=2.5\\times10^{-14}$ s.",
+        "explain": "<p><b>Electron density</b> = atoms per volume (one free electron each): mass density / molar mass × Avogadro.</p>\n    <p><b>Drude</b> gives $\\sigma=ne^2\\tau/m$: the field accelerates each electron for a time $\\tau$ between collisions. Solve for $\\tau$; a\n    few times $10^{-14}$ s is typical for metals at room temperature.</p>"
        },
        {
         "prompt": "(b) Mean free path.",
-        "reveal": "$v=\\sqrt{\\frac{3k_BT}{m}}=1.17\\times10^5$ m/s at 300 K, $\\lambda=v\\tau\\approx2.9$ nm: about ten lattice constants. (With the correct speed, $v_F=1.57\\times10^6$ m/s for copper, the same $\\tau$ gives $\\lambda\\approx39$ nm.)"
+        "reveal": "$v=\\sqrt{\\frac{3k_BT}{m}}=1.17\\times10^5$ m/s at 300 K, $\\lambda=v\\tau\\approx2.9$ nm: about ten lattice constants. (With the correct speed, $v_F=1.57\\times10^6$ m/s for copper, the same $\\tau$ gives $\\lambda\\approx39$ nm.)",
+        "explain": "<p>Mean free path = speed × time between collisions. With the classical thermal speed you get ~3 nm. With the speed the conduction\n    electrons really have ($v_F$, the speed at the Fermi surface) it is ~40 nm, ten times more.</p>"
        },
        {
         "prompt": "(c) Temperature dependence.",
-        "reveal": "$\\tau=\\lambda/v$, so $\\rho=\\frac{m}{ne^2\\tau}=\\frac{mv}{ne^2\\lambda}=\\frac{\\sqrt{3mk_BT}}{ne^2\\lambda}\\propto\\sqrt T$: the resistivity would grow like the square root of $T$."
+        "reveal": "$\\tau=\\lambda/v$, so $\\rho=\\frac{m}{ne^2\\tau}=\\frac{mv}{ne^2\\lambda}=\\frac{\\sqrt{3mk_BT}}{ne^2\\lambda}\\propto\\sqrt T$: the resistivity would grow like the square root of $T$.",
+        "explain": "<p><b>Drude's chain of reasoning:</b> if the path length $\\lambda$ is fixed, the time between collisions is $\\lambda/v$, and $v\\propto\\sqrt T$\n    for a classical gas. So $\\tau\\propto T^{-1/2}$ and $\\rho\\propto1/\\tau\\propto\\sqrt T$.</p>"
        },
        {
         "prompt": "(d) Phonon scattering.",
-        "reveal": "Measured: $\\rho\\propto T$ around and above room temperature, not $\\sqrt T$. Script 4.2.5: the electrons that carry current move with $v_F$, which does not depend on $T$; what changes is the number of phonons to scatter from. For $T\\gg T_D$: $n(\\hbar\\omega)\\approx k_BT/\\hbar\\omega\\propto T$, so $\\tau^{-1}\\propto T$ and $\\rho\\propto T$ (eq. 4.26). For $T\\ll T_D$: number of phonons $\\propto T^3$, and each collision transfers only a small momentum, which costs another $T^2$: $\\rho\\propto T^5$ (eq. 4.29), on top of a constant residual resistivity from defects (eq. 4.32). So Drude’s picture gets both ingredients wrong: the speed is $v_F$, and the mean free path is not constant, $\\lambda\\propto1/T$ at high $T$."
+        "reveal": "Measured: $\\rho\\propto T$ around and above room temperature, not $\\sqrt T$. Script 4.2.5: the electrons that carry current move with $v_F$, which does not depend on $T$; what changes is the number of phonons to scatter from. For $T\\gg T_D$: $n(\\hbar\\omega)\\approx k_BT/\\hbar\\omega\\propto T$, so $\\tau^{-1}\\propto T$ and $\\rho\\propto T$ (eq. 4.26). For $T\\ll T_D$: number of phonons $\\propto T^3$, and each collision transfers only a small momentum, which costs another $T^2$: $\\rho\\propto T^5$ (eq. 4.29), on top of a constant residual resistivity from defects (eq. 4.32). So Drude’s picture gets both ingredients wrong: the speed is $v_F$, and the mean free path is not constant, $\\lambda\\propto1/T$ at high $T$.",
+        "explain": "<p><b>Why this is wrong in reality.</b> (1) The current is carried by electrons at the Fermi surface, whose speed $v_F$ does not depend on\n    $T$. (2) The collisions are with phonons, and their number grows with $T$: at high $T$ the phonon occupation is $\\approx k_BT/\\hbar\\omega$, so\n    the collision rate $\\propto T$ and $\\rho\\propto T$. At low $T$ fewer phonons ($\\propto T^3$) and each only deflects by a small angle, which\n    adds another $T^2$: $\\rho\\propto T^5$ plus a constant from defects.</p>"
        }
       ],
       "keyPoints": [
@@ -1287,23 +1372,28 @@
       "steps": [
        {
         "prompt": "(a) Current density.",
-        "reveal": "$\\mathbf J=-en_e\\mathbf v_e+en_h\\mathbf v_h$."
+        "reveal": "$\\mathbf J=-en_e\\mathbf v_e+en_h\\mathbf v_h$.",
+        "explain": "<p>Current = charge × density × velocity, summed over carriers: electrons carry $-e$, holes $+e$.</p>"
        },
        {
         "prompt": "(b) Drift velocities.",
-        "reveal": "Drude equation with the Lorentz force (script eq. 4.1), steady state $\\dot{\\mathbf v}=0$: electrons $\\frac{m_e\\mathbf v_e}{\\tau_e}=-e(\\mathbf E+\\mathbf v_e\\times\\mathbf B)$, holes $\\frac{m_h\\mathbf v_h}{\\tau_h}=+e(\\mathbf E+\\mathbf v_h\\times\\mathbf B)$. Hence the stated forms with the mobilities $\\mu_e=\\frac{e\\tau_e}{m_e}$, $\\mu_h=\\frac{e\\tau_h}{m_h}$ (both positive, script eq. 4.5)."
+        "reveal": "Drude equation with the Lorentz force (script eq. 4.1), steady state $\\dot{\\mathbf v}=0$: electrons $\\frac{m_e\\mathbf v_e}{\\tau_e}=-e(\\mathbf E+\\mathbf v_e\\times\\mathbf B)$, holes $\\frac{m_h\\mathbf v_h}{\\tau_h}=+e(\\mathbf E+\\mathbf v_h\\times\\mathbf B)$. Hence the stated forms with the mobilities $\\mu_e=\\frac{e\\tau_e}{m_e}$, $\\mu_h=\\frac{e\\tau_h}{m_h}$ (both positive, script eq. 4.5).",
+        "explain": "<p><b>Drude with a magnetic field:</b> $m\\dot{\\mathbf v}=q(\\mathbf E+\\mathbf v\\times\\mathbf B)-m\\mathbf v/\\tau$ (force minus friction from collisions). In a\n    steady current nothing accelerates, $\\dot{\\mathbf v}=0$, so $m\\mathbf v/\\tau=q(\\mathbf E+\\mathbf v\\times\\mathbf B)$. Dividing by $m/\\tau$ gives the stated forms; the\n    mobility $\\mu=e\\tau/m$ is \"drift speed per field\".</p>"
        },
        {
         "prompt": "(c) $J_x$.",
-        "reveal": "$(\\mathbf v\\times\\mathbf B)_x=v_yB_z$. $v_{e,x}=-\\mu_e(E_x+v_{e,y}B_z)\\approx-\\mu_eE_x$, $v_{h,x}\\approx\\mu_hE_x$. $J_x=-en_ev_{e,x}+en_hv_{h,x}=eE_x(n_e\\mu_e+n_h\\mu_h)$. The carriers drift in opposite directions but carry opposite charge, so both currents point along $+x$: conductivities add, $\\sigma=e(n_e\\mu_e+n_h\\mu_h)$."
+        "reveal": "$(\\mathbf v\\times\\mathbf B)_x=v_yB_z$. $v_{e,x}=-\\mu_e(E_x+v_{e,y}B_z)\\approx-\\mu_eE_x$, $v_{h,x}\\approx\\mu_hE_x$. $J_x=-en_ev_{e,x}+en_hv_{h,x}=eE_x(n_e\\mu_e+n_h\\mu_h)$. The carriers drift in opposite directions but carry opposite charge, so both currents point along $+x$: conductivities add, $\\sigma=e(n_e\\mu_e+n_h\\mu_h)$.",
+        "explain": "<p><b>The $x$ component</b> of $\\mathbf v\\times\\mathbf B$ with $\\mathbf B=B_z\\hat z$ is $v_yB_z$. The assumption $E_x\\gg v_yB_z$ drops it, leaving $v_x=\\mp\\mu E_x$.\n    Electrons drift against the field, holes along it; both currents point along $+x$ because the charges have opposite signs. So the\n    conductivities simply add.</p>"
        },
        {
         "prompt": "(d) $J_y$.",
-        "reveal": "$(\\mathbf v\\times\\mathbf B)_y=-v_xB_z$. $v_{e,y}=-\\mu_e(E_y-v_{e,x}B_z)=-\\mu_eE_y-\\mu_e^2E_xB_z$; $v_{h,y}=\\mu_h(E_y-v_{h,x}B_z)=\\mu_hE_y-\\mu_h^2E_xB_z$. Both kinds are deflected to the <b>same</b> side ($-y$). $J_y=-en_ev_{e,y}+en_hv_{h,y}=eE_y(n_e\\mu_e+n_h\\mu_h)+eB_zE_x(n_e\\mu_e^2-n_h\\mu_h^2)$. Boundary condition: $J_y=0$ (the individual $v_y$ are not zero: electrons and holes both flow to the same edge, where they recombine)."
+        "reveal": "$(\\mathbf v\\times\\mathbf B)_y=-v_xB_z$. $v_{e,y}=-\\mu_e(E_y-v_{e,x}B_z)=-\\mu_eE_y-\\mu_e^2E_xB_z$; $v_{h,y}=\\mu_h(E_y-v_{h,x}B_z)=\\mu_hE_y-\\mu_h^2E_xB_z$. Both kinds are deflected to the <b>same</b> side ($-y$). $J_y=-en_ev_{e,y}+en_hv_{h,y}=eE_y(n_e\\mu_e+n_h\\mu_h)+eB_zE_x(n_e\\mu_e^2-n_h\\mu_h^2)$. Boundary condition: $J_y=0$ (the individual $v_y$ are not zero: electrons and holes both flow to the same edge, where they recombine).",
+        "explain": "<p><b>The $y$ component</b> of $\\mathbf v\\times\\mathbf B$ is $-v_xB_z$. Insert $v_x$ from (c): the magnetic force on electrons and on holes points the same\n    way (both kinds are pushed to the same edge), which is why their contributions to $J_y$ come with opposite signs in charge but add up\n    with $\\mu^2$.</p>\n    <p><b>Boundary condition:</b> the sample has edges, no current can leave in $y$, so in steady state $J_y=0$. A transverse field $E_y$ (the\n    Hall field) builds up until it cancels the magnetic push.</p>"
        },
        {
         "prompt": "(e) Hall field and coefficient.",
-        "reveal": "$J_y=0$: $E_y=E_xB_z\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{n_e\\mu_e+n_h\\mu_h}$; insert $E_x=\\frac{J_x}{e(n_e\\mu_e+n_h\\mu_h)}$: $E_y=J_xB_z\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{e(n_h\\mu_h+n_e\\mu_e)^2}$, so $R_H=\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{e(n_h\\mu_h+n_e\\mu_e)^2}$. Checks: $n_h=0$ gives $-\\frac1{n_ee}$ (script eq. 4.9), $n_e=0$ gives $+\\frac1{n_he}$. The sign is set by $n\\mu^2$, not by $n$ alone: a few very mobile carriers can outweigh many slow ones, and for $n_h\\mu_h^2=n_e\\mu_e^2$ the Hall voltage vanishes although current flows."
+        "reveal": "$J_y=0$: $E_y=E_xB_z\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{n_e\\mu_e+n_h\\mu_h}$; insert $E_x=\\frac{J_x}{e(n_e\\mu_e+n_h\\mu_h)}$: $E_y=J_xB_z\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{e(n_h\\mu_h+n_e\\mu_e)^2}$, so $R_H=\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{e(n_h\\mu_h+n_e\\mu_e)^2}$. Checks: $n_h=0$ gives $-\\frac1{n_ee}$ (script eq. 4.9), $n_e=0$ gives $+\\frac1{n_he}$. The sign is set by $n\\mu^2$, not by $n$ alone: a few very mobile carriers can outweigh many slow ones, and for $n_h\\mu_h^2=n_e\\mu_e^2$ the Hall voltage vanishes although current flows.",
+        "explain": "<p><b>Algebra:</b> set $J_y=0$ in (d), solve for $E_y$, and replace $E_x$ by $J_x/\\sigma$ from (c). $R_H=E_y/(J_xB_z)$.</p>\n    <p><b>Sign:</b> each carrier type contributes with weight $n\\mu^2$: electrons negative, holes positive. One type only gives the familiar\n    $\\mp1/(ne)$. With both, a small number of very mobile carriers can decide the sign, so the sign of $R_H$ alone does not tell you which\n    carriers are in the majority.</p>"
        }
       ],
       "keyPoints": [

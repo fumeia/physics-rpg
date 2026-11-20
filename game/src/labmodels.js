@@ -41,7 +41,16 @@ export function chainOmega(q, M1, M2, k = 1, a = 1) {
   const s = k * (1 / M1 + 1 / M2), d = Math.sqrt(Math.max(0, s * s * 0 + k * k * ((1 / M1 + 1 / M2) ** 2 - (2 / (M1 * M2)) * (1 - Math.cos(q * a)))));
   return { ac: Math.sqrt(Math.max(0, s - d)), op: Math.sqrt(s + d) };
 }
-export const chainRatio = (q, M1, M2, k, a, omega) => (2 * k - M1 * omega * omega) / (2 * k * Math.cos((q * a) / 2) || 1e-9); // V/U
+export const chainRatio = (q, M1, M2, k, a, omega) => (2 * k - M1 * omega * omega) / (2 * k * Math.cos((q * a) / 2) || 1e-9); // V/U (kept for old callers)
+// amplitudes (U on M1, V on M2) of a mode, normalised so the larger one is 1, from whichever equation of motion is well conditioned:
+// M1: (U, V) ∝ (2k cos(qa/2), 2k − M1ω²); M2: (U, V) ∝ (2k − M2ω², 2k cos(qa/2)). At the zone edge cos(qa/2) = 0, so only one
+// sublattice moves (heavy: acoustic, light: optical); for equal masses there both vectors vanish (degenerate): V/U = ±1 (monatomic limit).
+export function chainAmps(q, M1, M2, k, a, omega, optical) {
+  const c = 2 * k * Math.cos((q * a) / 2), v1 = [c, 2 * k - M1 * omega * omega], v2 = [2 * k - M2 * omega * omega, c];
+  const n1 = Math.hypot(...v1), n2 = Math.hypot(...v2), v = n1 >= n2 ? v1 : v2, n = Math.max(n1, n2);
+  if (n < 1e-9 * k) return { U: 1, V: optical ? -1 : 1 };
+  const m = Math.max(Math.abs(v[0]), Math.abs(v[1])); return { U: v[0] / m, V: v[1] / m };
+}
 
 // ---- specific heat (per 3Nk): Debye and Einstein
 export function debyeC(T, Th) {

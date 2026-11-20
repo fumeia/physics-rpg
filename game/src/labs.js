@@ -134,13 +134,13 @@ export const LABS = {
       ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(ax.X(q), ax.Y(w), 5, 0, 7); ctx.fill();
       label(ctx, 'blue: acoustic   orange: optical   gap at the zone edge: $\\omega^2=2k/M_{\\rm heavy}$ and $2k/M_{\\rm light}$', ax.L + 6, ax.T + 14, '#9fb0d0');
       // atoms: displacement pattern of the chosen mode
-      const V = LM.chainRatio(q, 1, r, 1, 1, w), n = 12, y0 = H - 62; ctx.fillStyle = 'rgba(11,18,32,0.9)'; ctx.fillRect(ax.L + 1, y0 - 24, W - ax.L - ax.R - 2, 50);
+      const A = LM.chainAmps(q, 1, r, 1, 1, w, p.branch), n = 12, y0 = H - 62; ctx.fillStyle = 'rgba(11,18,32,0.9)'; ctx.fillRect(ax.L + 1, y0 - 24, W - ax.L - ax.R - 2, 50);
       for (let i = 0; i < n; i++) {
-        const light = i % 2 === 0, cell = Math.floor(i / 2), phase = light ? q * cell : q * (cell + 0.5), amp = (light ? 1 : V) * 10, x = ax.L + 20 + i * ((W - ax.L - ax.R - 40) / (n - 1)) + amp * Math.cos(phase - 2.4 * t);
+        const light = i % 2 === 0, cell = Math.floor(i / 2), phase = light ? q * cell : q * (cell + 0.5), amp = (light ? A.U : A.V) * 10, x = ax.L + 20 + i * ((W - ax.L - ax.R - 40) / (n - 1)) + amp * Math.cos(phase - 2.4 * t);
         ctx.fillStyle = light ? '#6cb6ff' : '#ffa94d'; ctx.beginPath(); ctx.arc(x, y0, light ? 7 : Math.min(13, 7 + 2 * Math.log(r + 1)), 0, 7); ctx.fill();
       }
     },
-    info: (p) => { const r = p.equal ? 1 : p.ratio, q = p.qa * Math.PI, e = LM.chainOmega(q, 1, r), edge = LM.chainOmega(Math.PI, 1, r); return `At $qa=${fmt(q)}$: $\\omega_{ac}=${fmt(e.ac)}$, $\\omega_{op}=${fmt(e.op)}$. Zone edge: $\\omega_{ac}=\\sqrt{2k/M_{heavy}}=${fmt(edge.ac)}$, $\\omega_{op}=\\sqrt{2k/M_{light}}=${fmt(edge.op)}$, gap $${fmt(edge.op - edge.ac)}$ ${p.equal ? '(equal masses: the gap closes and the chain is a monatomic one, folded)' : ''}. The group velocity $d\\omega/dq$ vanishes at the zone edge (standing waves).`; },
+    info: (p) => { const r = p.equal ? 1 : p.ratio, q = p.qa * Math.PI, e = LM.chainOmega(q, 1, r), edge = LM.chainOmega(Math.PI, 1, r); return `At $qa=${fmt(q)}$: $\\omega_{ac}=${fmt(e.ac)}$, $\\omega_{op}=${fmt(e.op)}$. Zone edge: $\\omega_{ac}=\\sqrt{2k/M_{heavy}}=${fmt(edge.ac)}$, $\\omega_{op}=\\sqrt{2k/M_{light}}=${fmt(edge.op)}$, gap $${fmt(edge.op - edge.ac)}$ ${p.equal ? '(equal masses: the gap closes and the chain is a monatomic one, folded)' : ''}. The group velocity $d\\omega/dq$ vanishes at the zone edge (standing waves): neighbouring cells move in antiphase, and only the heavy atoms move in the acoustic mode, only the light ones in the optical mode. At $q=0$ the acoustic mode is a rigid translation (all in phase), the optical mode has the two atoms of a cell against each other ($M_1U=-M_2V$, centre of mass at rest).`; },
   },
   // ---------------------------------------------------------------- solid state: Debye vs Einstein
   debye: {

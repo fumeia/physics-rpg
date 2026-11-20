@@ -31,15 +31,18 @@
       "steps": [
        {
         "prompt": "(i) Classical motion.",
-        "reveal": "With $\\vec k\\parallel\\hat e_3$ the motion is transverse: $\\vec x(t)=-\\frac{eE_0}{m\\omega^2}\\vec\\varepsilon(1-\\cos\\omega t)$. The electron oscillates at $\\omega$ and radiates as a dipole at the same frequency $\\omega$: no frequency shift classically."
+        "reveal": "With $\\vec k\\parallel\\hat e_3$ the motion is transverse: $\\vec x(t)=-\\frac{eE_0}{m\\omega^2}\\vec\\varepsilon(1-\\cos\\omega t)$. The electron oscillates at $\\omega$ and radiates as a dipole at the same frequency $\\omega$: no frequency shift classically.",
+        "explain": "<p><b>Why the field is just $\\cos\\omega t$.</b> The electron moves very little compared with the wavelength, so in $\\cos(kx-\\omega t)$\n    we can set $x\\approx0$: the electron feels a uniform field oscillating in time. Then $\\ddot{\\vec x}=-\\frac{eE_0}{m}\\vec\\varepsilon\\cos\\omega t$;\n    integrate twice with $\\vec x(0)=\\dot{\\vec x}(0)=0$.</p>\n    <p><b>The physics:</b> a charge shaken at $\\omega$ radiates at $\\omega$. Classical light is re-emitted at the same colour, whatever the angle.</p>"
        },
        {
         "prompt": "(ii) Four-momentum conservation.",
-        "reveal": "$(cp_1,\\vec p_1)+(mc^2,0)=(cp_2,\\vec p_2)+(\\sqrt{m^2c^4+p^2c^2},\\vec p)$. Eliminate the electron: $p^2=p_1^2-2p_1p_2\\cos\\theta+p_2^2$ (momentum), and from the energy $(p_1-p_2+mc)^2=m^2c^2+p^2$. Together $2p_1p_2(1-\\cos\\theta)=2mc(p_1-p_2)$; divide by $p_1p_2$ and use $\\lambda=h/p$."
+        "reveal": "$(cp_1,\\vec p_1)+(mc^2,0)=(cp_2,\\vec p_2)+(\\sqrt{m^2c^4+p^2c^2},\\vec p)$. Eliminate the electron: $p^2=p_1^2-2p_1p_2\\cos\\theta+p_2^2$ (momentum), and from the energy $(p_1-p_2+mc)^2=m^2c^2+p^2$. Together $2p_1p_2(1-\\cos\\theta)=2mc(p_1-p_2)$; divide by $p_1p_2$ and use $\\lambda=h/p$.",
+        "explain": "<p><b>Strategy:</b> two conservation laws (energy, momentum), and we do not care about the electron afterwards, so eliminate it.\n    Momentum: $\\vec p=\\vec p_1-\\vec p_2$, square it (law of cosines): $p^2=p_1^2+p_2^2-2p_1p_2\\cos\\theta$. Energy:\n    $cp_1+mc^2=cp_2+\\sqrt{m^2c^4+p^2c^2}$; isolate the root and square: $(p_1-p_2+mc)^2=m^2c^2+p^2$.</p>\n    <p><b>Combine:</b> expanding the left side, $p_1^2$, $p_2^2$ and $m^2c^2$ cancel against the right side, leaving\n    $2mc(p_1-p_2)=2p_1p_2(1-\\cos\\theta)$. Divide by $p_1p_2\\,mc$: $\\frac1{p_2}-\\frac1{p_1}=\\frac{1-\\cos\\theta}{mc}$, and $\\lambda=h/p$ turns this\n    into the shift.</p>"
        },
        {
         "prompt": "(iii) Limits.",
-        "reveal": "The shift is at most $2h/mc$ with $\\lambda_C=h/mc=2.42\\times10^{-12}$ m. For $\\lambda\\gg\\lambda_C$ (visible light, $10^{-7}$ m) the relative change is negligible: Thomson. Only hard X-rays and $\\gamma$-rays show it."
+        "reveal": "The shift is at most $2h/mc$ with $\\lambda_C=h/mc=2.42\\times10^{-12}$ m. For $\\lambda\\gg\\lambda_C$ (visible light, $10^{-7}$ m) the relative change is negligible: Thomson. Only hard X-rays and $\\gamma$-rays show it.",
+        "explain": "<p><b>Compare scales.</b> The shift is at most $2\\lambda_C\\approx5\\times10^{-12}$ m whatever the light. Relative to visible light\n    ($\\sim5\\times10^{-7}$ m) that is $10^{-5}$: invisible, and the photon picture reduces to the classical one. Only when $\\lambda$ is itself\n    of order picometres (X-rays, gamma rays) is the change noticeable.</p>"
        }
       ],
       "keyPoints": [
@@ -73,15 +76,18 @@
       "steps": [
        {
         "prompt": "(i) Standing wave.",
-        "reveal": "$\\frac{\\lambda}{r_n}=\\frac{h}{mv_nr_n}=\\frac{2\\pi\\hbar}{n\\hbar}=\\frac{2\\pi}n$: $n$ wavelengths fit on the circumference."
+        "reveal": "$\\frac{\\lambda}{r_n}=\\frac{h}{mv_nr_n}=\\frac{2\\pi\\hbar}{n\\hbar}=\\frac{2\\pi}n$: $n$ wavelengths fit on the circumference.",
+        "explain": "<p>Insert de Broglie $\\lambda=h/(mv_n)$ and divide by $r_n$: the denominator is $mv_nr_n$, which Bohr's rule sets to $n\\hbar$. With $h=2\\pi\\hbar$:\n    $\\lambda=2\\pi r_n/n$, i.e. the circumference holds exactly $n$ wavelengths. Bohr's mysterious rule is a standing-wave condition.</p>"
        },
        {
         "prompt": "(ii) Speed.",
-        "reveal": "$v_n=\\frac{n\\hbar}{mr_n}=\\frac{e^2}{n\\hbar}\\le v_1=\\alpha c=2.19\\times10^6$ m/s $\\ll c$ ($\\alpha\\approx1/137$)."
+        "reveal": "$v_n=\\frac{n\\hbar}{mr_n}=\\frac{e^2}{n\\hbar}\\le v_1=\\alpha c=2.19\\times10^6$ m/s $\\ll c$ ($\\alpha\\approx1/137$).",
+        "explain": "<p>From $mv_nr_n=n\\hbar$: $v_n=n\\hbar/(mr_n)$; insert $r_n$: $v_n=e^2/(n\\hbar)$. The largest is $n=1$, and $e^2/\\hbar=\\alpha c$ with\n    $\\alpha\\approx1/137$: under 1% of the speed of light, so non-relativistic QM is fine for hydrogen.</p>"
        },
        {
         "prompt": "(iii) Wavelength vs size.",
-        "reveal": "$E_n=-13.6\\ \\mathrm{eV}/n^2$, $\\lambda_{nm}=\\frac{hc}{E_n-E_m}\\ge\\lambda_{\\infty1}=\\frac{hc}{13.6\\ \\mathrm{eV}}\\approx91$ nm $\\gg a_0=0.053$ nm: the atom is tiny compared with its light (dipole approximation)."
+        "reveal": "$E_n=-13.6\\ \\mathrm{eV}/n^2$, $\\lambda_{nm}=\\frac{hc}{E_n-E_m}\\ge\\lambda_{\\infty1}=\\frac{hc}{13.6\\ \\mathrm{eV}}\\approx91$ nm $\\gg a_0=0.053$ nm: the atom is tiny compared with its light (dipole approximation).",
+        "explain": "<p>The shortest emitted wavelength belongs to the largest energy jump, $n=\\infty\\to1$, i.e. $13.6$ eV: $\\lambda=hc/13.6\\,\\mathrm{eV}\\approx91$ nm.\n    That is a thousand times the atom's size. So the light's field is practically uniform across the atom; this is why the dipole\n    approximation works.</p>"
        }
       ],
       "keyPoints": [
@@ -113,11 +119,13 @@
       "steps": [
        {
         "prompt": "Time derivative.",
-        "reveal": "$i\\hbar\\partial_t\\Psi_u=\\left[i\\hbar\\partial_t\\Psi-i\\hbar u\\,\\partial_x\\Psi+\\frac m2u^2\\Psi\\right]e^{imu(x-ut/2)/\\hbar}$ (arguments $x-ut,t$), and $i\\hbar\\partial_t\\Psi=-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi$."
+        "reveal": "$i\\hbar\\partial_t\\Psi_u=\\left[i\\hbar\\partial_t\\Psi-i\\hbar u\\,\\partial_x\\Psi+\\frac m2u^2\\Psi\\right]e^{imu(x-ut/2)/\\hbar}$ (arguments $x-ut,t$), and $i\\hbar\\partial_t\\Psi=-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi$.",
+        "explain": "<p><b>What is being checked:</b> moving with velocity $u$ (a Galilean boost) must map solutions to solutions. Physically a boosted\n    particle is shifted by $ut$ and has extra momentum $mu$; the phase $e^{imux/\\hbar}$ supplies that momentum.</p>\n    <p><b>The time derivative</b> hits three places: $\\Psi$ through its first argument $x-ut$ (gives $-u\\partial_x\\Psi$), through its second\n    argument $t$, and the phase (gives $-\\frac{imu^2}{2\\hbar}$). Multiply by $i\\hbar$.</p>"
        },
        {
         "prompt": "Space derivatives.",
-        "reveal": "$-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi_u=\\left[-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi-i\\hbar u\\,\\partial_x\\Psi+\\frac m2u^2\\Psi\\right]e^{imu(x-ut/2)/\\hbar}$: identical. The phase $e^{imux/\\hbar}$ is the boost of the momentum by $mu$."
+        "reveal": "$-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi_u=\\left[-\\frac{\\hbar^2}{2m}\\partial_x^2\\Psi-i\\hbar u\\,\\partial_x\\Psi+\\frac m2u^2\\Psi\\right]e^{imu(x-ut/2)/\\hbar}$: identical. The phase $e^{imux/\\hbar}$ is the boost of the momentum by $mu$.",
+        "explain": "<p><b>Two $x$-derivatives</b> of a product (product rule twice): $\\partial_x^2\\Psi$, a cross term $2\\cdot\\frac{imu}{\\hbar}\\partial_x\\Psi$ and\n    $\\left(\\frac{imu}{\\hbar}\\right)^2\\Psi$. Multiplying by $-\\frac{\\hbar^2}{2m}$ gives exactly the same three terms as the time side; the\n    $\\partial_x^2\\Psi$ and $i\\hbar\\partial_t\\Psi$ terms match because $\\Psi$ itself solves the equation.</p>"
        }
       ],
       "keyPoints": [
@@ -159,15 +167,18 @@
       "steps": [
        {
         "prompt": "First derivative.",
-        "reveal": "With the Schrödinger equation, $\\frac{d}{dt}\\langle x\\rangle=\\frac{i\\hbar}{2m}\\int x\\,\\partial_x(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)dx=-\\frac{i\\hbar}{2m}\\int(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)dx=\\frac{\\langle p\\rangle}{m}$ (integration by parts, no boundary terms)."
+        "reveal": "With the Schrödinger equation, $\\frac{d}{dt}\\langle x\\rangle=\\frac{i\\hbar}{2m}\\int x\\,\\partial_x(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)dx=-\\frac{i\\hbar}{2m}\\int(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)dx=\\frac{\\langle p\\rangle}{m}$ (integration by parts, no boundary terms).",
+        "explain": "<p><b>Where it comes from.</b> $\\frac{d}{dt}\\langle x\\rangle=\\int x\\,\\partial_t|\\Psi|^2dx$, and the Schrödinger equation turns $\\partial_t|\\Psi|^2$\n    into $-\\partial_xj$ (probability flows). One integration by parts moves the derivative off the current onto $x$ ($\\partial_xx=1$);\n    the boundary terms vanish for a normalisable $\\Psi$. What remains, $\\int j\\,dx$, is $\\langle p\\rangle/m$.</p>"
        },
        {
         "prompt": "Second derivative.",
-        "reveal": "$\\frac{d^2}{dt^2}\\langle x\\rangle=\\frac1m\\int\\left[(H\\Psi)^*\\partial_x\\Psi+\\partial_x\\Psi^*(H\\Psi)\\right]dx$; the kinetic terms cancel by parts, the potential terms give $\\int\\left[\\Psi^*V\\partial_x\\Psi+\\partial_x\\Psi^*V\\Psi\\right]=-\\int\\Psi^*(\\partial_xV)\\Psi$."
+        "reveal": "$\\frac{d^2}{dt^2}\\langle x\\rangle=\\frac1m\\int\\left[(H\\Psi)^*\\partial_x\\Psi+\\partial_x\\Psi^*(H\\Psi)\\right]dx$; the kinetic terms cancel by parts, the potential terms give $\\int\\left[\\Psi^*V\\partial_x\\Psi+\\partial_x\\Psi^*V\\Psi\\right]=-\\int\\Psi^*(\\partial_xV)\\Psi$.",
+        "explain": "<p><b>Differentiate again:</b> $\\frac{d}{dt}\\langle p\\rangle$ with $\\partial_t\\Psi=\\frac{1}{i\\hbar}H\\Psi$. The kinetic part of $H$ gives terms like\n    $\\Psi''^*\\Psi'$, which integrate to zero by parts (they are total derivatives). The potential part gives\n    $\\int(\\Psi^*V\\Psi'+\\Psi'^*V\\Psi)=\\int V\\,\\partial_x|\\Psi|^2$; by parts this is $-\\int V'|\\Psi|^2$.</p>"
        },
        {
         "prompt": "Result.",
-        "reveal": "$m\\frac{d^2}{dt^2}\\langle x\\rangle=-\\langle\\partial_xV\\rangle$: Newton for averages. Not $-V^\\prime(\\langle x\\rangle)$, except for at most quadratic $V$."
+        "reveal": "$m\\frac{d^2}{dt^2}\\langle x\\rangle=-\\langle\\partial_xV\\rangle$: Newton for averages. Not $-V^\\prime(\\langle x\\rangle)$, except for at most quadratic $V$.",
+        "explain": "<p><b>Reading the result:</b> mass times the acceleration of the <i>centre</i> of the wave packet equals the <i>average</i> force. It is\n    Newton's law for $\\langle x\\rangle$ only if $\\langle V'(x)\\rangle=V'(\\langle x\\rangle)$, which holds when $V'$ is linear, i.e. for free particles,\n    constant forces and the harmonic oscillator.</p>"
        }
       ],
       "keyPoints": [
@@ -201,11 +212,13 @@
       "steps": [
        {
         "prompt": "Write both.",
-        "reveal": "$\\langle H\\rangle=-\\frac{\\hbar^2}{2m}\\int\\Psi^*\\Psi^{\\prime\\prime}+\\langle V\\rangle$, $\\langle H\\rangle^*=-\\frac{\\hbar^2}{2m}\\int\\Psi^{*\\prime\\prime}\\Psi+\\langle V\\rangle$ ($V$ real)."
+        "reveal": "$\\langle H\\rangle=-\\frac{\\hbar^2}{2m}\\int\\Psi^*\\Psi^{\\prime\\prime}+\\langle V\\rangle$, $\\langle H\\rangle^*=-\\frac{\\hbar^2}{2m}\\int\\Psi^{*\\prime\\prime}\\Psi+\\langle V\\rangle$ ($V$ real).",
+        "explain": "<p><b>Take the complex conjugate</b> of $\\langle H\\rangle=\\int\\Psi^*H\\Psi$: $\\Psi^*\\leftrightarrow\\Psi$ swap, and $V$ is real so $\\langle V\\rangle$ is\n    unchanged. Only the kinetic term could differ: $\\int\\Psi^*\\Psi''$ versus $\\int\\Psi^{*\\prime\\prime}\\Psi$.</p>"
        },
        {
         "prompt": "Difference.",
-        "reveal": "$\\int(\\Psi^*\\Psi^{\\prime\\prime}-\\Psi^{*\\prime\\prime}\\Psi)=\\int(-\\Psi^{*\\prime}\\Psi^\\prime+\\Psi^{*\\prime}\\Psi^\\prime)=0$ by parts: $H$ is hermitian on normalisable states."
+        "reveal": "$\\int(\\Psi^*\\Psi^{\\prime\\prime}-\\Psi^{*\\prime\\prime}\\Psi)=\\int(-\\Psi^{*\\prime}\\Psi^\\prime+\\Psi^{*\\prime}\\Psi^\\prime)=0$ by parts: $H$ is hermitian on normalisable states.",
+        "explain": "<p><b>Integrate by parts once in each:</b> both become $-\\int\\Psi^{*\\prime}\\Psi'$ (boundary terms vanish because $\\Psi\\to0$). Equal, so the\n    difference is zero and $\\langle H\\rangle$ is real. This is the statement \"$H$ is hermitian\", and it is why energies are real.</p>"
        }
       ],
       "keyPoints": [
@@ -239,11 +252,13 @@
       "steps": [
        {
         "prompt": "Solution.",
-        "reveal": "Each $e^{\\pm ikx/\\hbar}e^{-iE_kt/\\hbar}$ solves it ($i\\hbar\\cdot(-iE_k/\\hbar)=\\frac{k^2}{2m}$), the time factor is even in $k$, and the equation is linear."
+        "reveal": "Each $e^{\\pm ikx/\\hbar}e^{-iE_kt/\\hbar}$ solves it ($i\\hbar\\cdot(-iE_k/\\hbar)=\\frac{k^2}{2m}$), the time factor is even in $k$, and the equation is linear.",
+        "explain": "<p>Here $k$ is a momentum (it is divided by $\\hbar$). Check one plane wave: $\\partial_x^2$ brings down $-k^2/\\hbar^2$, so\n    $-\\frac{\\hbar^2}{2m}\\partial_x^2\\to\\frac{k^2}{2m}$; $i\\hbar\\partial_t$ brings down $E_k$. Equal by definition of $E_k$. Both waves have the same $E_k$\n    (it depends on $k^2$), so their sum, with one common time factor, still solves the linear equation.</p>"
        },
        {
         "prompt": "Current.",
-        "reveal": "$j=\\frac{\\hbar}{2mi}(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)$: the cross terms $AB^*$ cancel, leaving $\\frac km(|A|^2-|B|^2)$: right-movers minus left-movers, each with velocity $k/m$ ($k$ is the momentum here)."
+        "reveal": "$j=\\frac{\\hbar}{2mi}(\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*)$: the cross terms $AB^*$ cancel, leaving $\\frac km(|A|^2-|B|^2)$: right-movers minus left-movers, each with velocity $k/m$ ($k$ is the momentum here).",
+        "explain": "<p><b>Insert into $j$:</b> $\\partial_x\\Psi$ multiplies $A$ by $\\frac{ik}\\hbar$ and $B$ by $-\\frac{ik}\\hbar$. In $\\Psi^*\\partial_x\\Psi-\\Psi\\partial_x\\Psi^*$ the mixed\n    terms $AB^*$ and $A^*B$ appear twice with opposite signs and cancel; the pure terms give $\\frac{2ik}{\\hbar}(|A|^2-|B|^2)$. So the current is\n    (velocity $k/m$) × (right-moving density minus left-moving density).</p>"
        }
       ],
       "keyPoints": [
@@ -285,19 +300,23 @@
       "steps": [
        {
         "prompt": "(i) Normalisation.",
-        "reveal": "$\\int|A|^2e^{-\\lambda x^2}dx=|A|^2\\sqrt{\\pi/\\lambda}=1$: $A=(\\lambda/\\pi)^{1/4}$ (up to a phase)."
+        "reveal": "$\\int|A|^2e^{-\\lambda x^2}dx=|A|^2\\sqrt{\\pi/\\lambda}=1$: $A=(\\lambda/\\pi)^{1/4}$ (up to a phase).",
+        "explain": "<p>Use the Gaussian integral $\\int e^{-\\lambda x^2}dx=\\sqrt{\\pi/\\lambda}$ (worth knowing by heart). Setting $|A|^2\\sqrt{\\pi/\\lambda}=1$ fixes $|A|$;\n    the phase of $A$ is free because it is unobservable.</p>"
        },
        {
         "prompt": "(ii) Potential.",
-        "reveal": "$\\Psi^{\\prime\\prime}=(\\lambda^2x^2-\\lambda)\\Psi$, so $V=\\frac{\\hbar^2\\lambda^2}{2m}x^2$ and $E=\\frac{\\hbar^2\\lambda}{2m}$: the harmonic oscillator ground state ($\\lambda=m\\omega/\\hbar$, $E=\\hbar\\omega/2$). Larger $\\lambda$: narrower bell."
+        "reveal": "$\\Psi^{\\prime\\prime}=(\\lambda^2x^2-\\lambda)\\Psi$, so $V=\\frac{\\hbar^2\\lambda^2}{2m}x^2$ and $E=\\frac{\\hbar^2\\lambda}{2m}$: the harmonic oscillator ground state ($\\lambda=m\\omega/\\hbar$, $E=\\hbar\\omega/2$). Larger $\\lambda$: narrower bell.",
+        "explain": "<p><b>Run the Schrödinger equation backwards:</b> differentiate $\\Psi$ twice, $\\Psi''=(\\lambda^2x^2-\\lambda)\\Psi$, insert into\n    $-\\frac{\\hbar^2}{2m}\\Psi''+V\\Psi=E\\Psi$ and divide by $\\Psi$. The $x^2$ part must be $V$, the constant part $E$ (with $V(0)=0$). A Gaussian is the\n    ground state of a parabola, with $\\lambda=m\\omega/\\hbar$.</p>"
        },
        {
         "prompt": "(iii) Uncertainties.",
-        "reveal": "$\\langle x\\rangle=\\langle p\\rangle=0$, $\\langle x^2\\rangle=\\frac1{2\\lambda}$ (differentiate $\\int e^{-\\lambda x^2}$ w.r.t. $\\lambda$), $\\langle p^2\\rangle=\\frac{\\hbar^2\\lambda}2$: $\\Delta x\\Delta p=\\frac\\hbar2$, the minimum."
+        "reveal": "$\\langle x\\rangle=\\langle p\\rangle=0$, $\\langle x^2\\rangle=\\frac1{2\\lambda}$ (differentiate $\\int e^{-\\lambda x^2}$ w.r.t. $\\lambda$), $\\langle p^2\\rangle=\\frac{\\hbar^2\\lambda}2$: $\\Delta x\\Delta p=\\frac\\hbar2$, the minimum.",
+        "explain": "<p><b>Symmetry</b> gives $\\langle x\\rangle=0$ (even $|\\Psi|^2$ times odd $x$) and $\\langle p\\rangle=0$ (real $\\Psi$).</p>\n    <p><b>The trick for $\\langle x^2\\rangle$:</b> $\\int x^2e^{-\\lambda x^2}dx=-\\frac{d}{d\\lambda}\\int e^{-\\lambda x^2}dx$, which gives $\\frac{1}{2\\lambda}$ after\n    normalising. <b>$\\langle p^2\\rangle$</b>$=\\hbar^2\\int|\\Psi'|^2dx=\\hbar^2\\lambda^2\\langle x^2\\rangle$. The product $\\frac{\\hbar}{2}$ is the smallest Heisenberg allows:\n    Gaussians are the minimum-uncertainty states.</p>"
        },
        {
         "prompt": "(iv) Localising.",
-        "reveal": "Large $\\lambda$ (steep trap) gives small $\\Delta x$, but $\\Delta p=\\hbar\\sqrt{\\lambda/2}$ and $E=\\hbar^2\\lambda/2m$ diverge: $\\Delta x\\to0$ costs infinite energy."
+        "reveal": "Large $\\lambda$ (steep trap) gives small $\\Delta x$, but $\\Delta p=\\hbar\\sqrt{\\lambda/2}$ and $E=\\hbar^2\\lambda/2m$ diverge: $\\Delta x\\to0$ costs infinite energy.",
+        "explain": "<p>$\\Delta x=1/\\sqrt{2\\lambda}$ shrinks as $\\lambda$ grows, but $\\Delta p\\propto\\sqrt\\lambda$ and $E\\propto\\lambda$ grow. Squeezing a particle into a point\n    needs an infinitely steep trap and infinite energy: localisation always costs kinetic energy.</p>"
        }
       ],
       "keyPoints": [
@@ -331,11 +350,13 @@
       "steps": [
        {
         "prompt": "(i) Overlap.",
-        "reveal": "$p_n=\\left|\\int_0^a\\sqrt{\\frac2a}\\sin\\frac{n\\pi x}{a}\\frac{1}{\\sqrt a}dx\\right|^2=\\frac{2}{n^2\\pi^2}(1-(-1)^n)^2=\\frac{8}{n^2\\pi^2}$ for odd $n$, 0 for even $n$."
+        "reveal": "$p_n=\\left|\\int_0^a\\sqrt{\\frac2a}\\sin\\frac{n\\pi x}{a}\\frac{1}{\\sqrt a}dx\\right|^2=\\frac{2}{n^2\\pi^2}(1-(-1)^n)^2=\\frac{8}{n^2\\pi^2}$ for odd $n$, 0 for even $n$.",
+        "explain": "<p><b>Measurement rule:</b> expand the state in energy eigenstates; the probability of $E_n$ is $|c_n|^2$ with $c_n=\\langle\\psi_n|\\Psi\\rangle$. The\n    integral of $\\sin\\frac{n\\pi x}{a}$ over the box is $\\frac{a}{n\\pi}(1-\\cos n\\pi)=\\frac{a}{n\\pi}(1-(-1)^n)$: zero for even $n$ (the sine is\n    antisymmetric about the middle, the constant state symmetric).</p>"
        },
        {
         "prompt": "(ii) Sums.",
-        "reveal": "$\\sum p_n=1\\Rightarrow\\sum_{\\rm odd}\\frac1{n^2}=\\frac{\\pi^2}8$. Then $\\zeta(2)=\\frac{\\zeta(2)}4+\\frac{\\pi^2}8$, so $\\zeta(2)=\\frac{\\pi^2}6$."
+        "reveal": "$\\sum p_n=1\\Rightarrow\\sum_{\\rm odd}\\frac1{n^2}=\\frac{\\pi^2}8$. Then $\\zeta(2)=\\frac{\\zeta(2)}4+\\frac{\\pi^2}8$, so $\\zeta(2)=\\frac{\\pi^2}6$.",
+        "explain": "<p><b>Probabilities sum to 1.</b> $\\sum_{n\\ \\rm odd}\\frac{8}{n^2\\pi^2}=1$ gives the odd sum. For all $n$: split $\\zeta(2)$ into even terms\n    $\\sum\\frac1{(2m)^2}=\\frac14\\zeta(2)$ and odd terms $\\frac{\\pi^2}8$, and solve. Physics producing a famous maths identity.</p>"
        }
       ],
       "keyPoints": [
@@ -368,15 +389,18 @@
       "steps": [
        {
         "prompt": "Mean.",
-        "reveal": "$\\langle x\\rangle=\\int_0^a\\frac{x}{a}\\left(1-\\cos\\frac{2\\pi nx}a\\right)dx=\\frac a2$ (the cosine term integrates to 0 by parts)."
+        "reveal": "$\\langle x\\rangle=\\int_0^a\\frac{x}{a}\\left(1-\\cos\\frac{2\\pi nx}a\\right)dx=\\frac a2$ (the cosine term integrates to 0 by parts).",
+        "explain": "<p>$|\\psi_n|^2=\\frac2a\\sin^2\\frac{n\\pi x}a=\\frac1a\\left(1-\\cos\\frac{2n\\pi x}a\\right)$ (double-angle formula). The constant part alone gives $a/2$; the\n    cosine part integrates to zero against $x$ (by parts, or by symmetry about $a/2$). The probability density is symmetric about the\n    middle, so the mean is the middle.</p>"
        },
        {
         "prompt": "Variance.",
-        "reveal": "$\\langle x^2\\rangle=\\frac{a^2}3-\\frac{a^2}{2\\pi^2n^2}$ (two integrations by parts), so $(\\Delta x)^2=\\frac{a^2}{12}-\\frac{a^2}{2\\pi^2n^2}$."
+        "reveal": "$\\langle x^2\\rangle=\\frac{a^2}3-\\frac{a^2}{2\\pi^2n^2}$ (two integrations by parts), so $(\\Delta x)^2=\\frac{a^2}{12}-\\frac{a^2}{2\\pi^2n^2}$.",
+        "explain": "<p>$\\langle x^2\\rangle$: the constant part gives $a^2/3$; the cosine part needs two integrations by parts and gives $-\\frac{a^2}{2\\pi^2n^2}$.\n    Then $(\\Delta x)^2=\\langle x^2\\rangle-\\langle x\\rangle^2$.</p>"
        },
        {
         "prompt": "Classical limit.",
-        "reveal": "A classical particle is uniform on $[0,a]$: $\\langle x\\rangle=a/2$, $(\\Delta x)^2=a^2/12$, reached for $n\\to\\infty$ (correspondence principle)."
+        "reveal": "A classical particle is uniform on $[0,a]$: $\\langle x\\rangle=a/2$, $(\\Delta x)^2=a^2/12$, reached for $n\\to\\infty$ (correspondence principle).",
+        "explain": "<p><b>Classical comparison:</b> a ball bouncing between walls spends equal time everywhere, so its position is uniformly distributed:\n    mean $a/2$, variance $a^2/12$ (the variance of a uniform distribution). The quantum correction $\\propto1/n^2$ disappears for highly excited\n    states: correspondence principle.</p>"
        }
       ],
       "keyPoints": [
@@ -410,15 +434,18 @@
       "steps": [
        {
         "prompt": "Expansion.",
-        "reveal": "$c_n=\\frac{\\sqrt2}{a}\\int_0^a\\sin\\frac{\\pi x}a\\sin\\frac{n\\pi x}{2a}dx$; with $2\\sin\\sin=\\cos-\\cos$: $c_2=\\frac1{\\sqrt2}$, and for $n\\ne2$: $c_n=\\frac{\\sin\\pi(1-n/2)}{\\sqrt2\\pi(1-n/2)}-\\frac{\\sin\\pi(1+n/2)}{\\sqrt2\\pi(1+n/2)}$, zero for even $n>2$."
+        "reveal": "$c_n=\\frac{\\sqrt2}{a}\\int_0^a\\sin\\frac{\\pi x}a\\sin\\frac{n\\pi x}{2a}dx$; with $2\\sin\\sin=\\cos-\\cos$: $c_2=\\frac1{\\sqrt2}$, and for $n\\ne2$: $c_n=\\frac{\\sin\\pi(1-n/2)}{\\sqrt2\\pi(1-n/2)}-\\frac{\\sin\\pi(1+n/2)}{\\sqrt2\\pi(1+n/2)}$, zero for even $n>2$.",
+        "explain": "<p><b>Sudden change:</b> the wave function has no time to change, only the Hamiltonian does. So expand the <i>old</i> state in the\n    eigenfunctions of the <i>new</i> box ($\\frac1{\\sqrt a}\\sin\\frac{n\\pi x}{2a}$ on $[0,2a]$), integrating only over $[0,a]$ where the old state lives.</p>\n    <p><b>The integral:</b> $\\sin A\\sin B=\\frac12[\\cos(A-B)-\\cos(A+B)]$ turns it into cosine integrals. For $n=2$ the two sines are the same function:\n    $c_2=\\frac{\\sqrt2}{a}\\cdot\\frac a2$. For even $n>2$ both terms contain $\\sin(\\text{integer}\\cdot\\pi)=0$.</p>"
        },
        {
         "prompt": "Time evolution and the probability.",
-        "reveal": "$\\Psi(x,t)=\\sum c_n\\psi_n(x)e^{-iE_nt/\\hbar}$. $E_2$ of the new box equals the old ground energy: probability $|c_2|^2=\\frac12$ (odd $n$: $P_n=\\frac{32}{\\pi^2(4-n^2)^2}$)."
+        "reveal": "$\\Psi(x,t)=\\sum c_n\\psi_n(x)e^{-iE_nt/\\hbar}$. $E_2$ of the new box equals the old ground energy: probability $|c_2|^2=\\frac12$ (odd $n$: $P_n=\\frac{32}{\\pi^2(4-n^2)^2}$).",
+        "explain": "<p>Each new eigenstate evolves with its own phase $e^{-iE_nt/\\hbar}$. The new $n=2$ level has $E_2=\\frac{4\\pi^2\\hbar^2}{8ma^2}$, exactly the old ground\n    energy (twice the box, twice the wavelength fits as the second harmonic). So \"energy unchanged\" means \"found in $n=2$\", probability\n    $|c_2|^2=\\frac12$.</p>"
        },
        {
         "prompt": "Classical picture.",
-        "reveal": "The particle bounces freely; moving a wall instantly (not touching it) does not change its kinetic energy. Quantum mechanically the mean energy is conserved too ($\\langle H\\rangle$ of the unchanged state), but individual outcomes spread."
+        "reveal": "The particle bounces freely; moving a wall instantly (not touching it) does not change its kinetic energy. Quantum mechanically the mean energy is conserved too ($\\langle H\\rangle$ of the unchanged state), but individual outcomes spread.",
+        "explain": "<p><b>Classically</b> nothing touches the particle when the wall jumps away, so its energy cannot change. Quantum mechanically the\n    <i>average</i> energy is unchanged too (same state, and $H$ inside $[0,a]$ is the same), but a single measurement can give other levels.</p>"
        }
       ],
       "keyPoints": [
@@ -459,15 +486,18 @@
       "steps": [
        {
         "prompt": "Jump condition.",
-        "reveal": "Integrate from $-\\epsilon$ to $\\epsilon$: $\\psi$ continuous, $\\frac{\\hbar^2}{2m}(\\psi^\\prime(0^+)-\\psi^\\prime(0^-))=V\\psi(0)$."
+        "reveal": "Integrate from $-\\epsilon$ to $\\epsilon$: $\\psi$ continuous, $\\frac{\\hbar^2}{2m}(\\psi^\\prime(0^+)-\\psi^\\prime(0^-))=V\\psi(0)$.",
+        "explain": "<p><b>Why integrate across the delta.</b> At $x=0$ the potential is infinite, so $\\psi''$ has a delta there too, i.e. $\\psi'$ jumps. Integrate the\n    Schrödinger equation from $-\\epsilon$ to $\\epsilon$: $\\int\\psi''=\\psi'(0^+)-\\psi'(0^-)$, $\\int E\\psi\\to0$, $\\int V\\delta\\psi=V\\psi(0)$. $\\psi$ itself stays\n    continuous (a jump in $\\psi$ would need a $\\delta'$).</p>"
        },
        {
         "prompt": "Solve.",
-        "reveal": "$1+R=T$ and $\\frac{\\hbar^2}{2m}\\frac{ik}{\\hbar}(T-1+R)=VT$ give $R=\\frac{-imV}{\\hbar k+imV}$, $T=\\frac{\\hbar k}{\\hbar k+imV}$."
+        "reveal": "$1+R=T$ and $\\frac{\\hbar^2}{2m}\\frac{ik}{\\hbar}(T-1+R)=VT$ give $R=\\frac{-imV}{\\hbar k+imV}$, $T=\\frac{\\hbar k}{\\hbar k+imV}$.",
+        "explain": "<p><b>Two conditions, two unknowns.</b> Continuity: $1+R=T$. Jump: with $\\psi'=\\frac{ik}\\hbar(\\dots)$ on both sides,\n    $\\frac{\\hbar^2}{2m}\\frac{ik}{\\hbar}(T-1+R)=VT$. Insert $T=1+R$ and solve for $R$; then $T=1+R$.</p>"
        },
        {
         "prompt": "Conservation.",
-        "reveal": "$|R|^2+|T|^2=\\frac{m^2V^2+\\hbar^2k^2}{\\hbar^2k^2+m^2V^2}=1$. High energies transmit, the sign of $V$ does not matter for $|T|$."
+        "reveal": "$|R|^2+|T|^2=\\frac{m^2V^2+\\hbar^2k^2}{\\hbar^2k^2+m^2V^2}=1$. High energies transmit, the sign of $V$ does not matter for $|T|$.",
+        "explain": "<p>$|R|^2=\\frac{m^2V^2}{\\hbar^2k^2+m^2V^2}$, $|T|^2=\\frac{\\hbar^2k^2}{\\hbar^2k^2+m^2V^2}$: they add to 1 (particles are neither created nor lost, sheet 4 Q3).\n    Fast particles ($k$ large) barely notice the spike. $V$ enters only as $V^2$: a delta wall and a delta well reflect equally.</p>"
        }
       ],
       "keyPoints": [
@@ -500,15 +530,18 @@
       "steps": [
        {
         "prompt": "Even ansatz.",
-        "reveal": "$\\psi=b\\cos kx$ inside, $e^{-\\kappa|x|}$ outside, $k=\\sqrt{2m(E+V_0)}/\\hbar$, $\\kappa=\\sqrt{-2mE}/\\hbar$; matching: $e^{-\\kappa a}=b\\cos ka$, $\\kappa e^{-\\kappa a}=bk\\sin ka$."
+        "reveal": "$\\psi=b\\cos kx$ inside, $e^{-\\kappa|x|}$ outside, $k=\\sqrt{2m(E+V_0)}/\\hbar$, $\\kappa=\\sqrt{-2mE}/\\hbar$; matching: $e^{-\\kappa a}=b\\cos ka$, $\\kappa e^{-\\kappa a}=bk\\sin ka$.",
+        "explain": "<p><b>Ground state is even</b> (no node), so inside take $\\cos kx$ and outside the decaying exponential. Match $\\psi$ and $\\psi'$ at\n    $x=a$ (the other side follows by symmetry).</p>"
        },
        {
         "prompt": "Limit.",
-        "reveal": "$ka\\to0$ (since $k\\sim\\sqrt{V_0}$, $a\\sim1/V_0$): $b=1$, $\\kappa=k^2a\\to\\frac{2mV_0a}{\\hbar^2}$, so $E_0=-\\frac{\\hbar^2\\kappa^2}{2m}=-\\frac{2m(V_0a)^2}{\\hbar^2}$, finite."
+        "reveal": "$ka\\to0$ (since $k\\sim\\sqrt{V_0}$, $a\\sim1/V_0$): $b=1$, $\\kappa=k^2a\\to\\frac{2mV_0a}{\\hbar^2}$, so $E_0=-\\frac{\\hbar^2\\kappa^2}{2m}=-\\frac{2m(V_0a)^2}{\\hbar^2}$, finite.",
+        "explain": "<p><b>The limit.</b> Divide the two matching equations: $\\kappa=k\\tan ka$. As $V_0\\to\\infty$ with $V_0a$ fixed, $k\\approx\\sqrt{2mV_0}/\\hbar$ grows\n    like $\\sqrt{V_0}$ but $a$ shrinks like $1/V_0$, so $ka\\to0$ and $\\tan ka\\approx ka$: $\\kappa=k^2a=\\frac{2mV_0a}{\\hbar^2}$, finite. The\n    energy $-\\hbar^2\\kappa^2/2m$ is finite and negative.</p>"
        },
        {
         "prompt": "Slicker.",
-        "reveal": "The well becomes $-2V_0a\\,\\delta(x)$; with the jump condition of Q1, $\\psi=e^{-\\kappa|x|}$ gives the same $\\kappa$. Exactly one bound state."
+        "reveal": "The well becomes $-2V_0a\\,\\delta(x)$; with the jump condition of Q1, $\\psi=e^{-\\kappa|x|}$ gives the same $\\kappa$. Exactly one bound state.",
+        "explain": "<p><b>Why this is a delta.</b> A deep narrow well with fixed area $\\int V\\,dx=-2V_0a$ is what a delta function is. Using the jump\n    condition of Q1 with strength $-2V_0a$ gives the same $\\kappa$ in one line. One bound state, as for every attractive delta.</p>"
        }
       ],
       "keyPoints": [
@@ -542,11 +575,13 @@
       "steps": [
        {
         "prompt": "(i) Constant current.",
-        "reveal": "$\\partial_xj=-\\partial_t|\\psi|^2=0$ for stationary states. Left: $j=\\frac{\\hbar k}m(1-|A|^2)$, right: $\\frac{\\hbar k}m|B|^2$: equal, so $|A|^2+|B|^2=1$: every particle is reflected or transmitted."
+        "reveal": "$\\partial_xj=-\\partial_t|\\psi|^2=0$ for stationary states. Left: $j=\\frac{\\hbar k}m(1-|A|^2)$, right: $\\frac{\\hbar k}m|B|^2$: equal, so $|A|^2+|B|^2=1$: every particle is reflected or transmitted.",
+        "explain": "<p><b>Continuity equation:</b> $\\partial_t|\\psi|^2+\\partial_xj=0$. A stationary state has $|\\psi|^2$ independent of time, so $\\partial_xj=0$: the\n    current is the same everywhere. Evaluate it far left (incoming minus reflected, sheet 2 Q3) and far right (transmitted) and set them\n    equal: reflection plus transmission probability is 1.</p>"
        },
        {
         "prompt": "(ii) Positive kinetic energy.",
-        "reveal": "$\\langle T\\rangle=\\frac{\\hbar^2}{2m}\\int|\\partial_x\\psi|^2\\ge0$ (by parts), strictly $>0$ for a normalisable state. Hence $\\langle H\\rangle\\ge V_{\\min}+\\langle T\\rangle>V_{\\min}$."
+        "reveal": "$\\langle T\\rangle=\\frac{\\hbar^2}{2m}\\int|\\partial_x\\psi|^2\\ge0$ (by parts), strictly $>0$ for a normalisable state. Hence $\\langle H\\rangle\\ge V_{\\min}+\\langle T\\rangle>V_{\\min}$.",
+        "explain": "<p><b>Kinetic energy is positive:</b> $\\langle T\\rangle=-\\frac{\\hbar^2}{2m}\\int\\psi^*\\psi''$, and one integration by parts gives $\\frac{\\hbar^2}{2m}\\int|\\psi'|^2\\ge0$;\n    zero only for a constant, which is not normalisable. Since $\\langle V\\rangle\\ge V_{\\min}$, every state, the ground state included, has energy\n    strictly above the bottom of the well: the particle can never just sit at the minimum.</p>"
        }
       ],
       "keyPoints": [
@@ -579,15 +614,18 @@
       "steps": [
        {
         "prompt": "Radial equation.",
-        "reveal": "$-\\frac{\\hbar^2}{2m}\\chi^{\\prime\\prime}+V(r)\\chi=E\\chi$ with $\\chi(0)=0$: the 1D well, but only odd solutions."
+        "reveal": "$-\\frac{\\hbar^2}{2m}\\chi^{\\prime\\prime}+V(r)\\chi=E\\chi$ with $\\chi(0)=0$: the 1D well, but only odd solutions.",
+        "explain": "<p><b>Why $\\chi=r\\psi$.</b> For a spherically symmetric $\\psi(r)$, $\\nabla^2\\psi=\\frac1r\\frac{d^2}{dr^2}(r\\psi)$. So with $\\chi=r\\psi$ the 3D equation\n    becomes the 1D Schrödinger equation for $\\chi$ on $r>0$. And $\\psi$ must stay finite at the origin, so $\\chi(0)=0$: like a 1D well with a\n    hard wall at the centre, i.e. only the odd 1D solutions survive.</p>"
        },
        {
         "prompt": "Matching.",
-        "reveal": "$\\chi=\\sin kr$ inside, $e^{-\\kappa r}$ outside; with $\\xi=ka$, $\\eta=\\kappa a$: $\\eta=-\\xi\\cot\\xi$ and $\\xi^2+\\eta^2=\\frac{2ma^2V}{\\hbar^2}$."
+        "reveal": "$\\chi=\\sin kr$ inside, $e^{-\\kappa r}$ outside; with $\\xi=ka$, $\\eta=\\kappa a$: $\\eta=-\\xi\\cot\\xi$ and $\\xi^2+\\eta^2=\\frac{2ma^2V}{\\hbar^2}$.",
+        "explain": "<p>Inside: $\\chi=\\sin kr$ (vanishes at 0). Outside: $e^{-\\kappa r}$. Matching $\\chi'/\\chi$ at $r=a$: $k\\cot ka=-\\kappa$. In dimensionless form\n    $\\eta=-\\xi\\cot\\xi$, and $\\xi^2+\\eta^2$ is fixed by the depth ($k^2+\\kappa^2=2mV/\\hbar^2$): a circle in the $(\\xi,\\eta)$ plane.</p>"
        },
        {
         "prompt": "Existence.",
-        "reveal": "$-\\xi\\cot\\xi<0$ for $\\xi<\\pi/2$, so a solution needs $\\frac{2ma^2V}{\\hbar^2}>\\frac{\\pi^2}4$: unlike 1D, a 3D well needs a minimum depth $V>\\frac{\\pi^2\\hbar^2}{8ma^2}$. The deuteron is barely bound."
+        "reveal": "$-\\xi\\cot\\xi<0$ for $\\xi<\\pi/2$, so a solution needs $\\frac{2ma^2V}{\\hbar^2}>\\frac{\\pi^2}4$: unlike 1D, a 3D well needs a minimum depth $V>\\frac{\\pi^2\\hbar^2}{8ma^2}$. The deuteron is barely bound.",
+        "explain": "<p><b>Graphical solution:</b> we need $\\eta>0$, but $-\\xi\\cot\\xi$ is negative until $\\xi=\\pi/2$. So the circle must have radius $>\\pi/2$:\n    a minimum depth. In 1D an even ground state exists for any depth; in 3D the wall at $r=0$ (the odd condition) removes it. The deuteron\n    is just above this threshold, so it has a single, weakly bound state.</p>"
        }
       ],
       "keyPoints": [
@@ -629,19 +667,23 @@
       "steps": [
        {
         "prompt": "(i) Step.",
-        "reveal": "Continuity of $\\psi,\\psi^\\prime$: $A_L+B_L=A_R+B_R$, $k(A_L-B_L)=q(A_R-B_R)$, so $M=\\frac12\\begin{pmatrix}1+\\eta&1-\\eta\\\\1-\\eta&1+\\eta\\end{pmatrix}$, $\\eta=q/k$."
+        "reveal": "Continuity of $\\psi,\\psi^\\prime$: $A_L+B_L=A_R+B_R$, $k(A_L-B_L)=q(A_R-B_R)$, so $M=\\frac12\\begin{pmatrix}1+\\eta&1-\\eta\\\\1-\\eta&1+\\eta\\end{pmatrix}$, $\\eta=q/k$.",
+        "explain": "<p><b>Idea of transfer matrices:</b> in each region with constant $V$ the solution is $Ae^{ikx}+Be^{-ikx}$, i.e. just two numbers. At a step,\n    continuity of $\\psi$ and $\\psi'$ gives two linear equations linking the left pair $(A_L,B_L)$ to the right pair $(A_R,B_R)$: a $2\\times2$ matrix.\n    Add and subtract the two equations to solve for $A_L$ and $B_L$.</p>"
        },
        {
         "prompt": "(ii)-(iii) Propagation and chain.",
-        "reveal": "$N=\\mathrm{diag}(e^{-ik\\ell},e^{ik\\ell})$, $\\ell=x_2-x_1$. In general $\\binom{A_L}{B_L}=M_{n+1,n}N_nM_{n,n-1}\\cdots N_1M_{1,0}\\binom{A_R}{B_R}$."
+        "reveal": "$N=\\mathrm{diag}(e^{-ik\\ell},e^{ik\\ell})$, $\\ell=x_2-x_1$. In general $\\binom{A_L}{B_L}=M_{n+1,n}N_nM_{n,n-1}\\cdots N_1M_{1,0}\\binom{A_R}{B_R}$.",
+        "explain": "<p><b>Propagation:</b> moving the reference point by $\\ell$ multiplies $e^{\\pm ikx}$ by $e^{\\pm ik\\ell}$: a diagonal matrix. Any potential built\n    from steps is then a product of step and propagation matrices, read from right to left, like optics with lenses.</p>"
        },
        {
         "prompt": "(iv) Well.",
-        "reveal": "$M_{\\rm full}=M^{-1}NM$ with $q=\\sqrt{2m(E+V)}/\\hbar$. $N=I$ iff $q\\ell=2\\pi n$: the wave fits into the well, $M_{\\rm full}=I$, perfect transmission (resonance)."
+        "reveal": "$M_{\\rm full}=M^{-1}NM$ with $q=\\sqrt{2m(E+V)}/\\hbar$. $N=I$ iff $q\\ell=2\\pi n$: the wave fits into the well, $M_{\\rm full}=I$, perfect transmission (resonance).",
+        "explain": "<p><b>Resonance:</b> if $q\\ell$ is a multiple of $2\\pi$, the wave inside comes out with the same phase it went in, $N=I$, and the two step\n    matrices cancel ($M^{-1}M=I$): the well becomes invisible, transmission is perfect. Same physics as a Fabry–Pérot interferometer or the\n    Ramsauer effect.</p>"
        },
        {
         "prompt": "(v) Barrier.",
-        "reveal": "$q=i\\kappa$, $\\alpha=k/\\kappa$: $1=A_R(\\cosh\\kappa\\ell+\\frac i2\\frac{1-\\alpha^2}{\\alpha}\\sinh\\kappa\\ell)$, $B_L=A_R\\frac i2\\frac{1+\\alpha^2}\\alpha\\sinh\\kappa\\ell$; squaring gives $|A_R|^2+|B_L|^2=1$ and $T=|A_R|^2=\\left[1+\\frac{V^2}{4E(V-E)}\\sinh^2\\kappa\\ell\\right]^{-1}$. Classically $T=0$."
+        "reveal": "$q=i\\kappa$, $\\alpha=k/\\kappa$: $1=A_R(\\cosh\\kappa\\ell+\\frac i2\\frac{1-\\alpha^2}{\\alpha}\\sinh\\kappa\\ell)$, $B_L=A_R\\frac i2\\frac{1+\\alpha^2}\\alpha\\sinh\\kappa\\ell$; squaring gives $|A_R|^2+|B_L|^2=1$ and $T=|A_R|^2=\\left[1+\\frac{V^2}{4E(V-E)}\\sinh^2\\kappa\\ell\\right]^{-1}$. Classically $T=0$.",
+        "explain": "<p><b>Below the barrier</b> the inside wave number is imaginary, $q=i\\kappa$, and $e^{\\pm iq x}$ become growing and decaying exponentials;\n    cosh and sinh appear instead of cos and sin. Square $|A_R|$ to get $T$. For a thick barrier $\\sinh\\kappa\\ell\\approx\\frac12e^{\\kappa\\ell}$, so\n    $T\\propto e^{-2\\kappa\\ell}$: tunnelling.</p>"
        }
       ],
       "keyPoints": [
@@ -675,15 +717,18 @@
       "steps": [
        {
         "prompt": "(i) Rays.",
-        "reveal": "All probabilities $\\frac{|\\langle\\Phi|\\Psi\\rangle|^2}{\\langle\\Phi|\\Phi\\rangle\\langle\\Psi|\\Psi\\rangle}$ are unchanged by $\\mu$: physical states are rays."
+        "reveal": "All probabilities $\\frac{|\\langle\\Phi|\\Psi\\rangle|^2}{\\langle\\Phi|\\Phi\\rangle\\langle\\Psi|\\Psi\\rangle}$ are unchanged by $\\mu$: physical states are rays.",
+        "explain": "<p><b>Every probability formula is homogeneous:</b> numerator and denominator both contain $|\\mu|^2$. So $\\mu|\\Psi\\rangle$ predicts exactly the same\n    as $|\\Psi\\rangle$: a physical state is a whole line (ray) of vectors, not one vector.</p>"
        },
        {
         "prompt": "(ii)-(iii) Coordinates.",
-        "reveal": "$a|1\\rangle+b|2\\rangle\\sim|1\\rangle+\\frac ba|2\\rangle$ if $a\\ne0$; distinct $z$ are distinct rays. Only $|2\\rangle$ is missing, and it is the limit $|z|\\to\\infty$."
+        "reveal": "$a|1\\rangle+b|2\\rangle\\sim|1\\rangle+\\frac ba|2\\rangle$ if $a\\ne0$; distinct $z$ are distinct rays. Only $|2\\rangle$ is missing, and it is the limit $|z|\\to\\infty$.",
+        "explain": "<p><b>Choosing a representative:</b> if $a\\ne0$, divide by $a$: every ray with $a\\ne0$ contains exactly one vector of the form $|1\\rangle+z|2\\rangle$, and\n    $z=b/a$ labels it uniquely. The only ray missed has $a=0$: $|2\\rangle$, reached as $z\\to\\infty$.</p>"
        },
        {
         "prompt": "(iv) The sphere.",
-        "reveal": "$\\mathbb C\\cup\\{\\infty\\}$ is the Riemann sphere $S^2$ (stereographic projection): the Bloch sphere of a spin-$\\frac12$/qubit, $\\mathbb{CP}^1\\cong S^2$."
+        "reveal": "$\\mathbb C\\cup\\{\\infty\\}$ is the Riemann sphere $S^2$ (stereographic projection): the Bloch sphere of a spin-$\\frac12$/qubit, $\\mathbb{CP}^1\\cong S^2$.",
+        "explain": "<p>The complex plane plus one point at infinity is a sphere (stereographic projection). So the states of any two-level system form a\n    sphere: the Bloch sphere, with $|1\\rangle$ and $|2\\rangle$ at the poles.</p>"
        }
       ],
       "keyPoints": [
@@ -716,15 +761,18 @@
       "steps": [
        {
         "prompt": "(i) Adjoint.",
-        "reveal": "$\\langle f|iABg\\rangle=\\langle-iB^\\dagger A^\\dagger f|g\\rangle$ for all $f,g$. Then $(i[A,B])^\\dagger=-iBA+iAB=i[A,B]$."
+        "reveal": "$\\langle f|iABg\\rangle=\\langle-iB^\\dagger A^\\dagger f|g\\rangle$ for all $f,g$. Then $(i[A,B])^\\dagger=-iBA+iAB=i[A,B]$.",
+        "explain": "<p><b>Adjoint of a product:</b> move operators to the other side of the scalar product one by one, reversing the order; the $i$ becomes $-i$.\n    For the commutator, $(i[A,B])^\\dagger=-i(B^\\dagger A^\\dagger-A^\\dagger B^\\dagger)=-i(BA-AB)=i[A,B]$: hermitian. That is why $[x,p]=i\\hbar$ needs the $i$.</p>"
        },
        {
         "prompt": "(ii) Translation.",
-        "reveal": "$p^nx=xp^n-ni\\hbar p^{n-1}$, so $e^{iap/\\hbar}x=(x+a)e^{iap/\\hbar}$; multiply by $e^{-iap/\\hbar}$ from the right ($e^{iap/\\hbar}e^{-iap/\\hbar}=I$)."
+        "reveal": "$p^nx=xp^n-ni\\hbar p^{n-1}$, so $e^{iap/\\hbar}x=(x+a)e^{iap/\\hbar}$; multiply by $e^{-iap/\\hbar}$ from the right ($e^{iap/\\hbar}e^{-iap/\\hbar}=I$).",
+        "explain": "<p><b>Move $x$ through powers of $p$:</b> $[p,x]=-i\\hbar$, so each time $x$ passes one $p$ it leaves $-i\\hbar$ behind; for $p^n$ that happens $n$ times.\n    In the exponential series this produces $x\\,e^{iap/\\hbar}+a\\,e^{iap/\\hbar}$. So $e^{iap/\\hbar}$ shifts $x$ by $a$: momentum generates translations.</p>"
        },
        {
         "prompt": "(iii) Functions and Weyl.",
-        "reveal": "Conjugation is multiplicative, so $x^n\\to(x+a)^n$ and $f(x)\\to f(x+a)$. With $f=e^{ibx/\\hbar}$: $e^{iap/\\hbar}e^{ibx/\\hbar}=e^{ib(x+a)/\\hbar}e^{iap/\\hbar}$, the Weyl form."
+        "reveal": "Conjugation is multiplicative, so $x^n\\to(x+a)^n$ and $f(x)\\to f(x+a)$. With $f=e^{ibx/\\hbar}$: $e^{iap/\\hbar}e^{ibx/\\hbar}=e^{ib(x+a)/\\hbar}e^{iap/\\hbar}$, the Weyl form.",
+        "explain": "<p><b>Conjugation respects products:</b> $Ux^2U^{-1}=(UxU^{-1})(UxU^{-1})$. So every power and every power series in $x$ is shifted:\n    $f(x)\\to f(x+a)$. Taking $f=e^{ibx/\\hbar}$ gives an extra phase $e^{iba/\\hbar}$ when the two exponentials are swapped: Weyl's form of $[x,p]=i\\hbar$.</p>"
        }
       ],
       "keyPoints": [
@@ -765,19 +813,23 @@
       "steps": [
        {
         "prompt": "(i) Position space.",
-        "reveal": "$\\psi=Ae^{-\\kappa|x|}$, jump $\\frac{\\hbar^2}{2m}(\\psi^\\prime(0^+)-\\psi^\\prime(0^-))=-\\alpha\\psi(0)$ gives $\\kappa=\\frac{m\\alpha}{\\hbar^2}$, one bound state $E=-\\frac{m\\alpha^2}{2\\hbar^2}$."
+        "reveal": "$\\psi=Ae^{-\\kappa|x|}$, jump $\\frac{\\hbar^2}{2m}(\\psi^\\prime(0^+)-\\psi^\\prime(0^-))=-\\alpha\\psi(0)$ gives $\\kappa=\\frac{m\\alpha}{\\hbar^2}$, one bound state $E=-\\frac{m\\alpha^2}{2\\hbar^2}$.",
+        "explain": "<p>Same as sheet 4 Q1/Q2: away from 0 the solution decays like $e^{-\\kappa|x|}$; the jump in $\\psi'$ is $-2\\kappa\\psi(0)$, and the delta\n    demands $-\\frac{2m\\alpha}{\\hbar^2}\\psi(0)$. So $\\kappa=m\\alpha/\\hbar^2$ and one bound state.</p>"
        },
        {
         "prompt": "(ii)-(iii) Momentum space.",
-        "reveal": "Fourier transforming, $V\\psi$ becomes a convolution; $\\tilde V=-\\frac{\\alpha}{\\sqrt{2\\pi\\hbar}}$ is constant, so the integral term is $-\\frac{\\alpha C}{2\\pi\\hbar}$ and $\\left(\\frac{p^2}{2m}-E\\right)\\tilde\\psi=\\frac{\\alpha C}{2\\pi\\hbar}$: $\\tilde\\psi(p)=\\frac{\\alpha C}{2\\pi\\hbar}\\,\\frac{1}{p^2/2m-E}$, with $C=\\sqrt{2\\pi\\hbar}\\,\\psi(0)$."
+        "reveal": "Fourier transforming, $V\\psi$ becomes a convolution; $\\tilde V=-\\frac{\\alpha}{\\sqrt{2\\pi\\hbar}}$ is constant, so the integral term is $-\\frac{\\alpha C}{2\\pi\\hbar}$ and $\\left(\\frac{p^2}{2m}-E\\right)\\tilde\\psi=\\frac{\\alpha C}{2\\pi\\hbar}$: $\\tilde\\psi(p)=\\frac{\\alpha C}{2\\pi\\hbar}\\,\\frac{1}{p^2/2m-E}$, with $C=\\sqrt{2\\pi\\hbar}\\,\\psi(0)$.",
+        "explain": "<p><b>Fourier transforming the equation:</b> $p^2/2m$ becomes multiplication, and a product $V(x)\\psi(x)$ becomes a convolution of the\n    transforms. A delta in $x$ has a constant transform, so the convolution is just a constant times $\\int\\tilde\\psi\\,dp=C$. Then the equation is\n    algebraic: $(p^2/2m-E)\\tilde\\psi=$ const, solved by division.</p>"
        },
        {
         "prompt": "(iv)-(v) Consistency.",
-        "reveal": "Integrating both sides: $C=\\frac{m\\alpha C}{\\hbar\\sqrt{-2mE}}$, so $\\hbar\\sqrt{-2mE}=m\\alpha$: the same $E$. The transform of $e^{-\\kappa|x|}$ is a Lorentzian $\\propto\\frac{2\\kappa}{\\kappa^2+p^2/\\hbar^2}$: the same function."
+        "reveal": "Integrating both sides: $C=\\frac{m\\alpha C}{\\hbar\\sqrt{-2mE}}$, so $\\hbar\\sqrt{-2mE}=m\\alpha$: the same $E$. The transform of $e^{-\\kappa|x|}$ is a Lorentzian $\\propto\\frac{2\\kappa}{\\kappa^2+p^2/\\hbar^2}$: the same function.",
+        "explain": "<p><b>Self-consistency:</b> $C$ is defined as $\\int\\tilde\\psi\\,dp$, and $\\tilde\\psi$ contains $C$. Integrate the solution over $p$\n    ($\\int\\frac{dp}{p^2+2m|E|}=\\frac{\\pi}{\\sqrt{2m|E|}}$): $C$ cancels and an equation for $E$ remains, the same $E$ as in position space. The\n    shape $\\frac1{p^2+\\hbar^2\\kappa^2}$ (a Lorentzian) is indeed the Fourier transform of $e^{-\\kappa|x|}$.</p>"
        },
        {
         "prompt": "(vi) Failures.",
-        "reveal": "$E>0$: poles at $p=\\pm\\sqrt{2mE}$, $C$ diverges (scattering states are not normalisable). Barrier $+\\alpha^\\prime\\delta$: $-m\\alpha^\\prime=\\hbar\\sqrt{-2mE}>0$ is impossible: no bound state."
+        "reveal": "$E>0$: poles at $p=\\pm\\sqrt{2mE}$, $C$ diverges (scattering states are not normalisable). Barrier $+\\alpha^\\prime\\delta$: $-m\\alpha^\\prime=\\hbar\\sqrt{-2mE}>0$ is impossible: no bound state.",
+        "explain": "<p>For $E>0$ the denominator $p^2/2m-E$ vanishes at real $p$ and the integral diverges: scattering states are not normalisable, so there\n    is no bound state there. For a repulsive delta the condition would need $\\sqrt{-2mE}<0$, which is impossible: a barrier binds nothing.</p>"
        }
       ],
       "keyPoints": [
@@ -812,11 +864,13 @@
       "steps": [
        {
         "prompt": "Momentum.",
-        "reveal": "$\\langle p\\rangle=0$ (the integrand $\\sin\\cos$ is odd about $a/2$), $\\langle p^2\\rangle=\\left(\\frac{n\\pi\\hbar}a\\right)^2$ (also $=2mE_n$), so $\\Delta p=\\frac{n\\pi\\hbar}a$."
+        "reveal": "$\\langle p\\rangle=0$ (the integrand $\\sin\\cos$ is odd about $a/2$), $\\langle p^2\\rangle=\\left(\\frac{n\\pi\\hbar}a\\right)^2$ (also $=2mE_n$), so $\\Delta p=\\frac{n\\pi\\hbar}a$.",
+        "explain": "<p>$\\langle p\\rangle=-i\\hbar\\int\\psi\\psi'$: the integrand $\\sin\\cos$ is antisymmetric about the middle, so 0 (a real stationary state does\n    not move). $\\langle p^2\\rangle=2m\\langle T\\rangle=2mE_n$ since inside the box $V=0$: $\\left(\\frac{n\\pi\\hbar}{a}\\right)^2$.</p>"
        },
        {
         "prompt": "Product.",
-        "reveal": "$\\Delta x\\Delta p=\\frac\\hbar2\\sqrt{\\frac{n^2\\pi^2}3-2}\\ge\\frac\\hbar2\\times1.13$ for $n=1$, growing with $n$: Heisenberg holds, not saturated."
+        "reveal": "$\\Delta x\\Delta p=\\frac\\hbar2\\sqrt{\\frac{n^2\\pi^2}3-2}\\ge\\frac\\hbar2\\times1.13$ for $n=1$, growing with $n$: Heisenberg holds, not saturated.",
+        "explain": "<p>Multiply $\\Delta x$ from sheet 3 Q3 with $\\Delta p$: $\\frac\\hbar2\\sqrt{\\frac{n^2\\pi^2}{3}-2}$. Already for $n=1$ the root is $1.13>1$, so Heisenberg\n    holds but is not saturated (the box state is not a Gaussian).</p>"
        }
       ],
       "keyPoints": [
@@ -849,11 +903,13 @@
       "steps": [
        {
         "prompt": "Energy.",
-        "reveal": "$\\langle E\\rangle=\\frac{(\\Delta p)^2+\\langle p\\rangle^2}{2m}+\\frac k2\\left((\\Delta x)^2+\\langle x\\rangle^2\\right)\\ge\\frac{(\\Delta p)^2}{2m}+\\frac k2(\\Delta x)^2$."
+        "reveal": "$\\langle E\\rangle=\\frac{(\\Delta p)^2+\\langle p\\rangle^2}{2m}+\\frac k2\\left((\\Delta x)^2+\\langle x\\rangle^2\\right)\\ge\\frac{(\\Delta p)^2}{2m}+\\frac k2(\\Delta x)^2$.",
+        "explain": "<p><b>Rewrite with variances:</b> $\\langle p^2\\rangle=(\\Delta p)^2+\\langle p\\rangle^2$ (definition of variance), the same for $x$. Dropping the squares\n    of the means can only lower the value, hence \"$\\ge$\".</p>"
        },
        {
         "prompt": "Bound.",
-        "reveal": "Complete the square: $\\ge\\sqrt{k/m}\\,\\Delta x\\Delta p\\ge\\frac\\hbar2\\sqrt{k/m}=\\frac{\\hbar\\omega}2$ (or minimise $\\frac{\\mu}{2m}+\\frac{k\\hbar^2}{8\\mu}$ over $\\mu=(\\Delta p)^2$). The zero-point energy is forced by uncertainty, and it is exactly the true ground state."
+        "reveal": "Complete the square: $\\ge\\sqrt{k/m}\\,\\Delta x\\Delta p\\ge\\frac\\hbar2\\sqrt{k/m}=\\frac{\\hbar\\omega}2$ (or minimise $\\frac{\\mu}{2m}+\\frac{k\\hbar^2}{8\\mu}$ over $\\mu=(\\Delta p)^2$). The zero-point energy is forced by uncertainty, and it is exactly the true ground state.",
+        "explain": "<p><b>AM–GM inequality</b> $u+v\\ge2\\sqrt{uv}$ with $u=\\frac{(\\Delta p)^2}{2m}$, $v=\\frac k2(\\Delta x)^2$: $\\ge\\sqrt{k/m}\\,\\Delta x\\Delta p$, then Heisenberg.\n    Small $\\Delta x$ forces large $\\Delta p$ and vice versa; the best compromise costs $\\frac12\\hbar\\omega$. The oscillator ground state\n    saturates every step, so this bound is the exact ground energy.</p>"
        }
       ],
       "keyPoints": [
@@ -895,23 +951,28 @@
       "steps": [
        {
         "prompt": "(i) Two independent 1D oscillators.",
-        "reveal": "$a=\\frac1{\\sqrt2}(x+\\partial_x)$, $a^\\dagger=\\frac1{\\sqrt2}(x-\\partial_x)$, same for $b$ with $y$. $[a,a^\\dagger]=[b,b^\\dagger]=1$, all other commutators vanish. $a^\\dagger a=\\frac12(x^2-1-\\partial_x^2)$, hence $H=\\hbar\\omega(a^\\dagger a+b^\\dagger b+1)$."
+        "reveal": "$a=\\frac1{\\sqrt2}(x+\\partial_x)$, $a^\\dagger=\\frac1{\\sqrt2}(x-\\partial_x)$, same for $b$ with $y$. $[a,a^\\dagger]=[b,b^\\dagger]=1$, all other commutators vanish. $a^\\dagger a=\\frac12(x^2-1-\\partial_x^2)$, hence $H=\\hbar\\omega(a^\\dagger a+b^\\dagger b+1)$.",
+        "explain": "<p><b>Why it separates:</b> $H$ is a sum of an $x$ part and a $y$ part, each a 1D oscillator. So build ladder operators for each separately;\n    operators for different coordinates commute.</p>\n    <p><b>Check $a^\\dagger a$:</b> $\\frac12(x-\\partial_x)(x+\\partial_x)=\\frac12(x^2+x\\partial_x-\\partial_xx-\\partial_x^2)$, and $\\partial_x x-x\\partial_x=1$ (product rule), so\n    $a^\\dagger a=\\frac12(x^2-\\partial_x^2-1)$. Adding both coordinates: $H=\\hbar\\omega(a^\\dagger a+\\frac12+b^\\dagger b+\\frac12)$.</p>"
        },
        {
         "prompt": "(ii) Eigenstates and vacuum.",
-        "reveal": "$|m,n\\rangle=\\frac{(a^\\dagger)^m(b^\\dagger)^n}{\\sqrt{m!\\,n!}}|0,0\\rangle$, $E=\\hbar\\omega(m+n+1)$ (degeneracy $N+1$ at $E=\\hbar\\omega(N+1)$). $a|0\\rangle=b|0\\rangle=0$ gives $(x+\\partial_x)\\psi_0=(y+\\partial_y)\\psi_0=0$: $\\psi_0=\\pi^{-1/2}e^{-(x^2+y^2)/2}$."
+        "reveal": "$|m,n\\rangle=\\frac{(a^\\dagger)^m(b^\\dagger)^n}{\\sqrt{m!\\,n!}}|0,0\\rangle$, $E=\\hbar\\omega(m+n+1)$ (degeneracy $N+1$ at $E=\\hbar\\omega(N+1)$). $a|0\\rangle=b|0\\rangle=0$ gives $(x+\\partial_x)\\psi_0=(y+\\partial_y)\\psi_0=0$: $\\psi_0=\\pi^{-1/2}e^{-(x^2+y^2)/2}$.",
+        "explain": "<p><b>Eigenstates</b> are products: $m$ quanta in $x$ and $n$ in $y$. The energy depends only on $m+n=N$, and there are $N+1$ ways to\n    split $N$: degeneracy $N+1$. The vacuum is killed by $a$ and $b$, two first-order equations whose solution is the Gaussian.</p>"
        },
        {
         "prompt": "(iii) The symmetry.",
-        "reveal": "$H=\\hbar\\omega\\,(a^\\dagger\\ b^\\dagger)\\binom ab+\\hbar\\omega$ and $R^TR=I$, so $H$ is invariant. Since $x=(a+a^\\dagger)/\\sqrt2$, $y=(b+b^\\dagger)/\\sqrt2$, $x,y$ are rotated by the same $R(\\varphi)$: rotational symmetry of the isotropic oscillator."
+        "reveal": "$H=\\hbar\\omega\\,(a^\\dagger\\ b^\\dagger)\\binom ab+\\hbar\\omega$ and $R^TR=I$, so $H$ is invariant. Since $x=(a+a^\\dagger)/\\sqrt2$, $y=(b+b^\\dagger)/\\sqrt2$, $x,y$ are rotated by the same $R(\\varphi)$: rotational symmetry of the isotropic oscillator.",
+        "explain": "<p><b>Invariance:</b> $H$ contains $a^\\dagger a+b^\\dagger b$, the \"length squared\" of the vector $(a,b)$. A rotation (real orthogonal, $R^TR=I$) keeps\n    length. Since $x\\propto a+a^\\dagger$ and $y\\propto b+b^\\dagger$, rotating $(a,b)$ rotates $(x,y)$ by the same angle: the symmetry is ordinary\n    rotation of the plane.</p>"
        },
        {
         "prompt": "(iv) Generator.",
-        "reveal": "$\\frac{d}{d\\varphi}a(\\varphi)|_0=-b$, $\\frac{d}{d\\varphi}b(\\varphi)|_0=a$; $J=a^\\dagger b-b^\\dagger a$ does it ($[a^\\dagger b,a]=-b$, $[-b^\\dagger a,b]=a$). $iJ$ is (up to $\\hbar$) the angular momentum $L_z$."
+        "reveal": "$\\frac{d}{d\\varphi}a(\\varphi)|_0=-b$, $\\frac{d}{d\\varphi}b(\\varphi)|_0=a$; $J=a^\\dagger b-b^\\dagger a$ does it ($[a^\\dagger b,a]=-b$, $[-b^\\dagger a,b]=a$). $iJ$ is (up to $\\hbar$) the angular momentum $L_z$.",
+        "explain": "<p><b>Generator</b> = the derivative of the transformation at $\\varphi=0$: $a\\to a-\\varphi b$, $b\\to b+\\varphi a$. We need an operator whose\n    commutators reproduce this. Try $J=a^\\dagger b-b^\\dagger a$ and use $[a^\\dagger,a]=-1$: $[J,a]=-b$, $[J,b]=a$. Up to $i\\hbar$ it is $L_z$.</p>"
        },
        {
         "prompt": "(v) $[H,J]=0$ and the matrix of $J$.",
-        "reveal": "$[H,a^\\dagger b]=a^\\dagger(-\\hbar\\omega b)+\\hbar\\omega a^\\dagger b=0$, same for $b^\\dagger a$. $J|m,n\\rangle=\\sqrt{(m+1)n}|m+1,n-1\\rangle-\\sqrt{m(n+1)}|m-1,n+1\\rangle$. On $\\{|0,0\\rangle,|1,0\\rangle,|0,1\\rangle\\}$: $J=\\begin{pmatrix}0&0&0\\\\0&0&1\\\\0&-1&0\\end{pmatrix}$, eigenvectors $|0,0\\rangle$ (0), $\\frac1{\\sqrt2}(|1,0\\rangle\\pm i|0,1\\rangle)$ ($\\pm i$)."
+        "reveal": "$[H,a^\\dagger b]=a^\\dagger(-\\hbar\\omega b)+\\hbar\\omega a^\\dagger b=0$, same for $b^\\dagger a$. $J|m,n\\rangle=\\sqrt{(m+1)n}|m+1,n-1\\rangle-\\sqrt{m(n+1)}|m-1,n+1\\rangle$. On $\\{|0,0\\rangle,|1,0\\rangle,|0,1\\rangle\\}$: $J=\\begin{pmatrix}0&0&0\\\\0&0&1\\\\0&-1&0\\end{pmatrix}$, eigenvectors $|0,0\\rangle$ (0), $\\frac1{\\sqrt2}(|1,0\\rangle\\pm i|0,1\\rangle)$ ($\\pm i$).",
+        "explain": "<p><b>$[H,J]=0$:</b> $a^\\dagger b$ removes a quantum from $y$ and adds one to $x$, so it does not change $N$, hence not $E$. A conserved\n    operator can be diagonalised inside each energy level. On the level $N=1$ ($|1,0\\rangle,|0,1\\rangle$) $J$ is a $2\\times2$ antisymmetric matrix\n    with eigenvalues $\\pm i$: the combinations $|1,0\\rangle\\pm i|0,1\\rangle$, which are $x\\pm iy$ states, i.e. angular momentum $\\pm\\hbar$.</p>"
        }
       ],
       "keyPoints": [
@@ -949,27 +1010,33 @@
       "steps": [
        {
         "prompt": "(i) Expand in $|n\rangle$.",
-        "reveal": "$a\\sum c_n|n\\rangle=\\sum c_{n+1}\\sqrt{n+1}|n\\rangle=\\alpha\\sum c_n|n\\rangle$ gives $c_n=\\frac{\\alpha^n}{\\sqrt{n!}}c_0$, i.e. $|\\alpha\\rangle=c_0e^{\\alpha a^\\dagger}|0\\rangle$; normalisation $|c_0|^2e^{|\\alpha|^2}=1$."
+        "reveal": "$a\\sum c_n|n\\rangle=\\sum c_{n+1}\\sqrt{n+1}|n\\rangle=\\alpha\\sum c_n|n\\rangle$ gives $c_n=\\frac{\\alpha^n}{\\sqrt{n!}}c_0$, i.e. $|\\alpha\\rangle=c_0e^{\\alpha a^\\dagger}|0\\rangle$; normalisation $|c_0|^2e^{|\\alpha|^2}=1$.",
+        "explain": "<p><b>Expand in number states</b> $|\\alpha\\rangle=\\sum c_n|n\\rangle$. $a$ lowers: $a|n\\rangle=\\sqrt n|n-1\\rangle$. Comparing coefficients of $|n\\rangle$ in\n    $a|\\alpha\\rangle=\\alpha|\\alpha\\rangle$ gives $c_{n+1}\\sqrt{n+1}=\\alpha c_n$, so $c_n=\\frac{\\alpha^n}{\\sqrt{n!}}c_0$. And $\\frac{\\alpha^n}{\\sqrt{n!}}|n\\rangle=\\frac{(\\alpha a^\\dagger)^n}{n!}|0\\rangle$: the sum is\n    an exponential. Normalisation: $\\sum\\frac{|\\alpha|^{2n}}{n!}=e^{|\\alpha|^2}$.</p>"
        },
        {
         "prompt": "(ii) Time evolution.",
-        "reveal": "$e^{-iHt/\\hbar}|n\\rangle=e^{-i\\omega(n+\\frac12)t}|n\\rangle$, so $\\alpha^n\\to(\\alpha e^{-i\\omega t})^n$ and a global $e^{-i\\omega t/2}$: again coherent with $\\alpha(t)=\\alpha e^{-i\\omega t}$."
+        "reveal": "$e^{-iHt/\\hbar}|n\\rangle=e^{-i\\omega(n+\\frac12)t}|n\\rangle$, so $\\alpha^n\\to(\\alpha e^{-i\\omega t})^n$ and a global $e^{-i\\omega t/2}$: again coherent with $\\alpha(t)=\\alpha e^{-i\\omega t}$.",
+        "explain": "<p>Each $|n\\rangle$ picks up $e^{-i\\omega(n+\\frac12)t}$. The $n$-dependent part combines with $\\alpha^n$ into $(\\alpha e^{-i\\omega t})^n$; the $\\frac12$ is a common\n    phase. So a coherent state stays coherent, with $\\alpha$ turning in the complex plane at frequency $\\omega$.</p>"
        },
        {
         "prompt": "(iii) Expectation values.",
-        "reveal": "$x=\\sqrt{\\frac{\\hbar}{2m\\omega}}(a+a^\\dagger)$, $p=-i\\sqrt{\\frac{m\\hbar\\omega}2}(a-a^\\dagger)$: $\\langle x\\rangle=\\sqrt{\\frac{2\\hbar}{m\\omega}}|\\alpha|\\cos(\\omega t-\\phi_0)$, $\\langle p\\rangle=-\\sqrt{2m\\hbar\\omega}|\\alpha|\\sin(\\omega t-\\phi_0)$: the classical oscillation (Ehrenfest is exact for the oscillator, $\\langle V^\\prime(x)\\rangle=V^\\prime(\\langle x\\rangle)$)."
+        "reveal": "$x=\\sqrt{\\frac{\\hbar}{2m\\omega}}(a+a^\\dagger)$, $p=-i\\sqrt{\\frac{m\\hbar\\omega}2}(a-a^\\dagger)$: $\\langle x\\rangle=\\sqrt{\\frac{2\\hbar}{m\\omega}}|\\alpha|\\cos(\\omega t-\\phi_0)$, $\\langle p\\rangle=-\\sqrt{2m\\hbar\\omega}|\\alpha|\\sin(\\omega t-\\phi_0)$: the classical oscillation (Ehrenfest is exact for the oscillator, $\\langle V^\\prime(x)\\rangle=V^\\prime(\\langle x\\rangle)$).",
+        "explain": "<p>Write $x,p$ with $a,a^\\dagger$; then $\\langle a\\rangle=\\alpha(t)$ and $\\langle a^\\dagger\\rangle=\\bar\\alpha(t)$, so $\\langle x\\rangle\\propto\\mathrm{Re}\\,\\alpha(t)$, $\\langle p\\rangle\\propto\\mathrm{Im}\\,\\alpha(t)$:\n    a point going round a circle, which is exactly the classical oscillator. Ehrenfest (sheet 2) is exact here because the force is\n    linear.</p>"
        },
        {
         "prompt": "(iv) Minimal uncertainty.",
-        "reveal": "With $aa^\\dagger=a^\\dagger a+1$: $\\langle x^2\\rangle=\\frac{\\hbar}{2m\\omega}(1+2|\\alpha|^2+\\alpha^2+\\bar\\alpha^2)$, so $(\\Delta x)^2=\\frac{\\hbar}{2m\\omega}$, $(\\Delta p)^2=\\frac{m\\hbar\\omega}2$, $\\Delta x\\Delta p=\\hbar/2$ at all times."
+        "reveal": "With $aa^\\dagger=a^\\dagger a+1$: $\\langle x^2\\rangle=\\frac{\\hbar}{2m\\omega}(1+2|\\alpha|^2+\\alpha^2+\\bar\\alpha^2)$, so $(\\Delta x)^2=\\frac{\\hbar}{2m\\omega}$, $(\\Delta p)^2=\\frac{m\\hbar\\omega}2$, $\\Delta x\\Delta p=\\hbar/2$ at all times.",
+        "explain": "<p>For $\\langle x^2\\rangle$ expand $(a+a^\\dagger)^2$ and bring every $a$ to the right ($aa^\\dagger=a^\\dagger a+1$); then $a$ acts on the right ket\n    and $a^\\dagger$ on the left bra as $\\alpha$, $\\bar\\alpha$. The only $\\alpha$-independent leftover is the 1: $(\\Delta x)^2=\\frac{\\hbar}{2m\\omega}$, the\n    ground-state value. Coherent states are shifted ground states: minimal uncertainty forever.</p>"
        },
        {
         "prompt": "(v) Completeness.",
-        "reveal": "Polar coordinates $\\alpha=re^{i\\theta}$, $d\\alpha^*d\\alpha=2i\\,r\\,dr\\,d\\theta$: the $\\theta$ integral gives $2\\pi\\delta_{nm}$, then $\\frac{2}{n!}\\int_0^\\infty e^{-r^2}r^{2n+1}dr=\\frac{\\Gamma(n+1)}{n!}=1$: $\\sum_n|n\\rangle\\langle n|=I$."
+        "reveal": "Polar coordinates $\\alpha=re^{i\\theta}$, $d\\alpha^*d\\alpha=2i\\,r\\,dr\\,d\\theta$: the $\\theta$ integral gives $2\\pi\\delta_{nm}$, then $\\frac{2}{n!}\\int_0^\\infty e^{-r^2}r^{2n+1}dr=\\frac{\\Gamma(n+1)}{n!}=1$: $\\sum_n|n\\rangle\\langle n|=I$.",
+        "explain": "<p><b>Polar coordinates in the complex plane:</b> the angular integral of $e^{i(n-m)\\theta}$ is $2\\pi\\delta_{nm}$, so only diagonal terms\n    $|n\\rangle\\langle n|$ survive; the radial integral is a Gamma function equal to $n!$, which cancels the $1/n!$. What is left is\n    $\\sum_n|n\\rangle\\langle n|=I$. (Coherent states are overcomplete: not orthogonal, but they still resolve the identity.)</p>"
        },
        {
         "prompt": "(vi) Wave function.",
-        "reveal": "$\\left(\\sqrt{\\frac{m\\omega}{2\\hbar}}x+\\sqrt{\\frac{\\hbar}{2m\\omega}}\\frac{d}{dx}\\right)\\psi_\\alpha=\\alpha\\psi_\\alpha$ gives $\\psi_\\alpha=A\\exp\\left[-\\frac{m\\omega}{2\\hbar}\\left(x-\\sqrt{\\frac{2\\hbar}{m\\omega}}\\alpha\\right)^2\\right]$. For $\\alpha=0$ it is the ground state, which we already knew is Gaussian."
+        "reveal": "$\\left(\\sqrt{\\frac{m\\omega}{2\\hbar}}x+\\sqrt{\\frac{\\hbar}{2m\\omega}}\\frac{d}{dx}\\right)\\psi_\\alpha=\\alpha\\psi_\\alpha$ gives $\\psi_\\alpha=A\\exp\\left[-\\frac{m\\omega}{2\\hbar}\\left(x-\\sqrt{\\frac{2\\hbar}{m\\omega}}\\alpha\\right)^2\\right]$. For $\\alpha=0$ it is the ground state, which we already knew is Gaussian.",
+        "explain": "<p>In position space $a$ is the differential operator $\\sqrt{\\frac{m\\omega}{2\\hbar}}x+\\sqrt{\\frac{\\hbar}{2m\\omega}}\\frac{d}{dx}$. The eigenvalue equation is\n    first order, $\\psi'=(\\text{linear in }x)\\psi$, so $\\psi$ is the exponential of a quadratic: the ground-state Gaussian shifted to the\n    centre $\\sqrt{2\\hbar/m\\omega}\\,\\alpha$.</p>"
        }
       ],
       "keyPoints": [
@@ -1006,15 +1073,18 @@
       "steps": [
        {
         "prompt": "(i) Product of series.",
-        "reveal": "$\\prod_j\\left(\\sum_{n_j}s^{n_j}\\right)=\\sum_nc_ns^n$ where $c_n$ counts the terms with $n_1+\\dots+n_k=n$, i.e. $c_n=D_n^k$."
+        "reveal": "$\\prod_j\\left(\\sum_{n_j}s^{n_j}\\right)=\\sum_nc_ns^n$ where $c_n$ counts the terms with $n_1+\\dots+n_k=n$, i.e. $c_n=D_n^k$.",
+        "explain": "<p><b>Multiplying out</b> a product of $k$ series gives every term $s^{n_1}\\cdots s^{n_k}=s^{n_1+\\dots+n_k}$ once. Collecting all terms with the\n    same total $n$, their number is by definition $D_n^k$. This is a generating function: counting turned into algebra.</p>"
        },
        {
         "prompt": "(ii) Geometric series.",
-        "reveal": "Each factor is $(1-s)^{-1}$, so $F^k=(1-s)^{-k}=\\sum_n\\binom{n+k-1}{n}s^n$ (binomial series or $\\frac{1}{(k-1)!}\\frac{d^{k-1}}{ds^{k-1}}\\frac1{1-s}$)."
+        "reveal": "Each factor is $(1-s)^{-1}$, so $F^k=(1-s)^{-k}=\\sum_n\\binom{n+k-1}{n}s^n$ (binomial series or $\\frac{1}{(k-1)!}\\frac{d^{k-1}}{ds^{k-1}}\\frac1{1-s}$).",
+        "explain": "<p>Each factor is a geometric series $\\frac1{1-s}$, so $F^k=(1-s)^{-k}$. Its Taylor coefficients follow from the binomial series (or from\n    differentiating $\\frac1{1-s}$ $k-1$ times): $\\binom{n+k-1}{n}$, the \"stars and bars\" count.</p>"
        },
        {
         "prompt": "(iii) Oscillators.",
-        "reveal": "$E=\\hbar\\omega(N+\\frac k2)$ with $N=n_1+\\dots+n_k$: 2D $D_N^2=N+1$, 3D $D_N^3=\\frac{(N+1)(N+2)}2$ (1, 3, 6, 10, ...)."
+        "reveal": "$E=\\hbar\\omega(N+\\frac k2)$ with $N=n_1+\\dots+n_k$: 2D $D_N^2=N+1$, 3D $D_N^3=\\frac{(N+1)(N+2)}2$ (1, 3, 6, 10, ...).",
+        "explain": "<p>A $k$-dimensional isotropic oscillator has energy $\\hbar\\omega(n_1+\\dots+n_k+\\frac k2)$: the degeneracy of level $N$ is the number of ways\n    to distribute $N$ quanta over $k$ directions, $D_N^k$. For $k=2$: $N+1$; for $k=3$: $\\frac{(N+1)(N+2)}{2}$.</p>"
        }
       ],
       "keyPoints": [
@@ -1057,19 +1127,23 @@
       "steps": [
        {
         "prompt": "(i) The algebra.",
-        "reveal": "$[L_i,L_j]=\\varepsilon_{ikl}\\varepsilon_{jmn}[r_kp_l,r_mp_n]=i\\hbar(-\\varepsilon_{ikl}\\varepsilon_{jln}r_kp_n+\\varepsilon_{ikl}\\varepsilon_{jmk}r_mp_l)$; with $\\varepsilon\\varepsilon=\\delta\\delta-\\delta\\delta$ this is $i\\hbar(r_ip_j-r_jp_i)=i\\hbar\\varepsilon_{ijk}L_k$, since $\\varepsilon_{ijk}L_k=r_ip_j-r_jp_i$."
+        "reveal": "$[L_i,L_j]=\\varepsilon_{ikl}\\varepsilon_{jmn}[r_kp_l,r_mp_n]=i\\hbar(-\\varepsilon_{ikl}\\varepsilon_{jln}r_kp_n+\\varepsilon_{ikl}\\varepsilon_{jmk}r_mp_l)$; with $\\varepsilon\\varepsilon=\\delta\\delta-\\delta\\delta$ this is $i\\hbar(r_ip_j-r_jp_i)=i\\hbar\\varepsilon_{ijk}L_k$, since $\\varepsilon_{ijk}L_k=r_ip_j-r_jp_i$.",
+        "explain": "<p><b>Strategy:</b> write both $L$'s with $\\varepsilon$ and use $[AB,CD]$-rules: the only non-zero basic commutator is $[r_k,p_n]=i\\hbar\\delta_{kn}$,\n    so $[r_kp_l,r_mp_n]=r_k[p_l,r_m]p_n+r_m[r_k,p_n]p_l$, each term giving one Kronecker delta. Then contract two $\\varepsilon$'s with\n    $\\varepsilon_{ikl}\\varepsilon_{imn}=\\delta_{km}\\delta_{ln}-\\delta_{kn}\\delta_{lm}$ and recognise $r_ip_j-r_jp_i=\\varepsilon_{ijk}L_k$.</p>"
        },
        {
         "prompt": "$[L_3,\\vec L^2]$.",
-        "reveal": "$[L_3,L_1^2+L_2^2]=[L_3,L_1]L_1+L_1[L_3,L_1]+[L_3,L_2]L_2+L_2[L_3,L_2]=i\\hbar(L_2L_1+L_1L_2-L_1L_2-L_2L_1)=0$."
+        "reveal": "$[L_3,L_1^2+L_2^2]=[L_3,L_1]L_1+L_1[L_3,L_1]+[L_3,L_2]L_2+L_2[L_3,L_2]=i\\hbar(L_2L_1+L_1L_2-L_1L_2-L_2L_1)=0$.",
+        "explain": "<p><b>Product rule for commutators:</b> $[A,BC]=[A,B]C+B[A,C]$. Apply it to $L_1^2$ and $L_2^2$ and insert $[L_3,L_1]=i\\hbar L_2$,\n    $[L_3,L_2]=-i\\hbar L_1$: the four terms cancel in pairs. ($[L_3,L_3^2]=0$ trivially.) So $\\vec L^2$ and $L_3$ can be diagonalised together.</p>"
        },
        {
         "prompt": "(ii) The hint.",
-        "reveal": "$A|\\psi\\rangle=a|\\psi\\rangle$ with $a$ real: $\\langle\\psi|AB-BA|\\psi\\rangle=(a-a)\\langle\\psi|B|\\psi\\rangle=0$."
+        "reveal": "$A|\\psi\\rangle=a|\\psi\\rangle$ with $a$ real: $\\langle\\psi|AB-BA|\\psi\\rangle=(a-a)\\langle\\psi|B|\\psi\\rangle=0$.",
+        "explain": "<p><b>The hint in one line:</b> $\\langle\\psi|AB|\\psi\\rangle=a\\langle\\psi|B|\\psi\\rangle$ (A acts to the left on the bra, allowed because $A$ is self-adjoint and\n    $a$ real) and $\\langle\\psi|BA|\\psi\\rangle=a\\langle\\psi|B|\\psi\\rangle$ (A acts to the right). The difference vanishes.</p>"
        },
        {
         "prompt": "(ii) The expectation values.",
-        "reveal": "$[L_3,L_1L_2+L_2L_1]=2i\\hbar(L_2^2-L_1^2)$, so in $|l,m\\rangle$: $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$. With $L_1^2+L_2^2=\\vec L^2-L_3^2$: each is $\\frac{\\hbar^2}2[l(l+1)-m^2]$ (and $\\langle L_{1,2}\\rangle=0$, so these are the variances)."
+        "reveal": "$[L_3,L_1L_2+L_2L_1]=2i\\hbar(L_2^2-L_1^2)$, so in $|l,m\\rangle$: $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$. With $L_1^2+L_2^2=\\vec L^2-L_3^2$: each is $\\frac{\\hbar^2}2[l(l+1)-m^2]$ (and $\\langle L_{1,2}\\rangle=0$, so these are the variances).",
+        "explain": "<p><b>Use the hint with $A=L_3$:</b> the commutator $[L_3,L_1L_2+L_2L_1]$ works out to $2i\\hbar(L_2^2-L_1^2)$, and its expectation in an $L_3$\n    eigenstate is zero. So $\\langle L_1^2\\rangle=\\langle L_2^2\\rangle$. Their sum is $\\langle\\vec L^2-L_3^2\\rangle=\\hbar^2[l(l+1)-m^2]$; each gets half. Even with\n    $m=l$ this is not zero: the angular momentum can never point exactly along $z$.</p>"
        }
       ],
       "keyPoints": [
@@ -1106,15 +1180,18 @@
       "steps": [
        {
         "prompt": "(i) Antisymmetric matrices.",
-        "reveal": "$\\gamma^T\\gamma=I$ gives $\\dot\\gamma(0)^T+\\dot\\gamma(0)=0$; conversely $e^{tM}$ for antisymmetric $M$ is in SO(4). So so(4) = real antisymmetric $4\\times4$ matrices, 6-dimensional."
+        "reveal": "$\\gamma^T\\gamma=I$ gives $\\dot\\gamma(0)^T+\\dot\\gamma(0)=0$; conversely $e^{tM}$ for antisymmetric $M$ is in SO(4). So so(4) = real antisymmetric $4\\times4$ matrices, 6-dimensional.",
+        "explain": "<p><b>Lie algebra = velocities at the identity.</b> Differentiate $\\gamma(t)^T\\gamma(t)=I$ at $t=0$ (where $\\gamma=I$): $\\dot\\gamma^T+\\dot\\gamma=0$, so the\n    tangent vectors are antisymmetric. Conversely every antisymmetric $M$ gives the path $e^{tM}$ in SO(4). A $4\\times4$ antisymmetric\n    matrix has $\\binom42=6$ free entries: one rotation per plane of coordinates.</p>"
        },
        {
         "prompt": "(ii) Basis.",
-        "reveal": "$A_i$: rotations in the 3D block $(1,2,3)$, $(A_i)_{jk}=-\\varepsilon_{ijk}$ ($A_1$ rotates in the 2-3 plane, etc.); $B_i$: the \"boosts\" mixing coordinate $i$ with the 4th, $(B_i)_{4i}=1$, $(B_i)_{i4}=-1$. Compute $[A_1,A_2]=A_3$, $[B_1,B_2]=A_3$, $[A_1,B_2]=B_3$, $[A_1,B_3]=-B_2$, $[A_1,B_1]=0$; the rest follows by cyclic permutation of $1,2,3$."
+        "reveal": "$A_i$: rotations in the 3D block $(1,2,3)$, $(A_i)_{jk}=-\\varepsilon_{ijk}$ ($A_1$ rotates in the 2-3 plane, etc.); $B_i$: the \"boosts\" mixing coordinate $i$ with the 4th, $(B_i)_{4i}=1$, $(B_i)_{i4}=-1$. Compute $[A_1,A_2]=A_3$, $[B_1,B_2]=A_3$, $[A_1,B_2]=B_3$, $[A_1,B_3]=-B_2$, $[A_1,B_1]=0$; the rest follows by cyclic permutation of $1,2,3$.",
+        "explain": "<p><b>Split the 6 planes:</b> three planes inside the first three coordinates (ordinary rotations $A_i$, which satisfy the so(3) relations)\n    and three planes mixing coordinate $i$ with the fourth ($B_i$). Compute the matrix commutators explicitly for a few pairs; the others\n    follow by relabelling 1→2→3.</p>"
        },
        {
         "prompt": "(iii) Two commuting su(2).",
-        "reveal": "$X_i=\\frac12(A_i+B_i)$, $Y_i=\\frac12(A_i-B_i)$: $[X_i,X_j]=\\varepsilon_{ijk}X_k$, $[Y_i,Y_j]=\\varepsilon_{ijk}Y_k$, $[X_i,Y_j]=0$. In hydrogen these are $\\frac12(\\vec L\\pm\\vec D)$ built from $\\vec L$ and the Runge-Lenz vector: the origin of the $n^2$ degeneracy."
+        "reveal": "$X_i=\\frac12(A_i+B_i)$, $Y_i=\\frac12(A_i-B_i)$: $[X_i,X_j]=\\varepsilon_{ijk}X_k$, $[Y_i,Y_j]=\\varepsilon_{ijk}Y_k$, $[X_i,Y_j]=0$. In hydrogen these are $\\frac12(\\vec L\\pm\\vec D)$ built from $\\vec L$ and the Runge-Lenz vector: the origin of the $n^2$ degeneracy.",
+        "explain": "<p><b>Decouple:</b> the combinations $X=\\frac12(A+B)$ and $Y=\\frac12(A-B)$ each close on themselves and commute with each other: two\n    independent copies of su(2). In hydrogen $\\vec L$ and the Runge–Lenz vector play the roles of $A$ and $B$, so the symmetry is two\n    commuting \"spins\", and that is what produces the $n^2$ degeneracy (sheet 11).</p>"
        }
       ],
       "keyPoints": [
@@ -1151,19 +1228,23 @@
       "steps": [
        {
         "prompt": "(i) Commutators.",
-        "reveal": "Using $[a,a^\\dagger]=1$ and that $a$’s commute with $b$’s: $2[J_3,J_+]=a^\\dagger b+a^\\dagger b$, $2[J_3,J_-]=-2b^\\dagger a$, $[J_+,J_-]=a^\\dagger(1+b^\\dagger b)a-b^\\dagger(1+a^\\dagger a)b=a^\\dagger a-b^\\dagger b=2J_3$."
+        "reveal": "Using $[a,a^\\dagger]=1$ and that $a$’s commute with $b$’s: $2[J_3,J_+]=a^\\dagger b+a^\\dagger b$, $2[J_3,J_-]=-2b^\\dagger a$, $[J_+,J_-]=a^\\dagger(1+b^\\dagger b)a-b^\\dagger(1+a^\\dagger a)b=a^\\dagger a-b^\\dagger b=2J_3$.",
+        "explain": "<p><b>Tools:</b> $[a,a^\\dagger]=1$, $[b,b^\\dagger]=1$, everything with $a$ commutes with everything with $b$. Each $J$ is quadratic, so each\n    commutator reduces to one use of $[a,a^\\dagger]=1$ or $[b,b^\\dagger]=1$. For $[J_+,J_-]$: $a^\\dagger bb^\\dagger a-b^\\dagger aa^\\dagger b$; use $bb^\\dagger=1+b^\\dagger b$ and\n    $aa^\\dagger=1+a^\\dagger a$; the quartic terms cancel, leaving $a^\\dagger a-b^\\dagger b=2J_3$.</p>"
        },
        {
         "prompt": "(ii) $\\vec J^2$.",
-        "reveal": "$\\vec J^2=\\frac14(N_a-N_b)^2+\\frac12\\left(N_a(1+N_b)+N_b(1+N_a)\\right)=\\frac14(N_a+N_b)^2+\\frac12(N_a+N_b)=\\frac N2\\left(\\frac N2+1\\right)$."
+        "reveal": "$\\vec J^2=\\frac14(N_a-N_b)^2+\\frac12\\left(N_a(1+N_b)+N_b(1+N_a)\\right)=\\frac14(N_a+N_b)^2+\\frac12(N_a+N_b)=\\frac N2\\left(\\frac N2+1\\right)$.",
+        "explain": "<p>$\\vec J^2=J_3^2+\\frac12(J_+J_-+J_-J_+)$. Express everything with number operators $N_a=a^\\dagger a$, $N_b=b^\\dagger b$ (again using\n    $aa^\\dagger=N_a+1$); it simplifies to $\\frac N2(\\frac N2+1)$, i.e. $j(j+1)$ with $j=N/2$.</p>"
        },
        {
         "prompt": "(iii)-(iv) Action and relabelling.",
-        "reveal": "$J_+|n_a,n_b\\rangle=\\sqrt{n_b(n_a+1)}|n_a+1,n_b-1\\rangle$, $J_-|n_a,n_b\\rangle=\\sqrt{n_a(n_b+1)}|n_a-1,n_b+1\\rangle$, $J_3=\\frac12(n_a-n_b)$. With $n_a=j+m$, $n_b=j-m$: $J_\\pm|j,m\\rangle=\\sqrt{j(j+1)-m(m\\pm1)}|j,m\\pm1\\rangle$, $J_3|j,m\\rangle=m|j,m\\rangle$: the spin-$j$ representation (Schwinger representation)."
+        "reveal": "$J_+|n_a,n_b\\rangle=\\sqrt{n_b(n_a+1)}|n_a+1,n_b-1\\rangle$, $J_-|n_a,n_b\\rangle=\\sqrt{n_a(n_b+1)}|n_a-1,n_b+1\\rangle$, $J_3=\\frac12(n_a-n_b)$. With $n_a=j+m$, $n_b=j-m$: $J_\\pm|j,m\\rangle=\\sqrt{j(j+1)-m(m\\pm1)}|j,m\\pm1\\rangle$, $J_3|j,m\\rangle=m|j,m\\rangle$: the spin-$j$ representation (Schwinger representation).",
+        "explain": "<p><b>Action on number states:</b> $J_+=a^\\dagger b$ moves one quantum from $b$ to $a$ with the usual square-root factors. Relabel\n    $n_a=j+m$, $n_b=j-m$: the factor $\\sqrt{n_b(n_a+1)}=\\sqrt{(j-m)(j+m+1)}=\\sqrt{j(j+1)-m(m+1)}$, the standard spin formula. Two oscillators\n    \"are\" a spin: Schwinger's trick.</p>"
        },
        {
         "prompt": "(v) Hidden symmetry.",
-        "reveal": "$[J_+,N_a+N_b]=[a^\\dagger,N_a]b+a^\\dagger[b,N_b]=-a^\\dagger b+a^\\dagger b=0$, same for $J_-$, $J_3$. The level $E=\\hbar\\omega(N+1)$ is the spin $j=N/2$ multiplet: dimension $N+1$, exactly its degeneracy."
+        "reveal": "$[J_+,N_a+N_b]=[a^\\dagger,N_a]b+a^\\dagger[b,N_b]=-a^\\dagger b+a^\\dagger b=0$, same for $J_-$, $J_3$. The level $E=\\hbar\\omega(N+1)$ is the spin $j=N/2$ multiplet: dimension $N+1$, exactly its degeneracy.",
+        "explain": "<p>$J_+$ moves a quantum but does not create or destroy one, so $N=N_a+N_b$ is unchanged: the $J$'s commute with $N$, hence with $H$. Each\n    energy level $N$ is the spin-$N/2$ multiplet, dimension $N+1$, which explains the degeneracy found in sheet 7.</p>"
        }
       ],
       "keyPoints": [
@@ -1205,15 +1286,18 @@
       "steps": [
        {
         "prompt": "(i) Sketch.",
-        "reveal": "Symmetric well with minimum $-\\hbar^2/m$ at $x=0$, going to 0 at $\\pm\\infty$. Ground state: even, no node, localised in the well, decaying outside."
+        "reveal": "Symmetric well with minimum $-\\hbar^2/m$ at $x=0$, going to 0 at $\\pm\\infty$. Ground state: even, no node, localised in the well, decaying outside.",
+        "explain": "<p>$\\mathrm{sech}^2x=1/\\cosh^2x$ is a bell: 1 at $x=0$, decaying like $4e^{-2|x|}$. So $V$ is a smooth well of depth $\\hbar^2/m$. A ground state\n    is even, without nodes, and decays outside.</p>"
        },
        {
         "prompt": "(ii) Factorisation.",
-        "reveal": "$A^\\dagger=-\\partial_x+\\tanh x$, $A^\\dagger A\\psi=-\\psi^{\\prime\\prime}+(\\tanh^2x-\\tanh^\\prime x)\\psi=-\\psi^{\\prime\\prime}+(1-2\\,\\mathrm{sech}^2x)\\psi=\\frac{2m}{\\hbar^2}H\\psi+\\psi=(\\epsilon+1)\\psi$."
+        "reveal": "$A^\\dagger=-\\partial_x+\\tanh x$, $A^\\dagger A\\psi=-\\psi^{\\prime\\prime}+(\\tanh^2x-\\tanh^\\prime x)\\psi=-\\psi^{\\prime\\prime}+(1-2\\,\\mathrm{sech}^2x)\\psi=\\frac{2m}{\\hbar^2}H\\psi+\\psi=(\\epsilon+1)\\psi$.",
+        "explain": "<p><b>Factorisation method:</b> write $H$ (up to a constant) as $A^\\dagger A$. Compute $(-\\partial_x+\\tanh)(\\partial_x+\\tanh)\\psi=-\\psi''-\\tanh'\\psi+\\tanh^2\\psi$\n    (the cross terms $\\pm\\tanh\\,\\psi'$ cancel). With $\\tanh'=\\mathrm{sech}^2$ and $\\tanh^2=1-\\mathrm{sech}^2$: $-\\psi''+(1-2\\mathrm{sech}^2x)\\psi$, which is\n    $\\frac{2m}{\\hbar^2}H\\psi+\\psi$.</p>"
        },
        {
         "prompt": "(iii) Bound and ground state.",
-        "reveal": "$\\langle\\chi|A^\\dagger A|\\chi\\rangle=\\|A\\chi\\|^2\\ge0$ gives $\\epsilon\\ge-1$, saturated when $A\\psi_0=0$: $\\psi_0^\\prime=-\\tanh x\\,\\psi_0$, $\\psi_0=\\frac{1}{\\sqrt2\\cosh x}$, $E_0=-\\frac{\\hbar^2}{2m}$."
+        "reveal": "$\\langle\\chi|A^\\dagger A|\\chi\\rangle=\\|A\\chi\\|^2\\ge0$ gives $\\epsilon\\ge-1$, saturated when $A\\psi_0=0$: $\\psi_0^\\prime=-\\tanh x\\,\\psi_0$, $\\psi_0=\\frac{1}{\\sqrt2\\cosh x}$, $E_0=-\\frac{\\hbar^2}{2m}$.",
+        "explain": "<p><b>Why $A^\\dagger A\\ge0$:</b> $\\langle\\chi|A^\\dagger A|\\chi\\rangle=\\langle A\\chi|A\\chi\\rangle=\\|A\\chi\\|^2$. So $\\epsilon+1\\ge0$ for every eigenvalue, with equality\n    exactly when $A\\psi=0$, a first-order equation: $\\psi'=-\\tanh x\\,\\psi$, solved by $1/\\cosh x$. This is the same trick as $a|0\\rangle=0$ for the\n    oscillator.</p>"
        }
       ],
       "keyPoints": [
@@ -1248,15 +1332,18 @@
       "steps": [
        {
         "prompt": "(i) Why finite means discrete.",
-        "reveal": "A continuum would be summed over a continuum of values with infinite weight: e.g. $V=0$ gives $\\int d^dp\\,e^{-\\beta p^2/2m}\\langle p|p\\rangle=\\infty$ ($\\delta(0)$). Rigorously: $e^{-\\beta H}$ is then trace class, its spectrum is discrete, hence that of $H$."
+        "reveal": "A continuum would be summed over a continuum of values with infinite weight: e.g. $V=0$ gives $\\int d^dp\\,e^{-\\beta p^2/2m}\\langle p|p\\rangle=\\infty$ ($\\delta(0)$). Rigorously: $e^{-\\beta H}$ is then trace class, its spectrum is discrete, hence that of $H$.",
+        "explain": "<p><b>Idea:</b> $Z=\\sum_ne^{-\\beta E_n}$ for discrete levels. A continuous part of the spectrum contributes an integral over states that\n    are not normalisable, and each of them comes with an infinite weight ($\\langle p|p\\rangle=\\delta(0)$). So a finite $Z$ rules out continuous\n    spectrum.</p>"
        },
        {
         "prompt": "(ii) Golden-Thompson.",
-        "reveal": "$Z\\le\\int d^dq\\,\\langle q|e^{-\\beta T}|q\\rangle e^{-\\beta V(q)}$ ($V$ diagonal in $|q\\rangle$); inserting momentum states with $\\langle q|p\\rangle=(2\\pi\\hbar)^{-d/2}e^{ip\\cdot q/\\hbar}$: $\\langle q|e^{-\\beta T}|q\\rangle=(2\\pi\\hbar)^{-d}\\int d^dp\\,e^{-\\beta p^2/2m}$."
+        "reveal": "$Z\\le\\int d^dq\\,\\langle q|e^{-\\beta T}|q\\rangle e^{-\\beta V(q)}$ ($V$ diagonal in $|q\\rangle$); inserting momentum states with $\\langle q|p\\rangle=(2\\pi\\hbar)^{-d/2}e^{ip\\cdot q/\\hbar}$: $\\langle q|e^{-\\beta T}|q\\rangle=(2\\pi\\hbar)^{-d}\\int d^dp\\,e^{-\\beta p^2/2m}$.",
+        "explain": "<p>Golden–Thompson lets us split $e^{-\\beta(T+V)}$ into $e^{-\\beta T}e^{-\\beta V}$ inside the trace. Take the trace in position states: $e^{-\\beta V}$ is\n    just a number there; for $e^{-\\beta T}$ insert momentum states ($T$ is diagonal there) with $|\\langle q|p\\rangle|^2=(2\\pi\\hbar)^{-d}$. The result is\n    the classical partition function: quantum $Z$ is bounded by classical $Z$.</p>"
        },
        {
         "prompt": "(iii) Criterion and example.",
-        "reveal": "Sufficient: $\\int d^dq\\,e^{-\\beta V(q)}<\\infty$ for all $\\beta>0$. For $\\nu\\|q\\|^\\alpha$: $\\mathrm{vol}(S^{d-1})\\int_0^\\infty r^{d-1}e^{-\\beta\\nu r^\\alpha}dr=\\frac{\\mathrm{vol}(S^{d-1})}{\\alpha(\\beta\\nu)^{d/\\alpha}}\\Gamma(\\frac d\\alpha)<\\infty$: discrete (e.g. the oscillator, $\\alpha=2$)."
+        "reveal": "Sufficient: $\\int d^dq\\,e^{-\\beta V(q)}<\\infty$ for all $\\beta>0$. For $\\nu\\|q\\|^\\alpha$: $\\mathrm{vol}(S^{d-1})\\int_0^\\infty r^{d-1}e^{-\\beta\\nu r^\\alpha}dr=\\frac{\\mathrm{vol}(S^{d-1})}{\\alpha(\\beta\\nu)^{d/\\alpha}}\\Gamma(\\frac d\\alpha)<\\infty$: discrete (e.g. the oscillator, $\\alpha=2$).",
+        "explain": "<p>The $p$ integral is always a finite Gaussian, so everything hinges on $\\int e^{-\\beta V}d^dq<\\infty$: the potential must grow fast enough at\n    infinity. For $\\|q\\|^\\alpha$ use spherical coordinates; the radial integral is a Gamma function, finite for any $\\alpha>0$.</p>"
        }
       ],
       "keyPoints": [
@@ -1293,15 +1380,18 @@
       "steps": [
        {
         "prompt": "(i) Products.",
-        "reveal": "Check $\\sigma_j^2=I$ and $\\sigma_1\\sigma_2=i\\sigma_3$ (cyclic); hence $(\\vec x\\cdot\\vec\\sigma)(\\vec y\\cdot\\vec\\sigma)=(\\vec x\\cdot\\vec y)I+i(\\vec x\\times\\vec y)\\cdot\\vec\\sigma$ and $(\\vec n\\cdot\\vec\\sigma)^2=I$."
+        "reveal": "Check $\\sigma_j^2=I$ and $\\sigma_1\\sigma_2=i\\sigma_3$ (cyclic); hence $(\\vec x\\cdot\\vec\\sigma)(\\vec y\\cdot\\vec\\sigma)=(\\vec x\\cdot\\vec y)I+i(\\vec x\\times\\vec y)\\cdot\\vec\\sigma$ and $(\\vec n\\cdot\\vec\\sigma)^2=I$.",
+        "explain": "<p>Check the products on the explicit matrices: $\\sigma_j^2=I$, $\\sigma_1\\sigma_2=i\\sigma_3$ and cyclic, and different $\\sigma$'s anticommute. The\n    combined formula $(\\vec x\\cdot\\vec\\sigma)(\\vec y\\cdot\\vec\\sigma)=\\vec x\\cdot\\vec y+i(\\vec x\\times\\vec y)\\cdot\\vec\\sigma$ follows by summing over components; for $\\vec x=\\vec y=\\vec n$\n    (unit vector) the cross product vanishes: $(\\vec n\\cdot\\vec\\sigma)^2=I$.</p>"
        },
        {
         "prompt": "(ii) Exponential.",
-        "reveal": "Split the series into even powers ($I$) and odd powers ($\\vec n\\cdot\\vec\\sigma$): $\\cos\\frac\\omega2I-i\\sin\\frac\\omega2\\,\\vec n\\cdot\\vec\\sigma$. Note $U(2\\pi\\vec n)=-I$: spinors change sign under a full turn."
+        "reveal": "Split the series into even powers ($I$) and odd powers ($\\vec n\\cdot\\vec\\sigma$): $\\cos\\frac\\omega2I-i\\sin\\frac\\omega2\\,\\vec n\\cdot\\vec\\sigma$. Note $U(2\\pi\\vec n)=-I$: spinors change sign under a full turn.",
+        "explain": "<p>Because $(\\vec n\\cdot\\vec\\sigma)^2=I$, even powers in the exponential series are $I$ and odd powers are $\\vec n\\cdot\\vec\\sigma$. The even part sums to\n    $\\cos\\frac\\omega2$, the odd part to $\\sin\\frac\\omega2$, exactly like $e^{i\\phi}=\\cos\\phi+i\\sin\\phi$. The half angle means a $2\\pi$ rotation gives $-I$.</p>"
        },
        {
         "prompt": "(iii) The rotation.",
-        "reveal": "$\\tilde x^\\prime=\\left(\\cos\\omega\\,\\vec x-\\sin\\omega\\,\\vec x\\times\\vec n+(1-\\cos\\omega)(\\vec x\\cdot\\vec n)\\vec n\\right)\\cdot\\vec\\sigma$: Rodrigues’ formula for a rotation by $\\omega$ about $\\vec n$ (check with $\\vec n=\\hat e_3$: $\\hat e_1\\to\\cos\\omega\\,\\hat e_1+\\sin\\omega\\,\\hat e_2$)."
+        "reveal": "$\\tilde x^\\prime=\\left(\\cos\\omega\\,\\vec x-\\sin\\omega\\,\\vec x\\times\\vec n+(1-\\cos\\omega)(\\vec x\\cdot\\vec n)\\vec n\\right)\\cdot\\vec\\sigma$: Rodrigues’ formula for a rotation by $\\omega$ about $\\vec n$ (check with $\\vec n=\\hat e_3$: $\\hat e_1\\to\\cos\\omega\\,\\hat e_1+\\sin\\omega\\,\\hat e_2$).",
+        "explain": "<p>Multiply out $U\\tilde xU^\\dagger$ with the form from (ii) and use (i) to turn products of $\\sigma$'s back into single $\\sigma$'s. The half-angle\n    products combine with double-angle formulas into $\\cos\\omega$ and $\\sin\\omega$. The coefficients are exactly Rodrigues' formula for a rotation\n    by $\\omega$ about $\\vec n$: SU(2) acts on 3-vectors as rotations, two-to-one ($U$ and $-U$ give the same rotation).</p>"
        }
       ],
       "keyPoints": [
@@ -1338,19 +1428,23 @@
       "steps": [
        {
         "prompt": "(i) Conservation and isomorphism.",
-        "reveal": "$[H,a_i^\\dagger a_j]=\\hbar\\omega(a_i^\\dagger a_j-a_i^\\dagger a_j)=0$. $[E_{ij},E_{kl}]=\\delta_{jk}E_{il}-\\delta_{il}E_{kj}$ and $[a_i^\\dagger a_j,a_k^\\dagger a_l]=\\delta_{jk}a_i^\\dagger a_l-\\delta_{il}a_k^\\dagger a_j$: the same bracket."
+        "reveal": "$[H,a_i^\\dagger a_j]=\\hbar\\omega(a_i^\\dagger a_j-a_i^\\dagger a_j)=0$. $[E_{ij},E_{kl}]=\\delta_{jk}E_{il}-\\delta_{il}E_{kj}$ and $[a_i^\\dagger a_j,a_k^\\dagger a_l]=\\delta_{jk}a_i^\\dagger a_l-\\delta_{il}a_k^\\dagger a_j$: the same bracket.",
+        "explain": "<p>$a_i^\\dagger a_j$ moves one quantum from direction $j$ to direction $i$: the total number, hence the energy, is unchanged, so it commutes with\n    $H$. Its commutators reproduce those of the matrix units $E_{ij}$ (one use of $[a_j,a_k^\\dagger]=\\delta_{jk}$): the 9 operators form u(3).</p>"
        },
        {
         "prompt": "(ii) Roots.",
-        "reveal": "$[h_1,e_1]=2e_1$, $[h_2,e_1]=-e_1$: root $(2,-1)$; $e_2$: $(-1,2)$; $e_3$: $(1,1)$; the $f$’s have the negatives. Each positive root gives $\\{e_\\alpha,h_\\alpha=[e_\\alpha,f_\\alpha],f_\\alpha\\}\\cong$ su(2) (e.g. $e_3,h_1+h_2,f_3$)."
+        "reveal": "$[h_1,e_1]=2e_1$, $[h_2,e_1]=-e_1$: root $(2,-1)$; $e_2$: $(-1,2)$; $e_3$: $(1,1)$; the $f$’s have the negatives. Each positive root gives $\\{e_\\alpha,h_\\alpha=[e_\\alpha,f_\\alpha],f_\\alpha\\}\\cong$ su(2) (e.g. $e_3,h_1+h_2,f_3$).",
+        "explain": "<p><b>Roots:</b> the $h$'s are diagonal, so each $e$ is an eigenvector of \"commutator with $h$\"; the pair of eigenvalues is its root. E.g.\n    $[E_{11}-E_{22},E_{12}]=2E_{12}$. Each root vector, its partner $f$ and their commutator form a copy of su(2), like $J_+,J_-,2J_3$.</p>"
        },
        {
         "prompt": "(iii) Highest weight.",
-        "reveal": "A finite irrep has a weight vector $v$ killed by all $e_\\alpha$ (otherwise the weights would grow without bound); $V$ is spanned by the $f$’s acting on $v$. Restricting to each su(2) subalgebra forces $\\lambda(h_\\alpha)\\in\\mathbb Z_{\\ge0}$. The adjoint rep has highest weight vector $e_3$, weight $(1,1)$."
+        "reveal": "A finite irrep has a weight vector $v$ killed by all $e_\\alpha$ (otherwise the weights would grow without bound); $V$ is spanned by the $f$’s acting on $v$. Restricting to each su(2) subalgebra forces $\\lambda(h_\\alpha)\\in\\mathbb Z_{\\ge0}$. The adjoint rep has highest weight vector $e_3$, weight $(1,1)$.",
+        "explain": "<p><b>Highest weight:</b> raising operators $e$ increase the weight; in a finite-dimensional representation that must stop, so there is a vector\n    killed by all $e$'s. Applying lowering operators to it generates the whole irrep. Inside each su(2) copy the weight must be a non-negative\n    integer (spin-$j$ representations), which restricts the possible highest weights.</p>"
        },
        {
         "prompt": "(iv) The oscillator levels.",
-        "reveal": "Level $N$ = all $|n_1,n_2,n_3\\rangle$ with $\\sum n_i=N$, dimension $\\frac{(N+1)(N+2)}{2}$. Highest weight vector $(a_1^\\dagger)^N|0\\rangle$, weight $(N,0)$: the symmetric irrep $\\mathrm{Sym}^N(\\mathbb C^3)$; su(3) explains the full degeneracy (more than SO(3) alone)."
+        "reveal": "Level $N$ = all $|n_1,n_2,n_3\\rangle$ with $\\sum n_i=N$, dimension $\\frac{(N+1)(N+2)}{2}$. Highest weight vector $(a_1^\\dagger)^N|0\\rangle$, weight $(N,0)$: the symmetric irrep $\\mathrm{Sym}^N(\\mathbb C^3)$; su(3) explains the full degeneracy (more than SO(3) alone).",
+        "explain": "<p>Level $N$ holds all ways to distribute $N$ quanta in 3 directions, $\\frac{(N+1)(N+2)}{2}$ states (sheet 7 Q3). The $J$'s map this level to itself.\n    The state with all quanta in direction 1 cannot be raised further (there is nowhere \"higher\" to move a quantum): it is the highest weight,\n    $(N,0)$. Its irrep has exactly that dimension, so the whole level is one su(3) irrep: su(3) explains the full degeneracy.</p>"
        }
       ],
       "keyPoints": [
@@ -1394,23 +1488,28 @@
       "steps": [
        {
         "prompt": "(i) Three 1D oscillators.",
-        "reveal": "$E=\\hbar\\omega(N+\\frac32)$, degeneracy $\\frac{(N+1)(N+2)}2$ (sheet VII Q3)."
+        "reveal": "$E=\\hbar\\omega(N+\\frac32)$, degeneracy $\\frac{(N+1)(N+2)}2$ (sheet VII Q3).",
+        "explain": "<p>In Cartesian coordinates the 3D oscillator is three independent 1D oscillators: $E=\\hbar\\omega(n_x+n_y+n_z+\\frac32)$, and the degeneracy is the\n    number of ways to split $N$ into three, $\\frac{(N+1)(N+2)}{2}$ (sheet 7 Q3). This is the answer the spherical calculation must reproduce.</p>"
        },
        {
         "prompt": "(ii) Asymptotics.",
-        "reveal": "$r\\to0$: $u^{\\prime\\prime}\\approx\\frac{\\ell(\\ell+1)}{r^2}u$, $u=r^{\\ell+1}$ or $r^{-\\ell}$; the second is not square integrable (or, for $\\ell=0$, would need a $\\delta$ potential). $r\\to\\infty$: $u=e^S$, $S^{\\prime2}\\approx\\alpha^2r^2$, $S=-\\alpha r^2/2$ ($\\alpha=m\\omega/\\hbar$). Hydrogen decays only like $e^{-\\kappa r}$; here the confining $r^2$ potential gives a Gaussian and no scattering states: the whole spectrum is discrete."
+        "reveal": "$r\\to0$: $u^{\\prime\\prime}\\approx\\frac{\\ell(\\ell+1)}{r^2}u$, $u=r^{\\ell+1}$ or $r^{-\\ell}$; the second is not square integrable (or, for $\\ell=0$, would need a $\\delta$ potential). $r\\to\\infty$: $u=e^S$, $S^{\\prime2}\\approx\\alpha^2r^2$, $S=-\\alpha r^2/2$ ($\\alpha=m\\omega/\\hbar$). Hydrogen decays only like $e^{-\\kappa r}$; here the confining $r^2$ potential gives a Gaussian and no scattering states: the whole spectrum is discrete.",
+        "explain": "<p><b>Asymptotic analysis:</b> near $r=0$ the centrifugal term $\\ell(\\ell+1)/r^2$ dominates everything else, so solve only\n    $u''=\\frac{\\ell(\\ell+1)}{r^2}u$: powers $r^{\\ell+1}$ and $r^{-\\ell}$; only the first is acceptable. For $r\\to\\infty$ the $r^2$ term dominates; try $u=e^S$:\n    $S'^2\\approx\\alpha^2r^2$ gives a Gaussian. A confining potential that grows forever has no scattering states.</p>"
        },
        {
         "prompt": "(iii) Recursion.",
-        "reveal": "Insert $u=e^{-\\alpha r^2/2}f$: $-f^{\\prime\\prime}+\\frac{\\ell(\\ell+1)}{r^2}f+2\\alpha rf^\\prime+(\\alpha-\\varepsilon)f=0$; equate powers of $r$: the stated recursion. Starting from $c_{\\ell+1}$ in steps of 2, all $c_k$ with $k-\\ell$ even vanish; only $c_{\\ell+1}$ is free (normalisation)."
+        "reveal": "Insert $u=e^{-\\alpha r^2/2}f$: $-f^{\\prime\\prime}+\\frac{\\ell(\\ell+1)}{r^2}f+2\\alpha rf^\\prime+(\\alpha-\\varepsilon)f=0$; equate powers of $r$: the stated recursion. Starting from $c_{\\ell+1}$ in steps of 2, all $c_k$ with $k-\\ell$ even vanish; only $c_{\\ell+1}$ is free (normalisation).",
+        "explain": "<p><b>Peel off the known behaviour</b> ($u=e^{-\\alpha r^2/2}f$) and expand the rest in powers of $r$. Inserting and collecting the coefficient of each\n    power gives a two-step recursion: $c_{k+2}$ from $c_k$. Starting at $c_{\\ell+1}$ only every second power appears, so one free constant.</p>"
        },
        {
         "prompt": "(iv) Quantisation.",
-        "reveal": "If the series does not stop, $c_{k+2}/c_k\\to2\\alpha/k$ and $f\\sim e^{\\alpha r^2}$: not normalisable. It stops at $k_{\\max}=\\ell+1+2n_r$ iff $\\varepsilon=\\alpha(2k_{\\max}+1)$, i.e. $E=\\hbar\\omega\\left(2n_r+\\ell+\\frac32\\right)$. In the $(\\ell,E)$ plane: at $E=\\hbar\\omega(N+\\frac32)$ the allowed $\\ell=N,N-2,\\dots,1$ or 0."
+        "reveal": "If the series does not stop, $c_{k+2}/c_k\\to2\\alpha/k$ and $f\\sim e^{\\alpha r^2}$: not normalisable. It stops at $k_{\\max}=\\ell+1+2n_r$ iff $\\varepsilon=\\alpha(2k_{\\max}+1)$, i.e. $E=\\hbar\\omega\\left(2n_r+\\ell+\\frac32\\right)$. In the $(\\ell,E)$ plane: at $E=\\hbar\\omega(N+\\frac32)$ the allowed $\\ell=N,N-2,\\dots,1$ or 0.",
+        "explain": "<p><b>The series must stop.</b> For large $k$ the ratio $c_{k+2}/c_k\\approx2\\alpha/k$ is that of $e^{\\alpha r^2}$, which would overwhelm the Gaussian\n    and make $u$ blow up. It stops only if the numerator vanishes at some $k_{\\max}$: $\\varepsilon=\\alpha(2k_{\\max}+1)$, which is the quantisation of $E$.\n    Writing $k_{\\max}=\\ell+1+2n_r$ ($n_r$ = number of radial nodes) gives $E=\\hbar\\omega(2n_r+\\ell+\\frac32)$.</p>"
        },
        {
         "prompt": "(v) Degeneracy.",
-        "reveal": "$\\sum_{\\ell=N,N-2,\\dots}(2\\ell+1)=\\frac{(N+1)(N+2)}{2}$: agrees with (i). Same $N$ for different $\\ell$: an accidental degeneracy, explained by the hidden su(3) (sheet IX Q4)."
+        "reveal": "$\\sum_{\\ell=N,N-2,\\dots}(2\\ell+1)=\\frac{(N+1)(N+2)}{2}$: agrees with (i). Same $N$ for different $\\ell$: an accidental degeneracy, explained by the hidden su(3) (sheet IX Q4).",
+        "explain": "<p>At $N=2n_r+\\ell$ the allowed $\\ell$ are $N,N-2,\\dots$; each $\\ell$ has $2\\ell+1$ values of $m$. Summing $(2\\ell+1)$ over these $\\ell$ gives back\n    $\\frac{(N+1)(N+2)}{2}$. Different $\\ell$ having the same energy is not explained by rotations alone: it is the hidden su(3) of sheet 9 Q4.</p>"
        }
       ],
       "keyPoints": [
@@ -1448,19 +1547,23 @@
       "steps": [
        {
         "prompt": "(i) Check the 16 products.",
-        "reveal": "Products with $\\mathrm{id}$ are trivial ($c_2=+1$). Squares: $\\gamma(g)^2=\\gamma(h)^2=\\mathbb 1$ but $\\gamma(gh)^2=-\\mathbb 1$, so $c_2(gh,gh)=-1$. Mixed: $\\gamma(h)\\gamma(g)=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}=+\\gamma(gh)$, while $\\gamma(g)\\gamma(h)=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}=-\\gamma(gh)$; likewise $\\gamma(g)\\gamma(gh)=-\\gamma(h)$, $\\gamma(gh)\\gamma(h)=-\\gamma(g)$, $\\gamma(h)\\gamma(gh)=+\\gamma(g)$, $\\gamma(gh)\\gamma(g)=+\\gamma(h)$. The four minus signs are exactly $(g,h),(g,gh),(gh,h),(gh,gh)$: the pairs with $a\\notin\\{\\mathrm{id},h\\}$ and $b\\notin\\{\\mathrm{id},g\\}$, as stated."
+        "reveal": "Products with $\\mathrm{id}$ are trivial ($c_2=+1$). Squares: $\\gamma(g)^2=\\gamma(h)^2=\\mathbb 1$ but $\\gamma(gh)^2=-\\mathbb 1$, so $c_2(gh,gh)=-1$. Mixed: $\\gamma(h)\\gamma(g)=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}=+\\gamma(gh)$, while $\\gamma(g)\\gamma(h)=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}=-\\gamma(gh)$; likewise $\\gamma(g)\\gamma(gh)=-\\gamma(h)$, $\\gamma(gh)\\gamma(h)=-\\gamma(g)$, $\\gamma(h)\\gamma(gh)=+\\gamma(g)$, $\\gamma(gh)\\gamma(g)=+\\gamma(h)$. The four minus signs are exactly $(g,h),(g,gh),(gh,h),(gh,gh)$: the pairs with $a\\notin\\{\\mathrm{id},h\\}$ and $b\\notin\\{\\mathrm{id},g\\}$, as stated.",
+        "explain": "<p><b>What to check:</b> for every pair $(a,b)$ multiply the two matrices and compare with $\\gamma(ab)$; the sign that appears is $c_2(a,b)$.\n    Products with the identity are trivial. The interesting fact: $\\gamma(g)\\gamma(h)=-\\gamma(h)\\gamma(g)$, the matrices anticommute although $g$ and $h$\n    commute in the group, so one order must carry a $-1$.</p>"
        },
        {
         "prompt": "(ii) A phase no rephasing can kill.",
-        "reveal": "Since $G$ is abelian, $gh=hg$, so $\\frac{\\hat c_2(g,h)}{\\hat c_2(h,g)}=\\frac{c_2(g,h)}{c_2(h,g)}\\cdot\\frac{c_1(g)c_1(h)/c_1(gh)}{c_1(h)c_1(g)/c_1(hg)}=\\frac{c_2(g,h)}{c_2(h,g)}=\\frac{-1}{+1}=-1$ for any $c_1$. Both cannot be $+1$. Physically: $\\gamma(g)$ and $\\gamma(h)$ anticommute, and rescaling matrices by phases never turns anticommuting into commuting, whereas an honest rep of an abelian group has commuting images."
+        "reveal": "Since $G$ is abelian, $gh=hg$, so $\\frac{\\hat c_2(g,h)}{\\hat c_2(h,g)}=\\frac{c_2(g,h)}{c_2(h,g)}\\cdot\\frac{c_1(g)c_1(h)/c_1(gh)}{c_1(h)c_1(g)/c_1(hg)}=\\frac{c_2(g,h)}{c_2(h,g)}=\\frac{-1}{+1}=-1$ for any $c_1$. Both cannot be $+1$. Physically: $\\gamma(g)$ and $\\gamma(h)$ anticommute, and rescaling matrices by phases never turns anticommuting into commuting, whereas an honest rep of an abelian group has commuting images.",
+        "explain": "<p><b>Why no rephasing helps:</b> look at the ratio $c_2(g,h)/c_2(h,g)$. Rephasing $\\gamma(a)\\to c_1(a)\\gamma(a)$ changes $c_2(g,h)$ and $c_2(h,g)$ by the\n    same factor (because $gh=hg$), so the ratio is invariant, and it equals $-1$. Matrices that anticommute stay anticommuting after\n    multiplying them by numbers; an honest representation of an abelian group would need commuting matrices.</p>"
        },
        {
         "prompt": "(iii) The covering group.",
-        "reveal": "Closure is clear; identity $(1,\\mathrm{id})$; inverse of $(x,a)$ is $(x\\,c_2(a,a),a)$ since $a^{-1}=a$ and $c_2=\\pm1$. Associativity needs the cocycle condition $c_2(a,b)c_2(ab,c)=c_2(b,c)c_2(a,bc)$, which follows from $(\\gamma(a)\\gamma(b))\\gamma(c)=\\gamma(a)(\\gamma(b)\\gamma(c))$ and invertibility of $\\gamma(abc)$. Homomorphism: $\\hat\\gamma(x,a)\\hat\\gamma(y,b)=xy\\,\\gamma(a)\\gamma(b)=xy\\,c_2(a,b)\\gamma(ab)=\\hat\\gamma\\big((x,a)(y,b)\\big)$. The 8 matrices $\\pm\\gamma(a)$ are distinct, so $\\hat\\gamma$ is faithful and $E\\cong\\{\\pm\\mathbb 1,\\pm\\gamma(g),\\pm\\gamma(h),\\pm\\gamma(gh)\\}$: $\\gamma(gh)$ is the rotation by $90^\\circ$ (order 4), $\\gamma(g)$ a reflection, together the symmetry group of a square, $D_4$ (order 8, non-abelian)."
+        "reveal": "Closure is clear; identity $(1,\\mathrm{id})$; inverse of $(x,a)$ is $(x\\,c_2(a,a),a)$ since $a^{-1}=a$ and $c_2=\\pm1$. Associativity needs the cocycle condition $c_2(a,b)c_2(ab,c)=c_2(b,c)c_2(a,bc)$, which follows from $(\\gamma(a)\\gamma(b))\\gamma(c)=\\gamma(a)(\\gamma(b)\\gamma(c))$ and invertibility of $\\gamma(abc)$. Homomorphism: $\\hat\\gamma(x,a)\\hat\\gamma(y,b)=xy\\,\\gamma(a)\\gamma(b)=xy\\,c_2(a,b)\\gamma(ab)=\\hat\\gamma\\big((x,a)(y,b)\\big)$. The 8 matrices $\\pm\\gamma(a)$ are distinct, so $\\hat\\gamma$ is faithful and $E\\cong\\{\\pm\\mathbb 1,\\pm\\gamma(g),\\pm\\gamma(h),\\pm\\gamma(gh)\\}$: $\\gamma(gh)$ is the rotation by $90^\\circ$ (order 4), $\\gamma(g)$ a reflection, together the symmetry group of a square, $D_4$ (order 8, non-abelian).",
+        "explain": "<p><b>The fix:</b> make the sign part of the group element. Pairs (sign, group element) with the product rule twisted by $c_2$ form a bigger\n    group $E$ of 8 elements, and $\\pm\\gamma(a)$ represent it honestly. Associativity of $E$ is inherited from associativity of matrix\n    multiplication (the cocycle condition). The 8 matrices are the symmetries of a square: $D_4$.</p>"
        },
        {
         "prompt": "(iv) General construction.",
-        "reveal": "Identical proof: $U$ is an abelian group of phases, so closure holds; the identity is $(1,e)$ with $c_2(e,g)=c_2(g,e)=1$ (choose $\\rho(e)=\\mathbb 1$); the inverse of $(u,g)$ is $(u^{-1}c_2(g,g^{-1})^{-1},g^{-1})$; associativity is again the cocycle condition from associativity of $\\rho$. $\\hat\\rho(u_1,g)\\hat\\rho(u_2,h)=u_1u_2\\rho(g)\\rho(h)=u_1u_2c_2(g,h)\\rho(gh)=\\hat\\rho\\big((u_1,g)(u_2,h)\\big)$. For SO(3) the phases of the spin-$\\frac12$ rep are $\\pm1$ ($R(2\\pi)=-\\mathbb 1$), so $U=\\mathbb Z_2$ and $E$ is the double cover SU(2)."
+        "reveal": "Identical proof: $U$ is an abelian group of phases, so closure holds; the identity is $(1,e)$ with $c_2(e,g)=c_2(g,e)=1$ (choose $\\rho(e)=\\mathbb 1$); the inverse of $(u,g)$ is $(u^{-1}c_2(g,g^{-1})^{-1},g^{-1})$; associativity is again the cocycle condition from associativity of $\\rho$. $\\hat\\rho(u_1,g)\\hat\\rho(u_2,h)=u_1u_2\\rho(g)\\rho(h)=u_1u_2c_2(g,h)\\rho(gh)=\\hat\\rho\\big((u_1,g)(u_2,h)\\big)$. For SO(3) the phases of the spin-$\\frac12$ rep are $\\pm1$ ($R(2\\pi)=-\\mathbb 1$), so $U=\\mathbb Z_2$ and $E$ is the double cover SU(2).",
+        "explain": "<p>The same construction works for any group: collect all phases that appear into an abelian group $U$, and let the pairs $(u,g)$ multiply\n    with the twist. This is how spin $\\frac12$ works: SO(3) has only a projective representation on spinors (a $2\\pi$ rotation gives $-1$),\n    and the \"bigger group\" is SU(2), the double cover.</p>"
        }
       ],
       "keyPoints": [
@@ -1504,19 +1607,23 @@
       "steps": [
        {
         "prompt": "(i) Highest weight.",
-        "reveal": "$S_+\\pm$ and $D_+$ combinations: $S_+|\\psi\\rangle=D_+|\\psi\\rangle=0\\Leftrightarrow L_+|\\psi\\rangle=0$ and $J_+|\\psi\\rangle=0$. $L_+|\\psi\\rangle=0$ means $m=l$ in each $l$ component: $|\\psi\\rangle=\\sum_lc_l|n,l,l\\rangle$."
+        "reveal": "$S_+\\pm$ and $D_+$ combinations: $S_+|\\psi\\rangle=D_+|\\psi\\rangle=0\\Leftrightarrow L_+|\\psi\\rangle=0$ and $J_+|\\psi\\rangle=0$. $L_+|\\psi\\rangle=0$ means $m=l$ in each $l$ component: $|\\psi\\rangle=\\sum_lc_l|n,l,l\\rangle$.",
+        "explain": "<p>$S$ and $D$ are combinations of $L$ and $J$, so \"killed by $S_+$ and $D_+$\" is equivalent to \"killed by $L_+$ and $J_+$\" (add and subtract).\n    A state killed by $L_+$ has the maximal $m=l$ in each angular-momentum component, so it is a sum of states $|n,l,l\\rangle$.</p>"
        },
        {
         "prompt": "(ii) Commutators.",
-        "reveal": "From $[L_j,J_k]=i\\hbar\\varepsilon_{jkl}J_l$: $[L_+,J_+]=0$, $[L_3,J_+]=\\hbar J_+$, $[L_-,J_+]=-2\\hbar J_3$. So $J_+|n,l,l\\rangle$ has $L_3=\\hbar(l+1)$ and is killed by $L_+$: it is a highest weight of spin $l+1$, $\\propto|n,l+1,l+1\\rangle$. Then $J_+|\\psi\\rangle=0$ forces $c_l=0$ unless $l$ is maximal: $|\\psi\\rangle=|n,n-1,n-1\\rangle$."
+        "reveal": "From $[L_j,J_k]=i\\hbar\\varepsilon_{jkl}J_l$: $[L_+,J_+]=0$, $[L_3,J_+]=\\hbar J_+$, $[L_-,J_+]=-2\\hbar J_3$. So $J_+|n,l,l\\rangle$ has $L_3=\\hbar(l+1)$ and is killed by $L_+$: it is a highest weight of spin $l+1$, $\\propto|n,l+1,l+1\\rangle$. Then $J_+|\\psi\\rangle=0$ forces $c_l=0$ unless $l$ is maximal: $|\\psi\\rangle=|n,n-1,n-1\\rangle$.",
+        "explain": "<p><b>$J$ is a vector operator:</b> $[L_j,J_k]=i\\hbar\\varepsilon_{jkl}J_l$, so $J_+$ behaves like a \"raising\" vector: it adds $\\hbar$ to $L_3$ and commutes with\n    $L_+$. Applied to $|n,l,l\\rangle$ it therefore gives a state with $m=l+1$ still killed by $L_+$, i.e. $\\propto|n,l+1,l+1\\rangle$. If $J_+$ must kill the\n    whole sum, each term must be killed, which only happens at the top value $l=n-1$ (there is no $l=n$).</p>"
        },
        {
         "prompt": "(iii) Explicit check.",
-        "reveal": "For $l=n-1$, $u_{n,n-1}\\propto r^ne^{-r/na_0}$ (no radial nodes) and $Y_{n-1,n-1}\\propto\\sin^{n-1}\\theta e^{i(n-1)\\varphi}$, giving the stated $\\psi$ with $\\frac{m\\kappa}{\\hbar^2}=\\frac1{a_0}$. With $J_+=\\frac im(p_3L_+-\\hbar p_+-p_+L_3)-\\kappa\\sin\\theta e^{i\\varphi}$ and the given $p_+$, $L_+\\psi=0$, $L_3\\psi=\\hbar(n-1)\\psi$, the remaining terms cancel: $J_+\\psi=0$."
+        "reveal": "For $l=n-1$, $u_{n,n-1}\\propto r^ne^{-r/na_0}$ (no radial nodes) and $Y_{n-1,n-1}\\propto\\sin^{n-1}\\theta e^{i(n-1)\\varphi}$, giving the stated $\\psi$ with $\\frac{m\\kappa}{\\hbar^2}=\\frac1{a_0}$. With $J_+=\\frac im(p_3L_+-\\hbar p_+-p_+L_3)-\\kappa\\sin\\theta e^{i\\varphi}$ and the given $p_+$, $L_+\\psi=0$, $L_3\\psi=\\hbar(n-1)\\psi$, the remaining terms cancel: $J_+\\psi=0$.",
+        "explain": "<p><b>Explicit check:</b> the state with $l=n-1$, $m=n-1$ has no radial nodes and the angular part $\\sin^{n-1}\\theta\\,e^{i(n-1)\\varphi}$ (the top spherical\n    harmonic). Acting with the explicit $J_+$ operator, the terms cancel. This confirms the algebraic argument.</p>"
        },
        {
         "prompt": "(v) The multiplet.",
-        "reveal": "$|\\psi\\rangle$ has $S_3=D_3=\\frac{n-1}2$: spin $j=\\frac{n-1}2$ for both su(2)s. The eigenspace is spanned by $S_-^aD_-^b|\\psi\\rangle$, $0\\le a,b\\le n-1$: dimension $(2j+1)^2=n^2$."
+        "reveal": "$|\\psi\\rangle$ has $S_3=D_3=\\frac{n-1}2$: spin $j=\\frac{n-1}2$ for both su(2)s. The eigenspace is spanned by $S_-^aD_-^b|\\psi\\rangle$, $0\\le a,b\\le n-1$: dimension $(2j+1)^2=n^2$.",
+        "explain": "<p><b>Counting:</b> $|\\psi\\rangle$ is the top state of two spins, each with $j=\\frac{n-1}{2}$. Lowering independently with $S_-$ and $D_-$ gives\n    $(2j+1)\\times(2j+1)=n^2$ states: the full degeneracy of the hydrogen level $n$, explained by symmetry.</p>"
        }
       ],
       "keyPoints": [
@@ -1552,11 +1659,13 @@
       "steps": [
        {
         "prompt": "(i) State.",
-        "reveal": "With $\\vec e=(\\sin\\theta\\cos\\varphi,\\sin\\theta\\sin\\varphi,\\cos\\theta)$: $|\\chi\\rangle=\\binom{\\cos\\frac\\theta2}{e^{i\\varphi}\\sin\\frac\\theta2}$ (up to a phase), the $+1$ eigenvector of $\\vec e\\cdot\\vec\\sigma$; check $\\langle\\sigma_3\\rangle=\\cos^2\\frac\\theta2-\\sin^2\\frac\\theta2=\\cos\\theta$."
+        "reveal": "With $\\vec e=(\\sin\\theta\\cos\\varphi,\\sin\\theta\\sin\\varphi,\\cos\\theta)$: $|\\chi\\rangle=\\binom{\\cos\\frac\\theta2}{e^{i\\varphi}\\sin\\frac\\theta2}$ (up to a phase), the $+1$ eigenvector of $\\vec e\\cdot\\vec\\sigma$; check $\\langle\\sigma_3\\rangle=\\cos^2\\frac\\theta2-\\sin^2\\frac\\theta2=\\cos\\theta$.",
+        "explain": "<p><b>A spin-½ state \"points\" somewhere:</b> the state with $\\langle\\vec\\sigma\\rangle=\\vec e$ is the $+1$ eigenvector of $\\vec e\\cdot\\vec\\sigma$ (spin up along $\\vec e$). Solving the\n    $2\\times2$ eigenproblem with $\\vec e$ in spherical angles gives $(\\cos\\frac\\theta2,e^{i\\varphi}\\sin\\frac\\theta2)$. Half angles again: the Bloch sphere\n    angle $\\theta$ is twice the \"mixing angle\" in Hilbert space.</p>"
        },
        {
         "prompt": "(ii) Probability.",
-        "reveal": "$P(S_z=+\\frac\\hbar2)=\\cos^2\\frac\\theta2=\\frac{1+e_z}{2}$."
+        "reveal": "$P(S_z=+\\frac\\hbar2)=\\cos^2\\frac\\theta2=\\frac{1+e_z}{2}$.",
+        "explain": "<p>$P(\\uparrow_z)=|\\langle\\uparrow|\\chi\\rangle|^2=\\cos^2\\frac\\theta2=\\frac{1+\\cos\\theta}{2}$. Checks: along $+z$ certainty, along $-z$ zero, in the equator 50/50.</p>"
        }
       ],
       "keyPoints": [
@@ -1590,7 +1699,8 @@
       "steps": [
        {
         "prompt": "Count and decompose.",
-        "reveal": "Dimension $2\\times3=6$; total $m$ ranges over $\\pm\\frac32,\\pm\\frac12$ with multiplicities $1,2$: $D_{1/2}\\otimes D_1=D_{3/2}\\oplus D_{1/2}$ ($4+2=6$), as the Clebsch-Gordan series $|j_1-j_2|\\le j\\le j_1+j_2$ says."
+        "reveal": "Dimension $2\\times3=6$; total $m$ ranges over $\\pm\\frac32,\\pm\\frac12$ with multiplicities $1,2$: $D_{1/2}\\otimes D_1=D_{3/2}\\oplus D_{1/2}$ ($4+2=6$), as the Clebsch-Gordan series $|j_1-j_2|\\le j\\le j_1+j_2$ says.",
+        "explain": "<p><b>Counting method:</b> list the possible total $m=m_1+m_2$ with their multiplicities. The largest, $\\frac32$, occurs once and must start a\n    $j=\\frac32$ multiplet (4 states). Remove those; what remains has top $m=\\frac12$, so a $j=\\frac12$ multiplet. $4+2=6$ states, all accounted for.\n    General rule: $j$ runs from $|j_1-j_2|$ to $j_1+j_2$ in steps of 1.</p>"
        }
       ],
       "keyPoints": [
@@ -1630,11 +1740,13 @@
       "steps": [
        {
         "prompt": "(i) Two spins.",
-        "reveal": "$D_{1/2}\\otimes D_{1/2}=D_1\\oplus D_0$; the deflection measures total $m$: three spots $m=+1,0,-1$, intensities $1:2:1$ for unpolarised molecules (the middle spot holds $m=0$ of the triplet and the singlet)."
+        "reveal": "$D_{1/2}\\otimes D_{1/2}=D_1\\oplus D_0$; the deflection measures total $m$: three spots $m=+1,0,-1$, intensities $1:2:1$ for unpolarised molecules (the middle spot holds $m=0$ of the triplet and the singlet).",
+        "explain": "<p><b>What the magnet measures:</b> the deflection is proportional to the total $m$ of the molecule. Two spins ½ combine into a triplet\n    ($m=1,0,-1$) and a singlet ($m=0$). Unpolarised: each of the 4 product states is equally likely; $m=0$ occurs twice ($\\uparrow\\downarrow,\\downarrow\\uparrow$),\n    so the middle spot gets twice the intensity.</p>"
        },
        {
         "prompt": "(ii) Three spins.",
-        "reveal": "$D_{1/2}^{\\otimes3}=D_{3/2}\\oplus2D_{1/2}$: four spots $m=\\pm\\frac32,\\pm\\frac12$ with intensities $1:3:3:1$ (an even number of spots: half-integer total spin)."
+        "reveal": "$D_{1/2}^{\\otimes3}=D_{3/2}\\oplus2D_{1/2}$: four spots $m=\\pm\\frac32,\\pm\\frac12$ with intensities $1:3:3:1$ (an even number of spots: half-integer total spin).",
+        "explain": "<p>Three spins: count the $2^3=8$ product states by $m$: $m=\\frac32$ once, $\\frac12$ three times, $-\\frac12$ three times, $-\\frac32$ once. Four spots\n    with $1:3:3:1$ (binomial coefficients).</p>"
        }
       ],
       "keyPoints": [
@@ -1667,19 +1779,23 @@
       "steps": [
        {
         "prompt": "(i) Spin 1.",
-        "reveal": "$(M_j)_{kl}=-i\\varepsilon_{jkl}$; $M_3$ has eigenvalues $-1,0,1$ and $\\vec M^2=2=1(1+1)$: the 3-dimensional irrep $D_1$."
+        "reveal": "$(M_j)_{kl}=-i\\varepsilon_{jkl}$; $M_3$ has eigenvalues $-1,0,1$ and $\\vec M^2=2=1(1+1)$: the 3-dimensional irrep $D_1$.",
+        "explain": "<p>The generators of rotations of 3-vectors are $3\\times3$ matrices with entries $\\pm1$ from $\\varepsilon$. Computing $\\vec M^2$ gives $2\\cdot I=1(1+1)$, and $M_3$\n    has eigenvalues $-1,0,1$: by definition this is spin 1. \"A vector is spin 1.\"</p>"
        },
        {
         "prompt": "(ii) $x$, $p$.",
-        "reveal": "$[L_j,x_k]=i\\hbar\\varepsilon_{jkl}x_l$, $[L_j,p_k]=i\\hbar\\varepsilon_{jkl}p_l$: exactly the action of $M_j$ (up to the factor $i$ convention): vector operators."
+        "reveal": "$[L_j,x_k]=i\\hbar\\varepsilon_{jkl}x_l$, $[L_j,p_k]=i\\hbar\\varepsilon_{jkl}p_l$: exactly the action of $M_j$ (up to the factor $i$ convention): vector operators.",
+        "explain": "<p><b>Vector operator</b> means: commuting with $L_j$ rotates its components exactly like a vector, $[L_j,V_k]=i\\hbar\\varepsilon_{jkl}V_l$. For $\\vec x$ and $\\vec p$\n    this follows from $[x,p]=i\\hbar$ and $\\vec L=\\vec x\\times\\vec p$.</p>"
        },
        {
         "prompt": "(iii) Spherical basis.",
-        "reveal": "$J_{\\pm1}=\\mp\\frac1{\\sqrt2}(J_1\\pm iJ_2)$, $J_0=J_3$: $J_{+1}$ is highest weight ($[L_+,J_{+1}]=0$), $J_{-1}$ lowest."
+        "reveal": "$J_{\\pm1}=\\mp\\frac1{\\sqrt2}(J_1\\pm iJ_2)$, $J_0=J_3$: $J_{+1}$ is highest weight ($[L_+,J_{+1}]=0$), $J_{-1}$ lowest.",
+        "explain": "<p>The spherical components $V_{\\pm1}=\\mp\\frac{1}{\\sqrt2}(V_1\\pm iV_2)$, $V_0=V_3$ are the analogue of $|1,\\pm1\\rangle$, $|1,0\\rangle$. $V_{+1}$ is \"highest\": raising it\n    further gives zero.</p>"
        },
        {
         "prompt": "(iv)-(v) Symmetric square.",
-        "reveal": "$S^2D_1$ has dimension 6 $=D_2\\oplus D_0$ (a tensor and a scalar; the antisymmetric part would be $D_1$). Scalar $S=\\vec J\\cdot\\vec K$; tensor $T_{ij}=\\frac12(J_iK_j+J_jK_i)-\\frac13\\delta_{ij}\\vec J\\cdot\\vec K$ (symmetric, traceless: 5 components)."
+        "reveal": "$S^2D_1$ has dimension 6 $=D_2\\oplus D_0$ (a tensor and a scalar; the antisymmetric part would be $D_1$). Scalar $S=\\vec J\\cdot\\vec K$; tensor $T_{ij}=\\frac12(J_iK_j+J_jK_i)-\\frac13\\delta_{ij}\\vec J\\cdot\\vec K$ (symmetric, traceless: 5 components).",
+        "explain": "<p><b>Dimension count:</b> symmetric products of two 3-vectors: $3\\cdot4/2=6$ components. A scalar (the dot product, 1 component) can always be\n    split off; the rest is a symmetric traceless tensor with 5 components, i.e. spin 2. So $6=5+1$. (The antisymmetric part, the cross\n    product, would be the remaining spin 1.)</p>"
        }
       ],
       "keyPoints": [
@@ -1716,11 +1832,13 @@
       "steps": [
        {
         "prompt": "(i) Highest state and recursion.",
-        "reveal": "$|l+\\frac12,l+\\frac12\\rangle=|l,\\uparrow\\rangle$ (coefficient 1). Apply $J_-=L_-+S_-$ repeatedly; the recursion relates neighbouring coefficients, $\\frac{c(m-1)}{c(m)}=\\sqrt{\\frac{l+m-\\frac12}{l+m+\\frac12}}$ for the $\\uparrow$ part, which telescopes to $\\sqrt{\\frac{l+m+\\frac12}{2l+1}}$; normalisation (or the other recursion) gives the $\\downarrow$ coefficient $\\sqrt{\\frac{l-m+\\frac12}{2l+1}}$."
+        "reveal": "$|l+\\frac12,l+\\frac12\\rangle=|l,\\uparrow\\rangle$ (coefficient 1). Apply $J_-=L_-+S_-$ repeatedly; the recursion relates neighbouring coefficients, $\\frac{c(m-1)}{c(m)}=\\sqrt{\\frac{l+m-\\frac12}{l+m+\\frac12}}$ for the $\\uparrow$ part, which telescopes to $\\sqrt{\\frac{l+m+\\frac12}{2l+1}}$; normalisation (or the other recursion) gives the $\\downarrow$ coefficient $\\sqrt{\\frac{l-m+\\frac12}{2l+1}}$.",
+        "explain": "<p><b>Start at the top</b>, where there is only one way: $|j=l+\\frac12,m=l+\\frac12\\rangle=|l,\\uparrow\\rangle$. Apply $J_-=L_-+S_-$ to both sides: the left\n    gives the next $|j,m\\rangle$ with a known factor, the right gives a combination of $|l-1,\\uparrow\\rangle$ and $|l,\\downarrow\\rangle$ with known factors.\n    Repeating gives a recursion between neighbouring coefficients; the ratios telescope (multiply out) to the closed formula.</p>"
        },
        {
         "prompt": "(ii) $l=1$.",
-        "reveal": "$|\\frac32,\\frac32\\rangle=|1,\\uparrow\\rangle$, $|\\frac32,\\frac12\\rangle=\\sqrt{\\frac23}|0,\\uparrow\\rangle+\\sqrt{\\frac13}|1,\\downarrow\\rangle$, $|\\frac32,-\\frac12\\rangle=\\sqrt{\\frac13}|-1,\\uparrow\\rangle+\\sqrt{\\frac23}|0,\\downarrow\\rangle$, $|\\frac32,-\\frac32\\rangle=|-1,\\downarrow\\rangle$ (the $j=\\frac12$ states are the orthogonal combinations)."
+        "reveal": "$|\\frac32,\\frac32\\rangle=|1,\\uparrow\\rangle$, $|\\frac32,\\frac12\\rangle=\\sqrt{\\frac23}|0,\\uparrow\\rangle+\\sqrt{\\frac13}|1,\\downarrow\\rangle$, $|\\frac32,-\\frac12\\rangle=\\sqrt{\\frac13}|-1,\\uparrow\\rangle+\\sqrt{\\frac23}|0,\\downarrow\\rangle$, $|\\frac32,-\\frac32\\rangle=|-1,\\downarrow\\rangle$ (the $j=\\frac12$ states are the orthogonal combinations).",
+        "explain": "<p>For $l=1$ just apply the formula with $m=\\frac12$ and $m=-\\frac12$, or lower once from the top by hand. The $j=\\frac12$ states are the orthogonal\n    combinations of the same two basis states.</p>"
        }
       ],
       "keyPoints": [
@@ -1761,11 +1879,13 @@
       "steps": [
        {
         "prompt": "(i) Expand both sides.",
-        "reveal": "$\\langle\\psi|e^{-iHt/\\hbar}|\\psi\\rangle=1-\\frac{it}\\hbar\\langle H\\rangle-\\frac{t^2}{2\\hbar^2}\\langle H^2\\rangle+O(t^3)$; the exponential gives the same with $\\langle H^2\\rangle=(\\Delta H)^2+\\langle H\\rangle^2$."
+        "reveal": "$\\langle\\psi|e^{-iHt/\\hbar}|\\psi\\rangle=1-\\frac{it}\\hbar\\langle H\\rangle-\\frac{t^2}{2\\hbar^2}\\langle H^2\\rangle+O(t^3)$; the exponential gives the same with $\\langle H^2\\rangle=(\\Delta H)^2+\\langle H\\rangle^2$.",
+        "explain": "<p><b>Expand both sides to second order in $t$.</b> Left: the exponential $e^{-iHt/\\hbar}$ to second order, sandwiched in $|\\psi\\rangle$, gives\n    $1-\\frac{it}{\\hbar}\\langle H\\rangle-\\frac{t^2}{2\\hbar^2}\\langle H^2\\rangle$. Right: expand the claimed exponential; its $t^2$ term has\n    $(\\Delta H)^2+\\langle H\\rangle^2=\\langle H^2\\rangle$. Same to order $t^2$.</p>"
        },
        {
         "prompt": "(ii)-(iii) Survival probability.",
-        "reveal": "$|\\langle\\psi|\\psi(t)\\rangle|^2$: the phase drops out, $e^{-(\\Delta H)^2t^2/\\hbar^2}$: the decay time is $\\sim\\hbar/\\Delta H$. For an eigenstate $P=1$ for all $t$, consistent since $\\Delta H=0$."
+        "reveal": "$|\\langle\\psi|\\psi(t)\\rangle|^2$: the phase drops out, $e^{-(\\Delta H)^2t^2/\\hbar^2}$: the decay time is $\\sim\\hbar/\\Delta H$. For an eigenstate $P=1$ for all $t$, consistent since $\\Delta H=0$.",
+        "explain": "<p>The probability is the modulus squared: the first term is a pure phase and drops out, the Gaussian factor squares. So the state starts to\n    change on the time scale $\\hbar/\\Delta H$: a large energy spread means fast change. An energy eigenstate has $\\Delta H=0$ and never changes\n    (apart from a phase).</p>"
        }
       ],
       "keyPoints": [
@@ -1797,11 +1917,13 @@
       "steps": [
        {
         "prompt": "(i) Projectors.",
-        "reveal": "Each $P\\,U\\,P=|\\phi\\rangle\\langle\\phi|U|\\phi\\rangle\\langle\\phi|$: $n$ numbers $\\langle\\phi|U_{t/n}|\\phi\\rangle$ times $P$."
+        "reveal": "Each $P\\,U\\,P=|\\phi\\rangle\\langle\\phi|U|\\phi\\rangle\\langle\\phi|$: $n$ numbers $\\langle\\phi|U_{t/n}|\\phi\\rangle$ times $P$.",
+        "explain": "<p>Between measurements the state evolves with $U$; each measurement projects back onto $|\\phi\\rangle$. In $PUP=|\\phi\\rangle\\langle\\phi|U|\\phi\\rangle\\langle\\phi|$ the middle is just a\n    number. A chain of $n$ such blocks is that number to the power $n$, times $P$.</p>"
        },
        {
         "prompt": "(ii)-(iii) Limit.",
-        "reveal": "By Q1, $\\langle\\phi|U_{t/n}|\\phi\\rangle=e^{-i\\langle H\\rangle t/n\\hbar}(1+O(t^2/n^2))$; to the power $n$: $(1+O(t^2/n^2))^n=1+O(t^2/n)\\to1$. So the limit is $e^{-i\\langle H\\rangle t/\\hbar}P$: continuous measurement freezes the state (watched pot)."
+        "reveal": "By Q1, $\\langle\\phi|U_{t/n}|\\phi\\rangle=e^{-i\\langle H\\rangle t/n\\hbar}(1+O(t^2/n^2))$; to the power $n$: $(1+O(t^2/n^2))^n=1+O(t^2/n)\\to1$. So the limit is $e^{-i\\langle H\\rangle t/\\hbar}P$: continuous measurement freezes the state (watched pot).",
+        "explain": "<p><b>Why the limit freezes the state.</b> By Q1 the survival amplitude over a short time $\\tau$ deviates from a phase only at order $\\tau^2$.\n    With $\\tau=t/n$, $n$ factors of $(1-O(t^2/n^2))$ give $1-O(t^2/n)\\to1$. The loss per step is quadratic, but the number of steps only linear,\n    so frequent enough measurement stops the evolution: the quantum Zeno effect.</p>"
        }
       ],
       "keyPoints": [
@@ -1835,15 +1957,18 @@
       "steps": [
        {
         "prompt": "(i) Rewrite.",
-        "reveal": "$|\\pm\\rangle$ in terms of $|\\pm\\hat n\\rangle$: $|\\psi\\rangle=\\frac{1}{\\sqrt6}\\left[|+\\hat n\\rangle(2|+\\rangle+|-\\rangle)-|-\\hat n\\rangle|-\\rangle\\right]$."
+        "reveal": "$|\\pm\\rangle$ in terms of $|\\pm\\hat n\\rangle$: $|\\psi\\rangle=\\frac{1}{\\sqrt6}\\left[|+\\hat n\\rangle(2|+\\rangle+|-\\rangle)-|-\\hat n\\rangle|-\\rangle\\right]$.",
+        "explain": "<p>Express $|+\\rangle$ and $|-\\rangle$ for Alice through $|\\pm\\hat n\\rangle$: $|\\pm\\rangle=\\frac1{\\sqrt2}(|+\\hat n\\rangle\\pm|-\\hat n\\rangle)$. Insert, collect the terms with $|+\\hat n\\rangle$ and\n    with $|-\\hat n\\rangle$. Writing a state \"in the basis of the measurement\" shows directly what the other side is left with after each result.</p>"
        },
        {
         "prompt": "(ii) Three zeros.",
-        "reveal": "$a_0=+1$ leaves $|++\\rangle$: $b_0=+1$ surely. $a_1=-1$ leaves $|-\\hat n\\rangle|-\\rangle$: $b_0=-1$ surely. $a_1=+1$ leaves $|+\\hat n\\rangle\\propto|+\\hat n\\rangle|+\\hat m\\rangle$: $b_1=+1$ surely."
+        "reveal": "$a_0=+1$ leaves $|++\\rangle$: $b_0=+1$ surely. $a_1=-1$ leaves $|-\\hat n\\rangle|-\\rangle$: $b_0=-1$ surely. $a_1=+1$ leaves $|+\\hat n\\rangle\\propto|+\\hat n\\rangle|+\\hat m\\rangle$: $b_1=+1$ surely.",
+        "explain": "<p>Read off from the different ways of writing $|\\psi\\rangle$: after each specified result of one side, the other side is left in a definite state, so its\n    result is certain. E.g. $a_0=+1$: only the $|++\\rangle$ term has Alice $+$, so Bob's $b_0$ is $+1$. These certain correlations are the three\n    \"zeros\".</p>"
        },
        {
         "prompt": "(iii)-(iv) The contradiction.",
-        "reveal": "Classically $a_0\\le b_0\\le a_1\\le b_1$ always, so $a_0\\le b_1$. Quantum: $a_0=+1$ (probability $\\frac13$) leaves $|+\\rangle$ for Bob, and $|\\langle-\\hat m|+\\rangle|^2=\\frac15$: $P[a_0>b_1]=\\frac1{15}>0$. The values of non-commuting observables cannot all exist at once (no joint distribution)."
+        "reveal": "Classically $a_0\\le b_0\\le a_1\\le b_1$ always, so $a_0\\le b_1$. Quantum: $a_0=+1$ (probability $\\frac13$) leaves $|+\\rangle$ for Bob, and $|\\langle-\\hat m|+\\rangle|^2=\\frac15$: $P[a_0>b_1]=\\frac1{15}>0$. The values of non-commuting observables cannot all exist at once (no joint distribution).",
+        "explain": "<p><b>The paradox:</b> if all four values existed simultaneously, the three certainties would chain together and forbid $a_0=+1$, $b_1=-1$.\n    Quantum mechanically: $a_0=+1$ with probability $\\frac13$, then Bob has $|+\\rangle$, and $|\\langle-\\hat m|+\\rangle|^2=\\frac15$. So the \"impossible\"\n    event happens with probability $\\frac1{15}$: the values of incompatible observables do not exist before measurement.</p>"
        }
       ],
       "keyPoints": [
@@ -1886,19 +2011,23 @@
       "steps": [
        {
         "prompt": "(i) Ladder operators.",
-        "reveal": "$x/x_0=(a+a^\\dagger)/\\sqrt2$: $H=\\hbar\\omega(a^\\dagger a+\\frac12)+\\frac\\lambda4(a+a^\\dagger)^4$."
+        "reveal": "$x/x_0=(a+a^\\dagger)/\\sqrt2$: $H=\\hbar\\omega(a^\\dagger a+\\frac12)+\\frac\\lambda4(a+a^\\dagger)^4$.",
+        "explain": "<p>Express $x$ with ladder operators, $x=x_0\\frac{a+a^\\dagger}{\\sqrt2}$; then $(x/x_0)^4=\\frac14(a+a^\\dagger)^4$. Everything is now in the language\n    where matrix elements are easy.</p>"
        },
        {
         "prompt": "(ii) First order.",
-        "reveal": "Non-zero: $\\langle n\\pm4|$, $\\langle n\\pm2|$, $\\langle n|$. Normal ordering gives $\\langle n|(a+a^\\dagger)^4|n\\rangle=6n^2+6n+3$: $E^{(1)}_n=\\frac{3\\lambda}4(2n^2+2n+1)$."
+        "reveal": "Non-zero: $\\langle n\\pm4|$, $\\langle n\\pm2|$, $\\langle n|$. Normal ordering gives $\\langle n|(a+a^\\dagger)^4|n\\rangle=6n^2+6n+3$: $E^{(1)}_n=\\frac{3\\lambda}4(2n^2+2n+1)$.",
+        "explain": "<p><b>Which elements survive:</b> $(a+a^\\dagger)^4$ is a sum of 16 products of four ladder operators, each changing $n$ by $\\pm1$, so the net change is\n    $0,\\pm2,\\pm4$. First order needs only the diagonal one: count the products with two $a$ and two $a^\\dagger$ and evaluate them on $|n\\rangle$; they\n    add up to $6n^2+6n+3$.</p>"
        },
        {
         "prompt": "(iii) Second order.",
-        "reveal": "$E_n^{(2)}=\\sum_{k=\\pm2,\\pm4}\\frac{|\\langle n+k|H_a|n\\rangle|^2}{-k\\hbar\\omega}=-\\frac{\\lambda^2}{8\\hbar\\omega}(34n^3+51n^2+59n+21)$; ground state $E_0=\\hbar\\omega\\left[\\frac12+\\frac34\\frac{\\lambda}{\\hbar\\omega}-\\frac{21}8\\left(\\frac{\\lambda}{\\hbar\\omega}\\right)^2\\right]$."
+        "reveal": "$E_n^{(2)}=\\sum_{k=\\pm2,\\pm4}\\frac{|\\langle n+k|H_a|n\\rangle|^2}{-k\\hbar\\omega}=-\\frac{\\lambda^2}{8\\hbar\\omega}(34n^3+51n^2+59n+21)$; ground state $E_0=\\hbar\\omega\\left[\\frac12+\\frac34\\frac{\\lambda}{\\hbar\\omega}-\\frac{21}8\\left(\\frac{\\lambda}{\\hbar\\omega}\\right)^2\\right]$.",
+        "explain": "<p><b>Second order formula</b> $E^{(2)}_n=\\sum_{k\\ne n}\\frac{|\\langle k|H_a|n\\rangle|^2}{E_n-E_k}$: here $k=n\\pm2,n\\pm4$ with denominators $\\mp2\\hbar\\omega,\\mp4\\hbar\\omega$. The\n    ground state has only $k=2,4$ (no levels below), both making the energy lower: second order always lowers the ground state.</p>"
        },
        {
         "prompt": "(iv) Large $n$.",
-        "reveal": "$E^{(1)}_n/E^{(0)}_n\\sim\\frac{3\\lambda n}{\\hbar\\omega}$ grows: at large amplitudes $x^4$ dominates $x^2$, so it is no longer a small perturbation (and the series is only asymptotic: for $\\lambda<0$ the potential is unbounded)."
+        "reveal": "$E^{(1)}_n/E^{(0)}_n\\sim\\frac{3\\lambda n}{\\hbar\\omega}$ grows: at large amplitudes $x^4$ dominates $x^2$, so it is no longer a small perturbation (and the series is only asymptotic: for $\\lambda<0$ the potential is unbounded).",
+        "explain": "<p><b>Small compared to what?</b> The correction must be small compared with the level spacing $\\hbar\\omega$. But $E^{(1)}_n$ grows like $n^2$: for large $n$\n    the particle swings far out where $x^4$ beats $x^2$, and the \"perturbation\" dominates. Perturbation theory is a small-amplitude expansion.</p>"
        }
       ],
       "keyPoints": [
@@ -1934,15 +2063,18 @@
       "steps": [
        {
         "prompt": "Selection rules.",
-        "reveal": "Take $\\vec E=E\\hat z$, $\\Delta H=-eEz$. $z$ is odd (parity) and commutes with $L_z$: only $\\langle200|z|210\\rangle$ survives in the 4-dimensional $n=2$ space."
+        "reveal": "Take $\\vec E=E\\hat z$, $\\Delta H=-eEz$. $z$ is odd (parity) and commutes with $L_z$: only $\\langle200|z|210\\rangle$ survives in the 4-dimensional $n=2$ space.",
+        "explain": "<p><b>Before computing, use symmetry.</b> $z$ is odd under parity, so it connects only states of opposite parity ($\\ell$ even ↔ odd), and it does not\n    change $m$ (it commutes with $L_z$). In the $n=2$ space ($2s$; $2p$ with $m=-1,0,1$) the only pair with opposite parity and equal $m$ is\n    $2s\\leftrightarrow2p_{m=0}$.</p>"
        },
        {
         "prompt": "Matrix element.",
-        "reveal": "$\\langle200|z|210\\rangle=-3a_0$ (radial integral with the given $\\Psi_{2,0,0}$, $\\Psi_{2,1,0}$)."
+        "reveal": "$\\langle200|z|210\\rangle=-3a_0$ (radial integral with the given $\\Psi_{2,0,0}$, $\\Psi_{2,1,0}$).",
+        "explain": "<p>The angular integral of $\\cos\\theta$ between the $\\ell=0$ and $\\ell=1,m=0$ harmonics gives $1/\\sqrt3$; the radial integral of $r\\cdot R_{20}R_{21}r^2$ gives the rest.\n    Together $-3a_0$: the size of the effect is set by the Bohr radius.</p>"
        },
        {
         "prompt": "Diagonalise.",
-        "reveal": "The $2\\times2$ block $\\begin{pmatrix}0&3eEa_0\\\\3eEa_0&0\\end{pmatrix}$: $\\Delta E=\\pm3|e|Ea_0$ for $\\frac1{\\sqrt2}(|200\\rangle\\mp|210\\rangle)$ (signs depend on the convention for $e$); $|21\\pm1\\rangle$ unshifted. A linear Stark effect, because of the $\\ell$ degeneracy of hydrogen."
+        "reveal": "The $2\\times2$ block $\\begin{pmatrix}0&3eEa_0\\\\3eEa_0&0\\end{pmatrix}$: $\\Delta E=\\pm3|e|Ea_0$ for $\\frac1{\\sqrt2}(|200\\rangle\\mp|210\\rangle)$ (signs depend on the convention for $e$); $|21\\pm1\\rangle$ unshifted. A linear Stark effect, because of the $\\ell$ degeneracy of hydrogen.",
+        "explain": "<p><b>Degenerate perturbation theory:</b> inside a degenerate level, diagonalise the perturbation matrix. A $2\\times2$ block with zeros on the\n    diagonal has eigenvalues $\\pm$(off-diagonal), with eigenvectors $(1,\\pm1)/\\sqrt2$. The mixed $s$–$p$ states have a permanent dipole\n    moment, hence a shift linear in $E$; this only happens because $2s$ and $2p$ have the same energy in hydrogen.</p>"
        }
       ],
       "keyPoints": [
@@ -1979,15 +2111,18 @@
       "steps": [
        {
         "prompt": "(i) Strong field.",
-        "reveal": "Basis $|n\\ell mm_s\\rangle$: $E=\\mu_BB_z(m+2m_s)+\\xi_{n\\ell}\\hbar^2mm_s$, with $\\xi_{n\\ell}=\\frac{e^2}{2m_e^2c^2}\\langle r^{-3}\\rangle$ and $\\langle r^{-3}\\rangle=\\frac{1}{a_0^3n^3\\ell(\\ell+\\frac12)(\\ell+1)}$ (only $L_zS_z$ of $\\vec L\\cdot\\vec S$ has diagonal elements). Valid when $\\mu_BB\\gg$ fine-structure splitting $\\sim\\alpha^2\\mathrm{Ry}/n^3$: of order a tesla or more."
+        "reveal": "Basis $|n\\ell mm_s\\rangle$: $E=\\mu_BB_z(m+2m_s)+\\xi_{n\\ell}\\hbar^2mm_s$, with $\\xi_{n\\ell}=\\frac{e^2}{2m_e^2c^2}\\langle r^{-3}\\rangle$ and $\\langle r^{-3}\\rangle=\\frac{1}{a_0^3n^3\\ell(\\ell+\\frac12)(\\ell+1)}$ (only $L_zS_z$ of $\\vec L\\cdot\\vec S$ has diagonal elements). Valid when $\\mu_BB\\gg$ fine-structure splitting $\\sim\\alpha^2\\mathrm{Ry}/n^3$: of order a tesla or more.",
+        "explain": "<p><b>Strong field:</b> the Zeeman term is the big one, and it is diagonal in $|n\\ell mm_s\\rangle$. Treat spin-orbit as the perturbation: first order needs\n    its diagonal elements. $\\vec L\\cdot\\vec S=L_zS_z+\\frac12(L_+S_-+L_-S_+)$ and the $\\pm$ terms change $m$ and $m_s$, so only $L_zS_z$ survives on the diagonal:\n    $\\hbar^2mm_s$. Valid when the Zeeman splitting exceeds the fine structure.</p>"
        },
        {
         "prompt": "(ii) Blocks.",
-        "reveal": "$[\\vec L^2,\\Delta H]=[L_z+S_z,\\Delta H]=0$: for fixed $\\ell$ and $m_j=m+m_s$ only $|m_j-\\frac12,\\uparrow\\rangle$, $|m_j+\\frac12,\\downarrow\\rangle$ mix; diagonalising each $2\\times2$ block gives the Breit-Rabi type formulas interpolating between weak and strong field."
+        "reveal": "$[\\vec L^2,\\Delta H]=[L_z+S_z,\\Delta H]=0$: for fixed $\\ell$ and $m_j=m+m_s$ only $|m_j-\\frac12,\\uparrow\\rangle$, $|m_j+\\frac12,\\downarrow\\rangle$ mix; diagonalising each $2\\times2$ block gives the Breit-Rabi type formulas interpolating between weak and strong field.",
+        "explain": "<p><b>Which states mix:</b> $\\Delta H$ commutes with $\\vec L^2$ and with $J_z=L_z+S_z$, so it only mixes states with the same $\\ell$ and the same $m_j$. For given\n    $m_j$ there are at most two: $|m_j-\\frac12,\\uparrow\\rangle$ and $|m_j+\\frac12,\\downarrow\\rangle$. Diagonalise each $2\\times2$ block exactly; this covers all field\n    strengths at once.</p>"
        },
        {
         "prompt": "(iii) Weak field.",
-        "reveal": "$B=0$: $\\vec L\\cdot\\vec S=\\frac{\\hbar^2}2[j(j+1)-\\ell(\\ell+1)-\\frac34]$. First order in $B$: $\\langle L_z+2S_z\\rangle=\\hbar m_j\\left(1+\\frac{\\langle\\vec S\\cdot\\vec J\\rangle}{\\hbar^2j(j+1)}\\right)$ (projection theorem), giving $g=\\frac{2\\ell+2}{2\\ell+1}$ for $j=\\ell+\\frac12$ and $\\frac{2\\ell}{2\\ell+1}$ for $j=\\ell-\\frac12$."
+        "reveal": "$B=0$: $\\vec L\\cdot\\vec S=\\frac{\\hbar^2}2[j(j+1)-\\ell(\\ell+1)-\\frac34]$. First order in $B$: $\\langle L_z+2S_z\\rangle=\\hbar m_j\\left(1+\\frac{\\langle\\vec S\\cdot\\vec J\\rangle}{\\hbar^2j(j+1)}\\right)$ (projection theorem), giving $g=\\frac{2\\ell+2}{2\\ell+1}$ for $j=\\ell+\\frac12$ and $\\frac{2\\ell}{2\\ell+1}$ for $j=\\ell-\\frac12$.",
+        "explain": "<p><b>Weak field:</b> start from spin-orbit eigenstates $|j,m_j\\rangle$, where $\\vec L\\cdot\\vec S=\\frac12(\\vec J^2-\\vec L^2-\\vec S^2)$ is diagonal. Zeeman at first\n    order needs $\\langle L_z+2S_z\\rangle=\\langle J_z+S_z\\rangle$; by the projection theorem $\\vec S$ averages to its component along $\\vec J$. This gives the Landé factor:\n    each $j$ level splits into $2j+1$ equally spaced lines.</p>"
        }
       ],
       "keyPoints": [

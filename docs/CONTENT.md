@@ -71,6 +71,12 @@ keeps its text in `notes/<course>/build/sheets/*_sheets_*.py` and runs `python3 
 the solid-state solutions. Optional per step: `hints: [nudge, method, key step]`, revealed one at a time before the reference step.
 Optional `enc.primer` (HTML with KaTeX): a "Theory first (~10 min)" introduction shown as a collapsible block above the question, for when the lecture was missed (question in plain words, picture, formulas with meaning, tiny example, what the sheet needs, script pages). QM primers live in `qm_primers.py`.
 
+**Step explanations (`explain`).** Every reference step of a sheet question carries an `explain` text (HTML + KaTeX), shown under
+the revealed step as "Explain this step": *why* the step is taken, what each symbol means, and the algebra in between, linked to
+methods the student already knows (e.g. "multiply by cos(nka)" is the familiar e^{-inx} Fourier recipe). They live in
+`notes/<course>/build/sheets/<prefix>_explain.py` as `EXPLAIN[(sheet, question)] = [html per part]` and are merged by `sheetlib.build`.
+New sheets need their explanations too.
+
 ## Adding a room
 1. Write notes in `notes/<course>/` (transcribe the relevant script pages and sheets; describe figures in words).
 2. Write `game/content/<course>/<room>.json` and add the room id to `index.json`.

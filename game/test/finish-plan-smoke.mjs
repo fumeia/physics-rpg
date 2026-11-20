@@ -33,4 +33,11 @@ ck('when it does not fit, skimming low-weight weeks is suggested', await p.locat
 await p.evaluate(() => document.getElementById('cp-triage').click()); await p.waitForTimeout(600);
 const d2 = await perDay();
 ck(`skimming lowers the daily load (${d1} -> ${d2})`, d2 < d1);
+// exam dates per course: each course has its own deadline (exam minus the buffer)
+await p.evaluate(() => { const k = 'physics-rpg-v1', st = JSON.parse(localStorage.getItem(k)); st.flags.examDates = { qm: '2027-02-02', 'solid-state': '2027-01-26', astrophysics: '2027-02-09' }; localStorage.setItem(k, JSON.stringify(st)); });
+await p.reload(); await p.waitForFunction(() => !!window.__game); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('KeyC'); await p.waitForTimeout(600);
+const ex1 = await txt(); console.log('   ', ex1.slice(0, 260));
+ck('with exam dates each course gets exam minus 14 days (QM by 19 Jan, Solid by 12 Jan, Astro by 26 Jan)', /QM: [^·]* by (19 Jan|Jan 19)/.test(ex1) && /Solid: [^·]* by (12 Jan|Jan 12)/.test(ex1) && /Astro: [^·]* by (26 Jan|Jan 26)/.test(ex1), ex1);
+await p.evaluate(() => { const i = document.getElementById('cp-buffer'); i.value = '7'; i.dispatchEvent(new Event('change')); }); await p.waitForTimeout(500);
+ck('a shorter buffer moves the deadlines (QM by 26 Jan)', /QM: [^·]* by (26 Jan|Jan 26)/.test(await txt()));
 await b.close(); server.close(); console.log(fails ? `${fails} FAILED` : 'ALL OK'); process.exit(fails ? 1 : 0);

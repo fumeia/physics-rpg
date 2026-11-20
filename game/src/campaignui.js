@@ -62,9 +62,10 @@ export function createCampaign(ctx) {
   const FINISH_DEFAULT = '2027-01-15';
   // mock exams in the final phase: the last 14 days before the target, one full mock per course (exam-hist, written by exam.js)
   const MOCK_MIN = 120, PHASE_DAYS = 14;
-  const phaseStart = () => Date.parse(finishBy() + 'T00:00:00') - PHASE_DAYS * 86400000;
-  const mocksOwed = () => courses().filter((cid) => !(store.val('exam-hist', []) || []).some((x) => x.course === cid && x.mode === 'full' && x.t >= phaseStart()));
-  const mockDue = () => { if (Date.now() < phaseStart()) return null; const owed = mocksOwed(); if (!owed.length) return null; const last = (cid) => Math.max(0, ...(store.val('exam-hist', []) || []).filter((x) => x.course === cid).map((x) => x.t)); return owed.sort((a, b) => last(a) - last(b))[0]; };
+  // per course: the mock window opens a week before the course's deadline (exam date minus buffer), or 14 days before the target
+  const phaseStart = (cid) => (examDateKnown(cid) ? Date.parse(deadlineOf(cid) + 'T00:00:00') - 7 * 86400000 : Date.parse(finishBy() + 'T00:00:00') - PHASE_DAYS * 86400000);
+  const mocksOwed = () => courses().filter((cid) => !(store.val('exam-hist', []) || []).some((x) => x.course === cid && x.mode === 'full' && x.t >= phaseStart(cid)));
+  const mockDue = () => { const owed = mocksOwed().filter((cid) => Date.now() >= phaseStart(cid)); if (!owed.length) return null; const last = (cid) => Math.max(0, ...(store.val('exam-hist', []) || []).filter((x) => x.course === cid).map((x) => x.t)); return owed.sort((a, b) => last(a) - last(b))[0]; };
   const doneWeeks = (cid) => W()[cid].filter((w) => weekStatus(w, cleared, known()[cid], skim()[cid]).done).length;
   const finishBy = () => store.val('finishBy', FINISH_DEFAULT) || FINISH_DEFAULT;
   const daysLeft = () => Math.max(1, Math.ceil((Date.parse(finishBy() + 'T23:59:00') - Date.now()) / 86400000));
@@ -93,9 +94,19 @@ export function createCampaign(ctx) {
     return { total, by, reviews, examMin, extraMin, mockMin };
   }
   const studiedToday = () => Math.round((store.activeSecondsOn(todayStr()) || 0) / 60);
+  // per course: done by its exam date minus a buffer (store 'examBuffer', default 14 days) when the exam date is set (Settings ->
+  // Profile), otherwise by the global target. The daily need is the sum of each course's work over the days to its own deadline,
+  // so a course whose exam is far away gets a calmer pace instead of being finished first.
+  const buffer = () => { const v = +store.val('examBuffer', 14); return Number.isFinite(v) && v >= 0 ? v : 14; };
+  const deadlineOf = (cid) => (examDateKnown(cid) ? new Date(Date.parse(examDateOf(cid) + 'T12:00:00') - buffer() * 86400000).toISOString().slice(0, 10) : finishBy());
+  const daysTo = (iso) => Math.max(1, Math.ceil((Date.parse(iso + 'T23:59:00') - Date.now()) / 86400000));
   function finishPlan() {
-    const rem = remaining(), days = daysLeft(), perDay = Math.ceil(rem.total / days), done = studiedToday();
-    return { rem, days, perDay, done, todayLeft: Math.max(0, perDay - done) };
+    const rem = remaining(), done = studiedToday();
+    const per = courses().map((cid) => ({ cid, deadline: deadlineOf(cid), days: daysTo(deadlineOf(cid)), min: rem.by[cid].min }));
+    // reviews and mock exams (not per course) follow the nearest deadline
+    const first = Math.min(...per.map((x) => x.days)), extraMin = rem.total - per.reduce((a, x) => a + x.min, 0);
+    const perDay = Math.ceil(per.reduce((a, x) => a + x.min / x.days, 0) + extraMin / first);
+    return { rem, days: Math.max(...per.map((x) => x.days)), perDay, done, todayLeft: Math.max(0, perDay - done), per };
   }
   // triage: the weeks with the least exam weight, skimmed (theory only), until the daily load is bearable
   function triage(limitPerDay = 150) {
@@ -138,8 +149,9 @@ export function createCampaign(ctx) {
     const cls = fp.perDay <= 120 ? 'ok' : fp.perDay <= 240 ? 'heavy' : 'over';
     const verdict = cls === 'ok' ? 'doable' : cls === 'heavy' ? 'heavy but possible' : 'not realistic as it stands';
     const pct = Math.min(100, Math.round(100 * fp.done / Math.max(1, fp.perDay)));
-    return `<div class="cp-finish ${cls}"><div class="cp-fhead"><h3>${ic('target')} Finish plan: everything by <input type="date" id="cp-finish-date" value="${finishBy()}"></h3><span class="src">${fp.days} day${fp.days === 1 ? '' : 's'} left</span></div>
+    return `<div class="cp-finish ${cls}"><div class="cp-fhead"><h3>${ic('target')} Finish plan: ${courses().every((c) => examDateKnown(c)) ? `each course ${buffer()} days before its exam` : 'courses without an exam date by'} <input type="date" id="cp-finish-date" value="${finishBy()}"></h3><span class="src">${fp.days} day${fp.days === 1 ? '' : 's'} left</span></div>
       <p><b>${hm(fp.rem.total)}</b> of work left (${courses().map((c) => `${short(c)} ${hm(fp.rem.by[c].min)}`).join(', ')}${fp.rem.reviews ? `, ${fp.rem.reviews} reviews` : ''}) \u2192 <b>${fp.perDay} min a day</b>: ${verdict}.</p>
+      <p class="src">${fp.per.map((x) => `${short(x.cid)}: ${hm(x.min)} by ${new Date(x.deadline + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}${examDateKnown(x.cid) ? '' : ' (no exam date yet: Settings \u2192 Profile)'} \u2192 ${Math.ceil(x.min / x.days)} min/day`).join(' \u00b7 ')}. Buffer before each exam: <input type="number" id="cp-buffer" min="0" max="60" value="${buffer()}" style="width:3.5em"> days.</p>
       <p class="src">Included: sheets and theory, ${hm(fp.rem.examMin)} of old-exam problems (mixed into the runs on the weeks you are working on) and ${hm(fp.rem.extraMin)} of the other cards of the game (calculation fights, derivations, extra lessons), so nothing is left out${fp.rem.mockMin ? `, plus ${fp.rem.mockMin / MOCK_MIN} timed mock exam${fp.rem.mockMin / MOCK_MIN === 1 ? '' : 's'} (${hm(fp.rem.mockMin)}) in the last 14 days before the target` : ''}.</p>
       <div class="cp-fbar"><i style="width:${pct}%"></i></div><p class="src">Today: ${fp.done} of ${fp.perDay} min studied${fp.todayLeft ? `, ${fp.todayLeft} min to go` : ` ${ic('check')} on track for today`}. ${runMode() === 'auto' ? 'Run length is on Auto: each run is sized from what is left today.' : `Run length: ${runMode()} (${minutesOf(runMode())} min, from the daily target). <button class="link" id="cp-auto">Auto instead</button>`}</p>
       ${od.length ? `<p class="src">Overdue sheet questions (${od.length}), oldest first:</p><div class="row wrap">${od.slice(0, 6).map((x) => `<button class="chip btn" data-wopen="${x.id}">${short(x.cid)} sheet ${x.sh} Q${x.q}</button>`).join('')}</div>` : ''}
@@ -461,6 +473,7 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { store.setVal('runMinutes', b.dataset.len); replan(runMinutes()); re(); }));
     const xm = host.querySelector('#cp-x-mock'); if (xm) xm.onclick = () => { const c = courses().map((cid) => ({ cid, d: examDateKnown(cid) ? Date.parse(examDateOf(cid)) : Infinity })).sort((a, b) => a.d - b.d)[0]?.cid; ctx.openExam(c); };
     const xx = host.querySelector('#cp-x-mix'); if (xx) xx.onclick = () => ctx.openTab('mix');
+    const bf = host.querySelector('#cp-buffer'); if (bf) bf.onchange = () => { const v = Math.round(+bf.value); if (Number.isFinite(v) && v >= 0 && v <= 60) { store.setVal('examBuffer', v); replan(runMinutes()); re(); } };
     const fd = host.querySelector('#cp-finish-date'); if (fd) fd.onchange = () => { if (/^\d{4}-\d{2}-\d{2}$/.test(fd.value)) { store.setVal('finishBy', fd.value); replan(runMinutes()); re(); } };
     const au = host.querySelector('#cp-auto'); if (au) au.onclick = () => { store.setVal('runMinutes', 'auto'); replan(runMinutes()); re(); };
     const tr = host.querySelector('#cp-triage'); if (tr) tr.onclick = () => { const t = triage(); if (!t) return; const cur = { ...(store.val('campaignSkim', {}) || {}) }; for (const c of t.pick) cur[c.cid] = [...new Set([...(cur[c.cid] || []), c.n])]; store.setVal('campaignSkim', cur); weeks = null; replan(runMinutes()); re(); };

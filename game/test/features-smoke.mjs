@@ -10,9 +10,12 @@ const b = await chromium.launch({ executablePath: exe, headless: true, args: ['-
 let fails = 0; const ck = (n, c) => { if (!c) fails++; console.log(`${c ? 'PASS' : 'FAIL'} ${n}`); }; const errs = [];
 const url = `http://127.0.0.1:${port}/index.html?test=1`;
 const day = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+let caseNo = 0;
 async function open(opts, state) {
   const ctx = await b.newContext(opts), p = await ctx.newPage(); p.on('pageerror', (e) => errs.push(e.message)); p.on('console', (m) => m.type() === 'error' && errs.push(m.text()));
-  await p.goto(url); if (state) await p.evaluate((s) => localStorage.setItem('physics-rpg-v1', JSON.stringify(s)), state); await p.reload();
+  // each case is its own player: its own profile on the shared save server (the sync merges saves of the same profile)
+  const name = `case${++caseNo}`;
+  await p.goto(url); await p.evaluate(([n, s]) => { localStorage.setItem('physics-rpg-profile', n); if (s) localStorage.setItem('physics-rpg-v1:' + n, JSON.stringify(s)); }, [name, state || null]); await p.reload();
   await p.waitForFunction(() => !!window.__game); await p.waitForTimeout(800);
   await p.evaluate(() => document.getElementById('tut')?.style.display !== 'none' && document.getElementById('tut-skip')?.click()); return p;
 }
@@ -213,7 +216,7 @@ ck(`answers: the pulse always matches the result (right ${sawRight}, wrong ${saw
 await p.evaluate(() => window.__game.close()); await p.waitForTimeout(300);
 await p.keyboard.press('KeyP'); await p.waitForTimeout(500);
 await p.check('#set-sound'); await p.selectOption('#set-goal', 'intense'); await p.waitForTimeout(300);
-ck('settings: sound and goal are saved', await p.evaluate(() => { const s = JSON.parse(localStorage.getItem('physics-rpg-v1')).flags.settings; return s.sound === true && s.goal === 'intense'; }));
+ck('settings: sound and goal are saved', await p.evaluate(() => { const s = JSON.parse(localStorage.getItem('physics-rpg-v1:' + localStorage.getItem('physics-rpg-profile'))).flags.settings; return s.sound === true && s.goal === 'intense'; }));
 await p.context().close();
 
 ck('no page errors', errs.length === 0); if (errs.length) console.log([...new Set(errs)].slice(0, 5));

@@ -726,9 +726,10 @@ function wireScript(host) {
   host.querySelectorAll('[data-sfrom]').forEach((b) => (b.onclick = () => { campaign?.setReread(scriptCourse, +b.dataset.sfrom); refresh(); renderStudy('script'); }));
   host.querySelectorAll('[data-sstop]').forEach((b) => (b.onclick = () => { campaign?.setReread(scriptCourse, 0); refresh(); renderStudy('script'); }));
 }
-// ---- Study hub: tabs for the pile, session planner, mistakes, weak spots and Feynman mode
+// ---- Study hub: tabs for the pile, mistakes, weak spots and Feynman mode (the session planner left the menu: the campaign's runs
+// and finish plan do its job; its code stays, renderStudy('plan') still works)
 let studyTab = 'today'; // in the compact layout the hub opens on the sheets
-const TABS = [['today', 'Today'], ['script', 'Script'], ['sheets', 'Sheets'], ['week', 'This week'], ['plan', 'Session planner'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['derivs', 'Derivations'], ['forge', 'Forge (QM by heart)'], ['units', 'Units duel'], ['summary', 'My summary'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
+const TABS = [['today', 'Today'], ['script', 'Script'], ['sheets', 'Sheets'], ['week', 'This week'], ['drills', 'Drills'], ['mix', 'Mixed practice'], ['pile', 'My pile'], ['derivs', 'Derivations'], ['forge', 'Forge (QM by heart)'], ['units', 'Units duel'], ['summary', 'My summary'], ['mistakes', 'Mistakes'], ['weak', 'Weak spots'], ['radar', 'Exam radar'], ['feynman', 'Feynman'], ['calib', 'Calibration']];
 let studyOpened = false;
 const MAIN_TABS = ['script', 'sheets', 'derivs', 'forge', 'summary', 'units', 'drills', 'mistakes', 'feynman', 'pile'];
 function renderStudy(tab) {
@@ -745,7 +746,7 @@ function renderStudy(tab) {
   if (studyTab === 'today') { host.innerHTML = M(todayHtml()); wireToday(host); }
   else if (studyTab === 'sheets') { host.innerHTML = M(sheetsHtml()); wireSheetLinks(host); }
   else if (studyTab === 'script') { host.innerHTML = M(scriptHtml()); wireScript(host); }
-  else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => renderStudy('plan'); }
+  else if (studyTab === 'week') { host.innerHTML = weekHtml(); $('week-quick').onclick = () => startQuick(); $('week-plan').onclick = () => { if (campaign) { closeOverlay(true); openOverlay('campaign'); } else renderStudy('plan'); }; }
   else if (studyTab === 'pile') { host.innerHTML = pileHtml(); wirePile(); }
   else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh(), openEnc: (id) => { closeOverlay(true); openById(id); player.enabled = true; } })
   else if (studyTab === 'derivs') renderDerivs(host, { items: derivItems, M, onChange: () => refresh(), openEnc: (id) => { closeOverlay(true); openById(id); player.enabled = true; }, start: derivStart?.id, startMode: derivStart?.mode })
@@ -1064,7 +1065,7 @@ function weekHtml() {
     <div class="spark week">${w.minutes.map((x, i) => `<span><i title="${w.days[i]}: ${x} min" style="height:${Math.max(3, Math.round(38 * x / mx))}px"></i><em>${dn[new Date(w.days[i] + 'T00:00:00').getDay()]}</em></span>`).join('')}</div>
     <h3>Progress per course</h3>${w.courses.map((c) => `<div class="goalrow"><b>${c.region}</b> <span class="src">${c.passed} / ${c.total} done${c.week ? `, ${c.week} new this week` : ''}</span><div class="bar"><i style="width:${Math.round(100 * c.passed / Math.max(1, c.total))}%"></i></div></div>`).join('')}
     <p><b>Strongest:</b> ${best.region}. ${w.weak.length ? `<b>Needs work:</b> ${w.weak.join(' and ')}.` : 'No weak spots recorded yet.'}</p>
-    <div class="row"><button class="go" id="week-quick">Quick session</button><button class="chip btn" id="week-plan">Plan a longer session</button></div>`;
+    <div class="row"><button class="go" id="week-quick">Quick session</button><button class="chip btn" id="week-plan">Plan longer runs (campaign)</button></div>`;
 }
 // ================================================================ daily missions
 const isPassedEnc = (e) => store.isPassed(e.id);

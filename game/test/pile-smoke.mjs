@@ -32,11 +32,10 @@ await p.evaluate(()=>window.__game.open('astro-light-c1'));await p.waitForTimeou
 const num=await p.evaluate(()=>{const inp=[...document.querySelectorAll('#panel input[type=text]')].find(i=>i.closest('.step')&&i.closest('.step').querySelector('select')&&!i.disabled);if(!inp)return null;const sel=inp.closest('.step').querySelector('select');if(sel)sel.selectedIndex=1;inp.value='12345';const b=inp.closest('.step').querySelector('button.go');b.click();return inp.closest('.step').querySelector('.msg')?.innerText||''});
 await p.waitForTimeout(300);ck('wrong numeric answer gives feedback',typeof num==='string');
 await p.evaluate(()=>window.__game.close());await p.keyboard.press('Escape');await p.waitForTimeout(200);await p.keyboard.press('KeyV');await p.waitForTimeout(300);
-for(const [tab,sel] of [['mistakes','.mcard'],['weak','.maplist, p'],['feynman','#fy-text'],['plan','[data-pm]']]){await p.click(`[data-stab="${tab}"]`);await p.waitForTimeout(250);ck('tab '+tab+' renders',await p.evaluate((s)=>!!document.querySelector('#study-body '+s.split(',')[0])||!!document.querySelector('#study-body p'),sel));}
+for(const [tab,sel] of [['mistakes','.mcard'],['weak','.maplist, p'],['feynman','#fy-text']]){await p.click(`[data-stab="${tab}"]`);await p.waitForTimeout(250);ck('tab '+tab+' renders',await p.evaluate((s)=>!!document.querySelector('#study-body '+s.split(',')[0])||!!document.querySelector('#study-body p'),sel));}
 await p.click('[data-stab="mistakes"]');ck('mistake from the wrong answer is listed',await p.evaluate(()=>document.querySelectorAll('.mcard').length>=1));
 await p.click('[data-stab="feynman"]');await p.fill('#fy-text','The idea is that the wave function must be continuous at the step and so the amplitudes follow from matching.');await p.click('#fy-cmp');await p.waitForTimeout(200);
 await p.evaluate(()=>document.querySelectorAll('.fyk').forEach((c,i)=>{if(i<2)c.checked=true}));await p.click('#fy-save');await p.waitForTimeout(200);
 ck('feynman saved with xp',await p.evaluate(()=>document.querySelector('#fy-out')?.innerText.includes('key points')));
-await p.click('[data-stab="plan"]');await p.click('[data-pm="60"]');await p.waitForTimeout(300);
-ck('planner builds a session',await p.evaluate(()=>document.querySelectorAll('[data-pstart]').length>=1));
+ck('the session planner left the menu (runs and the finish plan do its job)',await p.locator('[data-stab="plan"]').count()===0);
 const bad=results.some(x=>!x)||errs.length;console.log(bad?'FAIL '+errs.slice(0,3):'ALL PASS pile');await b.close();server.close();process.exit(bad?1:0);

@@ -51,6 +51,8 @@ export function syncNow() {
       again = false;
       try {
         const base = loadBase(), before = store.updated;
+        // a profile the server does not know yet: create it (the listing avoids a 404 that the browser would log as an error)
+        if (!base) { const l = await api('/api/profiles'); if (l.ok && !((await l.json()).profiles || []).some((x) => x.name === profileName())) { if (await put(store.snapshot, 0)) break; continue; } }
         const r = await api(url());
         if (r.status === 404) { if (await put(store.snapshot, 0)) break; continue; }
         if (!r.ok) throw new Error(`HTTP ${r.status}`);

@@ -21,6 +21,9 @@ export function createCampaign(ctx) {
   let weeks = null, openWeek = null; // openWeek: 'course/n' whose detail is unfolded
   const W = () => (weeks ||= buildWeeks(cfg, ctx.catalog, ctx.sheetsByCourse));
   const passed = (id) => store.isPassed(id);
+  // progress (which week you are in, what the run gives you next) counts a question you tried and missed as dealt with: it is
+  // in the spaced-repetition schedule (back after 3, 7, 16, 35 days, at the end of a run) instead of blocking the next questions
+  const cleared = (id) => store.isPassed(id) || store.hasReview(id);
   const knownRaw = () => store.val('campaignKnown', {}) || {};
   const known = () => Object.fromEntries(Object.entries(knownRaw()).map(([k, v]) => [k, new Set(v)]));
   const skim = () => Object.fromEntries(Object.entries(store.val('campaignSkim', {}) || {}).map(([k, v]) => [k, new Set(v)]));
@@ -42,7 +45,7 @@ export function createCampaign(ctx) {
   }
   const taught = () => taughtWeeks(cfg);
   const courses = () => Object.keys(W());
-  const pos = (cid) => position(W()[cid], passed, known()[cid], taught(), skim()[cid]);
+  const pos = (cid) => position(W()[cid], cleared, known()[cid], taught(), skim()[cid]);
   const behindTotal = () => +courses().reduce((s, c) => s + pos(c).behind, 0).toFixed(1);
   const isSetup = () => !!store.val('campaignSetup', false);
   const runMinutes = () => store.val('runMinutes', 45);
@@ -76,7 +79,7 @@ export function createCampaign(ctx) {
   }
   function freshRun(minutes = runMinutes()) {
     const rv = store.snapshot.reviews || {}, due = store.dueReviews().filter((id) => ctx.encIndex.has(id)).sort((a, b) => (rv[a].due || 0) - (rv[b].due || 0));
-    const r = buildRun({ weeks: W(), isPassed: passed, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds(), reread: rereadStops(), examDays: Object.fromEntries(courses().map((c) => [c, daysToExam(new Date(), c)])) });
+    const r = buildRun({ weeks: W(), isPassed: cleared, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds(), reread: rereadStops(), examDays: Object.fromEntries(courses().map((c) => [c, daysToExam(new Date(), c)])) });
     // parked cards ("I need more groundwork first"): until their groundwork is passed, the groundwork stands in their place
     { const pk = parked(); let changed = false;
       for (const [pid, p] of Object.entries(pk)) { if (passed(pid) || (p.pre || []).every((x) => passed(x))) { delete pk[pid]; changed = true; } }
@@ -108,6 +111,7 @@ export function createCampaign(ctx) {
     const total = () => r.stops.reduce((a, s) => a + s.min, 0), firstNew = r.stops.findIndex((s) => ['read', 'theory', 'sheet'].includes(s.kind));
     for (const kind of ['scout', 'hunt', 'explain', 'blitz', 'boss', 'warmup', 'defend', 'catchup', 'forge', 'deriv', 'reread']) {
       while (total() > minutes + 5) {
+        if (kind === 'warmup' && r.stops.filter((s) => s.kind === 'warmup').length <= 1) break; // one due review always stays
         let i = -1; for (let k = r.stops.length - 1; k >= 0; k--) { const s = r.stops[k]; if ((kind === 'catchup' ? ['read', 'theory', 'sheet'].includes(s.kind) && k > firstNew + 1 : s.kind === kind)) { i = k; break; } }
         if (i < 0) break; r.stops.splice(i, 1);
       }
@@ -138,7 +142,12 @@ export function createCampaign(ctx) {
       return `<div class="cp-pk"><span><b>${p.title}</b> \u00b7 groundwork ${done}/${p.pre.length}${p.why === 'unclear' ? ' \u00b7 marked as badly explained' : ''}</span><button class="chip btn" data-unpark="${id}">Try it again now</button></div>`; }).join('')}
       <p class="src">A parked card comes back into a run by itself once its groundwork is passed.${(store.val('unclear', []) || []).length ? ' Cards you marked as badly explained are kept in a list (flag <code>unclear</code>); tell Claude in a session, and they get rewritten.' : ''}</p></div>`;
   }
-  function run() { let r = store.val('run', null); if (!r || r.date !== todayStr()) { r = freshRun(); r.n = 1; store.setVal('run', r); } return r; }
+  function run() {
+    let r = store.val('run', null); if (!r || r.date !== todayStr()) { r = freshRun(); r.n = 1; store.setVal('run', r); return r; }
+    // a run not started yet whose new material is already dealt with (e.g. missed and now scheduled for review): plan it again
+    if (!r.startedAt && !r.summarized && r.stops.some((s) => ['read', 'theory', 'sheet'].includes(s.kind) && cleared(s.id))) { r = { ...freshRun(r.minutes > 0 ? runMinutes() : undefined), n: r.n || 1 }; store.setVal('run', r); }
+    return r;
+  }
   function stopState(r, s) { // done / failed today since the run started, else open
     if (s.action) return r.acted?.[s.id] ? 'done' : 'open'; // practice stops count once you opened them
     if (!r.startedAt) return 'open';
@@ -291,7 +300,7 @@ export function createCampaign(ctx) {
   }
   function trackHtml(cid) {
     const ws = W()[cid], kn = known()[cid], p = pos(cid), t = taught(), lw = lectureWeek(cfg);
-    const tiles = ws.map((w) => { const s = weekStatus(w, passed, kn, skim()[cid]), wm = weekMemory(w), fade = s.done && !s.known && wm !== null && wm < 0.6, wt = weekWeight(cid, w), cls = (s.known ? 'known' : s.done ? 'done' : s.passed ? 'part' : 'open') + (fade ? ' fade' : '') + (s.skim ? ' skim' : '') + (wt >= 0.6 ? ' hot' : '');
+    const tiles = ws.map((w) => { const s = weekStatus(w, cleared, kn, skim()[cid]), wm = weekMemory(w), fade = s.done && !s.known && wm !== null && wm < 0.6, wt = weekWeight(cid, w), cls = (s.known ? 'known' : s.done ? 'done' : s.passed ? 'part' : 'open') + (fade ? ' fade' : '') + (s.skim ? ' skim' : '') + (wt >= 0.6 ? ' hot' : '');
       return `<button class="cp-tile ${cls}${w.n <= t && !s.done ? ' dark' : ''}${w.n === lw ? ' now' : ''}${w.n > t ? ' future' : ''}${openWeek === `${cid}/${w.n}` ? ' sel' : ''}${p.next?.n === w.n ? ' you' : ''}" data-week="${cid}/${w.n}" title="Week ${w.n}: ${esc(w.title)}${fade ? ` \u00b7 fading: about ${Math.round(100 * wm)}% remembered` : ''}${wt >= 0.6 ? ' \u00b7 often in old exams' : wt < 0.25 ? ' \u00b7 rare in old exams' : ''}"><i style="height:${Math.round(100 * s.frac)}%"></i><b>${w.n}</b>${w.n === lw ? `<span class="cp-ghost" title="The ghost studies exactly at lecture pace">${GHOST}</span>` : ''}</button>`; }).join('');
     const state = p.behind > 0 ? `<b class="cp-behind">ghost ${p.behind} weeks ahead</b>` : `<b class="cp-ok">level with the ghost</b>`;
     return `<div class="cp-course"><div class="cp-chead"><h3>${ctx.courseName(cid)}</h3><span>${state} · you: ${p.next ? `in week ${p.next.n}` : 'all 14 weeks done'} · lecture: week ${lw} · exam ${examDateKnown(cid) ? new Date(examDateOf(cid) + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) : '(date not set)'}, ${daysToExam(new Date(), cid)} days</span>${ctx.sheetsByCourse[cid] ? `<button class="chip btn cp-hand${handIn(cid) ? ' cur' : ''}" data-hand="${cid}" title="On: the sheet due within three days comes first in the run. Off: strict catch-up, oldest open week first; the due sheet stays visible as the weekly boss.">Hand-ins first: ${handIn(cid) ? 'on' : 'off'}</button>` : ''}${rereadHtml(cid)}</div><div class="cp-track">${tiles}</div>${openWeek?.startsWith(cid + '/') ? weekHtml(cid, +openWeek.split('/')[1]) : ''}</div>`;
@@ -305,7 +314,7 @@ export function createCampaign(ctx) {
     return `<span class="cp-reread cur">\u21ba Second pass from week ${st.from}: ${readingIds(cid, st.from).length - left.length} of ${readingIds(cid, st.from).length} read${nx ? ` \u00b7 next: week ${nx.week}` : ' \u00b7 done'}<button class="chip btn" data-rrstop="${cid}">stop</button></span>`;
   }
   function weekHtml(cid, n) {
-    const w = W()[cid].find((x) => x.n === n), s = weekStatus(w, passed, known()[cid], skim()[cid]), wt = weekWeight(cid, w), wm = weekMemory(w);
+    const w = W()[cid].find((x) => x.n === n), s = weekStatus(w, cleared, known()[cid], skim()[cid]), wt = weekWeight(cid, w), wm = weekMemory(w);
     const exam = wt >= 0.6 ? 'often in old exams: do it properly' : wt < 0.25 ? 'rare in old exams: a good week to skim if time is short' : 'sometimes in old exams';
     const row = (id) => { const e = ctx.encIndex.get(id)?.enc; return `<div class="maprow"><button class="link" data-wopen="${id}"><span class="mt">${passed(id) ? '✓' : store.hasReview(id) ? '↻' : '○'} ${esc(title(id))}</span></button><span class="src">${e?.sheet ? 'sheet question' : e?.type || ''}</span></div>`; };
     return `<div class="cp-week"><div class="cp-whead"><b>Week ${n}: ${esc(w.title)}</b><span class="src">${exam}${wm !== null ? ` \u00b7 about ${Math.round(100 * wm)}% remembered` : ''} \u00b7 ${s.known ? 'marked as done on paper' : s.skim ? 'skim: done when the theory is read' : s.done ? 'done' : `${s.passed} of ${s.total} passed · done when the theory and half of the exercises are passed`}</span></div>
@@ -393,7 +402,7 @@ export function createCampaign(ctx) {
   // Is this room part of a week the lecture has already passed and you have not cleared? (drives the room's "overrun" look)
   function roomOverdue(cid, slug) {
     const ws = W()[cid]; if (!ws) return false; const kn = known()[cid], t = taught();
-    return ws.some((w) => w.n <= t && !weekStatus(w, passed, kn, skim()[cid]).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
+    return ws.some((w) => w.n <= t && !weekStatus(w, cleared, kn, skim()[cid]).done && [...w.theory, ...w.practice].some((id) => ctx.encIndex.get(id)?.roomId === slug));
   }
   // for the Script tab of the study hub: second-pass state per course, and starting/stopping it from there
   function rereadInfo(cid) { const st = rereadState()[cid]; return st?.since ? { from: st.from, done: new Set(syncReread()[cid]?.done || []) } : null; }

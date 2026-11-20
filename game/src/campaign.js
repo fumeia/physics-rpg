@@ -116,6 +116,9 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
   }
   // reviews at the end of the run: due respawns (spaced 3, 7, 16, 35 days) and something fading, only while time is left
   for (const id of due) { if (stops.filter((x) => x.kind === 'warmup').length >= (minutes >= 60 ? 3 : 2)) break; add(id, 'warmup', 'Review: a respawn that is due (spaced repetition)'); }
+  // the oldest due review always gets its place, even in a full run: otherwise reviews pile up behind long readings and never come
+  const firstDue = due.find((id) => !seen.has(id) && encOf(id));
+  if (firstDue && !stops.some((x) => x.kind === 'warmup')) { seen.add(firstDue); stops.push({ id: firstDue, kind: 'warmup', why: 'Review: a respawn that is due (spaced repetition)', course: undefined, min: est(firstDue) }); used += est(firstDue); }
   for (const id of defend) { if (stops.filter((x) => x.kind === 'defend').length >= (minutes >= 60 ? 2 : 1)) break; add(id, 'defend', 'You passed this a while ago and it is fading: defend it'); }
   // finisher: something exam-like from a finished week of the course you are best in (kept short on short runs)
   if (minutes >= 40) {

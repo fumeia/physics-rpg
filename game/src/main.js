@@ -1068,7 +1068,7 @@ function weekHtml() {
 const isPassedEnc = (e) => store.isPassed(e.id);
 function todays() {
   const k = todayStr();
-  if (!dayMissions || dayKey !== k) { dayMissions = buildMissions({ catalog, banks, links: linksData, store, isPassed: isPassedEnc }); dayKey = k; }
+  if (!dayMissions || dayKey !== k) { dayMissions = buildMissions({ catalog, banks, links: linksData, store, isPassed: (e) => isPassedEnc(e) || store.hasReview(e?.id ?? e) }); /* a missed question waits for its review date */ dayKey = k; }
   return dayMissions;
 }
 // One streak for the whole game: a day counts when you finished a run or completed a daily mission. One missed day per

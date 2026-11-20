@@ -573,3 +573,5 @@ html[data-theme=light] .cp-fhead input[type=date] { border-color: rgba(0,0,0,.3)
 .ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .cp-dot .ic { width: 1.25em; height: 1.25em; vertical-align: middle; }
 .cp-node.bonus { opacity: .82; } .cp-node.bonus .cp-dot { border-style: dashed; }
+.st-cal .st-c[data-day] { cursor: pointer; } .st-cal .st-c.sel { outline: 2px solid var(--warn, #f5c451); outline-offset: 1px; }
+.st-dayinfo { margin: 6px 0 2px; font-size: 14px; min-height: 2.6em; }

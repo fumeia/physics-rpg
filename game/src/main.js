@@ -1024,13 +1024,26 @@ function startQuick() {
   queueLabel = 'Quick session'; pileQueue = ids; openFromPile(ids[0], true);
 }
 // ---- Stats page (tap the XP counter or Menu > Stats): streak, calendar, last 7 days and every course at a glance
+// one day of the heatmap, shown under it when a day is tapped: minutes, exercises, runs and the minutes per course
+function dayInfoHtml(d) {
+  const m = Math.round(store.activeSecondsOn(d) / 60), acts = store.activityOn(d), ok = acts.filter((x) => x.ok).length, miss = acts.filter((x) => !x.ok).length;
+  const runs = (store.val('runLog', []) || []).filter((x) => x.date === d).length, by = ((store.snapshot.flags || {}).activeBy || {})[d] || {};
+  const per = {}; for (const [k, sec] of Object.entries(by)) { const c = k.split('|')[0]; per[c] = (per[c] || 0) + sec; }
+  const courses = Object.entries(per).filter(([, sec]) => sec >= 30).sort((a, b) => b[1] - a[1]).map(([c, sec]) => `${findCourse(c)?.name || (c === 'mixed' ? 'mixed' : c)} ${Math.round(sec / 60)} min`).join(' \u00b7 ');
+  const when = new Date(d + 'T12:00:00').toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+  return `<b>${when}${d === todayStr() ? ' (today)' : ''}:</b> ${m} min studied${ok || miss ? ` \u00b7 ${ok} exercise${ok === 1 ? '' : 's'} passed${miss ? `, ${miss} to retry` : ''}` : ''}${runs ? ` \u00b7 ${runs} run${runs === 1 ? '' : 's'} finished` : ''}${courses ? `<br><span class="src">${courses}</span>` : ''}`;
+}
+// a tap on a heatmap day shows that day (delegated: the stats are drawn into the campaign page and redrawn often)
+document.addEventListener('click', (ev) => { const c = ev.target.closest?.('.st-c[data-day]'); if (!c) return; const box = c.closest('.st-cal')?.parentElement?.querySelector('.st-dayinfo'); if (!box) return;
+  box.innerHTML = dayInfoHtml(c.dataset.day); c.parentElement.querySelectorAll('.st-c.sel').forEach((x) => x.classList.remove('sel')); c.classList.add('sel'); });
+document.addEventListener('keydown', (ev) => { if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.matches?.('.st-c[data-day]')) { ev.preventDefault(); ev.target.click(); } });
 function statsHtml() {
   const sn = streakNow(), lv = levelOf(store.xp), log = store.val('runLog', []) || [], runDates = new Set(log.map((x) => x.date)), active = activeDays();
   const days = []; const start = new Date(); start.setDate(start.getDate() - ((start.getDay() + 6) % 7) - 7 * 11);
   for (let i = 0; i < 84; i++) { const d = new Date(start); d.setDate(start.getDate() + i); days.push(todayStr(d)); }
   const today = todayStr(), mins = (d) => Math.round(store.activeSecondsOn(d) / 60), exs = (d) => store.activityOn(d).filter((x) => x.ok).length;
   const lvl = (d) => { const m = mins(d), e = exs(d); return d > today ? -1 : !m && !e && !active.has(d) ? 0 : m >= 60 || e >= 8 ? 4 : m >= 30 || e >= 4 ? 3 : m >= 10 || e >= 2 ? 2 : 1; };
-  const cells = days.map((d) => `<i class="st-c l${lvl(d)}${runDates.has(d) ? ' run' : ''}${d === today ? ' now' : ''}" title="${d}: ${mins(d)} min, ${exs(d)} passed${runDates.has(d) ? ', run finished' : ''}"></i>`).join('');
+  const cells = days.map((d) => `<i class="st-c l${lvl(d)}${runDates.has(d) ? ' run' : ''}${d === today ? ' now' : ''}"${d > today ? '' : ` data-day="${d}" role="button" tabindex="0"`} title="${d}: ${mins(d)} min, ${exs(d)} passed${runDates.has(d) ? ', run finished' : ''}"></i>`).join('');
   const w = weekStats(), mx = Math.max(30, ...w.minutes);
   const bars = w.days.map((d, i) => `<div class="sx-day"><span style="height:${Math.round(100 * w.minutes[i] / mx)}%"></span><b>${w.minutes[i] || ''}</b><em>${new Date(d + 'T12:00:00').toLocaleDateString(undefined, { weekday: 'narrow' })}</em></div>`).join('');
   const grades = Object.fromEntries((campaign?.grades?.() || []).map((g) => [g.cid, g.grade]));
@@ -1045,7 +1058,7 @@ function statsHtml() {
   const tile = (big, small, cls = '') => `<div class="st-tile ${cls}"><b>${big}</b><span>${small}</span></div>`;
   return `<div class="st-tiles">${tile(`${ic('flame')} ${sn.count}`, `day streak${sn.saved ? ' (kept by the weekly freeze)' : sn.today ? ' · today counted' : sn.alive ? ' · study today to keep it' : ''}`, 'fire')}${tile(`Lv ${lv.lv}`, `${lv.rank} · ${store.xp} XP<span class="fg-bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></span>`)}${tile(log.length, `runs finished · ${new Set(log.filter((x) => x.date > todayStr(new Date(Date.now() - 30 * 86400000))).map((x) => x.date)).size} run days in 30 days`)}${tile(`${w.total} min`, `this week, on ${w.studied} day${w.studied === 1 ? '' : 's'}`)}</div>
     <p class="src">A day counts for the streak when you finish a run or complete a daily mission; one missed day per week is forgiven.</p>
-    <h3>Last 12 weeks</h3><div class="st-cal">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((x) => `<em>${x}</em>`).join('')}${cells}</div><p class="src st-legend">less <i class="st-c l1"></i><i class="st-c l2"></i><i class="st-c l3"></i><i class="st-c l4"></i> more · <i class="st-c l2 run"></i> run finished</p>
+    <h3>Last 12 weeks</h3><div class="st-cal">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((x) => `<em>${x}</em>`).join('')}${cells}</div><div class="st-dayinfo" id="st-dayinfo">${dayInfoHtml(today)}</div><p class="src st-legend">less <i class="st-c l1"></i><i class="st-c l2"></i><i class="st-c l3"></i><i class="st-c l4"></i> more · <i class="st-c l2 run"></i> run finished</p>
     <h3>Last 7 days (minutes)</h3><div class="sx-days">${bars}</div>
     <h3>Courses</h3><div class="st-courses">${catalog.map(course).join('')}</div>
     <p class="src">${w.exercises} exercises passed this week · ${cardsN} formula cards · ${deriv} of ${derivItems.length} QM derivations mastered</p>`;

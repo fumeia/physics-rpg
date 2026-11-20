@@ -558,3 +558,6 @@ html[data-theme=light] .ud-sym { border-color: rgba(0,0,0,.2); }
 .gwstrip { margin: 2px 0 8px; font-size: 13px; } .gwstrip [data-gw] { color: #9cc0ff; } .gw-ask { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; padding: 8px; border: 1px dashed rgba(156,192,255,.4); border-radius: 8px; } .gw-ask[hidden] { display: none; }
 .cp-parked { margin: 12px 0; padding: 10px 12px; border: 1px solid rgba(245,196,81,.35); border-radius: 10px; } .cp-parked h3 { margin: 0 0 6px; font-size: 15px; } .cp-pk { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 4px 0; border-top: 1px solid rgba(255,255,255,.06); }
 html[data-theme=light] .gwstrip [data-gw] { color: #1f5fbf; }
+/* sheet solutions: the plain-words explanation under a reference step */
+.dexp { margin-top: 8px; border-left: 3px solid #f5c451; background: rgba(245,196,81,.06); border-radius: 0 8px 8px 0; padding: 4px 10px; } .dexp summary { cursor: pointer; color: #f5c451; font-weight: 600; font-size: 14px; } .dexp > div { padding: 6px 0 4px; line-height: 1.55; } .dexp ol, .dexp ul { margin: 4px 0; padding-left: 20px; }
+html[data-theme=light] .dexp summary { color: #9a6a00; }

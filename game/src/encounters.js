@@ -511,7 +511,7 @@ function mountDerive(enc, el, env) {
   enc.steps.forEach((s, n) => {
     const d = document.createElement('div'); d.className = 'step';
     const hs = s.hints || [];
-    d.innerHTML = M(`<div><b>${n + 1}.</b> ${s.prompt}</div><div class="hintbox" data-hb></div><div class="row">${hs.length ? `<button class="chip btn hintbtn" data-hint>Hint 1 of ${hs.length} (\u2212${STEP_HINT_COST} XP)</button>` : ''}<button class="go" data-rv>Reveal reference step</button></div><div class="after" style="display:none">${s.reveal}</div>`);
+    d.innerHTML = M(`<div><b>${n + 1}.</b> ${s.prompt}</div><div class="hintbox" data-hb></div><div class="row">${hs.length ? `<button class="chip btn hintbtn" data-hint>Hint 1 of ${hs.length} (\u2212${STEP_HINT_COST} XP)</button>` : ''}<button class="go" data-rv>Reveal reference step</button></div><div class="after" style="display:none">${s.reveal}${s.explain ? `<details class="dexp"><summary>\ud83d\udca1 Explain this step: why it is done this way</summary><div>${s.explain}</div></details>` : ''}</div>`);
     host.appendChild(d);
     // graded hints (nudge, method, key step): one at a time, each costs a little XP, none after the reference step is open
     const hb = d.querySelector('[data-hint]'); let shown = 0;

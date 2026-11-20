@@ -4,6 +4,8 @@ A course keeps its sheet text in notes/<course>/build/sheets/*_sheets_*.py, whic
 small build.py that calls build(...). Optional extras per question, keyed by (sheet, question):
   primers[(n, q)] = HTML "Theory first" text
   hints[(n, q)]   = [[hint, hint, hint], ...]  one list of graded hints (nudge, method, key step) per part, in part order
+  explain[(n, q)] = [html or None, ...]  per part: the reference step explained in plain words (why this step, what each
+                    symbol means, the algebra in between); shown under the revealed step as "Explain this step"
 Format of the output and of the encounters: docs/CONTENT.md, "Exercise sheets"."""
 import json, os
 
@@ -22,10 +24,10 @@ def S(n, title, due, questions):
     SHEETS.append(dict(n=n, title=title, due=due, questions=questions))
 
 
-def build(dst, *, prefix, title, note, source, primers=None, hints=None, due_shift_days=None, sheets=None):
+def build(dst, *, prefix, title, note, source, primers=None, hints=None, explain=None, due_shift_days=None, sheets=None):
     """Write sheets.json. source(sheet, question) -> {'file':..., 'where':...}; a question's own source= wins.
     due_shift_days: days added to every due date in the game (omit for the game default of 364: last year's sheets)."""
-    primers, hints = primers or {}, hints or {}
+    primers, hints, explain = primers or {}, hints or {}, explain or {}
     sheets = sorted(SHEETS if sheets is None else sheets, key=lambda s: s['n'])
     out = {'title': title, 'note': note, 'sheets': []}
     if due_shift_days is not None: out['dueShiftDays'] = due_shift_days
@@ -37,6 +39,10 @@ def build(dst, *, prefix, title, note, source, primers=None, hints=None, due_shi
             if key in hints:
                 assert len(hints[key]) == n, f'{prefix} sheet {key}: {len(hints[key])} hint lists for {n} parts'
                 for st, h in zip(steps, hints[key]): st['hints'] = list(h)
+            if key in explain:
+                assert len(explain[key]) == n, f'{prefix} sheet {key}: {len(explain[key])} explanations for {n} parts'
+                for st, x in zip(steps, explain[key]):
+                    if x: st['explain'] = x
             enc = {'type': 'derive', 'sheet': True, 'id': f"{prefix}-sheet-s{s['n']}q{q['q']}", 'title': f"Sheet {s['n']} Q{q['q']}: {q['title']}", 'xp': xp,
                    'source': q['source'] or source(s, q), 'goal': q['statement'], 'given': q['hints'], 'steps': steps, 'keyPoints': q['keys']}
             if q['figure']: enc['figure'] = q['figure']

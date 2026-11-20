@@ -58,13 +58,22 @@ def load_content():
             for i, e in enumerate(r['encounters']):
                 if e['type'] == 'lesson': at = i + 1
             r['encounters'].insert(at, l['enc'])
+        sheet_files = []
         for f in idx.get('extras', []):  # collections placed into rooms, e.g. the textbook exercises (main.js boot)
             try:
                 x = jl(cid, f)
-                for it in x.get('items', []) + [{'room': q['room'], 'enc': q['enc']} for sh in x.get('sheets', []) for q in sh['questions']]:
+                for it in x.get('items', []) + [{'room': q['room'], 'enc': q['enc']} for sh in x.get('sheets', []) for q in sh['questions'] if 'enc' in q]:
                     r = next((y for y in rooms if y['slug'] == it['room']), None)
                     if r: r['encounters'].append(it['enc'])
+                if x.get('sheets'): sheet_files.append(x)
             except (OSError, ValueError, KeyError): pass
+        # sheets that reuse existing exercises ("ref", the astro Choudhuri plan): point them at the encounter, as main.js does
+        known = {e['id']: e for r in rooms for e in r['encounters']}
+        for x in sheet_files:
+            for sh in x['sheets']:
+                sh['questions'] = [q for q in sh['questions'] if 'enc' in q or q.get('ref') in known]
+                for q in sh['questions']:
+                    if 'enc' not in q: q['enc'] = known[q['ref']]; q['enc']['sheet'] = True
         catalog.append({'id': cid, 'region': idx.get('region', cid), 'rooms': rooms})
     index = {}
     for c in catalog:

@@ -17,6 +17,7 @@
   "codex": "codex.json",
   "extras": [
     "choudhuri-exercises.json",
+    "sheets.json",
     "phet-sims.json",
     "gaps.json",
     "reading.json",

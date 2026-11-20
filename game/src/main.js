@@ -3,7 +3,7 @@ import { World, SCALE } from './world.js';
 import { Player } from './player.js';
 import { TunnelSim } from './sim.js';
 import { mount, finish as finishEncounter } from './encounters.js';
-import { store, setXpHook, localDate } from './store.js';
+import { store, setXpHook, localDate, weekKey } from './store.js';
 import { M, prettyText } from './math.js';
 import katex from '../vendor/katex/katex.mjs';
 import { loadGlossary, setGlossaryCourse, whereHtml } from './glossary.js';
@@ -121,12 +121,14 @@ async function boot() {
       for (const it of x.items || []) place(it.room, it.enc);
       // exercise sheets: every question is an encounter in its room, the sheet list feeds the Sheets tab and the two-way links
       if (x.readings) readingPacks.push(x.readings);
-      if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) place(q.room, q.enc); }
+      if (x.sheets) { sheetsByCourse[c.id] = { title: x.title, note: x.note, sheets: x.sheets, plan: !!x.plan }; for (const sh of x.sheets) if (Number.isFinite(x.dueShiftDays)) sheetShift.set(sh, x.dueShiftDays); for (const sh of x.sheets) for (const q of sh.questions) if (q.enc) place(q.room, q.enc); } // q.ref: the question is an existing encounter (resolved below)
     }
     catalog.push({ ...c, region: idx.region, rooms });
     const bank = await soft(`content/${c.dir}/blitz.json`); if (bank) banks[c.id] = bank;
     const cx = await codexP[ci]; if (cx) codexByCourse[c.id] = cx;
     for (const r of rooms) for (const enc of r.encounters) encIndex.set(enc.id, { course: c.id, roomId: r.slug, enc });
+    // sheets that reuse existing exercises (astro: the Choudhuri plan): point the question at the encounter, which now counts as a sheet question
+    for (const sh of sheetsByCourse[c.id]?.sheets || []) { sh.questions = sh.questions.filter((q) => q.enc || encIndex.has(q.ref)); for (const q of sh.questions) if (!q.enc) { q.enc = encIndex.get(q.ref).enc; q.enc.sheet = true; } }
   }
   // reading packs: attach their links only if the pack is installed on this server (deploy/ch7pack.py); never blocks the boot
   for (const rp of readingPacks) fetch(rp.probe, { method: 'HEAD', cache: 'no-store' }).then((res) => {
@@ -1082,12 +1084,14 @@ function activeDays() {
 }
 function streakNow() {
   const has = activeDays(), d = new Date(), today = todayStr(d), frozen = new Set(); let count = 0, saved = false;
+  // a week's one free missed day may already have been spent on another day (stored by the missions, read by the notifier too)
+  const fu = store.freezeUsed, spent = (ds) => !!fu && fu.week === weekKey(ds) && fu.saved !== ds;
   if (!has.has(today)) d.setDate(d.getDate() - 1);
-  if (!has.has(todayStr(d))) { const prev = new Date(d); prev.setDate(prev.getDate() - 1); if (!has.has(todayStr(prev))) return { count: 0, alive: false, saved: false, today: false }; frozen.add(mondayOf(todayStr(d))); saved = true; d.setDate(d.getDate() - 1); }
+  if (!has.has(todayStr(d))) { const prev = new Date(d); prev.setDate(prev.getDate() - 1); if (!has.has(todayStr(prev)) || spent(todayStr(d))) return { count: 0, alive: false, saved: false, today: false }; frozen.add(mondayOf(todayStr(d))); saved = true; d.setDate(d.getDate() - 1); }
   for (let guard = 0; guard < 500; guard++) {
     const ds = todayStr(d);
     if (has.has(ds)) count++;
-    else { const prev = new Date(d); prev.setDate(prev.getDate() - 1); if (frozen.has(mondayOf(ds)) || !has.has(todayStr(prev))) break; frozen.add(mondayOf(ds)); }
+    else { const prev = new Date(d); prev.setDate(prev.getDate() - 1); if (frozen.has(mondayOf(ds)) || spent(ds) || !has.has(todayStr(prev))) break; frozen.add(mondayOf(ds)); }
     d.setDate(d.getDate() - 1);
   }
   return { count, alive: count > 0, saved, today: has.has(today) };

@@ -15,7 +15,9 @@ for (const course of ['qm', 'solid-state', 'astrophysics']) {
   for (const f of ['labs.json', `labs-${course}.json`]) if (existsSync(C(f))) for (const l of JSON.parse(readFileSync(C(f))).labs) ids.add(l.enc.id);
   const { sheets } = JSON.parse(readFileSync(C(`${course}/sheets.json`)));
   const seen = new Set();
+  const byId = new Map(); for (const f of idx.extras || []) { const x = JSON.parse(readFileSync(C(`${course}/${f}`))); for (const it of x.items || []) byId.set(it.enc.id, it.enc); }
   for (const sh of sheets) for (const q of sh.questions) {
+    if (!q.enc) { ok(`${q.ref}: ref to an existing exercise`, byId.has(q.ref)); if (!byId.has(q.ref)) continue; q.enc = { ...byId.get(q.ref), sheet: true }; } // astro plan: refs to book exercises
     total++; const e = q.enc, k = e.id;
     ok(`${k}: room exists`, idx.rooms.includes(q.room), q.room);
     ok(`${k}: unique`, !seen.has(k)); seen.add(k);

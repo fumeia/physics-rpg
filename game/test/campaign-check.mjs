@@ -7,8 +7,9 @@ const J = (p) => JSON.parse(readFileSync(new URL('../content/' + p, import.meta.
 const cfg = J('campaign.json'), catalog = [], sheets = {}, encOfMap = new Map();
 for (const id of ['qm', 'solid-state', 'astrophysics']) {
   const idx = J(`${id}/index.json`), rooms = idx.rooms.map((slug) => ({ slug, ...J(`${id}/${slug}.json`) }));
-  for (const f of idx.extras || []) { const x = J(`${id}/${f}`); for (const it of x.items || []) rooms.find((r) => r.slug === it.room).encounters.push(it.enc); if (x.sheets) { sheets[id] = x; for (const sh of x.sheets) for (const q of sh.questions) rooms.find((r) => r.slug === q.room).encounters.push(q.enc); } }
+  for (const f of idx.extras || []) { const x = J(`${id}/${f}`); for (const it of x.items || []) rooms.find((r) => r.slug === it.room).encounters.push(it.enc); if (x.sheets) { sheets[id] = x; for (const sh of x.sheets) for (const q of sh.questions.filter((q) => q.enc)) rooms.find((r) => r.slug === q.room).encounters.push(q.enc); } }
   catalog.push({ id, rooms }); for (const r of rooms) for (const e of r.encounters) encOfMap.set(e.id, e);
+  for (const sh of sheets[id]?.sheets || []) for (const q of sh.questions) if (!q.enc) { q.enc = encOfMap.get(q.ref); q.enc.sheet = true; } // ref: an existing exercise (astro plan)
 }
 const weeks = buildWeeks(cfg, catalog, sheets), encOf = (id) => encOfMap.get(id);
 for (const cid of Object.keys(cfg.courses)) {

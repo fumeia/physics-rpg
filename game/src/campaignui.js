@@ -71,11 +71,12 @@ export function createCampaign(ctx) {
     syncReread();
     return courses().filter((c) => rereadNext(c)).sort((a, b) => daysToExam(new Date(), a) - daysToExam(new Date(), b)).map((c) => { const id = rereadNext(c), wk = ctx.encIndex.get(id)?.enc.week; return { id, course: c, label: `${ctx.courseName(c)} week ${wk}` }; });
   }
-  const handIn = (cid) => { const v = (store.val('handIn', {}) || {})[cid]; return v === undefined ? pos(cid).behind <= 3 : !!v; };
-  function dueSoon() { // the sheet with the nearest due date within 3 days, if it still has open questions
-    let best = null; const now = Date.now();
-    for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of (handIn(cid) ? s.sheets : [])) { const d = ctx.sheetDue(sh); if (!d || d < now - 43200000 || d - now > 3 * 86400000) continue; const ids = sh.questions.map((q) => q.enc.id).filter((id) => !passed(id)); if (ids.length && (!best || d < best.d)) best = { d, course: cid, ids }; }
-    return best;
+  const handIn = (cid) => { const v = (store.val('handIn', {}) || {})[cid]; return v === undefined ? (ctx.sheetsByCourse[cid]?.plan || pos(cid).behind <= 3) : !!v; }; // a self-made plan (astro) always counts
+  function dueSoon() { // per course, the sheet with the nearest due date within 3 days that still has open questions (nearest first)
+    const best = {}; const now = Date.now();
+    for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of (handIn(cid) ? s.sheets : [])) { const d = ctx.sheetDue(sh); if (!d || d < now - 43200000 || d - now > 3 * 86400000) continue; const ids = sh.questions.map((q) => q.enc.id).filter((id) => !cleared(id)); if (ids.length && (!best[cid] || d < best[cid].d)) best[cid] = { d, course: cid, ids }; }
+    const list = Object.values(best).sort((a, b) => a.d - b.d);
+    return list.length ? list : null;
   }
   function freshRun(minutes = runMinutes()) {
     const rv = store.snapshot.reviews || {}, due = store.dueReviews().filter((id) => ctx.encIndex.has(id)).sort((a, b) => (rv[a].due || 0) - (rv[b].due || 0));

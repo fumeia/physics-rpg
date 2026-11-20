@@ -1,5 +1,5 @@
 {
- "about": "Catch-up campaign: one tile per lecture week and course. A week's items are its sheet questions plus the lessons, quizzes and derivations those questions link to (first week that links them), or the ids/rooms listed here. 'start' is the Monday of lecture week 1 (ETH autumn semester 2026). The astrophysics schedule is an estimate along Choudhuri's chapter order. 'pin' fixes theory items to their lecture week (they are reserved before the automatic pass).",
+ "about": "Catch-up campaign: one tile per lecture week and course. A week's items are its sheet questions plus the lessons, quizzes and derivations those questions link to (first week that links them), or the ids/rooms listed here. 'start' is the Monday of lecture week 1 (ETH autumn semester 2026). The astrophysics schedule follows Choudhuri's chapters (weeks 1-11 = chapters 1-11, week 12 = chapter 14, week 13 repetition, week 14 the optional GR chapters 12-13), and its sheets are the self-paced Choudhuri plan (content/astrophysics/sheets.json). 'pin' fixes theory items to their lecture week (they are reserved before the automatic pass).",
  "weeks": 14,
  "start": "2026-09-14",
  "courses": {
@@ -143,52 +143,56 @@
   },
   "astrophysics": {
    "short": "Astro",
-   "sheets": false,
+   "sheets": true,
    "defaultBehind": 0,
    "rooms": {
     "1": [
      "photometry-radiation"
     ],
     "2": [
-     "radiative-transfer:a"
+     "radiative-transfer"
     ],
     "3": [
-     "radiative-transfer:b"
-    ],
-    "4": [
      "stellar-forge"
     ],
-    "5": [
+    "4": [
      "nuclear-furnace"
     ],
-    "6": [
+    "5": [
      "degenerate-matter"
     ],
-    "7": [
+    "6": [
      "interstellar-medium:a"
+    ],
+    "7": [
+     "galactic-dynamics"
     ],
     "8": [
      "interstellar-medium:b"
     ],
     "9": [
-     "galactic-dynamics"
-    ],
-    "10": [
      "active-galaxies"
     ],
-    "11": [
+    "10": [
      "expanding-universe:a"
+    ],
+    "11": [
+     "early-universe"
     ],
     "12": [
      "expanding-universe:b"
     ],
     "13": [
-     "early-universe"
+     "exam-hall:a"
     ],
     "14": [
      "relativity-annex",
-     "exam-hall"
+     "exam-hall:b"
     ]
+   },
+   "titles": {
+    "13": "Repetition: exam hall",
+    "14": "GR annex (optional) and exam hall"
    }
   }
  }

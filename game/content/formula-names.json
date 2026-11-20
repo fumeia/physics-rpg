@@ -260,6 +260,8 @@
   "astro-fx-plum#0": "Plummer potential and density",
   "astro-fx-plum#1": "Tidal radius and tidal-disruption radius",
   "astro-fx-age#0": "Age of flat one-component universes",
-  "astro-fx-age#1": "Critical density and Hubble time (numbers)"
+  "astro-fx-age#1": "Critical density and Hubble time (numbers)",
+  "ss-fx-dia#0": "Diatomic chain: minus = acoustic, plus = optical",
+  "ss-fx-dia#1": "Diatomic chain limits (q→0, zone edge)"
  }
 }

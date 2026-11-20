@@ -178,6 +178,78 @@
      }
     ]
    }
+  },
+  {
+   "room": "phonon-halls",
+   "enc": {
+    "type": "lesson",
+    "tier": "theory",
+    "minutes": 6,
+    "xp": 10,
+    "id": "ss-fx-dia",
+    "title": "Formula cards: diatomic chain, which sign is which branch",
+    "source": [
+     {
+      "file": "materials/solid-state/scripts/Script-2026 2026-09-01.pdf",
+      "where": "2.2.5, eq. (2.32)-(2.37), pp. 45-49"
+     }
+    ],
+    "blocks": [
+     {
+      "kind": "text",
+      "html": "The diatomic dispersion has a $\\pm$ in front of the root. The root is never negative, so the <b>minus sign always gives the lower branch</b> and the <b>plus sign the upper branch</b>: minus = <b>acoustic</b> (it starts at $\\omega=0$ for $q=0$: the whole crystal moves together, a sound wave), plus = <b>optical</b> (finite frequency already at $q=0$: the two atoms of a cell move against each other). Quick test in an exam: put $q=0$; the sign that gives $\\omega=0$ is the acoustic one."
+     },
+     {
+      "kind": "eq",
+      "tex": "\\omega_{\\mp}^2=k\\Big(\\frac1{M_1}+\\frac1{M_2}\\Big)\\mp k\\sqrt{\\Big(\\frac1{M_1}+\\frac1{M_2}\\Big)^2-\\frac{2}{M_1M_2}\\,(1-\\cos qa)}\\qquad(-:\\ \\text{acoustic},\\ +:\\ \\text{optical})",
+      "label": "Diatomic chain: minus = acoustic, plus = optical, script (2.37)"
+     },
+     {
+      "kind": "eq",
+      "tex": "q\\to0:\\ \\omega_{ac}\\approx qa\\sqrt{\\frac{k}{2(M_1+M_2)}},\\quad \\omega_{op}^2=2k\\Big(\\frac1{M_1}+\\frac1{M_2}\\Big);\\qquad q=\\frac{\\pi}{a}:\\ \\omega_{ac}^2=\\frac{2k}{M_{\\rm heavy}},\\ \\omega_{op}^2=\\frac{2k}{M_{\\rm light}}",
+      "label": "Diatomic chain limits: q→0 and the zone edge (gap)"
+     },
+     {
+      "kind": "text",
+      "html": "Where the limits come from: with $S=\\frac1{M_1}+\\frac1{M_2}$, for small $q$ the root is $\\approx S-\\frac{q^2a^2}{2M_1M_2S}$ and $M_1M_2S=M_1+M_2$; at $qa=\\pi$, $1-\\cos qa=2$ and the root becomes $\\big|\\frac1{M_1}-\\frac1{M_2}\\big|$. Motion: at $q=0$ acoustic all in phase, optical $M_1U=-M_2V$; at the zone edge only the heavy atoms move (acoustic) or only the light ones (optical), neighbouring cells in antiphase (standing wave). Try it in the experiment station of this room."
+     }
+    ],
+    "check": [
+     {
+      "q": "In $\\omega^2=k(\\frac1{M_1}+\\frac1{M_2})\\pm k\\sqrt{\\dots}$, which sign gives the acoustic branch?",
+      "options": [
+       "the minus sign (it gives $\\omega=0$ at $q=0$)",
+       "the plus sign",
+       "either, it depends on $M_1/M_2$",
+       "the sign of $\\cos qa$"
+      ],
+      "correct": 0,
+      "explain": "At $q=0$ the root equals $\\frac1{M_1}+\\frac1{M_2}$, so the minus sign gives $\\omega=0$: the acoustic branch."
+     },
+     {
+      "q": "At the zone edge $q=\\pi/a$ the optical frequency is",
+      "options": [
+       "$\\sqrt{2k/M_{\\rm light}}$",
+       "$\\sqrt{2k/M_{\\rm heavy}}$",
+       "$\\sqrt{2k(1/M_1+1/M_2)}$",
+       "0"
+      ],
+      "correct": 0,
+      "explain": "The root becomes $|\\frac1{M_1}-\\frac1{M_2}|$; plus gives $2k/M_{\\rm light}$, minus $2k/M_{\\rm heavy}$."
+     },
+     {
+      "q": "How do the two atoms of a cell move in the optical mode at $q=0$?",
+      "options": [
+       "against each other, $M_1U=-M_2V$ (centre of mass at rest)",
+       "together, $U=V$",
+       "only the heavy one moves",
+       "only the light one moves"
+      ],
+      "correct": 0,
+      "explain": "In phase together is the acoustic mode at $q=0$; one sublattice only happens at the zone edge."
+     }
+    ]
+   }
   }
  ]
 }

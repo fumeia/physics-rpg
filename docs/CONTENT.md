@@ -75,7 +75,8 @@ Optional `enc.primer` (HTML with KaTeX): a "Theory first (~10 min)" introduction
 the revealed step as "Explain this step": *why* the step is taken, what each symbol means, and the algebra in between, linked to
 methods the student already knows (e.g. "multiply by cos(nka)" is the familiar e^{-inx} Fourier recipe). They live in
 `notes/<course>/build/sheets/<prefix>_explain.py` as `EXPLAIN[(sheet, question)] = [html per part]` and are merged by `sheetlib.build`.
-New sheets need their explanations too.
+New sheets need their explanations too. The Choudhuri textbook exercises (astro's de-facto sheets: the lecturer takes most exam
+problems from them) have the same field, in `notes/astrophysics/build/choudhuri/explain.py` as `EXPLAIN['<chapter>.<n>']`.
 
 ## Adding a room
 1. Write notes in `notes/<course>/` (transcribe the relevant script pages and sheets; describe figures in words).

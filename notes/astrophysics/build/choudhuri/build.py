@@ -6,6 +6,8 @@ import json, re, os
 from math import log10, floor
 from calc import N
 import part1, part2, part3
+try: from explain import EXPLAIN  # plain-words explanation of each step: EXPLAIN['4.2'] = [html per step]
+except ImportError: EXPLAIN = {}
 
 PAGES = {1: '22', 2: '57-59', 3: '89-90', 4: '124-125', 5: '149-151', 6: '194-196', 7: '217-218', 8: '257-259',
          9: '296', 10: '324', 11: '353-355', 12: '384-385', 13: '416-417', 14: '440-441'}
@@ -49,6 +51,10 @@ for part in (part1, part2, part3):
                'goal': fill(e['goal']), 'given': given,
                'steps': [{'prompt': fill(p), 'reveal': fill(r)} for p, r in e['steps']],
                'keyPoints': [fill(k) for k in e['keys']]}
+        if e['num'] in EXPLAIN:
+            xs = EXPLAIN[e['num']]; assert len(xs) == len(enc['steps']), f"{e['num']}: {len(xs)} explanations for {len(enc['steps'])} steps"
+            for st, x in zip(enc['steps'], xs):
+                if x: st['explain'] = x
         items.append({'room': e['room'], 'enc': enc})
 
 nums = [i['enc']['id'] for i in items]

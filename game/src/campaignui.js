@@ -261,7 +261,12 @@ export function createCampaign(ctx) {
     const hit = store.activityOn(todayStr()).filter((x) => x.id === s.id && x.t >= r.startedAt - 1000).pop();
     return hit ? (hit.ok ? 'done' : 'failed') : 'open';
   }
-  const runInfo = () => { const r = run(), st = r.stops.map((s) => stopState(r, s)); return { r, st, done: st.filter((x) => x !== 'open').length, total: r.stops.length, complete: r.stops.length > 0 && st.every((x) => x !== 'open') }; };
+  // bonus stops: the short practice acts (blitz, Forge, derivation drill, explain-it, mistake hunt, summary, mixed practice). Bonus is
+  // bonus: they are not counted in the run's minutes and stops, and a run is complete without them. A mock exam is a real stop.
+  const isBonus = (s) => !!s.action && s.kind !== 'mock';
+  const runInfo = () => { const r = run(), st = r.stops.map((s) => stopState(r, s)), core = r.stops.map((s, i) => [s, st[i]]).filter(([s]) => !isBonus(s));
+    return { r, st, done: core.filter(([, x]) => x !== 'open').length, total: core.length, complete: core.length > 0 && core.every(([, x]) => x !== 'open'),
+      coreMin: core.reduce((a, [s2]) => a + s2.min, 0), bonusMin: r.stops.filter(isBonus).reduce((a, s2) => a + s2.min, 0), bonusN: r.stops.filter(isBonus).length }; };
   function startRun(skipId) {
     if (!isSetup()) { ctx.openCampaign(); return; }
     const { r, st, complete } = runInfo();
@@ -269,7 +274,9 @@ export function createCampaign(ctx) {
     if (complete) { ctx.openCampaign(); return; }
     if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); store.setVal('run', r); }
     // skipId: the stop on screen when "Next" was pressed without finishing it: go on to the next open stop after it
-    let i = st.indexOf('open'); if (skipId && r.stops[i]?.id === skipId) { const j = st.findIndex((x, k) => k > i && x === 'open'); if (j >= 0) i = j; }
+    // the next open real stop (bonus stops are optional: they are clicked, not walked through)
+    const nextOpen = (from) => st.findIndex((x, k) => k >= from && x === 'open' && !isBonus(r.stops[k]));
+    let i = nextOpen(0); if (i < 0) { ctx.openCampaign(); return; } if (skipId && r.stops[i]?.id === skipId) { const j = nextOpen(i + 1); if (j >= 0) i = j; }
     const nx = r.stops[i]; if (nx.action) { doAction(nx); return; }
     ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), `Today\u2019s run`, nx.id);
   }
@@ -295,7 +302,7 @@ export function createCampaign(ctx) {
   function onProgress() {
     settleDungeon(); syncReread();
     const r = store.val('run', null); if (!r || r.date !== todayStr() || !r.startedAt || r.summarized) return false;
-    const st = r.stops.map((s) => stopState(r, s)); if (!st.every((x) => x !== 'open')) return false;
+    const st = r.stops.map((s) => stopState(r, s)); if (!r.stops.some((s) => !isBonus(s)) || !st.every((x, i) => x !== 'open' || isBonus(r.stops[i]))) return false;
     let bonus = 0; r.stops.forEach((s, i) => { if (s.risk && st[i] === 'done') bonus += s.bonus || 0; }); if (bonus) store.addXp(bonus); r.bonus = bonus;
     payBosses(); settleDungeon();
     // resonance: two stops of this run sit in rooms that a cross-course connection links
@@ -392,14 +399,14 @@ export function createCampaign(ctx) {
     return `<div class="cp-second"><p>The finish plan needs <b>${fp.perDay} min</b> today and you have <b>${fp.done}</b>: another <b>${m}-minute</b> run (later today, after a break) keeps you on track for ${new Date(finishBy() + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}.</p><button class="go" id="cp-second" data-min="${m}">Plan a ${m}-minute catch-up run</button></div>`;
   }
   function runHtml() {
-    const { r, st, done, total, complete } = runInfo(), mins = runMinutes();
+    const ri = runInfo(), { r, st, done, total, complete } = ri, mins = runMinutes();
     const grades = Object.fromEntries(fightsToday().map((f) => [f.id, f.grade]));
     const foe = (id) => { const ref = ctx.encIndex.get(id); return ref ? spriteSvg(enemyOf(ref.enc, ref.course), 30) : ''; };
     const nodes = r.stops.map((s, i) => { const open = st[i] === 'open';
       const fork = open && s.alt && ctx.encIndex.has(s.alt.id) ? `<button class="cp-alt" data-alt="${i}" title="Swap this stop for ${s.alt.back ? 'the safe one' : 'a harder one from the same room'}"><span class="cp-altk">${s.alt.back ? 'or go back to the safe stop' : `or take the risk · +${s.alt.bonus} XP`}</span><span class="cp-altt">${foe(s.alt.id)} ${esc(title(s.alt.id))}</span></button>` : '';
-      return `<div class="cp-stop"><button class="cp-node ${s.kind} ${st[i]}${open && st.indexOf('open') === i ? ' next' : ''}${s.risk ? ' risk' : ''}" data-stop="${s.id}" title="${esc(s.why)}"><span class="cp-dot">${st[i] === 'done' ? (grades[s.id] || ic('check')) : st[i] === 'failed' ? ic('x') : open && !s.action ? foe(s.id) || ICON[s.kind] : ICON[s.kind]}</span><span class="cp-nk">${s.risk ? 'Risk · ' : ''}${KIND[s.kind]}${s.course ? ` · ${cfg.courses[s.course]?.short || ''}` : ''} · ${s.min} min</span><span class="cp-nt">${s.action ? esc(s.why) : esc(title(s.id))}</span></button>${fork}</div>`; }).join('<span class="cp-link"></span>');
+      return `<div class="cp-stop"><button class="cp-node ${s.kind} ${st[i]}${isBonus(s) ? ' bonus' : ''}${open && st.indexOf('open') === i ? ' next' : ''}${s.risk ? ' risk' : ''}" data-stop="${s.id}" title="${esc(s.why)}"><span class="cp-dot">${st[i] === 'done' ? (grades[s.id] || ic('check')) : st[i] === 'failed' ? ic('x') : open && !s.action ? foe(s.id) || ICON[s.kind] : ICON[s.kind]}</span><span class="cp-nk">${s.risk ? 'Risk · ' : ''}${isBonus(s) ? 'Bonus · ' : ''}${KIND[s.kind]}${s.course ? ` · ${cfg.courses[s.course]?.short || ''}` : ''} · ${s.min} min</span><span class="cp-nt">${s.action ? esc(s.why) : esc(title(s.id))}</span></button>${fork}</div>`; }).join('<span class="cp-link"></span>');
     const sum = complete && r.summarized ? `<p class="msg good">Run complete: ${st.filter((x) => x === 'done').length} of ${total} passed, ${r.xp1 - r.xp0 >= 0 ? '+' : '−'}${Math.abs(r.xp1 - r.xp0)} XP${r.bonus ? ` (risk bonus +${r.bonus})` : ''}${r.behind0 - r.behind1 > 0 ? `, ${(r.behind0 - r.behind1).toFixed(1)} weeks gained on the ghost` : ''}. ${st.includes('failed') ? 'The missed ones come back as respawns.' : ''}</p>${r.resonance ? `<p class="msg good">Resonance (+15 XP): <b>${esc(r.resonance.title)}</b> \u2014 two stops of this run are the same physics in two courses. <button class="link" data-reso="${r.resonance.a}">show the connection</button></p>` : ''}` : '';
-    return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${r.est} min · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
+    return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${ri.coreMin} min${ri.bonusN ? ` (+ ${ri.bonusN} bonus stop${ri.bonusN === 1 ? '' : 's'}, ${ri.bonusMin} min, optional)` : ''} · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
       <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === runMode() ? ' cur' : ''}" data-len="${m}" title="${{ auto: 'What is left of today’s target of the finish plan', short: 'Half of the daily target', normal: 'The daily target of the finish plan', long: 'One and a half times the daily target' }[m]}">${l} ${minutesOf(m)}′</button>`).join('')}</div></div>
       ${weekHtmlRow()}
       ${earlierHtml()}

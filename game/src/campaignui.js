@@ -8,8 +8,8 @@ import { EST_MIN } from './campaign.js';
 import { meanRetention, fading, forecast } from './memory.js';
 
 const ACT_ICON = { hunt: '\u2620', explain: '\u275d', blitz: '\u26a1' };
-const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba', pre: '\ud83e\uddf1', exam: '\u2696', extra: '\u2726' };
-const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass', pre: 'Groundwork', exam: 'Old exam', extra: 'More' };
+const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba', pre: '\ud83e\uddf1', exam: '\u2696', extra: '\u2726', summary: '\u270d', mix: '\u21c4', mock: '\u23f1' };
+const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass', pre: 'Groundwork', exam: 'Old exam', extra: 'More', summary: 'My summary', mix: 'Mixed practice', mock: 'Mock exam' };
 // Run lengths follow the finish plan: the minutes a day still needed to be done by the target date (perDay). Short is half of it,
 // Normal all of it, Long one and a half times it, Auto what is left of it today. Older profiles stored minutes: mapped below.
 const LENGTHS = [['auto', 'Auto'], ['short', 'Short'], ['normal', 'Normal'], ['long', 'Long']];
@@ -59,6 +59,12 @@ export function createCampaign(ctx) {
   // skipped, skimmed weeks count only their theory), plus a few minutes per open review. Divided by the days left it gives the
   // daily target; today's measured study time counts against it. Auto run length = what is left of today's target (20-90 min).
   const FINISH_DEFAULT = '2027-01-15';
+  // mock exams in the final phase: the last 14 days before the target, one full mock per course (exam-hist, written by exam.js)
+  const MOCK_MIN = 120, PHASE_DAYS = 14;
+  const phaseStart = () => Date.parse(finishBy() + 'T00:00:00') - PHASE_DAYS * 86400000;
+  const mocksOwed = () => courses().filter((cid) => !(store.val('exam-hist', []) || []).some((x) => x.course === cid && x.mode === 'full' && x.t >= phaseStart()));
+  const mockDue = () => { if (Date.now() < phaseStart()) return null; const owed = mocksOwed(); if (!owed.length) return null; const last = (cid) => Math.max(0, ...(store.val('exam-hist', []) || []).filter((x) => x.course === cid).map((x) => x.t)); return owed.sort((a, b) => last(a) - last(b))[0]; };
+  const doneWeeks = (cid) => W()[cid].filter((w) => weekStatus(w, cleared, known()[cid], skim()[cid]).done).length;
   const finishBy = () => store.val('finishBy', FINISH_DEFAULT) || FINISH_DEFAULT;
   const daysLeft = () => Math.max(1, Math.ceil((Date.parse(finishBy() + 'T23:59:00') - Date.now()) / 86400000));
   const estOf = (id) => { const e = ctx.encIndex.get(id)?.enc; return e?.reading ? Math.min(40, e.minutes || 20) : EST_MIN[e?.type] || 10; };
@@ -82,7 +88,8 @@ export function createCampaign(ctx) {
     }
     const reviews = Object.keys(store.snapshot.reviews || {}).filter((id) => ctx.encIndex.has(id)).length;
     total += reviews * 6;
-    return { total, by, reviews, examMin, extraMin };
+    const mockMin = mocksOwed().length * MOCK_MIN; total += mockMin;
+    return { total, by, reviews, examMin, extraMin, mockMin };
   }
   const studiedToday = () => Math.round((store.activeSecondsOn(todayStr()) || 0) / 60);
   function finishPlan() {
@@ -109,6 +116,22 @@ export function createCampaign(ctx) {
     return out.sort((a, b) => a.due - b.due);
   }
   const hm = (m) => (m >= 90 ? `${Math.round(m / 6) / 10} h` : `${m} min`);
+  // ---- extras around the runs: simulations and the sandbox of the weeks you are working on (free play, no pass or fail), mock
+  // exams and mixed practice; everything else of the game is in the runs themselves
+  function extrasHtml() {
+    const short = (c) => cfg.courses[c]?.short || c, now = [], rest = [];
+    for (const cid of courses()) {
+      const c = ctx.catalog.find((x) => x.id === cid); if (!c) continue;
+      const p = pos(cid), cur = new Set(p.next ? [...p.next.theory, ...p.next.practice, ...(p.next.extra || [])].map((id) => ctx.encIndex.get(id)?.roomId) : []);
+      for (const r of c.rooms) for (const e of r.encounters) if (e.sim || e.type === 'sandbox') (cur.has(r.slug) ? now : rest).push({ cid, e, room: r.title });
+    }
+    const chip = (x) => `<button class="chip btn" data-wopen="${x.e.id}">${short(x.cid)} \u00b7 ${esc(String(x.e.title || x.e.id).replace(/<[^>]+>/g, ''))}</button>`;
+    return `<div class="cp-extras"><h3>\u2726 Extras around the runs</h3>
+      <div class="row wrap"><button class="chip btn" id="cp-x-mock">\u23f1 Mock exam (exam hall, timed and graded)</button><button class="chip btn" id="cp-x-mix">\u21c4 Mixed practice (shuffled questions from your rooms)</button></div>
+      ${now.length ? `<p class="src">Simulations for the weeks you are working on (free play, no pass or fail: try what the formulas say):</p><div class="row wrap">${now.map(chip).join('')}</div>` : ''}
+      ${rest.length ? `<details><summary class="src">All other simulations and the sandbox (${rest.length})</summary><div class="row wrap">${rest.map(chip).join('')}</div></details>` : ''}
+      <p class="src">Mock exams also come into the runs by themselves in the last 14 days before your target; mixed practice every fourth day.</p></div>`;
+  }
   function finishHtml() {
     const fp = finishPlan(), tri = triage(), od = overdueQuestions(), short = (c) => cfg.courses[c]?.short || c;
     const cls = fp.perDay <= 120 ? 'ok' : fp.perDay <= 240 ? 'heavy' : 'over';
@@ -116,7 +139,7 @@ export function createCampaign(ctx) {
     const pct = Math.min(100, Math.round(100 * fp.done / Math.max(1, fp.perDay)));
     return `<div class="cp-finish ${cls}"><div class="cp-fhead"><h3>\ud83c\udfaf Finish plan: everything by <input type="date" id="cp-finish-date" value="${finishBy()}"></h3><span class="src">${fp.days} day${fp.days === 1 ? '' : 's'} left</span></div>
       <p><b>${hm(fp.rem.total)}</b> of work left (${courses().map((c) => `${short(c)} ${hm(fp.rem.by[c].min)}`).join(', ')}${fp.rem.reviews ? `, ${fp.rem.reviews} reviews` : ''}) \u2192 <b>${fp.perDay} min a day</b>: ${verdict}.</p>
-      <p class="src">Included: sheets and theory, ${hm(fp.rem.examMin)} of old-exam problems (mixed into the runs on the weeks you are working on) and ${hm(fp.rem.extraMin)} of the other cards of the game (calculation fights, derivations, extra lessons), so nothing is left out.</p>
+      <p class="src">Included: sheets and theory, ${hm(fp.rem.examMin)} of old-exam problems (mixed into the runs on the weeks you are working on) and ${hm(fp.rem.extraMin)} of the other cards of the game (calculation fights, derivations, extra lessons), so nothing is left out${fp.rem.mockMin ? `, plus ${fp.rem.mockMin / MOCK_MIN} timed mock exam${fp.rem.mockMin / MOCK_MIN === 1 ? '' : 's'} (${hm(fp.rem.mockMin)}) in the last 14 days before the target` : ''}.</p>
       <div class="cp-fbar"><i style="width:${pct}%"></i></div><p class="src">Today: ${fp.done} of ${fp.perDay} min studied${fp.todayLeft ? `, ${fp.todayLeft} min to go` : ' \u2713 on track for today'}. ${runMode() === 'auto' ? 'Run length is on Auto: each run is sized from what is left today.' : `Run length: ${runMode()} (${minutesOf(runMode())} min, from the daily target). <button class="link" id="cp-auto">Auto instead</button>`}</p>
       ${od.length ? `<p class="src">Overdue sheet questions (${od.length}), oldest first:</p><div class="row wrap">${od.slice(0, 6).map((x) => `<button class="chip btn" data-wopen="${x.id}">${short(x.cid)} sheet ${x.sh} Q${x.q}</button>`).join('')}</div>` : ''}
       ${tri ? `<div class="cp-triage"><p><b>To make it fit</b> (\u2264 150 min a day), skim the weeks that count least in old exams: only their theory, no exercises. That brings it to <b>${tri.after} min a day</b>:</p><ul>${tri.pick.map((c) => `<li>${short(c.cid)} week ${c.n}: ${esc(c.title)} \u00b7 saves ${hm(c.save)} \u00b7 exam weight ${Math.round(100 * c.weight)}%</li>`).join('')}</ul><button class="chip btn" id="cp-triage">Skim these ${tri.pick.length} weeks</button> <span class="src">(undo any time in the week view)</span></div>` : ''}</div>`;
@@ -190,6 +213,13 @@ export function createCampaign(ctx) {
     const nd = minutes >= 40 && ctx.nextDeriv(); if (nd) { act('@deriv', 'deriv', 'derivs', `QM derivation, ${nd.label}: \u201c${String(nd.title).replace(/<[^>]+>|\$|\\[a-zA-Z]+/g, '')}\u201d`, Math.min(2, r.stops.length), { id: nd.id, mode: nd.mode }); }
     const fd = ctx.forgeDue(); if (fd) act('@forge', 'forge', 'forge', `QM by heart: ${fd} formula${fd === 1 ? '' : 's'} due in the Forge (write from memory, two minutes)`, Math.min(1, r.stops.length));
     const ti = r.stops.findIndex((s) => s.kind === 'read' || s.kind === 'theory'); if (ti >= 0 && minutes >= 40) act('@explain', 'explain', 'feynman', 'Explain what you just read in your own words, without looking', ti + 1);
+    // the formula summary grows with the course: after a finished week (solid state, astro), a short stop to pin its formulas
+    for (const cid of ['solid-state', 'astrophysics']) { if (!W()[cid]) continue; const n = doneWeeks(cid), seen0 = (store.val('summaryWeeks', {}) || {})[cid] || 0;
+      if (n > seen0) { act(`@summary-${cid}`, 'summary', 'summary', `${cfg.courses[cid]?.short || cid}: week ${n} is done; pin its formulas on your summary pages (what you may bring to the exam)`, r.stops.length, { course: cid, weeks: n }); break; } }
+    // interleaving: every fourth day on runs from 40 min, the mixed practice (questions from your rooms, shuffled)
+    if (minutes >= 40 && Math.floor(Date.now() / 86400000) % 4 === 0) act('@mix', 'mix', 'mix', 'Mixed practice: questions from rooms you worked in, shuffled (interleaving makes it stick)', r.stops.length);
+    // final phase (the last 14 days before the target): one timed mock exam per course, the course whose last mock is oldest first
+    const mk = mockDue(); if (mk) r.stops.push({ id: `@mock-${mk}`, kind: 'mock', action: 'exam', arg: mk, min: MOCK_MIN, why: `Final phase: a timed mock exam in ${ctx.courseName(mk)} (exam hall, ${MOCK_MIN} min, graded like the real one)` });
     // no trimming: the run is composed from the shares of the work left (campaign.js buildRun), whole cards only
     const total = () => r.stops.reduce((a, s) => a + s.min, 0);
     r.minutes = total();
@@ -242,7 +272,9 @@ export function createCampaign(ctx) {
     const nx = r.stops[i]; if (nx.action) { doAction(nx); return; }
     ctx.openQueue(r.stops.filter((s) => !s.action).map((s) => s.id), `Today\u2019s run`, nx.id);
   }
-  function doAction(s) { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); } r.acted = { ...(r.acted || {}), [s.id]: Date.now() }; store.setVal('run', r); ctx.openTab(s.action, s.arg); ctx.toast(`${KIND[s.kind]}: ${s.why}. Press G to go on with the run.`); onProgress(); ctx.onChange(); }
+  function doAction(s) { const r = run(); if (!r.startedAt) { r.startedAt = Date.now(); r.xp0 = store.xp; r.behind0 = behindTotal(); } r.acted = { ...(r.acted || {}), [s.id]: Date.now() }; store.setVal('run', r);
+    if (s.kind === 'summary' && s.arg?.course) store.setVal('summaryWeeks', { ...(store.val('summaryWeeks', {}) || {}), [s.arg.course]: s.arg.weeks });
+    if (s.action === 'exam') ctx.openExam(s.arg); else ctx.openTab(s.action, s.kind === 'summary' ? s.arg?.course : s.arg); ctx.toast(`${KIND[s.kind]}: ${s.why}. Press G to go on with the run.`); onProgress(); ctx.onChange(); }
   // Settings changed (hand-ins, weeks marked, skim, length): plan again. A run that is under way keeps its finished stops and
   // its start, and only the open stops are replaced.
   function replan(minutes = runMinutes()) {
@@ -411,7 +443,7 @@ export function createCampaign(ctx) {
     const head = `<div class="cp-head cp-head4"><div><b>${d}</b><span>days to the first exam${courses().every((c) => examDateKnown(c)) ? '' : ' (dates not all set: Settings \u2192 Profile)'}</span></div><div title="A rough forecast on the scale 1 to 6 (4 passes): how much of the exam-weighted material you have passed, how much of it you probably still remember, and old-exam problems passed. It falls when you stop."><b class="cp-grades">${gr.map((g) => `<span class="${g.grade >= 4 ? 'ok' : ''}">${g.grade.toFixed(2).replace(/0$/, '')}</span>`).join(' ')}</b><span>grade forecast: ${gr.map((g) => short(g.cid)).join(' \u00b7 ')}</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : !pc ? 'catch-up date: shown after three finished runs, from your real pace' : cu.possible ? `level with the lectures at your pace of the last runs (${pc.perDay.toFixed(2)} weeks gained per run day)` : `at your pace of the last runs (${pc.perDay.toFixed(2)} weeks per run day) the ghost pulls away: longer runs or two a day`}</span></div></div>`;
     payBosses();
     settleDungeon();
-    return `${head}${runHtml()}${finishHtml()}${bossHtml()}${courses().map(trackHtml).join('')}${dungeonHtml()}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
+    return `${head}${runHtml()}${finishHtml()}${extrasHtml()}${bossHtml()}${courses().map(trackHtml).join('')}${dungeonHtml()}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
   }
   function wire(host, rerender) {
     const re = () => { rerender(); ctx.onChange(); };
@@ -419,6 +451,8 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-setval]').forEach((el) => { const v = +el.dataset.v; host.querySelector(`[data-setnote="${el.dataset.setval}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; });
     const okb = host.querySelector('#cp-setup-ok'); if (okb) okb.onclick = () => { const k = {}; host.querySelectorAll('[data-setval]').forEach((el) => { k[el.dataset.setval] = Array.from({ length: +el.dataset.v }, (_, i) => i + 1); }); store.setVal('campaignKnown', k); store.setVal('campaignSetup', true); store.setVal('run', null); re(); };
     host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { store.setVal('runMinutes', b.dataset.len); replan(runMinutes()); re(); }));
+    const xm = host.querySelector('#cp-x-mock'); if (xm) xm.onclick = () => { const c = courses().map((cid) => ({ cid, d: examDateKnown(cid) ? Date.parse(examDateOf(cid)) : Infinity })).sort((a, b) => a.d - b.d)[0]?.cid; ctx.openExam(c); };
+    const xx = host.querySelector('#cp-x-mix'); if (xx) xx.onclick = () => ctx.openTab('mix');
     const fd = host.querySelector('#cp-finish-date'); if (fd) fd.onchange = () => { if (/^\d{4}-\d{2}-\d{2}$/.test(fd.value)) { store.setVal('finishBy', fd.value); replan(runMinutes()); re(); } };
     const au = host.querySelector('#cp-auto'); if (au) au.onclick = () => { store.setVal('runMinutes', 'auto'); replan(runMinutes()); re(); };
     const tr = host.querySelector('#cp-triage'); if (tr) tr.onclick = () => { const t = triage(); if (!t) return; const cur = { ...(store.val('campaignSkim', {}) || {}) }; for (const c of t.pick) cur[c.cid] = [...new Set([...(cur[c.cid] || []), c.n])]; store.setVal('campaignSkim', cur); weeks = null; replan(runMinutes()); re(); };

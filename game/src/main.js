@@ -84,7 +84,7 @@ const sheetShift = new Map(); // sheet -> days added to its due date (see sheetD
 let sheetsByCourse = {}; // course id -> {title, sheets: [{n, title, due, questions: [{q, title, room, related, enc}]}]}
 const readingPacks = []; // {probe, base, label, links} from content extras
 let catalog = [], encIndex = new Map(), codexByCourse = {}, groups = [], linksData = [], route = [], banks = {}, dayMissions = null, dayKey = '';
-let inNexus = false, nexusFocusKey = null;
+let inNexus = false, nexusFocusKey = null, summaryStart = null;
 const modules = {};
 const pb = { speed: 1, loop: false, paused: false };
 let view = { variant: null, sim: null };
@@ -150,7 +150,7 @@ async function boot() {
   try { unitsDuel = await fetchJson('content/units-duel.json'); } catch { /* optional */ }
   try { derivItems = (await fetchJson('content/qm/derivations.json')).items; } catch { derivItems = []; }
   try { campaign = createCampaign({ cfg: await fetchJson('content/campaign.json'), store, catalog, sheetsByCourse, encIndex, isLockedId: (id) => { const e = encIndex.get(id)?.enc; return !e || isLocked(e); },
-    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), setDungeon: (on) => document.body.classList.toggle('dungeon', !!on), forgeDue: () => forgeDue(forgeItems).length, nextDeriv: () => runDeriv(derivItems), mistakes, openTab: (t, arg) => { derivStart = t === 'derivs' ? arg || null : null; openOverlay('pile'); renderStudy(t); derivStart = null; }, openMissions: () => openOverlay('missions'), openConnection: (k) => { closeOverlay(true); openConnections(k); },
+    openQueue: (ids, label, startId) => { queueLabel = label || 'pile'; pileQueue = label ? ids : []; closeOverlay(true); openById(startId); player.enabled = true; }, toast, courseName: (id) => findCourse(id)?.name || id, sheetDue, M, onChange: () => refresh(), openCampaign: () => openOverlay('campaign'), setDungeon: (on) => document.body.classList.toggle('dungeon', !!on), forgeDue: () => forgeDue(forgeItems).length, nextDeriv: () => runDeriv(derivItems), mistakes, openTab: (t, arg) => { derivStart = t === 'derivs' ? arg || null : null; summaryStart = t === 'summary' ? arg || null : null; openOverlay('pile'); renderStudy(t); derivStart = null; summaryStart = null; }, openExam: (c) => { if (c) store.setVal('exam-course', c); closeOverlay(true); openOverlay('exam'); }, openMissions: () => openOverlay('missions'), openConnection: (k) => { closeOverlay(true); openConnections(k); },
     missions: () => { const day = store.missionsOf(todayStr()); return todays().map((m) => ({ title: String(m.title || '').replace(/<[^>]+>/g, ''), done: !!day.done[m.id] })); },
     dayStreak: () => streakNow().count, radar: () => drillData.radar?.topics || (Array.isArray(drillData.radar) ? drillData.radar : []), links: () => linksData }); } catch (e) { console.warn('campaign unavailable', e); campaign = null; }
   // compact HUD (run, campaign, menu) unless the full chip row was chosen in the menu; tests keep the full row unless they ask for hud=compact
@@ -751,7 +751,7 @@ function renderStudy(tab) {
   else if (studyTab === 'forge') renderForge(host, { items: forgeItems, rooms: findCourse('qm')?.rooms || [], M, onChange: () => refresh(), openEnc: (id) => { closeOverlay(true); openById(id); player.enabled = true; } })
   else if (studyTab === 'derivs') renderDerivs(host, { items: derivItems, M, onChange: () => refresh(), openEnc: (id) => { closeOverlay(true); openById(id); player.enabled = true; }, start: derivStart?.id, startMode: derivStart?.mode })
   else if (studyTab === 'units') renderUnits(host, { items: unitsDuel.items, seconds: unitsDuel.seconds, symbols: unitsDuel.symbols, M, courseName: (id) => findCourse(id)?.name || id, onChange: () => refresh() })
-  else if (studyTab === 'summary') renderSummary(host, { catalog, isPassed: (id) => store.isPassed(id), courses: catalog.filter((c) => c.id !== 'qm').map((c) => ({ id: c.id, name: c.name })), M })
+  else if (studyTab === 'summary') renderSummary(host, { catalog, isPassed: (id) => store.isPassed(id), courses: catalog.filter((c) => c.id !== 'qm').map((c) => ({ id: c.id, name: c.name })), M, start: summaryStart })
   else if (studyTab === 'mistakes') { host.innerHTML = M(mistakesHtml()); wireMistakes(host); }
   else if (studyTab === 'weak') { host.innerHTML = M(weakHtml()); wireGoto(host); }
   else if (studyTab === 'feynman') { renderFeynman(host); }

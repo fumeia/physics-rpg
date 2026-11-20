@@ -66,7 +66,7 @@ export function renderForge(host, ctx) {
 
 export function renderSummary(host, ctx) {
   // ctx: { catalog, isPassed, courses: [{id, name}] (the courses that allow a summary), M }
-  const { M } = ctx; let cid = ctx.courses[0].id;
+  const { M } = ctx; let cid = ctx.courses.some((c) => c.id === ctx.start) ? ctx.start : ctx.courses[0].id; // start: the course a run stop asks for
   function draw() {
     const s = summaryOf(cid), cards = deck(ctx.catalog, () => true).filter((c) => c.course === cid).map((c) => ({ ...c, earned: ctx.isPassed(c.key.split('#')[0]) })), PAGES = pagesOf(cid), per = Array.from({ length: PAGES }, (_, i) => cards.filter((c) => s.pins[c.key] === i + 1));
     const byRoom = {}; for (const c of cards) (byRoom[c.roomTitle] ||= []).push(c);

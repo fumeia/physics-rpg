@@ -10,7 +10,7 @@ import { meanRetention, fading, forecast } from './memory.js';
 const ACT_ICON = { hunt: '\u2620', explain: '\u275d', blitz: '\u26a1' };
 const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba', pre: '\ud83e\uddf1' };
 const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass', pre: 'Groundwork' };
-const LENGTHS = [[20, 'Short'], [45, 'Normal'], [90, 'Long']];
+const LENGTHS = [['auto', 'Auto'], [20, 'Short'], [45, 'Normal'], [90, 'Long']]; // Auto: sized by the finish plan
 const GHOST = '<svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M2 21V9a8 8 0 0 1 16 0v12l-3-2.5-2.5 2.5-2.5-2.5L7.5 21 5 18.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.6" fill="#0b0d12"/><circle cx="12.5" cy="9" r="1.6" fill="#0b0d12"/></svg>';
 const esc = (s) => String(s).replace(/</g, '&lt;');
 
@@ -48,7 +48,68 @@ export function createCampaign(ctx) {
   const pos = (cid) => position(W()[cid], cleared, known()[cid], taught(), skim()[cid]);
   const behindTotal = () => +courses().reduce((s, c) => s + pos(c).behind, 0).toFixed(1);
   const isSetup = () => !!store.val('campaignSetup', false);
-  const runMinutes = () => store.val('runMinutes', 45);
+  const runMinutes = () => { const v = store.val('runMinutes', 45); return v === 'auto' ? autoMinutes() : v; };
+  // ---- finish plan: everything (the course weeks, sheets and the astro Choudhuri plan) done by a target date (default 15 Jan 2027).
+  // Remaining work = the estimated minutes of every week item not yet passed or in the review schedule (weeks marked known are
+  // skipped, skimmed weeks count only their theory), plus a few minutes per open review. Divided by the days left it gives the
+  // daily target; today's measured study time counts against it. Auto run length = what is left of today's target (20-90 min).
+  const FINISH_DEFAULT = '2027-01-15';
+  const finishBy = () => store.val('finishBy', FINISH_DEFAULT) || FINISH_DEFAULT;
+  const daysLeft = () => Math.max(1, Math.ceil((Date.parse(finishBy() + 'T23:59:00') - Date.now()) / 86400000));
+  const estOf = (id) => { const e = ctx.encIndex.get(id)?.enc; return e?.reading ? Math.min(40, e.minutes || 20) : EST_MIN[e?.type] || 10; };
+  function remaining() {
+    const by = {}; let total = 0; const kn = known(), sk = skim();
+    for (const cid of courses()) {
+      let min = 0, items = 0;
+      for (const w of W()[cid]) {
+        // a week marked as known still owes the questions of a self-made sheet plan (astro: Choudhuri), which came later
+        const ids = (kn[cid]?.has(w.n) ? (ctx.sheetsByCourse[cid]?.plan && !sk[cid]?.has(w.n) ? w.practice.filter((id) => ctx.encIndex.get(id)?.enc.sheet) : [])
+          : [...w.theory, ...(w.reading || []), ...(sk[cid]?.has(w.n) ? [] : w.practice)]).filter((id) => !cleared(id) && !ctx.isLockedId(id));
+        items += ids.length; min += ids.reduce((a, id) => a + estOf(id), 0);
+      }
+      by[cid] = { min, items }; total += min;
+    }
+    const reviews = Object.keys(store.snapshot.reviews || {}).filter((id) => ctx.encIndex.has(id)).length;
+    total += reviews * 6;
+    return { total, by, reviews };
+  }
+  const studiedToday = () => Math.round((store.activeSecondsOn(todayStr()) || 0) / 60);
+  function finishPlan() {
+    const rem = remaining(), days = daysLeft(), perDay = Math.ceil(rem.total / days), done = studiedToday();
+    return { rem, days, perDay, done, todayLeft: Math.max(0, perDay - done) };
+  }
+  const autoMinutes = () => { const t = finishPlan().todayLeft; return t <= 0 ? 20 : Math.max(20, Math.min(90, Math.round(t / 5) * 5)); };
+  // triage: the weeks with the least exam weight, skimmed (theory only), until the daily load is bearable
+  function triage(limitPerDay = 150) {
+    const fp = finishPlan(); if (fp.perDay <= limitPerDay) return null;
+    const kn = known(), sk = skim(), cand = [];
+    for (const cid of courses()) for (const w of W()[cid]) {
+      if (kn[cid]?.has(w.n) || sk[cid]?.has(w.n)) continue;
+      const save = w.practice.filter((id) => !cleared(id)).reduce((a, id) => a + estOf(id), 0); if (save < 30) continue;
+      cand.push({ cid, n: w.n, title: w.title, weight: weekWeight(cid, w), save });
+    }
+    cand.sort((a, b) => a.weight - b.weight || b.save - a.save);
+    const pick = []; let total = fp.rem.total;
+    for (const c of cand) { if (Math.ceil(total / fp.days) <= limitPerDay || pick.length >= 6) break; pick.push(c); total -= c.save; }
+    return pick.length ? { pick, after: Math.ceil(total / fp.days) } : null;
+  }
+  function overdueQuestions() {
+    const out = [], now = Date.now();
+    for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of s.sheets) { const d = ctx.sheetDue(sh); if (!d || d > now) continue; for (const q of sh.questions) if (!cleared(q.enc.id)) out.push({ cid, sh: sh.n, q: q.q, id: q.enc.id, due: d }); }
+    return out.sort((a, b) => a.due - b.due);
+  }
+  const hm = (m) => (m >= 90 ? `${Math.round(m / 6) / 10} h` : `${m} min`);
+  function finishHtml() {
+    const fp = finishPlan(), tri = triage(), od = overdueQuestions(), short = (c) => cfg.courses[c]?.short || c;
+    const cls = fp.perDay <= 120 ? 'ok' : fp.perDay <= 240 ? 'heavy' : 'over';
+    const verdict = cls === 'ok' ? 'doable' : cls === 'heavy' ? 'heavy but possible' : 'not realistic as it stands';
+    const pct = Math.min(100, Math.round(100 * fp.done / Math.max(1, fp.perDay)));
+    return `<div class="cp-finish ${cls}"><div class="cp-fhead"><h3>\ud83c\udfaf Finish plan: everything by <input type="date" id="cp-finish-date" value="${finishBy()}"></h3><span class="src">${fp.days} day${fp.days === 1 ? '' : 's'} left</span></div>
+      <p><b>${hm(fp.rem.total)}</b> of work left (${courses().map((c) => `${short(c)} ${hm(fp.rem.by[c].min)}`).join(', ')}${fp.rem.reviews ? `, ${fp.rem.reviews} reviews` : ''}) \u2192 <b>${fp.perDay} min a day</b>: ${verdict}.</p>
+      <div class="cp-fbar"><i style="width:${pct}%"></i></div><p class="src">Today: ${fp.done} of ${fp.perDay} min studied${fp.todayLeft ? `, ${fp.todayLeft} min to go` : ' \u2713 on track for today'}. ${store.val('runMinutes', 45) === 'auto' ? 'Run length is on Auto: each run is sized from what is left today.' : '<button class="link" id="cp-auto">Let the run length follow this plan (Auto)</button>'}</p>
+      ${od.length ? `<p class="src">Overdue sheet questions (${od.length}), oldest first:</p><div class="row wrap">${od.slice(0, 6).map((x) => `<button class="chip btn" data-wopen="${x.id}">${short(x.cid)} sheet ${x.sh} Q${x.q}</button>`).join('')}</div>` : ''}
+      ${tri ? `<div class="cp-triage"><p><b>To make it fit</b> (\u2264 150 min a day), skim the weeks that count least in old exams: only their theory, no exercises. That brings it to <b>${tri.after} min a day</b>:</p><ul>${tri.pick.map((c) => `<li>${short(c.cid)} week ${c.n}: ${esc(c.title)} \u00b7 saves ${hm(c.save)} \u00b7 exam weight ${Math.round(100 * c.weight)}%</li>`).join('')}</ul><button class="chip btn" id="cp-triage">Skim these ${tri.pick.length} weeks</button> <span class="src">(undo any time in the week view)</span></div>` : ''}</div>`;
+  }
   const title = (id) => { const e = ctx.encIndex.get(id)?.enc; return e ? String(e.title || id).replace(/<[^>]+>/g, '') : id; };
 
   // ---- the run of today (kept for the day so that reopening shows the same path and its progress)
@@ -75,6 +136,16 @@ export function createCampaign(ctx) {
   function dueSoon() { // per course, the sheet with the nearest due date within 3 days that still has open questions (nearest first)
     const best = {}; const now = Date.now();
     for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of (handIn(cid) ? s.sheets : [])) { const d = ctx.sheetDue(sh); if (!d || d < now - 43200000 || d - now > 3 * 86400000) continue; const ids = sh.questions.map((q) => q.enc.id).filter((id) => !cleared(id)); if (ids.length && (!best[cid] || d < best[cid].d)) best[cid] = { d, course: cid, ids }; }
+    // a self-made plan (astro) keeps its pace: every open question of its overdue sheets and of the sheets due within 3 days, spread
+    // over the days until those are due (at least one a day, at most four per run)
+    for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) {
+      if (!s.plan || !handIn(cid)) continue;
+      const open = s.sheets.filter((sh) => { const d = ctx.sheetDue(sh); return d && d - now <= 3 * 86400000; }).flatMap((sh) => sh.questions.map((q) => q.enc.id)).filter((id) => !cleared(id));
+      if (!open.length) continue;
+      const last = Math.max(...s.sheets.filter((sh) => { const d = ctx.sheetDue(sh); return d && d - now <= 3 * 86400000; }).map((sh) => +ctx.sheetDue(sh)));
+      const days = Math.max(1, Math.ceil((last - now) / 86400000));
+      best[cid] = { d: best[cid]?.d ?? last, course: cid, ids: open, take: Math.min(4, Math.max(1, Math.ceil(open.length / days))) };
+    }
     const list = Object.values(best).sort((a, b) => a.d - b.d);
     return list.length ? list : null;
   }
@@ -278,6 +349,11 @@ export function createCampaign(ctx) {
       ${courses().map((c) => { const def = Math.max(0, t - (cfg.courses[c].defaultBehind ?? 0)); return `<div class="cp-setrow"><b>${ctx.courseName(c)}</b><button class="chip btn" data-step="${c}:-1">−</button><span class="cp-setval" data-setval="${c}" data-v="${def}">week ${def}</span><button class="chip btn" data-step="${c}:1">+</button><span class="src" data-setnote="${c}"></span></div>`; }).join('')}
       <div class="row"><button class="go" id="cp-setup-ok">Start my campaign</button></div></div>`;
   }
+  function secondRunHtml() {
+    const fp = finishPlan(); if (fp.todayLeft < 15) return `<p class="msg good">Today's target of the finish plan is reached (${fp.done} of ${fp.perDay} min). Anything more is a head start.</p>`;
+    const m = Math.max(20, Math.min(90, Math.round(fp.todayLeft / 5) * 5));
+    return `<div class="cp-second"><p>The finish plan needs <b>${fp.perDay} min</b> today and you have <b>${fp.done}</b>: another <b>${m}-minute</b> run (later today, after a break) keeps you on track for ${new Date(finishBy() + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}.</p><button class="go" id="cp-second" data-min="${m}">Plan a ${m}-minute catch-up run</button></div>`;
+  }
   function runHtml() {
     const { r, st, done, total, complete } = runInfo(), mins = runMinutes();
     const grades = Object.fromEntries(fightsToday().map((f) => [f.id, f.grade]));
@@ -287,11 +363,11 @@ export function createCampaign(ctx) {
       return `<div class="cp-stop"><button class="cp-node ${s.kind} ${st[i]}${open && st.indexOf('open') === i ? ' next' : ''}${s.risk ? ' risk' : ''}" data-stop="${s.id}" title="${esc(s.why)}"><span class="cp-dot">${st[i] === 'done' ? (grades[s.id] || '✓') : st[i] === 'failed' ? '✗' : open && !s.action ? foe(s.id) || ICON[s.kind] : ICON[s.kind]}</span><span class="cp-nk">${s.risk ? 'Risk · ' : ''}${KIND[s.kind]}${s.course ? ` · ${cfg.courses[s.course]?.short || ''}` : ''} · ${s.min} min</span><span class="cp-nt">${s.action ? esc(s.why) : esc(title(s.id))}</span></button>${fork}</div>`; }).join('<span class="cp-link"></span>');
     const sum = complete && r.summarized ? `<p class="msg good">Run complete: ${st.filter((x) => x === 'done').length} of ${total} passed, ${r.xp1 - r.xp0 >= 0 ? '+' : '−'}${Math.abs(r.xp1 - r.xp0)} XP${r.bonus ? ` (risk bonus +${r.bonus})` : ''}${r.behind0 - r.behind1 > 0 ? `, ${(r.behind0 - r.behind1).toFixed(1)} weeks gained on the ghost` : ''}. ${st.includes('failed') ? 'The missed ones come back as respawns.' : ''}</p>${r.resonance ? `<p class="msg good">Resonance (+15 XP): <b>${esc(r.resonance.title)}</b> \u2014 two stops of this run are the same physics in two courses. <button class="link" data-reso="${r.resonance.a}">show the connection</button></p>` : ''}` : '';
     return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${r.est} min · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
-      <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === mins ? ' cur' : ''}" data-len="${m}" title="Plan a ${m}-minute run">${l} ${m}′</button>`).join('')}</div></div>
+      <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === store.val('runMinutes', 45) ? ' cur' : ''}" data-len="${m}" title="${m === 'auto' ? 'Sized by the finish plan: what is left of today’s target' : `Plan a ${m}-minute run`}">${l} ${m === 'auto' ? `${mins}′` : `${m}′`}</button>`).join('')}</div></div>
       ${weekHtmlRow()}
       ${earlierHtml()}
       ${parkedHtml()}
-      ${total ? `<div class="cp-path">${nodes}</div>` : '<p>Every week is done and no respawn is due. Use the exam hall for a timed mock exam.</p>'}${sum}
+      ${total ? `<div class="cp-path">${nodes}</div>` : '<p>Every week is done and no respawn is due. Use the exam hall for a timed mock exam.</p>'}${sum}${complete ? secondRunHtml() : ''}
       <div class="row">${total && !complete ? `<button class="go cp-go" id="cp-start">${r.startedAt ? 'Continue the run' : 'Start the run'} ▶</button>` : ''}${complete ? '<button class="go cp-go" id="cp-again">Plan another run</button>' : ''}${canUndo() ? `<button class="chip btn" id="cp-undo" title="Throw this new run away and show the finished run #${prevRuns().slice(-1)[0].n} again">\u21b6 Undo: back to run #${prevRuns().slice(-1)[0].n}</button>` : ''}</div></div>`;
   }
   function earlierHtml() {
@@ -331,14 +407,18 @@ export function createCampaign(ctx) {
     const head = `<div class="cp-head cp-head4"><div><b>${d}</b><span>days to the first exam${courses().every((c) => examDateKnown(c)) ? '' : ' (dates not all set: Settings \u2192 Profile)'}</span></div><div title="A rough forecast on the scale 1 to 6 (4 passes): how much of the exam-weighted material you have passed, how much of it you probably still remember, and old-exam problems passed. It falls when you stop."><b class="cp-grades">${gr.map((g) => `<span class="${g.grade >= 4 ? 'ok' : ''}">${g.grade.toFixed(2).replace(/0$/, '')}</span>`).join(' ')}</b><span>grade forecast: ${gr.map((g) => short(g.cid)).join(' \u00b7 ')}</span></div><div><b>${b}</b><span>weeks behind the ghost (it studies at lecture pace)</span></div><div><b>${b <= 0 ? '✓' : cu.possible ? fmt(cu.date) : '—'}</b><span>${b <= 0 ? 'level with all lectures' : !pc ? 'catch-up date: shown after three finished runs, from your real pace' : cu.possible ? `level with the lectures at your pace of the last runs (${pc.perDay.toFixed(2)} weeks gained per run day)` : `at your pace of the last runs (${pc.perDay.toFixed(2)} weeks per run day) the ghost pulls away: longer runs or two a day`}</span></div></div>`;
     payBosses();
     settleDungeon();
-    return `${head}${runHtml()}${bossHtml()}${courses().map(trackHtml).join('')}${dungeonHtml()}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
+    return `${head}${runHtml()}${finishHtml()}${bossHtml()}${courses().map(trackHtml).join('')}${dungeonHtml()}<p class="src">A week is done when its theory is read and checked and half of its exercises are passed, or when you mark it as done on paper. Tiles fill up with every exercise; dark tiles are weeks the lecture has passed and you have not cleared. The ghost stands on the lecture’s current week${cfg.courses.astrophysics ? '; the astrophysics schedule is an estimate along the textbook chapters' : ''}.</p>`;
   }
   function wire(host, rerender) {
     const re = () => { rerender(); ctx.onChange(); };
     host.querySelectorAll('[data-step]').forEach((b) => (b.onclick = () => { const [c, d] = b.dataset.step.split(':'), el = host.querySelector(`[data-setval="${c}"]`), v = Math.max(0, Math.min(cfg.weeks, +el.dataset.v + +d)); el.dataset.v = v; el.textContent = `week ${v}`; host.querySelector(`[data-setnote="${c}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; }));
     host.querySelectorAll('[data-setval]').forEach((el) => { const v = +el.dataset.v; host.querySelector(`[data-setnote="${el.dataset.setval}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; });
     const okb = host.querySelector('#cp-setup-ok'); if (okb) okb.onclick = () => { const k = {}; host.querySelectorAll('[data-setval]').forEach((el) => { k[el.dataset.setval] = Array.from({ length: +el.dataset.v }, (_, i) => i + 1); }); store.setVal('campaignKnown', k); store.setVal('campaignSetup', true); store.setVal('run', null); re(); };
-    host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { store.setVal('runMinutes', +b.dataset.len); replan(+b.dataset.len); re(); }));
+    host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { const v = b.dataset.len === 'auto' ? 'auto' : +b.dataset.len; store.setVal('runMinutes', v); replan(runMinutes()); re(); }));
+    const fd = host.querySelector('#cp-finish-date'); if (fd) fd.onchange = () => { if (/^\d{4}-\d{2}-\d{2}$/.test(fd.value)) { store.setVal('finishBy', fd.value); if (store.val('runMinutes', 45) === 'auto') replan(runMinutes()); re(); } };
+    const au = host.querySelector('#cp-auto'); if (au) au.onclick = () => { store.setVal('runMinutes', 'auto'); replan(runMinutes()); re(); };
+    const tr = host.querySelector('#cp-triage'); if (tr) tr.onclick = () => { const t = triage(); if (!t) return; const cur = { ...(store.val('campaignSkim', {}) || {}) }; for (const c of t.pick) cur[c.cid] = [...new Set([...(cur[c.cid] || []), c.n])]; store.setVal('campaignSkim', cur); weeks = null; replan(runMinutes()); re(); };
+    const sr = host.querySelector('#cp-second'); if (sr) sr.onclick = () => { const keep = store.val('runMinutes', 45); newRun(+sr.dataset.min); if (keep === 'auto') store.setVal('runMinutes', 'auto'); re(); };
     host.querySelectorAll('[data-goal]').forEach((b) => (b.onclick = () => ctx.openMissions()));
     const ch = host.querySelector('#cp-chest'); if (ch) ch.onclick = () => { const xp = claimChest(); if (xp) ctx.toast(`Weekly chest: +${xp} XP`); re(); };
     const st = host.querySelector('#cp-start'); if (st) st.onclick = () => startRun();

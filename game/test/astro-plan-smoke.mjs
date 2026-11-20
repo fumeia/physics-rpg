@@ -18,7 +18,7 @@ ck(`a Choudhuri exercise shows its sheet and due date ("${head}")`, /sheet 2, qu
 ck('it keeps its step explanations', await p.evaluate(() => document.querySelectorAll('#panel .dexp').length > 0));
 await p.evaluate(() => window.__game.close()); await p.keyboard.press('KeyC'); await p.waitForTimeout(300); await p.waitForTimeout(500); await p.evaluate(() => document.getElementById('cp-setup-ok').click()); await p.waitForTimeout(600);
 const stops = await p.evaluate(() => window.__game.runStops());
-const astro = stops.filter((s) => s.id.startsWith('astro-book-'));
+const astro = stops.filter((s) => s.id.startsWith('astro-book-')); console.log('   astro stops on Sunday:', astro.length);
 ck(`today's run contains a Choudhuri sheet question (${astro.map((s) => s.id + ':' + s.kind).join(', ')})`, astro.length >= 1, JSON.stringify(stops));
 const bossTxt = await p.evaluate(() => document.getElementById('ov-body').textContent);
 ck('the weekly boss list shows the astro sheet', /Astro[^]*sheet 1|Warden of Sheet 1/i.test(bossTxt));

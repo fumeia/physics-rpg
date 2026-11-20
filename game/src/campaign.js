@@ -96,7 +96,7 @@ export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 4
   for (const r of reread.slice(0, minutes >= 60 ? 2 : 1)) add(r.id, 'reread', `Second pass through the script, ${r.label}`, r.course);
   // a sheet that is due within three days jumps the queue (dueSoon: {course, ids})
   // (one question per course with a sheet due soon; an array, nearest due first, or a single {course, ids})
-  for (const ds of dueSoon ? [].concat(dueSoon) : []) for (const id of ds.ids.filter((x) => !isPassed(x)).slice(0, 1)) add(id, 'sheet', 'Due this week: the sheet you have to hand in', ds.course);
+  for (const ds of dueSoon ? [].concat(dueSoon) : []) for (const id of ds.ids.filter((x) => !isPassed(x)).slice(0, ds.take || 1)) add(id, 'sheet', ds.take ? 'Your Choudhuri plan: due in the next days' : 'Due this week: the sheet you have to hand in', ds.course);
   // progress first: catch-up fills the run; reviews (due respawns, fading material) come after it, in the time that is left
   const reserve = (due.length || defend.length) && minutes >= 40 ? 10 : 0;
   const budget = (minutes >= 60 ? minutes - 20 : minutes) - reserve; // long runs also keep room for the finisher (readings are long)

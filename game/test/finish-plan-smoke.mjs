@@ -1,0 +1,31 @@
+// Finish plan: work left until the target date, minutes per day, Auto run length, skim suggestion when it does not fit.
+// Usage: node test/campaign-smoke.mjs
+import { createServer } from 'node:http'; import { readFile } from 'node:fs/promises'; import { extname, join, normalize } from 'node:path';
+import { chromium } from 'playwright-core';
+const root = new URL('..', import.meta.url).pathname; const types = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.woff2': 'font/woff2', '.png': 'image/png' };
+const server = createServer(async (q, res) => { try { const p = normalize(decodeURIComponent(new URL(q.url, 'http://x').pathname)); if (p === '/api/ping') { res.writeHead(200); return res.end('{"ok":false}'); } const f = await readFile(join(root, p === '/' ? 'index.html' : p)); res.writeHead(200, { 'content-type': types[extname(p)] || 'application/octet-stream' }); res.end(f); } catch { res.writeHead(404); res.end(); } }).listen(0);
+const b = await chromium.launch({ executablePath: process.env.CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const p = await b.newPage({ viewport: { width: 1280, height: 860 } }); const errs = []; p.on('pageerror', (e) => errs.push(e.message));
+await p.goto(`http://127.0.0.1:${server.address().port}/index.html?test=1&hud=compact`); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.waitForFunction(() => !!window.__game);
+let fails = 0; const ck = (n, c, x = '') => { if (!c) fails++; console.log(`${c ? 'PASS' : 'FAIL'} ${n} ${c ? '' : x}`); };
+p.on('pageerror', (e) => { fails++; console.log('pageerror', e.message); });
+await p.evaluate(() => document.getElementById('tut-skip')?.click());
+await p.click('#st-go').catch(() => {}); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut-skip')?.click()); await p.keyboard.press('Escape');
+await p.keyboard.press('KeyC'); await p.waitForTimeout(500); await p.evaluate(() => document.getElementById('cp-setup-ok').click()); await p.waitForTimeout(600);
+const txt = () => p.evaluate(() => document.querySelector('.cp-finish')?.textContent.replace(/\s+/g, ' ') || '');
+const perDay = async () => +((await txt()).match(/(\d+) min a day/) || [])[1];
+ck('the finish plan shows, target 15 Jan', await p.evaluate(() => document.getElementById('cp-finish-date')?.value) === '2027-01-15');
+const d0 = await perDay(); console.log('   ', (await txt()).slice(0, 220));
+ck(`it gives minutes per day (${d0})`, d0 > 0);
+await p.evaluate(() => document.querySelector('[data-len="auto"]').click()); await p.waitForTimeout(500);
+ck('Auto run length is selected', await p.evaluate(() => document.querySelector('[data-len="auto"]').classList.contains('cur')));
+const est = await p.evaluate(() => +(document.querySelector('.cp-runhead .src').textContent.match(/about (\d+) min/) || [])[1]);
+ck(`the Auto run is sized from today's target (about ${est} min)`, est >= 15 && est <= 100, est);
+await p.evaluate(() => { const i = document.getElementById('cp-finish-date'); i.value = '2026-12-05'; i.dispatchEvent(new Event('change')); }); await p.waitForTimeout(500);
+const d1 = await perDay();
+ck(`an earlier target raises the daily load (${d0} -> ${d1})`, d1 > d0);
+ck('when it does not fit, skimming low-weight weeks is suggested', await p.locator('#cp-triage').count() === 1, await txt());
+await p.evaluate(() => document.getElementById('cp-triage').click()); await p.waitForTimeout(600);
+const d2 = await perDay();
+ck(`skimming lowers the daily load (${d1} -> ${d2})`, d2 < d1);
+await b.close(); server.close(); console.log(fails ? `${fails} FAILED` : 'ALL OK'); process.exit(fails ? 1 : 0);

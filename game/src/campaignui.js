@@ -8,9 +8,12 @@ import { EST_MIN } from './campaign.js';
 import { meanRetention, fading, forecast } from './memory.js';
 
 const ACT_ICON = { hunt: '\u2620', explain: '\u275d', blitz: '\u26a1' };
-const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba', pre: '\ud83e\uddf1' };
-const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass', pre: 'Groundwork' };
-const LENGTHS = [['auto', 'Auto'], [20, 'Short'], [45, 'Normal'], [90, 'Long']]; // Auto: sized by the finish plan
+const ICON = { deriv: '\u2234', forge: '\u2692', scout: '\u2609', hunt: '\u2620', explain: '\u275d', blitz: '\u26a1', warmup: '\u21bb', theory: '\u25a4', sheet: '\u270e', boss: '\u2694', defend: '\u26e8', read: '\ud83d\udcd6', reread: '\u21ba', pre: '\ud83e\uddf1', exam: '\u2696', extra: '\u2726' };
+const KIND = { deriv: 'Derivation', forge: 'Forge', scout: 'Scout', hunt: 'Mistake hunt', explain: 'Explain it', blitz: 'Blitz', warmup: 'Review', theory: 'Theory', sheet: 'Exercise', boss: 'Finisher', defend: 'Defend', read: 'Script reading', reread: 'Second pass', pre: 'Groundwork', exam: 'Old exam', extra: 'More' };
+// Run lengths follow the finish plan: the minutes a day still needed to be done by the target date (perDay). Short is half of it,
+// Normal all of it, Long one and a half times it, Auto what is left of it today. Older profiles stored minutes: mapped below.
+const LENGTHS = [['auto', 'Auto'], ['short', 'Short'], ['normal', 'Normal'], ['long', 'Long']];
+const LEN_OF_MINUTES = (v) => (typeof v === 'number' ? (v <= 25 ? 'short' : v <= 60 ? 'normal' : 'long') : v);
 const GHOST = '<svg viewBox="0 0 20 22" width="16" height="18" aria-hidden="true"><path d="M2 21V9a8 8 0 0 1 16 0v12l-3-2.5-2.5 2.5-2.5-2.5L7.5 21 5 18.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.6" fill="#0b0d12"/><circle cx="12.5" cy="9" r="1.6" fill="#0b0d12"/></svg>';
 const esc = (s) => String(s).replace(/</g, '&lt;');
 
@@ -48,7 +51,9 @@ export function createCampaign(ctx) {
   const pos = (cid) => position(W()[cid], cleared, known()[cid], taught(), skim()[cid]);
   const behindTotal = () => +courses().reduce((s, c) => s + pos(c).behind, 0).toFixed(1);
   const isSetup = () => !!store.val('campaignSetup', false);
-  const runMinutes = () => { const v = store.val('runMinutes', 45); return v === 'auto' ? autoMinutes() : v; };
+  const runMode = () => LEN_OF_MINUTES(store.val('runMinutes', 'auto')) || 'auto';
+  const minutesOf = (mode) => { const fp = finishPlan(), d = Math.max(15, fp.perDay); return Math.max(15, mode === 'auto' ? fp.todayLeft || 20 : Math.round(d * ({ short: 0.5, normal: 1, long: 1.5 }[mode] || 1))); };
+  const runMinutes = () => minutesOf(runMode());
   // ---- finish plan: everything (the course weeks, sheets and the astro Choudhuri plan) done by a target date (default 15 Jan 2027).
   // Remaining work = the estimated minutes of every week item not yet passed or in the review schedule (weeks marked known are
   // skipped, skimmed weeks count only their theory), plus a few minutes per open review. Divided by the days left it gives the
@@ -58,27 +63,32 @@ export function createCampaign(ctx) {
   const daysLeft = () => Math.max(1, Math.ceil((Date.parse(finishBy() + 'T23:59:00') - Date.now()) / 86400000));
   const estOf = (id) => { const e = ctx.encIndex.get(id)?.enc; return e?.reading ? Math.min(40, e.minutes || 20) : EST_MIN[e?.type] || 10; };
   function remaining() {
-    const by = {}; let total = 0; const kn = known(), sk = skim();
+    const by = {}; let total = 0, examMin = 0, extraMin = 0; const kn = known(), sk = skim();
     for (const cid of courses()) {
       let min = 0, items = 0;
       for (const w of W()[cid]) {
         // a week marked as known still owes the questions of a self-made sheet plan (astro: Choudhuri), which came later
         const ids = (kn[cid]?.has(w.n) ? (ctx.sheetsByCourse[cid]?.plan && !sk[cid]?.has(w.n) ? w.practice.filter((id) => ctx.encIndex.get(id)?.enc.sheet) : [])
           : [...w.theory, ...(w.reading || []), ...(sk[cid]?.has(w.n) ? [] : w.practice)]).filter((id) => !cleared(id) && !ctx.isLockedId(id));
-        items += ids.length; min += ids.reduce((a, id) => a + estOf(id), 0);
+        // old-exam problems count in every week (nobody did them on paper); other cards in weeks you have not marked as done,
+        // without the exercises of weeks you skim
+        const exam = (w.exam || []).filter((id) => !cleared(id) && !ctx.isLockedId(id));
+        const extra = kn[cid]?.has(w.n) ? [] : (w.extra || []).filter((id) => !cleared(id) && !ctx.isLockedId(id) && (!sk[cid]?.has(w.n) || ['lesson', 'quiz'].includes(ctx.encIndex.get(id)?.enc.type)));
+        items += ids.length + exam.length + extra.length; min += ids.reduce((a, id) => a + estOf(id), 0);
+        examMin += exam.reduce((a, id) => a + estOf(id), 0); extraMin += extra.reduce((a, id) => a + estOf(id), 0);
+        min += exam.reduce((a, id) => a + estOf(id), 0) + extra.reduce((a, id) => a + estOf(id), 0);
       }
       by[cid] = { min, items }; total += min;
     }
     const reviews = Object.keys(store.snapshot.reviews || {}).filter((id) => ctx.encIndex.has(id)).length;
     total += reviews * 6;
-    return { total, by, reviews };
+    return { total, by, reviews, examMin, extraMin };
   }
   const studiedToday = () => Math.round((store.activeSecondsOn(todayStr()) || 0) / 60);
   function finishPlan() {
     const rem = remaining(), days = daysLeft(), perDay = Math.ceil(rem.total / days), done = studiedToday();
     return { rem, days, perDay, done, todayLeft: Math.max(0, perDay - done) };
   }
-  const autoMinutes = () => { const t = finishPlan().todayLeft; return t <= 0 ? 20 : Math.max(20, Math.min(90, Math.round(t / 5) * 5)); };
   // triage: the weeks with the least exam weight, skimmed (theory only), until the daily load is bearable
   function triage(limitPerDay = 150) {
     const fp = finishPlan(); if (fp.perDay <= limitPerDay) return null;
@@ -95,7 +105,7 @@ export function createCampaign(ctx) {
   }
   function overdueQuestions() {
     const out = [], now = Date.now();
-    for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of s.sheets) { const d = ctx.sheetDue(sh); if (!d || d > now) continue; for (const q of sh.questions) if (!cleared(q.enc.id)) out.push({ cid, sh: sh.n, q: q.q, id: q.enc.id, due: d }); }
+    const kn = known(); for (const [cid, s] of Object.entries(ctx.sheetsByCourse)) for (const sh of s.sheets) { const d = ctx.sheetDue(sh); if (!d || d > now || (!s.plan && kn[cid]?.has(sh.n))) continue; for (const q of sh.questions) if (!cleared(q.enc.id)) out.push({ cid, sh: sh.n, q: q.q, id: q.enc.id, due: d }); }
     return out.sort((a, b) => a.due - b.due);
   }
   const hm = (m) => (m >= 90 ? `${Math.round(m / 6) / 10} h` : `${m} min`);
@@ -106,7 +116,8 @@ export function createCampaign(ctx) {
     const pct = Math.min(100, Math.round(100 * fp.done / Math.max(1, fp.perDay)));
     return `<div class="cp-finish ${cls}"><div class="cp-fhead"><h3>\ud83c\udfaf Finish plan: everything by <input type="date" id="cp-finish-date" value="${finishBy()}"></h3><span class="src">${fp.days} day${fp.days === 1 ? '' : 's'} left</span></div>
       <p><b>${hm(fp.rem.total)}</b> of work left (${courses().map((c) => `${short(c)} ${hm(fp.rem.by[c].min)}`).join(', ')}${fp.rem.reviews ? `, ${fp.rem.reviews} reviews` : ''}) \u2192 <b>${fp.perDay} min a day</b>: ${verdict}.</p>
-      <div class="cp-fbar"><i style="width:${pct}%"></i></div><p class="src">Today: ${fp.done} of ${fp.perDay} min studied${fp.todayLeft ? `, ${fp.todayLeft} min to go` : ' \u2713 on track for today'}. ${store.val('runMinutes', 45) === 'auto' ? 'Run length is on Auto: each run is sized from what is left today.' : '<button class="link" id="cp-auto">Let the run length follow this plan (Auto)</button>'}</p>
+      <p class="src">Included: sheets and theory, ${hm(fp.rem.examMin)} of old-exam problems (mixed into the runs on the weeks you are working on) and ${hm(fp.rem.extraMin)} of the other cards of the game (calculation fights, derivations, extra lessons), so nothing is left out.</p>
+      <div class="cp-fbar"><i style="width:${pct}%"></i></div><p class="src">Today: ${fp.done} of ${fp.perDay} min studied${fp.todayLeft ? `, ${fp.todayLeft} min to go` : ' \u2713 on track for today'}. ${runMode() === 'auto' ? 'Run length is on Auto: each run is sized from what is left today.' : `Run length: ${runMode()} (${minutesOf(runMode())} min, from the daily target). <button class="link" id="cp-auto">Auto instead</button>`}</p>
       ${od.length ? `<p class="src">Overdue sheet questions (${od.length}), oldest first:</p><div class="row wrap">${od.slice(0, 6).map((x) => `<button class="chip btn" data-wopen="${x.id}">${short(x.cid)} sheet ${x.sh} Q${x.q}</button>`).join('')}</div>` : ''}
       ${tri ? `<div class="cp-triage"><p><b>To make it fit</b> (\u2264 150 min a day), skim the weeks that count least in old exams: only their theory, no exercises. That brings it to <b>${tri.after} min a day</b>:</p><ul>${tri.pick.map((c) => `<li>${short(c.cid)} week ${c.n}: ${esc(c.title)} \u00b7 saves ${hm(c.save)} \u00b7 exam weight ${Math.round(100 * c.weight)}%</li>`).join('')}</ul><button class="chip btn" id="cp-triage">Skim these ${tri.pick.length} weeks</button> <span class="src">(undo any time in the week view)</span></div>` : ''}</div>`;
   }
@@ -179,15 +190,8 @@ export function createCampaign(ctx) {
     const nd = minutes >= 40 && ctx.nextDeriv(); if (nd) { act('@deriv', 'deriv', 'derivs', `QM derivation, ${nd.label}: \u201c${String(nd.title).replace(/<[^>]+>|\$|\\[a-zA-Z]+/g, '')}\u201d`, Math.min(2, r.stops.length), { id: nd.id, mode: nd.mode }); }
     const fd = ctx.forgeDue(); if (fd) act('@forge', 'forge', 'forge', `QM by heart: ${fd} formula${fd === 1 ? '' : 's'} due in the Forge (write from memory, two minutes)`, Math.min(1, r.stops.length));
     const ti = r.stops.findIndex((s) => s.kind === 'read' || s.kind === 'theory'); if (ti >= 0 && minutes >= 40) act('@explain', 'explain', 'feynman', 'Explain what you just read in your own words, without looking', ti + 1);
-    // The chosen length is a promise: drop the least important stops until the run fits (never the first catch-up pair)
-    const total = () => r.stops.reduce((a, s) => a + s.min, 0), firstNew = r.stops.findIndex((s) => ['read', 'theory', 'sheet'].includes(s.kind));
-    for (const kind of ['scout', 'hunt', 'explain', 'blitz', 'boss', 'warmup', 'defend', 'catchup', 'forge', 'deriv', 'reread']) {
-      while (total() > minutes + 5) {
-        if (kind === 'warmup' && r.stops.filter((s) => s.kind === 'warmup').length <= 1) break; // one due review always stays
-        let i = -1; for (let k = r.stops.length - 1; k >= 0; k--) { const s = r.stops[k]; if ((kind === 'catchup' ? ['read', 'theory', 'sheet'].includes(s.kind) && k > firstNew + 1 : s.kind === kind)) { i = k; break; } }
-        if (i < 0) break; r.stops.splice(i, 1);
-      }
-    }
+    // no trimming: the run is composed from the shares of the work left (campaign.js buildRun), whole cards only
+    const total = () => r.stops.reduce((a, s) => a + s.min, 0);
     r.minutes = total();
     return { date: todayStr(), minutes, stops: r.stops, est: r.minutes, startedAt: 0, xp0: store.xp, behind0: behindTotal(), n: (() => { const pr = store.val('run', null); return pr?.date === todayStr() ? (pr.n || 1) + (pr.summarized ? 1 : 0) : 1; })() };
   }
@@ -251,7 +255,7 @@ export function createCampaign(ctx) {
   // as long as the new run has no finished stop. The notifier counts all of them (stat().today).
   const prevRuns = () => { const p = store.val('runsPrev', null); return p?.date === todayStr() ? p.runs || [] : []; };
   function archive(old) { if (old && old.date === todayStr() && old.summarized) store.setVal('runsPrev', { date: todayStr(), runs: [...prevRuns().filter((x) => x.n !== old.n), old] }); }
-  function newRun(minutes) { store.setVal('runMinutes', minutes); const old = store.val('run', null), r = freshRun(minutes); archive(old); store.setVal('run', r); }
+  function newRun(minutes) { const old = store.val('run', null), r = freshRun(minutes); archive(old); store.setVal('run', r); }
   function canUndo() { const pr = prevRuns(); if (!pr.length) return false; const { r, st } = runInfo(); return !r.summarized && st.every((x) => x === 'open'); }
   function undoNewRun() { if (!canUndo()) return false; const pr = prevRuns(), last = pr[pr.length - 1]; store.setVal('runsPrev', { date: todayStr(), runs: pr.slice(0, -1) }); store.setVal('run', last); return true; }
   // called after every finished exercise: when the last stop of the run is finished, log it and show the summary once
@@ -363,7 +367,7 @@ export function createCampaign(ctx) {
       return `<div class="cp-stop"><button class="cp-node ${s.kind} ${st[i]}${open && st.indexOf('open') === i ? ' next' : ''}${s.risk ? ' risk' : ''}" data-stop="${s.id}" title="${esc(s.why)}"><span class="cp-dot">${st[i] === 'done' ? (grades[s.id] || '✓') : st[i] === 'failed' ? '✗' : open && !s.action ? foe(s.id) || ICON[s.kind] : ICON[s.kind]}</span><span class="cp-nk">${s.risk ? 'Risk · ' : ''}${KIND[s.kind]}${s.course ? ` · ${cfg.courses[s.course]?.short || ''}` : ''} · ${s.min} min</span><span class="cp-nt">${s.action ? esc(s.why) : esc(title(s.id))}</span></button>${fork}</div>`; }).join('<span class="cp-link"></span>');
     const sum = complete && r.summarized ? `<p class="msg good">Run complete: ${st.filter((x) => x === 'done').length} of ${total} passed, ${r.xp1 - r.xp0 >= 0 ? '+' : '−'}${Math.abs(r.xp1 - r.xp0)} XP${r.bonus ? ` (risk bonus +${r.bonus})` : ''}${r.behind0 - r.behind1 > 0 ? `, ${(r.behind0 - r.behind1).toFixed(1)} weeks gained on the ghost` : ''}. ${st.includes('failed') ? 'The missed ones come back as respawns.' : ''}</p>${r.resonance ? `<p class="msg good">Resonance (+15 XP): <b>${esc(r.resonance.title)}</b> \u2014 two stops of this run are the same physics in two courses. <button class="link" data-reso="${r.resonance.a}">show the connection</button></p>` : ''}` : '';
     return `<div class="cp-run"><div class="cp-runhead"><div><h3>Today’s run${r.n > 1 ? ` #${r.n}` : ''}</h3><span class="src">${total ? `${done} of ${total} stops · about ${r.est} min · run streak ${runStreak()} day${runStreak() === 1 ? '' : 's'}` : 'nothing open'}</span></div>
-      <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === store.val('runMinutes', 45) ? ' cur' : ''}" data-len="${m}" title="${m === 'auto' ? 'Sized by the finish plan: what is left of today’s target' : `Plan a ${m}-minute run`}">${l} ${m === 'auto' ? `${mins}′` : `${m}′`}</button>`).join('')}</div></div>
+      <div class="row">${LENGTHS.map(([m, l]) => `<button class="chip btn${m === runMode() ? ' cur' : ''}" data-len="${m}" title="${{ auto: 'What is left of today’s target of the finish plan', short: 'Half of the daily target', normal: 'The daily target of the finish plan', long: 'One and a half times the daily target' }[m]}">${l} ${minutesOf(m)}′</button>`).join('')}</div></div>
       ${weekHtmlRow()}
       ${earlierHtml()}
       ${parkedHtml()}
@@ -395,7 +399,7 @@ export function createCampaign(ctx) {
     const exam = wt >= 0.6 ? 'often in old exams: do it properly' : wt < 0.25 ? 'rare in old exams: a good week to skim if time is short' : 'sometimes in old exams';
     const row = (id) => { const e = ctx.encIndex.get(id)?.enc; return `<div class="maprow"><button class="link" data-wopen="${id}"><span class="mt">${passed(id) ? '✓' : store.hasReview(id) ? '↻' : '○'} ${esc(title(id))}</span></button><span class="src">${e?.sheet ? 'sheet question' : e?.type || ''}</span></div>`; };
     return `<div class="cp-week"><div class="cp-whead"><b>Week ${n}: ${esc(w.title)}</b><span class="src">${exam}${wm !== null ? ` \u00b7 about ${Math.round(100 * wm)}% remembered` : ''} \u00b7 ${s.known ? 'marked as done on paper' : s.skim ? 'skim: done when the theory is read' : s.done ? 'done' : `${s.passed} of ${s.total} passed · done when the theory and half of the exercises are passed`}</span></div>
-      ${w.reading?.length ? `<div class="src">Script reading (guided)</div>${w.reading.map(row).join('')}` : ''}${w.theory.length ? `<div class="src">Read and check</div>${w.theory.map(row).join('')}` : ''}${w.practice.length ? `<div class="src">${w.sheet ? `Sheet ${w.sheet}` : 'Exercises'}</div>${w.practice.map(row).join('')}` : ''}${s.empty ? '<p class="src">Nothing in the game for this week yet.</p>' : ''}
+      ${w.reading?.length ? `<div class="src">Script reading (guided)</div>${w.reading.map(row).join('')}` : ''}${w.theory.length ? `<div class="src">Read and check</div>${w.theory.map(row).join('')}` : ''}${w.practice.length ? `<div class="src">${w.sheet ? `Sheet ${w.sheet}` : 'Exercises'}</div>${w.practice.map(row).join('')}` : ''}${w.exam?.length ? `<div class="src">Old-exam problems (mixed into the runs)</div>${w.exam.map(row).join('')}` : ''}${w.extra?.length ? `<details><summary class="src">More cards of this week (${w.extra.filter(passed).length}/${w.extra.length} done, mixed into the runs)</summary>${w.extra.map(row).join('')}</details>` : ''}${s.empty ? '<p class="src">Nothing in the game for this week yet.</p>' : ''}
       <div class="row"><button class="chip btn" data-known="${cid}/${n}">${s.known ? 'Not done after all: unmark this week' : 'I did this week on paper: mark as done'}</button>${s.known ? '' : `<button class="chip btn" data-knownto="${cid}/${n}">Mark weeks 1\u2013${n} as done</button>`}${s.known ? '' : `<button class="chip btn${s.skim ? ' cur' : ''}" data-skim="${cid}/${n}" title="Triage: the week counts as done once its theory is read; its exercises are left out of the run">${s.skim ? 'Skimming this week: undo' : 'Only skim this week (theory, no exercises)'}</button>`}</div></div>`;
   }
   function html() {
@@ -414,11 +418,11 @@ export function createCampaign(ctx) {
     host.querySelectorAll('[data-step]').forEach((b) => (b.onclick = () => { const [c, d] = b.dataset.step.split(':'), el = host.querySelector(`[data-setval="${c}"]`), v = Math.max(0, Math.min(cfg.weeks, +el.dataset.v + +d)); el.dataset.v = v; el.textContent = `week ${v}`; host.querySelector(`[data-setnote="${c}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; }));
     host.querySelectorAll('[data-setval]').forEach((el) => { const v = +el.dataset.v; host.querySelector(`[data-setnote="${el.dataset.setval}"]`).textContent = v >= taught() ? 'up to date' : `${taught() - v} week${taught() - v === 1 ? '' : 's'} behind`; });
     const okb = host.querySelector('#cp-setup-ok'); if (okb) okb.onclick = () => { const k = {}; host.querySelectorAll('[data-setval]').forEach((el) => { k[el.dataset.setval] = Array.from({ length: +el.dataset.v }, (_, i) => i + 1); }); store.setVal('campaignKnown', k); store.setVal('campaignSetup', true); store.setVal('run', null); re(); };
-    host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { const v = b.dataset.len === 'auto' ? 'auto' : +b.dataset.len; store.setVal('runMinutes', v); replan(runMinutes()); re(); }));
-    const fd = host.querySelector('#cp-finish-date'); if (fd) fd.onchange = () => { if (/^\d{4}-\d{2}-\d{2}$/.test(fd.value)) { store.setVal('finishBy', fd.value); if (store.val('runMinutes', 45) === 'auto') replan(runMinutes()); re(); } };
+    host.querySelectorAll('[data-len]').forEach((b) => (b.onclick = () => { store.setVal('runMinutes', b.dataset.len); replan(runMinutes()); re(); }));
+    const fd = host.querySelector('#cp-finish-date'); if (fd) fd.onchange = () => { if (/^\d{4}-\d{2}-\d{2}$/.test(fd.value)) { store.setVal('finishBy', fd.value); replan(runMinutes()); re(); } };
     const au = host.querySelector('#cp-auto'); if (au) au.onclick = () => { store.setVal('runMinutes', 'auto'); replan(runMinutes()); re(); };
     const tr = host.querySelector('#cp-triage'); if (tr) tr.onclick = () => { const t = triage(); if (!t) return; const cur = { ...(store.val('campaignSkim', {}) || {}) }; for (const c of t.pick) cur[c.cid] = [...new Set([...(cur[c.cid] || []), c.n])]; store.setVal('campaignSkim', cur); weeks = null; replan(runMinutes()); re(); };
-    const sr = host.querySelector('#cp-second'); if (sr) sr.onclick = () => { const keep = store.val('runMinutes', 45); newRun(+sr.dataset.min); if (keep === 'auto') store.setVal('runMinutes', 'auto'); re(); };
+    const sr = host.querySelector('#cp-second'); if (sr) sr.onclick = () => { const keep = store.val('runMinutes', 'auto'); newRun(+sr.dataset.min); store.setVal('runMinutes', keep); re(); };
     host.querySelectorAll('[data-goal]').forEach((b) => (b.onclick = () => ctx.openMissions()));
     const ch = host.querySelector('#cp-chest'); if (ch) ch.onclick = () => { const xp = claimChest(); if (xp) ctx.toast(`Weekly chest: +${xp} XP`); re(); };
     const st = host.querySelector('#cp-start'); if (st) st.onclick = () => startRun();

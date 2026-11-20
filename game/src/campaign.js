@@ -44,6 +44,21 @@ export function buildWeeks(cfg, catalog, sheetsByCourse) {
       if (!w.title) w.title = `Week ${n}`;
       weeks.push(w);
     }
+    // every other card of the course gets a week too, so nothing is missed: the week its room first appears in (a room that no
+    // week names follows the room before it). Old-exam problems (boss) go to w.exam, the rest to w.extra. Neither decides
+    // whether a week is done; the runs mix them in and the finish plan counts them.
+    const roomWeek = new Map();
+    for (const w of weeks) for (const id of [...w.theory, ...w.practice]) { const r = byId.get(id)?.room; if (r && !roomWeek.has(r)) roomWeek.set(r, w.n); }
+    for (const w of weeks) { w.extra = []; w.exam = []; }
+    let last = 1;
+    for (const r of c.rooms) {
+      if (roomWeek.has(r.slug)) last = roomWeek.get(r.slug);
+      const w = weeks[(roomWeek.get(r.slug) ?? last) - 1]; if (!w) continue;
+      for (const e of r.encounters) {
+        if (used.has(e.id) || e.reading || e.type === 'sandbox' || e.sim || e.sheet || (e.book && !e.sheet) || e.synthetic) continue;
+        used.add(e.id); (e.type === 'boss' ? w.exam : w.extra).push(e.id);
+      }
+    }
     out[c.id] = weeks;
   }
   return out;
@@ -83,51 +98,62 @@ export function catchUpDate(behindTotal, weeksPerRun, runsPerDay = 1, now = Date
 //   defend    something you passed that is fading from memory (memory.js): retrieval keeps the room from being overrun again
 //   examDays  {course: days to its exam}: the course whose exam comes first is favoured (weeks behind count more the sooner the exam)
 //   read      guided reading of the script section of the week (before its lessons); reread: the optional second pass
-export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null, skim = null, defend = [], examDays = null, reread = [] }) {
+export function buildRun({ weeks, isPassed, known, taught, due = [], minutes = 45, encOf, isLocked = () => false, dueSoon = null, skim = null, defend = [], examDays = null, reread = [], day = Math.floor(Date.now() / 86400000) }) {
+  // A run is a slice of everything that is left, in proportion: catch-up (script readings, theory, sheet questions of the weeks
+  // not done yet), old-exam problems (w.exam), the other cards of the game (w.extra) and reviews each get the share of the run's
+  // minutes that they have of the remaining work. Whole cards are added until a share is used (a card goes in if at least half of
+  // it fits); nothing is cut afterwards, so a run can be a few minutes off its nominal length. Kinds with long cards that get only a
+  // small share (an exam problem of 30 min in a share of 12) rotate over the days, so over a week each kind gets its proportion.
   const stops = [], seen = new Set(); let used = 0;
   const est = (id) => { const e = encOf(id); return e?.reading ? Math.min(40, e.minutes || 20) : EST_MIN[e?.type] || 10; };
-  const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; if (stops.length && used + est(id) > minutes + (minutes < 60 ? 5 : 0)) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
+  const add = (id, kind, why, course) => { if (!id || seen.has(id) || !encOf(id)) return false; seen.add(id); stops.push({ id, kind, why, course, min: est(id) }); used += est(id); return true; };
   // priority = (weeks behind + 0.5) x urgency, urgency = (first exam + 7 days) / (this exam + 7 days): 1 for the first exam, less for later ones
   const firstDays = examDays ? Math.min(...Object.values(examDays)) : 0, urgency = (cid) => (examDays && Number.isFinite(examDays[cid]) ? (firstDays + 7) / (examDays[cid] + 7) : 1);
   const order = Object.keys(weeks).map((cid) => { const p = position(weeks[cid], isPassed, known?.[cid], taught, skim?.[cid]); return { cid, p, prio: (p.behind + 0.5) * urgency(cid) }; }).sort((a, b) => b.prio - a.prio);
   const open = (cid, bucket) => { const w = order.find((o) => o.cid === cid).p.next; if (w && bucket === 'practice' && skim?.[cid]?.has(w.n)) return []; return w ? w[bucket].filter((id) => !isPassed(id) && !isLocked(id) && !seen.has(id)) : []; };
   const label = (cid) => { const o = order.find((x) => x.cid === cid); return (o.p.next ? `week ${o.p.next.n}` : 'all weeks done') + (examDays && Number.isFinite(examDays[cid]) ? `, exam in ${examDays[cid]} days` : ''); };
-  // second pass through the script (only courses where you switched it on): one card per run, two on long runs
-  for (const r of reread.slice(0, minutes >= 60 ? 2 : 1)) add(r.id, 'reread', `Second pass through the script, ${r.label}`, r.course);
-  // a sheet that is due within three days jumps the queue (dueSoon: {course, ids})
-  // (one question per course with a sheet due soon; an array, nearest due first, or a single {course, ids})
-  for (const ds of dueSoon ? [].concat(dueSoon) : []) for (const id of ds.ids.filter((x) => !isPassed(x)).slice(0, ds.take || 1)) add(id, 'sheet', ds.take ? 'Your Choudhuri plan: due in the next days' : 'Due this week: the sheet you have to hand in', ds.course);
-  // progress first: catch-up fills the run; reviews (due respawns, fading material) come after it, in the time that is left
-  const reserve = (due.length || defend.length) && minutes >= 40 ? 10 : 0;
-  const budget = (minutes >= 60 ? minutes - 20 : minutes) - reserve; // long runs also keep room for the finisher (readings are long)
-  let round = 0;
-  while (used < budget && round < 6) {
+  // ---- the shares: minutes of work left per kind
+  const left = (ids) => ids.filter((id) => !isPassed(id) && !isLocked(id)).reduce((a, id) => a + est(id), 0);
+  let catchMin = 0, examMin = 0, extraMin = 0;
+  for (const [cid, ws] of Object.entries(weeks)) for (const w of ws) {
+    examMin += left(w.exam || []);
+    if (known?.[cid]?.has(w.n)) continue;
+    catchMin += left([...w.theory, ...(w.reading || []), ...(skim?.[cid]?.has(w.n) ? [] : w.practice)]); extraMin += left(w.extra || []);
+  }
+  const reviewMin = due.length * 6 + Math.min(defend.length, 3) * 6, all = Math.max(1, catchMin + examMin + extraMin + reviewMin);
+  const share = { catch: minutes * catchMin / all, exam: minutes * examMin / all, extra: minutes * extraMin / all, review: minutes * reviewMin / all };
+  // how many cards of a kind go into today's run: the share in minutes over the typical card length, spread over the days
+  const quota = (mins, typical) => Math.floor(day * mins / typical) - Math.floor((day - 1) * mins / typical);
+  // ---- catch-up: second pass, sheets due soon, then the next reading, theory and sheet question of the courses by priority
+  let cu = 0; const cAdd = (id, kind, why, course) => { const ok = add(id, kind, why, course); if (ok) cu += est(id); return ok; };
+  const fits = (id) => cu === 0 || cu + est(id) / 2 <= share.catch;
+  for (const r of reread.slice(0, 2)) if (fits(r.id)) cAdd(r.id, 'reread', `Second pass through the script, ${r.label}`, r.course);
+  // a sheet due within three days jumps the queue: one question per course (the self-made astro plan: as many as its pace needs)
+  for (const ds of dueSoon ? [].concat(dueSoon) : []) for (const id of ds.ids.filter((x) => !isPassed(x)).slice(0, ds.take || 1)) cAdd(id, 'sheet', ds.take ? 'Your Choudhuri plan: due in the next days' : 'Due this week: the sheet you have to hand in', ds.course);
+  for (let round = 0; round < 8; round++) {
     let any = false;
     for (const { cid, p } of order) {
-      if (used >= budget) break;
       if (!p.next) continue;
-      if (round > 0 && p.behind <= 0 && used >= minutes * 0.6) continue; // courses that are on track get one slot
       const rd = (p.next.reading || []).find((id) => !isPassed(id) && !isLocked(id) && !seen.has(id));
-      if (rd) any = add(rd, 'read', `Catch-up, ${label(cid)}: read this part of the script first`, cid) || any;
+      if (rd) { if (!fits(rd)) continue; any = cAdd(rd, 'read', `Catch-up, ${label(cid)}: read this part of the script first`, cid) || any; } // the reading first; if it does not fit, the theory waits
       const th = open(cid, 'theory')[0], pr = open(cid, 'practice')[0];
-      if (th) any = add(th, 'theory', `Catch-up, ${label(cid)}: read this first`, cid) || any;
-      if (pr && used + est(pr) <= budget + 5) any = add(pr, 'sheet', `Catch-up, ${label(cid)}: ${th ? 'then the exercise that uses it' : 'next open exercise'}`, cid) || any;
+      if (th && fits(th)) any = cAdd(th, 'theory', `Catch-up, ${label(cid)}: read this first`, cid) || any;
+      if (pr && fits(pr)) any = cAdd(pr, 'sheet', `Catch-up, ${label(cid)}: ${th ? 'then the exercise that uses it' : 'next open exercise'}`, cid) || any;
     }
-    if (!any) break; round++;
+    if (!any || cu >= share.catch) break;
   }
-  // reviews at the end of the run: due respawns (spaced 3, 7, 16, 35 days) and something fading, only while time is left
-  for (const id of due) { if (stops.filter((x) => x.kind === 'warmup').length >= (minutes >= 60 ? 3 : 2)) break; add(id, 'warmup', 'Review: a respawn that is due (spaced repetition)'); }
-  // the oldest due review always gets its place, even in a full run: otherwise reviews pile up behind long readings and never come
-  const firstDue = due.find((id) => !seen.has(id) && encOf(id));
-  if (firstDue && !stops.some((x) => x.kind === 'warmup')) { seen.add(firstDue); stops.push({ id: firstDue, kind: 'warmup', why: 'Review: a respawn that is due (spaced repetition)', course: undefined, min: est(firstDue) }); used += est(firstDue); }
-  for (const id of defend) { if (stops.filter((x) => x.kind === 'defend').length >= (minutes >= 60 ? 2 : 1)) break; add(id, 'defend', 'You passed this a while ago and it is fading: defend it'); }
-  // finisher: something exam-like from a finished week of the course you are best in (kept short on short runs)
-  if (minutes >= 40) {
-    outer: for (const { cid } of [...order].reverse()) for (const w of weeks[cid]) {
-      if (!weekStatus(w, isPassed, known?.[cid], skim?.[cid]).done) break;
-      const id = w.practice.find((x) => !isPassed(x) && !seen.has(x) && !isLocked(x) && ['calc', 'boss', 'derive'].includes(encOf(x)?.type));
-      if (id) { if (used + est(id) <= minutes + 5) { seen.add(id); stops.push({ id, kind: 'boss', why: 'Finisher from a week you already cleared: exam fitness', course: cid, min: est(id) }); used += est(id); } break outer; }
-    }
-  }
-  return { stops, minutes: used };
+  // ---- mixed in: old-exam problems and the other cards, from the weeks you are working on now (current week first, then the
+  // ones before), so exam practice starts long before a course is caught up
+  const pool = (bucket) => { const out = []; for (const { cid, p } of order) { const upto = p.next ? p.next.n : weeks[cid].length; const ws = weeks[cid].filter((w) => w.n <= upto).sort((a, b) => b.n - a.n);
+    for (const w of ws) for (const id of w[bucket] || []) if (!isPassed(id) && !isLocked(id) && !seen.has(id)) out.push({ id, cid, n: w.n }); } return out; };
+  const exams = pool('exam'), extras = pool('extra');
+  for (const x of exams.slice(0, est(exams[0]?.id) <= minutes ? quota(share.exam, EST_MIN.boss) : 0)) add( // (a card longer than the whole run waits for a longer run)
+    x.id, 'exam', `Old-exam problem on week ${x.n}, which you are working on: exam practice from the start`, x.cid);
+  const nx = quota(share.extra, 12); let k = 0;
+  for (const x of extras) { if (k >= nx) break; if (stops.some((s) => s.kind === 'extra' && s.course === x.cid) && extras.some((y) => y.cid !== x.cid && !seen.has(y.id))) continue; if (add(x.id, 'extra', `More from week ${x.n}: a card no sheet links to, so you do not miss it`, x.cid)) k++; }
+  // ---- reviews at the end: due respawns (spaced 3, 7, 16, 35 days), then something fading; at least the oldest due respawn
+  let rv = 0;
+  for (const id of due) { if (rv > 0 && rv + 3 > share.review) break; if (add(id, 'warmup', 'Review: a respawn that is due (spaced repetition)')) rv += est(id); }
+  for (const id of defend) { if (rv + 3 > share.review) break; if (add(id, 'defend', 'You passed this a while ago and it is fading: defend it')) rv += est(id); }
+  return { stops, minutes: used, share: Object.fromEntries(Object.entries(share).map(([kk, v]) => [kk, Math.round(v)])) };
 }

@@ -74,8 +74,8 @@
   </div>
 </div>
 <script>(function(){var el=document.getElementById("theme-pick");if((/[?&]test\b/.test(location.search)||navigator.webdriver)&&!/[?&]pick\b/.test(location.search)){el.remove();return;}
-var n=3,t=document.getElementById("theme-pick-t"),done=false;
-function pick(c){if(done)return;done=true;clearInterval(iv);try{localStorage.setItem("physics-rpg-theme",c);}catch(e){}document.documentElement.dataset.theme=c;window.dispatchEvent(new CustomEvent("theme-picked",{detail:c}));el.remove();document.removeEventListener("keydown",kd,true);}
+var n=3,t=document.getElementById("theme-pick-t"),done=false,go;window.__themeReady=new Promise(function(r){go=r;});
+function pick(c){if(done)return;done=true;clearInterval(iv);try{localStorage.setItem("physics-rpg-theme",c);}catch(e){}document.documentElement.dataset.theme=c;window.dispatchEvent(new CustomEvent("theme-picked",{detail:c}));el.remove();document.removeEventListener("keydown",kd,true);go();}
 function kd(e){if(e.code==="KeyD"){e.preventDefault();e.stopPropagation();pick("dark");}else if(e.code==="KeyL"||e.code==="Enter"){e.preventDefault();e.stopPropagation();pick("light");}}
 document.addEventListener("keydown",kd,true);el.querySelectorAll("[data-tp]").forEach(function(b){b.onclick=function(){pick(b.getAttribute("data-tp"));};});
 var iv=setInterval(function(){n--;if(n<=0){pick("light");}else t.textContent="Light in "+n;},1000);})();</script>
@@ -128,6 +128,7 @@ var iv=setInterval(function(){n--;if(n<=0){pick("light");}else t.textContent="Li
 <script>/* a tap before the game has finished loading is not lost: it starts the game as soon as it is ready */
 window.__want = false; (function () { var s = document.getElementById('start'); s.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('#st-profile, #resume')) return; window.__want = true; var t = document.getElementById('st-status'); if (t) t.textContent = 'Starting as soon as everything is loaded...'; var g = document.getElementById('st-go'); if (g) { g.disabled = true; g.textContent = 'Starting...'; } }); })();</script>
 <footer><span id="sources"></span> <button id="debug-due" class="link">debug: make respawns due</button> <button id="debug-reset" class="link">reset progress</button></footer>
-<script type="module" src="src/main.js"></script>
+<!-- the game starts only after the light/dark pick, so the 3D world is built in the chosen theme (files are preloaded meanwhile) -->
+<script type="module">(window.__themeReady || Promise.resolve()).then(() => import("./src/main.js"));</script>
 </body>
 </html>

@@ -578,10 +578,9 @@ html[data-theme=light] .cp-fhead input[type=date] { border-color: rgba(0,0,0,.3)
 
 /* ---------------------------------------------------------------- light theme, redesigned (overrides the inverted version above)
    A warm paper background, white cards with soft shadows instead of hard black frames, darker saturated colours for text and
-   accents (enough contrast on white), and the 3D view left as it is (an inverted 3D scene was hard to read). */
+   accents (enough contrast on white), and the 3D view shown as the white room (the dark scene inverted with hues kept, rule further up). */
 html[data-theme=light] { --bg: #f3f1ec; --panel: #ffffff; --ink: #1b2130; --dim: #4c5568; --accent: #1f5fcf; --good: #157a48; --bad: #c2321f; --warn: #9c5a00; --line: #d8d3c8; }
 html[data-theme=light] body { background: var(--bg); color: var(--ink); }
-html[data-theme=light] canvas#view { filter: none; }
 html[data-theme=light] #overlay { background: rgba(243,241,236,.92); backdrop-filter: blur(3px); }
 html[data-theme=light] .ov-card { background: var(--panel); border: 1px solid var(--line); box-shadow: 0 10px 34px rgba(27,33,48,.14); }
 html[data-theme=light] #hud .tl, html[data-theme=light] #hud .tr, html[data-theme=light] #hint, html[data-theme=light] #pbar, html[data-theme=light] #tut, html[data-theme=light] #nx-card,

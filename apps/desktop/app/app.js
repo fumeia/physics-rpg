@@ -9,7 +9,7 @@
 //                The app's own code updates the same way (/api/manifest?part=desktop) and takes effect at the next start.
 //   Login        the server's basic-auth login is added by this process to every request; the password is kept encrypted
 //                with the system keyring (GNOME Keyring) when available.
-const { app, BrowserWindow, protocol, net, ipcMain, shell, Menu, safeStorage, powerMonitor } = require('electron');
+const { app, BrowserWindow, protocol, net, ipcMain, shell, Menu, safeStorage, powerMonitor, dialog } = require('electron');
 const path = require('path'), fs = require('fs'), fsp = fs.promises;
 
 const VERSION = require('./package.json').version;
@@ -198,6 +198,24 @@ ipcMain.handle('setup:save', async (_e, { url, user, pass }) => {
   writeConf(conf); setTimeout(() => { if (setupWin) setupWin.close(); updateAll('setup'); if (!win) createWindow(); }, 300);
   return { ok: true };
 });
+// Save as PDF (the summary pages, any printable page of the game): the page is laid out in a hidden window, printed to PDF, saved where
+// you choose and opened in your PDF viewer. A pop-up window with window.print() does not work in the app, so the game asks for this.
+ipcMain.handle('print:pdf', async (_e, { html, name }) => {
+  // a blank page of the game itself (same origin as the game: its styles and the KaTeX fonts load), the page written into it
+  const pw = new BrowserWindow({ show: false, webPreferences: { sandbox: true, contextIsolation: true } });
+  try {
+    await pw.loadURL('rpg://game/print.html');
+    await pw.webContents.executeJavaScript(`document.open(); document.write(${JSON.stringify(String(html))}); document.close();
+      new Promise((r) => { const go = () => document.fonts.ready.then(() => setTimeout(r, 300)); document.readyState === 'complete' ? go() : addEventListener('load', go); setTimeout(r, 5000); })`);
+    const pdf = await pw.webContents.printToPDF({ pageSize: 'A4', printBackground: true });
+    const safe = String(name || 'physics-rpg').replace(/[^\w .-]+/g, '_').slice(0, 80);
+    const r = process.env.RPG_TEST_PDF_OUT ? { filePath: process.env.RPG_TEST_PDF_OUT } // (tests) no dialog
+      : await dialog.showSaveDialog(win, { title: 'Save as PDF', defaultPath: path.join(app.getPath('documents'), `${safe}.pdf`), filters: [{ name: 'PDF', extensions: ['pdf'] }] });
+    if (r.canceled || !r.filePath) return { ok: false, canceled: true };
+    fs.writeFileSync(r.filePath, pdf); if (!process.env.RPG_TEST_PDF_OUT) shell.openPath(r.filePath); return { ok: true, path: r.filePath };
+  } catch (err) { return { ok: false, error: String((err && err.message) || err) }; }
+  finally { pw.destroy(); }
+});
 ipcMain.handle('status:get', () => ({ ...status, version: VERSION }));
 ipcMain.handle('status:retry', () => { updateAll('retry'); return true; });
 
@@ -253,6 +271,7 @@ exports.start = (ctx) => {
     powerMonitor.on('resume', () => setTimeout(() => updateAll('wake'), 5000));
     const t = process.argv.find((a) => a.startsWith('--test='));
     if (t) setTimeout(async () => { // (tests) print what loaded, then quit
+      if (process.env.RPG_TEST_JS) { try { console.log('TESTJS ' + JSON.stringify(await win.webContents.executeJavaScript(process.env.RPG_TEST_JS))); } catch (e) { console.log('TESTJS error ' + e.message); } }
       let rep = {}; try { rep = await win.webContents.executeJavaScript("({game: !!window.__game, courses: window.__game ? window.__game.catalog().length : 0, sync: window.__game ? window.__game.syncState().status : null, xp: window.__game ? window.__game.state().xp : null, webgl: !!document.createElement('canvas').getContext('webgl2'), url: location.href, marker: document.documentElement.dataset.marker || null})"); } catch (e) { rep = { error: e.message }; }
       console.log('REPORT ' + JSON.stringify({ ...rep, game: rep.game, version: VERSION, core: ctx.coreDir, current: readText(path.join(P.game, 'current')), status }));
       quitting = true; app.quit();

@@ -5,4 +5,5 @@ contextBridge.exposeInMainWorld('rpgDesktop', {
   status: () => ipcRenderer.invoke('status:get'),
   retry: () => ipcRenderer.invoke('status:retry'),
   onStatus: (fn) => ipcRenderer.on('status', (_e, s) => fn(s)),
+  savePdf: (html, name) => ipcRenderer.invoke('print:pdf', { html, name }),
 });

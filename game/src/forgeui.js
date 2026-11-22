@@ -81,11 +81,25 @@ export function renderSummary(host, ctx) {
     host.querySelector('[data-sprint]').onclick = () => {
       const name = ctx.courses.find((c) => c.id === cid).name, css = [...document.querySelectorAll('link[rel=stylesheet]')].map((l) => `<link rel="stylesheet" href="${l.href}">`).join('');
       const html = per.map((p, i) => `<section><h2>${esc(name)} — page ${i + 1}</h2>${s.notes[i + 1] ? `<pre>${esc(s.notes[i + 1])}</pre>` : ''}<div class="cols">${p.map((c) => `<div class="f"><b>${esc(c.label)}</b>${M(`$$${c.tex}$$`)}</div>`).join('')}</div></section>`).join('');
-      const w = window.open('', '_blank'); if (!w) return;
-      w.document.write(`<!doctype html><title>${esc(name)}: summary</title>${css}<style>body{background:#fff;color:#000;font:11px/1.3 sans-serif;margin:10mm}section{page-break-after:always}h2{font-size:13px;margin:0 0 6px}.cols{column-count:2;column-gap:8mm}.f{break-inside:avoid;border-bottom:1px solid #ccc;padding:2px 0}.f small{color:#555}.katex-display{margin:2px 0}pre{white-space:pre-wrap;font:inherit;border:1px solid #999;padding:4px}</style>${html}`); w.document.close(); setTimeout(() => w.print(), 600);
+      const doc = `<!doctype html><title>${esc(name)}: summary</title>${css}<style>html{background:#fff!important}@page{margin:0}body{background:#fff;color:#000;font:11px/1.3 sans-serif;margin:10mm}section{page-break-after:always}h2{font-size:13px;margin:0 0 6px}.cols{column-count:2;column-gap:8mm}.f{break-inside:avoid;border-bottom:1px solid #ccc;padding:2px 0}.f small{color:#555}.katex-display{margin:2px 0}pre{white-space:pre-wrap;font:inherit;border:1px solid #999;padding:4px}</style>${html}`;
+      printDoc(doc, `${name} summary`, ctx.toast);
     };
   }
   draw();
+}
+
+// Print or save a page as PDF: in the desktop app through its own PDF saver (a pop-up with window.print() does not work there),
+// elsewhere through a hidden frame and the browser's print dialog (choose "Save as PDF" there).
+export function printDoc(doc, name, toast = null) {
+  if (window.rpgDesktop?.savePdf) {
+    toast?.('Preparing the PDF…');
+    window.rpgDesktop.savePdf(doc, name).then((r) => { if (r?.ok) toast?.(`Saved as PDF: ${r.path}`); else if (!r?.canceled) toast?.(`Could not make the PDF: ${r?.error || 'unknown error'}`); });
+    return;
+  }
+  const f = document.createElement('iframe'); f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden'; document.body.appendChild(f);
+  const d = f.contentWindow.document; d.open(); d.write(doc); d.close();
+  const go = () => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch { /* ignore */ } setTimeout(() => f.remove(), 60000); };
+  (f.contentWindow.document.fonts?.ready || Promise.resolve()).then(() => setTimeout(go, 400));
 }
 
 // ---- Units duel: the unit of the result is given, one of four expressions can be right by dimensions alone. One question at

@@ -25,6 +25,7 @@ Study time: sessions `rpgtime.<course>.<day>.<kind>.<start s>` at their real tim
 when it happened (flags.activeLog), else one `rpgtime.<course>.<day>.<kind>` per day, on the course quest (quest time, goal time, time per topic), with the kind of
 work the game recorded (derivations, quizzes, sheets, exam hall, drills, missions, ...; "other" for time from before it recorded kinds).
 Records (Questboard's docs/DATA_MODEL.md): quests `rpg.<course>`, ledger `rpg.<course>.<YYYY-MM-DD>` and `rpg.<course>.earlier`, kind "rpg".
+Breaks taken in the game (flags.breakLog) become sessions `rpgbreak.<start s>` of kind `break` (break time, not focus time).
 Each quest also carries `progress` {done, total, text}: exercises passed of all in that course, rooms cleared, daily missions. Questboard
 shows it on the quest and counts it toward the goal the quest is linked to. The quest is linked once, automatically, to your open goal whose
 title names the course (QB_GOAL_QM / QB_GOAL_SOLID_STATE / QB_GOAL_ASTROPHYSICS: a regex, default quanten|qm|quantum, festk|solid|fkp, astro).
@@ -355,6 +356,16 @@ def run(args):
         _, cid, d, kind = k.split('.')[:4]
         if cid in time_by and ms: time_by[cid][kind] = time_by[cid].get(kind, 0) + ms
 
+    # breaks taken in the game (flags.breakLog) → Questboard sessions of kind "break" at their real time; Questboard keeps breaks out of
+    # focus and goal time, so they show as break time only. Fixed ids rpgbreak.<start s>: sending twice never doubles a break.
+    bsent = dict(memo.get('sentBreak') or {})
+    for x in (state.get('flags') or {}).get('breakLog') or []:
+        bs, be = int(x.get('s') or 0), int(x.get('e') or 0)
+        if be - bs < 30000: continue
+        bid = f'rpgbreak.{bs // 1000}'
+        if bsent.get(bid) == be - bs: continue
+        changes.append({'c': 'sessions', 'r': {'id': bid, 'updatedAt': now, 'kind': 'break', 'label': 'Break (Physics RPG)', 'date': day_of(bs, tz),
+                                               'start': bs, 'end': be, 'durationMs': be - bs, 'exact': True, 'source': 'physics-rpg'}})
     totals = {c: sum(v for k, v in {**sent, **want}.items() if k.startswith(f'rpg.{c}.')) for c in COURSES}
     todays = {c: want.get(f'rpg.{c}.{today}', 0) for c in COURSES}
     qmemo = memo.get('quests', {}); linked = dict(memo.get('linked', {}))  # linked: goal links made once; unlinking in Questboard is then respected
@@ -407,8 +418,9 @@ def run(args):
         if res.get('rejected'): print(f"Questboard rejected {res['rejected']} records", file=sys.stderr); return 1
     for ch in changes:
         if ch['c'] == 'ledger': sent[ch['r']['id']] = ch['r']['amount']
-        if ch['c'] == 'sessions': tsent[ch['r']['id']] = ch['r']['durationMs']
-    memo = {'sent': sent, 'sentTime': tsent, 'quests': qmemo, 'linked': linked, 'at': now}
+        if ch['c'] == 'sessions' and ch['r']['id'].startswith('rpgbreak.'): bsent[ch['r']['id']] = ch['r']['durationMs']
+        elif ch['c'] == 'sessions': tsent[ch['r']['id']] = ch['r']['durationMs']
+    memo = {'sent': sent, 'sentTime': tsent, 'sentBreak': bsent, 'quests': qmemo, 'linked': linked, 'at': now}
     try:
         os.makedirs(os.path.dirname(sfile) or '.', exist_ok=True)
         tmp = sfile + '.tmp'; json.dump(memo, open(tmp, 'w')); os.replace(tmp, sfile)

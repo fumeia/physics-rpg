@@ -624,3 +624,12 @@ html[data-theme=light] .st-c.l1{background:#cdebd8}html[data-theme=light] .st-c.
 html[data-theme=light] .bigbtn span, html[data-theme=light] .menu h4, html[data-theme=light] .bigbtn .md { color: var(--dim); } html[data-theme=light] .bigbtn { background: #fff; border-color: var(--line); } html[data-theme=light] .bigbtn:hover { background: #f7f4ee; border-color: #bdb4a2; }
 /* light mode: the pale link blue of the dark theme is too faint on white */
 html[data-theme=light] .callout.think summary, html[data-theme=light] .callout.asked a, html[data-theme=light] .callout.think a, html[data-theme=light] .readstrip a, html[data-theme=light] summary { color: var(--accent); }
+/* breaks (src/breaks.js): the offer card bottom right, the break view over everything */
+#brk-offer { position: fixed; right: 16px; bottom: 16px; z-index: 9000; max-width: 360px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-left: 4px solid var(--good); padding: 12px 14px; box-shadow: 0 8px 28px rgba(0,0,0,.25); display: none; }
+#brk-offer.on { display: block; } #brk-offer .brk-t span { display: block; color: var(--dim); font-size: 13px; margin-top: 2px; }
+.brk-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center; } .brk-later { opacity: .8; }
+#brk-view { position: fixed; inset: 0; z-index: 9500; display: none; align-items: center; justify-content: center; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(4px); }
+#brk-view.on { display: flex; } .brk-card { text-align: center; max-width: 420px; padding: 24px; }
+.brk-h { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--good); } .brk-clock { font-size: 64px; font-weight: 700; font-variant-numeric: tabular-nums; margin: 6px 0; }
+.brk-card .brk-row { justify-content: center; }
+@media (max-width: 520px) { #brk-offer { left: 16px; right: 16px; max-width: none; } }

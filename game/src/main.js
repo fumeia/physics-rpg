@@ -4,6 +4,7 @@ import { World, SCALE } from './world.js';
 import { Player } from './player.js';
 import { TunnelSim } from './sim.js';
 import { mount, finish as finishEncounter } from './encounters.js';
+import { initBreaks, checkBreak, onBreak, breakSecondsOn, breaksOn } from './breaks.js';
 import { store, setXpHook, localDate, weekKey } from './store.js';
 import { M, prettyText } from './math.js';
 import katex from '../vendor/katex/katex.mjs';
@@ -162,6 +163,8 @@ async function boot() {
   if (touch) document.body.classList.add('touch');
   watchPanels();
   applySettings();
+  initBreaks({ studySeconds: () => studyToday(), onStart: () => { try { player.unlock?.(); } catch { /* ignore */ } },
+    onEnd: (m, full) => { toast(full ? `<b>Break over</b> (${m} min). Back to it${campaign ? `: ${campaign.chipText()}` : ''}. Press R for the run.` : `Break ended after ${m} min. Back to it.`, 6000); if (full) { sfx.right?.(); pulse('right'); } } });
   setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]); window.addEventListener('encounter-done', () => setTimeout(() => checkGoal(true), 50));
   onSyncStatus(updateProfileChip);
   window.addEventListener('store-replaced', () => { try { refresh(); } catch (e) { console.warn(e); } }); // progress from another device arrived (merged)
@@ -512,7 +515,7 @@ let studyAcc = 0, lastInput = performance.now();
 const IDLE_MS = params.has('test') && params.get('idle') ? +params.get('idle') : 5 * 60e3, IDLE_PAPER_MS = params.has('test') && params.get('idle') ? +params.get('idle') : 20 * 60e3;
 for (const ev of ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart', 'input']) addEventListener(ev, () => { lastInput = performance.now(); }, { capture: true, passive: true });
 function activelyStudying() {
-  if (document.hidden) return false;
+  if (document.hidden || onBreak()) return false;
   const paper = (current?.enc && ['derive', 'boss'].includes(current.enc.type)) || overlay === 'exam' || (overlay === 'pile' && ['derivs', 'script', 'sheets'].includes(studyTab)); // paper or reading: few clicks
   if (performance.now() - lastInput > (paper ? IDLE_PAPER_MS : IDLE_MS)) return false;
   return !!current?.enc || overlay === 'exam' || (overlay === 'pile' && STUDY_TABS.includes(studyTab));
@@ -540,7 +543,7 @@ function tickStudy() { // real elapsed time, not the frame step: a slow frame ra
   const tag = studyTagNow();
   if (studyTag && (tag.course !== studyTag.course || tag.kind !== studyTag.kind)) flushStudy(); // switched exercise kind: book the time so far
   studyTag = tag;
-  studyAcc += dt; if (studyAcc >= 15) { flushStudy(); checkGoal(); }
+  studyAcc += dt; if (studyAcc >= 15) { flushStudy(); checkGoal(); checkBreak(); }
 }
 function runAchievements() {
   const have = { ...(store.val('ach', {}) || {}) }, ctx = achContext({ catalog, isPassed: isPassedEnc, store, level: levelOf(store.xp).lv, streak: streakNow().count });
@@ -1075,7 +1078,7 @@ function dayInfoHtml(d) {
   const per = {}; for (const [k, sec] of Object.entries(by)) { const c = k.split('|')[0]; per[c] = (per[c] || 0) + sec; }
   const courses = Object.entries(per).filter(([, sec]) => sec >= 30).sort((a, b) => b[1] - a[1]).map(([c, sec]) => `${findCourse(c)?.name || (c === 'mixed' ? 'mixed' : c)} ${Math.round(sec / 60)} min`).join(' \u00b7 ');
   const when = new Date(d + 'T12:00:00').toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
-  return `<b>${when}${d === todayStr() ? ' (today)' : ''}:</b> ${m} min studied${ok || miss ? ` \u00b7 ${ok} exercise${ok === 1 ? '' : 's'} passed${miss ? `, ${miss} to retry` : ''}` : ''}${runs ? ` \u00b7 ${runs} run${runs === 1 ? '' : 's'} finished` : ''}${courses ? `<br><span class="src">${courses}</span>` : ''}`;
+  return `<b>${when}${d === todayStr() ? ' (today)' : ''}:</b> ${m} min studied${ok || miss ? ` \u00b7 ${ok} exercise${ok === 1 ? '' : 's'} passed${miss ? `, ${miss} to retry` : ''}` : ''}${runs ? ` \u00b7 ${runs} run${runs === 1 ? '' : 's'} finished` : ''}${breaksOn(d) || breakSecondsOn(d) ? ` \u00b7 ${Math.round(breakSecondsOn(d) / 60)} min break (${breaksOn(d)}\u00d7)` : ''}${courses ? `<br><span class="src">${courses}</span>` : ''}`;
 }
 // a tap on a heatmap day shows that day (delegated: the stats are drawn into the campaign page and redrawn often)
 document.addEventListener('click', (ev) => { const c = ev.target.closest?.('.st-c[data-day]'); if (!c) return; const box = c.closest('.st-cal')?.parentElement?.querySelector('.st-dayinfo'); if (!box) return;

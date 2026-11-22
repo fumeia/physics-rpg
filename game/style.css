@@ -633,3 +633,5 @@ html[data-theme=light] .callout.think summary, html[data-theme=light] .callout.a
 .brk-h { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--good); } .brk-clock { font-size: 64px; font-weight: 700; font-variant-numeric: tabular-nums; margin: 6px 0; }
 .brk-card .brk-row { justify-content: center; }
 @media (max-width: 520px) { #brk-offer { left: 16px; right: 16px; max-width: none; } }
+/* summary: concept and trap lines next to the formulas */
+.sm-concept .sm-ctext { font-size: 13px; line-height: 1.35; margin: 2px 0; } .sm-kind { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--warn); margin-right: 4px; }

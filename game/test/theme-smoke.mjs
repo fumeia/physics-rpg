@@ -30,7 +30,7 @@ await p.context().close();
 // light via the stored choice
 p = await page(desk); await p.goto(url('?test=1')); await p.evaluate(() => localStorage.setItem('physics-rpg-theme', 'light')); await p.reload(); await ready(p);
 ck('light theme from the stored choice', await p.evaluate(() => document.documentElement.dataset.theme === 'light' && getComputedStyle(document.body).backgroundColor === 'rgb(243, 241, 236)'));
-ck('3D view is the white room in light (inverted)', await p.evaluate(() => getComputedStyle(document.getElementById('view')).filter.includes('invert')));
+ck('3D view has its own light palette (no CSS invert)', await p.evaluate(() => !getComputedStyle(document.getElementById('view')).filter.includes('invert')));
 await p.evaluate(() => window.__game.loadRoom('astrophysics', 'photometry-radiation')); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut')?.style.display !== 'none' && document.getElementById('tut-skip')?.click());
 await p.evaluate(() => window.__game.open('lab-astro-blackbody')); await p.waitForTimeout(800);
 const lt = await plotPixel(p); ck(`light plot background is white (${lt})`, lt[0] + lt[1] + lt[2] > 740);

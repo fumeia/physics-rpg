@@ -62,7 +62,7 @@ ck('PC: the Nexus room card scrolls with the mouse wheel', scrolled); await p.co
 
 // light theme on the PC
 p = await open(1280, 800, '?test=1', seeded, 'light');
-ck('PC light: paper background, 3D view is the white room, dark text', await p.evaluate(() => getComputedStyle(document.body).backgroundColor === 'rgb(243, 241, 236)' && getComputedStyle(document.getElementById('view')).filter.includes('invert') && getComputedStyle(document.getElementById('hud')).color !== 'rgb(255, 255, 255)'));
+ck('PC light: paper background, 3D view has its own light palette (no invert), dark text', await p.evaluate(() => getComputedStyle(document.body).backgroundColor === 'rgb(243, 241, 236)' && !getComputedStyle(document.getElementById('view')).filter.includes('invert') && getComputedStyle(document.getElementById('hud')).color !== 'rgb(255, 255, 255)'));
 await key(p, 'KeyT'); await p.screenshot({ path: '/tmp/shots/pc-light-missions.png' }); await key(p, 'Escape');
 await p.evaluate(() => window.__game.loadRoom('astrophysics', 'photometry-radiation')); await p.waitForTimeout(700); await p.evaluate(() => document.getElementById('tut')?.style.display !== 'none' && document.getElementById('tut-skip')?.click());
 await p.evaluate(() => window.__game.open('lab-astro-blackbody')); await p.waitForTimeout(900); await p.screenshot({ path: '/tmp/shots/pc-light-lab.png' });

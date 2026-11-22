@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { mathTexture } from './mathtex.js';
+import { LIGHT, lightify } from './lightworld.js';
+const LIGHTMODE = document.documentElement.dataset.theme === 'light';
 
 // 3D hall of the Tunneling Bridge: a viewing gallery in front of a bridge over a chasm, with
 // terminals (encounters), a door and a review portal. Everything is low-poly and procedural.
@@ -28,8 +30,8 @@ export class World {
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, matchMedia('(pointer: coarse)').matches ? 1.5 : 2)); // phones: fewer pixels, steadier frame rate
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x070a12);
-    this.scene.fog = new THREE.Fog(0x070a12, 14, 48);
+    this.scene.background = new THREE.Color(LIGHTMODE ? LIGHT.room : 0x070a12);
+    this.scene.fog = new THREE.Fog(LIGHTMODE ? LIGHT.room : 0x070a12, 14, 48);
     this.camera = new THREE.PerspectiveCamera(72, 1, 0.05, 400);
     // zoom (pinch or the + / - buttons, remembered) and a view shift that keeps the scene centred in the part of the screen no panel covers
     this.zoom = 1; this.shift = { x: 0, y: 0 };
@@ -67,7 +69,7 @@ export class World {
 
   _buildLights() {
     this.hallLights = [];
-    this.hemi = new THREE.HemisphereLight(0x8fb4ff, 0x141020, 0.9); this.scene.add(this.hemi);
+    this.hemi = LIGHTMODE ? new THREE.HemisphereLight(LIGHT.hemiSky, LIGHT.hemiGround, 3.0) : new THREE.HemisphereLight(0x8fb4ff, 0x141020, 0.9); this.scene.add(this.hemi);
     const sun = new THREE.DirectionalLight(0xffffff, 0.5); sun.position.set(-4, 10, 8); this.scene.add(sun);
     for (let x = -12; x <= 12; x += 6) {
       const p = new THREE.PointLight(0x7fc4ff, 14, 14, 1.6); p.position.set(x, 4.6, 7); this.scene.add(p); this.hallLights.push(p);
@@ -262,9 +264,9 @@ export class World {
     this.hall.visible = !hub; this.door.visible = !hub; this.portal.visible = !hub;
     for (const l of this.hallLights) l.visible = !hub;
     for (const it of this.interactables) if (it.group) it.group.visible = !hub;
-    this.hemi.intensity = hub ? 0.5 : 0.9;
+    this.hemi.intensity = LIGHTMODE ? (hub ? 2.6 : 3.0) : hub ? 0.5 : 0.9;
     this.scene.fog.near = hub ? 40 : 14; this.scene.fog.far = hub ? 190 : 48;
-    this.scene.background.set(hub ? 0x02030a : 0x070a12);
+    this.scene.background.set(LIGHTMODE ? (hub ? LIGHT.sky : LIGHT.room) : hub ? 0x02030a : 0x070a12); this.scene.fog.color.copy(this.scene.background);
     this.hubMode = hub;
   }
   // The QM exhibit (bridge, wave, barrier, labels) is only shown in QM rooms; other courses bring their own set piece.
@@ -294,14 +296,15 @@ export class World {
     if (this.hubMode) return;
     const pulse = 1 + 0.12 * k * Math.sin(this.t * 2.3);
     for (const l of this.hallLights) { l.color.setRGB(0.5 + 0.5 * k, 0.77 - 0.47 * k, 1 - 0.72 * k); l.intensity = (14 - 6 * k) * pulse; }
-    this.hemi.intensity = 0.9 - 0.4 * k; this.scene.fog.near = 14 - 6 * k; this.scene.fog.far = 48 - 20 * k;
-    this.scene.fog.color.setRGB(0.027 + 0.13 * k, 0.039 - 0.015 * k, 0.07 - 0.04 * k); this.scene.background.copy(this.scene.fog.color);
+    this.hemi.intensity = LIGHTMODE ? 3.0 - 0.9 * k : 0.9 - 0.4 * k; this.scene.fog.near = 14 - 6 * k; this.scene.fog.far = 48 - 20 * k;
+    if (LIGHTMODE) this.scene.fog.color.set(LIGHT.room).lerp(new THREE.Color(0xe8b8ae), k); else this.scene.fog.color.setRGB(0.027 + 0.13 * k, 0.039 - 0.015 * k, 0.07 - 0.04 * k); this.scene.background.copy(this.scene.fog.color);
   }
   failEffect() { this.fx.shake = 1.1; this.fx.flash = 1; this.fx.flashColor.set(0xff3030); }
   successEffect() { this.fx.flash = 1; this.fx.flashColor.set(0x30ff90); }
 
   update(dt) {
     this.t += dt; this._applyThreat(dt);
+    if (LIGHTMODE && (this._lt = (this._lt || 0) + dt) > 0.5) { this._lt = 0; lightify(this.scene); } // light theme: restyle new objects
     this.portalRing.rotation.x += dt * 1.5;
     this.portalDisc.rotation.x -= dt * 0.8;
     if (this.bridgeVisible !== false) this.barrierLight.intensity = 8 + Math.sin(this.t * 2) * 1.5;

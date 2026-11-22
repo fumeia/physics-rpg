@@ -50,7 +50,7 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
     // glow core + title
     const core = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(st.color), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0.8 }));
     core.position.copy(C); core.scale.set(26, 26, 1); group.add(core);
-    const title = textSprite([st.name || course.region], 520, 84, 70, { size: 34, accent: '#' + col.getHexString(), border: '#' + col.getHexString() });
+    const title = textSprite([st.name || course.region], 1040, 168, 140, { size: 68, accent: '#' + col.getHexString(), border: '#' + col.getHexString() });
     title.position.copy(C).add(new THREE.Vector3(0, 11.5, 0)); group.add(title); titles.push({ s: title, base: title.scale.clone() });
     // dust arms
     const dp = [], dc = [];
@@ -75,7 +75,7 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
       node.ring = new THREE.Mesh(new THREE.RingGeometry(size * 1.55, size * 1.75, 48, 1, 0, Math.max(0.001, frac * Math.PI * 2)), new THREE.MeshBasicMaterial({ color: frac >= 1 ? 0xffd86b : col, side: THREE.DoubleSide, transparent: true, opacity: 0.95 }));
       node.ring.position.copy(pos);
       const done = Math.round(frac * room.encounters.filter((e) => e.type !== 'sandbox' && !e.book && !e.sim).length), total = room.encounters.filter((e) => e.type !== 'sandbox' && !e.book && !e.sim).length;
-      node.label = textSprite([room.title, `${done} / ${total} done${node.due ? ' · respawn due' : ''}`], 470, 112, 105, { border: node.due ? '#ffb347' : '#' + col.getHexString() });
+      node.label = textSprite([room.title, `${done} / ${total} done${node.due ? ' · respawn due' : ''}`], 940, 224, 210, { size: 58, small: 42, border: node.due ? '#ffb347' : '#' + col.getHexString() });
       node.label.position.copy(pos).add(new THREE.Vector3(0, 2.1 + size, 0)); node.labelBase = node.label.scale.clone();
       if (node.due) {
         node.alert = new THREE.Mesh(new THREE.TorusGeometry(size * 2.1, 0.07, 6, 40), new THREE.MeshBasicMaterial({ color: 0xff5a4a, transparent: true, opacity: 0.9 }));
@@ -96,6 +96,7 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
     }
     // exhibit in the core
     buildExhibit(course.id, group, C, anim, st);
+    for (const o of group.children) if (o.userData.grow && !o.userData.listed) { o.userData.listed = true; titles.push({ s: o, base: o.scale.clone(), k: 24 }); }
   }
 
   // ---- cross links (curated links.json + the `links` of room files), only if both rooms exist
@@ -130,7 +131,7 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
     for (const f of anim) f(t, dt);
     // nearest node / link marker
     // labels grow with distance so they stay readable from far away
-    for (const t2 of titles) t2.s.scale.copy(t2.base).multiplyScalar(THREE.MathUtils.clamp(t2.s.position.distanceTo(playerPos) / 55, 1, 2.6));
+    for (const t2 of titles) t2.s.scale.copy(t2.base).multiplyScalar(THREE.MathUtils.clamp(t2.s.position.distanceTo(playerPos) / (t2.k || 28), 1, 12)); // readable from far away
     let fn = null, fd = 9;
     for (const n of nodes) { const d = n.pos.distanceTo(playerPos); if (d < fd) { fd = d; fn = n; } }
     let fl = null, ld = 3.6;
@@ -149,7 +150,7 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
       // and the recommended / due rooms and the focused star with its neighbours always keep their label
       const ld2 = n.pos.distanceTo(playerPos), keep = n.rec || n.due || (dim && nearSet.has(n)), near = keep ? 1 : THREE.MathUtils.clamp((58 - ld2) / 16, 0, 1);
       n.label.material.opacity = (on ? 1 : 0.3) * near; n.label.visible = near > 0.02;
-      n.label.scale.copy(n.labelBase).multiplyScalar(THREE.MathUtils.clamp(ld2 / 22, 1, 2.4));
+      n.label.scale.copy(n.labelBase).multiplyScalar(THREE.MathUtils.clamp(ld2 / 16, 1, 9)); // about the same size on screen at any distance
       if (n.alert) { n.alert.rotation.x = t * 1.3; n.alert.rotation.y = t * 0.9; n.alert.scale.setScalar(1 + 0.12 * Math.sin(t * 5)); }
       if (n.beacon) n.beacon.material.opacity = 0.35 + 0.25 * Math.sin(t * 2.5);
     }
@@ -173,8 +174,8 @@ export function buildNexus(world, { catalog, links, progress, dueRooms = new Set
 // ---------------------------------------------------------------- exhibits in the galaxy cores
 function buildExhibit(id, group, C, anim, st) {
   const col = new THREE.Color(st.color);
-  const label = textSprite(st.exhibit, 520, 112, 90, { border: '#' + col.getHexString() });
-  label.position.copy(C).add(new THREE.Vector3(0, -5.4, 0)); group.add(label);
+  const label = textSprite(st.exhibit, 1040, 224, 180, { size: 58, small: 44, border: '#' + col.getHexString() });
+  label.position.copy(C).add(new THREE.Vector3(0, -5.4, 0)); group.add(label); label.userData.grow = true;
   if (id === 'qm') {
     // ripple tank: heights from two coherent point sources (interference pattern)
     const N = 64, sp = 0.3, pos = new Float32Array(N * N * 3), colr = new Float32Array(N * N * 3);

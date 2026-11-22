@@ -622,3 +622,5 @@ html[data-theme=light] .st-c.l0 { background: #e9e4d9; }
 .cp-bdone { margin-top: 4px; font-size: 12px; padding: 2px 8px; }
 html[data-theme=light] .st-c.l1{background:#cdebd8}html[data-theme=light] .st-c.l2{background:#8fd0a8}html[data-theme=light] .st-c.l3{background:#45a96f}html[data-theme=light] .st-c.l4{background:#1f7a46}
 html[data-theme=light] .bigbtn span, html[data-theme=light] .menu h4, html[data-theme=light] .bigbtn .md { color: var(--dim); } html[data-theme=light] .bigbtn { background: #fff; border-color: var(--line); } html[data-theme=light] .bigbtn:hover { background: #f7f4ee; border-color: #bdb4a2; }
+/* light mode: the pale link blue of the dark theme is too faint on white */
+html[data-theme=light] .callout.think summary, html[data-theme=light] .callout.asked a, html[data-theme=light] .callout.think a, html[data-theme=light] .readstrip a, html[data-theme=light] summary { color: var(--accent); }

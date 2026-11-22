@@ -46,7 +46,7 @@ export function richText(ctx, text, x, y, { px = 12, align = 'left', color = ctx
   let cx = align === 'center' ? -total / 2 : align === 'right' ? -total : 0;
   for (const s of segs) {
     if (s.t !== undefined) { ctx.fillText(s.t, cx, 0); cx += ctx.measureText(s.t).width; continue; }
-    const e = entry(s.m, px, color);
+    const e = entry(s.m, px, ctx.fillStyle); // the colour as set (in light mode already turned into its light-theme version)
     if (e.img) { ctx.drawImage(e.img, cx - e.pad, -e.base, e.w, e.h); cx += e.w - 2 * e.pad - 3; } else { const t = plain(s.m); ctx.fillText(t, cx, 0); cx += ctx.measureText(t).width + 2; }
   }
   ctx.restore();

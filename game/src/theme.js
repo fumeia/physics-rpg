@@ -38,7 +38,9 @@ function normalise(str) { // any CSS colour -> [r, g, b, a] (0..255, 0..1), read
   if (v[0] === '#') return [parseInt(v.slice(1, 3), 16), parseInt(v.slice(3, 5), 16), parseInt(v.slice(5, 7), 16), 1];
   const m = v.match(/[\d.]+/g).map(Number); return [m[0], m[1], m[2], m[3] ?? 1];
 }
+const remapped = new Set(); // colours that are already the light version (as the canvas reports them): never flipped twice
 function lighten(str) {
+  if (remapped.has(str)) return str;
   if (cache.has(str)) return cache.get(str);
   let out = str;
   try {
@@ -51,7 +53,9 @@ function lighten(str) {
     const [r1, g1, b1] = h < 1 ? [c, x, 0] : h < 2 ? [x, c, 0] : h < 3 ? [0, c, x] : h < 4 ? [0, x, c] : h < 5 ? [x, 0, c] : [c, 0, x];
     out = `rgba(${Math.round((r1 + m) * 255)},${Math.round((g1 + m) * 255)},${Math.round((b1 + m) * 255)},${a})`;
   } catch { /* keep the original */ }
-  cache.set(str, out); return out;
+  cache.set(str, out);
+  try { fillDesc(scratch, out); remapped.add(Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype, '__fill').get.call(scratch)); remapped.add(out); } catch { /* ignore */ }
+  return out;
 }
 function installPlotRemap() {
   const proto = CanvasRenderingContext2D.prototype;

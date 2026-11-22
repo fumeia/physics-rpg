@@ -6,15 +6,31 @@ import { M } from './math.js';
 const CONSTS = new Set(['G', 'c', 'h', 'hbar', 'kB', 'k_B', 'me', 'mp', 'mn', 'mH', 'Msun', 'Rsun', 'Lsun', 'sigT', 'sigSB', 'sigma_SB', 'pc', 'AU', 'eV', 'u', 'e', 'mu0', 'eps0', 'muB', 'Ry', 'a0', 'pi', 'yr', 'Gyr', 'Mpc', 'kpc', 'NA', 'a_B', 'aB', 'Mch', 'MeV', 'keV']);
 const fmt = (v, d = 4) => (!Number.isFinite(v) ? '—' : v !== 0 && (Math.abs(v) < 1e-3 || Math.abs(v) >= 1e5) ? v.toExponential(d - 1) : Number(v.toPrecision(d)).toString());
 
+// TeX to readable plain text, for places that cannot render math (the options of a native dropdown): \omega -> ω, \sqrt{x} -> √(x), M_1 -> M₁
+const GREEK = { alpha: 'α', beta: 'β', gamma: 'γ', delta: 'δ', Delta: 'Δ', epsilon: 'ε', varepsilon: 'ε', eta: 'η', theta: 'θ', kappa: 'κ', lambda: 'λ', mu: 'μ', nu: 'ν', xi: 'ξ',
+  pi: 'π', rho: 'ρ', sigma: 'σ', tau: 'τ', phi: 'φ', varphi: 'φ', chi: 'χ', psi: 'ψ', omega: 'ω', Omega: 'Ω', Gamma: 'Γ', Lambda: 'Λ', Phi: 'Φ', Psi: 'Ψ', hbar: 'ħ', ell: 'ℓ',
+  approx: '≈', cdot: '·', times: '×', pm: '±', mp: '∓', le: '≤', ge: '≥', leq: '≤', geq: '≥', propto: '∝', infty: '∞', to: '→', rightarrow: '→', sim: '~', partial: '∂', nabla: '∇', langle: '⟨', rangle: '⟩' };
+const SUB = { 0: '₀', 1: '₁', 2: '₂', 3: '₃', 4: '₄', 5: '₅', 6: '₆', 7: '₇', 8: '₈', 9: '₉', '+': '₊', '-': '₋' }, SUP = { 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹', '-': '⁻', '+': '⁺' };
+export function texToText(t) {
+  const map = (str, tbl) => ([...str].every((ch) => tbl[ch]) ? [...str].map((ch) => tbl[ch]).join('') : null);
+  let x = String(t).replace(/<[^>]+>/g, '').replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\^\{([0-9+-]+)\}|\^([0-9]+)/g, (m, a, b) => map(a ?? b, SUP) ?? m).replace(/_\{([0-9+-]+)\}/g, (m, a) => map(a, SUB) ?? m);
+  for (let i = 0; i < 4; i++) x = x.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, '($1)/($2)').replace(/\\[dt]?frac\s*(\w)\s*\{([^{}]*)\}/g, '$1/($2)').replace(/\\[dt]?frac\s*(\w)(\w)/g, '$1/$2')
+    .replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)').replace(/\\(?:mathrm|text|rm|mathbf|boldsymbol|operatorname)\s*\{([^{}]*)\}/g, '$1');
+  x = x.replace(/\\([A-Za-z]+)/g, (m, w) => GREEK[w] ?? (['left', 'right', 'big', 'Big', 'bigg', 'quad', 'qquad', 'displaystyle'].includes(w) ? '' : w))
+    .replace(/_\{?([0-9+-])\}?/g, (m, d) => SUB[d] || m).replace(/\^\{?([0-9+-])\}?(?![0-9])/g, (m, d) => SUP[d] || m)
+    .replace(/\\[,;!: ]/g, ' ').replace(/[{}$]/g, '').replace(/\(([^()\s]{1,3})\)\/\(([^()\s]{1,3})\)/g, '$1/$2').replace(/\((\w{1,3})\)\//g, '$1/').replace(/\s+/g, ' ').trim();
+  return x;
+}
 /** targets: [{ id, label, unit, vars: {name: number}, f(values) -> number }] */
 export function buildTargets(enc) {
   const out = [];
   if (enc.type === 'calc') {
     const num = enc.steps.filter((s) => !s.kind || s.kind === 'numeric');
-    num.forEach((s) => out.push({ id: s.id, label: String(s.prompt).replace(/<[^>]+>/g, '').replace(/\$/g, '').slice(0, 70), unit: s.unit, vars: { ...(enc.vars || {}) },
+    num.forEach((s) => out.push({ id: s.id, label: String(s.prompt).replace(/<[^>]+>/g, '').slice(0, 400), unit: s.unit, vars: { ...(enc.vars || {}) },
       f: (values) => { const scope = { ...values }; let last = NaN; for (const st of num) { last = evaluate(st.answer, scope); scope[st.id] = last; if (st.id === s.id) return last; } return last; } }));
   } else if (enc.type === 'boss') {
-    for (const fa of enc.finalAnswers || []) out.push({ id: fa.id, label: String(fa.prompt).replace(/<[^>]+>/g, '').replace(/\$/g, '').slice(0, 70), unit: '', vars: { ...(fa.vars || {}) }, f: (values) => evaluate(fa.answer, values) });
+    for (const fa of enc.finalAnswers || []) out.push({ id: fa.id, label: String(fa.prompt).replace(/<[^>]+>/g, '').slice(0, 400), unit: '', vars: { ...(fa.vars || {}) }, f: (values) => evaluate(fa.answer, values) });
   }
   return out.filter((t) => Object.entries(t.vars).some(([k, v]) => !CONSTS.has(k) && typeof v === 'number' && v > 0));
 }
@@ -27,13 +43,13 @@ export function mountExplorer(host, targets) {
     <div class="ex-sliders"></div><div class="ex-read"></div><canvas class="ex-cv" width="560" height="260"></canvas><div class="ex-note src"></div>
     <table class="lk-map ex-tab"></table></div></details>`);
   const $ = (s) => host.querySelector(s), sel = $('.ex-target'), sl = $('.ex-sliders'), read = $('.ex-read'), tab = $('.ex-tab'), cv = $('.ex-cv'), note = $('.ex-note');
-  targets.forEach((t, i) => { const o = document.createElement('option'); o.value = i; o.textContent = `${t.id}: ${t.label}`; sel.appendChild(o); });
+  targets.forEach((t, i) => { const o = document.createElement('option'); o.value = i; { const tx = texToText(t.label); o.textContent = tx.length > 110 ? tx.slice(0, 108) + "…" : tx; o.title = tx; } sel.appendChild(o); });
   sel.value = ti;
   const params = () => Object.entries(targets[ti].vars).filter(([k, v]) => !CONSTS.has(k) && typeof v === 'number' && v > 0).map(([k]) => k);
   const f = (vals) => { try { return targets[ti].f(vals); } catch { return NaN; } };
   function setup() {
     values = { ...targets[ti].vars }; const ps = params(); if (!ps.includes(plotVar)) plotVar = ps[0];
-    sl.innerHTML = ps.map((k) => `<div class="labrow"><span>$${k.replace(/_(\w+)/, '_{$1}')}$ <span class="src">(×0.1 … ×10)</span> = <b data-val="${k}"></b></span><input type="range" data-p="${k}" min="-1" max="1" step="0.01" value="0"></div>`).join('') + '<button class="link" data-reset>reset to the exercise values</button>';
+    sl.innerHTML = M(ps.map((k) => `<div class="labrow"><span>$${k === 'hbar' ? '\\hbar' : k.replace(/_(\w+)/, '_{$1}').replace(/^([A-Za-z]+)(\d+)$/, '$1_{$2}')}$ <span class="src">(×0.1 … ×10)</span> = <b data-val="${k}"></b></span><input type="range" data-p="${k}" min="-1" max="1" step="0.01" value="0"></div>`).join('') + '<button class="link" data-reset>reset to the exercise values</button>');
     sl.querySelectorAll('input').forEach((i) => (i.oninput = () => { values[i.dataset.p] = targets[ti].vars[i.dataset.p] * Math.pow(10, +i.value); plotVar = i.dataset.p; update(); }));
     sl.querySelector('[data-reset]').onclick = () => { sl.querySelectorAll('input').forEach((i) => (i.value = 0)); values = { ...targets[ti].vars }; update(); };
     update();

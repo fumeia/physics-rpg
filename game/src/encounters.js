@@ -456,12 +456,20 @@ function mountLesson(enc, el, env) {
     env.onChange();
   };
   if (!qs.length) { host.innerHTML = '<button class="go" id="done">Mark as read</button>'; host.querySelector('#done').onclick = finishLesson; return; }
-  qs.forEach((q) => {
+  const got = new Set(); // which checks were answered right (a set: a question can never count twice)
+  qs.forEach((q, qi) => {
     const d = document.createElement('div'); d.className = 'step'; host.appendChild(d);
     let first = true;
-    mcQuestion(q, d, (ok) => { if (!ok && first) mistakes++; first = false; if (ok && ++right === qs.length) finishLesson(); });
+    mcQuestion(q, d, (ok) => { if (!ok && first) mistakes++; first = false; if (ok) { got.add(qi); right = got.size; } if (got.size >= qs.length) finishLesson(); });
     if (q.source) d.insertAdjacentHTML('beforeend', sourceHtml(q.source));
   });
+  // guided reading of the script: the reading is the work, the checks help. A direct way to mark it done, so a card never gets stuck
+  if (enc.reading) {
+    const w = document.createElement('div'); w.className = 'row'; w.style.marginTop = '10px';
+    w.innerHTML = '<button class="chip btn" id="read-done">I have read it: mark as done</button><span class="src">Open checks you skip count as missed: the card comes back once for review.</span>';
+    host.after(w);
+    w.querySelector('#read-done').onclick = () => { mistakes += qs.length - got.size; finishLesson(); w.remove(); };
+  }
 }
 
 // ---------------------------------------------------------------- quiz (exam-style multiple choice, one question at a time)

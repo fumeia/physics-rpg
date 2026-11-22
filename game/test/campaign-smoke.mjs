@@ -54,7 +54,9 @@ ck('the run mixes in guided practice (blitz, explain-it, a mistake hunt) or a gu
 for (const a of acts) { await p.evaluate((id) => document.querySelector(`.cp-node[data-stop="${id}"]`).click(), a); await p.waitForTimeout(250);
   ck(`practice stop ${a} opens its tab in the practice hub`, await p.evaluate(() => document.getElementById('ov-title').textContent === 'Study hub'));
   await p.keyboard.press('Escape'); await p.waitForTimeout(100); await p.keyboard.press('KeyC'); await p.waitForTimeout(250); }
-ck('practice stops are ticked once opened', await p.evaluate((n) => document.querySelectorAll('.cp-node.done').length === n, acts.length));
+ck('opening a bonus stop does not tick it (it offers "I did it")', await p.evaluate((n) => document.querySelectorAll('.cp-node.done').length === 0 && document.querySelectorAll('[data-bdone]').length === n, acts.length));
+await p.evaluate(() => document.querySelectorAll('[data-bdone]').forEach((b) => b.click())); await p.waitForTimeout(300);
+ck('"I did it" ticks a bonus stop', await p.evaluate((n) => document.querySelectorAll('.cp-node.done').length === n, acts.length));
 await p.click('#cp-start'); await p.waitForTimeout(700);
 ck('the run opens its first exercise with a progress bar of the whole run', await p.evaluate(() => /Today’s run: \d+ of \d+ stops done/.test(document.querySelector('.pilebar')?.innerText || '')), await p.evaluate(() => document.querySelector('.pilebar')?.innerText));
 ck('the exercise is a fight: enemy with HP and your focus', await p.evaluate(() => !!document.querySelector('.battle .bt-hp') && !!document.querySelector('.battle .bt-fo')));
@@ -75,7 +77,7 @@ await p.click('[data-m="study"]'); await p.waitForTimeout(200);
 ck('practice hub: main tabs (incl. Script) and More', await p.evaluate(() => document.querySelectorAll('.studytabs:not(.sub) [data-stab]').length === 11));
 await p.click('.studytabs:not(.sub) [data-stab]:last-child'); await p.waitForTimeout(200);
 ck('More shows the other tabs one level deeper', await p.evaluate(() => document.querySelectorAll('.studytabs.sub [data-stab]').length >= 5));
-await p.keyboard.press('Escape'); await p.keyboard.press('KeyM'); await p.waitForTimeout(200);
+await p.keyboard.press('Escape'); await p.keyboard.press('Shift+KeyM'); await p.waitForTimeout(200);
 ck('the map carries Nexus and connections', await p.evaluate(() => !!document.querySelector('.mapplaces [data-m="nexus"]') && !!document.querySelector('.mapplaces [data-m="allconn"]')));
 await p.keyboard.press('Escape'); await p.evaluate(() => document.getElementById('btn-gear').click()); await p.waitForTimeout(200);
 ck('the gear opens settings and help', await p.evaluate(() => document.getElementById('ov-title').textContent === 'Settings and help' && !!document.querySelector('[data-m="theme"]') && !!document.querySelector('[data-m="help"]')));

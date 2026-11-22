@@ -17,9 +17,10 @@ const ready = async (p) => { await p.waitForFunction(() => !!window.__game); awa
 const plotPixel = (p) => p.evaluate(() => { const c = document.querySelector('.labcv'); const d = c.getContext('2d').getImageData(3, 3, 1, 1).data; return [d[0], d[1], d[2]]; });
 const desk = { viewport: { width: 1100, height: 700 } }, phone = { viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true };
 
-// dark is the default; the plot background is dark
+// light is the default (the start chooser falls back to light); with dark chosen the plot background is dark
 let p = await page(desk); await p.goto(url('?test=1')); await ready(p);
-ck('default theme is dark', await p.evaluate(() => document.documentElement.dataset.theme === 'dark'));
+ck('default theme is light', await p.evaluate(() => document.documentElement.dataset.theme === 'light'));
+await p.evaluate(() => localStorage.setItem('physics-rpg-theme', 'dark')); await p.goto(url('?test=1')); await ready(p);
 await p.evaluate(() => window.__game.loadRoom('astrophysics', 'photometry-radiation')); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut')?.style.display !== 'none' && document.getElementById('tut-skip')?.click());
 await p.evaluate(() => window.__game.open('lab-astro-blackbody')); await p.waitForTimeout(800);
 const dk = await plotPixel(p); ck(`dark plot background is dark (${dk})`, dk[0] + dk[1] + dk[2] < 150);
@@ -28,8 +29,8 @@ await p.context().close();
 
 // light via the stored choice
 p = await page(desk); await p.goto(url('?test=1')); await p.evaluate(() => localStorage.setItem('physics-rpg-theme', 'light')); await p.reload(); await ready(p);
-ck('light theme from the stored choice', await p.evaluate(() => document.documentElement.dataset.theme === 'light' && getComputedStyle(document.body).backgroundColor === 'rgb(255, 255, 255)'));
-ck('3D view is inverted in light', await p.evaluate(() => getComputedStyle(document.getElementById('view')).filter.includes('invert')));
+ck('light theme from the stored choice', await p.evaluate(() => document.documentElement.dataset.theme === 'light' && getComputedStyle(document.body).backgroundColor === 'rgb(243, 241, 236)'));
+ck('3D view is left as it is in light (no inversion)', await p.evaluate(() => !getComputedStyle(document.getElementById('view')).filter.includes('invert')));
 await p.evaluate(() => window.__game.loadRoom('astrophysics', 'photometry-radiation')); await p.waitForTimeout(600); await p.evaluate(() => document.getElementById('tut')?.style.display !== 'none' && document.getElementById('tut-skip')?.click());
 await p.evaluate(() => window.__game.open('lab-astro-blackbody')); await p.waitForTimeout(800);
 const lt = await plotPixel(p); ck(`light plot background is white (${lt})`, lt[0] + lt[1] + lt[2] > 740);

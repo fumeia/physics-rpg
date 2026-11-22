@@ -274,7 +274,7 @@ const findCourse = (id) => catalog.find((c) => c.id === id);
 const findRoom = (cid, rid) => findCourse(cid)?.rooms.find((r) => r.slug === rid);
 const blocking = () => !!(current || overlay || tut);
 
-function startPlay() { player.enabled = true; if (offerTour()) return; player.lock(); }
+function startPlay() { player.enabled = true; if (offerTour()) return; } // the mouse stays free: a click into the 3D view makes you the player
 // The tour used to open by itself and block the screen for 5 taps. Now it is a small offer on the first visit of the Nexus and of each room.
 function offerTour() {
   const chip = $('tour-chip'); clearTimeout(offerTour.t); chip.style.display = 'none';
@@ -871,10 +871,10 @@ function renderPlan(host) {
 function compactMenuHtml() {
   const d = store.dueReviews().length, open = mistakes().filter((x) => x.open).length;
   const big = (m, title, sub) => `<button class="bigbtn" data-m="${m}"><b>${title}</b><span>${sub}</span></button>`;
-  return `<div class="menu menu6">${campaign ? big('run', campaign.chipText(), `${campaign.startLine()} (G)`) + (campaign.isSetup() ? big('campaign', `Campaign: ${campaign.behindText()}`, 'lecture weeks, weekly bosses, chest and today\u2019s bonus goals (C)') : big('quick', 'Quick session', 'one exercise, about 10 minutes, without setting anything up (Q)')) : ''}
+  return `<div class="menu menu6">${campaign ? big('run', campaign.chipText(), `${campaign.startLine()} (R)`) + (campaign.isSetup() ? big('campaign', `Campaign: ${campaign.behindText()}`, 'lecture weeks, weekly bosses, chest and today\u2019s bonus goals (C)') : big('quick', 'Quick session', 'one exercise, about 10 minutes, without setting anything up (Q)')) : ''}
     ${big('study', 'Practice', `sheets, drills, mistakes${open ? ` (${open} open)` : ''}, explain-it, your pile${d ? ` \u00b7 ${d} respawn${d > 1 ? 's' : ''} due` : ''} (V)`)}
     ${big('exam', 'Exam hall', 'old exams under the timer, with a grade (X)')}
-    ${big('map', 'Map', 'rooms and route, the Nexus, connections between topics (M)')}
+    ${big('map', 'Map', 'rooms and route, the Nexus, connections between topics (Shift+M)')}
     ${big('formulas', 'Formulas', 'the formula drawer of the current course (B)')}<button class="menu-set" data-m="settings">${ic('gear')} Settings and help</button></div>`;
 }
 function settingsHtml() {
@@ -891,9 +891,9 @@ function menuHtml() {
   if (document.body.classList.contains('hudc')) return compactMenuHtml();
   const s = missionStatus(), d = store.dueReviews().length, n = nextRouteStep();
   const tdn = todayItems().filter((x) => !x.mission && x.ok).length;
-  return `<div class="menu"><h4>Play now</h4>${campaign ? `<button class="bigbtn" data-m="run"><b>${campaign.chipText()}</b><span>${campaign.startLine()} (G)</span></button><button class="bigbtn" data-m="campaign"><b>Campaign: ${campaign.behindText()}</b><span>every lecture week of the three courses, what is done and what is next (C)</span></button>` : ''}<button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
+  return `<div class="menu"><h4>Play now</h4>${campaign ? `<button class="bigbtn" data-m="run"><b>${campaign.chipText()}</b><span>${campaign.startLine()} (R)</span></button><button class="bigbtn" data-m="campaign"><b>Campaign: ${campaign.behindText()}</b><span>every lecture week of the three courses, what is done and what is next (C)</span></button>` : ''}<button class="bigbtn" data-m="today"><b>Today: ${tdn} exercise${tdn === 1 ? '' : 's'}, ${goalInfo().min} min</b><span>what you did so far, with the exercises</span></button><button class="bigbtn" data-m="quick"><b>Quick session</b><span>${quickInfo()}: respawns first, then the next step</span></button>${n ? `<button class="bigbtn" data-m="goto:${n.key}"><b>Continue: ${n.room.title}</b><span>${n.why}</span></button>` : ''}
     <h4>Study</h4><button class="bigbtn" data-m="missions"><b>Daily missions</b><span>${s.done} of ${s.total} done</span></button>
-    <button class="bigbtn" data-m="sheets"><b>${sheetMenuLabel()}</b><span>this week's exercise sheet, question by question, with links into the game</span></button><button class="bigbtn" data-m="study"><b>Study hub</b><span>session planner, drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
+    <button class="bigbtn" data-m="sheets"><b>${sheetMenuLabel()}</b><span>this week's exercise sheet, question by question, with links into the game</span></button><button class="bigbtn" data-m="study"><b>Study hub</b><span>drills, mixed practice, pile, mistakes, Feynman${d ? `, ${d} respawn${d > 1 ? 's' : ''} due` : ''}</span></button>
     <button class="bigbtn" data-m="exam"><b>Exam hall</b><span>mock exams with grade</span></button>
     <h4>Explore</h4><button class="bigbtn" data-m="map"><b>Rooms and route</b><span>pick a room, then an exercise</span></button>
     <button class="bigbtn" data-m="formulas"><b>Formulas</b><span>drawer for the current course</span></button>
@@ -1185,18 +1185,19 @@ function onKey(e) {
   if (e.code === 'KeyP' && !tut && !current) { overlay === 'profile' ? closeOverlay() : openOverlay('profile'); return; }
   if (e.code === 'F1' && !tut) { e.preventDefault(); overlay === 'help' ? closeOverlay() : openOverlay('help'); return; }
   if (e.code === 'KeyC' && !tut && !current) { overlay === 'campaign' ? closeOverlay() : openOverlay('campaign'); return; }
-  if (e.code === 'KeyG' && !tut && !current && campaign) { closeOverlay(true); campaign.startRun(); return; }
+  if ((e.code === 'KeyR' && !e.shiftKey || e.code === 'KeyG') && !tut && !current && campaign) { closeOverlay(true); campaign.startRun(); return; } // R: today's run (G still works)
   if (e.code === 'KeyV' && !tut && !current) { overlay === 'pile' ? closeOverlay() : openOverlay('pile'); return; }
   if (e.code === 'KeyX' && !tut && !current) { overlay === 'exam' ? closeOverlay() : openOverlay('exam'); return; }
   if (e.code === 'KeyT' && !tut && !current) { overlay === 'missions' ? closeOverlay() : openOverlay('missions'); return; }
-  if (e.code === 'KeyM' && !tut && !current) { overlay === 'map' ? closeOverlay() : openOverlay('map'); return; }
+  if (e.code === 'KeyM' && e.shiftKey && !tut && !current) { overlay === 'map' ? closeOverlay() : openOverlay('map'); return; } // Shift+M: map
+  if (e.code === 'KeyM' && !tut && !current) { overlay === 'menu' ? closeOverlay() : openOverlay('menu'); return; } // M: menu
   if (e.code === 'KeyB' && !tut) { toggleCodex(); return; }
   if (e.code === 'KeyE' && promptTarget && !blocking()) interact(promptTarget);
   if (e.code === 'KeyQ' && !tut && !current) { closeOverlay(true); startQuick(); return; }
   if (e.code === 'KeyN' && !tut && !current && !inNexus) goNexus();
   if (e.code === 'KeyL' && bridgeOn) world.setLabelsVisible(!world.labelsOn);
   if (e.code === 'Space' && view.variant) { e.preventDefault(); togglePause(); }
-  if (e.code === 'KeyR' && view.variant) replay();
+  if (e.code === 'KeyR' && e.shiftKey && view.variant) replay(); // Shift+R: replay the simulation (R is today's run)
   if (e.code === 'KeyO' && view.variant) toggleLoop();
   if (e.code === 'BracketLeft') setSpeed(pb.speed / 2);
   if (e.code === 'BracketRight') setSpeed(pb.speed * 2);
@@ -1255,7 +1256,7 @@ function openOverlayWhenFree(kind) { if (current) pendingOverlay = kind; else op
 function closeOverlay(silent) {
   if (stopExam) { stopExam(); stopExam = null; }
   overlay = null; ovStack.length = 0; $('overlay').style.display = 'none';
-  if (!silent && player?.enabled && !current && !tut) player.lock();
+  // (no automatic pointer lock: a click into the 3D view takes the mouse)
 }
 function mapHtml() {
   const rows = route.map((it, i) => { const [c, s] = it.key.split('/'), r = findRoom(c, s); if (!r) return ''; const p = roomProgress(r), done = routeDone(r); return { i, it, r, c, s, p, done }; }).filter(Boolean);
@@ -1312,7 +1313,7 @@ function openCodex() {
 }
 function closeCodex() {
   codexOpen = false; $('cx').classList.add('hidden');
-  if (player.enabled && !current && !overlay && !tut) player.lock();
+  // (no automatic pointer lock: a click into the 3D view takes the mouse)
 }
 function toggleCodex() { codexOpen ? closeCodex() : openCodex(); }
 
@@ -1325,7 +1326,7 @@ function replay() {
   const sim = new TunnelSim(view.variant);
   runner = { sim, variant: view.variant, done: null, acc: 0, finished: false, finishedAt: 0 };
   view.sim = sim; world.setSim(sim); pb.paused = false;
-  if (current && !tut) { $('side').classList.add('hidden'); if (player.enabled) player.lock(); }
+  if (current && !tut) { $('side').classList.add('hidden'); }
   updateBar();
 }
 function stepRunner(dt, now) {
@@ -1498,7 +1499,7 @@ function closePanel(silent) {
   else if (runner && runner.done) runner = null; // a first run that was abandoned
   const had = !!current; current = null;
   if (pendingOverlay && !silent) { const k = pendingOverlay; pendingOverlay = null; setTimeout(() => openOverlay(k), 0); updateBar(); return; }
-  if (had && !silent && player.enabled) player.lock();
+  // (no automatic pointer lock: a click into the 3D view takes the mouse)
   updateBar();
 }
 

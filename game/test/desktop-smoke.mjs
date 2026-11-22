@@ -30,7 +30,7 @@ const p0 = (await st(p)).pos; await p.keyboard.down('KeyW'); for (let i = 0; i <
 ck(`PC: W walks (${Math.hypot(p1[0] - p0[0], p1[2] - p0[2]).toFixed(2)} m)`, Math.hypot(p1[0] - p0[0], p1[2] - p0[2]) > 0.8);
 // every shortcut
 await key(p, 'KeyB'); ck('PC: B opens the formulas', (await st(p)).codex); await key(p, 'KeyB'); ck('PC: B closes them', !(await st(p)).codex);
-await key(p, 'KeyM'); ck('PC: M opens the map', (await st(p)).overlay === 'map'); await key(p, 'Escape'); ck('PC: Esc closes it', (await st(p)).overlay === null);
+await key(p, 'KeyM'); ck('PC: M opens the menu', (await st(p)).overlay === 'menu'); await key(p, 'Escape'); await key(p, 'Shift+KeyM'); ck('PC: Shift+M opens the map', (await st(p)).overlay === 'map'); await key(p, 'Escape'); ck('PC: Esc closes it', (await st(p)).overlay === null);
 await key(p, 'KeyT'); ck('PC: T opens the missions (goal bar, freeze, quick button)', await p.evaluate(() => { const t = document.getElementById('ov-body').innerText; return t.includes('Daily goal: 5 of 20 min') && t.includes('Weekly freeze ready') && !!document.getElementById('quick-go'); })); await key(p, 'Escape');
 await key(p, 'KeyV'); await p.evaluate(() => document.querySelector('[data-stab="week"]').click()); await p.waitForTimeout(300); ck('PC: V opens the study hub (This week)', (await p.evaluate(() => document.getElementById('ov-body').innerText)).includes('Progress per course')); await key(p, 'Escape');
 await key(p, 'KeyX'); ck('PC: X opens the exam hall', (await st(p)).overlay === 'exam'); await key(p, 'Escape');
@@ -62,7 +62,7 @@ ck('PC: the Nexus room card scrolls with the mouse wheel', scrolled); await p.co
 
 // light theme on the PC
 p = await open(1280, 800, '?test=1', seeded, 'light');
-ck('PC light: white page, inverted 3D view, dark text', await p.evaluate(() => getComputedStyle(document.body).backgroundColor === 'rgb(255, 255, 255)' && getComputedStyle(document.getElementById('view')).filter.includes('invert') && getComputedStyle(document.getElementById('hud')).color !== 'rgb(255, 255, 255)'));
+ck('PC light: paper background, 3D view not inverted, dark text', await p.evaluate(() => getComputedStyle(document.body).backgroundColor === 'rgb(243, 241, 236)' && !getComputedStyle(document.getElementById('view')).filter.includes('invert') && getComputedStyle(document.getElementById('hud')).color !== 'rgb(255, 255, 255)'));
 await key(p, 'KeyT'); await p.screenshot({ path: '/tmp/shots/pc-light-missions.png' }); await key(p, 'Escape');
 await p.evaluate(() => window.__game.loadRoom('astrophysics', 'photometry-radiation')); await p.waitForTimeout(700); await p.evaluate(() => document.getElementById('tut')?.style.display !== 'none' && document.getElementById('tut-skip')?.click());
 await p.evaluate(() => window.__game.open('lab-astro-blackbody')); await p.waitForTimeout(900); await p.screenshot({ path: '/tmp/shots/pc-light-lab.png' });

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#070a12">
-<script>try{var c=localStorage.getItem("physics-rpg-theme")||"dark";document.documentElement.dataset.theme=(c==="light"||(c==="auto"&&matchMedia("(prefers-color-scheme: light)").matches))?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<script>try{var c=localStorage.getItem("physics-rpg-theme")||"light";document.documentElement.dataset.theme=(c==="light"||(c==="auto"&&matchMedia("(prefers-color-scheme: light)").matches))?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
 <link rel="apple-touch-icon" href="icons/apple-touch-192.png"><!-- iOS fills transparency with black: keeps the version with its own background -->
@@ -61,10 +61,29 @@
 <link rel="modulepreload" href="src/achievements.js">
 </head>
 <body>
+<!-- first thing on every start: light or dark for this session (3 s, then light). Tests (?test) skip it. -->
+<div id="theme-pick" role="dialog" aria-label="Choose light or dark mode" style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:#f3f1ec;font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1b2130">
+  <div style="text-align:center;padding:24px">
+    <div style="font-size:20px;font-weight:700;margin-bottom:6px">Physics RPG</div>
+    <div style="color:#4c5568;margin-bottom:18px">Light or dark? <span id="theme-pick-t">Light in 3</span></div>
+    <div style="display:flex;gap:12px;justify-content:center">
+      <button data-tp="light" style="font:inherit;font-weight:700;padding:12px 26px;border-radius:12px;border:2px solid #1f5fcf;background:#fff;color:#1b2130;cursor:pointer">Light</button>
+      <button data-tp="dark" style="font:inherit;font-weight:700;padding:12px 26px;border-radius:12px;border:2px solid #2b3347;background:#070a12;color:#e8ecf5;cursor:pointer">Dark</button>
+    </div>
+    <div style="color:#4c5568;font-size:13px;margin-top:12px">keys: L / D, Enter = light</div>
+  </div>
+</div>
+<script>(function(){var el=document.getElementById("theme-pick");if((/[?&]test\b/.test(location.search)||navigator.webdriver)&&!/[?&]pick\b/.test(location.search)){el.remove();return;}
+var n=3,t=document.getElementById("theme-pick-t"),done=false;
+function pick(c){if(done)return;done=true;clearInterval(iv);try{localStorage.setItem("physics-rpg-theme",c);}catch(e){}document.documentElement.dataset.theme=c;window.dispatchEvent(new CustomEvent("theme-picked",{detail:c}));el.remove();document.removeEventListener("keydown",kd,true);}
+function kd(e){if(e.code==="KeyD"){e.preventDefault();e.stopPropagation();pick("dark");}else if(e.code==="KeyL"||e.code==="Enter"){e.preventDefault();e.stopPropagation();pick("light");}}
+document.addEventListener("keydown",kd,true);el.querySelectorAll("[data-tp]").forEach(function(b){b.onclick=function(){pick(b.getAttribute("data-tp"));};});
+var iv=setInterval(function(){n--;if(n<=0){pick("light");}else t.textContent="Light in "+n;},1000);})();</script>
+
 <canvas id="view"></canvas>
 <div id="hud">
   <div class="tl"><b id="region"></b> <span id="room-title"></span> <span id="room-progress" class="chip"></span><div id="objective"></div></div>
-  <div class="tr"><button id="btn-run" class="chip btn" title="Today's run: the few things to do today, in order (G)">&#9654; Today&rsquo;s run</button> <button id="btn-campaign" class="chip btn" title="Campaign: every lecture week of the three courses (C)">Campaign</button> <button id="btn-menu" class="chip btn menu-only" title="Everything else">&#9776; Menu</button> <button id="btn-gear" class="chip btn menu-only" title="Settings and help">&#9881;</button> <button id="btn-fs" class="chip btn touch-only" title="Full screen">&#9974;</button> <button id="btn-profile" class="chip btn" title="Profile, settings, achievements (P)">profile</button> <button id="btn-help" class="chip btn" title="Controls and help (F1)">?</button> <button id="btn-conn" class="chip btn" title="Connections of this room (K)">Connections (K)</button> <button id="btn-pile" class="chip btn" title="Study hub: pile, session planner, mistakes, weak spots, Feynman (V)">Study (V)</button> <button id="btn-exam" class="chip btn" title="Exam hall: mock exams with grades (X)">Exam hall (X)</button> <button id="btn-missions" class="chip btn" title="Daily missions (T)">Missions</button> <button id="btn-guide" class="chip btn" title="Guided route on/off">Guide: on</button> <button id="btn-nexus" class="chip btn" title="Nexus (N)">Nexus (N)</button> <button id="btn-map" class="chip btn" title="Map (M)">Map (M)</button> <button id="btn-codex" class="chip btn" title="Formulas (B)">Formulas (B)</button> <button id="help" class="chip btn" title="Replay the tutorial">? Tutorial</button> <span id="xp">XP 0</span> <span id="reviews" class="chip">Respawns due: 0</span></div>
+  <div class="tr"><button id="btn-run" class="chip btn" title="Today's run: the few things to do today, in order (R)">&#9654; Today&rsquo;s run</button> <button id="btn-campaign" class="chip btn" title="Campaign: every lecture week of the three courses (C)">Campaign</button> <button id="btn-menu" class="chip btn menu-only" title="Everything else">&#9776; Menu</button> <button id="btn-gear" class="chip btn menu-only" title="Settings and help">&#9881;</button> <button id="btn-fs" class="chip btn touch-only" title="Full screen">&#9974;</button> <button id="btn-profile" class="chip btn" title="Profile, settings, achievements (P)">profile</button> <button id="btn-help" class="chip btn" title="Controls and help (F1)">?</button> <button id="btn-conn" class="chip btn" title="Connections of this room (K)">Connections (K)</button> <button id="btn-pile" class="chip btn" title="Study hub: pile, session planner, mistakes, weak spots, Feynman (V)">Study (V)</button> <button id="btn-exam" class="chip btn" title="Exam hall: mock exams with grades (X)">Exam hall (X)</button> <button id="btn-missions" class="chip btn" title="Daily missions (T)">Missions</button> <button id="btn-guide" class="chip btn" title="Guided route on/off">Guide: on</button> <button id="btn-nexus" class="chip btn" title="Nexus (N)">Nexus (N)</button> <button id="btn-map" class="chip btn" title="Map (M)">Map (M)</button> <button id="btn-codex" class="chip btn" title="Formulas (B)">Formulas (B)</button> <button id="help" class="chip btn" title="Replay the tutorial">? Tutorial</button> <span id="xp">XP 0</span> <span id="reviews" class="chip">Respawns due: 0</span></div>
   <div id="crosshair"></div>
   <div id="prompt" style="display:none"></div>
   <div id="nx-card" style="display:none"></div>

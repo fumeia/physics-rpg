@@ -575,3 +575,42 @@ html[data-theme=light] .cp-fhead input[type=date] { border-color: rgba(0,0,0,.3)
 .cp-node.bonus { opacity: .82; } .cp-node.bonus .cp-dot { border-style: dashed; }
 .st-cal .st-c[data-day] { cursor: pointer; } .st-cal .st-c.sel { outline: 2px solid var(--warn, #f5c451); outline-offset: 1px; }
 .st-dayinfo { margin: 6px 0 2px; font-size: 14px; min-height: 2.6em; }
+
+/* ---------------------------------------------------------------- light theme, redesigned (overrides the inverted version above)
+   A warm paper background, white cards with soft shadows instead of hard black frames, darker saturated colours for text and
+   accents (enough contrast on white), and the 3D view left as it is (an inverted 3D scene was hard to read). */
+html[data-theme=light] { --bg: #f3f1ec; --panel: #ffffff; --ink: #1b2130; --dim: #4c5568; --accent: #1f5fcf; --good: #157a48; --bad: #c2321f; --warn: #9c5a00; --line: #d8d3c8; }
+html[data-theme=light] body { background: var(--bg); color: var(--ink); }
+html[data-theme=light] canvas#view { filter: none; }
+html[data-theme=light] #overlay { background: rgba(243,241,236,.92); backdrop-filter: blur(3px); }
+html[data-theme=light] .ov-card { background: var(--panel); border: 1px solid var(--line); box-shadow: 0 10px 34px rgba(27,33,48,.14); }
+html[data-theme=light] #hud .tl, html[data-theme=light] #hud .tr, html[data-theme=light] #hint, html[data-theme=light] #pbar, html[data-theme=light] #tut, html[data-theme=light] #nx-card,
+html[data-theme=light] #toast, html[data-theme=light] #prompt, html[data-theme=light] #rotate-hint { background: rgba(255,255,255,.96); color: var(--ink); border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(27,33,48,.12); }
+html[data-theme=light] #side { background: var(--panel); border-left: 1px solid var(--line); box-shadow: -6px 0 24px rgba(27,33,48,.10); color: var(--ink); }
+html[data-theme=light] a, html[data-theme=light] .link { color: var(--accent); }
+html[data-theme=light] .src, html[data-theme=light] .md { color: var(--dim); }
+html[data-theme=light] .chip.btn, html[data-theme=light] .chip { background: #fff; color: var(--ink); border: 1px solid #cfc8b9; }
+html[data-theme=light] .chip.btn:hover { background: #f1ede4; }
+html[data-theme=light] .chip.btn.cur, html[data-theme=light] .chip.btn.on { background: #e5eefc; border-color: var(--accent); color: #123e8c; }
+html[data-theme=light] .chip.btn.ok { background: #e6f4ec; border-color: #8cc7a6; color: #0f5a35; }
+html[data-theme=light] button.go, html[data-theme=light] .go { background: var(--accent); color: #fff; }
+html[data-theme=light] .maprow, html[data-theme=light] .step, html[data-theme=light] .callout { border-color: var(--line); }
+html[data-theme=light] .callout { background: #faf8f3; }
+html[data-theme=light] input, html[data-theme=light] select, html[data-theme=light] textarea { background: #fff; color: var(--ink); border: 1px solid #c9c2b2; }
+html[data-theme=light] .msg.good { color: var(--good); } html[data-theme=light] .msg.bad { color: var(--bad); }
+html[data-theme=light] .cp-run, html[data-theme=light] .cp-course, html[data-theme=light] .cp-week { background: #fffdf9; border-color: var(--line); }
+html[data-theme=light] .cp-finish { background: #eef8f1; border-color: #9fd3b5; } html[data-theme=light] .cp-finish.heavy { background: #fdf5e4; border-color: #e6c37a; } html[data-theme=light] .cp-finish.over { background: #fdeceb; border-color: #e6a39b; }
+html[data-theme=light] .cp-extras { background: #f6f0fd; border-color: #cdb5ee; } html[data-theme=light] .cp-parked, html[data-theme=light] .cp-second { background: #f2f6fd; border-color: #b7cbed; }
+html[data-theme=light] .cp-fbar, html[data-theme=light] .bt-hp, html[data-theme=light] .bt-fo { background: #e6e1d6; }
+html[data-theme=light] .cp-node .cp-dot { background: #fff; color: var(--ink); border-color: #b9b1a1; }
+html[data-theme=light] .cp-node.next .cp-dot { border-color: var(--warn); box-shadow: 0 0 0 4px rgba(156,90,0,.12); }
+html[data-theme=light] .cp-node.done .cp-dot { background: #e6f4ec; border-color: var(--good); color: var(--good); }
+html[data-theme=light] .cp-node.failed .cp-dot { background: #fdeceb; border-color: var(--bad); color: var(--bad); }
+html[data-theme=light] .bt-nem { color: #6b2fa8; } html[data-theme=light] .bt-pop.hit { color: var(--good); } html[data-theme=light] .bt-pop.crit, html[data-theme=light] .bt-combo { color: var(--warn); }
+html[data-theme=light] .cp-ghost { color: #2b5aa8; filter: none; }
+html[data-theme=light] .dexp { background: #fdf6e3; border-left-color: #d9a33a; }
+html[data-theme=light] .gw-ask { border-color: #b7cbed; }
+html[data-theme=light] .st-c.l0 { background: #e9e4d9; }
+.cp-bdone { margin-top: 4px; font-size: 12px; padding: 2px 8px; }
+html[data-theme=light] .st-c.l1{background:#cdebd8}html[data-theme=light] .st-c.l2{background:#8fd0a8}html[data-theme=light] .st-c.l3{background:#45a96f}html[data-theme=light] .st-c.l4{background:#1f7a46}
+html[data-theme=light] .bigbtn span, html[data-theme=light] .menu h4, html[data-theme=light] .bigbtn .md { color: var(--dim); } html[data-theme=light] .bigbtn { background: #fff; border-color: var(--line); } html[data-theme=light] .bigbtn:hover { background: #f7f4ee; border-color: #bdb4a2; }

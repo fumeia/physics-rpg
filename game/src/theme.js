@@ -13,7 +13,7 @@ try {
   for (const [name, key, ok] of [['controls', 'physics-rpg-controls', ['auto', 'touch', 'desktop']], ['theme', 'physics-rpg-theme', ['dark', 'light', 'auto']]]) { const v = q.get(name); if (ok.includes(v)) { set(key, v); q.delete(name); changed = true; } }
   if (changed) history.replaceState(null, '', location.pathname + (q.toString() ? `?${q}` : '') + location.hash);
 } catch { /* ignore */ }
-export const themeChoice = () => get('physics-rpg-theme', 'dark'); // dark | light | auto
+export const themeChoice = () => get('physics-rpg-theme', 'light'); // dark | light | auto
 export const isLight = () => document.documentElement.dataset.theme === 'light';
 export function resolveTheme(choice = themeChoice()) { return choice === 'light' || (choice === 'auto' && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark'; }
 export function applyTheme() {
@@ -63,3 +63,5 @@ function installPlotRemap() {
 }
 applyTheme();
 if (isLight()) installPlotRemap();
+// the start-up chooser in index.html picked a theme: update the browser bar colour too
+window.addEventListener('theme-picked', () => applyTheme());

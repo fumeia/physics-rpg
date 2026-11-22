@@ -207,7 +207,7 @@ ipcMain.handle('print:pdf', async (_e, { html, name }) => {
     await pw.loadURL('rpg://game/print.html');
     await pw.webContents.executeJavaScript(`document.open(); document.write(${JSON.stringify(String(html))}); document.close();
       new Promise((r) => { const go = () => document.fonts.ready.then(() => setTimeout(r, 300)); document.readyState === 'complete' ? go() : addEventListener('load', go); setTimeout(r, 5000); })`);
-    const pdf = await pw.webContents.printToPDF({ pageSize: 'A4', printBackground: true });
+    const pdf = await pw.webContents.printToPDF({ pageSize: 'A4', printBackground: true, preferCSSPageSize: true });
     const safe = String(name || 'physics-rpg').replace(/[^\w .-]+/g, '_').slice(0, 80);
     const r = process.env.RPG_TEST_PDF_OUT ? { filePath: process.env.RPG_TEST_PDF_OUT } // (tests) no dialog
       : await dialog.showSaveDialog(win, { title: 'Save as PDF', defaultPath: path.join(app.getPath('documents'), `${safe}.pdf`), filters: [{ name: 'PDF', extensions: ['pdf'] }] });

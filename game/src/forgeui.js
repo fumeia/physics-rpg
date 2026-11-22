@@ -80,14 +80,29 @@ export function renderSummary(host, ctx) {
     host.querySelectorAll('[data-snote]').forEach((t) => { t.onkeydown = (e) => e.stopPropagation(); t.onchange = () => { const x = summaryOf(cid); x.notes[t.dataset.snote] = t.value.slice(0, 4000); saveSummary(cid, x); }; });
     host.querySelector('[data-sprint]').onclick = () => {
       const name = ctx.courses.find((c) => c.id === cid).name, css = [...document.querySelectorAll('link[rel=stylesheet]')].map((l) => `<link rel="stylesheet" href="${l.href}">`).join('');
-      const html = per.map((p, i) => `<section><h2>${esc(name)} — page ${i + 1}</h2>${s.notes[i + 1] ? `<pre>${esc(s.notes[i + 1])}</pre>` : ''}<div class="cols">${p.map((c) => `<div class="f"><b>${esc(c.label)}</b>${M(`$$${c.tex}$$`)}</div>`).join('')}</div></section>`).join('');
-      const doc = `<!doctype html><title>${esc(name)}: summary</title>${css}<style>html{background:#fff!important}@page{margin:0}body{background:#fff;color:#000;font:11px/1.3 sans-serif;margin:10mm}section{page-break-after:always}h2{font-size:13px;margin:0 0 6px}.cols{column-count:2;column-gap:8mm}.f{break-inside:avoid;border-bottom:1px solid #ccc;padding:2px 0}.f small{color:#555}.katex-display{margin:2px 0}pre{white-space:pre-wrap;font:inherit;border:1px solid #999;padding:4px}</style>${html}`;
+      const html = per.map((p, i) => (!p.length && !s.notes[i + 1] ? '' : `<section><h2>${esc(name)} — page ${i + 1}</h2>${s.notes[i + 1] ? `<pre>${esc(s.notes[i + 1])}</pre>` : ''}<div class="cols">${p.map((c) => `<div class="f"><b>${esc(c.label)}</b>${texParts(c.tex).map((t) => M(`$$${t}$$`)).join('')}</div>`).join('')}</div></section>`)).join('') || '<p>No formulas pinned to a page yet.</p>';
+      const doc = `<!doctype html><title>${esc(name)}: summary</title>${css}<style>html{background:#fff!important}@page{size:A4;margin:7mm}body{background:#fff;color:#000;font:8.5px/1.2 sans-serif;margin:0;width:196mm}section{display:block!important;break-after:page;page-break-after:always}section:last-child{break-after:auto;page-break-after:auto}h2{font-size:9.5px;margin:0 0 3px;padding-bottom:1px;border-bottom:1.5px solid #000}.cols{display:block!important;gap:0!important;column-count:3;column-gap:4mm;column-rule:0.5px solid #ccc}.f{break-inside:avoid;padding:1.5px 0 2px;border-bottom:0.5px solid #ddd;overflow:hidden}.f b{display:block;font-size:7.5px;font-weight:700;color:#333;margin-bottom:0.5px}.katex{font-size:1.02em}.katex-display{margin:0!important;padding:1px 0;text-align:left;overflow:hidden}.katex-display>.katex{text-align:left}pre{white-space:pre-wrap;font:inherit;border:0.5px solid #999;padding:2px 3px;margin:0 0 3px}</style>${html}<script>(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){document.querySelectorAll('.katex-display').forEach(function(d){var h=d.querySelector('.katex-html');if(!h)return;var r=document.createRange();r.selectNodeContents(h);var need=r.getBoundingClientRect().width,w=d.parentNode.clientWidth-2;if(need>w){d.style.fontSize=Math.max(60,Math.floor(100*w/need))+'%';}});});</script>`;
       printDoc(doc, `${name} summary`, ctx.toast);
     };
   }
   draw();
 }
 
+// A long formula line with several equations ("a = b,\quad c = d") split at its top-level \quad / \qquad gaps, one equation per line:
+// a narrow column then holds it without shrinking it to unreadable size
+function texParts(tex) {
+  const out = []; let depth = 0, cur = '';
+  for (let i = 0; i < tex.length; i++) {
+    const ch = tex[i];
+    if (ch === '{') depth++; else if (ch === '}') depth--;
+    else if (/^\\(left\b|begin\{)/.test(tex.slice(i, i + 7))) depth++; else if (/^\\(right\b|end\{)/.test(tex.slice(i, i + 6))) depth--;
+    const m = depth === 0 && tex.slice(i).match(/^,?\s*\\q?quad\b\s*/);
+    if (m) { if (cur.trim()) out.push(cur.trim().replace(/,$/, '')); cur = ''; i += m[0].length - 1; continue; }
+    cur += ch;
+  }
+  if (cur.trim()) out.push(cur.trim());
+  return out.length ? out : [tex];
+}
 // Print or save a page as PDF: in the desktop app through its own PDF saver (a pop-up with window.print() does not work there),
 // elsewhere through a hidden frame and the browser's print dialog (choose "Save as PDF" there).
 export function printDoc(doc, name, toast = null) {

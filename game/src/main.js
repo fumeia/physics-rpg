@@ -507,18 +507,18 @@ function updateProfileChip() {
 const studyToday = () => store.activeSecondsOn(todayStr());
 // Active study time = time spent working on exercises, not time with the game open: an exercise is open (lesson, quiz, experiment, derivation, fight,
 // station, boss, a mission quiz), or the exam hall, or a practice tab (drills, mixed practice, Feynman, calibration), AND you used the screen or keyboard
-// in the last 5 minutes (20 for derivations, bosses and the exam hall: they are done on paper). The working tabs of the study hub count too. Menus, maps, lists, formulas and reading connections do not count.
+// in the last 5 minutes (20 for derivations, bosses and the exam hall: they are done on paper). The working tabs of the study hub count too. Reading the script and the sheets tab count too (20 min idle limit, reading needs few clicks). Menus, maps, lists, formulas and reading connections do not count.
 let studyAcc = 0, lastInput = performance.now();
 const IDLE_MS = params.has('test') && params.get('idle') ? +params.get('idle') : 5 * 60e3, IDLE_PAPER_MS = params.has('test') && params.get('idle') ? +params.get('idle') : 20 * 60e3;
 for (const ev of ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart', 'input']) addEventListener(ev, () => { lastInput = performance.now(); }, { capture: true, passive: true });
 function activelyStudying() {
   if (document.hidden) return false;
-  const paper = (current?.enc && ['derive', 'boss'].includes(current.enc.type)) || overlay === 'exam' || (overlay === 'pile' && studyTab === 'derivs');
+  const paper = (current?.enc && ['derive', 'boss'].includes(current.enc.type)) || overlay === 'exam' || (overlay === 'pile' && ['derivs', 'script', 'sheets'].includes(studyTab)); // paper or reading: few clicks
   if (performance.now() - lastInput > (paper ? IDLE_PAPER_MS : IDLE_MS)) return false;
   return !!current?.enc || overlay === 'exam' || (overlay === 'pile' && STUDY_TABS.includes(studyTab));
 }
 // study-hub tabs where you actually work (derivations, formula forge, units duel, summaries, mistakes, drills...): they count like exercises
-const STUDY_TABS = ['drills', 'mix', 'feynman', 'calib', 'derivs', 'forge', 'units', 'summary', 'mistakes'];
+const STUDY_TABS = ['script', 'sheets', 'drills', 'mix', 'feynman', 'calib', 'derivs', 'forge', 'units', 'summary', 'mistakes'];
 // What the time goes to (course + kind), so Questboard can show it per course and per kind of work.
 const KIND_OF_TYPE = { lesson: 'lesson', quiz: 'quiz', derive: 'derivation', calc: 'calculation', lab: 'experiment', sandbox: 'experiment',
   'predict-observe': 'station', boss: 'exam-problem' };
@@ -529,7 +529,7 @@ function studyTagNow() {
     const kind = e.sheet ? 'sheet' : e.book ? 'book' : e.sim ? 'simulation' : e.synthetic ? 'mission' : (KIND_OF_TYPE[e.type] || e.type || 'other');
     return { course: encIndex.get(e.id)?.course || e.course || null, kind };
   }
-  if (overlay === 'pile') return { course: studyTab === 'derivs' ? 'qm' : null, kind: { drills: 'drills', mix: 'mixed-practice', feynman: 'explain-it', calib: 'calibration', derivs: 'derivation', forge: 'formula-forge', units: 'units-duel', summary: 'summary', mistakes: 'mistakes' }[studyTab] || studyTab };
+  if (overlay === 'pile') return { course: studyTab === 'derivs' ? 'qm' : null, kind: { drills: 'drills', mix: 'mixed-practice', feynman: 'explain-it', calib: 'calibration', derivs: 'derivation', forge: 'formula-forge', units: 'units-duel', summary: 'summary', mistakes: 'mistakes', script: 'script-reading', sheets: 'sheet' }[studyTab] || studyTab };
   return { course: null, kind: 'other' };
 }
 let lastStudyAt = performance.now(), studyTag = null;

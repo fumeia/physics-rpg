@@ -1007,12 +1007,42 @@ const MOT_EX = ['Nice rhythm. {n} exercises in this session: this is how exams g
 const MOT_TIME = ['{m} minutes of real study today. A short break (stand up, water) keeps the next block sharp.', '{m} minutes focused today. Strong. Two minutes of break, then on.',
   '{m} minutes in. The hard part is starting, and you are well past it.', '{m} minutes of work today. If something feels stuck: walk away for 3 minutes, then look again.',
   '{m} minutes today. Consistency beats intensity, and today you are consistent.'];
+// A computed reason to go on: what the rest of today's run does for the exam. Old-exam problems (the bosses) count as "within reach"
+// once every other exercise of their room is passed; the course share is the passed exercises of that course.
+const counted = (e) => e.type !== 'sandbox' && !e.book && !e.sim && !e.synthetic;
+function examReach(extra = new Set()) {
+  const ok = (e) => store.isPassed(e.id) || extra.has(e.id), out = { bosses: 0, reach: 0, courses: {} };
+  for (const c of catalog) {
+    let n = 0, d = 0;
+    for (const r of c.rooms) {
+      const es = r.encounters.filter(counted), prep = es.filter((e) => e.type !== 'boss');
+      n += es.length; d += es.filter(ok).length;
+      const ready = prep.every(ok);
+      for (const b of es.filter((e) => e.type === 'boss')) { out.bosses++; if (ready || ok(b)) out.reach++; }
+    }
+    out.courses[c.id] = { n, d };
+  }
+  return out;
+}
+function reasonLine() {
+  if (!campaign?.isSetup?.()) return '';
+  const ri = campaign.runInfo?.(); if (!ri || ri.complete) return '';
+  const open = ri.r.stops.filter((x, i) => !x.action && ri.st[i] === 'open' && encIndex.has(x.id)).map((x) => x.id);
+  if (!open.length) return '';
+  const now = examReach(), then = examReach(new Set(open)), gain = then.reach - now.reach;
+  const cs = [...new Set(open.map((id) => encIndex.get(id).course))].map((c) => {
+    const a = now.courses[c], b = then.courses[c], nm = findCourse(c)?.name || c;
+    const x = Math.round(100 * a.d / a.n), y = Math.round(100 * b.d / b.n); return y > x ? `${nm} from ${x}% to ${y}% done` : ''; }).filter(Boolean).join(', ');
+  const first = encIndex.get(open[0]).enc.title, rest = open.length - 1;
+  const what = `“${String(first).replace(/<[^>]+>/g, '').slice(0, 60)}”${rest ? ` and the other ${rest} stop${rest === 1 ? '' : 's'} of today's run` : ''}`;
+  return `<br><b>Why go on:</b> finishing ${what} brings ${cs || 'you closer to the exam'}` + (gain > 0 ? `; you can then take on <b>${then.reach} of ${then.bosses}</b> old-exam problems (${gain} more than now).` : `; ${now.reach} of ${now.bosses} old-exam problems are within reach so far.`);
+}
 function motivate(kind) {
   if (performance.now() - MOT.last < 4 * 60e3) return; MOT.last = performance.now();
   const pick = (xs) => xs[Math.floor(Math.random() * xs.length)];
   let t = kind === 'ex' ? pick(MOT_EX).replace('{n}', MOT.ex) : pick(MOT_TIME).replace('{m}', Math.round(studyToday() / 60));
-  if (campaign && Math.random() < 0.5) t += ` <span class="src">${campaign.chipText()}</span>`;
-  toast(t);
+  let why = ''; try { why = reasonLine(); } catch { /* the reason is optional */ }
+  toast(t + why, why ? 11000 : 5000); // long enough to read the reason
 }
 function checkGoal(finished = false) {
   if (finished) { MOT.ex++; if (MOT.ex >= MOT.nextEx) { MOT.nextEx = MOT.ex + 4 + Math.floor(Math.random() * 4); motivate('ex'); } }
@@ -1127,7 +1157,7 @@ function streakNow() {
 }
 const streakMult = () => 1 + 0.05 * Math.min(10, streakNow().count);
 function missionStatus() { const day = store.missionsOf(todayStr()), ms = todays(); return { done: ms.filter((m) => day.done[m.id]).length, total: ms.length, day }; }
-function toast(html) { const t = $('toast'); t.innerHTML = M(html); t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 4200); }
+function toast(html, ms = 4200) { const t = $('toast'); t.innerHTML = M(html); t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), ms); }
 function completeMission(m) {
   const date = todayStr(); if (!store.completeMission(date, m.id, m.xp, yesterdayStr(), dayBeforeYesterdayStr())) return;
   const gain = Math.round(m.xp * streakMult()); store.addXp(gain); store.setVal('stats', { ...(store.val('stats', {}) || {}), missions: ((store.val('stats', {}) || {}).missions || 0) + 1 });
@@ -1613,7 +1643,7 @@ function exposeTestApi() {
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
     activeSeconds: () => studyToday() + Math.round(studyAcc),
     failFrames: (n) => { testHooks.failFrames = n; }, teleport: (...a) => player.teleport(...a), holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
-    finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
+    finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, reason: () => reasonLine(), nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     quality: () => quality?.info(), battle: () => battle.current(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };

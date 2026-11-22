@@ -38,13 +38,14 @@ ck(`working in the exam hall counts (${exam} s)`, exam >= 5);
   const st = log.find((x) => x.c === 'qm' && x.k === 'lesson');
   ck(`and when it happened (${log.length} stretch(es), QM lesson ${st ? Math.round((st.e - st.s) / 1000) : 0} s)`, !!st && st.e - st.s >= 5000 && st.e <= Date.now()); }
 await p.keyboard.press('KeyV'); await p.waitForTimeout(400); const b6 = await secs(); await busy(5000); ck('reading the Today view does not count', (await secs()) - b6 === 0); await p.keyboard.press('Escape');
-// 7. the goal can be reached by finishing exercises without any minutes
+// 7. no daily goal any more (the campaign run sets the amount): finished exercises are counted, every few of them a motivation message
 await p.evaluate(() => { window.__game.finish('qm-wm-L2', true, 5); window.__game.finish('qm-wm-L3', false, 0); window.__game.finish('qm-wm-D2', true, 5); }); await p.waitForTimeout(300);
-let g = await p.evaluate(() => window.__game.goal()); ck(`3 of 4 exercises: goal not reached yet (min ${g.min}, ex ${g.ex}/${g.exGoal})`, g.ex === 3 && !g.done);
+let g = await p.evaluate(() => window.__game.goal()); ck(`3 exercises counted (ex ${g.ex})`, g.ex === 3 && g.goal === undefined);
 await p.evaluate(() => window.__game.finish('qm-wm-b1', true, 5)); await p.waitForTimeout(500); g = await p.evaluate(() => window.__game.goal());
-ck('the 4th finished exercise reaches the daily goal without enough minutes', g.ex === 4 && g.min < g.goal && g.done);
-ck('and the game records that the goal was reached today', await p.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('physics-rpg-v1')).flags).some((k) => k.startsWith('goal:'))));
+ck('4 finished exercises are counted', g.ex === 4);
+await p.evaluate(() => { for (const id of ['qm-wm-L2', 'qm-wm-D2', 'qm-wm-b1', 'qm-wm-L2']) window.__game.finish(id, true, 5); }); await p.waitForTimeout(400);
+ck('after a few exercises a motivation message appears', await p.evaluate(() => /exercises/.test(document.getElementById('toast')?.innerText || '')));
 await p.keyboard.press('KeyT'); await p.waitForTimeout(400);
-ck('the missions screen shows both measures', await p.evaluate(() => document.getElementById('ov-body').innerText.includes('Daily goal:') && document.getElementById('ov-body').innerText.includes('4 of 4 exercises')));
+ck('the missions screen has no daily goal any more', await p.evaluate(() => !document.getElementById('ov-body').innerText.includes('Daily goal')));
 ck('no page errors', errs.length === 0); if (errs.length) console.log(errs.slice(0, 4));
 await b.close(); srv.kill(); console.log(fails ? `${fails} FAILED` : 'ALL PASSED'); process.exit(fails ? 1 : 0);

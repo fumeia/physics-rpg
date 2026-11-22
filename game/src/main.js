@@ -24,7 +24,7 @@ import { renderDerivs, nextDeriv, runDeriv } from './derivui.js';
 import { configureFeedback, floatXp, pulse, sfx, watchAnswers } from './feedback.js';
 import { headers as apiHeaders, initSync, listProfiles, switchProfile, sync, onSyncStatus, push as pushNow } from './sync.js';
 import { ACH, context as achContext, unlockedNow } from './achievements.js';
-import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, GOALS, GOAL_EXERCISES, setExamDates, examDateOf, examDateKnown, EXAM_DATE } from './missions.js';
+import { buildMissions, examPlan, levelOf, todayStr, yesterdayStr, dayBeforeYesterdayStr, daysToExam, setExamDates, examDateOf, examDateKnown, EXAM_DATE } from './missions.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view');
@@ -162,7 +162,7 @@ async function boot() {
   if (touch) document.body.classList.add('touch');
   watchPanels();
   applySettings();
-  setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]); window.addEventListener('encounter-done', () => setTimeout(checkGoal, 50));
+  setXpHook(floatXp); watchAnswers([$('panel'), $('ov-body')]); window.addEventListener('encounter-done', () => setTimeout(() => checkGoal(true), 50));
   onSyncStatus(updateProfileChip);
   window.addEventListener('store-replaced', () => { try { refresh(); } catch (e) { console.warn(e); } }); // progress from another device arrived (merged)
   $('close').onclick = () => closePanel();
@@ -556,7 +556,6 @@ function profileHtml() {
     <div><b>Time on exercises</b><div class="src">today ${fmtMin(studyToday())}; total ${fmtMin(store.activeTotal())}</div>${week.some(([, s]) => s >= 30) ? `<div class="spark">${week.map(([d, s]) => `<i title="${d}: ${fmtMin(s)}" style="height:${Math.max(3, Math.round(34 * s / mx))}px"></i>`).join('')}</div>` : '<div class="src">The last 7 days appear here as bars once you have done an exercise.</div>'}</div>
     <div><b>Settings</b><label class="labrow">mouse sensitivity <input type="range" id="set-sens" min="0.3" max="2.5" step="0.1" value="${st.sens}"></label><label class="labrow">graphics <select id="set-q"><option value="auto" ${st.quality === 'auto' ? 'selected' : ''}>automatic (follows the frame rate${quality ? `; now: ${quality.level}` : ''})</option><option value="high" ${st.quality === 'high' ? 'selected' : ''}>high quality</option><option value="medium" ${st.quality === 'medium' ? 'selected' : ''}>medium</option><option value="low" ${st.quality === 'low' ? 'selected' : ''}>fast (lower resolution, 30 fps)</option><option value="minimal" ${st.quality === 'minimal' ? 'selected' : ''}>minimal (half resolution, 30 fps)</option></select></label>
       <div class="examdates"><b>Exam dates</b> <span class="src">(leave empty while unknown: the game assumes ${EXAM_DATE}; everything that counts down recalculates when you set them)</span>${catalog.map((c) => `<label class="labrow">${c.name} <input type="date" data-exdate="${c.id}" value="${examDateKnown(c.id) ? examDateOf(c.id) : ''}"> <span class="src">${daysToExam(new Date(), c.id)} days</span></label>`).join('')}</div>
-      <label class="labrow">daily study goal <select id="set-goal">${Object.entries(GOALS).map(([k, v]) => `<option value="${k}" ${st.goal === k ? 'selected' : ''}>${k} (${v} min or ${GOAL_EXERCISES[k]} exercises)</option>`).join('')}</select></label>
       <label class="labrow"><span><input type="checkbox" id="set-sound" ${st.sound ? 'checked' : ''}> sounds for right answers</span></label>
       <label class="labrow"><span><input type="checkbox" id="set-haptics" ${st.haptics !== false ? 'checked' : ''}> vibration</span></label>
       <label class="labrow">theme <select id="set-theme">${[['dark', 'dark'], ['light', 'light (white room)'], ['auto', 'like the phone']].map(([v, t]) => `<option value="${v}" ${themeChoice() === v ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
@@ -567,9 +566,9 @@ function profileHtml() {
 }
 async function wireProfile() {
   const sens = $('set-sens'), q = $('set-q');
-  const save = () => { store.setVal('settings', { ...(store.val('settings', {}) || {}), sens: +sens.value, quality: q.value, goal: $('set-goal').value, sound: $('set-sound').checked, haptics: $('set-haptics').checked }); applySettings(); refresh(); };
+  const save = () => { store.setVal('settings', { ...(store.val('settings', {}) || {}), sens: +sens.value, quality: q.value, sound: $('set-sound').checked, haptics: $('set-haptics').checked }); applySettings(); refresh(); };
   document.querySelectorAll('[data-exdate]').forEach((inp) => (inp.onchange = () => { const v = inp.value, ed = { ...(store.val('examDates', {}) || {}) }; if (v) ed[inp.dataset.exdate] = v; else delete ed[inp.dataset.exdate]; store.setVal('examDates', ed); setExamDates(ed); dayMissions = null; refresh(); renderStartStats?.(); const n = inp.parentElement.querySelector('.src'); if (n) n.textContent = `${daysToExam(new Date(), inp.dataset.exdate)} days`; toast(`Exam date saved: ${findCourse(inp.dataset.exdate)?.name}, ${v || 'not set'}`); }));
-  sens.oninput = save; q.onchange = save; $('set-goal').onchange = save; $('set-sound').onchange = () => { save(); if ($('set-sound').checked) sfx.right(); }; $('set-haptics').onchange = () => { save(); if ($('set-haptics').checked) sfx.wrong(); };
+  sens.oninput = save; q.onchange = save; $('set-sound').onchange = () => { save(); if ($('set-sound').checked) sfx.right(); }; $('set-haptics').onchange = () => { save(); if ($('set-haptics').checked) sfx.wrong(); };
   $('set-theme').onchange = (e) => { setThemeChoice(e.target.value); reloadWithout(); };
   $('set-ctl').onchange = (e) => { setControlsChoice(e.target.value); reloadWithout('touch'); };
   const ex = $('exp2'); ex.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([store.exportJson()], { type: 'application/json' })); a.download = `physics-rpg-${store.profile}.json`; a.click(); };
@@ -881,7 +880,7 @@ function compactMenuHtml() {
 }
 function settingsHtml() {
   const big = (m, title, sub) => `<button class="bigbtn" data-m="${m}"><b>${title}</b><span>${sub}</span></button>`;
-  return `<div class="menu menu6">${big('profile', 'Profile and settings', `${store.profile} \u00b7 ${sync.available ? sync.status : 'browser only'} \u00b7 graphics, sound, daily goal, achievements (P)`)}
+  return `<div class="menu menu6">${big('profile', 'Profile and settings', `${store.profile} \u00b7 ${sync.available ? sync.status : 'browser only'} \u00b7 graphics, sound, achievements (P)`)}
     ${big('theme', `Theme: ${isLight() ? 'light' : 'dark'}`, isLight() ? 'switch to the dark theme' : 'switch to the white room (light theme)')}
     ${big('controls', `Controls: ${touch ? 'touch' : 'keyboard and mouse'}`, touch ? 'switch to the keyboard and mouse layout' : 'switch to the touch layout (stick, drag to look)')}
     ${big('hud', 'Top bar and menu: compact', 'show every button in the top bar and the long menu again')}
@@ -984,7 +983,7 @@ function todayHtml() {
   const okN = items.filter((x) => x.ok).length, failN = items.length - okN, cleared = items.filter((x) => x.ok && x.review).length, xp = store.xpOn(date);
   const row = (x) => { const ref = encIndex.get(x.id), room = ref ? findRoom(ref.course, ref.roomId) : null, course = ref ? findCourse(ref.course)?.region : '';
     return `<div class="maprow todayrow ${x.ok ? 'ok' : 'miss'}"><button class="link" data-todayopen="${x.id}"${ref ? '' : ' disabled'}><span class="mt">${x.ok ? ic('check') : ic('x')} ${typeName[x.type] || x.type} \u201c${prettyText(x.title)}\u201d</span></button><span class="mp">${x.xp ? `+${x.xp} XP` : x.xp === 0 ? 'no XP' : ''}</span><span class="md">${[course, room?.title, hhmm(x.t)].filter(Boolean).join(' \u00b7 ')}${x.review && x.ok ? ' \u00b7 respawn cleared' : ''}${!x.ok ? ' \u00b7 comes back as a respawn' : ''}</span></div>`; };
-  return `<div class="msn-head"><div><b>${g.min} min</b> on exercises today<div class="src">${g.ex} finished. Goal: ${g.goal} min or ${g.exGoal} exercises${g.done ? ', reached' : ''}</div></div>
+  return `<div class="msn-head"><div><b>${g.min} min</b> on exercises today<div class="src">${g.ex} finished${campaign ? ` · ${campaign.chipText()}` : ''}</div></div>
     <div><b>${okN} exercise${okN === 1 ? '' : 's'}</b> passed${cleared ? ` (${cleared} respawn${cleared === 1 ? '' : 's'} cleared)` : ''}<div class="src">${failN ? `${failN} to retry: they come back as respawns` : 'nothing failed so far'}</div></div>
     <div><b>${xp >= 0 ? '+' : '\u2212'}${Math.abs(xp)} XP</b> today<div class="src">${doneM.length} of ${ms.length} missions done, streak ${streakNow().count} day${streakNow().count === 1 ? '' : 's'}</div></div></div>
     ${items.length ? `<h3>Exercises (${items.length})</h3><div class="maplist">${items.map(row).join('')}</div>` : '<p>Nothing finished yet today. A quick session is the easiest start.</p>'}
@@ -995,16 +994,29 @@ function wireToday(host) {
   host.querySelectorAll('[data-todayopen]').forEach((b) => (b.onclick = () => openFromPile(b.dataset.todayopen)));
   const q = host.querySelector('#today-quick'); if (q) q.onclick = () => startQuick();
 }
-// ================================================================ daily goal, quick session, weekly summary
-const goalMinutes = () => GOALS[(store.val('settings', {}) || {}).goal] || GOALS.normal;
-const goalExercises = () => GOAL_EXERCISES[(store.val('settings', {}) || {}).goal] || GOAL_EXERCISES.normal;
+// ================================================================ motivation, quick session, weekly summary
 const exercisesToday = () => new Set(todayItems().filter((x) => !x.mission).map((x) => x.id)).size; // finished today, passed or not
-// the daily goal is reached by minutes of work on exercises OR by the number of exercises finished
-function goalInfo() { const goal = goalMinutes(), min = Math.floor(studyToday() / 60), exGoal = goalExercises(), ex = exercisesToday(); return { goal, min, exGoal, ex, done: min >= goal || ex >= exGoal }; }
-function checkGoal() {
-  const date = todayStr(); if (store.flag(`goal:${date}`)) return;
-  const g = goalInfo();
-  if (g.done) { store.setFlag(`goal:${date}`); toast(`<b>Daily goal reached:</b> ${g.min >= g.goal ? `${g.goal} minutes on exercises` : `${g.ex} exercises finished`} today. Anything more is a bonus.`); sfx.goal(); pulse('right'); }
+// minutes on exercises and exercises finished today (shown on the Today page; the run decides how much to do)
+function goalInfo() { return { min: Math.floor(studyToday() / 60), ex: exercisesToday() }; }
+// Motivation: a short message now and then while you work, not a target. After every few finished exercises (4 to 7, irregular)
+// and after about every 25 minutes of active study, one line, never two within 4 minutes. No message without real work behind it.
+const MOT = { ex: 0, nextEx: 4 + Math.floor(Math.random() * 4), sec: studyToday(), nextSec: studyToday() + (22 + Math.random() * 8) * 60, last: -Infinity };
+const MOT_EX = ['Nice rhythm. {n} exercises in this session: this is how exams get easy.', '{n} exercises done in a row. Each one is a pattern you will recognise in the exam.',
+  'Keep going: {n} exercises this session. Small steps, every day, add up fast.', 'That is {n} exercises. You are building the routine that wins in January.',
+  '{n} exercises solved. Future you in the exam hall says thanks.', 'Steady work: {n} exercises. Mistakes now are cheaper than mistakes in the exam.'];
+const MOT_TIME = ['{m} minutes of real study today. A short break (stand up, water) keeps the next block sharp.', '{m} minutes focused today. Strong. Two minutes of break, then on.',
+  '{m} minutes in. The hard part is starting, and you are well past it.', '{m} minutes of work today. If something feels stuck: walk away for 3 minutes, then look again.',
+  '{m} minutes today. Consistency beats intensity, and today you are consistent.'];
+function motivate(kind) {
+  if (performance.now() - MOT.last < 4 * 60e3) return; MOT.last = performance.now();
+  const pick = (xs) => xs[Math.floor(Math.random() * xs.length)];
+  let t = kind === 'ex' ? pick(MOT_EX).replace('{n}', MOT.ex) : pick(MOT_TIME).replace('{m}', Math.round(studyToday() / 60));
+  if (campaign && Math.random() < 0.5) t += ` <span class="src">${campaign.chipText()}</span>`;
+  toast(t);
+}
+function checkGoal(finished = false) {
+  if (finished) { MOT.ex++; if (MOT.ex >= MOT.nextEx) { MOT.nextEx = MOT.ex + 4 + Math.floor(Math.random() * 4); motivate('ex'); } }
+  const sec = studyToday(); if (sec >= MOT.nextSec) { MOT.nextSec = sec + (22 + Math.random() * 8) * 60; motivate('time'); }
 }
 let queueLabel = 'pile';
 // A short session: due respawns first (at most 2), then the next unfinished exercises of the recommended room, usually 10 to 20 minutes in all
@@ -1075,7 +1087,7 @@ function weekStats() {
 function weekHtml() {
   const w = weekStats(), mx = Math.max(20, ...w.minutes), plan = examPlan(catalog, isPassedEnc), best = [...w.courses].sort((a, b) => b.passed / b.total - a.passed / a.total)[0], sn = streakNow();
   const dn = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  return `<div class="msn-head"><div><b>${w.total} min</b> on exercises<div class="src">on ${w.studied} of the last 7 days (goal ${goalMinutes()} min or ${goalExercises()} exercises a day)</div></div>
+  return `<div class="msn-head"><div><b>${w.total} min</b> on exercises<div class="src">on ${w.studied} of the last 7 days</div></div>
     <div><b>${w.exercises} exercises</b> passed<div class="src">${w.missions} mission${w.missions === 1 ? '' : 's'} done, streak ${sn.count} day${sn.count === 1 ? '' : 's'}</div></div>
     <div><b>${store.dueReviews().length} respawns</b> due<div class="src">exam in ${plan.days} days: ${plan.left} items to go ≈ ${plan.perDay} a day</div></div></div>
     <div class="spark week">${w.minutes.map((x, i) => `<span><i title="${w.days[i]}: ${x} min" style="height:${Math.max(3, Math.round(38 * x / mx))}px"></i><em>${dn[new Date(w.days[i] + 'T00:00:00').getDay()]}</em></span>`).join('')}</div>
@@ -1140,7 +1152,6 @@ function missionsHtml() {
   return `<div class="msn-head"><div><b>${lv.rank}</b> · level ${lv.lv}<div class="bar"><i style="width:${Math.round(100 * lv.into / lv.need)}%"></i></div><span class="src">${lv.into} / ${lv.need} XP to the next rank</span></div>
     <div><b>Streak: ${active} day${active === 1 ? '' : 's'}</b><div class="src">bonus ×${(1 + 0.05 * Math.min(10, active)).toFixed(2)} on mission XP</div><div class="src">A day counts when you finish today\u2019s run <i>or</i> complete one of these missions. Missions are bonus goals.</div><div class="src">${sn.saved ? '<b class="due">Do one mission today: only your weekly freeze is keeping the streak.</b>' : sn.alive && !sn.today ? 'Do one mission today to keep it.' : ''} ${store.freezeAvailable(todayStr()) ? 'Weekly freeze ready: it forgives one missed day.' : 'Freeze used this week, back on Monday.'}</div></div>
     <div><b>First exam in ${daysToExam()} days</b><div class="src">${plan.done} / ${plan.total} items done; ${plan.left} to go ≈ ${plan.perDay} per day</div></div></div>
-    <div class="goalrow"><b>Daily goal: ${g.min} of ${g.goal} min on exercises, or ${g.ex} of ${g.exGoal} exercises</b><div class="bar${g.done ? ' full' : ''}"><i style="width:${Math.min(100, Math.round(100 * Math.max(g.min / g.goal, g.ex / g.exGoal)))}%"></i></div><span class="src">${g.done ? 'reached today. Everything extra is a bonus.' : `Either one counts: ${g.goal} minutes of working on exercises (menus, lists and the formulas do not count) or ${g.exGoal} finished exercises. Change the goal in Profile > settings.`}</span></div>
     <p class="src">Done today: ${todayItems().filter((x) => !x.mission && x.ok).length} exercises, ${store.xpOn(todayStr()) >= 0 ? '+' : '\u2212'}${Math.abs(store.xpOn(todayStr()))} XP. <button class="link" id="msn-today">See what you did today</button></p>
     <div class="row"><button class="go" id="quick-go">Quick session (${quickInfo()})</button></div>
     <h3>Today's missions (${ms.filter((m) => day.done[m.id]).length} / ${ms.length})</h3><div class="maplist">${ms.map((m) => `<div class="maprow msn${day.done[m.id] ? ' done' : ''}"><span class="mt"><span class="tag">${m.kind}</span> ${m.title}</span><span class="mp">${day.done[m.id] ? 'done' : '+' + Math.round(m.xp * streakMult()) + ' XP'}</span><span class="md">${m.desc}</span>${day.done[m.id] ? '' : `<button class="go" data-mission="${m.id}">Start</button>`}</div>`).join('')}</div>

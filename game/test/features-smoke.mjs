@@ -156,7 +156,7 @@ const ids = await p.evaluate(() => window.__game.quickIds()); ck(`quick session 
 await p.keyboard.press('KeyT'); await p.waitForTimeout(400);
 const mis = await p.evaluate(() => document.getElementById('ov-body').innerText);
 ck('missions: streak 4 and freeze ready', mis.includes('Streak: 4 days') && mis.includes('Weekly freeze ready'));
-ck('missions: daily goal bar (10 of 20 min)', mis.includes('Daily goal: 10 of 20 min'));
+ck('missions: no daily goal bar any more', !mis.includes('Daily goal'));
 ck('missions: quick session button', await p.evaluate(() => !!document.getElementById('quick-go')));
 await p.click('#quick-go'); await p.waitForTimeout(900);
 const q1 = await p.evaluate(() => ({ open: window.__game.state().panelOpen, bar: document.querySelector('.pilebar')?.innerText || '' }));
@@ -215,8 +215,8 @@ for (let i = 0; i < 4 && !(sawRight && sawWrong); i++) {
 ck(`answers: the pulse always matches the result (right ${sawRight}, wrong ${sawWrong})`, matched && (sawRight || sawWrong));
 await p.evaluate(() => window.__game.close()); await p.waitForTimeout(300);
 await p.keyboard.press('KeyP'); await p.waitForTimeout(500);
-await p.check('#set-sound'); await p.selectOption('#set-goal', 'intense'); await p.waitForTimeout(300);
-ck('settings: sound and goal are saved', await p.evaluate(() => { const s = JSON.parse(localStorage.getItem('physics-rpg-v1:' + localStorage.getItem('physics-rpg-profile'))).flags.settings; return s.sound === true && s.goal === 'intense'; }));
+await p.check('#set-sound'); await p.waitForTimeout(300);
+ck('settings: sound is saved (no goal setting any more)', await p.evaluate(() => { const s = JSON.parse(localStorage.getItem('physics-rpg-v1:' + localStorage.getItem('physics-rpg-profile'))).flags.settings; return s.sound === true && !document.getElementById('set-goal'); }));
 await p.context().close();
 
 ck('no page errors', errs.length === 0); if (errs.length) console.log([...new Set(errs)].slice(0, 5));

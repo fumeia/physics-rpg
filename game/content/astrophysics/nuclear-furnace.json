@@ -603,7 +603,7 @@
       "title": "Counting the Sun's neutrinos",
       "fight": "normal",
       "xp": 30,
-      "problem": "$4\\,{}^1$H atoms ($1.007825$ u each) make one $^4$He atom ($4.002603$ u) and 2 neutrinos; $1\\,\\mathrm u\\,c^2=931.494$ MeV. Ignore the small energy the neutrinos carry away. $L_\\odot=3.828\\times10^{26}$ W, $1$ AU $=1.495\\times10^{11}$ m.",
+      "problem": "$4\\,{}^1$H atoms ($1.007825$ u each) make one $^4$He atom ($4.002603$ u (atomic mass unit: $1\\,\\mathrm{u}=1.6605\\times10^{-27}$ kg; $1\\,\\mathrm{u}\\,c^2=931.5$ MeV) and 2 neutrinos; $1\\,\\mathrm u\\,c^2=931.494$ MeV. Ignore the small energy the neutrinos carry away. $L_\\odot=3.828\\times10^{26}$ W, $1$ AU $=1.495\\times10^{11}$ m.",
       "vars": {
         "Lsun": 3.828e+26,
         "AU": 149500000000,

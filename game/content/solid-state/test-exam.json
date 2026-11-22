@@ -145,7 +145,7 @@
     },
     "instructions": "Solve on paper under the timer (hand calculator only, as in the exam). Enter at least 3 significant digits.",
     "statement": [
-     "Silver: free-electron model (nearly spherical Fermi surface), one valence electron per atom, mass density $10.5\\ {\\rm g/cm^3}$, atomic mass $107.8$ u.",
+     "Silver: free-electron model (nearly spherical Fermi surface), one valence electron per atom, mass density $10.5\\ {\\rm g/cm^3}$, atomic mass $107.8$ u (atomic mass unit: $1\\,\\mathrm{u}=1.6605\\times10^{-27}$ kg).",
      "(a) (1 pt) Electron density of the valence electrons.",
      "(b) (2 pt) Radius of the Fermi surface in $\\text{Å}^{-1}$.",
      "(c) (1 pt) Fermi energy and Fermi temperature (in K).",

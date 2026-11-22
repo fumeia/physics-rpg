@@ -51,7 +51,7 @@
      },
      {
       "id": "f",
-      "prompt": "Small-oscillation frequency of Ar–Ar, $f=\\frac1{2\\pi}\\sqrt{U''(r_{\\min})/\\mu}$ with $\\mu=m_{\\rm Ar}/2$, $m_{\\rm Ar}=39.95$ u (THz).",
+      "prompt": "Small-oscillation frequency of Ar–Ar, $f=\\frac1{2\\pi}\\sqrt{U''(r_{\\min})/\\mu}$ with $\\mu=m_{\\rm Ar}/2$, $m_{\\rm Ar}=39.95$ u (atomic mass unit: $1\\,\\mathrm{u}=1.6605\\times10^{-27}$ kg) (THz).",
       "answer": "6.90397e+11/1e12",
       "unit": "THz",
       "units": [

@@ -328,7 +328,7 @@
       "id": "ss-pho-c1",
       "title": "A diatomic chain: acoustic and optical branches",
       "fight": "normal",
-      "problem": "Script 2.2.5: $N$ cells of lattice constant $a$, two atoms per cell (masses $M_1,M_2$ at fractional positions $0$ and $\\frac12$), nearest-neighbour springs $k$, longitudinal motion. The dispersion is $\\omega^2=k\\big(\\tfrac1{M_1}+\\tfrac1{M_2}\\big)\\pm k\\sqrt{\\big(\\tfrac1{M_1}+\\tfrac1{M_2}\\big)^2-\\tfrac{2}{M_1M_2}(1-\\cos qa)}$. Take a toy NaCl chain: $M_1=22.99\\,$u (Na), $M_2=35.45\\,$u (Cl), $k=15$ N/m, $a=5.64$ Å. Give frequencies as $\\nu=\\omega/2\\pi$ in THz.",
+      "problem": "Script 2.2.5: $N$ cells of lattice constant $a$, two atoms per cell (masses $M_1,M_2$ at fractional positions $0$ and $\\frac12$), nearest-neighbour springs $k$, longitudinal motion. The dispersion is $\\omega^2=k\\big(\\tfrac1{M_1}+\\tfrac1{M_2}\\big)\\pm k\\sqrt{\\big(\\tfrac1{M_1}+\\tfrac1{M_2}\\big)^2-\\tfrac{2}{M_1M_2}(1-\\cos qa)}$. Take a toy NaCl chain: $M_1=22.99\\,$u (Na), $M_2=35.45\\,$u (Cl), with the atomic mass unit $1\\,\\mathrm{u}=1.6605\\times10^{-27}$ kg, $k=15$ N/m, $a=5.64$ Å. Give frequencies as $\\nu=\\omega/2\\pi$ in THz.",
       "vars": {
         "u": 1.6605390666e-27,
         "M1": 22.99,
@@ -353,7 +353,7 @@
         },
         {
           "id": "nuac",
-          "prompt": "Acoustic branch at the zone edge $q=\\pi/a$ (the upper end of the acoustic branch is set by the **heavier** mass): $\\nu=\\frac1{2\\pi}\\sqrt{2k/M_2}$ in THz.",
+          "prompt": "Acoustic branch at the zone edge $q=\\pi/a$ (the upper end of the acoustic branch is set by the <b>heavier</b> mass): $\\nu=\\frac1{2\\pi}\\sqrt{2k/M_2}$ in THz.",
           "answer": "sqrt(2*k/(M2*u))/(2*pi)/1e12",
           "unit": "THz",
           "units": [

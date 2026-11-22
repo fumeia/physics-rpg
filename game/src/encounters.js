@@ -345,7 +345,7 @@ function mountBoss(enc, el, env) {
     q('#boss-start').style.display = 'none';
     const body = q('#boss-body'); body.style.display = '';
     body.innerHTML = M(enc.statement.map((l) => `<p>${l}</p>`).join('') + '<h3>Final answers</h3>' +
-      enc.finalAnswers.map((f) => `<div class="step"><div>${f.prompt}</div><div class="row"><input type="text" data-fa="${f.id}" autocomplete="off"><span data-fm="${f.id}" class="msg"></span></div></div>`).join('') +
+      enc.finalAnswers.map((f) => `<div class="step"><div>${f.prompt}</div><div class="row"><input type="text" data-fa="${f.id}" autocomplete="off" placeholder="number or e.g. sqrt(2/3)"><span data-fm="${f.id}" class="msg"></span></div></div>`).join('') +
       '<button class="go" id="submit">Submit final answers</button><div id="boss-result"></div>');
     body.querySelectorAll('input').forEach((i) => (i.onkeydown = (e) => e.stopPropagation()));
     const end = Date.now() + enc.minutes * 60000;

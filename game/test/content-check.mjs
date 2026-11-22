@@ -98,6 +98,7 @@ for (const e of room.encounters) {
 ok('tutorial has 8 steps with titles and text', room.tutorial?.length === 8 && room.tutorial.every((s) => s.title && s.html));
 
 ok('parseNumber sci', parseNumber('5.4×10^-4') === 0.00054 && parseNumber('5,4e-4') === 0.00054 && Number.isNaN(parseNumber('abc')));
+ok('parseNumber takes calculations (no calculator needed), never names or code', Math.abs(parseNumber('sqrt(2/3)') - Math.sqrt(2 / 3)) < 1e-12 && Math.abs(parseNumber('1/(2*sqrt(2))') - 0.3535533905932738) < 1e-12 && parseNumber('2^0.5') === Math.SQRT2 && Math.abs(parseNumber('√(8/3)') - Math.sqrt(8 / 3)) < 1e-12 && Math.abs(parseNumber('2pi') - 2 * Math.PI) < 1e-12 && Number.isNaN(parseNumber('q')) && Number.isNaN(parseNumber('alert(1)')) && Number.isNaN(parseNumber('Math.PI')));
 ok('rel tolerance', withinTolerance(8.9, 8.87, { tol: 0.02 }) && !withinTolerance(9.5, 8.87, { tol: 0.02 }));
 ok('log tolerance', withinTolerance(1.5e-4, 1.4e-4, { tolType: 'log', tol: 0.1 }) && !withinTolerance(1e-3, 1.4e-4, { tolType: 'log', tol: 0.1 }));
 console.log(fails ? `${fails} FAILED` : 'ALL PASS');

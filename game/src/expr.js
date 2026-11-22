@@ -28,7 +28,41 @@ export function parseNumber(text) {
   const t = String(text).trim().replace(',', '.');
   const m = t.match(/^([-+]?\d*\.?\d+)\s*[×x*·]\s*10\s*\^?\s*\(?([-+]?\d+)\)?$/i);
   if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
-  return /^[-+]?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$/.test(t) ? parseFloat(t) : NaN;
+  if (/^[-+]?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$/.test(t)) return parseFloat(t);
+  return mathInput(String(text));
+}
+// A typed calculation, for when no calculator is at hand: sqrt(2/3), 2^0.5, √2, pi/4, 1/(2*sqrt(2)), 2sqrt(2), 3e8/2, ln(2), sin(pi/6).
+// Only numbers, + - * / ^ ( ) and the functions below are allowed (no names, no code): anything else gives NaN.
+const MATH_FN = { sqrt: 'Math.sqrt', exp: 'Math.exp', ln: 'Math.log', log: 'Math.log10', log10: 'Math.log10', sin: 'Math.sin', cos: 'Math.cos', tan: 'Math.tan',
+  asin: 'Math.asin', acos: 'Math.acos', atan: 'Math.atan', sinh: 'Math.sinh', cosh: 'Math.cosh', tanh: 'Math.tanh', abs: 'Math.abs', cbrt: 'Math.cbrt' };
+export function mathInput(text) {
+  let t = String(text).trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.').replace(/[×·]/g, '*').replace(/÷/g, '/').replace(/[−–]/g, '-').replace(/π/g, 'pi').replace(/\*\*/g, '^');
+  if (!t || t.length > 120) return NaN;
+  t = t.replace(/√(\d+(?:\.\d+)?|pi)/g, 'sqrt($1)').replace(/√/g, 'sqrt');
+  t = t.replace(/(sqrt|cbrt|ln|exp|sin|cos|tan)(\d+(?:\.\d+)?|pi)(?![\d.(])/g, '$1($2)'); // sqrt2, sinpi
+  const toks = t.match(/\d*\.?\d+(?:e[-+]?\d+)?|[a-z]+\d*|[-+*/^()]/g);
+  if (!toks || toks.join('') !== t) return NaN; // a character that is not allowed
+  const out = []; let prev = null; // prev: 'v' (value or closing bracket), 'f' (function), 'o' (operator or opening bracket)
+  for (const k of toks) {
+    let cur, js;
+    if (/^[\d.]/.test(k)) { cur = 'v'; js = k; }
+    else if (k === 'pi') { cur = 'v'; js = '(Math.PI)'; }
+    else if (MATH_FN[k]) { cur = 'f'; js = MATH_FN[k]; }
+    else if (/^[a-z]/.test(k)) return NaN; // an unknown name (e.g. a variable): not a number
+    else if (k === '(') { cur = 'o'; js = '('; }
+    else if (k === ')') { cur = 'v'; js = ')'; }
+    else { cur = 'o'; js = k === '^' ? '**' : k; }
+    if (prev === 'v' && (cur === 'v' && js !== ')' || cur === 'f' || k === '(')) out.push('*'); // 2pi, 2sqrt(2), (1)(2): implicit product
+    if (prev === 'f' && k !== '(') return NaN;
+    out.push(js); prev = cur;
+  }
+  try {
+    // "-2^2" in JS is a syntax error: put unary minus before a power into brackets the way people mean it (-(2^2))
+    const code = out.join('').replace(/(^|[(*/+-])-(\(?[\d.]+(?:e[-+]?\d+)?\)?)\*\*/g, '$1-1*$2**');
+    // eslint-disable-next-line no-new-func
+    const v = new Function(`"use strict"; return (${code});`)();
+    return typeof v === 'number' && Number.isFinite(v) ? v : NaN;
+  } catch { return NaN; }
 }
 // tolType "rel": |x/a - 1| <= tol ; "log": |log10(x/a)| <= tol (for numbers spanning decades).
 export function withinTolerance(x, answer, { tolType = 'rel', tol = 0.03 } = {}) {

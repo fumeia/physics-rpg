@@ -593,8 +593,17 @@ html[data-theme=light] .chip.btn:hover { background: #f1ede4; }
 html[data-theme=light] .chip.btn.cur, html[data-theme=light] .chip.btn.on { background: #e5eefc; border-color: var(--accent); color: #123e8c; }
 html[data-theme=light] .chip.btn.ok { background: #e6f4ec; border-color: #8cc7a6; color: #0f5a35; }
 html[data-theme=light] button.go, html[data-theme=light] .go { background: var(--accent); color: #fff; }
-html[data-theme=light] .maprow, html[data-theme=light] .step, html[data-theme=light] .callout { border-color: var(--line); }
-html[data-theme=light] .callout { background: #faf8f3; }
+html[data-theme=light] .maprow, html[data-theme=light] .step { border-color: var(--line); }
+/* callouts keep their colour code in light mode: a coloured left bar and a soft tint of the same colour */
+html[data-theme=light] .callout { background: rgba(31,95,207,.06); }
+html[data-theme=light] .callout.exam { border-left-color: var(--good); background: rgba(21,122,72,.08); }
+html[data-theme=light] .callout.intuition { border-left-color: var(--warn); background: rgba(156,90,0,.08); }
+html[data-theme=light] .callout.pitfall { border-left-color: var(--bad); background: rgba(194,50,31,.07); }
+html[data-theme=light] .callout.read { border-left-color: #b07a10; background: rgba(176,122,16,.09); }
+html[data-theme=light] .callout.slip { border-left-color: #d0542c; background: rgba(208,84,44,.08); }
+html[data-theme=light] .callout.think { border-left-color: #2f9a4a; }
+html[data-theme=light] .callout.before { border-left-color: #3b7be0; }
+html[data-theme=light] .callout.asked { border-left-color: #7b4fd6; }
 html[data-theme=light] input, html[data-theme=light] select, html[data-theme=light] textarea { background: #fff; color: var(--ink); border: 1px solid #c9c2b2; }
 html[data-theme=light] .msg.good { color: var(--good); } html[data-theme=light] .msg.bad { color: var(--bad); }
 html[data-theme=light] .cp-run, html[data-theme=light] .cp-course, html[data-theme=light] .cp-week { background: #fffdf9; border-color: var(--line); }

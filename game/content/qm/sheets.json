@@ -1,6 +1,6 @@
 {
  "title": "QM I exercise sheets",
- "note": "The HS25 sheets of Prof. Gaberdiel, used again this year. Due dates are last year's Wednesday dates moved to this year's Monday hand-ins (+362 days); each question opens with links to the lessons and exercises of the game that belong to it.",
+ "note": "The HS25 sheets of Prof. Gaberdiel, used again this year, with the HS26 changes (sheet 2 Q4, sheet 7 Q1 and sheet 9 Q2, Q3, Q5, Q6 are new; the numbering follows the HS26 sheets). Due dates are last year's Wednesday dates moved to this year's Monday hand-ins (+362 days); each question opens with links to the lessons and exercises of the game that belong to it.",
  "sheets": [
   {
    "n": 1,
@@ -1398,6 +1398,104 @@
     },
     {
      "q": 2,
+     "title": "Partner potentials",
+     "room": "harmonic-oscillator-elevator",
+     "related": [
+      "qm-ho-D3",
+      "qm-ho-L1",
+      "qm-sheet-s9q1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s9q5",
+      "title": "Sheet 9 Q2: Partner potentials",
+      "xp": 55,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/HS26/sheet_9.pdf",
+       "where": "Exercise sheet IX (HS26), Question 2 (new this year); official solution: sheet_9_solutions.pdf"
+      },
+      "goal": "(i) $H_\\pm=-\\frac{d^2}{dx^2}+q^2(x)\\pm q^\\prime(x)$ on $L^2(\\mathbb R)$, $q$ real. Show: (a) $\\langle\\psi|H_\\pm|\\psi\\rangle\\ge0$; (b) $H_+$ and $H_-$ have the same eigenvalues $\\lambda$, except possibly $\\lambda=0$; (c) $\\lambda=0$ is an eigenvalue of at most one partner: for which $q$, and which partner? (The answer is topological: it does not change if $q$ is modified on a bounded interval.) (ii) Describe the partner potentials for $q=x+gx^2$ ($g$ small), show $H_\\pm$ are unitarily equivalent for $g\\ne0$, discuss $g\\to0$ in view of (c). Hint: reflection about $x_0=-1/2g$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Factorisation.",
+        "reveal": "$q=x$ gives the oscillator $H_\\pm=-\\frac{d^2}{dx^2}+x^2\\pm1$. In general set $a=q+\\frac d{dx}$, $a^\\dagger=q-\\frac d{dx}$: $[a,a^\\dagger]=2q^\\prime$, and $a^\\dagger a=-\\frac{d^2}{dx^2}+q^2-q^\\prime=H_-$, $aa^\\dagger=H_+$."
+       },
+       {
+        "prompt": "(a) Positivity.",
+        "reveal": "$\\langle\\psi|H_-|\\psi\\rangle=\\|a\\psi\\|^2\\ge0$, $\\langle\\psi|H_+|\\psi\\rangle=\\|a^\\dagger\\psi\\|^2\\ge0$."
+       },
+       {
+        "prompt": "(b) Same spectrum.",
+        "reveal": "If $H_-\\psi=\\lambda\\psi$ then $H_+(a\\psi)=aa^\\dagger a\\psi=\\lambda\\,a\\psi$ with $\\|a\\psi\\|^2=\\lambda\\|\\psi\\|^2$: for $\\lambda\\ne0$, $a\\psi\\ne0$ is an eigenvector of $H_+$. Likewise $a^\\dagger$ maps eigenvectors of $H_+$ to $H_-$. So the nonzero eigenvalues agree, with equal multiplicities."
+       },
+       {
+        "prompt": "(c) Zero modes.",
+        "reveal": "$H_-\\psi=0\\iff a\\psi=0$: $\\psi^\\prime+q\\psi=0$, $\\psi_-=e^{-Q}$ with $Q^\\prime=q$. $H_+\\psi=0\\iff a^\\dagger\\psi=0$: $\\psi_+=e^{+Q}$. Both normalisable is impossible: $\\langle\\psi_-|\\psi_+\\rangle=\\int e^{-Q}e^{Q}dx=\\infty$. So $\\lambda=0$ belongs to $H_-$ iff $e^{-Q}\\in L^2$ ($Q\\to+\\infty$ at both ends, e.g. $q>0$ far right, $q<0$ far left: the oscillator), to $H_+$ iff $e^{+Q}\\in L^2$. Changing $q$ on a bounded interval only changes $Q$ by constants outside it: the answer depends only on the asymptotics."
+       },
+       {
+        "prompt": "(ii) $q=x+gx^2$.",
+        "reveal": "$q^2\\pm q^\\prime=x^2(1+gx)^2\\pm(1+2gx)$: double wells with minima near $x=0$ and $x=-1/g$; the sign $\\pm$ decides which is deeper. The reflection $(U\\psi)(x)=\\psi(-x-1/g)$ about $x_0=-\\frac1{2g}$ maps $x^2(1+gx)^2$ to itself and $1+2gx\\to-(1+2gx)$: $U^*H_+U=H_-$. So $\\lambda=0$ is an eigenvalue of both or neither; by (c) neither: $Q=\\frac{x^2}2+\\frac{gx^3}3\\to\\pm\\infty$ for $x\\to\\pm\\infty$, so $e^{\\pm Q}$ is never normalisable. For $g\\to0$ one well escapes to $-\\infty$; at $g=0$ the oscillator remains, $Q\\to+\\infty$ at both ends and $H_-$ has the zero mode $e^{-x^2/2}$."
+       }
+      ],
+      "keyPoints": [
+       "$a=q+\\frac d{dx}$: $H_-=a^\\dagger a$, $H_+=aa^\\dagger$",
+       "$\\langle H_\\pm\\rangle=\\|a\\psi\\|^2,\\|a^\\dagger\\psi\\|^2\\ge0$",
+       "$a$, $a^\\dagger$ intertwine the spectra for $\\lambda\\ne0$",
+       "zero modes $e^{\\mp Q}$, at most one normalisable",
+       "$q=x+gx^2$: reflection about $-1/2g$ swaps $H_\\pm$, no zero mode"
+      ]
+     }
+    },
+    {
+     "q": 3,
+     "title": "Stability of the hydrogen atom",
+     "room": "hydrogen-lamp",
+     "related": [
+      "qm-hl-L1",
+      "qm-hl-L3",
+      "qm-fu-L3",
+      "qm-fu-D2",
+      "qm-ho-D4"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s9q6",
+      "title": "Sheet 9 Q3: Stability of the hydrogen atom",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/HS26/sheet_9.pdf",
+       "where": "Exercise sheet IX (HS26), Question 3 (new this year); official solution: sheet_9_solutions.pdf"
+      },
+      "goal": "$H=\\frac{\\vec p^2}{2m}-\\frac{e^2}{|\\vec x|}$ is bounded below quantum mechanically. (i) From $\\langle p_i^2\\rangle\\ge(\\Delta p_i)^2$ (likewise for $x_i$) one gets $\\langle\\vec p^2\\rangle\\langle\\vec x^2\\rangle\\ge\\sum_i\\langle p_i^2\\rangle\\langle x_i^2\\rangle\\ge\\frac{3\\hbar^2}4$ and hence $\\langle H\\rangle\\ge\\frac{3\\hbar^2}{8m}\\frac1{\\langle\\vec x^2\\rangle}-e^2\\left\\langle\\frac1{|\\vec x|}\\right\\rangle$. Show that this does not prove stability: some states make the right side arbitrarily negative. Hint: superpose one wave function outside the Bohr radius $a_0=\\hbar^2/me^2$ and one inside $\\varepsilon a_0$. (ii) Use the Hardy inequality $\\left\\langle\\frac{\\vec p^2}{\\hbar^2}\\right\\rangle\\ge\\left\\langle\\frac1{4\\vec x^2}\\right\\rangle$ to show $H\\ge-C$, $C>0$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Two disjoint pieces.",
+        "reveal": "$\\psi=\\frac1{\\sqrt2}(\\psi_++\\psi_-)$, normalised pieces with $\\mathrm{supp}\\,\\psi_+\\subset\\{|\\vec x|>a_0\\}$, $\\mathrm{supp}\\,\\psi_-\\subset\\{|\\vec x|<\\varepsilon a_0\\}$. Disjoint supports: $\\langle f\\rangle_\\psi=\\frac12(\\langle f\\rangle_++\\langle f\\rangle_-)$ for every $f(\\vec x)$. So $\\langle\\vec x^2\\rangle\\ge\\frac{a_0^2}2$ (from the far piece) and $\\left\\langle\\frac1{|\\vec x|}\\right\\rangle\\ge\\frac1{2\\varepsilon a_0}$ (from the near piece)."
+       },
+       {
+        "prompt": "(i) The bound fails.",
+        "reveal": "The lower bound is at most $\\frac{3\\hbar^2}{8m}\\frac2{a_0^2}-\\frac{e^2}{2\\varepsilon a_0}=\\frac{e^2}{a_0}\\left(\\frac34-\\frac1{2\\varepsilon}\\right)\\to-\\infty$ for $\\varepsilon\\to0$ (using $\\frac{\\hbar^2}{ma_0^2}=\\frac{e^2}{a_0}$). The heuristic fails because $\\langle\\vec x^2\\rangle$ can be kept large by a far piece while a near piece makes $\\langle1/r\\rangle$ huge."
+       },
+       {
+        "prompt": "(ii) Hardy.",
+        "reveal": "$H=\\frac{e^2}{a_0}\\left(\\frac{a_0^2}2\\frac{\\vec p^2}{\\hbar^2}-\\frac{a_0}{|\\vec x|}\\right)$, so with Hardy $\\langle H\\rangle\\ge\\frac{e^2}{8a_0}\\left\\langle s^2-8s\\right\\rangle$ with $s=\\frac{a_0}{|\\vec x|}$. Since $s^2-8s=(s-4)^2-16\\ge-16$: $\\langle H\\rangle\\ge-\\frac{2e^2}{a_0}$, so $C=\\frac{2e^2}{a_0}$ (four times the true binding $\\frac{e^2}{2a_0}=13.6$ eV). Hardy works because it bounds $\\langle1/r^2\\rangle$ by the kinetic energy <i>locally</i>, not through $\\langle r^2\\rangle$."
+       }
+      ],
+      "keyPoints": [
+       "disjoint supports: expectation values average",
+       "far piece keeps $\\langle r^2\\rangle\\ge a_0^2/2$, near piece makes $\\langle1/r\\rangle\\ge1/(2\\varepsilon a_0)$",
+       "bound $\\frac{e^2}{a_0}(\\frac34-\\frac1{2\\varepsilon})\\to-\\infty$",
+       "Hardy: $\\langle H\\rangle\\ge\\frac{e^2}{8a_0}\\langle s^2-8s\\rangle$, $s=a_0/r$",
+       "$H\\ge-2e^2/a_0$"
+      ]
+     }
+    },
+    {
+     "q": 4,
      "title": "Discreteness of the spectrum",
      "room": "formalism-and-uncertainty",
      "related": [
@@ -1408,7 +1506,7 @@
       "type": "derive",
       "sheet": true,
       "id": "qm-sheet-s9q2",
-      "title": "Sheet 9 Q2: Discreteness of the spectrum",
+      "title": "Sheet 9 Q4: Discreteness of the spectrum",
       "xp": 39,
       "source": {
        "file": "materials/quantum-mechanics/exercises/Exercises 9.pdf",
@@ -1443,7 +1541,98 @@
      }
     },
     {
-     "q": 3,
+     "q": 5,
+     "title": "Unitary transformations",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L2",
+      "qm-sheet-s1q3",
+      "qm-fu-L3"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s9q7",
+      "title": "Sheet 9 Q5: Unitary transformations",
+      "xp": 47,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/HS26/sheet_9.pdf",
+       "where": "Exercise sheet IX (HS26), Question 5 (new this year); official solution: sheet_9_solutions.pdf"
+      },
+      "goal": "$\\hbar=1$. $U_m(v,t)=\\exp\\left(-iv(\\hat Pt-m\\hat X)\\right)$, $m,v,t$ real. (i) Show $U_m$ is unitary. (ii) Compute $e^{-iv\\hat Pt}e^{ivm\\hat X}$ and show $U_m\\ne e^{-iv\\hat Pt}e^{ivm\\hat X}$ in general. (iii) Show $U_m|x\\rangle\\propto|x+vt\\rangle$, $U_m|p\\rangle\\propto|p+mv\\rangle$. (iv) Compute $U_m\\hat XU_m^\\dagger$ and $U_m\\hat PU_m^\\dagger$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Unitary.",
+        "reveal": "$v(\\hat Pt-m\\hat X)$ is hermitian ($v,t,m$ real, $\\hat X,\\hat P$ hermitian), so its exponential with $-i$ is unitary."
+       },
+       {
+        "prompt": "(ii) BCH.",
+        "reveal": "$e^Ae^B=e^{A+B+\\frac12[A,B]}$ when $[A,B]$ is a number. Here $[-iv\\hat Pt,ivm\\hat X]=v^2tm[\\hat P,\\hat X]=-iv^2tm$, so $e^{-iv\\hat Pt}e^{ivm\\hat X}=e^{-iv\\hat Pt+ivm\\hat X-\\frac{i}2v^2tm}=U_m\\,e^{-\\frac i2v^2tm}$: they differ by a phase (equal only if $v^2tm=0$ mod $4\\pi$)."
+       },
+       {
+        "prompt": "(iii) Action on eigenstates.",
+        "reveal": "$U_m=e^{\\frac i2v^2tm}e^{-iv\\hat Pt}e^{ivm\\hat X}$, and $e^{-iv\\hat Pt}|x\\rangle=|x+vt\\rangle$ (a translation: $\\langle p|e^{-ivt\\hat P}|x\\rangle=e^{-ipvt}\\langle p|x\\rangle=\\langle p|x+vt\\rangle$). So $U_m|x\\rangle=e^{\\frac i2v^2tm}e^{ivmx}|x+vt\\rangle$. Ordered the other way, $U_m=e^{-\\frac i2v^2tm}e^{ivm\\hat X}e^{-iv\\hat Pt}$ and $e^{ivm\\hat X}$ shifts momentum: $U_m|p\\rangle=e^{-\\frac i2v^2tm}e^{-ivpt}|p+mv\\rangle$."
+       },
+       {
+        "prompt": "(iv) Conjugation.",
+        "reveal": "$U_m\\hat XU_m^\\dagger=\\int x\\,|x+vt\\rangle\\langle x+vt|\\,dx=\\hat X-vt$, and likewise $U_m\\hat PU_m^\\dagger=\\hat P-mv$. $U_m$ is the Galilean boost by $v$ at time $t$ (compare sheet 1 Q3): positions shift by $vt$, momenta by $mv$."
+       }
+      ],
+      "keyPoints": [
+       "hermitian generator: unitary",
+       "BCH with $[\\hat X,\\hat P]=i$: only a phase $e^{\\mp\\frac i2v^2tm}$",
+       "$U_m|x\\rangle\\propto|x+vt\\rangle$, $U_m|p\\rangle\\propto|p+mv\\rangle$",
+       "$U\\hat XU^\\dagger=\\hat X-vt$, $U\\hat PU^\\dagger=\\hat P-mv$: Galilean boost"
+      ]
+     }
+    },
+    {
+     "q": 6,
+     "title": "The Aharonov–Bohm effect",
+     "room": "wave-mechanics-basics",
+     "related": [
+      "qm-wm-L2",
+      "qm-sheet-s7q4",
+      "qm-sheet-s9q7"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s9q8",
+      "title": "Sheet 9 Q6: The Aharonov–Bohm effect",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/HS26/sheet_9.pdf",
+       "where": "Exercise sheet IX (HS26), Question 6 (new this year); official solution: sheet_9_solutions.pdf"
+      },
+      "goal": "Electron (charge $-e$), $i\\hbar\\partial_t\\psi=\\left[\\frac1{2m}\\left(-i\\hbar\\nabla+\\frac ec\\vec A\\right)^2-e\\phi\\right]\\psi$, $\\phi=0$. (i) In a simply connected region $G$ where $\\vec B=0$ (outside a long coil), compare $\\psi_0$ (field off everywhere) and $\\psi_B$ (field on) with the same initial and boundary data after gauging $\\vec A$ to zero in $G$ (gauge function zero at $\\vec x_0$). Show $\\psi_B(\\vec x)=\\psi_0(\\vec x)\\exp\\left(-\\frac{ie}{\\hbar c}\\int_{\\vec x_0}^{\\vec x}d\\vec s\\cdot\\vec A\\right)$. (ii) A double slit with the coil inside the middle wall: the electrons never meet $\\vec B$. With $\\psi_\\sigma=\\psi_{1,\\sigma}+\\psi_{2,\\sigma}$ ($\\sigma=0$ field off, $B$ on), compute $I_B=|\\psi_B|^2$ in terms of $\\psi_{1,0}$, $\\psi_{2,0}$ and the flux $\\Phi_B$.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Pure gauge.",
+        "reveal": "$\\nabla\\times\\vec A=0$ in simply connected $G$: $\\vec A=\\nabla\\Lambda$ with $\\Lambda(\\vec x)=\\int_{\\vec x_0}^{\\vec x}d\\vec s\\cdot\\vec A$ (path independent in $G$). The gauge $\\chi=-\\Lambda$ gives $\\vec A^\\prime=0$ and $\\tilde\\psi_B=e^{ie\\Lambda/\\hbar c}\\psi_B$, which solves the field-free equation with the same data, so $\\tilde\\psi_B=\\psi_0$ and $\\psi_B=\\psi_0\\,e^{-\\frac{ie}{\\hbar c}\\Lambda}$."
+       },
+       {
+        "prompt": "(ii) Two paths.",
+        "reveal": "Apply (i) in a simply connected neighbourhood of each slit path, same reference point at the source: $\\psi_{j,B}=\\psi_{j,0}\\exp\\left(-\\frac{ie}{\\hbar c}\\int_jd\\vec s\\cdot\\vec A\\right)$, $j=1,2$. The two path integrals differ by a closed loop around the coil: $\\int_1-\\int_2=\\oint d\\vec s\\cdot\\vec A=\\Phi_B$ (Stokes). So $\\psi_B=\\left[\\psi_{1,0}e^{-\\frac{ie}{\\hbar c}\\Phi_B}+\\psi_{2,0}\\right]e^{-\\frac{ie}{\\hbar c}\\int_2d\\vec s\\cdot\\vec A}$."
+       },
+       {
+        "prompt": "(ii) Pattern.",
+        "reveal": "$I_B=|\\psi_{1,0}|^2+|\\psi_{2,0}|^2+2\\,\\mathrm{Re}\\left\\{\\psi_{1,0}\\psi_{2,0}^*\\,e^{-\\frac{ie}{\\hbar c}\\Phi_B}\\right\\}$: the fringes shift with the enclosed flux although $\\vec B=0$ along both paths, periodic in $\\Phi_B$ with period $\\frac{2\\pi\\hbar c}e=\\frac{hc}e$ (the flux quantum). The vector potential, through a gauge-invariant loop integral, is physical in quantum mechanics."
+       }
+      ],
+      "keyPoints": [
+       "$\\vec B=0$ in simply connected $G$: $\\vec A=\\nabla\\Lambda$, gauge it away",
+       "$\\psi_B=\\psi_0e^{-\\frac{ie}{\\hbar c}\\int\\vec A\\cdot d\\vec s}$",
+       "phase difference $\\frac e{\\hbar c}\\oint\\vec A\\cdot d\\vec s=\\frac{e\\Phi_B}{\\hbar c}$",
+       "$I_B=|\\psi_{1,0}|^2+|\\psi_{2,0}|^2+2\\mathrm{Re}\\{\\psi_{1,0}\\psi_{2,0}^*e^{-ie\\Phi_B/\\hbar c}\\}$",
+       "period $hc/e$"
+      ]
+     }
+    },
+    {
+     "q": 7,
      "title": "Pauli matrices and rotations",
      "room": "angular-momentum-spin",
      "related": [
@@ -1456,7 +1645,7 @@
       "type": "derive",
       "sheet": true,
       "id": "qm-sheet-s9q3",
-      "title": "Sheet 9 Q3: Pauli matrices and rotations",
+      "title": "Sheet 9 Q7: Pauli matrices and rotations",
       "xp": 39,
       "source": {
        "file": "materials/quantum-mechanics/exercises/Exercises 9.pdf",
@@ -1491,7 +1680,7 @@
      }
     },
     {
-     "q": 4,
+     "q": 8,
      "title": "3D oscillator and su(3)",
      "room": "harmonic-oscillator-elevator",
      "related": [
@@ -1504,7 +1693,7 @@
       "type": "derive",
       "sheet": true,
       "id": "qm-sheet-s9q4",
-      "title": "Sheet 9 Q4: 3D oscillator and su(3)",
+      "title": "Sheet 9 Q8: 3D oscillator and su(3)",
       "xp": 47,
       "source": {
        "file": "materials/quantum-mechanics/exercises/Exercises 9.pdf",

@@ -1,5 +1,5 @@
 {
- "about": "ISSP Test Exam HS26 (Degen); built by notes/solid-state/build/testexam/build.py. Solutions are our own.",
+ "about": "ISSP Test Exam HS26 (Degen); built by notes/solid-state/build/testexam/build.py. Written 10/11 Nov 2026 as the midterm; the official solutions (24 Nov 2026) agree with ours, sources updated.",
  "items": [
   {
    "room": "lattice-gate",
@@ -10,7 +10,7 @@
     "title": "Test exam HS26, Problem 1: multiple choice (4 pt)",
     "source": {
      "file": "ISSP Test Exam HS26.pdf (release ISSP.zip)",
-     "where": "Problem 1 (a)-(d), pages 2-3; solutions our own (no official key released)"
+     "where": "Problem 1 (a)-(d), pages 2-3; official key: Midterm_Exam_FKP_HS26_solutions.pdf p. 2-3 (all four answers agree)"
     },
     "questions": [
      {
@@ -70,7 +70,7 @@
     "title": "Test exam boss: crystallography of the FCC lattice (10 pt)",
     "source": {
      "file": "ISSP Test Exam HS26.pdf (release ISSP.zip)",
-     "where": "Problem 2 (a)-(d), pages 4-7; solutions our own (no official key released)"
+     "where": "Problem 2 (a)-(d), pages 4-7; official solution: Midterm_Exam_FKP_HS26_solutions.pdf p. 4-6 (agrees; our key points add the BCC/SC comparison)"
     },
     "instructions": "Solve on paper under the timer (the test exam had about 1 point per 3 minutes). Then enter the numbers.",
     "statement": [
@@ -141,11 +141,11 @@
     "title": "Test exam boss: electronic and thermal properties of silver (5 pt)",
     "source": {
      "file": "ISSP Test Exam HS26.pdf (release ISSP.zip)",
-     "where": "Problem 3 (a)-(d), pages 8-11; solutions our own (no official key released), numbers checked in build.py"
+     "where": "Problem 3 (a)-(d), pages 8-11; official solution: Midterm_Exam_FKP_HS26_solutions.pdf p. 7 (agrees: n=5.86e22 cm^-3, k_F=1.2 1/Å, E_F=5.5 eV, T_F=6.38e4 K), numbers checked in build.py"
     },
     "instructions": "Solve on paper under the timer (hand calculator only, as in the exam). Enter at least 3 significant digits.",
     "statement": [
-     "Silver: free-electron model (nearly spherical Fermi surface), one valence electron per atom, mass density $10.5\\ {\\rm g/cm^3}$, atomic mass $107.8$ u (atomic mass unit: $1\\,\\mathrm{u}=1.6605\\times10^{-27}$ kg).",
+     "Silver: free-electron model (nearly spherical Fermi surface), one valence electron per atom, mass density $10.5\\ {\\rm g/cm^3}$, atomic mass $107.8$ u.",
      "(a) (1 pt) Electron density of the valence electrons.",
      "(b) (2 pt) Radius of the Fermi surface in $\\text{Å}^{-1}$.",
      "(c) (1 pt) Fermi energy and Fermi temperature (in K).",

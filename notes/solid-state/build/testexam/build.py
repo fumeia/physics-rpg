@@ -25,7 +25,7 @@ def F(h, k, l): return abs(sum(complex(math.cos(math.pi * (h * x + k * y + l * z
 assert round(F(1, 1, 1)) == 4 and round(F(2, 0, 0)) == 4 and round(F(1, 0, 0)) == 0 and round(F(2, 1, 0)) == 0 and round(F(2, 2, 0)) == 4
 
 quiz = {'type': 'quiz', 'id': 'ss-tx-Q1', 'xp': 20, 'title': 'Test exam HS26, Problem 1: multiple choice (4 pt)',
-        'source': {'file': SRC, 'where': 'Problem 1 (a)-(d), pages 2-3; solutions our own (no official key released)'},
+        'source': {'file': SRC, 'where': 'Problem 1 (a)-(d), pages 2-3; official key: Midterm_Exam_FKP_HS26_solutions.pdf p. 2-3 (all four answers agree)'},
         'questions': [
             {'q': r'(a) What is the Miller index of the shaded lattice plane? (Axes: $x$ towards you, $y$ to the right, $z$ up; the plane passes through the hidden back-bottom-left corner, cuts the back-right vertical edge at $\frac12$ and the bottom-right edge at $\frac13$ from the back.)<br><img class="fig" src="content/solid-state/fig/testexam-miller.png" alt="Unit cube with a shaded triangular plane through the hidden corner, the back-right vertical edge at height 1/2 and the bottom-right edge at 1/3">',
              'options': [r'$(1,2,3)$', r'$(3,2,6)$', r'$(\bar3,\bar2,1)$', r'$(3,\bar1,2)$'], 'correct': 3,
@@ -43,7 +43,7 @@ quiz = {'type': 'quiz', 'id': 'ss-tx-Q1', 'xp': 20, 'title': 'Test exam HS26, Pr
 
 fcc = {'type': 'boss', 'id': 'ss-tx-b2', 'xp': 100, 'minutes': 25,
        'title': 'Test exam boss: crystallography of the FCC lattice (10 pt)',
-       'source': {'file': SRC, 'where': 'Problem 2 (a)-(d), pages 4-7; solutions our own (no official key released)'},
+       'source': {'file': SRC, 'where': 'Problem 2 (a)-(d), pages 4-7; official solution: Midterm_Exam_FKP_HS26_solutions.pdf p. 4-6 (agrees; our key points add the BCC/SC comparison)'},
        'instructions': 'Solve on paper under the timer (the test exam had about 1 point per 3 minutes). Then enter the numbers.',
        'statement': [
            r'FCC unit cell (cube of side $a$, atoms at the corners and face centres).',
@@ -69,7 +69,7 @@ fcc = {'type': 'boss', 'id': 'ss-tx-b2', 'xp': 100, 'minutes': 25,
 
 ag = {'type': 'boss', 'id': 'ss-tx-b3', 'xp': 80, 'minutes': 15,
       'title': 'Test exam boss: electronic and thermal properties of silver (5 pt)',
-      'source': {'file': SRC, 'where': 'Problem 3 (a)-(d), pages 8-11; solutions our own (no official key released), numbers checked in build.py'},
+      'source': {'file': SRC, 'where': 'Problem 3 (a)-(d), pages 8-11; official solution: Midterm_Exam_FKP_HS26_solutions.pdf p. 7 (agrees: n=5.86e22 cm^-3, k_F=1.2 1/Å, E_F=5.5 eV, T_F=6.38e4 K), numbers checked in build.py'},
       'instructions': 'Solve on paper under the timer (hand calculator only, as in the exam). Enter at least 3 significant digits.',
       'statement': [
            r'Silver: free-electron model (nearly spherical Fermi surface), one valence electron per atom, mass density $10.5\ {\rm g/cm^3}$, atomic mass $107.8$ u.',
@@ -91,7 +91,7 @@ ag = {'type': 'boss', 'id': 'ss-tx-b3', 'xp': 80, 'minutes': 15,
            r'(d) Consequence: electronic heat capacity $C_e=\frac{\pi^2}2Nk_B\frac T{T_F}$, only about $T/T_F\approx2\%$ of the classical value even at the melting point.',
       ]}
 
-out = {'about': 'ISSP Test Exam HS26 (Degen); built by notes/solid-state/build/testexam/build.py. Solutions are our own.',
+out = {'about': 'ISSP Test Exam HS26 (Degen); built by notes/solid-state/build/testexam/build.py. Written 10/11 Nov 2026 as the midterm; the official solutions (24 Nov 2026) agree with ours, sources updated.',
        'items': [{'room': 'lattice-gate', 'enc': quiz}, {'room': 'lattice-gate', 'enc': fcc}, {'room': 'fermi-sea', 'enc': ag}]}
 with open(OUT, 'w') as f: json.dump(out, f, ensure_ascii=False, indent=1)
 print('n=%.4g kF=%.4g 1/A EF=%.4g eV TF=%.4g K' % (n, kF * 1e-10, EF / e, EF / kB), '->', os.path.relpath(OUT))

@@ -1311,14 +1311,14 @@
       "xp": 47,
       "source": {
        "file": "Exercises/Weekly Problem Set 9.pdf",
-       "where": "Weekly Problem Set 9, Exercise 1; the official solution was not released yet (16 Nov 2026): this solution is our own, following script 4.1 (eqs. 4.1–4.9) and 4.2.5"
+       "where": "Weekly Problem Set 9, Exercise 1; official solution: Weekly Solution Set 9.pdf (script 4.1, eqs. 4.1–4.9, and 4.3.3)"
       },
       "goal": "Drude assumed the scattering time is set by the thermal speed of a classical gas, $v=\\sqrt{3k_BT/m}$. Copper: density 8960 kg/m$^3$, 63.55 g/mol, $\\rho=1/\\sigma=1.68\\times10^{-8}\\ \\Omega$m at room temperature, one free electron per atom. (a) Calculate the Drude scattering time $\\tau$ at room temperature. (b) With the rms speed, estimate the mean free path $\\lambda$. (c) Assume $\\lambda$ does not depend on $T$: how does $\\rho$ scale with $T$? (d) Compare with $\\rho(T)$ when the scattering is due to phonons.",
       "given": [],
       "steps": [
        {
         "prompt": "(a) Scattering time.",
-        "reveal": "$n=\\frac{\\rho_mN_A}{M}=\\frac{8960\\cdot6.022\\times10^{23}}{0.06355}=8.49\\times10^{28}\\ \\mathrm{m^{-3}}$. From $\\sigma=\\frac{ne^2\\tau}{m}$ (script eq. 4.4): $\\tau=\\frac{m}{ne^2\\rho}=\\frac{9.11\\times10^{-31}}{8.49\\times10^{28}\\cdot(1.602\\times10^{-19})^2\\cdot1.68\\times10^{-8}}=2.5\\times10^{-14}$ s.",
+        "reveal": "$n=\\frac{\\rho_mN_A}{M}=\\frac{8960\\cdot6.022\\times10^{23}}{0.06355}=8.49\\times10^{28}\\ \\mathrm{m^{-3}}$. From $\\sigma=\\frac{ne^2\\tau}{m}$ (script eq. 4.4): $\\tau=\\frac{m}{ne^2\\rho}=\\frac{9.11\\times10^{-31}}{8.49\\times10^{28}\\cdot(1.602\\times10^{-19})^2\\cdot1.68\\times10^{-8}}=2.47\\times10^{-14}$ s.",
         "explain": "<p><b>Electron density</b> = atoms per volume (one free electron each): mass density / molar mass × Avogadro.</p>\n    <p><b>Drude</b> gives $\\sigma=ne^2\\tau/m$: the field accelerates each electron for a time $\\tau$ between collisions. Solve for $\\tau$; a\n    few times $10^{-14}$ s is typical for metals at room temperature.</p>"
        },
        {
@@ -1339,7 +1339,7 @@
       ],
       "keyPoints": [
        "$n=\\rho_mN_A/M=8.5\\times10^{28}$ m$^{-3}$",
-       "$\\tau=m/(ne^2\\rho)=2.5\\times10^{-14}$ s",
+       "$\\tau=m/(ne^2\\rho)=2.47\\times10^{-14}$ s",
        "$\\lambda=v\\tau\\approx3$ nm",
        "constant $\\lambda$: $\\rho\\propto\\sqrt T$",
        "phonons: $\\rho\\propto T$ ($T\\gg T_D$), $T^5$ ($T\\ll T_D$), plus residual resistivity"
@@ -1365,7 +1365,7 @@
       "xp": 60,
       "source": {
        "file": "Exercises/Weekly Problem Set 9.pdf",
-       "where": "Weekly Problem Set 9, Exercise 2; the official solution was not released yet (16 Nov 2026): this solution is our own, following script 4.1 (eqs. 4.1–4.9) and 4.2.5"
+       "where": "Weekly Problem Set 9, Exercise 2; official solution: Weekly Solution Set 9.pdf (script 4.1, eqs. 4.1–4.9, and 4.3.3)"
       },
       "goal": "A 2D sample in the $xy$ plane with electrons (density $n_e$, scattering time $\\tau_e$, charge $-e$) and holes ($n_h$, $\\tau_h$, $+e$); field $E_x$ along $+x$, $B_z$ along $+z$; no net current in $y$. (a) Express $\\mathbf J$ through the drift velocities. (b) Show $\\mathbf v_e=-\\mu_e(\\mathbf E+\\mathbf v_e\\times\\mathbf B)$, $\\mathbf v_h=\\mu_h(\\mathbf E+\\mathbf v_h\\times\\mathbf B)$; what are $\\mu_e,\\mu_h$? (c) For $E_x\\gg|v_{e,y}|B_z,|v_{h,y}|B_z$ show $J_x=eE_x(n_e\\mu_e+n_h\\mu_h)$. (d) Show $J_y=eE_y(n_e\\mu_e+n_h\\mu_h)+eB_zE_x(n_e\\mu_e^2-n_h\\mu_h^2)$. What must $J_y$ be? (e) Show $E_y=J_xB_z\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{e(n_h\\mu_h+n_e\\mu_e)^2}$; extract $R_H=E_y/(J_xB_z)$ and discuss its sign.",
       "given": [],
@@ -1402,6 +1402,103 @@
        "$\\sigma=e(n_e\\mu_e+n_h\\mu_h)$: contributions add",
        "$J_y=0$ although $v_{e,y},v_{h,y}\\ne0$",
        "$R_H=\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{e(n_h\\mu_h+n_e\\mu_e)^2}$, sign set by $n\\mu^2$"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "title": "Electrons and holes: effective mass, cyclotron motion, two-carrier Hall effect",
+   "due": "2026-11-27",
+   "questions": [
+    {
+     "q": 1,
+     "title": "Energy, mass, velocity and cyclotron motion of electrons and holes",
+     "room": "semiconductor-forge",
+     "related": [
+      "ss-sem-L1",
+      "ss-sem-c1",
+      "ss-dri-L1",
+      "ss-sem-Q1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "ss-sheet-s10q1",
+      "title": "Sheet 10 Q1: Energy, mass, velocity and cyclotron motion of electrons and holes",
+      "xp": 47,
+      "source": {
+       "file": "Exercises/Weekly Problem Set 10.pdf",
+       "where": "Weekly Problem Set 10, Exercise 1; the official solution was not released yet (24 Nov 2026): this solution is our own, following script 3.6 (quasiholes, eqs. 3.67–3.69), 4.2.3 (holes and the Hall sign) and 5.1 (effective mass, cyclotron resonance)"
+      },
+      "goal": "Near the top of the valence band $E\\approx E_V-\\frac{\\hbar^2k^2}{2|m^*|}$ (curvature down); near the bottom of the conduction band $E=E_G+\\frac{\\hbar^2}{2m_e^*}(k_x^2+k_y^2)$. (a) A real electron near the top of the valence band: sign of its effective mass, does $E$ rise or fall as $k$ grows from 0, sign of its group velocity for $k>0$? (b) The same for a hole in the valence band. (c) An electron near the conduction-band bottom of a 2D semiconductor, $\\mathbf v=\\nabla_kE/\\hbar$, in a field $B\\hat z$ (no collisions): equation of motion, shape of the motion, cyclotron frequency, direction of the Lorentz force relative to $\\nabla_kE$. (d) A hole near the bottom of the conduction band in the same field: same sense of rotation (chirality) as the electron? Does the chirality change for a hole (or an electron) near the top of the valence band?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(a) Electron at the valence-band top.",
+        "reveal": "$\\frac1{m^*}=\\frac1{\\hbar^2}\\frac{d^2E}{dk^2}<0$: <b>negative</b> effective mass. $E$ <b>decreases</b> as $k$ grows from 0. $v=\\frac1\\hbar\\frac{dE}{dk}=-\\frac{\\hbar k}{|m^*|}<0$ for $k>0$: a <b>negative</b> group velocity, opposite to $k$."
+       },
+       {
+        "prompt": "(b) Hole in the valence band.",
+        "reveal": "A hole with wave vector $k$ is the missing electron at $-k$ (script eq. 3.69), with energy measured downwards, $\\tilde\\varepsilon(k)=E_V-E(-k)=\\frac{\\hbar^2k^2}{2|m^*|}$: the inverted dispersion. So the hole has a <b>positive</b> effective mass $m_h=|m^*|$, its energy <b>increases</b> with $k$, and $v_h=\\frac1\\hbar\\frac{d\\tilde\\varepsilon}{dk}=\\frac{\\hbar k}{m_h}>0$ for $k>0$: <b>positive</b>. Check: it equals the velocity of the missing electron, $v(-k)=+\\hbar k/|m^*|$. Its charge is $+e$."
+       },
+       {
+        "prompt": "(c) Electron in $B\\hat z$.",
+        "reveal": "$\\hbar\\dot{\\mathbf k}=-e\\,\\mathbf v\\times\\mathbf B$ with $\\mathbf v=\\hbar\\mathbf k/m_e^*$, so $m_e^*\\dot{\\mathbf v}=-e\\,\\mathbf v\\times\\mathbf B$: $\\dot v_x=-\\omega_cv_y$, $\\dot v_y=\\omega_cv_x$. Uniform <b>circular</b> motion in the $xy$ plane (in real space and in $k$ space) with $\\omega_c=\\frac{eB}{m_e^*}$, counterclockwise seen from $+z$. The force is perpendicular to $\\mathbf v\\propto\\nabla_kE$: it does no work, so $E$ is constant and $\\mathbf k$ runs along a constant-energy circle."
+       },
+       {
+        "prompt": "(d) Chirality.",
+        "reveal": "The sense of rotation follows from $m\\dot{\\mathbf v}=q\\,\\mathbf v\\times\\mathbf B$: it depends on the sign of $q/m$. A hole near the conduction-band <i>bottom</i> has $q=+e$ but the inverted, downward dispersion, so $m<0$: $q/m$ has the same sign as for the electron ($-e$, $m>0$): the <b>same</b> chirality (counterclockwise). Near the valence-band <i>top</i> both descriptions give $q/m>0$: the electron has $-e$ and $m<0$, the hole $+e$ and $m>0$: the motion is <b>clockwise</b>, the chirality changes. The rotation is set by the curvature of the band, not by whether we describe it with electrons or holes: the two pictures always agree."
+       }
+      ],
+      "keyPoints": [
+       "valence-band top: real electron $m^*<0$, $E$ falls, $v<0$ for $k>0$",
+       "hole: inverted dispersion, $m_h>0$, charge $+e$, $v_h>0$ for $k>0$",
+       "$m^*\\dot{\\mathbf v}=q\\,\\mathbf v\\times\\mathbf B$: circle, $\\omega_c=eB/m^*$",
+       "force $\\perp\\nabla_kE$: motion on a constant-energy contour",
+       "chirality set by the sign of $q/m^*$: same band, same rotation"
+      ]
+     }
+    },
+    {
+     "q": 2,
+     "title": "The Hall coefficient when both electrons and holes are present",
+     "room": "drift-corridor",
+     "related": [
+      "ss-dri-L1",
+      "ss-dri-D1",
+      "ss-dri-c3",
+      "ss-sheet-s9q2"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "ss-sheet-s10q2",
+      "title": "Sheet 10 Q2: The Hall coefficient when both electrons and holes are present",
+      "xp": 31,
+      "source": {
+       "file": "Exercises/Weekly Problem Set 10.pdf",
+       "where": "Weekly Problem Set 10, Exercise 2; the official solution was not released yet (24 Nov 2026): this solution is our own, following script 3.6 (quasiholes, eqs. 3.67–3.69), 4.2.3 (holes and the Hall sign) and 5.1 (effective mass, cyclotron resonance)"
+      },
+      "goal": "(a) Electrons give a negative Drude Hall coefficient. Explain why it is positive when holes carry the current. (b) With $\\rho_{xy}=\\frac{E_y}{J_x}=R_HB_z$ and, for both carriers (sheet 9), $R_H=\\frac{n_h\\mu_h^2-n_e\\mu_e^2}{e(n_h\\mu_h+n_e\\mu_e)^2}$: what is $R_H$ for equal concentrations and equal mobilities? Give an intuitive explanation.",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(a) Sign for holes.",
+        "reveal": "Current $J_x>0$, $B$ along $+z$. Holes ($+e$) drift along $+x$: force $e\\,\\mathbf v\\times\\mathbf B=ev_xB(\\hat x\\times\\hat z)=-ev_xB\\,\\hat y$, they pile up at the $-y$ edge. Electrons drift along $-x$ and are pushed to the <b>same</b> $-y$ edge (both sign changes cancel). What differs is the charge that piles up: positive for holes, so $E_y>0$ and $R_H=\\frac{E_y}{J_xB_z}=+\\frac1{n_he}>0$; negative for electrons, $E_y<0$, $R_H=-\\frac1{n_ee}$ (script eq. 4.9). The Hall sign measures the sign of the carriers."
+       },
+       {
+        "prompt": "(b) Equal $n$ and $\\mu$.",
+        "reveal": "$n_h=n_e$, $\\mu_h=\\mu_e$: the numerator $n_h\\mu_h^2-n_e\\mu_e^2=0$, so $R_H=0$: no Hall voltage. Both kinds of carriers reach the $-y$ edge at the same rate, carrying equal and opposite charge: no net charge builds up, so no transverse field is needed to stop them. (They still both flow sideways, so such a compensated sample shows magnetoresistance instead.)"
+       }
+      ],
+      "keyPoints": [
+       "electrons and holes are deflected to the same edge",
+       "the sign of the piled-up charge sets the sign of $E_y$ and $R_H$",
+       "holes: $R_H=+1/(n_he)$",
+       "equal $n$, $\\mu$: numerator $n_h\\mu_h^2-n_e\\mu_e^2=0$, $R_H=0$",
+       "compensated sample: no net charge at the edges"
       ]
      }
     }

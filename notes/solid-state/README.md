@@ -49,7 +49,7 @@ The PDFs (sheets, solutions, slides, script, test exam) are **not** in git: they
 `fumeia/physics-rpg`; text for searching is in `notes/extracted/solid-state_{exercises,solutions,slides}_*.txt`.
 - Problem Sets 1 and 2 were not in the upload: their questions are reconstructed from Solution Sets 1 and 2 (for sheet 2 Q3 the lattice
   constants and wavelength are read off the solution figure: $d_1\approx0.47$ nm, $d_2\approx0.34$ nm, $\lambda\approx0.166$ nm).
-- Solution Set 9 was not released yet: the solution of sheet 9 is our own (script 4.1, 4.2.5), checked numerically. Replace when it appears.
+- Sheet 9: official Weekly Solution Set 9 (24 Nov 2026) matches our earlier own solution; source updated. (Its 2(d) has a typo, v_{h,y}=mu_e E_x for v_{h,x}=mu_h E_x; the game uses the correct form.)
 - Slips in the official solutions, flagged in the game: sheet 2 Q3(d) lists $(020)$ as the fifth peak, but with the figure's lattice
   $(210)$ comes first; sheet 8 Q2(d) last line has a wrong coefficient ($2\cdot5\cdot3^3$ for $2\cdot3\cdot2^3$); result $K=48U_0/\Omega_0\approx3.0$ GPa.
 - Due dates are estimated (Friday of the week after the lecture week, `dueShiftDays: 0`): ask the user for the real weekday.

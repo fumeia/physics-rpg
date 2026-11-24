@@ -13,11 +13,12 @@ SHEETS = []
 ROMAN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV']
 
 
-def Q(q, title, room, related, statement, parts, keys, xp=None, hints=None, source=None, figure=None):
+def Q(q, title, room, related, statement, parts, keys, xp=None, hints=None, source=None, figure=None, num=None):
     """One question. parts = [(prompt, reference solution)], keys = key points of a full-marks solution.
-    hints here is the list of "Given" lines printed under the goal (kept under its old name for the QM files)."""
+    hints here is the list of "Given" lines printed under the goal (kept under its old name for the QM files).
+    num: the number printed on this year's sheet when it differs from q (q stays the stable id, so progress is kept)."""
     return dict(q=q, title=title, room=room, related=related, statement=statement, parts=parts, keys=keys, xp=xp,
-                hints=hints or [], source=source, figure=figure)
+                hints=hints or [], source=source, figure=figure, num=num)
 
 
 def S(n, title, due, questions):
@@ -43,11 +44,11 @@ def build(dst, *, prefix, title, note, source, primers=None, hints=None, explain
                 assert len(explain[key]) == n, f'{prefix} sheet {key}: {len(explain[key])} explanations for {n} parts'
                 for st, x in zip(steps, explain[key]):
                     if x: st['explain'] = x
-            enc = {'type': 'derive', 'sheet': True, 'id': f"{prefix}-sheet-s{s['n']}q{q['q']}", 'title': f"Sheet {s['n']} Q{q['q']}: {q['title']}", 'xp': xp,
+            enc = {'type': 'derive', 'sheet': True, 'id': f"{prefix}-sheet-s{s['n']}q{q['q']}", 'title': f"Sheet {s['n']} Q{q.get('num') or q['q']}: {q['title']}", 'xp': xp,
                    'source': q['source'] or source(s, q), 'goal': q['statement'], 'given': q['hints'], 'steps': steps, 'keyPoints': q['keys']}
             if q['figure']: enc['figure'] = q['figure']
             if key in primers: enc['primer'] = primers[key]
-            qs.append({'q': q['q'], 'title': q['title'], 'room': q['room'], 'related': q['related'], 'enc': enc})
+            qs.append({'q': q.get('num') or q['q'], 'title': q['title'], 'room': q['room'], 'related': q['related'], 'enc': enc})
         out['sheets'].append({'n': s['n'], 'title': s['title'], 'due': s['due'], 'questions': qs})
     with open(dst, 'w') as fh: json.dump(out, fh, ensure_ascii=False, indent=1)
     print(sum(len(s['questions']) for s in out['sheets']), 'questions in', len(out['sheets']), 'sheets ->', os.path.normpath(dst))

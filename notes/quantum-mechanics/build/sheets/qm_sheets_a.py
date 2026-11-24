@@ -39,6 +39,12 @@ S(2, 'Ehrenfest, real energies, probability current', '2025-10-01', [
    [('Solution.', r'Each $e^{\pm ikx/\hbar}e^{-iE_kt/\hbar}$ solves it ($i\hbar\cdot(-iE_k/\hbar)=\frac{k^2}{2m}$), the time factor is even in $k$, and the equation is linear.'),
     ('Current.', r'$j=\frac{\hbar}{2mi}(\Psi^*\partial_x\Psi-\Psi\partial_x\Psi^*)$: the cross terms $AB^*$ cancel, leaving $\frac km(|A|^2-|B|^2)$: right-movers minus left-movers, each with velocity $k/m$ ($k$ is the momentum here).')],
    [r'superposition of two plane waves', r'cross terms cancel in $j$', r'$j=\frac km(|A|^2-|B|^2)$']),
+ Q(4, 'Probability current II', 'tunneling-bridge', ['qm-tunnel-L1', 'qm-wm-D2', 'qm-sheet-s2q3'],
+   r'At a fixed instant take the superposition of two <i>right-moving</i> plane waves $\Psi(x)=Ae^{ik_1x/\hbar}+Be^{ik_2x/\hbar}$ with $k_1,k_2>0$, $k_1\ne k_2$ ($k$ is a momentum here). Compute the probability current at $x=0$. Can it be left-moving, $j(0)<0$?',
+   [('Derivative and cross terms.', r'$\Psi^\prime=\frac i\hbar\left(k_1Ae^{ik_1x/\hbar}+k_2Be^{ik_2x/\hbar}\right)$. In $j=\frac{\hbar}{2mi}(\Psi^*\Psi^\prime-\Psi\Psi^{*\prime})$ the diagonal terms now <b>add</b> (unlike $k_2=-k_1$ in Q3) and the cross terms carry $(k_1+k_2)$: $j(x)=\frac1m\left[k_1|A|^2+k_2|B|^2+(k_1+k_2)\,\mathrm{Re}\!\left(AB^*e^{i(k_1-k_2)x/\hbar}\right)\right]$.'),
+    ('At $x=0$.', r'$j(0)=\frac1m\left[k_1|A|^2+k_2|B|^2+(k_1+k_2)\,\mathrm{Re}(AB^*)\right]=\frac1{2m}\begin{pmatrix}A^*&B^*\end{pmatrix}\begin{pmatrix}2k_1&k_1+k_2\\k_1+k_2&2k_2\end{pmatrix}\begin{pmatrix}A\\B\end{pmatrix}$, a hermitian quadratic form.'),
+    ('Sign.', r'Its determinant is $4k_1k_2-(k_1+k_2)^2=-(k_1-k_2)^2<0$ and its trace $2(k_1+k_2)>0$: one positive and one negative eigenvalue. Choosing $(A,B)$ along the negative eigenvector gives $j(0)<0$: <b>yes</b>, the current can flow to the left although both waves move right. Example: $A=2$, $B=-1$ gives $j(0)=\frac{2k_1-k_2}m<0$ for $k_2>2k_1$. (This is quantum backflow; the current is only positive on average over $x$.)')],
+   [r'$j(x)=\frac1m[k_1|A|^2+k_2|B|^2+(k_1+k_2)\mathrm{Re}(AB^*e^{i(k_1-k_2)x/\hbar})]$', r'$j(0)$ as a hermitian quadratic form in $(A,B)$', r'determinant $-(k_1-k_2)^2<0$: indefinite', r'negative eigenvector: $j(0)<0$ possible (backflow)']),
 ])
 
 S(3, 'Gaussians and the box', '2025-10-08', [

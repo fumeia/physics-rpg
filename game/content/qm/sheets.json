@@ -267,6 +267,49 @@
        "$j=\\frac km(|A|^2-|B|^2)$"
       ]
      }
+    },
+    {
+     "q": 4,
+     "title": "Probability current II",
+     "room": "tunneling-bridge",
+     "related": [
+      "qm-tunnel-L1",
+      "qm-wm-D2",
+      "qm-sheet-s2q3"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s2q4",
+      "title": "Sheet 2 Q4: Probability current II",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/Exercises 2.pdf",
+       "where": "Exercise sheet II, Question 4; official solution: Solutions 2.pdf"
+      },
+      "goal": "At a fixed instant take the superposition of two <i>right-moving</i> plane waves $\\Psi(x)=Ae^{ik_1x/\\hbar}+Be^{ik_2x/\\hbar}$ with $k_1,k_2>0$, $k_1\\ne k_2$ ($k$ is a momentum here). Compute the probability current at $x=0$. Can it be left-moving, $j(0)<0$?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "Derivative and cross terms.",
+        "reveal": "$\\Psi^\\prime=\\frac i\\hbar\\left(k_1Ae^{ik_1x/\\hbar}+k_2Be^{ik_2x/\\hbar}\\right)$. In $j=\\frac{\\hbar}{2mi}(\\Psi^*\\Psi^\\prime-\\Psi\\Psi^{*\\prime})$ the diagonal terms now <b>add</b> (unlike $k_2=-k_1$ in Q3) and the cross terms carry $(k_1+k_2)$: $j(x)=\\frac1m\\left[k_1|A|^2+k_2|B|^2+(k_1+k_2)\\,\\mathrm{Re}\\!\\left(AB^*e^{i(k_1-k_2)x/\\hbar}\\right)\\right]$."
+       },
+       {
+        "prompt": "At $x=0$.",
+        "reveal": "$j(0)=\\frac1m\\left[k_1|A|^2+k_2|B|^2+(k_1+k_2)\\,\\mathrm{Re}(AB^*)\\right]=\\frac1{2m}\\begin{pmatrix}A^*&B^*\\end{pmatrix}\\begin{pmatrix}2k_1&k_1+k_2\\\\k_1+k_2&2k_2\\end{pmatrix}\\begin{pmatrix}A\\\\B\\end{pmatrix}$, a hermitian quadratic form."
+       },
+       {
+        "prompt": "Sign.",
+        "reveal": "Its determinant is $4k_1k_2-(k_1+k_2)^2=-(k_1-k_2)^2<0$ and its trace $2(k_1+k_2)>0$: one positive and one negative eigenvalue. Choosing $(A,B)$ along the negative eigenvector gives $j(0)<0$: <b>yes</b>, the current can flow to the left although both waves move right. Example: $A=2$, $B=-1$ gives $j(0)=\\frac{2k_1-k_2}m<0$ for $k_2>2k_1$. (This is quantum backflow; the current is only positive on average over $x$.)"
+       }
+      ],
+      "keyPoints": [
+       "$j(x)=\\frac1m[k_1|A|^2+k_2|B|^2+(k_1+k_2)\\mathrm{Re}(AB^*e^{i(k_1-k_2)x/\\hbar})]$",
+       "$j(0)$ as a hermitian quadratic form in $(A,B)$",
+       "determinant $-(k_1-k_2)^2<0$: indefinite",
+       "negative eigenvector: $j(0)<0$ possible (backflow)"
+      ]
+     }
     }
    ]
   },
@@ -928,6 +971,50 @@
    "questions": [
     {
      "q": 1,
+     "title": "Free electron in a magnetic field",
+     "room": "harmonic-oscillator-elevator",
+     "related": [
+      "qm-ho-L1",
+      "qm-ho-L4",
+      "qm-sheet-s7q1"
+     ],
+     "enc": {
+      "type": "derive",
+      "sheet": true,
+      "id": "qm-sheet-s7q4",
+      "title": "Sheet 7 Q1: Free electron in a magnetic field",
+      "xp": 39,
+      "source": {
+       "file": "materials/quantum-mechanics/exercises/HS26/sheet_7.pdf",
+       "where": "Exercise sheet VII (HS26), Question 1 (new this year); official solution: sheet_7_solutions.pdf, (S.1)–(S.8)"
+      },
+      "goal": "An electron (mass $m$, charge $-e$, $e>0$) moves in the $xy$ plane in a homogeneous field $B\\hat z$: $H=\\frac1{2m}\\left(\\vec p+\\frac ec\\vec A\\right)^2$ (Gaussian units), Landau gauge $\\vec A=(0,Bx)$. (i) Separate variables and map the problem to a harmonic oscillator; with $\\omega_c=\\frac{eB}{mc}$ and the magnetic length $\\ell=\\sqrt{\\hbar c/eB}$, find the energies and eigenfunctions in terms of the 1D oscillator eigenfunctions $\\chi_n$. (ii) Add a homogeneous electric field along $x$, potential $\\phi(x)=-\\mathcal Ex$. How does the spectrum change?",
+      "given": [],
+      "steps": [
+       {
+        "prompt": "(i) Separation.",
+        "reveal": "$H=\\frac1{2m}\\left(p_x^2+\\left(p_y+\\frac{eB}cx\\right)^2\\right)$ does not contain $y$, so $[p_y,H]=0$: take $\\psi=\\chi(x)e^{ik_yy}$ ($k_y$ a wave number). Then $\\left(-\\frac{\\hbar^2}{2m}\\partial_x^2+\\frac m2\\omega_c^2\\left(x+k_y\\ell^2\\right)^2\\right)\\chi=E\\chi$, using $\\frac{eB}c=m\\omega_c$ and $\\hbar=m\\omega_c\\ell^2$."
+       },
+       {
+        "prompt": "(i) Landau levels.",
+        "reveal": "A harmonic oscillator of frequency $\\omega_c$ centred at $x_0=-k_y\\ell^2$: $E_n=\\hbar\\omega_c\\left(n+\\frac12\\right)$, $\\psi_{n,k_y}(x,y)=e^{ik_yy}\\chi_n(x+k_y\\ell^2)$. $E_n$ does not depend on $k_y$: every level is degenerate, with one state per allowed $k_y$ (infinitely many on the infinite plane)."
+       },
+       {
+        "prompt": "(ii) Electric field.",
+        "reveal": "The charge $-e$ in $\\phi=-\\mathcal Ex$ has potential energy $+e\\mathcal Ex$; $H$ still does not contain $y$. Completing the square: $\\frac m2\\omega_c^2(x+k_y\\ell^2)^2+e\\mathcal Ex=\\frac m2\\omega_c^2\\left(x+k_y\\ell^2+\\frac{e\\mathcal E}{m\\omega_c^2}\\right)^2-\\hbar k_y\\frac{\\mathcal Ec}B-\\frac m2\\frac{\\mathcal E^2c^2}{B^2}$: a shifted oscillator. $E_{n,k_y}=\\hbar\\omega_c\\left(n+\\frac12\\right)-\\hbar k_y\\frac{\\mathcal Ec}B-\\frac m2\\frac{\\mathcal E^2c^2}{B^2}$: the spacing $\\hbar\\omega_c$ stays, the degeneracy in $k_y$ is lifted (the energy now depends on where the orbit sits, $x_0$, through the potential; $\\mathcal Ec/B$ is the drift velocity)."
+       }
+      ],
+      "keyPoints": [
+       "Landau gauge: $p_y$ conserved, $\\psi=\\chi(x)e^{ik_yy}$",
+       "oscillator with $\\omega_c=eB/mc$ centred at $x_0=-k_y\\ell^2$",
+       "$E_n=\\hbar\\omega_c(n+\\frac12)$, degenerate in $k_y$",
+       "electric field: complete the square, $E$ gains $-\\hbar k_y\\mathcal Ec/B-\\frac m2\\mathcal E^2c^2/B^2$",
+       "degeneracy lifted"
+      ]
+     }
+    },
+    {
+     "q": 2,
      "title": "2D harmonic oscillator",
      "room": "harmonic-oscillator-elevator",
      "related": [
@@ -940,7 +1027,7 @@
       "type": "derive",
       "sheet": true,
       "id": "qm-sheet-s7q1",
-      "title": "Sheet 7 Q1: 2D harmonic oscillator",
+      "title": "Sheet 7 Q2: 2D harmonic oscillator",
       "xp": 55,
       "source": {
        "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
@@ -985,7 +1072,7 @@
      }
     },
     {
-     "q": 2,
+     "q": 3,
      "title": "Coherent states",
      "room": "harmonic-oscillator-elevator",
      "related": [
@@ -999,7 +1086,7 @@
       "type": "derive",
       "sheet": true,
       "id": "qm-sheet-s7q2",
-      "title": "Sheet 7 Q2: Coherent states",
+      "title": "Sheet 7 Q3: Coherent states",
       "xp": 60,
       "source": {
        "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",
@@ -1050,7 +1137,7 @@
      }
     },
     {
-     "q": 3,
+     "q": 4,
      "title": "Degeneracies",
      "room": "harmonic-oscillator-elevator",
      "related": [
@@ -1062,7 +1149,7 @@
       "type": "derive",
       "sheet": true,
       "id": "qm-sheet-s7q3",
-      "title": "Sheet 7 Q3: Degeneracies",
+      "title": "Sheet 7 Q4: Degeneracies",
       "xp": 39,
       "source": {
        "file": "materials/quantum-mechanics/exercises/Exercises 7.pdf",

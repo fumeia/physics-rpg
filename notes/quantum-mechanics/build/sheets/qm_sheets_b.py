@@ -78,3 +78,21 @@ S(9, 'sech² potential, discrete spectra, Pauli matrices, su(3)', '2025-11-19', 
     ('(iv) The oscillator levels.', r'Level $N$ = all $|n_1,n_2,n_3\rangle$ with $\sum n_i=N$, dimension $\frac{(N+1)(N+2)}{2}$. Highest weight vector $(a_1^\dagger)^N|0\rangle$, weight $(N,0)$: the symmetric irrep $\mathrm{Sym}^N(\mathbb C^3)$; su(3) explains the full degeneracy (more than SO(3) alone).')],
    [r'$[H,a_i^\dagger a_j]=0$ and matching brackets', r'roots $(2,-1),(-1,2),(1,1)$ and negatives', r'highest weight with integer $\lambda(h_\alpha)$', r'level $N$ = irrep with highest weight $(N,0)$']),
 ])
+
+# ---- HS26 changes to sheets VII and IX (the HS26 set of 2026 adds and reorders questions). New questions get unused internal
+# numbers (stable ids); num= is the number printed on this year's sheet, and the lists are put in this year's order.
+from qm_sheet_lib import SHEETS as _SHEETS
+def _hs26(n, new, order):
+    sh = next(s for s in _SHEETS if s['n'] == n)
+    qs = {q['q']: q for q in sh['questions'] + new}
+    sh['questions'] = [dict(qs[q], num=i + 1) for i, q in enumerate(order)]
+
+_hs26(7, [
+ Q(4, 'Free electron in a magnetic field', 'harmonic-oscillator-elevator', ['qm-ho-L1', 'qm-ho-L4', 'qm-sheet-s7q1'],
+   r'An electron (mass $m$, charge $-e$, $e>0$) moves in the $xy$ plane in a homogeneous field $B\hat z$: $H=\frac1{2m}\left(\vec p+\frac ec\vec A\right)^2$ (Gaussian units), Landau gauge $\vec A=(0,Bx)$. (i) Separate variables and map the problem to a harmonic oscillator; with $\omega_c=\frac{eB}{mc}$ and the magnetic length $\ell=\sqrt{\hbar c/eB}$, find the energies and eigenfunctions in terms of the 1D oscillator eigenfunctions $\chi_n$. (ii) Add a homogeneous electric field along $x$, potential $\phi(x)=-\mathcal Ex$. How does the spectrum change?',
+   [('(i) Separation.', r'$H=\frac1{2m}\left(p_x^2+\left(p_y+\frac{eB}cx\right)^2\right)$ does not contain $y$, so $[p_y,H]=0$: take $\psi=\chi(x)e^{ik_yy}$ ($k_y$ a wave number). Then $\left(-\frac{\hbar^2}{2m}\partial_x^2+\frac m2\omega_c^2\left(x+k_y\ell^2\right)^2\right)\chi=E\chi$, using $\frac{eB}c=m\omega_c$ and $\hbar=m\omega_c\ell^2$.'),
+    ('(i) Landau levels.', r'A harmonic oscillator of frequency $\omega_c$ centred at $x_0=-k_y\ell^2$: $E_n=\hbar\omega_c\left(n+\frac12\right)$, $\psi_{n,k_y}(x,y)=e^{ik_yy}\chi_n(x+k_y\ell^2)$. $E_n$ does not depend on $k_y$: every level is degenerate, with one state per allowed $k_y$ (infinitely many on the infinite plane).'),
+    ('(ii) Electric field.', r'The charge $-e$ in $\phi=-\mathcal Ex$ has potential energy $+e\mathcal Ex$; $H$ still does not contain $y$. Completing the square: $\frac m2\omega_c^2(x+k_y\ell^2)^2+e\mathcal Ex=\frac m2\omega_c^2\left(x+k_y\ell^2+\frac{e\mathcal E}{m\omega_c^2}\right)^2-\hbar k_y\frac{\mathcal Ec}B-\frac m2\frac{\mathcal E^2c^2}{B^2}$: a shifted oscillator. $E_{n,k_y}=\hbar\omega_c\left(n+\frac12\right)-\hbar k_y\frac{\mathcal Ec}B-\frac m2\frac{\mathcal E^2c^2}{B^2}$: the spacing $\hbar\omega_c$ stays, the degeneracy in $k_y$ is lifted (the energy now depends on where the orbit sits, $x_0$, through the potential; $\mathcal Ec/B$ is the drift velocity).')],
+   [r'Landau gauge: $p_y$ conserved, $\psi=\chi(x)e^{ik_yy}$', r'oscillator with $\omega_c=eB/mc$ centred at $x_0=-k_y\ell^2$', r'$E_n=\hbar\omega_c(n+\frac12)$, degenerate in $k_y$', r'electric field: complete the square, $E$ gains $-\hbar k_y\mathcal Ec/B-\frac m2\mathcal E^2c^2/B^2$', r'degeneracy lifted'],
+   source={'file': 'materials/quantum-mechanics/exercises/HS26/sheet_7.pdf', 'where': 'Exercise sheet VII (HS26), Question 1 (new this year); official solution: sheet_7_solutions.pdf, (S.1)–(S.8)'}),
+], [4, 1, 2, 3])

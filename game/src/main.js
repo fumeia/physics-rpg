@@ -4,7 +4,7 @@ import { World, SCALE } from './world.js';
 import { Player } from './player.js';
 import { TunnelSim } from './sim.js';
 import { mount, finish as finishEncounter } from './encounters.js';
-import { initBreaks, checkBreak, onBreak, breakSecondsOn, breaksOn } from './breaks.js';
+import { initBreaks, checkBreak, onBreak, breakSecondsOn, breaksOn, offerBreak } from './breaks.js';
 import { store, setXpHook, localDate, weekKey } from './store.js';
 import { M, prettyText } from './math.js';
 import katex from '../vendor/katex/katex.mjs';
@@ -1621,6 +1621,7 @@ function watchPanels() {
   for (const id of ['cx', 'side', 'nx-card']) $(id).addEventListener('scroll', () => { const e = $(id); if (e.scrollLeft) e.scrollLeft = 0; }, { passive: true }); // no sideways drift of a whole panel
   const mo = new MutationObserver(sync); for (const id of ['side', 'cx']) mo.observe($(id), { attributes: true, attributeFilter: ['class'] });
   for (const [btn, id] of [['side-max', 'side'], ['cx-max', 'cx']]) $(btn).onclick = () => $(id).classList.toggle('max');
+  $('side-pause').innerHTML = ic('pause'); $('side-pause').onclick = () => offerBreak();
   $('ov-max').onclick = () => document.querySelector('.ov-card').classList.toggle('max');
   sync();
 }

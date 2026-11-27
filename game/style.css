@@ -635,3 +635,6 @@ html[data-theme=light] .callout.think summary, html[data-theme=light] .callout.a
 @media (max-width: 520px) { #brk-offer { left: 16px; right: 16px; max-width: none; } }
 /* summary: concept and trap lines next to the formulas */
 .sm-concept .sm-ctext { font-size: 13px; line-height: 1.35; margin: 2px 0; } .sm-kind { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--warn); margin-right: 4px; }
+/* the pause button of an exercise, left of the enlarge button (same break as the 35-minute reminder, src/breaks.js) */
+#side-pause { position: absolute; top: 10px; right: 186px; font-size: 13px; line-height: 1; }
+body.touch #side-pause { top: 8px; right: 206px; font-size: 16px; padding: 4px 10px; min-height: 34px; }

@@ -31,6 +31,7 @@ const P = {
   list: '<rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8.5h8M8 12h8M8 15.5h5"/>',
   therefore: '<circle cx="12" cy="6.5" r="1.4" fill="currentColor"/><circle cx="6.5" cy="17" r="1.4" fill="currentColor"/><circle cx="17.5" cy="17" r="1.4" fill="currentColor"/>',
   play: '<path fill="currentColor" d="M7.5 4.5l12 7.5-12 7.5z"/>',
+  pause: '<path fill="currentColor" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>',
 };
 export const ic = (name, cls = '') => `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${P[name] || ''}</svg>`;
 export const ICON_NAMES = Object.keys(P);

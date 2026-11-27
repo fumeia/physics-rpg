@@ -32,15 +32,18 @@ function ensureDom() {
   document.body.append(v);
   // while the break runs, game keys do nothing (the break view is in front of the game)
   document.addEventListener('keydown', (e) => { if (v.classList.contains('on')) { e.stopPropagation(); if (e.code === 'Space' || e.code.startsWith('Arrow')) e.preventDefault(); } }, true);
-  o.querySelectorAll('[data-brk]').forEach((b) => (b.onclick = () => { const k = b.dataset.brk; hideOffer(); if (k === 'later') nextAt = ctx.studySeconds() + SNOOZE; else start(+k); }));
+  o.querySelectorAll('[data-brk]').forEach((b) => (b.onclick = () => { const k = b.dataset.brk; hideOffer(); if (k === 'later') { if (!manual) nextAt = ctx.studySeconds() + SNOOZE; } else start(+k); }));
   $('brk-end').onclick = () => finish(Date.now());
   $('brk-more').onclick = () => { const b = store.val('breakNow', null); if (b) { store.setVal('breakNow', { ...b, end: b.end + 5 * 60e3, m: b.m + 5 }); render(); } };
 }
 const TIPS = ['Stand up, stretch, look out of the window: far focus relaxes the eyes.', 'Drink a glass of water.', 'Walk a few steps. No phone, let the brain file what you just did.',
   'Breathe slowly: 4 in, 6 out, a few times.', 'Shoulders down, neck loose. Then a short walk.'];
-function showOffer() {
-  ensureDom(); const min = Math.round((ctx.studySeconds() - (store.val('breakAfter', 0) || 0)) / 60);
-  $('brk-why').textContent = ` ${Math.max(35, min)} minutes of focused work. A short break keeps the next block sharp.`;
+let manual = false; // the offer was opened by the pause button ("Not now" then just closes it)
+function showOffer(byHand = false) {
+  ensureDom(); manual = byHand; const min = Math.max(0, Math.round((ctx.studySeconds() - (store.val('breakAfter', 0) || 0)) / 60));
+  $('brk-offer').querySelector('.brk-t b').textContent = byHand ? 'Take a break' : 'Time for a break?';
+  $('brk-offer').querySelector('.brk-later').textContent = byHand ? 'Not now' : 'Later';
+  $('brk-why').textContent = byHand ? ` ${min} min of focused work since the last break. The 35-minute reminder starts again after this break.` : ` ${Math.max(35, min)} minutes of focused work. A short break keeps the next block sharp.`;
   $('brk-offer').classList.add('on'); try { document.exitPointerLock?.(); } catch { /* ignore */ }
 }
 const hideOffer = () => $('brk-offer')?.classList.remove('on');
@@ -77,6 +80,8 @@ export function initBreaks(c) {
   clearInterval(tick); tick = setInterval(() => { if (store.val('breakNow', null)) render(); }, 500);
   window.addEventListener('store-replaced', render);
 }
+// the pause button in an exercise: the same choice and the same break (it resets the 35-minute reminder)
+export function offerBreak() { if (!ctx) return; if (onBreak()) { render(); return; } showOffer(true); }
 // called often while studying (main.js): offer a break once enough focused time has passed since the last one
 export function checkBreak() {
   if (!ctx || onBreak() || $('brk-offer')?.classList.contains('on')) return;

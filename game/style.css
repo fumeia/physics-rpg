@@ -638,3 +638,10 @@ html[data-theme=light] .callout.think summary, html[data-theme=light] .callout.a
 /* the pause button of an exercise, left of the enlarge button (same break as the 35-minute reminder, src/breaks.js) */
 #side-pause { position: absolute; top: 10px; right: 186px; font-size: 13px; line-height: 1; }
 body.touch #side-pause { top: 8px; right: 206px; font-size: 16px; padding: 4px 10px; min-height: 34px; }
+/* what-if explorer: colour swatches, exponent bars, prediction box */
+.ex-sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.ex-bars { margin-top: 8px; } .ex-bar { display: grid; grid-template-columns: 70px 1fr minmax(150px, 40%); gap: 8px; align-items: center; cursor: pointer; padding: 2px 0; font-size: 13px; }
+.ex-track { position: relative; height: 10px; background: var(--line); border-radius: 5px; } .ex-track i { position: absolute; top: 0; bottom: 0; border-radius: 5px; }
+.ex-track::after { content: ''; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--dim); }
+.ex-q { border-left: 3px solid var(--accent); padding: 4px 10px; margin: 6px 0; } .ex-q .opt { min-width: 76px; }
+.ex-q .row .opt { width: auto; display: inline-block; flex: 0 0 auto; margin: 2px 6px 2px 0; padding: 6px 14px; }

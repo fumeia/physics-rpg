@@ -1010,18 +1010,23 @@ const MOT_EX = ['Nice rhythm. {n} exercises in this session: this is how exams g
 const MOT_TIME = ['{m} minutes of real study today. A short break (stand up, water) keeps the next block sharp.', '{m} minutes focused today. Strong. Two minutes of break, then on.',
   '{m} minutes in. The hard part is starting, and you are well past it.', '{m} minutes of work today. If something feels stuck: walk away for 3 minutes, then look again.',
   '{m} minutes today. Consistency beats intensity, and today you are consistent.'];
-// A computed reason to go on: what the rest of today's run does for the exam. Old-exam problems (the bosses) count as "within reach"
-// once every other exercise of their room is passed; the course share is the passed exercises of that course.
+// A computed reason to go on: what the rest of today's run does for the exam. An old-exam problem (a boss) counts as "within reach"
+// once you have the theory it needs: every lesson of its room passed, plus its own prerequisite fight (boss.requires) if it lists one;
+// a boss you passed counts too. The course share is the passed exercises of that course. `next` is the closest boss not yet in reach.
 const counted = (e) => e.type !== 'sandbox' && !e.book && !e.sim && !e.synthetic;
 function examReach(extra = new Set()) {
-  const ok = (e) => store.isPassed(e.id) || extra.has(e.id), out = { bosses: 0, reach: 0, courses: {} };
+  const ok = (e) => store.isPassed(e.id) || extra.has(e.id), out = { bosses: 0, reach: 0, courses: {}, next: null };
   for (const c of catalog) {
     let n = 0, d = 0;
     for (const r of c.rooms) {
-      const es = r.encounters.filter(counted), prep = es.filter((e) => e.type !== 'boss');
+      const es = r.encounters.filter(counted), lessons = es.filter((e) => e.type === 'lesson' && !e.reading); /* the script-reading cards are their own track, as in the campaign */
       n += es.length; d += es.filter(ok).length;
-      const ready = prep.every(ok);
-      for (const b of es.filter((e) => e.type === 'boss')) { out.bosses++; if (ready || ok(b)) out.reach++; }
+      for (const b of es.filter((e) => e.type === 'boss')) {
+        out.bosses++;
+        const need = [...lessons, ...[].concat(b.requires || []).map((id) => encIndex.get(id)?.enc).filter(Boolean)].filter((e) => !ok(e));
+        if (ok(b) || !need.length) { out.reach++; continue; }
+        if (!out.next || need.length < out.next.need.length) out.next = { boss: b, room: r, need };
+      }
     }
     out.courses[c.id] = { n, d };
   }
@@ -1038,7 +1043,9 @@ function reasonLine() {
     const x = Math.round(100 * a.d / a.n), y = Math.round(100 * b.d / b.n); return y > x ? `${nm} from ${x}% to ${y}% done` : ''; }).filter(Boolean).join(', ');
   const first = encIndex.get(open[0]).enc.title, rest = open.length - 1;
   const what = `“${String(first).replace(/<[^>]+>/g, '').slice(0, 60)}”${rest ? ` and the other ${rest} stop${rest === 1 ? '' : 's'} of today's run` : ''}`;
-  return `<br><b>Why go on:</b> finishing ${what} brings ${cs || 'you closer to the exam'}` + (gain > 0 ? `; you can then take on <b>${then.reach} of ${then.bosses}</b> old-exam problems (${gain} more than now).` : `; ${now.reach} of ${now.bosses} old-exam problems are within reach so far.`);
+  const nx = now.next, clean = (t) => String(t).replace(/<[^>]+>/g, '').replace(/^(Boss|Test exam boss):\s*/i, '').slice(0, 60);
+  const closest = nx ? ` Closest next: \u201c${clean(nx.boss.title)}\u201d (${nx.room.title}), ${nx.need.length} to go: ${nx.need.slice(0, 2).map((e) => clean(e.title)).join(', ')}${nx.need.length > 2 ? ', \u2026' : ''}.` : '';
+  return `<br><b>Why go on:</b> finishing ${what} brings ${cs || 'you closer to the exam'}` + (gain > 0 ? `; you can then take on <b>${then.reach} of ${then.bosses}</b> old-exam problems (${gain} more than now).` : `; ${now.reach} of ${now.bosses} old-exam problems are within reach so far.${closest}`);
 }
 function motivate(kind) {
   if (performance.now() - MOT.last < 4 * 60e3) return; MOT.last = performance.now();
@@ -1647,7 +1654,7 @@ function exposeTestApi() {
     state: () => ({ codex: codexOpen, xp: store.xp, due: store.dueReviews(), running: !!(runner && !runner.finished), panelOpen: !!current, overlay, door: world.doorTarget, pos: player.pos.toArray(), yaw: player.yaw, pitch: player.pitch, prompt: $('prompt').textContent, pb: { ...pb }, tutorial: tut ? tut.i : null }),
     activeSeconds: () => studyToday() + Math.round(studyAcc),
     failFrames: (n) => { testHooks.failFrames = n; }, teleport: (...a) => player.teleport(...a), holoParams: () => holos?.params?.() || [], fov: () => world.camera.fov, view: () => ({ ...world.camera.view }), zoom: () => world.zoom, frames: () => world.renderer.info.render.frame,
-    finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, reason: () => reasonLine(), nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
+    finish: (id, ok, xp) => { finishEncounter(encIndex.get(id).enc, ok, xp); refresh(); }, reason: () => reasonLine(), reach: () => { const r = examReach(); return { reach: r.reach, bosses: r.bosses, next: r.next && { boss: r.next.boss.id, need: r.next.need.map((e) => e.id) } }; }, nextStep: () => { const n = nextRouteStep(); return n ? { key: n.key, enc: n.enc?.id || null } : null; }, quickIds: () => quickIds(), weekStats: () => weekStats(), goal: () => goalInfo(), streak: () => streakNow(),
     quality: () => quality?.info(), battle: () => battle.current(),
     setSpeed: (s) => setSpeed(s), sim: () => view.sim, world: () => world, set: () => set, scale: SCALE,
   };

@@ -804,7 +804,7 @@
       }
      },
      {
-      "q": "Diatomic chain with masses $M_1$, $M_2$ and spring constant $f$. Which point 1–4 of the dispersion matches the mode shown (displacements drawn sideways)?<br><img class=\"fig\" src=\"content/solid-state/fig/q23-diatomic-mode.png\" alt=\"Left: dispersion with acoustic and optical branch; points 1 (acoustic) and 3 (optical) at k = pi over 2a, point 2 (optical, small k), point 4 (acoustic, near pi over a). Right: displacement pattern of the chain over four lattice constants; filled and open atoms lie on two sine curves of opposite sign with wavelength 4a\">",
+      "q": "Diatomic chain with masses $M_1$, $M_2$ and spring constant $f$ (the slides’ letter; the script calls it $k$, and writes the wave vector $q$). Which point 1–4 of the dispersion matches the mode shown (displacements drawn sideways)?<br><img class=\"fig\" src=\"content/solid-state/fig/q23-diatomic-mode.png\" alt=\"Left: dispersion with acoustic and optical branch; points 1 (acoustic) and 3 (optical) at k = pi over 2a, point 2 (optical, small k), point 4 (acoustic, near pi over a). Right: displacement pattern of the chain over four lattice constants; filled and open atoms lie on two sine curves of opposite sign with wavelength 4a\">",
       "options": [
        "Point 1",
        "Point 2",
@@ -829,7 +829,7 @@
        "(A4), (B2), (C1), (D3)"
       ],
       "correct": 1,
-      "explain": "D (acoustic, $k=0$): all atoms move together, a rigid shift: (1). A (optical, $k=0$): the two sublattices move against each other, identically in every cell: (2). At the zone boundary neighbouring cells are in antiphase and one sublattice stands still: in the optical mode B the light atoms move, $\\omega^2=2f/M_{\\rm light}$: (3); in the acoustic mode C the heavy atoms move, $\\omega^2=2f/M_{\\rm heavy}$: (4) (script 2.2.5).",
+      "explain": "(Slide notation: $k$ is the wave vector, $f$ the spring constant; in the script $q$ and $k$.) D (acoustic, $k=0$): all atoms move together, a rigid shift: (1). A (optical, $k=0$): the two sublattices move against each other, identically in every cell: (2). At the zone boundary neighbouring cells are in antiphase and one sublattice stands still: in the optical mode B the light atoms move, $\\omega^2=2f/M_{\\rm light}$: (3); in the acoustic mode C the heavy atoms move, $\\omega^2=2f/M_{\\rm heavy}$: (4) (script 2.2.5).",
       "source": {
        "file": "lecture slides/Week08 (Quizzes).pdf",
        "where": "slide 24; the slide marks this answer"
@@ -861,7 +861,7 @@
        "By increasing the distance between atoms, leading to a weaker spring force"
       ],
       "correct": 1,
-      "explain": "At the zone edge $\\omega_{\\rm opt}=\\sqrt{2f/M_1}$, $\\omega_{\\rm ac}=\\sqrt{2f/M_2}$. A heavier $M_2$ lowers the acoustic edge: the gap grows. A heavier $M_1$ lowers the optical edge: the gap shrinks. Doubling both, or weakening $f$, scales both frequencies down and the gap with them.",
+      "explain": "Notation of the slides: $f$ is the spring (force) constant between neighbours, $k$ the wave vector; the script writes the spring constant $k$ and the wave vector $q$. At the zone edge $\\omega_{\\rm opt}=\\sqrt{2f/M_1}$, $\\omega_{\\rm ac}=\\sqrt{2f/M_2}$ (light mass $M_1$ in the optical mode, heavy $M_2$ in the acoustic one). A heavier $M_2$ lowers the acoustic edge: the gap grows. A heavier $M_1$ lowers the optical edge: the gap shrinks. Doubling both, or weakening $f$, scales both frequencies down and the gap with them.",
       "source": {
        "file": "lecture slides/Week08 (Quizzes).pdf",
        "where": "slide 26; the slide marks this answer"

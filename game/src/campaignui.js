@@ -199,6 +199,12 @@ export function createCampaign(ctx) {
     const list = Object.values(best).sort((a, b) => a.d - b.d);
     return list.length ? list : null;
   }
+  // the runs of the next days as they would be built from today's state (no progress assumed): which kinds of stops come when
+  function previewRuns(n = 14, minutes = runMinutes()) {
+    const rv = store.snapshot.reviews || {}, due = store.dueReviews().filter((id) => ctx.encIndex.has(id)), today = Math.floor(Date.now() / 86400000), out = [];
+    for (let d = 0; d < n; d++) out.push(buildRun({ weeks: W(), isPassed: cleared, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds(), reread: rereadStops(), examDays: Object.fromEntries(courses().map((c) => [c, daysToExam(new Date(), c)])), day: today + d }).stops.filter((x) => x.kind === 'exam').map((x) => x.id));
+    return out;
+  }
   function freshRun(minutes = runMinutes()) {
     const rv = store.snapshot.reviews || {}, due = store.dueReviews().filter((id) => ctx.encIndex.has(id)).sort((a, b) => (rv[a].due || 0) - (rv[b].due || 0));
     const r = buildRun({ weeks: W(), isPassed: cleared, known: known(), taught: taught(), due, minutes, encOf: (id) => ctx.encIndex.get(id)?.enc, isLocked: ctx.isLockedId, dueSoon: dueSoon(), skim: skim(), defend: fadingIds(), reread: rereadStops(), examDays: Object.fromEntries(courses().map((c) => [c, daysToExam(new Date(), c)])) });
@@ -551,5 +557,5 @@ export function createCampaign(ctx) {
   // for the Script tab of the study hub: second-pass state per course, and starting/stopping it from there
   function rereadInfo(cid) { const st = rereadState()[cid]; return st?.since ? { from: st.from, done: new Set(syncReread()[cid]?.done || []) } : null; }
   function setReread(cid, from) { const rs = { ...rereadState() }; if (from) rs[cid] = { from, since: Date.now(), done: [] }; else delete rs[cid]; store.setVal('reread', rs); replan(); }
-  return { groundwork, unpark, parked, rereadInfo, setReread, html, wire, startRun, onProgress, roomOverdue, stat, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
+  return { previewRuns, groundwork, unpark, parked, rereadInfo, setReread, html, wire, startRun, onProgress, roomOverdue, stat, armour, dungeonState, settleDungeon, pace, handIn, grades, fadingIds, weekInfo, runStreak, bosses, payBosses, chipText, behindText, startLine, runInfo, behindTotal, isSetup, position: pos, weeks: W, reset: () => { weeks = null; } };
 }
